@@ -24,7 +24,7 @@
 .grey-bike {
     width: 52px;
     height: 31px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
     display: inline-block;
     margin-bottom: 18px;
 }
@@ -65,7 +65,7 @@
     top: 65px;
     width: 37px;
     height: 37px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
     display: block;
     z-index: 1;
 }
@@ -115,6 +115,6 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
     display: block;
 }

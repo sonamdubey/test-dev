@@ -46,7 +46,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             sb.AppendFormat("<p>In case of any queries, please feel free to reach to <a href='mailto:contact@bikewale.com'>contact@bikewale.com</a></p>");
             sb.AppendFormat("<p>Thanks<br>");
             sb.AppendFormat("Team BikeWale<br>");
-            sb.AppendFormat("<a href='http://www.bikewale.com/'>www.bikewale.com</a></p>");
+            sb.AppendFormat("<a href='https://www.bikewale.com/'>www.bikewale.com</a></p>");
             return sb.ToString();
         }
     }

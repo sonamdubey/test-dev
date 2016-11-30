@@ -9,7 +9,7 @@
     height: 350px;
     display: block;
     position: relative;
-    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+    background: url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     text-align: center;
     overflow: hidden;
 }
@@ -55,7 +55,7 @@
     margin-right: 15px;
     display: inline-block;
     vertical-align: middle;
-    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+    background: url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     text-align: center;
 }
 .sidebar-video-title {
@@ -73,7 +73,7 @@
     top: -10px;
 }
 .powerdrift-banner {
-    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/d-powerdrift-banner.jpg') no-repeat center;
+    background: url('https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/d-powerdrift-banner.jpg') no-repeat center;
     height: 129px;
 }
 .powerdrift-banner h3 {
@@ -106,7 +106,7 @@
     height: 100%;
     display: block;
     overflow: hidden;
-    background: url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+    background: url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
 }
 .videocarousel-image-wrapper img,
 .reviews-image-wrapper img {

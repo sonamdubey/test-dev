@@ -21,7 +21,7 @@
 <link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
  <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
-<link rel="SHORTCUT ICON" href="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
+<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
@@ -35,7 +35,7 @@
 <% } %>
 
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
    var ga_pg_id = '0';    
 </script>

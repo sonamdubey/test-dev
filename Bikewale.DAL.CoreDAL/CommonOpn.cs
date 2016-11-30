@@ -576,7 +576,7 @@ namespace Bikewale.CoreDAL
                 string adPath = "";
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("bikewale.com") >= 0)
-                    adPath = "http://www.bikewale.co.in/";
+                    adPath = "https://www.bikewale.com/";
                 else
                     adPath = "/";
 
@@ -660,7 +660,7 @@ namespace Bikewale.CoreDAL
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
                 {
-                    imgPath = "http://img.aeplcdn.com/";
+                    imgPath = "https://img.aeplcdn.com/";
 
                 }
                 else
@@ -680,7 +680,7 @@ namespace Bikewale.CoreDAL
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
             {
-                absPath = myPage.Server.MapPath(imgPath.Replace("http://img.aeplcdn.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
+                absPath = myPage.Server.MapPath(imgPath.Replace("https://img.aeplcdn.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
             }
             else
             {
@@ -1611,9 +1611,9 @@ namespace Bikewale.CoreDAL
 
         public static string GetRateImage(double value)
         {
-            string oneImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
-            string zeroImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
-            string halfImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
+            string oneImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
+            string zeroImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
+            string halfImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

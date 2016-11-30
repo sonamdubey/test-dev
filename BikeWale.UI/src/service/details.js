@@ -1,4 +1,4 @@
-﻿var redMarkerImage = 'http://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
+﻿var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 var originPlace, userLocation = { "latitude": "", "longitude": "" }, userAddress = "";
 var customerViewModel, dealerDetailsViewModel;
 

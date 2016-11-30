@@ -41,7 +41,7 @@
                 <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
             </div>
             <div class="grid-4">
-                <a href="http://www.carwale.com/" target="_blank" class="bwsprite cw-footer-icon" title="CarWale"></a>
+                <a href="https://www.carwale.com/" target="_blank" class="bwsprite cw-footer-icon" title="CarWale"></a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4">
@@ -74,7 +74,7 @@
         <div class="grid-3 footer-company-section-two">
             <ul class="margin-top45">
                 <li><a href="/aboutus.aspx" rel="nofollow">About Us</a></li>
-                <li><a href="http://www.bikewale.com/m/">View Mobile Version</a></li>
+                <li><a href="https://www.bikewale.com/m/">View Mobile Version</a></li>
             </ul>
         </div>
         <div class="grid-3 footer-company-section-three">

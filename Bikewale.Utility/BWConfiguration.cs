@@ -138,7 +138,7 @@ namespace Bikewale.Utility
             _GoogleMapApiKey = ConfigurationManager.AppSettings["GoogleMapApiKey"];
             _apiMaxWaitTime = ConfigurationManager.AppSettings["ApiMaxWaitTime"];
             _useGrpc = ConfigurationManager.AppSettings["UseGrpc"];
-            _bikeWaleLogo = "http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
+            _bikeWaleLogo = "https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png";
             _CWSAPiHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
             _WebsiteDomain = ConfigurationManager.AppSettings["WebsiteDomain"];
             _grpcChannelWaitTime = ConfigurationManager.AppSettings["GrpcChannelWaitTime"];

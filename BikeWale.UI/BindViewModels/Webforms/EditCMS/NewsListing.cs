@@ -161,7 +161,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// <param name="totalPages"></param>
         private void CreatePrevNextUrl(int totalPages)
         {
-            string _mainUrl = "http://www.bikewale.com/news/page/";
+            string _mainUrl = "https://www.bikewale.com/news/page/";
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
 
             if (_pageNumber == 1)    //if page is first page

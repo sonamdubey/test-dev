@@ -1,4 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.MapCampaign" %>
+<%@ import Namespace="BikeWaleOpr.Common" %>
+<%@ import Namespace="System.Linq" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
@@ -6,7 +8,7 @@
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
 <script src="/src/knockout.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<link href="http://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />
+<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />
 <style type="text/css">
     .greenMessage {
         color: #6B8E23;

@@ -130,7 +130,7 @@
                     <div style="display:inline;">
                         <div style="width:237px;display:inline-block;border:1px solid #DBDBDC;padding:5px;">
                             <div id ="divMainImageRepTable" pending="<%= isReplicated =="0"? "true" : "false" %>">
-                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
+                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="filLarge" runat="server" /><div>Original Image

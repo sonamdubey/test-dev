@@ -8,8 +8,8 @@
         keywords = String.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing", makeName, cityName);
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.", totalServiceCenters, makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
-        alternate = String.Format("http://www.bikewale.com/m/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
+        canonical = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
+        alternate = String.Format("https://www.bikewale.com/m/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
         isAd970x90Shown = true;
@@ -20,7 +20,7 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/service/listing.css" />
-    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->       
     </script>
@@ -203,11 +203,11 @@
             var pageUrl = '<%= pageUrl %>';
             var clientip = '<%= clientIP %>';            
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/service/listing.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>

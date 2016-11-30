@@ -11,11 +11,11 @@
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-<script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 
-<%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js"></script>--%>
+<%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js"></script>--%>
         <div data-role="popup"  class="ui-content new-line15"  id="mapDiv">
             <div  id="map" style="height:300px;width:300px;"></div>
             <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="closeBox">Close</a>
@@ -61,7 +61,7 @@
                             </tr>--%>
                                 <tr>
                                 <td height="30" align="left">
-                                    <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                    <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
                                 </td>
                                 <td height="30" align="right"><span class="WebRupee">Rs.</span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
@@ -152,7 +152,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
-                                                        <img src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic1.jpg" class="margin-bottom10"/>
+                                                        <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic1.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>Scratch & Crack Resistant</li>
@@ -166,7 +166,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
-                                                        <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic2.jpg" class="margin-bottom10"/>
+                                                        <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic2.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>Dual Full-cum-open face</li>
@@ -180,7 +180,7 @@
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
-                                                        <img src="http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic3.jpg" class="margin-bottom10"/>
+                                                        <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
                                         	                        <li>ABS shell</li>

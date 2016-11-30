@@ -54,7 +54,7 @@
     padding-top: 10px;
 }
 
-.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
 .mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
 .mumbai-icon { width: 130px; background-position: 0 0; }
 .pune-icon { width: 186px; background-position: -140px 0; }

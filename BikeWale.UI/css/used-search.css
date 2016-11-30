@@ -66,7 +66,7 @@
     display: table-cell;
     vertical-align: middle;
     line-height: 0;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
 }
 
 .model-thumbnail-image img {
@@ -350,7 +350,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
 
 /* prev owners */
 #previous-owners-list {

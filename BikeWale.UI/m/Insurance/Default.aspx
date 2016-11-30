@@ -8,11 +8,11 @@
         title = "BikeWale - Insurance";
         keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
-        canonical = "http://www.bikewale.com/m/insurance/";
+        canonical = "https://www.bikewale.com/m/insurance/";
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/zebra_datepicker.css?<%= staticFileVersion %>" rel="stylesheet" />
+     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/zebra_datepicker.css?<%= staticFileVersion %>" rel="stylesheet" />
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
@@ -32,7 +32,7 @@
                 <div class="ins-content-box">
                     <span class="tag-txt">Sponsored</span>
                     <span class="sponsored-icon margin-bottom25"></span>
-                    <img src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
+                    <img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/policy-boss-logo.png" alt="Policy Boss" width="94">
                     <p>
                         Save upto 60% on
                         <br />
@@ -223,8 +223,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             <% var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); %>

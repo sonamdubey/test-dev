@@ -14,8 +14,8 @@
         isAd970x90BottomShown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         ga_pg_id = '39';
         var clientIP = '<%= clientIP %>';
@@ -331,7 +331,7 @@
                                     <img src="/images/no_result_d.png" />
                                 </div>
                                 <div id="loading" class="hide">
-                                    <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                                 </div>
                             </div>
                         </div>
@@ -415,7 +415,7 @@
                 </div>
                 <h3>Terms and conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <img class="lazy" data-original="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
+                    <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  src="" />
                 </div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
@@ -426,7 +426,7 @@
         
 
         <!-- #include file="/includes/footerBW.aspx" -->
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
@@ -527,7 +527,7 @@
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
            

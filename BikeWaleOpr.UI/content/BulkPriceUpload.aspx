@@ -49,7 +49,7 @@
             </div>
             <div id="divStep3" runat="server" class="divCont">
 	            <h2><%= updatedPrice%> Prices Can Be Added</h2><br />
-	            <div style="font-size:18px;" id="divMsgUpdate">Price updation is in progress... <img src="http://opr.carwale.com/images/icons/loading.gif"  /></div>
+	            <div style="font-size:18px;" id="divMsgUpdate">Price updation is in progress... <img src="https://opr.carwale.com/images/icons/loading.gif"  /></div>
 	            <iframe src="/content/AddPricesPerFile.aspx" id="ifrAddPrices" width="600" height="10" scrolling="no" frameborder="0"></iframe>
 	            <br />
 	            <h2>Unmapped Bikes-Map the bikes</h2> <br />

@@ -67,7 +67,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -99,7 +99,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-lg { padding: 10px 20px 8px 20px; }
 .btn-xlg { padding: 12px 52px; }
 .btn-full-width { display: block; width: 100%; }
-.fa-spinner { width:16px; height:16px; background:#fff url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
+.fa-spinner { width:16px; height:16px; background:#fff url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
 .fa-spinner.pos-top15 { top:11px; }
 
 .rounded-corner0 { -moz-border-radius: 0px; -webkit-border-radius: 0px; -o-border-radius: 0px; -ms-border-radius: 0px; border-radius: 0px; }
@@ -107,7 +107,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-top-banner { background:#161209 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
+.home-top-banner { background:#161209 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
 .home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* global-search classes */
@@ -176,7 +176,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* news, review and videos section on home page classes */
 .news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
-.news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.news-expert-video-content .img-preview a { display:table-cell; vertical-align:middle; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .news-expert-video-content .img-preview a img { max-width:100%; height:auto; }
 #modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
 #modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
@@ -224,7 +224,7 @@ footer ul li a:hover { text-decoration: underline; }
 .front, .back { height: 290px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
 .imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; display: table; }
-.imageWrapper a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.imageWrapper a { display:table-cell; vertical-align:middle; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .imageWrapper a img { max-width:100%; height:auto; }
 .used-bike-carousel .imageWrapper a img { width:310px; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
@@ -267,7 +267,7 @@ div#globalPopupBlackOut {z-index: 9; }
 .loggedin-box:hover { cursor: pointer; }
 .loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
 
-.user-profile-banner { background:#161209 url(http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/user-profile-banner.jpg) no-repeat center top; width:280px; height: 146px; }
+.user-profile-banner { background:#161209 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/user-profile-banner.jpg) no-repeat center top; width:280px; height: 146px; }
 .user-profile-details { display: table; }
 .user-profile-image { display: table-cell; width: 60px; height: 60px; overflow: hidden; vertical-align: middle; }
 .user-profile-name { display: table-cell; width: 150px; vertical-align: middle; }
@@ -292,8 +292,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
-.bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
+.bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -394,7 +394,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-password-icon { background-position:-150px -220px; }
 .login-logout-icon { background-position:-150px -250px; }
 
-.fa-angle-down { width:11px; height:6px; background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
+.fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
@@ -725,7 +725,7 @@ a.action-btn:hover{text-decoration:none;}
 
 /* alternate bikes */
 .model-jcarousel-image-preview { width:100%; height:165px; display:table; text-align:center;}
-.card-image-block { width:100%; height:165px; display:table-cell; vertical-align:middle; background: #fff url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
+.card-image-block { width:100%; height:165px; display:table-cell; vertical-align:middle; background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
 .model-jcarousel-image-preview img { width:auto; max-width:290px; height:160px; }
 
 /* Css for grey overlay box */
@@ -736,16 +736,16 @@ a.action-btn:hover{text-decoration:none;}
 #gb-window #gb-content { border: 0; padding:10px; background: none; overflow:auto; zoom: 1; }
 #gb-window #loading{margin:7px 0 7px 7px;}
 #gb-overlay {position: absolute; top: 0; left:0; width:100%; height: 100%; background-color:#1A1A1A; opacity:.30;filter:Alpha(Opacity=30); display:none; z-index:100001;}
-.process{width:145px; top:300px; height:48px; background: #F7F7F7 url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loading.gif) no-repeat; background-position:12% 50%;  z-index:100002; display:none;  position: absolute;}
-.process-inline{background: #fff url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif) no-repeat; display:none; width:20px; height:20px; margin:3px 0 0 5px;}
-.gb-close {float:right; margin: 0; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -25px 0px no-repeat; width:25px; height:25px;}
+.process{width:145px; top:300px; height:48px; background: #F7F7F7 url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/loading.gif) no-repeat; background-position:12% 50%;  z-index:100002; display:none;  position: absolute;}
+.process-inline{background: #fff url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/loader.gif) no-repeat; display:none; width:20px; height:20px; margin:3px 0 0 5px;}
+.gb-close {float:right; margin: 0; background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -25px 0px no-repeat; width:25px; height:25px;}
 .gb-close:hover { background-position:-25px -25px; }
-.gb-back { float:right; margin: 0; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -75px 0px no-repeat; width:25px; height:25px; }
+.gb-back { float:right; margin: 0; background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/controls.png) -75px 0px no-repeat; width:25px; height:25px; }
 
 
 /*************style for PQ Popup****************************/
 @charset "utf-8";
-.gb-close { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
+.gb-close { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/cw-sprite-v1.3.png?171214-v2) -190px -1042px no-repeat; display:inline-block; width:16px; height:16px; }
 .gb-close:hover { background-position:-190px -1072px; }
 #gb-head { border-bottom:none !important; margin:10px 10px 0px 10px !important; }
 .pq-popup-content { background:#fff; padding:20px 40px; position:relative; }
@@ -791,7 +791,7 @@ li.offertxt:hover span {display:inline}
 .tnc {border-bottom: 1px solid #ababab;color: #ababab; text-decoration: none;cursor:pointer;}
 #terms li{list-style-type: square;margin-left: 10px;}
 /* AutoExpo classes */
-.ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
+.ae-sprite {background: url("https://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
 .ae-logo { background-position:-90px 0px;  width:58px; height:32px; position: relative; top: 2px;}
 .ae-logo-border { border:1px solid #eee; display: inline-block; height: 26px; margin: 0 20px; }
 .ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 

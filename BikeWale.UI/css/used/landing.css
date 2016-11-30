@@ -4,7 +4,7 @@
 }
 
 .used-landing-banner {
-    background: #53442a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/used-landing-banner.jpg?v1=06Oct2016) no-repeat center;
+    background: #53442a url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/used-landing-banner.jpg?v1=06Oct2016) no-repeat center;
     height: 268px;
     padding-top: 1px
 }
@@ -167,7 +167,7 @@ h2.section-header {
 }
 
 /* sprite */
-.used-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=06Oct2016) no-repeat; display: inline-block; }
+.used-sprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=06Oct2016) no-repeat; display: inline-block; }
 .free-cost, .buyer, .listing-time, .contact-buyer { width: 36px; height: 36px; margin-bottom: 18px; }
 .free-cost { background-position: 0 0; }
 .buyer { background-position: 0 -41px; }
@@ -258,7 +258,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     overflow: hidden
 }
 .brandlogosprite {
-    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016') no-repeat;
+    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016') no-repeat;
     display: inline-block;
 }
 .brand-2,
@@ -437,7 +437,7 @@ background-position: -2794px 0
 }
 
 /* city sprite */
-.city-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
 .c1-icon { width: 130px; background-position: 0 0; }
 .c12-icon { width: 186px; background-position: -140px 0; }

@@ -6,7 +6,7 @@
 <head runat="server">
     <title>Manage Dealer Disclaimer</title>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-    <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>    
+    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>    
     <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
     <script src="/src/graybox.js"></script>   
 </head>

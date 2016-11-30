@@ -210,7 +210,7 @@ namespace BikeWaleOpr.Content
         {
             string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\upcoming\\");
             string hostUrl = ConfigurationManager.AppSettings["imgHostURL"].ToString();
-            string imageUrl = ("http://" + hostUrl + "/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId).ToLower() + ".jpg";
+            string imageUrl = ("https://" + hostUrl + "/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId).ToLower() + ".jpg";
             string imageTargetPath = ("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg").ToLower();
             if (!Directory.Exists(imgPath))
             {

@@ -8,16 +8,16 @@
         title = string.Format("{0} Bike Dealers in {1} | {0} Bike Showrooms in {1} - BikeWale", objMMV.MakeName, stateName);
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
         description = string.Format("{0} bike dealers/showrooms in {1}. Find dealer information for more than {2} dealers in {3} cities. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName,stateName, DealerCount, citiesCount);
-        canonical = string.Format("http://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
+        canonical = string.Format("https://www.bikewale.com/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
         isAd970x90Shown = false;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
-        alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
+        alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/dealers-in-{1}-state/", objMMV.MaskingName, stateMaskingName);
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
-    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealersbylocation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript" src="/src/new/markerwithlabel.js"></script>
 </head>
 <body class="bg-light-grey padding-top50">
@@ -100,7 +100,7 @@
             var stateLat = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLatitude : string.Empty %>';
             var stateLong = '<%= (dealerCity != null && dealerCity.dealerStates != null) ? dealerCity.dealerStates.StateLongitude : string.Empty %>';
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

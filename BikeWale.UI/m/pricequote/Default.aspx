@@ -4,7 +4,7 @@
     title = (modelName == "" ? "New Bike" : makeName + " " + modelName) + " On-Road Price Quote";
     description = "Know On-Road Price of any new bike in India. On-road price of a bike includes ex-showroom price of the bike in your city, insurance charges. road-tax, registration charges, handling charges etc. Finance option is also provided so that you can get a fair idea of EMI and down-payment.";
     keywords = "bike price, new bike price, bike prices, bike prices India, new bike price quote, on-road price, on-road prices, on-road prices India, on-road price India";
-    canonical = "http://www.bikewale.com/pricequote/";
+    canonical = "https://www.bikewale.com/pricequote/";
     AdPath = "/1017752/Bikewale_Mobile_OnRoadPrice";
     AdId = "1398839030772";
     Ad_320x50 = true;
@@ -12,9 +12,9 @@
     menu = "3";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/placeholder.js?v=1.0"></script>
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/placeholder.js?v=1.0"></script>
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 <style type="text/css">
     .ui-filterable div input {
         height : 40px;
@@ -38,17 +38,17 @@
             <div class="new-line5"><asp:dropdownlist id="ddlMake" class="textAlignLeft" data-bind=" value: selectedMake, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist></div>
             <div id="divModel" style="display:none;">
 		        <div class="new-line15">
-                    <img id="imgLoaderModel" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                    <img id="imgLoaderModel" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                     <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="" /></asp:dropdownlist>
 		        </div>
             </div>
             <%} %>            
             <div class="new-line15" data-bind="visible : selectedModel() > 0">
-                <img id="imgLoaderCity" src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderCity" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
 	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="" /></asp:dropdownlist></div>
             </div>              
              <div class="new-line5" id="divArea" style="display:none;">
-                <img id="imgLoaderArea" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderArea" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                 <div class="ui-select ui-corner-all ui-shadow new-line15" id="divAreaPopup" style="font-size:14px;" onclick="OpenPopup(this)"><a href="#" class="ui-btn">--Select an Area--</a></div>
                 <div class="divAutoSuggest" style="min-height:100% !important;background-color:#f8f8f8;display:none">
                     <div data-role="header" data-theme="b"  class="ui-corner-top" data-icon="delete">
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
 
     var areaDataSet = [];

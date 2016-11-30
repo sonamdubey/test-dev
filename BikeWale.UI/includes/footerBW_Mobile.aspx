@@ -59,7 +59,7 @@
                 <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
             </div>
             <div class="grid-4">
-                <a href="http://www.carwale.com/m/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
+                <a href="https://www.carwale.com/m/" target="_blank" class="bwmsprite cw-footer-icon" title="CarWale"></a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4 omega">
@@ -90,8 +90,8 @@
     <div class="border-solid-top text-white font11 margin-top5 padding-top10 grid-12">
         <div class="grid-4 alpha text-left">&copy; BikeWale India</div>
         <div class="grid-8 omega text-right">
-            <a href="http://www.bikewale.com/visitoragreement.aspx" class="text-white" rel="nofollow">Visitor Agreement </a>&
-            <a href="http://www.bikewale.com/privacypolicy.aspx" class="text-white" rel="nofollow">Privacy Policy</a>
+            <a href="https://www.bikewale.com/visitoragreement.aspx" class="text-white" rel="nofollow">Visitor Agreement </a>&
+            <a href="https://www.bikewale.com/privacypolicy.aspx" class="text-white" rel="nofollow">Privacy Policy</a>
         </div>
     </div>
     <div class="clear"></div>

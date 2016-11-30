@@ -12,8 +12,8 @@
                 description = String.Format("{0} is an authorised service center of {1}. Get all details related to servicing cost, pick and drop facility and service schedule from {0}", serviceVM.objServiceCenterData.Name, serviceVM.MakeName);
                 title = String.Format("{0} {1} | {0} service center in {1} - BikeWale ", serviceVM.objServiceCenterData.Name, serviceVM.objServiceCenterData.CityName);
                 string url = Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, serviceVM.CityMaskingName, serviceVM.objServiceCenterData.Name, serviceCenterId);
-                canonical = string.Format("http://www.bikewale.com{0}", url);
-                alternate = string.Format("http://www.bikewale.com/m{0}", url);
+                canonical = string.Format("https://www.bikewale.com{0}", url);
+                alternate = string.Format("https://www.bikewale.com/m{0}", url);
                 AdId = "1395986297721";
                 AdPath = "/1017752/BikeWale_New_";
                 isAd970x90Shown = true;
@@ -134,7 +134,7 @@
                 <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
             </section>
         <% } %>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
             <section>
                 <BW:ServiceSchedule runat="server" ID="ctrlServiceSchedule" />
             </section>
@@ -201,15 +201,15 @@
             var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>";
             var pageSrcId = eval("<%= Bikewale.Utility.BWConfiguration.Instance.SourceId %>");
         </script>
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/service/details.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
         <!--[if lt IE 9]>
-            <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/html5.js"></script>
+            <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/html5.js"></script>
         <![endif]-->
     </form>
 </body>
-    <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer"></script>
 </html>

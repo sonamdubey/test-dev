@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 .locator-landing-banner {
-    background: #8d8c8a url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
+    background: #8d8c8a url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) no-repeat center bottom;
     background-size: cover;
     height: 130px;
     padding-top: 1px;
@@ -45,7 +45,7 @@ h2.section-heading {
     padding: 9px 25px 9px 8px;
     text-align: left;
     cursor: pointer;
-    background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%;
+    background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -79,7 +79,7 @@ h2.section-heading {
 }
 
 .brandlogosprite {
-    background-image: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
+    background-image: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
     background-repeat: no-repeat;
     display: inline-block;
 }

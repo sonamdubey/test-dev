@@ -67,7 +67,7 @@
         	<div class="container_12">
             	<div class="grid_9">
                     <ul class="left-float">
-                    	<li><a href="http://www.carwale.com">CarWale</a></li>
+                    	<li><a href="https://www.carwale.com">CarWale</a></li>
                         <li>|</li>
                         <li><a href="/aboutus.aspx">About Us</a></li>
                         <li>|</li>                        
@@ -83,7 +83,7 @@
                         <a href="https://twitter.com/bikewale" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitter</a>    
                     </div>
                     <div class="left-float margin-left10 hide">
-                        <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com"></div>
+                        <div class="g-plusone" data-size="medium" data-href="https://www.bikewale.com"></div>
                     </div>
                 </div>
                 <BikeWale:LoginStatus Id="ctrl_LoginStatus" runat="server" />                

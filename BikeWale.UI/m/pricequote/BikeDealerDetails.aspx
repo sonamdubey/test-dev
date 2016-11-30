@@ -10,7 +10,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -314,7 +314,7 @@
                                 <%}
                                    else
                                    {%>
-                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="bwmsprite inr-sm-icon"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
@@ -428,7 +428,7 @@
 
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
@@ -467,7 +467,7 @@
                             </div>
                             <h3>Terms and Conditions</h3>
                             <div  class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
                             <div id="terms" class="breakup-text-container padding-bottom10 font14">
                             </div>
@@ -590,7 +590,7 @@
             ga_pg_id = "8";
             var getCityArea = GetGlobalCityArea();
         </script>
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
     </form>
 </body>

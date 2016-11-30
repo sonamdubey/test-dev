@@ -21,7 +21,7 @@ namespace Bikewale.Common.BWSecurity
 	 	public static bool IsValidRedirectUrl(string redirectUrl)
 		{
 			redirectUrl = redirectUrl.ToLower();
-			if(redirectUrl.StartsWith("http") == true && !(redirectUrl.StartsWith("http://www.bikewale.com") == true || redirectUrl.StartsWith("http://bikewale.com") == true))
+			if(redirectUrl.StartsWith("http") == true && !(redirectUrl.StartsWith("https://www.bikewale.com") == true || redirectUrl.StartsWith("https://bikewale.com") == true))
 			{
 				HttpContext.Current.Trace.Warn("Redirect Url is of separate domain : " + redirectUrl);
 				return false;

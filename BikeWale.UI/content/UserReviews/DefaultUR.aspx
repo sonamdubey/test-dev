@@ -5,8 +5,8 @@
     title = "User Reviews on Bikes in India";
     description = "Know what users are saying about the bike you aspire to buy. Read first hand user feedback on bikes in India. Write your own review or write comments on others' reviews to let people know about your experience.";
     keywords = "bike user reviews, bike users reviews, customer bike reviews, customer bike feedback, bike reviews, bike owner feedback, owner bike reviews, owner report, owner comments";
-    canonical = "http://www.bikewale.com/user-reviews/";
-    alternate = "http://www.bikewale.com/m/user-reviews/";
+    canonical = "https://www.bikewale.com/user-reviews/";
+    alternate = "https://www.bikewale.com/m/user-reviews/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 
