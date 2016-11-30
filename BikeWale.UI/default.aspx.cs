@@ -4,9 +4,11 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -61,6 +63,9 @@ namespace Bikewale
             ctrlVideos.TotalRecords = 3;
             ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            string _cityName = currentCityArea.City;
+            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(_cityName) ? _cityName : "India");
             ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 

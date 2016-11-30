@@ -35,6 +35,7 @@ namespace Bikewale.ServiceCenter
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected int countWidgetFetch;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace Bikewale.ServiceCenter
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
+            countWidgetFetch = ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount;
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016

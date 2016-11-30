@@ -11,11 +11,13 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-        public string header { get { return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India"); } set { header = value; } }
 
         protected string cityName = String.Empty;
         protected static int? cityId = null;
         protected static string usedCityMaskingName = String.Empty;
+
+        public string header { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,6 +32,7 @@ namespace Bikewale.Controls
 
         private void BindPopularUsedBikes()
         {
+
             BindUsedBikesControl objUsed = new BindUsedBikesControl();
             objUsed.TotalRecords = TotalRecords;
             objUsed.CityId = cityId;

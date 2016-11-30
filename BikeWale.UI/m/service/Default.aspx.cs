@@ -30,11 +30,11 @@ namespace Bikewale.Mobile.Service
         protected IEnumerable<BikeMakeEntityBase> OtherMakeList;
         protected IEnumerable<BikeMakeEntityBase> makes;
         protected IEnumerable<CityEntityBase> cities;
-        protected MUpcomingBikes mctrlUpcomingBikes;
-        protected MNewLaunchedBikes mctrlNewLaunchedBikes;
-        protected MMostPopularBikes mctrlMostPopularBikes;
+        protected MUpcomingBikes ctrlUpcomingBikes;
+        protected MNewLaunchedBikes ctrlNewLaunchedBikes;
+        protected MMostPopularBikes ctrlMostPopularBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
-
+        protected int countWidgetFetch;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,6 +51,7 @@ namespace Bikewale.Mobile.Service
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
+            countWidgetFetch=(ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount ;
         }
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016
@@ -61,17 +62,17 @@ namespace Bikewale.Mobile.Service
             try
             {
                 //to get Most Popular Bikes
-                mctrlMostPopularBikes.totalCount = 9;
-                mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+                ctrlMostPopularBikes.totalCount = 9;
+                ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
 
                 //To get Upcoming Bike List Details 
-                mctrlNewLaunchedBikes.pageSize = 9;
-                mctrlNewLaunchedBikes.curPageNo = null;
-                mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+                ctrlNewLaunchedBikes.pageSize = 9;
+                ctrlNewLaunchedBikes.curPageNo = null;
+                ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
 
                 //To get Upcoming Bike List Details 
-                mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                mctrlUpcomingBikes.pageSize = 9;
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
 
                 ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
                 ctrlPopularUsedBikes.header = string.Format("Looking for used bikes? Explore");

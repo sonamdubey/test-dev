@@ -103,7 +103,8 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
-        <%if(mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount > 0 ) {%>
+        <%if (countWidgetFetch>0)
+          {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container margin-bottom20">
@@ -113,30 +114,31 @@
                         <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li class="active" style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlMostPopularBikes">Most Popular</li>
-                                <li style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlNewLaunchedBikes">New launches</li>
-                                <li style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                                <%if(ctrlMostPopularBikes.FetchedRecordsCount > 0){ %><li class="active"  data-tabs="mctrlMostPopularBikes">Most Popular</li><%} %>
+                                <%if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0){ %> <li  data-tabs="mctrlNewLaunchedBikes">New launches</li><%} %>
+                                <%if(ctrlUpcomingBikes.FetchedRecordsCount > 0){ %> <li  data-tabs="mctrlUpcomingBikes">Upcoming </li><%} %>
+
                             </ul>
                         </div>
                         <div class="grid-12 alpha omega">
                             <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
                                 <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
+                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="ctrlMostPopularBikes" />
                                     </div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
                                 <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
+                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="ctrlNewLaunchedBikes" />
                                     </div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
                                 <div class="swiper-container card-container">
                                     <div class="swiper-wrapper discover-bike-carousel">
-                                        <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
+                                        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                                     </div>
                                 </div>
                             </div>

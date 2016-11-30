@@ -121,7 +121,8 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
-        <%if(ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount > 0 ) {%>
+        <%if (countWidgetFetch>0)
+          {%>
         <section>
             <div class="container margin-bottom30">
                 <!--  Discover bikes section code starts here -->
@@ -130,15 +131,22 @@
                     <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
+                                <%if (ctrlMostPopularBikes.FetchedRecordsCount>0){ %>
+                                <li class="active"  data-tabs="ctrlMostPopularBikes">
                                     <h3>Most Popular</h3>
                                 </li>
-                                <li style="<%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlNewLaunchedBikes">
+                                <%} %>
+                                <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0){ %>
+                                <li data-tabs="ctrlNewLaunchedBikes">
                                     <h3>New launches</h3>
                                 </li>
-                                <li style="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlUpcomingBikes">
+                                <%} %>
+                                 <%if (ctrlUpcomingBikes.FetchedRecordsCount>0)
+                                   { %>
+                                <li  data-tabs="ctrlUpcomingBikes">
                                     <h3>Upcoming</h3>
                                 </li>
+                                  <%} %>
                             </ul>
                         </div>
                         <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
