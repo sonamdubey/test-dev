@@ -30,6 +30,11 @@ var sassPaths = {
         service: {
             source: 'BikeWale.UI/sass/service/**',
             target: 'BikeWale.UI/build/min/css/service'
+        },
+
+        sellBike: {
+            source: 'BikeWale.UI/sass/sell-bike/**',
+            target: 'BikeWale.UI/build/min/css/'
         }
     },
     bwm: {
@@ -99,7 +104,7 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(paths.destinationM_JS));
 });
 gulp.task('bw-sass', function (callback) {
-    gulpSequence('bw-service-sass')(callback)
+    gulpSequence('bw-service-sass', 'bw-sell-bike-sass')(callback)
 });
 
 // sass to min css [build folder]
@@ -110,11 +115,24 @@ gulp.task('bw-service-sass', function () {
         .pipe(gulp.dest(sassPaths.bw.service.target));
 });
 
+gulp.task('bw-sell-bike-sass', function () {
+    return gulp.src(sassPaths.bw.sellBike.source, { base: 'BikeWale.UI/sass/sell-bike/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bw.sellBike.target));
+});
+
 // sass to original css
 gulp.task('bw-service-css', function () {
     return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('BikeWale.UI/css/service/'));
+});
+
+gulp.task('bw-sell-bike-css', function () {
+    return gulp.src(sassPaths.bw.sellBike.source, { base: 'BikeWale.UI/sass/sell-bike/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/css/'));
 });
 
 gulp.task('bwm-sass', function (callback) {
@@ -246,4 +264,4 @@ gulp.task('bw-framework-js', function () {
         .pipe(gulp.dest(paths.destinationD_JS));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'bwm-sell-bike-css', 'replace-css-reference'));
+gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'bw-sell-bike-css', 'bwm-sell-bike-css', 'replace-css-reference'));

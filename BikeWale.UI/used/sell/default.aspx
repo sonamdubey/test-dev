@@ -17,6 +17,7 @@
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -105,28 +106,12 @@
                                                 <div class="clear"></div>
                                             </div>
 
-                                            <div class="panel-row margin-bottom10">
-                                                <div class="calendar-box-content">
-                                                    <div id="select-calendar-box" class="select-calendar-box">
-                                                        <p class="select-calendar-label calendar-box-default">Year of manufacturing<sup>*</sup></p>
-                                                        <p id="selected-calendar-date" class="calendar-box-default" data-bind="text: manufacturingDate, validationElement: manufacturingDate"></p>
-                                                        <span class="boundary"></span>
-                                                        <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
-                                                        <div id="calendar-content">
-                                                            <p class="dropdown-label">Year of manufacturing</p>
-                                                            <div id="year-content">
-                                                                <ul id="year-list"></ul>
-                                                                <span class="year-control bwsprite year-prev"></span>
-                                                                <span class="year-control bwsprite year-next"></span>
-                                                            </div>
-                                                            <ul id="month-list"></ul>
-                                                            <div class="clear"></div>
-                                                            <div id="calendar-error" class="error-text"></div>
-                                                            <div class="text-center padding-bottom25">
-                                                                <input type="button" id="submit-calendar-btn" class="btn btn-orange btn-primary-big" value="Select" data-bind="click: submitManufacturingDate" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            <div class="panel-row margin-bottom20">
+                                                <div class="input-box form-control-box input-no-focus" data-bind="css: manufacturingDate().length > 0 ? 'not-empty' : ''">
+                                                    <input type="text" id="manufacturingDate" data-bind="textInput: manufacturingDate, validationElement: manufacturingDate" />
+                                                    <label for="manufacturingDate">Year of manufacturing<sup>*</sup></label>
+                                                    <span class="boundary"></span>
+                                                    <span class="error-text" data-bind="validationMessage: manufacturingDate"></span>
                                                 </div>
                                             </div>
 
@@ -539,6 +524,7 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
