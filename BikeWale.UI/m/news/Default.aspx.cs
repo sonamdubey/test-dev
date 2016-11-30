@@ -16,9 +16,9 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Linq;
 
 namespace Bikewale.Mobile.News
 {
@@ -118,7 +118,7 @@ namespace Bikewale.Mobile.News
         }
 
 
-       
+
         //PopulateWhere to create Pager instance
         private IPager GetPager()
         {
@@ -211,8 +211,8 @@ namespace Bikewale.Mobile.News
 
                 //For SEO
 
-                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {

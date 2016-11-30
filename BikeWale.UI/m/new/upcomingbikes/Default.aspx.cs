@@ -58,9 +58,9 @@ namespace Bikewale.Mobile.New
                 meta.Title = string.Format("Upcoming {1} Bikes in India - Expected {1} Bike New Launches in {0}", currentYear, makeName);
                 meta.Description = string.Format("Check out upcoming {1} bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear, makeName);
                 meta.Keywords = string.Format("Upcoming {1} bikes, new upcoming {1} launches, upcoming {1} bike launches, upcoming {1} models, future {1} bikes, future {1} bike launches, {0} {1} bikes, speculated {1} launches, futuristic {1} models", currentYear, makeName);
-                meta.CanonicalUrl = string.Format("http://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
-                meta.PreviousPageUrl = string.IsNullOrEmpty(prevPageUrl) ? string.Empty : "http://www.bikewale.com" + prevPageUrl;
-                meta.NextPageUrl = string.IsNullOrEmpty(nextPageUrl) ? string.Empty : "http://www.bikewale.com" + nextPageUrl;
+                meta.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
+                meta.PreviousPageUrl = string.IsNullOrEmpty(prevPageUrl) ? string.Empty : "https://www.bikewale.com" + prevPageUrl;
+                meta.NextPageUrl = string.IsNullOrEmpty(nextPageUrl) ? string.Empty : "https://www.bikewale.com" + nextPageUrl;
                 pageTitle = string.Format("Upcoming {0} Bikes in India", makeName);
             }
             else
@@ -68,9 +68,9 @@ namespace Bikewale.Mobile.New
                 meta.Title = string.Format("Upcoming Bikes in India - Expected Launches in {0}", currentYear);
                 meta.Description = string.Format("Find out upcoming new bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear);
                 meta.Keywords = string.Format("Upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, {0} bikes, speculated launches, futuristic models", currentYear);
-                meta.CanonicalUrl = "http://www.bikewale.com/upcoming-bikes/";
-                meta.PreviousPageUrl = string.IsNullOrEmpty(prevPageUrl) ? string.Empty : "http://www.bikewale.com" + prevPageUrl;
-                meta.NextPageUrl = string.IsNullOrEmpty(nextPageUrl) ? string.Empty : "http://www.bikewale.com" + nextPageUrl;
+                meta.CanonicalUrl = "https://www.bikewale.com/upcoming-bikes/";
+                meta.PreviousPageUrl = string.IsNullOrEmpty(prevPageUrl) ? string.Empty : "https://www.bikewale.com" + prevPageUrl;
+                meta.NextPageUrl = string.IsNullOrEmpty(nextPageUrl) ? string.Empty : "https://www.bikewale.com" + nextPageUrl;
                 pageTitle = "Upcoming Bikes in India";
             }
         }

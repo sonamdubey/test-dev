@@ -272,7 +272,7 @@ font-family:"Roboto-Regular";
 }
 .loading-popup { background:transparent; width:90px; padding:20px; border-radius:5px; position:fixed; top:40%; left:45%; z-index:999;
 -moz-border-radius:5px; -webkit-border-radius:5px; -o-border-radius:5px; -ms-border-radius:5px; margin:0 auto; }
-.loading-icon { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif?v=15015) no-repeat; width:90px; height:61px; display:block; float:left; }
+.loading-icon { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif?v=15015) no-repeat; width:90px; height:61px; display:block; float:left; }
 
 /* book bike slug */
 .white-text { color:#fff;}
