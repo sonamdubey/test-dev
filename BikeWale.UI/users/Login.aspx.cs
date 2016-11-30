@@ -159,6 +159,10 @@ namespace BikWale.Users
             string returnUrl = Request.QueryString["ReturnUrl"];
             if (IsLocalUrl(returnUrl))
             {
+                if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                {
+                    returnUrl = string.Format("{0}#{1}", returnUrl, Request.QueryString["hash"]);
+                }
                 Response.Redirect(returnUrl, false);
             }
             else
