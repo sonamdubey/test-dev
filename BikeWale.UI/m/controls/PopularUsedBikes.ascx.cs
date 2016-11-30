@@ -11,9 +11,11 @@ namespace Bikewale.Mobile.Controls
         protected Repeater rptPopularUsedBikes;
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
-
+        public int PQSourceId { get; set; }
         protected string _cityName = String.Empty;
         protected int? cityId = null;
+        public string header { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -35,12 +37,6 @@ namespace Bikewale.Mobile.Controls
             objUsed.CityId = cityId;
             objUsed.BindRepeater(rptPopularUsedBikes);
             this.FetchedRecordsCount = objUsed.FetchedRecordsCount;
-        }
-
-
-        protected string FormatControlHeader()
-        {
-            return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(_cityName) ? _cityName : "India");
         }
 
         protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)
