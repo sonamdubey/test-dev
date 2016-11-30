@@ -144,15 +144,15 @@ namespace Bikewale.New
 
                     // Added by Sangram Nandkhile on 30 Nov
                     // To check if sponsored model id matches with 
-                    string modelId = ds.Tables[0].Rows[count - 1]["ModelId"].ToString();
-                    if (Int16.TryParse(modelId, out sponsoredModelId))
+                    string featuredModelId = ds.Tables[0].Rows[count - 1]["ModelId"].ToString();
+                    if (Int16.TryParse(featuredModelId, out sponsoredModelId))
                     {
                         string sponsoredModelIds = Bikewale.Utility.BWConfiguration.Instance.SponsoredModelId;
                         string[] modelArray = sponsoredModelIds.Split(',');
-                        if (modelArray.Contains(modelId))
+                        if (modelArray.Contains(featuredModelId))
                         {
                             isSponsored = true;
-                            knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(modelId);
+                            knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(featuredModelId);
                         }
                     }
                 }
