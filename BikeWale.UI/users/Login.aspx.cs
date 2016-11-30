@@ -154,7 +154,7 @@ namespace BikWale.Users
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
                 {
-                    returnUrl = string.Format("{0}#uploadphoto", returnUrl);
+                    returnUrl = string.Format("{0}#{1}", returnUrl, Request.QueryString["hash"]);
                 }
                 Response.Redirect(returnUrl, false);
             }
