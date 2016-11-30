@@ -18,12 +18,12 @@ namespace Bikewale.Mobile.Controls
     {
         public Repeater rptSimilarBikes, rptSimilarBikesInner;
         public string versionsList { get; set; }
-        private uint _topCount = 0;
+        private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
 
         public IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = null;
 
-        public uint TopCount
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -49,10 +49,8 @@ namespace Bikewale.Mobile.Controls
 
             try
             {
-                objSimilarBikes = objAlt.BindAlternativeBikes(versionsList, TopCount);
-
-                if (objSimilarBikes != null)
-                    fetchedCount = (uint)objSimilarBikes.Count();
+                objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
+                fetchedCount = objAlt.FetchedRecordsCount;
 
                 if (fetchedCount > 0)
                 {

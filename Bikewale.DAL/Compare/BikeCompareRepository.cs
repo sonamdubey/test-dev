@@ -45,18 +45,18 @@ namespace Bikewale.DAL.Compare
                             {
                                 basicInfos.Add(new BikeEntityBase()
                                 {
-                                    HostUrl = GetString(reader["HostURL"]),
-                                    ImagePath = GetString(reader["OriginalImagePath"]),
-                                    Make = GetString(reader["Make"]),
-                                    MakeMaskingName = GetString(reader["MakeMaskingName"]),
-                                    Model = GetString(reader["Model"]),
-                                    ModelMaskingName = GetString(reader["ModelMaskingName"]),
-                                    ModelRating = GetUInt16(reader["ModelRating"]),
-                                    Name = GetString(reader["Bike"]),
-                                    Price = GetInt32(reader["Price"]),
-                                    Version = GetString(reader["Version"]),
-                                    VersionId = GetUint32(reader["BikeVersionId"]),
-                                    VersionRating = GetUInt16(reader["VersionRating"])
+                                    HostUrl = Convert.ToString(reader["HostURL"]),
+                                    ImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                    Make = Convert.ToString(reader["Make"]),
+                                    MakeMaskingName = Convert.ToString(reader["MakeMaskingName"]),
+                                    Model = Convert.ToString(reader["Model"]),
+                                    ModelMaskingName = Convert.ToString(reader["ModelMaskingName"]),
+                                    ModelRating = SqlReaderConvertor.ToUInt16(reader["ModelRating"]),
+                                    Name = Convert.ToString(reader["Bike"]),
+                                    Price = SqlReaderConvertor.ToInt32(reader["Price"]),
+                                    Version = Convert.ToString(reader["Version"]),
+                                    VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"]),
+                                    VersionRating = SqlReaderConvertor.ToUInt16(reader["VersionRating"])
                                 });
                             }
                             #endregion
@@ -69,31 +69,31 @@ namespace Bikewale.DAL.Compare
                                     specs.Add(new BikeSpecification()
                                     {
                                         AlloyWheels = SqlReaderConvertor.ToNullableBool(reader["AlloyWheels"]),
-                                        Battery = GetString(reader["Battery"]),
+                                        Battery = Convert.ToString(reader["Battery"]),
                                         Bore = SqlReaderConvertor.ToNullableFloat(reader["Bore"]),
-                                        Brake_Tail_Light = GetString(reader["Brake_Tail_Light"]),
-                                        BrakeType = GetString(reader["BrakeType"]),
-                                        CalliperType = GetString(reader["CalliperType"]),
-                                        ChassisType = GetString(reader["ChassisType"]),
-                                        Clutch = GetString(reader["Clutch"]),
-                                        CoolingSystem = GetString(reader["CoolingSystem"]),
+                                        Brake_Tail_Light = Convert.ToString(reader["Brake_Tail_Light"]),
+                                        BrakeType = Convert.ToString(reader["BrakeType"]),
+                                        CalliperType = Convert.ToString(reader["CalliperType"]),
+                                        ChassisType = Convert.ToString(reader["ChassisType"]),
+                                        Clutch = Convert.ToString(reader["Clutch"]),
+                                        CoolingSystem = Convert.ToString(reader["CoolingSystem"]),
                                         Cylinders = SqlReaderConvertor.ToNullableUInt16(reader["Cylinders"]),
                                         Displacement = SqlReaderConvertor.ToNullableFloat(reader["Displacement"]),
-                                        ElectricSystem = GetString(reader["ElectricSystem"]),
+                                        ElectricSystem = Convert.ToString(reader["ElectricSystem"]),
                                         FrontDisc = SqlReaderConvertor.ToNullableBool(reader["FrontDisc"]),
                                         FrontDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["FrontDisc_DrumSize"]),
-                                        FrontSuspension = GetString(reader["FrontSuspension"]),
-                                        FrontTyre = GetString(reader["FrontTyre"]),
-                                        FuelDeliverySystem = GetString(reader["FuelDeliverySystem"]),
+                                        FrontSuspension = Convert.ToString(reader["FrontSuspension"]),
+                                        FrontTyre = Convert.ToString(reader["FrontTyre"]),
+                                        FuelDeliverySystem = Convert.ToString(reader["FuelDeliverySystem"]),
                                         FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(reader["FuelEfficiencyOverall"]),
                                         FuelEfficiencyRange = SqlReaderConvertor.ToNullableUInt16(reader["FuelEfficiencyRange"]),
                                         FuelTankCapacity = SqlReaderConvertor.ToNullableFloat(reader["FuelTankCapacity"]),
-                                        FuelType = GetString(reader["FuelType"]),
-                                        GearboxType = GetString(reader["GearboxType"]),
+                                        FuelType = Convert.ToString(reader["FuelType"]),
+                                        GearboxType = Convert.ToString(reader["GearboxType"]),
                                         GroundClearance = SqlReaderConvertor.ToNullableUInt16(reader["GroundClearance"]),
-                                        HeadlightBulbType = GetString(reader["HeadlightBulbType"]),
-                                        HeadlightType = GetString(reader["HeadlightType"]),
-                                        Ignition = GetString(reader["Ignition"]),
+                                        HeadlightBulbType = Convert.ToString(reader["HeadlightBulbType"]),
+                                        HeadlightType = Convert.ToString(reader["HeadlightType"]),
+                                        Ignition = Convert.ToString(reader["Ignition"]),
                                         KerbWeight = SqlReaderConvertor.ToNullableUInt16(reader["KerbWeight"]),
                                         MaximumTorque = SqlReaderConvertor.ToNullableFloat(reader["MaximumTorque"]),
                                         MaximumTorqueRpm = SqlReaderConvertor.ToNullableUInt32(reader["MaximumTorqueRpm"]),
@@ -107,23 +107,23 @@ namespace Bikewale.DAL.Compare
                                         Performance_0_40_m = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_40_m"]),
                                         Performance_0_60_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_60_kmph"]),
                                         Performance_0_80_kmph = SqlReaderConvertor.ToNullableFloat(reader["Performance_0_80_kmph"]),
-                                        Performance_60_0_kmph = GetString(reader["Performance_60_0_kmph"]),
-                                        Performance_80_0_kmph = GetString(reader["Performance_80_0_kmph"]),
+                                        Performance_60_0_kmph = Convert.ToString(reader["Performance_60_0_kmph"]),
+                                        Performance_80_0_kmph = Convert.ToString(reader["Performance_80_0_kmph"]),
                                         RadialTyres = SqlReaderConvertor.ToNullableBool(reader["RadialTyres"]),
                                         RearDisc = SqlReaderConvertor.ToNullableBool(reader["RearDisc"]),
                                         RearDisc_DrumSize = SqlReaderConvertor.ToNullableUInt16(reader["RearDisc_DrumSize"]),
-                                        RearSuspension = GetString(reader["RearSuspension"]),
-                                        RearTyre = GetString(reader["RearTyre"]),
+                                        RearSuspension = Convert.ToString(reader["RearSuspension"]),
+                                        RearTyre = Convert.ToString(reader["RearTyre"]),
                                         ReserveFuelCapacity = SqlReaderConvertor.ToNullableFloat(reader["ReserveFuelCapacity"]),
                                         SeatHeight = SqlReaderConvertor.ToNullableUInt16(reader["SeatHeight"]),
-                                        SparkPlugsPerCylinder = GetString(reader["SparkPlugsPerCylinder"]),
+                                        SparkPlugsPerCylinder = Convert.ToString(reader["SparkPlugsPerCylinder"]),
                                         Stroke = SqlReaderConvertor.ToNullableFloat(reader["Stroke"]),
                                         TopSpeed = SqlReaderConvertor.ToNullableFloat(reader["TopSpeed"]),
-                                        TransmissionType = GetString(reader["TransmissionType"]),
+                                        TransmissionType = Convert.ToString(reader["TransmissionType"]),
                                         TubelessTyres = SqlReaderConvertor.ToNullableBool(reader["TubelessTyres"]),
-                                        TurnSignal = GetString(reader["TurnSignal"]),
+                                        TurnSignal = Convert.ToString(reader["TurnSignal"]),
                                         ValvesPerCylinder = SqlReaderConvertor.ToNullableUInt16(reader["ValvesPerCylinder"]),
-                                        VersionId = GetUint32(reader["BikeVersionId"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"]),
                                         Wheelbase = SqlReaderConvertor.ToNullableUInt16(reader["Wheelbase"]),
                                         WheelSize = SqlReaderConvertor.ToNullableFloat(reader["WheelSize"])
                                     });
@@ -147,20 +147,20 @@ namespace Bikewale.DAL.Compare
                                         LowBatteryIndicator = SqlReaderConvertor.ToNullableBool(reader["LowBatteryIndicator"]),
                                         LowFuelIndicator = SqlReaderConvertor.ToNullableBool(reader["LowFuelIndicator"]),
                                         LowOilIndicator = SqlReaderConvertor.ToNullableBool(reader["LowOilIndicator"]),
-                                        NoOfTripmeters = GetString(reader["NoOfTripmeters"]),
+                                        NoOfTripmeters = Convert.ToString(reader["NoOfTripmeters"]),
                                         PillionBackrest = SqlReaderConvertor.ToNullableBool(reader["PillionBackrest"]),
                                         PillionFootrest = SqlReaderConvertor.ToNullableBool(reader["PillionFootrest"]),
                                         PillionGrabrail = SqlReaderConvertor.ToNullableBool(reader["PillionGrabrail"]),
                                         PillionSeat = SqlReaderConvertor.ToNullableBool(reader["PillionSeat"]),
                                         ShiftLight = SqlReaderConvertor.ToNullableBool(reader["ShiftLight"]),
-                                        Speedometer = GetString(reader["Speedometer"]),
+                                        Speedometer = Convert.ToString(reader["Speedometer"]),
                                         StandAlarm = SqlReaderConvertor.ToNullableBool(reader["StandAlarm"]),
                                         SteppedSeat = SqlReaderConvertor.ToNullableBool(reader["SteppedSeat"]),
                                         Tachometer = SqlReaderConvertor.ToNullableBool(reader["Tachometer"]),
-                                        TachometerType = GetString(reader["TachometerType"]),
+                                        TachometerType = Convert.ToString(reader["TachometerType"]),
                                         Tripmeter = SqlReaderConvertor.ToNullableBool(reader["Tripmeter"]),
-                                        TripmeterType = GetString(reader["TripmeterType"]),
-                                        VersionId = GetUint32(reader["BikeVersionId"])
+                                        TripmeterType = Convert.ToString(reader["TripmeterType"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(reader["BikeVersionId"])
                                     });
                                 }
                             }
@@ -173,9 +173,9 @@ namespace Bikewale.DAL.Compare
                                 {
                                     color.Add(new BikeColor()
                                     {
-                                        ColorId = GetInt32(reader["ModelColorId"]),
-                                        Color = GetString(reader["ColorName"]),
-                                        VersionId = GetUint32(reader["VersionId"])
+                                        ColorId = SqlReaderConvertor.ToInt32(reader["ModelColorId"]),
+                                        Color = Convert.ToString(reader["ColorName"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(reader["VersionId"])
                                     });
                                 }
                             }
@@ -188,8 +188,8 @@ namespace Bikewale.DAL.Compare
                                 {
                                     hexCodes.Add(new Bikewale.Entities.Compare.BikeModelColor()
                                     {
-                                        ModelColorId = GetInt32(reader["ModelColorId"]),
-                                        HexCode = GetString(reader["HexCode"])
+                                        ModelColorId = SqlReaderConvertor.ToInt32(reader["ModelColorId"]),
+                                        HexCode = Convert.ToString(reader["HexCode"])
                                     });
                                 }
                             }
@@ -255,25 +255,25 @@ namespace Bikewale.DAL.Compare
                             {
                                 topBikeList.Add(new TopBikeCompareBase()
                                 {
-                                    Bike1 = GetString(reader["Bike1"]),
-                                    Bike2 = GetString(reader["Bike2"]),
-                                    ID = GetInt32(reader["ID"]),
-                                    MakeMaskingName2 = GetString(reader["MakeMakingName2"]),
-                                    MakeMaskingName1 = GetString(reader["MakeMaskingName1"]),
-                                    ModelId1 = GetUInt16(reader["ModelId1"]),
-                                    ModelId2 = GetUInt16(reader["ModelId2"]),
-                                    ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
-                                    ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
+                                    Bike1 = Convert.ToString(reader["Bike1"]),
+                                    Bike2 = Convert.ToString(reader["Bike2"]),
+                                    ID = SqlReaderConvertor.ToInt32(reader["ID"]),
+                                    MakeMaskingName2 = Convert.ToString(reader["MakeMakingName2"]),
+                                    MakeMaskingName1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt16(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt16(reader["ModelId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
 
-                                    Price1 = GetUint32(reader["Price1"]),
-                                    Price2 = GetUint32(reader["Price2"]),
+                                    Price1 = SqlReaderConvertor.ToUInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToUInt32(reader["Price2"]),
 
-                                    VersionId1 = GetUInt16(reader["VersionId1"]),
-                                    VersionId2 = GetUInt16(reader["VersionId2"]),
-                                    VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
-                                    VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
-                                    HostUrl1 = GetString(reader["HostUrl1"]),
-                                    HostUrl2 = GetString(reader["HostUrl2"])
+                                    VersionId1 = SqlReaderConvertor.ToUInt16(reader["VersionId1"]),
+                                    VersionId2 = SqlReaderConvertor.ToUInt16(reader["VersionId2"]),
+                                    VersionImgUrl1 = Convert.ToString(reader["VersionImgUrl1"]),
+                                    VersionImgUrl2 = Convert.ToString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"])
                                 });
                             }
 
@@ -303,7 +303,7 @@ namespace Bikewale.DAL.Compare
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, int cityid)
+        public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid)
         {
             List<SimilarCompareBikeEntity> similarBikeList = null;
             try
@@ -325,26 +325,26 @@ namespace Bikewale.DAL.Compare
                             {
                                 similarBikeList.Add(new SimilarCompareBikeEntity()
                                 {
-                                    Make1 = GetString(reader["Make1"]),
-                                    MakeMasking1 = GetString(reader["MakeMaskingName1"]),
-                                    Make2 = GetString(reader["Make2"]),
-                                    MakeMasking2 = GetString(reader["MakeMaskingName2"]),
-                                    Model1 = GetString(reader["Model1"]),
-                                    ModelMasking1 = GetString(reader["ModelMaskingName1"]),
-                                    Model2 = GetString(reader["Model2"]),
-                                    ModelMasking2 = GetString(reader["ModelMaskingName2"]),
-                                    VersionId1 = GetString(reader["VersionId1"]),
-                                    VersionId2 = GetString(reader["VersionId2"]),
-                                    ModelMaskingName1 = GetString(reader["ModelMaskingName1"]),
-                                    ModelMaskingName2 = GetString(reader["ModelMaskingName2"]),
-                                    OriginalImagePath1 = GetString(reader["OriginalImagePath1"]),
-                                    OriginalImagePath2 = GetString(reader["OriginalImagePath2"]),
-                                    Price1 = GetInt32(reader["Price1"]),
-                                    Price2 = GetInt32(reader["Price2"]),
-                                    HostUrl1 = GetString(reader["HostUrl1"]),
-                                    HostUrl2 = GetString(reader["HostUrl2"]),
-                                    City1 = GetString(reader["city1"]),
-                                    City2 = GetString(reader["city2"])
+                                    Make1 = Convert.ToString(reader["Make1"]),
+                                    MakeMasking1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    Make2 = Convert.ToString(reader["Make2"]),
+                                    MakeMasking2 = Convert.ToString(reader["MakeMaskingName2"]),
+                                    Model1 = Convert.ToString(reader["Model1"]),
+                                    ModelMasking1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    Model2 = Convert.ToString(reader["Model2"]),
+                                    ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    VersionId1 = Convert.ToString(reader["VersionId1"]),
+                                    VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
+                                    OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
+                                    Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToInt32(reader["Price2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"]),
+                                    City1 = Convert.ToString(reader["city1"]),
+                                    City2 = Convert.ToString(reader["city2"])
                                 });
                             }
                             reader.Close();
@@ -365,31 +365,77 @@ namespace Bikewale.DAL.Compare
 
             return similarBikeList;
         }
-        private uint GetUint32(object o)
+
+
+
+        public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId)
         {
-            return (DBNull.Value == o) ? 0 : Convert.ToUInt32(o);
+            ICollection<SimilarCompareBikeEntity> similarBikeList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getsimilarcomparebikeslist_sponsored";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sponsoredversionid", DbType.UInt32, sponsoredVersionId));
+                    // LogLiveSps.LogSpInGrayLog(command);
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            similarBikeList = new List<SimilarCompareBikeEntity>();
+                            while (reader.Read())
+                            {
+                                similarBikeList.Add(new SimilarCompareBikeEntity()
+                                {
+                                    Make1 = Convert.ToString(reader["Make1"]),
+                                    MakeMasking1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    Make2 = Convert.ToString(reader["Make2"]),
+                                    MakeMasking2 = Convert.ToString(reader["MakeMaskingName2"]),
+                                    Model1 = Convert.ToString(reader["Model1"]),
+                                    ModelMasking1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    Model2 = Convert.ToString(reader["Model2"]),
+                                    ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    VersionId1 = Convert.ToString(reader["VersionId1"]),
+                                    VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
+                                    OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
+                                    Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToInt32(reader["Price2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"]),
+                                    City1 = Convert.ToString(reader["city1"]),
+                                    City2 = Convert.ToString(reader["city2"])
+                                });
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return similarBikeList;
         }
 
-        private int GetInt32(object o)
-        {
-            return (DBNull.Value == o) ? 0 : Convert.ToInt32(o);
-        }
 
-        private short GetInt16(object o)
+        public string GetFeaturedBike(string versions)
         {
-            short s = 0;
-            return (DBNull.Value == o) ? s : Convert.ToInt16(o);
-        }
-
-        private ushort GetUInt16(object o)
-        {
-            ushort s = 0;
-            return (DBNull.Value == o) ? s : Convert.ToUInt16(o);
-        }
-
-        private string GetString(object o)
-        {
-            return (DBNull.Value == o) ? string.Empty : o.ToString();
+            throw new NotImplementedException();
         }
     }
 }

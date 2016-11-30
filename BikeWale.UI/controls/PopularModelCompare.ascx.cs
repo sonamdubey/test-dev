@@ -1,7 +1,8 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.BikeData;
 using System;
+using System.Collections.Generic;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -11,13 +12,13 @@ namespace Bikewale.Controls
     /// </summary>
     public class PopularModelCompare : UserControl
     {
-        public Repeater rptPopularCompareBikes;
         public string versionId { get; set; }
+        protected ICollection<SimilarCompareBikeEntity> objSimilarBikes = null;
         public string ModelName;
-        private uint _topCount = 0;
+        private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
         public int? cityid { get; set; }
-        public uint TopCount
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -41,14 +42,8 @@ namespace Bikewale.Controls
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
             objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-            fetchedCount = objAlt.BindPopularCompareBikes(rptPopularCompareBikes, versionId, TopCount);
-        }
-
-        public override void Dispose()
-        {
-            rptPopularCompareBikes.DataSource = null;
-            rptPopularCompareBikes.Dispose();
-            base.Dispose();
+            objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
+            fetchedCount = objAlt.FetchedRecordsCount;
         }
     }
 }

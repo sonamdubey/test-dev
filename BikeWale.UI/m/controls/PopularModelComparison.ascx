@@ -1,29 +1,29 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PopularModelComparison.ascx.cs" Inherits="Bikewale.m.controls.PopularModelComparison" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="PopularModelComparison.ascx.cs" Inherits="Bikewale.Mobile.Controls.PopularModelComparison" %>
+<% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
 <div id="ctrlCompareBikes">
     <div id="makeComparisonContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
         <h2 class="padding-left20 padding-right20 margin-bottom20">Popular Comparisons for <%=versionName %> </h2>
         <div class="swiper-container padding-top5 padding-bottom5">
             <div class="swiper-wrapper model-comparison-list">
-                <asp:Repeater ID="rptPopularBikesComparison" runat="server">
-                    <ItemTemplate>
+                <% foreach(var bike in  objSimilarBikes) { %>
                         <div class="swiper-slide">
-                            <a href="/m/<%# Bikewale.Utility.UrlFormatter.CreateCompareUrl(DataBinder.Eval(Container.DataItem,"MakeMasking1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMasking2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking2").ToString(),DataBinder.Eval(Container.DataItem,"VersionId1").ToString(),DataBinder.Eval(Container.DataItem,"VersionId2").ToString()) %>" title ="<%# Bikewale.Utility.UrlFormatter.CreateCompareTitle(DataBinder.Eval(Container.DataItem, "Model1").ToString(),DataBinder.Eval(Container.DataItem, "Model2").ToString()) %>">
-                            <h3 class="font12 text-black text-center"><%# Bikewale.Utility.UrlFormatter.CreateCompareTitle(DataBinder.Eval(Container.DataItem, "Model1").ToString(),DataBinder.Eval(Container.DataItem, "Model2").ToString()) %></h3>
+                            <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>">
+                            <h3 class="font12 text-black text-center"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
                             <div class="grid-6">
                                 <div class="model-img-content">
-                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath1").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl1").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model1").ToString() %>" />
+                                    <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%# DataBinder.Eval(Container.DataItem, "City1").ToString() %></p>
-                                <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# DataBinder.Eval(Container.DataItem, "Price1").ToString() %></span>
+                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom, <%= bike.City1  %></p>
+                                <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price1.ToString())  %></span>
                             </div>
                             <div class="grid-6">
                                 <div class="model-img-content">
-                                    <img class="swiper-lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath2").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl2").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" title="<%# DataBinder.Eval(Container.DataItem,"Model2").ToString() %>" />
+                                    <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom ,<%# DataBinder.Eval(Container.DataItem, "City2").ToString() %></p>
-                                <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%# DataBinder.Eval(Container.DataItem, "Price2").ToString() %></span>
+                                <p class="font11 text-light-grey margin-bottom5">Ex-showroom, <%= bike.City2  %></p>
+                                <span class="bwmsprite inr-dark-md-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price2.ToString())  %></span>
                             </div>
                             <div class="clear"></div>
                             <div class="margin-top10 text-center">
@@ -31,8 +31,7 @@
                             </div>
                             </a>
                         </div>
-                    </ItemTemplate>
-                </asp:Repeater>
+                   <% } %>
             </div>
         </div>
         <div class="margin-top15 margin-left20">
@@ -41,3 +40,4 @@
     </div>
     <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 </div>
+<% }  %>
