@@ -331,6 +331,7 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
+    <Compile Include="common\VersionHelper.cs" />
     <Compile Include="content\BikeCare\BikeCare.aspx.cs">
       <DependentUpon>BikeCare.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
