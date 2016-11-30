@@ -4,6 +4,7 @@ using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
@@ -29,7 +30,11 @@ namespace Bikewale.Mobile.Service
         protected IEnumerable<BikeMakeEntityBase> OtherMakeList;
         protected IEnumerable<BikeMakeEntityBase> makes;
         protected IEnumerable<CityEntityBase> cities;
-
+        protected MUpcomingBikes ctrlUpcomingBikes;
+        protected MNewLaunchedBikes ctrlNewLaunchedBikes;
+        protected MMostPopularBikes ctrlMostPopularBikes;
+        protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected int countWidgetFetch;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -43,9 +48,43 @@ namespace Bikewale.Mobile.Service
         protected void Page_Load(object sender, EventArgs e)
         {
             BindMakes();
-            ctrlBikeCare.TotalRecords = 3;
+            BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
+            countWidgetFetch=(ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount ;
+        }
+        /// <summary>
+        /// Created By : Subodh Jain  on 28th Nov 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
+        private void BindBikesWidgets()
+        {
+            try
+            {
+                //to get Most Popular Bikes
+                ctrlMostPopularBikes.totalCount = 9;
+                ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+
+                //To get Upcoming Bike List Details 
+                ctrlNewLaunchedBikes.pageSize = 9;
+                ctrlNewLaunchedBikes.curPageNo = null;
+                ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+
+                //To get Upcoming Bike List Details 
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+
+                ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
+                ctrlPopularUsedBikes.header = string.Format("Looking for used bikes? Explore");
+                ctrlPopularUsedBikes.TotalRecords = 9;
+
+                ctrlBikeCare.TotalRecords = 3;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
+                objErr.SendMail();
+            }
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016
