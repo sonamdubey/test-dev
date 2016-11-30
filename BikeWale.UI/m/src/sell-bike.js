@@ -1,4 +1,6 @@
-﻿var selectColorBox = $('#select-color-box'),
+﻿var citiesList = $("#filter-city-list li");
+
+var selectColorBox = $('#select-color-box'),
     effect = 'slide',
     options = { direction: 'right' },
     duration = 500;
@@ -60,6 +62,26 @@ $(document).ready(function () {
     });
     
 });
+
+var vmCities = function () {
+    var self = this;
+    self.SelectedCity = ko.observable();
+
+    self.cityFilter = ko.observable();
+
+    self.visibleCities = ko.computed(function () {
+        filter = self.cityFilter();
+        filterObj = citiesList;
+        if (filter && filter.length > 0) {
+            var pat = new RegExp(filter, "i");
+            citiesList.filter(function (place) {
+                if (pat.test($(this).text())) $(this).show(); else $(this).hide();
+            });
+
+        }
+        citiesList.first().show();
+    });
+}
 
 // custom validation function
 var validation = {
@@ -171,8 +193,11 @@ var sellBike = function () {
 var bikeDetails = function () {
     var self = this;
 
+    self.Cities = ko.observable(new vmCities());
+
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
+    self.colorArray = ko.observableArray();
 
     self.validate = ko.observable(false);
     self.validateOtherColor = ko.observable(false);
@@ -273,6 +298,25 @@ var bikeDetails = function () {
         self.bikeStatus(true);
 
         bikePopup.close();
+
+        if (self.versionId() != null && self.versionId() != -1) {
+            $.ajax({
+                type: "Get",
+                url: "/api/version/" + self.versionId() + "/color/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        self.colorArray(response.colors);
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {                    
+                }
+            });
+        }
+    };
+
+    self.colorChanged = function(data, event) {
     };
 
     self.bike = ko.computed(function () {
@@ -797,12 +841,16 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
+    $('#city-search-box').val("");
+    $(citiesList).show();
     cityListSelection.open();
     vmSellBike.bikeDetails().citySelectionStatus('bike-city');
     appendState('bikeCity');
 });
 
 $('#registration-select-element').on('click', '.city-box-default', function () {
+    $('#city-search-box').val("");
+    $(citiesList).show();
     cityListSelection.open();
     vmSellBike.bikeDetails().citySelectionStatus('registered-city');
     appendState('registrationCity');
@@ -851,8 +899,10 @@ var sellerType = {
 
 // color
 selectColorBox.on('click', '.color-box-default', function () {
-    modalPopup.open('#color-popup');
-    appendState('colorPopup');
+    if (vmSellBike.bikeDetails().versionName() != "") {
+        modalPopup.open('#color-popup');
+        appendState('colorPopup');
+    }
 });
 
 var colorBox = {
@@ -922,7 +972,7 @@ var appendState = function (state) {
 $(window).on('popstate', function (event) {
     if ($('#city-slideIn-drawer').is(':visible')) {
         cityListSelection.close();
-    }
+    }   
     if ($('#color-popup').is(':visible')) {
         modalPopup.close('#color-popup');
     }

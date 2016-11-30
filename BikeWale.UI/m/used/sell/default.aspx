@@ -111,7 +111,7 @@
                             </div>
                         </div>
 
-                        <div class="color-box-content row-bottom-margin">
+                        <div class="color-box-content row-bottom-margin" >
                             <div id="select-color-box" class="select-color-box">
                                 <p class="select-color-label color-box-default">Colour<sup>*</sup></p>
                                 <p id="selected-color" class="color-box-default" data-bind="text: color, validationElement: color "></p>
@@ -190,16 +190,16 @@
                                     </div>
                                     <div class="filter-input-box">
                                         <div class="form-control-box">
-                                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" autocomplete="off">
+                                            <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput: Cities().cityFilter" autocomplete="off">
                                             <span class="bwmsprite search-icon-grey"></span>
                                         </div>
                                     </div>
                                 </div>
                     
-                                <ul class="filter-list" >
+                                <ul class="filter-list" id="filter-city-list">
                                     <% foreach (var city in objCityList)
                                        { %>
-                                    <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>"><span><%= city.CityName %></span></li>    
+                                    <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
                                     <% } %>                                    
                                 </ul>
                             </div>
@@ -211,44 +211,27 @@
                         <div id="color-popup" class="modal-popup-container with-footer">
                             <div class="popup-header">Colour</div>
                             <div class="popup-body">
-                                <ul class="popup-list popup-color-list margin-bottom15">
-                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                <ul class="popup-list popup-color-list margin-bottom15" data-bind="foreach: colorArray">
+                                    <li class="color-list-item" data-bind="click: colorSelection" >
                                         <div class="color-box color-count-one">
                                             <span style="background-color: rgb(19, 22, 29);"></span>
                                         </div>
-                                        <p class="color-box-label">Black</p>
-                                    </li>
-                                    <li class="color-list-item" data-bind="click: colorSelection">
+                                        <p class="color-box-label"><span data-bind="text: colorName, attr: { 'data-colorId': colorId }"></span></p>
+                                    </li>                                    
+                                    <%--<li class="color-list-item" data-bind="click: colorSelection">
                                         <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(124, 80, 41)"></span>
+                                            <span style="background-color: rgb(255, 255, 255);"></span>
                                         </div>
-                                        <p class="color-box-label">Divine Black</p>
-                                    </li>
-                                    <li class="color-list-item" data-bind="click: colorSelection">
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(19, 22, 29);"></span>
-                                        </div>
-                                        <p class="color-box-label">Black</p>
-                                    </li>
-                                    <li class="color-list-item" data-bind="click: colorSelection">
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(19, 22, 29);"></span>
-                                        </div>
-                                        <p class="color-box-label">Black</p>
-                                    </li>
-                                    <li class="color-list-item" data-bind="click: colorSelection">
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(124, 80, 41)"></span>
-                                        </div>
-                                        <p class="color-box-label">Divine Black</p>
-                                    </li>
-                                    <li class="color-list-item" data-bind="click: colorSelection">
-                                        <div class="color-box color-count-one">
-                                            <span style="background-color: rgb(19, 22, 29);"></span>
-                                        </div>
-                                        <p class="color-box-label">Black</p>
-                                    </li>                       
+                                        <p class="color-box-label">white</p>
+                                    </li>       --%>                
                                 </ul>
+
+                                <%--<ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                                    <li data-bind=" click: function (d, e) { $parent.modelChanged(d, e) }">
+                                        <span data-bind="text: modelName, attr: { 'data-id': modelId }" ></span>
+                                    </li>
+                                </ul>--%>
+
                                 <ul>
                                     <li class="other-color-item">
                                         <div class="color-box">
