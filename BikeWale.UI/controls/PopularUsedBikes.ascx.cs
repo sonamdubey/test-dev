@@ -11,9 +11,6 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-        public string WidgetTitle { get; set; }
-        //string.Format("Popular used bikes in {0}", !string.IsNullOrEmpty() ? cityName : "India");
-        //public string header { get { return _header; } set { _header = value; } }
         public string header { get { return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India"); } set { header = value; } }
 
         protected string cityName = String.Empty;
