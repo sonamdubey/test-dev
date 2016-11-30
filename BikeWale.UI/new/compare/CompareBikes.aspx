@@ -87,7 +87,7 @@
                                                         <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
                                                         <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a pqSourceId='"+ (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_CompareBike +"' class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
                                                        <% if(isSponsored) { %>
-                                                           <span class="<%# Container.ItemIndex != featuredBikeIndex ? "hide" : ""  %>"><%= string.Format("<a target='_blank' id='knowmore' class='blue padding-top5' href='{0}'>Know more</a>", knowMoreHref) %></span>
+                                                           <span class="<%# Container.ItemIndex != featuredBikeIndex ? "hide" : ""  %>"><%= string.Format("<a target='_blank' rel='nofollow' id='knowmore' class='blue padding-top5' href='{0}'>Know more</a>", knowMoreHref) %></span>
                                                            <% } %>
                                                        </td>
                                                    </tr>
