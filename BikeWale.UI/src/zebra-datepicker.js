@@ -1146,7 +1146,7 @@
                     '<table class="dp_header">' +
                         '<thead>' +
                             '<tr>' +
-                                '<th colspan="3" class="dp_heading">Year of manufacturing</th>' +
+                                '<th colspan="3" class="dp_heading"></th>' +
                             '</tr>' +
                         '</thead>' +
                         '<tbody>' +
