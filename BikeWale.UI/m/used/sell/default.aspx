@@ -18,7 +18,7 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <section>
-            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20">
+            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="if: !(isFakeCustomer())">
                 <div data-bind="visible: formStep() < 4">
 
                     <div id="form-step-tabs" class="text-center">
@@ -400,11 +400,11 @@
                     </div>
                     <div class="margin-top15 margin-bottom15">
                         <p class="font18 text-bold">Congratulations!</p><br />
-                        <p class="font14">Your profile ID is <span>138462384</span>.<br />You can find and edit your ad later using this id. Your bike ad will be live after verification.</p>
+                        <p class="font14">Your ad has been successfully submitted.<br /><br />Your profile ID is <span data-bind="text: profileId"></span>.<br />You can find and edit your ad by logging in.<br /><br />Your bike ad will be live after verification.</p>
                     </div>
                     <div id="form-success-btn-group">
-                        <input type="button" class="btn btn-orange btn-primary-small margin-right20" value="Done" />
-                        <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small" value="Edit my Ad" />
+                        <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small margin-right20" value="Edit my Ad" data-bind="click: editMyAd" />
+                        <input type="button" class="btn btn-orange btn-primary-small " data-bind="click: congratsScreenDoneFunction" value="Done" />                        
                     </div>
                 </div>
 
@@ -422,9 +422,12 @@
                     </div>
                 </div>--%>
 
-                <!-- not auth to add -->
+                
 
-                <%--<div class="form-response-body text-center icon-size-small">
+            </div>
+           
+
+                <div class="form-response-body text-center icon-size-small" data-bind="if: isFakeCustomer()">
                     <div class="icon-outer-container rounded-corner50percent">
                         <div class="icon-inner-container rounded-corner50percent">
                             <span class="sell-bike-sprite no-auth-icon margin-top15"></span>
@@ -434,9 +437,7 @@
                         <p class="font18 text-bold margin-bottom10">Sorry!</p>
                         <p class="font14">You are not authorised to add any listing.<br />Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a></p>
                     </div>
-                </div>--%>
-
-            </div>
+                </div>
         </section>
 
         <script type="text/javascript">
@@ -456,6 +457,14 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        
+        <script type="text/javascript">
+            window.onbeforeunload = function () {
+                if (vmSellBike.formStep() < 4) {
+                    return true;
+                }
+            }
+        </script>
         
     </form>
 </body>

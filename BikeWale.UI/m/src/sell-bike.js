@@ -32,6 +32,10 @@ ko.bindingHandlers.chosen = {
 }
 
 $(document).ready(function () {
+    $("#kmsRidden").val('');
+    $("#expectedPrice").val('');
+    $("#manufacturingDate").val('');
+
     if (userId != null) {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
@@ -176,10 +180,23 @@ var validation = {
 
 }
 
+var congratsScreenDoneFunction = function () {
+    window.location = "/mybikewale/";
+};
+
+var editMyAd = function () {
+    vmSellBike.formStep(1);
+};
+
 var sellBike = function () {
     var self = this;
 
+    self.isFakeCustomer = ko.observable(false);
     self.inquiryId = ko.observable();
+    self.customerId = ko.observable();       
+    self.profileId = ko.pureComputed(function getProfileId() {
+        return ((self.personalDetails().sellerTypeVal() == 1 ? "D" : "S") + self.inquiryId());
+    }, this);
 
     self.formStep = ko.observable(1);
 
@@ -230,7 +247,7 @@ var bikeDetails = function () {
 
     self.makeName = ko.observable('');
     self.modelName = ko.observable('');
-    self.versionName = ko.observable('');
+    self.versionName = ko.observable('');    
 
     self.makeId = ko.observable('');
     self.makeMaskingName = ko.observable('');
@@ -639,6 +656,8 @@ var personalDetails = function () {
     };
 
     self.listYourBike = function () {
+        $('#otpCode').val("");
+
         self.validate(true);
 
         if (!("colorId" in window))
@@ -668,9 +687,9 @@ var personalDetails = function () {
                     "maskingName": null
                 },
                 "manufacturingYear": bdetails.manufacturingTime(),
-                "kiloMeters": bdetails.kmsRidden(),
+                "kiloMeters": bdetails.kmsRidden().replace(/,/g, ""),
                 "cityId": bdetails.cityId(),
-                "expectedprice": bdetails.expectedPrice(),
+                "expectedprice": bdetails.expectedPrice().replace(/,/g, ""),
                 "owner": bdetails.owner(),
                 "registrationPlace": bdetails.registeredCity(),
                 "color": bdetails.color(),
@@ -679,7 +698,7 @@ var personalDetails = function () {
                 "status": 1,
                 "pageUrl": "used/sell",
                 "seller": {
-                    "sellerType": sellerType,
+                    "sellerType": pdetails.sellerTypeVal(),
                     "customerId": userId > 0 ? userId : 0,
                     "customerName": pdetails.sellerName(),
                     "customerEmail": pdetails.sellerEmail(),
@@ -708,8 +727,7 @@ var personalDetails = function () {
                     else if (res != null && res.Status != null && res.Status.Code == 5) {
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
-                        vmSellBike.formStep(3);
-                        vmSellBike.initPhotoUpload();
+                        vmSellBike.formStep(3);                        
                     }
                     else {
                         vmSellBike.isFakeCustomer(true);
@@ -721,9 +739,6 @@ var personalDetails = function () {
             });
 
             //scrollToForm.activate();
-
-
-            vmSellBike.verificationDetails().status(true);
         }
         else {
             self.errors.showAllMessages();
@@ -816,7 +831,7 @@ var verificationDetails = function () {
             self.otpCode('');
             $('#otpCode').focus();
             self.validateOTP(false);
-            //vmSellBike.personalDetails().listYourBike();
+            vmSellBike.personalDetails().listYourBike();
         }
         else {
             self.errorMobile.showAllMessages();
@@ -829,8 +844,40 @@ var verificationDetails = function () {
         self.validateOTP(true);
 
         if (self.errorOTP().length === 0) {
-            vmSellBike.formStep(3);
             scrollToForm.activate();
+
+            var otp = vmSellBike.verificationDetails().otpCode();
+            var mobile = vmSellBike.personalDetails().sellerMobile();
+         
+            var mobileVerificationData = {
+                "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
+                "otp": otp,
+                "customerMobile": mobile,
+                "customerId": vmSellBike.customerId(),
+                "inquiryId": vmSellBike.inquiryId(),
+                "isEdit"   : false
+            }
+
+            $.ajax({
+                type: "Post",
+                url: "/api/used/sell/listing/verifymobile/",
+                contentType: "application/json",
+                data: ko.toJSON(mobileVerificationData),
+                dataType: 'json',
+                success: function (response) {
+                    if (!response) {
+                        $("#otpErrorText").show().text("Please enter correct otp");
+                        $('#otpCode').focus();
+                    }
+                    else {
+                        $("#otpErrorText").text("");
+                        vmSellBike.formStep(3);                        
+                    }
+                },
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
         }
         else {
             self.errorOTP.showAllMessages();
@@ -851,6 +898,28 @@ var moreDetails = function () {
     self.registrationNumber = ko.observable('');
 
     self.updateAd = function () {
+
+        var moreDetailsData = {
+            "registrationNo": vmSellBike.moreDetails().registrationNumber(),
+            "insuranceType": vmSellBike.moreDetails().insuranceType(),
+            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
+        }
+        $.ajax({
+            type: "Post",
+            url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
+            contentType: "application/json",
+            dataType: 'json',
+            data: ko.toJSON(moreDetailsData),
+            success: function (response) {
+
+
+            }
+           ,
+            complete: function (xhr, ajaxOptions, thrownError) {
+
+            }
+        });
+
         vmSellBike.formStep(4);
         scrollToForm.activate();
     };
@@ -1156,7 +1225,7 @@ $('input[type=number]').on('keydown', function (event) {
 $('#kmsRidden, #expectedPrice').on('keyup', function () {
     var inputBox = $(this),
         inputValue = inputBox.val(),
-        withoutCommaValue = inputValue.replace(/,/g, "");
+        withoutCommaValue = inputValue.replace(/,/g, "");    
 
     inputBox.attr('data-value', withoutCommaValue);
     inputBox.val(formatNumber(withoutCommaValue));
