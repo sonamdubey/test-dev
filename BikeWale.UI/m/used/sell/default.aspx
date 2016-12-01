@@ -17,8 +17,10 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section>
-            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="if: !(isFakeCustomer())">
+        <section>            
+            
+            <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible:true">  
+                <!-- ko ifnot: isFakeCustomer -->              
                 <div data-bind="visible: formStep() < 4">
 
                     <div id="form-step-tabs" class="text-center">
@@ -420,14 +422,15 @@
                         <p class="font18 text-bold">Sorry!</p><br />
                         <p class="font14">You are not authorised to edit this listing</p>
                     </div>
-                </div>--%>
-
-                
-
-            </div>
-           
-
-                <div class="form-response-body text-center icon-size-small" data-bind="if: isFakeCustomer()">
+                </div>--%>   
+                  
+                <!-- /ko -->                       
+            
+            
+            
+           <!-- ko if: isFakeCustomer -->
+            <div class="form-response-body text-center icon-size-small">
+                 
                     <div class="icon-outer-container rounded-corner50percent">
                         <div class="icon-inner-container rounded-corner50percent">
                             <span class="sell-bike-sprite no-auth-icon margin-top15"></span>
@@ -436,8 +439,11 @@
                     <div class="margin-top15 margin-bottom15">
                         <p class="font18 text-bold margin-bottom10">Sorry!</p>
                         <p class="font14">You are not authorised to add any listing.<br />Please contact us at <a href="mailto:contact@bikewale.com">contact@bikewale.com</a></p>
-                    </div>
-                </div>
+                    </div>                        
+            </div>
+            <!-- /ko -->     
+                </div>  
+            
         </section>
 
         <script type="text/javascript">
