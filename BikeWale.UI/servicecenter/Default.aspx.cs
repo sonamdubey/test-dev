@@ -111,7 +111,7 @@ namespace Bikewale.ServiceCenter
 
                 ctrlBikeCare.TotalRecords = 3;
                 ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Looking for used bikes? Explore");
+                ctrlPopularUsedBikes.header = string.Format("Explore popular used bikes in India");
                 ctrlPopularUsedBikes.TotalRecords = 9;
             }
             catch (Exception ex)

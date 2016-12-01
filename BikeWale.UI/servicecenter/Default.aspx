@@ -127,7 +127,7 @@
             <div class="container margin-bottom30">
                 <!--  Discover bikes section code starts here -->
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Looking for new bikes? Explore the popular ones</h2>
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Explore the popular bikes in India</h2>
                     <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
