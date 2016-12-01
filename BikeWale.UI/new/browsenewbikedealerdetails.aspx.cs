@@ -25,6 +25,8 @@ namespace Bikewale.New
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    /// Modified By : Aditi Srivasatva on 30 Nov 2016
+    /// Description : Added control to change brand and city for dealers list
     /// </summary>
     public class BrowseNewBikeDealerDetails : Page
     {
@@ -80,7 +82,10 @@ namespace Bikewale.New
             BindUserControls();
 
         }
-        
+        /// <summary>
+        /// Modified By : Aditi Srivasatva on 30 Nov 2016
+        /// Description : Set request type according to page for brand city pop up
+        /// </summary>
         private void BindUserControls()
         {
             ctrlPopoularBikeMake.makeId = (int)makeId;
@@ -99,9 +104,8 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.AdId = "1395986297721";
 
             ctrlLeadCapture.CityId = cityId;
-            //ctrlLeadCapture.ModelId = modelId;
-            //ctrlLeadCapture.AreaId = 0;
-        }
+            ctrlBrandCity.requestType = 12;
+            }
 
         /// <summary>
         /// Created By  : Sushil Kumar
@@ -177,8 +181,6 @@ namespace Bikewale.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        //rptMakes.DataSource = _makes;
-                        //rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
                         if (firstMake != null)
                         {
@@ -215,9 +217,7 @@ namespace Bikewale.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        //rptCities.DataSource = _cities;
-                        //rptCities.DataBind();
-                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
+                       var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (firstCity != null)
                         {
                             cityName = firstCity.CityName;

@@ -11,11 +11,6 @@
     var brandClicked = false;
     var cityClicked = false;
 </script>
-<style>
-    div#brandcityPopup{
-      height: 310px;
-    }
-</style>
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
@@ -27,8 +22,15 @@
                 </div>
             </div>
         </div>
-        <p class="font20 margin-top15 text-capitalize text-center">Search dealers</p>
-         <div class="padding-top10" id="brandCityPopUpContent">
+        <%if(requestType==12){ %>
+        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different dealer?</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see dealer details</p>
+         <%} %>
+        <%else if(requestType==13){ %>
+        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different service center?</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see service center details</p>
+         <%} %>
+        <div class="padding-top10" id="brandCityPopUpContent">
             <div id="divBrandLoader" class="margin-top10 form-control-box">
                 <div class="placeholder-loading-text form-control">Loading Brands..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingBrands().length > 0">
@@ -51,7 +53,12 @@
                 </div>
                 <span class="position-abt progress-bar"></span>
             </div>
-         <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left100 " style="display: block;position:absolute" type="button" value="Search" data-bind="click: searchByBrandCityPopUp, enable: (listCities().length > 0)">
+            <%if(requestType==12){ %>
+         <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Search dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+        <%} %>
+            <%else if(requestType==13){%>
+        <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Search service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+        <%} %>
         </div>
     </div>
 </div>
@@ -86,12 +93,11 @@
         }).cityMaskingName;
     })
     };
-
+    
     function FillBrandsPopup() {
         var isAborted = false;
-        if (viewModelCityBrandPopup.bookingBrands().length < 1) {
-            debugger;
-            $.ajax({
+        if (viewModelCityBrandPopup.bookingBrands().length < 1 || viewModelCityBrandPopup.bookingBrands().length==undefined) {
+             $.ajax({
                 type: "GET",
                 url: "/api/makelist/?requesttype=" + requestType,
                 dataType: 'json',
@@ -148,12 +154,12 @@
         popupBrand.trigger('chosen:updated');
         makeChangedPopup();
     }
-
+   
     function makeChangedPopup() {
         var isAborted = false;
+        viewModelCityBrandPopup.searchByBrandCityBtnClicked(false)
         if (viewModelCityBrandPopup.selectedBrand() != undefined) {
-            debugger;
-            BrandCityKey = "brandcity_" + viewModelCityBrandPopup.selectedBrand().toString();
+           BrandCityKey = "brandcity_" + viewModelCityBrandPopup.selectedBrand().toString();
             $.ajax({
                 type: "GET",
                 url: "/api/v2/DealerCity/?makeId=" + viewModelCityBrandPopup.selectedBrand(),
@@ -241,7 +247,7 @@
             removeBrandCityError($('#divBrandLoader.form-control-box'));
         }
 
-        if (viewModelCityBrandPopup.bookingBrands().length > 0 && viewModelCityBrandPopup.selectedBrand() == undefined && viewModelCityBrandPopup.searchByBrandCityBtnClicked()) {
+        if (viewModelCityBrandPopup.bookingBrands().length > 0 && viewModelCityBrandPopup.selectCity() == undefined && viewModelCityBrandPopup.searchByBrandCityBtnClicked()) {
             errMsgParent = $('#divCitiesLoader.form-control-box');
             errMsg += "City,";
             isValid = false;
@@ -272,11 +278,14 @@
     function searchByBrandCityPopUp() {
         
         viewModelCityBrandPopup.searchByBrandCityBtnClicked(true);
-                if (requestType == 12) {
-            window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-dealer-showrooms-in-" + viewModelCityBrandPopup.cityMasking() + "/";
-        }
-        else if (requestType == 13) {
-            window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-service-center-in-" + viewModelCityBrandPopup.cityMasking() + "/";
+        isvalid=isValidInfoPopup();
+        if (isvalid) {
+            if (requestType == 12) {
+                window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-dealer-showrooms-in-" + viewModelCityBrandPopup.cityMasking() + "/";
+            }
+            else if (requestType == 13) {
+                window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-service-center-in-" + viewModelCityBrandPopup.cityMasking() + "/";
+            }
         }
     }
 

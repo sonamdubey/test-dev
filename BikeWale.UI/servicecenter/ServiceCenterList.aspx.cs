@@ -28,6 +28,8 @@ namespace Bikewale.Service
     /// <summary>
     /// Created By : Sajal Gupta on 16-11-2016
     /// Class to show the bike service center listing for particular make and city.
+    /// Modified By : Aditi Srivasatva on 30 Nov 2016
+    /// Description : Added control to change brand and city for service centers
     /// </summary>
     public class ServiceCenterList : Page
     {
@@ -79,6 +81,8 @@ namespace Bikewale.Service
         /// <summary>
         /// Created by : SAJAL GUPTA on 16-11-2016
         /// Description: Method to bind dealer car data.
+        /// Modified By : Aditi Srivasatva on 30 Nov 2016
+        /// Description : Set request type according to page for brand city pop up
         /// </summary>
         /// <param name="cityMaskingName"></param>
         private void BindUserControls()
@@ -90,6 +94,7 @@ namespace Bikewale.Service
             ctrlDealerCard.LeadSourceId = 11;
             ctrlDealerCard.TopCount = 3;
             ctrlDealerCard.isHeading = false;
+            ctrlBrandCity.requestType = 13;
         }
 
         /// <summary>
