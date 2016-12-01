@@ -37,7 +37,7 @@
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
             <div class="text-center margin-top10">
-                <a class="font16" title="View all Used Bikes in <%=(!string.IsNullOrEmpty(cityName))?cityName:"India"%>" href="<%= FormatCompleteListUrl() %>">View complete list</a>
+                <a class="font16" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View complete list</a>
             </div>
         </div>
     </div>

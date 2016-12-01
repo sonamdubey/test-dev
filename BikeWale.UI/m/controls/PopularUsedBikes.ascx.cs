@@ -12,7 +12,7 @@ namespace Bikewale.Mobile.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-        protected string _cityName = String.Empty;
+        protected string cityName = "India";
         protected string cityMaskingName = string.Empty;
         protected int? cityId = null;
         public string header { get; set; }
@@ -27,7 +27,7 @@ namespace Bikewale.Mobile.Controls
         {
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = Convert.ToInt32(currentCityArea.CityId);
-            _cityName = currentCityArea.City;
+            cityName = currentCityArea.City;
             BindPopularUsedBikes();
         }
         /// <summary>

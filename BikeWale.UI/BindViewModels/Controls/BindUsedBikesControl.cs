@@ -75,7 +75,7 @@ namespace Bikewale.BindViewModels.Controls
                     popularUsedBikes = _objUsedBikes.GetPopularUsedBikes(topCount, cityId);
                 }
 
-                if (popularUsedBikes != null)
+                if (popularUsedBikes != null && popularUsedBikes.Count() > 0)
                 {
                     FetchedRecordsCount = popularUsedBikes.Count();
                     cityMaskingName = popularUsedBikes.FirstOrDefault().CityMaskingName;
