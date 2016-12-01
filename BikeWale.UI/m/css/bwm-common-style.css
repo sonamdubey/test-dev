@@ -925,7 +925,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     position: relative;
 }
 
-#popup-loader {
+#popup-loader, .cover-popup-loader {
     height: 50px;
     background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
     position: fixed;
@@ -935,12 +935,13 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     margin: 0 auto;
 }
 
-#popup-loader-text {
+#popup-loader-text, .cover-popup-loader-text {
     position: fixed;
     top: 60%;
     margin: 0 auto;
     left: 5%;
     right: 5%;
+    text-align: center;    
 }
 
 .city-area-banner {

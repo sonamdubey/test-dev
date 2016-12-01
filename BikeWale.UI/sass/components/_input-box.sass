@@ -43,7 +43,7 @@ input[type="number"]:focus
 		top: 4px
 		color: $text-x-light
 
-// on focus
+/* on focus */
 .input-box input:focus ~ label
 	top: -16px
 	font-size: 12px
@@ -72,3 +72,16 @@ input[type="number"]::-webkit-inner-spin-button
 
 input[type="number"]
     -moz-appearance: textfield
+
+/* input box with no highlight on focus */
+.input-box
+	&.input-no-focus
+		input
+			cursor: pointer
+
+		input:focus
+			border-color: #82888b
+
+		input:focus ~ .boundary:before,
+		input:focus ~ .boundary:after
+			width: 0

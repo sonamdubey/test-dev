@@ -1,60 +1,35 @@
 ﻿.color-box-content
-	height: 60px;
+	height: 60px
 
-#select-color-box
+.select-color-box
 	padding-bottom: 5px
 	position: relative
 	border-bottom: 1px solid $text-light
 	background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat
-	height: 30px
+	height: 36px
 	
 	.select-color-label
 		font-size: $font-size-medium
 		color: $text-light
 		position: absolute
-		top: -1px
+		top: 4px
 		
 	.color-box-default
 		width: 100%
 		cursor: pointer
-		
+
 #selected-color
 	font-size: $font-size-medium
 	color: $text-primary
 	font-weight: $font-bold
-	height: 30px
+	height: 36px
+	padding-top: 7px
 
-.color-dropdown
-	display: none
-	width: 300px
-	min-height: 170px
-	position: absolute
-	top: -18px
-	background: #fff
-	z-index: 1
-	@include border-radius(2px)
-	@include box-shadow
-	border: 1px solid #e2e2e2\9
-
-	.dropdown-label
-		font-size: $font-size-medium
-		padding: 11px 20px 12px
-		border-bottom: 1px solid $border-light
-		margin-bottom: 10px
-
-	li
-		padding: 10px 20px
-
-	.color-list-item
-		cursor: pointer
-	
-		&:hover
-			background: $border-x-light		
-
+#color-popup
 	.color-box
 		width: 30px
 		height: 30px
-		margin-right: 15px
+		margin-right: 10px
 		background: #a2a2a2
 		border: 1px solid #bababa
 
@@ -66,6 +41,30 @@
 		font-size: $font-size-base
 		color: $text-light
 
+	.color-list-item
+		cursor: pointer
+
+	.active
+		pointer-events: none
+
+		.color-box-label
+			color: $text-primary
+			font-weight: $font-bold
+
+.color-list-item
+	&.active
+		.color-box
+			position: relative
+		
+			&:before
+				content: ""
+				background: rgba(0,0,0,0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat
+				width: 28px
+				height: 28px
+				display: block
+				position: absolute
+
+
 .color-box,
 .color-box-label
 	display: inline-block
@@ -76,7 +75,16 @@
 	.color-box-label
 		display: inline-block
 		vertical-align: top
-	
+
+// overwrite modal css
+#color-popup
+	.popup-body
+		padding-right: 0
+		padding-left: 0
+
+		li
+			padding-right: 20px
+			padding-left: 20px
 
 // count
 .color-count-one
@@ -100,6 +108,8 @@
 .input-box.input-color-box
 	input
 		font-size: $font-size-base
+		padding-top: 5px
+		padding-bottom: 5px
 
 		&:focus ~ label
 			top: -12px
@@ -119,30 +129,5 @@
 // selection-done
 #select-color-box.selection-done
 	.select-color-label
-		font-size: 12px
-		top: -20px
-
-// open state
-.open
-	.color-dropdown
-		display: block
-
-// tick mark
-.color-dropdown
-	.active
-		pointer-events: none
-
-		.color-box-label
-			color: $text-primary
-			font-weight: $font-bold
-
-		.color-box
-			position: relative
-		
-			&:before
-				content: ""
-				background: rgba(0,0,0,0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat
-				width: 28px
-				height: 28px
-				display: block
-				position: absolute
+		font-size: $font-size-small
+		top: -14px
