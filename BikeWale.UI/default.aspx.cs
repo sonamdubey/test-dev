@@ -64,8 +64,7 @@ namespace Bikewale
             ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            string _cityName = currentCityArea.City;
-            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(_cityName) ? _cityName : "India");
+            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(currentCityArea.City) ? currentCityArea.City : "India");
             ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 

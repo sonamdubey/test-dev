@@ -426,7 +426,7 @@
                                 <% if(modelPage!=null && modelPage.ModelVersionSpecs!=null && modelPage.ModelVersionSpecs.TopSpeed>0) {%>
                                 <tr>
                                     <td valign="top">Top speed</td>
-                                    <td valign="top" class="text-bold"><%=modelPage.ModelVersionSpecs.TopSpeed%></td>
+                                    <td valign="top" class="text-bold"><%=modelPage.ModelVersionSpecs.TopSpeed%> kmph</td>
                                 </tr>
                                 <%} %>
                                 <%if (modelPage != null && modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0)

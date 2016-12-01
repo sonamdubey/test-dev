@@ -31,11 +31,9 @@ namespace Bikewale.ServiceCenter
         protected IEnumerable<BikeMakeEntityBase> objOtherMakeList;
         protected IEnumerable<BikeMakeEntityBase> objMakes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
-
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected int countWidgetFetch;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -60,11 +58,10 @@ namespace Bikewale.ServiceCenter
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
-            countWidgetFetch = ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount;
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016
-        /// Submmary:- Bind Make for service center
+        /// Summary:- Bind Make for service center
         /// </summary>
         private void BindMakes()
         {
@@ -114,7 +111,7 @@ namespace Bikewale.ServiceCenter
 
                 ctrlBikeCare.TotalRecords = 3;
                 ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Looking for used bikes? Explore");
+                ctrlPopularUsedBikes.header = string.Format("Explore popular used bikes in India");
                 ctrlPopularUsedBikes.TotalRecords = 9;
             }
             catch (Exception ex)

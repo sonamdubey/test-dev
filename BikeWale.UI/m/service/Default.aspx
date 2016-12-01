@@ -103,13 +103,13 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
-        <%if (countWidgetFetch>0)
+        <%if (ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount > 0)
           {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
             <div class="container margin-bottom20">
                 <div class="grid-12 alpha omega">
-                    <h2 class="font18 text-center margin-top20 margin-bottom10">Looking for used bikes? Explore</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Explore the popular bikes in India</h2>
                     <div class="featured-bikes-panel content-box-shadow padding-bottom15">
                         <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">

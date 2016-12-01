@@ -5,7 +5,7 @@
    {        %>
 <div id="used-bikes-content" class="grid-12 padding-top20 padding-bottom20">
     <div class="grid-<%=masterGrid %> font14">
-        <h2 class="font18 margin-bottom15"><%=pageHeading %></h2>
+        <h2 class="font18 margin-bottom15"><%= pageHeading %></h2>
         <%foreach (Bikewale.Entities.UsedBikes.MostRecentBikes bike in objUsedBikes)
           { %>
         <div class="grid-<%=childGrid %> alpha margin-bottom20">

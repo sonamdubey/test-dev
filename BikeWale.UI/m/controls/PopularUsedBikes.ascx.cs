@@ -12,7 +12,8 @@ namespace Bikewale.Mobile.Controls
         public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public int PQSourceId { get; set; }
-        protected string _cityName = String.Empty;
+        protected string cityName = "India";
+        protected string cityMaskingName = string.Empty;
         protected int? cityId = null;
         public string header { get; set; }
 
@@ -26,16 +27,22 @@ namespace Bikewale.Mobile.Controls
         {
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = Convert.ToInt32(currentCityArea.CityId);
-            _cityName = currentCityArea.City;
+            cityName = currentCityArea.City;
             BindPopularUsedBikes();
         }
-
+        /// <summary>
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added cityMaskingName
+        /// </summary>
+        /// <returns></returns>
         private void BindPopularUsedBikes()
         {
             BindUsedBikesControl objUsed = new BindUsedBikesControl();
             objUsed.TotalRecords = TotalRecords;
             objUsed.CityId = cityId;
+
             objUsed.BindRepeater(rptPopularUsedBikes);
+            cityMaskingName = objUsed.cityMaskingName;
             this.FetchedRecordsCount = objUsed.FetchedRecordsCount;
         }
 
@@ -52,13 +59,17 @@ namespace Bikewale.Mobile.Controls
             }
             return url;
         }
-
+        /// <summary>
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- changed url to cityMaskingName
+        /// </summary>
+        /// <returns></returns>
         protected string FormatCompleteListUrl()
         {
             string url = String.Empty;
             if (cityId.HasValue)
             {
-                url = String.Format("/m/used/bikes-in-{0}/", _cityName);
+                url = String.Format("/m/used/bikes-in-{0}/", cityMaskingName);
             }
             else
             {
