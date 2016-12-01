@@ -20,6 +20,9 @@ namespace Bikewale.Mobile.Controls
         public string versionName { get; set; }
         public int? cityid { get; set; }
         public ushort TopCount { get; set; }
+        public Int64 SponsoredVersionId { get; set; }
+        public String FeaturedBikeLink { get; set; }
+
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
@@ -43,9 +46,10 @@ namespace Bikewale.Mobile.Controls
                 {
                     BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
                     objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-                    objAlt.SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
+                    SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
                     objSimilarBikes = objAlt.BindPopularCompareBikes(versionId.ToString(), TopCount);
                     fetchedCount = objAlt.FetchedRecordsCount;
+                    FeaturedBikeLink = objAlt.FeaturedBikeLink;
                 }
             }
             catch (Exception ex)

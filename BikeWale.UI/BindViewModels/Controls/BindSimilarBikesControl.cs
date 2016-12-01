@@ -56,7 +56,6 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (objSimilarBikes != null)
                     {
-                        FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
                         if (SponsoredVersionId > 0)
                         {
@@ -64,6 +63,8 @@ namespace Bikewale.BindViewModels.Controls
                             if (objFeaturedComparision != null)
                                 FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId2.ToString());
                         }
+
+                        FetchedRecordsCount = (uint)objSimilarBikes.Count();
                     }
 
 
@@ -80,7 +81,6 @@ namespace Bikewale.BindViewModels.Controls
 
         public Int64 CheckSponsoredBikeForAnyVersion(string versionList)
         {
-            Int64 featuredBikeId = -1;
             try
             {
 
@@ -88,7 +88,7 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IBikeCompare, BikeComparison>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    featuredBikeId = objCompare.GetFeaturedBike(versionList);
+                    SponsoredVersionId = objCompare.GetFeaturedBike(versionList);
                 }
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
 
-            return featuredBikeId;
+            return SponsoredVersionId;
         }
     }
 }

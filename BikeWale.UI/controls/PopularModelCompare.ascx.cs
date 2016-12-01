@@ -43,13 +43,9 @@ namespace Bikewale.Controls
             {
                 BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
                 objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-
                 SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
-                objAlt.SponsoredVersionId = SponsoredVersionId;
-
                 objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
                 fetchedCount = objAlt.FetchedRecordsCount;
-
                 FeaturedBikeLink = objAlt.FeaturedBikeLink;
 
             }
