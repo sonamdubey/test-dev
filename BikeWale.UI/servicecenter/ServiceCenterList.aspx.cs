@@ -38,7 +38,7 @@ namespace Bikewale.Service
         protected DealerCard ctrlDealerCard;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected CityEntityBase objCityEntityBase;
-
+        protected BrandCityPopUp ctrlBrandCity;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();

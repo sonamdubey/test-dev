@@ -436,7 +436,8 @@ a.action-btn:hover{text-decoration:none;}
 .btn-loader {background-color:#822821;}
 .btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
 #popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
-#divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
+#brandcityPopup .form-control, #brandcityPopup .chosen-container { border:none; }
+#divCityLoader, #divAreaLoader,#divBrandLoader, #divCitiesLoader { border:1px solid #ccc; border-radius:4px; }
 
 /* common properties */
 .leftfloat{float:left;}

@@ -37,7 +37,7 @@ namespace Bikewale.New
         protected UsedBikeWidget ctrlRecentUsedBikes;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
-
+        protected BrandCityPopUp ctrlBrandCity;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace Bikewale.New
         void InitializeComponent()
         {
             base.Load += new EventHandler(this.Page_Load);
-        }
+            }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,7 +80,7 @@ namespace Bikewale.New
             BindUserControls();
 
         }
-
+        
         private void BindUserControls()
         {
             ctrlPopoularBikeMake.makeId = (int)makeId;
@@ -99,7 +99,6 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.AdId = "1395986297721";
 
             ctrlLeadCapture.CityId = cityId;
-
             //ctrlLeadCapture.ModelId = modelId;
             //ctrlLeadCapture.AreaId = 0;
         }

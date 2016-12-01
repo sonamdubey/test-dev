@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -30,6 +31,7 @@
         var currentCityName = '<%= cityName %>';
         var pageUrl = '<%= pageUrl %>';
         var clientip = '<%= clientIP %>';
+        var requestType = 12;
     </script>
 
 </head>
@@ -69,7 +71,7 @@
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
                             <h1><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
-                        </div>
+                             </div>
                         <p class="font14 text-light-grey content-inner-block-20">
                             <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
                             For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
@@ -85,7 +87,10 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> </h2>
+                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> 
+                            <a href="javascript void()" id="brandSelect" ><span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </h2>
+                        
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
@@ -170,7 +175,8 @@
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+        <BW:BrandCity ID="ctrlBrandCity" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
@@ -195,7 +201,8 @@
                 };
                 dleadvm.setOptions(leadOptions);
             });
-        </script>
+           
+         </script>
     </form>
 </body>
 </html>
