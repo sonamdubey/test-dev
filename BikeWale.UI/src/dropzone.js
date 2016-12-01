@@ -737,12 +737,18 @@
             if (existingFallback = this.getExistingFallback()) {
                 return existingFallback;
             }
-            fieldsString = "<div class=\"dz-fallback\">";            
-            fieldsString += "<div>Icon Header</div>";
-            fieldsString += "<p class='font18 margin-bottom5 text-grey text-bold text-center'>Your current browser is outdated!</p>"
-            fieldsString += "<p class='font14 margin-bottom5 text-grey text-center'>" + this.getBrowserName() + " browser does not support photo upload functionality. Try upgrading to any of the following browsers</p>"
-            fieldsString += "<div><img src='http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/image-upload-support.png' ></img></div>"
-            fieldsString += "</div>"
+            fieldsString = "<div class=\"dz-fallback text-center\">";
+            fieldsString += "<span class='sell-bike-sprite no-support margin-bottom15'></span>";
+            fieldsString += "<p class='font18 margin-bottom5 text-bold'>Your current browser is outdated!</p>"
+            fieldsString += "<p class='font14 margin-bottom5 text-grey margin-bottom15'>" + this.getBrowserName() + " browser does not support photo upload functionality.<br />Try upgrading to any of the following browsers</p>"
+            fieldsString += "<ul id='browser-list'>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite chrome-icon'></span></div><p>Chrome 7+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite firefox-icon'></span></div><p>Firefox 4+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite opera-icon'></span></div><p>Opera 12+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite ie-icon'></span></div><p>IE 10+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite safari-icon'></span></div><p>Safari 6+</p></li>";
+            fieldsString += "</ul>";
+            fieldsString += "</div>";
             fields = Dropzone.createElement(fieldsString);
             
             return fields;
