@@ -26,8 +26,7 @@
 	    <asp:DropDownList ID="drpStatus" runat="server" Width="250px"/>
 	    <div style="margin-top:10px;">Comments if any:</div>
 	    <asp:TextBox TextMode="MultiLine" ID="txtComments" Rows="5" Columns="33" runat="server"	/>
-		   <div style="margin-top:10px;"><asp:button cssClass="action-btn text_white" ID="btnSave" onclientclick="javascript:form_Submit" text="Remove My Bike" runat="server" />
-		    <input class="action-btn text_white" type="button" value="Cancel" onclick="javascript:window.close()" />
+		   <div style="margin-top:10px;"><asp:button cssClass="action-btn text_white" ID="btnSave" onclientclick="javascript:form_Submit" text="Remove My Bike" runat="server" />		    
                </div> 
         <% } 
         else
