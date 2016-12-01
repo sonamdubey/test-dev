@@ -148,11 +148,17 @@ namespace Bikewale.New
                     if (Int16.TryParse(featuredModelId, out sponsoredModelId))
                     {
                         string sponsoredModelIds = Bikewale.Utility.BWConfiguration.Instance.SponsoredModelId;
-                        string[] modelArray = sponsoredModelIds.Split(',');
-                        if (modelArray.Contains(featuredModelId))
+                        if (!string.IsNullOrEmpty(sponsoredModelIds))
                         {
-                            isSponsored = true;
-                            knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(featuredModelId);
+                            string[] modelArray = sponsoredModelIds.Split(',');
+                            if (modelArray.Length > 0)
+                            {
+                                if (modelArray.Contains(featuredModelId))
+                                {
+                                    isSponsored = true;
+                                    knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(featuredModelId);
+                                }
+                            }
                         }
                     }
                 }
