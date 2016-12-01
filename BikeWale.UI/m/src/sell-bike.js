@@ -67,12 +67,7 @@ $(document).ready(function () {
 
     // set custom heading for date picker
     var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
-    manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');
-
-    /* set manufacturing date
-    $("#manufacturingDate").val('May 2016').data('Zebra_DatePicker');
-    vmSellBike.bikeDetails().manufacturingDate('May 2016');
-    */
+    manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');    
 
     Dropzone.autoDiscover = false;
 
@@ -259,6 +254,8 @@ var bikeDetails = function () {
     self.versionMaskingName = ko.observable('');
 
     self.makeChanged = function (data, event) {
+        
+        //bikePopup.showLoader()
         var element = $(event.currentTarget);
 
         self.modelName('');
@@ -272,7 +269,7 @@ var bikeDetails = function () {
         bikePopup.stageModel();
         bikePopup.scrollToHead();
 
-        if (self.makeName() != null) {
+        if (self.makeId()) {           
             $.ajax({
                 type: "Get",
                 async: false,
@@ -285,15 +282,12 @@ var bikeDetails = function () {
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-                    
+                    //bikePopup.hideLoader()
                 }
             });
         }
 
-        self.bikeStatus(false);
-
-        // beforesend - bikePopup.showLoader()
-        // complete - bikePopup.hideLoader()
+        self.bikeStatus(false);      
         
     };
 
@@ -310,7 +304,7 @@ var bikeDetails = function () {
         bikePopup.stageVersion();
         bikePopup.scrollToHead();
 
-        if (self.modelId() != null && self.modelId() != -1) {
+        if (self.modelId()){
             $.ajax({
                 type: "Get",
                 url: "/api/versionList/?requestType=3&modelId=" + self.modelId(),
@@ -338,7 +332,7 @@ var bikeDetails = function () {
 
         bikePopup.close();
 
-        if (self.versionId() != null && self.versionId() != -1) {
+        if (self.versionId()){
             $.ajax({
                 type: "Get",
                 url: "/api/version/" + self.versionId() + "/color/",
@@ -355,7 +349,7 @@ var bikeDetails = function () {
         }
     };   
 
-    self.bike = ko.computed(function () {
+    self.bike = ko.pureComputed(function () {
         if (self.bikeStatus()) {
             return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
         }
@@ -694,7 +688,7 @@ var personalDetails = function () {
                 "registrationPlace": bdetails.registeredCity(),
                 "color": bdetails.color(),
                 "colorId": colorId,
-                "sourceId": 1,
+                "sourceId": 2,
                 "status": 1,
                 "pageUrl": "used/sell",
                 "seller": {

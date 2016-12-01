@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Mobile.Used.Sell.Default" EnableViewState="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Mobile.Used.Sell.Default" EnableViewState="false" %>
 
 <!DOCTYPE html>
 <html>

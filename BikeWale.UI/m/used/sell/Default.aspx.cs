@@ -14,13 +14,17 @@ using System.Collections.Generic;
 
 namespace Bikewale.Mobile.Used.Sell
 {
+    /// <summary>
+    /// Created By : Sajal Gupta on 01/12/2016
+    /// Description : Class for sell bike mobile page.
+    /// </summary>
     public class Default : System.Web.UI.Page
     {
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
         protected List<CityEntityBase> objCityList = null;
         protected string userEmail = null, userName = null, userId = null;
-        
+
         /// <summary>
         /// Created By : Sajal Gupta on 29/11/2016
         /// Description : Function to be called on page load.
@@ -85,10 +89,14 @@ namespace Bikewale.Mobile.Used.Sell
         /// </summary>
         protected void BindCities()
         {
-            ICity _city = new CityRepository();
             try
             {
-                objCityList = _city.GetAllCities(EnumBikeType.All);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>();
+                    ICity cityRepository = container.Resolve<ICity>();
+                    objCityList = cityRepository.GetAllCities(EnumBikeType.All);
+                }
             }
             catch (Exception ex)
             {
