@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Mobile.Used.Sell.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.Mobile.Used.Sell.Default" EnableViewState="false" %>
 
 <!DOCTYPE html>
 <html>
@@ -6,7 +6,8 @@
     <%
     title = "Sell Bike | Sell Used Bike in India - BikeWale";
     description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
-    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";       
+    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
+    canonical = "https://www.bikewale.com/used/sell/";    
     %>
     
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
