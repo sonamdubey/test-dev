@@ -1,7 +1,9 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI;
 
 namespace Bikewale.Controls
@@ -15,14 +17,11 @@ namespace Bikewale.Controls
         public string versionId { get; set; }
         protected ICollection<SimilarCompareBikeEntity> objSimilarBikes = null;
         public string ModelName;
-        private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
         public int? cityid { get; set; }
-        public ushort TopCount
-        {
-            get { return _topCount; }
-            set { _topCount = value; }
-        }
+        public ushort TopCount { get; set; }
+        public Int64 SponsoredVersionId { get; set; }
+        public String FeaturedBikeLink { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -40,10 +39,25 @@ namespace Bikewale.Controls
         /// </summary>
         private void BindPopularCompareBikes()
         {
-            BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-            objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
-            fetchedCount = objAlt.FetchedRecordsCount;
+            try
+            {
+                BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
+                objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+
+                SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
+                objAlt.SponsoredVersionId = SponsoredVersionId;
+
+                objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
+                fetchedCount = objAlt.FetchedRecordsCount;
+
+                FeaturedBikeLink = objAlt.FeaturedBikeLink;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindPopularCompareBikes");
+                objErr.SendMail();
+            }
         }
     }
 }

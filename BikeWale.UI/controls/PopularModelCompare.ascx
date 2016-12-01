@@ -7,9 +7,11 @@
         <div class="jcarousel">
             <ul class="model-comparison-list">
                      <% foreach(var bike in  objSimilarBikes) { %>
-                        <li>
+                        <li style="position:relative">
                             <a href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>">
                                 <h3 class="text-black text-center"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
+                                <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span style="position:absolute;padding:5px;right:0;top:0; color:#bbb;">Sponsored</span>   <% } %>
+                                
                                 <div class="grid-6 alpha omega border-light-right">
                                     <div class="imageWrapper margin-bottom10">
                                         <div class="comparison-image">
@@ -27,6 +29,7 @@
                                     </div>
                                     <p class="text-light-grey margin-bottom5">Ex-showroom, <%= bike.City2  %></p>
                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price2.ToString())  %></span>
+                                     <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span data-href="<%= FeaturedBikeLink %>" id="sponsored-comparebike-link">Know more</span>   <% } %>
                                 </div>
                                 <div class="clear"></div>
                                 <div class="margin-top20 text-center">
@@ -46,4 +49,12 @@
         <a href="/comparebikes/">View more comparisons<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
+<script type="text/javascript">
+    $("#sponsored-comparebike-link").click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        window.open($(this).attr("data-href"), '_blank');
+        window.focus();
+    })
+</script>
 <% }  %>

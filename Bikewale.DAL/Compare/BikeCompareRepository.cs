@@ -405,7 +405,9 @@ namespace Bikewale.DAL.Compare
                                     HostUrl1 = Convert.ToString(reader["HostUrl1"]),
                                     HostUrl2 = Convert.ToString(reader["HostUrl2"]),
                                     City1 = Convert.ToString(reader["city1"]),
-                                    City2 = Convert.ToString(reader["city2"])
+                                    City2 = Convert.ToString(reader["city2"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"])
                                 });
                             }
                             reader.Close();

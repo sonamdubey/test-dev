@@ -11,6 +11,8 @@ namespace Bikewale.Entities.BikeData
         public string Make2 { get; set; }
         public string MakeMasking1 { get; set; }
         public string MakeMasking2 { get; set; }
+        public uint ModelId1 { get; set; }
+        public uint ModelId2 { get; set; }
         public string Model1 { get; set; }
         public string Model2 { get; set; }
         public string Version1 { get; set; }
@@ -22,7 +24,7 @@ namespace Bikewale.Entities.BikeData
         public string ModelMaskingName2 { get; set; }
         public int Price1 { get; set; }
         public int Price2 { get; set; }
-       
+
         public string OriginalImagePath1 { get; set; }
         public string OriginalImagePath2 { get; set; }
         public string HostUrl1 { get; set; }

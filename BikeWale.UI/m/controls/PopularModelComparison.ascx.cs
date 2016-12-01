@@ -1,7 +1,9 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -35,10 +37,23 @@ namespace Bikewale.Mobile.Controls
         /// </summary>
         private void BindPopularCompareBikes()
         {
-            BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-            objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-            objSimilarBikes = objAlt.BindPopularCompareBikes(versionId.ToString(), TopCount);
-            fetchedCount = objAlt.FetchedRecordsCount;
+            try
+            {
+                if (versionId > 0)
+                {
+                    BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
+                    objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+                    objAlt.SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
+                    objSimilarBikes = objAlt.BindPopularCompareBikes(versionId.ToString(), TopCount);
+                    fetchedCount = objAlt.FetchedRecordsCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindPopularCompareBikes");
+                objErr.SendMail();
+            }
+
         }
 
     }

@@ -21,7 +21,8 @@ namespace Bikewale.BindViewModels.Controls
     {
         public uint FetchedRecordsCount { get; set; }
         public int cityid { get; set; }
-        private Int64 SponsoredVersionId { get; set; }
+        public Int64 SponsoredVersionId { get; set; }
+        public String FeaturedBikeLink { get; set; }
 
 
         /// <summary>
@@ -43,8 +44,6 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     IBikeCompare objCompare = container.Resolve<IBikeCompare>();
 
-                    CheckSponsoredBikeForAnyVersion(versionList);
-
                     if (SponsoredVersionId > 0)
                     {
                         objSimilarBikes = objCompare.GetSimilarCompareBikeSponsored(versionList, count, cityid, (uint)SponsoredVersionId);
@@ -56,7 +55,17 @@ namespace Bikewale.BindViewModels.Controls
 
 
                     if (objSimilarBikes != null)
+                    {
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
+
+                        if (SponsoredVersionId > 0)
+                        {
+                            var objFeaturedComparision = objSimilarBikes.FirstOrDefault(f => f.VersionId2 == SponsoredVersionId.ToString());
+                            if (objFeaturedComparision != null)
+                                FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId2.ToString());
+                        }
+                    }
+
 
                 }
             }
@@ -69,16 +78,26 @@ namespace Bikewale.BindViewModels.Controls
             return objSimilarBikes;
         }
 
-        private void CheckSponsoredBikeForAnyVersion(string versionList)
+        public Int64 CheckSponsoredBikeForAnyVersion(string versionList)
         {
-
-            using (IUnityContainer container = new UnityContainer())
+            Int64 featuredBikeId = -1;
+            try
             {
-                container.RegisterType<IBikeCompare, BikeComparison>();
-                IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                SponsoredVersionId = objCompare.GetFeaturedBike(versionList);
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeCompare, BikeComparison>();
+                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
+                    featuredBikeId = objCompare.GetFeaturedBike(versionList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "CheckSponsoredBikeForAnyVersion");
+                objErr.SendMail();
             }
 
+            return featuredBikeId;
         }
     }
 }
