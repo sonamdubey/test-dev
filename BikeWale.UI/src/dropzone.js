@@ -626,7 +626,7 @@
               {
                   element: this.element,
                   events: {
-                      "dragstart": (function (_this) {
+                      "dragstart": (function (_this) {                          
                           return function (e) {
                               return _this.emit("dragstart", e);
                           };
@@ -749,7 +749,6 @@
         };
 
         Dropzone.prototype.getBrowserName = function () {
-            debugger;
             var nVer = navigator.appVersion;
             var nAgt = navigator.userAgent;
             var browserName = navigator.appName;
@@ -932,8 +931,7 @@
             var files, items;
             if (!e.dataTransfer) {
                 return;
-            }
-            this.emit("drop", e);
+            }            
             files = e.dataTransfer.files;
             this.emit("addedfiles", files);
             if (files.length) {
@@ -944,6 +942,7 @@
                     this.handleFiles(files);
                 }
             }
+            this.emit("drop", e);
         };
 
         Dropzone.prototype.paste = function (e) {
