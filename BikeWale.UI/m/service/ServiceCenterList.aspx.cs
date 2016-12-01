@@ -40,6 +40,8 @@ namespace Bikewale.Mobile.Service
         protected CityEntityBase objCityEntityBase;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected MMostPopularBikes ctrlPopoularBikeMake;
 
         protected override void OnInit(EventArgs e)
         {
@@ -70,7 +72,7 @@ namespace Bikewale.Mobile.Service
                     BindServiceCentersList();
                     GetCityNameByCityMaskingName(urlCityMaskingName);
 
-                    BindDealerCard();
+                    BindWidgets();
                 }
                 else
                 {
@@ -84,8 +86,10 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Created by : SAJAL GUPTA on 08-11-2016
         /// Description: Method to bind dealer card widget data.
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Used Bike and popular bike widget
         /// </summary>
-        private void BindDealerCard()
+        private void BindWidgets()
         {
             ctrlDealerCard.MakeId = makeId;
             ctrlDealerCard.makeMaskingName = makeMaskingName;
@@ -97,6 +101,18 @@ namespace Bikewale.Mobile.Service
             ctrlDealerCard.LeadSourceId = 16;
             ctrlDealerCard.DealerId = 0;
             ctrlDealerCard.isHeadingNeeded = false;
+
+            ctrlRecentUsedBikes.MakeId = makeId;
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.header = string.Format("Looking to buy used {0} bikes in {1}? Explore", makeName, cityName);
+            ctrlRecentUsedBikes.TopCount = 4;
+            ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = cityName;
+            ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
         }
 
         /// <summary>

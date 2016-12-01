@@ -57,7 +57,11 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
         }
-
+        /// <summary>
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added cityMaskingName
+        /// </summary>
+        /// <returns></returns>
         private void FetchPopularUsedBike(uint topCount, int? cityId)
         {
             try
@@ -74,6 +78,7 @@ namespace Bikewale.BindViewModels.Controls
                 if (popularUsedBikes != null)
                 {
                     FetchedRecordsCount = popularUsedBikes.Count();
+                    cityMaskingName = popularUsedBikes.FirstOrDefault().CityMaskingName;
                 }
 
             }

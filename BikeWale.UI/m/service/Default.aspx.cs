@@ -34,7 +34,6 @@ namespace Bikewale.Mobile.Service
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
         protected MMostPopularBikes ctrlMostPopularBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
-        protected int countWidgetFetch;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,7 +50,7 @@ namespace Bikewale.Mobile.Service
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityId = currentCityArea.CityId;
-            countWidgetFetch=(ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount ;
+
         }
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016

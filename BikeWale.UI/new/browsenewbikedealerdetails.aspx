@@ -80,7 +80,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">

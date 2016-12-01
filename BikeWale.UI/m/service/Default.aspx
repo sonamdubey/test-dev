@@ -103,7 +103,7 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
-        <%if (countWidgetFetch>0)
+        <%if (ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount > 0)
           {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->

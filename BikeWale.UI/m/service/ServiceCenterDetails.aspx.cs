@@ -43,7 +43,8 @@ namespace Bikewale.Mobile.Service
         protected LeadCaptureControl ctrlLeadCapture;
         protected ServiceCenterCompleteData objServiceCenterData = null;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
-
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected MMostPopularBikes ctrlPopoularBikeMake;
         protected ServiceCenterData centerList = null;
         protected override void OnInit(EventArgs e)
         {
@@ -95,7 +96,11 @@ namespace Bikewale.Mobile.Service
                 objErr.SendMail();
             }
         }
-
+        /// <summary>
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Used Bike and popular bike widget
+        /// </summary>
+        /// <returns></returns>
         private void BindControls()
         {
             ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
@@ -119,6 +124,18 @@ namespace Bikewale.Mobile.Service
 
             ctrlServiceSchedule.MakeId = makeId;
             ctrlServiceSchedule.MakeName = makeName;
+
+            ctrlRecentUsedBikes.MakeId = makeId;
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.header = string.Format("Looking to buy used {0} bikes in {1}? Explore", makeName, serviceCity);
+            ctrlRecentUsedBikes.TopCount = 4;
+            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeId = (int)makeId;
+            ctrlPopoularBikeMake.cityId = (int)cityId;
+            ctrlPopoularBikeMake.totalCount = 9;
+            ctrlPopoularBikeMake.cityname = serviceCity;
+            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+            ctrlPopoularBikeMake.makeName = makeName;
 
         }
 

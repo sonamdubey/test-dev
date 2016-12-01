@@ -27,7 +27,7 @@ namespace Bikewale.Controls
 
         public string modelMaskingName = string.Empty;
         public string cityMaskingName = string.Empty;
-        public string pageHeading = string.Empty;
+        public string pageHeading { get; set; }
 
         public bool isAd { get; set; }
         protected short masterGrid = 12;
@@ -73,7 +73,10 @@ namespace Bikewale.Controls
         /// <summary>
         /// Created By : Sajal Gupta on 15/09/2016
         /// Description : Function to bind used bikes for the makes/models.          
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added page heading null check if null add default heading
         /// </summary>
+        /// <returns></returns>
         protected void BindUsedBikes()
         {
             BindUsedBikesControl objUsed = new BindUsedBikesControl();
@@ -92,7 +95,8 @@ namespace Bikewale.Controls
                 }
                 FetchedRecordsCount = Convert.ToUInt16(objUsedBikes.Count());
             }
-            pageHeading = string.Format("Used {0} bikes in {1}", makeName, cityName);
+            if (string.IsNullOrEmpty(pageHeading))
+                pageHeading = string.Format("Used {0} bikes in {1}", makeName, cityName);
         }
     }
 }
