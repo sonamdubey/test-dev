@@ -3,7 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sell bikes</title>
+    <%
+    title = "Sell Bike | Sell Used Bike in India - BikeWale";
+    description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
+    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";       
+    %>
+    
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link href="/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
