@@ -1923,9 +1923,11 @@
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\components\article-next-prev.css" />
+    <Content Include="css\components\boundary-box.css" />
     <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
+    <Content Include="css\components\input-box.css" />
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
     <Content Include="css\content\details.css" />

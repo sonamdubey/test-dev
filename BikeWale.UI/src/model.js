@@ -711,3 +711,16 @@ $('.navigation').on('click', '.all-photos-target', function () {
     var target = $(this).find('a').attr('href');
     window.location = target;
 });
+
+$('#partner-dealer-panel').on('click', function () {
+    var panel = $(this);
+
+    if (!panel.hasClass('open')) {
+        panel.addClass('open');
+        panel.siblings('#moreDealersList').slideDown();
+    }
+    else {
+        panel.removeClass('open');
+        panel.siblings('#moreDealersList').slideUp();
+    }
+});
