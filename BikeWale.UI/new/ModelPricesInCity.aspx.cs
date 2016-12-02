@@ -52,7 +52,7 @@ namespace Bikewale.New
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         public DealerLocatorList states = null;
-
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -104,6 +104,16 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
+
+                ctrlServiceCenterCard.MakeId = makeId;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
                 BindAlternativeBikeControl();
                 BindDealers();
                 ColorCount();

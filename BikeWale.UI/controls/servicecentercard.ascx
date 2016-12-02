@@ -3,7 +3,7 @@
 <div class="container section-bottom-margin">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-bottom20">
-                            <h2 class="section-h2-title padding-15-20-20">Other <%=makeName %> service centers in Mumbai</h2>
+                            <h2 class="section-h2-title padding-15-20-20"><%=widgetTitle%></h2>
                             <ul class="bw-horizontal-cards">
                                  <% foreach (var serviceCenter in ServiceCenteList)
                                     { %>

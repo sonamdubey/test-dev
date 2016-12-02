@@ -40,6 +40,7 @@ namespace Bikewale.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected DealerDetailEntity dealerObj;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -103,6 +104,14 @@ namespace Bikewale.New
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
             }
             catch (Exception ex)
             {

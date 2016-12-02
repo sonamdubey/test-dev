@@ -46,6 +46,7 @@ namespace Bikewale.Mobile
         protected int makeId;
         protected string cityMaskingName = String.Empty;
         protected MMostPopularBikes ctrlPopoularBikeMake;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -74,6 +75,14 @@ namespace Bikewale.Mobile
                 ctrlPopoularBikeMake.cityname = dealerCity;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.cityName = dealerCity;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
             }
             catch (Exception ex)
             {

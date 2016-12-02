@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -175,6 +176,10 @@
         <% } %>
 
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+         <% if (ctrlServiceCenterCard.showWidget)
+                   { %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                <% }  %>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
