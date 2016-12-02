@@ -2,7 +2,6 @@
 <%--<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
 <%@ Register TagPrefix="TA" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
 <%@ Register TagPrefix="CM" TagName="ComparisonMin" Src="/controls/comparisonmin.ascx" %>--%>
-<%@ Register TagPrefix="FB" TagName="FeaturedBike" Src="/controls/featuredbike.ascx" %>
 <%@ Register TagPrefix="UB" TagName="UpcomingBikesMin" Src="/controls/UpcomingBikesMin.ascx" %>
 <%@ Register TagPrefix="UL" TagName="TopUsedListedBike" Src="/controls/TopUsedListedBike.ascx"%>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
@@ -145,9 +144,6 @@
                 <li id="liroad-test">Expert Reviews</li>          
             </ul>
         </div>      
-        <div class="padding-top10" id="featured-bike">              
-            <FB:FeaturedBike runat="server" ID="FeaturedBike" TopRecords="4" ControlWidth="grid_3" ImageWidth="196px;"/>
-        </div>
         <div class="padding-top10 hide" id="upcoming-bike">      
             <UB:UpcomingBikesMin runat="server" ID="UpcomingBikesMin" TopRecords="4" ControlWidth="grid_3" ImageWidth="196px;"/>        
         </div>  
