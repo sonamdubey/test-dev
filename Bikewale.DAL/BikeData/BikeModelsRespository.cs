@@ -1335,7 +1335,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeVersionsRepository<T, U>.GetModelSpecifications()");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
                 objErr.SendMail();
             }
             return objMinspecs;
