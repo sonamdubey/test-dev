@@ -68,7 +68,7 @@ namespace Bikewale.NoPhotoListingsCommunication
                 foreach (var CustomerDetails in objTwoDaySMSList)
                 {
 
-                    string editUrl = string.Format("{0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, CustomerDetails.InquiryId);
+                    string editUrl = string.Format("{0}/used/sell/?id={1}&hash=uploadphoto", Utility.BWConfiguration.Instance.BwHostUrl, CustomerDetails.InquiryId);
                     if (!String.IsNullOrEmpty(editUrl))
                     {
                         response = new UrlShortner().GetShortUrl(editUrl);
