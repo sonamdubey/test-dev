@@ -81,7 +81,7 @@
                                     <td colspan="2" class="padding-bottom15 border-divider"></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-bold">On-road price in <%= cityName %></td>
+                                    <td class="text-bold"><%= modelName %> On-road price in <%= cityName %></td>
                                     <td align="right"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></td>
                                 </tr>
                             </table>
