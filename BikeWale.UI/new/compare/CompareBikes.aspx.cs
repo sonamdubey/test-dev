@@ -32,7 +32,7 @@ namespace Bikewale.New
         protected AddBikeToCompare addBike;
         DataSet ds = null;
         protected string versions = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
-            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty;
+            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false, isSponsored = false;
@@ -147,12 +147,19 @@ namespace Bikewale.New
                     string featuredModelId = ds.Tables[0].Rows[count - 1]["ModelId"].ToString();
                     if (Int16.TryParse(featuredModelId, out sponsoredModelId))
                     {
+                        featuredBikeName = string.Format("{0} {1}", ds.Tables[0].Rows[count - 1]["Make"], ds.Tables[0].Rows[count - 1]["Model"]);
                         string sponsoredModelIds = Bikewale.Utility.BWConfiguration.Instance.SponsoredModelId;
-                        string[] modelArray = sponsoredModelIds.Split(',');
-                        if (modelArray.Contains(featuredModelId))
+                        if (!string.IsNullOrEmpty(sponsoredModelIds))
                         {
-                            isSponsored = true;
-                            knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(featuredModelId);
+                            string[] modelArray = sponsoredModelIds.Split(',');
+                            if (modelArray.Length > 0)
+                            {
+                                if (modelArray.Contains(featuredModelId))
+                                {
+                                    isSponsored = true;
+                                    knowMoreHref = Bikewale.Utility.SponsoredCampaigns.FetchValue(featuredModelId);
+                                }
+                            }
                         }
                     }
                 }
