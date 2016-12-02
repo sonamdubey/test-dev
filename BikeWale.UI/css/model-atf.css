@@ -2,6 +2,16 @@
 .padding-14-20 {
     padding: 14px 20px
 }
+.text-x-light {
+    color: #a2a2a2;
+}
+.vertical-top {
+    display: inline-block;
+    vertical-align: top;
+}
+.margin-bottom30 {
+    margin-bottom: 30px;
+}
 
 /* rating-review */
 .rating-review-content {
@@ -57,6 +67,78 @@
 }
 #key-specs-list li:first-child:before{
     border-left: 0;
+}
+
+.get-offers-main-btn {
+    width: 230px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* dealer */
+.pos-top2 { top:2px; }
+.border-light-top { border-top: 1px solid #f1f1f1; }
+
+/*dealership*/
+.dealership-benefit-list li { width:49%; margin-bottom:20px; }
+.dealership-benefit-list .benefit-list-title { width:80%; }
+
+#booking-benefits-list {
+    margin-left: 17px;
+}
+#booking-benefits-list li {
+    list-style: disc;
+    width: 33%;
+    float: left;
+}
+.book-now-btn, .assistance-submit-btn {
+    width: 188px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* assistance-input-box */
+.assistance-input-box {
+    width: 220px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.assistance-submit-btn {
+    position: relative;
+    top: -5px;
+}
+
+/* more partner-dealer-panel */
+#moreDealersList {
+    display: none;
+}
+#moreDealersList li {
+    min-height: 211px;
+}
+
+#moreDealersList .top-block-target {
+    padding: 17px 20px 0 20px;
+    display: block;
+}
+
+#moreDealersList .top-block-target:hover {
+    text-decoration: none;
+}
+
+#moreDealersList .bottom-block-button {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.details-column {
+    width: 92%
+}
+
+.partner-dealer-offers-btn {
+    font-size: 14px;
+    width: 194px;
+    padding: 6px 0;
 }
 
 #modelDetailsContainer .model-details-wrapper { width:522px; margin-left:20px; }
@@ -121,21 +203,6 @@
 .all-photos-target { background: #f5f5f5; text-align:center; display: table; border: 1px solid #e2e2e2; }
 .all-photos-target a { display: table-cell; vertical-align: middle; }
 
-/*dealership*/
-.dealership-benefit-list li { width:290px; color:#82888b; display:inline-block; vertical-align:middle; margin-top:10px; }
-.dealership-benefit-list.dealer-two-offers li {width:440px;}
-.dealership-benefit-list.f-two-offers .benefit-list-title {width:400px;}
-.dealership-benefit-list .benefit-list-image, .dealership-benefit-list .benefit-list-title { display:inline-block; vertical-align:middle; }
-.dealership-benefit-list .benefit-list-title { width:255px; padding-right:10px; padding-left:10px; }
-.form-control-username { width:270px; }
-.form-control-email-mobile { width:188px; }
-.btn.btn-teal { padding:8px 64px; }
-#buyingAssistance .errorText, #buyingAssistance .errorIcon { display:none; }
-.less-dealers-link { display:none; }
-#moreDealersList { display:none; padding-right:20px; padding-left:20px; overflow:hidden; }
-#moreDealersList li { padding-top:15px; padding-bottom:15px; border-bottom:1px solid #f1f1f1; }
-#moreDealersList a:hover { text-decoration:none; }
-
 /* model sprite classes */
 .model-sprite { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite-new.png?v=1Dec2016) no-repeat; display:inline-block;}
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
@@ -160,6 +227,54 @@
 .weight-sm {
     background-position: -101px -78px;
 }
+.partner-dealer {
+    width: 32px;
+    height: 34px;
+    background-position: 0 -72px;
+}
+.plus-icon {
+    width: 14px;
+    height: 14px;
+    background-position: -150px -43px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.open .plus-icon {
+    background-position: -150px -57px;
+}
+
+.dealership-loc-icon,.phone-black-icon {
+    width: 10px;
+    position: relative;
+    margin-right: 5px
+}
+
+.dealership-loc-icon {
+    height: 12px;
+    background-position: -52px -469px;
+    top: 4px
+}
+
+.phone-black-icon {
+    height: 10px;
+    background-position: -73px -444px;
+    top: 5px
+}
+
+.offers-sm-box {
+    width: 16px;
+    height: 16px;
+    background-position: -217px -242px;
+    position: relative;
+    top: 1px;
+}
+
+.phone-md {
+    width: 12px;
+    height: 12px;
+    background-position: -217px -263px;
+}
 
 .benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
@@ -177,7 +292,6 @@
 .text-blue { color:#0288d1; }
 .border-light { border:1px solid #e2e2e2; }
 .border-light-bottom { border-bottom:1px solid #f1f1f1; }
-.pos-top2 { top:2px; }
 
 #leadCapturePopup, #otpPopup { display:none;}
 
