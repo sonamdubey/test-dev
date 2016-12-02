@@ -154,6 +154,8 @@ namespace BikWale.Users
         private void RedirectPath()
         {
             string returnUrl = Request.QueryString["ReturnUrl"];
+            if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                returnUrl = returnUrl.Replace(Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, "");
             if (IsLocalUrl(returnUrl))
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
