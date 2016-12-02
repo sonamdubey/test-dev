@@ -275,7 +275,7 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
                     }
                 }
                 summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
