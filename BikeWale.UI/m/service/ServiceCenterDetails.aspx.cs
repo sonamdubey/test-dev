@@ -129,7 +129,7 @@ namespace Bikewale.Mobile.Service
 
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.header = string.Format("Looking to buy used {0} bikes in {1}? Explore", makeName, serviceCity);
+                ctrlRecentUsedBikes.header = string.Format("Explore popular used {0} bikes in {1}", makeName, serviceCity);
                 ctrlRecentUsedBikes.TopCount = 4;
                 ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeId = (int)makeId;
