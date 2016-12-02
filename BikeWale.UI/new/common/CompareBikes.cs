@@ -1,5 +1,4 @@
 using Bikewale.Common;
-using Bikewale.DAL.Compare;
 using Bikewale.Interfaces.Compare;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
@@ -18,6 +17,10 @@ using System.Web.UI.HtmlControls;
 
 namespace Bikewale.New
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : REmoved unused methods  and modified getfeatured bike
+    /// </summary>
     public class CompareBikes
     {
         //used for writing the debug messages
@@ -62,7 +65,8 @@ namespace Bikewale.New
 
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To get sponsored bike from BAL layer
         /// </summary>
         /// <param name="versions"></param>
         /// <returns></returns>
@@ -82,7 +86,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "GetFeaturedBike");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetFeaturedBike_{1}", HttpContext.Current.Request.ServerVariables["URL"], versions));
                 objErr.SendMail();
             }
 

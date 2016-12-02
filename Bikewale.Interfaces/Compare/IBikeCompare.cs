@@ -10,6 +10,8 @@ namespace Bikewale.Interfaces.Compare
     /// Desc       : Added GetSimilarCompareBikes functions
     /// Modified by :Subodh Jain on 21 oct 2016
     /// Desc : Added cityid as parameter
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for similar comapre bikes and sponsored comparision bikes 
     /// </summary>
     public interface IBikeCompare
     {

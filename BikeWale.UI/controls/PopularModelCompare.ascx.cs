@@ -11,6 +11,8 @@ namespace Bikewale.Controls
     /// <summary>
     /// Created by:-Subodh Jain on 12 sep 2016
     /// Description :- Compare popular similar bikes on model page
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : To check for sponsord bike for version and added variables for the same.REmoved repeater logic and dind data using list object
     /// </summary>
     public class PopularModelCompare : UserControl
     {
@@ -36,6 +38,8 @@ namespace Bikewale.Controls
         /// <summary>
         /// Created by : Subodh Jain 12 sep 2016
         /// Desc       : To bind popular compare  bikes for model page
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To check for sponsord bike for version 
         /// </summary>
         private void BindPopularCompareBikes()
         {

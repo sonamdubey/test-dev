@@ -5,6 +5,8 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Created by : Sangram Nandkhile on 11 May 2016
     /// Desc       : Entity to hold make, model and masking Name of the links shown under compare bike links
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added modelid1 and modelid2 for sponsored comparions
     /// </summary>
     [Serializable]
     public class SimilarCompareBikeEntity

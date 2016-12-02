@@ -9,6 +9,8 @@ namespace Bikewale.Interfaces.Compare
     /// Description : Interface to define Comapre Bike Cache.
     /// Modified by :   Sumit Kate on 22 Jan 2016
     /// Description :   Added new function
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for comparision bikes comparisions
     /// </summary>
     public interface IBikeCompareCacheRepository
     {
@@ -16,6 +18,6 @@ namespace Bikewale.Interfaces.Compare
         Entities.Compare.BikeCompareEntity DoCompare(string versions);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
-        
+
     }
 }

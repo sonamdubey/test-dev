@@ -89,7 +89,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetSimilarCompareBikes");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
                 objErr.SendMail();
             }
             return compareEntity;
@@ -115,7 +115,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.GetSimilarCompareBikeSponsored");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
                 objErr.SendMail();
             }
             return compareEntity;

@@ -10,6 +10,8 @@ namespace Bikewale.Mobile.Controls
     /// <summary>
     /// Created by : Sajal Gupta on 12/09/2016
     /// Desc       : View Model to bind and pass repeater data to control
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : To check for sponsord bike for version and added variables for the same.REmoved repeater logic and dind data using list object
     /// </summary>
     public class PopularModelComparison : System.Web.UI.UserControl
     {
@@ -37,6 +39,8 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created by : Sajal Gupta on 12/09/2016
         /// Desc       : To bind similar bikes
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To check for sponsord bike for version 
         /// </summary>
         private void BindPopularCompareBikes()
         {

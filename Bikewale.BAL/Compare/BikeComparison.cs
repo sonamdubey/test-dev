@@ -13,6 +13,10 @@ using System.Web;
 
 namespace Bikewale.BAL.Compare
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for featured bike and sponsored bike comparisions
+    /// </summary>
     public class BikeComparison : IBikeCompare
     {
         private readonly IBikeCompare _objCompare = null;
@@ -898,7 +902,8 @@ namespace Bikewale.BAL.Compare
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : CAll DAL Layer
         /// </summary>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -908,7 +913,8 @@ namespace Bikewale.BAL.Compare
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : BAL layer to similar cache comaprisions bikes                  
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
@@ -921,7 +927,8 @@ namespace Bikewale.BAL.Compare
 
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : BAL layer to similar cache comaprisions bikes with sponsored comparision 
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>

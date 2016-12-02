@@ -11,7 +11,9 @@ namespace Bikewale.Mobile.Controls
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016
-    /// Desc       : Created control to show similar Bike links below compare bikes 
+    /// Desc       : Created control to show similar Bike links below compare bikes
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Removed repeater logic and dind data using list object
     /// </summary>
 
     public class SimilarCompareBikes : System.Web.UI.UserControl
@@ -42,13 +44,15 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created by : Sangram Nandkhile on 12 May 2016
         /// Desc       : To bind similar bikes
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : MOved value into object of similar bikes
         /// </summary>
         private void BindSimilarCompareBikes()
         {
-            BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
 
             try
             {
+                BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
                 objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
                 fetchedCount = objAlt.FetchedRecordsCount;
 

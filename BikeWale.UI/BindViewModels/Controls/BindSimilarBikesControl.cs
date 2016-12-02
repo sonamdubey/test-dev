@@ -19,6 +19,8 @@ namespace Bikewale.BindViewModels.Controls
     /// Desc       : View Model to bind and pass repeater data to control
     /// Modified by :Subodh Jain on 21 oct 2016
     /// Desc : Added cityid as parameter
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Removed unused methods and merged methods related to similar compare bikes,Added check to handle sponsored bikes
     /// </summary>
     public class BindSimilarCompareBikesControl
     {
@@ -31,6 +33,8 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Created by:-Subodh Jain 12 sep 2016
         /// Description :- For comparison of popular bikes at model page
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To check for sponsord bike for version and if sponsored use another cache method
         /// </summary>
         /// <param name="rptPopularCompareBikes"></param>
         /// <param name="versionList"></param>
@@ -48,7 +52,6 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
-                    //var _objCompare = container.Resolve<IBikeCompare>();
                     var objCompare = container.Resolve<IBikeCompareCacheRepository>();
 
                     if (SponsoredVersionId > 0)
@@ -79,13 +82,19 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_BindPopularCompareBikes_{1}_Cnt_{2}", HttpContext.Current.Request.ServerVariables["URL"], versionList, count));
                 objErr.SendMail();
             }
 
             return objSimilarBikes;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To get fetaured bike versionId
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <returns></returns>
         public Int64 CheckSponsoredBikeForAnyVersion(string versionList)
         {
             try
@@ -100,7 +109,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "CheckSponsoredBikeForAnyVersion");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_CheckSponsoredBikeForAnyVersion_{1}", HttpContext.Current.Request.ServerVariables["URL"], versionList));
                 objErr.SendMail();
             }
 

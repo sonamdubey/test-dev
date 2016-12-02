@@ -14,6 +14,10 @@ using System.Web;
 
 namespace Bikewale.DAL.Compare
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for featured bike and sponsored bike comparisions
+    /// </summary>
     public class BikeCompareRepository : IBikeCompare
     {
         public BikeCompareEntity DoCompare(string versions)
@@ -300,6 +304,8 @@ namespace Bikewale.DAL.Compare
         /// Created by: Sangram Nandkhile on 11 May 2016
         /// Modified by :Subodh Jain on 21 oct 2016
         /// Desc : Added cityid as parameter
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : DAL layer to similar comaprisions bikes changed topcount to ushort  
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
@@ -354,7 +360,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "GetSimilarCompareBikes");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
                 objErr.SendMail();
             }
 
@@ -363,7 +369,8 @@ namespace Bikewale.DAL.Compare
 
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : DAL layer to similar comaprisions bikes with sponsored comparision 
         /// </summary>
         /// <param name="versionList"></param>
         /// <param name="topCount"></param>
@@ -422,14 +429,9 @@ namespace Bikewale.DAL.Compare
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikeSponsored_{0}_Cnt_{1}_SP_{2}_City_{3}", versionList, topCount, sponsoredVersionId, cityid));
                 objErr.SendMail();
             }
 
