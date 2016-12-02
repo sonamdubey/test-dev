@@ -1,10 +1,12 @@
 ﻿
+using System;
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 11 May 2016
     /// Desc       : Entity to hold make, model and masking Name of the links shown under compare bike links
     /// </summary>
+    [Serializable]
     public class SimilarCompareBikeEntity
     {
         public string Make1 { get; set; }

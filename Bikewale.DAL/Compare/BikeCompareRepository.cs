@@ -362,7 +362,14 @@ namespace Bikewale.DAL.Compare
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <param name="sponsoredVersionId"></param>
+        /// <returns></returns>
         public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId)
         {
             ICollection<SimilarCompareBikeEntity> similarBikeList = null;

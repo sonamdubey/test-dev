@@ -897,17 +897,37 @@ namespace Bikewale.BAL.Compare
             return compareEntity;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
         public IEnumerable<Entities.Compare.TopBikeCompareBase> CompareList(uint topCount)
         {
             return _objCompare.CompareList(topCount);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <returns></returns>
         public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid)
         {
             return _objCompare.GetSimilarCompareBikes(versionList, topCount, cityid);
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <param name="sponsoredVersionId"></param>
+        /// <returns></returns>
         public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId)
         {
             return _objCompare.GetSimilarCompareBikeSponsored(versionList, topCount, cityid, sponsoredVersionId);
