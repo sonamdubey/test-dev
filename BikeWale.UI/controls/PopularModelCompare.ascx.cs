@@ -45,12 +45,15 @@ namespace Bikewale.Controls
         {
             try
             {
-                BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
-                objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-                SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
-                objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
-                fetchedCount = objAlt.FetchedRecordsCount;
-                FeaturedBikeLink = objAlt.FeaturedBikeLink;
+                if (!string.IsNullOrEmpty(versionId))
+                {
+                    BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
+                    objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
+                    SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
+                    objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
+                    fetchedCount = objAlt.FetchedRecordsCount;
+                    FeaturedBikeLink = objAlt.FeaturedBikeLink;
+                }
 
             }
             catch (Exception ex)
