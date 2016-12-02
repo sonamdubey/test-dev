@@ -56,7 +56,7 @@ namespace Bikewale.Mobile.New
         protected PQOnRoadPrice pqOnRoad;
         protected UsedBikes ctrlRecentUsedBikes;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty;
         protected String clientIP = CommonOpn.GetClientIP();
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
         //Varible to Hide or show controlers
@@ -84,7 +84,7 @@ namespace Bikewale.Mobile.New
         protected string hide = "";
         #region Subscription model variables
         protected ModelPageVM viewModel = null;
-
+        protected int colorCount;
         #endregion Subscription model ends
         protected string pgDescription = string.Empty;
         private StringBuilder colorStr = new StringBuilder();
@@ -171,7 +171,7 @@ namespace Bikewale.Mobile.New
                     TotalUsedBikes();
                     BindColorString();
                     CreateMetas();
-
+                    BindDescription();
                     ctrlTopCityPrices.TopCount = 4;
                 }
             }
@@ -182,6 +182,40 @@ namespace Bikewale.Mobile.New
             }
 
         }
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- To bind Description on model page
+        /// </summary>
+        private void BindDescription()
+        {
+            try
+            {
+                string versionDescirption = versionCount > 1 ? string.Format(" and is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
+                string specsDescirption = string.Empty;
+                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+
+                if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
+                {
+                    if ((modelPage.ModelVersionSpecs.TopSpeed > 0 && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph. ", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
+                    else if (modelPage.ModelVersionSpecs.TopSpeed == 0)
+                    {
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall);
+                    }
+                    else
+                    {
+                        specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
+                    }
+                }
+                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeModels.BindDescription");
+                objErr.SendMail();
+            }
+        }
+
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- To get total number of used bikes
@@ -1086,7 +1120,7 @@ namespace Bikewale.Mobile.New
             {
                 if (modelPage != null && modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                 {
-                    int colorCount = modelPage.ModelColors.Count();
+                    colorCount = modelPage.ModelColors.Count();
                     string lastColor = modelPage.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {

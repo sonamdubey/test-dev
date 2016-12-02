@@ -126,6 +126,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
+                        <td>
+                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric req width300" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td colspan="2">
                             <asp:button id="btnUpdate" onclientclick="return ValidateForm();" text="Save" runat="server" cssclass="padding10" />
                         </td>

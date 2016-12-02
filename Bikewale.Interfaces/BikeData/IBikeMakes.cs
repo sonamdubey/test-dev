@@ -19,9 +19,9 @@ namespace Bikewale.Interfaces.BikeData
     public interface IBikeMakes<T, U> : IRepository<T, U>
     {
         List<BikeMakeEntityBase> GetMakesByType(EnumBikeType requestType);
-        List<BikeModelsListEntity> GetModelsList(U makeId);
         BikeDescriptionEntity GetMakeDescription(U makeId);
         BikeMakeEntityBase GetMakeDetails(string makeId);
+        BikeMakeEntityBase GetMakeDetails(uint makeId);
         IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes();
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
         IEnumerable<BikeMakeModelBase> GetAllMakeModels();

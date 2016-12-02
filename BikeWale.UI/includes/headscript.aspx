@@ -36,9 +36,6 @@
 <%if(!String.IsNullOrEmpty(canonical)) { %><meta property="og:url" content="<%=canonical %>" /> <% } %>
 <meta property="og:image" content = "<%= string.IsNullOrEmpty(ogImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : ogImage %>" />
 <% } %>
-
-
-
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
     var ga_pg_id = '0';

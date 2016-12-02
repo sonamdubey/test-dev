@@ -104,7 +104,7 @@
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-bottom25">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View more brands</a>
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
                         </div>
                         <%} %>
                     </div>

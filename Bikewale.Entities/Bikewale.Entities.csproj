@@ -200,7 +200,6 @@
     <Compile Include="EditCMS\Articles\Image.cs" />
     <Compile Include="EditCMS\Articles\Page.cs" />
     <Compile Include="EditCMS\Articles\VehicleTag.cs" />
-    <Compile Include="EditCMS\Photos\BikeMakeEntityBase.cs" />
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
@@ -280,6 +279,7 @@
     <Compile Include="Used\BikePhoto.cs" />
     <Compile Include="Used\BikeSpecifications.cs" />
     <Compile Include="Used\ClassifiedInquiryDetails.cs" />
+    <Compile Include="Used\CustomerListingDetails.cs" />
     <Compile Include="Used\ImageCategories.cs" />
     <Compile Include="Used\InputFilters.cs" />
     <Compile Include="Used\ClassifiedInquiryDetailsMin.cs" />

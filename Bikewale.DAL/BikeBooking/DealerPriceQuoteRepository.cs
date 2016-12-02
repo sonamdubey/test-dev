@@ -5,6 +5,7 @@ using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace Bikewale.DAL.BikeBooking
         /// Summary :  to save customer detail in newbikedealerpricequote table
         /// Modified By : Sadhana Upadhyay on 29 Dec 2015
         /// Summary : To save utmz, utma, LeadSourceId, deviceId
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Removed unused function UpdateAppointmentDate
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -208,52 +211,6 @@ namespace Bikewale.DAL.BikeBooking
             return isSuccess;
         }
 
-# if unused
-        /// <summary>
-        /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// Method to shedule appointment to dealer
-        /// </summary>
-        /// <param name="pqId"></param>
-        /// <param name="date"></param>
-        /// <returns></returns>
-        public bool UpdateAppointmentDate(uint pqId, DateTime date)
-        {
-            bool isSuccess = false;
-
-           
-
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "BookAppointmentDate";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                    cmd.Parameters.Add("@appointmentDate", SqlDbType.DateTime).Value = date;
-
-                    
-                    isSuccess = db.UpdateQry(cmd);
-                }
-            }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdateAppointmentDate sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                // isSuccess = false;
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("UpdateAppointmentDate ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                // isSuccess = false;
-            }
-
-            return isSuccess;
-        }
-#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
@@ -583,7 +540,7 @@ namespace Bikewale.DAL.BikeBooking
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    isNotified = Convert.ToBoolean(cmd.Parameters["par_isdealernotified"].Value);
+                    isNotified = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isdealernotified"].Value);
                 }
             }
             catch (SqlException sqEx)
@@ -629,13 +586,6 @@ namespace Bikewale.DAL.BikeBooking
 
                     isDealerAreaAvailable = Convert.ToBoolean(cmd.Parameters["par_isdealerpriceavailable"].Value);
                 }
-            }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("IsDealerPriceAvailable sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isDealerAreaAvailable = false;
             }
             catch (Exception ex)
             {
@@ -1113,6 +1063,82 @@ namespace Bikewale.DAL.BikeBooking
         public DealerInfo IsDealerExists(uint versionId, uint areaId)
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To update dealer daily limit count  
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="abInquiryId"></param>
+        public bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId)
+        {
+            bool isUpdateDealerCount = false;
+            try
+            {
+
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatedealerdailyleadcount";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int32, abInquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isupdatedealercount", DbType.Boolean, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    isUpdateDealerCount = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isupdatedealercount"].Value);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
+                objErr.SendMail();
+            }
+
+            return isUpdateDealerCount;
+
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 29th Nov 2016
+        /// Description : To check dealer daily limit count exceeds or not for campaign
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public bool IsDealerDailyLeadLimitExceeds(uint campaignId)
+        {
+            bool islimitexceeds = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "isdealerdailyleadlimitexceeds";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_islimitexceeds", DbType.Boolean, ParameterDirection.Output));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+
+                    islimitexceeds = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_islimitexceeds"].Value);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.IsDealerDailyLeadLimitExceeds");
+                objErr.SendMail();
+            }
+
+            return islimitexceeds;
+
         }
 
     }   //End of class

@@ -317,7 +317,9 @@
     <Compile Include="common\MailerAds.cs" />
     <Compile Include="common\Mails.cs" />
     <Compile Include="common\Mails\ClassifiedMailContent.cs" />
+    <Compile Include="common\MakeHelper.cs" />
     <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ModelHelper.cs" />
     <Compile Include="common\ModelVersionDescription.cs" />
     <Compile Include="common\PriceQuoteQuerySting.cs" />
     <Compile Include="common\RegisterCustomer.cs" />
@@ -735,6 +737,10 @@
     </Compile>
     <Compile Include="mybikewale\RemoveFromListing.aspx.cs">
       <DependentUpon>RemoveFromListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mybikewale\repostad.aspx.cs">
+      <DependentUpon>repostad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\bikebooking\cancellation.aspx.cs">
@@ -2363,6 +2369,7 @@
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
     <Content Include="mybikewale\RemoveFromListing.aspx" />
+    <Content Include="mybikewale\repostad.aspx" />
     <Content Include="m\advertisewithus.aspx" />
     <Content Include="m\bikebooking\cancellation.aspx" />
     <Content Include="m\bikebooking\Default.aspx" />

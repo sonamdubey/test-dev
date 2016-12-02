@@ -297,7 +297,7 @@
             <%}
               else
               { %>
-            <div class="font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no dealers nearby</div>
+            <div class="font14 text-light-grey border-solid padding-top20 padding-right10 padding-bottom20 padding-left10">Sorry, there are no partner dealers nearby</div>
             <%} %>
             <%if (isSecondaryDealer)
               {%>

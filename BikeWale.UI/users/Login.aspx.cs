@@ -29,6 +29,10 @@ namespace BikWale.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
+
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+            dd.DetectDevice();
+
             if (!IsPostBack)
             {
                 if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
@@ -150,8 +154,14 @@ namespace BikWale.Users
         private void RedirectPath()
         {
             string returnUrl = Request.QueryString["ReturnUrl"];
+            if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                returnUrl = returnUrl.Replace(Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, "");
             if (IsLocalUrl(returnUrl))
             {
+                if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                {
+                    returnUrl = string.Format("{0}#{1}", returnUrl, Request.QueryString["hash"]);
+                }
                 Response.Redirect(returnUrl, false);
             }
             else
