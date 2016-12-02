@@ -66,12 +66,21 @@ namespace Bikewale.Mobile
         /// </summary>
         private void BindUserControl()
         {
-            ctrlPopoularBikeMake.makeId = makeId;
-            ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = dealerCity;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
+            try
+            {
+                ctrlPopoularBikeMake.makeId = makeId;
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = dealerCity;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerDetails.BindUserControl");
+                objErr.SendMail();
+            }
+
         }
 
         #region Get Dealer Details

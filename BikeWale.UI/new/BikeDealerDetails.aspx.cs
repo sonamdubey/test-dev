@@ -94,12 +94,21 @@ namespace Bikewale.New
         /// </summary>
         private void BindUserControl()
         {
-            ctrlPopoularBikeMake.makeId = Convert.ToInt32(makeId);
-            ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
+
+            try
+            {
+                ctrlPopoularBikeMake.makeId = Convert.ToInt32(makeId);
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeDealerDetails.BindUserControl");
+                objErr.SendMail();
+            }
 
         }
 
