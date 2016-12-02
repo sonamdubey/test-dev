@@ -3,16 +3,29 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
+using Grpc.CMS;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.BAL.Compare
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for featured bike and sponsored bike comparisions
+    /// </summary>
     public class BikeComparison : IBikeCompare
     {
         private readonly IBikeCompare _objCompare = null;
+
+        static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
+        static readonly ILog _logger = LogManager.GetLogger(typeof(BikeComparison));
+        static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
+
+
         public BikeComparison()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -21,6 +34,75 @@ namespace Bikewale.BAL.Compare
                 _objCompare = objPQCont.Resolve<IBikeCompare>();
             }
         }
+
+
+        /***********************************************************/
+        // Input: Version id of Bikes selected by the user to compare
+        // Output: Version id of featured Bike
+        // Written By: Satish Sharma On 2009-09-29 5:40 PM
+        // Modified By : Sadhana Upadhyay on 9 Sept 2014
+        // Summary : to get sponsored bike by web api
+        /***********************************************************/
+        public Int64 GetFeaturedBike(string versions)
+        {
+            try
+            {
+                if (_useGrpc)
+                {
+                    var _grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions, 1, 2);
+
+                    if (_grpcInt != null)
+                    {
+                        return _grpcInt.IntOutput;
+                    }
+                    else
+                    {
+                        return GetFeaturedBikeOldWay(versions);
+                    }
+                }
+                else
+                {
+                    return GetFeaturedBikeOldWay(versions);
+                }
+
+            }
+            catch (Exception err)
+            {
+                _logger.Error(err.Message, err);
+                return GetFeaturedBikeOldWay(versions);
+            }
+        }
+
+        private static Int64 GetFeaturedBikeOldWay(string versions)
+        {
+            Int64 featuredBikeId = -1;
+
+            try
+            {
+
+                if (_logGrpcErrors)
+                {
+                    _logger.Error(string.Format("Grpc did not work for GetFeaturedBikeOldWay {0}", versions));
+                }
+
+                //sets the base URI for HTTP requests
+                string _apiUrl = String.Format("/webapi/SponsoredCarVersion/GetSponsoredCarVersion/?vids={0}&categoryId=1&platformId=2", versions);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    return objClient.GetApiResponseSync<Int64>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, featuredBikeId);
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "GetFeaturedBikeOldWay");
+                objErr.SendMail();
+            }
+
+            return featuredBikeId;
+        }
+
+
         public Entities.Compare.BikeCompareEntity DoCompare(string versions)
         {
             Entities.Compare.BikeCompareEntity compareEntity = null;
@@ -819,14 +901,43 @@ namespace Bikewale.BAL.Compare
             return compareEntity;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : CAll DAL Layer
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
         public IEnumerable<Entities.Compare.TopBikeCompareBase> CompareList(uint topCount)
         {
             return _objCompare.CompareList(topCount);
         }
 
-        public IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, int cityid)
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : BAL layer to similar cache comaprisions bikes                  
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <returns></returns>
+        public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid)
         {
-            return null;
+            return _objCompare.GetSimilarCompareBikes(versionList, topCount, cityid);
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : BAL layer to similar cache comaprisions bikes with sponsored comparision 
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityid"></param>
+        /// <param name="sponsoredVersionId"></param>
+        /// <returns></returns>
+        public ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId)
+        {
+            return _objCompare.GetSimilarCompareBikeSponsored(versionList, topCount, cityid, sponsoredVersionId);
         }
     }
 }
