@@ -20,6 +20,7 @@ namespace Bikewale.Interfaces.BikeData
     public interface IBikeModelsCacheRepository<U>
     {
         BikeModelPageEntity GetModelPageDetails(U modelId);
+        BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);

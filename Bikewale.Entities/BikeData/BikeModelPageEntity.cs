@@ -20,6 +20,10 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public BikeSpecificationEntity ModelVersionSpecs { get; set; }
         [DataMember]
+        public IEnumerable<BikeSpecificationEntity> ModelVersionSpecsList { get; set; }
+        [DataMember]
+        public IEnumerable<TransposeModelSpecEntity> TransposeModelSpecs { get; set; }
+        [DataMember]
         public IEnumerable<NewBikeModelColor> ModelColors { get; set; }
         [DataMember]
         public UpcomingBikeEntity UpcomingBike { get; set; }
@@ -31,5 +35,18 @@ namespace Bikewale.Entities.BikeData
         public Features objFeatures { get; set; }
         [DataMember]
         public Specifications objSpecs { get; set; }
+    }
+
+    public class TransposeModelSpecEntity
+    {
+        [DataMember]
+        public uint BikeVersionId { get; set; }
+        [DataMember]
+        public Overview objOverview { get; set; }
+        [DataMember]
+        public Features objFeatures { get; set; }
+        [DataMember]
+        public Specifications objSpecs { get; set; }
+
     }
 }

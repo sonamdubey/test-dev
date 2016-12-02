@@ -741,7 +741,7 @@ namespace Bikewale.New
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
+                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
                         if (modelPg != null)
                         {
 

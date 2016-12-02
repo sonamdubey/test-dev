@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -49,6 +50,37 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetModelPageDetails");
+                objErr.SendMail();
+            }
+
+            return objModelPage;
+        }
+        /// <summary>
+        /// Created By: Sangram Nandkhile on 01 Dec 2016
+        /// Summary: To Create a overload of cached model entity with version Id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
+        {
+            BikeModelPageEntity objModelPage = null;
+            string key = string.Format("BW_ModelDetails_{0}", modelId);
+
+            try
+            {
+                objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
+                if (versionId == 0)
+                {
+                    versionId = (int)objModelPage.ModelVersionSpecs.BikeVersionId;
+                }
+                objModelPage.ModelVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
+                objModelPage.objOverview = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objOverview;
+                objModelPage.objSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objSpecs;
+                objModelPage.objFeatures = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objFeatures;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
                 objErr.SendMail();
             }
 

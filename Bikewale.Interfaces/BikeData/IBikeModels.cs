@@ -27,6 +27,8 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null);
         //List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
         BikeModelPageEntity GetModelPageDetails(U modelId);
+        BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
+        //IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         List<ModelImage> GetBikeModelPhotoGallery(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
