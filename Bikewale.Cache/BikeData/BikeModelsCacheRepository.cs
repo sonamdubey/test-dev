@@ -59,24 +59,22 @@ namespace Bikewale.Cache.BikeData
         /// Created By: Sangram Nandkhile on 01 Dec 2016
         /// Summary: To Create a overload of cached model entity with version Id
         /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
             string key = string.Format("BW_ModelDetails_{0}", modelId);
-
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
-                if (versionId == 0)
+                if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Count() > 1)
                 {
-                    versionId = (int)objModelPage.ModelVersionSpecs.BikeVersionId;
+                    // First page load where version id is Zero, fetch default version properties
+                    versionId = versionId == 0 ? (int)objModelPage.ModelVersionSpecs.BikeVersionId : 0;
+                    objModelPage.ModelVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
+                    objModelPage.objOverview = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objOverview;
+                    objModelPage.objSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objSpecs;
+                    objModelPage.objFeatures = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objFeatures;
                 }
-                objModelPage.ModelVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
-                objModelPage.objOverview = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objOverview;
-                objModelPage.objSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objSpecs;
-                objModelPage.objFeatures = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objFeatures;
             }
             catch (Exception ex)
             {
