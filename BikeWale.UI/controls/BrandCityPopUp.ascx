@@ -1,16 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.BrandCityPopUp" %>
-<script runat="server">
-    private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-</script>
 <script type="text/javascript">
     lscache.flushExpired();  //remove expired
-    var BrandsKey = "all";
+    var BrandsKey = "BrandCityPopUp_mk";
     var BrandCityKey = "brandcity_";
-    var sourceHref = '0';
-    var brandClicked = false;
-    var cityClicked = false;
-</script>
+   </script>
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
@@ -22,20 +15,21 @@
                 </div>
             </div>
         </div>
-        <%if(requestType==12){ %>
+        <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+          { %>
         <p class="font20 margin-top15 text-capitalize text-center">Looking for a different dealer?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see dealer details</p>
-         <%} %>
-        <%else if(requestType==13){ %>
+        <%} %>
+        <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+          { %>
         <p class="font20 margin-top15 text-capitalize text-center">Looking for a different service center?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see service center details</p>
-         <%} %>
+        <%} %>
         <div class="padding-top10" id="brandCityPopUpContent">
             <div id="divBrandLoader" class="margin-top10 form-control-box">
                 <div class="placeholder-loading-text form-control">Loading Brands..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
                 <div data-bind="visible: bookingBrands().length > 0">
                     <select data-placeholder="--Select Brands--" class="chosen-select" id="ddlBrandPopup" data-bind="options: bookingBrands(), value: selectedBrand, optionsText: 'makeName', optionsValue: 'makeId', optionsCaption: '--Select Brand--', event: { change: makeChangedPopup }">
-
                     </select>
                     <span class="bwsprite error-icon error-tooltip-siblings"></span>
                     <div class="bw-blackbg-tooltip error-tooltip-siblings"></div>
@@ -53,251 +47,237 @@
                 </div>
                 <span class="position-abt progress-bar"></span>
             </div>
-            <%if(requestType==12){ %>
-         <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Search dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
-        <%} %>
-            <%else if(requestType==13){%>
-        <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Search service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
-        <%} %>
+            <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
+              { %>
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Search dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            <%} %>
+            <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
+              {%>
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Search service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            <%} %>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-
-    var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
-    var bikeCityId = $("#ddlCities").val();
+    var requestType='<%=requestType%>';
     var brandcityPopUp = $('#brandcityPopUp');
-    lscache.flushExpired();
-    lscache.setBucket('DLPage');
+   
+    lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
-    var viewModelCityBrandPopup = new function (){
+    var viewModelCityBrandPopup = new function () {
         var self = this;
-    self.selectCity = ko.observable(),
-       self.listCities = ko.observableArray([]),
-    self.selectedBrand = ko.observable(),
-    self.bookingBrands = ko.observableArray([]),
-    self.hasCities = ko.observable(),
-    self.searchByBrandCityBtnClicked = ko.observable(false),
-    self.makeMasking = ko.pureComputed(function () {
+        self.selectCity = ko.observable(),
+        self.listCities = ko.observableArray([]),
+        self.selectedBrand = ko.observable(),
+        self.bookingBrands = ko.observableArray([]),
+        self.hasCities = ko.observable(),
+        self.searchByBrandCityBtnClicked = ko.observable(false),
+        self.makeMasking = ko.pureComputed(function () {
 
-            return ko.utils.arrayFirst(self.bookingBrands(), function(child) {
+            return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand();
             }).maskingName;
-    })
-    self.cityMasking = ko.pureComputed(function () {
+        })
+        self.cityMasking = ko.pureComputed(function () {
 
-        return ko.utils.arrayFirst(self.listCities(), function (child) {
-            return child.cityId === self.selectCity();
-        }).cityMaskingName;
-    })
-    };
-    
-    function FillBrandsPopup() {
-        var isAborted = false;
-        if (viewModelCityBrandPopup.bookingBrands().length < 1 || viewModelCityBrandPopup.bookingBrands().length==undefined) {
-             $.ajax({
-                type: "GET",
-                url: "/api/makelist/?requesttype=" + requestType,
-                dataType: 'json',
-                beforeSend: function (xhr) {
-                    viewModelCityBrandPopup.bookingBrands([]);
-                    viewModelCityBrandPopup.listCities([]);
-                    startLoading($("#divBrandLoader"));
-                    $("#divBrandLoader .placeholder-loading-text").show();
-                    if (data = lscache.get(BrandsKey)) {
-                        var brands = ko.toJS(data);
+            return ko.utils.arrayFirst(self.listCities(), function (child) {
+                return child.cityId === self.selectCity();
+            }).cityMaskingName;
+        })
+
+        self.FillBrandsPopup = function () {
+            var isAborted = false;
+            if (self.bookingBrands().length < 1 || self.bookingBrands().length == undefined) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/makelist/?requesttype=" + '<%=(int)requestType%>',
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        self.bookingBrands([]);
+                        self.listCities([]);
+                        startLoading($("#divBrandLoader"));
+                        $("#divBrandLoader .placeholder-loading-text").show();
+                        if (data = lscache.get(BrandsKey)) {
+                            var brands = ko.toJS(data);
+                            if (brands) {
+                                stopLoading($("#divBrandLoader"));
+                                $("#divBrandLoader .placeholder-loading-text").hide();
+                                self.bookingBrands(brands);
+                                isAborted = true;
+                                xhr.abort();
+                            }
+                            else {
+                                self.bookingBrands([]);
+                            }
+                        }
+                    },
+                    success: function (response) {
+                        var brands = ko.toJS(response);
                         if (brands) {
+                            lscache.set(BrandsKey, brands.makes, 60);
                             stopLoading($("#divBrandLoader"));
                             $("#divBrandLoader .placeholder-loading-text").hide();
-                            viewModelCityBrandPopup.bookingBrands(data);
-                            isAborted = true;
-                            xhr.abort();
+                            self.bookingBrands(brands.makes);
+
                         }
                         else {
-                            viewModelCityBrandPopup.bookingBrands([]);
+                            self.bookingBrands([]);
+                            $('#ddlBrandsPopup').trigger("chosen:updated");
                         }
+                    },
+                    complete: function () {
+                        self.completeBrandPopup();
                     }
-                },
-                success: function (response) {
-                    var _gZippedBrandsParse = ko.toJS(response);
-                    lscache.set(BrandsKey, _gZippedBrandsParse.makes, 60);
-                    var brands = _gZippedBrandsParse;
-                    var brands = ko.toJS(response);
-                    if (brands) {
-                        stopLoading($("#divBrandLoader"));
-                        $("#divBrandLoader .placeholder-loading-text").hide();
-                        viewModelCityBrandPopup.bookingBrands(brands);
-                        
-                    }
-                    else {
-                        viewModelCityBrandPopup.bookingBrands([]);
-                        $('#ddlBrandsPopup').trigger("chosen:updated");
-                    }
-                },
-                complete: function () {
-                    completeBrandPopup();
-                }
-            });
+                });
 
-            if (isAborted) {
-                completeBrandPopup();
+                if (isAborted) {
+                    self.completeBrandPopup();
+                }
             }
         }
-    }
 
+        self.completeBrandPopup = function () {
+            popupBrand.find("option[value='0']").prop('disabled', true);
+            popupBrand.trigger('chosen:updated');
+            self.makeChangedPopup();
+        }
 
-
-    function completeBrandPopup() {
-        popupBrand.find("option[value='0']").prop('disabled', true);
-        popupBrand.trigger('chosen:updated');
-        makeChangedPopup();
-    }
-   
-    function makeChangedPopup() {
-        var isAborted = false;
-        viewModelCityBrandPopup.searchByBrandCityBtnClicked(false)
-        if (viewModelCityBrandPopup.selectedBrand() != undefined) {
-           BrandCityKey = "brandcity_" + viewModelCityBrandPopup.selectedBrand().toString();
-            $.ajax({
-                type: "GET",
-                url: "/api/v2/DealerCity/?makeId=" + viewModelCityBrandPopup.selectedBrand(),
-                dataType: 'json',
-                beforeSend: function (xhr) {
-                    viewModelCityBrandPopup.listCities([]);
-                    $("#divCitiesLoader").show();
-                    $("#divCitiesLoader .placeholder-loading-text").show();
-                    startLoading($("#divCitiesLoader"));
-                    if (data = lscache.get(BrandCityKey)) {
-                        var cities = ko.toJS(data);
-                        if (cities) {
+        self.makeChangedPopup = function () {
+            var isAborted = false;
+            self.searchByBrandCityBtnClicked(false)
+            if (self.selectedBrand() != undefined) {
+                BrandCityKey = "brandcity_" + self.selectedBrand().toString();
+                $.ajax({
+                    type: "GET",
+                    url: "/api/v2/DealerCity/?makeId=" + self.selectedBrand(),
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        self.listCities([]);
+                        $("#divCitiesLoader").show();
+                        $("#divCitiesLoader .placeholder-loading-text").show();
+                        startLoading($("#divCitiesLoader"));
+                        if (data = lscache.get(BrandCityKey)) {
+                            var cities = ko.toJS(data);
+                            if (cities) {
+                                stopLoading($("#divCitiesLoader"));
+                                $("#divCitiesLoader .placeholder-loading-text").hide();
+                                insertCitySeparatorNew(cities);
+                                self.listCities(data);
+                                isAborted = true;
+                                xhr.abort();
+                            }
+                        }
+                    },
+                    success: function (response) {
+                        var cities = ko.toJS(response.City);
+                        if (cities != null)
+                            lscache.set(BrandCityKey, cities, 60);
+                        if (cities.length) {
                             stopLoading($("#divCitiesLoader"));
                             $("#divCitiesLoader .placeholder-loading-text").hide();
                             insertCitySeparatorNew(cities);
-                            viewModelCityBrandPopup.listCities(data);
-                            isAborted = true;
-                            xhr.abort();
+                            self.listCities(cities);
                         }
-                    }
-                },
-                success: function (response) {
-                    var cities = ko.toJS(response.City);
-                    lscache.set(BrandCityKey, cities, 60);
-                    if (cities.length) {
-                        stopLoading($("#divCitiesLoader"));
-                        $("#divCitiesLoader .placeholder-loading-text").hide();
-                        insertCitySeparatorNew(cities);
-                        viewModelCityBrandPopup.listCities(cities);
-                    }
-                    else {
-                        viewModelCityBrandPopup.listCities([]);
-                        $("#divCitiesLoader").hide();
+                        else {
+                            self.listCities([]);
+                            $("#divCitiesLoader").hide();
+                            $('#ddlCityPopup').trigger("chosen:updated");
+                        }
+                    },
+                    error: function (e) {
+                        self.listCities([]);
                         $('#ddlCityPopup').trigger("chosen:updated");
+                    },
+                    complete: function () {
+                        self.completeCityPopup();
                     }
-                },
-                error: function (e) {
-                    viewModelCityBrandPopup.listCities([]);
-                    $('#ddlCityPopup').trigger("chosen:updated");
-                },
-                complete: function () {
-                    completeCityPopup();
-                }
-            });
+                });
 
-        } else {
-            viewModelCityBrandPopup.listCities([]);
-            $("#divCitiesLoader").hide();
-        }
-
-        if (isAborted) {
-            completeCityPopup();
-        }
-        isValidInfoPopup();
-    }
-
-    function completeCityPopup() {
-        $('#ddlCityPopup').trigger("chosen:updated");
-
-        ev = $._data($('ul.chosen-results')[1], 'events');
-        if (!(ev && ev.click)) {
-            $($('ul.chosen-results')[1]).on('click', 'li', function (e) {
-                if (cityClicked == false) {
-                    if (ga_pg_id != null && ga_pg_id == 2) {
-                           cityClicked = true;
-                    }
-                }
-            });
-        }
-    }
-
-    function isValidInfoPopup() {
-        isValid = true;
-        var errMsg = "",
-            errMsgParent;
-
-        if (viewModelCityBrandPopup.selectedBrand() == undefined && viewModelCityBrandPopup.searchByBrandCityBtnClicked()) {
-            errMsgParent = $('#divBrandLoader.form-control-box');
-            errMsg += "Brand,";
-            isValid = false;
-            showBrandCityError(errMsgParent, errMsg);
-        }
-
-        else {
-            removeBrandCityError($('#divBrandLoader.form-control-box'));
-        }
-
-        if (viewModelCityBrandPopup.bookingBrands().length > 0 && viewModelCityBrandPopup.selectCity() == undefined && viewModelCityBrandPopup.searchByBrandCityBtnClicked()) {
-            errMsgParent = $('#divCitiesLoader.form-control-box');
-            errMsg += "City,";
-            isValid = false;
-            showBrandCityError(errMsgParent, errMsg);
-        }
-
-        else {
-            removeBrandCityError($('#divCitiesLoader.form-control-box'));
-        }
-
-        return isValid;
-    }
-
-    function showBrandCityError(errMsgParent, errMsg) {
-        errMsgParent.find('.error-tooltip-siblings').show();
-        errMsgParent.css({ 'border-color': 'red' });
-        errMsg = errMsg.substring(0, errMsg.length - 1);
-        errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
-    }
-
-    function removeBrandCityError(errMsgParent) {
-        errMsgParent.css({ 'border-color': '#ccc' });
-        errMsgParent.find('.error-tooltip-siblings').hide();
-        errMsgParent.find('.bw-blackbg-tooltip').text("");
-    }
-
-
-    function searchByBrandCityPopUp() {
-        
-        viewModelCityBrandPopup.searchByBrandCityBtnClicked(true);
-        isvalid=isValidInfoPopup();
-        if (isvalid) {
-            if (requestType == 12) {
-                window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-dealer-showrooms-in-" + viewModelCityBrandPopup.cityMasking() + "/";
+            } else {
+                self.listCities([]);
+                $("#divCitiesLoader").hide();
             }
-            else if (requestType == 13) {
-                window.location.href = "/" + viewModelCityBrandPopup.makeMasking() + "-service-center-in-" + viewModelCityBrandPopup.cityMasking() + "/";
+
+            if (isAborted) {
+                self.completeCityPopup();
+            }
+            self.isValidInfoPopup();
+        }
+
+
+        self.completeCityPopup = function () {
+            $('#ddlCityPopup').trigger("chosen:updated");
+        }
+
+
+        self.isValidInfoPopup = function () {
+            isValid = true;
+            var errMsg = "",
+                errMsgParent;
+
+            if (self.selectedBrand() == undefined && self.searchByBrandCityBtnClicked()) {
+                errMsgParent = $('#divBrandLoader.form-control-box');
+                errMsg += "Brand,";
+                isValid = false;
+                self.showBrandCityError(errMsgParent, errMsg);
+            }
+
+            else {
+                self.removeBrandCityError($('#divBrandLoader.form-control-box'));
+            }
+
+            if (self.bookingBrands().length > 0 && self.selectCity() == undefined && self.searchByBrandCityBtnClicked()) {
+                errMsgParent = $('#divCitiesLoader.form-control-box');
+                errMsg += "City,";
+                isValid = false;
+                self.showBrandCityError(errMsgParent, errMsg);
+            }
+
+            else {
+                self.removeBrandCityError($('#divCitiesLoader.form-control-box'));
+            }
+
+            return isValid;
+        }
+        self.showBrandCityError = function (errMsgParent, errMsg) {
+            errMsgParent.find('.error-tooltip-siblings').show();
+            errMsgParent.css({ 'border-color': 'red' });
+            errMsg = errMsg.substring(0, errMsg.length - 1);
+            errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
+        }
+
+        self.removeBrandCityError = function (errMsgParent) {
+            errMsgParent.css({ 'border-color': '#ccc' });
+            errMsgParent.find('.error-tooltip-siblings').hide();
+            errMsgParent.find('.bw-blackbg-tooltip').text("");
+        }
+
+        self.searchByBrandCityPopUp = function () {
+
+            self.searchByBrandCityBtnClicked(true);
+            isvalid = self.isValidInfoPopup();
+            if (isvalid) {
+                if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.Dealer%>') {
+                    window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
+                }
+                else if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter%>') {
+                    window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
+                }
             }
         }
-    }
 
+    };
 
     $(document).ready(function () {
         $('body').on('click', "#brandSelect", function (e) {
-             $('#brandcityPopup').fadeIn(100);
-             popup.lock();
+            $('#brandcityPopup').fadeIn(100);
+            popup.lock();
             e.preventDefault();
             $("#errMsgPopUp").empty();
-            FillBrandsPopup();
-             });
+            viewModelCityBrandPopup.FillBrandsPopup();
+        });
 
         $('#brandcityPopup .close-btn, .blackOut-window').mouseup(function () {
             popup.unlock();
@@ -310,5 +290,5 @@
 
         ko.applyBindings(viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
     });
-    
+
 </script>

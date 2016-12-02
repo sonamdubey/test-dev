@@ -60,8 +60,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="bg-white">
-                        <h1 class="section-header"><%=makeName%> service center<% if (totalServiceCenters > 1)
-                                                                                  { %>s<%}%> in <%=cityName%></h1>
+                        <h1 class="section-header"><%=makeName%> service center<%=(totalServiceCenters > 1)?"s":""%> in <%=cityName%></h1>
                         <div class="section-inner-padding font14 text-light-grey">
                             <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised  <%= makeName %> service centers in <%= cityName %>. <%= makeName %> has <%= totalServiceCenters %> authorised service center<% if (totalServiceCenters > 1)
                                                                                                                                                                                                                                                                                                                                                { %>s<%}%> in <%= cityName %>. We recommend availing services only from authorised service centers. Authorised <%= makeName %> service centers abide by the servicing standards of <%= makeName %> with an assurance of genuine <%= makeName %> spare parts..</p>
@@ -106,7 +105,7 @@
                                             <%} %>
                                             <% if (!(String.IsNullOrEmpty(serviceCenter.Phone)))
                                                { %>
-                                            <p class="">
+                                            <p>
                                                 <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
                                                 <span class="vertical-top text-bold text-default details-column"><%= serviceCenter.Phone%></span>
                                             </p>
@@ -217,8 +216,7 @@
             var currentCityName = '<%= cityName %>';
             var pageUrl = '<%= pageUrl %>';
             var clientip = '<%= clientIP %>';
-            var requestType = 13;
-        </script>
+           </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <BW:BrandCity ID="ctrlBrandCity" runat="server" />

@@ -104,7 +104,7 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.AdId = "1395986297721";
 
             ctrlLeadCapture.CityId = cityId;
-            ctrlBrandCity.requestType = 12;
+            ctrlBrandCity.requestType = EnumBikeType.Dealer;
             }
 
         /// <summary>

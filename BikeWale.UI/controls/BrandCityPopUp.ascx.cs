@@ -1,21 +1,7 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.Common;
-using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Dealer;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
-using Microsoft.Practices.Unity;
+﻿using Bikewale.Entities.BikeData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+
 
 namespace Bikewale.Controls
 {
@@ -25,7 +11,9 @@ namespace Bikewale.Controls
     /// </summary>
     public class BrandCityPopUp : UserControl
     {
-        public int requestType;
+        public EnumBikeType requestType;
+        protected string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        protected string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
         
         protected override void OnInit(EventArgs e)
         {
@@ -44,9 +32,8 @@ namespace Bikewale.Controls
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
 
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
-            dd.DetectDevice();
-           
+            //Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+                       
         }
 
     }
