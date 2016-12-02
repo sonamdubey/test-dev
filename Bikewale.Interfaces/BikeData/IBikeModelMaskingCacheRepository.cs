@@ -17,6 +17,5 @@ namespace Bikewale.Interfaces.BikeData
     {
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-        IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId);
     }
 }

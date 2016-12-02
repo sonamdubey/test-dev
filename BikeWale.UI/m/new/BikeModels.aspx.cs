@@ -810,29 +810,6 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
-        /// Description     :   These values need to be set to reflect UI HTML changes
-        /// </summary>
-        //private void ToggleOfferDiv()
-        //{
-        //    if (isOfferAvailable)
-        //    {
-        //        grid1_size = 5;
-        //        grid2_size = 7;
-        //        cssOffers = string.Empty;
-        //        offerDivHide = string.Empty;
-        //    }
-        //    else
-        //    {
-        //        grid1_size = 9;
-        //        grid2_size = 3;
-        //        cssOffers = "noOffers";
-        //        offerDivHide = "hide";
-        //    }
-        //}
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   27 Nov 2015
         /// Description     :   Sends the notification to Customer and Dealer
         /// </summary>
         private void FetchVariantDetails(uint versionId)

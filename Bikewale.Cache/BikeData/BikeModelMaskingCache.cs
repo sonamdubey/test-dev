@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using Bikewale.Cache.Core;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bikewale.Cache.BikeData
 {
     public class BikeModelMaskingCache<T, U> : IBikeMaskingCacheRepository<T, U> where T : BikeModelEntity, new()
     {
         private readonly ICacheManager _cache;
-        private readonly IBikeModelsRepository<T,U> _modelsRepository;
+        private readonly IBikeModelsRepository<T, U> _modelsRepository;
 
-        public BikeModelMaskingCache(ICacheManager cache, IBikeModelsRepository<T,U> modelsRepository)
+        public BikeModelMaskingCache(ICacheManager cache, IBikeModelsRepository<T, U> modelsRepository)
         {
             _cache = cache;
             _modelsRepository = modelsRepository;
@@ -26,7 +22,7 @@ namespace Bikewale.Cache.BikeData
         public ModelMaskingResponse GetModelMaskingResponse(string maskingName)
         {
             ModelMaskingResponse response = new ModelMaskingResponse();
-            
+
             try
             {
                 // Get MaskingNames from Memcache
@@ -51,7 +47,7 @@ namespace Bikewale.Cache.BikeData
                     var htOldMaskingNames = _cache.GetFromCache<Hashtable>("BW_OldModelMaskingNames", new TimeSpan(1, 0, 0), () => _modelsRepository.GetOldMaskingNames());
 
                     // new masking name found for given masking name. Its renamed so 301 permanant redirect.
-                    if (htOldMaskingNames!=null && htOldMaskingNames[maskingName] != null)
+                    if (htOldMaskingNames != null && htOldMaskingNames[maskingName] != null)
                     {
                         response.MaskingName = htOldMaskingNames[maskingName].ToString();
                         response.StatusCode = 301;
@@ -60,7 +56,7 @@ namespace Bikewale.Cache.BikeData
                         response.StatusCode = 404;                // Not found. The given masking name does not exist on bikewale.
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetModelMaskingResponse");
                 objErr.SendMail();
