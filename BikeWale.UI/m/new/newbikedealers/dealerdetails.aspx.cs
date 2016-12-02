@@ -69,7 +69,7 @@ namespace Bikewale.Mobile
             try
             {
                 ctrlPopoularBikeMake.makeId = makeId;
-                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.cityId = (dealerDetails.CityId);
                 ctrlPopoularBikeMake.totalCount = 9;
                 ctrlPopoularBikeMake.cityname = dealerCity;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
