@@ -45,7 +45,7 @@ namespace Bikewale.Mobile
         protected string makeMaskingName;
         protected int makeId;
         protected string cityMaskingName = String.Empty;
-
+        protected MMostPopularBikes ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -57,6 +57,28 @@ namespace Bikewale.Mobile
             if (ProcessQueryString() && dealerId > 0)
             {
                 GetDealerDetails();
+            }
+            BindUserControl();
+        }
+        /// <summary>
+        /// Created By:-Subodh Jain 2 Dec 2016
+        /// Summary :- Bind Popular Bikes By make on page
+        /// </summary>
+        private void BindUserControl()
+        {
+            try
+            {
+                ctrlPopoularBikeMake.makeId = makeId;
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = dealerCity;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerDetails.BindUserControl");
+                objErr.SendMail();
             }
 
         }
@@ -96,6 +118,7 @@ namespace Bikewale.Mobile
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
+
                         if (dealerDetails.Area != null)
                         {
                             dealerLat = dealerDetails.Area.Latitude;

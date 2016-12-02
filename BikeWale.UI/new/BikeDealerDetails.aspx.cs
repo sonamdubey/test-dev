@@ -39,6 +39,7 @@ namespace Bikewale.New
         protected DealerCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
         protected DealerDetailEntity dealerObj;
+        protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -83,6 +84,30 @@ namespace Bikewale.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+            }
+            BindUserControl();
+
+        }
+        /// <summary>
+        /// Created By:-Subodh Jain 2 Dec 2016
+        /// Summary :- Bind Popular Bikes By make on page
+        /// </summary>
+        private void BindUserControl()
+        {
+
+            try
+            {
+                ctrlPopoularBikeMake.makeId = Convert.ToInt32(makeId);
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeDealerDetails.BindUserControl");
+                objErr.SendMail();
             }
 
         }
