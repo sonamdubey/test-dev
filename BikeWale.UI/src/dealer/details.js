@@ -66,8 +66,6 @@ function initializeMap() {
     });
 }
 
-initializeMap();
-
 
 function savePosition(position) {
     userLocation = {

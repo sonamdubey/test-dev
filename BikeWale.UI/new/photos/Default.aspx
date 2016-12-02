@@ -1,4 +1,4 @@
-﻿﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Debug="false" EnableViewState="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Debug="false" EnableViewState="false" %>
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
@@ -20,7 +20,7 @@
     
 </script>
 <link rel="stylesheet" type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/jquery.ad-gallery.css" />
-<link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css" rel="Stylesheet" />
+<link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css?<%= staticFileVersion %>" rel="Stylesheet" />
 <style type="text/css">
     .font26 {
         font-size: 26px !important;
@@ -39,7 +39,7 @@
     var ModelName = '<%=objModelEntity.ModelName %>';
     var MainCategory = '0';
 </script>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?v=2.0"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?<%= staticFileVersion %>"></script>
 <div class="container_12">
     <div class="grid_12 margin-bottom15">
         <ul class="breadcrumb">

@@ -197,14 +197,14 @@ namespace Bikewale.Mobile.New
                 if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
                     if ((modelPage.ModelVersionSpecs.TopSpeed > 0 && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
-                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph. ", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
                     else if (modelPage.ModelVersionSpecs.TopSpeed == 0)
                     {
                         specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall);
                     }
                     else
                     {
-                        specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
                     }
                 }
                 summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
