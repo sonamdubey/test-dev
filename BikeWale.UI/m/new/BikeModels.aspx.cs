@@ -22,7 +22,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
-using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -257,10 +256,13 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindControls()
         {
-            ctrlCompareBikes.versionId = versionId;
-            ctrlCompareBikes.versionName = bikeModelName;
-            ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
-            ctrlCompareBikes.TopCount = 6;
+            if (!isDiscontinued)
+            {
+                ctrlCompareBikes.versionId = versionId;
+                ctrlCompareBikes.versionName = bikeModelName;
+                ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
+                ctrlCompareBikes.TopCount = 6;
+            }
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);

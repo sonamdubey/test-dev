@@ -6,7 +6,7 @@ namespace Bikewale.Utility
 {
     /// Created by:Sangram Nandkhile on 30 Nov 2016
     /// Desc: Utilities for sponsored campaigns
-    public class SponsoredCampaigns
+    public class SponsoredComparision
     {
         /// <summary>
         /// Created by:Sangram Nandkhile on 30 Nov 2016

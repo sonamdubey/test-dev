@@ -1,46 +1,44 @@
+using Bikewale.Common;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Text;
+using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Collections;
-using Bikewale.Common;
+using System.Web.UI.WebControls;
 //using BikeWale.Controls;
 
 namespace Bikewale.New
 {
-	public class BikeComparison : Page
-	{		
-		protected HtmlGenericControl spnError, ad_160x600;
-		protected HtmlTable tblCompare;
+    public class BikeComparison : Page
+    {
+        protected HtmlGenericControl spnError, ad_160x600;
+        protected HtmlTable tblCompare;
         protected Literal ltrDefaultCityName, ltrTitle;
 
-		public string compareWidth = "790px";
-		public string featuredBikeId = "", spotlightUrl = "";
-		public int featuredBikeIndex = 0;
-		static int arrSize = 5;
-		
-		protected ArrayList arObj = null;
-		
-		public string[]     bike = new string[arrSize], makeName = new string[arrSize], modelName = new string[arrSize], ModelMaskingName = new string[arrSize], MakeMaskingName = new string[arrSize], versionName = new string[arrSize],
+        public string compareWidth = "790px";
+        public string featuredBikeId = "", spotlightUrl = "";
+        public int featuredBikeIndex = 0;
+        static int arrSize = 5;
+
+        protected ArrayList arObj = null;
+
+        public string[] bike = new string[arrSize], makeName = new string[arrSize], modelName = new string[arrSize], ModelMaskingName = new string[arrSize], MakeMaskingName = new string[arrSize], versionName = new string[arrSize],
                             versionId = new string[arrSize], hostURL = new string[arrSize], loan = new string[arrSize], price = new string[arrSize],
                             leadAggregator = new string[arrSize],
-                            
+
                             // Specs
                             displacement = new string[arrSize], cylinders = new string[arrSize], maxPower = new string[arrSize],
                             maximumTorque = new string[arrSize], bore = new string[arrSize], stroke = new string[arrSize], valvesPerCylinder = new string[arrSize],
-                            fuelDeliverySystem = new string[arrSize], fuelType = new string[arrSize],ignition = new string[arrSize], sparkPlugsPerCylinder = new string[arrSize],
-                            coolingSystem = new string[arrSize], gearboxType = new string[arrSize],noOfGears = new string[arrSize],
+                            fuelDeliverySystem = new string[arrSize], fuelType = new string[arrSize], ignition = new string[arrSize], sparkPlugsPerCylinder = new string[arrSize],
+                            coolingSystem = new string[arrSize], gearboxType = new string[arrSize], noOfGears = new string[arrSize],
                             transmissionType = new string[arrSize], clutch = new string[arrSize], performance_0_60_kmph = new string[arrSize],
                             performance_0_80_kmph = new string[arrSize], performance_0_40_m = new string[arrSize], topSpeed = new string[arrSize],
                             performance_60_0_kmph = new string[arrSize], performance_80_0_kmph = new string[arrSize],
-                            kerbWeight = new string[arrSize], overallLength = new string[arrSize],overallWidth = new string[arrSize], overallHeight = new string[arrSize],
+                            kerbWeight = new string[arrSize], overallLength = new string[arrSize], overallWidth = new string[arrSize], overallHeight = new string[arrSize],
                             wheelbase = new string[arrSize], groundClearance = new string[arrSize], seatHeight = new string[arrSize], fuelTankCapacity = new string[arrSize],
                             reserveFuelCapacity = new string[arrSize], fuelEfficiencyOverall = new string[arrSize], fuelEfficiencyRange = new string[arrSize],
                             chassisType = new string[arrSize], frontSuspension = new string[arrSize], rearSuspension = new string[arrSize], brakeType = new string[arrSize],
@@ -48,292 +46,122 @@ namespace Bikewale.New
                             calliperType = new string[arrSize], wheelSize = new string[arrSize], frontTyre = new string[arrSize], rearTyre = new string[arrSize],
                             tubelessTyres = new string[arrSize], radialTyres = new string[arrSize], alloyWheels = new string[arrSize], electricSystem = new string[arrSize],
                             battery = new string[arrSize], headlightType = new string[arrSize], headlightBulbType = new string[arrSize],
-                            brake_Tail_Light = new string[arrSize], turnSignal = new string[arrSize], passLight = new string[arrSize], 
-                            
+                            brake_Tail_Light = new string[arrSize], turnSignal = new string[arrSize], passLight = new string[arrSize],
+
                             // Features
-                            speedometer = new string[arrSize], tachometer = new string[arrSize],tachometerType = new string[arrSize], shiftLight = new string[arrSize],
-                            electricStart = new string[arrSize],tripmeter = new string[arrSize], noOfTripmeters = new string[arrSize],
-                            tripmeterType = new string[arrSize], lowFuelIndicator = new string[arrSize],lowOilIndicator = new string[arrSize],
-                            lowBatteryIndicator = new string[arrSize],fuelGauge = new string[arrSize], digitalFuelGauge = new string[arrSize],
-                            pillionSeat = new string[arrSize], pillionFootrest = new string[arrSize],pillionBackrest = new string[arrSize],
-                            pillionGrabrail = new string[arrSize],standAlarm = new string[arrSize], steppedSeat = new string[arrSize],
-                            antilockBrakingSystem = new string[arrSize],killswitch = new string[arrSize], clock = new string[arrSize],colors = new string[arrSize]; 
-		
-		public string title = "", youHere = "";
+                            speedometer = new string[arrSize], tachometer = new string[arrSize], tachometerType = new string[arrSize], shiftLight = new string[arrSize],
+                            electricStart = new string[arrSize], tripmeter = new string[arrSize], noOfTripmeters = new string[arrSize],
+                            tripmeterType = new string[arrSize], lowFuelIndicator = new string[arrSize], lowOilIndicator = new string[arrSize],
+                            lowBatteryIndicator = new string[arrSize], fuelGauge = new string[arrSize], digitalFuelGauge = new string[arrSize],
+                            pillionSeat = new string[arrSize], pillionFootrest = new string[arrSize], pillionBackrest = new string[arrSize],
+                            pillionGrabrail = new string[arrSize], standAlarm = new string[arrSize], steppedSeat = new string[arrSize],
+                            antilockBrakingSystem = new string[arrSize], killswitch = new string[arrSize], clock = new string[arrSize], colors = new string[arrSize];
+
+        public string title = "", youHere = "";
 
         protected string pageTitle = string.Empty;
 
         protected string versions = string.Empty;
 
         protected DataSet dsColors = null;
-		
-        //public string oem1
-        //{
-        //    get
-        //    {
-        //        if(ViewState["oem1"] != null)
-        //            return ViewState["oem1"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["oem1"] = value;}
-        //}
-		
-        //public string bodyType1
-        //{
-        //    get
-        //    {
-        //        if(ViewState["bodyType1"] != null)
-        //            return ViewState["bodyType1"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["bodyType1"] = value;}
-        //}
-		
-        //public string subSegment1
-        //{
-        //    get
-        //    {
-        //        if(ViewState["subSegment1"] != null)
-        //            return ViewState["subSegment1"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["subSegment1"] = value;}
-        //}
-		
-        //public string oem2
-        //{
-        //    get
-        //    {
-        //        if(ViewState["oem2"] != null)
-        //            return ViewState["oem2"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["oem2"] = value;}
-        //}
-		
-        //public string bodyType2
-        //{
-        //    get
-        //    {
-        //        if(ViewState["bodyType2"] != null)
-        //            return ViewState["bodyType2"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["bodyType2"] = value;}
-        //}
-		
-        //public string subSegment2
-        //{
-        //    get
-        //    {
-        //        if(ViewState["subSegment2"] != null)
-        //            return ViewState["subSegment2"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["subSegment2"] = value;}
-        //}
-		
-        //public string oem3
-        //{
-        //    get
-        //    {
-        //        if(ViewState["oem3"] != null)
-        //            return ViewState["oem3"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["oem3"] = value;}
-        //}
-		
-        //public string bodyType3
-        //{
-        //    get
-        //    {
-        //        if(ViewState["bodyType3"] != null)
-        //            return ViewState["bodyType3"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["bodyType3"] = value;}
-        //}
-		
-        //public string subSegment3
-        //{
-        //    get
-        //    {
-        //        if(ViewState["subSegment3"] != null)
-        //            return ViewState["subSegment3"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["subSegment3"] = value;}
-        //}
-		
-        //public string oem4
-        //{
-        //    get
-        //    {
-        //        if(ViewState["oem4"] != null)
-        //            return ViewState["oem4"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["oem4"] = value;}
-        //}
-		
-        //public string bodyType4
-        //{
-        //    get
-        //    {
-        //        if(ViewState["bodyType4"] != null)
-        //            return ViewState["bodyType4"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["bodyType4"] = value;}
-        //}
-		
-        //public string subSegment4
-        //{
-        //    get
-        //    {
-        //        if(ViewState["subSegment4"] != null)
-        //            return ViewState["subSegment4"].ToString();
-        //        else
-        //            return "";
-        //    }
-        //    set{ViewState["subSegment4"] = value;}
-        //}
-												 
-		protected override void OnInit( EventArgs e )
-		{
-			InitializeComponent();
-		}
-		
-		void InitializeComponent()
-		{
-			base.Load += new EventHandler( Page_Load );
-		}
-		
-		void Page_Load( object Sender, EventArgs e )
-		{	
-			string[] arrTemp = new string[arrSize];
+
+
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();
+        }
+
+        void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
+
+        void Page_Load(object Sender, EventArgs e)
+        {
+            string[] arrTemp = new string[arrSize];
             int c = 0;
 
-			for ( int i=1; i <= arrSize - 1; i++ )
-			{
-				if ( !String.IsNullOrEmpty(Request[ "bike" + i ]) && CommonOpn.CheckId( Request[ "bike" + i ] ) && Request[ "bike" + i ].ToString() != "0" )
-				{
-					versionId[i-1] = Request[ "bike" + i ];
-					
-					Trace.Warn("versionId " + i + " "  + versionId[i-1]);
-					
-					featuredBikeIndex++;
-				}
-				else 
-				{
-                    Trace.Warn("QS EMPTY");
-					versionId[i-1] = "0";
-				}
-                Trace.Warn("versionid length: " + versionId.Length.ToString());
+            for (int i = 1; i <= arrSize - 1; i++)
+            {
+                if (!String.IsNullOrEmpty(Request["bike" + i]) && CommonOpn.CheckId(Request["bike" + i]) && Request["bike" + i].ToString() != "0")
+                {
+                    versionId[i - 1] = Request["bike" + i];
+                    featuredBikeIndex++;
+                }
+                else
+                {
+                    versionId[i - 1] = "0";
+                }
 
-                Trace.Warn("versionId " + i + "::: " + versionId[i - 1]);
-                                
-				if ( versionId[i-1] != "0" )
-				{
-                    Trace.Warn(versionId[i - 1]);
+
+                if (versionId[i - 1] != "0")
+                {
                     arrTemp[c] = versionId[i - 1];
                     Trace.Warn("arr " + c.ToString() + ": " + arrTemp[c]);
-					versions += versionId[i-1] + ",";
+                    versions += versionId[i - 1] + ",";
                     c += 1;
-				}
-                Trace.Warn("versions : ", versions);      
-			}
-            
+                }
+
+            }
+
             Array.Clear(versionId, 0, versionId.Length);
             Array.Copy(arrTemp, versionId, arrTemp.Length);
-            
-            Trace.Warn("versions :: " + versions);
-		
-			if ( versions.Length > 0 )
-			{
-				versions = versions.Substring( 0, versions.Length - 1 );
-				
-				// Get version id of the featured bike on the basis of versions selected for comparison
-				// There might be multiple featured Bikes available. But only show top 1
-				string featuredBike = CompareBikes.GetFeaturedBike(versions);
-				
-				if(featuredBike != "")
-				{
-					featuredBikeId = featuredBike.Split('#')[0];
-					spotlightUrl = featuredBike.Split('#')[1];
-				}
-				
-				
-				// If featured bike available to show.
-				// Check if featured bike is already selected by the user.
-				if( featuredBikeId != "" && versions.IndexOf(featuredBikeId) < 0 )
-				{
-					versionId[ featuredBikeIndex ] = featuredBikeId;
-					versions += "," + featuredBikeId;
-					
-                    //if( featuredBikeIndex >= 3 )
-                    //{
-                    //    ad_160x600.Visible = false;
-                    //    compareWidth = "100%";
-                    //}
-				}
-                //else			
-                //{
-                //    if( featuredBikeIndex > 3 )
-                //    {
-                //        ad_160x600.Visible = false;
-                //        compareWidth = "100%";
-                //    }
-                //}
-			}
-			
-			Trace.Warn("featuredBikeIndex : " + featuredBikeIndex);
-			
-			Trace.Warn( "Versions : " + versions );
+
+
+            if (versions.Length > 0)
+            {
+                versions = versions.Substring(0, versions.Length - 1);
+
+                // Get version id of the featured bike on the basis of versions selected for comparison
+                // There might be multiple featured Bikes available. But only show top 1
+                Int64 featuredBike = CompareBikes.GetFeaturedBike(versions);
+
+                if (featuredBike > 0)
+                {
+                    featuredBikeId = featuredBike.ToString();
+                    //spotlightUrl = featuredBike.Split('#')[1];
+                }
+
+
+                // If featured bike available to show.
+                // Check if featured bike is already selected by the user.
+                if (featuredBikeId != "" && versions.IndexOf(featuredBikeId) < 0)
+                {
+                    versionId[featuredBikeIndex] = featuredBikeId;
+                    versions += "," + featuredBikeId;
+                }
+
+            }
+
 
             if (versions.Length == 0)
             {
-                Response.Redirect("/new/compare/",false);//return;
+                Response.Redirect("/new/compare/", false);//return;
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
 
             ltrDefaultCityName.Text = Configuration.GetDefaultCityName;
 
-			if ( !IsPostBack )
-			{			
-				FillComparisonData( versions );
+            if (!IsPostBack)
+            {
+                FillComparisonData(versions);
                 ltrTitle.Text = title;
                 pageTitle = title;
-                Trace.Warn("title final", title);
 
                 if (HttpContext.Current.Request.ServerVariables["URL"].ToLower().IndexOf("comparecolors.aspx") >= 0)
                 {
-                    Trace.Warn("compare colors page");
                     GetColors();
                 }
 
                 if (HttpContext.Current.Request.ServerVariables["URL"].ToLower().IndexOf("comparefeatures.aspx") >= 0)
                 {
-                    Trace.Warn("compare features page");
                     GetFeatures();
                 }
-			}
-			
-			//GoogleKeywords( versions );
-		} // Page_Load
+            }
+
+            //GoogleKeywords( versions );
+        } // Page_Load
 
         void FillComparisonData(string versions)
         {
@@ -519,7 +347,7 @@ namespace Bikewale.New
             //    objErr.SendMail();
             //}
         }   // End of FillComparisonData method
-		
+
         //void FillComparisonData( string versions )
         //{
         //    Trace.Warn( "Fetching Comparison Data..." );
@@ -534,29 +362,29 @@ namespace Bikewale.New
         //        + " LEFT JOIN BikeModels Mo ON Mo.Id=Ve.BikeModelId ) "
         //        + " LEFT JOIN BikeMakes Ma ON Ma.Id=Mo.BikeMakeId ) "
         //        + " WHERE NS.BikeVersionId IN (" + db.GetInClauseValue(versions, "BikeVersionId", cmd) +")";
-				
+
         //    Trace.Warn( sql );
-			
+
         //    cmd.CommandText = sql;
         //    DataSet ds = new DataSet();
-			
+
         //    try
         //    {
         //        ds = db.SelectAdaptQry(cmd);
-				
+
         //        Trace.Warn( "Bike 1 : " + versionId[0] );
-				
+
         //        int i = 0;
-				
+
         //        if(ds.Tables[0].Rows.Count > 0)
         //        {
-					
+
         //            Trace.Warn("Data Found");
         //            for ( int j = 0; j < ds.Tables[0].Rows.Count; j++ )
         //            {
         //                // get index of versionId to be displayed!
         //                i = GetVersionIndex( ds.Tables[0].Rows[j]["BikeVersionId"].ToString() );
-	
+
         //                Trace.Warn( "Index : " + i + "; Version : " + ds.Tables[0].Rows[j]["BikeVersionId"].ToString() );
 
         //                bike[i] = ds.Tables[0].Rows[j]["BikeName"].ToString();
@@ -564,16 +392,16 @@ namespace Bikewale.New
         //                modelName[i] = ds.Tables[0].Rows[j]["ModelName"].ToString();
         //                versionName[i] = ds.Tables[0].Rows[j]["VersionName"].ToString();
         //                hostURL[i] = ds.Tables[0].Rows[j]["HostURL"].ToString();
-						
+
         //                if(ds.Tables[0].Rows[j]["Price"].ToString() != "")
         //                    price[i] 					= CommonOpn.FormatNumeric( ds.Tables[0].Rows[j]["Price"].ToString() ); 
-											
+
         //                if ( ds.Tables[0].Rows[j]["Price"].ToString() != "" )
         //                {
         //                    loan[i] = ( int.Parse( ds.Tables[0].Rows[j]["Price"].ToString() ) * 0.8 ).ToString(); 
         //                    emi[i] = CommonOpn.FormatNumeric( CommonOpn.GetEMI( int.Parse( ds.Tables[0].Rows[j]["Price"].ToString() ) ) );
         //                }
-						
+
         //                length[i] 					= ds.Tables[0].Rows[j]["length"].ToString(); 
         //                width[i] 					= ds.Tables[0].Rows[j]["width"].ToString(); 
         //                height[i] 					= ds.Tables[0].Rows[j]["height"].ToString(); 
@@ -620,20 +448,20 @@ namespace Bikewale.New
         //                wheelSize[i] 				= ds.Tables[0].Rows[j]["WheelSize"].ToString(); 
         //                wheelType[i] 				= ds.Tables[0].Rows[j]["WheelType"].ToString(); 
         //                tyres[i] 					= ds.Tables[0].Rows[j]["Tyres"].ToString();
-						
+
         //                transmissionType[i]			= ds.Tables[0].Rows[j]["TransmissionType"].ToString();
         //                fuelType[i]					= ds.Tables[0].Rows[j]["FuelType"].ToString();
-						
+
         //                mileageHighway[i]			= ds.Tables[0].Rows[j]["MileageHighway"].ToString();
         //                mileageCity[i]				= ds.Tables[0].Rows[j]["MileageCity"].ToString();
         //                mileageOverall[i]			= ds.Tables[0].Rows[j]["MileageOverall"].ToString();
-						
+
         //                rearShoulder[i]				= ds.Tables[0].Rows[j]["RearShoulder"].ToString();
         //                zeroToHundred[i]			= ds.Tables[0].Rows[j]["ZeroToHundred"].ToString();
         //                quarterMile[i]				= ds.Tables[0].Rows[j]["QuarterMile"].ToString();
         //                hundredToZero[i]			= ds.Tables[0].Rows[j]["BrakingHundredToZero"].ToString();
         //                eightyToZero[i]				= ds.Tables[0].Rows[j]["BrakingEightyToZero"].ToString();
-	
+
         //                cfAC[i]						= ds.Tables[0].Rows[j]["AirConditioner"].ToString();
         //                cfPW[i]						= ds.Tables[0].Rows[j]["PowerWindows"].ToString();	
         //                cfDoorLocks[i] 				= ds.Tables[0].Rows[j]["PowerDoorLocks"].ToString();
@@ -651,7 +479,7 @@ namespace Bikewale.New
         //                cfCD[i] 					= ds.Tables[0].Rows[j]["CDPlayer"].ToString();
         //                cfSun[i] 					= ds.Tables[0].Rows[j]["SunRoof"].ToString();
         //                cfMoon[i]					= ds.Tables[0].Rows[j]["MoonRoof"].ToString();
-						
+
         //                cfTraction[i]				= ds.Tables[0].Rows[j]["TractionControl"].ToString();	
         //                cfDriverAirBags[i]			= ds.Tables[0].Rows[j]["DriverAirBags"].ToString();
         //                cfPassengerAirBags[i]		= ds.Tables[0].Rows[j]["PassengerAirBags"].ToString();
@@ -663,7 +491,7 @@ namespace Bikewale.New
         //                cfTubeless[i]				= ds.Tables[0].Rows[j]["TubelessTyres"].ToString();
         //                cfCL[i]						= ds.Tables[0].Rows[j]["CentralLocking"].ToString();
         //                cfRemoteBoot[i]				= ds.Tables[0].Rows[j]["RemoteBootFuelLid"].ToString();
-						
+
         //                leadAggregator[i]			= Convert.ToBoolean(ds.Tables[0].Rows[j]["New"]) == true ? ds.Tables[0].Rows[j]["BikeVersionId"].ToString() : "";
         //            }	
         //        }			
@@ -675,11 +503,11 @@ namespace Bikewale.New
         //        ErrorClass objErr = new ErrorClass(ex,Request.ServerVariables["URL"]);
         //        objErr.SendMail();
         //    }
-			
+
         //    try
         //    {
         //        int hideStart = arrSize;
-					
+
         //        for ( int i = 0; i < arrSize; i++ )
         //        {
         //            if ( bike[i] != null )
@@ -695,12 +523,12 @@ namespace Bikewale.New
         //                if ( hideStart == arrSize ) hideStart = i;	
         //            }					
         //        }
-				
+
         //        HideComparison( hideStart ); // Hide unwanted colmuns! 
-				
+
         //        if(title.Length > 2)
         //            title = title.Substring( 0, title.Length - 3 ); // format title. remove extra vs from end.
-				
+
         //        if(youHere.Length > 0)
         //            youHere = youHere.Substring( 0, youHere.Length - 1 ); // format you are here link. remove extra & from end.
         //    }
@@ -712,30 +540,30 @@ namespace Bikewale.New
         //        objErr.SendMail();
         //    }
         //}
-		
-		// This function will get current versionId from
-		// dataset and will match it with the version in
-		// the array. if it matches, it will return index.
-		// this is just to match the order of Bikes being compared!
 
-		private int GetVersionIndex( string versionNo )
-		{
-			int index = -1;
-			
-			for ( int i = 0; i < arrSize; i++ )
-			{
-				Trace.Warn( "Version Passed - Version Array - Index : " + versionNo + "-" + versionId[i] + "-" + i  );
-				
-				if ( versionNo == versionId[i] )
-				{
-					//Trace.Warn( "Version Passed - Version Array - Index : " + versionNo + "-" + versionId[i] + "-" + i  );
-					index = i;
-					break;
-				}
-			}
-			
-			return index;
-		}
+        // This function will get current versionId from
+        // dataset and will match it with the version in
+        // the array. if it matches, it will return index.
+        // this is just to match the order of Bikes being compared!
+
+        private int GetVersionIndex(string versionNo)
+        {
+            int index = -1;
+
+            for (int i = 0; i < arrSize; i++)
+            {
+                Trace.Warn("Version Passed - Version Array - Index : " + versionNo + "-" + versionId[i] + "-" + i);
+
+                if (versionNo == versionId[i])
+                {
+                    //Trace.Warn( "Version Passed - Version Array - Index : " + versionNo + "-" + versionId[i] + "-" + i  );
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
 
         protected void GetFeatures()
         {
@@ -872,10 +700,10 @@ namespace Bikewale.New
         //public string GetFeature( string featureValue )
         //{
         //    string adString = "";
-			
+
         //    if ( featureValue == null )
         //        return "";
-			
+
         //    switch( featureValue.ToUpper() )
         //    {
         //        case "A":
@@ -894,32 +722,32 @@ namespace Bikewale.New
         //            adString = "-";
         //            break;
         //    }
-			
+
         //    return adString;
         //}
-		
-		private void HideComparison( int column )
-		{
-			
-			while ( arrSize - column > 0 )
-			{	
-				for ( int i=0; i < tblCompare.Rows.Count; i++ )
-				{
-					tblCompare.Rows[i].Cells.RemoveAt( tblCompare.Rows[i].Cells.Count - 1 );
-				}
-				
-				column++; // One column has been deleted, increase the index by 1.
-			}
-		}
-		
-		public void GetColors()
+
+        private void HideComparison(int column)
+        {
+
+            while (arrSize - column > 0)
+            {
+                for (int i = 0; i < tblCompare.Rows.Count; i++)
+                {
+                    tblCompare.Rows[i].Cells.RemoveAt(tblCompare.Rows[i].Cells.Count - 1);
+                }
+
+                column++; // One column has been deleted, increase the index by 1.
+            }
+        }
+
+        public void GetColors()
         {
             throw new Exception("Method not used/commented");
 
             //Database db = null;
             //SqlCommand cmd = null;
             ////DataSet ds = null;
-            
+
             //try
             //{
             //    db = new Database();
@@ -948,7 +776,7 @@ namespace Bikewale.New
             //{
             //    db.CloseConnection();
             //}
-		}
+        }
 
         /// <summary>
         ///     PopulateWhere will return formatted color html for the particular version
@@ -962,9 +790,9 @@ namespace Bikewale.New
             DataView dv = dsColors.DefaultViewManager.CreateDataView(dsColors.Tables[0]);
             dv.Sort = "BikeVersionId";
             //Trace.Warn("drv count", dv.Count.ToString());
-            DataRowView []drv = dv.FindRows(versionId);
-            
-            if(drv.Length > 0)
+            DataRowView[] drv = dv.FindRows(versionId);
+
+            if (drv.Length > 0)
             {
                 Trace.Warn("drv data .............", drv.Length.ToString());
 
@@ -981,263 +809,33 @@ namespace Bikewale.New
             return colorString;
 
         }
-		
-		//public string GetVersionRatings(string versionId)
-//		{
-//			string sql = "";
-//			
-//			sql = " SELECT MO.ID as ModelId, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-//				+ " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-//				+ " FROM BikeModels AS MO, BikeVersions AS CV WHERE CV.ID = @ID AND MO.ID = CV.BikeModelId ";
-//			
-//			SqlCommand cmd =  new SqlCommand(sql);
-//			cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = versionId;
-//	
-//			SqlDataReader dr;
-//			Database db = new Database();
-//			
-//			string reviewString = "";
-//			
-//			try
-//			{
-//				dr = db.SelectQry(cmd);
-//				
-//				while( dr.Read() )
-//				{
-//					if( Convert.ToDouble(dr["VersionRate"]) > 0 )
-//					{
-//						string reviews = Convert.ToDouble(dr["VersionTotal"]) > 1 ? " reviews" : " review";
-//						reviewString += "<div align='center'>" + CommonOpn.GetRateImage( Convert.ToDouble(dr["VersionRate"]) ) + "</div>"
-//									 + " <div style='margin-top:10px;' align='center'><a href='/Research/ReadUserReviews-Bikev-"+ versionId +".html'>"+ dr["VersionTotal"].ToString() + reviews +"</a></div>";
-//					}
-//					else
-//						reviewString = "<div style='margin-top:10px;' align='center'><a href='/Research/UserReviews-Bikev-"+ versionId +".html'>Write a review</a></div>";
-//				}			
-//				dr.Close();
-//				db.CloseConnection();
-//			}
-//			catch ( SqlException err )
-//			{
-//				ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-//				objErr.SendMail();
-//			}
-//			return reviewString;
-//		}
-		
-		public string GetModelRatings(string versionId)
+
+        public string IsFeaturedBike(string index)
         {
-            throw new Exception("Method not used/commented");
+            if (featuredBikeIndex.ToString() == index)
+            {
+                Trace.Warn("Appluting calls");
+                return "fearured-bike";
+            }
+            else
+                return "";
+        }
 
-            //string sql = "";
 
-            //sql = " SELECT (SELECT MaskingName FROM BikeMakes With(NoLock) WHERE ID = MO.BikeMakeId) AS MakeMaskingName, MO.ID as ModelId, MO.Name AS ModelName,MO.MaskingName AS ModelMaskingName, IsNull(MO.ReviewRate, 0) AS ModelRate, IsNull(MO.ReviewCount, 0) AS ModelTotal, "
-            //    + " IsNull(CV.ReviewRate, 0) AS VersionRate, IsNull(CV.ReviewCount, 0) AS VersionTotal "
-            //    + " FROM BikeModels AS MO, BikeVersions AS CV With(NoLock) WHERE CV.ID = @ID AND MO.ID = CV.BikeModelId ";
-			
-            //SqlCommand cmd =  new SqlCommand(sql);
-            //cmd.Parameters.Add("@ID", SqlDbType.BigInt).Value = versionId;
-			
-            //SqlDataReader dr = null;
-            //Database db = new Database();
-			
-            //string reviewString = "";
-
-            //try
-            //{
-            //    dr = db.SelectQry(cmd);
-
-            //    while (dr.Read())
-            //    {
-            //        if (Convert.ToDouble(dr["ModelRate"]) > 0)
-            //        {
-            //            string reviews = Convert.ToDouble(dr["ModelTotal"]) > 1 ? " reviews" : " review";
-            //            //reviewString += "<div align='center'>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
-            //            //									 + " <div style='margin-top:10px;' align='center'><a href='/Research/ReadUserReviews-Bikem-"+ dr["ModelId"].ToString() +".html'>"+ dr["ModelTotal"].ToString() + reviews +" </a></div>";
-            //            reviewString += "<div>" + CommonOpn.GetRateImage(Convert.ToDouble(dr["ModelRate"].ToString())) + "</div>"
-            //                         + " <div style='margin-top:5px;'><a href='/" + dr["MakeMaskingName"].ToString() + "-bikes/" +dr["ModelMaskingName"].ToString() + "/user-reviews/'>" + dr["ModelTotal"].ToString() + reviews + " </a></div>";
-
-            //        }
-            //        else
-            //            reviewString = "<div style='margin-top:10px;'><a href='/content/userreviews/writereviews.aspx?bikem=" + dr["ModelId"].ToString() + "'>Write a review</a></div>";
-            //    }
-            //}
-            //catch (SqlException err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //catch (Exception err)
-            //{
-            //    ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //finally 
-            //{
-            //    if (dr != null)
-            //    {
-            //        dr.Close();
-            //    }
-            //    db.CloseConnection();
-            //}
-            //return reviewString;
-		}
-		
-		public string GetAllFeatures(string versionId)
-        {
-            throw new Exception("Method not used/commented");
-
-            //string sql = "";
-						
-            //sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
-            //    + " FROM NewBikeFeatureCategories NC With(NoLock) WHERE NC.Id IN "
-            //    + " (SELECT DISTINCT CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
-            //    + " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId )";
-			
-            //SqlCommand cmd =  new SqlCommand(sql);
-            //cmd.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
-			
-		
-            //DataSet dsCt = new DataSet();
-            //DataSet dsF = new DataSet();
-            //Database db = new Database();
-			
-            //string prepareStr = "";
-			
-            //try
-            //{
-            //    dsCt = db.SelectAdaptQry(cmd);
-
-            //    sql = " SELECT NI.ID, NI.Name Feature, CategoryId FROM NewBikeFeatures NF, NewBikeFeatureItems NI With(NoLock) "
-            //        + " WHERE NF.FeatureItemId=NI.Id AND BikeVersionId=@BikeVersionId";
-				
-            //    SqlCommand cmd1 =  new SqlCommand(sql);
-            //    cmd1.Parameters.Add("@BikeVersionId", SqlDbType.BigInt).Value = versionId;
-			
-            //    dsF = db.SelectAdaptQry(cmd1);
-				
-            //    foreach( DataRow row in dsCt.Tables[0].Rows )
-            //    {
-            //        prepareStr += "<br><h2>" + row["Category"].ToString() + "</h2>";
-					
-            //        if( dsF.Tables[0].Rows.Count > 0 )
-            //        {
-            //            DataTable dtFeatures = dsF.Tables[0];
-            //            DataRow[] rowFeatures = dtFeatures.Select( "CategoryId = "+  row["CategoryId"].ToString() );
-						
-            //            if( rowFeatures.Length > 0 )
-            //            {
-            //                prepareStr += "<ul class=\"normal\">";
-							
-            //                for( int i = 0; i < rowFeatures.Length; i++ )
-            //                {
-            //                    prepareStr += "<li>" + rowFeatures[i]["Feature"].ToString() + "</li>";
-            //                }
-							
-            //                prepareStr += "</ul>";
-            //            }
-            //        }//if
-            //    }//foeeach
-            //}
-            //catch ( SqlException err )
-            //{
-            //    Trace.Warn(err.Message);
-            //    ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-			
-            //return prepareStr;
-		}
-		
-        //protected void GoogleKeywords(string versions)
+        //public string GetLandingURL(string makeName, string modelName, string versionName, string versionId)
         //{
-        //    string sql = "";
-        //    SqlCommand cmd = new SqlCommand();
-        //    Database db = new Database();
-        //    sql = " SELECT CM.Name AS Make, Se.Name AS SubSegment, Bo.Name BikeBodyStyle "
-        //        + " FROM BikeModels AS CMO, BikeMakes AS CM, BikeBodyStyles Bo, "
-        //        + " (BikeVersions Ve LEFT JOIN BikeSubSegments Se ON Se.Id = Ve.SubSegmentId ) "
-        //        + " WHERE CM.ID=CMO.BikeMakeId AND CMO.ID=Ve.BikeModelId AND Bo.Id=Ve.BodyStyleId "
-        //        + " AND Ve.Id in (" + db.GetInClauseValue(versions, "Id", cmd) + ")";
-			
-			
-        //    DataSet ds = new DataSet();
-        //    try
+        //    string landingUrl = "";
+
+        //    if (!(versionId == featuredBikeId && spotlightUrl != ""))
         //    {
-        //        cmd.CommandText = sql;
-        //        ds = db.SelectAdaptQry(cmd );
-				
-        //        if(ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            for ( int j = 0; j < ds.Tables[0].Rows.Count; j++ )
-        //            {
-        //                if (j==0)
-        //                {
-        //                    oem1 = ds.Tables[0].Rows[j]["Make"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    bodyType1 = ds.Tables[0].Rows[j]["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    subSegment1 = ds.Tables[0].Rows[j]["SubSegment"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                }
-        //                if (j==1)
-        //                {
-        //                    oem2 = ds.Tables[0].Rows[j]["Make"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    bodyType2 = ds.Tables[0].Rows[j]["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    subSegment2 = ds.Tables[0].Rows[j]["SubSegment"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                }
-        //                if (j==2)
-        //                {
-        //                    oem3 = ds.Tables[0].Rows[j]["Make"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    bodyType3 = ds.Tables[0].Rows[j]["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    subSegment3 = ds.Tables[0].Rows[j]["SubSegment"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                }
-        //                if (j==3)
-        //                {
-        //                    oem4 = ds.Tables[0].Rows[j]["Make"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    bodyType4 = ds.Tables[0].Rows[j]["BikeBodyStyle"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                    subSegment4 = ds.Tables[0].Rows[j]["SubSegment"].ToString().Replace(" ", "").Replace("/","").Replace("-",""); 
-        //                }
-						
-        //            }	
-        //        }			
-				
-        //        Trace.Warn(sql);
+        //        landingUrl = "/" + UrlRewrite.FormatSpecial(makeName) + "-bikes/" + modelName + "/";
+        //        //+ (versionName == "" ? "" : (UrlRewrite.FormatSpecial(versionName) + "-specs-" + versionId + ".html"));
         //    }
-        //    catch(Exception err)
+        //    else
         //    {
-        //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
+        //        landingUrl = spotlightUrl;
         //    }
-        //    finally
-        //    {
-        //        db.CloseConnection();
-        //    }
+        //    return landingUrl;
         //}
-		
-		public string IsFeaturedBike(string index)	
-		{
-			if( featuredBikeIndex.ToString() == index)
-			{
-				Trace.Warn("Appluting calls");
-				return "fearured-bike";
-			}
-			else 
-				return "";
-		}
-		
-		
-		public string GetLandingURL(string makeName, string modelName, string versionName, string versionId)
-		{
-			string landingUrl = "";
-			
-			if(!(versionId == featuredBikeId && spotlightUrl != ""))
-			{
-                landingUrl = "/" + UrlRewrite.FormatSpecial(makeName) + "-bikes/" + modelName + "/";
-						   //+ (versionName == "" ? "" : (UrlRewrite.FormatSpecial(versionName) + "-specs-" + versionId + ".html"));
-			}
-			else
-			{
-				landingUrl = spotlightUrl;
-			}
-			return landingUrl;
-		}
-	} // class
+    } // class
 } // namespace

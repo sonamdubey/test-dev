@@ -480,10 +480,6 @@
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\FeaturedBike.ascx.cs">
-      <DependentUpon>FeaturedBike.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\ForumsMin.ascx.cs">
       <DependentUpon>ForumsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1504,7 +1500,6 @@
     <Content Include="ads\Ad970x90_BTF.aspx" />
     <Content Include="ads\Ad970x90_Bottom.aspx" />
     <Content Include="ads\Ad976x204.aspx" />
-    <Content Include="adtest\Default.aspx" />
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
     <Content Include="BikeBooking\cancellation.aspx" />
@@ -1858,7 +1853,6 @@
     <Content Include="controls\EMICalculatorMin.ascx" />
     <Content Include="controls\ExpertReviews.ascx" />
     <Content Include="controls\ExpertReviewsVideos.ascx" />
-    <Content Include="controls\FeaturedBike.ascx" />
     <Content Include="controls\ForumsMin.ascx" />
     <Content Include="controls\InstantBikePrice.ascx" />
     <Content Include="controls\LinkPagerControl.ascx" />
