@@ -1,5 +1,9 @@
-﻿using Bikewale.DAL.Compare;
+﻿using Bikewale.BAL.Compare;
+using Bikewale.Cache.Compare;
+using Bikewale.Cache.Core;
+using Bikewale.DAL.Compare;
 using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -7,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -16,105 +19,101 @@ namespace Bikewale.BindViewModels.Controls
     /// Desc       : View Model to bind and pass repeater data to control
     /// Modified by :Subodh Jain on 21 oct 2016
     /// Desc : Added cityid as parameter
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Removed unused methods and merged methods related to similar compare bikes,Added check to handle sponsored bikes
     /// </summary>
     public class BindSimilarCompareBikesControl
     {
         public uint FetchedRecordsCount { get; set; }
         public int cityid { get; set; }
-        public uint BindAlternativeCompareBikes(Repeater rptSimlarCompareBikes, string versionList, uint count)
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
-                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
-                    if (objSimilarBikes != null)
-                        FetchedRecordsCount = (uint)objSimilarBikes.Count();
+        public Int64 SponsoredVersionId { get; set; }
+        public String FeaturedBikeLink { get; set; }
 
-                    if (FetchedRecordsCount > 0)
-                    {
-                        rptSimlarCompareBikes.DataSource = objSimilarBikes;
-                        rptSimlarCompareBikes.DataBind();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
 
-            return FetchedRecordsCount;
-        }
         /// <summary>
         /// Created by:-Subodh Jain 12 sep 2016
         /// Description :- For comparison of popular bikes at model page
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To check for sponsord bike for version and if sponsored use another cache method
         /// </summary>
         /// <param name="rptPopularCompareBikes"></param>
         /// <param name="versionList"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public uint BindPopularCompareBikes(Repeater rptPopularCompareBikes, string versionList, uint count)
+        public ICollection<SimilarCompareBikeEntity> BindPopularCompareBikes(string versionList, ushort count)
         {
+            ICollection<SimilarCompareBikeEntity> objSimilarBikes = null;
+
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
-                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
-                    if (objSimilarBikes != null)
-                        FetchedRecordsCount = (uint)objSimilarBikes.Count();
 
-                    if (FetchedRecordsCount > 0)
+                    container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
+                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    var objCompare = container.Resolve<IBikeCompareCacheRepository>();
+
+                    if (SponsoredVersionId > 0)
                     {
-                        rptPopularCompareBikes.DataSource = objSimilarBikes;
-                        rptPopularCompareBikes.DataBind();
+                        objSimilarBikes = objCompare.GetSimilarCompareBikeSponsored(versionList, count, cityid, (uint)SponsoredVersionId);
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+                    else
+                    {
+                        objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
+                    }
 
-            return FetchedRecordsCount;
-        }
-        /// <summary>
-        /// Author : Vivek Gupta
-        /// Date : 13-05-2016
-        /// Desc : overload to get return of type IEnumerable<SimilarCompareBikeEntity>
-        /// </summary>
-        /// <param name="versionList"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public IEnumerable<SimilarCompareBikeEntity> BindAlternativeBikes(string versionList, uint count)
-        {
-            IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = new List<SimilarCompareBikeEntity>();
 
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
-                    objSimilarBikes = objCompare.GetSimilarCompareBikes(versionList, count, cityid);
                     if (objSimilarBikes != null)
+                    {
+
+                        if (SponsoredVersionId > 0)
+                        {
+                            var objFeaturedComparision = objSimilarBikes.FirstOrDefault(f => f.VersionId2 == SponsoredVersionId.ToString());
+                            if (objFeaturedComparision != null)
+                                FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId2.ToString());
+                        }
+
                         FetchedRecordsCount = (uint)objSimilarBikes.Count();
+                    }
+
+
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_BindPopularCompareBikes_{1}_Cnt_{2}", HttpContext.Current.Request.ServerVariables["URL"], versionList, count));
                 objErr.SendMail();
             }
 
             return objSimilarBikes;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Dec 2016
+        /// Description : To get fetaured bike versionId
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <returns></returns>
+        public Int64 CheckSponsoredBikeForAnyVersion(string versionList)
+        {
+            try
+            {
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeCompare, BikeComparison>();
+                    IBikeCompare objCompare = container.Resolve<IBikeCompare>();
+                    SponsoredVersionId = objCompare.GetFeaturedBike(versionList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_CheckSponsoredBikeForAnyVersion_{1}", HttpContext.Current.Request.ServerVariables["URL"], versionList));
+                objErr.SendMail();
+            }
+
+            return SponsoredVersionId;
         }
     }
 }

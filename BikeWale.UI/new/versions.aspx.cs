@@ -335,12 +335,16 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
 
 
-            ctrlPopularCompare.TopCount = 6;
-            ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-            ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
+
 
             if (!isDiscontinued)
+            {
+                ctrlPopularCompare.TopCount = 6;
+                ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
+                ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
                 ctrlPopularCompare.versionId = Convert.ToString(variantId);
+            }
+
         }
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
