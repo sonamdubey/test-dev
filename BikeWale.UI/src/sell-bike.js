@@ -1255,7 +1255,7 @@ $(function () {
         $('#city-select-element select').prop('disabled', true).trigger("chosen:updated");
 
         vmSellBike.serverImg(inquiryDetails.photos);
-        if (window.location.hash == "#uploadphoto")
+        if (window.location.hash == "#uploadphoto" || window.location.search.indexOf("hash") > -1)
         {
             vmSellBike.formStep(3);
             vmSellBike.initPhotoUpload();

@@ -29,11 +29,8 @@ namespace BikWale.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
-            Form.Action = Request.RawUrl;
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
             dd.DetectDevice();
 
             if (!IsPostBack)
@@ -157,6 +154,8 @@ namespace BikWale.Users
         private void RedirectPath()
         {
             string returnUrl = Request.QueryString["ReturnUrl"];
+            if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
+                returnUrl = returnUrl.Replace(Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, "");
             if (IsLocalUrl(returnUrl))
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["hash"]))
