@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.DealerDetails" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -162,6 +163,16 @@
                 <% }  %>
             </div>
         </section>   
+             <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 ) {%>
+        <section>
+            <div class="container bg-white box-shadow margin-bottom15">
+             <div class="container bg-white box-shadow margin-bottom15">
+                 <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
+            </div>
+                </div>
+            
+        </section>
+        <% } %>
 
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 

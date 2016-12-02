@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,6 +243,21 @@
             </div>
         </section>
         <% } %>      
+            <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 ){ %>
+        <section>
+                 <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div  class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <h2 class="font15 text-bold text-x-black padding-right20 padding-left20 margin-bottom15">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                        <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
+                            </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
