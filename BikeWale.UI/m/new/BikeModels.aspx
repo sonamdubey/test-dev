@@ -438,7 +438,7 @@
                                 <%} %>
                                    <%if (colorCount>0){ %> 
                                 <tr>
-                                    <td valign="top">Colours</td>
+                                    <td valign="top">Colors</td>
                                     <td valign="top" class="text-bold">
                                         <ul class="model-color-list">
                                             <%foreach(var colorName in  modelPage.ModelColors){ %>
