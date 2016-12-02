@@ -18,7 +18,7 @@
                                             <img  src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._174x98) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />    
                                         </div>
                                     </div>
-                                    <p class="text-light-grey ">Ex-showroom, <%= bike.City1  %></p>
+                                    <p class="text-light-grey block text-truncate">Ex-showroom, <%= bike.City1  %></p>
                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font20 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price1.ToString())  %></span>
                                 </div>
                                 <div class="grid-6 padding-left30 omega">
@@ -27,7 +27,7 @@
                                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._174x98) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
                                         </div>
                                     </div>
-                                    <p class="text-light-grey ">Ex-showroom, <%= bike.City2  %></p>
+                                    <p class="text-light-grey block text-truncate">Ex-showroom, <%= bike.City2  %></p>
                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font20 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price2.ToString())  %></span>
                                      <% if (SponsoredVersionId == Convert.ToUInt32(bike.VersionId2) && !string.IsNullOrEmpty(FeaturedBikeLink))
                                         { %> <br /> <span class="text-truncate font12 block" data-href="<%= FeaturedBikeLink %>" title="View <%= bike.Model2  %> details on <%=bike.Make2 %>'s site"  id="sponsored-comparebike-link">More info at <%=bike.Make2 %> auto</span>   <% } %>
