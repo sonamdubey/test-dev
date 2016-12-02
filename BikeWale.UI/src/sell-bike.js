@@ -226,7 +226,7 @@ var sellBike = function () {
                     $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
                 });
 
-                this.on("addedfiles", function (file) {
+                this.on("addedfiles", function (file) {                    
                     morePhotos.detach();
                     if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         $(file).each(function (i) {
@@ -244,6 +244,26 @@ var sellBike = function () {
                     else {
                         morePhotos.detach();
                     }                    
+                });
+
+                this.on("drop", function (file) {                    
+                    morePhotos.detach();
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                        $(file).each(function (i) {
+                            if (10 > i >= self.serverImg().length) {
+                                myDropzone.cancelUpload(this);
+                                myDropzone.removeFile(this);
+                            }
+                        });
+                    }
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }
                 });
                 
             }
