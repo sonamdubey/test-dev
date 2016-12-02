@@ -37,7 +37,7 @@ namespace Bikewale.Mobile.New
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
-
+        protected BrandCityPopUp ctrlBrandCity;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -89,6 +89,7 @@ namespace Bikewale.Mobile.New
             ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
             ctrlPopoularBikeMake.makeName = makeName;
             ctrlLeadCapture.CityId = cityId;
+            ctrlBrandCity.requestType = EnumBikeType.Dealer;
         }
 
         /// <summary>

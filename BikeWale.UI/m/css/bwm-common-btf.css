@@ -75,6 +75,7 @@
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-popup .close-btn, .bw-city-popup .close-btn {width:16px; height:16px;cursor:pointer;}
 #popupWrapper .chosen-drop ul.chosen-results { max-height:120px }
+#brandcitypopupWrapper .chosen-drop ul.chosen-results { max-height:120px }
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
 .global-search-popup .form-control, .bwm-city-area-box .form-control { padding: 10px 50px; }
@@ -85,14 +86,25 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .global-search-popup .cross-box span.cross-md-dark-grey, .bwm-city-area-box .cross-box span.cross-md-dark-grey { position: absolute; right: 13px; top: 8px; z-index: 11; }
 .global-search-popup .cross-box:hover span.cross-md-dark-grey, .bwm-city-area-box .cross-box:hover span.cross-md-dark-grey { background-position: -62px -223px; }
 .bw-city-popup.bwm-fullscreen-popup { overflow-x:hidden; }
-.bw-city-popup.bwm-fullscreen-popup #popupContent { background:#f5f5f5; z-index:11; position:fixed; left:100%; top:0; overflow-y:scroll; width:100%; height:100% }
+.bw-city-popup.bwm-fullscreen-popup #popupContent,#brandcitypopupContent { background:#f5f5f5; z-index:11; position:fixed; left:100%; top:0; overflow-y:scroll; width:100%; height:100% }
 .bw-area-popup-box { display:none; }
 /* on road price popup */
 #popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
     display: none;
 }
+#brandcitypopupWrapper.loader-active .popup-inner-container, #popup-loader-container {
+    display: none;
+}
 
 #popupWrapper.loader-active #popup-loader-container {
+    text-align: center;
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow-y: hidden;
+    position: relative;
+}
+#brandcitypopupWrapper.loader-active #popup-loader-container {
     text-align: center;
     display: block;
     width: 100%;
@@ -125,10 +137,14 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
     background: #f5f5f5 url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom;
 }
 #popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
+#brandcitypopupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
 .user-input-box { width:100%; position:fixed; top:0; left:100%; }
 #popupCityList, #popupAreaList { padding-top:40px; }
 #popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
-#popupCityList li:hover, #popupAreaList li:hover { background: #ededed; } 
+#popupCityList li:hover, #popupAreaList li:hover { background: #ededed; }
+#popupCitiesList, #popupMakeList { padding-top:40px; }
+#popupCitiesList li, #popupMakeList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
+#popupCitiesList li:hover, #popupMakeList li:hover { background: #ededed; } 
 .border-last-bottom { border-bottom:2px solid #555; }
 /* news, review and videos section on home page classes */
 .img-preview img { width: 100% }

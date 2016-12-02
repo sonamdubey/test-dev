@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,9 @@
 
         <section>
             <div class="container bg-white box-shadow margin-bottom10">
-                <h2 class="font16 text-black text-bold padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%></h2>
+                <h2 class="font16 text-black text-bold padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%>
+                    <a href="Javascript:void(0)" id="changeOptions">change</a>
+                </h2>
                 <ul id="dealersList">
                     <asp:Repeater ID="rptDealers" runat="server">
                         <ItemTemplate>
@@ -118,9 +121,10 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+      
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
