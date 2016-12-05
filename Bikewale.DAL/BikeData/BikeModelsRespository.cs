@@ -100,6 +100,7 @@ namespace Bikewale.DAL.BikeData
                 modelPage.ModelDesc = GetModelSynopsis(modelId);
                 modelPage.ModelVersions = GetVersionMinSpecs(modelId, isNew);
                 modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
+                modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                 modelPage.ModelColors = GetModelColor(modelId);
             }
             catch (SqlException ex)
@@ -156,6 +157,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                         modelPage.ModelColors = GetModelColor(modelId);
+                        modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                     }
                 }
             }
@@ -306,6 +308,7 @@ namespace Bikewale.DAL.BikeData
             var mv = new BikeVersionsRepository<BikeVersionEntity, int>();
             return mv.GetSpecifications(versionId);
         }
+
 
         /// <summary>
         /// Summary : Function to get particular model's all details.
@@ -1222,5 +1225,121 @@ namespace Bikewale.DAL.BikeData
             }
             return objList;
         }
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 01 Dec 2016
+        /// Summary : Function to get all specifications of all the versions of ModelId
+        /// </summary>
+        public IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId)
+        {
+            List<BikeSpecificationEntity> objMinspecs = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelspecifications"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        objMinspecs = new List<BikeSpecificationEntity>();
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                                objMinspecs.Add(new BikeSpecificationEntity()
+                                {
+                                    BikeVersionId = Convert.ToUInt32(dr["versionid"].ToString()),
+                                    Displacement = Convert.ToSingle(dr["displacement"]),
+                                    Cylinders = Convert.ToUInt16(dr["cylinders"]),
+                                    MaxPower = Convert.ToSingle(dr["maxpower"]),
+                                    MaximumTorque = Convert.ToSingle(dr["maximumtorque"]),
+                                    Bore = Convert.ToSingle(dr["bore"]),
+                                    Stroke = Convert.ToSingle(dr["stroke"]),
+                                    ValvesPerCylinder = Convert.ToUInt16(dr["valvespercylinder"]),
+                                    FuelDeliverySystem = dr["fueldeliverysystem"].ToString(),
+                                    FuelType = dr["fueltype"].ToString(),
+                                    Ignition = dr["ignition"].ToString(),
+                                    SparkPlugsPerCylinder = dr["sparkplugspercylinder"].ToString(),
+                                    CoolingSystem = dr["coolingsystem"].ToString(),
+                                    GearboxType = dr["gearboxtype"].ToString(),
+                                    NoOfGears = Convert.ToUInt16(dr["noofgears"].ToString()),
+                                    TransmissionType = dr["transmissiontype"].ToString(),
+                                    Clutch = dr["clutch"].ToString(),
+                                    Performance_0_60_kmph = Convert.ToSingle(dr["performance_0_60_kmph"]),
+                                    Performance_0_80_kmph = Convert.ToSingle(dr["performance_0_80_kmph"]),
+                                    Performance_0_40_m = Convert.ToSingle(dr["performance_0_40_m"]),
+                                    TopSpeed = Convert.ToUInt16(dr["topspeed"]),
+                                    Performance_60_0_kmph = dr["performance_60_0_kmph"].ToString(),
+                                    Performance_80_0_kmph = dr["performance_80_0_kmph"].ToString(),
+                                    KerbWeight = Convert.ToUInt16(dr["kerbweight"]),
+                                    OverallLength = Convert.ToUInt16(dr["overalllength"]),
+                                    OverallWidth = Convert.ToUInt16(dr["overallwidth"]),
+                                    OverallHeight = Convert.ToUInt16(dr["overallheight"]),
+                                    Wheelbase = Convert.ToUInt16(dr["wheelbase"]),
+                                    GroundClearance = Convert.ToUInt16(dr["groundclearance"]),
+                                    SeatHeight = Convert.ToUInt16(dr["seatheight"]),
+                                    FuelTankCapacity = Convert.ToSingle(dr["fueltankcapacity"]),
+                                    ReserveFuelCapacity = Convert.ToSingle(dr["reservefuelcapacity"]),
+                                    FuelEfficiencyOverall = Convert.ToUInt16(dr["fuelefficiencyoverall"]),
+                                    FuelEfficiencyRange = Convert.ToUInt16(dr["fuelefficiencyrange"]),
+                                    ChassisType = dr["chassistype"].ToString(),
+                                    FrontSuspension = dr["frontsuspension"].ToString(),
+                                    RearSuspension = dr["rearsuspension"].ToString(),
+                                    BrakeType = dr["braketype"].ToString(),
+                                    FrontDisc = Convert.ToBoolean(dr["frontdisc"]),
+                                    FrontDisc_DrumSize = Convert.ToUInt16(dr["frontdisc_drumsize"]),
+                                    RearDisc = Convert.ToBoolean(dr["reardisc"]),
+                                    RearDisc_DrumSize = Convert.ToUInt16(dr["reardisc_drumsize"]),
+                                    CalliperType = dr["callipertype"].ToString(),
+                                    WheelSize = Convert.ToSingle(dr["wheelsize"]),
+                                    FrontTyre = dr["fronttyre"].ToString(),
+                                    RearTyre = dr["reartyre"].ToString(),
+                                    TubelessTyres = Convert.ToBoolean(dr["tubelesstyres"]),
+                                    RadialTyres = Convert.ToBoolean(dr["radialtyres"]),
+                                    AlloyWheels = Convert.ToBoolean(dr["alloywheels"]),
+                                    ElectricSystem = dr["electricsystem"].ToString(),
+                                    Battery = dr["battery"].ToString(),
+                                    HeadlightType = dr["headlighttype"].ToString(),
+                                    HeadlightBulbType = dr["headlightbulbtype"].ToString(),
+                                    Brake_Tail_Light = dr["brake_tail_light"].ToString(),
+                                    TurnSignal = dr["turnsignal"].ToString(),
+                                    PassLight = Convert.ToBoolean(dr["passlight"]),
+                                    Speedometer = dr["speedometer"].ToString(),
+                                    Tachometer = Convert.ToBoolean(dr["tachometer"]),
+                                    TachometerType = dr["tachometertype"].ToString(),
+                                    ShiftLight = Convert.ToBoolean(dr["shiftlight"]),
+                                    ElectricStart = Convert.ToBoolean(dr["electricstart"]),
+                                    Tripmeter = Convert.ToBoolean(dr["tripmeter"]),
+                                    NoOfTripmeters = dr["nooftripmeters"].ToString(),
+                                    TripmeterType = dr["tripmetertype"].ToString(),
+                                    LowFuelIndicator = Convert.ToBoolean(dr["lowfuelindicator"]),
+                                    LowOilIndicator = Convert.ToBoolean(dr["lowoilindicator"]),
+                                    LowBatteryIndicator = Convert.ToBoolean(dr["lowbatteryindicator"]),
+                                    FuelGauge = Convert.ToBoolean(dr["fuelgauge"]),
+                                    DigitalFuelGauge = Convert.ToBoolean(dr["digitalfuelgauge"]),
+                                    PillionSeat = Convert.ToBoolean(dr["pillionseat"]),
+                                    PillionFootrest = Convert.ToBoolean(dr["pillionfootrest"]),
+                                    PillionBackrest = Convert.ToBoolean(dr["pillionbackrest"]),
+                                    PillionGrabrail = Convert.ToBoolean(dr["PillionGrabrail"]),
+                                    StandAlarm = Convert.ToBoolean(dr["standalarm"]),
+                                    SteppedSeat = Convert.ToBoolean(dr["SteppedSeat"]),
+                                    AntilockBrakingSystem = Convert.ToBoolean(dr["antilockbrakingsystem"]),
+                                    Killswitch = Convert.ToBoolean(dr["killswitch"]),
+                                    Clock = Convert.ToBoolean(dr["clock"]),
+                                    MaxPowerRPM = Convert.ToSingle(dr["maxpowerrpm"]),
+                                    MaximumTorqueRPM = Convert.ToSingle(dr["maximumtorquerpm"]),
+                                    Colors = dr["colors"].ToString()
+                                });
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeVersionsRepository<T, U>.GetModelSpecifications()=> modelId: {0}", modelId));
+                objErr.SendMail();
+            }
+            return objMinspecs;
+        }
+
     }   // class
 }   // namespace
