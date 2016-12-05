@@ -21,7 +21,7 @@ namespace Bikewale.Controls
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
-        public string headerText { get; set; }
+        public string widgetHeading { get; set; }
         public string biLineText { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty, widgetTitle = string.Empty;
         public string pageName { get; set; }

@@ -130,7 +130,7 @@ namespace Bikewale.Used
                 ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.headerText = string.Format("You might want to check {0} service centers in {1}!", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", inquiryDetails.Make.MakeName);
             }
             catch (Exception ex)

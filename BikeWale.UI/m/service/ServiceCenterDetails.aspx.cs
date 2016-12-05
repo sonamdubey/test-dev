@@ -115,7 +115,7 @@ namespace Bikewale.Mobile.Service
                 ctrlServiceCenterCard.cityName = serviceCity;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.headertext = string.Format("Other {0} service centers in {1}", makeName, serviceCity);
+                ctrlServiceCenterCard.widgetHeading = string.Format("Other {0} service centers in {1}", makeName, serviceCity);
                 ctrlDealerCard.MakeId = makeId;
                 ctrlDealerCard.makeMaskingName = makeMaskingName;
                 ctrlDealerCard.CityId = cityId;

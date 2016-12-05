@@ -108,7 +108,7 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.cityName = cityName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.headertext = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
 
                 using (IUnityContainer container = new UnityContainer())
