@@ -12,7 +12,8 @@ function bindInsuranceText() {
     }
 }
 
-
+// version dropdown
+$('.chosen-select').chosen();
 
 function applyLazyLoad() {
     $("img.lazy").lazyload({
@@ -22,6 +23,16 @@ function applyLazyLoad() {
 }
 $(document).ready(function (e) {
     applyLazyLoad();
+
+    // version dropdown
+    var selectDropdownBox = $('.select-box-no-input');
+
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
 
     $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
     $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
@@ -59,24 +70,6 @@ $(document).ready(function (e) {
     });
     // ends	
 });
-
-
-
-$("#getFullName, #assistGetName").on("focus", function () {
-    hideError($(this));
-});
-
-$("#getEmailID, #assistGetEmail").on("focus", function () {
-    hideError($(this));
-    prevEmail = $(this).val().trim();
-});
-
-$("#getMobile, #assistGetMobile").on("focus", function () {
-    hideError($(this));
-    prevMobile = $(this).val().trim();
-
-});
-
 
 (function ($) {
 
@@ -208,21 +201,6 @@ $(".carousel-navigation-photos").click(function () {
     getImageIndex();
 });
 
-$(".stage-photos").hover(function () {
-    $(".photos-next-stage, .photos-prev-stage, .photos-prev-stage.inactive, .photos-next-stage.inactive").toggleClass("hide show");
-});
-
-$(".navigation-photos").hover(function () {
-    $(".photos-prev-navigation, .photos-next-navigation, .photos-prev-navigation.inactive, .photos-next-navigation.inactive").toggleClass("hide show");
-});
-
-$(".stage-videos").hover(function () {
-    $(".videos-next-stage, .videos-prev-stage, .videos-prev-stage.inactive, .videos-next-stage.inactive").toggleClass("hide show");
-});
-
-$(".navigation-videos").hover(function () {
-    $(".videos-prev-navigation, .videos-next-navigation, .videos-prev-navigation.inactive, .videos-next-navigation.inactive").toggleClass("hide show");
-});
 function animatePrice(ele,start,end)
 {
     $({ someValue: start }).stop(true).animate({ someValue: end }, {

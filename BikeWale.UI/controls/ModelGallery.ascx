@@ -40,13 +40,13 @@
                         <span class="leftfloatbike-gallery-details"></span>
                         <span class="rightfloat bike-gallery-count"></span>
                     </div>
-                    <a href="#" class="prev photos-prev-stage bwsprite hide media-prev-next-stage" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-stage bwsprite hide media-prev-next-stage" rel="nofollow"></a>
+                    <a href="#" class="prev photos-prev-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
                 </div>
 
                 <div class="navigation-photos navigation-media">
-                    <a href="#" class="prev photos-prev-navigation bwsprite hide media-prev-next-nav" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-navigation bwsprite hide media-prev-next-nav" rel="nofollow"></a>
+                    <a href="#" class="prev photos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                    <a href="#" class="next photos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
                     <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
                         <ul>
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
@@ -76,8 +76,8 @@
                         </div>
                     </div>
                 <div class="navigation-videos navigation-media">
-                    <a href="#" class="prev videos-prev-navigation bwsprite hide" rel="nofollow"></a>
-                    <a href="#" class="next videos-next-navigation bwsprite hide" rel="nofollow"></a>
+                    <a href="#" class="prev videos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                    <a href="#" class="next videos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
                     <div class="carousel-videos carousel-navigation-videos carousel-navigation-media">
                         <ul>
                             <asp:Repeater ID="rptVideoNav" runat="server">

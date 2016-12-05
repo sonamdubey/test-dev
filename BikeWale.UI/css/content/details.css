@@ -249,6 +249,10 @@
 .carousel-stage ul li { cursor:pointer; }
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }
 
+.media-prev-next-stage, .media-prev-next-nav {
+    display: none;
+}
+
 .stage-photos:hover .media-prev-next-stage, .navigation-media:hover .media-prev-next-nav {
     display: block;
 }

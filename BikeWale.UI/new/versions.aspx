@@ -39,7 +39,7 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
 
-    var dealerId = '<%= dealerId%>';
+        var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
         var versionId = '<%= variantId%>';
         var cityId = '<%= cityId%>';
@@ -120,8 +120,8 @@
                                            else
                                            { %>
                                             <div class="review-box font14 inline-block">
-                                                <span class="no-rating text-light-grey">Not rated yet</span>
-                                                <a href="<%= FormatWriteReviewLink() %>">Be the first to write a review</a>
+                                                <span class="no-rating text-light-grey">No reviews yet</span>
+                                                <a href="<%= FormatWriteReviewLink() %>">Write a review</a>
                                             </div>
                                         <% } %>
                                     </div>
@@ -129,7 +129,7 @@
                             <% } %>
                         </div>
                         <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
-                            <div class="grid-7 model-details-wrapper omega rightfloat margin-bottom10">
+                            <div class="grid-7 model-details-wrapper omega rightfloat margin-bottom10 padding-top5">
                                 <%if (modelPageEntity.ModelVersionSpecs != null)
                                   { %>
                                 <p class="font12 text-light-grey margin-bottom5">Key Specs</p>
@@ -164,6 +164,27 @@
                                     <% } %>
                                 </ul>
                                 <% } %>
+                                
+                                <% if (!modelPageEntity.ModelDetails.Futuristic) {
+                                    if (modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 1)
+                                       { %>
+                                    <div id="model-version-dropdown" class="padding-top25">
+                                        <div class="select-box select-box-no-input done size-small">
+                                            <p class="select-label">Version</p>
+                                            <select class="chosen-select" data-title="Version">
+                                                <option value></option>
+                                                <option value="1" selected>Electric Start/Drum/Alloy</option>
+                                                <option value="2">Electric Start/Disc/Alloy</option>
+                                                <option value="3">CBS</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    <% else { %>
+                                    <p class="font12 text-light-grey">Version</p>
+                                    <p class="font14 text-bold margin-bottom15"><%= variantText %></p>
+                                    <% }
+                                } %>
 
                                 <%--<div class="model-name-review-container">
                                 
@@ -198,8 +219,8 @@
                                     </div>
                                     
                                     <% } %>
-                                </div>--%>
-                                <!-- Variants -->
+                                </div>
+                                
                                 <div id="variantDetailsContainer" class="variants-dropDown margin-top20 <%= modelPageEntity.ModelDetails.Futuristic ? "hide": string.Empty%>">
                                     <div>
                                         <p class="variantText text-light-grey margin-right10">Version: </p>
@@ -239,11 +260,13 @@
                                     </div>
 
                                 </div>
-                                <div id="scrollFloatingButton"></div>
+                                --%>
                                 <!-- Variant div ends -->
+
+                                <div id="scrollFloatingButton"></div>
                                 <% if (!modelPageEntity.ModelDetails.Futuristic)
                                    { %>
-                                <div id="modelPriceContainer" class="padding-top15">
+                                <div id="modelPriceContainer">
                                     <% if (isDiscontinued)
                                        { %>
                                     <p class="font14 text-light-grey">Last known Ex-showroom price</p>
@@ -263,7 +286,7 @@
                                     <% } %>
                                     <%  if (price == 0)
                                         { %>
-                                    <span class="font20">Price not available</span>
+                                    <span class="font16">Price not available</span>
                                     <%  }
                                         else
                                         { %>
@@ -271,7 +294,7 @@
                                         <span itemprop="priceCurrency" content="INR">
                                             <span class="bwsprite inr-md-lg"></span>
                                         </span>
-                                        <span id="new-bike-price" class="font22" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                        <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                         <%if (isOnRoadPrice)
                                           {%>
                                         <span id="viewBreakupText" class="font14 text-bold viewBreakupText">View detailed price</span>
@@ -299,7 +322,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top10 margin-right10 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top10 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
                                 <div class="leftfloat margin-top10">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %></span>
@@ -307,6 +330,17 @@
                                 <div class="clear"></div>
                                 <%  }
                                     } %>
+
+                                <div class="border-solid-top margin-top15 padding-top20 hide">
+                                    <div class="inline-block margin-right10">
+                                        <span class="model-sprite partner-dealer"></span>
+                                    </div>
+                                    <div class="inline-block margin-right25">
+                                        <p class="font14 text-bold text-black margin-right10">One partner dealer near you</p>
+                                        <p class="font12 text-x-light">Approx. 6.5 kms away</p>
+                                    </div>
+                                    <a href="javascript:void(0)" class="btn btn-orange partner-dealer-details-btn">View dealer details</a>
+                                </div>
 
                                 <!-- upcoming start -->
                                 <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)
@@ -318,7 +352,7 @@
                                         <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                         <div class="modelExpectedPrice margin-bottom15">
                                             <span class="bwsprite inr-md-lg"></span>
-                                            <span id="bike-price" class="font22">
+                                            <span id="bike-price" class="font22 text-bold">
                                                 <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
                                                 <span>- </span>
                                                 <span class="bwsprite inr-md-lg"></span>
@@ -428,7 +462,7 @@
                                         <asp:Repeater ID="rptOffers" runat="server">
                                             <ItemTemplate>
                                                 <li class="inline-block">
-                                                    <span class="benefit-list-image offer-benefit-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%> inline-block margin-right10"></span>
+                                                    <span class="benefit-list-image model-sprite offerIcon_<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferCategoryId"))%>"></span>
                                                     <span class="font14 benefit-list-title inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%>
                                                         <span class="tnc font9 margin-left5 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsOfferTerms"))? string.Empty: "hide" %>" id="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "OfferId")) %>"> View terms</span>
                                                     </span>
@@ -598,60 +632,7 @@
         <meta itemprop="model" content="<%= TargetedModel %>" />
 
         <style type="text/css">
-            #campaign-container .campaign-left-col {
-                width: 78%;
-                padding-right: 10px;
-            }
-
-            #campaign-container .campaign-right-col {
-                width: 21%;
-            }
-
-            .campaign-offer-label {
-                width: 75%;
-                font-size: 14px;
-                font-weight: bold;
-            }
-
-            .btn-large {
-                padding: 8px 56px;
-            }
-
-            #campaign-offer-list li {
-                width: 175px;
-                display: inline-block;
-                vertical-align: middle;
-                margin-top: 15px;
-                margin-bottom: 10px;
-                padding-right: 5px;
-            }
-
-                #campaign-offer-list li span {
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-
-            .campaign-offer-1, .campaign-offer-2, .campaign-offer-3, .campaign-offer-4 {
-                width: 34px;
-                height: 28px;
-                margin-right: 5px;
-            }
-
-            .campaign-offer-1 {
-                background-position: 0 -356px;
-            }
-
-            .campaign-offer-2 {
-                background-position: 0 -390px;
-            }
-
-            .campaign-offer-3 {
-                background-position: 0 -425px;
-            }
-
-            .campaign-offer-4 {
-                background-position: 0 -463px;
-            }
+            #campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
 
         <section>
@@ -695,7 +676,7 @@
                             <div>
                                 <% if (price == 0)
                                     { %>
-                                <span class="font18">Price not available</span>
+                                <span class="font16">Price not available</span>
                                 <%  } else{ %>
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%} %>
