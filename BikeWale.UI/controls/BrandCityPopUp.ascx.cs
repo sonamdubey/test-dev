@@ -14,8 +14,8 @@ namespace Bikewale.Controls
         public EnumBikeType requestType;
         public uint makeId;
         public uint cityId;
-        protected string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-        protected string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+        protected string staticUrl1 = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+        protected string staticFileVersion1 = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         
         protected override void OnInit(EventArgs e)
         {
