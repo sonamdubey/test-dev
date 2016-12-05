@@ -12,6 +12,7 @@ namespace Bikewale.Mobile.Controls
     public class BrandCityPopUp : UserControl
     {
         public EnumBikeType requestType;
+        public uint cityId, makeId;
         protected string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         protected string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
         protected bool isOperaBrowser = false;

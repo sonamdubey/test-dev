@@ -26,6 +26,8 @@ namespace Bikewale.Mobile.New
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    /// Modified by : Aditi Srivastava on 5 Dec 2016
+    /// Description : Added widget for to change brand and city for dealers list
     /// </summary>
     public class NewBikeDealerList : PageBase
     {
@@ -90,6 +92,8 @@ namespace Bikewale.Mobile.New
             ctrlPopoularBikeMake.makeName = makeName;
             ctrlLeadCapture.CityId = cityId;
             ctrlBrandCity.requestType = EnumBikeType.Dealer;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
         }
 
         /// <summary>

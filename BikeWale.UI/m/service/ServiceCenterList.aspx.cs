@@ -29,6 +29,8 @@ namespace Bikewale.Mobile.Service
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    ///  Modified by : Aditi Srivastava on 5 Dec 2016
+    /// Description : Added widget for to change brand and city for service center list
     /// </summary>
     public class ServiceCenterList : PageBase
     {
@@ -40,7 +42,7 @@ namespace Bikewale.Mobile.Service
         protected CityEntityBase objCityEntityBase;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
-
+        protected BrandCityPopUp ctrlBrandCity;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -97,6 +99,9 @@ namespace Bikewale.Mobile.Service
             ctrlDealerCard.LeadSourceId = 16;
             ctrlDealerCard.DealerId = 0;
             ctrlDealerCard.isHeadingNeeded = false;
+            ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
         }
 
         /// <summary>
