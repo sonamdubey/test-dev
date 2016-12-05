@@ -70,10 +70,16 @@ namespace Bikewale.Cache.BikeData
                 {
                     // First page load where version id is Zero, fetch default version properties
                     versionId = versionId == 0 ? (int)objModelPage.ModelVersionSpecs.BikeVersionId : versionId;
-                    objModelPage.ModelVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
-                    objModelPage.objOverview = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objOverview;
-                    objModelPage.objSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objSpecs;
-                    objModelPage.objFeatures = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId).objFeatures;
+                    var curVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
+                    if (curVersionSpecs != null)
+                        objModelPage.ModelVersionSpecs = curVersionSpecs;
+                    var transposeSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId);
+                    if (transposeSpecs != null)
+                    {
+                        objModelPage.objOverview = transposeSpecs.objOverview;
+                        objModelPage.objSpecs = transposeSpecs.objSpecs;
+                        objModelPage.objFeatures = transposeSpecs.objFeatures;
+                    }
                 }
             }
             catch (Exception ex)

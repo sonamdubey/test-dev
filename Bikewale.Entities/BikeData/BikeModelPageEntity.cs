@@ -36,17 +36,4 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public Specifications objSpecs { get; set; }
     }
-
-    public class TransposeModelSpecEntity
-    {
-        [DataMember]
-        public uint BikeVersionId { get; set; }
-        [DataMember]
-        public Overview objOverview { get; set; }
-        [DataMember]
-        public Features objFeatures { get; set; }
-        [DataMember]
-        public Specifications objSpecs { get; set; }
-
-    }
 }

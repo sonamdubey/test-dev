@@ -1029,9 +1029,9 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 objModelPage = modelRepository.GetModelPage(modelId);
-                List<TransposeModelSpecEntity> objSpecList = new List<TransposeModelSpecEntity>();
                 if (objModelPage != null && objModelPage.ModelVersionSpecsList != null)
                 {
+                    List<TransposeModelSpecEntity> objSpecList = new List<TransposeModelSpecEntity>();
                     foreach (var bikeVersion in objModelPage.ModelVersionSpecsList)
                     {
                         TransposeModelSpecEntity versionTranspos = new TransposeModelSpecEntity();
