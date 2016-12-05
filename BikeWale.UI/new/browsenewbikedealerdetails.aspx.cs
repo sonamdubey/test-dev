@@ -105,6 +105,8 @@ namespace Bikewale.New
 
             ctrlLeadCapture.CityId = cityId;
             ctrlBrandCity.requestType = EnumBikeType.Dealer;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
             }
 
         /// <summary>

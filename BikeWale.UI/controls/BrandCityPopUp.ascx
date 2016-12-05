@@ -62,7 +62,8 @@
 <script type="text/javascript">
     var requestType='<%=requestType%>';
     var brandcityPopUp = $('#brandcityPopUp');
-   
+    var makeid = '<%=makeId%>';
+    var cityid = '<%=cityId%>';
     lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
@@ -87,8 +88,11 @@
             }).cityMaskingName;
         })
 
+        
+
         self.FillBrandsPopup = function () {
             var isAborted = false;
+            
             if (self.bookingBrands().length < 1 || self.bookingBrands().length == undefined) {
                 $.ajax({
                     type: "GET",
@@ -135,10 +139,19 @@
                 if (isAborted) {
                     self.completeBrandPopup();
                 }
+                
             }
         }
 
         self.completeBrandPopup = function () {
+            
+            if (makeid>0) {
+                self.selectedBrand(parseInt(makeid));
+            }
+            popupcity.find("option[value='0']").prop('disabled', true);
+            popupcity.trigger('chosen:updated');
+            cityChangedPopup();
+
             popupBrand.find("option[value='0']").prop('disabled', true);
             popupBrand.trigger('chosen:updated');
             self.makeChangedPopup();
@@ -147,6 +160,7 @@
         self.makeChangedPopup = function () {
             var isAborted = false;
             self.searchByBrandCityBtnClicked(false)
+           
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" + self.selectedBrand().toString();
                 $.ajax({
@@ -208,9 +222,11 @@
 
 
         self.completeCityPopup = function () {
-            $('#ddlCityPopup').trigger("chosen:updated");
+            if (cityid > 0) {
+                self.selectCity(parseInt(cityid));
+            }
+            $('#ddlCityPopup').trigger("chosen:updated");           
         }
-
 
         self.isValidInfoPopup = function () {
             isValid = true;
@@ -286,8 +302,7 @@
 
         $("#ddlCityPopup").chosen({ no_results_text: "No matches found!!" });
         $("#ddlBrandPopup").chosen({ no_results_text: "No matches found!!" });
-        $('.chosen-container').attr('style', 'width:100%;');
-
+        $('.chosen-container').attr('style', 'width:100%;');       
         ko.applyBindings(viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
     });
 

@@ -95,6 +95,8 @@ namespace Bikewale.Service
             ctrlDealerCard.TopCount = 3;
             ctrlDealerCard.isHeading = false;
             ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
         }
 
         /// <summary>

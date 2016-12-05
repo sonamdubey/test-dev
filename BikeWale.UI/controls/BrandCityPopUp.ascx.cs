@@ -12,6 +12,8 @@ namespace Bikewale.Controls
     public class BrandCityPopUp : UserControl
     {
         public EnumBikeType requestType;
+        public uint makeId;
+        public uint cityId;
         protected string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         protected string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
         
@@ -31,9 +33,6 @@ namespace Bikewale.Controls
             string originalUrl = Request.ServerVariables["HTTPS_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
-
-            //Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
-                       
         }
 
     }
