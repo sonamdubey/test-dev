@@ -56,10 +56,10 @@ namespace Bikewale.ServiceCenter
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
             BindMakes();
-            BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityName = currentCityArea.City;
             cityId = currentCityArea.CityId;
+            BindBikesWidgets();
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016

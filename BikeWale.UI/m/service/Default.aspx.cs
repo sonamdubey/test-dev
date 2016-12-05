@@ -48,10 +48,10 @@ namespace Bikewale.Mobile.Service
         protected void Page_Load(object sender, EventArgs e)
         {
             BindMakes();
-            BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
             cityName = currentCityArea.City;
             cityId = currentCityArea.CityId;
+            BindBikesWidgets();
 
         }
         /// <summary>
