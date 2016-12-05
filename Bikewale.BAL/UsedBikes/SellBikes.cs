@@ -106,6 +106,12 @@ namespace Bikewale.BAL.UsedBikes
             }
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 5-12-2016
+        /// Desc : stop Reassigning customerId if already registered.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private ulong RegisterUser(SellerEntity user)
         {
             CustomerEntity objCust = null;
@@ -118,14 +124,20 @@ namespace Bikewale.BAL.UsedBikes
                     //If exists update the mobile number and name
                     _objCustomerRepo.UpdateCustomerMobileNumber(user.CustomerMobile, user.CustomerEmail, user.CustomerName);
                     //set customer id for further use
-                    user.CustomerId = objCust.CustomerId;
+                    if (user.CustomerId < 1)
+                    {
+                        user.CustomerId = objCust.CustomerId;
+                    }
                 }
                 else
                 {
                     //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
-                    user.CustomerId = _objCustomer.Add(objCust);
-                    SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
+                    if (user.CustomerId < 1)
+                    {
+                        user.CustomerId = _objCustomer.Add(objCust);
+                        SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
+                    }
                 }
             }
             catch (Exception ex)

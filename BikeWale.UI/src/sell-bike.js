@@ -1215,6 +1215,10 @@ $(function () {
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
         var mdetails = vmSellBike.moreDetails();
+       
+        pdetails.sellerName(inquiryDetails.customerName);
+        pdetails.sellerEmail(inquiryDetails.customerEmail);
+
         bdetails.make(inquiryDetails.make.makeId);
         bdetails.version(inquiryDetails.version.versionId);
         bdetails.kmsRidden(inquiryDetails.kiloMeters);
@@ -1270,7 +1274,7 @@ $(function () {
         $("#kmsRidden").val('');
         $("#expectedPrice").val('');
     }
-    if (userId != null) {
+    if (isEdit != "True" &&  userId != null) {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
         pdetails.sellerEmail(userEmail);

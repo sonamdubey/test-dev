@@ -34,7 +34,7 @@ ko.bindingHandlers.chosen = {
 $(document).ready(function () {
     vmSellBike = new sellBike();
 
-        if (userId != null) {
+        if(isEdit != "True" && userId != null) {
             var pdetails = vmSellBike.personalDetails();
             pdetails.sellerName(userName);
             pdetails.sellerEmail(userEmail);
@@ -81,6 +81,9 @@ $(document).ready(function () {
             var bdetails = vmSellBike.bikeDetails();
             var pdetails = vmSellBike.personalDetails();
             var mdetails = vmSellBike.moreDetails();
+
+            pdetails.sellerName(inquiryDetails.customerName);
+            pdetails.sellerEmail(inquiryDetails.customerEmail);
 
             bdetails.makeName(inquiryDetails.make.makeName);
             bdetails.makeId(inquiryDetails.make.makeId);
