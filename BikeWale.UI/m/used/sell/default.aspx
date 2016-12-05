@@ -25,8 +25,9 @@
 
         <section>            
             
+            <% if(isAuthorized) { %>
             <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible:true">  
-                <!-- ko ifnot: isFakeCustomer -->              
+                <!-- ko ifnot : isFakeCustomer -->                         
                 <div data-bind="visible: formStep() < 4">
 
                     <div id="form-step-tabs" class="text-center">
@@ -95,7 +96,7 @@
                             <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
                         </div>
 
-                        <div class="select-box select-box-no-input row-bottom-margin">
+                        <div id= "div-owner" class="select-box select-box-no-input row-bottom-margin">
                             <p class="select-label">Owner<sup>*</sup></p>
                             <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
                                 <option value></option>
@@ -135,7 +136,7 @@
                         <!-- select bike starts here -->
                         <div id="select-bike-cover-popup" class="cover-window-popup">
                             <div class="ui-corner-top">
-                                <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat">
+                                <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
                                     <span class="bwmsprite fa-angle-left"></span>
                                 </div>
                                 <div class="cover-popup-header leftfloat">Select bikes</div>
@@ -169,8 +170,8 @@
 
                             <div id="select-version-wrapper" class="cover-popup-body">
                                 <div class="cover-popup-body-head">
-                                    <div id="select-version-back-btn" class="body-popup-back cur-pointer inline-block">
-                                        <span class="bwmsprite back-long-arrow-left"></span>
+                                    <div id="select-version-back-btn" class="body-popup-back cur-pointer inline-block" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
+                                        <span id="arrow-version-back" class="bwmsprite back-long-arrow-left" ></span>
                                     </div><p class="head-label inline-block">Select Version</p>
                                 </div>
                                 <ul class="cover-popup-list" data-bind="foreach: versionArray">
@@ -260,7 +261,7 @@
                     <div class="form-step-body" data-bind="visible: formStep() == 2 && !verificationDetails().status(), with: personalDetails">
                         <h2 class="form-step-title">Personal details</h2>
 
-                        <ul id="seller-type-list">
+                        <ul id="seller-type-list" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
                             <li data-bind="click: sellerType, attr: { value: 2 }, css: sellerTypeVal() == 2 ? 'checked' : ''" >
                                 <span class="bwmsprite radio-icon"></span>
                                 <span class="seller-label font16">I am an Individual</span>
@@ -376,13 +377,13 @@
                             <span class="boundary"></span>
                         </div>
 
-                        <div class="select-box select-box-no-input">
+                        <div id="div-insuranceType" class="select-box select-box-no-input">
                             <p class="select-label">Insurance</p>
                             <select id="select-insuranceType" class="chosen-select" data-bind="chosen: {}, value: insuranceType" data-title="Insurance">
                                 <option value></option>
                                 <option value="Comprehensive">Comprehensive</option>
                                 <option value="Third Party">Third Party</option>
-                                <option value="No Insurance">No Insurance</option>
+                                 <option value="No Insurance">No Insurance</option>
                             </select>
                             <span class="boundary"></span>
                         </div>
@@ -408,31 +409,18 @@
                     </div>
                     <div class="margin-top15 margin-bottom15">
                         <p class="font18 text-bold">Congratulations!</p><br />
+                        <% if(!isEdit) { %>
                         <p class="font14">Your ad has been successfully submitted.<br /><br />Your profile ID is <span data-bind="text: profileId"></span>.<br />You can find and edit your ad by logging in.<br /><br />Your bike ad will be live after verification.</p>
+                        <% } else { %>
+                        <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
+                        <% } %>
                     </div>
                     <div id="form-success-btn-group">
                         <input  type="button" id ="btnEditAd" class="btn btn-white btn-primary-small margin-right20" value="Edit my Ad" data-bind="click: editMyAd" />
                         <input type="button" class="btn btn-orange btn-primary-small " data-bind="click: congratsScreenDoneFunction" value="Done" />                        
                     </div>
-                </div>
-
-                <!-- not auth to edit -->
-
-                <%--<div class="form-response-body text-center icon-size-small">
-                    <div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="sell-bike-sprite no-auth-edit-icon margin-top15"></span>
-                        </div>
-                    </div>
-                    <div class="margin-top15 margin-bottom15">
-                        <p class="font18 text-bold">Sorry!</p><br />
-                        <p class="font14">You are not authorised to edit this listing</p>
-                    </div>
-                </div>--%>   
-                  
-                <!-- /ko -->                       
-            
-            
+                </div>                                  
+                <!-- /ko -->                                               
             
            <!-- ko if: isFakeCustomer -->
             <div class="form-response-body text-center icon-size-small">
@@ -448,14 +436,31 @@
                     </div>                        
             </div>
             <!-- /ko -->     
-                </div>  
-            
+         </div>  
+            <% } else { %>
+            <!-- not auth to edit -->            
+                <div class="form-response-body text-center icon-size-small">
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="sell-bike-sprite no-auth-edit-icon margin-top15"></span>
+                        </div>
+                    </div>
+                    <div class="margin-top15 margin-bottom15">
+                        <p class="font18 text-bold">Sorry!</p><br />
+                        <p class="font14">You are not authorised to edit this listing</p>
+                    </div>
+                </div>   
+            <% } %>
         </section>
 
         <script type="text/javascript">
             var userId = '<%= userId%>';            
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
+            var isEdit = '<%= isEdit %>';
+            var inquiryId = '<%= inquiryId %>';
+            var isAuthorized = '<%= isAuthorized%>';
+            var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';            
         </script>
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
@@ -467,7 +472,9 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
+        <% if(isAuthorized) { %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
+        <% } %>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         
         <script type="text/javascript">
