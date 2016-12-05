@@ -12,8 +12,8 @@
     
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link href="/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -136,7 +136,7 @@
                         <!-- select bike starts here -->
                         <div id="select-bike-cover-popup" class="cover-window-popup">
                             <div class="ui-corner-top">
-                                <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="style: { 'pointer-events': vmSellBike.isEdit() ? 'none' : '' }">
+                                <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
                                     <span class="bwmsprite fa-angle-left"></span>
                                 </div>
                                 <div class="cover-popup-header leftfloat">Select bikes</div>

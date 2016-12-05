@@ -87,7 +87,7 @@
                             <span class="inline-block">Get contact details of buyers</span>
                         </li>
                     </ul>
-                    <a href="sell/" title="Sell Your bike" class="btn btn-teal margin-top5">Sell now</a>
+                    <a href="/m/used/sell/" title="Sell Your bike" class="btn btn-teal margin-top5">Sell now</a>
                 </div>
             </div>
         </section>
