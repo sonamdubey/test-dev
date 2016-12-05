@@ -193,8 +193,17 @@
 					<% } %>
 				</div>
 			    </div>
-                        <% if(ctrlServiceCenterCard.showWidget){ %>
-                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% if(ctrlServiceCenterCard.showWidget){ %>
+            <section>
+                <div class="container section-bottom-margin">
+                   <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                      <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                   </div>
+                 </div>
+                <div class="clear"></div>
+               </div>
+            </section>
         <% } %>
 			    <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
 				    <div class="content-box-shadow">

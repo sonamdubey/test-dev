@@ -474,8 +474,17 @@
 
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
         <% } %>
-                   <% if(ctrlServiceCenterCard.showWidget){ %>
-                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                    <% if(ctrlServiceCenterCard.showWidget){ %>
+            <section>
+                <div class="container section-bottom-margin">
+                   <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                      <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                   </div>
+                 </div>
+                <div class="clear"></div>
+               </div>
+            </section>
         <% } %>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
