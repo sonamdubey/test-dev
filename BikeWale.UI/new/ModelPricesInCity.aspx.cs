@@ -61,6 +61,8 @@ namespace Bikewale.New
         /// <summary>
         /// Modified by :   Sumit Kate on 17 Jun 2016
         /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -114,6 +116,8 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.headerText = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
                 BindAlternativeBikeControl();
                 BindDealers();
                 ColorCount();

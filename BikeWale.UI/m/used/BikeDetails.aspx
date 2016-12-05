@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/UsedOtherBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -345,6 +346,12 @@
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
 
         <% } %>
+        
+         <% if (ctrlServiceCenterCard.showWidget)
+                   { %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                <% }  %>
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!--[if lt IE 9]>
             <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/html5.js"></script>

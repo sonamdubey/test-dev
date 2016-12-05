@@ -176,6 +176,7 @@
         <% } %>
 
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+
          <% if (ctrlServiceCenterCard.showWidget)
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />

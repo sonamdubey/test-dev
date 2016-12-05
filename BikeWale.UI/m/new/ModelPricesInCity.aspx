@@ -5,6 +5,7 @@
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -130,6 +131,11 @@
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
+        
+         <% if (ctrlServiceCenterCard.showWidget)
+                   { %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                <% }  %>
 
         <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
            <section>

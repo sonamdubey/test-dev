@@ -99,6 +99,8 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         /// <returns></returns>
         private void BindControls()
@@ -113,6 +115,7 @@ namespace Bikewale.Mobile.Service
                 ctrlServiceCenterCard.cityName = serviceCity;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
+                ctrlServiceCenterCard.headertext = string.Format("Other {0} service centers in {1}", makeName, serviceCity);
                 ctrlDealerCard.MakeId = makeId;
                 ctrlDealerCard.makeMaskingName = makeMaskingName;
                 ctrlDealerCard.CityId = cityId;

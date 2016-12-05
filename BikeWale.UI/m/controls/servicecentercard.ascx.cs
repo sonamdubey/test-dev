@@ -11,6 +11,8 @@ namespace Bikewale.Mobile.Controls
     /// <summary>
     /// Created By :  Sangram Nandkhile on 09-Nov-2016
     /// Description : Service centers in a city card
+    /// Modified By :-Subodh Jain on 5 Dec 2016 
+    /// Summary:-added headertext and biLine Text
     /// </summary>
     public class ServiceCenterCard : UserControl
     {
@@ -19,6 +21,8 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         public ushort TopCount { get; set; }
         public uint CityId { get; set; }
+        public string headertext { get; set; }
+        public string biLineText { get; set; }
         public string makeName = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty, widgetTitle = string.Empty;
         public string pageName { get; set; }
         public bool showWidget = false;
@@ -59,8 +63,6 @@ namespace Bikewale.Mobile.Controls
                         ServiceCenteList = totalList.Take(TopCount);
                     if (centerData.Count > 1)
                         showWidget = true;
-
-                    widgetTitle = string.Format("Other {0} service centers in {1}", makeName, cityName);
                 }
             }
             catch (Exception err)

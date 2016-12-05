@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +99,13 @@
                     <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-
+                    <% if (ctrlServiceCenterCard.showWidget)
+                   { %>
+          <section>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+        </section>
+         <% }  %>
                 <% if (ctrlRecentUsedBikes.fetchedCount > 0)
                 {%> 
                  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
@@ -108,6 +115,7 @@
             
         </section>
         <% } %>
+         
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12 font12">

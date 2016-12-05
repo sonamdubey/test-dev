@@ -3,7 +3,10 @@
 <div class="container section-bottom-margin">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-bottom20">
-                            <h2 class="section-h2-title padding-15-20-20"><%=widgetTitle%></h2>
+                            <h2 class="section-h2-title padding-15-20-20"><%=headerText%></h2>
+                            <%if(!string.IsNullOrEmpty(biLineText)) {%>
+                            <p class="font14"><%=biLineText%></p>
+                            <%} %>
                             <ul class="bw-horizontal-cards">
                                  <% foreach (var serviceCenter in ServiceCenteList)
                                     { %>

@@ -98,6 +98,8 @@ namespace Bikewale.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 10th Oct 2016
         /// Description : Bind similar and other bike widgets
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         private void BindUserControls()
         {
@@ -128,6 +130,8 @@ namespace Bikewale.Used
                 ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.headerText = string.Format("You might want to check {0} service centers in {1}!", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", inquiryDetails.Make.MakeName);
             }
             catch (Exception ex)
             {

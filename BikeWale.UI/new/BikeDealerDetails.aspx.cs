@@ -92,6 +92,8 @@ namespace Bikewale.New
         /// <summary>
         /// Created By:-Subodh Jain 2 Dec 2016
         /// Summary :- Bind Popular Bikes By make on page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         private void BindUserControl()
         {
@@ -112,6 +114,8 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.headerText = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
             }
             catch (Exception ex)
             {
