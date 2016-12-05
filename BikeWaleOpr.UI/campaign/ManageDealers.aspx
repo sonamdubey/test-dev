@@ -128,7 +128,7 @@
                     <tr>
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
-                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric req width300" />
+                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
                         </td>
                     </tr>
                     <tr>
