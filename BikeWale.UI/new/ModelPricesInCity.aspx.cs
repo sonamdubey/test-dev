@@ -52,7 +52,7 @@ namespace Bikewale.New
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         public DealerLocatorList states = null;
-
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -61,6 +61,8 @@ namespace Bikewale.New
         /// <summary>
         /// Modified by :   Sumit Kate on 17 Jun 2016
         /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -104,6 +106,18 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
+
+                ctrlServiceCenterCard.MakeId = makeId;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
                 BindAlternativeBikeControl();
                 BindDealers();
                 ColorCount();

@@ -37,6 +37,7 @@ namespace Bikewale.New
         protected UsedBikeWidget ctrlRecentUsedBikes;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
+        protected ServiceCenterCard ctrlServiceCenterCard;
 
         protected override void OnInit(EventArgs e)
         {
@@ -80,28 +81,45 @@ namespace Bikewale.New
             BindUserControls();
 
         }
-
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         private void BindUserControls()
         {
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
+            try
+            {
+                ctrlPopoularBikeMake.makeId = (int)makeId;
+                ctrlPopoularBikeMake.cityId = (int)cityId;
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
 
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.MakeId = makeId;
-            ctrlRecentUsedBikes.TopCount = 4;
-            ctrlRecentUsedBikes.isAd = true;
-            ctrlRecentUsedBikes.cityName = cityName;
-            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-            ctrlRecentUsedBikes.AdId = "1395986297721";
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlRecentUsedBikes.isAd = true;
+                ctrlRecentUsedBikes.cityName = cityName;
+                ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
+                ctrlRecentUsedBikes.AdId = "1395986297721";
 
-            ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.CityId = cityId;
 
-            //ctrlLeadCapture.ModelId = modelId;
-            //ctrlLeadCapture.AreaId = 0;
+
+                ctrlServiceCenterCard.MakeId = makeId;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BrowseNewBikeDealerDetails.BindUserControls");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>

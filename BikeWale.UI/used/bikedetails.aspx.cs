@@ -30,6 +30,7 @@ namespace Bikewale.Used
         protected Bikewale.Mobile.Controls.UploadPhotoRequestPopup widgetUploadPhotoRequest;
         public SimilarUsedBikes ctrlSimilarUsedBikes;
         public OtherUsedBikeByCity ctrlOtherUsedBikes;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected string pgAlternateUrl = string.Empty;
 
         protected override void OnInit(EventArgs e)
@@ -97,6 +98,8 @@ namespace Bikewale.Used
         /// <summary>
         /// Created by  : Sushil Kumar on 10th Oct 2016
         /// Description : Bind similar and other bike widgets
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         private void BindUserControls()
         {
@@ -118,6 +121,17 @@ namespace Bikewale.Used
                 ctrlOtherUsedBikes.CityId = inquiryDetails.City.CityId;
                 ctrlOtherUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
                 ctrlOtherUsedBikes.TopCount = 6;
+
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
+                ctrlServiceCenterCard.CityId = inquiryDetails.City.CityId;
+                ctrlServiceCenterCard.makeName = inquiryDetails.Make.MakeName;
+                ctrlServiceCenterCard.cityName = inquiryDetails.City.CityName;
+                ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
+                ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", inquiryDetails.Make.MakeName);
             }
             catch (Exception ex)
             {

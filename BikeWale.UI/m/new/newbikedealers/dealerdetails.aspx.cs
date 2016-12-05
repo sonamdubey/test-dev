@@ -46,6 +46,7 @@ namespace Bikewale.Mobile
         protected int makeId;
         protected string cityMaskingName = String.Empty;
         protected MMostPopularBikes ctrlPopoularBikeMake;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -63,17 +64,29 @@ namespace Bikewale.Mobile
         /// <summary>
         /// Created By:-Subodh Jain 2 Dec 2016
         /// Summary :- Bind Popular Bikes By make on page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         private void BindUserControl()
         {
             try
             {
                 ctrlPopoularBikeMake.makeId = makeId;
-                ctrlPopoularBikeMake.cityId = (dealerDetails.CityId);
+                ctrlPopoularBikeMake.cityId = dealerDetails.CityId;
                 ctrlPopoularBikeMake.totalCount = 9;
                 ctrlPopoularBikeMake.cityname = dealerCity;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.CityId = Convert.ToUInt32(dealerDetails.CityId);
+                ctrlServiceCenterCard.cityName = dealerCity;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 9;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, dealerCity);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
             }
             catch (Exception ex)
             {

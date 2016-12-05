@@ -2,7 +2,10 @@
 <% if (showWidget && ServiceCenteList!= null)
    { %>
 <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
-    <h2 class="padding-15-20"><%= widgetTitle %></h2>
+    <h2 class="padding-15-20"><%=widgetHeading %></h2>
+    <%if(!string.IsNullOrEmpty(biLineText)) {%>
+    <p><%=biLineText %></p>
+    <%} %>
     <div class="bw-horizontal-swiper swiper-container card-container margin-bottom15">
         <div class="swiper-wrapper">
             <% foreach (var serviceCenter in ServiceCenteList)

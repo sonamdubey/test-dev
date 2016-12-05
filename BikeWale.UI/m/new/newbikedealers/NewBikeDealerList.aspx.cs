@@ -37,6 +37,7 @@ namespace Bikewale.Mobile.New
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
+        protected ServiceCenterCard ctrlServiceCenterCard;
 
         protected override void OnInit(EventArgs e)
         {
@@ -75,20 +76,39 @@ namespace Bikewale.Mobile.New
                 }
             }
         }
-
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         private void BindUserControls()
         {
-            ctrlRecentUsedBikes.MakeId = makeId;
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
-            ctrlRecentUsedBikes.TopCount = 4;
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
-            ctrlLeadCapture.CityId = cityId;
+            try
+            {
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlPopoularBikeMake.makeId = (int)makeId;
+                ctrlPopoularBikeMake.cityId = (int)cityId;
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+                ctrlLeadCapture.CityId = cityId;
+
+                ctrlServiceCenterCard.MakeId = makeId;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 9;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindUserControls : ");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>

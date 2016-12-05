@@ -5,6 +5,7 @@
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -192,6 +193,9 @@
 					<% } %>
 				</div>
 			    </div>
+                        <% if(ctrlServiceCenterCard.showWidget){ %>
+                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+        <% } %>
 			    <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
 				    <div class="content-box-shadow">
 					    <div id="makeOverallTabsWrapper">
