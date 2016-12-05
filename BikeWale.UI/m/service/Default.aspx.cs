@@ -34,6 +34,7 @@ namespace Bikewale.Mobile.Service
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
         protected MMostPopularBikes ctrlMostPopularBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected string cityName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace Bikewale.Mobile.Service
             BindMakes();
             BindBikesWidgets();
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            cityName = currentCityArea.City;
             cityId = currentCityArea.CityId;
 
         }
@@ -74,7 +76,7 @@ namespace Bikewale.Mobile.Service
                 ctrlUpcomingBikes.pageSize = 9;
 
                 ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Explore popular used bikes in India");
+                ctrlPopularUsedBikes.header = string.Format("Popular used bikes in {0}", cityId > 0 ? cityName : "India");
                 ctrlPopularUsedBikes.TotalRecords = 9;
 
                 ctrlBikeCare.TotalRecords = 3;
