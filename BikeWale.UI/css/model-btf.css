@@ -75,6 +75,14 @@
 .carousel-stage ul li { cursor:pointer; }
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }
 
+.media-prev-next-stage, .media-prev-next-nav {
+    display: none;
+}
+
+.stage-photos:hover .media-prev-next-stage, .navigation-media:hover .media-prev-next-nav {
+    display: block;
+}
+
 /* TnC hide*/
 li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline} 
@@ -283,7 +291,7 @@ li.offertxt:hover span {display:inline}
 @media only screen and (max-width:1024px) {
     /* assistance-submit-btn */
     .assistance-submit-btn {
-        width: 155px;
+        width: 160px;
     }
 
     #modelDetailsContainer .model-details-wrapper { width:500px; }

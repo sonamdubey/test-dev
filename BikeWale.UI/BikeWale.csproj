@@ -1932,6 +1932,7 @@
     <Content Include="css\components\input-box.css" />
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
+    <Content Include="css\components\select-box.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
     <Content Include="css\css-new-photos.css" />
