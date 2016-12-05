@@ -53,6 +53,7 @@ namespace Bikewale.Mobile.Service
             cityId = currentCityArea.CityId;
             BindBikesWidgets();
 
+
         }
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016

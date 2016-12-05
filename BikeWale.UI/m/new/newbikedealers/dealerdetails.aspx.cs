@@ -85,8 +85,8 @@ namespace Bikewale.Mobile
                 ctrlServiceCenterCard.cityName = dealerCity;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}!", makeName, dealerCity);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby", makeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, dealerCity);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
             }
             catch (Exception ex)
             {
