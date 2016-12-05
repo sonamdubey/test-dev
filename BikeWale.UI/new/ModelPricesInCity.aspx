@@ -189,23 +189,13 @@
 					   { %>
 					<!-- Alternative reviews ends -->
 					<BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 					<!-- Alternative reviews ends -->
 					<% } %>
-				</div>
-			    </div>
                   <% if(ctrlServiceCenterCard.showWidget){ %>
-            <section>
-                <div class="container section-bottom-margin">
-                   <div class="grid-12">
-                    <div class="content-box-shadow padding-bottom20">
-                      <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                   </div>
-                 </div>
-                <div class="clear"></div>
-               </div>
-            </section>
-        <% } %>
-			    <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% } %>
+			    <div id="makeTabsContentWrapper" class="margin-bottom20">
 				    <div class="content-box-shadow">
 					    <div id="makeOverallTabsWrapper">
 						    <div id="makeOverallTabs" class="overall-floating-tabs">
@@ -218,6 +208,7 @@
 			            </div>
 					</div>
 				</div>
+                </div>
 			    <div class="clear"></div>
             </div>
 		</section>

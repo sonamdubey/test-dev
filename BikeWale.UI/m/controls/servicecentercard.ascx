@@ -4,7 +4,7 @@
 <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
     <h2 class="padding-15-20"><%=widgetHeading %></h2>
     <%if(!string.IsNullOrEmpty(biLineText)) {%>
-    <p><%=biLineText %></p>
+    <p class="margin-left20 margin-bottom15"><%=biLineText %></p>
     <%} %>
     <div class="bw-horizontal-swiper swiper-container card-container margin-bottom15">
         <div class="swiper-wrapper">
