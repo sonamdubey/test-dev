@@ -259,8 +259,17 @@
             </div>
         </section>
         <%} %>
-                          <% if(ctrlServiceCenterCard.showWidget){ %>
-                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                      <% if(ctrlServiceCenterCard.showWidget){ %>
+            <section>
+                <div class="container margin-bottom20">
+                   <div class="grid-12">
+                    <div class="content-box-shadow">
+                      <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                   </div>
+                 </div>
+                <div class="clear"></div>
+               </div>
+            </section>
         <% } %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->

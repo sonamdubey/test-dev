@@ -102,7 +102,7 @@ namespace Bikewale.ServiceCenter
                 ctrlRecentUsedBikes.cityName = serviceVM.CityName; ;
                 ctrlRecentUsedBikes.cityMaskingName = serviceVM.CityMaskingName;
                 ctrlRecentUsedBikes.AdId = "1395986297721";
-                ctrlRecentUsedBikes.pageHeading = string.Format("Explore popular used {0} bikes in {1}", serviceVM.MakeName, serviceVM.CityName);
+                ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", serviceVM.MakeName, serviceVM.CityName);
             }
             catch (Exception ex)
             {

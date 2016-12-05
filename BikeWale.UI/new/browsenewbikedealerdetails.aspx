@@ -146,12 +146,10 @@
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
-                          <% if(ctrlServiceCenterCard.showWidget){ %>
-            <section>
-                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-            </section>
-                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-        <% } %>
+                        <% if(ctrlServiceCenterCard.showWidget){ %>
+                          <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                          <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                        <% } %>
                         
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                            { %>

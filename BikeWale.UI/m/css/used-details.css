@@ -448,6 +448,35 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     margin: 3px auto;
 }
 
+.padding-15-20 {
+    padding: 15px 20px;
+}
+.details-column{width: 92%}
+
+.bw-horizontal-swiper.card-container .swiper-slide {
+    width: 308px;
+}
+.bw-horizontal-swiper .swiper-card {
+    width: 308px;
+    font-size: 14px;
+    min-height: 140px;
+}
+.bw-horizontal-swiper .swiper-card a {
+    display: block;
+    padding: 15px 10px 10px;
+}
+@media only screen and (max-width: 320px) {
+    .bw-horizontal-swiper.card-container .swiper-slide {
+        width: 275px;
+    }
+    .bw-horizontal-swiper .swiper-card {
+        width: 275px;
+    }
+    .location-details {
+        font-size: 13px;
+    }
+}
+
 /* gallery popup */
 #model-gallery-container {
     display:none;
