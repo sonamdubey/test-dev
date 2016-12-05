@@ -181,7 +181,7 @@
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="section-h2-title padding-15-20">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                          <h2 class="section-h2-title padding-15-20">Popular <%=makeName %> bikes in <%=serviceVM.CityName%></h2>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
