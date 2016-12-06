@@ -311,6 +311,191 @@ var sellBike = function () {
         };
     };
 
+    self.photoUploadUrl = ko.pureComputed(function () {
+        if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
+            var photoUrl = "/api/used/" + self.profileId() + "/image/upload/?isMain=false&extension=";
+        }
+        return photoUrl;
+    });
+
+    self.serverImg = ko.observableArray([]);
+    self.initPhotoUpload = function () {
+        $('#add-photos-dropzone').dropzone({
+            maxFilesize: 4,
+            maxFiles: 10,
+            addRemoveLinks: true,
+            acceptedFiles: ".png, .jpg",
+            url: self.photoUploadUrl(),
+            headers: { "customerId": self.customerId() },
+            init: function () {
+                var myDropzone = this;
+                myDropzone.itemId = self.inquiryId();
+                myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
+                myDropzone.customerId = self.customerId();
+                $(self.serverImg()).each(function (i) {
+                    var uF = { name: this.id, size: 12345 };
+                    myDropzone.files.push(uF)
+                    myDropzone.emit("addedfile", uF);
+                    myDropzone.emit("thumbnail", uF, this.imageUrl);
+                    myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
+                    myDropzone.emit("complete", uF);
+                    setProfilePhoto();
+                    $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
+                    $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
+                    $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
+                });
+                myDropzone.options.maxFiles -= self.serverImg().length;
+                if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                    morePhotos.attach();
+                }
+                else {
+                    morePhotos.detach();
+                }
+
+                this.on("sending", function (file) {
+                    $(file.previewElement).find('#spinner-content').hide();
+                });
+
+                this.on("removedfile", function (file) {
+                    morePhotos.detach();
+                    if (myDropzone.options.maxFiles < 10)
+                        ++myDropzone.options.maxFiles;
+                    self.removePhoto($(file._removeLink).attr("photoid"));
+                    setProfilePhoto();
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }
+                });
+
+                this.on("success", function (file, response) {
+                    var resp = JSON.parse(response);
+                    setProfilePhoto();
+                    if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
+                        setRemoveLinkUrl(file, resp.imageResult);
+                    }
+                });
+
+                this.on("error", function (file, response) {
+                    $(file.previewElement).find('#spinner-content').hide();
+                    if (file.xhr && file.xhr.status == 0)
+                        $(file.previewElement).find('.dz-error-message').text("You're offline.");
+                    else
+                        $(file.previewElement).find('.dz-error-message').text(response);
+                    $(file.previewElement).find('.dz-error-mark').on('click', function () {
+                        myDropzone.removeFile(file);
+                        myDropzone.addFile(file);
+                    });
+                });
+
+                this.on("maxfilesexceeded", function (file) {
+                    $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
+                });
+
+                this.on("addedfiles", function (file) {
+                    morePhotos.detach();
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                        $(file).each(function (i) {
+                            if (10 > i >= self.serverImg().length) {
+                                myDropzone.cancelUpload(this);
+                                myDropzone.removeFile(this);
+                            }
+                        });
+                    }
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }
+                });
+
+                this.on("drop", function (file) {
+                    morePhotos.detach();
+                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                        $(file).each(function (i) {
+                            if (10 > i >= self.serverImg().length) {
+                                myDropzone.cancelUpload(this);
+                                myDropzone.removeFile(this);
+                            }
+                        });
+                    }
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }
+                });
+
+            }
+        });
+    }
+    self.removePhoto = function removeUploadedPhoto(photoId) {
+        var isSuccess = false;
+        if (photoId) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/api/used/" + self.profileId() + "/image/" + photoId + "/delete/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('platformid', 1);
+                        xhr.setRequestHeader('customerId', self.customerId());
+                    },
+                    success: function (response) {
+
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr && xhr.status == 4) {
+                            isSuccess = true;
+                        }
+                        else {
+                            isSuccess = false;
+                        }
+                    }
+                });
+
+            } catch (e) {
+                isSuccess = false;
+            }
+        }
+        return isSuccess;
+    }
+    self.markMainImage = function (photoId) {
+        if (photoId && self.inquiryId()) {
+            try {
+                $.ajax({
+                    type: "POST",
+                    async: false,
+                    url: "/api/used/" + self.profileId() + "/image/" + photoId + "/markmainimage/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('platformid', 1);
+                        xhr.setRequestHeader('customerId', self.customerId());
+                    },
+                    success: function (response) {
+
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+
+                    }
+                });
+            } catch (e) {
+
+            }
+        }
+    }
+
 };
 
 var bikeDetails = function () {
@@ -823,7 +1008,8 @@ var personalDetails = function () {
                     else if (res != null && res.Status != null && res.Status.Code == 5) {
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
-                        vmSellBike.formStep(3);                        
+                        vmSellBike.formStep(3);
+                        vmSellBike.initPhotoUpload();
                     }
                     else {
                         vmSellBike.isFakeCustomer(true);
@@ -967,7 +1153,8 @@ var verificationDetails = function () {
                     }
                     else {
                         $("#otpErrorText").text("");
-                        vmSellBike.formStep(3);                        
+                        vmSellBike.formStep(3);
+                        vmSellBike.initPhotoUpload();
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
