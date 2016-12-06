@@ -126,7 +126,7 @@
                             <% } %>
                         </div>
                         <div class="padding-top20 padding-right20 padding-bottom10 padding-left20">
-                            <div class="grid-7 model-details-wrapper omega rightfloat margin-bottom10 padding-top5">
+                            <div class="grid-7 model-details-wrapper omega rightfloat padding-top5">
                                 <%if (modelPageEntity.ModelVersionSpecs != null)
                                   { %>
                                 <p class="font12 text-light-grey margin-bottom5">Key Specs</p>
@@ -287,7 +287,7 @@
                                     <%  }
                                         else
                                         { %>
-                                    <div class="leftfloat margin-top5 margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <div class="leftfloat margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                         <span itemprop="priceCurrency" content="INR">
                                             <span class="bwsprite inr-md-lg"></span>
                                         </span>
@@ -319,8 +319,8 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top10 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
-                                <div class="leftfloat margin-top10">
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
+                                <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %></span>
                                 </div>
@@ -328,7 +328,7 @@
                                 <%  }
                                     } %>
 
-                                <div class="border-solid-top margin-top15 padding-top20 hide">
+                                <div class="border-solid-top margin-top15 margin-bottom20 padding-top20 hide">
                                     <div class="inline-block margin-right10">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
@@ -375,7 +375,7 @@
                                 <% } %>
                                 <!-- upcoming end -->
                             </div>
-                            <div class="grid-5 alpha margin-bottom10">
+                            <div class="grid-5 alpha margin-bottom20">
                                 <div class="position-rel <%= modelPageEntity.ModelDetails.Futuristic ? string.Empty : "hide" %>">
                                     <span class="upcoming-text-label font16 position-abt text-white text-center">Upcoming</span>
                                 </div>
@@ -433,7 +433,7 @@
 
                             <% if (viewModel!= null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                                { %>
-                            <div id="dealerDetailsWrapper" class="border-solid-top margin-top10">
+                            <div id="dealerDetailsWrapper" class="border-solid-top">
 
                                 <div class="padding-top20 padding-bottom20">
                                     <div class="inline-block margin-right10">
