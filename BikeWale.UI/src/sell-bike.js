@@ -1216,8 +1216,8 @@ $(function () {
         var pdetails = vmSellBike.personalDetails();
         var mdetails = vmSellBike.moreDetails();
        
-        pdetails.sellerName(inquiryDetails.customerName);
-        pdetails.sellerEmail(inquiryDetails.customerEmail);
+        pdetails.sellerName(inquiryDetails.seller.customerName);
+        pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
 
         bdetails.make(inquiryDetails.make.makeId);
         bdetails.version(inquiryDetails.version.versionId);
