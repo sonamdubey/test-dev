@@ -89,8 +89,13 @@
                 return child.cityId === self.selectCity();
             }).cityMaskingName;
         })
-
-        
+        self.cityApiUrl = ko.pureComputed(function () {
+            if (req == 12)
+                return "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
+            else if (req == 13)
+                return "/api/servicecenter/cities/make/" + self.selectedBrand() + "/";
+        })
+        self.makeApiUrl="/api/makelist/?requesttype=" + req;
 
         self.FillBrandsPopup = function () {
             var isAborted = false;
@@ -98,7 +103,7 @@
             if (self.bookingBrands().length < 1 || self.bookingBrands().length == undefined) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/makelist/?requesttype=" + req,
+                    url: self.makeApiUrl,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
@@ -165,13 +170,9 @@
            
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" + self.selectedBrand().toString();
-                if (req == 12)
-                    apiurl = "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
-                else if (req == 13)
-                    apiurl = "/api/servicecenter/cities/make/"+self.selectedBrand()+"/";
                 $.ajax({
                     type: "GET",
-                    url: apiurl,
+                    url: self.cityApiUrl(),
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.listCities([]);
