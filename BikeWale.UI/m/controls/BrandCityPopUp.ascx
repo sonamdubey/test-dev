@@ -102,8 +102,10 @@
 
 <script type="text/javascript">
     var requestType = '<%=requestType%>';
+    var req='<%=(int)requestType%>'
     var cityId = '<%=cityId%>';
     var makeId = '<%=makeId%>';
+    var apiurl;
     lscache.setBucket('BrandCitypopup');
     $(document).on("click", "#changeOptions", function (e) {
         $('#brandcitypopupWrapper').addClass('loader-active');
@@ -218,7 +220,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/api/makelist/?requesttype=" + '<%=(int)requestType%>',
+                    url: "/api/makelist/?requesttype=" +req,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
@@ -263,18 +265,26 @@
                     }
                     self.preselectCity();
                 }
-                if (!isAborted)
+                debugger;
+                if (!isAborted) {
+                    if(req==12)
+                        apiurl="/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId;
+                    else if(req==13)
+                        apiurl="/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/"
                     $.ajax({
                         type: "GET",
-                        url: "/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId,
+                        url: apiurl,
                         dataType: 'json',
                         beforeSend: function (xhr) {
                             self.listCities([]);
                             self.showCityLoader();
                         },
                         success: function (response) {
-                            var cities = ko.toJS(response.City);
-                           
+                            var cities;
+                            if(req==12)
+                            cities = ko.toJS(response.City);
+                            else if(req==13)
+                                cities = ko.toJS(response);
                             if (cities) {
                                 lscache.set(BrandCityKey, cities, 60);
                                 self.hideCityLoader();
@@ -292,8 +302,8 @@
                             self.preselectCity();
                         }
                     });
-                   
-            }
+                }
+             }
             else {
                 self.listCities([]);
             }
