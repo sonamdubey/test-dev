@@ -265,7 +265,7 @@
                     }
                     self.preselectCity();
                 }
-                debugger;
+                
                 if (!isAborted) {
                     if(req==12)
                         apiurl="/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId;
