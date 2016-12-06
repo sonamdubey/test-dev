@@ -196,7 +196,7 @@ namespace Bikewale.Mobile.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsCustomerAuthorized()");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.m.sell.default.GetInquiryDetails()");
                 objErr.SendMail();
             }
 
