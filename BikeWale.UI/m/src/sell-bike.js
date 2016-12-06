@@ -32,50 +32,139 @@ ko.bindingHandlers.chosen = {
 }
 
 $(document).ready(function () {
-    $("#kmsRidden").val('');
-    $("#expectedPrice").val('');
-    $("#manufacturingDate").val('');
+    vmSellBike = new sellBike();
 
-    if (userId != null) {
-        var pdetails = vmSellBike.personalDetails();
-        pdetails.sellerName(userName);
-        pdetails.sellerEmail(userEmail);
-    }
-    var selectDropdownBox = $('.select-box-no-input');
-
-    selectDropdownBox.each(function () {
-        var text = $(this).find('.chosen-select').attr('data-title'),
-            searchBox = $(this).find('.chosen-search')
-
-        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
-    });
-
-    var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        currentDate = new Date(),
-        currentMonth = currentDate.getMonth(),
-        currentYear = currentDate.getFullYear(),
-        manufacturingDateInput = $('#manufacturingDate');
-
-    manufacturingDateInput.Zebra_DatePicker({
-        format: 'M Y',
-        direction: ['Jan 1980', monthList[currentMonth] + ' ' + currentYear],
-        start_date: monthList[currentMonth] + ' ' + currentYear,
-        onSelect: function () {
-            vmSellBike.bikeDetails().manufacturingDate($(this).val());
+        if(isEdit != "True" && userId != null) {
+            var pdetails = vmSellBike.personalDetails();
+            pdetails.sellerName(userName);
+            pdetails.sellerEmail(userEmail);
         }
-    });
 
-    // set custom heading for date picker
-    var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
-    manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');    
+        var selectDropdownBox = $('.select-box-no-input');
 
-    Dropzone.autoDiscover = false;
+        selectDropdownBox.each(function () {
+            var text = $(this).find('.chosen-select').attr('data-title'),
+                searchBox = $(this).find('.chosen-search')
 
-    $('#add-photos-dropzone').dropzone({
-        url: "/file/post"
-    });
-    
+            searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+        });
+
+        var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            currentDate = new Date(),
+            currentMonth = currentDate.getMonth(),
+            currentYear = currentDate.getFullYear(),
+            manufacturingDateInput = $('#manufacturingDate');
+
+        manufacturingDateInput.Zebra_DatePicker({
+            format: 'M Y',
+            direction: ['Jan 1980', monthList[currentMonth] + ' ' + currentYear],
+            start_date: monthList[currentMonth] + ' ' + currentYear,
+            onSelect: function () {
+                vmSellBike.bikeDetails().manufacturingDate($(this).val());
+            }
+        });
+
+        // set custom heading for date picker
+        var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
+        manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');
+
+        Dropzone.autoDiscover = false;
+
+        $('#add-photos-dropzone').dropzone({
+            url: "/file/post"
+        });
+
+        var inquiryDetails = JSON.parse(inquiryDetailsJSON);
+
+        if (isEdit == "True") {            
+
+            var bdetails = vmSellBike.bikeDetails();
+            var pdetails = vmSellBike.personalDetails();
+            var mdetails = vmSellBike.moreDetails();
+
+            pdetails.sellerName(inquiryDetails.seller.customerName);
+            pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
+
+            bdetails.makeName(inquiryDetails.make.makeName);
+            bdetails.makeId(inquiryDetails.make.makeId);
+
+            bdetails.modelName(inquiryDetails.model.modelName);
+            bdetails.modelId(inquiryDetails.model.modelId);
+
+            bdetails.versionName(inquiryDetails.version.versionName);
+            bdetails.versionId(inquiryDetails.version.versionId);
+
+            bdetails.color(inquiryDetails.color);
+            bdetails.colorId(inquiryDetails.colorId);
+
+            bdetails.cityId(inquiryDetails.cityId);
+            bdetails.city(findCityName(bdetails.cityId()));            
+            bdetails.registeredCity(inquiryDetails.registrationPlace);
+            
+            bdetails.kmsRidden(inquiryDetails.kiloMeters);
+            $('#kmsRidden').attr('data-value', inquiryDetails.kiloMeters);
+            bdetails.kmsRidden(formatNumber(inquiryDetails.kiloMeters));
+
+            bdetails.owner(inquiryDetails.owner);            
+            bdetails.expectedPrice(inquiryDetails.expectedprice);
+            $('#expectedPrice').attr('data-value', inquiryDetails.expectedprice);
+            bdetails.expectedPrice(formatNumber(inquiryDetails.expectedprice));
+           
+            $('#div-kmsRidden').addClass('not-empty');
+            $('#div-expectedPrice').addClass('not-empty');
+            $("#div-owner").addClass('done');
+            selectColorBox.addClass('selection-done');
+            bdetails.versionChanged();
+            
+            // set manufacture date
+            var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                bikeManufactureDate = new Date(inquiryDetails.manufacturingYear),
+                manufactureYear = bikeManufactureDate.getFullYear(),
+                manufactureMonth = bikeManufactureDate.getMonth(),
+                manufactureMonthName = monthArr[manufactureMonth];
+
+            bdetails.manufacturingDate(manufactureMonthName + ' ' + manufactureYear);
+            $("#manufacturingDate").val(manufactureMonthName + ' ' + manufactureYear).data('Zebra_DatePicker');
+
+            pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
+            pdetails.sellerName(inquiryDetails.seller.customerName);
+            pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
+            pdetails.sellerMobile(inquiryDetails.seller.customerMobile);
+            pdetails.sellerType(inquiryDetails.seller.sellerType);
+            vmSellBike.isEdit(true);
+
+            vmSellBike.inquiryId(inquiryDetails.InquiryId);
+            vmSellBike.customerId(inquiryDetails.seller.customerId);
+
+            mdetails.adDescription(inquiryDetails.otherInfo.adDescription);
+            mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
+            mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
+            $("#select-insuranceType").val(inquiryDetails.otherInfo.insuranceType);
+            $("#select-insuranceType").trigger("chosen:updated");
+            $("#div-insuranceType").addClass("done");
+
+            $('#city-select-element').prop('disabled', true);
+
+        }
+        else {
+            $("#kmsRidden").val('');
+            $("#expectedPrice").val('');
+            $("#manufacturingDate").val('');
+            $("#div-owner").removeClass('done');
+        }
+        
+        ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
+        
 });
+
+
+var findCityName = function (cityId) {
+    for(i=0; i<3000; i++)
+    {
+        if($(citiesList[i]).attr('data-cityid') == cityId)
+            return ($(citiesList[i]).attr('data-cityname'));
+    }
+}
 
 var vmCities = function () {
     var self = this;
@@ -100,6 +189,7 @@ var vmCities = function () {
 // custom validation function
 var validation = {
     greaterThanOne: function (val) {
+        val = val.toString();
         val = val.replace(/,/g, "");
         if (val < 1) {
             return false;
@@ -108,6 +198,7 @@ var validation = {
     },
 
     kmsMaxValue: function (val) {
+        val = val.toString();
         val = val.replace(/,/g, "");
         if (val > 999999) {
             return false;
@@ -116,6 +207,7 @@ var validation = {
     },
 
     priceMaxValue: function (val) {
+        val = val.toString();
         val = val.replace(/,/g, "");
         if (val > 6000000) {
             return false;
@@ -166,6 +258,7 @@ var validation = {
     },
 
     isNumber: function (val) {
+        val = val.toString();
         val = val.replace(/,/g, "");
         if (isNaN(val)) {
             return false;
@@ -186,6 +279,7 @@ var editMyAd = function () {
 var sellBike = function () {
     var self = this;
 
+    self.isEdit = ko.observable(false);
     self.isFakeCustomer = ko.observable(false);
     self.inquiryId = ko.observable();
     self.customerId = ko.observable();       
@@ -292,14 +386,12 @@ var bikeDetails = function () {
     };
 
     self.modelChanged = function (data, event) {
-        var element = $(event.currentTarget);
 
-        self.versionName('');
-        self.bikeStatus(false);
-
-        self.modelName(data.modelName);
-        self.modelId(data.modelId);
-        self.modelMaskingName(data.maskingName);
+        if (isEdit != "True") {
+            self.modelName(data.modelName);
+            self.modelId(data.modelId);
+            self.modelMaskingName(data.maskingName);
+        }
 
         bikePopup.stageVersion();
         bikePopup.scrollToHead();
@@ -322,12 +414,12 @@ var bikeDetails = function () {
     };
 
     self.versionChanged = function (data, event) {
-        var element = $(event.currentTarget);
 
-        self.versionName(data.versionName);
-        self.versionId(data.versionId);
-
-        self.versionName(element.text());
+        if (data) {
+            self.versionName(data.versionName);
+            self.versionId(data.versionId);
+        }
+        
         self.bikeStatus(true);
 
         bikePopup.close();
@@ -349,11 +441,13 @@ var bikeDetails = function () {
         }
     };   
 
-    self.bike = ko.pureComputed(function () {
-        if (self.bikeStatus()) {
-            return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
-        }
-    }).extend({
+    self.bike = ko.pureComputed(
+    function () { 
+            if (self.bikeStatus()) {
+                return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
+            }
+            return "";          
+    },this).extend({
         required: {
             params: true,
             message: 'Please select bike',
@@ -545,13 +639,21 @@ var bikeDetails = function () {
         vmSellBike.verificationDetails().status(false);
     };
 
+    self.closeBikePopup = function (data, event) {
+        if (vmSellBike.isEdit()) {
+            self.bikeStatus(true);
+        }
+        bikePopup.close();
+        history.back();
+    };
+
     self.errors = ko.validation.group(self);
     self.colorError = ko.validation.group(self.otherColor);
 };
 
 var personalDetails = function () {
     var self = this;
-
+    
     self.validate = ko.observable(false);
     self.sellerTypeVal = ko.observable(2);
     self.mobileLabel = ko.observable(true);
@@ -681,9 +783,9 @@ var personalDetails = function () {
                     "maskingName": null
                 },
                 "manufacturingYear": bdetails.manufacturingTime(),
-                "kiloMeters": bdetails.kmsRidden().replace(/,/g, ""),
+                "kiloMeters": bdetails.kmsRidden().toString().replace(/,/g, ""),
                 "cityId": bdetails.cityId(),
-                "expectedprice": bdetails.expectedPrice().replace(/,/g, ""),
+                "expectedprice": bdetails.expectedPrice().toString().replace(/,/g, ""),
                 "owner": bdetails.owner(),
                 "registrationPlace": bdetails.registeredCity(),
                 "color": bdetails.color(),
@@ -849,7 +951,7 @@ var verificationDetails = function () {
                 "customerMobile": mobile,
                 "customerId": vmSellBike.customerId(),
                 "inquiryId": vmSellBike.inquiryId(),
-                "isEdit"   : false
+                "isEdit"   : isEdit
             }
 
             $.ajax({
@@ -888,7 +990,6 @@ var moreDetails = function () {
 
     self.insuranceType = ko.observable();
     self.adDescription = ko.observable();
-
     self.registrationNumber = ko.observable('');
 
     self.updateAd = function () {
@@ -924,8 +1025,7 @@ var moreDetails = function () {
     };
 };
 
-var vmSellBike = new sellBike();
-ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
+
 
 // bike popup
 var selectBikeMake = $('#select-make-wrapper'),
@@ -937,11 +1037,6 @@ $('#bike-select-element').on('click', '.bike-box-default', function () {
     appendState('selectBike');
 });
 
-$('#close-bike-popup').on('click', function () {
-    bikePopup.close();
-    history.back();
-});
-
 $('#select-model-back-btn').on('click', function () {
     bikePopup.stageMake();
 });
@@ -951,6 +1046,7 @@ $('#select-version-back-btn').on('click', function () {
 });
 
 var bikePopup = {
+    
     container: $('#select-bike-cover-popup'),
 
     loader: $('.cover-popup-loader-body'),
@@ -961,11 +1057,17 @@ var bikePopup = {
 
     versionBody: $('#select-version-wrapper'),
 
-    open: function () {
-        bikePopup.container.show(effect, options, duration, function () {
-            bikePopup.container.addClass('extra-padding');
-        });
-        windowScreen.lock();
+    open: function () {        
+            bikePopup.container.show(effect, options, duration, function () {
+                bikePopup.container.addClass('extra-padding');
+            });
+
+            if (vmSellBike.isEdit()) {
+                vmSellBike.bikeDetails().modelChanged();
+            }
+
+            windowScreen.lock();
+        
     },
 
     close: function () {
@@ -1011,11 +1113,13 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
-    $('#city-search-box').val("");
-    $(citiesList).show();
-    cityListSelection.open();
-    vmSellBike.bikeDetails().citySelectionStatus('bike-city');
-    appendState('bikeCity');
+    if (isEdit != "True") {
+        $('#city-search-box').val("");
+        $(citiesList).show();
+        cityListSelection.open();
+        vmSellBike.bikeDetails().citySelectionStatus('bike-city');
+        appendState('bikeCity');
+    }
 });
 
 $('#registration-select-element').on('click', '.city-box-default', function () {
@@ -1187,8 +1291,10 @@ $('.chosen-container').on('touchstart', function (event) {
 });
 
 $('.select-box select').on('change', function () {
-    $(this).closest('.select-box').addClass('done');
-    $('body').trigger('click'); // prevent chosen select from triggering background click events
+    if ($(this).val().length > 0) { 
+        $(this).closest('.select-box').addClass('done');
+        $('body').trigger('click'); // prevent chosen select from triggering background click events
+    }
 });
 
 var scrollToForm = {

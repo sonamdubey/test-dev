@@ -3,6 +3,7 @@ using Bikewale.BAL.MobileVerification;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
@@ -34,7 +35,7 @@ namespace Bikewale.Used.Sell
     {
         protected IEnumerable<Bikewale.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
         private IBikeMakesCacheRepository<int> _makesRepository;
-        protected List<CityEntityBase> objCityList = null;
+        protected IEnumerable<CityEntityBase> objCityList = null;
         protected string userId = null;
         protected bool isEdit = false;
         protected int inquiryId = 0;
@@ -51,6 +52,9 @@ namespace Bikewale.Used.Sell
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+            dd.DetectDevice();
+
             BindMakes();
             BindCities();
             BindUserId();
@@ -110,10 +114,16 @@ namespace Bikewale.Used.Sell
         /// </summary>
         protected void BindCities()
         {
-            ICity _city = new CityRepository();
             try
             {
-                objCityList = _city.GetAllCities(EnumBikeType.All);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>(); ;
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
+                    objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
+                }
             }
             catch (Exception ex)
             {
@@ -186,7 +196,7 @@ namespace Bikewale.Used.Sell
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsCustomerAuthorized()");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.GetInquiryDetails()");
                 objErr.SendMail();
             }
 
