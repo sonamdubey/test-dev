@@ -280,7 +280,7 @@ namespace BikeWaleOpr.Content
             string tempImageName = GetSelectedBikeName().Replace('/', '-').ToLower() + "-" + imgName + ".jpg";
             fullTempImagePath = imgPath + tempImageName;
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"];
-            string imageUrl = "https://" + hostUrl + "/bw/featured/";
+            string imageUrl = "http://" + hostUrl + "/bw/featured/";
 
             flphoto.PostedFile.SaveAs(fullTempImagePath);
             //rabbitmq publishing

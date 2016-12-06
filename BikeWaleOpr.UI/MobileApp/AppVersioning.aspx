@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.MobileApp.AppVersioning" Trace="false" Debug="false" %>
+<%@ import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <!-- #Include file="../content/ContentsMenu.aspx" -->
 <div style="margin-left:300px;">

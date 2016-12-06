@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealers" AsyncTimeout="45" Async="true" %>
-
+<%@ import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script src="https://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js" type="text/javascript"></script>

@@ -165,7 +165,7 @@ namespace BikeWaleOpr.Content
         {
             verId = versionId;
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
-            string imageUrl = "https://" + hostUrl + originalImagePath;
+            string imageUrl = "http://" + hostUrl + originalImagePath;
 
             string dirPath = ImagingOperations.GetPathToSaveImages((originalImagePath.Substring(0, originalImagePath.LastIndexOf('/') + 1)).Replace("/", "\\"));
 
