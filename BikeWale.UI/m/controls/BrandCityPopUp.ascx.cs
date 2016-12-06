@@ -13,8 +13,8 @@ namespace Bikewale.Mobile.Controls
     {
         public EnumBikeType requestType;
         public uint cityId, makeId;
-        protected string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-        protected string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+        protected string staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+        protected string staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         protected bool isOperaBrowser = false;
         protected void Page_Load(object sender, EventArgs e)
         {
