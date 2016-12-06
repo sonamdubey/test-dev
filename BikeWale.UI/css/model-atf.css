@@ -1,5 +1,4 @@
-﻿@charset "utf-8";
-.padding-14-20 {
+﻿.padding-14-20 {
     padding: 14px 20px
 }
 .text-x-light {
@@ -309,7 +308,7 @@
 .navigation .carousel-navigation li { float:left; width:80px; height:45px; margin-right:10px; }
 .navigation .carousel-navigation li:hover { cursor:pointer; }
 .navigation .carousel-navigation li img { width:100%; height: 45px; border:1px solid #e2e2e2; }
-.connected-carousels .carousel-navigation li.active img { border-color: #82888b; }
+.connected-carousels .carousel-navigation li.active img { border-color: #555; }
 .navigation .carousel-navigation .carousel-nav-img-container { display:table; width:80px; height:45px; text-align:center; }
 .navigation .carousel-navigation .carousel-nav-img-container span { display: table-cell; vertical-align: middle; width: 80px; }
 .connected-carousels .prev-stage, .connected-carousels .next-stage { display: block; position: absolute; top: 40%; color: #fff; z-index: 1;}

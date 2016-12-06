@@ -48,7 +48,9 @@ var page = {
             city: 'BikeWale.UI/servicecenter/ServiceCenterInCountry.aspx',
             listing: 'BikeWale.UI/servicecenter/ServiceCenterList.aspx',
             details: 'BikeWale.UI/servicecenter/ServiceCenterDetails.aspx',
-        }
+        },
+
+        model: 'BikeWale.UI/new/versions.aspx'
     },
     mobile: {
         service: {
@@ -136,7 +138,7 @@ gulp.task('watch-sass', function () {
 
 // replace css reference with internal css
 gulp.task('replace-css-reference', function (callback) {
-    gulpSequence('desktop-service-center', 'mobile-service-center')(callback)
+    gulpSequence('desktop-service-center', 'mobile-service-center', 'desktop-model')(callback)
 });
 
 // desktop service center
@@ -178,6 +180,15 @@ gulp.task('desktop-service-details', function () {
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
         .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
+});
+
+gulp.task('desktop-model', function () {
+    return gulp.src(page.desktop.model, { base: 'BikeWale.UI/new' })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/model-atf.css"[^>]*>/, function () {
+            var style = fs.readFileSync(paths.destinationD_CSS + '/model-atf.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest('BikeWale.UI/build/new'));
 });
 
 // mobile service center
