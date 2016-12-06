@@ -395,11 +395,10 @@ $.sortChangeUp = function (sortByDiv) {
     sortByDiv.removeClass("open");
     sortListDiv.slideUp();
 };
-$("input[name*='btnVariant']").on("click", function () {
-    if($(this).attr('versionid') == $('#hdnVariant').val()){
-        return false;
-    }
-    $('#hdnVariant').val($(this).attr('versionid'));
+
+
+$('#ddlVersion').on("change", function () {
+    $('#hdnVariant').val($(this).val());
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": bikeVersionLocation });
 });
 
