@@ -145,7 +145,7 @@ namespace Bikewale.Mobile.Used.Sell
                 string inquiry = Request.QueryString["id"];
                 if (!String.IsNullOrEmpty(inquiry) && Int32.TryParse(inquiry, out inquiryId) && inquiryId > 0)
                 {
-                    if (userId == "-1") //user not logged-in
+                    if (CurrentUser.UserId < 1) //user not logged-in
                     {
                         Response.Redirect(String.Format("/m/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
                     }
@@ -183,7 +183,7 @@ namespace Bikewale.Mobile.Used.Sell
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
-                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Convert.ToUInt64(userId));
+                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, CurrentUser.UserId);
                         if (inquiryDetailsObject != null)
                         {
                             inquiryDTO = ConvertToDto(inquiryDetailsObject);
