@@ -1,4 +1,375 @@
-﻿#pqBikeDetails.grid-8 { width: 664px; }
+﻿.padding-14-20 {
+    padding: 14px 20px;
+}
+
+.vertical-top {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* model-image */
+#pq-image-column.grid-5 {
+    width: 375px;
+}
+
+#pq-table-column.grid-7 {
+    width: 58%;
+}
+
+#model-image {
+    width: 320px;
+    height: 180px;
+    display: inline-block;
+}
+
+#version-specs-list {
+    width: 320px;
+    padding-left: 20px;
+    overflow: hidden;    
+}
+
+#version-specs-list li {
+    list-style: disc;
+    width: 50%;
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* model-version-dropdown */
+.single-version-content {
+    width: 210px;
+}
+.top-minus5 {
+    top: -5px;
+}
+.pos-top2 {
+    top: 2px;
+}
+
+.margin-right40 {
+    margin-right: 40px;
+}
+
+.single-version-value {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#model-version-dropdown {
+    position: relative;
+    top: 15px;
+}
+#model-version-dropdown .select-box {
+    height: 45px;
+}
+
+#model-version-dropdown .chosen-container {
+    width: auto !important;
+    min-width: 210px !important;
+}
+
+#model-version-dropdown .chosen-container .chosen-drop {
+    width: auto !important;
+    min-width: 220px !important;
+}
+
+/* select box */
+.select-box {
+    height: 60px;
+    position: relative;
+}
+.select-box .select-label {
+    position: absolute;
+    top: 0;
+    color: #82888b;
+    font-size: 16px;
+}
+.select-box .chosen-container {
+    height: 30px;
+    position: relative;
+    top: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #82888b;
+    background: transparent url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+.select-box .chosen-container .chosen-single {
+    height: 100%;
+    color: #4d5057;
+    font-size: 16px;
+    font-weight: 700;
+    background: transparent;
+}
+.select-box .chosen-container .chosen-default {
+    display: none;
+}
+.select-box .chosen-container .chosen-search {
+    padding: 0;
+    border-bottom: 1px solid #41b4c4;
+}
+.select-box .chosen-container .chosen-search input[type=text] {
+    border: 0;
+    padding: 12px 10px;
+    font-size: 16px;
+}
+.select-box .chosen-container .chosen-results {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+.select-box .chosen-container .chosen-results::-webkit-scrollbar {
+    width: 5px;
+}
+.select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
+    background: #fff;
+}
+.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
+    background: #ddd;
+}
+.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+.select-box .chosen-container .chosen-results li {
+    padding: 8px 10px;
+    transition: background .1s linear;
+}
+.select-box .chosen-container .chosen-results .highlighted {
+    background-color: #f5f5f5;
+}
+.select-box .chosen-container .chosen-results .result-selected {
+    font-weight: 700;
+}
+.select-box .chosen-container .chosen-drop {
+    width: 300px;
+    z-index: 1;
+    top: -15px;
+    border: 1px solid #e2e2e2;
+    -webkit-box-shadow: 0 2px 10px 1px #ccc;
+    -moz-box-shadow: 0 2px 10px 1px #ccc;
+    -ms-box-shadow: 0 2px 10px 1px #ccc;
+    -o-box-shadow: 0 2px 10px 1px #ccc;
+    box-shadow: 0 2px 10px 1px #ccc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+.select-box.select-box-no-input .chosen-search {
+    border-bottom: 1px solid #e2e2e2;
+}
+.select-box.select-box-no-input .chosen-results li {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.select-box.select-box-no-input .no-input-label {
+    font-size: 16px;
+    color: #4d5057;
+    padding: 11px 20px;
+    cursor: text;
+}
+.done .select-label {
+    font-size: 12px;
+    top: -20px;
+}
+
+/* small select-box */
+.select-box.size-small .chosen-container .chosen-single {
+    font-size: 14px;
+}
+
+.select-box.size-small .chosen-container {
+    height: 27px;
+}
+
+.select-box.size-small .chosen-container .chosen-drop {
+    top: -17px;
+}
+
+/* pq-table */
+#pq-table {
+    width: 460px;
+}
+
+#pq-table table {
+    table-layout: fixed;
+}
+
+#pq-table .row-with-padding td {
+    padding-bottom: 15px;
+}
+
+.border-light-bottom {
+    border-bottom: 1px solid #eee;
+}
+
+/* dealer */
+.inner-card-shadow {
+    background: #fff;
+    -moz-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
+    -webkit-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
+    -o-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
+    -ms-box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
+    box-shadow: 0 2px 5px #e2e2e2,0 -2px 5px #f1f1f1;
+    border: 1px solid #e2e2e2\9;
+}
+
+#pq-dealer-name, #dealer-offers-label {
+    width: 350px;
+    padding-right: 10px;
+}
+
+.pq-get-dealer-offers, #btnEmiQuote {
+    width: 188px;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+#offers-label-list {
+    margin-top: 3px;
+    padding-left: 16px;
+    overflow: hidden;
+}
+
+#offers-label-list li {
+    list-style: disc;
+    font-size: 12px;
+    color: #82888b;
+    float: left;
+    min-width: 93px;
+}
+
+/* dealer details */
+#dealer-contact-details .details-column {
+    width: 92%;
+}
+
+.font15 {
+    font-size: 15px;
+}
+
+.dealer-details-item {
+    margin-bottom: 10px;
+}
+
+/* without-map */
+#dealer-contact-details.without-map .details-column {
+    width: auto;
+}
+.without-map .dealer-details-item {
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 5px;
+}
+
+#get-direction-button {
+    width: 50px;
+    height: 50px;
+    background: #f9f9f9;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    -webkit-box-shadow: 1px 5px 15px 0 #aaa;
+    -moz-box-shadow: 1px 5px 15px 0 #aaa;
+    -ms-box-shadow: 1px 5px 15px 0 #aaa;
+    -o-box-shadow: 1px 5px 15px 0 #aaa;
+    box-shadow: 1px 5px 15px 0 #aaa;
+}
+#get-direction-button:hover {
+    -webkit-box-shadow: 1px 5px 15px 0 #999;
+    -moz-box-shadow: 1px 5px 15px 0 #999;
+    -ms-box-shadow: 1px 5px 15px 0 #999;
+    -o-box-shadow: 1px 5px 15px 0 #999;
+    box-shadow: 1px 5px 15px 0 #999;
+}
+
+/* emi */
+.emi-slider-box { margin-top: 25px; }
+.emi-slider-box:first-child { margin-top: 0; }
+/* slider */
+.ui-widget-content { background: #bababa; height: 3px; margin-top: 20px; width: 97%; border-radius: 0px; cursor: pointer; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #ef3030; height: 3px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+
+.border-light-right { border-right: 1px solid #eee; }
+.border-light-bottom { border-bottom: 1px solid #eee; }
+
+/* icons */
+.pq-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+
+.loc-change-blue-icon {
+    width: 12px;
+    height: 16px;
+    background-position: -205px -9px;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+.loc-change-blue-icon:hover {
+    background-position: -205px -35px;
+}
+
+.inr-md-lg {
+    width: 12px;
+    height: 17px;
+    background-position: -64px -515px;
+    position: relative;
+    top: 1px;
+}
+
+.partner-dealer {
+    width: 32px;
+    height: 34px;
+    background-position: 0 -72px;
+}
+
+.get-direction-icon {
+    width: 20px;
+    height: 20px;
+    background-position: -112px -441px;
+    margin-top: 15px;
+}
+
+.mail-grey-icon {
+    width: 12px;
+    height: 10px;
+    background-position: -92px -446px;
+    position: relative;
+    top: 5px;
+    margin-right: 4px;
+}
+
+.clock-icon {
+    width: 12px;
+    height: 12px;
+    background-position: -213px -224px;
+    position: relative;
+    top: 4px;
+    margin-right: 4px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .pq-get-dealer-offers {
+        width: 150px;
+    }
+}
+
+#pqBikeDetails.grid-8 { width: 664px; }
 #PQDealerSidebarContainer.grid-4 { width:310px; }
 #PQImageVariantContainer { padding-top:40px; padding-left:20px; }
 .pqBikeImage { width:294px; overflow:hidden; }
@@ -16,8 +387,6 @@
 .variants-dropdown-list li.selected { font-weight:bold; }
 .variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:10px}
 .variants-dropdown-list li:hover input{cursor:pointer; background:#82888b; color:#fff; }
-.border-light-top { border-top: 1px solid #f1f1f1; }
-.border-light-bottom { border-bottom: 1px solid #f1f1f1; }
 .offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
 .benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
@@ -46,22 +415,9 @@
 .assistance-form-mobile .bw-blackbg-tooltip { font-size:11px; padding:4px 5px; }
 #buyingAssistBtn.btn { width:114px; padding:8px 0; }
 /* booking-config */
-.emi-slider-box { padding-bottom:20px; padding-top:20px; }
-.emi-slider-box:first-child { padding-top:10px; }
-.emi-slider-box-left-section { width:445px; float:left; }
-#EMISection .ui-widget-content { background: #e2e2e2; height: 6px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
-.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
-.ui-widget-header { background: #565a5c; height: 5px; }
-.ui-slider { position: relative; text-align: left; }
+
 .ui-slider .ui-slider-handle { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
-.emi-slider-box-right-section { width:138px; height:40px; border:1px solid #e2e2e2; float:right; margin-top:10px; padding:8px; text-align:center; }
-/* range points */
-.slider-range-points ul li { float:left; position:relative; }
-.slider-range-points ul.range-pointsUL li { width:12.5%; }
 .range-points-bar { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
-.range-points-bar span { position:absolute; top:5px; left:-7px; font-size:11px; }
-.range-points-bar:first-child span { left:0px; }
-.slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
 .disclaimer-sm-icon { width:12px; height:11px; background-position:-59px -323px; margin-right:3px; }
 .tel-sm-icon { width:8px; height:13px; background-position:-88px -324px; margin-right:3px; }
 /*sidebar*/
@@ -111,7 +467,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .phone-black-icon { top:5px; background-position:-73px -444px; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
-.vertical-top { display:inline-block;vertical-align:top; }
 .disclaimer {list-style-type: disc; padding-left:20px;}
 #modelAlternateBikeContent{ background: #fff; -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border: 1px solid #e2e2e2\9;}
 

@@ -58,6 +58,21 @@ $(function () {
 if ($('#dealerAssistance').length > 0)
     ko.applyBindings(customerViewModel, $('#dealerAssistance')[0]);
 
+// version dropdown
+$('.chosen-select').chosen();
+
+$(document).ready(function () {
+    // version dropdown
+    var selectDropdownBox = $('.select-box-no-input');
+
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+});
+
 function CustomerModel() {
     var arr = setuserDetails();
     var self = this;

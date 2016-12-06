@@ -16,9 +16,11 @@
         isAd300x250BTFShown = false;
         
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+
         var dealerId = '<%= dealerId%>';
         var pqId = '<%= pqId%>';
         var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
@@ -33,10 +35,10 @@
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <section class="bg-light-grey padding-top10">
-            <div class="container">
+        <section>
+            <div class="container padding-top10">
                 <div class="grid-12">
-                    <div class="breadcrumb margin-bottom10">
+                    <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -60,30 +62,177 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="margin-bottom10">On-road price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
-        <section class="container">
-            <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
-                <div class="content-box-shadow rounded-corner2">
-                    <div id="pqBikeDetails" class="grid-8 alpha omega bg-white">
-                        <div class="grid-6 padding-bottom20" id="PQImageVariantContainer">
-                            <% if (detailedDealer != null)
-                               { %>
-                            <div class="pqBikeImage margin-bottom15">
-                                <img alt="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" />
+        <section>
+            <div class="container" id="modelDetailsContainer">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow">
+                        <div class="content-box-shadow padding-14-20">
+                            <h1 class="inline-block margin-right15">Detailed price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
+                        </div>
+                        <div class="content-inner-block-20">
+                            <h2 class="font18 margin-bottom15"><%= BikeName %></h2>
+                            <div id="pq-image-column" class="grid-5 alpha">
+                                <% if (detailedDealer != null)
+                                { %>
+                                <div id="model-image">
+                                    <img alt="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" width="100%" />
+                                </div>
+                                <% } %>
+                                <ul id="version-specs-list">
+                                    <li>Alloy Wheel</li>
+                                    <li>Electric Start</li>
+                                    <li>Disc Brake</li>
+                                    <li>ABS</li>
+                                </ul>
                             </div>
-                            <% } %>
-
-                            <div class="pqVariants">
-                                <p class="margin-left10 font16 text-light-grey leftfloat margin-top7">Version:</p>
+                            <div id="pq-table-column" class="grid-7 alpha omega">
                                 <% if (versionList.Count > 1)
-                                   { %>
-                                <div class="position-rel">
+                                    { %>
+                                <div id="model-version-dropdown" class="margin-right40 vertical-top">
+                                    <div class="select-box select-box-no-input done size-small">
+                                        <p class="select-label">Version</p>
+                                        <select class="chosen-select" data-title="Version">
+                                            <option value></option>
+                                            <option value="1" selected>Electric Start/Drum/Alloy</option>
+                                            <option value="2">Electric Start/Disc/Alloy</option>
+                                            <option value="3">CBS</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <% }
+                                   else { %>
+                                <div class="single-version-content position-rel top-minus5 vertical-top margin-right40">
+                                    <p class="font12 text-light-grey">Version</p>
+                                    <p class="font14 text-bold single-version-value"><%= versionName %></p>
+                                </div>
+                                <% } %>
+
+                                <div class="position-rel top-minus5 vertical-top">
+                                    <p class="font12 text-light-grey">Location</p>
+                                    <p class="font14 text-bold block position-rel pos-top2">Andheri, Mumbai <a class="margin-left5"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                </div>
+
+                                <div runat="server">
+                                    <div id="pq-table" class="margin-top20">
+                                    <% if (primaryPriceList != null && primaryPriceList.Count() > 0)
+                                       { %>
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                        <asp:Repeater ID="rptPriceList" runat="server">
+                                            <ItemTemplate>
+                                                <tr class="row-with-padding">
+                                                    <td width="300" class="font14">
+                                                        <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
+                                                    </td>
+                                                    <td width="160" align="right" class="font16 text-bold">
+                                                        <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <tr>
+                                            <td colspan="2" class="padding-bottom5">
+                                                <div class="border-light-bottom"></div>
+                                            <td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <p class="font14 text-bold">On-road price in <%= GetLocationCookie() %></p>
+                                            </td>
+                                            <td align="right">
+                                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <p class="font12 text-light-grey text-truncate">powered by Kamala Landmarc Motorbikes</p>
+                                            </td>
+                                            <td align="right">
+                                                <a href="javascript:void(0)" class="font14 bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" class="text-right padding-top5">
+                                                </td>
+                                        </tr>
+                                        <tr class="hide">
+                                            <td colspan="3">
+                                                <ul class="std-ul-list">
+                                                    <asp:Repeater ID="rptDisclaimer" runat="server">
+                                                        <ItemTemplate>
+                                                            <li><i><%# Container.DataItem %></i></li>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <% }
+
+                                       else if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
+                                       {%>                                           
+                                            <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                                <tr>
+                                                    <td width="300" class="row-with-padding">
+                                                        Ex-Showroom (<%= objQuotation.City %>)
+                                                    </td>
+                                                    <td width="160" align="right" class="row-with-padding">
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="row-with-padding">RTO</td>
+                                                    <td align="right" class="row-with-padding">
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="row-with-padding">Insurance (Comprehensive)<%--<br />
+                                                        <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
+                                                            <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
+                                                        </div>--%>
+                                                    </td>
+                                                    <td align="right" class="row-with-padding">
+                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="padding-bottom5">
+                                                        <div class="border-light-bottom"></div>
+                                                    <td>
+                                                </tr>
+                                                <tr>
+                                                    <td><p class="font14 text-bold">On-road price</p></td>
+                                                    <td align="right">
+                                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
+                                                    </td>
+                                                </tr>	
+                                            </table>
+                      
+                                       <%}
+                                       else
+                                       { %>
+                                    <div>
+                                        <p class="font16 text-bold">Price for this bike is not available in this city.</p>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                </div>
+
+                                <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight"></div>
+
+                                
+                                <% if (versionList.Count > 1)
+                                    { %>
+                                    <div class="position-rel hide">
                                     <div class="variants-dropdown rounded-corner2 leftfloat">
                                         <div class="variant-selection-tab">
                                             <asp:Label runat="server" ID="defaultVariant"></asp:Label>
@@ -104,114 +253,195 @@
                                     </ul>
                                 </div>
                                 <% }
-                                   else
-                                   { %>
+                                    else
+                                    { %>
                                 <span id="versText" class="margin-left10 font16 leftfloat margin-top7 margin-right20"><%= versionName %></span>
                                 <% } %>
+                                
                             </div>
+                            <div class="clear"></div>
 
-                        </div>
-                        <!--Price List Section-->
-                        <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">
-                           
-
-                            <div runat="server">
-                                <div>
-                                    <% if (primaryPriceList != null && primaryPriceList.Count() > 0)
-                                       { %>
-                                     <p class="font14 text-default text-bold margin-bottom15">On-road price - <%= dealerName %></p>
-                                    <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
-                                        <asp:Repeater ID="rptPriceList" runat="server">
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td width="210" class="PQDetailsTableTitle padding-bottom15 text-light-grey">
-                                                        <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
-                                                    </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 text-default ">
-                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
-                                                    </td>
-                                                </tr>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            <td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="PQDetailsTableTitle font14  PQOnRoadPrice text-bold">On-road price</td>
-                                            <td align="right" class="PQDetailsTableAmount font18 text-bold">
-                                                <span class="bwsprite inr-lg"></span>&nbsp;<span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colspan="2" class="text-right padding-top5">
-                                                <a class="font14 text-link bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a></td>
-                                        </tr>
-                                        <tr class="hide">
-                                            <td colspan="3">
-                                                <ul class="std-ul-list">
-                                                    <asp:Repeater ID="rptDisclaimer" runat="server">
-                                                        <ItemTemplate>
-                                                            <li><i><%# Container.DataItem %></i></li>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <% }
-
-                                       else if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
-                                       {%>                                           
-                                            <table class="font14 margin-top10" cellspacing="0" cellpadding="0" width="100%" border="0">
-                                                <tr>
-                                                    <td width="200" class="PQDetailsTableTitle padding-bottom15">
-                                                        Ex-Showroom (<%= objQuotation.City %>)
-                                                    </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span id="exShowroomPrice"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="PQDetailsTableTitle padding-bottom15">RTO</td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.RTO.ToString() ) %></span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="PQDetailsTableTitle padding-bottom15">Insurance (Comprehensive)<%--<br />
-                                                        <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
-                                                            <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
-                                                        </div>--%>
-                                                    </td>
-                                                    <td align="right" class="PQDetailsTableAmount padding-bottom15">
-                                                        <span class="bwsprite inr-sm"></span>&nbsp;<span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
-                                                    </td>
-                                                </tr>
-                                                <tr><td colspan="2" class="border-solid-top padding-bottom15" align="right"></tr>
-                                                <tr>
-                                                    <td class="PQDetailsTableTitle PQOnRoadPrice padding-bottom15 text-dark-black">On-road price</td>
-                                                    <td align="right" class="PQDetailsTableAmount font18 padding-bottom15 text-dark-black">
-                                                        <span class="bwsprite inr-lg"></span>&nbsp;<span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
-                                                    </td>
-                                                </tr>	
-                                            </table>
-                      
-                                       <%}
-                                       else
-                                       { %>
-                                    <div class="grey-bg border-light padding5 margin-top10 margin-bottom20">
-                                        <h3>Price for this bike is not available in this city.</h3>
+                            <div class="inner-card-shadow margin-top20">
+                                <div class="content-inner-block-20">
+                                    <div id="pq-dealer-name" class="inline-block">
+                                        <div class="inline-block margin-right10">
+                                            <span class="pq-sprite partner-dealer"></span>
+                                        </div>
+                                        <div class="inline-block dealer-name-content">
+                                            <h3 class="font18 text-black margin-bottom5">Kamala Landmarc Motorbikes</h3>
+                                            <p class="font12 text-light-grey">BikeWale partner dealer</p>
+                                        </div>
                                     </div>
-                                    <% } %>
+                                    <div id="dealer-offers-label" class="inline-block">
+                                        <p class="font14">Get in touch with this dealer for:</p>
+                                        <ul id="offers-label-list">
+                                            <li>Best offers</li>
+                                            <li>Test rides</li>
+                                            <li>Exchange benefits</li>
+                                        </ul>
+                                    </div>
+                                    <div id="get-offers-btn-content" class="inline-block">
+                                        <a href="" class="btn btn-orange pq-get-dealer-offers">Get offers</a>
+                                    </div>
+                                    <div class="clear"></div>                                    
+                                </div>
+
+                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                <div id="dealer-contact-details" class="content-inner-block-20"><!-- if no map, add 'without-map' class -->
+                                    <div class="grid-6 alpha font14"><!-- if no map, replace grid-6 with grid-12 -->
+                                        <p class="text-bold margin-bottom15">Dealer contact details</p>
+                                        <div class="margin-bottom10">
+                                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                            <span class="vertical-top text-light-grey details-column">Shop No.3/2 Nago Sayaji Chawl,Ballam Street , Dist- Mumbai , City- Grant Road , State- Maharashtra , Pin- 400007</span>
+                                        </div>
+
+                                        <div class="dealer-details-item">
+                                            <span class="bwsprite phone-black-icon vertical-top"></span>
+                                            <span class="font15 vertical-top text-bold details-column">9322507782</span>
+                                        </div>
+
+                                        <div class="dealer-details-item">
+                                            <span class="bwsprite mail-grey-icon vertical-top"></span>
+                                            <a href="mailto:twenty1honda@gmail.com" target="_blank" class="vertical-top text-light-grey" rel="nofollow">
+                                                <span class="dealership-card-details">twenty1honda@gmail.com</span>
+                                            </a>
+                                        </div>
+
+                                        <div class="dealer-details-item">
+                                            <span class="bwsprite clock-icon vertical-top"></span>
+                                            <span class="vertical-top text-light-grey details-column">Working hours: 9.00 am - 6.00 pm</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="grid-6 omega">
+                                        <div id="pq-dealer-map" style="width:438px;height:202px;border:1px solid #f5f5f5;"></div>
+                                        <div id="get-direction-button" title="get directions">
+                                            <a href="" target="_blank">
+                                                <span class="bwsprite get-direction-icon"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+
+                                <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium &&  primarydealer.EMIDetails != null)
+                                    { %>
+                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                <div class="content-inner-block-20">
+                                    <p class="font14 text-bold margin-bottom15">EMI calculator</p>
+                                    <div id="EMISection" data-bind="visible: true" style="display: none" class="font14">
+                                        <div class="grid-8 alpha border-light-right padding-bottom5 margin-bottom10">
+                                            <div class="emi-slider-box">
+                                                <p class="text-light-grey leftfloat">Down payment</p>
+                                                <p class="rightfloat margin-right15"><span class="bwsprite inr-sm"></span>&nbsp;<span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span></p>
+                                                <div class="clear"></div>
+
+                                                <div id="downPaymentSlider"
+                                                    data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
+                                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                    <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="emi-slider-box">
+                                                <p class="text-light-grey leftfloat">Loan Amount</p>
+                                                <p class="rightfloat margin-right15"><span class="bwsprite inr-sm"></span>&nbsp;<span id="loanAmount" class="text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span></p>
+                                                <div class="clear"></div>
+                                                    
+                                                <div id="loanAmountSlider"
+                                                    data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                    <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                                </div>                                                
+                                            </div>
+
+                                            <div class="emi-slider-box">
+                                                <p class="text-light-grey leftfloat">Tenure (Months)</p>
+                                                <p class="rightfloat text-bold margin-right15"><span id="tenurePeriod" data-bind="text: tenure"></span> Months</p>
+                                                <div class="clear"></div>
+                                                    
+                                                <div id="tenureSlider"
+                                                    data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                    <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="emi-slider-box">
+                                                <p class="text-light-grey leftfloat">Rate of interest (Percentage)</p>
+                                                <p class="rightfloat text-bold margin-right15"><span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>%</p>
+                                                <div class="clear"></div>
+
+                                                <div id="rateOfInterestSlider"
+                                                    data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                                                    class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                    <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                                </div>                                               
+                                            </div>
+                                        </div>
+                                        <div class="grid-4 padding-left20 omega">
+                                            <div class="margin-left10 margin-bottom15">
+                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable+Interest)</p>
+                                                <div>
+                                                    <span class="bwsprite inr-md"></span>
+                                                    <span class="font16 text-bold">1,13,658</span>                                            
+                                                </div>
+                                            </div>
+                                            <div class="border-light-bottom margin-bottom15"></div>
+                                            <div class="margin-left10">
+                                                <p class="font14 text-light-grey margin-bottom5">Indicative EMI</p>
+                                                <div class="margin-bottom25">
+                                                    <span class="bwsprite inr-lg"></span>
+                                                    <span class="font18 text-bold">
+                                                        <span id="emiAmount" data-bind="text: monthlyEMI"></span> per month
+                                                    </span>                                            
+                                                </div>
+                                                <a id="btnEmiQuote" leadSourceId="11" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <% } %>
+
+                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                <div class="content-inner-block-20">
+
                                 </div>
 
                             </div>
 
-                            <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="container">
+            <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
+                <div class="content-box-shadow rounded-corner2">
+                    <div id="pqBikeDetails" class="grid-8 alpha omega bg-white">
+                        <div class="grid-6 padding-bottom20" id="PQImageVariantContainer">
+                            <% if (detailedDealer != null)
+                               { %>
+                            <div class="pqBikeImage margin-bottom15">
+                                <img alt="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%= String.Format("{0} {1}",BikeName,versionName) %> Photos" />
+                            </div>
+                            <% } %>                           
+
+                        </div>
+                        <!--Price List Section-->
+                        <div class="grid-6 padding-top15 padding-bottom20 padding-right20" id="PQDetailsContainer">                         
+
+                            
                         </div>
                         <div class="clear"></div>
                         <!--offer List Section-->
@@ -421,127 +651,7 @@
                         <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium &&  primarydealer.EMIDetails != null)
                            { %>
                         <!-- EMI section starts -->
-                        <div id="EMISection" data-bind="visible: true" style="display: none" class="grid-12 padding-left20 padding-right20 padding-bottom20 font14">
-                            <p class="text-bold padding-top20 margin-bottom15 border-light-top">Get EMI quote from this dealer:</p>
-                            <div class="finance-emi-container">
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Down payment</p>
-                                        <div id="downPaymentSlider"
-                                            data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2 ) + minDnPay()) }"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.valueFormatter(minDnPay())))"></span></li>
-                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.createSliderPoints($index() + 1, $parent.minDnPay(), $parent.maxDnPay(), $parent.breakPoints(),1)))"></span></li>
-                                                <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text:formatPrice(Math.round($.valueFormatter(maxDnPay())))"></span></li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section">
-                                        <span class="bwsprite inr-md"></span>&nbsp;<span id="downPaymentAmount" class="font16 text-bold" data-bind="text: formatPrice(Math.round(downPayment()))"></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Loan Amount</p>
-                                        <div id="loanAmountSlider"
-                                            data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL" data-bind="">
-                                                <li class="range-points-bar"><span data-bind="text:formatPrice(Math.round($.valueFormatter(bikePrice() - maxDnPay())))"></span></li>
-                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: formatPrice(Math.round($.createSliderPoints($index() + 1, $parent.bikePrice() - $parent.maxDnPay(), $parent.bikePrice() - $parent.minDnPay(), $parent.breakPoints(),1)))"></span></li>
-                                                <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: formatPrice(Math.round($.valueFormatter(bikePrice() - minDnPay())))"></span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section">
-                                        <span class="bwsprite inr-md"></span>&nbsp;<span id="loanAmount" class="font16 text-bold" data-bind="text: formatPrice(Math.round(loan()))"></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Tenure (Months)</p>
-                                        <div id="tenureSlider"
-                                            data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL  range-pointsUL tenure-rate-interest" data-bind="">
-                                                <li class="range-points-bar"><span data-bind="text: $.valueFormatter(minTenure())"></span></li>
-                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minTenure(), $parent.maxTenure() , $parent.breakPoints(),2)"></span></li>
-                                                <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxTenure())"></span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section">
-                                        <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure"></span>
-                                        <span class="font12">Months</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="emi-slider-box">
-                                    <div class="emi-slider-box-left-section">
-                                        <p>Rate of interest (Percentage)</p>
-                                        <div id="rateOfInterestSlider"
-                                            data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
-                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                        </div>
-                                        <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest.">
-                                                <li class="range-points-bar"><span data-bind="text:$.valueFormatter(minROI())"></span></li>
-                                                <!-- ko foreach: new Array(breakPoints() - 1 ) -->
-                                                <li class="range-points-bar"><span data-bind="text: $.createSliderPoints($index() + 1, $parent.minROI(), $parent.maxROI() , $parent.breakPoints())"></span></li>
-                                                <!-- /ko -->
-                                                <li class="range-points-bar" style="width: 1px; float: right; margin-top: -5px"><span data-bind="text: $.valueFormatter(maxROI())"></span></li>
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="emi-slider-box-right-section font16">
-                                        <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
-                                        <span>%</span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-
-                                <div class="margin-top10">
-                                    <div class="grid-8 alpha text-grey text-bold padding-top10">
-                                        <p class="leftfloat margin-right10 position-rel pos-top3">Indicative EMI:</p>
-                                        <div class="indicative-emi-amount margin-right10 leftfloat">
-                                            <span class="bwsprite inr-lg-grey"></span>
-                                            <span id="emiAmount" class="font18" data-bind="text: monthlyEMI"></span>
-                                        </div>
-                                        <p class="font14 leftfloat position-rel pos-top3">per month</p>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="grid-4 omega text-right">
-                                        <a id="btnEmiQuote" leadSourceId="11" class="btn btn-grey btn-md font14">Get EMI quote</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <!-- EMI section ends  -->
                         <% } %>
                         <div class="clear"></div>
@@ -689,8 +799,13 @@
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
         <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        
         <script type="text/javascript">
 
             var bikeName = "<%= BikeName %>";
@@ -932,6 +1047,10 @@
             });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!--[if lt IE 9]>
+            <script src="/src/html5.js"></script>
+        <![endif]-->
     </form>
 </body>
 </html>
