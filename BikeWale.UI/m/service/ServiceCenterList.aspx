@@ -52,7 +52,7 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
                 <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%>
-                     <a href="Javascript:void(0)" id="changeOptions">change</a>
+                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions">change</a>
                 </h2>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)

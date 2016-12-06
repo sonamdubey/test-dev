@@ -4,7 +4,7 @@
     var BrandsKey = "BrandCityPopUp_mk";
     var BrandCityKey = "brandcity_";
 </script>
-<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
+<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="brandcitypopupWrapper">
     <div class="city-area-banner"></div>
     <div class="popup-inner-container">
@@ -47,11 +47,11 @@
             <div id="btnSearchBrandCity" class="center-align margin-top20 text-center position-rel">
                 <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
                   { %>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0) ">Search dealers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search dealers</a>
                 <%} %>
                 <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
                   {%>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0) ">Search service centers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search service centers</a>
                 <%} %>
             </div>
 
@@ -105,9 +105,8 @@
     var req='<%=(int)requestType%>'
     var cityId = '<%=cityId%>';
     var makeId = '<%=makeId%>';
-    var apiurl;
     lscache.setBucket('BrandCitypopup');
-    $(document).on("click", "#changeOptions", function (e) {
+    $("#changeOptions").click(function (e) {
         $('#brandcitypopupWrapper').addClass('loader-active');
         $('#brandcitypopupWrapper').show();
         $("#brandcitypopupContent").show();
@@ -116,13 +115,13 @@
     });
 
     $('#brandcitypopupWrapper .close-btn').click(function () {
-        $('.getquotation').removeClass('ui-btn-active');
+        //$('.getquotation').removeClass('ui-btn-active');
         $("#brandcitypopupContent").hide();
         $('#brandcitypopupWrapper').removeClass('loader-active').hide();
     });
 
 
-    var mBrandCityPopup = function () {
+    var BrandCityPopup = function () {
         var self = this;
         self.selectCity = ko.observable(),
         self.SelectedCityId = ko.observable(),
@@ -130,28 +129,29 @@
         self.listCities = ko.observableArray([]),
         self.selectedBrand = ko.observable(),
         self.bookingBrands = ko.observableArray([]),
-        self.hasCities = ko.observable(),
         self.oBrowser = ko.observable(<%= (isOperaBrowser).ToString().ToLower()%>),
-        self.IsPersistance = ko.observable(false),
-        self.IsReload = ko.observable(false),
+        self.makeApiUrl = "/api/makelist/?requesttype=" +req,
         self.brandFilter = ko.observable(""),
         self.cityFilter = ko.observable(""),
         self.LoadingText = ko.observable("Loading..."),
         self.searchByBrandCityBtnClicked = ko.observable(false),
         self.makeMasking = ko.pureComputed(function () {
-
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand().makeId;
             }).maskingName;
         })
         self.cityMasking = ko.pureComputed(function () {
-
             return ko.utils.arrayFirst(self.listCities(), function (child) {
                 return child.cityId === self.selectCity().cityId;
             }).cityMaskingName;
         })
-
-
+        self.cityApiUrl = ko.pureComputed(function () {
+            if (req == 12)
+                return ("/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId);
+            else if (req == 13)
+                return ("/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/");
+        })
+        
         self.visibleCities = ko.computed(function () {
             filter = self.cityFilter();
             filterObj = self.listCities();
@@ -177,34 +177,12 @@
             return filterObj;
         });
 
-        self.showCityLoader=function(){
-            $("#citySelection").show();
-            $("#citySelection .placeholder-loading-text").show();
-            startLoading($("#citySelection"));
-        };
-        self.hideCityLoader = function () {
-            stopLoading($("#citySelection"));
-            $("#citySelection .placeholder-loading-text").hide();
-        };
-        
-
-        self.showBrandLoader = function () {
-            startLoading($("#makeSelection"));
-            $("#makeSelection .placeholder-loading-text").show();
-        };
-       
-        self.hideBrandLoader = function () {
-            stopLoading($("#makeSelection"));
-            $("#makeSelection .placeholder-loading-text").hide();
-        };
-
         self.FillBrandsPopup = function () {
             $('#brandcitypopupWrapper').addClass('loader-active');
            var isAborted = false;
             if (data = lscache.get(BrandsKey)) {
                 var brands = ko.toJS(data);
                 if (brands) {
-                    self.hideBrandLoader();
                     self.bookingBrands(brands);
                     if (self.bookingBrands() != null) {
                         isAborted = true;
@@ -220,18 +198,16 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/api/makelist/?requesttype=" +req,
+                    url: self.makeApiUrl,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
                         self.listCities([]);
-                        self.showBrandLoader();
-                    },
+                           },
                     success: function (response) {
                         var brands = ko.toJS(response);
                         if (brands) {
                             lscache.set(BrandsKey, brands.makes, 60);
-                            self.hideBrandLoader();
                             self.bookingBrands(brands.makes);
                         }
                         else {
@@ -256,7 +232,6 @@
                 if (data = lscache.get(BrandCityKey)) {
                     var cities = ko.toJS(data);
                     if (cities) {
-                        self.hideCityLoader();
                         self.listCities(data);
                         if (self.listCities() != null && self.listCities().length > 0) {
                             isAborted = true;
@@ -267,17 +242,12 @@
                 }
                 
                 if (!isAborted) {
-                    if(req==12)
-                        apiurl="/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId;
-                    else if(req==13)
-                        apiurl="/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/"
-                    $.ajax({
+                      $.ajax({
                         type: "GET",
-                        url: apiurl,
+                        url: self.cityApiUrl(),
                         dataType: 'json',
                         beforeSend: function (xhr) {
                             self.listCities([]);
-                            self.showCityLoader();
                         },
                         success: function (response) {
                             var cities;
@@ -287,7 +257,6 @@
                                 cities = ko.toJS(response);
                             if (cities) {
                                 lscache.set(BrandCityKey, cities, 60);
-                                self.hideCityLoader();
                                 self.listCities(cities);
                             }
                             else {
@@ -309,7 +278,7 @@
             }
         }
 
-        self.isValidInfoPopup = function () {
+        self.isValidInfoPopup=function() {
             isValid = true;
             if (self.selectedBrand() == undefined && self.searchByBrandCityBtnClicked()) {
                 isValid = false;
@@ -318,7 +287,8 @@
                 isValid = false;
             }
             return isValid;
-        };
+        }
+
         self.searchByBrandCityPopUp = function () {
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
@@ -331,6 +301,7 @@
                 }
             }
         }
+
         self.preselectMake = function () {
             if (makeId > 0 && self.bookingBrands().length > 0) {
                 self.selectedBrand(self.findMakeById(parseInt(makeId)));
@@ -395,7 +366,7 @@
         var self = $(this);
         self.addClass('activeBrand').siblings().removeClass('activeBrand');
     });
-    var vmbrandcity = new mBrandCityPopup;
+    var vmbrandcity = new BrandCityPopup;
     ko.applyBindings(vmbrandcity, $("#brandcitypopupWrapper")[0]);
 
 </script>

@@ -55,7 +55,7 @@
         <section>
             <div class="container bg-white box-shadow margin-bottom10">
                 <h2 class="font16 text-black text-bold padding-15-20 border-solid-bottom"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%>
-                    <a href="Javascript:void(0)" id="changeOptions">change</a>
+                    <a href="Javascript:void(0)" rel="nofollow" id="changeOptions">change</a>
                 </h2>
                 <ul id="dealersList">
                     <asp:Repeater ID="rptDealers" runat="server">

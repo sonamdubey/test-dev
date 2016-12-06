@@ -19,9 +19,7 @@ namespace Bikewale.Mobile.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            string originalUrl = Request.ServerVariables["HTTPS_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];  
+            
             DetectOperaBrowser();
         }
 
