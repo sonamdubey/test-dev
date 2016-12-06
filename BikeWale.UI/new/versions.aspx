@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.BikeModel" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
@@ -168,12 +168,9 @@
                                     <div id="model-version-dropdown" class="padding-top25">
                                         <div class="select-box select-box-no-input done size-small">
                                             <p class="select-label">Version</p>
-                                            <select class="chosen-select" data-title="Version">
-                                                <option value></option>
-                                                <option value="1" selected>Electric Start/Drum/Alloy</option>
-                                                <option value="2">Electric Start/Disc/Alloy</option>
-                                                <option value="3">CBS</option>
-                                            </select>
+                                            <asp:Label Visible="false" runat="server" ID="defaultVariant"></asp:Label>
+                                            <asp:DropDownList AutoPostBack="true" runat="server" ID="ddlVersion" CssClass="chosen-select" data-title="Version" />
+                                            <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />           
                                         </div>
                                     </div>
                                     <% } %>
@@ -881,39 +878,6 @@
                                     </p>
                                 </div>
                             <%} %>
-                            
-                            <% if(modelPageEntity.ModelVersionSpecs != null){ %>
-                            <h3>Specification summary</h3>
-                            <div class="grid-3 border-light-right omega">
-                                <span class="inline-block model-sprite specs-capacity-icon margin-right30" title="<%=bikeName %> Engine Capacity"></span>
-                                <div class="inline-block">
-                                    <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Displacement) %><span> cc</span></p>
-                                    <p class="font16 text-light-grey">Capacity</p>
-                                </div>
-                            </div>
-                            <div class="grid-3 padding-left40 border-light-right omega">
-                                <span class="inline-block model-sprite specs-mileage-icon margin-right30" title="<%=bikeName %> Mileage"></span>
-                                <div class="inline-block">
-                                    <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) %><span> kmpl</span></p>
-                                    <p class="font16 text-light-grey">Mileage</p>
-                                </div>
-                            </div>
-                            <div class="grid-3 padding-left60 border-light-right omega">
-                                <span class="inline-block model-sprite specs-maxpower-icon margin-right30" title="<%=bikeName %> Max Power"></span>
-                                <div class="inline-block">
-                                    <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %><span> bhp</span></p>
-                                    <p class="font16 text-light-grey">Max power</p>
-                                </div>
-                            </div>
-                            <div class="grid-3 padding-left50 omega">
-                                <span class="inline-block model-sprite specs-weight-icon margin-right30" title="<%=bikeName %> Kerb Weight"></span>
-                                <div class="inline-block">
-                                    <p class="font22 text-bold margin-bottom5"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.KerbWeight) %><span> kgs</span></p>
-                                    <p class="font16 text-light-grey">Weight</p>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <% } %>
                         </div>
 
                         <%} %>
