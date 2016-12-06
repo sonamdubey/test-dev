@@ -60,10 +60,12 @@
 </div>
 
 <script type="text/javascript">
-    var requestType='<%=requestType%>';
+    var requestType = '<%=requestType%>';
+    var req = '<%=(int)requestType%>';
     var brandcityPopUp = $('#brandcityPopUp');
     var makeid = '<%=makeId%>';
     var cityid = '<%=cityId%>';
+    var apiurl;
     lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
@@ -96,7 +98,7 @@
             if (self.bookingBrands().length < 1 || self.bookingBrands().length == undefined) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/makelist/?requesttype=" + '<%=(int)requestType%>',
+                    url: "/api/makelist/?requesttype=" + req,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
@@ -163,9 +165,13 @@
            
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" + self.selectedBrand().toString();
+                if (req == 12)
+                    apiurl = "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
+                else if (req == 13)
+                    apiurl = "/api/servicecenter/cities/make/"+self.selectedBrand()+"/";
                 $.ajax({
                     type: "GET",
-                    url: "/api/v2/DealerCity/?makeId=" + self.selectedBrand(),
+                    url: apiurl,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.listCities([]);
@@ -185,7 +191,11 @@
                         }
                     },
                     success: function (response) {
-                        var cities = ko.toJS(response.City);
+                        var cities
+                        if (req == 12)
+                            cities = ko.toJS(response.City);
+                        else if (req == 13)
+                            cities = ko.toJS(response);
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
                         if (cities.length) {
