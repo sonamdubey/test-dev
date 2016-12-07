@@ -350,7 +350,7 @@ input[type="number"] {
       text-decoration: none; }
   .card .text-truncate {
     width: 100%; }
-
+  .edit-blue { width: 16px; height: 16px; background-position: -205px -330px; }
 @media only screen and (max-width: 1024px) {
   .card {
     width: 280px; } }

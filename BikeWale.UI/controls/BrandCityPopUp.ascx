@@ -60,12 +60,10 @@
 </div>
 
 <script type="text/javascript">
-    var requestType = '<%=requestType%>';
-    var req = '<%=(int)requestType%>';
+   
     var brandcityPopUp = $('#brandcityPopUp');
     var makeid = '<%=makeId%>';
     var cityid = '<%=cityId%>';
-    var apiurl;
     lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
@@ -78,7 +76,6 @@
         self.hasCities = ko.observable(),
         self.searchByBrandCityBtnClicked = ko.observable(false),
         self.makeMasking = ko.pureComputed(function () {
-
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand();
             }).maskingName;
@@ -90,12 +87,12 @@
             }).cityMaskingName;
         })
         self.cityApiUrl = ko.pureComputed(function () {
-            if (req == 12)
+            if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
                 return "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
-            else if (req == 13)
+            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>')
                 return "/api/servicecenter/cities/make/" + self.selectedBrand() + "/";
         })
-        self.makeApiUrl="/api/makelist/?requesttype=" + req;
+        self.makeApiUrl = "/api/makelist/?requesttype=" + '<%=(int)requestType%>';
 
         self.FillBrandsPopup = function () {
             var isAborted = false;
@@ -193,9 +190,9 @@
                     },
                     success: function (response) {
                         var cities
-                        if (req == 12)
+                        if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
                             cities = ko.toJS(response.City);
-                        else if (req == 13)
+                        else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>')
                             cities = ko.toJS(response);
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
@@ -211,11 +208,12 @@
                             $('#ddlCityPopup').trigger("chosen:updated");
                         }
                     },
-                    error: function (e) {
-                        self.listCities([]);
-                        $('#ddlCityPopup').trigger("chosen:updated");
-                    },
-                    complete: function () {
+                    complete: function (xhr) {
+                        if(xhr.status!=200)
+                        {
+                            self.listCities([]);
+                            $('#ddlCityPopup').trigger("chosen:updated");
+                        }
                         self.completeCityPopup();
                     }
                 });
@@ -286,10 +284,10 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
-                if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.Dealer%>') {
+                if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>') {
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
-                else if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter%>') {
+                else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>') {
                     window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
                 }
             }
