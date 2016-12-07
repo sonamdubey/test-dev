@@ -4,7 +4,7 @@
     var BrandsKey = "BrandCityPopUp_mk";
     var BrandCityKey = "brandcity_";
    </script>
-<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
+<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
