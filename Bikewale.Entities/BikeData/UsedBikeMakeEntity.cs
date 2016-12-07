@@ -1,9 +1,12 @@
 ﻿
+using System;
+using System.Runtime.Serialization;
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Used this entity to hold the data for make entities 
     /// </summary>
+    [Serializable, DataContract]
     public class UsedBikeMakeEntity : BikeMakeEntityBase
     {
         // This property has been commented as new design 

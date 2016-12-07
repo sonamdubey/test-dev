@@ -59,7 +59,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// </summary>
         private void CreateMetas()
         {
-            title = string.Format("{0} |Maintenance Tips from Bike Experts - BikeWale", pageTitle);
+            title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", pageTitle);
             description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
             keywords = string.Format("Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care");
 

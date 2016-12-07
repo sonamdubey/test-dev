@@ -10,6 +10,7 @@
 .forgot-password-content { display:none; }
 .login-signup-wrapper.activate-signup .user-signup-box { top:0; transition: all 1s; }
 .login-signup-wrapper.activate-signup .login-box-signup-target { cursor:default; }
+.form-mobile-prefix { z-index: 1; top: 11px }
 .margin-bottom17 { margin-bottom:17px; }
 .margin-bottom45 { margin-bottom:45px; }
 .footer-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; position: fixed; bottom: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; color:#fff; font-size:14px; }

@@ -62,7 +62,7 @@ namespace Bikewale.Common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("MakeHelper.GetMakeByMaskingName()", makeMaskingName));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("MakeHelper.GetMakeByMaskingName() => Make:{0}", makeMaskingName));
                 objErr.SendMail();
             }
             return objResponse;

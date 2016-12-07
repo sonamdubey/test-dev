@@ -22,7 +22,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
-using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -197,14 +196,14 @@ namespace Bikewale.Mobile.New
                 if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
                     if ((modelPage.ModelVersionSpecs.TopSpeed > 0 && modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
-                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph. ", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall, modelPage.ModelVersionSpecs.TopSpeed);
                     else if (modelPage.ModelVersionSpecs.TopSpeed == 0)
                     {
                         specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, modelPage.ModelVersionSpecs.FuelEfficiencyOverall);
                     }
                     else
                     {
-                        specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
                     }
                 }
                 summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
@@ -257,10 +256,13 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindControls()
         {
-            ctrlCompareBikes.versionId = versionId;
-            ctrlCompareBikes.versionName = bikeModelName;
-            ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
-            ctrlCompareBikes.TopCount = 6;
+            if (!isDiscontinued)
+            {
+                ctrlCompareBikes.versionId = versionId;
+                ctrlCompareBikes.versionName = bikeModelName;
+                ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
+                ctrlCompareBikes.TopCount = 6;
+            }
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);
@@ -806,29 +808,6 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   27 Nov 2015
-        /// Description     :   These values need to be set to reflect UI HTML changes
-        /// </summary>
-        //private void ToggleOfferDiv()
-        //{
-        //    if (isOfferAvailable)
-        //    {
-        //        grid1_size = 5;
-        //        grid2_size = 7;
-        //        cssOffers = string.Empty;
-        //        offerDivHide = string.Empty;
-        //    }
-        //    else
-        //    {
-        //        grid1_size = 9;
-        //        grid2_size = 3;
-        //        cssOffers = "noOffers";
-        //        offerDivHide = "hide";
-        //    }
-        //}
 
         /// <summary>
         /// Author          :   Sangram Nandkhile

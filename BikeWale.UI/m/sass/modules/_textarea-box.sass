@@ -1,0 +1,45 @@
+﻿textarea
+	border: none
+	overflow: auto
+	outline: none
+	@include box-shadow(none)
+	resize: none
+	font-family: $font-open-sans
+
+	&:focus
+		border: none
+		box-shadow: inset 0 0 0 0 #fff
+
+.textarea-box
+	.textarea-label
+		user-select: none
+		font-size: $font-size-small
+		color: $text-light
+
+	textarea
+		width: 100%
+		font-size: $font-size-medium
+		font-weight: $font-bold
+		padding-top: 3px
+		padding-bottom: 7px
+		color: $text-primary
+		border-bottom: 1px solid $text-light
+
+		&::-webkit-scrollbar
+			width: 5px
+
+		&::-webkit-scrollbar-track
+			background: #fff
+
+		&::-webkit-scrollbar-thumb
+			background: #ddd
+
+		&::-webkit-scrollbar-thumb:hover
+			background: #bbb
+
+	.boundary
+		top: -4px
+
+.textarea-box textarea:focus ~ .boundary:before,
+.textarea-box textarea:focus ~ .boundary:after
+    width: 50%

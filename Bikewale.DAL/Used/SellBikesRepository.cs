@@ -221,7 +221,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.GetById({0})", inquiryId, customerId));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.GetById({0}) => Customerid:{1}", inquiryId, customerId));
                 objErr.SendMail();
             }
             return objAd;
@@ -441,7 +441,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("MarkMainImage({0})", inquiryId, photoId, isDealer));
+                ErrorClass objErr = new ErrorClass(err, String.Format("MarkMainImage(inquiryId: {0}, photoId: {1}, isDealer: {2}  )", inquiryId, photoId, isDealer));
                 objErr.SendMail();
             }
             return isMain;

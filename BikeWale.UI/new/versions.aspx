@@ -762,7 +762,7 @@
                                             <%} %>
                                             <%if(colorCount>0) {%>
                                             <tr>
-                                                <td valign="top">Colours</td>
+                                                <td valign="top">Colors</td>
                                                 <td valign="top" class="text-bold">
                                                     <ul class="model-color-list">
                                                           <%foreach(var colorName in  modelPageEntity.ModelColors){ %>
@@ -1197,7 +1197,7 @@
                                 <asp:Repeater ID="rptColor" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <div class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
+                                            <div title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %>" class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
                                                 <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
                                                     <ItemTemplate>
                                                         <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>

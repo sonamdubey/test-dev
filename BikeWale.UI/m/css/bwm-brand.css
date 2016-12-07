@@ -8,7 +8,8 @@ header { width:100%; height:50px; }
 .text-x-black { color:#1a1a1a; }
 .search-bike-item { background: #fff; }
 .search-bike-item .front { height: auto; border-radius: 0; box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; border: 0 none; }
-.search-bike-item div.border-top1:last-child{display:none;}
+.search-bike-item li:first-child .border-top1{display:none;}
+.search-bike-item .btn:hover{text-decoration:none}
 .sort-icon { background-position: -193px -144px !important; height: 20px; width: 20px; }
 .sort-btn {color: #FFF;padding: 0px 10px;position: relative;cursor: pointer;font-size: 20px;}
 .filter-sort-div { display: table; width: 100%; border-top: solid 1px #d9d9d9; padding: 10px 0; background: #fff; margin-bottom: 10px; box-shadow: 0 3px 4px 0 #e5e5e5; }

@@ -169,6 +169,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository<Entities.Images.Image, ulong>, ImageRepository<Entities.Images.Image, ulong>>();
             container.RegisterType<ISecurity, SecurityBL>();
+            container.RegisterType<IUsedBikeSeller, UsedBikeSeller>();
             return container;
         }
     }

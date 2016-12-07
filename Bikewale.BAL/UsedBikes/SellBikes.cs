@@ -71,8 +71,8 @@ namespace Bikewale.BAL.UsedBikes
                     else
                     {
                         result.Status.Code = SellAdStatus.MobileVerified;
-                        if(!isEdit)
-                        SendNotification(ad);
+                        if (!isEdit)
+                            SendNotification(ad);
                     }
                 }
                 else // Redirect user
@@ -106,6 +106,12 @@ namespace Bikewale.BAL.UsedBikes
             }
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 5-12-2016
+        /// Desc : stop Reassigning customerId if already registered.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private ulong RegisterUser(SellerEntity user)
         {
             CustomerEntity objCust = null;
@@ -118,14 +124,20 @@ namespace Bikewale.BAL.UsedBikes
                     //If exists update the mobile number and name
                     _objCustomerRepo.UpdateCustomerMobileNumber(user.CustomerMobile, user.CustomerEmail, user.CustomerName);
                     //set customer id for further use
-                    user.CustomerId = objCust.CustomerId;
+                    if (user.CustomerId < 1)
+                    {
+                        user.CustomerId = objCust.CustomerId;
+                    }
                 }
                 else
                 {
                     //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
-                    user.CustomerId = _objCustomer.Add(objCust);
-                    SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
+                    if (user.CustomerId < 1)
+                    {
+                        user.CustomerId = _objCustomer.Add(objCust);
+                        SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
+                    }
                 }
             }
             catch (Exception ex)
@@ -149,7 +161,7 @@ namespace Bikewale.BAL.UsedBikes
         /// <returns></returns>
         public bool VerifyMobile(SellerEntity seller)
         {
-            bool mobileVerified= _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
+            bool mobileVerified = _mobileVerRespo.VerifyMobileVerificationCode(seller.CustomerMobile, seller.Otp, seller.Otp);
             isEdit = seller.IsEdit;
             if (mobileVerified && !isEdit)
             {
@@ -165,15 +177,18 @@ namespace Bikewale.BAL.UsedBikes
         /// </summary>
         public void SendNotification(SellBikeAd ad)
         {
-            string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
-            string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
-            SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
-            SMSTypes smsType = new SMSTypes();
-            smsType.UsedSellSuccessfulListingSMS(
-                EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
-                ad.Seller.CustomerMobile,
-                profileId,
-                HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            if (ad != null && ad.Make != null && ad.Seller != null && ad.Model != null && ad.Version != null)
+            {
+                string bikeName = String.Format("{0} {1} {2}", ad.Make.MakeName, ad.Model.ModelName, ad.Version.VersionName);
+                string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
+                SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString());
+                SMSTypes smsType = new SMSTypes();
+                smsType.UsedSellSuccessfulListingSMS(
+                    EnumSMSServiceType.SuccessfulUsedSelllistingToSeller,
+                    ad.Seller.CustomerMobile,
+                    profileId,
+                    HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            }
         }
         /// <summary>
         /// Modified by :   Sumit Kate on 02 Nov 2016

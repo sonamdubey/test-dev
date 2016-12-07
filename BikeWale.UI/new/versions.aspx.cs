@@ -275,7 +275,7 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        specsDescirption = string.Format("{0} has a top speed of {2} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
+                        specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
                     }
                 }
                 summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
@@ -335,12 +335,16 @@ namespace Bikewale.New
             ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
 
 
-            ctrlPopularCompare.TopCount = 6;
-            ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
-            ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
+
 
             if (!isDiscontinued)
+            {
+                ctrlPopularCompare.TopCount = 6;
+                ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
+                ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
                 ctrlPopularCompare.versionId = Convert.ToString(variantId);
+            }
+
         }
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
@@ -741,7 +745,7 @@ namespace Bikewale.New
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
                         var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
+                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
                         if (modelPg != null)
                         {
 

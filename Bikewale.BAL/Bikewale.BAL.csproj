@@ -139,6 +139,7 @@
     <Compile Include="Security\SecurityBL.cs" />
     <Compile Include="UsedBikes\SellBikes.cs" />
     <Compile Include="ServiceCenter\ServiceCenter.cs" />
+    <Compile Include="UsedBikes\UsedBikeSeller.cs" />
     <Compile Include="Used\ProcessSearchFilters.cs" />
     <Compile Include="UsedBikes\UsedBikes.cs" />
     <Compile Include="Used\UsedBikeBuyer.cs" />

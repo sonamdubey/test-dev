@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Compare
@@ -9,11 +10,16 @@ namespace Bikewale.Interfaces.Compare
     /// Desc       : Added GetSimilarCompareBikes functions
     /// Modified by :Subodh Jain on 21 oct 2016
     /// Desc : Added cityid as parameter
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added methods for similar comapre bikes and sponsored comparision bikes 
     /// </summary>
     public interface IBikeCompare
     {
         BikeCompareEntity DoCompare(string versions);
         IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
-        IEnumerable<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, uint topCount, int cityid);
+        ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
+        ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
+        Int64 GetFeaturedBike(string versions);
+
     }
 }
