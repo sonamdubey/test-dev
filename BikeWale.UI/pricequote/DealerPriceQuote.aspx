@@ -75,7 +75,7 @@
                         <div class="content-box-shadow padding-14-20">
                             <h1 class="inline-block margin-right15">Detailed price quote for <%= BikeName %> in <%= GetLocationCookie() %></h1>
                         </div>
-                        <div class="content-inner-block-20">
+                        <div class="padding-top15 padding-right20 padding-bottom20 padding-left20">
                             <h2 class="font18 margin-bottom15"><%= BikeName %></h2>
                             <div id="pq-image-column" class="grid-5 alpha">
                                 <% if (detailedDealer != null)
@@ -119,7 +119,7 @@
                                 </div>
 
                                 <div runat="server">
-                                    <div id="pq-table" class="margin-top20">
+                                    <div id="pq-table" class="margin-top15">
                                     <% if (primaryPriceList != null && primaryPriceList.Count() > 0)
                                        { %>
                                     <table cellspacing="0" cellpadding="0" width="100%" border="0">
@@ -152,7 +152,7 @@
 
                                         <tr>
                                             <td>
-                                                <p class="font12 text-light-grey text-truncate">powered by Dealer</p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by Dealer</p>
                                             </td>
                                             <td align="right">
                                                 <a href="javascript:void(0)" class="font14 bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
@@ -448,7 +448,7 @@
                                             <div class="border-light-bottom margin-bottom15"></div>
                                             <div class="margin-left10">
                                                 <p class="font14 text-light-grey margin-bottom5">Indicative EMI</p>
-                                                <div class="margin-bottom25">
+                                                <div class="margin-bottom15">
                                                     <span class="bwsprite inr-lg"></span>
                                                     <span class="font18 text-bold">
                                                         <span id="emiAmount" data-bind="text: monthlyEMI"></span> per month
@@ -471,7 +471,7 @@
                                     <% if (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && isoffer) { %>
                                     <!-- offers -->
                                     <div class="alpha <%= (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && isUSPBenfits) ? "grid-6 border-light-right" : "grid-12 omega offers-or-benefits" %>">
-                                        <p class="text-bold">Offers from this dealer:</p>
+                                        <p class="text-bold margin-bottom5">Offers from this dealer:</p>
                                         <ul class="dealership-benefit-list">
                                             <asp:Repeater ID="rptOffers" runat="server">
                                                 <ItemTemplate>
@@ -489,7 +489,7 @@
                                     <% if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium && isUSPBenfits) { %>
                                     <!-- benefits -->
                                     <div class="omega <%= (dealerType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && isoffer) ? "grid-6 padding-left30" : "grid-12 alpha offers-or-benefits" %>">
-                                        <p class="text-bold">Benefits offered by this dealer</p>
+                                        <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
                                         <ul class="dealership-benefit-list">
                                             <asp:Repeater ID="rptUSPBenefits" runat="server">
                                                 <ItemTemplate>
@@ -513,7 +513,7 @@
                                 <div class="content-inner-block-20 font14">
                                     <p class="text-bold margin-bottom15">Book your bike from this dealer</p>
                                     <div class="grid-8 alpha">
-                                        <p class="margin-bottom20">Pay <span class="bwsprite inr-sm-dark"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmount.ToString()) %> to book online and balance amount of <span class="bwsprite inr-sm-dark"></span><%= Bikewale.Utility.Format.FormatPrice((totalPrice - bookingAmount).ToString()) %> at the dealership</p>
+                                        <p class="margin-bottom10">Pay <span class="bwsprite inr-sm-dark"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmount.ToString()) %> to book online and balance amount of <span class="bwsprite inr-sm-dark"></span><%= Bikewale.Utility.Format.FormatPrice((totalPrice - bookingAmount).ToString()) %> at the dealership</p>
                                         <ul id="booking-benefits-list">
                                             <li>Save on dealer visits</li>
                                             <li>Secure online payments</li>
@@ -521,13 +521,13 @@
                                         </ul>
                                         <div class="clear"></div>
                                     </div>
-                                    <div class="grid-4 padding-top15">
+                                    <div class="grid-4 padding-top5">
                                         <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal book-now-btn">Book bike</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <%} %>
-                                <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 text-light-grey padding-right20 padding-bottom20">
+                                <p id="disclaimerText" class="<%= primarydealer.DealerDetails != null ? "" : "hide" %> padding-left20 font11 padding-right20 padding-bottom20 text-x-light">
                                     <span id="read-less">
                                         <%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                                             { %>
@@ -580,7 +580,7 @@
 
                                                 <div class="margin-top10">
                                                     <div class="grid-5 alpha omega">
-                                                        <p class="font12 text-light-grey margin-bottom5">On-road price</p>
+                                                        <p class="font12 text-light-grey margin-bottom2">On-road price</p>
                                                         <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold">99,999</span>
                                                     </div>
                                                     <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
@@ -1136,7 +1136,7 @@
             });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealerpricequote.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css" />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>
         <![endif]-->
