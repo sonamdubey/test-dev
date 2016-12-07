@@ -220,12 +220,17 @@
     border: 1px solid #e2e2e2\9;
 }
 
-#pq-dealer-name, #dealer-offers-label {
-    width: 350px;
+#pq-dealer-name {
+    width: 352px;
     padding-right: 10px;
 }
 
-.pq-get-dealer-offers, #btnEmiQuote {
+#dealer-offers-label {
+    width: 347px;
+    padding-right: 10px;
+}
+
+.pq-get-dealer-offers, #btnEmiQuote, .book-now-btn {
     width: 188px;
     padding-right: 0;
     padding-left: 0;
@@ -258,11 +263,11 @@
     margin-bottom: 10px;
 }
 
-/* without-map */
-#dealer-contact-details.without-map .details-column {
+/* map-absent */
+#dealer-contact-details.map-absent .details-column {
     width: auto;
 }
-.without-map .dealer-details-item {
+.map-absent .dealer-details-item {
     float: left;
     margin-right: 40px;
     margin-bottom: 5px;
@@ -307,6 +312,55 @@
 
 .border-light-right { border-right: 1px solid #eee; }
 .border-light-bottom { border-bottom: 1px solid #eee; }
+
+/* offers and benefits */
+.offers-or-benefits .dealership-benefit-list li { width:49%; padding-top: 10px; margin-bottom:10px; display: inline-block; vertical-align: middle; }
+.dealership-benefit-list li { width:98%; padding-top: 10px; margin-bottom:10px; }
+.dealership-benefit-list .benefit-list-title { width:80%; }
+
+#booking-benefits-list {
+    margin-left: 17px;
+}
+#booking-benefits-list li {
+    list-style: disc;
+    width: 33%;
+    float: left;
+}
+
+/* other dealers */
+.more-dealers-list li {
+    min-height: 211px;
+}
+
+.top-block-target {
+    padding: 17px 20px 0 20px;
+    display: block;
+}
+
+.top-block-target:hover {
+    text-decoration: none;
+}
+
+.bottom-block-button {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.partner-dealer-offers-btn {
+    font-size: 14px;
+    width: 194px;
+    padding: 6px 0;
+}
+
+.inner-content-carousel.small-card-carousel .jcarousel-control-left, .inner-content-carousel.small-card-carousel .jcarousel-control-right {
+    top: 34%;
+}
+
+.inner-content-carousel.small-card-carousel .jcarousel {
+    margin-bottom: 0;
+}
+
+.disclaimer {list-style-type: disc; padding-left:15px;}
 
 /* icons */
 .pq-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
@@ -363,9 +417,37 @@
     margin-right: 4px;
 }
 
+.offers-sm-box {
+    width: 16px;
+    height: 16px;
+    background-position: -217px -242px;
+    position: relative;
+    top: 1px;
+}
+
+.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width: 38px; height: 38px; vertical-align: middle; margin-right: 10px; }
+.benifitIcon_1 { background-position: -129px -154px; }
+.benifitIcon_2 { background-position: 0 -196px; }
+.benifitIcon_3 { background-position: -43px -196px; }
+.benifitIcon_4 { background-position: -86px -196px; }
+.benifitIcon_5 { background-position: -129px -196px; }
+.offerIcon_1 { background-position: 0 -111px; }
+.offerIcon_2 { background-position: -43px -111px; }
+.offerIcon_3 { background-position: -86px -111px; }
+.offerIcon_4 { background-position: -129px -111px; }
+.offerIcon_5 { background-position: 0 -154px; }
+.offerIcon_6 { background-position: -43px -154px; }
+.offerIcon_7 { background-position: -86px -154px; }
+
 @media only screen and (max-width: 1024px) {
     .pq-get-dealer-offers {
         width: 150px;
+    }
+    #dealerMap {
+        width: 420px !important;
+    }
+    .dealer-distance {
+        font-size: 11px;
     }
 }
 
@@ -388,17 +470,6 @@
 .variants-dropdown-list li input{ width:100%; text-align:left;overflow: hidden; text-overflow: ellipsis; white-space: nowrap;background: #fff;color:rgb(77, 80, 87); padding:10px}
 .variants-dropdown-list li:hover input{cursor:pointer; background:#82888b; color:#fff; }
 .offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
-.benifitIcon_1 { height:26px; background-position:0 -181px; }
-.benifitIcon_2 { height:30px; background-position:0 -141px; }
-.benifitIcon_3 { height:25px; background-position:0 -75px; }
-.benifitIcon_4 { height:18px; background-position:0 -293px; }
-.offerIcon_1 { height:25px; background-position:0 -40px; }
-.offerIcon_2 { height:25px; background-position:0 -321px; }
-.offerIcon_3 { height:30px; background-position:0 0; }
-.offerIcon_4 { height:26px; background-position:0 -257px; }
-.offerIcon_5, .benifitIcon_5, .offerIcon_7  { height:30px; background-position:0 -217px; }
-.offerIcon_6 { height:21px; background-position:0 -110px; }
 .pricequote-offers-list,.pricequote-benefits-list { overflow:hidden; }
 .pricequote-offers-list li,.pricequote-benefits-list li { width:205px; padding-right:10px; margin-top:10px; margin-bottom:10px; display:inline-block; vertical-align:middle;}
 .pricequote-offers-list.pricequote-two-benefits li, .pricequote-benefits-list.pricequote-two-benefits li { width:310px; }
@@ -411,7 +482,6 @@
 .margin-top7 { margin-top:7px; }
 .pos-top3 { top:3px; }
 .text-darker-black { color:#1a1a1a; }
-.btn.btn-teal { padding-right:0; padding-left:0; }
 .assistance-form-mobile .bw-blackbg-tooltip { font-size:11px; padding:4px 5px; }
 #buyingAssistBtn.btn { width:114px; padding:8px 0; }
 /* booking-config */
@@ -467,7 +537,7 @@ a.text-darker-black:hover { text-decoration:none; }
 .phone-black-icon { top:5px; background-position:-73px -444px; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-address { width:92%; }
-.disclaimer {list-style-type: disc; padding-left:20px;}
+
 #modelAlternateBikeContent{ background: #fff; -moz-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -webkit-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -o-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; -ms-box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; box-shadow: 0 2px 2px #e2e2e2, 0 1px 1px #f1f1f1; border: 1px solid #e2e2e2\9;}
 
 @media only screen and (max-width:1024px) {
