@@ -51,7 +51,7 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%>
+                <h2 class="padding-15-20 border-solid-bottom"><%=listingHeading %>
                      <a href="Javascript:void(0)" rel="nofollow" id="changeOptions">change</a>
                 </h2>
                 <ul id="center-list">

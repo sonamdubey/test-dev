@@ -43,6 +43,7 @@ namespace Bikewale.Mobile.Service
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
         protected BrandCityPopUp ctrlBrandCity;
+        protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -73,6 +74,7 @@ namespace Bikewale.Mobile.Service
                     GetCityNameByCityMaskingName(urlCityMaskingName);
 
                     BindDealerCard();
+                    CreateHeading();
                 }
                 else
                 {
@@ -192,7 +194,18 @@ namespace Bikewale.Mobile.Service
                 objErr.SendMail();
             }
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 7 dec 2016
+        /// Summary    : Create custom heading based on no of service centers
+        /// </summary>
+        private void CreateHeading()
+        {
+            if (totalServiceCenters > 1)
+                listingHeading = string.Format("{0} {1} service centers in {2}", totalServiceCenters, makeName, cityName);
+            else
+                listingHeading = string.Format("{0} {1} service center in {2}", totalServiceCenters, makeName, cityName);
+        }
+        
         /// <summary>
         /// Created By  : Sushil Kumar
         /// Created On  : 20th March 2016
