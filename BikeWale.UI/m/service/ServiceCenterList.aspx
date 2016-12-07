@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,6 @@
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
-
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -53,7 +53,9 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%></h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%=listingHeading %>
+                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions">change</a>
+                </h2>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
@@ -181,6 +183,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+        <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>

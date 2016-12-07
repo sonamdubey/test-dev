@@ -13,7 +13,6 @@
 
 </head>
 <body class="bg-light-grey">
-    <!-- #include file="/includes/Navigation_Mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <div class="blackOut-window"></div>
@@ -42,7 +41,7 @@
         <div class="header-fixed">
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
-                <span class="navbarBtn bwmsprite nav-icon margin-right5"></span>
+                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right5"></span>
                 <span class="booking-listing-nav font16 text-white position-rel">Book your bike</span>
             </div>
             <div class="rightfloat">
