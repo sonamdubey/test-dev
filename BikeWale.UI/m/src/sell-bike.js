@@ -1,4 +1,14 @@
-﻿var citiesList = $("#filter-city-list li");
+﻿var sellLoader=  {
+        open: function () {
+            $('html, body').addClass('lock-browser-scroll loader-active');
+        },
+
+        close: function () {
+            $('html, body').removeClass('lock-browser-scroll loader-active');
+        }
+}
+
+var citiesList = $("#filter-city-list li"); $("section").show();
 
 var selectColorBox = $('#select-color-box'),
     effect = 'slide',
@@ -31,10 +41,15 @@ ko.bindingHandlers.chosen = {
     }
 }
 
-$(document).ready(function () {
-    vmSellBike = new sellBike();
+var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        if(isEdit != "True" && userId != null) {
+$(document).ready(function () {
+
+    try {
+
+        vmSellBike = new sellBike();
+
+        if (isEdit != "True" && userId != null) {
             var pdetails = vmSellBike.personalDetails();
             pdetails.sellerName(userName);
             pdetails.sellerEmail(userEmail);
@@ -48,9 +63,8 @@ $(document).ready(function () {
 
             searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
         });
-
-        var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            currentDate = new Date(),
+        
+        var currentDate = new Date(),
             currentMonth = currentDate.getMonth(),
             currentYear = currentDate.getFullYear(),
             manufacturingDateInput = $('#manufacturingDate');
@@ -70,13 +84,9 @@ $(document).ready(function () {
 
         Dropzone.autoDiscover = false;
 
-        $('#add-photos-dropzone').dropzone({
-            url: "/file/post"
-        });
-
         var inquiryDetails = JSON.parse(inquiryDetailsJSON);
 
-        if (isEdit == "True") {            
+        if (isEdit == "True") {
 
             var bdetails = vmSellBike.bikeDetails();
             var pdetails = vmSellBike.personalDetails();
@@ -98,24 +108,26 @@ $(document).ready(function () {
             bdetails.colorId(inquiryDetails.colorId);
 
             bdetails.cityId(inquiryDetails.cityId);
-            bdetails.city(findCityName(bdetails.cityId()));            
+            bdetails.city(findCityName(bdetails.cityId()));
             bdetails.registeredCity(inquiryDetails.registrationPlace);
-            
+
             bdetails.kmsRidden(inquiryDetails.kiloMeters);
             $('#kmsRidden').attr('data-value', inquiryDetails.kiloMeters);
             bdetails.kmsRidden(formatNumber(inquiryDetails.kiloMeters));
 
-            bdetails.owner(inquiryDetails.owner);            
+            bdetails.owner(inquiryDetails.owner);
             bdetails.expectedPrice(inquiryDetails.expectedprice);
             $('#expectedPrice').attr('data-value', inquiryDetails.expectedprice);
             bdetails.expectedPrice(formatNumber(inquiryDetails.expectedprice));
-           
+
             $('#div-kmsRidden').addClass('not-empty');
             $('#div-expectedPrice').addClass('not-empty');
             $("#div-owner").addClass('done');
             selectColorBox.addClass('selection-done');
+            $("#city-select-p").css('color', 'grey');
+            $("#bike-select-p").css('color', 'grey');
             bdetails.versionChanged();
-            
+
             // set manufacture date
             var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 bikeManufactureDate = new Date(inquiryDetails.manufacturingYear),
@@ -145,6 +157,12 @@ $(document).ready(function () {
 
             $('#city-select-element').prop('disabled', true);
 
+            vmSellBike.serverImg(inquiryDetails.photos);
+            if (window.location.hash == "#uploadphoto" || window.location.search.indexOf("hash") > -1) {
+                vmSellBike.formStep(3);
+                vmSellBike.initPhotoUpload();
+            }
+
             $('#btnSaveBikeDetails').val("Update and Continue");
             $('#btnListBike').val("Update and Continue");
             $('#btnUpdateAd').val("Update my listing");
@@ -157,21 +175,32 @@ $(document).ready(function () {
             $("#manufacturingDate").val('');
             $("#div-owner").removeClass('done');
         }
-        
+
         ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
+        sellLoader.close();
+        $("section").show();
+    } catch (e) {
+        console.warn(e);
+    }
+    sellLoader.close();
         
 });
 
 
 var findCityName = function (cityId) {
-    for(i=0; i<3000; i++)
-    {
-        if($(citiesList[i]).attr('data-cityid') == cityId)
-            return ($(citiesList[i]).attr('data-cityname'));
+    try{
+        for(i=0; i<3000; i++)
+        {
+            if($(citiesList[i]).attr('data-cityid') == cityId)
+                return ($(citiesList[i]).attr('data-cityname'));
+        }
+    } catch (e) {
+        console.warn(e);
     }
 }
 
 var vmCities = function () {
+    try{
     var self = this;
     self.SelectedCity = ko.observable();
 
@@ -186,13 +215,15 @@ var vmCities = function () {
                 if (pat.test($(this).text())) $(this).show(); else $(this).hide();
             });
 
-        }
-        citiesList.first().show();
+        }        
     });
+    } catch (e) {
+        console.warn(e);
+    }
 }
 
 // custom validation function
-var validation = {
+var validation = {    
     greaterThanOne: function (val) {
         val = val.toString();
         val = val.replace(/,/g, "");
@@ -269,8 +300,7 @@ var validation = {
             return false;
         }
         return true;
-    }
-
+    }   
 }
 
 var congratsScreenDoneFunction = function () {
@@ -281,9 +311,37 @@ var editMyAd = function () {
     vmSellBike.formStep(1);
 };
 
+var setProfilePhoto = function () {
+    try {
+    var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
+    if (!container.hasClass('dz-profile-photo')) {
+        container.addClass('dz-profile-photo');
+        container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')
+        vmSellBike.markMainImage($(container).find(".dz-remove").attr("photoid"));
+    }
+    } catch (e) {
+        console.warn(e);
+    }
+};
+
+function setRemoveLinkUrl(file, imageResult) {
+    try {
+    var container = $('#add-photos-dropzone .dz-preview.dz-success');
+    var existingPhotoCount = $('#add-photos-dropzone .dz-preview.dz-success[photoid]').length;
+    $(file._removeLink).attr("photoid", imageResult[0].photoId);
+    } catch (e) {
+        console.warn(e);
+    }
+}
+
+$('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
+    $('#add-photos-dropzone').trigger('click');
+});
+
 var sellBike = function () {
     var self = this;
 
+    self.isDropzoneInitiated = ko.observable(false);
     self.isEdit = ko.observable(false);
     self.isFakeCustomer = ko.observable(false);
     self.inquiryId = ko.observable();
@@ -325,122 +383,132 @@ var sellBike = function () {
 
     self.serverImg = ko.observableArray([]);
     self.initPhotoUpload = function () {
-        $('#add-photos-dropzone').dropzone({
-            maxFilesize: 4,
-            maxFiles: 10,
-            addRemoveLinks: true,
-            acceptedFiles: ".png, .jpg",
-            url: self.photoUploadUrl(),
-            headers: { "customerId": self.customerId() },
-            init: function () {
-                var myDropzone = this;
-                myDropzone.itemId = self.inquiryId();
-                myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
-                myDropzone.customerId = self.customerId();
-                $(self.serverImg()).each(function (i) {
-                    var uF = { name: this.id, size: 12345 };
-                    myDropzone.files.push(uF)
-                    myDropzone.emit("addedfile", uF);
-                    myDropzone.emit("thumbnail", uF, this.imageUrl);
-                    myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
-                    myDropzone.emit("complete", uF);
-                    setProfilePhoto();
-                    $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
-                    $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
-                    $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
-                });
-                myDropzone.options.maxFiles -= self.serverImg().length;
-                if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                    morePhotos.attach();
-                }
-                else {
-                    morePhotos.detach();
-                }
-
-                this.on("sending", function (file) {
-                    $(file.previewElement).find('#spinner-content').hide();
-                });
-
-                this.on("removedfile", function (file) {
-                    morePhotos.detach();
-                    if (myDropzone.options.maxFiles < 10)
-                        ++myDropzone.options.maxFiles;
-                    self.removePhoto($(file._removeLink).attr("photoid"));
-                    setProfilePhoto();
-                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                        morePhotos.attach();
-                    }
-                    else {
-                        morePhotos.detach();
-                    }
-                });
-
-                this.on("success", function (file, response) {
-                    var resp = JSON.parse(response);
-                    setProfilePhoto();
-                    if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
-                        setRemoveLinkUrl(file, resp.imageResult);
-                    }
-                });
-
-                this.on("error", function (file, response) {
-                    $(file.previewElement).find('#spinner-content').hide();
-                    if (file.xhr && file.xhr.status == 0)
-                        $(file.previewElement).find('.dz-error-message').text("You're offline.");
-                    else
-                        $(file.previewElement).find('.dz-error-message').text(response);
-                    $(file.previewElement).find('.dz-error-mark').on('click', function () {
-                        myDropzone.removeFile(file);
-                        myDropzone.addFile(file);
+        try {
+        if (!self.isDropzoneInitiated()) {
+            self.isDropzoneInitiated(true);
+            $('#add-photos-dropzone').dropzone({
+                maxFilesize: 4,
+                maxFiles: 10,
+                addRemoveLinks: true,
+                acceptedFiles: ".png, .jpg",
+                url: self.photoUploadUrl(),
+                headers: { "customerId": self.customerId() },
+                init: function () {
+                    var myDropzone = this;
+                    myDropzone.itemId = self.inquiryId();
+                    myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
+                    myDropzone.customerId = self.customerId();
+                    $(self.serverImg()).each(function (i) {
+                        var uF = { name: this.id, size: 12345 };
+                        myDropzone.files.push(uF)
+                        myDropzone.emit("addedfile", uF);
+                        myDropzone.emit("thumbnail", uF, this.imageUrl);
+                        myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
+                        myDropzone.emit("complete", uF);
+                        setProfilePhoto();
+                        $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
+                        $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
+                        $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                     });
-                });
-
-                this.on("maxfilesexceeded", function (file) {
-                    $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
-                });
-
-                this.on("addedfiles", function (file) {
-                    morePhotos.detach();
-                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
-                        $(file).each(function (i) {
-                            if (10 > i >= self.serverImg().length) {
-                                myDropzone.cancelUpload(this);
-                                myDropzone.removeFile(this);
-                            }
-                        });
-                    }
-                    if (myDropzone.options.maxFiles > 0)
-                        myDropzone.options.maxFiles -= file.length;
+                    myDropzone.options.maxFiles -= self.serverImg().length;
                     if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
                         morePhotos.attach();
                     }
                     else {
                         morePhotos.detach();
                     }
-                });
 
-                this.on("drop", function (file) {
-                    morePhotos.detach();
-                    if (myDropzone.files.length > myDropzone.options.maxFiles) {
-                        $(file).each(function (i) {
-                            if (10 > i >= self.serverImg().length) {
-                                myDropzone.cancelUpload(this);
-                                myDropzone.removeFile(this);
-                            }
-                        });
-                    }
-                    if (myDropzone.options.maxFiles > 0)
-                        myDropzone.options.maxFiles -= file.length;
-                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                        morePhotos.attach();
-                    }
-                    else {
+                    this.on("sending", function (file) {
+                        $(file.previewElement).find('#spinner-content').hide();
+                    });
+
+                    this.on("removedfile", function (file) {
                         morePhotos.detach();
-                    }
-                });
+                        if (myDropzone.options.maxFiles < 10)
+                            ++myDropzone.options.maxFiles;
+                        self.removePhoto($(file._removeLink).attr("photoid"));
+                        setProfilePhoto();
+                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                            morePhotos.attach();
+                        }
+                        else {
+                            morePhotos.detach();
+                        }
+                    });
 
-            }
-        });
+                    this.on("success", function (file, response) {
+                        var resp = JSON.parse(response);
+                        if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
+                            setRemoveLinkUrl(file, resp.imageResult);
+                        }
+                    });
+
+                    this.on("error", function (file, response) {
+                        $(file.previewElement).find('#spinner-content').hide();
+                        if (file.xhr && file.xhr.status == 0)
+                            $(file.previewElement).find('.dz-error-message').text("You're offline.");
+                        else
+                            $(file.previewElement).find('.dz-error-message').text(response);
+                        $(file.previewElement).find('.dz-error-mark').on('click', function () {
+                            myDropzone.removeFile(file);
+                            myDropzone.addFile(file);
+                        });
+                    });
+
+                    this.on("maxfilesexceeded", function (file) {
+                        $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
+                    });
+
+                    this.on("addedfiles", function (file) {
+                        morePhotos.detach();
+                        if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                            $(file).each(function (i) {
+                                if (10 > i >= self.serverImg().length) {
+                                    myDropzone.cancelUpload(this);
+                                    myDropzone.removeFile(this);
+                                }
+                            });
+                        }
+                        if (myDropzone.options.maxFiles > 0)
+                            myDropzone.options.maxFiles -= file.length;
+                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                            morePhotos.attach();
+                        }
+                        else {
+                            morePhotos.detach();
+                        }
+                    });
+
+                    this.on("drop", function (file) {
+                        morePhotos.detach();
+                        if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                            $(file).each(function (i) {
+                                if (10 > i >= self.serverImg().length) {
+                                    myDropzone.cancelUpload(this);
+                                    myDropzone.removeFile(this);
+                                }
+                            });
+                        }
+                        if (myDropzone.options.maxFiles > 0)
+                            myDropzone.options.maxFiles -= file.length;
+                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                            morePhotos.attach();
+                        }
+                        else {
+                            morePhotos.detach();
+                        }
+                    });
+
+                    this.on("queuecomplete", function (file) {
+                        setProfilePhoto();
+                    });
+
+                }
+            });
+        }
+        } catch (e) {
+            console.warn(e);
+        }
     }
     self.removePhoto = function removeUploadedPhoto(photoId) {
         var isSuccess = false;
@@ -553,6 +621,7 @@ var bikeDetails = function () {
         bikePopup.stageModel();
         bikePopup.scrollToHead();
 
+        try {
         if (self.makeId()) {           
             $.ajax({
                 type: "Get",
@@ -570,6 +639,9 @@ var bikeDetails = function () {
                 }
             });
         }
+        } catch (e) {
+            console.warn(e);
+        }
 
         self.bikeStatus(false);      
         
@@ -586,6 +658,7 @@ var bikeDetails = function () {
         bikePopup.stageVersion();
         bikePopup.scrollToHead();
 
+        try {
         if (self.modelId()){
             $.ajax({
                 type: "Get",
@@ -599,7 +672,9 @@ var bikeDetails = function () {
                 }
             });
         }
-
+        } catch (e) {
+            console.warn(e);
+        }
        
     };
 
@@ -614,6 +689,7 @@ var bikeDetails = function () {
 
         bikePopup.close();
 
+        try {
         if (self.versionId()){
             $.ajax({
                 type: "Get",
@@ -628,6 +704,9 @@ var bikeDetails = function () {
                 complete: function (xhr, ajaxOptions, thrownError) {                    
                 }
             });
+        }
+        } catch (e) {
+            console.warn(e);
         }
     };   
 
@@ -810,9 +889,20 @@ var bikeDetails = function () {
     });
 
     self.manufacturingTime = ko.computed(function () {
-        var selectedDate = new Date(self.manufacturingDate());
+        var bikeDate = self.manufacturingDate(), // Jan 1980
+            monthName = bikeDate.substr(0, 3),
+            yearNumber = bikeDate.substr(4, bikeDate.length - 1),
+            monthNumber,
+            i;
 
-        return selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-01';
+        for (i = 0; i < 12; i++) {
+            if (monthList[i] == monthName) {
+                monthNumber = i + 1;
+                break;
+            }
+        }
+
+        return yearNumber + '-' + monthNumber + '-01'; //yyyy-mm-dd
     });
 
     self.saveBikeDetails = function (data, event) {
@@ -921,7 +1011,7 @@ var personalDetails = function () {
             validator: function (val) {
                 return val;
             },
-            message: 'Required!',
+            message: 'You must accept the Terms & Conditions to list your bike on BikeWale.',
             onlyIf: function () {
                 return self.validate();
             }
@@ -946,6 +1036,7 @@ var personalDetails = function () {
 
         self.validate(true);
 
+        try {
         if (!("colorId" in window))
             colorId = 0;
 
@@ -1019,13 +1110,13 @@ var personalDetails = function () {
                     else {
                         vmSellBike.isFakeCustomer(true);
                     }
+                    scrollToForm.activate();
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
-
+                    if (xhr.status != 200)
+                        alert("Something went wrong!! Please try again.");
                 }
             });
-
-            //scrollToForm.activate();
         }
         else {
             self.errors.showAllMessages();
@@ -1034,8 +1125,9 @@ var personalDetails = function () {
         if (self.mobileError().length != 0) {
             self.mobileLabel(false);
         }
-
-        scrollToForm.activate();
+        } catch (e) {
+            console.warn(e);
+        }
     };
 
     self.backToBikeDetails = function () {
@@ -1130,6 +1222,7 @@ var verificationDetails = function () {
     self.verifySeller = function () {
         self.validateOTP(true);
 
+        try {
         if (self.errorOTP().length === 0) {
             scrollToForm.activate();
 
@@ -1170,6 +1263,9 @@ var verificationDetails = function () {
         else {
             self.errorOTP.showAllMessages();
         }
+        } catch (e) {
+            console.warn(e);
+        }
     };
 
     self.errorOTP = ko.validation.group(self.otpCode);
@@ -1184,6 +1280,7 @@ var moreDetails = function () {
     self.adDescription = ko.observable();
     self.registrationNumber = ko.observable('');
 
+    try {
     self.updateAd = function () {
 
         var moreDetailsData = {
@@ -1210,6 +1307,9 @@ var moreDetails = function () {
         vmSellBike.formStep(4);
         scrollToForm.activate();
     };
+    } catch (e) {
+        console.warn(e);
+    }
 
     self.noThanks = function () {
         vmSellBike.formStep(4);
@@ -1305,21 +1405,29 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
+    try {
     if (isEdit != "True") {
         $('#city-search-box').val("");
         $(citiesList).show();
         cityListSelection.open();
         vmSellBike.bikeDetails().citySelectionStatus('bike-city');
         appendState('bikeCity');
+    }    
+    } catch (e) {
+        console.warn(e);
     }
 });
 
 $('#registration-select-element').on('click', '.city-box-default', function () {
+    try {
     $('#city-search-box').val("");
     $(citiesList).show();
     cityListSelection.open();
     vmSellBike.bikeDetails().citySelectionStatus('registered-city');
     appendState('registrationCity');
+    } catch (e) {
+        console.warn(e);
+    }
 });
 
 $('#close-city-filter').on('click', function () {
@@ -1327,6 +1435,7 @@ $('#close-city-filter').on('click', function () {
 });
 
 $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
+    try {
     var element = $(this);
 
     if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
@@ -1339,6 +1448,9 @@ $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
     }
 
     cityListSelection.close();
+    } catch (e) {
+        console.warn(e);
+    }
 
 });
 
@@ -1449,9 +1561,6 @@ $(window).on('popstate', function (event) {
     }
 });
 
-$('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
-    $('#add-photos-dropzone').trigger('click');
-});
 
 var morePhotos = {
     dropzoneDiv: $('#add-photos-dropzone'),

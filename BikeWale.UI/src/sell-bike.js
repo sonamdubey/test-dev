@@ -204,7 +204,6 @@ var sellBike = function () {
 
                 this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
-                    setProfilePhoto();                    
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }
@@ -264,6 +263,10 @@ var sellBike = function () {
                     else {
                         morePhotos.detach();
                     }
+                });
+
+                this.on("queuecomplete", function (file) {
+                    setProfilePhoto();
                 });
                 
             }
@@ -660,9 +663,21 @@ var bikeDetails = function () {
     });
 
     self.manufacturingTime = ko.computed(function () {
-        var selectedDate = new Date(self.manufacturingDate());
+        var bikeDate = self.manufacturingDate(), // Jan 1980
+            monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            monthName = bikeDate.substr(0, 3),
+            yearNumber = bikeDate.substr(4, bikeDate.length - 1),
+            monthNumber,
+            i;
 
-        return selectedDate.getFullYear() + '-' + ( selectedDate.getMonth() + 1 ) + '-01';
+        for (i = 0; i < 12; i++) {
+            if (monthList[i] == monthName) {
+                monthNumber = i + 1;
+                break;
+            }
+        }
+
+        return yearNumber + '-' + monthNumber + '-01'; //yyyy-mm-dd
     });
 };
 
@@ -677,7 +692,7 @@ var personalDetails = function () {
             validator: function (val) {
                 return val;
             },
-            message: 'Required!',
+            message: 'You must accept the Terms & Conditions to list your bike on BikeWale.',
             onlyIf: function () {
                 return self.validate();
             }
@@ -768,7 +783,7 @@ var personalDetails = function () {
     self.sellerTypeVal = ko.observable(2);
 
     self.listYourBike = function () {
-        self.validate(true);
+        self.validate(true);       
 
         if (!("colorId" in window))
             colorId = 0;

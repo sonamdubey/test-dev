@@ -19,11 +19,15 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body>
+<body class="lock-browser-scroll loader-active">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section>            
+        <div id="ub-ajax-loader">
+            <div id="popup-loader"></div>
+        </div>
+        
+        <section class="hide">            
             
             <% if(isAuthorized) { %>
             <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible:true">  
@@ -58,7 +62,7 @@
                         <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: bikeStatus() ? 'selection-done' : ''">
                             <div id="bike-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label bike-box-default">Bike<sup>*</sup></p>
-                                <p class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike"></p>
+                                <p id="bike-select-p" class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike"></p>
                                 <span class="boundary"></span>
                                 <span class="error-text" data-bind="validationMessage: bike"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
@@ -82,7 +86,7 @@
                         <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city().length > 0 ? 'selection-done' : ''">
                             <div id="city-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label city-box-default">City<sup>*</sup></p>
-                                <p class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
+                                <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
                                 <span class="boundary"></span>
                                 <span class="error-text" data-bind="validationMessage: city"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
@@ -390,7 +394,7 @@
 
                         <div class="textarea-box form-control-box margin-bottom30">
                             <p class="textarea-label">Ad description</p>
-                            <textarea rows="2" cols="20" data-bind=" value: adDescription "></textarea>
+                            <textarea maxlength="250" rows="2" cols="20" data-bind=" value: adDescription "></textarea>
                             <span class="boundary"></span>
                         </div>
 
