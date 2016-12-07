@@ -29,6 +29,6 @@
 </ul>
 <div class="clear"></div>
 <div class="padding-left20 font14 padding-bottom20">
-    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="View all <%= makeName %> service centers in <%=cityName %>" >View all <%= makeName %> service centers in <%=cityName %><span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%= makeName %> service centers in <%=cityName %>" >View all <%= makeName %> service centers in <%=cityName %><span class="bwsprite blue-right-arrow-icon"></span></a>
 </div>      
 <% } %>
