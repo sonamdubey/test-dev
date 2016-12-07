@@ -862,7 +862,7 @@
                                                         </p>
                                                         <p class="font12 text-xt-dark-grey">
                                                             <asp:Label ID="lblExOn" Text="Ex-showroom" runat="server"></asp:Label>, 
-                                                            <% if (cityId != 0)
+                                                            <% if (cityId != 0 && !string.IsNullOrEmpty(cityName))
                                                                 { %>
                                                             <span><%= cityName %></span>
                                                             <% }
