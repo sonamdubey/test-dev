@@ -25,7 +25,7 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             {
                 sb.AppendFormat("Dear {0},", sellerName);
                 sb.AppendFormat("<p>{0} ({1}) has requested you to upload photos of your {2}(Profile ID #{3}) on BikeWale. Please login to your dealer panel and upload the requested bike photos.</p>", buyerName, buyerContact, bikeName, profileId);
-                sb.Append("<p>A study done by us shows that bikes with photos sell 24% faster than without photos. It also helps buyers make a faster decision.</p>");
+                sb.Append("<p>A study done by us shows that bikes with photos sell 50% faster than without photos. It also helps buyers make a faster decision.</p>");
                 sb.Append("<p>If you have any difficulty, please feel free to contact us.</p>");
                 sb.Append("<p>Warm Regards,</p>");
                 sb.Append("<p>Team BikeWale</p>");

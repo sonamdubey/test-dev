@@ -4,7 +4,7 @@
     var BrandsKey = "BrandCityPopUp_mk";
     var BrandCityKey = "brandcity_";
    </script>
-<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
+<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
@@ -60,9 +60,12 @@
 </div>
 
 <script type="text/javascript">
-    var requestType='<%=requestType%>';
+    var requestType = '<%=requestType%>';
+    var req = '<%=(int)requestType%>';
     var brandcityPopUp = $('#brandcityPopUp');
-   
+    var makeid = '<%=makeId%>';
+    var cityid = '<%=cityId%>';
+    var apiurl;
     lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
@@ -86,13 +89,21 @@
                 return child.cityId === self.selectCity();
             }).cityMaskingName;
         })
+        self.cityApiUrl = ko.pureComputed(function () {
+            if (req == 12)
+                return "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
+            else if (req == 13)
+                return "/api/servicecenter/cities/make/" + self.selectedBrand() + "/";
+        })
+        self.makeApiUrl="/api/makelist/?requesttype=" + req;
 
         self.FillBrandsPopup = function () {
             var isAborted = false;
+            
             if (self.bookingBrands().length < 1 || self.bookingBrands().length == undefined) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/makelist/?requesttype=" + '<%=(int)requestType%>',
+                    url: self.makeApiUrl,
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
@@ -135,10 +146,19 @@
                 if (isAborted) {
                     self.completeBrandPopup();
                 }
+                
             }
         }
 
         self.completeBrandPopup = function () {
+            
+            if (makeid>0) {
+                self.selectedBrand(parseInt(makeid));
+            }
+            popupcity.find("option[value='0']").prop('disabled', true);
+            popupcity.trigger('chosen:updated');
+            cityChangedPopup();
+
             popupBrand.find("option[value='0']").prop('disabled', true);
             popupBrand.trigger('chosen:updated');
             self.makeChangedPopup();
@@ -147,11 +167,12 @@
         self.makeChangedPopup = function () {
             var isAborted = false;
             self.searchByBrandCityBtnClicked(false)
+           
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" + self.selectedBrand().toString();
                 $.ajax({
                     type: "GET",
-                    url: "/api/v2/DealerCity/?makeId=" + self.selectedBrand(),
+                    url: self.cityApiUrl(),
                     dataType: 'json',
                     beforeSend: function (xhr) {
                         self.listCities([]);
@@ -171,7 +192,11 @@
                         }
                     },
                     success: function (response) {
-                        var cities = ko.toJS(response.City);
+                        var cities
+                        if (req == 12)
+                            cities = ko.toJS(response.City);
+                        else if (req == 13)
+                            cities = ko.toJS(response);
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
                         if (cities.length) {
@@ -208,9 +233,11 @@
 
 
         self.completeCityPopup = function () {
-            $('#ddlCityPopup').trigger("chosen:updated");
+            if (cityid > 0) {
+                self.selectCity(parseInt(cityid));
+            }
+            $('#ddlCityPopup').trigger("chosen:updated");           
         }
-
 
         self.isValidInfoPopup = function () {
             isValid = true;
@@ -286,8 +313,7 @@
 
         $("#ddlCityPopup").chosen({ no_results_text: "No matches found!!" });
         $("#ddlBrandPopup").chosen({ no_results_text: "No matches found!!" });
-        $('.chosen-container').attr('style', 'width:100%;');
-
+        $('.chosen-container').attr('style', 'width:100%;');       
         ko.applyBindings(viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
     });
 

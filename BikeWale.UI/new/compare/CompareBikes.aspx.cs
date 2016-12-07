@@ -1,13 +1,8 @@
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
+﻿using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -25,7 +20,9 @@ namespace Bikewale.New
     /// <summary>
     /// Modified By : Lucky Rathore
     /// Dated : 15 Feb 2016
-    /// Summary : functinality for estimated Price and Launch Date Added.
+    /// Summary : functionality for estimated Price and Launch Date Added.
+    /// Modified By : Sangram Nandkhile on 30 Nov
+    /// Summary: Added new flag, isSponsored to add a link if Sponsored makeid matches with the config
     /// </summary>
     public class comparebikes : System.Web.UI.Page
     {
@@ -34,12 +31,12 @@ namespace Bikewale.New
         protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
         DataSet ds = null;
-        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty,
-            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, similarVersion = string.Empty;
+        protected string versions = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
+            estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
-        protected bool isFeatured = false;
-        protected Int16 trSize = 45;
+        protected bool isFeatured = false, isSponsored = false;
+        protected Int16 trSize = 45, sponsoredModelId = 0;
         public SimilarCompareBikes ctrlSimilarBikes;
         protected override void OnInit(EventArgs e)
         {
@@ -144,6 +141,27 @@ namespace Bikewale.New
                     title = title.Substring(0, title.LastIndexOf(" vs "));
                     keyword = keyword.Substring(0, keyword.LastIndexOf(" and "));
                     canonicalUrl = canonicalUrl.Substring(0, canonicalUrl.LastIndexOf("-vs-"));
+
+                    // Added by Sangram Nandkhile on 30 Nov
+                    // To check if sponsored model id matches with 
+                    string featuredModelId = ds.Tables[0].Rows[count - 1]["ModelId"].ToString();
+                    if (Int16.TryParse(featuredModelId, out sponsoredModelId))
+                    {
+                        featuredBikeName = string.Format("{0} {1}", ds.Tables[0].Rows[count - 1]["Make"], ds.Tables[0].Rows[count - 1]["Model"]);
+                        string sponsoredModelIds = Bikewale.Utility.BWConfiguration.Instance.SponsoredModelId;
+                        if (!string.IsNullOrEmpty(sponsoredModelIds))
+                        {
+                            string[] modelArray = sponsoredModelIds.Split(',');
+                            if (modelArray.Length > 0)
+                            {
+                                if (modelArray.Contains(featuredModelId))
+                                {
+                                    isSponsored = true;
+                                    knowMoreHref = Bikewale.Utility.SponsoredComparision.FetchValue(featuredModelId);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch (SqlException err)
@@ -192,7 +210,7 @@ namespace Bikewale.New
                     for (int iTmp = 0; iTmp < models.Length; iTmp++)
                     {
 
-                        objResponse = IsMaskingNameChanged(models[iTmp].ToLower());
+                        objResponse = new ModelHelper().GetModelDataByMasking(models[iTmp].ToLower());
 
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
@@ -225,25 +243,17 @@ namespace Bikewale.New
                 }
             }
 
-            Trace.Warn("versions :: " + versions);
-            Trace.Warn("featured bike index : ", featuredBikeIndex.ToString());
-
             if (versions.Length > 0)
             {
                 versions = versions.Substring(0, versions.Length - 1);
-
                 // Get version id of the featured bike on the basis of versions selected for comparison
                 // There might be multiple featured Bikes available. But only show top 1
-                string featuredBike = CompareBikes.GetFeaturedBike(versions);
-
-                if (featuredBike != "-1")
+                Int64 featuredBike = CompareBikes.GetFeaturedBike(versions);
+                if (featuredBike > 0)
                 {
-                    featuredBikeId = featuredBike;
-                    //spotlightUrl = featuredBike.Split('#')[1];
+                    featuredBikeId = featuredBike.ToString();
                     isFeatured = true;
                 }
-
-
                 // If featured bike available to show.
                 // Check if featured bike is already selected by the user.
                 if (featuredBikeId != "")
@@ -251,29 +261,9 @@ namespace Bikewale.New
                     versions += "," + featuredBikeId;
                 }
             }
-
             addBike.VersionId = versions;
             addBike.IsFeatured = isFeatured;
         }
-
-        private ModelMaskingResponse IsMaskingNameChanged(string maskingName)
-        {
-            ModelMaskingResponse objResponse = null;
-
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                         .RegisterType<ICacheManager, MemcacheManager>()
-                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        ;
-                var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                objResponse = objCache.GetModelMaskingResponse(maskingName);
-            }
-
-            return objResponse;
-        }
-
 
         protected string ShowFormatedData(string value)
         {
@@ -317,7 +307,7 @@ namespace Bikewale.New
 
             sql = @" select (select maskingname from bikemakes   where id = cv.bikemakeid) as makemaskingname, cv.bikemodelid as modelid, cv.modelname as modelname,cv.modelmaskingname as modelmaskingname, ifnull(cv.modelreviewrate, 0) as modelrate, ifnull(cv.modelreviewcount, 0) as modeltotal, 
                 ifnull(cv.reviewrate, 0) as versionrate, ifnull(cv.reviewcount, 0) as versiontotal 
-                from bikeversions as cv   where cv.id = @id ";
+                from bikeversions as cv   where cv.id = " + versionId;
 
 
             string reviewString = "";
@@ -326,7 +316,6 @@ namespace Bikewale.New
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, versionId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -393,7 +382,6 @@ namespace Bikewale.New
             ctrlSimilarBikes.versionsList = verList;
 
         }
-
 
     }
 }

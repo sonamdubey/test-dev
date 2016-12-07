@@ -39,6 +39,8 @@ namespace Bikewale.New
         protected DealerCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
         protected DealerDetailEntity dealerObj;
+        protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -83,6 +85,42 @@ namespace Bikewale.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+            }
+            BindUserControl();
+
+        }
+        /// <summary>
+        /// Created By:-Subodh Jain 2 Dec 2016
+        /// Summary :- Bind Popular Bikes By make on page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
+        /// </summary>
+        private void BindUserControl()
+        {
+
+            try
+            {
+                ctrlPopoularBikeMake.makeId = Convert.ToInt32(makeId);
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(cityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeDealerDetails.BindUserControl");
+                objErr.SendMail();
             }
 
         }

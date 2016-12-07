@@ -21,16 +21,18 @@ namespace BikewaleOpr.Campaign
     /// <summary>
     /// Created by: Sangram Nandkhile on 25 Mar 2016
     /// Desc:       To manage dealer campaigs with add/update/delete options
+    /// Modified By : Sushil Kumar on 29th Nov 2016
+    /// Description : Added dailylimit textbox 
     /// </summary>
     public class ManageDealers : System.Web.UI.Page
     {
         #region variable
 
         protected int dealerId, contractId, campaignId, currentUserId;
-        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius;
+        protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit;
         protected string startDate, endDate;
         public Label lblGreenMessage, lblErrorSummary;
         public HtmlGenericControl textArea;
@@ -53,6 +55,8 @@ namespace BikewaleOpr.Campaign
         /// <summary>
         /// Modified by :   Sumit Kate on 18 Apr 2016
         /// Description :   Save the Areas to Dealer Commute Distance mapping
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Added dailylimit textbox to update daily limit lead for the dealer campaign
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -73,6 +77,7 @@ namespace BikewaleOpr.Campaign
                         reqFormMaskingNumber,
                         txtCampaignName.Text.Trim(),
                         txtDealerEmail.Text.Trim(),
+                        !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
                         false);
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -89,6 +94,7 @@ namespace BikewaleOpr.Campaign
                          reqFormMaskingNumber,
                          txtCampaignName.Text.Trim(),
                          txtDealerEmail.Text.Trim(),
+                         !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
@@ -196,6 +202,8 @@ namespace BikewaleOpr.Campaign
                 reqFormMaskingNumber = Request.Form["txtMaskingNumber"] as string;
             if (Request.Form["txtdealerRadius"] != null)
                 reqFormRadius = Request.Form["txtdealerRadius"] as string;
+            if (Request.Form["txtLeadsLimit"] != null)
+                reqLeadsLimit = Request.Form["txtLeadsLimit"] as string;
             SetPageVariables();
         }
 
@@ -245,6 +253,8 @@ namespace BikewaleOpr.Campaign
         /// Description : To fetch current campaign details
         /// Updated by: Sangram
         /// Summary:    Added dealerMobile,hdnOldMaskingNumber,oldMaskingNumber
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Added dailylimit textbox to update daily limit lead for the dealer campaign
         /// </summary>
         private void FetchDealeCampaign()
         {
@@ -264,10 +274,7 @@ namespace BikewaleOpr.Campaign
                     oldMaskingNumber = txtMaskingNumber.Text;
                     txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString().Trim();
                     dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
-                }
-                else
-                {
-                    //Response.Redirect("../pagenotfound.aspx");
+                    txtLeadsLimit.Text = dtCampaign.Rows[0]["dailyleadlimit"].ToString().Trim();
                 }
             }
             catch (Exception ex)

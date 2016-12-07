@@ -113,7 +113,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
     position: relative;
 }
 
-#popup-loader {
+#popup-loader, .cover-popup-loader {
     height: 50px;
     background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
     position: fixed;
@@ -123,12 +123,13 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
     margin: 0 auto;
 }
 
-#popup-loader-text {
+#popup-loader-text, .cover-popup-loader-text {
     position: fixed;
     top: 60%;
     margin: 0 auto;
     left: 5%;
     right: 5%;
+    text-align: center;
 }
 
 .city-area-banner {
@@ -710,6 +711,15 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .red-font{ color: #FF0000;}
 /* AutoExpo classes end */
 
+.blue-right-arrow-icon {
+    width: 10px;
+    height: 12px;
+    background-position: -56px -435px;
+    position: relative;
+    top: 1px;
+    left: 2px;
+}
+
 /*ratings*/
 .star-one-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAATlBMVEUAAAD/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gH/0gEQx+PJAAAAGXRSTlMAFRAf7cy9fHJB5yL1wp1XRzQI5aWgZGMmBPUZEAAAAH1JREFUGNN9zNsSwiAMRdGEUAqld6/n/3/UjKjBobqfwpoz0P/u+QBjPMAQWnOAa3ABlgbPwMVektk5xx7wzyOLYhrw1ZBI41BbYCr1Zv2Lqi9OyUy3trO6gl1touA9AKkw6khE57HCCfNOtM+YzHi8leM68gfX7X1tK/3qARbaCZMv/AncAAAAAElFTkSuQmCC'); }
 .star-half-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAflBMVEUAAADMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gHMzMz/0gH/0gHMzMz/0gHMzMz/0gHMzMzMzMz/0gH/0gH/0gHMzMz/0gHMzMzMzMz/0gH/0gH/0gHMzMz/0gHMzMzMzMzMzMzMzMzMzMz/0gHMzMz/0gFX+3coAAAAKHRSTlMAEREgIPj47e3n583Nvr6hf31ycl5HQiIYxcOlm2RVSEE0MigZGAgIXgJX3AAAAItJREFUGNN90NkSgyAMQNEouLRuXbTafW+T///BwsRKZlDvE5wJPATma58juN2MYFn4FsZR4OGFsPawIjy6m25DW0qYBDalDO6WxCG3aMDUlRKLN3Brh6ue/l/YpzdnPMtzopwxk6aNpYlRJZdBlGuVIcqlHKj6AnxOuHfWxWc+1NFrwOsd+h4NTPUDYuAPs+QbA3EAAAAASUVORK5CYII='); }
@@ -731,11 +741,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     padding: 10px 13px 13px;
     color: #999;
     z-index: 2
-}
-.thankyou-icon {
-    width: 24px;
-    height: 28px;
-    background-position: -138px -394px
 }
 #brandSearchBar {
     padding: 0;

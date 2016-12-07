@@ -245,7 +245,7 @@
         },
         setupElements: function () {
             this.controls = this.wrapper.find('.ad-controls');
-            this.gallery_info = $('<p class="ad-info"></p>');
+            this.gallery_info = $('<p class="ad-info text-white"></p>');
             this.controls.append(this.gallery_info);
             this.image_wrapper = this.wrapper.find('.ad-image-wrapper');
             this.image_wrapper.empty();

@@ -1,16 +1,22 @@
 ﻿
+using System;
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 11 May 2016
     /// Desc       : Entity to hold make, model and masking Name of the links shown under compare bike links
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Added modelid1 and modelid2 for sponsored comparions
     /// </summary>
+    [Serializable]
     public class SimilarCompareBikeEntity
     {
         public string Make1 { get; set; }
         public string Make2 { get; set; }
         public string MakeMasking1 { get; set; }
         public string MakeMasking2 { get; set; }
+        public uint ModelId1 { get; set; }
+        public uint ModelId2 { get; set; }
         public string Model1 { get; set; }
         public string Model2 { get; set; }
         public string Version1 { get; set; }
@@ -22,7 +28,6 @@ namespace Bikewale.Entities.BikeData
         public string ModelMaskingName2 { get; set; }
         public int Price1 { get; set; }
         public int Price2 { get; set; }
-       
         public string OriginalImagePath1 { get; set; }
         public string OriginalImagePath2 { get; set; }
         public string HostUrl1 { get; set; }

@@ -5,6 +5,7 @@
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -81,7 +82,7 @@
                                     <td colspan="2" class="padding-bottom15 border-divider"></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-bold">On-road price in <%= cityName %></td>
+                                    <td class="text-bold"><%= modelName %> On-road price in <%= cityName %></td>
                                     <td align="right"><span class="bwmsprite inr-xxsm-icon"></span><span class="text-bold"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %></span></td>
                                 </tr>
                             </table>
@@ -130,6 +131,11 @@
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
+        
+         <% if (ctrlServiceCenterCard.showWidget)
+                   { %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                <% }  %>
 
         <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
            <section>

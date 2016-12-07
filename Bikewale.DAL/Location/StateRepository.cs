@@ -10,7 +10,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 namespace Bikewale.DAL.Location
@@ -51,15 +50,8 @@ namespace Bikewale.DAL.Location
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -98,7 +90,6 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("StateRepository.GetMaskingNames ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -232,7 +223,10 @@ namespace Bikewale.DAL.Location
                                     var curStateCityList = from curCity in objCityList
                                                            where curCity.stateId == st.Id
                                                            select curCity;
-                                    st.Cities = curStateCityList;
+                                    if (curStateCityList != null)
+                                    {
+                                        st.Cities = curStateCityList.ToList();
+                                    }
                                 }
 
                                 objStateCityList.totalCities = Convert.ToUInt32(objStateCityList.stateCityList.Sum(m => m.Cities.Count()));

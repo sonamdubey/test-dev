@@ -5,6 +5,7 @@
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -118,7 +119,7 @@
 												<td colspan="2" class="padding-bottom15 border-divider"></td>
 											</tr>
 											<tr>
-												<td class="text-bold text-default">On-road price in <%= cityName %></td>
+												<td class="text-bold text-default"><%= modelName %> On-road price in <%= cityName %></td>
 												<td align="right" class="font16 text-bold text-default"><span class="bwsprite inr-lg"></span>
 													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
 												</td>
@@ -188,11 +189,13 @@
 					   { %>
 					<!-- Alternative reviews ends -->
 					<BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 					<!-- Alternative reviews ends -->
 					<% } %>
-				</div>
-			    </div>
-			    <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
+                  <% if(ctrlServiceCenterCard.showWidget){ %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% } %>
+			    <div id="makeTabsContentWrapper" class="margin-bottom20">
 				    <div class="content-box-shadow">
 					    <div id="makeOverallTabsWrapper">
 						    <div id="makeOverallTabs" class="overall-floating-tabs">
@@ -205,6 +208,7 @@
 			            </div>
 					</div>
 				</div>
+                </div>
 			    <div class="clear"></div>
             </div>
 		</section>

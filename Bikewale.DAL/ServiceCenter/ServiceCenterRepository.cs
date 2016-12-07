@@ -124,7 +124,10 @@ namespace Bikewale.DAL.ServiceCenter
                                     var curStateCityList = from curCity in objCityList
                                                            where curCity.stateId == st.Id
                                                            select curCity;
-                                    st.Cities = curStateCityList;
+                                    if (curStateCityList != null)
+                                    {
+                                        st.Cities = curStateCityList.ToList();
+                                    }
                                 }
 
                                 objStateCityList.CityCount = objCityList.Count();

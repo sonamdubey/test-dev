@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <!DOCTYPE html>
 
@@ -23,7 +24,7 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
-        .dealer-card-target:hover, .dealer-info-tooltip a:hover {
+        .dealer-card-target:hover,.dealer-info-tooltip a:hover{text-decoration:none}.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%}#dealersList li{padding-bottom:20px;border-top:1px solid #eee}#dealersList li:first-child{border-top:0}.dealer-card-target{display:block;padding-top:18px}.dealer-card-target .dealer-name{display:block;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.featured-tag{width:74px;display:block;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px;position:relative;top:-4px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}.dealer-map-wrapper{width:100%;height:530px;display:block;position:relative}.dealer-info-tooltip{max-width:350px}#dealersMap .dealership-card-details{width:80%}.dealer-info-tooltip a:hover p{text-decoration:underline}#used-bikes-content .grid-6{display:inline-block;vertical-align:top;width:49%;float:none}.dealership-loc-icon{width:9px;height:12px;background-position:-52px -469px;position:relative;top:4px}.phone-black-icon{width:10px;height:10px;background-position:-73px -444px;position:relative;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.btn.btn-size-2{padding:9px 20px}.card{width:292px;min-height:140px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);box-shadow:0 1px 2px 0 rgba(0,0,0,.2);float:left;margin-left:30px;margin-bottom:20px}.card:first-child{margin-left:20px}.card .card-target{min-height:140px;display:block;padding:15px 20px 0}.card .card-target:hover{text-decoration:none}.card .text-truncate{width:100%}.details-column{width:92%}@media only screen and (max-width:1024px){#city-dealer-list li{width:280px}}
             text-decoration: none;
         }
 
@@ -211,7 +212,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -267,7 +267,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
            { %>
         <section>
             <div class="container">
@@ -280,6 +280,11 @@
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
+                        <% if(ctrlServiceCenterCard.showWidget){ %>
+                          <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                          <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                        <% } %>
+                        
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                            { %>
                         <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />

@@ -2,11 +2,13 @@
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Web;
 
 namespace Bikewale.DAL.Used
 {
@@ -171,7 +173,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, photoId));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    
+
                     isRemoved = true;
                 }
             }
@@ -181,6 +183,94 @@ namespace Bikewale.DAL.Used
                 objErr.SendMail();
             }
             return isRemoved;
-        }   
+        }
+	/// <summary>
+        /// Created by: Sangram Nandkhile on 25 Nov 2016
+        /// Desc: To repost ad listing
+        /// </summary>
+        /// <returns></returns>
+        public bool RepostSellBikeAd(int inquiryId, ulong customerId)
+        {
+            bool isPosted = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_repostlisting"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int64, customerId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isPosted = true;
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("UsedBikeSellerRepository.RepostSellBikeAd(inquiryId: {0},customerId: {1})", inquiryId, customerId));
+                objErr.SendMail();
+            }
+            return isPosted;
+        }
+        /// <summary>
+        /// Created by : sajal gupta on 25-11-2016
+        /// Desc : To fetch liting details from db.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public IEnumerable<CustomerListingDetails> GetCustomerListingDetails(uint customerId)
+        {
+            ICollection<CustomerListingDetails> objDetailsList = null;
+            CustomerListingDetails objDetails = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getclassifiedindividuallistings_sp_25112016"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            objDetailsList = new Collection<CustomerListingDetails>();
+
+                            while (dr.Read())
+                            {
+                                objDetails = new CustomerListingDetails();
+                                objDetails.Photo = new BikePhoto();
+
+                                objDetails.BikeName = Convert.ToString(dr["bike"]);
+                                objDetails.InquiryId = SqlReaderConvertor.ToInt32(dr["inquiryid"]);
+                                objDetails.StatusId = SqlReaderConvertor.ToUInt16(dr["statusid"]);
+                                objDetails.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
+                                objDetails.MakeMaskingName = Convert.ToString(dr["makemaskingname"]);
+                                objDetails.ModelMaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                objDetails.TotalViews = SqlReaderConvertor.ToUInt16(dr["totalviews"]);
+                                objDetails.Color = Convert.ToString(dr["color"]);
+                                objDetails.IsApproved = SqlReaderConvertor.ToBoolean(dr["isapproved"]);
+                                objDetails.Owner = SqlReaderConvertor.ToUInt16(dr["owner"]);
+                                objDetails.DaysRemaining = SqlReaderConvertor.ToUInt16(dr["daysafterlastupdated"]);
+                                objDetails.SellerType = SqlReaderConvertor.ToUInt16(dr["sellertype"]);
+                                objDetails.Photo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                objDetails.Photo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                objDetails.AskingPrice = SqlReaderConvertor.ToUInt32(dr["price"]);
+                                objDetails.ModelYear = SqlReaderConvertor.ToDateTime(dr["makeyear"]);
+                                objDetails.KmsDriven = SqlReaderConvertor.ToUInt32(dr["kilometers"]);
+                                objDetails.RegisteredAt = Convert.ToString(dr["registrationplace"]);
+                                objDetails.EntryDate = SqlReaderConvertor.ToDateTime(dr["entrydate"]);
+
+                                objDetailsList.Add(objDetails);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("GetCustomerListingDetails({0})", customerId));
+                objErr.SendMail();
+            }
+
+            return objDetailsList;
+        }
     }
 }

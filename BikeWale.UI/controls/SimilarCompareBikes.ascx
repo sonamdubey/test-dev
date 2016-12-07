@@ -1,11 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.SimilarCompareBikes" %>
+
+<% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
     &nbsp;People who compared above bikes also compared: <br /><br />
-    <asp:Repeater ID="rptSimilarBikes" runat="server">        
-        <ItemTemplate>
+      
+          <% foreach(var bike in objSimilarBikes) { %>
             <div class="related-comparison-wrapper padding-left10 padding-right10 margin-bottom15">
-                <a href='/<%# Bikewale.Utility.UrlFormatter.CreateCompareUrl(DataBinder.Eval(Container.DataItem,"MakeMasking1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMasking2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking2").ToString(),DataBinder.Eval(Container.DataItem,"VersionId1").ToString(),DataBinder.Eval(Container.DataItem,"VersionId2").ToString()) %>'>
-                   <%# Bikewale.Utility.UrlFormatter.CreateCompareTitle(DataBinder.Eval(Container.DataItem, "Make1").ToString(), DataBinder.Eval(Container.DataItem, "Model1").ToString(), DataBinder.Eval(Container.DataItem, "Make2").ToString(),DataBinder.Eval(Container.DataItem, "Model2").ToString())  %>
+               <a href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>">
+                   <%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Make1,bike.Model1,bike.Make2,bike.Model2) %>
                  </a>
             </div>
-        </ItemTemplate>        
-    </asp:Repeater>
+         <% } %>
+
+<% }  %>
+

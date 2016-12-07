@@ -40,7 +40,9 @@ namespace Bikewale.Service
         protected DealerCard ctrlDealerCard;
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected CityEntityBase objCityEntityBase;
+        protected UsedBikeWidget ctrlRecentUsedBikes;
         protected BrandCityPopUp ctrlBrandCity;
+        protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -83,18 +85,46 @@ namespace Bikewale.Service
         /// Description: Method to bind dealer car data.
         /// Modified By : Aditi Srivasatva on 30 Nov 2016
         /// Description : Set request type according to page for brand city pop up
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Used Bike and popular bike widget
         /// </summary>
-        /// <param name="cityMaskingName"></param>
+        /// <returns></returns>
         private void BindUserControls()
         {
-            ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
-            ctrlDealerCard.makeName = makeName;
-            ctrlDealerCard.makeMaskingName = makeMaskingName;
-            ctrlDealerCard.CityId = cityId;
-            ctrlDealerCard.LeadSourceId = 11;
-            ctrlDealerCard.TopCount = 3;
-            ctrlDealerCard.isHeading = false;
+            try
+            {
+                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlDealerCard.makeName = makeName;
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.LeadSourceId = 11;
+                ctrlDealerCard.TopCount = 3;
+                ctrlDealerCard.isHeading = false;
             ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
+
+                ctrlPopoularBikeMake.makeId = (int)makeId;
+                ctrlPopoularBikeMake.cityId = (int)cityId;
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlRecentUsedBikes.isAd = true;
+                ctrlRecentUsedBikes.cityName = cityName;
+                ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
+                ctrlRecentUsedBikes.AdId = "1395986297721";
+                ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.GetCityNameByCityMaskingName");
+                objErr.SendMail();
+            }
         }
 
         /// <summary>
@@ -116,7 +146,9 @@ namespace Bikewale.Service
                 }
 
                 if (objCityEntityBase != null)
+                {
                     cityName = objCityEntityBase.CityName;
+                }
             }
             catch (Exception ex)
             {
@@ -142,7 +174,10 @@ namespace Bikewale.Service
                 }
 
                 if (objBikeMakeEntityBase != null)
+                {
                     makeName = objBikeMakeEntityBase.MakeName;
+                    makeMaskingName = objBikeMakeEntityBase.MaskingName;
+                }
             }
             catch (Exception ex)
             {

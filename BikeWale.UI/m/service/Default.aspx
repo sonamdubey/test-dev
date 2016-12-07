@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.LocateServiceCenter" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -99,6 +103,59 @@
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
         </section>
         <%} %>
+        <%if (ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount > 0)
+          {%>
+        <section>
+            <!--  Upcoming, New Launches and Top Selling code starts here -->
+            <div class="container margin-bottom20">
+                <div class="grid-12 alpha omega">
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Most popular bikes</h2>
+                    <div class="featured-bikes-panel content-box-shadow padding-bottom15">
+                        <div class="bw-tabs-panel">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <%if(ctrlMostPopularBikes.FetchedRecordsCount > 0){ %><li class="active"  data-tabs="mctrlMostPopularBikes">Most Popular</li><%} %>
+                                <%if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0){ %> <li  data-tabs="mctrlNewLaunchedBikes">New launches</li><%} %>
+                                <%if(ctrlUpcomingBikes.FetchedRecordsCount > 0){ %> <li  data-tabs="mctrlUpcomingBikes">Upcoming </li><%} %>
+
+                            </ul>
+                        </div>
+                        <div class="grid-12 alpha omega">
+                            <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MMostPopularBikes PageId="4" runat="server" ID="ctrlMostPopularBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="ctrlNewLaunchedBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
+        <%if(ctrlPopularUsedBikes.FetchedRecordsCount>0){ %>
+        <section>
+            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+        </section>
+        <%} %>
         <section>
             <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
@@ -118,7 +175,7 @@
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                            <p>We've all been there at some point, and there's the obvious - jumper cables.<br /><br />Remember to take a jump from a battery that has a higher rating than yours, else you run the risk of two motorcycles that won’t start after your attempts. The next obvious thing to do is to either remove the battery, get it charged and reinstall it, or replace it with a fully charged one. There are a few other things you can do if jumper cables aren’t available, or you don’t know how to remove your battery.<br /><br />Note: if it is a large motorcycle (say over 400cc) do not attempt anything you read beyond this. If, however, you have a small motorcycle with a carburettor, here's exactly what you need to do: stick it in second, pull the clutch in, push the bike and release the clutch. As soon as it catches, pull the clutch in. If you have a helping hand, it is far safer to have one person sit on the motorcycle while the other pushes. Another trick that you can use for small motorcycles is putting them on the main stand – the same rules apply. Stick it in second, leave the ignition on and just give the rear wheel torque by pulling it in the correct direction. If you give it a hard enough tug, the bike should start.<br /><br />There is one other condition under which a push-start will not achieve any results at all: if you have fuel injection on your motorcycle, turn the key over to the ‘on’ position and put your ear near the fuel tank. If you hear a noise, however weak, it means that the fuel pump is still working enough to send fuel to the engine, and you have a chance of the bike starting. Pull the fuses to the headlamp to keep it from taking any more juice away from the fuel pump and try the push start. If you turn your key to ‘on’ and hear nothing at all, then don’t bother trying, your motorcycle won’t start no matter how much you push it.<br /><br />Revving the motorcycle to the redline will not make the battery charge faster – anything beyond 3000 rpm is a waste of fuel, so go for a 20-30 minute cruise to make sure the battery gets charged enough to crank the engine should you stall for any reason.</p>
+                            <p>We've all been there at some point, and there's the obvious - jumper cables.<br /><br />Remember to take a jump from a battery that has a higher rating than yours, else you run the risk of two motorcycles that won't start after your attempts. The next obvious thing to do is to either remove the battery, get it charged and reinstall it, or replace it with a fully charged one. There are a few other things you can do if jumper cables aren't available, or you don't know how to remove your battery.<br /><br />Note: if it is a large motorcycle (say over 400cc) do not attempt anything you read beyond this. If, however, you have a small motorcycle with a carburettor, here's exactly what you need to do: stick it in second, pull the clutch in, push the bike and release the clutch. As soon as it catches, pull the clutch in. If you have a helping hand, it is far safer to have one person sit on the motorcycle while the other pushes. Another trick that you can use for small motorcycles is putting them on the main stand – the same rules apply. Stick it in second, leave the ignition on and just give the rear wheel torque by pulling it in the correct direction. If you give it a hard enough tug, the bike should start.<br /><br />There is one other condition under which a push-start will not achieve any results at all: if you have fuel injection on your motorcycle, turn the key over to the 'on' position and put your ear near the fuel tank. If you hear a noise, however weak, it means that the fuel pump is still working enough to send fuel to the engine, and you have a chance of the bike starting. Pull the fuses to the headlamp to keep it from taking any more juice away from the fuel pump and try the push start. If you turn your key to 'on' and hear nothing at all, then don't bother trying, your motorcycle won't start no matter how much you push it.<br /><br />Revving the motorcycle to the redline will not make the battery charge faster – anything beyond 3000 rpm is a waste of fuel, so go for a 20-30 minute cruise to make sure the battery gets charged enough to crank the engine should you stall for any reason.</p>
                         </div>
                     </li>
                     <li>
@@ -127,7 +184,7 @@
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                            <p>If you have a scooter, obviously this isn’t a problem. However, this can be quite a big issue if you’ve got something that needs gears to be shifted manually.<br /><br />The best thing to do is to stick it in neutral and either push the motorcycle along or have someone tow you. If this isn’t possible, though, technology and a little bit of looking ahead can help you get to help. There’s something called ‘synchromesh’ that gearboxes have today, and that means that you can actually change gears without using the clutch lever. It will take a little bit of practice, though, especially while downshifting. Upshifts will be a lot smoother. The biggest problem will be coming to a halt and taking off from a halt. For this, the obvious solution will be to not do it at all, so you can either wait for a time when there won’t be traffic or use a route with little to no traffic or stop signals.<br /><br />If it cannot be avoided, though, you’ll have to slow down as much you can in first gear, and then try to put it into neutral while using the brakes to come to a complete halt. Starting it will be very tricky, because it will be almost impossible to get it going with just enough throttle to remain in control of the motorcycle. If you have a main stand, you can try putting it on the main stand, putting it in gear and then doing a running start with it.<br /><br />Remember – these are very risky manoeuvres, so please do not try them unless there is an emergency and you cannot afford to wait at all.</p>
+                            <p>If you have a scooter, obviously this isn't a problem. However, this can be quite a big issue if you've got something that needs gears to be shifted manually.<br /><br />The best thing to do is to stick it in neutral and either push the motorcycle along or have someone tow you. If this isn't possible, though, technology and a little bit of looking ahead can help you get to help. There's something called 'synchromesh' that gearboxes have today, and that means that you can actually change gears without using the clutch lever. It will take a little bit of practice, though, especially while downshifting. Upshifts will be a lot smoother. The biggest problem will be coming to a halt and taking off from a halt. For this, the obvious solution will be to not do it at all, so you can either wait for a time when there won't be traffic or use a route with little to no traffic or stop signals.<br /><br />If it cannot be avoided, though, you'll have to slow down as much you can in first gear, and then try to put it into neutral while using the brakes to come to a complete halt. Starting it will be very tricky, because it will be almost impossible to get it going with just enough throttle to remain in control of the motorcycle. If you have a main stand, you can try putting it on the main stand, putting it in gear and then doing a running start with it.<br /><br />Remember – these are very risky manoeuvres, so please do not try them unless there is an emergency and you cannot afford to wait at all.</p>
                         </div>
                     </li>
                 </ul>

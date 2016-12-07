@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.PriceQuote;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeBooking
 {
@@ -16,6 +10,11 @@ namespace Bikewale.Interfaces.BikeBooking
     /// Created By : Sadhana Upadhyay on 29 Oct 2014
     /// Modified By : Lucky Rathore on 06 June 2016 
     /// Description : DealerInfo IsDealerExists(uint versionId, uint areaId) Added.
+    /// Modified By : Sushil Kumar on 29th Nov 2016
+    /// Description : Added function feature 
+    ///                 1.UpdateDealerDailyLeadCount
+    ///                 2.IsDealerDailyLeadLimitExceeds
+    ///               to pass autobiz leads only when dealer leads does not exceeds daily limit count    
     /// </summary>
     public interface IDealerPriceQuote
     {
@@ -37,5 +36,7 @@ namespace Bikewale.Interfaces.BikeBooking
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
         DealerInfo IsDealerExists(uint versionId, uint areaId);
+        bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);
+        bool IsDealerDailyLeadLimitExceeds(uint campaignId);
     }
 }

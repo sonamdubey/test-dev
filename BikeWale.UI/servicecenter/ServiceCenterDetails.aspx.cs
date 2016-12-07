@@ -23,7 +23,8 @@ namespace Bikewale.ServiceCenter
         protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
         public ServiceDetailsPage serviceVM;
-
+        protected UsedBikeWidget ctrlRecentUsedBikes;
+        protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -57,29 +58,57 @@ namespace Bikewale.ServiceCenter
         /// <summary>
         /// Created By : Sangram Nandkhile on 17 Nov 2016
         /// Desc: Bind Controls for page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Used Bike and popular bike widget
         /// </summary>
+        /// <returns></returns>
         private void BindControls()
         {
-            ctrlServiceSchedule.MakeId = serviceVM.MakeId;
-            ctrlServiceSchedule.MakeName = serviceVM.MakeName;
-
-            ctrlServiceCenterCard.MakeId = serviceVM.MakeId;
-            ctrlServiceCenterCard.CityId = serviceVM.CityId;
-            ctrlServiceCenterCard.makeName = serviceVM.MakeName;
-            ctrlServiceCenterCard.cityName = serviceVM.CityName;
-            ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
-            ctrlServiceCenterCard.cityMaskingName = serviceVM.CityMaskingName;
-            ctrlServiceCenterCard.TopCount = 3;
-            ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
-
-            if (ctrlDealerCard != null)
+            try
             {
-                ctrlDealerCard.MakeId = makeId;
-                ctrlDealerCard.makeMaskingName = makeMaskingName;
-                ctrlDealerCard.CityId = serviceVM.CityId;
-                ctrlDealerCard.cityName = serviceVM.CityName;
-                ctrlDealerCard.TopCount = 3;
-                ctrlDealerCard.isHeading = false;
+                ctrlServiceSchedule.MakeId = serviceVM.MakeId;
+                ctrlServiceSchedule.MakeName = serviceVM.MakeName;
+
+                ctrlServiceCenterCard.MakeId = serviceVM.MakeId;
+                ctrlServiceCenterCard.CityId = serviceVM.CityId;
+                ctrlServiceCenterCard.makeName = serviceVM.MakeName;
+                ctrlServiceCenterCard.cityName = serviceVM.CityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = serviceVM.CityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.ServiceCenterId = serviceCenterId;
+                ctrlServiceCenterCard.widgetHeading = string.Format("Other {0} service centers in {1}", makeName, serviceVM.CityName);
+
+                if (ctrlDealerCard != null)
+                {
+                    ctrlDealerCard.MakeId = makeId;
+                    ctrlDealerCard.makeMaskingName = makeMaskingName;
+                    ctrlDealerCard.CityId = serviceVM.CityId;
+                    ctrlDealerCard.cityName = serviceVM.CityName;
+                    ctrlDealerCard.TopCount = 3;
+                    ctrlDealerCard.isHeading = false;
+                }
+                ctrlPopoularBikeMake.makeId = Convert.ToInt32(serviceVM.MakeId);
+                ctrlPopoularBikeMake.cityId = Convert.ToInt32(serviceVM.CityId);
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = serviceVM.CityName;
+                ctrlPopoularBikeMake.cityMaskingName = serviceVM.CityMaskingName;
+                ctrlPopoularBikeMake.makeName = serviceVM.MakeName;
+
+                ctrlRecentUsedBikes.CityId = (int?)serviceVM.CityId;
+                ctrlRecentUsedBikes.MakeId = serviceVM.MakeId;
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlRecentUsedBikes.isAd = true;
+                ctrlRecentUsedBikes.cityName = serviceVM.CityName; ;
+                ctrlRecentUsedBikes.cityMaskingName = serviceVM.CityMaskingName;
+                ctrlRecentUsedBikes.AdId = "1395986297721";
+                ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", serviceVM.MakeName, serviceVM.CityName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetails.BindControls");
+                objErr.SendMail();
+
             }
         }
 

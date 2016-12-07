@@ -5,6 +5,7 @@ using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Utility;
@@ -29,7 +30,11 @@ namespace Bikewale.ServiceCenter
         protected IEnumerable<BikeMakeEntityBase> objTopMakeList;
         protected IEnumerable<BikeMakeEntityBase> objOtherMakeList;
         protected IEnumerable<BikeMakeEntityBase> objMakes;
-
+        protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected string cityName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,13 +56,14 @@ namespace Bikewale.ServiceCenter
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
             BindMakes();
-            ctrlBikeCare.TotalRecords = 3;
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            cityName = currentCityArea.City;
             cityId = currentCityArea.CityId;
+            BindBikesWidgets();
         }
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016
-        /// Submmary:- Bind Make for service center
+        /// Summary:- Bind Make for service center
         /// </summary>
         private void BindMakes()
         {
@@ -82,6 +88,37 @@ namespace Bikewale.ServiceCenter
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "LocateServiceCenter.BindMakes");
+                objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created By : Subodh Jain  on 28th Nov 2016
+        /// Description : Added new launched,upcoming and poular bikes binding 
+        /// </summary>
+        private void BindBikesWidgets()
+        {
+            try
+            {
+                //to get Most Popular Bikes
+                ctrlMostPopularBikes.totalCount = 9;
+                ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
+
+                //To get Upcoming Bike List Details 
+                ctrlNewLaunchedBikes.pageSize = 9;
+                ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
+
+                //To get Upcoming Bike List Details 
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+
+                ctrlBikeCare.TotalRecords = 3;
+                ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
+                ctrlPopularUsedBikes.header = string.Format("Popular used bikes in {0}", cityId > 0 ? cityName : "India");
+                ctrlPopularUsedBikes.TotalRecords = 9;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
                 objErr.SendMail();
             }
         }

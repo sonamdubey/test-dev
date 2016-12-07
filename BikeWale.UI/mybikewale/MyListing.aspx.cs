@@ -1,13 +1,12 @@
-﻿using System;
-using System.Web;
+﻿using Bikewale.Common;
+using Bikewale.DAL.Used;
+using Bikewale.Entities.Used;
+using Bikewale.Interfaces.Used;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using System.Data;
-using System.Data.SqlClient;
-using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.MyBikeWale
 {
@@ -17,7 +16,7 @@ namespace Bikewale.MyBikeWale
     /// </summary>
     public class MyListing : Page
     {
-        protected DataList rptListings;
+        protected IEnumerable<CustomerListingDetails> listingDetailsList;
         protected HtmlGenericControl div_SellYourBike, div_FakeCustomer;
         protected string customerId = string.Empty, inquiryId = string.Empty;
         protected bool isFake = false;
@@ -43,48 +42,31 @@ namespace Bikewale.MyBikeWale
 
             if (isFake)
                 div_FakeCustomer.Visible = true;
-            
-            if (!IsPostBack)
-            {
-                GetListings();
-    
-            }
+
+
+            GetListings();
         }   // End of page_load
 
+        /// <summary>
+        /// Created by Sajal Gupta on 25-11
+        /// Desc : Method to get listing details
+        /// </summary>
         protected void GetListings()
         {
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getclassifiedindividuallistings_sp";
+                    container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
 
-                    //cmd.Parameters.Add("@customerid", SqlDbType.BigInt).Value = customerId;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, customerId));
+                    var objSellerRepo = container.Resolve<IUsedBikeSellerRepository>();
 
-                    using (DataSet ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            rptListings.DataSource = ds.Tables[0];
-                            rptListings.DataBind();
-
-                            div_SellYourBike.Visible = false;
-                        }  
-                    }                   
+                    listingDetailsList = objSellerRepo.GetCustomerListingDetails(Convert.ToUInt32(customerId));
                 }
-            }
-            catch (SqlException ex)
-            {
-                Trace.Warn("mylistings sql ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
-                Trace.Warn("mylistings ex : ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "MyListing.GetListings()");
                 objErr.SendMail();
             }
         }   // End of GetListings method
@@ -95,27 +77,27 @@ namespace Bikewale.MyBikeWale
             //return Bikewale.Common.ImagingFunctions.GetPathToShowImages(directoryPath, hostUrl) + imgName;
         }
 
-        protected string GetStatus(string statusId,bool isApproved,string inquiryId)
+        protected string GetStatus(int statusId, bool isApproved, int inquiryId)
         {
             string retVal = string.Empty;
-            if (statusId == "1" && isApproved)
+            if (statusId == 1 && isApproved)
             {
                 retVal = "[ Approved ]";
             }
-            else if (statusId == "4")
+            else if (statusId == 4)
             {
                 retVal = "<a target=_blank style=color:#f00; class=link-decoration href=/used/sell/default.aspx?id=" + inquiryId + " >[ Get Verified ]</a>";
             }
-            else if (statusId == "1" && !isApproved)
+            else if (statusId == 1 && !isApproved)
             {
                 retVal = "[ Approval pending ]";
             }
-            else if (statusId == "2" && !isApproved)
+            else if (statusId == 2 && !isApproved)
             {
                 retVal = "[ Fake ]";
             }
             return retVal;
         }
-    
+
     }   // End of class
 }   // End of namespace

@@ -19,6 +19,8 @@ namespace BikewaleOpr.Common
         /// Created by  :   Sumit Kate on 19 Mar 2016
         /// Description :   Fetch the Dealer Campaign details
         ///                 SP Called : BW_FetchBWDealerCampaign
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to fetch dealer daily limit     
         /// </summary>
         /// <param name="campaignId">Campaign Id</param>
         /// <returns></returns>
@@ -30,7 +32,7 @@ namespace BikewaleOpr.Common
             {
                 if (campaignId > 0)
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaign"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaign_21112016"))
                     {
 
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -59,6 +61,8 @@ namespace BikewaleOpr.Common
         ///                 SP Called : BW_InsertBWDealerCampaign
         /// Updated by  :   Sangram Nandkhile on 31st March 2016
         /// Description :   Used out parameter 'NewCampaignId' and changed return type
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to add dealer limit for the dealer campaign     
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -72,12 +76,12 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_insertbwdealercampaign_21112016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
@@ -87,6 +91,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbType.Int32, ParameterDirection.Output));
@@ -108,6 +113,8 @@ namespace BikewaleOpr.Common
         /// Created by  :   Sumit Kate on 19 Mar 2016
         /// Description :   Save the new Dealer Campaign
         ///                 SP Called : BW_UpdateBWDealerCampaign
+        /// Modified By : Sushil Kumar on 29th Nov 2016
+        /// Description : Modified SP to update dealer limit for the dealer campaign          
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="campaignId"></param>
@@ -122,13 +129,13 @@ namespace BikewaleOpr.Common
         /// <param name="dealerEmailId"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, bool isBookingAvailable = false)
+        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_updatebwdealercampaign_21112016"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -137,6 +144,7 @@ namespace BikewaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_phone", DbType.String, 50, maskingNumber));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealeremail", DbType.String, 200, dealerEmailId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerleadservingradius", DbType.Int32, dealerLeadServingRadius));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dailyleadlimit", DbType.Int32, dailyleadlimit > 0 ? dailyleadlimit : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isActive));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
@@ -281,7 +289,7 @@ namespace BikewaleOpr.Common
             return dtb;
         }
 
-       
+
 
 
         /// <summary>

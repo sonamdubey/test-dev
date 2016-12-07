@@ -5,7 +5,7 @@ var regPass = /^[a-zA-Z]+$/;
 var timer;
 
 $(document).ready(function () {
-    if ($(window).innerHeight() < 550) { // for devices with height around 540px
+    if ($(window).innerWidth() > 768 && $(window).innerHeight() < 550) { // for devices with height around 540px
         $('#loginSignupWrapper').css({ 'height': '420px', 'padding': '20px 70px', 'top': '12%' });
     }
     setBackgroundImage();

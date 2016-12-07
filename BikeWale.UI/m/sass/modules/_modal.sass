@@ -1,9 +1,12 @@
-﻿.modal-popup-container
+﻿$modal-height-without-footer: 325px
+$modal-height-with-footer: 240px
+
+.modal-popup-container
 	display: none
 	width: 80%
-	min-height: 270px
+	min-height: 200px
 	position: fixed
-	top: 14%
+	top: 10%
 	left: 0
 	right: 0
 	background: #fff
@@ -18,6 +21,8 @@
 
 	.popup-body
 		padding: 20px
+		max-height: $modal-height-without-footer
+		overflow-y: scroll
 
 	.body-label
 		font-size: 12px
@@ -43,7 +48,17 @@
 			.radio-uncheck
 				background-position: -179px -59px
 
-.btn-size-0
+	.popup-footer
+		padding: 20px
+
+// modal height
+.with-footer
+	.popup-body
+		max-height: $modal-height-with-footer
+		padding-bottom: 10px
+
+.btn-size-0,
+.btn-size-sm
 	font-size: 14px
 	padding: 5px 0
 

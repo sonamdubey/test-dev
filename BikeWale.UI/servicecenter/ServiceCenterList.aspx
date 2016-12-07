@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Service.ServiceCenterList" AutoEventWireup="false" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 
 <!DOCTYPE html>
@@ -183,9 +185,30 @@
                 <div class="clear"></div>
             </div>
         </section>
+           <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
+        <section>
+            <div class="container">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
+                           { %>
+                          <h2 class="section-h2-title padding-15-20">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                        <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
+                        <%} %>
+                        <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                        <!-- Used bikes widget -->
+                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                           { %>
+                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                        <%} %>
 
-        <% if (ctrlDealerCard.showWidget)
-           { %>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+          <% } %>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -200,7 +223,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <% } %>
+   
 
         <section>
             <div class="container margin-bottom30">

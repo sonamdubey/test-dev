@@ -11,19 +11,21 @@ namespace Bikewale.Mobile.Controls
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016
-    /// Desc       : Created control to show similar Bike links below compare bikes 
+    /// Desc       : Created control to show similar Bike links below compare bikes
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Removed repeater logic and dind data using list object
     /// </summary>
 
     public class SimilarCompareBikes : System.Web.UI.UserControl
     {
         public Repeater rptSimilarBikes, rptSimilarBikesInner;
         public string versionsList { get; set; }
-        private uint _topCount = 0;
+        private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
 
         public IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = null;
 
-        public uint TopCount
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -42,17 +44,17 @@ namespace Bikewale.Mobile.Controls
         /// <summary>
         /// Created by : Sangram Nandkhile on 12 May 2016
         /// Desc       : To bind similar bikes
+        /// Modified By : Sushil Kumar on 2nd Dec 2016
+        /// Description : MOved value into object of similar bikes
         /// </summary>
         private void BindSimilarCompareBikes()
         {
-            BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
 
             try
             {
-                objSimilarBikes = objAlt.BindAlternativeBikes(versionsList, TopCount);
-
-                if (objSimilarBikes != null)
-                    fetchedCount = (uint)objSimilarBikes.Count();
+                BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
+                objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
+                fetchedCount = objAlt.FetchedRecordsCount;
 
                 if (fetchedCount > 0)
                 {

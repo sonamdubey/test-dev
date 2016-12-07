@@ -1,21 +1,24 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.BikeData;
 using System;
-using System.Web.UI.WebControls;
+using System.Collections.Generic;
 
 namespace Bikewale.Controls
 {
     /// <summary>
     /// Created by : Sangram Nandkhile on 12 May 2016
-    /// Desc       : Created control to show similar Bike links below compare bikes 
+    /// Desc       : Created control to show similar Bike links below compare bikes
+    /// Modified By : Sushil Kumar on 2nd Dec 2016
+    /// Description : Removed repeater logic and dind data using list object
     /// </summary>
     public class SimilarCompareBikes : System.Web.UI.UserControl
     {
-        public Repeater rptSimilarBikes;
         public string versionsList { get; set; }
-        private uint _topCount = 0;
+        protected ICollection<SimilarCompareBikeEntity> objSimilarBikes = null;
+        private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
         public int? cityid { get; set; }
-        public uint TopCount
+        public ushort TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -39,14 +42,9 @@ namespace Bikewale.Controls
         {
             BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
             objAlt.cityid = cityid.HasValue ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-            fetchedCount = objAlt.BindPopularCompareBikes(rptSimilarBikes, versionsList, TopCount);
+            objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
+            fetchedCount = objAlt.FetchedRecordsCount;
         }
 
-        public override void Dispose()
-        {
-            rptSimilarBikes.DataSource = null;
-            rptSimilarBikes.Dispose();
-            base.Dispose();
-        }
     }
 }

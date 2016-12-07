@@ -157,32 +157,27 @@ namespace BikWale.Mobile.Users
 
         /// <summary>
         /// Desc: redirects users to return url
+        /// Modified By : Sajal Gupta on 30-11-2016
+        /// Desc : Added functionality to redirect to return uel path.
         /// </summary>
         private void RedirectPath()
         {
             // Redirect to the requested page.
-            if (logout)
-            {
-                if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
-                {
-                    string returnUrl = Request.QueryString["ReturnUrl"];
-                    if (!string.IsNullOrEmpty(returnUrl))
-                        Response.Redirect(returnUrl, false);
-                    else
-                        Response.Redirect("/", false);
 
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                }
+            if (!String.IsNullOrEmpty(Request.QueryString["ReturnUrl"]))
+            {
+                string returnUrl = Request.QueryString["ReturnUrl"];
+                if (!string.IsNullOrEmpty(returnUrl))
+                    Response.Redirect(returnUrl, false);
                 else
-                {
                     Response.Redirect("/", false);
-                }
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
             else
             {
                 Response.Redirect(CommonOpn.AppPath + "MyBikeWale/");
             }
-
         }
     }
 }
