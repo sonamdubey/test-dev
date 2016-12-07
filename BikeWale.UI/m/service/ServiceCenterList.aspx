@@ -54,7 +54,7 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
                 <h2 class="padding-15-20 border-solid-bottom"><%=listingHeading %>
-                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions">change</a>
+                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions"><span class="margin-left5 bwmsprite edit-blue"></span>change</a>
                 </h2>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)

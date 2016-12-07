@@ -1,9 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.BrandCityPopUp" %>
-<script type="text/javascript">
-    lscache.flushExpired(); 
-    var BrandsKey = "BrandCityPopUp_mk";
-    var BrandCityKey = "brandcity_";
-</script>
+
 <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="brandcitypopupWrapper">
     <div class="city-area-banner"></div>
@@ -34,24 +30,28 @@
             <% }
                else
                { %>
-            <div id="makeSelection" class="form-control text-left input-sm position-rel margin-bottom10 ">
-                <div class="selected-area" id="ddlBrandsPopup" data-bind="text: (selectedBrand() != null && selectedBrand().makeName != '') ? selectedBrand().makeName : 'Select Brand'">Select Brand</div>
+            <div id="makeSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="click: function (d,e) { hideError($(e.target)) }">
+                <div class="selected-area" id="ddlBrandsPopup" data-bind="click: function (d, e) { hideError($(e.target).parent()) }, text: (selectedBrand() != null && selectedBrand().makeName != '') ? selectedBrand().makeName : 'Select Brand'">Select Brand</div>
+                <span class="bwmsprite error-icon errorIcon hide"></span>
+                <div class="bw-blackbg-tooltip errorText hide"></div>
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
 
             </div>
-            <div id="citiesSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: listCities().length > 0">
-                <div class="selected-city" id="ddlCityPopup" data-bind="text: (selectCity() != null && selectCity().cityName != '') ? selectCity().cityName : 'Select City'"></div>
+            <div id="citiesSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: listCities().length > 0, click: function(d,e) {hideError($(e.target))}">
+                <div class="selected-city" id="ddlCityPopup" data-bind="click:function (d,e) { hideError($(e.target).parent()) },text: (selectCity() != null && selectCity().cityName != '') ? selectCity().cityName : 'Select City'"></div>
+                <span class="bwmsprite error-icon errorIcon hide"></span>
+                <div class="bw-blackbg-tooltip errorText hide"></div>
                 <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div id="btnSearchBrandCity" class="center-align margin-top20 text-center position-rel">
                 <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
                   { %>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search dealers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search dealers</a>
                 <%} %>
                 <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
                   {%>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search service centers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search service centers</a>
                 <%} %>
             </div>
 
@@ -101,8 +101,9 @@
 </div>
 
 <script type="text/javascript">
-    var requestType = '<%=requestType%>';
-    var req='<%=(int)requestType%>'
+    lscache.flushExpired(); 
+    var BrandsKey = "BrandCityPopUp_mk";
+    var BrandCityKey = "brandcity_";
     var cityId = '<%=cityId%>';
     var makeId = '<%=makeId%>';
     lscache.setBucket('BrandCitypopup');
@@ -112,10 +113,10 @@
         $("#brandcitypopupContent").show();
         appendHash("searchbybrandcity");
         vmbrandcity.FillBrandsPopup();
+       
     });
 
     $('#brandcitypopupWrapper .close-btn').click(function () {
-        //$('.getquotation').removeClass('ui-btn-active');
         $("#brandcitypopupContent").hide();
         $('#brandcitypopupWrapper').removeClass('loader-active').hide();
     });
@@ -124,18 +125,18 @@
     var BrandCityPopup = function () {
         var self = this;
         self.selectCity = ko.observable(),
-        self.SelectedCityId = ko.observable(),
         self.SelectedMakeId = ko.observable(),
         self.listCities = ko.observableArray([]),
+        self.SelectedCityId = ko.observable(cityId);
         self.selectedBrand = ko.observable(),
         self.bookingBrands = ko.observableArray([]),
         self.oBrowser = ko.observable(<%= (isOperaBrowser).ToString().ToLower()%>),
-        self.makeApiUrl = "/api/makelist/?requesttype=" +req,
+        self.makeApiUrl = "/api/makelist/?requesttype=" + '<%=(int)requestType%>',
         self.brandFilter = ko.observable(""),
         self.cityFilter = ko.observable(""),
         self.LoadingText = ko.observable("Loading..."),
         self.searchByBrandCityBtnClicked = ko.observable(false),
-        self.makeMasking = ko.pureComputed(function () {
+         self.makeMasking = ko.pureComputed(function () {
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand().makeId;
             }).maskingName;
@@ -146,9 +147,9 @@
             }).cityMaskingName;
         })
         self.cityApiUrl = ko.pureComputed(function () {
-            if (req == 12)
+            if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
                 return ("/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId);
-            else if (req == 13)
+            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString.ToLower()%>')
                 return ("/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/");
         })
         
@@ -232,13 +233,16 @@
                 if (data = lscache.get(BrandCityKey)) {
                     var cities = ko.toJS(data);
                     if (cities) {
-                        self.listCities(data);
-                        if (self.listCities() != null && self.listCities().length > 0) {
+                        self.listCities(cities);
+                       
                             isAborted = true;
-                        }
-                        
-                    }
-                    self.preselectCity();
+                            if(self.SelectedCityId()!=null)
+                            {
+                                self.preselectCity();
+                            }
+                            else self.selectCity(null);
+                     }
+                    
                 }
                 
                 if (!isAborted) {
@@ -251,14 +255,20 @@
                         },
                         success: function (response) {
                             var cities;
-                            if(req==12)
+                            if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
                             cities = ko.toJS(response.City);
-                            else if(req==13)
+                            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>')
                                 cities = ko.toJS(response);
                             if (cities) {
                                 lscache.set(BrandCityKey, cities, 60);
                                 self.listCities(cities);
-                            }
+                                if(self.SelectedCityId()!=null )
+                                {
+                                    self.preselectCity();
+                                }
+                                else self.selectCity(null);
+                            }         
+                            
                             else {
                                 self.listCities([]);
                             }
@@ -266,9 +276,6 @@
                         },
                         error: function (e) {
                             self.listCities([]);
-                        },
-                        complete: function () {
-                            self.preselectCity();
                         }
                     });
                 }
@@ -282,10 +289,18 @@
             isValid = true;
             if (self.selectedBrand() == undefined && self.searchByBrandCityBtnClicked()) {
                 isValid = false;
+                self.setError($("#makeSelection"), 'Please select a brand');
+                
             }
             if (self.bookingBrands().length > 0 && self.selectCity() == undefined && self.searchByBrandCityBtnClicked()) {
                 isValid = false;
+                self.setError($("#citiesSelection"), 'Please select a city');
+             
             }
+            if (isValid) {
+                self.hideError($("#makeSelection"));
+                self.hideError($("#citiesSelection"));
+                }
             return isValid;
         }
 
@@ -293,10 +308,10 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
-                if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.Dealer%>') {
+                if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>') {
                     window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
-                else if (requestType == '<%=Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter%>') {
+                else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>') {
                     window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
                 }
             }
@@ -309,15 +324,17 @@
             }
         }
         self.preselectCity = function () {
-            if (cityId > 0 && self.listCities().length > 0) 
-                self.selectCity(self.findCityById(parseInt(cityId)));
-         }
 
+            if (self.listCities().length > 0) {
+                self.selectCity(self.findCityById(parseInt(self.SelectedCityId())));
+            }
+        }
         self.chooseBrand = function (data, event) {
 
             if (!self.oBrowser()) {
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 self.selectedBrand(data);
+                self.makeChangedPopup();
                 self.SelectedMakeId(data.id);
             }
             else {
@@ -326,17 +343,18 @@
             }
 
             if (self.selectedBrand() != null) {
-                $('#city-area-content').addClass('city-selected');
                 self.LoadingText("Loading cities for " + self.selectedBrand().name);
+                self.makeChangedPopup();
             }
-            self.makeChangedPopup();
+            
         };
 
         self.chooseCity = function (data, event) {
             if (!self.oBrowser()) {
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 self.selectCity(data);
-                self.SelectedCityId(data.id);
+                
+                self.SelectedCityId(data.cityId);
             }
             else {
                 self.selectCity(findCityById(self.SelectedCityId()));
@@ -357,7 +375,22 @@
                     return child;
             });
         }
+
+        self.setError = function (element, msg) {
+            element.addClass("border-red");
+            element.find("span.errorIcon, div.errorText").removeClass("hide");
+            element.find("div.errorText").text(msg);
+        };
+
+        self.hideError = function (element) {
+            element.removeClass("border-red");
+            element.find("span.errorIcon, div.errorText").addClass("hide");
+
+        };
+             
     };
+   
+
     $("#popupCitiesList").on("click", "li", function () {
         var self = $(this);
         self.addClass('activeBrand').siblings().removeClass('activeBrand');

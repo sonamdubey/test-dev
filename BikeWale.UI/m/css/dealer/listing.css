@@ -1,4 +1,5 @@
 ﻿@charset "utf-8";
+
 .padding-15-20 {
     padding: 15px 20px;
 }
@@ -8,35 +9,35 @@
     padding: 0 20px 20px;
 }
 
-#dealersList li {
-    border-top:1px solid #e2e2e2;
-    padding-top:15px;
-    margin-top:20px;
-    font-size: 14px;
-}
+    #dealersList li {
+        border-top: 1px solid #e2e2e2;
+        padding-top: 15px;
+        margin-top: 20px;
+        font-size: 14px;
+    }
 
-#dealersList li:first-child {
-    border-top: 0;
-    margin-top:0;
-}
+        #dealersList li:first-child {
+            border-top: 0;
+            margin-top: 0;
+        }
 
-#dealersList a {
-    display:block;
-}
+    #dealersList a {
+        display: block;
+    }
 
-#dealersList a:hover { 
-    text-decoration:none;
-}
+        #dealersList a:hover {
+            text-decoration: none;
+        }
 
 .featured-tag {
-    width:74px;
+    width: 74px;
     text-align: center;
-    background:#3799a7;
+    background: #3799a7;
     margin-bottom: 5px;
-    z-index:1;
+    z-index: 1;
     font-size: 12px;
     color: #fff;
-    line-height:20px;
+    line-height: 20px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -o-border-radius: 2px;
@@ -44,12 +45,12 @@
 }
 
 .vertical-top {
-    display:inline-block;
-    vertical-align:top;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .dealership-details {
-    width:92%;
+    width: 92%;
 }
 
 .leadcapturebtn.btn {
@@ -59,11 +60,11 @@
 
 /* icons */
 .dealership-loc-icon {
-    width:10px;
-    height:14px;
-    background-position:-40px -436px;
-    position:relative;
-    top:4px;
+    width: 10px;
+    height: 14px;
+    background-position: -40px -436px;
+    position: relative;
+    top: 4px;
     margin-right: 3px;
 }
 
@@ -88,9 +89,10 @@
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.card-container .swiper-slide { 
-    width:200px;
-}
+
+    .card-container .swiper-slide {
+        width: 200px;
+    }
 
 .swiper-slide:first-child {
     margin-left: 5px;
@@ -98,32 +100,32 @@
 
 .swiper-card {
     margin-left: 5px;
-    width:200px;
-    min-height:210px;
-    border:1px solid #e2e2e2\9;
-    background:#fff;
+    width: 200px;
+    min-height: 210px;
+    border: 1px solid #e2e2e2\9;
+    background: #fff;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -webkit-border-radius:2px;
-    -moz-border-radius:2px;
-    -ms-border-radius:2px;
-    border-radius:2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
 }
 
-.swiper-card a:hover {
-    text-decoration: none;
-}
+    .swiper-card a:hover {
+        text-decoration: none;
+    }
 
 .swiper-image-preview {
     height: 95px;
     padding: 5px 5px 0;
 }
 
-.swiper-image-preview img {
-    height: 90px;
-}
+    .swiper-image-preview img {
+        height: 90px;
+    }
 
 .padding-10-15 {
     padding: 10px 15px;
@@ -135,33 +137,43 @@
 }
 
 .text-truncate {
-    width:100%;
-    text-align:left;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    overflow:hidden;
+    width: 100%;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .details-column {
-  width: 92%;
+    width: 92%;
 }
 
 .bw-horizontal-swiper.card-container .swiper-slide {
     width: 308px;
 }
+
 .bw-horizontal-swiper .swiper-card {
     width: 308px;
     font-size: 14px;
     min-height: 140px;
 }
-.bw-horizontal-swiper .swiper-card a {
-    display: block;
-    padding: 15px 10px 10px;
+
+    .bw-horizontal-swiper .swiper-card a {
+        display: block;
+        padding: 15px 10px 10px;
+    }
+
+.edit-blue {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -257px;
 }
+
 @media only screen and (max-width: 320px) {
     .bw-horizontal-swiper.card-container .swiper-slide {
         width: 275px;
     }
+
     .bw-horizontal-swiper .swiper-card {
         width: 275px;
     }
