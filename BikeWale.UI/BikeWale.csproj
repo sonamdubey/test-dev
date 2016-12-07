@@ -384,6 +384,10 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\BrandCityPopUp.ascx.cs">
+      <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\BikeCare.ascx.cs">
       <DependentUpon>BikeCare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1826,6 +1830,7 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
+    <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />

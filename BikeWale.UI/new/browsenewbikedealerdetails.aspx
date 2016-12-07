@@ -3,6 +3,7 @@
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -24,14 +25,144 @@
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <style type="text/css">
         .dealer-card-target:hover,.dealer-info-tooltip a:hover{text-decoration:none}.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%}#dealersList li{padding-bottom:20px;border-top:1px solid #eee}#dealersList li:first-child{border-top:0}.dealer-card-target{display:block;padding-top:18px}.dealer-card-target .dealer-name{display:block;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.featured-tag{width:74px;display:block;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px;position:relative;top:-4px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}.dealer-map-wrapper{width:100%;height:530px;display:block;position:relative}.dealer-info-tooltip{max-width:350px}#dealersMap .dealership-card-details{width:80%}.dealer-info-tooltip a:hover p{text-decoration:underline}#used-bikes-content .grid-6{display:inline-block;vertical-align:top;width:49%;float:none}.dealership-loc-icon{width:9px;height:12px;background-position:-52px -469px;position:relative;top:4px}.phone-black-icon{width:10px;height:10px;background-position:-73px -444px;position:relative;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.btn.btn-size-2{padding:9px 20px}.card{width:292px;min-height:140px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);box-shadow:0 1px 2px 0 rgba(0,0,0,.2);float:left;margin-left:30px;margin-bottom:20px}.card:first-child{margin-left:20px}.card .card-target{min-height:140px;display:block;padding:15px 20px 0}.card .card-target:hover{text-decoration:none}.card .text-truncate{width:100%}.details-column{width:92%}@media only screen and (max-width:1024px){#city-dealer-list li{width:280px}}
+            text-decoration: none;
+        }
+
+        .padding-14-20 {
+            padding: 14px 20px;
+        }
+
+        .padding-18-20 {
+            padding: 18px 20px;
+        }
+
+        #listing-left-column.grid-4 {
+            padding-right: 20px;
+            padding-left: 20px;
+            width: 32.333333%;
+            box-shadow: 0 0 8px #ddd;
+            z-index: 1;
+        }
+
+        #listing-right-column.grid-8 {
+            width: 67.666667%;
+        }
+
+        #dealersList li {
+            padding-bottom: 20px;
+            border-top: 1px solid #eee;
+        }
+
+            #dealersList li:first-child {
+                border-top: 0;
+            }
+
+        .dealer-card-target {
+            display: block;
+            padding-top: 18px;
+        }
+
+            .dealer-card-target .dealer-name {
+                display: block;
+                text-align: left;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+        .featured-tag {
+            width: 74px;
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            background: #3799a7;
+            z-index: 1;
+            font-weight: 400;
+            font-size: 12px;
+            color: #fff;
+            border-radius: 2px;
+            position: relative;
+            top: -4px;
+        }
+
+        .vertical-top {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .dealership-card-details {
+            width: 92%;
+        }
+
+        .dealer-map-wrapper {
+            width: 100%;
+            height: 530px;
+            display: block;
+            position: relative;
+        }
+
+        .dealer-info-tooltip {
+            max-width: 350px;
+        }
+
+        #dealersMap .dealership-card-details {
+            width: 80%;
+        }
+
+        .dealer-info-tooltip a:hover p {
+            text-decoration: underline;
+        }
+
+        #used-bikes-content .grid-6 {
+            display: inline-block;
+            vertical-align: top;
+            width: 49%;
+            float: none;
+        }
+
+        .dealership-loc-icon {
+            width: 9px;
+            height: 12px;
+            background-position: -52px -469px;
+            position: relative;
+            top: 4px;
+        }
+
+        .phone-black-icon {
+            width: 10px;
+            height: 10px;
+            background-position: -73px -444px;
+            position: relative;
+            top: 5px;
+        }
+
+        .star-white {
+            width: 8px;
+            height: 8px;
+            background-position: -222px -107px;
+            margin-right: 4px;
+        }
+
+        .blue-right-arrow-icon {
+            width: 6px;
+            height: 10px;
+            background-position: -74px -469px;
+            position: relative;
+            top: 1px;
+            left: 7px;
+        }
+
+        .btn.btn-size-2 {
+            padding: 9px 20px;
+        }
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
-        var currentCityName = '<%= cityName %>';
+    var currentCityName = '<%= cityName %>';
         var pageUrl = '<%= pageUrl %>';
         var clientip = '<%= clientIP %>';
-    </script>
+      </script>
 
 </head>
 <body class="bg-light-grey">
@@ -70,7 +201,7 @@
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
                             <h1><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
-                        </div>
+                             </div>
                         <p class="font14 text-light-grey content-inner-block-20">
                             <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
                             For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
@@ -85,7 +216,10 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> </h2>
+                        <h2 class="font18 text-black text-bold bg-white padding-18-20"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> 
+                            <a href="javascript void()" id="brandSelect" ><span class="bwsprite blue-right-arrow-icon"></span></a>
+                        </h2>
+                        
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
@@ -176,7 +310,8 @@
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+        <BW:BrandCity ID="ctrlBrandCity" runat="server" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
@@ -201,7 +336,8 @@
                 };
                 dleadvm.setOptions(leadOptions);
             });
-        </script>
+
+         </script>
     </form>
 </body>
 </html>

@@ -274,7 +274,8 @@ a.action-btn:hover{text-decoration:none;}
 .btn-loader {background-color:#822821;}
 .btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
 #popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
-#divCityLoader, #divAreaLoader { border:1px solid #ccc; border-radius:4px; }
+#brandcityPopup .form-control, #brandcityPopup .chosen-container { border:none; }
+#divCityLoader, #divAreaLoader, #divBrandLoader, #divCitiesLoader { border:1px solid #ccc; border-radius:4px; }
 
 .bg-footer { background: #323434; }
 .margin-left-1 { margin-left:-1px;}
@@ -283,6 +284,7 @@ a.action-btn:hover{text-decoration:none;}
 .margin-left30 { margin-left: 30px; }
 .margin-left40 { margin-left: 40px; }
 .margin-left50 { margin-left: 50px; }
+.margin-left60 { margin-left: 60px; }
 .margin-left70 { margin-left: 70px; }
 
 .margin-top25 { margin-top: 25px; }
