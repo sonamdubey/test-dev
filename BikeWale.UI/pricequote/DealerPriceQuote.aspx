@@ -542,12 +542,6 @@
                                 </p>
                             </div>
                             <% } %>
-                            <%else
-                              { %>
-                            <div class="inner-card-shadow margin-top20">
-                                <div class="pq-no-premium-dealer font14 text-light-grey">Sorry, there are no partner dealers nearby</div>
-                            </div>
-                            <%} %>
                         </div>
                     </div>
                 </div>
