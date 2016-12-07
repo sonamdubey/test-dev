@@ -204,6 +204,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                             _category = "NEWS";
                             break;
                         case EnumCMSContentType.Features:
+                        case EnumCMSContentType.SpecialFeature:
                             _category = "FEATURES";
                             break;
                         case EnumCMSContentType.ComparisonTests:

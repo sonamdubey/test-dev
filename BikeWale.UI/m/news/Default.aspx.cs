@@ -152,6 +152,7 @@ namespace Bikewale.Mobile.News
                             _category = "NEWS";
                             break;
                         case EnumCMSContentType.Features:
+                        case EnumCMSContentType.SpecialFeature:
                             _category = "FEATURES";
                             break;
                         case EnumCMSContentType.ComparisonTests:
