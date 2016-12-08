@@ -17,7 +17,7 @@
         .errMessage {color:#FF4A4A;}
         .valign { vertical-align: top;}
     </style>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0"></script>    
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 </head>
 <body>

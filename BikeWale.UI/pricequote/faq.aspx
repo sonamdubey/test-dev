@@ -9,7 +9,7 @@
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
     <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body class="header-fixed-inner">

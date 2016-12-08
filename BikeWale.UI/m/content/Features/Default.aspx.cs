@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
-using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -16,10 +15,10 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Linq;
 
 namespace Bikewale.Mobile.Content
 {
@@ -38,7 +37,7 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected int curPageNo = 1;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-        private const int _pageSize = 10, _pagerSlotSize=5;
+        private const int _pageSize = 10, _pagerSlotSize = 5;
         private bool _isContentFound = true;
         protected int startIndex = 0, endIndex = 0;
         protected uint totalArticles;
@@ -181,8 +180,8 @@ namespace Bikewale.Mobile.Content
 
                 //For SEO
 
-                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+                prevPageUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextPageUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {

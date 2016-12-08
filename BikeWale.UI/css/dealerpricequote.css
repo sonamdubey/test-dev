@@ -18,7 +18,7 @@
 .variants-dropdown-list li:hover input{cursor:pointer; background:#82888b; color:#fff; }
 .border-light-top { border-top: 1px solid #f1f1f1; }
 .border-light-bottom { border-bottom: 1px solid #f1f1f1; }
-.offer-benefit-sprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
+.offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
 .benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width:30px; }
 .benifitIcon_1 { height:26px; background-position:0 -181px; }
 .benifitIcon_2 { height:30px; background-position:0 -141px; }
@@ -53,12 +53,12 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 5px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 .emi-slider-box-right-section { width:138px; height:40px; border:1px solid #e2e2e2; float:right; margin-top:10px; padding:8px; text-align:center; }
 /* range points */
 .slider-range-points ul li { float:left; position:relative; }
 .slider-range-points ul.range-pointsUL li { width:12.5%; }
-.range-points-bar { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/slider-sprite.png?v=27012016v1) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
 .range-points-bar span { position:absolute; top:5px; left:-7px; font-size:11px; }
 .range-points-bar:first-child span { left:0px; }
 .slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }

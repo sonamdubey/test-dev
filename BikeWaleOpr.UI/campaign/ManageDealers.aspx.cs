@@ -77,7 +77,7 @@ namespace BikewaleOpr.Campaign
                         reqFormMaskingNumber,
                         txtCampaignName.Text.Trim(),
                         txtDealerEmail.Text.Trim(),
-                        Convert.ToInt32(reqLeadsLimit),
+                        !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
                         false);
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -94,7 +94,7 @@ namespace BikewaleOpr.Campaign
                          reqFormMaskingNumber,
                          txtCampaignName.Text.Trim(),
                          txtDealerEmail.Text.Trim(),
-                        Convert.ToInt32(reqLeadsLimit),
+                         !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
                          false);
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;

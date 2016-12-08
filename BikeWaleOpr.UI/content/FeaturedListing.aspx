@@ -165,7 +165,7 @@
 							</asp:TemplateColumn>
 
 							<asp:TemplateColumn ItemStyle-Width="30">
-								<itemtemplate> <a title="Click to Edit" href="FeaturedListing.aspx?UpdateId=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>" style="cursor:pointer; "><img src="http://opr.carwale.com/images/edit.jpg" border="0" alt="edit"/></a> </itemtemplate>
+								<itemtemplate> <a title="Click to Edit" href="FeaturedListing.aspx?UpdateId=<%# DataBinder.Eval( Container.DataItem, "ID" ) %>" style="cursor:pointer; "><img src="https://opr.carwale.com/images/edit.jpg" border="0" alt="edit"/></a> </itemtemplate>
 							</asp:TemplateColumn>
 								
 						</columns>			

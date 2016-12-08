@@ -31,7 +31,7 @@ namespace Bikewale.Notifications.MailTemplates
                     "<div style=\"max-width:692px; margin:0 auto; border:1px solid #8a9093; font-family: Arial, Helvetica, sans-serif; font-size:14px; color:#4d5057; background:#f5f5f5; word-wrap:break-word;\">"
                         + "<div style=\"padding:10px 20px; margin-bottom:20px;\">"
                             + "<div style=\"float:left; max-width:110px;\">"
-                                + "<a href=\"#\" target=\"_blank\"><img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\"/></a>"
+                                + "<a href=\"#\" target=\"_blank\"><img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png\" alt=\"BikeWale\" title=\"BikeWale\" width=\"100%\" border=\"0\"/></a>"
                             + "</div>"
                             + "<div style=\"float:right; color:#82888b; line-height:32px;\"> {0} "
                             + "</div>"

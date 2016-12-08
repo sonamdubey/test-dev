@@ -39,7 +39,7 @@
     display: table-cell;
     vertical-align: middle;
     line-height: 0;
-    background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center center;
+    background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center center;
 }
 
 .model-thumbnail-image img {
@@ -373,7 +373,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -13px; z-index: 2; background-position:3px 3px; }
 
 #previous-owners-list {
     overflow: hidden;
@@ -491,7 +491,7 @@
 .filter-bike-banner {
     width:100%;
     height:110px;
-    background: #fff url('http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png') repeat-x center bottom;
+    background: #fff url('https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png') repeat-x center bottom;
 }
 
 /* bike accordion */

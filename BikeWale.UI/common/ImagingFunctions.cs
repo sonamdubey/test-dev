@@ -257,7 +257,7 @@ namespace Bikewale.Common
             string absolutePath = "";
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
-                absolutePath = "http://img.aeplcdn.com" + relativePath;
+                absolutePath = "https://img.aeplcdn.com" + relativePath;
             else
                 absolutePath = "http://webserver:8083" + relativePath;
 
@@ -271,7 +271,7 @@ namespace Bikewale.Common
             string absolutePath = "";
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
-                absolutePath = "http://" + hostUrl + relativePath;
+                absolutePath = "https://" + hostUrl + relativePath;
             else
                 absolutePath = "http://webserver:8083" + relativePath;
 
@@ -286,7 +286,7 @@ namespace Bikewale.Common
             string absolutePath = "";
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
-                absolutePath = "http://" + hostUrl + relativePath;
+                absolutePath = "https://" + hostUrl + relativePath;
             else
                 absolutePath = "http://webserver:8082/images" + relativePath;
 
@@ -364,7 +364,7 @@ namespace Bikewale.Common
         // Function to return the image path for carwale. If website is live then img.carwale or path is webserver:8083
         public static string GetRootImagePath()
         {
-            return "http://" + ConfigurationManager.AppSettings["imgHostURL"];
+            return "https://" + ConfigurationManager.AppSettings["imgHostURL"];
         }
 
         public static string GetImagePathCWImg(string relativePath, string hostUrl)
@@ -372,7 +372,7 @@ namespace Bikewale.Common
             string absolutePath = "";
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("bikewale.com") >= 0)
-                absolutePath = "http://" + hostUrl + relativePath;
+                absolutePath = "https://" + hostUrl + relativePath;
             else
                 absolutePath = "/images" + relativePath;
 
@@ -397,7 +397,7 @@ namespace Bikewale.Common
 
         public static string GetPathToShowImages(string relativePath)
         {
-            return "http://" + ConfigurationManager.AppSettings["imgHostURL"] + relativePath;
+            return "https://" + ConfigurationManager.AppSettings["imgHostURL"] + relativePath;
         }
 
         public static string GetPathToShowImages(string relativePath, string hostUrl)

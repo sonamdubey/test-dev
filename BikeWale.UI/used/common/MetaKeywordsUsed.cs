@@ -47,15 +47,15 @@ namespace Bikewale.Used
                 PageKeywords = "used bikes in " + cityMaskingName + ", find used bikes in " + cityMaskingName + ", buy used bikes " + cityMaskingName + ", search bikes, find bikes, bike listing, bike sale, bike sale in india, india bike search, Bajaj, Aprilia, BMW, Ducati, Harley Davidson, Hero, Honda, Hyosung, KTM, Mahindra, Royal Enfield, Suzuki, Yamaha, Yo, TVS, Vespa, Kawasaki";
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
                 }
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-" + cityMaskingName + "/";
                 }
             }
             else if (!String.IsNullOrEmpty(makeId) && !String.IsNullOrEmpty(cityId))
@@ -67,15 +67,15 @@ namespace Bikewale.Used
                 SearchPageTitle = "Used " + makeMaskingName + " bikes in " + cityMaskingName;
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
                 }
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-" + cityMaskingName + "/";
                 }
 
             }
@@ -88,16 +88,16 @@ namespace Bikewale.Used
                 SearchPageTitle = "Used " + makeMaskingName + " " + modelMaskingName + " bikes";
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
                 }
 
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-" + modelMaskingName + "-bikes-in-india/";
                 }
 
 
@@ -111,15 +111,15 @@ namespace Bikewale.Used
                 SearchPageTitle = "Used " + makeMaskingName + " bikes";
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-india/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-india/";
                 }
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-india/";
+                    Canonical = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + makeMaskingName + "-bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + makeMaskingName + "-bikes-in-india/";
                 }
 
             }
@@ -133,15 +133,15 @@ namespace Bikewale.Used
                 SearchPageTitle = "Used bikes in " + cityMaskingName;
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + "bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + "bikes-in-" + cityMaskingName + "/";
                 }
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/" + "bikes-in-" + cityMaskingName + "/";
+                    Canonical = "https://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/" + "bikes-in-" + cityMaskingName + "/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/" + "bikes-in-" + cityMaskingName + "/";
                 }
 
             }
@@ -155,15 +155,15 @@ namespace Bikewale.Used
 
                 if (pageNo == "" || pageNo == "1")
                 {
-                    Canonical = "http://www.bikewale.com/used/bikes-in-india/";
-                    BaseURL = "http://www.bikewale.com/used/bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/bikes-in-india/";
+                    Canonical = "https://www.bikewale.com/used/bikes-in-india/";
+                    BaseURL = "https://www.bikewale.com/used/bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/bikes-in-india/";
                 }
                 else
                 {
-                    Canonical = "http://www.bikewale.com/used/bikes-in-india/" + "page-" + pageNo + "/";
-                    BaseURL = "http://www.bikewale.com/used/bikes-in-india/" + "page-";
-                    altUrL = "http://www.bikewale.com/m/used/bikes-in-india/" + "page-" + pageNo + "/";
+                    Canonical = "https://www.bikewale.com/used/bikes-in-india/" + "page-" + pageNo + "/";
+                    BaseURL = "https://www.bikewale.com/used/bikes-in-india/" + "page-";
+                    altUrL = "https://www.bikewale.com/m/used/bikes-in-india/" + "page-" + pageNo + "/";
                 }
             }
         }

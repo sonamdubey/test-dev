@@ -127,7 +127,7 @@
                     <td><%= ++index %></td>   
                     <td >
                         <div class="image_wrapper">
-                            <img class="vs-image" src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png" /> 
+                            <img class="vs-image" src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png" /> 
                             <img class="model-img-content" src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl1,"110x61",bike.OriginalImagePath1) %>" /> 
                             <img class="model-img-content"  src="<%= BikeWaleOpr.ImagingOperations.GetPathToShowImages(bike.HostUrl2,"110x61",bike.OriginalImagePath2) %>" /> 
                         </div>
@@ -135,10 +135,10 @@
                     <td><%= bike.Bike1 %></td>                
                     <td><%= bike.Bike2 %></td>                                          
                     <td><%= bike.EntryDate %></td>                                                         
-                    <td class="centreAlign"><a href='bikecomparisonlist.aspx?id=<%= bike.ComparisionId %>'><img border=0 src=http://opr.carwale.com/images/edit.jpg /></a></td> 
+                    <td class="centreAlign"><a href='bikecomparisonlist.aspx?id=<%= bike.ComparisionId %>'><img border=0 src=https://opr.carwale.com/images/edit.jpg /></a></td> 
                    <td><input class="txtWidth priority" type="text" style="width:25px" id="txtPriority" value="<%= (bike.PriorityOrder > 0) ? bike.PriorityOrder.ToString() : string.Empty %>" compId='<%= bike.ComparisionId %>' /></td>
                    <td class="centreAlign"><span id="status"><%= bike.IsActive ? "Active" : "Inactive" %></span></td>
-                   <td class="centreAlign"><a class="delete" Id='<%= bike.ComparisionId %>' style="cursor:pointer;" ><img src="http://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
+                   <td class="centreAlign"><a class="delete" Id='<%= bike.ComparisionId %>' style="cursor:pointer;" ><img src="https://opr.carwale.com/images/icons/delete.ico" border="0"/></a></td>                              
               </tr> 
         <% } %>
         </table>

@@ -55,28 +55,28 @@
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
-                                                    <img src="http://imgd4.aeplcdn.com/476x268//staging/bw/used/S42661/42661_20160721050709814.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
+                                                    <img src="https://imgd4.aeplcdn.com/476x268//staging/bw/used/S42661/42661_20160721050709814.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
-                                                    <img src="http://imgd4.aeplcdn.com/476x268//staging/bw/used/S42670/42670_20160722042837543.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
+                                                    <img src="https://imgd4.aeplcdn.com/476x268//staging/bw/used/S42670/42670_20160722042837543.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
-                                                    <img src="http://imgd2.aeplcdn.com//476x268//bw/used/S42602/42602_20160613114137617.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
+                                                    <img src="https://imgd2.aeplcdn.com//476x268//bw/used/S42602/42602_20160613114137617.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
                                                 </span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="carousel-img-container">
                                                 <span>
-                                                    <img src="http://imgd2.aeplcdn.com//476x268//bw/used/S42598/42598_20160613081003622.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
+                                                    <img src="https://imgd2.aeplcdn.com//476x268//bw/used/S42598/42598_20160613081003622.jpg" title="Bajaj Pulsar RS200 Tail lamp" alt="Bajaj Pulsar RS200 Tail lamp" border="0">
                                                 </span>
                                             </div>
                                         </li>
@@ -302,7 +302,7 @@
                                             <a href="" title="Bajaj Discover 150S" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd4.aeplcdn.com/310x174//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="Bajaj Discover 150S" border="0">
+                                                        <img class="lazy" data-original="https://imgd4.aeplcdn.com/310x174//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="Bajaj Discover 150S" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -339,7 +339,7 @@
                                             <a href="" title="Suzuki GS150R Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd2.aeplcdn.com//310x174//bw/used/S42598/42598_20160613081003622.jpg" alt="Suzuki GS150R Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/used/S42598/42598_20160613081003622.jpg" alt="Suzuki GS150R Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -376,7 +376,7 @@
                                             <a href="" title="Bajaj Pulsar 150 DTS-i Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/used/S42590/42590_20160613051732997.jpg" alt="Bajaj Pulsar 150 DTS-i Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/used/S42590/42590_20160613051732997.jpg" alt="Bajaj Pulsar 150 DTS-i Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -413,7 +413,7 @@
                                             <a href="" title="KTM Duke 200 Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd2.aeplcdn.com//310x174//bw/used/S42584/42584_20160613043659076.jpg" alt="KTM Duke 200 Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/used/S42584/42584_20160613043659076.jpg" alt="KTM Duke 200 Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -466,7 +466,7 @@
                                             <a href="" title="Bajaj Discover 150S" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd4.aeplcdn.com/310x174//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="Bajaj Discover 150S" border="0">
+                                                        <img class="lazy" data-original="https://imgd4.aeplcdn.com/310x174//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="Bajaj Discover 150S" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -503,7 +503,7 @@
                                             <a href="" title="Suzuki GS150R Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd2.aeplcdn.com//310x174//bw/used/S42598/42598_20160613081003622.jpg" alt="Suzuki GS150R Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/used/S42598/42598_20160613081003622.jpg" alt="Suzuki GS150R Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -540,7 +540,7 @@
                                             <a href="" title="Bajaj Pulsar 150 DTS-i Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//310x174//bw/used/S42590/42590_20160613051732997.jpg" alt="Bajaj Pulsar 150 DTS-i Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/used/S42590/42590_20160613051732997.jpg" alt="Bajaj Pulsar 150 DTS-i Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -577,7 +577,7 @@
                                             <a href="" title="KTM Duke 200 Standard" class="jcarousel-card">
                                                 <div class="model-jcarousel-image-preview">
                                                     <span class="card-image-block">
-                                                        <img class="lazy" data-original="http://imgd2.aeplcdn.com//310x174//bw/used/S42584/42584_20160613043659076.jpg" alt="KTM Duke 200 Standard" border="0">
+                                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/used/S42584/42584_20160613043659076.jpg" alt="KTM Duke 200 Standard" border="0">
                                                     </span>
                                                 </div>
                                                 <div class="card-desc-block">
@@ -642,28 +642,28 @@
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/642x361//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd4.aeplcdn.com/642x361//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/642x361//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd4.aeplcdn.com/642x361//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//642x361//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//642x361//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="stage-slide">
                                             <div class="stage-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//642x361//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//642x361//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
@@ -684,28 +684,28 @@
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/144x81//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd4.aeplcdn.com/144x81//staging/bw/used/S42661/42661_20160721050709814.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd4.aeplcdn.com/144x81//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd4.aeplcdn.com/144x81//staging/bw/used/S42670/42670_20160722042837543.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//144x81//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//144x81//bw/used/S42602/42602_20160613114137617.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="navigation-slide">
                                             <div class="navigation-image-placeholder">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com//144x81//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
+                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//144x81//bw/used/S42598/42598_20160613081003622.jpg" alt="" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif">
                                             </div>
                                         </div>
                                     </li>
@@ -718,12 +718,12 @@
             </div>
         </section>
         
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-details.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>

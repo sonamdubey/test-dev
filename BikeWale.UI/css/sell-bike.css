@@ -20,7 +20,7 @@
     border: 0;
     cursor: pointer;
     border-bottom: 1px solid #82888b;
-    background: transparent url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     -ms-border-radius: 0;
@@ -170,7 +170,7 @@ input[type="number"] {
   padding-bottom: 5px;
   position: relative;
   border-bottom: 1px solid #82888b;
-  background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+  background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
   height: 30px; }
   #select-calendar-box .select-calendar-label {
     font-size: 16px;
@@ -373,7 +373,7 @@ textarea {
   padding-bottom: 5px;
   position: relative;
   border-bottom: 1px solid #82888b;
-  background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+  background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
   height: 30px; }
   #select-color-box .select-color-label {
     font-size: 16px;
@@ -570,7 +570,7 @@ textarea {
 
 /* sprite */
 .sell-bike-sprite {
-  background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=18Nov2016") no-repeat;
+  background: url("https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/sell-bike-sprite.png?v1=18Nov2016") no-repeat;
   display: inline-block; }
 
 .step-1-active,
@@ -683,7 +683,7 @@ textarea {
 .sell-bike-banner {
   max-width: 395px;
   height: 919px;
-  background: #e2e2e2 url("http://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/sell-bike-banner.jpg") no-repeat;
+  background: #e2e2e2 url("https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/sell-bike-banner.jpg") no-repeat;
   position: relative;
   top: -1px;
   left: 2px; }

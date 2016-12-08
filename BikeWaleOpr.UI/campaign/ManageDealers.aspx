@@ -1,12 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealers" AsyncTimeout="45" Async="true" %>
-
+<%@ import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script src="http://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
+<script src="https://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
 <script src="/src/knockout.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<link href="http://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />
+<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />
 
 <style type="text/css">
     .greenMessage {
@@ -73,7 +73,7 @@
         width: 100%;
         height: 100%;
         z-index: 1000;
-        background: rgb(250, 246, 246) url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+        background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
 </style>
 <div>
@@ -128,7 +128,7 @@
                     <tr>
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
-                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric req width300" />
+                            <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
                         </td>
                     </tr>
                     <tr>

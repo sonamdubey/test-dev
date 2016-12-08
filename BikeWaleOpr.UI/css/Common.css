@@ -91,7 +91,7 @@ input.textbox { height:100px; width:300px; }
 .subheader { margin: 0px 0 10px 0; border-bottom: 1px solid #eee; padding: 5px 0 5px 0; background: #A4A4A4; color: #fff; }
 
 /* error class*/
-.bwsprite{background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=19Aug2016v02) no-repeat;display:inline-block}
+.bwsprite{background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v1=19Aug2016v02) no-repeat;display:inline-block}
 .error-icon{background-position:-177px -35px;width:19px;height:19px;position:absolute;right:10px;top:10px;z-index:2}
 .bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
 .bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
@@ -107,7 +107,7 @@ input.textbox { height:100px; width:300px; }
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .clear { clear:both; }
 .hide { display:none; }
@@ -223,7 +223,7 @@ a.selected:link,a.selected:visited,a.selected:hover,a.selected:focus,a.selected:
 
 .gb-content { border: 1px solid #a6c9e2; color: #222222; }
 #gb-window { position: absolute; padding: .1em; width: 300px; z-index:100002; display:none; border: 1px solid #a6c9e2; background-color:#fff;}
-#gb-window #gb-head{position:relative; border: 1px solid #4297d7; background: #5c9ccc url(http://img.carwale.com/cw-common/jq-ui/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; height:25px;}
+#gb-window #gb-head{position:relative; border: 1px solid #4297d7; background: #5c9ccc url(https://img.carwale.com/cw-common/jq-ui/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; height:25px;}
 #gb-window #gb-title { float: left; margin: .4em 0 .3em .3em;} 
 #gb-window #gb-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px;}
 #gb-window #gb-close span { display: block; margin: 1px; }
@@ -247,5 +247,5 @@ a.selected:link,a.selected:visited,a.selected:hover,a.selected:focus,a.selected:
 .dtItem {font-size: larger;}
 
 /* select */
-select { border: 1px solid #888; padding:10px; border-radius: 2px; -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0;}
+select { border: 1px solid #888; padding:10px; border-radius: 2px; -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0;}
 

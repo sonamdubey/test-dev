@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Manage Dealer Loan Amounts (EMI)</title>
-    <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <style type="text/css">
         .errMessage {color:#FF4A4A;}

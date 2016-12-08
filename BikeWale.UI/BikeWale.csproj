@@ -2250,6 +2250,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="Global.asax" />
+    <Content Include="google863c8bc3ae47cfff.html" />
     <Content Include="images\0.gif" />
     <Content Include="images\1.gif" />
     <Content Include="images\action-btn-bg.jpg" />
@@ -2360,6 +2361,7 @@
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="insurance\Default.aspx" />
+    <Content Include="mon\heartbeat_up.html" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
@@ -2479,6 +2481,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2815,6 +2818,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="sass\sell-bike.sass" />
+    <Content Include="mon\web.config" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />

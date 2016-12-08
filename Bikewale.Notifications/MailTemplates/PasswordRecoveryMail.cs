@@ -17,7 +17,7 @@ namespace Bikewale.Notifications.MailTemplates
             try
             {
                 StringBuilder message = new StringBuilder();
-                message.Append("<img align=\"right\" src=\"http://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.Append("<img align=\"right\" src=\"https://imgd4.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
 
@@ -32,7 +32,7 @@ namespace Bikewale.Notifications.MailTemplates
                 message.Append("User ID : " + email + "<br>");
                 //message.Append( "Password : " + password + "<br>" );
                 message.Append("Please click the below link to reset your password.<br>");
-                message.Append("http://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token);
+                message.Append("https://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token);
                 message.Append("<br>Above link is valid for 24 hours only.<br>");
 
                 message.Append("<p>We request your presence on the portal and look forward to serve your diverse needs.</p>");

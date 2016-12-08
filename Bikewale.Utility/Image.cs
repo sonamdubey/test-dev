@@ -15,7 +15,7 @@ namespace Bikewale.Utility
             }
             else
             {
-                imgUrl = string.Format("http://imgd3.aeplcdn.com/{0}/bikewaleimg/images/noimage.png", size);
+                imgUrl = string.Format("https://imgd3.aeplcdn.com/{0}/bikewaleimg/images/noimage.png", size);
             }
             return imgUrl;
         }

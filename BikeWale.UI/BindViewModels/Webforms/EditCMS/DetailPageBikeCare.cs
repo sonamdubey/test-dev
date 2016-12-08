@@ -130,7 +130,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private void GetTipsAndAdviceData()
         {
 
-            canonicalUrl = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
+            canonicalUrl = string.Format("https://www.bikewale.com/bike-care/{0}-{1}.html", objTipsAndAdvice.ArticleUrl, BasicId.ToString());
             data = objTipsAndAdvice.Description;
             author = objTipsAndAdvice.AuthorName;
             pageTitle = objTipsAndAdvice.Title;

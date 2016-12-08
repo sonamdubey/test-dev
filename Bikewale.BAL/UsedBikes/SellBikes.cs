@@ -196,7 +196,7 @@ namespace Bikewale.BAL.UsedBikes
                         {
                             if (!photo.HostUrl.Contains("aeplcdn"))
                             {
-                                photo.ImageUrl = String.Format("http://{0}{1}", photo.HostUrl, photo.OriginalImagePath);
+                                photo.ImageUrl = String.Format("https://{0}{1}", photo.HostUrl, photo.OriginalImagePath);
                             }
                             else
                             {
