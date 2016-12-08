@@ -19,11 +19,15 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body>
+<body class="lock-browser-scroll loader-active">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section>            
+        <div id="ub-ajax-loader">
+            <div id="popup-loader"></div>
+        </div>
+        
+        <section class="hide">            
             
             <% if(isAuthorized) { %>
             <div id="sell-bike-content" class="container bg-white box-shadow margin-bottom20" data-bind="visible:true">  
@@ -58,7 +62,7 @@
                         <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: bikeStatus() ? 'selection-done' : ''">
                             <div id="bike-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label bike-box-default">Bike<sup>*</sup></p>
-                                <p class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike"></p>
+                                <p id="bike-select-p" class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike"></p>
                                 <span class="boundary"></span>
                                 <span class="error-text" data-bind="validationMessage: bike"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
@@ -82,7 +86,7 @@
                         <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: city().length > 0 ? 'selection-done' : ''">
                             <div id="city-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label city-box-default">City<sup>*</sup></p>
-                                <p class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
+                                <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: city, validationElement: city"></p>
                                 <span class="boundary"></span>
                                 <span class="error-text" data-bind="validationMessage: city"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
@@ -209,7 +213,8 @@
                                     <% foreach (var city in objCityList)
                                        { %>
                                     <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
-                                    <% } %>                                    
+                                    <% } %>   
+                                    <li data-cityId="0" data-cityName="No search result!" data-bind="click: $root.FilterCity"><span>No search result!!</span></li>                                     
                                 </ul>
                             </div>
                         </div>
@@ -244,7 +249,7 @@
                             </div>
                             <div class="popup-footer">
                                 <div class="grid-6 alpha">
-                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn">Cancel</button>
+                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn" data-bind="click: cancelColorPopup">Cancel</button>
                                 </div>
                                 <div class="grid-6 omega">
                                     <button type="button" class="btn btn-orange btn-full-width btn-size-sm" data-bind="click: otherColor().length > 0 ? submitOtherColor : submitColor">Done</button>
@@ -390,7 +395,7 @@
 
                         <div class="textarea-box form-control-box margin-bottom30">
                             <p class="textarea-label">Ad description</p>
-                            <textarea rows="2" cols="20" data-bind=" value: adDescription "></textarea>
+                            <textarea maxlength="250" rows="2" cols="20" data-bind=" value: adDescription "></textarea>
                             <span class="boundary"></span>
                         </div>
 
@@ -460,6 +465,8 @@
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
+            var cookieCityName = '<%= cookieCityName%>';
+            var cookieCityId = '<%= cookieCityId%>';
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';            
         </script>
         
@@ -471,6 +478,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>

@@ -382,7 +382,7 @@
             canceledmultiple: noop,
             complete: function (file) {
                 if (file._removeLink) {
-                    file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite cross-md-white\" title=\"Remove photo\"></span>";
+                    file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite bwmsprite cross-md-white\" title=\"Remove photo\"></span>";
                 }
                 if (file.previewElement) {
                     return file.previewElement.classList.add("dz-complete");
@@ -428,7 +428,7 @@
                 throw new Error("Invalid dropzone element.");
             }
             if (this.element.dropzone) {
-                throw new Error("Dropzone already attached.");
+                //throw new Error("Dropzone already attached.");
             }
             Dropzone.instances.push(this);
             this.element.dropzone = this;
