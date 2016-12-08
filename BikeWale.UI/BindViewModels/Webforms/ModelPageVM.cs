@@ -37,8 +37,6 @@ namespace Bikewale.BindViewModels.Webforms
         {
             try
             {
-                // DealerCampaign = GetDetailedDealer(cityId, versionId, dealerId);
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
@@ -58,7 +56,6 @@ namespace Bikewale.BindViewModels.Webforms
                                 MaskingNumber = DealerCampaignV2.PrimaryDealer.DealerDetails.MaskingNumber;
                                 Offers = DealerCampaignV2.PrimaryDealer.OfferList;
                                 MobileNo = DealerCampaignV2.PrimaryDealer.DealerDetails.MobileNo;
-                                // SecondaryDealers = DealerCampaign.SecondaryDealers;
                                 if (DealerCampaignV2.PrimaryDealer.OfferList != null)
                                     OfferCount = Convert.ToUInt16(DealerCampaignV2.PrimaryDealer.OfferList.Count());
                             }
@@ -66,7 +63,6 @@ namespace Bikewale.BindViewModels.Webforms
                                 primaryDealerDistance = DealerCampaignV2.PrimaryDealer.DealerDetails.Distance;
                         }
 
-                        //DealerCampaign.SecondaryDealersV2 = DealerCampaignV2.SecondaryDealers;
                         if (DealerCampaignV2.SecondaryDealers != null)
                         {
                             SecondaryDealersV2 = DealerCampaignV2.SecondaryDealers;
@@ -78,7 +74,7 @@ namespace Bikewale.BindViewModels.Webforms
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.ModelPageVM constructor");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.ModelPageVM constructor-> cityId:{0}, versionId:{1}, dealerId:{2}, areaId{3}", cityId, versionId, dealerId, areaId));
                 objErr.SendMail();
             }
         }
@@ -114,11 +110,10 @@ namespace Bikewale.BindViewModels.Webforms
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ModelPageVM.TotalUsedBikes()");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ModelPageVM.TotalUsedBikes() --> modelId: {0}, cityId: {1}", modelId, cityId));
                 objErr.SendMail();
             }
             return totalUsedBikes;
         }
-
     }
 }

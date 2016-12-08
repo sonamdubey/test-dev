@@ -422,6 +422,11 @@ $("#viewBreakupText").on('click', function (e) {
     secondarydealer_Click(dealerId);
 });
 
+$("#getdealerdetails").on('click', function (e) {
+    triggerGA('Model_Page', 'View_Dealer_Details_Clicked', bikeVersionLocation);
+    secondarydealer_Click(dealerId);
+});
+
 $(".breakupCloseBtn,.blackOut-window").on('click',function (e) {         
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();        
