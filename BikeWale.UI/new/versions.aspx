@@ -553,6 +553,51 @@
             <!-- Terms and condition Popup Ends -->
         </section>
 
+        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
+           { %>
+        <section>
+            <div class="container">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow">
+                        <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
+                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner dealers in Mumbai<span class="model-sprite plus-icon"></span>
+                        </div>
+                        <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel margin-top20 margin-bottom20">
+                                <ul>
+                                    <asp:Repeater ID="rptSecondaryDealers" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a href="javascript:void(0);" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>" class="top-block-target">
+                                                    <div class="grid-10 alpha margin-bottom5">
+                                                        <span class="font14 text-black text-bold text-truncate block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></span>
+                                                    </div>
+                                                    <div class="grid-2 alpha omega font12 text-light-grey text-right pos-top2">99 kms</div>
+                                                    <div class="clear"></div>
+
+                                                    <div class="margin-bottom5">
+                                                        <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
+                                                        <span class="vertical-top details-column font14 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
+                                                    </div>
+
+                                                    <div>
+                                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                                        <span class="vertical-top details-column font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
+                                                    </div>
+
+                                                    <div class="margin-top10">
+                                                        <div class="grid-5 alpha omega">
+                                                            <p class="font12 text-light-grey margin-bottom5">On-road price</p>
+                                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold">59,495</span>
+                                                        </div>
+                                                        <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
+                                                            <span class="bwsprite offers-sm-box"></span>
+                                                            <span class="font14 text-default text-bold">4</span>
+                                                            <span class="font12 text-light-grey">Offers available</span>
+                                                        </div>
+								                        <div class="clear"></div>
+							                        </div>
+
         <% if (viewModel != null && viewModel.IsPremiumDealer && viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
            { %>
         <section>
