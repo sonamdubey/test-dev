@@ -157,7 +157,6 @@
         }
         .dealer-heading{display:inline-block;}
         .edit-blue-link{display:inline-block;font-size:14px;}
-        a.edit-blue-link:hover {text-decoration:none;}
 
     </style>
     <script src="http://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
@@ -207,7 +206,7 @@
                             <h1><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
                              </div>
                         <p class="font14 text-light-grey content-inner-block-20">
-                            <%=makeName%> has <%=totalDealers %> authorized dealers in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
+                            <%=makeName%> has <%=totalDealers %> authorized dealer<%=(totalDealers>1)?"s":"" %> in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
                             For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
 
                         </p>
@@ -221,8 +220,8 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div>
-                            <h2 class="font18 text-black text-bold bg-white padding-18-20 dealer-heading"><%=totalDealers %> <%=makeName %> showrooms in <%=cityName %> </h2>
-                            <a href="javascript:void(0)" rel="nofollow" class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change-text">change</span></a>
+                            <h2 class="font18 text-black text-bold bg-white padding-18-20 dealer-heading"><%=totalDealers %> <%=makeName %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
+                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change text-link">change</span></span>
                         </div>
                         
                         <div id="listing-left-column" class="grid-4">

@@ -273,7 +273,6 @@
 }
 .dealer-heading{display:inline-block;}
 .edit-blue-link{vertical-align:middle;display:inline-block;text-align:center;}
- a.edit-blue-link:hover {text-decoration:none;}
 .change-text{display:block;}
 @media only screen and (max-width: 320px) {
     .bw-horizontal-swiper.card-container .swiper-slide {
