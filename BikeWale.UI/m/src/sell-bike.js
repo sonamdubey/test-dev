@@ -1,11 +1,11 @@
-﻿var sellLoader=  {
-        open: function () {
-            $('html, body').addClass('lock-browser-scroll loader-active');
-        },
+﻿var sellLoader = {
+    open: function () {
+        $('html, body').addClass('lock-browser-scroll loader-active');
+    },
 
-        close: function () {
-            $('html, body').removeClass('lock-browser-scroll loader-active');
-        }
+    close: function () {
+        $('html, body').removeClass('lock-browser-scroll loader-active');
+    }
 }
 
 var citiesList = $("#filter-city-list li"); $("section").show();
@@ -63,7 +63,7 @@ $(document).ready(function () {
 
             searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
         });
-        
+
         var currentDate = new Date(),
             currentMonth = currentDate.getMonth(),
             currentYear = currentDate.getFullYear(),
@@ -183,15 +183,14 @@ $(document).ready(function () {
         console.warn(e);
     }
     sellLoader.close();
-        
+
 });
 
 
 var findCityName = function (cityId) {
-    try{
-        for(i=0; i<3000; i++)
-        {
-            if($(citiesList[i]).attr('data-cityid') == cityId)
+    try {
+        for (i = 0; i < 3000; i++) {
+            if ($(citiesList[i]).attr('data-cityid') == cityId)
                 return ($(citiesList[i]).attr('data-cityname'));
         }
     } catch (e) {
@@ -200,30 +199,42 @@ var findCityName = function (cityId) {
 }
 
 var vmCities = function () {
-    try{
-    var self = this;
-    self.SelectedCity = ko.observable();
+    try {
+        var self = this;
+        //var noResult = '<li> { "text": "No cities found" } </li>';
+        //citiesList.push(noResult);
+        self.cityFilter = ko.observable();
 
-    self.cityFilter = ko.observable();
+        self.visibleCities = ko.computed(function () {
+            var isCityListEmpty = true;
+            filter = self.cityFilter();
+            filterObj = citiesList;
+            if (filter && filter.length > 0) {
+                var pat = new RegExp(filter, "i");
+                citiesList.filter(function (place) {
+                    if (pat.test($(this).text())) {
+                        $(this).show();
+                        isCityListEmpty = false;
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                });
+            }
 
-    self.visibleCities = ko.computed(function () {
-        filter = self.cityFilter();
-        filterObj = citiesList;
-        if (filter && filter.length > 0) {
-            var pat = new RegExp(filter, "i");
-            citiesList.filter(function (place) {
-                if (pat.test($(this).text())) $(this).show(); else $(this).hide();
-            });
-
-        }        
-    });
+            if (filter != "" && !isCityListEmpty) {
+                //var noResult = { "id": 0, "name": "No cities found" };
+                // var noResult = '<li>No search found!</li>';
+                // citiesList.a(noResult);
+            }
+        });
     } catch (e) {
         console.warn(e);
     }
 }
 
 // custom validation function
-var validation = {    
+var validation = {
     greaterThanOne: function (val) {
         val = val.toString();
         val = val.replace(/,/g, "");
@@ -300,7 +311,7 @@ var validation = {
             return false;
         }
         return true;
-    }   
+    }
 }
 
 var congratsScreenDoneFunction = function () {
@@ -313,12 +324,12 @@ var editMyAd = function () {
 
 var setProfilePhoto = function () {
     try {
-    var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
-    if (!container.hasClass('dz-profile-photo')) {
-        container.addClass('dz-profile-photo');
-        container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')
-        vmSellBike.markMainImage($(container).find(".dz-remove").attr("photoid"));
-    }
+        var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
+        if (!container.hasClass('dz-profile-photo')) {
+            container.addClass('dz-profile-photo');
+            container.append('<div id="profile-photo-content"><span class="sell-bike-sprite ribbon-icon"></span><span class="ribbon-label">Profile photo</span></div>')
+            vmSellBike.markMainImage($(container).find(".dz-remove").attr("photoid"));
+        }
     } catch (e) {
         console.warn(e);
     }
@@ -326,9 +337,9 @@ var setProfilePhoto = function () {
 
 function setRemoveLinkUrl(file, imageResult) {
     try {
-    var container = $('#add-photos-dropzone .dz-preview.dz-success');
-    var existingPhotoCount = $('#add-photos-dropzone .dz-preview.dz-success[photoid]').length;
-    $(file._removeLink).attr("photoid", imageResult[0].photoId);
+        var container = $('#add-photos-dropzone .dz-preview.dz-success');
+        var existingPhotoCount = $('#add-photos-dropzone .dz-preview.dz-success[photoid]').length;
+        $(file._removeLink).attr("photoid", imageResult[0].photoId);
     } catch (e) {
         console.warn(e);
     }
@@ -345,7 +356,7 @@ var sellBike = function () {
     self.isEdit = ko.observable(false);
     self.isFakeCustomer = ko.observable(false);
     self.inquiryId = ko.observable();
-    self.customerId = ko.observable();       
+    self.customerId = ko.observable();
     self.profileId = ko.pureComputed(function getProfileId() {
         return ((self.personalDetails().sellerTypeVal() == 1 ? "D" : "S") + self.inquiryId());
     }, this);
@@ -384,128 +395,128 @@ var sellBike = function () {
     self.serverImg = ko.observableArray([]);
     self.initPhotoUpload = function () {
         try {
-        if (!self.isDropzoneInitiated()) {
-            self.isDropzoneInitiated(true);
-            $('#add-photos-dropzone').dropzone({
-                maxFilesize: 4,
-                maxFiles: 10,
-                addRemoveLinks: true,
-                acceptedFiles: ".png, .jpg",
-                url: self.photoUploadUrl(),
-                headers: { "customerId": self.customerId() },
-                init: function () {
-                    var myDropzone = this;
-                    myDropzone.itemId = self.inquiryId();
-                    myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
-                    myDropzone.customerId = self.customerId();
-                    $(self.serverImg()).each(function (i) {
-                        var uF = { name: this.id, size: 12345 };
-                        myDropzone.files.push(uF)
-                        myDropzone.emit("addedfile", uF);
-                        myDropzone.emit("thumbnail", uF, this.imageUrl);
-                        myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
-                        myDropzone.emit("complete", uF);
-                        setProfilePhoto();
-                        $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
-                        $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
-                        $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
-                    });
-                    myDropzone.options.maxFiles -= self.serverImg().length;
-                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                        morePhotos.attach();
-                    }
-                    else {
-                        morePhotos.detach();
-                    }
-
-                    this.on("sending", function (file) {
-                        $(file.previewElement).find('#spinner-content').hide();
-                    });
-
-                    this.on("removedfile", function (file) {
-                        morePhotos.detach();
-                        if (myDropzone.options.maxFiles < 10)
-                            ++myDropzone.options.maxFiles;
-                        self.removePhoto($(file._removeLink).attr("photoid"));
-                        setProfilePhoto();
-                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                            morePhotos.attach();
-                        }
-                        else {
-                            morePhotos.detach();
-                        }
-                    });
-
-                    this.on("success", function (file, response) {
-                        var resp = JSON.parse(response);
-                        if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
-                            setRemoveLinkUrl(file, resp.imageResult);
-                        }
-                    });
-
-                    this.on("error", function (file, response) {
-                        $(file.previewElement).find('#spinner-content').hide();
-                        if (file.xhr && file.xhr.status == 0)
-                            $(file.previewElement).find('.dz-error-message').text("You're offline.");
-                        else
-                            $(file.previewElement).find('.dz-error-message').text(response);
-                        $(file.previewElement).find('.dz-error-mark').on('click', function () {
-                            myDropzone.removeFile(file);
-                            myDropzone.addFile(file);
+            if (!self.isDropzoneInitiated()) {
+                self.isDropzoneInitiated(true);
+                $('#add-photos-dropzone').dropzone({
+                    maxFilesize: 4,
+                    maxFiles: 10,
+                    addRemoveLinks: true,
+                    acceptedFiles: ".png, .jpg",
+                    url: self.photoUploadUrl(),
+                    headers: { "customerId": self.customerId() },
+                    init: function () {
+                        var myDropzone = this;
+                        myDropzone.itemId = self.inquiryId();
+                        myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
+                        myDropzone.customerId = self.customerId();
+                        $(self.serverImg()).each(function (i) {
+                            var uF = { name: this.id, size: 12345 };
+                            myDropzone.files.push(uF)
+                            myDropzone.emit("addedfile", uF);
+                            myDropzone.emit("thumbnail", uF, this.imageUrl);
+                            myDropzone.createThumbnailFromUrl(uF, this.imageUrl);
+                            myDropzone.emit("complete", uF);
+                            setProfilePhoto();
+                            $(myDropzone.files[i].previewElement).addClass("dz-success").find("#spinner-content").hide();
+                            $(myDropzone.files[i].previewElement).addClass("dz-success").find(".dz-success-mark").hide();
+                            $(myDropzone.files[i].previewElement).find(".dz-remove").attr("photoid", this.id);
                         });
-                    });
-
-                    this.on("maxfilesexceeded", function (file) {
-                        $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
-                    });
-
-                    this.on("addedfiles", function (file) {
-                        morePhotos.detach();
-                        if (myDropzone.files.length > myDropzone.options.maxFiles) {
-                            $(file).each(function (i) {
-                                if (10 > i >= self.serverImg().length) {
-                                    myDropzone.cancelUpload(this);
-                                    myDropzone.removeFile(this);
-                                }
-                            });
-                        }
-                        if (myDropzone.options.maxFiles > 0)
-                            myDropzone.options.maxFiles -= file.length;
+                        myDropzone.options.maxFiles -= self.serverImg().length;
                         if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
                             morePhotos.attach();
                         }
                         else {
                             morePhotos.detach();
                         }
-                    });
 
-                    this.on("drop", function (file) {
-                        morePhotos.detach();
-                        if (myDropzone.files.length > myDropzone.options.maxFiles) {
-                            $(file).each(function (i) {
-                                if (10 > i >= self.serverImg().length) {
-                                    myDropzone.cancelUpload(this);
-                                    myDropzone.removeFile(this);
-                                }
-                            });
-                        }
-                        if (myDropzone.options.maxFiles > 0)
-                            myDropzone.options.maxFiles -= file.length;
-                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
-                            morePhotos.attach();
-                        }
-                        else {
+                        this.on("sending", function (file) {
+                            $(file.previewElement).find('#spinner-content').hide();
+                        });
+
+                        this.on("removedfile", function (file) {
                             morePhotos.detach();
-                        }
-                    });
+                            if (myDropzone.options.maxFiles < 10)
+                                ++myDropzone.options.maxFiles;
+                            self.removePhoto($(file._removeLink).attr("photoid"));
+                            setProfilePhoto();
+                            if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                                morePhotos.attach();
+                            }
+                            else {
+                                morePhotos.detach();
+                            }
+                        });
 
-                    this.on("queuecomplete", function (file) {
-                        setProfilePhoto();
-                    });
+                        this.on("success", function (file, response) {
+                            var resp = JSON.parse(response);
+                            if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
+                                setRemoveLinkUrl(file, resp.imageResult);
+                            }
+                        });
 
-                }
-            });
-        }
+                        this.on("error", function (file, response) {
+                            $(file.previewElement).find('#spinner-content').hide();
+                            if (file.xhr && file.xhr.status == 0)
+                                $(file.previewElement).find('.dz-error-message').text("You're offline.");
+                            else
+                                $(file.previewElement).find('.dz-error-message').text(response);
+                            $(file.previewElement).find('.dz-error-mark').on('click', function () {
+                                myDropzone.removeFile(file);
+                                myDropzone.addFile(file);
+                            });
+                        });
+
+                        this.on("maxfilesexceeded", function (file) {
+                            $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
+                        });
+
+                        this.on("addedfiles", function (file) {
+                            morePhotos.detach();
+                            if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                                $(file).each(function (i) {
+                                    if (10 > i >= self.serverImg().length) {
+                                        myDropzone.cancelUpload(this);
+                                        myDropzone.removeFile(this);
+                                    }
+                                });
+                            }
+                            if (myDropzone.options.maxFiles > 0)
+                                myDropzone.options.maxFiles -= file.length;
+                            if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                                morePhotos.attach();
+                            }
+                            else {
+                                morePhotos.detach();
+                            }
+                        });
+
+                        this.on("drop", function (file) {
+                            morePhotos.detach();
+                            if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                                $(file).each(function (i) {
+                                    if (10 > i >= self.serverImg().length) {
+                                        myDropzone.cancelUpload(this);
+                                        myDropzone.removeFile(this);
+                                    }
+                                });
+                            }
+                            if (myDropzone.options.maxFiles > 0)
+                                myDropzone.options.maxFiles -= file.length;
+                            if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                                morePhotos.attach();
+                            }
+                            else {
+                                morePhotos.detach();
+                            }
+                        });
+
+                        this.on("queuecomplete", function (file) {
+                            setProfilePhoto();
+                        });
+
+                    }
+                });
+            }
         } catch (e) {
             console.warn(e);
         }
@@ -590,11 +601,11 @@ var bikeDetails = function () {
     self.color = ko.observable();
     self.colorId = ko.observable();
     self.cityId = ko.observable('');
-    self.regCityId = ko.observable('');    
+    self.regCityId = ko.observable('');
 
     self.makeName = ko.observable('');
     self.modelName = ko.observable('');
-    self.versionName = ko.observable('');    
+    self.versionName = ko.observable('');
 
     self.makeId = ko.observable('');
     self.makeMaskingName = ko.observable('');
@@ -606,13 +617,13 @@ var bikeDetails = function () {
     self.versionMaskingName = ko.observable('');
 
     self.makeChanged = function (data, event) {
-        
+
         //bikePopup.showLoader()
         var element = $(event.currentTarget);
 
         self.modelName('');
         self.versionName('');
-        
+
 
         self.makeName(element.text());
         self.makeId(element.attr("data-id"));
@@ -622,29 +633,29 @@ var bikeDetails = function () {
         bikePopup.scrollToHead();
 
         try {
-        if (self.makeId()) {           
-            $.ajax({
-                type: "Get",
-                async: false,
-                url: "/api/modellist/?requestType=3&makeId=" + self.makeId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {                        
-                        self.modelArray(response.modelList);
+            if (self.makeId()) {
+                $.ajax({
+                    type: "Get",
+                    async: false,
+                    url: "/api/modellist/?requestType=3&makeId=" + self.makeId(),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            self.modelArray(response.modelList);
+                        }
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        //bikePopup.hideLoader()
                     }
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {
-                    //bikePopup.hideLoader()
-                }
-            });
-        }
+                });
+            }
         } catch (e) {
             console.warn(e);
         }
 
-        self.bikeStatus(false);      
-        
+        self.bikeStatus(false);
+
     };
 
     self.modelChanged = function (data, event) {
@@ -659,23 +670,23 @@ var bikeDetails = function () {
         bikePopup.scrollToHead();
 
         try {
-        if (self.modelId()){
-            $.ajax({
-                type: "Get",
-                url: "/api/versionList/?requestType=3&modelId=" + self.modelId(),
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    self.versionArray(response.Version);
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {
-                }
-            });
-        }
+            if (self.modelId()) {
+                $.ajax({
+                    type: "Get",
+                    url: "/api/versionList/?requestType=3&modelId=" + self.modelId(),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        self.versionArray(response.Version);
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                    }
+                });
+            }
         } catch (e) {
             console.warn(e);
         }
-       
+
     };
 
     self.versionChanged = function (data, event) {
@@ -684,39 +695,39 @@ var bikeDetails = function () {
             self.versionName(data.versionName);
             self.versionId(data.versionId);
         }
-        
+
         self.bikeStatus(true);
 
         bikePopup.close();
 
         try {
-        if (self.versionId()){
-            $.ajax({
-                type: "Get",
-                url: "/api/version/" + self.versionId() + "/color/",
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    if (response) {
-                        self.colorArray(response.colors);
+            if (self.versionId()) {
+                $.ajax({
+                    type: "Get",
+                    url: "/api/version/" + self.versionId() + "/color/",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            self.colorArray(response.colors);
+                        }
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
                     }
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {                    
-                }
-            });
-        }
+                });
+            }
         } catch (e) {
             console.warn(e);
         }
-    };   
+    };
 
     self.bike = ko.pureComputed(
-    function () { 
-            if (self.bikeStatus()) {
-                return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
-            }
-            return "";          
-    },this).extend({
+    function () {
+        if (self.bikeStatus()) {
+            return self.makeName() + ' ' + self.modelName() + ' ' + self.versionName();
+        }
+        return "";
+    }, this).extend({
         required: {
             params: true,
             message: 'Please select bike',
@@ -933,7 +944,7 @@ var bikeDetails = function () {
 
 var personalDetails = function () {
     var self = this;
-    
+
     self.validate = ko.observable(false);
     self.sellerTypeVal = ko.observable(2);
     self.mobileLabel = ko.observable(true);
@@ -1037,94 +1048,94 @@ var personalDetails = function () {
         self.validate(true);
 
         try {
-        if (!("colorId" in window))
-            colorId = 0;
+            if (!("colorId" in window))
+                colorId = 0;
 
-        if (self.errors().length === 0) {
-            
-            var bdetails = vmSellBike.bikeDetails();
-            var pdetails = vmSellBike.personalDetails();
-            var inquiryData = {
-                "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
-                "make": {
-                    "makeId": bdetails.makeId,
-                    "makeName": bdetails.makeName,
-                    "maskingName": bdetails.makeMaskingName
-                },
-                "model": {
-                    "modelId": bdetails.modelId,
-                    "modelName": bdetails.modelName,
-                    "maskingName": null
-                },
-                "version": {
-                    "versionId": bdetails.versionId,
-                    "versionName": bdetails.versionName,
-                    "modelName": bdetails.modelName,
-                    "price": 0,
-                    "maskingName": null
-                },
-                "manufacturingYear": bdetails.manufacturingTime(),
-                "kiloMeters": bdetails.kmsRidden().toString().replace(/,/g, ""),
-                "cityId": bdetails.cityId(),
-                "expectedprice": bdetails.expectedPrice().toString().replace(/,/g, ""),
-                "owner": bdetails.owner(),
-                "registrationPlace": bdetails.registeredCity(),
-                "color": bdetails.color(),
-                "colorId": colorId,
-                "sourceId": 2,
-                "status": 1,
-                "pageUrl": "used/sell",
-                "seller": {
-                    "sellerType": pdetails.sellerTypeVal(),
-                    "customerId": userId > 0 ? userId : 0,
-                    "customerName": pdetails.sellerName(),
-                    "customerEmail": pdetails.sellerEmail(),
-                    "customerMobile": pdetails.sellerMobile()
-                },
-                "otherInfo": {
-                    "registrationNo": "",
-                    "insuranceType": "",
-                    "adDescription": ""
+            if (self.errors().length === 0) {
+
+                var bdetails = vmSellBike.bikeDetails();
+                var pdetails = vmSellBike.personalDetails();
+                var inquiryData = {
+                    "InquiryId": vmSellBike.inquiryId() > 0 ? vmSellBike.inquiryId() : 0,
+                    "make": {
+                        "makeId": bdetails.makeId,
+                        "makeName": bdetails.makeName,
+                        "maskingName": bdetails.makeMaskingName
+                    },
+                    "model": {
+                        "modelId": bdetails.modelId,
+                        "modelName": bdetails.modelName,
+                        "maskingName": null
+                    },
+                    "version": {
+                        "versionId": bdetails.versionId,
+                        "versionName": bdetails.versionName,
+                        "modelName": bdetails.modelName,
+                        "price": 0,
+                        "maskingName": null
+                    },
+                    "manufacturingYear": bdetails.manufacturingTime(),
+                    "kiloMeters": bdetails.kmsRidden().toString().replace(/,/g, ""),
+                    "cityId": bdetails.cityId(),
+                    "expectedprice": bdetails.expectedPrice().toString().replace(/,/g, ""),
+                    "owner": bdetails.owner(),
+                    "registrationPlace": bdetails.registeredCity(),
+                    "color": bdetails.color(),
+                    "colorId": colorId,
+                    "sourceId": 2,
+                    "status": 1,
+                    "pageUrl": "used/sell",
+                    "seller": {
+                        "sellerType": pdetails.sellerTypeVal(),
+                        "customerId": userId > 0 ? userId : 0,
+                        "customerName": pdetails.sellerName(),
+                        "customerEmail": pdetails.sellerEmail(),
+                        "customerMobile": pdetails.sellerMobile()
+                    },
+                    "otherInfo": {
+                        "registrationNo": "",
+                        "insuranceType": "",
+                        "adDescription": ""
+                    }
                 }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/used/sell/listing/",
+                    contentType: "application/json",
+                    data: ko.toJSON(inquiryData),
+                    async: false,
+                    success: function (response) {
+                        var res = JSON.parse(response);
+                        if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
+                            vmSellBike.verificationDetails().status(true);
+                            vmSellBike.inquiryId(res.InquiryId);
+                            vmSellBike.customerId(res.CustomerId);
+                        }
+                        else if (res != null && res.Status != null && res.Status.Code == 5) {
+                            vmSellBike.inquiryId(res.InquiryId);
+                            vmSellBike.customerId(res.CustomerId);
+                            vmSellBike.formStep(3);
+                            vmSellBike.initPhotoUpload();
+                        }
+                        else {
+                            vmSellBike.isFakeCustomer(true);
+                        }
+                        scrollToForm.activate();
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr.status != 200)
+                            alert("Something went wrong!! Please try again.");
+                    }
+                });
+            }
+            else {
+                self.errors.showAllMessages();
             }
 
-            $.ajax({
-                type: "POST",
-                url: "/api/used/sell/listing/",
-                contentType: "application/json",
-                data: ko.toJSON(inquiryData),
-                async: false,
-                success: function (response) {
-                    var res = JSON.parse(response);
-                    if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
-                        vmSellBike.verificationDetails().status(true);
-                        vmSellBike.inquiryId(res.InquiryId);
-                        vmSellBike.customerId(res.CustomerId);
-                    }
-                    else if (res != null && res.Status != null && res.Status.Code == 5) {
-                        vmSellBike.inquiryId(res.InquiryId);
-                        vmSellBike.customerId(res.CustomerId);
-                        vmSellBike.formStep(3);
-                        vmSellBike.initPhotoUpload();
-                    }
-                    else {
-                        vmSellBike.isFakeCustomer(true);
-                    }
-                    scrollToForm.activate();
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {
-                    if (xhr.status != 200)
-                        alert("Something went wrong!! Please try again.");
-                }
-            });
-        }
-        else {
-            self.errors.showAllMessages();
-        }
-
-        if (self.mobileError().length != 0) {
-            self.mobileLabel(false);
-        }
+            if (self.mobileError().length != 0) {
+                self.mobileLabel(false);
+            }
         } catch (e) {
             console.warn(e);
         }
@@ -1223,46 +1234,46 @@ var verificationDetails = function () {
         self.validateOTP(true);
 
         try {
-        if (self.errorOTP().length === 0) {
-            scrollToForm.activate();
+            if (self.errorOTP().length === 0) {
+                scrollToForm.activate();
 
-            var otp = vmSellBike.verificationDetails().otpCode();
-            var mobile = vmSellBike.personalDetails().sellerMobile();
-         
-            var mobileVerificationData = {
-                "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
-                "otp": otp,
-                "customerMobile": mobile,
-                "customerId": vmSellBike.customerId(),
-                "inquiryId": vmSellBike.inquiryId(),
-                "isEdit"   : isEdit
-            }
+                var otp = vmSellBike.verificationDetails().otpCode();
+                var mobile = vmSellBike.personalDetails().sellerMobile();
 
-            $.ajax({
-                type: "Post",
-                url: "/api/used/sell/listing/verifymobile/",
-                contentType: "application/json",
-                data: ko.toJSON(mobileVerificationData),
-                dataType: 'json',
-                success: function (response) {
-                    if (!response) {
-                        $("#otpErrorText").show().text("Please enter correct otp");
-                        $('#otpCode').focus();
-                    }
-                    else {
-                        $("#otpErrorText").text("");
-                        vmSellBike.formStep(3);
-                        vmSellBike.initPhotoUpload();
-                    }
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {
-
+                var mobileVerificationData = {
+                    "sellerType": vmSellBike.personalDetails().sellerTypeVal(),
+                    "otp": otp,
+                    "customerMobile": mobile,
+                    "customerId": vmSellBike.customerId(),
+                    "inquiryId": vmSellBike.inquiryId(),
+                    "isEdit": isEdit
                 }
-            });
-        }
-        else {
-            self.errorOTP.showAllMessages();
-        }
+
+                $.ajax({
+                    type: "Post",
+                    url: "/api/used/sell/listing/verifymobile/",
+                    contentType: "application/json",
+                    data: ko.toJSON(mobileVerificationData),
+                    dataType: 'json',
+                    success: function (response) {
+                        if (!response) {
+                            $("#otpErrorText").show().text("Please enter correct otp");
+                            $('#otpCode').focus();
+                        }
+                        else {
+                            $("#otpErrorText").text("");
+                            vmSellBike.formStep(3);
+                            vmSellBike.initPhotoUpload();
+                        }
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+
+                    }
+                });
+            }
+            else {
+                self.errorOTP.showAllMessages();
+            }
         } catch (e) {
             console.warn(e);
         }
@@ -1281,32 +1292,32 @@ var moreDetails = function () {
     self.registrationNumber = ko.observable('');
 
     try {
-    self.updateAd = function () {
+        self.updateAd = function () {
 
-        var moreDetailsData = {
-            "registrationNo": vmSellBike.moreDetails().registrationNumber(),
-            "insuranceType": vmSellBike.moreDetails().insuranceType(),
-            "adDescription": vmSellBike.moreDetails().adDescription() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
-        }
-        $.ajax({
-            type: "Post",
-            url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
-            contentType: "application/json",
-            dataType: 'json',
-            data: ko.toJSON(moreDetailsData),
-            success: function (response) {
-
-
+            var moreDetailsData = {
+                "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
+                "insuranceType": vmSellBike.moreDetails().insuranceType(),
+                "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
             }
-           ,
-            complete: function (xhr, ajaxOptions, thrownError) {
+            $.ajax({
+                type: "Post",
+                url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
+                contentType: "application/json",
+                dataType: 'json',
+                data: ko.toJSON(moreDetailsData),
+                success: function (response) {
 
-            }
-        });
 
-        vmSellBike.formStep(4);
-        scrollToForm.activate();
-    };
+                }
+               ,
+                complete: function (xhr, ajaxOptions, thrownError) {
+
+                }
+            });
+
+            vmSellBike.formStep(4);
+            scrollToForm.activate();
+        };
     } catch (e) {
         console.warn(e);
     }
@@ -1338,7 +1349,7 @@ $('#select-version-back-btn').on('click', function () {
 });
 
 var bikePopup = {
-    
+
     container: $('#select-bike-cover-popup'),
 
     loader: $('.cover-popup-loader-body'),
@@ -1349,17 +1360,17 @@ var bikePopup = {
 
     versionBody: $('#select-version-wrapper'),
 
-    open: function () {        
-            bikePopup.container.show(effect, options, duration, function () {
-                bikePopup.container.addClass('extra-padding');
-            });
+    open: function () {
+        bikePopup.container.show(effect, options, duration, function () {
+            bikePopup.container.addClass('extra-padding');
+        });
 
-            if (vmSellBike.isEdit()) {
-                vmSellBike.bikeDetails().modelChanged();
-            }
+        if (vmSellBike.isEdit()) {
+            vmSellBike.bikeDetails().modelChanged();
+        }
 
-            windowScreen.lock();
-        
+        windowScreen.lock();
+
     },
 
     close: function () {
@@ -1406,13 +1417,13 @@ var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
     try {
-    if (isEdit != "True") {
-        $('#city-search-box').val("");
-        $(citiesList).show();
-        cityListSelection.open();
-        vmSellBike.bikeDetails().citySelectionStatus('bike-city');
-        appendState('bikeCity');
-    }    
+        if (isEdit != "True") {
+            $('#city-search-box').val("");
+            $(citiesList).show();
+            cityListSelection.open();
+            vmSellBike.bikeDetails().citySelectionStatus('bike-city');
+            appendState('bikeCity');
+        }
     } catch (e) {
         console.warn(e);
     }
@@ -1420,11 +1431,11 @@ $('#city-select-element').on('click', '.city-box-default', function () {
 
 $('#registration-select-element').on('click', '.city-box-default', function () {
     try {
-    $('#city-search-box').val("");
-    $(citiesList).show();
-    cityListSelection.open();
-    vmSellBike.bikeDetails().citySelectionStatus('registered-city');
-    appendState('registrationCity');
+        $('#city-search-box').val("");
+        $(citiesList).show();
+        cityListSelection.open();
+        vmSellBike.bikeDetails().citySelectionStatus('registered-city');
+        appendState('registrationCity');
     } catch (e) {
         console.warn(e);
     }
@@ -1436,18 +1447,18 @@ $('#close-city-filter').on('click', function () {
 
 $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
     try {
-    var element = $(this);
+        var element = $(this);
 
-    if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
-        vmSellBike.bikeDetails().city(element.text());
-        vmSellBike.bikeDetails().cityId(element.attr("data-cityId"));
-    }
-    else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
-        vmSellBike.bikeDetails().registeredCity(element.text());
-        vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
-    }
+        if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
+            vmSellBike.bikeDetails().city(element.text());
+            vmSellBike.bikeDetails().cityId(element.attr("data-cityId"));
+        }
+        else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
+            vmSellBike.bikeDetails().registeredCity(element.text());
+            vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
+        }
 
-    cityListSelection.close();
+        cityListSelection.close();
     } catch (e) {
         console.warn(e);
     }
@@ -1538,7 +1549,7 @@ var windowScreen = {
 
     unlock: function () {
         var windowScrollTop = parseInt(windowScreen.htmlElement.css('top'));
-        
+
         windowScreen.htmlElement.removeClass('lock-browser-scroll');
         $('html, body').scrollTop(-windowScrollTop);
     }
@@ -1552,7 +1563,7 @@ var appendState = function (state) {
 $(window).on('popstate', function (event) {
     if ($('#city-slideIn-drawer').is(':visible')) {
         cityListSelection.close();
-    }   
+    }
     if ($('#color-popup').is(':visible')) {
         modalPopup.close('#color-popup');
     }
@@ -1592,7 +1603,7 @@ $('.chosen-container').on('touchstart', function (event) {
 });
 
 $('.select-box select').on('change', function () {
-    if ($(this).val().length > 0) { 
+    if ($(this).val().length > 0) {
         $(this).closest('.select-box').addClass('done');
         $('body').trigger('click'); // prevent chosen select from triggering background click events
     }
@@ -1626,7 +1637,7 @@ $('input[type=number]').on('keydown', function (event) {
 $('#kmsRidden, #expectedPrice').on('keyup', function () {
     var inputBox = $(this),
         inputValue = inputBox.val(),
-        withoutCommaValue = inputValue.replace(/,/g, "");    
+        withoutCommaValue = inputValue.replace(/,/g, "");
 
     inputBox.attr('data-value', withoutCommaValue);
     inputBox.val(formatNumber(withoutCommaValue));
