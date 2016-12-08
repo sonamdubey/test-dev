@@ -75,12 +75,11 @@ namespace Bikewale.Mobile.Used.Sell
         {
             try
             {
-                if (Bikewale.Common.CurrentUser.Id != null)
+                if (Bikewale.Common.CurrentUser.UserId < 1)
                 {
                     userId = Bikewale.Common.CurrentUser.Id;
                     userEmail = Bikewale.Common.CurrentUser.Email;
                     userName = Bikewale.Common.CurrentUser.Name;
-                    currentCityArea = new GlobalCityAreaEntity();
                     currentCityArea = GlobalCityArea.GetGlobalCityArea();
                     cookieCityName = currentCityArea.City;
                     cookieCityId = currentCityArea.CityId;
