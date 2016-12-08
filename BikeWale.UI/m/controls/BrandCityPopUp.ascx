@@ -230,7 +230,7 @@
             self.searchByBrandCityBtnClicked(false)
             var isAborted = false;
             if (self.selectedBrand() != undefined) {
-                BrandCityKey = "brandcity_" + self.selectedBrand().makeId;
+                BrandCityKey = "brandcity_"+'<%=requestType%>'+'_' + self.selectedBrand().makeId;
                 if (data = lscache.get(BrandCityKey)) {
                     var cities = ko.toJS(data);
                     if (cities) {

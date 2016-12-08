@@ -166,7 +166,7 @@
             self.searchByBrandCityBtnClicked(false)
            
             if (self.selectedBrand() != undefined) {
-                BrandCityKey = "brandcity_" + self.selectedBrand().toString();
+                BrandCityKey = "brandcity_" +'<%=requestType%>'+'_' + self.selectedBrand().toString();
                 if (self.selectCity() != null) {
                     self.SelectedCityId(self.selectCity());
                 }
