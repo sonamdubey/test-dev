@@ -1,9 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.BrandCityPopUp" %>
-<script type="text/javascript">
-    lscache.flushExpired();  //remove expired
-    var BrandsKey = "BrandCityPopUp_mk";
-    var BrandCityKey = "brandcity_";
-   </script>
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
@@ -60,7 +55,9 @@
 </div>
 
 <script type="text/javascript">
-   
+    lscache.flushExpired();  //remove expired
+    var BrandsKey = "BrandCityPopUp_";
+    var BrandCityKey = "brandcity_";
     var brandcityPopUp = $('#brandcityPopUp');
     var makeid = '<%=makeId%>';
     var cityId = '<%=cityId%>';
@@ -108,6 +105,7 @@
                         self.listCities([]);
                         startLoading($("#divBrandLoader"));
                         $("#divBrandLoader .placeholder-loading-text").show();
+                        BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
                         if (data = lscache.get(BrandsKey)) {
                             var brands = ko.toJS(data);
                             if (brands) {
