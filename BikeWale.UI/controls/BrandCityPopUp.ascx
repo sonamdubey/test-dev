@@ -63,7 +63,7 @@
    
     var brandcityPopUp = $('#brandcityPopUp');
     var makeid = '<%=makeId%>';
-    var cityid = '<%=cityId%>';
+    var cityId = '<%=cityId%>';
     lscache.setBucket('BCPopup');
     popupcity = $('#ddlCityPopup');
     popupBrand = $('#ddlBrandPopup');
@@ -74,6 +74,7 @@
         self.selectedBrand = ko.observable(),
         self.bookingBrands = ko.observableArray([]),
         self.hasCities = ko.observable(),
+        self.SelectedCityId = ko.observable(cityId),
         self.searchByBrandCityBtnClicked = ko.observable(false),
         self.makeMasking = ko.pureComputed(function () {
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
@@ -114,6 +115,7 @@
                                 $("#divBrandLoader .placeholder-loading-text").hide();
                                 self.bookingBrands(brands);
                                 isAborted = true;
+                               
                                 xhr.abort();
                             }
                             else {
@@ -167,6 +169,9 @@
            
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" + self.selectedBrand().toString();
+                if (self.selectCity() != null) {
+                    self.SelectedCityId(self.selectCity());
+                }
                 $.ajax({
                     type: "GET",
                     url: self.cityApiUrl(),
@@ -231,10 +236,20 @@
 
 
         self.completeCityPopup = function () {
-            if (cityid > 0) {
-                self.selectCity(parseInt(cityid));
+            
+            if (self.SelectedCityId() != null) {
+                self.preselectCity();
             }
+            else self.selectCity(null);
             $('#ddlCityPopup').trigger("chosen:updated");           
+            
+        }
+
+        self.preselectCity = function () {
+
+            if (self.listCities().length > 0) {
+                self.selectCity(self.SelectedCityId());
+            }
         }
 
         self.isValidInfoPopup = function () {

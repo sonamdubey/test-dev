@@ -53,9 +53,10 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=listingHeading %>
-                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions"><span class="margin-left5 bwmsprite edit-blue"></span>change</a>
-                </h2>
+                <div class="border-solid-bottom">
+                    <h2 class="font18 text-black text-bold padding-15-20 bg-white dealer-heading"><%=listingHeading %></h2>
+                    <a href="javascript:void(0)" class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change-text">change</span></a>
+                </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>

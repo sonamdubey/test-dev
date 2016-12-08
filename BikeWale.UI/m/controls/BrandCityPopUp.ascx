@@ -149,7 +149,7 @@
         self.cityApiUrl = ko.pureComputed(function () {
             if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
                 return ("/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId);
-            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString.ToLower()%>')
+            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>')
                 return ("/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/");
         })
         

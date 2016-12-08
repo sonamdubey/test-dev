@@ -271,7 +271,10 @@
     height: 16px;
     background-position: -83px -257px;
 }
-
+.dealer-heading{display:inline-block;}
+.edit-blue-link{vertical-align:middle;display:inline-block;text-align:center;}
+ a.edit-blue-link:hover {text-decoration:none;}
+.change-text{display:block;}
 @media only screen and (max-width: 320px) {
     .bw-horizontal-swiper.card-container .swiper-slide {
         width: 275px;
@@ -281,3 +284,5 @@
         width: 275px;
     }
 }
+@media all and (max-width: 380px) {.dealer-heading{width:75%;} .edit-blue-link{margin-bottom:20px;vertical-align:bottom;}}  
+@media all and (max-width: 420px) {.dealer-heading{width:80%;}.edit-blue-link{vertical-align:super;}}  
