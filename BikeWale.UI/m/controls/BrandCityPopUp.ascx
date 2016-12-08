@@ -102,7 +102,7 @@
 
 <script type="text/javascript">
     lscache.flushExpired(); 
-    var BrandsKey = "BrandCityPopUp_mk";
+    var BrandsKey = "BrandCityPopUp_";
     var BrandCityKey = "brandcity_";
     var cityId = '<%=cityId%>';
     var makeId = '<%=makeId%>';
@@ -180,7 +180,8 @@
 
         self.FillBrandsPopup = function () {
             $('#brandcitypopupWrapper').addClass('loader-active');
-           var isAborted = false;
+            var isAborted = false;
+            BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
             if (data = lscache.get(BrandsKey)) {
                 var brands = ko.toJS(data);
                 if (brands) {
@@ -229,7 +230,7 @@
             self.searchByBrandCityBtnClicked(false)
             var isAborted = false;
             if (self.selectedBrand() != undefined) {
-                BrandCityKey = "brandcity_" + self.selectedBrand().makeId;
+                BrandCityKey = "brandcity_"+'<%=requestType%>'+'_' + self.selectedBrand().makeId;
                 if (data = lscache.get(BrandCityKey)) {
                     var cities = ko.toJS(data);
                     if (cities) {

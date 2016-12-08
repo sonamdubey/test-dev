@@ -284,4 +284,4 @@
     }
 }
 @media all and (max-width: 380px) {.dealer-heading{width:75%;} .edit-blue-link{margin-bottom:20px;vertical-align:bottom;}}  
-@media all and (max-width: 420px) {.dealer-heading{width:80%;}.edit-blue-link{vertical-align:super;}}  
+@media all and (min-width: 381px) and (max-width: 420px) {.dealer-heading{width:80%;}.edit-blue-link{vertical-align:super;}}  
