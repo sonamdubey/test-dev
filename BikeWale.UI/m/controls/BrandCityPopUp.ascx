@@ -147,9 +147,9 @@
             }).cityMaskingName;
         })
         self.cityApiUrl = ko.pureComputed(function () {
-            if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
+            if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>)
                 return ("/api/v2/DealerCity/?makeId=" + self.selectedBrand().makeId);
-            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString.ToLower()%>')
+            else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>)
                 return ("/api/servicecenter/cities/make/" + self.selectedBrand().makeId + "/");
         })
         
@@ -255,9 +255,9 @@
                         },
                         success: function (response) {
                             var cities;
-                            if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>')
+                            if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>)
                             cities = ko.toJS(response.City);
-                            else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>')
+                            else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>)
                                 cities = ko.toJS(response);
                             if (cities) {
                                 lscache.set(BrandCityKey, cities, 60);
@@ -308,10 +308,10 @@
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
-                if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>') {
+                if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) {
                     window.location.href = "/m/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
-                else if ('<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>') {
+                else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
                     window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
                 }
             }

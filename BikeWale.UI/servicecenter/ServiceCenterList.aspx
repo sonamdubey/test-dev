@@ -81,10 +81,12 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="section-h2-title padding-15-20"><%=totalServiceCenters %> <%=makeName %> service center<% if (totalServiceCenters > 1)
-                                                                                                                             { %>s<%}%> in <%=cityName %>
-                            <a href="Javascript:void(0)" id="brandSelect"><span class="margin-left10 bwsprite edit-blue"></span>change</a>
-                        </h2>
+                        
+                        <div>
+                            <h2 class="font18 text-black text-bold bg-white dealer-heading"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
+                                                                                                                            
+                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change text-link">change</span></span>
+                        </div>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
                                 <% if (serviceCentersList != null)

@@ -43,7 +43,7 @@
 
         <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%=makeName%> service center<% if(totalServiceCenters > 0 ) { %>s<% } %> in <%=cityName%></h1>
+                <h1 class="card-header"><%=makeName%> service center<%=(totalServiceCenters > 1 )?"s":"" %> in <%=cityName%></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content"> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
                 </div>
@@ -53,9 +53,10 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=listingHeading %>
-                     <a href="Javascript:void(0)" rel="nofollow" id="changeOptions"><span class="margin-left5 bwmsprite edit-blue"></span>change</a>
-                </h2>
+                <div class="border-solid-bottom">
+                    <h2 class="font18 text-black text-bold padding-15-20 bg-white dealer-heading"><%=listingHeading %></h2>
+                    <span class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change text-link">change</span></span>
+                </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
