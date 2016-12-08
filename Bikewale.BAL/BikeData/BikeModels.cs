@@ -1042,9 +1042,12 @@ namespace Bikewale.BAL.BikeData
                         objSpecList.Add(versionTranspos);
                     }
                     objModelPage.TransposeModelSpecs = objSpecList;
-                    objModelPage.objOverview = FetchOverViewList(objModelPage.ModelVersionSpecs);
-                    objModelPage.objSpecs = FetchSpecList(objModelPage.ModelVersionSpecs);
-                    objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
+                    if (objModelPage.ModelVersionSpecs != null)
+                    {
+                        objModelPage.objOverview = FetchOverViewList(objModelPage.ModelVersionSpecs);
+                        objModelPage.objSpecs = FetchSpecList(objModelPage.ModelVersionSpecs);
+                        objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
+                    }
                 }
                 if (objModelPage != null)
                 {

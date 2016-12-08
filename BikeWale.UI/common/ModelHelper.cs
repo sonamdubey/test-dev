@@ -1,13 +1,20 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 namespace Bikewale.common
 {
     /// <summary>
@@ -63,10 +70,70 @@ namespace Bikewale.common
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataById() - modelMaskingName :{0}", modelMaskingName));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataByMasking() - modelMaskingName :{0}", modelMaskingName));
                 objErr.SendMail();
             }
             return objModel;
+        }
+
+        /// <summary>
+        /// Author          :   Sangram Nandkhile
+        /// Created Date    :   24 Nov 2015
+        /// Description     :   Get List of Area depending on City and Model Id
+        /// </summary>
+        public IEnumerable<AreaEntityBase> GetAreaForModelAndCity(uint modelId, uint cityId)
+        {
+            IEnumerable<AreaEntityBase> areaList = null;
+            try
+            {
+                if (modelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, DealerPriceQuote>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
+
+                        IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
+                        areaList = objArea.GetAreaList(modelId, cityId);
+                        return areaList;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetAreaForModelAndCity() - modelId:{0}, cityId {1}", modelId, cityId));
+                objErr.SendMail();
+            }
+            return areaList;
+        }
+
+        /// <summary>
+        /// Author          :   Sangram Nandkhile
+        /// Created Date    :   24 Nov 2015
+        /// Description     :   Gets City Details by ModelId
+        /// </summary>
+        public IEnumerable<CityEntityBase> GetCitiesByModelId(uint modelId)
+        {
+            IEnumerable<CityEntityBase> cityList = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
+                    cityList = objcity.GetPriceQuoteCities(modelId);
+                    return cityList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
+                objErr.SendMail();
+            }
+            return cityList;
         }
     }
 }

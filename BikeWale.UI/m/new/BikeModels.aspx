@@ -37,8 +37,6 @@
         var pqId = '<%= pqId%>';
         var versionId = '<%= versionId%>';
         var cityId = '<%= cityId%>';
-        var clientIP = "<%= clientIP%>";
-        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
         var areaId = '<%= areaId%>';
         var bikeVersionLocation = '';
         var bikeVersion = '';

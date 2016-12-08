@@ -356,6 +356,7 @@ namespace Bikewale.DAL.BikeData
                                 t.ModelSeries.MaskingName = string.Empty;
                                 t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
                                 t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                t.ReviewUIRating = string.Format("{0:0.0}", t.ReviewRate);
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
                                 t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
@@ -393,7 +394,6 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getversions_new";
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -406,13 +406,10 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 BikeVersionsListEntity version = new BikeVersionsListEntity();
-
                                 version.VersionId = Convert.ToInt32(dr["VersionId"]);
                                 version.VersionName = Convert.ToString(dr["VersionName"]);
                                 version.ModelName = Convert.ToString(dr["ModelName"]);
                                 version.Price = Convert.ToUInt64(dr["Price"]);
-
-
                                 objList.Add(version);
                             }
                             dr.Close();
@@ -585,7 +582,6 @@ namespace Bikewale.DAL.BikeData
 
                                 recordCount = Convert.ToInt32(dr["RecordCount"]);
                             }
-
                             dr.Close();
                         }
                     }
@@ -644,6 +640,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.SmallPicUrl = dr["SmallPic"].ToString();
                                 objModels.ReviewCount = Convert.ToInt16(dr["ReviewCount"]);
                                 objModels.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objModels.ReviewUIRating = string.Format("{0:0.0}", objModels.ReviewRate);
                                 objModels.MinPrice = Convert.ToInt64(dr["MinPrice"]);
                                 objModels.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
                                 objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);
@@ -715,6 +712,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.SmallPicUrl = dr["SmallPic"].ToString();
                                 objModels.ReviewCount = Convert.ToInt16(dr["ReviewCount"]);
                                 objModels.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                objModels.ReviewUIRating = string.Format("{0:0.0}", objModels.ReviewRate);
                                 objModels.MinPrice = Convert.ToInt64(dr["MinPrice"]);
                                 objModels.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
                                 objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);

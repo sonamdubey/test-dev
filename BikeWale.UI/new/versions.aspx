@@ -101,11 +101,11 @@
                                            { %>
                                             <div class="rating-box inline-block">
                                                 <span class="star-one-icon margin-right5"></span>
-                                                <span class="font16 text-bold"><%=modelPageEntity.ModelDetails.ReviewRate %></span>
+                                                <span class="font16 text-bold"><%=modelPageEntity.ModelDetails.ReviewUIRating %></span><span class="padding-left2 font12 text-light-grey">/5</span>
                                             </div>
                                             <div class="review-box font14 inline-block">
                                                 <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                                    <meta itemprop="ratingValue" content="<%=modelPageEntity.ModelDetails.ReviewRate %>">
+                                                    <meta itemprop="ratingValue" content="<%= modelPageEntity.ModelDetails.ReviewRate %>">
                                                     <meta itemprop="worstRating" content="1">
                                                     <meta itemprop="bestRating" content="5">
                                                     <a href="<%= FormatShowReview(modelPageEntity.ModelDetails.MakeBase.MaskingName,modelPageEntity.ModelDetails.MaskingName) %>" class="review-count-target">
@@ -168,7 +168,7 @@
                                     <div id="model-version-dropdown" class="padding-top25">
                                         <div class="select-box select-box-no-input done size-small">
                                             <p class="select-label">Version</p>
-                                            <asp:Label Visible="false" runat="server" ID="defaultVariant"></asp:Label>
+                                            <%--<asp:Label Visible="false" runat="server" ID="defaultVariant"></asp:Label>--%>
                                             <asp:DropDownList AutoPostBack="true" runat="server" ID="ddlVersion" CssClass="chosen-select" data-title="Version" />
                                             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />           
                                         </div>
@@ -324,18 +324,20 @@
                                 <div class="clear"></div>
                                 <%  }
                                     } %>
-
-                                <div class="border-solid-top margin-top15 margin-bottom20 padding-top20 hide">
+                                <% if(viewModel != null && !viewModel.IsPremiumDealer) { %>
+                                <div class="border-solid-top margin-top15 margin-bottom20 padding-top20">
                                     <div class="inline-block margin-right10">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
                                     <div class="inline-block margin-right25">
                                         <p class="font14 text-bold text-black margin-right10">One partner dealer near you</p>
-                                        <p class="font12 text-x-light">Approx. 6.5 kms away</p>
+                                        <% if(viewModel.DealerCampaignV2.PrimaryDealer != null && !string.IsNullOrEmpty(viewModel.primaryDealerDistance)) { %>
+                                        <p class="font12 text-x-light">Approx. <%=viewModel.primaryDealerDistance %> kms away</p>
+                                        <% } %>
                                     </div>
                                     <a href="javascript:void(0)" class="btn btn-orange partner-dealer-details-btn">View dealer details</a>
                                 </div>
-
+                                <% } %>
                                 <!-- upcoming start -->
                                 <% if (modelPageEntity.ModelDetails.Futuristic && modelPageEntity.UpcomingBike != null)
                                    { %>
@@ -551,7 +553,7 @@
             <!-- Terms and condition Popup Ends -->
         </section>
 
-        <% if (viewModel != null && viewModel.IsPremiumDealer == true && viewModel.SecondaryDealerCount > 0)
+        <% if (viewModel != null && viewModel.IsPremiumDealer && viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
            { %>
         <section>
             <div class="container">
@@ -563,46 +565,42 @@
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
                                 <ul>
-                                    <asp:Repeater ID="rptSecondaryDealers" runat="server">
-                                        <ItemTemplate>
+                                    <% foreach(var bike in viewModel.SecondaryDealersV2) { %>
                                             <li>
-                                                <a href="javascript:void(0);" onclick="secondarydealer_Click(<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "DealerId")) %>)" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %>" class="top-block-target">
+                                                <a href="javascript:void(0);" onclick="secondarydealer_Click(<%= bike.DealerId %>)" title="<%= bike.Name %>" class="top-block-target">
                                                     <div class="grid-10 alpha margin-bottom5">
-                                                        <span class="font14 text-black text-bold text-truncate block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></span>
+                                                        <span class="font14 text-black text-bold text-truncate block"><%= bike.Name %></span>
                                                     </div>
-                                                    <div class="grid-2 alpha omega font12 text-light-grey text-right pos-top2">99 kms</div>
+                                                    <div class="grid-2 alpha omega font12 text-light-grey text-right pos-top2"><%= bike.Distance %> kms</div>
                                                     <div class="clear"></div>
-
                                                     <div class="margin-bottom5">
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                        <span class="vertical-top details-column font14 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
+                                                        <span class="vertical-top details-column font14 text-light-grey"><%= bike.Area %></span>
                                                     </div>
-
                                                     <div>
                                                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                                        <span class="vertical-top details-column font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MaskingNumber")) %></span>
+                                                        <span class="vertical-top details-column font14 text-default text-bold"><%= bike.MaskingNumber %></span>
                                                     </div>
-
                                                     <div class="margin-top10">
                                                         <div class="grid-5 alpha omega">
                                                             <p class="font12 text-light-grey margin-bottom5">On-road price</p>
-                                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold">59,495</span>
+                                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold"><%=Bikewale.Utility.Format.FormatPrice(bike.SelectedVersionPrice.ToString()) %></span>
                                                         </div>
+                                                        <% if(bike.OfferCount > 0){ %>
                                                         <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                             <span class="bwsprite offers-sm-box"></span>
-                                                            <span class="font14 text-default text-bold">4</span>
+                                                            <span class="font14 text-default text-bold"><%=bike.OfferCount %></span>
                                                             <span class="font12 text-light-grey">Offers available</span>
                                                         </div>
+                                                        <% } %>
 								                        <div class="clear"></div>
 							                        </div>
-
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
                                                 </div>
                                             </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>                                
+                                    <% } %>                             
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
@@ -626,12 +624,8 @@
         <meta itemprop="model" content="<%= TargetedModel %>" />
 
         <style type="text/css">
-            #campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
+        .padding-left2{padding-left: 2px;},#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
-
-        <section>
-        </section>
-
         <section>
             <div id="modelDetailsFloatingCardContent" class="container">
                 <div class="grid-12">

@@ -13,7 +13,7 @@ namespace Bikewale.Entities.ServiceCenters
         [DataMember]
         public string Kms { get; set; }
         [DataMember]
-        public uint Days { get; set; }
+        public string Days { get; set; }
     }
 
     [Serializable, DataContract]
