@@ -24,6 +24,7 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Used;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace Bikewale.Mobile.Used.Sell
         protected bool isAuthorized = true;
         protected SellBikeAd inquiryDetailsObject = null;
         protected SellBikeAdDTO inquiryDTO;
+        protected string cookieCityName;
+        protected uint cookieCityId;
+        GlobalCityAreaEntity currentCityArea;
 
         protected override void OnInit(EventArgs e)
         {
@@ -71,11 +75,15 @@ namespace Bikewale.Mobile.Used.Sell
         {
             try
             {
-                if (CurrentUser.Id != null)
+                if (Bikewale.Common.CurrentUser.Id != null)
                 {
-                    userId = CurrentUser.Id;
-                    userEmail = CurrentUser.Email;
-                    userName = CurrentUser.Name;
+                    userId = Bikewale.Common.CurrentUser.Id;
+                    userEmail = Bikewale.Common.CurrentUser.Email;
+                    userName = Bikewale.Common.CurrentUser.Name;
+                    currentCityArea = new GlobalCityAreaEntity();
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    cookieCityName = currentCityArea.City;
+                    cookieCityId = currentCityArea.CityId;
                 }
             }
             catch (Exception ex)
@@ -145,7 +153,7 @@ namespace Bikewale.Mobile.Used.Sell
                 string inquiry = Request.QueryString["id"];
                 if (!String.IsNullOrEmpty(inquiry) && Int32.TryParse(inquiry, out inquiryId) && inquiryId > 0)
                 {
-                    if (CurrentUser.UserId < 1) //user not logged-in
+                    if (Bikewale.Common.CurrentUser.UserId < 1) //user not logged-in
                     {
                         Response.Redirect(String.Format("/m/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
                     }
@@ -183,7 +191,7 @@ namespace Bikewale.Mobile.Used.Sell
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
-                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, CurrentUser.UserId);
+                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Bikewale.Common.CurrentUser.UserId);
                         if (inquiryDetailsObject != null)
                         {
                             inquiryDTO = ConvertToDto(inquiryDetailsObject);

@@ -213,7 +213,8 @@
                                     <% foreach (var city in objCityList)
                                        { %>
                                     <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
-                                    <% } %>                                    
+                                    <% } %>   
+                                    <li data-cityId="0" data-cityName="No search result!" data-bind="click: $root.FilterCity"><span>No search result!!</span></li>                                     
                                 </ul>
                             </div>
                         </div>
@@ -248,7 +249,7 @@
                             </div>
                             <div class="popup-footer">
                                 <div class="grid-6 alpha">
-                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn">Cancel</button>
+                                    <button type="button" class="btn btn-white btn-full-width btn-size-sm cancel-popup-btn" data-bind="click: cancelColorPopup">Cancel</button>
                                 </div>
                                 <div class="grid-6 omega">
                                     <button type="button" class="btn btn-orange btn-full-width btn-size-sm" data-bind="click: otherColor().length > 0 ? submitOtherColor : submitColor">Done</button>
@@ -464,6 +465,8 @@
             var isEdit = '<%= isEdit %>';
             var inquiryId = '<%= inquiryId %>';
             var isAuthorized = '<%= isAuthorized%>';
+            var cookieCityName = '<%= cookieCityName%>';
+            var cookieCityId = '<%= cookieCityId%>';
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';            
         </script>
         

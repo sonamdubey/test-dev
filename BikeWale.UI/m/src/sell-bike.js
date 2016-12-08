@@ -8,7 +8,8 @@
     }
 }
 
-var citiesList = $("#filter-city-list li"); $("section").show();
+var citiesList = $("#filter-city-list li");
+$("section").show();
 
 var selectColorBox = $('#select-color-box'),
     effect = 'slide',
@@ -107,6 +108,9 @@ $(document).ready(function () {
             bdetails.color(inquiryDetails.color);
             bdetails.colorId(inquiryDetails.colorId);
 
+            bdetails.prevColor(bdetails.color());
+            bdetails.prevColorId(bdetails.colorId());
+
             bdetails.cityId(inquiryDetails.cityId);
             bdetails.city(findCityName(bdetails.cityId()));
             bdetails.registeredCity(inquiryDetails.registrationPlace);
@@ -174,6 +178,11 @@ $(document).ready(function () {
             $("#expectedPrice").val('');
             $("#manufacturingDate").val('');
             $("#div-owner").removeClass('done');
+            if (cookieCityId) {
+                vmSellBike.bikeDetails().cityId(cookieCityId);
+                vmSellBike.bikeDetails().city(cookieCityName);
+            }
+
         }
 
         ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
@@ -201,10 +210,7 @@ var findCityName = function (cityId) {
 var vmCities = function () {
     try {
         var self = this;
-        //var noResult = '<li> { "text": "No cities found" } </li>';
-        //citiesList.push(noResult);
         self.cityFilter = ko.observable();
-
         self.visibleCities = ko.computed(function () {
             var isCityListEmpty = true;
             filter = self.cityFilter();
@@ -221,11 +227,10 @@ var vmCities = function () {
                     }
                 });
             }
-
             if (filter != "" && !isCityListEmpty) {
-                //var noResult = { "id": 0, "name": "No cities found" };
-                // var noResult = '<li>No search found!</li>';
-                // citiesList.a(noResult);
+                citiesList.last().hide();
+            } else {
+                citiesList.last().show();
             }
         });
     } catch (e) {
@@ -603,6 +608,9 @@ var bikeDetails = function () {
     self.cityId = ko.observable('');
     self.regCityId = ko.observable('');
 
+    self.prevColor = ko.observable();
+    self.prevColorId = ko.observable();
+
     self.makeName = ko.observable('');
     self.modelName = ko.observable('');
     self.versionName = ko.observable('');
@@ -845,6 +853,7 @@ var bikeDetails = function () {
 
 
     self.colorSelection = function (data, event) {
+        
         self.color(data.colorName);
         self.colorId(data.colorId);
         if (event != null) {
@@ -874,6 +883,11 @@ var bikeDetails = function () {
         self.color(selectedColor);
         modalPopup.close('#color-popup');
         history.back();
+    };
+
+    self.cancelColorPopup = function (data, event) {
+        self.color(self.prevColor());
+        self.colorId(self.prevColorId());
     };
 
     self.submitOtherColor = function (data, event) {
@@ -1360,7 +1374,7 @@ var bikePopup = {
 
     versionBody: $('#select-version-wrapper'),
 
-    open: function () {
+    open: function () {        
         bikePopup.container.show(effect, options, duration, function () {
             bikePopup.container.addClass('extra-padding');
         });
@@ -1491,6 +1505,9 @@ var sellerType = {
 // color
 selectColorBox.on('click', '.color-box-default', function () {
     if (vmSellBike.bikeDetails().versionName() != "") {
+        vmSellBike.bikeDetails().prevColor(vmSellBike.bikeDetails().color());
+        vmSellBike.bikeDetails().prevColorId(vmSellBike.bikeDetails().colorId());
+        colorBox.popup.find('li.active').removeClass('active');
         modalPopup.open('#color-popup');
         appendState('colorPopup');
     }
