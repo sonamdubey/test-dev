@@ -157,15 +157,15 @@
 				</edititemtemplate>				
 			</asp:TemplateColumn>
 			
-			<asp:EditCommandColumn EditText="<img border=0 src=http://opr.carwale.com/images/icons/edit.gif />" CancelText="Cancel" UpdateText="Update" />
+			<asp:EditCommandColumn EditText="<img border=0 src=https://opr.carwale.com/images/icons/edit.gif />" CancelText="Cancel" UpdateText="Update" />
             <asp:TemplateColumn>
               <itemtemplate>
                     <div class="alignCenter">
-                        <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="http://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
+                        <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="https://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
                     </div>
                 </itemtemplate>
             </asp:TemplateColumn>
-			<%--<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" Text="<img border=0 src=http://opr.carwale.com/images/icons/delete.ico />" />--%>
+			<%--<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" Text="<img border=0 src=https://opr.carwale.com/images/icons/delete.ico />" />--%>
 			<asp:TemplateColumn HeaderText="Created On" ItemStyle-Width="350">
 			    <itemtemplate>
 			        <%# DataBinder.Eval( Container.DataItem, "CreatedOn" ) %>

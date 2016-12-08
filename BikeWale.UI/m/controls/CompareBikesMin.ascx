@@ -6,7 +6,7 @@
         <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2,TopRecord.VersionId1,TopRecord.VersionId2) %>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" id="main-compare-bikes-target">
             <div class="grid-6">
                 <div class="comparison-image">
-                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(TopRecord.VersionImgUrl1,TopRecord.HostUrl1,Bikewale.Utility.ImageSize._210x118) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(TopRecord.VersionImgUrl1,TopRecord.HostUrl1,Bikewale.Utility.ImageSize._210x118) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5"><%= TopRecord.Bike1 %></h3>
                 <div class="text-default text-bold">
@@ -19,7 +19,7 @@
             </div>
             <div class="grid-6">
                 <div class="comparison-image">
-                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(TopRecord.VersionImgUrl2,TopRecord.HostUrl2,Bikewale.Utility.ImageSize._210x118) %>" src="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+                    <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(TopRecord.VersionImgUrl2,TopRecord.HostUrl2,Bikewale.Utility.ImageSize._210x118) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
                 </div>
                 <h3 class="font14 text-black margin-bottom5"><%= TopRecord.Bike2 %></h3>
                 <div class="text-default text-bold">

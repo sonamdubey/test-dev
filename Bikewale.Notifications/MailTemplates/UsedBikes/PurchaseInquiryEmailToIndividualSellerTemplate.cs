@@ -55,13 +55,13 @@ namespace Bikewale.Notifications.MailTemplates.UsedBikes
             sb.AppendFormat("<p>{0}'s contact details are mentioned below<br />", buyerName);
             sb.AppendFormat("Name: {0}<br />Email: {1}<br />Contact Number: {2}<br />", buyerName, buyerEmail, buyerContactNo);
             sb.AppendFormat("<p>If you would like to make any changes in your listing, ");
-            sb.AppendFormat("<a href='http://www.bikewale.com/MyBikewale/'>click here to update.</a></p>");
+            sb.AppendFormat("<a href='https://www.bikewale.com/MyBikewale/'>click here to update.</a></p>");
             sb.AppendFormat("<p>Please remove your bike if it has been sold already, so that ever growing number of ");
             sb.AppendFormat("prospective buyers do not cause inconvenience to you. ");
-            sb.AppendFormat("<a href='http://www.bikewale.com/MyBikewale/'>Click here to remove your bike now.</a></p>");
+            sb.AppendFormat("<a href='https://www.bikewale.com/MyBikewale/'>Click here to remove your bike now.</a></p>");
             sb.AppendFormat("<p>We are committed to deliver value by bringing genuine buyers for your bike.</p>");
             sb.AppendFormat("<p>We gauge that with the sale of {0}, you would be interested buying a new bike. Want to ", bikeName);
-            sb.AppendFormat("know about a new bike’s price? BikeWale’s <a href='http://www.bikewale.com/pricequote/'>Instant Price Quote</a> is a helpful tool which will ");
+            sb.AppendFormat("know about a new bike’s price? BikeWale’s <a href='https://www.bikewale.com/pricequote/'>Instant Price Quote</a> is a helpful tool which will ");
             sb.AppendFormat("enable you to evaluate your purchase options on the price front.</p>");
             sb.AppendFormat("<br><br>Warm Regards,<br>");
             sb.AppendFormat("Team BikeWale");

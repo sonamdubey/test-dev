@@ -6,7 +6,7 @@
 <script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
 <script src="/src/knockout.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<%--<link href="http://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
+<%--<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
 <style type="text/css">
     .greenMessage {
         color: #6B8E23;
@@ -118,12 +118,12 @@
                 <a  data-bind="attr: { href: '/campaign/DealersRules.aspx?campaignid=' + CampaignId() + '&dealerid='+ $root.dealerId() },text: (NoOfRules() > 0) ? 'Yes' : 'No'" target="_blank"></a>
             </td>
             <td >
-                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+                <a  data-bind="attr: { href: '/campaign/ManageDealers.aspx?dealername=' + $root.dealerName() + '&contractid=' + ContractId() + '&campaignid=' + CampaignId() + '&dealerid=' + $root.dealerId() }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
             </td>
         </tr>
     </script>
 </div>
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <script>
     var BwOprHostUrl = '<%= BwOprHostUrl%>';
     var ddlDealer = $("#drpDealer");

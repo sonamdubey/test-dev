@@ -6,7 +6,7 @@
 <head runat="server">
     <title>Manage Dealer Facilities</title>
     <%--<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>--%>
-    <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
     <style type="text/css">
         .errMessage {color:#FF4A4A; margin-left:60px}
 

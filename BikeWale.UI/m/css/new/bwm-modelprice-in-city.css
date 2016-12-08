@@ -5,7 +5,7 @@
 .bike-image img {width: 100%;}
 .text-x-grey{color:#565a5c;}
 .discont-text-label{width:120px;background:#4c4c4c;z-index:2;padding:2px 25px 4px 20px;line-height:22px;position:relative;left:0;}
-.discont-text-label:after{content: "";background:url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;right:-12px;}
+.discont-text-label:after{content: "";background:url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;right:-12px;}
 .text-dark-black {color: #1a1a1a;}
 #versionTabsWrapper {width: 100%;display: block;overflow-x: auto;}
 .model-versions-tabs-wrapper {width: 100%;display: table;background: #fff;border-bottom: 1px solid #e2e2e2;}

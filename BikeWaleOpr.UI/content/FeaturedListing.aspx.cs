@@ -499,9 +499,9 @@ namespace BikeWaleOpr.Content
         public string GetString(string str)
         {
             if (Convert.ToInt16(str) > 0)
-                return "<img src=http://opr.carwale.com/Images/tick.jpg /> ";
+                return "<img src=https://opr.carwale.com/Images/tick.jpg /> ";
             else
-                return "<img src=http://opr.carwale.com/images/delete.gif /> ";
+                return "<img src=https://opr.carwale.com/images/delete.gif /> ";
         }
 
         //public string  GetImage( string str )
@@ -515,7 +515,7 @@ namespace BikeWaleOpr.Content
         //    }
         //    else
         //    {
-        //        imgpath = "http://server/images/featured/";
+        //        imgpath = "https://server/images/featured/";
         //    }
 
         //    fullPath = imgPath + str + ".jpg";

@@ -56,7 +56,7 @@ namespace Bikewale.Videos
             {
                 pageHeading = String.Format("{0} {1} Videos", make, model);
                 titleName = String.Format("{0} {1} Videos - BikeWale", make, model);
-                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
+                canonicalUrl = string.Format("https://www.bikewale.com/bike-videos/{0}-{1}/", makeMaskingName, modelMaskingName);
                 metaDescription = string.Format("Check latest {0} {1} videos, watch BikeWale expert's take on {0} {1} - features, performance, price, fuel economy, handling and more.", make, model);
                 metaKeywords = string.Format("{0},{1},{0} {1},{0} {1} videos", make, model);
             }
@@ -64,7 +64,7 @@ namespace Bikewale.Videos
             {
                 pageHeading = String.Format("{0} Bike Videos", make);
                 titleName = String.Format("{0} Bike Videos - BikeWale", make);
-                canonicalUrl = string.Format("http://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
+                canonicalUrl = string.Format("https://www.bikewale.com/bike-videos/{0}/", makeMaskingName);
                 metaDescription = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", make);
                 metaKeywords = string.Format("{0},{0} bikes,{0} videos", make);
             }

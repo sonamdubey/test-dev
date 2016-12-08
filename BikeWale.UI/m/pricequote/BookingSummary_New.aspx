@@ -10,7 +10,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -386,7 +386,7 @@
         </div>--%>
 
         <section class="container margin-bottom30 content-box-shadow">
-            <div class="lazy booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
+            <div class="lazy booking-how-it-works" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/howitworks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
 
@@ -399,7 +399,7 @@
             </div>
             <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
@@ -502,7 +502,7 @@
             }
             var getCityArea = GetGlobalCityArea();
         </script>
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
         <script type="text/javascript">
             var leadSourceId;

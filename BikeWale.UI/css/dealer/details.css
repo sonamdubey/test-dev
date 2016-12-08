@@ -128,7 +128,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { o
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
 	width: 100%;
 	font-weight: bold;
-	background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 100%;
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 100%;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -208,7 +208,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { o
 }
 
 .image-block div {
-    background: url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
 }
 
 .image-block img {
@@ -282,7 +282,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus { o
 .crosshair-icon {
     width:20px;
     height:20px;
-    background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat;
+    background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat;
 }
 
 .inr-md-lg {

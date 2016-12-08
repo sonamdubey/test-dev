@@ -37,9 +37,9 @@
         <td data-bind="text: description"></td>
         <td data-bind="text: maskingnumber"></td>
         <td data-bind="text: isactive ? 'Active' : 'In-Acitve'"></td>
-        <td><a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&manufactureName=' + encodeURIComponent(manufactureName) }" target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
+        <td><a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=' + id + '&manufactureName=' + encodeURIComponent(manufactureName) }" target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a></td>
         <td>
-            <a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName=' + encodeURIComponent(manufactureName) }"  target="_blank"><img src="http://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
+            <a  data-bind="attr: { href: '/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=' + id + '&dealerid=' + dealerid + '&manufactureName=' + encodeURIComponent(manufactureName) }"  target="_blank"><img src="https://opr.carwale.com/images/edit.jpg" alt="Edit"/></a>
         </td>            
         <td><input  type="button"  data-bind="event: { click: function (data, event) { $parent.ChangeStatus(data, event); } }, value: (isactive ? 'Stop' : 'Start')" class="margin-left20"/></td>
              

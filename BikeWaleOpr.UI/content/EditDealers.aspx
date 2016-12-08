@@ -67,7 +67,7 @@
 					<td><%# DataBinder.Eval(Container.DataItem, "LastUpdated") %></td>                                   
 					<td><%# DataBinder.Eval(Container.DataItem, "IsActive")%></td>                                    
 					<td><%# DataBinder.Eval(Container.DataItem, "IsNCD") %></td>                                           
-					<td><a href='adddealers.aspx?id=<%# DataBinder.Eval(Container.DataItem,"Id")%>'><img border=0 src=http://opr.carwale.com/images/edit.jpg /></a></td>                  
+					<td><a href='adddealers.aspx?id=<%# DataBinder.Eval(Container.DataItem,"Id")%>'><img border=0 src=https://opr.carwale.com/images/edit.jpg /></a></td>                  
 			  </tr>
 	</ItemTemplate>
 	<FooterTemplate>

@@ -10,8 +10,8 @@
     keywords = BikeMake + " " + BikeModel + " review, " + BikeMake + " " + BikeModel + " user review, car review, owner feedback, consumer review";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
-    alternate = "http://www.bikewale.com/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewId + ".html";
-    canonical = "http://www.bikewale.com/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewId + ".html";
+    alternate = "https://www.bikewale.com/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewId + ".html";
+    canonical = "https://www.bikewale.com/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewId + ".html";
     //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250Shown = false;
 %>
@@ -185,7 +185,7 @@
     <br />
     <a id="btnReportReviewAbuse" class="buttons" onclick="javascript:reportAbuse()">Report</a>
 </div>
-<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/graybox.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "https://st1.aeplcdn.com" + staticUrlPath : "" %>/src/graybox.js?v=1.0"></script>
 <script language="javascript">
     function helpfulClick(reviewId, helpful) {
         //alert(reviewId + "," + helpful);

@@ -115,7 +115,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 
 #popup-loader, .cover-popup-loader {
     height: 50px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
     position: fixed;
     top: 45%;
     left: 5%;
@@ -135,7 +135,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .city-area-banner {
     width: 100%;
     height: 109px;
-    background: #f5f5f5 url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom;
+    background: #f5f5f5 url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom;
 }
 #popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
 #brandcitypopupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
@@ -207,7 +207,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .swiper-scrollbar-drag { height: 100%; width: 100%; position: relative; background: rgba(0, 0, 0, 0.5); border-radius: 10px; left: 0; top: 0; }
 .swiper-scrollbar-cursor-drag { cursor: move; }
 /* Preloader */
-.swiper-lazy-preloader { background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif") no-repeat center center; width: 16px; height: 16px; position: absolute; left: 50%; top: 50%; margin-left: -8px; margin-top: -8px; }
+.swiper-lazy-preloader { background: url("https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif") no-repeat center center; width: 16px; height: 16px; position: absolute; left: 50%; top: 50%; margin-left: -8px; margin-top: -8px; }
 
 .swiper-container .yt-iframe-preview{position:relative; z-index:8;backface-visibility: hidden;-webkit-backface-visibility: hidden;-moz-backface-visibility: hidden;-ms-backface-visibility: hidden;-o-backface-visibility: hidden;}
 .swiper-container .overlay{position:absolute; left:0; right:0; top:0; bottom:0; z-index:8;}
@@ -372,7 +372,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .fa-angle-left { width:17px; height:18px; background-position:-154px -103px; }
 .fa-angle-right {width: 6px;height: 13px;background-position: -162px -58px;}
 
-.fa-spinner { width:16px; height:16px; background:#fff url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
+.fa-spinner { width:16px; height:16px; background:#fff url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .cancellation-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
@@ -631,7 +631,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 /* carousel end */
 
 /* new classes for circle icon sprite */
-.bwm-circle-icon { background:url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bw-circle-icon.png) no-repeat; display:inline-block; }
+.bwm-circle-icon { background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bw-circle-icon.png) no-repeat; display:inline-block; }
 .getfinalprice-icon, .locatedealer-icon, .userreview-icon, .checkcarvalue-icon, .sellcar-icon, .pq-no-name, .pq-no-mobile, .pq-no-email { width:92px; height:92px;}
 .getfinalprice-icon { background-position:0 0; }
 .locatedealer-icon { background-position:-102px 0; }
@@ -655,7 +655,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 /* bwm-slider */
 .bwm-sliders.ui-slider { position: relative; text-align: left; margin:0 auto;}
-.bwm-sliders.ui-slider .ui-slider-handle { background: rgba(0, 0, 0, 0) url("http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/us-sprite.png") no-repeat scroll 0 -140px; cursor: pointer; height: 30px; margin-left: -5px; position: absolute; text-decoration: none; top: -6px; width: 30px; z-index: 2; }
+.bwm-sliders.ui-slider .ui-slider-handle { background: rgba(0, 0, 0, 0) url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/us-sprite.png") no-repeat scroll 0 -140px; cursor: pointer; height: 30px; margin-left: -5px; position: absolute; text-decoration: none; top: -6px; width: 30px; z-index: 2; }
 .bwm-sliders.ui-slider .ui-slider-range { border: 0 none; display: block; font-size: 0.7em; position: absolute; z-index: 1; }
 .bwm-sliders .ui-slider-vertical { height: 91px; width: 5px; }
 .bwm-sliders .ui-slider-vertical .ui-slider-handle { left: -7px; margin-bottom: -10px; margin-left: 0; }
@@ -683,10 +683,10 @@ fieldset { border: 0; border-collapse:collapse; }
 .border-left1{border-left:1px solid #e2e2e2;}
 .border-top1{border-top:1px solid #e2e2e2;}
 footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
-.unchecked { background: url("http://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/inputUnchecked.png?v=150915") no-repeat 0 center; }
-.checked { background: url("http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputChecked.png?v=150915") no-repeat 0 center; }
+.unchecked { background: url("https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/inputUnchecked.png?v=150915") no-repeat 0 center; }
+.checked { background: url("https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/inputChecked.png?v=150915") no-repeat 0 center; }
 
-.back-to-top {width:48px; height:48px; z-index:8; position:fixed; bottom:20px; right: 20px;display:none;background: url('http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png') no-repeat scroll center center;cursor:pointer;}
+.back-to-top {width:48px; height:48px; z-index:8; position:fixed; bottom:20px; right: 20px;display:none;background: url('https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png') no-repeat scroll center center;cursor:pointer;}
 
 .clearfix:before, .clearfix:after { content: " "; display: table; }
 .clearfix:after { clear: both; }
@@ -701,7 +701,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
 /* AutoExpo classes */
-.ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
+.ae-sprite {background: url("https://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
 .ae-logo { background-color: #fff; background-position: -34px 2px; height: 27px; margin-top: -7px; position: relative; top: 4px; width: 45px; margin-left: -8px }
 .ae-logo-border { border:1px solid #eee; display: inline-block; height: 19px; margin: 0 15px 0 95px; }
 .ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
@@ -734,7 +734,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .views-grey-sm-icon {background-position: -84px -486px;}
 
 /* lead capture control */
-#leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:24px;height:28px;background-position:-138px -394px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}#notify-response .icon-outer-container{width:72px;height:72px;}#notify-response .icon-inner-container{width:64px;height:64px;margin:3px auto;}
+#leadCapturePopup .bw-blackbg-tooltip,#leadCapturePopup .error-icon,.dealer-brand-wrapper{display:none}#leadCapturePopup .leadCapture-close-btn{z-index:2}.btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}.btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}#notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}#notify-form .grid-12{padding:10px 20px}.personal-info-notify-container input{margin:0 auto}.notify-offers-list{list-style:disc;margin-left:10px}#notifyAvailabilityContainer .notify-close-btn{z-index:2}.float-button{background-color:#f5f5f5;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0}#getMobile{padding:9px 40px}.mobile-prefix{position:absolute;padding:10px 13px 13px;color:#999;z-index:2}.thankyou-icon{width:24px;height:28px;background-position:-138px -394px}#brandSearchBar{padding:0;background:#f5f5f5;z-index:11;position:fixed;left:100%;top:0;overflow-y:scroll;width:100%;height:100%}#brandSearchBar li{text-align:left;border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}#brandSearchBar li:hover{background:#ededed}.bwm-dealer-brand-box .back-arrow-box{height:30px;width:40px;top:5px;z-index:11;cursor:pointer}.bwm-dealer-brand-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.bwm-dealer-brand-box .back-arrow-box{position:absolute;left:5px}.bwm-dealer-brand-box .form-control{padding:10px 50px}.activeBrand{font-weight:700;background-color:#ddd}.dealer-search-brand-form{padding:10px 25px 10px 10px;cursor:pointer;background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:2px;border:1px solid #ccc}.dealer-search-brand{width:100%;height:40px}.border-red{border:1px solid red!important}#notify-response .icon-outer-container{width:72px;height:72px;}#notify-response .icon-inner-container{width:64px;height:64px;margin:3px auto;}
 
 .mobile-prefix {
     position: absolute;
@@ -791,7 +791,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .dealer-search-brand-form {
     padding: 0 25px 5px 0;
     cursor: pointer;
-    background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 99% 50% no-repeat #fff;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 99% 50% no-repeat #fff;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;

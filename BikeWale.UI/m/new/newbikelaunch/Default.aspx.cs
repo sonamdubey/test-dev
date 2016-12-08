@@ -111,9 +111,9 @@ namespace Bikewale.Mobile.New
                         PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
                         //For SEO
                         if (!String.IsNullOrEmpty(pagerOutput.PreviousPageUrl))
-                            prevPageUrl = "http://www.bikewale.com" + pagerOutput.PreviousPageUrl;
+                            prevPageUrl = "https://www.bikewale.com" + pagerOutput.PreviousPageUrl;
                         if (!String.IsNullOrEmpty(pagerOutput.NextPageUrl))
-                            nextPageUrl = "http://www.bikewale.com" + pagerOutput.NextPageUrl;
+                            nextPageUrl = "https://www.bikewale.com" + pagerOutput.NextPageUrl;
 
                         // for RepeaterPager
                         listPager.PagerOutput = pagerOutput;

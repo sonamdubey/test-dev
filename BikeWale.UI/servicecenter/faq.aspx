@@ -18,7 +18,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
-    .faq-top-banner { background:#746d62 url(http://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/d-faqs-banner.jpg) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
+    .faq-top-banner { background:#746d62 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/d-faqs-banner.jpg) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
     .faq-content h3 { margin-bottom:15px; padding:0 20px 15px; border-bottom:1px solid #ccc; }
     .faq-content p, .faq-content ol { font-size:14px; line-height:1.5; text-align: justify; }
     .faq-content p { padding-right: 20px; padding-left: 20px; }

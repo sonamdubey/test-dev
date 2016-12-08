@@ -19,8 +19,8 @@
 			description = string.Format("{0} price in {1} - Rs. {2} (Ex-Showroom). Get prices for all the versions of and check out the nearest {0} Dealer in {1}", bikeName, cityName, firstVersion.ExShowroomPrice);
 		
 		keywords = string.Format("{0} price in {1}, {0} on-road price, {0} bike, buy {0} bike in {1}, new {2} price", bikeName, cityName, modelName);
-		canonical = string.Format("http://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
-		alternate = string.Format("http://www.bikewale.com/m/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
+		canonical = string.Format("https://www.bikewale.com/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
+		alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/price-in-{2}/", makeMaskingName, modelMaskingName, cityMaskingName);
 		ogImage = modelImage;
 		AdId = "1442913773076";
 		AdPath = "/1017752/Bikewale_NewBike_";
@@ -32,7 +32,7 @@
 				   
 	%>
 	<!-- #include file="/includes/headscript.aspx" -->
-	<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+	<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/new/modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey header-fixed-inner">
 	<form runat="server">

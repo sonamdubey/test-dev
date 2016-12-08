@@ -7,7 +7,7 @@
         description = string.Format("{0} bike dealers/showrooms in India. Find dealer information for more than {1} dealers in {2} states. Dealer information includes full address, phone numbers, email, pin code etc.", objMMV.MakeName, countryCount, stateCount);
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
         title = string.Format("{0} Bike Dealers in India | {0} Bike Showrooms in India - BikeWale", objMMV.MakeName);
-        canonical = "http://www.bikewale.com/new/" + objMMV.MaskingName + "-dealers/";        
+        canonical = "https://www.bikewale.com/new/" + objMMV.MaskingName + "-dealers/";        
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
         Ad_320x50 = true;
@@ -15,7 +15,7 @@
     %>   
 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-dealersbylocation.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-dealersbylocation.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">        
@@ -63,7 +63,7 @@
         
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

@@ -30,13 +30,13 @@ namespace BikeWaleOpr
         public static string GetPathToShowImages(string relativePath)
         {
 
-            return "http://" + ConfigurationManager.AppSettings["imgHostURL"] + relativePath;
+            return "https://" + ConfigurationManager.AppSettings["imgHostURL"] + relativePath;
         }
 
         public static string GetPathToShowImages(string relativePath, string hostUrl)
         {
 
-            return "http://" + hostUrl + relativePath;
+            return "https://" + hostUrl + relativePath;
         }
 
         /// <summary>

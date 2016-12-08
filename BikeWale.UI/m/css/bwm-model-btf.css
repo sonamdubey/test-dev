@@ -142,7 +142,7 @@
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
 #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
 
-.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
+.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }
@@ -251,7 +251,7 @@
     top: 45px;
     width: 22px;
     height: 21px;
-    background: url('http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
+    background: url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png') no-repeat;
     display: block;
 }
 

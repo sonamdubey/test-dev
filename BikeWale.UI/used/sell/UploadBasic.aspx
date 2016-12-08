@@ -7,7 +7,7 @@
         
  %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?14sept2015"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';
 	var requestCount = 0;
@@ -56,11 +56,11 @@
 						        <tr>
                                     <td width="100">
                                         <div style="float:left;" id='dtlstPhotos_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1" ? "hide" : "show" %>'> 
-                                            <img class='img-border' id="imgUpload" src="<%# (ImagingFunctions.GetPathToShowImages("/144X81/"+DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() )).Replace("http://http://","http://") %>" />
+                                            <img class='img-border' id="imgUpload" src="<%# (ImagingFunctions.GetPathToShowImages("/144X81/"+DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() )).Replace("http://http://","https://") %>" />
                                         </div>
                                         <div style="float:left;width:60px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
-                                            <img align="center" src='http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif'/>
+                                            <img align="center" src='https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif'/>
                                             </p>
                                         </div>   
                                     </td>

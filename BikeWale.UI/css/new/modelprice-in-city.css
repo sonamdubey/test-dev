@@ -1,7 +1,7 @@
 ﻿#modelVersionDetailsWrapper{min-height:180px;}
 .text-x-grey{color:#565a5c;}
 .discontinued-text-label { color:#4d5057;background:#A8AFB3;z-index:2;padding:2px 25px 4px 20px;line-height:22px;left:0px; }
-.discontinued-text-label:after { content: "";background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
+.discontinued-text-label:after { content: "";background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/discontinued-ribbon.png?v=10May2016v1) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px; }
 .model-versions-tabs-wrapper { display:table; background:#fff; }
 .model-versions-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }
 .model-versions-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }

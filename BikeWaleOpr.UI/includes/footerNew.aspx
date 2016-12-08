@@ -10,7 +10,7 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
-		&copy; BikeWale Confidential - <a href="http://www.bikewale.com/">BikeWale.com</a>
+		&copy; BikeWale Confidential - <a href="https://www.bikewale.com/">BikeWale.com</a>
 	</div>
 </div>
 </form>

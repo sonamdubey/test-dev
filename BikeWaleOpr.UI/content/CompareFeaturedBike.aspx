@@ -1,7 +1,7 @@
 <%@Page Inherits="BikeWaleOpr.Content.CompareFeaturedBike" Language="C#" AutoEventWireUp="false" Trace="false" Debug="false" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script language="javascript" src="http://opr.carwale.com/src/common/bt.js"></script>
-<!--[if IE]><script language="javascript" src="http://opr.carwale.com/src/common/excanvas.js"></script><![endif]-->
+<script language="javascript" src="https://opr.carwale.com/src/common/bt.js"></script>
+<!--[if IE]><script language="javascript" src="https://opr.carwale.com/src/common/excanvas.js"></script><![endif]-->
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {

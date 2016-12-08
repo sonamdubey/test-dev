@@ -19,8 +19,8 @@
         description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
         AdPath = "/1017752/BikeWale_HomePage_";
         AdId = "1395985604192";
-        alternate = "http://www.bikewale.com/m/";
-        canonical = "http://www.bikewale.com/";
+        alternate = "https://www.bikewale.com/m/";
+        canonical = "https://www.bikewale.com/";
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
         isAd976x400FirstShown = true;
@@ -31,7 +31,7 @@
         PopupWidget.Visible = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
     <%  isTransparentHeader = true;
     %>
 </head>
@@ -327,7 +327,7 @@
             </div>
         </section>
 
-        <section class="lazy home-getFinalPrice-banner" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
+        <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
             <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server" />
         </section>
         <% if (isAd976x400SecondShown)
@@ -429,8 +429,8 @@
         <!-- Ends here -->
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             ga_pg_id = '1';
             //for jquery chosen : knockout event 

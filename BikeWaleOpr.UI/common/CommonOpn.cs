@@ -419,7 +419,7 @@ namespace BikeWaleOpr.Common
                 string adPath = "";
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
-                    adPath = "http://www.carwale.co.in/";
+                    adPath = "https://www.carwale.com/";
                 else
                     adPath = "/";
 
@@ -503,7 +503,7 @@ namespace BikeWaleOpr.Common
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
                 {
-                    imgPath = "http://img.carwale.com/";
+                    imgPath = "https://img.carwale.com/";
 
                     // remove the following line as soon as 
                     // images.carwale.com is activated.
@@ -530,7 +530,7 @@ namespace BikeWaleOpr.Common
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
             {
-                absPath = myPage.Server.MapPath(imgPath.Replace("http://img.carwale.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
+                absPath = myPage.Server.MapPath(imgPath.Replace("https://img.carwale.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
 
                 // remove the following line as soon as 
                 // images.carwale.com is activated.
@@ -546,7 +546,7 @@ namespace BikeWaleOpr.Common
             //HttpContext.Current.Trace.Warn( "Index Of : " + imgPath.IndexOf( "images.carwale.com" ) );
 
             //absPath = absPath.Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" )
-            //+ imgPath.Replace( "http://images.carwale.com", "" ).Replace( "/", "\\" );
+            //+ imgPath.Replace( "https://images.carwale.com", "" ).Replace( "/", "\\" );
 
             HttpContext.Current.Trace.Warn("Resolved Image Path : " + absPath);
             return absPath;

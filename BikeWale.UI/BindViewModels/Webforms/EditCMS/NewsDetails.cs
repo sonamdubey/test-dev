@@ -96,10 +96,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 PageMetas.Title = string.Format("{0} - BikeWale News", ArticleDetails.Title);
                 PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
                 PageMetas.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", ArticleDetails.Title);
-                PageMetas.CanonicalUrl = string.Format("http://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
+                PageMetas.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
                 PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
                 PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
-                PageMetas.AlternateUrl = string.Format("http://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl); ;
+                PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl); ;
             }
             catch (Exception ex)
             {

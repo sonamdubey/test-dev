@@ -11,7 +11,7 @@
     .redmsg {border: 1px solid red;background: #FFCECE;}
     .hide {display: none;}
     .show {display: block;}
-    #pageloaddiv {position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 1000;background: rgb(250, 246, 246) url('http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
+    #pageloaddiv {position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 1000;background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
 </style>
 <div>
     <!-- #Include file="/content/DealerMenu.aspx" -->

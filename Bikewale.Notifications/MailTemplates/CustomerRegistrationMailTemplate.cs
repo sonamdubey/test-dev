@@ -26,7 +26,7 @@ namespace Bikewale.Notifications.MailTemplates
            public override string ComposeBody()
             {
                 StringBuilder message = new StringBuilder();
-                message.AppendFormat("<img align=\"right\" src=\"http://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
+                message.AppendFormat("<img align=\"right\" src=\"https://imgd3.aeplcdn.com/0x0/bw/static/design15/old-images/d/bw-logo.png\" />");
 
                 message.AppendFormat("<h4>Dear {0},</h4>", customerName);
 
@@ -42,7 +42,7 @@ namespace Bikewale.Notifications.MailTemplates
                 message.AppendFormat("User ID  : {0}<br>", customerId);
                 message.AppendFormat("Password : {0}<br>", password);
 
-                message.AppendFormat("<p>You can change your password by clicking here <a href='http://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
+                message.AppendFormat("<p>You can change your password by clicking here <a href='https://www.bikewale.com/MyBikewale/changepassword/'>Change Password</a></p>");
 
                 message.AppendFormat("<br>Warm Regards,<br><br>");
                 message.AppendFormat("Customer Care,<br><b>BikeWale</b>");

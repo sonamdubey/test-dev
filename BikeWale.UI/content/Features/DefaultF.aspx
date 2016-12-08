@@ -11,8 +11,8 @@
 	    title = "Features - Stories, Specials & Travelogues | BikeWale";
 	    description = "Features section of BikeWale brings specials, stories, travelogues and much more.";
 	    keywords = "features, stories, travelogues, specials, drives.";
-	    canonical = "http://www.bikewale.com/features/";
-	    alternate = "http://www.bikewale.com/m/features/";
+	    canonical = "https://www.bikewale.com/features/";
+	    alternate = "https://www.bikewale.com/m/features/";
         relPrevPageUrl = prevUrl;
         relNextPageUrl = nextUrl;
 	    AdId = "1395986297721";
@@ -20,7 +20,7 @@
         isAd300x250BTFShown = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -99,7 +99,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
 
@@ -126,8 +126,8 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>

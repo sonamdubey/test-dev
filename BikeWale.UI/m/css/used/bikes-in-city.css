@@ -62,7 +62,7 @@
     padding-top: 16px;
 }
 
-.city-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat; display: inline-block; }
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .c198-icon, .c220-icon { height: 48px; }
 .c1-icon { width: 78px; background-position: 0 0; }
 .c12-icon { width: 112px; background-position: -84px 0; }
