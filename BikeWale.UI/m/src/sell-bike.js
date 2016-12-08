@@ -526,6 +526,7 @@ var sellBike = function () {
             console.warn(e);
         }
     }
+
     self.removePhoto = function removeUploadedPhoto(photoId) {
         var isSuccess = false;
         if (photoId) {
@@ -935,12 +936,12 @@ var bikeDetails = function () {
 
         if (self.errors().length === 0) {
             vmSellBike.formStep(2);
+            scrollToForm.activate();
         }
         else {
             self.errors.showAllMessages();
         }
 
-        scrollToForm.activate();
         vmSellBike.verificationDetails().status(false);
     };
 
@@ -1302,12 +1303,11 @@ var moreDetails = function () {
     var self = this;
 
     self.insuranceType = ko.observable();
-    self.adDescription = ko.observable();
+    self.adDescription = ko.observable('');
     self.registrationNumber = ko.observable('');
 
     try {
         self.updateAd = function () {
-
             var moreDetailsData = {
                 "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
                 "insuranceType": vmSellBike.moreDetails().insuranceType(),
@@ -1594,6 +1594,7 @@ var morePhotos = {
     dropzoneDiv: $('#add-photos-dropzone'),
 
     attach: function () {
+        debugger;
         var addPhotosDiv;
 
         if (!morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
@@ -1604,12 +1605,14 @@ var morePhotos = {
     },
 
     detach: function () {
+        debugger;
         if (morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
             morePhotos.dropzoneDiv.removeClass('dz-under-limit');
             morePhotos.dropzoneDiv.find('#add-more-photos').remove();
         }
     }
 };
+
 
 $('.chosen-container').on('touchstart', function (event) {
     event.stopPropagation();
