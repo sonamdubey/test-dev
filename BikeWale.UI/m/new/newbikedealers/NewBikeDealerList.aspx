@@ -61,7 +61,7 @@
             <div class="container bg-white box-shadow margin-bottom10">
                 <div class="border-solid-bottom">
                     <h2 class="font18 text-black text-bold padding-15-20 bg-white dealer-heading"><%=totalDealers %> <%=makeName%> showrooms in <%=cityName%></h2>
-                    <a href="javascript:void(0)" class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change-text">change</span></a>
+                    <a href="javascript:void(0)" rel="nofollow" class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change-text">change</span></a>
                 </div>
                 <ul id="dealersList">
                     <asp:Repeater ID="rptDealers" runat="server">

@@ -85,7 +85,7 @@
                         <div>
                             <h2 class="font18 text-black text-bold bg-white dealer-heading"><%=totalServiceCenters %> <%=makeName %> service center<% if (totalServiceCenters > 1)
                                                                                                                              { %>s<%}%> in <%=cityName %></h2>
-                            <a href="javascript void()" class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change-text">change</span></a>
+                            <a href="javascript void()" rel="nofollow" class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change-text">change</span></a>
                         </div>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">

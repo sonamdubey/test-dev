@@ -55,7 +55,7 @@
             <div class="container bg-white box-shadow card-bottom-margin">
                 <div class="border-solid-bottom">
                     <h2 class="font18 text-black text-bold padding-15-20 bg-white dealer-heading"><%=listingHeading %></h2>
-                    <a href="javascript:void(0)" class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change-text">change</span></a>
+                    <a href="javascript:void(0)" rel="nofollow" class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change-text">change</span></a>
                 </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
