@@ -493,7 +493,7 @@
                                                     <div class="grid-10 alpha margin-bottom5">
                                                         <span class="font14 text-black text-bold text-truncate block"><%= bike.Name %></span>
                                                     </div>
-                                                    <div class="grid-2 alpha omega font12 text-light-grey text-right pos-top2"><%= bike.Distance %> kms</div>
+                                                    <div class="grid-2 alpha omega font12 text-light-grey text-right pos-top2"><%= Math.Truncate(bike.Distance) %> kms</div>
                                                     <div class="clear"></div>
                                                     <div class="margin-bottom5">
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
