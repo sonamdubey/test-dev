@@ -221,7 +221,7 @@
                     <div class="content-box-shadow">
                         <div>
                             <h2 class="font18 text-black text-bold bg-white padding-18-20 dealer-heading"><%=totalDealers %> <%=makeName %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
-                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change text-link">change</span></span>
+                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                         </div>
                         
                         <div id="listing-left-column" class="grid-4">
