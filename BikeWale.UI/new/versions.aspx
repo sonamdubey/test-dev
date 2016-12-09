@@ -177,82 +177,6 @@
                                     <p class="font14 text-bold margin-bottom15"><%= variantText %></p>
                                     <% }
                                 } %>
-
-                                <%--<div class="model-name-review-container">
-                                
-                                    <% if (!modelPageEntity.ModelDetails.Futuristic || modelPageEntity.ModelDetails.New)
-                                       { %>
-                                    
-                                    <div id="modelRatingsContainer" class="margin-top5 margin-bottom20 <%= modelPageEntity.ModelDetails.Futuristic ? "hide " : string.Empty %>">
-                                        <% if (Convert.ToDouble(modelPageEntity.ModelDetails.ReviewRate) > 0)
-                                           { %>
-                                        <p class="bikeModel-user-ratings leftfloat margin-right10">
-                                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPageEntity.ModelDetails.ReviewRate)) %>
-                                        </p>
-
-                                        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-
-                                            <meta itemprop="ratingValue" content="<%=modelPageEntity.ModelDetails.ReviewRate %>">
-                                            <meta itemprop="worstRating" content="1">
-                                            <meta itemprop="bestRating" content="5">
-                                            <a href="<%= FormatShowReview(modelPageEntity.ModelDetails.MakeBase.MaskingName,modelPageEntity.ModelDetails.MaskingName) %>" class="review-count-box font14 border-solid-left leftfloat margin-right20 padding-left10 ">
-                                                <span itemprop="reviewCount">
-                                                    <%= modelPageEntity.ModelDetails.ReviewCount %>
-                                                </span>Reviews
-                                            </a>
-                                        </span>
-                                        <% }
-                                           else
-                                           { %>
-                                        <p class="leftfloat margin-right20 font14">Not rated yet</p>
-                                        <% } %>
-                                        <a href="<%= FormatWriteReviewLink() %>" class="hide border-solid-left leftfloat margin-right10 padding-left10 font14 write-review-text">Write a review</a>
-                                        <div class="clear"></div>
-                                    </div>
-                                    
-                                    <% } %>
-                                </div>
-                                
-                                <div id="variantDetailsContainer" class="variants-dropDown margin-top20 <%= modelPageEntity.ModelDetails.Futuristic ? "hide": string.Empty%>">
-                                    <div>
-                                        <p class="variantText text-light-grey margin-right10">Version: </p>
-
-                                        <% if (modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 1)
-                                           { %>
-                                        <div class="form-control-box variantDropDown">
-                                            <div class="sort-div rounded-corner2">
-                                                <div class="sort-by-title" id="sort-by-container">
-                                                    <span class="leftfloat sort-select-btn">
-                                                        <asp:Label runat="server" ID="defaultVariant"></asp:Label>
-                                                    </span>
-                                                    <span class="clear"></span>
-                                                </div>
-                                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top13 pos-right10"></span>
-                                            </div>
-                                            <div class="sort-selection-div sort-list-items hide">
-                                                <ul id="sortbike">
-                                                    <asp:Repeater ID="rptVariants" runat="server">
-                                                        <ItemTemplate>
-                                                            <li>
-                                                                <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionName") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
-                                                            </li>
-                                                            <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
-                                                </ul>
-                                                <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
-                                            </div>
-                                        </div>
-                                        <% }
-                                           else
-                                           { %>
-                                        <p id='versText' class="variantText margin-right20"><%= variantText %></p>
-                                        <% } %>
-                                        <div class="clear"></div>
-                                    </div>
-
-                                </div>
-                                --%>
                                 <!-- Variant div ends -->
 
                                 <div id="scrollFloatingButton"></div>
@@ -289,7 +213,7 @@
                                         <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                         <%if (isOnRoadPrice)
                                           {%>
-                                        <span id="viewBreakupText" class="font14 text-bold viewBreakupText">View detailed price</span>
+                                        <a id="viewBreakupText" href="/pricequote/dealerpricequote.aspx?MPQ=<%=detailedPriceLink %>" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
                                         <br>
                                         <% } %>
                                     </div>
@@ -322,7 +246,7 @@
                                 <div class="clear"></div>
                                 <%  }
                                     } %>
-                                <% if(viewModel != null && !viewModel.IsPremiumDealer) { %>
+                                <% if(viewModel != null && viewModel.DealerCampaignV2.PrimaryDealer.DealerDetails!=null && !viewModel.IsPremiumDealer) { %>
                                 <div class="border-solid-top margin-top15 margin-bottom20 padding-top20">
                                     <div class="inline-block margin-right10">
                                         <span class="model-sprite partner-dealer"></span>
@@ -551,7 +475,7 @@
             <!-- Terms and condition Popup Ends -->
         </section>
 
-        <% if (viewModel != null && viewModel.IsPremiumDealer && viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
+        <% if (viewModel != null  && viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
            { %>
         <section>
             <div class="container">
@@ -575,10 +499,12 @@
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                         <span class="vertical-top details-column font14 text-light-grey"><%= bike.Area %></span>
                                                     </div>
+                                                    <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
                                                     <div>
                                                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
                                                         <span class="vertical-top details-column font14 text-default text-bold"><%= bike.MaskingNumber %></span>
                                                     </div>
+                                                    <% } %>
                                                     <div class="margin-top10">
                                                         <div class="grid-5 alpha omega">
                                                             <p class="font12 text-light-grey margin-bottom5">On-road price</p>

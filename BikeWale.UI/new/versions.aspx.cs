@@ -65,7 +65,7 @@ namespace Bikewale.New
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
         protected HiddenField hdnVariant;
-        protected string pq_leadsource = "32", pq_sourcepage = "57", cssOffers = "noOffers", offerDivHide = "hide", pgDescription = string.Empty;
+        protected string pq_leadsource = "32", pq_sourcepage = "57", cssOffers = "noOffers", offerDivHide = "hide", pgDescription = string.Empty, detailedPriceLink = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         private StringBuilder colorStr = new StringBuilder();
@@ -193,6 +193,8 @@ namespace Bikewale.New
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
         }
+
+
 
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
@@ -336,6 +338,7 @@ namespace Bikewale.New
                     pgDescription = String.Format("{0} Price in India - Rs. {1}. Find {2} Reviews, Specs, Features, Mileage, On Road Price and Images at Bikewale. {3}", bikeName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), bikeModelName, colorStr);
                 }
                 BindDescription();
+                SetFlagsAtEnd();
             }
             catch (Exception ex)
             {
@@ -932,6 +935,19 @@ namespace Bikewale.New
             if (isCityAvailable && ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected)))
             {
                 toShowOnRoadPriceButton = true;
+            }
+        }
+
+        /// <summary>
+        /// Author: Sangram Nandkhile
+        /// Created on: 09 Dec 2016
+        /// Desc: Set flags for aspx mark up to show and hide buttons, insurance links
+        /// </summary>
+        private void SetFlagsAtEnd()
+        {
+            if (isOnRoadPrice && price > 0)
+            {
+                detailedPriceLink = PriceQuoteQueryString.FormBase64QueryString(cityId.ToString(), pqId, areaId.ToString(), variantId.ToString(), dealerId.ToString());
             }
         }
 

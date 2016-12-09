@@ -419,7 +419,6 @@ $("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign, #getassistance, #getOffersFro
 
 $("#viewBreakupText").on('click', function (e) {
     triggerGA('Model_Page', 'View_Detailed_Price_Clicked', bikeVersionLocation);    
-    secondarydealer_Click(dealerId);
 });
 
 $("#getdealerdetails").on('click', function (e) {
