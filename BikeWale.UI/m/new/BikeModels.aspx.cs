@@ -282,18 +282,7 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        protected void btnVariant_Command(object sender, CommandEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(e.CommandName))
-            {
-                versionId = Convert.ToUInt32(e.CommandName);
-                FetchVariantDetails(versionId);
-                //defaultVariant.Text = Convert.ToString(e.CommandArgument);
-                variantText = Convert.ToString(e.CommandArgument);
-            }
-        }
-
-        protected void rptVarients_ItemDataBound2(object sender, RepeaterItemEventArgs e)
+        protected void rptVarients_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             try
             {
@@ -575,7 +564,7 @@ namespace Bikewale.Mobile.New
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
+                    modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId), (int)versionId);
                     if (modelPage != null)
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -761,28 +750,6 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   27 Nov 2015
-        /// Description     :   Sends the notification to Customer and Dealer
-        /// </summary>
-        private void FetchVariantDetails(uint versionId)
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt32(versionId));
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
-            }
-        }
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
