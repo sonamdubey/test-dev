@@ -180,7 +180,7 @@
 
         self.FillBrandsPopup = function () {
             $('#brandcitypopupWrapper').addClass('loader-active');
-            var isAborted = false;
+             var isAborted = false;
             BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
             if (data = lscache.get(BrandsKey)) {
                 var brands = ko.toJS(data);
@@ -272,6 +272,7 @@
                                 self.listCities([]);
                             }
                             $('#brandcitypopupWrapper').removeClass('loader-active');
+                           
 
                         },
                         error: function (e) {
@@ -330,7 +331,7 @@
             }
         }
         self.chooseBrand = function (data, event) {
-
+           
             if (!self.oBrowser()) {
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 self.selectedBrand(data);
@@ -343,14 +344,18 @@
             }
 
             if (self.selectedBrand() != null) {
-                self.LoadingText("Loading cities for " + self.selectedBrand().name);
+                //$("#popup-loader-container").show();
+                //$("#popup-loader-text").show();
+                $('#brandcitypopupWrapper').addClass('loader-active');
+                self.LoadingText("Loading cities for " + self.selectedBrand().makeName);
                 self.makeChangedPopup();
             }
+            
             
         };
 
         self.chooseCity = function (data, event) {
-            if (!self.oBrowser()) {
+          if (!self.oBrowser()) {
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                 self.selectCity(data);
                 
@@ -360,6 +365,7 @@
                 self.selectCity(findCityById(self.SelectedCityId()));
                 if (!event.originalEvent) return;
             }
+          
         };
 
         self.findMakeById = function (id) {
