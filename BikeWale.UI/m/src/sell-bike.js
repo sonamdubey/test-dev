@@ -473,7 +473,7 @@ var sellBike = function () {
 
                         this.on("addedfiles", function (file) {
                             morePhotos.detach();
-                            if (myDropzone.files.length > myDropzone.options.maxFiles) {
+                            if (myDropzone.files.length > 10) {
                                 $(file).each(function (i) {
                                     if (10 > i >= self.serverImg().length) {
                                         myDropzone.cancelUpload(this);
@@ -1596,7 +1596,6 @@ var morePhotos = {
 
     attach: function () {
         var addPhotosDiv;
-
         if (!morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
             addPhotosDiv = '<div id="add-more-photos"><div class="more-photos-content"><span class="sell-bike-sprite plus-icon"></span><br /><span class="font12 text-light-grey">Add photos</span></div></div>';
 
