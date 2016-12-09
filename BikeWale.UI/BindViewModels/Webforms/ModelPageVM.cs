@@ -1,10 +1,6 @@
 ﻿using Bikewale.BAL.PriceQuote;
-using Bikewale.BAL.Used.Search;
-using Bikewale.DAL.Used.Search;
 using Bikewale.Entities;
-using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Interfaces.Used.Search;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -77,43 +73,6 @@ namespace Bikewale.BindViewModels.Webforms
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.ModelPageVM constructor-> cityId:{0}, versionId:{1}, dealerId:{2}, areaId{3}", cityId, versionId, dealerId, areaId));
                 objErr.SendMail();
             }
-        }
-
-        /// <summary>
-        /// Created By :-Subodh Jain 07 oct 2016
-        /// Desc:- To get total number of used bikes
-        /// </summary>
-        public uint TotalUsedBikes(uint modelId, uint cityId)
-        {
-            SearchResult UsedBikes = null;
-            uint totalUsedBikes = 0;
-            try
-            {
-                ISearch objSearch = null;
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<ISearchFilters, ProcessSearchFilters>()
-                        .RegisterType<ISearchQuery, SearchQuery>()
-                        .RegisterType<ISearchRepository, SearchRepository>()
-                        .RegisterType<ISearch, SearchBikes>();
-                    objSearch = container.Resolve<ISearch>();
-                    InputFilters objFilters = new InputFilters();
-                    // If inputs are set by hash, hash overrides the query string parameters
-                    if (cityId > 0)
-                        objFilters.City = cityId;
-                    if (modelId > 0)
-                        objFilters.Model = Convert.ToString(modelId);
-                    UsedBikes = objSearch.GetUsedBikesList(objFilters);
-                    if (UsedBikes != null)
-                        totalUsedBikes = (uint)UsedBikes.TotalCount;
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ModelPageVM.TotalUsedBikes() --> modelId: {0}, cityId: {1}", modelId, cityId));
-                objErr.SendMail();
-            }
-            return totalUsedBikes;
         }
     }
 }

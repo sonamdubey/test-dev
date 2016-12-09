@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -7,15 +8,18 @@ using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Used.Search;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.Used.Search;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -317,8 +321,8 @@ namespace Bikewale.New
         {
             try
             {
-                if (viewModel != null)
-                    totalUsedBikes = viewModel.TotalUsedBikes(modelId, cityId);
+
+                totalUsedBikes = TotalUsedBikes(modelId, cityId);
                 if (modelPageEntity.ModelDetails.Futuristic)
                 {
                     pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
@@ -990,6 +994,43 @@ namespace Bikewale.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "versions.aspx -->" + "BindColorString()");
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By :-Subodh Jain 07 oct 2016
+        /// Desc:- To get total number of used bikes
+        /// </summary>
+        public uint TotalUsedBikes(uint modelId, uint cityId)
+        {
+            SearchResult UsedBikes = null;
+            uint totalUsedBikes = 0;
+            try
+            {
+                ISearch objSearch = null;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ISearchFilters, ProcessSearchFilters>()
+                        .RegisterType<ISearchQuery, SearchQuery>()
+                        .RegisterType<ISearchRepository, SearchRepository>()
+                        .RegisterType<ISearch, SearchBikes>();
+                    objSearch = container.Resolve<ISearch>();
+                    InputFilters objFilters = new InputFilters();
+                    // If inputs are set by hash, hash overrides the query string parameters
+                    if (cityId > 0)
+                        objFilters.City = cityId;
+                    if (modelId > 0)
+                        objFilters.Model = Convert.ToString(modelId);
+                    UsedBikes = objSearch.GetUsedBikesList(objFilters);
+                    if (UsedBikes != null)
+                        totalUsedBikes = (uint)UsedBikes.TotalCount;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("versions.aspx --> TotalUsedBikes() --> modelId: {0}, cityId: {1}", modelId, cityId));
+                objErr.SendMail();
+            }
+            return totalUsedBikes;
         }
 
         #endregion Methods
