@@ -75,7 +75,7 @@ namespace Bikewale.Mobile.Used.Sell
         {
             try
             {
-                if (Bikewale.Common.CurrentUser.UserId < 1)
+                if (Bikewale.Common.CurrentUser.UserId > 0)
                 {
                     userId = Bikewale.Common.CurrentUser.Id;
                     userEmail = Bikewale.Common.CurrentUser.Email;

@@ -62,7 +62,7 @@
                         <div class="slideIn-input-box-content row-bottom-margin" data-bind="css: bikeStatus() ? 'selection-done' : ''">
                             <div id="bike-select-element" class="slideIn-input-box">
                                 <p class="slideIn-input-label bike-box-default">Bike<sup>*</sup></p>
-                                <p id="bike-select-p" class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike"></p>
+                                <p id="bike-select-p" class="selected-option-box bike-box-default text-truncate" data-bind="text: bike, validationElement: bike" tabindex="0"></p>
                                 <span class="boundary"></span>
                                 <span class="error-text" data-bind="validationMessage: bike"></span>
                                 <span class="bwmsprite grey-right-icon"></span>
@@ -208,14 +208,21 @@
                                         </div>
                                     </div>
                                 </div>
-                    
-                                <ul class="filter-list" id="filter-city-list">
+                                <ul class="filter-list" id="filter-city-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length == 0))">
                                     <% foreach (var city in objCityList)
                                        { %>
                                     <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
-                                    <% } %>   
-                                    <li data-cityId="0" data-cityName="No search result!" data-bind="click: $root.FilterCity"><span>No search result!!</span></li>                                     
+                                    <% } %>                                                                         
                                 </ul>
+
+                                <ul class="filter-list" data-bind="foreach: $root.bikeDetails().Cities().visibleCities(), visible: $root.bikeDetails().Cities().visibleCities().length > 0, click: $root.FilterCity">                                    
+                                    <li data-bind="click: $root.FilterCity, attr: { 'data-cityId': id }" ><span data-bind="text: city"></span></li>                                      
+                                </ul>
+
+                                <ul class="filter-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))">                                    
+                                    <li>No results found !!</li>                                    
+                                </ul>
+
                             </div>
                         </div>
                         <!-- city drawer ends here -->
