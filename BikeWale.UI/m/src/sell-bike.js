@@ -214,7 +214,6 @@ var vmCities = function () {
         self.FilteredCity = ko.observableArray([]);
         self.visibleCities = ko.computed(function () {
             self.FilteredCity([]);
-            //var isCityListEmpty = true;
             var filter = self.cityFilter();            
             if (filter && filter.length > 0) {
                 var pat = new RegExp(filter, "i");
@@ -223,22 +222,8 @@ var vmCities = function () {
                    {
                       self.FilteredCity().push({ city: $(city).text(), id: $(city).attr("data-cityId") });
                    };
-                });
-                //citiesList.filter(function (place) {
-                //    if (pat.test($(this).text())) {
-                //        $(this).show();
-                //        isCityListEmpty = false;
-                //    }
-                //    else {
-                //        $(this).hide();
-                //    }
-                //});
-            }
-            //if (filter != "" && !isCityListEmpty) {
-            //    citiesList.last().hide();
-            //} else {
-            //    citiesList.last().show();
-            //}
+                });                
+            }            
             return self.FilteredCity();
         });
     } catch (e) {
@@ -1610,7 +1595,6 @@ var morePhotos = {
     dropzoneDiv: $('#add-photos-dropzone'),
 
     attach: function () {
-        debugger;
         var addPhotosDiv;
 
         if (!morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
@@ -1621,7 +1605,6 @@ var morePhotos = {
     },
 
     detach: function () {
-        debugger;
         if (morePhotos.dropzoneDiv.hasClass('dz-under-limit')) {
             morePhotos.dropzoneDiv.removeClass('dz-under-limit');
             morePhotos.dropzoneDiv.find('#add-more-photos').remove();
