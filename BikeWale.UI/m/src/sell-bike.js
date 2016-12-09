@@ -474,8 +474,8 @@ var sellBike = function () {
                         this.on("addedfiles", function (file) {
                             morePhotos.detach();
                             if (myDropzone.files.length > 10) {
-                                $(file).each(function (i) {
-                                    if (10 > i >= self.serverImg().length) {
+                                $(file).each(function (i) {                                    
+                                    if (i >= 10 - self.serverImg().length) {
                                         myDropzone.cancelUpload(this);
                                         myDropzone.removeFile(this);
                                     }
@@ -495,7 +495,7 @@ var sellBike = function () {
                             morePhotos.detach();
                             if (myDropzone.files.length > myDropzone.options.maxFiles) {
                                 $(file).each(function (i) {
-                                    if (10 > i >= self.serverImg().length) {
+                                    if (10 > i >= self.serverImg().length) {                                   
                                         myDropzone.cancelUpload(this);
                                         myDropzone.removeFile(this);
                                     }
