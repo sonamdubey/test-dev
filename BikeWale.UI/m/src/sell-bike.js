@@ -210,33 +210,44 @@ var findCityName = function (cityId) {
 var vmCities = function () {
     try {
         var self = this;
-        self.cityFilter = ko.observable();
+        self.cityFilter = ko.observable('');
+        self.FilteredCity = ko.observableArray([]);
         self.visibleCities = ko.computed(function () {
-            var isCityListEmpty = true;
-            filter = self.cityFilter();
-            filterObj = citiesList;
+            self.FilteredCity([]);
+            //var isCityListEmpty = true;
+            var filter = self.cityFilter();            
             if (filter && filter.length > 0) {
                 var pat = new RegExp(filter, "i");
-                citiesList.filter(function (place) {
-                    if (pat.test($(this).text())) {
-                        $(this).show();
-                        isCityListEmpty = false;
-                    }
-                    else {
-                        $(this).hide();
-                    }
+               ko.utils.arrayFilter(citiesList, function (city) {
+                   if (pat.test($(city).text()))
+                   {
+                      self.FilteredCity().push({ city: $(city).text(), id: $(city).attr("data-cityId") });
+                   };
                 });
+                //citiesList.filter(function (place) {
+                //    if (pat.test($(this).text())) {
+                //        $(this).show();
+                //        isCityListEmpty = false;
+                //    }
+                //    else {
+                //        $(this).hide();
+                //    }
+                //});
             }
-            if (filter != "" && !isCityListEmpty) {
-                citiesList.last().hide();
-            } else {
-                citiesList.last().show();
-            }
+            //if (filter != "" && !isCityListEmpty) {
+            //    citiesList.last().hide();
+            //} else {
+            //    citiesList.last().show();
+            //}
+            return self.FilteredCity();
         });
     } catch (e) {
         console.warn(e);
     }
 }
+
+
+
 
 // custom validation function
 var validation = {
@@ -940,6 +951,7 @@ var bikeDetails = function () {
         }
         else {
             self.errors.showAllMessages();
+            $('#sell-bike-content input.invalid , #sell-bike-content p.invalid').first().focus();      
         }
 
         vmSellBike.verificationDetails().status(false);
@@ -1437,7 +1449,7 @@ $('#city-select-element').on('click', '.city-box-default', function () {
             cityListSelection.open();
             vmSellBike.bikeDetails().citySelectionStatus('bike-city');
             appendState('bikeCity');
-        }
+        }        
     } catch (e) {
         console.warn(e);
     }
@@ -1455,6 +1467,10 @@ $('#registration-select-element').on('click', '.city-box-default', function () {
     }
 });
 
+$('.city-box-default').on('click', function () {
+    vmSellBike.bikeDetails().Cities().cityFilter('');
+});
+
 $('#close-city-filter').on('click', function () {
     cityListSelection.close();
 });
@@ -1462,17 +1478,17 @@ $('#close-city-filter').on('click', function () {
 $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
     try {
         var element = $(this);
-
-        if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
-            vmSellBike.bikeDetails().city(element.text());
-            vmSellBike.bikeDetails().cityId(element.attr("data-cityId"));
+        if (!((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))) {
+            if (vmSellBike.bikeDetails().citySelectionStatus() == 'bike-city') {
+                vmSellBike.bikeDetails().city(element.text());
+                vmSellBike.bikeDetails().cityId(element.attr("data-cityId"));
+            }
+            else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
+                vmSellBike.bikeDetails().registeredCity(element.text());
+                vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
+            }            
+            cityListSelection.close();
         }
-        else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
-            vmSellBike.bikeDetails().registeredCity(element.text());
-            vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
-        }
-
-        cityListSelection.close();
     } catch (e) {
         console.warn(e);
     }
