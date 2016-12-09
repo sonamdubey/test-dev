@@ -1,0 +1,76 @@
+﻿input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+.input-box {
+    height: 60px;
+    text-align: left;
+    position: relative;
+}
+.input-box input {
+    width: 100%;
+    display: block;
+    padding: 7px 0;
+    border-bottom: 1px solid #82888b;
+    font-size: 16px;
+    font-weight: 700;
+    color: #4d5057;
+}
+.input-box label {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    user-select: none;
+    font-size: 16px;
+    color: #82888b;
+    cursor: text;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+}
+.input-number-box input {
+    padding-left: 30px;
+}
+.input-number-box .input-number-prefix {
+    display: none;
+    font-size: 16px;
+    position: absolute;
+    top: 4px;
+    font-weight: 700;
+    color: #82888b;
+}
+.input-number-box .input-number-label {
+    position: relative;
+    top: 4px;
+    color: #a2a2a2;
+}
+.input-box input:focus ~ label {
+    top: -16px;
+    font-size: 12px;
+}
+.input-box input:focus ~ .input-number-prefix {
+    display: inline-block;
+}
+.input-box.not-empty label {
+    top: -16px;
+    font-size: 12px;
+}
+.input-box.input-number-box input:focus ~ .input-number-prefix,
+.input-box.input-number-box.not-empty .input-number-prefix {
+    display: inline-block;
+}
+.input-box input:focus ~ .boundary:before,
+.input-box input:focus ~ .boundary:after {
+    width: 50%;
+}
+/* type number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}

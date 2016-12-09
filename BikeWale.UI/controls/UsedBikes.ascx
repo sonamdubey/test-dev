@@ -18,7 +18,7 @@
     </div>
     <div class="clear"></div>
     <div class="padding-left10">
-        <a title="View all used <%=pageHeading %> bikes" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+        <a title="Used <%=pageHeading %> bikes in India" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>">View all used <%= pageHeading %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
     <%}
           else
@@ -41,7 +41,7 @@
 </div>
 <div class="clear"></div>
 <div class="padding-left10">
-    <a title="View all used <%=pageHeading%> bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>">View all used bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <a title="Used <%=pageHeading%> bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>">View all used <%= pageHeading %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
 </div>
 <%} %>
 

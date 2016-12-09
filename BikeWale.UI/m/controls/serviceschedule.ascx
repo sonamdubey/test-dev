@@ -43,7 +43,8 @@
 <script type="text/javascript">
     <% if (!string.IsNullOrEmpty(jsonBikeSchedule))
        {%>
-        var bikeschedule = JSON.parse('<%=jsonBikeSchedule %>'.replace(/\s/g, ' '));
+        var bikeschedule = '<%=jsonBikeSchedule.Replace("'", string.Empty) %>';
+        bikeschedule = JSON.parse(bikeschedule.replace(/\s/g, ' '));
         function SchedulesViewModel() {
             var self = this;
             self.bikes = ko.observable(bikeschedule);

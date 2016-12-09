@@ -1,0 +1,36 @@
+﻿.boundary {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+.boundary::before,
+.boundary::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #41b4c4;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+}
+.boundary::before {
+    left: 50%;
+}
+.boundary::after {
+    right: 50%;
+}
+.error-text {
+    font-size: 12px;
+    position: relative;
+    top: 4px;
+    left: 0;
+    color: #d9534f;
+}
+.invalid .boundary:before,
+.invalid .boundary:after {
+    background-color: #d9534f;
+    width: 50%;
+}

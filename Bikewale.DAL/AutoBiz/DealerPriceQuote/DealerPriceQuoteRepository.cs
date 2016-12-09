@@ -1026,7 +1026,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_28072016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_08122016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1107,6 +1107,7 @@ namespace Bikewale.DAL.AutoBiz
                                     primaryDealer.objCity = new CityEntityBase() { CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string) };
                                     primaryDealer.objState = new StateEntityBase() { StateName = !Convert.IsDBNull(dr["StateName"]) ? Convert.ToString(dr["StateName"]) : default(string) };
                                     primaryDealer.Website = !Convert.IsDBNull(dr["WebsiteUrl"]) ? Convert.ToString(dr["WebsiteUrl"]) : default(string);
+                                    primaryDealer.Distance = !Convert.IsDBNull(dr["Distance"]) ? Convert.ToString(dr["Distance"]) : default(string);
                                     primaryDealer.EmailId = !Convert.IsDBNull(dr["EmailId"]) ? Convert.ToString(dr["EmailId"]) : default(string);
                                     DealerPackageTypes s;
                                     if (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s))
