@@ -482,7 +482,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner dealers in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
