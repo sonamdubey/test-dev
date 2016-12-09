@@ -208,7 +208,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <ul class="filter-list" id="filter-city-list" data-bind="visible: (($root.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length == 0))">
+                                <ul class="filter-list" id="filter-city-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length == 0))">
                                     <% foreach (var city in objCityList)
                                        { %>
                                     <li data-cityId="<%= city.CityId %>" data-cityName="<%= city.CityName %>" data-cityMasking="<%=city.CityMaskingName %>" data-bind="click: $root.FilterCity"><span><%= city.CityName %></span></li>    
@@ -219,7 +219,7 @@
                                     <li data-bind="click: $root.FilterCity, attr: { 'data-cityId': id }" ><span data-bind="text: city"></span></li>                                      
                                 </ul>
 
-                                <ul class="filter-list" data-bind="visible: (($root.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))">                                    
+                                <ul class="filter-list" data-bind="visible: ((vmSellBike.bikeDetails().Cities().visibleCities().length == 0) && (vmSellBike.bikeDetails().Cities().cityFilter().length > 0))">                                    
                                     <li>No results found !!</li>                                    
                                 </ul>
 
