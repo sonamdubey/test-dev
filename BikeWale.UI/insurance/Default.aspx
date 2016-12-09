@@ -8,8 +8,8 @@
          title = "BikeWale - Insurance";
          keywords = "calculate insurance premium, premium calculator, calculate insurance, insurance calculator, indian insurance calculator, bike insurance, calulate insurance in india, india insurance, motorcycle insurance";
          description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
-         alternate = "http://www.bikewale.com/m/insurance/";
-         canonical = "http://www.bikewale.com/insurance/"; 
+         alternate = "https://www.bikewale.com/m/insurance/";
+         canonical = "https://www.bikewale.com/insurance/"; 
     
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
@@ -17,9 +17,9 @@
         isAd300x250BTFShown = false;
          %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
         
     <%  isTransparentHeader = true;   %>
 </head>
@@ -282,9 +282,9 @@
     </section>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var picker = new Pikaday({
                 field: document.getElementById('bikeRegistrationDate')

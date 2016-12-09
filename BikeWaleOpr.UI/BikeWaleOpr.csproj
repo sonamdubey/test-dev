@@ -100,10 +100,16 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\Libs\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors">
+      <HintPath>..\Libs\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -352,58 +358,6 @@
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\AddPages.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\Author.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\BasicData.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\BasicInfo.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\Common.cs" />
-    <Compile Include="editcms\Code\CreateAlbum.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\default.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\DisplayBasicInfo.ascx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\EditCmsCommon.ascx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\FillPages.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\ManageImageTagging.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\OtherInfo.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\PublishArticle.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\SelectBikes.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\ShowAlbum.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\Summary.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\TestSerial.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="editcms\Code\ViewImage.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -1344,26 +1298,6 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\Common.css" />
     <Content Include="Default.aspx" />
-    <Content Include="editcms\AddPages.aspx" />
-    <Content Include="editcms\Author.aspx" />
-    <Content Include="editcms\BasicData.aspx" />
-    <Content Include="editcms\BasicInfo.aspx" />
-    <Content Include="editcms\CreateAlbum.aspx" />
-    <Content Include="editcms\default.aspx" />
-    <Content Include="editcms\DisplayBasicInfo.ascx" />
-    <Content Include="editcms\EditCmsCommon.ascx" />
-    <Content Include="editcms\editcmsjs.js" />
-    <Content Include="editcms\FillPages.aspx" />
-    <Content Include="editcms\ManageImageTagging.aspx" />
-    <Content Include="editcms\OtherInfo.aspx" />
-    <Content Include="editcms\Overview.aspx" />
-    <Content Include="editcms\PublishArticle.aspx" />
-    <Content Include="editcms\SaveImage.aspx" />
-    <Content Include="editcms\SelectBikes.aspx" />
-    <Content Include="editcms\ShowAlbum.aspx" />
-    <Content Include="editcms\Summary.aspx" />
-    <Content Include="editcms\TestSerial.aspx" />
-    <Content Include="editcms\ViewImage.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\word.css" />
     <Content Include="editor\default.aspx" />
@@ -1904,7 +1838,6 @@
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="editcms\web.config" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>

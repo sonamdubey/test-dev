@@ -29,6 +29,8 @@ namespace Bikewale.Mobile.Service
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    ///  Modified by : Aditi Srivastava on 5 Dec 2016
+    /// Description : Added widget for to change brand and city for service center list
     /// </summary>
     public class ServiceCenterList : PageBase
     {
@@ -42,7 +44,8 @@ namespace Bikewale.Mobile.Service
         protected DealersCard ctrlDealerCard;
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
-
+        protected BrandCityPopUp ctrlBrandCity;
+        protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -73,6 +76,7 @@ namespace Bikewale.Mobile.Service
                     GetCityNameByCityMaskingName(urlCityMaskingName);
 
                     BindWidgets();
+                    CreateHeading();
                 }
                 else
                 {
@@ -103,6 +107,9 @@ namespace Bikewale.Mobile.Service
                 ctrlDealerCard.LeadSourceId = 16;
                 ctrlDealerCard.DealerId = 0;
                 ctrlDealerCard.isHeadingNeeded = false;
+                ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+                ctrlBrandCity.makeId = makeId;
+                ctrlBrandCity.cityId = cityId;
 
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
@@ -211,6 +218,17 @@ namespace Bikewale.Mobile.Service
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 7 dec 2016
+        /// Summary    : Create custom heading based on no of service centers
+        /// </summary>
+        private void CreateHeading()
+        {
+            if (totalServiceCenters > 1)
+                listingHeading = string.Format("{0} {1} service centers in {2}", totalServiceCenters, makeName, cityName);
+            else
+                listingHeading = string.Format("{0} {1} service center in {2}", totalServiceCenters, makeName, cityName);
         }
 
         /// <summary>

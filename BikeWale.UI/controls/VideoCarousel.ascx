@@ -16,7 +16,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
@@ -30,7 +30,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
@@ -44,7 +44,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
@@ -58,7 +58,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/cCS7WWY5hlk/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
@@ -72,7 +72,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">
@@ -86,7 +86,7 @@
                                             <div class="pic-place">
                                                 <a href="#" target="_blank">
                                 	                <div class="video-sprite play-btn"></div>
-                                	                <img src="http://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
+                                	                <img src="https://img.youtube.com/vi/jcEaopeBfUU/mqdefault.jpg" alt="" title=""  width="200" height="120"/>
                                                 </a>
                                             </div>
                                             <div class="content-place">

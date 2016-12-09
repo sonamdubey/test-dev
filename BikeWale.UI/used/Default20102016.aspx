@@ -9,7 +9,7 @@
     title = "Used Bikes in India - Buy & Sell Second Hand Bikes";
     keywords = "Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";
     description = "With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bikes or list your bikes for sale.";
-    alternate = "http://www.bikewale.com/m/used/";
+    alternate = "https://www.bikewale.com/m/used/";
     AdId = "1475575707820";
     AdPath = " /1017752/BikeWale_UsedBikes_HomePage_";
      is300x250Shown = false;

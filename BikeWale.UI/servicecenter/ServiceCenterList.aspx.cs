@@ -28,6 +28,8 @@ namespace Bikewale.Service
     /// <summary>
     /// Created By : Sajal Gupta on 16-11-2016
     /// Class to show the bike service center listing for particular make and city.
+    /// Modified By : Aditi Srivasatva on 30 Nov 2016
+    /// Description : Added control to change brand and city for service centers
     /// </summary>
     public class ServiceCenterList : Page
     {
@@ -39,6 +41,7 @@ namespace Bikewale.Service
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected CityEntityBase objCityEntityBase;
         protected UsedBikeWidget ctrlRecentUsedBikes;
+        protected BrandCityPopUp ctrlBrandCity;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
@@ -80,6 +83,8 @@ namespace Bikewale.Service
         /// <summary>
         /// Created by : SAJAL GUPTA on 16-11-2016
         /// Description: Method to bind dealer car data.
+        /// Modified By : Aditi Srivasatva on 30 Nov 2016
+        /// Description : Set request type according to page for brand city pop up
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
         /// </summary>
@@ -95,6 +100,9 @@ namespace Bikewale.Service
                 ctrlDealerCard.LeadSourceId = 11;
                 ctrlDealerCard.TopCount = 3;
                 ctrlDealerCard.isHeading = false;
+            ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
 
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;

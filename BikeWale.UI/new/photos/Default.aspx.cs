@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using System;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 
@@ -70,6 +71,10 @@ namespace Bikewale.New.PhotoGallery
                     if (objResponse.StatusCode == 200)
                         success = true;
                 }
+            }
+            catch (ThreadAbortException)
+            {
+
             }
             catch (Exception ex)
             {

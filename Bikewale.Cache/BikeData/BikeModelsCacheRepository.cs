@@ -66,7 +66,7 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
-                if (objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count() > 1)
+                if (objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersions.Count() > 1)
                 {
                     // First page load where version id is Zero, fetch default version properties
                     versionId = versionId == 0 ? (int)objModelPage.ModelVersionSpecs.BikeVersionId : versionId;

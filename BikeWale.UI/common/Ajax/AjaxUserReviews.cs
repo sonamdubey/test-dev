@@ -39,7 +39,7 @@ namespace Bikewale.Ajax
 
                 //    messageText = "Dear Friends,"
                 //                + "<br/><br/>I have written a review on " + bike + " and look forward to your comments on it."
-                //                + "<br/><br/>Review Link: <a href=\"http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
+                //                + "<br/><br/>Review Link: <a href=\"https://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "\"><strong>" + title + "</strong></a>&nbsp;"
                 //                + "<br/><br/>Thanks.";
 
                 //    titleText = title + " - " + bike + " User Review";

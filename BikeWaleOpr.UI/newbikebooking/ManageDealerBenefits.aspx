@@ -7,9 +7,9 @@
     <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
     <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
 <%--    <script src="/src/graybox.js"></script>--%>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
-    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <script type="text/javascript">
         var host = '<%= ConfigurationManager.AppSettings["BwOprHostUrlForJs"]%>';

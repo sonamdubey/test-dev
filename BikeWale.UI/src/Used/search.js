@@ -601,13 +601,13 @@ function rowExpend(){
         var front_img_url = currRow.find("#imgUrl").val();
         
         if (front_img_url != "") {
-            var hostUrl = "http://" + currRow.find("#host_url").val();
+            var hostUrl = "https://" + currRow.find("#host_url").val();
             var compImgUrl = hostUrl + front_img_url;
            
             expnd_row.find("#front_image").attr('src', compImgUrl).css({ 'cursor': 'pointer' });
             expnd_row.find("#photo_count").text(currRow.find("#photo_count").val() + " Photos");
         } else {
-            expnd_row.find("#front_image").attr('src', 'http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png').css({ 'cursor': 'default' });
+            expnd_row.find("#front_image").attr('src', 'https://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png').css({ 'cursor': 'default' });
             expnd_row.find("#photo_count").text("");
         }
 

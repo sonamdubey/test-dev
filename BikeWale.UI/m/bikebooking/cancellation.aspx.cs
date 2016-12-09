@@ -45,7 +45,7 @@ namespace Bikewale.Mobile.bikebooking
                     FeedbackCancellationModel cancelled = new FeedbackCancellationModel();
                     cancelled.ProcessFeedbackEmail(BWid, FeedBackText.InnerText);
                 }
-                Response.Redirect("http://www.bikewale.com", false);
+                Response.Redirect("https://www.bikewale.com", false);
             }
             catch (Exception ex)
             {

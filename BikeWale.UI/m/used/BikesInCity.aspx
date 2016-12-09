@@ -6,7 +6,7 @@
      <%
          title = "Browse used bikes by cities";
          description = "Browse used bike by cities in India";
-         canonical = "http://www.bikewale.com/used/browse-bikes-by-cities/";
+         canonical = "https://www.bikewale.com/used/browse-bikes-by-cities/";
          keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
          AdPath = "/1017752/Bikewale_Mobile_Model";
          AdId = "1444028976556";
@@ -17,7 +17,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.form-control-box .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2;background-position:-34px -275px}.filter-active #other-cities-label,.filter-active #popular-city-content{display:none}#used-popular-cities{max-width:680px;margin:0 auto;text-align:center;padding-right:10px;padding-left:10px}#used-popular-cities li{display:inline-block;vertical-align:top}.popular-city-target{width:150px;height:145px;display:block;padding-top:10px;border:1px solid #e2e2e2;text-align:left;color:#4d5057;margin-right:10px;margin-bottom:20px;margin-left:10px;overflow:hidden}#other-cities-list a{display:block;font-size:16px;color:#82888b;padding-top:8px;padding-bottom:8px}#other-cities-list a:first-child,.noResult{padding-top:16px}#other-cities-list a:hover{color:#4d5057;text-decoration:none}.noResult{font-size:16px;color:#82888b}.city-sprite{background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;display:inline-block}.c1-icon,.c10-icon,.c105-icon,.c12-icon,.c176-icon,.c198-icon,.c2-icon,.c220-icon{height:48px}.c1-icon{width:78px;background-position:0 0}.c12-icon{width:112px;background-position:-84px 0}.c2-icon{width:82px;background-position:-202px 0}.c10-icon{width:38px;background-position:-290px 0}.c176-icon{width:33px;background-position:-334px 0}.c105-icon{width:34px;background-position:-373px 0}.c198-icon{width:110px;background-position:-413px 0}.c220-icon{width:106px;background-position:-529px 0}@media only screen and (max-width:360px){.popular-city-target{margin-right:8px;margin-left:8px}}@media only screen and (max-width:320px){.popular-city-target{width:135px;margin-right:5px;margin-left:5px;margin-bottom:15px}}
+        @charset "utf-8";.form-control-box .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2;background-position:-34px -275px}.filter-active #other-cities-label,.filter-active #popular-city-content{display:none}#used-popular-cities{max-width:680px;margin:0 auto;text-align:center;padding-right:10px;padding-left:10px}#used-popular-cities li{display:inline-block;vertical-align:top}.popular-city-target{width:150px;height:145px;display:block;padding-top:10px;border:1px solid #e2e2e2;text-align:left;color:#4d5057;margin-right:10px;margin-bottom:20px;margin-left:10px;overflow:hidden}#other-cities-list a{display:block;font-size:16px;color:#82888b;padding-top:8px;padding-bottom:8px}#other-cities-list a:first-child,.noResult{padding-top:16px}#other-cities-list a:hover{color:#4d5057;text-decoration:none}.noResult{font-size:16px;color:#82888b}.city-sprite{background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;display:inline-block}.c1-icon,.c10-icon,.c105-icon,.c12-icon,.c176-icon,.c198-icon,.c2-icon,.c220-icon{height:48px}.c1-icon{width:78px;background-position:0 0}.c12-icon{width:112px;background-position:-84px 0}.c2-icon{width:82px;background-position:-202px 0}.c10-icon{width:38px;background-position:-290px 0}.c176-icon{width:33px;background-position:-334px 0}.c105-icon{width:34px;background-position:-373px 0}.c198-icon{width:110px;background-position:-413px 0}.c220-icon{width:106px;background-position:-529px 0}@media only screen and (max-width:360px){.popular-city-target{margin-right:8px;margin-left:8px}}@media only screen and (max-width:320px){.popular-city-target{width:135px;margin-right:5px;margin-left:5px;margin-bottom:15px}}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -75,11 +75,11 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/bikes-in-city.js?<%= staticFileVersion%>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/bikes-in-city.js?<%= staticFileVersion%>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
     </form>
 </body>

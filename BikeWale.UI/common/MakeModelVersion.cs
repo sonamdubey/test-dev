@@ -471,7 +471,7 @@ namespace Bikewale.Common
 
             if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
             {
-                fullImagePath = "http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png";
+                fullImagePath = "https://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png";
             }
             else
             {

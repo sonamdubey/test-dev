@@ -3,7 +3,7 @@
     title = objReview.ReviewEntity.ReviewTitle + " - A Review on " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " by " + objReview.ReviewEntity.WrittenBy;
     description = objReview.BikeEntity.MakeEntity.MakeName + " User Review - " + "A review/feedback on " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " by " + objReview.ReviewEntity.WrittenBy + ". Find out what " + objReview.ReviewEntity.WrittenBy + " has to say about " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + ".";
     keywords = objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " review, " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " user review, car review, owner feedback, consumer review";
-    canonical = "http://www.bikewale.com/" + objReview.BikeEntity.MakeEntity.MaskingName + "-bikes/" + objReview.BikeEntity.MakeEntity.MaskingName + objReview.BikeEntity.ModelEntity.MaskingName + "/user-reviews/" + objReview.ReviewEntity.ReviewId + ".html";
+    canonical = "https://www.bikewale.com/" + objReview.BikeEntity.MakeEntity.MaskingName + "-bikes/" + objReview.BikeEntity.MakeEntity.MaskingName + objReview.BikeEntity.ModelEntity.MaskingName + "/user-reviews/" + objReview.ReviewEntity.ReviewId + ".html";
     AdPath = "/1017752/Bikewale_Mobile_Model";
     AdId = "1398837216327";
     menu = "9";

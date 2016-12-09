@@ -155,7 +155,7 @@
     bottom: 20px;
     right: 20px;
     display: none;
-    background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
     cursor: pointer;
 }
 
@@ -170,7 +170,7 @@
 .article-img-container span {
     display: table-cell;
     vertical-align: middle;
-    background: url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
 }
 .article-jcarousel-wrapper .jcarousel-control-left { left:-12px; }
 .article-jcarousel-wrapper .jcarousel-control-right { right:-12px; }

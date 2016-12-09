@@ -7,8 +7,8 @@
     title = "Compare Bikes | New Bikes Comparisons in India";
     description = "Comparing Indian bikes was never this easy. BikeWale presents you the easiest way of comparing bikes. Choose two or more bikes to compare them head-to-head.";
     keywords = "bikes compare, compare bikes, compare bikes, bike comparison, bikes comparison india";
-    canonical = "http://www.bikewale.com/comparebikes/";
-    alternate = "http://www.bikewale.com/m/comparebikes/";
+    canonical = "https://www.bikewale.com/comparebikes/";
+    alternate = "https://www.bikewale.com/m/comparebikes/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_CompareBikes_";
     //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.

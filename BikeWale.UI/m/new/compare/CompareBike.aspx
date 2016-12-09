@@ -4,7 +4,7 @@
     title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
     keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
     description = "Comparing Indian bikes was never this easy. CarWale presents you the easiest way of comparing bikes. Choose two or more bikes to compare them head-to-head.";
-    canonical = "http://www.bikewale.com/comparebikes/";
+    canonical = "https://www.bikewale.com/comparebikes/";
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     AdId = "1398766302464";
     menu = "11";
@@ -13,7 +13,7 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <link href="/m/css/compare/landing.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <style>
     
 </style>
@@ -245,7 +245,7 @@
         var ele = $(a).parent();
         type = $(a).attr("type");
         bikeprice = ele.attr("data-price");
-        bikeimage = "http://imgd3.aeplcdn.com/210x118/bikewaleimg/images/noimage.png";
+        bikeimage = "https://imgd3.aeplcdn.com/210x118/bikewaleimg/images/noimage.png";
         bikeimghost = ele.attr("data-hosturl");
         bikeimgpath = ele.attr("data-imagepath");
         

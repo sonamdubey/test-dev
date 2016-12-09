@@ -8,7 +8,7 @@
         title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
         keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
         description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
-        canonical = "http://www.bikewale.com/new/bike-search/"; 
+        canonical = "https://www.bikewale.com/new/bike-search/"; 
         AdPath = "/1017752/Bikewale_Mobile_Homepage";
         AdId = "1398766000399";
         Ad_320x50 = true;
@@ -29,8 +29,8 @@
             </div>
         </div>     
     </section>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
    
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
@@ -59,7 +59,7 @@
             <!-- Fixed Header code starts here -->
             <span id="bikecount" class="font18 text-white brand-total"></span>
             <div class="leftfloat">
-                <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>
+                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
             </div>
             <div class="rightfloat">
                 <a class="global-search" id="global-search" style="display: none">
@@ -110,7 +110,7 @@
                             <img src="/images/no_result_m.png" />
                         </div>
                         <div id="loading" class="hide">
-                            <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                            <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                                 <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                 <div class="imageWrapper">
                                     <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                        <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
+                                        <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()" />
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
@@ -136,7 +136,7 @@
                                         <span class="bwmsprite inr-sm-icon"></span>
                                         <span class="text-bold font18" data-bind="text: price"></span>
                                     </div>                                    
-                                    <a data-bind="attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                                    <a data-bind=" visible:price()!='N/A' , attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>
@@ -320,7 +320,7 @@
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <script src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <script type="text/javascript"> var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
 </body>

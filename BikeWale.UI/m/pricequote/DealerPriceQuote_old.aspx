@@ -16,7 +16,7 @@
     %>
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
+    <link rel="stylesheet" href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -225,7 +225,7 @@
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td align="left" width="75%" class="text-medium-grey"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="left" width="75%" class="text-medium-grey"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
                                 <td align="right" width="25%" class="text-grey text-bold"><span class="bwmsprite inr-xxsm-icon"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
@@ -251,7 +251,7 @@
                     <asp:Repeater ID="rptDiscount" runat="server">
                         <ItemTemplate>
                             <tr>
-                                <td align="left" class="text-medium-grey">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="left" class="text-medium-grey">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
                                 <td align="right" class="text-grey text-bold"><span class="bwmsprite inr-xxsm-icon"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
                         </ItemTemplate>
@@ -460,7 +460,7 @@
             </div>
             <h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>

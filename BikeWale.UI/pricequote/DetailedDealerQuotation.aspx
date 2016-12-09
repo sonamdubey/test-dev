@@ -9,22 +9,22 @@
     keywords = BikeName + ", price, authorised, dealer ";
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PQ_";
-    //canonical = "http://www.bikewale.com/pricequote/";
-    //alternate = "http://www.bikewale.com/m/pricequote/";
+    //canonical = "https://www.bikewale.com/pricequote/";
+    //alternate = "https://www.bikewale.com/m/pricequote/";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
 
 
-<%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
+<%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
-<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?v=3.0" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
-<script type="text/javascript" src="http://st.aeplcdn.com/bikewale/src/common/bt.js?v1.1"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?v=3.0" />
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
+<script type="text/javascript" src="https://st.aeplcdn.com/bikewale/src/common/bt.js?v1.1"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <style>
     .colours {
         list-style: outside none none;
@@ -119,7 +119,7 @@
                                         </tr>--%>
                                             <tr>
                                             <td width="370">
-                                               <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                               <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='https://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
                                             </td>
                                             <td width="100" class="numeri-cell" align="right">
                                                 <span id="Span1"><span class="WebRupee">Rs.</span><b>  <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></b></span>
@@ -515,7 +515,7 @@
     <div class="rsa-header">
         <div class="bw-sprite white-close-btn right-float margin-top5"></div>
         <div class="left-float margin-right10 header-seperator">
-            <img class="margin-right10" src="http://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
+            <img class="margin-right10" src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/mailer-images/rsa-logo.png" border="0">
         </div>
         <div class=" left-float margin-top5">
             <h1>FREE Helmet & Bike RSA Offer</h1>

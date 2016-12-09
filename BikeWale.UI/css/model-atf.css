@@ -301,7 +301,7 @@
 .connected-carousels .carousel ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
 .connected-carousels .carousel li { float: left; width: 376px; height: 212px; }
 .connected-carousels .carousel .carousel-img-container { display:table; width: 100%; height: 212px; text-align:center; }
-.connected-carousels .carousel .carousel-img-container span { display: table-cell; vertical-align:middle; width: 100%; background:url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align:middle; width: 385px; height: 220px; background:url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .connected-carousels .carousel .carousel-img-container img { width: 100%; height: 212px; }
 .connected-carousels .carousel-stage { height: 212px; }
 .connected-carousels .carousel-navigation { height: 47px; width: 350px; background: #fff; margin-left:10px; }
@@ -335,10 +335,10 @@
 .all-photos-target a { display: table-cell; vertical-align: middle; }
 
 /* model sprite classes */
-.model-sprite { background:url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
+.model-sprite { background:url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/model-sprite-new.png?v=18Aug2016) no-repeat; display:inline-block;}
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-205px -35px; }
-/* key specs*/
+.offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
 .capacity-sm, .mileage-sm, .power-sm, .weight-sm {
     width: 16px;
     height: 18px;

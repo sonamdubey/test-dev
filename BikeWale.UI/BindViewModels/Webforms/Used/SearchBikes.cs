@@ -234,9 +234,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 pageTitle = string.Format("Used {0} Bikes in {1} - {2} Verified Bike Listing For Sale | BikeWale", BikeName, City, _totalBikes);
 
-                pageCanonical = string.Format("http://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
+                pageCanonical = string.Format("https://www.bikewale.com/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
 
-                alternateUrl = string.Format("http://www.bikewale.com/m/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
+                alternateUrl = string.Format("https://www.bikewale.com/m/{0}", HttpContext.Current.Request.RawUrl.ToLower().Substring(1));
 
 
                 if (MakeId > 0)
@@ -322,8 +322,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 //For SEO
 
-                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "http://www.bikewale.com" + _pagerOutput.NextPageUrl;
+                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
+                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? string.Empty : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
             }
             catch (Exception ex)
             {

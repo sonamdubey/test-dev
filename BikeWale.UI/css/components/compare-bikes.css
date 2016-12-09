@@ -14,7 +14,7 @@
 #main-compare-bikes-target .comparison-image {
     display: table-cell;
     vertical-align: middle;
-    background: url(http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+    background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
 }
 
 #main-compare-bikes-target img {
@@ -73,7 +73,7 @@
     top: 100px;
     width: 37px;
     height: 37px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider-lg.png) no-repeat;
     display: block;
 }
 
@@ -84,7 +84,7 @@
     top: 30px;
     width: 22px;
     height: 21px;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
     display: block;
 }
 .inr-md-lg {

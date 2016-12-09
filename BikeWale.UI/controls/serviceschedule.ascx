@@ -107,7 +107,7 @@
                 self.imagePath(selbike.HostUrl + "227x128" + selbike.OriginalImagePath);
             }
             else {
-                self.imagePath('http://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png');
+                self.imagePath('https://imgd3.aeplcdn.com/0x0/bikewaleimg/images/noimage.png');
             }
         });
     }

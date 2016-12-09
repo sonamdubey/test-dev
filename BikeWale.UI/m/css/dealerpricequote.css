@@ -68,7 +68,7 @@
 
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
     width: 100%;
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
     border-bottom: 1px solid #e2e2e2;
 }
 
@@ -287,7 +287,7 @@
 }
 
 .offers-sprite {
-    background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2=9Sep2016) no-repeat;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v2=9Sep2016) no-repeat;
     display: inline-block;
 }
 
@@ -448,7 +448,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 4px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
+.ui-slider .ui-slider-handle { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/slider-handle.png) no-repeat; cursor:pointer; height:28px; width:28px; display:block; margin-left: -9px; position: absolute; outline:none; top: -12px; z-index: 2; background-position:3px 3px; }
 .emi-slider-box-right-section { text-align:right; }
 .pos-top2 { top:2px; }
 .btn.emi-quote-btn { padding:8px 19px; }

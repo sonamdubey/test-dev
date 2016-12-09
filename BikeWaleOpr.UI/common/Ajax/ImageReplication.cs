@@ -48,10 +48,13 @@ namespace BikeWaleOpr.Common.Ajax
             BikeCommonRQ bikeRQ = new BikeCommonRQ();
             try
             {
-                DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.EDITCMS);
+                if (!String.IsNullOrEmpty(imageId))
+                {
+                    DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.EDITCMS);
 
-                if (ds.Tables.Count > 0)
-                    json = JSON.GetJSONString(ds.Tables[0]);
+                    if (ds.Tables.Count > 0)
+                        json = JSON.GetJSONString(ds.Tables[0]);
+                }
             }
             catch (Exception err)
             {
@@ -75,10 +78,13 @@ namespace BikeWaleOpr.Common.Ajax
 
             try
             {
-                DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.EXPECTEDLAUNCH);
+                if (!String.IsNullOrEmpty(imageId))
+                {
+                    DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.EXPECTEDLAUNCH);
 
-                if (ds.Tables.Count > 0)
-                    json = JSON.GetJSONString(ds.Tables[0]);
+                    if (ds.Tables.Count > 0)
+                        json = JSON.GetJSONString(ds.Tables[0]);
+                }
             }
             catch (Exception err)
             {
@@ -102,10 +108,13 @@ namespace BikeWaleOpr.Common.Ajax
 
             try
             {
-                DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.BIKEVERSION);
+                if (!String.IsNullOrEmpty(imageId))
+                {
+                    DataSet ds = bikeRQ.CheckImageStatus(imageId, ImageCategories.BIKEVERSION);
 
-                if (ds.Tables.Count > 0)
-                    json = JSON.GetJSONString(ds.Tables[0]);
+                    if (ds.Tables.Count > 0)
+                        json = JSON.GetJSONString(ds.Tables[0]);
+                }
             }
             catch (Exception err)
             {
@@ -157,12 +166,15 @@ namespace BikeWaleOpr.Common.Ajax
 
             try
             {
-                ImageCategories imageType = (ImageCategories)Enum.Parse(typeof(ImageCategories), Category, true);
+                if (!String.IsNullOrEmpty(imageId))
+                {
+                    ImageCategories imageType = (ImageCategories)Enum.Parse(typeof(ImageCategories), Category, true);
 
-                DataSet ds = bikeRQ.CheckImageStatus(imageId, imageType);
+                    DataSet ds = bikeRQ.CheckImageStatus(imageId, imageType);
 
-                if (ds != null && ds.Tables.Count > 0)
-                    json = JSON.GetJSONString(ds.Tables[0]);
+                    if (ds != null && ds.Tables.Count > 0)
+                        json = JSON.GetJSONString(ds.Tables[0]);
+                }
             }
             catch (Exception err)
             {

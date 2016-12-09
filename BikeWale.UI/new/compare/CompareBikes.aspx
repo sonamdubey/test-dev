@@ -8,10 +8,10 @@
     title = "Compare " + pageTitle + "- BikeWale";
     description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
     keywords = "Compare bikes,Compare bike prices,Compare bike specifications,Compare bike mileage,Compare features,Compare colors,Compare " + pageTitle;
-    canonical = "http://www.bikewale.com/comparebikes/" + canonicalUrl + "/";
+    canonical = "https://www.bikewale.com/comparebikes/" + canonicalUrl + "/";
     if (count == 2)
     {
-        alternate = "http://www.bikewale.com/m/comparebikes/" + canonicalUrl + "/";
+        alternate = "https://www.bikewale.com/m/comparebikes/" + canonicalUrl + "/";
     }
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_CompareBikes_";

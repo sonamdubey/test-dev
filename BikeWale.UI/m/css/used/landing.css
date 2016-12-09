@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 .used-bikes-banner {
-    background:#53442a url(http://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/used-landing-banner.jpg?v1=07Oct2016) no-repeat center;
+    background:#53442a url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/used-landing-banner.jpg?v1=07Oct2016) no-repeat center;
     background-size: cover;
     height:130px;
 }
@@ -46,7 +46,7 @@ h2.section-heading {
 }
 
 .fa-angle-down {
-    background: #fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat;
+    background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat;
     background-position: 96% 50% !important;
 }
 
@@ -304,7 +304,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .input-box.invalid .error-text { display:inline-block; }
 
 /* sprite */
-.used-sprite { background: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/used-sprite.png?v1=04Oct2016) no-repeat; display: inline-block; }
+.used-sprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/used-sprite.png?v1=04Oct2016) no-repeat; display: inline-block; }
 .free-cost, .buyer, .listing-time, .contact-buyer { width: 20px; height: 20px; margin-right: 10px; vertical-align: middle; }
 .free-cost { background-position: 0 -35px; }
 .buyer { background-position: 0 -60px; }
@@ -325,7 +325,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 .brand-type-title { display: block; text-transform: capitalize; }
 .brand-type-container li a { text-decoration: none; color: #565a5c; display: inline-block; }
 .brand-type-container ul li:hover span.brand-type-title { font-weight: bold; }
-.brandlogosprite { background:url('http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=10Oct2016') no-repeat; display: inline-block; }
+.brandlogosprite { background:url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?v=10Oct2016') no-repeat; display: inline-block; }
 .brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-81, .brand-71, .brand-37, .brand-18 { height:30px; }
 .brand-2 { width: 52px; background-position: 0 0; }.brand-7 { width: 34px; background-position: -58px 0; }
 .brand-1 { width: 53px; background-position: -97px 0; }.brand-8 { width: 60px; background-position: -156px 0; }
@@ -354,7 +354,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     background-position: -1690px 0;
 }
 
-.city-sprite { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat; display: inline-block; }
+.city-sprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat; display: inline-block; }
 .c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .c198-icon, .c220-icon { height: 48px; }
 .c1-icon { width: 78px; background-position: 0 0; }
 .c12-icon { width: 112px; background-position: -84px 0; }

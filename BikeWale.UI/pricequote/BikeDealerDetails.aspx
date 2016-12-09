@@ -11,7 +11,7 @@
         isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="header-fixed-inner">
@@ -319,7 +319,7 @@
                                     <%}
                                        else
                                        {%>
-                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="bwsprite inr-md" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
@@ -435,7 +435,7 @@
                 </div>
 				<h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
             </div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
@@ -514,7 +514,7 @@
         </div>
         <!-- Terms and condition Popup Ends -->
 
-        <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">
+        <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
@@ -606,7 +606,7 @@
             var getCityArea = GetGlobalCityArea();
             var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
 
 
     </form>

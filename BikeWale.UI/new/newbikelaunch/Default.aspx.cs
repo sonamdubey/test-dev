@@ -124,9 +124,9 @@ namespace Bikewale.New
 
                         //For SEO
                         if (!String.IsNullOrEmpty(pagerOutput.PreviousPageUrl))
-                            prevPage = "http://www.bikewale.com" + pagerOutput.PreviousPageUrl;
+                            prevPage = "https://www.bikewale.com" + pagerOutput.PreviousPageUrl;
                         if (String.IsNullOrEmpty(pagerOutput.PreviousPageUrl))
-                            nextPage = "http://www.bikewale.com" + pagerOutput.NextPageUrl;
+                            nextPage = "https://www.bikewale.com" + pagerOutput.NextPageUrl;
 
                         // for RepeaterPager
                         repeaterPager.PagerOutput = pagerOutput;

@@ -32,7 +32,7 @@ body { overflow-x:hidden; }
 #dealersList a { display:block; }
 #dealersList a:hover, #dealerDetailsSliderCard a:hover { text-decoration:none; }
 .featured-tag {position:relative;left:-20px;top:-5px;width:100px;display:block;background:#4d5057;z-index:1; line-height:28px; font-weight:400; }
-.featured-tag:after {content:'';width:12px; height:28px;background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;position:absolute;left:98px;}
+.featured-tag:after {content:'';width:12px; height:28px;background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/upcoming-ribbon.png?v=9Sep2016) no-repeat right top;position:absolute;left:98px;}
 .tel-sm-grey-icon{width: 15px;height: 15px;background-position: 0 -435px;position: relative;top: 2px;}
 .btn-white-orange { background: transparent; color: #82888b; border: 1px solid #82888b;}
 .btn-white-orange:hover { background: #f04031; color: #fff; border: 1px solid #f04031; }
@@ -80,7 +80,7 @@ a.text-black:hover { text-decoration:none; }
 .dealership-card-details { width:92%; }
 #dealersList .mail-grey-icon { position:relative; top:6px; }
 .vertical-top { display:inline-block;vertical-align:top; }
-.crosshair-icon { width:20px; height:20px; background:url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
+.crosshair-icon { width:20px; height:20px; background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
 .personal-info-form-container{margin:10px auto;width:300px;min-height:100px}

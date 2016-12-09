@@ -255,7 +255,7 @@ namespace Bikewale.Common
                 string adPath = "";
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("bikewale.com") >= 0)
-                    adPath = "http://www.bikewale.co.in/";
+                    adPath = "https://www.bikewale.com/";
                 else
                     adPath = "/";
 
@@ -339,7 +339,7 @@ namespace Bikewale.Common
 
                 if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
                 {
-                    imgPath = "http://img.aeplcdn.com/";
+                    imgPath = "https://img.aeplcdn.com/";
 
                     // remove the following line as soon as 
                     // images.carwale.com is activated.
@@ -366,7 +366,7 @@ namespace Bikewale.Common
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
             {
-                absPath = myPage.Server.MapPath(imgPath.Replace("http://img.aeplcdn.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
+                absPath = myPage.Server.MapPath(imgPath.Replace("https://img.aeplcdn.com/", "/")).ToLower().Replace("\\carwale\\", "\\carwaleimg\\");
 
                 // remove the following line as soon as 
                 // images.carwale.com is activated.
@@ -382,7 +382,7 @@ namespace Bikewale.Common
             //HttpContext.Current.Trace.Warn( "Index Of : " + imgPath.IndexOf( "images.carwale.com" ) );
 
             //absPath = absPath.Replace( "\\default\\htdocs\\","\\carwale.com\\subdomains\\images\\httpdocs\\" )
-            //+ imgPath.Replace( "http://images.carwale.com", "" ).Replace( "/", "\\" );
+            //+ imgPath.Replace( "https://images.carwale.com", "" ).Replace( "/", "\\" );
 
             HttpContext.Current.Trace.Warn("Resolved Image Path : " + absPath);
             return absPath;
@@ -928,9 +928,9 @@ namespace Bikewale.Common
 
         public static string GetRateImage(double value)
         {
-            string oneImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
-            string zeroImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
-            string halfImg = "<img src=\"http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
+            string oneImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/1.gif\">";
+            string zeroImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/0.gif\">";
+            string halfImg = "<img src=\"https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/half.gif\">";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

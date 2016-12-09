@@ -384,6 +384,10 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\BrandCityPopUp.ascx.cs">
+      <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\BikeCare.ascx.cs">
       <DependentUpon>BikeCare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -782,6 +786,10 @@
     </Compile>
     <Compile Include="m\content\userreviews\ReviewDetails.aspx.cs">
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\BrandCityPopUp.ascx.cs">
+      <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\AlternativeBikes.ascx.cs">
@@ -1826,6 +1834,7 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
+    <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
@@ -2258,6 +2267,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="Global.asax" />
+    <Content Include="google863c8bc3ae47cfff.html" />
     <Content Include="images\0.gif" />
     <Content Include="images\1.gif" />
     <Content Include="images\action-btn-bg.jpg" />
@@ -2368,6 +2378,7 @@
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="insurance\Default.aspx" />
+    <Content Include="mon\heartbeat_up.html" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
@@ -2386,6 +2397,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\BrandCityPopUp.ascx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
@@ -2488,6 +2500,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2828,6 +2841,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="sass\sell-bike\sell-bike.sass" />
+    <Content Include="mon\web.config" />
     <Content Include="m\sass\sell-bike\sell-bike.sass" />
     <Content Include="m\sass\sell-bike\_sell-bike-style.sass" />
     <Content Include="m\sass\sell-bike\_icons.sass" />
@@ -2839,7 +2853,12 @@
     <Content Include="m\sass\modules\_textarea-box.sass" />
     <Content Include="m\sass\modules\_bike-popup.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
+    <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
+    <Content Include="sass\components\_typography.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <None Include="sass\components\_box-boundary.sass" />
+    <Content Include="sass\components\_input-box.sass" />
     <Content Include="sass\sell-bike\_color-box.sass" />
     <Content Include="sass\components\_textarea-box.sass" />
     <Content Include="sass\sell-bike\_sidebar-banner.sass" />
@@ -2881,12 +2900,22 @@
     <Content Include="m\sass\modules\_modal.sass" />
     <Content Include="m\sass\service\landing.sass" />
     <Content Include="m\sass\service\_landing-style.sass" />
+    <Content Include="sass\components\_card-header.sass" />
+    <Content Include="sass\components\_mixins.sass" />
+    <Content Include="sass\components\_typography.sass" />
     <Content Include="sass\service\listing.sass" />
     <Content Include="sass\service\_listing-style.sass" />
+    <Content Include="sass\components\_variables.sass" />
+    <Content Include="sass\modules\_section.sass" />
+    <Content Include="sass\modules\_bike-tips.sass" />
+    <Content Include="sass\modules\_card.sass" />
     <Content Include="sass\service\_details-style.sass" />
     <Content Include="sass\service\details.sass" />
+    <Content Include="sass\components\_select-box.sass" />
     <Content Include="sass\service\location.sass" />
     <Content Include="sass\service\_location-style.sass" />
+    <Content Include="sass\modules\_article.sass" />
+    <Content Include="sass\modules\_accordion.sass" />
     <Content Include="sass\service\landing.sass" />
     <Content Include="sass\service\_landing-style.sass" />
     <Content Include="sass\modules\_brand-logo.sass" />

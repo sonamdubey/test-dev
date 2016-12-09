@@ -167,8 +167,8 @@ namespace Bikewale.New
                 meta.Title = string.Format("Upcoming {1} Bikes in India - Expected {1} Bike New Launches in {0}", currentYear, makeName);
                 meta.Description = string.Format("Check out upcoming {1} bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear, makeName);
                 meta.Keywords = string.Format("Upcoming {1} bikes, new upcoming {1} launches, upcoming {1} bike launches, upcoming {1} models, future {1} bikes, future {1} bike launches, {0} {1} bikes, speculated {1} launches, futuristic {1} models", currentYear, makeName);
-                meta.CanonicalUrl = string.Format("http://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
-                meta.AlternateUrl = string.Format("http://www.bikewale.com/m/{0}-bikes/upcoming/", makeMaskingName);
+                meta.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/upcoming/", makeMaskingName);
+                meta.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/upcoming/", makeMaskingName);
                 pageTitle = string.Format("Upcoming {0} Bikes in India", makeName);
 
             }
@@ -177,15 +177,15 @@ namespace Bikewale.New
                 meta.Title = string.Format("Upcoming Bikes in India - Expected Launches in {0}", currentYear);
                 meta.Description = string.Format("Find out upcoming new bikes in {0} in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.", currentYear);
                 meta.Keywords = string.Format("Upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, {0} bikes, speculated launches, futuristic models", currentYear);
-                meta.CanonicalUrl = "http://www.bikewale.com/upcoming-bikes/";
-                meta.AlternateUrl = "http://www.bikewale.com/m/upcoming-bikes/";
+                meta.CanonicalUrl = "https://www.bikewale.com/upcoming-bikes/";
+                meta.AlternateUrl = "https://www.bikewale.com/m/upcoming-bikes/";
                 pageTitle = "Upcoming Bikes in India";
             }
         }
 
         private void CreatePrevNextUrl()
         {
-            string mainUrl = isMake ? string.Format("http://www.bikewale.com/{0}-bikes/upcoming/page/", makeMaskingName) : "http://www.bikewale.com/upcoming-bikes/page/";
+            string mainUrl = isMake ? string.Format("https://www.bikewale.com/{0}-bikes/upcoming/page/", makeMaskingName) : "https://www.bikewale.com/upcoming-bikes/page/";
             string prevPageNumber = string.Empty, nextPageNumber = string.Empty;
 
             if (PageNumber == string.Empty || PageNumber == "1")    //if page is first page

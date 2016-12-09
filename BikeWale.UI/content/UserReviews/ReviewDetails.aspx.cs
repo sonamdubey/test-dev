@@ -509,7 +509,7 @@ namespace Bikewale.Content
         // send mail to the reviewer
         void SendMail()
         {
-            string url = "http://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "#comments";
+            string url = "https://www.bikewale.com/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "#comments";
 
             try
             {

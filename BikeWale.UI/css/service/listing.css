@@ -158,7 +158,7 @@
   top: 5px; }
 
 .service-sprite {
-  background: url("http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bw-service-sprite.png") no-repeat;
+  background: url("https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bw-service-sprite.png") no-repeat;
   display: inline-block; }
 
 .blue-right-arrow-icon {
@@ -350,7 +350,9 @@ input[type="number"] {
       text-decoration: none; }
   .card .text-truncate {
     width: 100%; }
-
+  .edit-blue { width: 16px; height: 16px; background-position: -205px -330px;vertical-align: middle; }
 @media only screen and (max-width: 1024px) {
   .card {
     width: 280px; } }
+.dealer-heading{display:inline-block;padding:18px 20px;}
+.edit-blue-link{display:inline-block;font-size:14px;}

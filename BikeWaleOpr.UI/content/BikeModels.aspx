@@ -225,12 +225,12 @@
 					<asp:CheckBox ID="chkFuturistic" Checked='<%# Convert.ToBoolean(DataBinder.Eval( Container.DataItem, "Futuristic" )) %>' runat="server" />
 				</edititemtemplate>
 			</asp:TemplateColumn>
-			<asp:EditCommandColumn EditText="<img border=0 src=http://opr.carwale.com/images/edit.jpg />" CancelText="Cancel" UpdateText="Update" />
-		<%--	<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" Text="<img border=0 src=http://opr.carwale.com/images/icons/delete.ico />" />--%>
+			<asp:EditCommandColumn EditText="<img border=0 src=https://opr.carwale.com/images/edit.jpg />" CancelText="Cancel" UpdateText="Update" />
+		<%--	<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" Text="<img border=0 src=https://opr.carwale.com/images/icons/delete.ico />" />--%>
 			<asp:TemplateColumn>
 			  <itemtemplate>
 					<div class="alignCenter">
-						<asp:ImageButton ID="btnDelete" runat="server" ImageUrl="http://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
+						<asp:ImageButton ID="btnDelete" runat="server" ImageUrl="https://opr.carwale.com/images/icons/delete.ico" CommandName="Delete" class="deleteBike"/>
 					</div>
 				</itemtemplate>
 			</asp:TemplateColumn>

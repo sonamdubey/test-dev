@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
         keywords = String.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing ", makeName, cityName);
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.",totalServiceCenters,  makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale ", makeName, cityName);
-        canonical = String.Format("http://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
+        canonical = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
         Ad_320x50 = true;
@@ -20,7 +21,6 @@
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
-
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -43,7 +43,7 @@
 
         <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%=makeName%> service center<% if(totalServiceCenters > 0 ) { %>s<% } %> in <%=cityName%></h1>
+                <h1 class="card-header"><%=makeName%> service center<%=(totalServiceCenters > 1 )?"s":"" %> in <%=cityName%></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content"> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
                 </div>
@@ -53,7 +53,10 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%></h2>
+                <div class="border-solid-bottom">
+                    <h2 class="font18 text-black text-bold padding-15-20 bg-white dealer-heading"><%=listingHeading %></h2>
+                    <span class="edit-blue-link" id="changeOptions" ><span class="margin-left5 bwmsprite edit-blue"></span> <span class="change text-link">change</span></span>
+                </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
@@ -178,12 +181,13 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
+        <BW:BrandCity runat="server" ID="ctrlBrandCity" />
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
     </form>

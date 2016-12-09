@@ -25,7 +25,7 @@
 <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
 <% if( nextPageUrl != "" ) { %><link rel="next" href="<%= nextPageUrl %>" /><% } %>
 <!-- #include file="globalStaticFiles.aspx"-->
-    <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
+    <script src="https://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="",TargetedModels ="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
         private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true, isAd300x250Shown = true, isAd300x250_BTFShown = true;

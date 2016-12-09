@@ -35,7 +35,7 @@ namespace Bikewale.Common
 				string city = cd.City;
 				
 				//download the data from the icici lombard page
-				string url = "http://www.carwale.com/ads/ICICILomb/form.aspx?"
+				string url = "https://www.carwale.com/ads/ICICILomb/form.aspx?"
 						   + "nm=" + name
 						   + "&em=" + eMail
 						   + "&mb=" + mobile

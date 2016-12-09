@@ -11,10 +11,10 @@
         title = "Bike News - Latest Indian Bike News & Views | BikeWale";
         description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
         keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-        canonical = "http://www.bikewale.com/news/";
+        canonical = "https://www.bikewale.com/news/";
         relPrevPageUrl = prevUrl;
         relNextPageUrl = nextUrl;
-        alternate = "http://www.bikewale.com/m/news/";
+        alternate = "https://www.bikewale.com/m/news/";
         AdId = "1395995626568";
         AdPath = "/1017752/BikeWale_News_";
         isAd300x250Shown=true;
@@ -22,7 +22,7 @@
 
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -111,7 +111,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
@@ -137,8 +137,8 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         <!--[if lt IE 9]>
             <script src="/src/html5.js"></script>

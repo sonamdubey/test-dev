@@ -1,3 +1,7 @@
+#ub-ajax-loader {
+	display: none !important}
+.loader-active #ub-ajax-loader {
+	display: block !important}
 #form-tab-list li {
   width: 33.33%;
   display: inline-block;
@@ -29,6 +33,7 @@
   color: #82888b; }
 
 #sell-bike-content {
+    min-height: 500px;
   -webkit-tap-highlight-color: transparent; }
 
 #form-step-tabs {

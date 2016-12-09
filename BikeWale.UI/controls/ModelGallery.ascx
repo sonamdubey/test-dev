@@ -28,7 +28,7 @@
                                     <li>
                                         <div class="gallery-photo-img-container">
                                             <span>
-                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>"  src="http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %> ">
+                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>"  src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"  title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %> ">
                                             </span>
                                         </div>
                                     </li>
@@ -54,7 +54,7 @@
                                     <li>
                                         <div class="gallery-photo-nav-img-container">
                                         <span>
-                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="http://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title =" <%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>"/>
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title =" <%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>"/>
                                         </span>
                                         </div>
                                     </li>
@@ -84,7 +84,7 @@
                                 <ItemTemplate>
                                     <li>
                                         <div class="yt-iframe-container">
-                                            <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" />
+                                            <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("https://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" />
                                         </div>
                                     </li>
                                 </ItemTemplate>

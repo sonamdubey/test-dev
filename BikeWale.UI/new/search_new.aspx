@@ -6,8 +6,8 @@
         title = "Search New Bikes by Brand, Budget, Mileage and Ride Style - BikeWale";
         description = "Search through all the new bike models by various criteria. Get instant on-road price for the bike of your choice";
         keywords = "search new bikes, search bikes by brand, search bikes by budget, search bikes by price, search bikes by style, street bikes, scooters, commuter bikes, cruiser bikes";
-        canonical = "http://www.bikewale.com/new/bike-search/";
-        alternate = "http://www.bikewale.com/m/new/bike-search/";
+        canonical = "https://www.bikewale.com/new/bike-search/";
+        alternate = "https://www.bikewale.com/m/new/bike-search/";
         isHeaderFix = false;
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
@@ -25,8 +25,8 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
         <section class="bg-light-grey padding-top10">
             <div class="container">
@@ -317,7 +317,7 @@
                                     <img src="/images/no_result_d.png" />
                                 </div>
                                 <div id="loading" class="hide">
-                                    <img src="http://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
+                                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                                 </div>
                             </div>
                         </div>
@@ -340,7 +340,7 @@
                                             <span class="bwsprite inr-lg"></span>
                                             <span class="font18" data-bind="text: price"></span><span class="font14"> onwards</span>
                                         </div>
-                                        <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
+                                        <a data-bind="visible:price()!='N/A',attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
                                     </div>
                                 </div>
                             </li>
@@ -354,7 +354,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
         </script>

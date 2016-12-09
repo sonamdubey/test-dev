@@ -6,18 +6,18 @@
     keywords = "bike price, new bike price, bike prices, bike prices India, new bike price quote, on-road price, on-road prices, on-road prices India, on-road price India";
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PQ_";
-    canonical = "http://www.bikewale.com/pricequote/";
-    alternate = "http://www.bikewale.com/m/pricequote/";
+    canonical = "https://www.bikewale.com/pricequote/";
+    alternate = "https://www.bikewale.com/m/pricequote/";
     //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250_BTFShown = false;
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
-<%--<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>--%>
+<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
+<%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>--%>
 <div class="main-container">
     <div class="container_12  container-min-height">
         <div class="grid_12">

@@ -8,21 +8,21 @@
     keywords = pageKeywords;
     title = pageTitle;
     description  = pageDescription;
-    canonical = string.Format("http://www.bikewale.com/bike-care/{0}-{1}.html", pageTitle, basicId);
-    alternate = string.Format("http://www.bikewale.com/bike-care/m/{0}-{1}.html", pageTitle, basicId);
+    canonical = string.Format("https://www.bikewale.com/bike-care/{0}-{1}.html", pageTitle, basicId);
+    alternate = string.Format("https://www.bikewale.com/bike-care/m/{0}-{1}.html", pageTitle, basicId);
     AdId = "1395995626568";
     AdPath = "/1017752/BikeWale_News_";
     isAd300x250Shown = true;
     isAd300x250BTFShown = false;
 %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
     
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
@@ -115,12 +115,12 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
                <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
-		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
+		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
 
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/content/details.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/content/details.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {

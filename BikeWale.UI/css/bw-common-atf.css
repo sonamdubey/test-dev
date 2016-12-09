@@ -56,7 +56,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -143,7 +143,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .front, .back { height: 290px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
 .imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; display: table; }
-.imageWrapper a { display:table-cell; vertical-align:middle; background: url('http://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
+.imageWrapper a { display:table-cell; vertical-align:middle; background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
 .imageWrapper a img { max-width:100%; height:auto; }
 .used-bike-carousel .imageWrapper a img { width:310px; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
@@ -164,8 +164,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .header-fixed-inner { padding-top: 55px; }
 
 /* sprite classes */
-.bwsprite { background: url(http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=02Dec2016) no-repeat; display: inline-block; }
-.bw-circle-icon { background: url(http://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
+.bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
