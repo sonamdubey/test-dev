@@ -5,7 +5,6 @@ using Bikewale.Entities;
 using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -44,23 +43,24 @@ namespace Bikewale.BindViewModels.Webforms
                     DealerCampaignV2 = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, Convert.ToUInt32(areaId));
                     if (DealerCampaignV2 != null)
                     {
-                        if (DealerCampaignV2.PrimaryDealer != null && DealerCampaignV2.PrimaryDealer.DealerDetails != null)
+                        var dealeDetails = DealerCampaignV2.PrimaryDealer.DealerDetails;
+                        if (DealerCampaignV2.PrimaryDealer != null && dealeDetails != null)
                         {
-                            if (DealerCampaignV2.PrimaryDealer.DealerDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
+                            if (dealeDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                             {
                                 IsPremiumDealer = true;
-                                Organization = DealerCampaignV2.PrimaryDealer.DealerDetails.Organization;
-                                if (DealerCampaignV2.PrimaryDealer.DealerDetails.objArea != null)
-                                    AreaName = DealerCampaignV2.PrimaryDealer.DealerDetails.objArea.AreaName;
+                                Organization = dealeDetails.Organization;
+                                if (dealeDetails.objArea != null)
+                                    AreaName = dealeDetails.objArea.AreaName;
                                 SecondaryDealerCount = Convert.ToInt16(DealerCampaignV2.SecondaryDealerCount);
-                                MaskingNumber = DealerCampaignV2.PrimaryDealer.DealerDetails.MaskingNumber;
+                                MaskingNumber = dealeDetails.MaskingNumber;
                                 Offers = DealerCampaignV2.PrimaryDealer.OfferList;
-                                MobileNo = DealerCampaignV2.PrimaryDealer.DealerDetails.MobileNo;
+                                MobileNo = dealeDetails.MobileNo;
                                 if (DealerCampaignV2.PrimaryDealer.OfferList != null)
                                     OfferCount = Convert.ToUInt16(DealerCampaignV2.PrimaryDealer.OfferList.Count());
                             }
                             else
-                                primaryDealerDistance = DealerCampaignV2.PrimaryDealer.DealerDetails.Distance;
+                                primaryDealerDistance = dealeDetails.Distance;
                         }
 
                         if (DealerCampaignV2.SecondaryDealers != null)
@@ -74,7 +74,7 @@ namespace Bikewale.BindViewModels.Webforms
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.ModelPageVM constructor-> cityId:{0}, versionId:{1}, dealerId:{2}, areaId{3}", cityId, versionId, dealerId, areaId));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.ModelPageVM constructor-> cityId:{0}, versionId:{1}, dealerId:{2}, areaId{3}", cityId, versionId, dealerId, areaId));
                 objErr.SendMail();
             }
         }

@@ -51,12 +51,9 @@ namespace Bikewale.Mobile.New
         protected PQOnRoadPrice pqOnRoad;
         protected UsedBikes ctrlRecentUsedBikes;
         protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
-        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty;
-        protected String clientIP = CommonOpn.GetClientIP();
-        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
+        protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         //Varible to Hide or show controlers
-        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
-        protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
+        protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton, isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive, isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected ushort reviewTabsCnt, moreOffersCount, versionCount = 1;
         public DropDownList ddlNewVersionList;
@@ -65,7 +62,6 @@ namespace Bikewale.Mobile.New
         static readonly string _PageNotFoundPath;
         static readonly string _bwHostUrl;
         protected static bool isManufacturer;
-        //protected string cssOffers = "noOffers", offerDivHide = "hide"; protected int grid1_size = 9, grid2_size = 3;
         protected uint onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, versionId, areaId, dealerId;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
@@ -73,15 +69,10 @@ namespace Bikewale.Mobile.New
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
         protected MPriceInTopCities ctrlTopCityPrices;
-        protected string pq_leadsource = "33";
-        protected string pq_sourcepage = "59";
+        protected string pq_leadsource = "33", pq_sourcepage = "59", hide = string.Empty, pgDescription = string.Empty;
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
-        protected string hide = "";
-        #region Subscription model variables
         protected ModelPageVM viewModel = null;
         protected int colorCount;
-        #endregion Subscription model ends
-        protected string pgDescription = string.Empty;
         private StringBuilder colorStr = new StringBuilder();
         #region Events
         protected override void OnInit(EventArgs e)

@@ -49,20 +49,17 @@ namespace Bikewale.New
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptSecondaryDealers;
         protected string modelQuerystring = string.Empty, cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         protected bool isCityAvailable, isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
+
         //Varible to Hide or show controlers
-        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
-        protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive;
+        protected bool isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive, isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
         protected short reviewTabsCnt;
-        //Variable to Assing ACTIVE class
-
         protected static bool isManufacturer;
         protected uint totalUsedBikes, onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, variantId, areaId, dealerId;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
-        //protected Label defaultVariant;
         protected HiddenField hdnVariant;
         protected string pq_leadsource = "32", pq_sourcepage = "57", cssOffers = "noOffers", offerDivHide = "hide", pgDescription = string.Empty;
         protected UsedBikes ctrlRecentUsedBikes;
@@ -70,7 +67,8 @@ namespace Bikewale.New
         private StringBuilder colorStr = new StringBuilder();
         protected ModelPageVM viewModel = null;
         public DropDownList ddlVersion;
-        #endregion
+
+        #endregion Global Variables
 
         #region Events
 
@@ -119,7 +117,7 @@ namespace Bikewale.New
                     BindColorString();
                     CreateMetas();
 
-                    #endregion
+                    #endregion Do Not change the sequence
                 }
             }
             catch (Exception ex)
@@ -174,7 +172,7 @@ namespace Bikewale.New
             }
         }
 
-        #endregion
+        #endregion Events
 
         #region Methods
 
@@ -240,7 +238,6 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
                 ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
-
 
                 ctrlPopularCompare.TopCount = 6;
                 ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
@@ -459,7 +456,7 @@ namespace Bikewale.New
                         }
                         else if (objResponse.StatusCode == 301)
                         {
-                            //redirect permanent to new page 
+                            //redirect permanent to new page
                             CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelQuerystring, objResponse.MaskingName));
                         }
                         else
@@ -607,7 +604,7 @@ namespace Bikewale.New
         /// Created Date    :   20 Nov 2015
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
         /// Modified By     :   Sushil Kumar on 19th April 2016
-        /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
+        /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -656,13 +653,15 @@ namespace Bikewale.New
                                     price = (onRoadPrice - totalDiscountedPrice);
                                 }
                             }
-                            #endregion
+
+                            #endregion when dealer Price is Available
                         }
                         else
                         {
                             if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                             {
                                 #region BikeWale PQ
+
                                 if (hdnVariant.Value != "0")
                                 {
                                     variantId = Convert.ToUInt32(hdnVariant.Value);
@@ -673,14 +672,12 @@ namespace Bikewale.New
                                             price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
-
                                 else if (variantId != 0 && isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
                                     if (objSelectedVariant != null)
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                 }
-
                                 else if (isOnRoadPrice)
                                 {
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
@@ -690,7 +687,8 @@ namespace Bikewale.New
                                 manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
 
                                 isBikeWalePQ = true;
-                                #endregion
+
+                                #endregion BikeWale PQ
                             }
                         }
                     }
@@ -994,9 +992,10 @@ namespace Bikewale.New
             }
         }
 
-        #endregion
+        #endregion Methods
 
         #region enums
+
         public enum Overviews
         {
             Capacity,
@@ -1004,6 +1003,7 @@ namespace Bikewale.New
             MaxPower,
             Weight
         }
+
         public enum SummarySpec
         {
             Displacement,
@@ -1021,6 +1021,7 @@ namespace Bikewale.New
             TubelessTyres,
             FuelTankCapacity
         }
+
         public enum EnT
         {
             Displacement,
@@ -1040,6 +1041,7 @@ namespace Bikewale.New
             TransmissionType,
             Clutch
         }
+
         public enum BWS
         {
             BrakeType,
@@ -1057,6 +1059,7 @@ namespace Bikewale.New
             FrontSuspension,
             RearSuspension
         }
+
         public enum FEP
         {
             FuelTankCapacity,
@@ -1070,6 +1073,7 @@ namespace Bikewale.New
             Sixityto0Kmph,
             Eightyto0kmph
         }
+
         public enum DC
         {
             KerbWeight,
@@ -1082,6 +1086,6 @@ namespace Bikewale.New
             ChassisType
         }
 
-        #endregion
+        #endregion enums
     }
 }

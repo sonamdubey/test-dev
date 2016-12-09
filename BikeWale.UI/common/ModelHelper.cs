@@ -116,22 +116,25 @@ namespace Bikewale.common
         public IEnumerable<CityEntityBase> GetCitiesByModelId(uint modelId)
         {
             IEnumerable<CityEntityBase> cityList = null;
-            try
+            if (modelId > 0)
             {
-                using (IUnityContainer container = new UnityContainer())
+                try
                 {
-                    container.RegisterType<ICity, CityRepository>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<ICityCacheRepository, CityCacheRepository>();
-                    ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
-                    cityList = objcity.GetPriceQuoteCities(modelId);
-                    return cityList;
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<ICity, CityRepository>()
+                                     .RegisterType<ICacheManager, MemcacheManager>()
+                                     .RegisterType<ICityCacheRepository, CityCacheRepository>();
+                        ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
+                        cityList = objcity.GetPriceQuoteCities(modelId);
+                        return cityList;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
-                objErr.SendMail();
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
+                    objErr.SendMail();
+                }
             }
             return cityList;
         }
