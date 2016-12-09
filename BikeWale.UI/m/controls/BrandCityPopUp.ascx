@@ -30,7 +30,7 @@
             <% }
                else
                { %>
-            <div id="makeSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="click: function (d,e) { hideError($(e.target)) }">
+            <div id="makeSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="click: function (d,e) { hideError($(e.target)) }, visible: listCities().length > 0">
                 <div class="selected-area" id="ddlBrandsPopup" data-bind="click: function (d, e) { hideError($(e.target).parent()) }, text: (selectedBrand() != null && selectedBrand().makeName != '') ? selectedBrand().makeName : 'Select Brand'">Select Brand</div>
                 <span class="bwmsprite error-icon errorIcon hide"></span>
                 <div class="bw-blackbg-tooltip errorText hide"></div>
@@ -47,11 +47,11 @@
             <div id="btnSearchBrandCity" class="center-align margin-top20 text-center position-rel">
                 <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
                   { %>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search dealers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0),visible:(listCities().length > 0)">Show dealers</a>
                 <%} %>
                 <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
                   {%>
-                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">Search service centers</a>
+                <a id="btnSearchBrandCityPopup" class="btn btn-orange btn-full-width font18" rel="nofollow" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0),visible:(listCities().length > 0)">Show service centers</a>
                 <%} %>
             </div>
 
@@ -188,8 +188,7 @@
                     self.bookingBrands(brands);
                     if (self.bookingBrands() != null) {
                         isAborted = true;
-                        $('#brandcitypopupWrapper').removeClass('loader-active');
-                    }
+                       }
                 }
                 else {
                     self.bookingBrands([]);
@@ -215,9 +214,7 @@
                         else {
                             self.bookingBrands([]);
                         }
-                        $('#brandcitypopupWrapper').removeClass('loader-active');
-
-                    },
+                       },
                     complete: function () {
                         self.preselectMake();
                     }
@@ -242,7 +239,8 @@
                                 self.preselectCity();
                             }
                             else self.selectCity(null);
-                     }
+                    }
+                    $('#brandcitypopupWrapper').removeClass('loader-active');
                     
                 }
                 
@@ -273,6 +271,7 @@
                             else {
                                 self.listCities([]);
                             }
+                            $('#brandcitypopupWrapper').removeClass('loader-active');
 
                         },
                         error: function (e) {

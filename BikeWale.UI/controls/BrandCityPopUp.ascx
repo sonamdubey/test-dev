@@ -13,12 +13,12 @@
         <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
           { %>
         <p class="font20 margin-top15 text-capitalize text-center">Looking for a different dealer?</p>
-        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see dealer details</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Dealer details</p>
         <%} %>
         <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
           { %>
         <p class="font20 margin-top15 text-capitalize text-center">Looking for a different service center?</p>
-        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Select the brand and city to see service center details</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Service Center details</p>
         <%} %>
         <div class="padding-top10" id="brandCityPopUpContent">
             <div id="divBrandLoader" class="margin-top10 form-control-box">
@@ -44,11 +44,11 @@
             </div>
             <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
               { %>
-            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Search dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left70 " style="display: block;" type="button" value="Show dealers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
             <%} %>
             <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
               {%>
-            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Search service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
+            <input id="btnSearchBrandCity" class="action-btn margin-top15 margin-left60 " style="display: block;" type="button" value="Show service centers" data-bind="click: searchByBrandCityPopUp, enable: (bookingBrands().length > 0)">
             <%} %>
         </div>
     </div>

@@ -85,7 +85,7 @@
                         <div>
                             <h2 class="font18 text-black text-bold bg-white dealer-heading"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
                                                                                                                             
-                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue"></span> <span class="change text-link">change</span></span>
+                            <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                         </div>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
