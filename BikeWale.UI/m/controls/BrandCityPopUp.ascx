@@ -344,8 +344,6 @@
             }
 
             if (self.selectedBrand() != null) {
-                //$("#popup-loader-container").show();
-                //$("#popup-loader-text").show();
                 $('#brandcitypopupWrapper').addClass('loader-active');
                 self.LoadingText("Loading cities for " + self.selectedBrand().makeName);
                 self.makeChangedPopup();
