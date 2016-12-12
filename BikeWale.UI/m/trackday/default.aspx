@@ -15,7 +15,7 @@
    
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
 
-    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/css/landing.css?<%= staticFileVersion %>" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/css/track-day.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -169,6 +169,41 @@
                 <div class="video-content">
                     <iframe src="https://www.youtube.com/embed/Aod9AcExx1Q" frameborder="0" width="320" height="180"></iframe>
                     <div class="bg-loader-placeholder"></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container section-container">
+                <h2 class="section-heading">Gallery</h2>
+                <div>
+                    <div class="connected-carousels-photos">
+                        <div class="stage-photos">
+                            <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//762x429//bw/ec/24236/Action-77224.jpg?v=20162707184052" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>                                        
+                                </div>
+                                <div class="bwmsprite swiper-button-next"></div>
+                                <div class="bwmsprite swiper-button-prev"></div>
+                            </div>
+                        </div>
+
+                        <div class="navigation-photos">
+                            <div class="swiper-container noSwiper carousel-navigation-photos">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/24236/Action-77224.jpg?v=20162707184052" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>                                        
+                                </div>
+                                <div class="bwmsprite swiper-button-next hide"></div>
+                                <div class="bwmsprite swiper-button-prev hide"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
