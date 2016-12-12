@@ -16,9 +16,6 @@ namespace Bikewale.BAL.MobileAppAlert
     {
         private static readonly string _FCMApiKey = Bikewale.Utility.BWConfiguration.Instance.FCMApiKey;
         private static readonly string _FCMSendURL = Bikewale.Utility.BWConfiguration.Instance.FCMSendURL;
-        private static readonly string _batchImportEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchImportEndPoint"];
-        private static readonly string _batchAddEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
-        private static readonly string _batchRemoveEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
         private static readonly string _androidGlobalTopic = Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic;
         private static readonly int _oneWeek = 604800;
         private static readonly int _maxRetries = 3;
@@ -70,10 +67,7 @@ namespace Bikewale.BAL.MobileAppAlert
                     tRequest.ContentType = "application/json";
                     tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
 
-
-                    var json = JsonConvert.SerializeObject(payload);
-
-                    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                    Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
 
                     tRequest.ContentLength = byteArray.Length;
 
@@ -132,7 +126,7 @@ namespace Bikewale.BAL.MobileAppAlert
                 tRequest.ContentType = "application/json";
                 tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
 
-                string json = JsonConvert.SerializeObject(payload);
+                string json = JsonConvert.SerializeObject(androidPayload);
 
                 Byte[] byteArray = Encoding.UTF8.GetBytes(json);
 
@@ -180,7 +174,7 @@ namespace Bikewale.BAL.MobileAppAlert
         /// <returns></returns>
         public bool SaveIMEIFCMData(string imei, string gcmId, string osType, string subsMasterId)
         {
-            return SaveIMEIFCMData(imei, gcmId, osType, subsMasterId);
+            return _appAlertRepo.SaveIMEIFCMData(imei, gcmId, osType, subsMasterId);
         }
     }
 

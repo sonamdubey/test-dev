@@ -24,7 +24,6 @@ namespace AppNotification.BAL
         private static readonly string _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
         private static readonly string _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
         private static readonly string _genericQueueName = ConfigurationManager.AppSettings["GenericQueueName"];
-        private static readonly int _oneWeek = 604800;
         private static readonly int _maxRetries = 3;
 
 
@@ -71,51 +70,51 @@ namespace AppNotification.BAL
         //    return gcmBaseDataObj;
         //}
 
-        private string SendGCMNotification(string apiKey, string postData, string postDataContentType)
-        {
-            //If SSL certification is self signed then too the following line of code will Validate the server certificate
-            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateServerCertificate);
+        //private string SendGCMNotification(string apiKey, string postData, string postDataContentType)
+        //{
+        //    //If SSL certification is self signed then too the following line of code will Validate the server certificate
+        //    ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateServerCertificate);
 
-            //Logs.WriteInfoLog(String.Format("postData  : {0}", postData));
-            //  MESSAGE CONTENT
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+        //    //Logs.WriteInfoLog(String.Format("postData  : {0}", postData));
+        //    //  MESSAGE CONTENT
+        //    byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
-            //  CREATE REQUEST
-            HttpWebRequest Request = (HttpWebRequest)WebRequest.Create("https://android.googleapis.com/gcm/send");
-            Request.Method = "POST";
-            Request.KeepAlive = false;
-            Request.ContentType = postDataContentType;
-            Request.Headers.Add(String.Format("Authorization: key={0}", apiKey));
-            Request.Headers.Add(string.Format("Sender: id={0}", ConfigurationManager.AppSettings["SenderId"]));
-            Request.ContentLength = byteArray.Length;
-            Stream dataStream = Request.GetRequestStream();
-            dataStream.Write(byteArray, 0, byteArray.Length);
-            dataStream.Close();
-            string responseLine = string.Empty;
+        //    //  CREATE REQUEST
+        //    HttpWebRequest Request = (HttpWebRequest)WebRequest.Create("https://android.googleapis.com/gcm/send");
+        //    Request.Method = "POST";
+        //    Request.KeepAlive = false;
+        //    Request.ContentType = postDataContentType;
+        //    Request.Headers.Add(String.Format("Authorization: key={0}", apiKey));
+        //    Request.Headers.Add(string.Format("Sender: id={0}", ConfigurationManager.AppSettings["SenderId"]));
+        //    Request.ContentLength = byteArray.Length;
+        //    Stream dataStream = Request.GetRequestStream();
+        //    dataStream.Write(byteArray, 0, byteArray.Length);
+        //    dataStream.Close();
+        //    string responseLine = string.Empty;
 
-            //  SEND MESSAGE
-            try
-            {
-                WebResponse Response = Request.GetResponse();
-                StreamReader Reader = new StreamReader(Response.GetResponseStream());
-                responseLine = Reader.ReadToEnd();
-                Reader.Close();
+        //    //  SEND MESSAGE
+        //    try
+        //    {
+        //        WebResponse Response = Request.GetResponse();
+        //        StreamReader Reader = new StreamReader(Response.GetResponseStream());
+        //        responseLine = Reader.ReadToEnd();
+        //        Reader.Close();
 
 
-                //Logs.WriteInfoLog(String.Format("api Response : {0}",responseLine));
-                return responseLine;
-            }
-            catch (Exception e)
-            {
-                responseLine = e.Message.ToString();
-            }
-            return responseLine;
-        }
+        //        //Logs.WriteInfoLog(String.Format("api Response : {0}",responseLine));
+        //        return responseLine;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        responseLine = e.Message.ToString();
+        //    }
+        //    return responseLine;
+        //}
 
-        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
-        }
+        //private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        //{
+        //    return true;
+        //}
 
         public SubscriptionResponse SubscribeFCMNotification(string payload, int retries)
         {

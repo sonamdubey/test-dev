@@ -6,9 +6,6 @@ using Bikewale.Utility.AndroidAppAlert;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -25,12 +22,9 @@ namespace Bikewale.Service.Controllers.AppNotifications
     public class AppAlertController : ApiController
     {
 
-        private static readonly string _FCMApiKey = Bikewale.Utility.BWConfiguration.Instance.FCMApiKey;
-        private static readonly string _batchImportEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchImportEndPoint"];
-        private static readonly string _batchAddEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
-        private static readonly string _batchRemoveEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
-        private static readonly string _androidGlobalTopic = Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic;
-        private static readonly int _maxRetries = 3;
+
+        private static readonly string _batchAddEndPoint = Bikewale.Utility.BWConfiguration.Instance.SusbscribeFCMUserUrl;
+        private static readonly string _batchRemoveEndPoint = Bikewale.Utility.BWConfiguration.Instance.UnSusbscribeFCMUserUrl;
 
         private readonly IMobileAppAlert _appAlert = null;
         /// <summary>
@@ -71,7 +65,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
                     }
                     else
                     {
-                        return NotFound();
+                        return BadRequest();
                     }
                 }
                 else
@@ -89,7 +83,8 @@ namespace Bikewale.Service.Controllers.AppNotifications
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 12nd Dec 2016
+        /// Description : To subscribe fcm user
         /// </summary>
         /// <param name="appInput"></param>
         /// <returns></returns>
@@ -105,13 +100,15 @@ namespace Bikewale.Service.Controllers.AppNotifications
                     SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string>() { appInput.GcmId } };
                     string payload = JsonConvert.SerializeObject(subscriptionRequest);
 
-                    SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(_batchAddEndPoint, payload, 0);
+                    SubscriptionResponse subscriptionResponse = _appAlert.SubscribeFCMNotification(_batchAddEndPoint, payload, 0);
                     if (subscriptionResponse != null)
                     {
                         var result = subscriptionResponse.Results[0];
                         if (!string.IsNullOrEmpty(result.Error))
                         {
                             msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                            ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
+                            objErr.SendMail();
                         }
                         else
                         {
@@ -133,7 +130,8 @@ namespace Bikewale.Service.Controllers.AppNotifications
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 12nd Dec 2016
+        /// Description : To unsubscribe fcm user
         /// </summary>
         /// <param name="appInput"></param>
         /// <returns></returns>
@@ -149,13 +147,19 @@ namespace Bikewale.Service.Controllers.AppNotifications
                 SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string>() { appInput.GcmId } };
                 string payload = JsonConvert.SerializeObject(subscriptionRequest);
 
-                SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(_batchRemoveEndPoint, payload, 0);
+                SubscriptionResponse subscriptionResponse = _appAlert.SubscribeFCMNotification(_batchRemoveEndPoint, payload, 0);
                 if (subscriptionResponse != null)
                 {
                     var result = subscriptionResponse.Results[0];
                     if (!string.IsNullOrEmpty(result.Error))
                     {
                         msg = string.Format("Android : UnSubscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                        ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
+                        objErr.SendMail();
+                    }
+                    else
+                    {
+                        isSuccess = true;
                     }
 
                 }
@@ -167,71 +171,6 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
 
             return isSuccess;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="action"></param>
-        /// <param name="payload"></param>
-        /// <param name="retries"></param>
-        /// <returns></returns>
-        private SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
-        {
-            SubscriptionResponse subsResponse = null;
-            try
-            {
-                if (_maxRetries > retries)
-                {
-                    subsResponse = new SubscriptionResponse();
-
-                    WebRequest tRequest = WebRequest.Create(action);
-                    tRequest.Method = "POST";
-                    tRequest.ContentType = "application/json";
-                    tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
-
-
-                    var json = JsonConvert.SerializeObject(payload);
-
-                    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
-
-                    tRequest.ContentLength = byteArray.Length;
-
-                    using (Stream dataStream = tRequest.GetRequestStream())
-                    {
-                        dataStream.Write(byteArray, 0, byteArray.Length);
-
-                        using (HttpWebResponse tResponse = (HttpWebResponse)tRequest.GetResponse())
-                        {
-
-                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
-                            {
-                                using (StreamReader tReader = new StreamReader(dataStreamResponse))
-                                {
-                                    if (tResponse.StatusCode.Equals(HttpStatusCode.OK) && subsResponse.Results == null)
-                                    {
-                                        String sResponseFromServer = tReader.ReadToEnd();
-                                        subsResponse = JsonConvert.DeserializeObject<SubscriptionResponse>(sResponseFromServer);
-                                    }
-                                    else if (tResponse.StatusCode.Equals(HttpStatusCode.ServiceUnavailable))
-                                    {
-                                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(30)); //hard coded 30 seconds | should be exponential backoff
-                                        return SubscribeFCMNotification(action, payload, retries + 1);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SendFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
-                objErr.SendMail();
-            }
-
-            return subsResponse;
         }
 
     }

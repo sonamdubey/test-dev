@@ -84,9 +84,11 @@ namespace Bikewale.Utility
             _AWSEnvironment = string.Empty,
             _AWSImageQueueName = String.Empty,
             _SponsoredModelId = string.Empty,
-        _AndroidGlobalTopic = string.Empty,
-        _FCMSendURL = string.Empty,
-        _FCMApiKey = string.Empty;
+            _AndroidGlobalTopic = string.Empty,
+            _FCMSendURL = string.Empty,
+            _FCMApiKey = string.Empty,
+            _SusbscribeFCMUserUrl = string.Empty,
+            _UnSusbscribeFCMUserUrl = string.Empty;
 
         private readonly int _SecurityHashLength = 0;
 
@@ -160,6 +162,9 @@ namespace Bikewale.Utility
             _AndroidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
             _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
             _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
+            _SusbscribeFCMUserUrl = ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
+            _UnSusbscribeFCMUserUrl = ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
+
         }
 
         // Static method to provide access to instance
@@ -281,5 +286,9 @@ namespace Bikewale.Utility
         public string FCMSendURL { get { return _FCMSendURL; } }
         public string FCMApiKey { get { return _FCMApiKey; } }
 
+
+        public string SusbscribeFCMUserUrl { get { return _SusbscribeFCMUserUrl; } }
+
+        public string UnSusbscribeFCMUserUrl { get { return _UnSusbscribeFCMUserUrl; } }
     }   // class
 }   // namespace
