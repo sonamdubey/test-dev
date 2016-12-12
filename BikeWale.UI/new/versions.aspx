@@ -48,7 +48,7 @@
         var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= canonical %>";
-    </script>
+     </script>
 
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
@@ -174,7 +174,7 @@
                                     <% } %>
                                     <% else { %>
                                     <p class="font12 text-light-grey">Version</p>
-                                    <p class="font14 text-bold margin-bottom15"><%= variantText %></p>
+                                    <p class="font14 text-bold margin-bottom15" id="versText"><%= variantText %></p>
                                     <% }
                                 } %>
                                 <!-- Variant div ends -->
@@ -238,7 +238,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
+                                <a href="javascript:void(0)" id="getOffersPrimary" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" c="Model_Page" a=" Lead_Submitted" v='' data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %></span>
@@ -482,7 +482,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
@@ -514,7 +514,7 @@
                                                         <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                             <span class="bwsprite offers-sm-box"></span>
                                                             <span class="font14 text-default text-bold"><%=bike.OfferCount %></span>
-                                                            <span class="font12 text-light-grey">Offers available</span>
+                                                            <span class="font12 text-light-grey">Offer<%=(bike.OfferCount)>1?"s":""%> available</span>
                                                         </div>
                                                         <% } %>
 								                        <div class="clear"></div>
@@ -1313,6 +1313,8 @@
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
+                if ($('#getOffersPrimary').length>0)
+                $('#getOffersPrimary').attr('v',bikeVersionLocation) ;
             }
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
