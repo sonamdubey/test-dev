@@ -11,6 +11,8 @@
 var citiesList = $("#filter-city-list li");
 $("section").show();
 
+$('.chosen-select').chosen();
+
 var selectColorBox = $('#select-color-box'),
     effect = 'slide',
     options = { direction: 'right' },
