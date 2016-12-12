@@ -34,7 +34,7 @@ ko.bindingHandlers.chosen = {
                 var prop = allBindings.get(propName);
                 if (ko.isObservable(prop)) {
                     prop.subscribe(function () {
-                        $element.trigger('chosen:updated');
+                        $element.trigger('chosen:updated');                        
                     });
                 }
             }
@@ -1504,11 +1504,18 @@ var sellerType = {
 }
 
 // color
-selectColorBox.on('click', '.color-box-default', function () {
+selectColorBox.on('click', '.color-box-default', function () {  
     if (vmSellBike.bikeDetails().versionName() != "") {
         vmSellBike.bikeDetails().prevColor(vmSellBike.bikeDetails().color());
         vmSellBike.bikeDetails().prevColorId(vmSellBike.bikeDetails().colorId());
-        colorBox.popup.find('li.active').removeClass('active');
+        colorBox.popup.find('li.active').removeClass('active');       
+
+        colorBox.popup.find('li').each(function () {
+            var current = $(this);
+            if (current.text().trim() == vmSellBike.bikeDetails().color())
+                current.addClass("active");
+        })
+
         modalPopup.open('#color-popup');
         appendState('colorPopup');
     }
