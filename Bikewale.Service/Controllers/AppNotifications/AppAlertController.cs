@@ -1,4 +1,5 @@
 ﻿using Bikewale.DTO.App.AppAlert;
+using Bikewale.Entities.MobileAppAlert;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.Notifications;
 using Bikewale.Utility.AndroidAppAlert;
@@ -62,7 +63,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
                     }
                     else
                     {
-                        //isSuccess = UnSubscribeUser(input);
+                        isSuccess = UnSubscribeUser(input);
                     }
 
                     if (isSuccess)
@@ -81,13 +82,18 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.AppNotifications.Post");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], input.Imei, input.GcmId));
                 objErr.SendMail();
                 return InternalServerError();
             }
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appInput"></param>
+        /// <returns></returns>
         private bool SubscribeUser(AppImeiDetailsInput appInput)
         {
             string msg = string.Empty, subscriptionTopic = string.Empty;
@@ -118,7 +124,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " - SubscribeUser");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
                 objErr.SendMail();
 
             }
@@ -127,27 +133,51 @@ namespace Bikewale.Service.Controllers.AppNotifications
 
         }
 
-        //private bool UnSubscribeUser()
-        //{
-        //    string msg = string.Empty;
-        //    //unsubscribeToken
-        //    SubscriptionToggle toggle = SubscriptionToggle.AndroidUnSubscribe;
-        //    SubscriptionResponse subscriptionResponse = SendSubscriptionRequest(input.GcmId, "/topics/" + _androidGlobalTopic, toggle);
-        //    if (subscriptionResponse != null)
-        //    {
-        //        var result = subscriptionResponse.Results[0];
-        //        if (!string.IsNullOrEmpty(result.Error))
-        //        {
-        //            msg = string.Format("Android : Unsubscribing failed for Registration id - {0} : {1} due to {2}", input.Imei, input.GcmId, result.Error);
-        //        }
-        //        else
-        //        {
-        //            isSuccess = true;
-        //        }
-        //    }
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appInput"></param>
+        /// <returns></returns>
+        private bool UnSubscribeUser(AppImeiDetailsInput appInput)
+        {
+            string msg = string.Empty, subscriptionTopic = string.Empty;
+            bool isSuccess = false;
+
+            try
+            {
+                subscriptionTopic = SubscriptionTypes._NewsArticles;
+
+                SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string>() { appInput.GcmId } };
+                string payload = JsonConvert.SerializeObject(subscriptionRequest);
+
+                SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(_batchRemoveEndPoint, payload, 0);
+                if (subscriptionResponse != null)
+                {
+                    var result = subscriptionResponse.Results[0];
+                    if (!string.IsNullOrEmpty(result.Error))
+                    {
+                        msg = string.Format("Android : UnSubscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - UnSubscribing : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
+                objErr.SendMail();
+            }
+
+            return isSuccess;
+        }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="payload"></param>
+        /// <param name="retries"></param>
+        /// <returns></returns>
         private SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
         {
             SubscriptionResponse subsResponse = null;
@@ -205,51 +235,6 @@ namespace Bikewale.Service.Controllers.AppNotifications
             return subsResponse;
         }
 
-    }
-
-    [Serializable]
-    public class MapResponse
-    {
-        [JsonProperty("results")]
-        public List<Mapping> Results { get; set; }
-    }
-
-    [Serializable]
-    public class Mapping
-    {
-        [JsonProperty("apns_token")]
-        public string ApnsToken { get; set; }
-
-        [JsonProperty("status")]
-        public string Status { get; set; }
-
-        [JsonProperty("registration_token")]
-        public string RegistrationToken { get; set; }
-    }
-
-    [Serializable]
-    public class SubscriptionRequest
-    {
-        [JsonProperty("to")]
-        public string To { get; set; }
-
-        [JsonProperty("registration_tokens")]
-        public List<string> RegistrationTokens { get; set; }
-    }
-
-
-    [Serializable]
-    public class SubscriptionResponse
-    {
-        [JsonProperty("results")]
-        public List<SubscriptionResult> Results { get; set; }
-    }
-
-    [Serializable]
-    public class SubscriptionResult
-    {
-        [JsonProperty("error")]
-        public string Error { get; set; }
     }
 
 }
