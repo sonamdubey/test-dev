@@ -136,6 +136,47 @@ h2.section-heading {
     width: 100%;
 }
 
+/* track-day-article */
+#track-day-article .bg-loader-placeholder {
+    min-height: 180px;
+}
+
+#track-day-article .article-image {
+    width: 100%;
+    max-width: 768px;
+}
+
+.article-heading {
+    padding: 10px;
+    font-size: 17px;
+}
+
+.article-author {
+    font-size: 13px;
+    color: #0288d1;
+}
+
+.margin-bottom30 {
+    margin-bottom: 30px;
+}
+
+.article-paragraph {
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.photography-credit {
+    margin-top: 20px;
+}
+
+.article-image-margin {
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
 @media (max-width: 350px) {
     .review-heading-wrapper {
         width: 50%;
