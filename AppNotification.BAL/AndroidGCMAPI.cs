@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AppNotification.Entity;
 using AppNotification.Interfaces;
-using AppNotification.Entity;
-using System.Net;
+using AppNotification.Notifications;
+using Newtonsoft.Json;
+using System;
+using System.Configuration;
 using System.IO;
+using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-using System.Configuration;
-using Newtonsoft.Json;
+using System.Text;
+using System.Web;
 //using Consumer;
 
 namespace AppNotification.BAL
@@ -19,13 +18,21 @@ namespace AppNotification.BAL
         where T : MobileAppNotifications
         where TResponse : APIResponseEntity, new()
     {
-       
+
+        private static readonly string _androidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
+        private static readonly string _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
+        private static readonly string _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
+        private static readonly string _genericQueueName = ConfigurationManager.AppSettings["GenericQueueName"];
+        private static readonly int _oneWeek = 604800;
+
+
         public TResponse Request(T t)
         {
             string regIds = String.Join(",", t.GCMList.ToArray());
             string postData = GetGCMData(t);
             string postDataContentType = "application/json";
-            string retVal = SendGCMNotification(ConfigurationManager.AppSettings["APIKey"].ToString(), postData, postDataContentType);
+            //string retVal = SendGCMNotification(ConfigurationManager.AppSettings["APIKey"].ToString(), postData, postDataContentType);
+            string retVal = SendFCMNotification(postData);
             var responseEntity = new TResponse()
             {
                 ResponseText = retVal,
@@ -114,6 +121,74 @@ namespace AppNotification.BAL
         {
             return true;
         }
+
+        public string SendFCMNotification(string payload)
+        {
+            string responseLine = string.Empty;
+            bool isErrorOccurred = false;
+            try
+            {
+
+                WebRequest tRequest = WebRequest.Create(_FCMSendURL);
+                tRequest.Method = "POST";
+                tRequest.ContentType = "application/json";
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
+
+
+                Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
+
+                tRequest.ContentLength = byteArray.Length;
+
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                responseLine = tReader.ReadToEnd();
+                                var _response = JsonConvert.DeserializeObject<NotificationResponse>(responseLine);
+                                if (_response != null && string.IsNullOrEmpty(_response.Error))
+                                {
+                                    isErrorOccurred = true;
+                                    responseLine = _response.Error;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " - SendFCMNotification");
+                objErr.SendMail();
+                responseLine = ex.Message.ToString();
+            }
+
+            return responseLine;
+        }
+
     }
+
+
+    public class NotificationResponse
+    {
+        public string Error { get; set; }
+    }
+
+    public class FCMPushNotificationStatus
+    {
+        public bool Successful { get; set; }
+
+        public NotificationResponse Response { get; set; }
+
+        public Exception Error { get; set; }
+    }
+
+
+
 
 }

@@ -402,34 +402,14 @@ namespace Bikewale.DAL.NewBikeSearch
             string searchResultQuery = string.Empty;
             try
             {
-                //searchResultQuery = @" WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MO.MinPrice ASC, MO.Name ASC) AS DenseRank "
-                //                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank, "
-                //                    + GetSelectClause()
-                //                    + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
-                //                    + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
-                //                    + " AND ModelRank = 1 ORDER BY " + GetOrderByClause() + " ; ";
 
-                searchResultQuery = string.Format(@"set @row_number:=0;set @curr_id:=0;
-                                                    drop temporary table if exists temp_bikes_searched;
-                                                    create temporary table temp_bikes_searched
-                                                    select *, @row_number:= if(@curr_Id = modelid,@row_number+1,1) as modelrank,@curr_Id := modelid from
-                                                    (   select {0}
-                                                        from {1}
-                                                        where {2}  
-                                                        order by bv.bikemodelid
-                                                    ) as t order by minprice ;
-
-                                                    set @row_number:=0;
-
-                                                    select * from 
-                                                    (
-                                                        select *,@row_number:= @row_number+1 as denserank
-                                                        from temp_bikes_searched
-	                                                    where modelrank = 1
-                                                        order by  {3},  minprice asc,  modelname asc
-                                                    ) as t
-                                                    where denserank between {4} and {5};
-                                                 ", GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex, filterInputs.EndIndex);
+                searchResultQuery = string.Format(@" select sql_calc_found_rows {0}
+                                                from {1} 
+                                                {2}
+                                                order by {3} limit {4},{5};
+                                            
+                                                select found_rows() as RecordCount;",
+                                                GetSelectClause(), GetFromClause(), GetWhereClause(), GetOrderByClause(), filterInputs.StartIndex - 1, filterInputs.EndIndex);
 
             }
             catch (Exception ex)

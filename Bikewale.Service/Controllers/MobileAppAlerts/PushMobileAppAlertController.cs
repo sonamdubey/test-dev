@@ -1,8 +1,12 @@
-﻿using Bikewale.Notifications;
-using RabbitMqPublishing;
+﻿using Bikewale.Entities.MobileAppAlert;
+using Bikewale.Interfaces.MobileAppAlert;
+using Bikewale.Notifications;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -16,6 +20,18 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
     /// </summary>
     public class PushMobileAppAlertController : ApiController
     {
+
+        private static readonly string _androidGlobalTopic = Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic;
+        private static readonly string _FCMSendURL = Bikewale.Utility.BWConfiguration.Instance.FCMSendURL;
+        private static readonly string _FCMApiKey = Bikewale.Utility.BWConfiguration.Instance.FCMApiKey;
+        private static readonly int _oneWeek = 604800;
+        private readonly IMobileAppAlert _objMobileAppAlert = null;
+
+        public PushMobileAppAlertController(IMobileAppAlert ObjMobileAppAlert)
+        {
+            _objMobileAppAlert = ObjMobileAppAlert;
+        }
+
         /// <summary>
         /// Created By : Sushil Kumar
         /// Created On : 5th December 2015
@@ -31,12 +47,20 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
             {
 
                 NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-                nvc.Add("publishDate", DateTime.Now.ToString("yyyyMMdd"));
 
+                MobilePushNotificationData data = new MobilePushNotificationData();
+                data.Title = nvc["title"];
+                data.DetailUrl = nvc["detailUrl"];
+                data.SmallPicUrl = nvc["smallPicUrl"];
+                data.LargePicUrl = nvc["largePicUrl"];
+                data.AlertId = Convert.ToInt32(nvc["alertId"]);
+                data.AlertTypeId = Convert.ToInt32(nvc["alertTypeId"]);
+                data.IsFeatured = Convert.ToBoolean(nvc["isFeatured"]);
+                data.PublishDate = DateTime.Now.ToString("yyyyMMdd");
 
-                RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
-
+                NotificationBase androidPayload = new NotificationBase() { To = "/topics/" + _androidGlobalTopic, Data = data, TimeToLive = _oneWeek };
+                FCMPushNotificationStatus androidMessageResponse = SendFCMNotification(androidPayload);
+                _objMobileAppAlert.CompleteNotificationProcess(data.AlertTypeId);
                 return Ok(true);
             }
             catch (Exception ex)
@@ -47,5 +71,65 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
             }
 
         }
+
+        private FCMPushNotificationStatus SendFCMNotification(NotificationBase payload)
+        {
+            FCMPushNotificationStatus result = new FCMPushNotificationStatus();
+            try
+            {
+                result.Successful = false;
+                result.Error = null;
+
+                WebRequest tRequest = WebRequest.Create(_FCMSendURL);
+                tRequest.Method = "POST";
+                tRequest.ContentType = "application/json";
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
+
+
+                var json = JsonConvert.SerializeObject(payload);
+
+                Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+                tRequest.ContentLength = byteArray.Length;
+
+                using (Stream dataStream = tRequest.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+
+                    using (WebResponse tResponse = tRequest.GetResponse())
+                    {
+                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        {
+                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            {
+                                String sResponseFromServer = tReader.ReadToEnd();
+                                result.Response = JsonConvert.DeserializeObject<NotificationResponse>(sResponseFromServer);
+                                if (result.Response.Error == null)
+                                {
+                                    result.Successful = true;
+                                }
+                                else
+                                {
+                                    throw new Exception(result.Response.Error);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Successful = false;
+                result.Response = null;
+                result.Error = ex;
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " - SendFCMNotification");
+                objErr.SendMail();
+            }
+
+            return result;
+        }
+
+
+
     }
 }

@@ -1,11 +1,8 @@
 ﻿using AppNotification.Entity;
 using AppNotification.Interfaces;
+using AppNotification.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AppNotification.Notifications;
 using System.Configuration;
 //using Consumer;
 
@@ -15,6 +12,7 @@ namespace AppNotification.BAL
     {
         // private static readonly log4net.ILog Infolog = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         //private static readonly log4net.ILog Errorlog = LogManager.GetLogger("ErrorLog");
+
 
         private readonly IMobileAppAlertRepository _mobileAppAlertRepo;
         List<string> regKeyList = new List<string>();
@@ -52,7 +50,6 @@ namespace AppNotification.BAL
                             int endIndex = alertBatchSize * i;
                             regKeyList = _mobileAppAlertRepo.GetRegistrationIds(t.alertTypeId, startIndex, endIndex);
                             t.GCMList = new List<string>();
-                            t.ApnsList = new List<string>();
                             foreach (string item in regKeyList)
                             {
                                 //0 means android app where 1 means apple app
@@ -61,15 +58,7 @@ namespace AppNotification.BAL
                                 {
                                     t.GCMList.Add(arr[0]);
                                 }
-                                else
-                                {
-                                    t.ApnsList.Add(arr[0]);
-                                }
                             }
-                            //if (SendToApple.ToLower() == "true")
-                            //{
-                            //    _clientApnsService.Request(t);
-                            //}
                             if (SendToAndroid.ToLower() == "true")
                             {
                                 apiResponse = _clientGCMService.Request(t);
