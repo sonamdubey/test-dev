@@ -1,0 +1,62 @@
+﻿.trackday-banner {
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) center bottom no-repeat #8d8c8a;
+    background-size: cover;
+    height: 203px;
+    padding-top: 85px;
+}
+
+.section-container {
+    margin-bottom: 25px;
+}
+
+h2.section-heading {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* articles */
+.article-list li {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.article-list li:first-child {
+    border-top: none;
+}
+
+.review-image-wrapper {
+    width: 120px;
+    height: 68px;
+    border: 1px solid #e2e2e2;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.review-image-wrapper a {
+    width: 100%;
+    display: block;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 68px;
+}
+
+.review-heading-wrapper {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.review-heading-wrapper .target-link {
+    margin-bottom: 7px;
+}
+
+@media (max-width: 350px) {
+    .review-heading-wrapper {
+        width: 50%;
+    }
+}
