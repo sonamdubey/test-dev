@@ -5,8 +5,8 @@ namespace Bikewale.Utility.AndroidAppAlert
     {
         public const string _Global = "/topics/testbwnotification";
         public const string _NewsArticles = "/topics/testbwnewsnotification";
-        public const string _NewBikes = "/topics/testbwlaunchnotification";
-        public const string _UpcomingBikes = "/topics/testbwupcomingnotification";
+        public const string _NewBikes = "/topics/testbwbikelaunchnotification";
+        public const string _UpcomingBikes = "/topics/testbwupcomingbikenotification";
 
         /// <summary>
         /// 
@@ -31,7 +31,7 @@ namespace Bikewale.Utility.AndroidAppAlert
                     subType = _UpcomingBikes;
                     break;
                 default:
-                    subType = _Global;
+                    subType = _NewsArticles;
                     break;
             }
 

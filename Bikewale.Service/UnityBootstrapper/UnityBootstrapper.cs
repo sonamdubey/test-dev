@@ -24,7 +24,6 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.DAL.App;
-using Bikewale.DAL.AppAlert;
 using Bikewale.DAL.BikeBooking;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
@@ -32,7 +31,6 @@ using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Feedback;
 using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
-using Bikewale.DAL.MAA;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
@@ -43,7 +41,6 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.service;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.App;
-using Bikewale.Interfaces.AppAlert;
 using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
@@ -135,7 +132,6 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
             container.RegisterType<IAppVersion, AppVersionRepository>();
             container.RegisterType<IAppVersionCache, AppVersionCacheRepository>();
-            container.RegisterType<IAppAlert, AppAlertRepository>();
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
             //container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
@@ -165,14 +161,13 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUsedBikeBuyer, Bikewale.BAL.Used.UsedBikeBuyer>();
             container.RegisterType<IUsedBikeBuyerRepository, UsedBikeBuyerRepository>();
             container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
-
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository<Entities.Images.Image, ulong>, ImageRepository<Entities.Images.Image, ulong>>();
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IUsedBikeSeller, UsedBikeSeller>();
-            container.RegisterType<IMobileAppAlert, MobileAppAlert>();
+            container.RegisterType<IMobileAppAlert, Bikewale.BAL.MobileAppAlert.MobileFCMNotifications>();
             return container;
         }
     }

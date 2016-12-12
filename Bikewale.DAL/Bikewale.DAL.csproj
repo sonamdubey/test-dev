@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppAlert\AppAlertRepository.cs" />
     <Compile Include="App\AppVersionRepository.cs" />
     <Compile Include="AutoBiz\DealerPriceQuote\DealerPriceQuoteRepository.cs" />
     <Compile Include="AutoBiz\DealersRepository\Dealers.cs" />
@@ -84,7 +83,7 @@
     <Compile Include="Location\AreaRepository.cs" />
     <Compile Include="Location\CityRepository.cs" />
     <Compile Include="Location\StateRepository.cs" />
-    <Compile Include="mobileappalert\MobileAppAlert.cs" />
+    <Compile Include="MobileAppAlert\MobileAppAlert.cs" />
     <Compile Include="MobileVerification\MobileVerificationRespository.cs" />
     <Compile Include="NewBikeSearch\ProcessFilter.cs" />
     <Compile Include="NewBikeSearch\SearchQuery.cs" />

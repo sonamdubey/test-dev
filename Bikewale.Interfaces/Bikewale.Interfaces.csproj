@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppAlert\IAppAlert.cs" />
     <Compile Include="AppDeepLinking\IDeepLinking.cs" />
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="App\IAppVersionCache.cs" />

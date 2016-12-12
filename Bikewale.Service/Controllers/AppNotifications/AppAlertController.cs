@@ -1,6 +1,6 @@
 ﻿using Bikewale.DTO.App.AppAlert;
 using Bikewale.Entities.MobileAppAlert;
-using Bikewale.Interfaces.AppAlert;
+using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Notifications;
 using Bikewale.Utility.AndroidAppAlert;
 using Newtonsoft.Json;
@@ -30,15 +30,14 @@ namespace Bikewale.Service.Controllers.AppNotifications
         private static readonly string _batchAddEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
         private static readonly string _batchRemoveEndPoint = System.Configuration.ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
         private static readonly string _androidGlobalTopic = Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic;
-        private enum SubscriptionToggle { AndroidSubscribe, AndroidUnSubscribe };
         private static readonly int _maxRetries = 3;
 
-        private readonly IAppAlert _appAlert = null;
+        private readonly IMobileAppAlert _appAlert = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="appAlert"></param>
-        public AppAlertController(IAppAlert appAlert)
+        public AppAlertController(IMobileAppAlert appAlert)
         {
             _appAlert = appAlert;
         }
@@ -48,7 +47,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
         /// <param name="input">entity</param>
         /// <returns></returns>
         [ResponseType(typeof(bool))]
-        public IHttpActionResult Post([FromBody]AppImeiDetailsInput input)
+        public IHttpActionResult Post([FromBody]AppIMEIDetailsInput input)
         {
             bool isSuccess = false;
             string msg = string.Empty;
@@ -94,7 +93,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
         /// </summary>
         /// <param name="appInput"></param>
         /// <returns></returns>
-        private bool SubscribeUser(AppImeiDetailsInput appInput)
+        private bool SubscribeUser(AppIMEIDetailsInput appInput)
         {
             string msg = string.Empty, subscriptionTopic = string.Empty;
             ushort subscriptionId; bool isSuccess = false;
@@ -116,7 +115,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
                         }
                         else
                         {
-                            isSuccess = _appAlert.SaveImeiGcmData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
+                            isSuccess = _appAlert.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
                         }
 
                     }
@@ -138,14 +137,14 @@ namespace Bikewale.Service.Controllers.AppNotifications
         /// </summary>
         /// <param name="appInput"></param>
         /// <returns></returns>
-        private bool UnSubscribeUser(AppImeiDetailsInput appInput)
+        private bool UnSubscribeUser(AppIMEIDetailsInput appInput)
         {
             string msg = string.Empty, subscriptionTopic = string.Empty;
             bool isSuccess = false;
 
             try
             {
-                subscriptionTopic = SubscriptionTypes._NewsArticles;
+                subscriptionTopic = SubscriptionTypes.GetSubscriptionType(0);
 
                 SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string>() { appInput.GcmId } };
                 string payload = JsonConvert.SerializeObject(subscriptionRequest);
@@ -228,7 +227,7 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " - SendFCMNotification");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SendFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
                 objErr.SendMail();
             }
 

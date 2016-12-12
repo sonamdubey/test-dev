@@ -2,7 +2,7 @@
 
 namespace Bikewale.DTO.App.AppAlert
 {
-    public class AppImeiDetailsInput
+    public class AppIMEIDetailsInput
     {
         [JsonProperty("imei")]
         public string Imei { get; set; }
