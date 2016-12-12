@@ -3,6 +3,7 @@ using AppNotification.Interfaces;
 using AppNotification.Notifications;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
@@ -24,18 +25,18 @@ namespace AppNotification.BAL
         private static readonly string _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
         private static readonly string _genericQueueName = ConfigurationManager.AppSettings["GenericQueueName"];
         private static readonly int _oneWeek = 604800;
+        private static readonly int _maxRetries = 3;
 
 
         public TResponse Request(T t)
         {
             string regIds = String.Join(",", t.GCMList.ToArray());
             string postData = GetGCMData(t);
-            string postDataContentType = "application/json";
-            //string retVal = SendGCMNotification(ConfigurationManager.AppSettings["APIKey"].ToString(), postData, postDataContentType);
-            string retVal = SendFCMNotification(postData);
+            //string postDataContentType = "application/json";
+            SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(postData, 0);
             var responseEntity = new TResponse()
             {
-                ResponseText = retVal,
+                ResponseText = Convert.ToString(subscriptionResponse),
             };
             return responseEntity;
         }
@@ -122,39 +123,48 @@ namespace AppNotification.BAL
             return true;
         }
 
-        public string SendFCMNotification(string payload)
+        public SubscriptionResponse SubscribeFCMNotification(string payload, int retries)
         {
-            string responseLine = string.Empty;
-            bool isErrorOccurred = false;
+            SubscriptionResponse subsResponse = null;
             try
             {
-
-                WebRequest tRequest = WebRequest.Create(_FCMSendURL);
-                tRequest.Method = "POST";
-                tRequest.ContentType = "application/json";
-                tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
-
-
-                Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
-
-                tRequest.ContentLength = byteArray.Length;
-
-                using (Stream dataStream = tRequest.GetRequestStream())
+                if (_maxRetries > retries)
                 {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    subsResponse = new SubscriptionResponse();
 
-                    using (WebResponse tResponse = tRequest.GetResponse())
+                    WebRequest tRequest = WebRequest.Create("https://iid.googleapis.com/iid/v1:batchAdd");
+                    tRequest.Method = "POST";
+                    tRequest.ContentType = "application/json";
+                    tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
+
+
+                    var json = JsonConvert.SerializeObject(payload);
+
+                    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+                    tRequest.ContentLength = byteArray.Length;
+
+                    using (Stream dataStream = tRequest.GetRequestStream())
                     {
-                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        dataStream.Write(byteArray, 0, byteArray.Length);
+
+                        using (HttpWebResponse tResponse = (HttpWebResponse)tRequest.GetResponse())
                         {
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
                             {
-                                responseLine = tReader.ReadToEnd();
-                                var _response = JsonConvert.DeserializeObject<NotificationResponse>(responseLine);
-                                if (_response != null && string.IsNullOrEmpty(_response.Error))
+                                using (StreamReader tReader = new StreamReader(dataStreamResponse))
                                 {
-                                    isErrorOccurred = true;
-                                    responseLine = _response.Error;
+                                    if (tResponse.StatusCode.Equals(HttpStatusCode.OK) && subsResponse.Results == null)
+                                    {
+                                        String sResponseFromServer = tReader.ReadToEnd();
+                                        subsResponse = JsonConvert.DeserializeObject<SubscriptionResponse>(sResponseFromServer);
+                                    }
+                                    else if (tResponse.StatusCode.Equals(HttpStatusCode.ServiceUnavailable))
+                                    {
+                                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(30)); //hard coded 30 seconds | should be exponential backoff
+                                        return SubscribeFCMNotification(payload, retries + 1);
+                                    }
                                 }
                             }
                         }
@@ -165,10 +175,9 @@ namespace AppNotification.BAL
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " - SendFCMNotification");
                 objErr.SendMail();
-                responseLine = ex.Message.ToString();
             }
 
-            return responseLine;
+            return subsResponse;
         }
 
     }
@@ -186,6 +195,18 @@ namespace AppNotification.BAL
         public NotificationResponse Response { get; set; }
 
         public Exception Error { get; set; }
+    }
+    [Serializable]
+    public class SubscriptionResponse
+    {
+        [JsonProperty("results")]
+        public List<SubscriptionResult> Results { get; set; }
+    }
+    [Serializable]
+    public class SubscriptionResult
+    {
+        [JsonProperty("error")]
+        public string Error { get; set; }
     }
 
 

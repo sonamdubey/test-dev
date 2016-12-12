@@ -49,23 +49,12 @@ namespace AppNotification.BAL
                             int startIndex = (i - 1) * alertBatchSize + 1;
                             int endIndex = alertBatchSize * i;
                             regKeyList = _mobileAppAlertRepo.GetRegistrationIds(t.alertTypeId, startIndex, endIndex);
-                            t.GCMList = new List<string>();
-                            foreach (string item in regKeyList)
-                            {
-                                //0 means android app where 1 means apple app
-                                string[] arr = item.Split(',');
-                                if (arr[1] == "0")
-                                {
-                                    t.GCMList.Add(arr[0]);
-                                }
-                            }
+
+                            t.GCMList = regKeyList;
                             if (SendToAndroid.ToLower() == "true")
                             {
                                 apiResponse = _clientGCMService.Request(t);
                             }
-                            regKeyList.Clear();
-                            t.GCMList.Clear();
-                            t.ApnsList.Clear();
                         }
                         _mobileAppAlertRepo.CompleteNotificationProcess(t.alertTypeId);
                     }
