@@ -100,7 +100,7 @@
                             <span class="error-text" data-bind="validationMessage: expectedPrice"></span>
                         </div>
 
-                        <div id= "div-owner" class="select-box select-box-no-input row-bottom-margin">
+                        <div id= "div-owner" class="select-box select-box-no-input row-bottom-margin" >
                             <p class="select-label">Owner<sup>*</sup></p>
                             <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
                                 <option value></option>
@@ -232,7 +232,7 @@
                         <div id="color-popup" class="modal-popup-container with-footer">
                             <div class="popup-header">Colour</div>
                             <div class="popup-body">
-                                <ul class="popup-list popup-color-list margin-bottom15" data-bind="foreach: colorArray">
+                                <ul id="color-popup-ul" class="popup-list popup-color-list margin-bottom15" data-bind="foreach: colorArray">
                                     <li class="color-list-item" data-bind="click: $parent.colorSelection" >
                                         <div class="color-box" data-bind="foreach: hexCode, css: (hexCode.length >= 3) ? 'color-count-three' : (hexCode.length == 2) ? 'color-count-two' : 'color-count-one' ">
                                             <span data-bind="style: { 'background-color': '#' + $data }"></span>
@@ -293,7 +293,7 @@
                         </div>
 
                         <div class="input-box form-control-box row-bottom-margin" data-bind="css: sellerEmail().length > 0 ? 'not-empty' : ''">
-                            <input type="text" id="sellerEmail" data-bind="textInput: sellerEmail, validationElement: sellerEmail" />
+                            <input type="email" id="sellerEmail" data-bind="textInput: sellerEmail, validationElement: sellerEmail" />
                             <label for="sellerEmail">Email<sup>*</sup></label>
                             <span class="boundary"></span>
                             <span class="error-text" data-bind="validationMessage: sellerEmail"></span>
