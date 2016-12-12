@@ -26,40 +26,36 @@ namespace AppNotification.BAL
             try
             {
                 //Infolog.Info("processe object arrived" + t.alertTypeId + ":" + t.detailUrl + ":" + t.smallPicUrl + ":" + t.title);
-                IAPIService<MobileAppNotifications, APIResponseEntity> _clientGCMService = new AndroidGCMAPI<MobileAppNotifications, APIResponseEntity>();
-                IAPIService<MobileAppNotifications, APIResponseEntity> _clientApnsService = new ApnsPushApi<MobileAppNotifications, APIResponseEntity>();
-                //var SendToApple = ConfigurationManager.AppSettings["SendToApple"].ToString();
+                IAPIService< APIResponseEntity> _clientGCMService = new AndroidGCMAPI< APIResponseEntity>();
+                //IAPIService<MobileAppNotifications, APIResponseEntity> _clientApnsService = new ApnsPushApi<MobileAppNotifications, APIResponseEntity>();
+                ////var SendToApple = ConfigurationManager.AppSettings["SendToApple"].ToString();
                 var SendToAndroid = ConfigurationManager.AppSettings["SendToAndroid"].ToString();
                 // Infolog.Info("processe object arrived 1 ");
                 APIResponseEntity apiResponse;
-                if (t.alertTypeId != -1)
+                // Infolog.Info("processe object arrived 2");
+                int alertBatchSize = Int32.Parse(ConfigurationManager.AppSettings["MobileAlertBatchSize"]);
+                int totalNumCount = _mobileAppAlertRepo.GetTotalNumberOfSubs(1);
+                //Logs.WriteInfoLog(String.Format("user COunt",totalNumCount));
+                // Infolog.Info("processe object arrived 3 alertbatchsize" + alertBatchSize +":totalnumcount:"+ totalNumCount);
+
+                int loopCount = totalNumCount / alertBatchSize;
+
+                if (totalNumCount > 0)
                 {
-                    // Infolog.Info("processe object arrived 2");
-                    int alertBatchSize = Int32.Parse(ConfigurationManager.AppSettings["MobileAlertBatchSize"]);
-                    int totalNumCount = _mobileAppAlertRepo.GetTotalNumberOfSubs(t.alertTypeId);
-                    //Logs.WriteInfoLog(String.Format("user COunt",totalNumCount));
-                    // Infolog.Info("processe object arrived 3 alertbatchsize" + alertBatchSize +":totalnumcount:"+ totalNumCount);
-
-                    int loopCount = totalNumCount / alertBatchSize;
-
-                    if (totalNumCount > 0)
+                    for (int i = 1; i <= loopCount + 1; i++)
                     {
-                        for (int i = 1; i <= loopCount + 1; i++)
+                        int startIndex = (i - 1) * alertBatchSize + 1;
+                        int endIndex = alertBatchSize * i;
+                        regKeyList = _mobileAppAlertRepo.GetRegistrationIds(1, startIndex, endIndex);
+                        if (SendToAndroid.ToLower() == "true")
                         {
-                            int startIndex = (i - 1) * alertBatchSize + 1;
-                            int endIndex = alertBatchSize * i;
-                            regKeyList = _mobileAppAlertRepo.GetRegistrationIds(t.alertTypeId, startIndex, endIndex);
-
-                            t.GCMList = regKeyList;
-                            if (SendToAndroid.ToLower() == "true")
-                            {
-                                apiResponse = _clientGCMService.Request(t);
-                            }
+                            apiResponse = _clientGCMService.Request(regKeyList);
                         }
-                        _mobileAppAlertRepo.CompleteNotificationProcess(t.alertTypeId);
                     }
+                    _mobileAppAlertRepo.CompleteNotificationProcess(1);
                 }
             }
+
             catch (Exception ex)
             {
                 var objErr = new ExceptionHandler(ex, "Bikewale.AppNotification.BAL.ProcessRequest");

@@ -15,8 +15,8 @@ using System.Web;
 
 namespace AppNotification.BAL
 {
-    public class AndroidGCMAPI<T, TResponse> : IAPIService<T, TResponse>
-        where T : MobileAppNotifications
+    public class AndroidGCMAPI<TResponse> : IAPIService<TResponse>
+
         where TResponse : APIResponseEntity, new()
     {
 
@@ -28,11 +28,10 @@ namespace AppNotification.BAL
         private static readonly int _maxRetries = 3;
 
 
-        public TResponse Request(T t)
+        public TResponse Request(List<string> regKeyList)
         {
-            string regIds = String.Join(",", t.GCMList.ToArray());
-            string postData = GetGCMData(t);
-            //string postDataContentType = "application/json";
+
+            string postData = GetGCMData(regKeyList);
             SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(postData, 0);
             var responseEntity = new TResponse()
             {
@@ -40,21 +39,16 @@ namespace AppNotification.BAL
             };
             return responseEntity;
         }
-
-        public void UpdateResponse(T t, TResponse t2)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetGCMData(T t)
+        public string GetGCMData(List<string> regKeyList)
         {
             try
             {
-                var gcmDataObj = new GCMFormat();
-                gcmDataObj.data = GetGCMBaseData(t);
-                gcmDataObj.registration_ids = t.GCMList;
+                var fcmDataObj = new GCMFormat();
+                fcmDataObj.to = string.Format("/topics/{0}", _androidGlobalTopic);
+                fcmDataObj.registration_tokens = regKeyList;
+
                 //Infolog.Info("GetGCMDATA1");
-                return JsonConvert.SerializeObject(gcmDataObj);
+                return JsonConvert.SerializeObject(fcmDataObj);
             }
             catch (Exception ex)
             {
@@ -63,19 +57,19 @@ namespace AppNotification.BAL
             }
         }
 
-        public MobileAppNotificationBase GetGCMBaseData(T t)
-        {
-            var gcmBaseDataObj = new MobileAppNotificationBase();
-            gcmBaseDataObj.title = t.title;
-            gcmBaseDataObj.detailUrl = t.detailUrl;
-            gcmBaseDataObj.smallPicUrl = t.smallPicUrl;
-            gcmBaseDataObj.alertTypeId = t.alertTypeId;
-            gcmBaseDataObj.alertId = t.alertId;
-            gcmBaseDataObj.largePicUrl = t.largePicUrl;
-            gcmBaseDataObj.isFeatured = t.isFeatured;
-            gcmBaseDataObj.publishDate = t.publishDate;
-            return gcmBaseDataObj;
-        }
+        //public MobileAppNotificationBase GetGCMBaseData(T t)
+        //{
+        //    var gcmBaseDataObj = new MobileAppNotificationBase();
+        //    gcmBaseDataObj.title = t.title;
+        //    gcmBaseDataObj.detailUrl = t.detailUrl;
+        //    gcmBaseDataObj.smallPicUrl = t.smallPicUrl;
+        //    gcmBaseDataObj.alertTypeId = t.alertTypeId;
+        //    gcmBaseDataObj.alertId = t.alertId;
+        //    gcmBaseDataObj.largePicUrl = t.largePicUrl;
+        //    gcmBaseDataObj.isFeatured = t.isFeatured;
+        //    gcmBaseDataObj.publishDate = t.publishDate;
+        //    return gcmBaseDataObj;
+        //}
 
         private string SendGCMNotification(string apiKey, string postData, string postDataContentType)
         {
@@ -137,10 +131,7 @@ namespace AppNotification.BAL
                     tRequest.ContentType = "application/json";
                     tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
 
-
-                    var json = JsonConvert.SerializeObject(payload);
-
-                    Byte[] byteArray = Encoding.UTF8.GetBytes(json);
+                    Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
 
                     tRequest.ContentLength = byteArray.Length;
 

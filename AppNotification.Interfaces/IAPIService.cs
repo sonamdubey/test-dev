@@ -1,9 +1,10 @@
 ﻿
+using System.Collections.Generic;
 namespace AppNotification.Interfaces
 {
-    public interface IAPIService<T, TResponse>
+    public interface IAPIService<TResponse>
     {
-        TResponse Request(T t);
-        void UpdateResponse(T t, TResponse t2);
+        TResponse Request(List<string> regKeyList);
+        //void UpdateResponse(List<string> regKeyList, TResponse t2);
     }
 }
