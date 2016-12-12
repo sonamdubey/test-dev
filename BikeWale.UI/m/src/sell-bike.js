@@ -36,7 +36,7 @@ ko.bindingHandlers.chosen = {
                 var prop = allBindings.get(propName);
                 if (ko.isObservable(prop)) {
                     prop.subscribe(function () {
-                        $element.trigger('chosen:updated');                        
+                        $element.trigger('chosen:updated');
                     });
                 }
             }
@@ -216,16 +216,15 @@ var vmCities = function () {
         self.FilteredCity = ko.observableArray([]);
         self.visibleCities = ko.computed(function () {
             self.FilteredCity([]);
-            var filter = self.cityFilter();            
+            var filter = self.cityFilter();
             if (filter && filter.length > 0) {
                 var pat = new RegExp(filter, "i");
-               ko.utils.arrayFilter(citiesList, function (city) {
-                   if (pat.test($(city).text()))
-                   {
-                      self.FilteredCity().push({ city: $(city).text(), id: $(city).attr("data-cityId") });
-                   };
-                });                
-            }            
+                ko.utils.arrayFilter(citiesList, function (city) {
+                    if (pat.test($(city).text())) {
+                        self.FilteredCity().push({ city: $(city).text(), id: $(city).attr("data-cityId") });
+                    };
+                });
+            }
             return self.FilteredCity();
         });
     } catch (e) {
@@ -404,7 +403,7 @@ var sellBike = function () {
                     maxFilesize: 4,
                     maxFiles: 10,
                     addRemoveLinks: true,
-                    acceptedFiles: ".png, .jpg",
+                    acceptedFiles: ".png, .jpg, .jpeg",
                     url: self.photoUploadUrl(),
                     headers: { "customerId": self.customerId() },
                     init: function () {
@@ -462,21 +461,25 @@ var sellBike = function () {
                             if (file.xhr && file.xhr.status == 0)
                                 $(file.previewElement).find('.dz-error-message').text("You're offline.");
                             else
-                                $(file.previewElement).find('.dz-error-message').text(response);
+                                $(file.previewElement).find('.dz-error-message').text("Upload limit reached");
                             $(file.previewElement).find('.dz-error-mark').on('click', function () {
                                 myDropzone.removeFile(file);
+                                morePhotos.detach();
                                 myDropzone.addFile(file);
+                                if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                                    morePhotos.attach();
+                                }
                             });
                         });
 
                         this.on("maxfilesexceeded", function (file) {
-                            $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
-                        });
+                            $(file.previewElement).find('.dz-error-message').text("Upload limit reached");
+                        });                        
 
                         this.on("addedfiles", function (file) {
                             morePhotos.detach();
                             if (myDropzone.files.length > 10) {
-                                $(file).each(function (i) {                                    
+                                $(file).each(function (i) {
                                     if (i >= 10 - self.serverImg().length) {
                                         myDropzone.cancelUpload(this);
                                         myDropzone.removeFile(this);
@@ -497,7 +500,7 @@ var sellBike = function () {
                             morePhotos.detach();
                             if (myDropzone.files.length > myDropzone.options.maxFiles) {
                                 $(file).each(function (i) {
-                                    if (10 > i >= self.serverImg().length) {                                   
+                                    if (10 > i >= self.serverImg().length) {
                                         myDropzone.cancelUpload(this);
                                         myDropzone.removeFile(this);
                                     }
@@ -852,7 +855,7 @@ var bikeDetails = function () {
 
 
     self.colorSelection = function (data, event) {
-        
+
         self.color(data.colorName);
         self.colorId(data.colorId);
         if (event != null) {
@@ -938,7 +941,7 @@ var bikeDetails = function () {
         }
         else {
             self.errors.showAllMessages();
-            $('#sell-bike-content input.invalid , #sell-bike-content p.invalid').first().focus();      
+            $('#sell-bike-content input.invalid , #sell-bike-content p.invalid').first().focus();
         }
 
         vmSellBike.verificationDetails().status(false);
@@ -1373,7 +1376,7 @@ var bikePopup = {
 
     versionBody: $('#select-version-wrapper'),
 
-    open: function () {        
+    open: function () {
         bikePopup.container.show(effect, options, duration, function () {
             bikePopup.container.addClass('extra-padding');
         });
@@ -1436,7 +1439,7 @@ $('#city-select-element').on('click', '.city-box-default', function () {
             cityListSelection.open();
             vmSellBike.bikeDetails().citySelectionStatus('bike-city');
             appendState('bikeCity');
-        }        
+        }
     } catch (e) {
         console.warn(e);
     }
@@ -1473,7 +1476,7 @@ $('#city-slideIn-drawer').on('click', '.filter-list li', function () {
             else if (vmSellBike.bikeDetails().citySelectionStatus() == 'registered-city') {
                 vmSellBike.bikeDetails().registeredCity(element.text());
                 vmSellBike.bikeDetails().regCityId(element.attr("data-cityId"));
-            }            
+            }
             cityListSelection.close();
         }
     } catch (e) {
@@ -1506,11 +1509,11 @@ var sellerType = {
 }
 
 // color
-selectColorBox.on('click', '.color-box-default', function () {  
+selectColorBox.on('click', '.color-box-default', function () {
     if (vmSellBike.bikeDetails().versionName() != "") {
         vmSellBike.bikeDetails().prevColor(vmSellBike.bikeDetails().color());
         vmSellBike.bikeDetails().prevColorId(vmSellBike.bikeDetails().colorId());
-        colorBox.popup.find('li.active').removeClass('active');       
+        colorBox.popup.find('li.active').removeClass('active');
 
         colorBox.popup.find('li').each(function () {
             var current = $(this);
