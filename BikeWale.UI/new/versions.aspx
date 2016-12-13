@@ -1326,6 +1326,32 @@
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
             });
+           
+            $('#getEmailID').on("focus", function () {
+                $('#assistGetEmail').parent().addClass('not-empty');
+            });
+
+            $('#getFullName').on("focus", function () {
+                $('#assistGetName').parent().addClass('not-empty');
+            });
+            
+            $('#getMobile').on("focus", function () {
+                $('#assistGetMobile').parent().addClass('not-empty');
+            });
+            $('#getEmailID').on("blur", function () {
+                if ($('#assistGetEmail').val()=="")
+                $('#assistGetEmail').parent().removeClass('not-empty');
+            });
+
+            $('#getFullName').on("blur", function () {
+                if ($('#assistGetName').val() == "")
+                $('#assistGetName').parent().removeClass('not-empty');
+            });
+
+            $('#getMobile').on("blur", function () {
+                if ($('#assistGetMobile').val() == "")
+                $('#assistGetMobile').parent().removeClass('not-empty');
+            });
 
             $(".leadcapturebtn").click(function (e) {
 
