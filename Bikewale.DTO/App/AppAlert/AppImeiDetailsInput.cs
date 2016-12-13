@@ -1,19 +1,15 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bikewale.DTO.App.AppAlert
 {
-    public class AppImeiDetailsInput
+    public class AppIMEIDetailsInput
     {
-        [JsonProperty("imei")]
+        [JsonProperty("imei"), Required]
         public string Imei { get; set; }
-        [JsonProperty("gcmId")]
+        [JsonProperty("gcmId"), Required]
         public string GcmId { get; set; }
-        [JsonProperty("osType")]
+        [JsonProperty("osType"), Required]
         public string OsType { get; set; }
         [JsonProperty("subsMasterId")]
         public string SubsMasterId { get; set; }

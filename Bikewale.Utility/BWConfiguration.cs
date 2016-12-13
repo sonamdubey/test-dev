@@ -83,7 +83,12 @@ namespace Bikewale.Utility
             _AWSSecretKey = String.Empty,
             _AWSEnvironment = string.Empty,
             _AWSImageQueueName = String.Empty,
-            _SponsoredModelId = string.Empty;
+            _SponsoredModelId = string.Empty,
+            _AndroidGlobalTopic = string.Empty,
+            _FCMSendURL = string.Empty,
+            _FCMApiKey = string.Empty,
+            _FCMSusbscribeUserUrl = string.Empty,
+            _FCMUnSusbscribeUserUrl = string.Empty;
 
         private readonly int _SecurityHashLength = 0;
 
@@ -154,6 +159,12 @@ namespace Bikewale.Utility
             _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
             _SponsoredModelId = ConfigurationManager.AppSettings["SponsoredModelIds"];
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
+            _AndroidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
+            _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
+            _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
+            _FCMSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
+            _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
+
         }
 
         // Static method to provide access to instance
@@ -271,6 +282,10 @@ namespace Bikewale.Utility
         public string AWSImageQueueName { get { return _AWSImageQueueName; } }
         public int SecurityHashLength { get { return _SecurityHashLength; } }
         public string SponsoredModelId { get { return _SponsoredModelId; } }
-
+        public string AndroidGlobalTopic { get { return _AndroidGlobalTopic; } }
+        public string FCMSendURL { get { return _FCMSendURL; } }
+        public string FCMApiKey { get { return _FCMApiKey; } }
+        public string FCMSusbscribeUserUrl { get { return _FCMSusbscribeUserUrl; } }
+        public string FCMUnSusbscribeUserUrl { get { return _FCMUnSusbscribeUserUrl; } }
     }   // class
 }   // namespace
