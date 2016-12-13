@@ -99,6 +99,7 @@
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
+    <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />

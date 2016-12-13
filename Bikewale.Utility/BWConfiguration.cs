@@ -87,8 +87,8 @@ namespace Bikewale.Utility
             _AndroidGlobalTopic = string.Empty,
             _FCMSendURL = string.Empty,
             _FCMApiKey = string.Empty,
-            _SusbscribeFCMUserUrl = string.Empty,
-            _UnSusbscribeFCMUserUrl = string.Empty;
+            _FCMSusbscribeUserUrl = string.Empty,
+            _FCMUnSusbscribeUserUrl = string.Empty;
 
         private readonly int _SecurityHashLength = 0;
 
@@ -162,8 +162,8 @@ namespace Bikewale.Utility
             _AndroidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
             _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
             _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
-            _SusbscribeFCMUserUrl = ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
-            _UnSusbscribeFCMUserUrl = ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
+            _FCMSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
+            _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
 
         }
 
@@ -285,10 +285,7 @@ namespace Bikewale.Utility
         public string AndroidGlobalTopic { get { return _AndroidGlobalTopic; } }
         public string FCMSendURL { get { return _FCMSendURL; } }
         public string FCMApiKey { get { return _FCMApiKey; } }
-
-
-        public string SusbscribeFCMUserUrl { get { return _SusbscribeFCMUserUrl; } }
-
-        public string UnSusbscribeFCMUserUrl { get { return _UnSusbscribeFCMUserUrl; } }
+        public string FCMSusbscribeUserUrl { get { return _FCMSusbscribeUserUrl; } }
+        public string FCMUnSusbscribeUserUrl { get { return _FCMUnSusbscribeUserUrl; } }
     }   // class
 }   // namespace

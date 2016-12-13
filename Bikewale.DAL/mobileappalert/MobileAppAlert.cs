@@ -6,10 +6,9 @@ using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Web;
 namespace Bikewale.DAL.MobileAppAlert
 {
-    public class MobileAppAlert : IMobileAppAlert
+    public class MobileAppAlert : IMobileAppAlertRepository
     {
         /// <summary>
         /// Auth: Sangram Nandkhile on 5th January 2016
@@ -41,7 +40,7 @@ namespace Bikewale.DAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.MobileAppAlert.SaveIMEIFCMData : imei : {0}, gcmid : {1}, osType {3}: ,subsMaterId : {4}", imei, gcmId, osType, subsMasterId));
                 objErr.SendMail();
                 isResult = false;
             }
@@ -74,18 +73,6 @@ namespace Bikewale.DAL.MobileAppAlert
             }
 
             return isNotificationComplete;
-        }
-
-
-        public Entities.MobileAppAlert.SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public bool SendFCMNotification(Entities.MobileAppAlert.MobilePushNotificationData payload)
-        {
-            throw new NotImplementedException();
         }
     }
 }

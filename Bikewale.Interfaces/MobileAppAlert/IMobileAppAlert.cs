@@ -7,9 +7,8 @@ namespace Bikewale.Interfaces.MobileAppAlert
     /// </summary>
     public interface IMobileAppAlert
     {
-        bool CompleteNotificationProcess(int alertid);
-        bool SaveIMEIFCMData(string imei, string gcmId, string osType, string subsMasterId);
-        SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries);
         bool SendFCMNotification(MobilePushNotificationData payload);
+        bool SubscribeFCMUser(AppFCMInput input);
+        bool UnSubscribeFCMUser(AppFCMInput input);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.MobileAppAlert;
 using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Notifications;
+using Bikewale.Utility.AndroidAppAlert;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
@@ -14,35 +15,112 @@ namespace Bikewale.BAL.MobileAppAlert
 
     public class MobileFCMNotifications : IMobileAppAlert
     {
-        private static readonly string _FCMApiKey = Bikewale.Utility.BWConfiguration.Instance.FCMApiKey;
-        private static readonly string _FCMSendURL = Bikewale.Utility.BWConfiguration.Instance.FCMSendURL;
-        private static readonly string _androidGlobalTopic = Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic;
-        private static readonly int _oneWeek = 604800;
-        private static readonly int _maxRetries = 3;
-        private readonly IMobileAppAlert _appAlertRepo = null;
+        private const int _oneWeek = 604800;
+        private const int _maxRetries = 3;
+        private readonly IMobileAppAlertRepository _appAlertRepo = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 12nd Dec 2016
-        /// Description : To esolve unity container for dal methods
+        /// Description : To resolve unity container for dal methods
         /// </summary>
         public MobileFCMNotifications()
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IMobileAppAlert, Bikewale.DAL.MobileAppAlert.MobileAppAlert>();
+                container.RegisterType<IMobileAppAlertRepository, Bikewale.DAL.MobileAppAlert.MobileAppAlert>();
                 _appAlertRepo = container.Resolve<Bikewale.DAL.MobileAppAlert.MobileAppAlert>();
             }
         }
 
         /// <summary>
         /// Created By : Sushil Kumar on 12nd Dec 2016
-        /// Description : To complete notification process
+        /// Description : To subscribe fcm user
         /// </summary>
-        /// <param name="alertid"></param>
+        /// <param name="appInput"></param>
         /// <returns></returns>
-        public bool CompleteNotificationProcess(int alertid)
+        public bool SubscribeFCMUser(AppFCMInput appInput)
         {
-            return _appAlertRepo.CompleteNotificationProcess(alertid);
+            string msg = string.Empty, subscriptionTopic = string.Empty;
+            ushort subscriptionId; bool isSuccess = false;
+            try
+            {
+                if (ushort.TryParse(appInput.SubsMasterId, out subscriptionId))
+                {
+                    subscriptionTopic = SubscriptionTypes.GetSubscriptionType(subscriptionId);
+                    SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = appInput.GcmId };
+                    string payload = JsonConvert.SerializeObject(subscriptionRequest);
+
+                    SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMSusbscribeUserUrl, payload, 0);
+                    if (subscriptionResponse != null)
+                    {
+                        var result = subscriptionResponse.Results[0];
+                        if (!string.IsNullOrEmpty(result.Error))
+                        {
+                            msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                            ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
+                            objErr.SendMail();
+                        }
+                        else
+                        {
+                            isSuccess = _appAlertRepo.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
+                objErr.SendMail();
+
+            }
+
+            return isSuccess;
+        }
+
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 12nd Dec 2016
+        /// Description : To unsubscribe fcm user
+        /// </summary>
+        /// <param name="appInput"></param>
+        /// <returns></returns>
+        public bool UnSubscribeFCMUser(AppFCMInput appInput)
+        {
+            string msg = string.Empty, subscriptionTopic = string.Empty;
+            bool isSuccess = false;
+
+            try
+            {
+                subscriptionTopic = SubscriptionTypes.GetSubscriptionType(0);
+
+                SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = appInput.GcmId };
+                string payload = JsonConvert.SerializeObject(subscriptionRequest);
+
+                SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMUnSusbscribeUserUrl, payload, 0);
+                if (subscriptionResponse != null)
+                {
+                    var result = subscriptionResponse.Results[0];
+                    if (!string.IsNullOrEmpty(result.Error))
+                    {
+                        msg = string.Format("Android : UnSubscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                        ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
+                        objErr.SendMail();
+                    }
+                    else
+                    {
+                        isSuccess = true;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.UnSubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
+                objErr.SendMail();
+            }
+
+            return isSuccess;
         }
 
         /// <summary>
@@ -53,7 +131,7 @@ namespace Bikewale.BAL.MobileAppAlert
         /// <param name="payload"></param>
         /// <param name="retries"></param>
         /// <returns></returns>
-        public SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
+        private SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
         {
             SubscriptionResponse subsResponse = null;
             try
@@ -65,7 +143,7 @@ namespace Bikewale.BAL.MobileAppAlert
                     WebRequest tRequest = WebRequest.Create(action);
                     tRequest.Method = "POST";
                     tRequest.ContentType = "application/json";
-                    tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
+                    tRequest.Headers.Add(string.Format("Authorization: key={0}", Bikewale.Utility.BWConfiguration.Instance.FCMApiKey));
 
                     Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
 
@@ -100,7 +178,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
                 objErr.SendMail();
             }
 
@@ -119,12 +197,12 @@ namespace Bikewale.BAL.MobileAppAlert
             try
             {
 
-                NotificationBase androidPayload = new NotificationBase() { To = "/topics/" + _androidGlobalTopic, Data = payload, TimeToLive = _oneWeek };
+                NotificationBase androidPayload = new NotificationBase() { To = "/topics/" + Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic, Data = payload, TimeToLive = _oneWeek };
 
-                WebRequest tRequest = WebRequest.Create(_FCMSendURL);
+                WebRequest tRequest = WebRequest.Create(Bikewale.Utility.BWConfiguration.Instance.FCMSendURL);
                 tRequest.Method = "POST";
                 tRequest.ContentType = "application/json";
-                tRequest.Headers.Add(string.Format("Authorization: key={0}", _FCMApiKey));
+                tRequest.Headers.Add(string.Format("Authorization: key={0}", Bikewale.Utility.BWConfiguration.Instance.FCMApiKey));
 
                 string json = JsonConvert.SerializeObject(androidPayload);
 
@@ -136,18 +214,21 @@ namespace Bikewale.BAL.MobileAppAlert
                 {
                     dataStream.Write(byteArray, 0, byteArray.Length);
 
-                    using (WebResponse tResponse = tRequest.GetResponse())
+                    using (HttpWebResponse tResponse = (HttpWebResponse)tRequest.GetResponse())
                     {
-                        using (Stream dataStreamResponse = tResponse.GetResponseStream())
+                        if (tResponse.StatusCode.Equals(HttpStatusCode.OK))
                         {
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
                             {
-                                String sResponseFromServer = tReader.ReadToEnd();
-                                var result = JsonConvert.DeserializeObject<NotificationResponse>(sResponseFromServer);
-                                if (result != null && string.IsNullOrEmpty(result.Error))
+                                using (StreamReader tReader = new StreamReader(dataStreamResponse))
                                 {
-                                    isSuccess = true;
-                                    _appAlertRepo.CompleteNotificationProcess(payload.AlertTypeId);
+                                    String sResponseFromServer = tReader.ReadToEnd();
+                                    var result = JsonConvert.DeserializeObject<NotificationResponse>(sResponseFromServer);
+                                    if (result != null && string.IsNullOrEmpty(result.Error))
+                                    {
+                                        isSuccess = true;
+                                        _appAlertRepo.CompleteNotificationProcess(payload.AlertTypeId);
+                                    }
                                 }
                             }
                         }
@@ -156,25 +237,11 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - SendFCMNotification, payload : {2}", HttpContext.Current.Request.ServerVariables["URL"], payload));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {2}", HttpContext.Current.Request.ServerVariables["URL"], payload));
                 objErr.SendMail();
             }
 
             return isSuccess;
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 12nd Dec 2016
-        /// Description : To save imei and fcm data to database
-        /// </summary>
-        /// <param name="imei"></param>
-        /// <param name="gcmId"></param>
-        /// <param name="osType"></param>
-        /// <param name="subsMasterId"></param>
-        /// <returns></returns>
-        public bool SaveIMEIFCMData(string imei, string gcmId, string osType, string subsMasterId)
-        {
-            return _appAlertRepo.SaveIMEIFCMData(imei, gcmId, osType, subsMasterId);
         }
     }
 

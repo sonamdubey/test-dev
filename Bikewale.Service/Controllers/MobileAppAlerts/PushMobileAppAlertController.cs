@@ -38,7 +38,6 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
         {
             try
             {
-
                 NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
                 if (nvc != null)
                 {

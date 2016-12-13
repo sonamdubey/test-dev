@@ -401,14 +401,6 @@ namespace Bikewale.Utility
                 if (httpClient != null)
                 {
 
-                    //if (headerParameters != null && headerParameters.Count() > 0)
-                    //{
-                    //    foreach (var param in headerParameters)
-                    //    {
-                    //        httpClient.DefaultRequestHeaders.Add(param.Key, param.Value);
-                    //    }
-                    //}
-
                     using (var response = httpClient.PostAsJsonAsync(apiUrl, objToPost).Result)
                     {
                         if (response.IsSuccessStatusCode)
@@ -423,16 +415,7 @@ namespace Bikewale.Utility
                 ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
-            finally
-            {
-                //if (httpClient != null && headerParameters != null && headerParameters.Count() > 0)
-                //{
-                //    foreach (var param in headerParameters)
-                //    {
-                //        httpClient.DefaultRequestHeaders.Remove(param.Key);
-                //    }
-                //}
-            }
+
             return objResponse;
         }
 

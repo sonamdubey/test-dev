@@ -218,6 +218,7 @@
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="Location\StateMaskingResponse.cs" />
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
+    <Compile Include="MobileAppAlert\AppFCMInput.cs" />
     <Compile Include="MobileAppAlert\FCMNotifications.cs" />
     <Compile Include="MobileAppAlert\MobileAppAlertData.cs" />
     <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
