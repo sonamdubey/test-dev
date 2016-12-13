@@ -1316,7 +1316,7 @@ var moreDetails = function () {
     try {
         self.updateAd = function () {
             
-            if ((!vmSellBike.isPhotoQueued()) || (vmSellBike.isPhotoQueued() && confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?"))) {
+            if ((!vmSellBike.isPhotoQueued()) || confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?")) {
 
                     var moreDetailsData = {
                         "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
