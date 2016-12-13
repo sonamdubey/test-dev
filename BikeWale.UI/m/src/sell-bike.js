@@ -353,7 +353,8 @@ $('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
 
 var sellBike = function () {
     var self = this;
-
+    
+    self.isPhotoQueued = ko.observable(false);
     self.isDropzoneInitiated = ko.observable(false);
     self.isEdit = ko.observable(false);
     self.isFakeCustomer = ko.observable(false);
@@ -432,7 +433,8 @@ var sellBike = function () {
                         }
 
                         this.on("sending", function (file) {
-                            $(file.previewElement).find('#spinner-content').hide();
+                            self.isPhotoQueued(true);
+                            $(file.previewElement).find('#spinner-content').hide();                           
                         });
 
                         this.on("removedfile", function (file) {
@@ -519,7 +521,10 @@ var sellBike = function () {
                         this.on("queuecomplete", function (file) {
                             setProfilePhoto();
                         });
-
+                        
+                        this.on("complete", function (file) {
+                            self.isPhotoQueued(false);
+                        });
                     }
                 });
             }
@@ -1310,29 +1315,36 @@ var moreDetails = function () {
 
     try {
         self.updateAd = function () {
-            var moreDetailsData = {
-                "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
-                "insuranceType": vmSellBike.moreDetails().insuranceType(),
-                "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
+            
+            if (vmSellBike.isPhotoQueued()) {
+
+                if (confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?")) {
+
+                    var moreDetailsData = {
+                        "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
+                        "insuranceType": vmSellBike.moreDetails().insuranceType(),
+                        "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
+                    }
+                    $.ajax({
+                        type: "Post",
+                        url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        data: ko.toJSON(moreDetailsData),
+                        success: function (response) {
+
+
+                        }
+                       ,
+                        complete: function (xhr, ajaxOptions, thrownError) {
+
+                        }
+                    });
+
+                    vmSellBike.formStep(4);
+                    scrollToForm.activate();
+                }
             }
-            $.ajax({
-                type: "Post",
-                url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
-                contentType: "application/json",
-                dataType: 'json',
-                data: ko.toJSON(moreDetailsData),
-                success: function (response) {
-
-
-                }
-               ,
-                complete: function (xhr, ajaxOptions, thrownError) {
-
-                }
-            });
-
-            vmSellBike.formStep(4);
-            scrollToForm.activate();
         };
     } catch (e) {
         console.warn(e);
