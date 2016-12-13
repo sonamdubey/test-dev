@@ -3,10 +3,10 @@ namespace Bikewale.Utility.AndroidAppAlert
 {
     public class SubscriptionTypes
     {
-        public const string _Global = "/topics/testbwnotification";
-        public const string _NewsArticles = "/topics/testbwnewsnotification";
-        public const string _NewBikes = "/topics/testbwbikelaunchnotification";
-        public const string _UpcomingBikes = "/topics/testbwupcomingbikenotification";
+        public const string _Global = "/topics/{0}bwnotification";
+        public const string _NewsArticles = "/topics/{0}bwnewsnotification";
+        public const string _NewBikes = "/topics/{0}bwbikelaunchnotification";
+        public const string _UpcomingBikes = "/topics/{0}bwupcomingbikenotification";
 
         /// <summary>
         /// 
@@ -19,19 +19,19 @@ namespace Bikewale.Utility.AndroidAppAlert
             switch (subId)
             {
                 case 1:
-                    subType = _Global;
+                    subType = string.Format(_Global, BWConfiguration.Instance.FCMEnvironment);
                     break;
                 case 2:
-                    subType = _NewsArticles;
+                    subType = string.Format(_NewsArticles, BWConfiguration.Instance.FCMEnvironment);
                     break;
                 case 3:
-                    subType = _NewBikes;
+                    subType = string.Format(_NewBikes, BWConfiguration.Instance.FCMEnvironment);
                     break;
                 case 4:
-                    subType = _UpcomingBikes;
+                    subType = string.Format(_UpcomingBikes, BWConfiguration.Instance.FCMEnvironment);
                     break;
                 default:
-                    subType = _NewsArticles;
+                    subType = string.Format(_NewsArticles, BWConfiguration.Instance.FCMEnvironment);
                     break;
             }
 
