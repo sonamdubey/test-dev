@@ -33,6 +33,8 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public double ReviewRate { get; set; }
         [DataMember]
+        public string ReviewUIRating { get; set; }
+        [DataMember]
         public int ReviewCount { get; set; }
         [DataMember]
         public string OriginalImagePath { get; set; }

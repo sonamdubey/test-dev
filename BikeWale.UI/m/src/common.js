@@ -1276,6 +1276,7 @@ function dpqLeadCaptureClosePopup() {
 
 var popupHeading = $("#popupHeading")
 popupContent = $("#popupContent");
+brandcitypopupContent = $("#brandcitypopupContent");
 
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
@@ -1290,8 +1291,26 @@ $("#areaSelection").on("click", function () {
     $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 });
 
+
+$("#makeSelection").on("click", function () {
+    $("#brandcitypopupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
+    brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+
+});
+
+$("#citiesSelection").on("click", function () {
+    $("#brandcitypopupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
+    brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+});
+
 $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
     popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+});
+$(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+    brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
     $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
 

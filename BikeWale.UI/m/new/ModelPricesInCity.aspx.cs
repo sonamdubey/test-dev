@@ -48,6 +48,7 @@ namespace Bikewale.Mobile.New
         protected int dealerCount = 0;
         protected int colourCount = 0;
         protected string pageDescription;
+        protected ServiceCenterCard ctrlServiceCenterCard;
 
         protected override void OnInit(EventArgs e)
         {
@@ -57,6 +58,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Modified by :   Sumit Kate on 17 Jun 2016
         /// Description :   Pass ModelId to get the dealers for Price in city page
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -97,6 +100,16 @@ namespace Bikewale.Mobile.New
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.TopCount = 6;
                 ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 9;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
 
                 using (IUnityContainer container = new UnityContainer())
                 {

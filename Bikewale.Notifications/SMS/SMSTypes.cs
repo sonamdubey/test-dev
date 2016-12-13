@@ -684,7 +684,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3}})", number, pageUrl, esms, message));
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Notifications.ExpiringListingReminderSMS({0},{1},{2},{3})", number, pageUrl, esms, message));
                 objErr.SendMail();
             }
         }

@@ -325,6 +325,53 @@
 
 }
 
+/* dealer card */
+.card {
+  width: 292px;
+  min-height: 140px;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+.card:first-child {
+    margin-left: 20px;
+}
+.card .card-target {
+    min-height: 140px;
+    display: block;
+    padding: 15px 20px 0;
+}
+.card .card-target:hover {
+    text-decoration: none;
+}
+.card .text-truncate {
+    width: 100%;
+}
+.details-column {
+    width: 92%
+}
+
+#makeUsedBikeContent h2 {
+    margin-bottom: 20px;
+}
+.btn-truncate {
+   max-width: 230px;
+   text-align: center;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+}
+.dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
+.dealership-card-details { width:92%; }
+.vertical-top { display:inline-block;vertical-align:top; }
+.phone-black-icon { width:11px; height:15px; position:relative; top:5px; margin-right:3px; background-position:-73px -444px; }
+
 /* gallery */
 .blackOut-window-model {
     display: none;

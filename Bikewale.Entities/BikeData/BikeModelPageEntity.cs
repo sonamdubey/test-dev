@@ -20,6 +20,10 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public BikeSpecificationEntity ModelVersionSpecs { get; set; }
         [DataMember]
+        public IEnumerable<BikeSpecificationEntity> ModelVersionSpecsList { get; set; }
+        [DataMember]
+        public IEnumerable<TransposeModelSpecEntity> TransposeModelSpecs { get; set; }
+        [DataMember]
         public IEnumerable<NewBikeModelColor> ModelColors { get; set; }
         [DataMember]
         public UpcomingBikeEntity UpcomingBike { get; set; }

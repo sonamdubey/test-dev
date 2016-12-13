@@ -51,6 +51,12 @@
             </ul>
         </li>
         <li>
+            <a href="/m/used/sell/">
+                <span class="bwmsprite sellBikes-icon"></span>
+                <span class="navbarTitle">Sell Your Bike</span>
+            </a>
+        </li>
+        <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwmsprite reviews-icon"></span>
                 <span class="navbarTitle">Reviews, News & Videos</span>

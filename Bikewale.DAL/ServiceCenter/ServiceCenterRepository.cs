@@ -303,7 +303,7 @@ namespace Bikewale.DAL.ServiceCenter
                                         ushort curModel = SqlReaderConvertor.ToUInt16(dr["bikemodelid"]);
                                         schedule.ServiceNo = SqlReaderConvertor.ToUInt32(dr["serviceno"]);
                                         schedule.Kms = Convert.ToString(dr["kms"]).Trim();
-                                        schedule.Days = SqlReaderConvertor.ToUInt32(dr["days"]);
+                                        schedule.Days = Convert.ToString(dr["days"]);
                                         ModelServiceSchedule selectedModel = modelSchedules.FirstOrDefault(x => x.ModelId == curModel);
                                         if (selectedModel != null)
                                             selectedModel.Schedules.Add(schedule);

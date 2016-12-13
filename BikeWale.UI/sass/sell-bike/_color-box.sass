@@ -27,7 +27,7 @@
 .color-dropdown
 	display: none
 	width: 300px
-	min-height: 270px
+	min-height: 170px
 	position: absolute
 	top: -18px
 	background: #fff
@@ -49,14 +49,7 @@
 		cursor: pointer
 	
 		&:hover
-			background: $border-x-light
-
-	.active
-		pointer-events: none
-
-		.color-box-label
-			color: $text-primary
-			font-weight: $font-bold
+			background: $border-x-light		
 
 	.color-box
 		width: 30px
@@ -133,3 +126,23 @@
 .open
 	.color-dropdown
 		display: block
+
+// tick mark
+.color-dropdown
+	.active
+		pointer-events: none
+
+		.color-box-label
+			color: $text-primary
+			font-weight: $font-bold
+
+		.color-box
+			position: relative
+		
+			&:before
+				content: ""
+				background: rgba(0,0,0,0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/white-tick-mark.png) 48% no-repeat
+				width: 28px
+				height: 28px
+				display: block
+				position: absolute

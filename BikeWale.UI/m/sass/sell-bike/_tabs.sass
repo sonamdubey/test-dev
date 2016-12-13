@@ -1,0 +1,33 @@
+﻿#form-tab-list
+	li
+		width: 33.33%
+		display: inline-block
+		vertical-align: middle
+		position: relative
+
+		&:before
+			content: ""
+			width: 60%
+			height: 1px
+			display: block
+			border-top: 1px solid $border-light
+			position: absolute
+			top: 15px
+			left: -30%
+
+		&:first-child:before
+			content: none
+
+	.tab-item
+		cursor: pointer
+
+		.tab-title
+			font-size: 12px
+
+.step-2-inactive,
+.step-3-inactive
+	cursor: not-allowed
+
+.step-2-inactive ~ .tab-title,
+.step-3-inactive ~ .tab-title
+	color: $text-light

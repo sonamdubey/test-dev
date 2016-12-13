@@ -50,7 +50,7 @@ namespace Bikewale.Controls
         {
             rptAlternateBikes.DataSource = null;
             rptAlternateBikes.Dispose();
-            base.Dispose();
+            this.Dispose();
         }
     }
 }

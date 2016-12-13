@@ -1,6 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterList" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +21,6 @@
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
-
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -41,7 +43,7 @@
 
         <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header"><%=makeName%> service center<% if(totalServiceCenters > 0 ) { %>s<% } %> in <%=cityName%></h1>
+                <h1 class="card-header"><%=makeName%> service center<%=(totalServiceCenters > 1 )?"s":"" %> in <%=cityName%></h1>
                 <div class="card-inner-padding font14 text-light-grey">
                     <p id="service-main-content">Is your <%= makeName %> bike due for a service or are you looking to repair your <%= makeName %> bike? BikeWale brings you the list of all authorised <%= makeName %> service centers in <%= cityName %>.<% if(totalServiceCenters > 0 ) { %> <%= makeName %> has <%= totalServiceCenters %> authorised</p><p id="service-more-content"> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%= cityName %>. <%} %> We recommend availing services only from authorised service centers.<br />Authorised <%= makeName %> service centers abide by the servicing standards of Honda with an assurance of genuine <%= makeName %> spare parts. BikeWale strongly recommends to use only <%= makeName %> genuine spare parts for your safety and durability of your bike. For more information on pick-up and drop facility, prices and service schedules get in touch with any of the below mentioned authorised <%= makeName %> service centers in City. Do check out the maintenance tips and answers to FAQs from BikeWale experts! </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">... Read more</a>
                 </div>
@@ -51,7 +53,13 @@
         <% if(totalServiceCenters > 0) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=totalServiceCenters %> <%=makeName%> service center<% if(totalServiceCenters > 1 ) { %>s<%} %> in <%=cityName%></h2>
+                <div class="border-solid-bottom padding-15-20">
+                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading"><%=listingHeading %></h2>
+                    <div class="vertical-middle text-center">
+                        <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue"></span><span class="change-text text-link">change</span></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
@@ -131,6 +139,30 @@
                 </ul>
             </div>
         </section>
+           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
+        <section>
+            <div class="container bg-white box-shadow margin-bottom15">
+                
+             <div class="container bg-white box-shadow margin-bottom15">
+                <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
+                 {%> 
+                 <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
+                <%} %>
+
+                <div class="padding-top10 text-center">
+                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
+                </div>
+                <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+
+                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+                {%> 
+                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                <%} %>
+            </div>
+                </div>
+            
+        </section>
+        <% } %>
 
 
         <% if (ctrlDealerCard.showWidget) { %>
@@ -155,6 +187,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+        <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>

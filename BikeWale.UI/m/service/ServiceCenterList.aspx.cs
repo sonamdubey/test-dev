@@ -29,6 +29,8 @@ namespace Bikewale.Mobile.Service
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    ///  Modified by : Aditi Srivastava on 5 Dec 2016
+    /// Description : Added widget for to change brand and city for service center list
     /// </summary>
     public class ServiceCenterList : PageBase
     {
@@ -40,7 +42,10 @@ namespace Bikewale.Mobile.Service
         protected CityEntityBase objCityEntityBase;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
-
+        protected UsedBikes ctrlRecentUsedBikes;
+        protected MMostPopularBikes ctrlPopoularBikeMake;
+        protected BrandCityPopUp ctrlBrandCity;
+        protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -70,7 +75,8 @@ namespace Bikewale.Mobile.Service
                     BindServiceCentersList();
                     GetCityNameByCityMaskingName(urlCityMaskingName);
 
-                    BindDealerCard();
+                    BindWidgets();
+                    CreateHeading();
                 }
                 else
                 {
@@ -84,19 +90,45 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Created by : SAJAL GUPTA on 08-11-2016
         /// Description: Method to bind dealer card widget data.
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Used Bike and popular bike widget
         /// </summary>
-        private void BindDealerCard()
+        private void BindWidgets()
         {
-            ctrlDealerCard.MakeId = makeId;
-            ctrlDealerCard.makeMaskingName = makeMaskingName;
-            ctrlDealerCard.CityId = cityId;
-            ctrlDealerCard.cityName = cityName;
-            ctrlDealerCard.PageName = "Service_Center_Listing_City";
-            ctrlDealerCard.TopCount = 9;
-            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage;
-            ctrlDealerCard.LeadSourceId = 16;
-            ctrlDealerCard.DealerId = 0;
-            ctrlDealerCard.isHeadingNeeded = false;
+            try
+            {
+                ctrlDealerCard.MakeId = makeId;
+                ctrlDealerCard.makeMaskingName = makeMaskingName;
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.cityName = cityName;
+                ctrlDealerCard.PageName = "Service_Center_Listing_City";
+                ctrlDealerCard.TopCount = 9;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_Listing_CityPage;
+                ctrlDealerCard.LeadSourceId = 16;
+                ctrlDealerCard.DealerId = 0;
+                ctrlDealerCard.isHeadingNeeded = false;
+                ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+                ctrlBrandCity.makeId = makeId;
+                ctrlBrandCity.cityId = cityId;
+
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.header = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
+                ctrlPopoularBikeMake.makeId = (int)makeId;
+                ctrlPopoularBikeMake.cityId = (int)cityId;
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.BindWidgets");
+                objErr.SendMail();
+
+            }
         }
 
         /// <summary>
@@ -186,6 +218,17 @@ namespace Bikewale.Mobile.Service
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 7 dec 2016
+        /// Summary    : Create custom heading based on no of service centers
+        /// </summary>
+        private void CreateHeading()
+        {
+            if (totalServiceCenters > 1)
+                listingHeading = string.Format("{0} {1} service centers in {2}", totalServiceCenters, makeName, cityName);
+            else
+                listingHeading = string.Format("{0} {1} service center in {2}", totalServiceCenters, makeName, cityName);
         }
 
         /// <summary>

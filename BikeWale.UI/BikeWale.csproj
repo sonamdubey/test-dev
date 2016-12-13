@@ -384,6 +384,10 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\BrandCityPopUp.ascx.cs">
+      <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\BikeCare.ascx.cs">
       <DependentUpon>BikeCare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -784,6 +788,10 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\BrandCityPopUp.ascx.cs">
+      <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\AlternativeBikes.ascx.cs">
       <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1153,6 +1161,10 @@
     </Compile>
     <Compile Include="m\used\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\used\sell\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\users\Login.aspx.cs">
@@ -1822,6 +1834,7 @@
     <Content Include="content\UserReviews\ReviewDetails.aspx" />
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
+    <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
@@ -1919,11 +1932,14 @@
     <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\components\article-next-prev.css" />
+    <Content Include="css\components\boundary-box.css" />
     <Content Include="css\components\card.css" />
     <Content Include="css\components\article.css" />
     <Content Include="css\components\compare-bikes.css" />
+    <Content Include="css\components\input-box.css" />
     <Content Include="css\components\pagination.css" />
     <Content Include="css\components\model-gallery.css" />
+    <Content Include="css\components\select-box.css" />
     <Content Include="css\content\details.css" />
     <Content Include="css\components\sidebar-bike-list.css" />
     <Content Include="css\css-new-photos.css" />
@@ -1982,6 +1998,7 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\video\landing.css" />
+    <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
@@ -2380,6 +2397,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\BrandCityPopUp.ascx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
@@ -2463,6 +2481,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -2559,11 +2578,13 @@
     <Content Include="m\src\bwm-cancellation.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
+    <Content Include="m\src\chosen-jquery-min-mobile.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
     <Content Include="m\src\dealerlisting.js" />
@@ -2597,6 +2618,7 @@
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
     <Content Include="m\used\Search.aspx" />
+    <Content Include="m\used\sell\Default.aspx" />
     <Content Include="m\users\Login.aspx" />
     <Content Include="m\videos\video.aspx" />
     <Content Include="m\videos\VideoCategories.aspx" />
@@ -2729,6 +2751,7 @@
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="src\Videos\videoByCategory.js" />
+    <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
     <Content Include="staticHtml\standard.html" />
     <Content Include="TermsConditions.aspx" />
@@ -2817,8 +2840,19 @@
     <Content Include="rewriterules.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="sass\sell-bike.sass" />
+    <Content Include="sass\sell-bike\sell-bike.sass" />
     <Content Include="mon\web.config" />
+    <Content Include="m\sass\sell-bike\sell-bike.sass" />
+    <Content Include="m\sass\sell-bike\_sell-bike-style.sass" />
+    <Content Include="m\sass\sell-bike\_icons.sass" />
+    <Content Include="m\sass\sell-bike\_tabs.sass" />
+    <Content Include="m\sass\modules\_input-box.sass" />
+    <Content Include="m\sass\modules\_box-boundary.sass" />
+    <Content Include="m\sass\sell-bike\_color-box.sass" />
+    <Content Include="m\sass\modules\_slideIn-input-box.sass" />
+    <Content Include="m\sass\modules\_textarea-box.sass" />
+    <Content Include="m\sass\modules\_bike-popup.sass" />
+    <Content Include="m\sass\modules\_slideIn-drawer.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
@@ -2980,7 +3014,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -151,9 +151,7 @@
   width: 36px;
   height: 40px;
   background-position: 0 0;
-  margin-bottom: 20px;
-  margin-left: 200px;
-}
+  margin-bottom: 20px; }
 
 .blue-right-arrow-icon {
   width: 6px;
@@ -232,12 +230,16 @@
       font-size: 14px; }
       .select-box .chosen-container .chosen-results::-webkit-scrollbar {
         width: 5px; }
+      .select-box .chosen-container .chosen-results::-webkit-scrollbar {
+        width: 5px; }
+      .select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
+        background: #fff; }
       .select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
         background: #fff; }
       .select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
         background: #ddd; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {
-        background: #bbb; }
+      .select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
+        background: #ddd; }
       .select-box .chosen-container .chosen-results li {
         padding: 8px 10px;
         transition: background .1s linear; }
@@ -270,6 +272,12 @@
 .select-box.select-box-no-input .no-input-label {
   font-size: 16px;
   color: #4d5057;
+  padding: 11px 20px;
+  cursor: text; }
+
+.done .select-label {
+  font-size: 12px;
+  top: -20px;
   padding: 11px 20px;
   cursor: text; }
 
