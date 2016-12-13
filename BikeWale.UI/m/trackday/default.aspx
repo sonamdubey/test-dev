@@ -29,7 +29,6 @@
         <section>
             <div class="container trackday-banner text-center section-container">
                 <h1 class="font24 text-uppercase text-white padding-bottom10">Track Day 2016</h1>
-                <h2 class="font14 text-unbold text-white">Lorem ipsum dolor sit amet, consecte</h2>
             </div>
         </section>
 
@@ -40,123 +39,147 @@
                     <ul class="article-list">
                         <li>
                             <div class="review-image-full-width-wrapper">
-                                <a href="" title="Honda Brazil launches fuel injected CG125i motorcycle" class="block">
+                                <a href="?articleid=1" title="BikeWale Track Day 2016: An Introduction" class="block">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//370x208//bw/ec/21691/Honda-Exterior-65001.jpg" alt="Honda Brazil launches fuel injected CG125i motorcycle" src="">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article1.jpg" alt="BikeWale Track Day 2016: An Introduction" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-full-width-wrapper">
                                 <h3>
-                                    <a href="/m/news/21691-honda-brazil-launches-fuel-injected-cg125i-motorcycle.html" class="target-link">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparsion Test</a>
+                                    <a href="?articleid=1" title="BikeWale Track Day 2016: An Introduction" class="target-link">BikeWale Track Day 2016: An Introduction</a>
                                 </h3>
                                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Nov 15, 2016</span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
                                 </div>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Santosh Nair</span>
+                                    <span class="article-stats-content">Charles Pennefather</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Honda motorcycles Brazil has launched the CG125i for the Brazilian market at 6,790 Real (Rs 1.12 lakh). Honda’s Brazilian arm introduced the upgraded version in a bid...</p>
+                            <p class="margin-top10">There’s one thing motorcycles have in common – they’re fun. No, really. Even if it is a lowly 100 cc commuter, give it the right situation and a dollop of creativity...</p>
                         </li>
                         <li>
                             <div class="review-image-wrapper">
-                                <a href="" title="Honda Brazil launches fuel injected CG125i motorcycle" class="block">
+                                <a href="?articleid=2" title="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" class="block">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//370x208//bw/ec/21691/Honda-Exterior-65001.jpg" alt="Honda Brazil launches fuel injected CG125i motorcycle" src="">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article2.jpg" alt="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-wrapper">
                                 <h3>
-                                    <a href="/m/news/21691-honda-brazil-launches-fuel-injected-cg125i-motorcycle.html" class="target-link">Honda Brazil launches fuel injected...</a>
+                                    <a href="?articleid=2" title="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" class="target-link">BikeWale Track Day 2016 - TVS Apache RTR 200 4V</a>
                                 </h3>
                                 <div class="grid-7 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Nov 15, 2016</span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
                                 </div>
                                 <div class="grid-5 alpha omega">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Santosh Nair</span>
+                                    <span class="article-stats-content">Ranjan Bhat</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Honda motorcycles Brazil has launched the CG125i for the Brazilian market at 6,790 Real (Rs 1.12 lakh). Honda’s Brazilian arm introduced the upgraded version in a bid...</p>
+                            <p class="margin-top10">Sport riding enthusiasts exhibit a fundamental need to go faster. Those who prefer straight line speed yearn to end up on a drag strip while the rest...</p>
                         </li>
                         <li>
                             <div class="review-image-full-width-wrapper">
-                                <a href="" title="Honda Brazil launches fuel injected CG125i motorcycle" class="block">
+                                <a href="?articleid=3" title="BikeWale Track Day 2016 - Yamaha YZF-R3" class="block">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//370x208//bw/ec/21691/Honda-Exterior-65001.jpg" alt="Honda Brazil launches fuel injected CG125i motorcycle" src="">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article3.jpg" alt="BikeWale Track Day 2016 - Yamaha YZF-R3" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-full-width-wrapper">
                                 <h3>
-                                    <a href="/m/news/21691-honda-brazil-launches-fuel-injected-cg125i-motorcycle.html" class="target-link">TVS Apache RTR 200 4V vs Bajaj Pulsar RS200: Comparsion Test</a>
+                                    <a href="?articleid=3" title="BikeWale Track Day 2016 - Yamaha YZF-R3" class="target-link">BikeWale Track Day 2016 - Yamaha YZF-R3</a>
                                 </h3>
                                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Nov 15, 2016</span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
                                 </div>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Santosh Nair</span>
+                                    <span class="article-stats-content">Omkar Thakur</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Honda motorcycles Brazil has launched the CG125i for the Brazilian market at 6,790 Real (Rs 1.12 lakh). Honda’s Brazilian arm introduced the upgraded version in a bid...</p>
+                            <p class="margin-top10">Brake. Downshift. Turn in. Lean. The apex is here. Throttle, throttle, throttle. I kept looking at everything in detail, while it played back in a loop. Trying to see...</p>
                         </li>
                         <li>
                             <div class="review-image-wrapper">
-                                <a href="" title="Honda Brazil launches fuel injected CG125i motorcycle" class="block">
+                                <a href="?articleid=4" title="BikeWale Track Day 2016 - Benelli TNT 600i ABS" class="block">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//370x208//bw/ec/21691/Honda-Exterior-65001.jpg" alt="Honda Brazil launches fuel injected CG125i motorcycle" src="">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article4.jpg" alt="BikeWale Track Day 2016 - Benelli TNT 600i ABS" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-wrapper">
                                 <h3>
-                                    <a href="/m/news/21691-honda-brazil-launches-fuel-injected-cg125i-motorcycle.html" class="target-link">Honda Brazil launches fuel injected...</a>
+                                    <a href="?articleid=4" title="BikeWale Track Day 2016 - Benelli TNT 600i ABS" class="target-link">BikeWale Track Day 2016 - Benelli TNT 600i ABS</a>
                                 </h3>
                                 <div class="grid-7 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Nov 15, 2016</span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
                                 </div>
                                 <div class="grid-5 alpha omega">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Santosh Nair</span>
+                                    <span class="article-stats-content">Pratheek Kunder</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Honda motorcycles Brazil has launched the CG125i for the Brazilian market at 6,790 Real (Rs 1.12 lakh). Honda’s Brazilian arm introduced the upgraded version in a bid...</p>
+                            <p class="margin-top10">At first glance, taking the TNT 600i to a racetrack doesn’t make sense because it is a comfortable street bike. We decided to get it anyway, because this bike...</p>
                         </li>
                         <li>
                             <div class="review-image-full-width-wrapper">
-                                <a href="" title="Honda Brazil launches fuel injected CG125i motorcycle" class="block">
+                                <a href="?articleid=5" title="BikeWale Track Day 2016 - Ducati 959 Panigale" class="block">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="https://imgd2.aeplcdn.com//370x208//bw/ec/21691/Honda-Exterior-65001.jpg" alt="Honda Brazil launches fuel injected CG125i motorcycle" src="">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article5.jpg" alt="BikeWale Track Day 2016 - Ducati 959 Panigale" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-full-width-wrapper">
                                 <h3>
-                                    <a href="/m/news/21691-honda-brazil-launches-fuel-injected-cg125i-motorcycle.html" class="target-link">Honda Brazil launches fuel injected...</a>
+                                    <a href="?articleid=5" title="BikeWale Track Day 2016 - Ducati 959 Panigale" class="target-link">BikeWale Track Day 2016 - Ducati 959 Panigale</a>
                                 </h3>
                                 <div class="article-stats-wrapper font12 leftfloat text-light-grey">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Nov 15, 2016</span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
                                 </div>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Santosh Nair</span>
+                                    <span class="article-stats-content">Charles Pennefather</span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Honda motorcycles Brazil has launched the CG125i for the Brazilian market at 6,790 Real (Rs 1.12 lakh). Honda’s Brazilian arm introduced the upgraded version in a bid...</p>
+                            <p class="margin-top10">The track was wet. I was wet. The Innova in front from which tracking shots were being taken was spraying water from the track onto me. The driver of...</p>
+                        </li>
+                        <li>
+                            <div class="review-image-wrapper">
+                                <a href="?articleid=6" title="Ten best photos of BikeWale Track Day 2016" class="block">
+                                    <div class="bg-loader-placeholder">
+                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article6.jpg" alt="Ten best photos of BikeWale Track Day 2016" src="">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="review-heading-wrapper">
+                                <h3>
+                                    <a href="?articleid=6" title="Ten best photos of BikeWale Track Day 2016" class="target-link">Ten best photos of BikeWale Track Day 2016</a>
+                                </h3>
+                                <div class="grid-7 alpha padding-right5">
+                                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Dec 14, 2016</span>
+                                </div>
+                                <div class="grid-5 alpha omega">
+                                    <span class="bwmsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content">Pratheek Kunder</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <p class="margin-top10">A picture is worth a thousand words, they say, so we've got Kapil Angane, our resident photographer, to say a little over ten thousand words about his...</p>
                         </li>
                     </ul>
                 </div>
@@ -240,43 +263,6 @@
 
         <div id="gallery-close-btn" class="bwmsprite cross-lg-white"></div>
         <div id="gallery-blackOut-window"></div>
-
-        <section>
-            <div class="container section-container">
-                <h2 class="section-heading">Expert reviews</h2>
-                <div class="container bg-white box-shadow padding-top15 padding-bottom15 font14">
-                    <div class="swiper-container card-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <div class="expert-review-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="Vikrant Singh" data-src="https://imgd1.aeplcdn.com//640x348//bw/ec/20754/Honda-CB-Shine-SP-Exterior-60338.jpg?wm=0&t=123349767&t=123349767">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="expert-review-details-block">
-                                        <p class="text-bold text-black margin-bottom10">Vikrant Singh</p>
-                                        <p class="text-light-grey">Two bikes. Two different doing a comparison test and also the same...</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <div class="expert-review-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="Ranjan Bhat" data-src="https://imgd1.aeplcdn.com//640x348//bw/ec/20754/Honda-CB-Shine-SP-Exterior-60338.jpg?wm=0&t=123349767&t=123349767">
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="expert-review-details-block">
-                                        <p class="text-bold text-black margin-bottom10">Ranjan Bhat</p>
-                                        <p class="text-light-grey">Two bikes. Two different doing a comparison test and also the same...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section>
             <div class="container section-container">

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.TrackDay.Articles
+namespace Bikewale.Mobile.Trackday.Articles
 {
-    public partial class Introduction : System.Web.UI.Page
+    public partial class TopBikes : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

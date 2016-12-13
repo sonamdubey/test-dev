@@ -40,8 +40,10 @@ var galleryTop = $('.carousel-stage-photos').swiper({
 });
 
 $('.stage-photos').on('click', '.swiper-slide', function () {
-    gallery.open();
-    appendState('popupGallery');
+    if (!$('body').hasClass('gallery-active')) {
+        gallery.open();
+        appendState('popupGallery');
+    }
 
 });
 

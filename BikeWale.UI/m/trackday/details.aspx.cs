@@ -10,6 +10,7 @@ namespace Bikewale.Mobile.TrackDay
     public partial class Details : System.Web.UI.Page
     {
         protected bool androidApp;
+        protected ushort articleid;
 
         protected override void OnInit(EventArgs e)
         {
@@ -23,6 +24,12 @@ namespace Bikewale.Mobile.TrackDay
             {
                 androidApp = true;
             }
+
+            if (!string.IsNullOrEmpty(Request["articleid"]))
+            {
+                articleid = Convert.ToUInt16(Request["articleid"]);
+            }
+
         }
     }
 }

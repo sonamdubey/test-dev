@@ -1,5 +1,5 @@
 ﻿.trackday-banner {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/dealer-locator-banner.jpg) center bottom no-repeat #8d8c8a;
+    background: url(/m/images/trackday/landing-images/trackday-banner.jpg) center bottom no-repeat #787878;
     background-size: cover;
     height: 203px;
     padding-top: 85px;
@@ -80,6 +80,11 @@ h2.section-heading {
 
 .review-heading-full-width-wrapper .target-link, .review-heading-wrapper .target-link {
     margin-bottom: 7px;
+}
+
+.review-heading-full-width-wrapper .article-stats-author {
+    width: 165px;
+    padding-right: 0;
 }
 
 /* video container */
@@ -238,6 +243,14 @@ h2.section-heading {
 }
 
 /* track-day-article */
+.trackday-logo {
+    width: 66px;
+    height: 22px;
+    background: url('/m/images/trackday/landing-images/trackday-logo.png') no-repeat;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
 .article-paragraph-heading {
     font-size: 15px;
     font-weight: bold;
@@ -254,7 +267,7 @@ h2.section-heading {
 }
 
 .article-heading {
-    padding: 10px;
+    padding: 15px 10px 10px;
     font-size: 17px;
 }
 
@@ -286,11 +299,22 @@ h2.section-heading {
 
 .photography-credit {
     margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.photography-heading {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
 .article-image-margin {
     margin-top: 30px;
     margin-bottom: 25px;
+}
+
+.no-lead-image .article-heading {
+    padding-top: 5px;
 }
 
 @media (max-width: 350px) {

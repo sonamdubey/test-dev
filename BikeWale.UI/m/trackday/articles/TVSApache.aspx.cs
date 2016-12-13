@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.TrackDay.Articles
 {
-    public partial class Introduction : System.Web.UI.Page
+    public partial class TVSApache : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
