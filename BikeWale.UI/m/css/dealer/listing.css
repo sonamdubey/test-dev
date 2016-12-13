@@ -4,6 +4,16 @@
     padding: 15px 20px;
 }
 
+.vertical-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dealer-heading {
+	width: 80%;
+	padding-right: 10px;
+}
+
 /* dealer listing */
 #dealersList {
     padding: 0 20px 20px;
@@ -167,6 +177,12 @@
     width: 16px;
     height: 16px;
     background-position: -83px -257px;
+}
+
+@media only screen and (max-width: 420px) {
+    .change-text {
+        display: block
+    }
 }
 
 @media only screen and (max-width: 320px) {

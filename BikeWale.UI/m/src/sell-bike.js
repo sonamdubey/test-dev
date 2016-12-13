@@ -1623,6 +1623,10 @@ var morePhotos = {
     }
 };
 
+$('.chosen-container').on('mousedown', function (event) {
+    $('input').blur();
+});
+
 
 $('.chosen-container').on('touchstart', function (event) {
     event.stopPropagation();
@@ -1664,13 +1668,19 @@ $('input[type=number]').on('keydown', function (event) {
     }
 });
 
-$('#kmsRidden, #expectedPrice').on('keyup', function () {
+$('#kmsRidden, #expectedPrice').on('focus', function () {
     var inputBox = $(this),
-        inputValue = inputBox.val(),
-        withoutCommaValue = inputValue.replace(/,/g, "");
+        withoutCommaValue = inputBox.attr('data-value');
 
-    inputBox.attr('data-value', withoutCommaValue);
-    inputBox.val(formatNumber(withoutCommaValue));
+    inputBox.val(withoutCommaValue);
+});
+
+$('#kmsRidden, #expectedPrice').on('blur', function () {
+    var inputBox = $(this),
+        inputValue = inputBox.val();
+
+    inputBox.attr('data-value', inputValue);
+    inputBox.val(formatNumber(inputValue));
 });
 
 // input value formatter
