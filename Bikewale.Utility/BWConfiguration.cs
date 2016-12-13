@@ -88,7 +88,8 @@ namespace Bikewale.Utility
             _FCMSendURL = string.Empty,
             _FCMApiKey = string.Empty,
             _FCMSusbscribeUserUrl = string.Empty,
-            _FCMUnSusbscribeUserUrl = string.Empty;
+            _FCMUnSusbscribeUserUrl = string.Empty,
+            _FCMEnvironment = String.Empty;
 
         private readonly int _SecurityHashLength = 0;
 
@@ -159,11 +160,12 @@ namespace Bikewale.Utility
             _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
             _SponsoredModelId = ConfigurationManager.AppSettings["SponsoredModelIds"];
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
-            _AndroidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
+            _AndroidGlobalTopic = ConfigurationManager.AppSettings["FCMAndroidGlobalTopic"];
             _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
             _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
-            _FCMSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchAddEndPoint"];
-            _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["IIDBatchRemoveEndPoint"];
+            _FCMSusbscribeUserUrl = ConfigurationManager.AppSettings["FCMIIDBatchAddEndPoint"];
+            _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["FCMIIDBatchRemoveEndPoint"];
+            _FCMEnvironment = ConfigurationManager.AppSettings["FCMEnvironment"];
 
         }
 
@@ -287,5 +289,6 @@ namespace Bikewale.Utility
         public string FCMApiKey { get { return _FCMApiKey; } }
         public string FCMSusbscribeUserUrl { get { return _FCMSusbscribeUserUrl; } }
         public string FCMUnSusbscribeUserUrl { get { return _FCMUnSusbscribeUserUrl; } }
+        public string FCMEnvironment { get { return _FCMEnvironment; } }
     }   // class
 }   // namespace
