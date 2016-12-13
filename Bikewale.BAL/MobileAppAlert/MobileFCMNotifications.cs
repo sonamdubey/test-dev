@@ -5,6 +5,7 @@ using Bikewale.Utility.AndroidAppAlert;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -47,22 +48,23 @@ namespace Bikewale.BAL.MobileAppAlert
                 if (ushort.TryParse(appInput.SubsMasterId, out subscriptionId))
                 {
                     subscriptionTopic = SubscriptionTypes.GetSubscriptionType(subscriptionId);
-                    SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = appInput.GcmId };
+                    SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string> { appInput.GcmId } };
                     string payload = JsonConvert.SerializeObject(subscriptionRequest);
 
                     SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMSusbscribeUserUrl, payload, 0);
                     if (subscriptionResponse != null)
                     {
                         var result = subscriptionResponse.Results[0];
-                        if (!string.IsNullOrEmpty(result.Error))
+                        if (string.IsNullOrEmpty(result.Error))
+                        {
+                            isSuccess = _appAlertRepo.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
+                        }
+                        else
                         {
                             msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
                             ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
                             objErr.SendMail();
-                        }
-                        else
-                        {
-                            isSuccess = _appAlertRepo.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
+
                         }
 
                     }
@@ -92,9 +94,9 @@ namespace Bikewale.BAL.MobileAppAlert
 
             try
             {
-                subscriptionTopic = SubscriptionTypes.GetSubscriptionType(0);
+                subscriptionTopic = SubscriptionTypes.GetSubscriptionType(2);  //for news we use defailt value 0 or 2
 
-                SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = appInput.GcmId };
+                SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string> { appInput.GcmId } };
                 string payload = JsonConvert.SerializeObject(subscriptionRequest);
 
                 SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMUnSusbscribeUserUrl, payload, 0);
@@ -196,8 +198,8 @@ namespace Bikewale.BAL.MobileAppAlert
             bool isSuccess = false;
             try
             {
-
-                NotificationBase androidPayload = new NotificationBase() { To = "/topics/" + Bikewale.Utility.BWConfiguration.Instance.AndroidGlobalTopic, Data = payload, TimeToLive = _oneWeek };
+                string subscriptionTopic = SubscriptionTypes.GetSubscriptionType(2);  //for news we use default value 0 or 2
+                NotificationBase androidPayload = new NotificationBase() { To = subscriptionTopic, Data = payload, TimeToLive = _oneWeek };
 
                 WebRequest tRequest = WebRequest.Create(Bikewale.Utility.BWConfiguration.Instance.FCMSendURL);
                 tRequest.Method = "POST";

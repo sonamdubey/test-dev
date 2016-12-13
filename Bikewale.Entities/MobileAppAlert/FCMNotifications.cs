@@ -1,33 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.MobileAppAlert
 {
-    public class MapResponse
+    public class FCMNotifications
     {
-        public List<Mapping> Results { get; set; }
-    }
-
-    public class Mapping
-    {
-        public string ApnsToken { get; set; }
-        public string Status { get; set; }
-        public string RegistrationToken { get; set; }
+        public SubscriptionRequest Request { get; set; }
+        public SubscriptionResponse Response { get; set; }
+        public SubscriptionResult Result { get; set; }
     }
 
     public class SubscriptionRequest
     {
+        [JsonProperty("to")]
         public string To { get; set; }
-        public string RegistrationTokens { get; set; }
-    }
 
+        [JsonProperty("registration_tokens")]
+        public List<string> RegistrationTokens { get; set; }
+    }
 
     public class SubscriptionResponse
     {
+        [JsonProperty("results")]
         public List<SubscriptionResult> Results { get; set; }
     }
 
     public class SubscriptionResult
     {
+        [JsonProperty("error")]
         public string Error { get; set; }
     }
 

@@ -1,13 +1,10 @@
 ﻿using Newtonsoft.Json;
-using System;
 
 /// <summary>
 /// Summary description for FCMPushNotificationStatus
 /// </summary>
 namespace Bikewale.Entities.MobileAppAlert
 {
-
-    [Serializable]
     public class MobilePushNotificationData
     {
         [JsonProperty("title")]
@@ -38,7 +35,6 @@ namespace Bikewale.Entities.MobileAppAlert
         public string PayLoad { get; set; }
     }
 
-    [Serializable]
     public class MobilePushNotificationAttr
     {
         [JsonProperty("sound")]
@@ -48,7 +44,6 @@ namespace Bikewale.Entities.MobileAppAlert
         public string Body { get; set; }
     }
 
-    [Serializable]
     public class NotificationBase
     {
         [JsonProperty("to")]
@@ -61,7 +56,6 @@ namespace Bikewale.Entities.MobileAppAlert
         public int TimeToLive { get; set; }
     }
 
-    [Serializable]
     public class NotificationResponse
     {
         [JsonProperty("message_id")]
@@ -69,16 +63,6 @@ namespace Bikewale.Entities.MobileAppAlert
 
         [JsonProperty("error")]
         public string Error { get; set; }
-    }
-
-    [Serializable]
-    public class FCMPushNotificationStatus
-    {
-        public bool Successful { get; set; }
-
-        public NotificationResponse Response { get; set; }
-
-        public Exception Error { get; set; }
     }
 }
 
