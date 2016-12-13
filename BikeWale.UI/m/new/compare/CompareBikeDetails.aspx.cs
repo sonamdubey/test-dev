@@ -169,11 +169,11 @@ namespace Bikewale.Mobile.New
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
-                    targetedModels += ds.Tables[0].Rows[i]["Model"] + ",";
+                    targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
                 }
                 if (targetedModels.Length > 2)
                 {
-                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1).ToLower();
+                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
                 }
             }
             catch (Exception ex)
