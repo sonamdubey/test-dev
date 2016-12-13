@@ -176,15 +176,31 @@
         <section>
             <div class="container section-container">
                 <h2 class="section-heading">Gallery</h2>
-                <div>
+                <div class="content-box-shadow padding-bottom1">
                     <div class="connected-carousels-photos">
                         <div class="stage-photos">
                             <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//762x429//bw/ec/24236/Action-77224.jpg?v=20162707184052" alt="" />
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/bw/ec/24236/Action-77224.jpg?v=20162707184052" alt="" />
                                         <span class="swiper-lazy-preloader"></span>
-                                    </div>                                        
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/762x429/bw/ec/23331/TVS-Victor-Wheelstyres-72510.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd4.aeplcdn.com/762x429/bw/ec/23331/TVS-Victor-Seat-72511.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/762x429/bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
                                 </div>
                                 <div class="bwmsprite swiper-button-next"></div>
                                 <div class="bwmsprite swiper-button-prev"></div>
@@ -197,16 +213,33 @@
                                     <div class="swiper-slide">
                                         <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/24236/Action-77224.jpg?v=20162707184052" alt="" />
                                         <span class="swiper-lazy-preloader"></span>
-                                    </div>                                        
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/23331/TVS-Victor-Wheelstyres-72510.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/23331/TVS-Victor-Seat-72511.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//110x61//bw/ec/23331/TVS-Victor-Action-72508.jpg?wm=2" alt="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
                                 </div>
-                                <div class="bwmsprite swiper-button-next hide"></div>
-                                <div class="bwmsprite swiper-button-prev hide"></div>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
         </section>
+
+        <div id="gallery-close-btn" class="bwmsprite cross-lg-white"></div>
+        <div id="gallery-blackOut-window"></div>
 
         <section>
             <div class="container section-container">
@@ -277,6 +310,9 @@
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/src/track-day.js?<%= staticFileVersion %>"></script>
+
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
     </form>
