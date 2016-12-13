@@ -1316,9 +1316,7 @@ var moreDetails = function () {
     try {
         self.updateAd = function () {
             
-            if (vmSellBike.isPhotoQueued()) {
-
-                if (confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?")) {
+            if ((!vmSellBike.isPhotoQueued()) || (vmSellBike.isPhotoQueued() && confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?"))) {
 
                     var moreDetailsData = {
                         "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
@@ -1343,8 +1341,7 @@ var moreDetails = function () {
 
                     vmSellBike.formStep(4);
                     scrollToForm.activate();
-                }
-            }
+                }            
         };
     } catch (e) {
         console.warn(e);
