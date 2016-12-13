@@ -1367,7 +1367,7 @@
             })(this);
 
             imageUploadToAWS = function (file, photoId, itemId) {
-                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.lastIndexOf('.') + 1) };
+                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase() };
                 imgUpldUtil.photoId = photoId;
                 imgUpldUtil.upload(file);
                 $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
