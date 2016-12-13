@@ -433,7 +433,6 @@ var sellBike = function () {
                         }
 
                         this.on("sending", function (file) {
-                            debugger;
                             self.isPhotoQueued(true);
                             $(file.previewElement).find('#spinner-content').hide();                           
                         });
