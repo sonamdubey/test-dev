@@ -19,9 +19,12 @@ namespace Bikewale.Service
 
             // Web API configuration and services
             // Enable CORS
-            var cors = new EnableCorsAttribute(origins: Bikewale.Utility.BWConfiguration.Instance.CORSSite, headers: "*", methods: Bikewale.Utility.BWConfiguration.Instance.CORSMethod);
+            if (Bikewale.Utility.BWConfiguration.Instance.CORSEnabled)
+            {
+                var cors = new EnableCorsAttribute(origins: Bikewale.Utility.BWConfiguration.Instance.CORSSite, headers: "*", methods: Bikewale.Utility.BWConfiguration.Instance.CORSMethod);
 
-            config.EnableCors(cors);
+                config.EnableCors(cors);
+            }
 
             // Web API routes
             config.MapHttpAttributeRoutes();
