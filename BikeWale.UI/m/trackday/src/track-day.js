@@ -4,11 +4,12 @@
 
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
+    $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
     $(clickedSlide).addClass('swiper-slide-active');
     galleryTop.slideTo(swiper.clickedIndex, 500);
 };
 
-var galleryThumbs = $('.carousel-navigation-photos').swiper({
+var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     slideActiveClass: '',
     spaceBetween: 0,
     slidesPerView: 'auto',
@@ -27,7 +28,7 @@ var slidegalleryThumbs = function (swiper) {
     galleryThumbs.slides[swiper.activeIndex].className += ' swiper-slide-active';
 };
 
-var galleryTop = $('.carousel-stage-photos').swiper({
+var galleryTop = new Swiper('.carousel-stage-photos', {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 10,
@@ -51,6 +52,12 @@ $(window).resize(function () {
     if ($('body').hasClass('gallery-active')) {
         gallery.setPosition();
     }
+});
+
+$(window).on('orientationchange', function () { 
+    $('.connected-carousels-photos .carousel-photos', function () {
+        $(this).css('height', 'auto');
+    });
 });
 
 $('#gallery-close-btn').on('click', function () {

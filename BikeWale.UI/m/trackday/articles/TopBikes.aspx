@@ -28,7 +28,7 @@
             <img class="article-image lazy" data-original="/m/images/trackday/top-bikes-images/articles/03.jpg" alt="Ten best photos of BikeWale Track Day 2016" src="" border="0" />
         </div>
 
-        <p class="article-paragraph">There isn't any motion blur in this image, but you know that there's a lot of speed involved anyway. The committed posture, the high angle of lean… and you always wonder – did he manage to get his knee down in another frame?</p>
+        <p class="article-paragraph">There isn't any motion blur in this image, but you know that there's a lot of speed involved anyway. The committed posture, the high angle of lean… and you always wonder - did he manage to get his knee down in another frame?</p>
     </div>
 
     <div class="article-content-section">
@@ -36,7 +36,7 @@
             <img class="article-image lazy" data-original="/m/images/trackday/top-bikes-images/articles/04.jpg" alt="Ten best photos of BikeWale Track Day 2016" src="" border="0" />
         </div>
 
-        <p class="article-paragraph">We go back to motion blur with the Apache's image – but the subject itself is in sharp focus. You can see Ranjan is relaxed despite being at lean. Full marks for the Apache, then. And the photographer.</p>
+        <p class="article-paragraph">We go back to motion blur with the Apache's image - but the subject itself is in sharp focus. You can see Ranjan is relaxed despite being at lean. Full marks for the Apache, then. And the photographer.</p>
     </div>
 
     <div class="article-content-section">

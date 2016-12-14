@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.Trackday.Articles
+namespace Bikewale.Mobile.TrackDay.Articles
 {
     public partial class TopBikes : System.Web.UI.Page
     {

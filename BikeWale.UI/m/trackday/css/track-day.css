@@ -169,7 +169,7 @@ h2.section-heading {
 .connected-carousels-photos .carousel-photos{min-height:180px;overflow:hidden;position:relative}
 .connected-carousels-photos .carousel-photos .swiper-slide{width:100%;margin:0;max-height:432px;font-size:0;position:relative;height:auto;text-align:center}
 .connected-carousels-photos .carousel-navigation-photos{height:auto;width:100%;background:0 0;padding-left:0;margin-bottom:20px}
-.navigation-photos .carousel-navigation-photos .swiper-slide{display:block;position:relative;width:107px;height:52px;overflow:hidden;padding-left:15px}
+.navigation-photos .carousel-navigation-photos .swiper-slide{display:block;position:relative;width:107px;height:52px;overflow:hidden;padding-left:15px;}
 
 .navigation-photos .carousel-navigation-photos .swiper-slide img{width:90px;height:50px;border:1px solid #f5f5f5}
 .navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img{border-color: #2a2a2a;}
@@ -267,13 +267,34 @@ h2.section-heading {
 }
 
 .article-heading {
-    padding: 15px 10px 10px;
+    padding: 15px 10px;
     font-size: 17px;
+    position: relative;
 }
 
+.article-heading:before,
+.article-heading:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    margin: 0 auto;
+}
+.article-heading:before {
+    width: 24px;
+    border-top: 1px solid #d7a0a2;
+    z-index: 1;
+}
+.article-heading:after {
+    width: 64px;
+    border-top: 1px solid #ededed;
+}
 .article-author {
     font-size: 13px;
     color: #0288d1;
+    margin-top: 15px;
 }
 
 .article-content-section {
@@ -298,8 +319,7 @@ h2.section-heading {
 }
 
 .photography-credit {
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .photography-heading {
@@ -315,6 +335,21 @@ h2.section-heading {
 
 .no-lead-image .article-heading {
     padding-top: 5px;
+}
+
+.related-articles-heading {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.related-articles-list {
+    margin-bottom: 25px;
+    margin-left: 17px;
+}
+
+.related-articles-list li {
+    list-style: disc;
+    margin-top: 10px;
 }
 
 @media (max-width: 350px) {
