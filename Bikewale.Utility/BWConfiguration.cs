@@ -170,7 +170,7 @@ namespace Bikewale.Utility
             _FCMEnvironment = ConfigurationManager.AppSettings["FCMEnvironment"];
             _CORSSite = ConfigurationManager.AppSettings["CORSSite"];
             _CORSMethod = ConfigurationManager.AppSettings["CORSMethod"];
-            _CORSEnabled = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["CORSEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["CORSEnabled"]);
+            _CORSEnabled = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["CORSEnabled"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["CORSEnabled"]) : false;
 
         }
 
