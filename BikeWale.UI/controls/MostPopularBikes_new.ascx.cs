@@ -8,7 +8,7 @@ namespace Bikewale.Controls
     /// Modified by Subodh Jain on 3 oct 2016
     /// Added popular bike widget
     /// </summary>
-    public partial class MostPopularBikes_new : System.Web.UI.UserControl
+    public class MostPopularBikes_new : System.Web.UI.UserControl
     {
         public Repeater rptMostPopularBikes, rptPopoularBikeMake;
         public int? totalCount { get; set; }
