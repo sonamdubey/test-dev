@@ -89,7 +89,9 @@ namespace Bikewale.Utility
             _FCMApiKey = string.Empty,
             _FCMSusbscribeUserUrl = string.Empty,
             _FCMUnSusbscribeUserUrl = string.Empty,
-            _FCMEnvironment = String.Empty;
+            _FCMEnvironment = String.Empty,
+            _CORSSite = String.Empty,
+            _CORSMethod = String.Empty;
 
         private readonly int _SecurityHashLength = 0;
 
@@ -166,6 +168,8 @@ namespace Bikewale.Utility
             _FCMSusbscribeUserUrl = ConfigurationManager.AppSettings["FCMIIDBatchAddEndPoint"];
             _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["FCMIIDBatchRemoveEndPoint"];
             _FCMEnvironment = ConfigurationManager.AppSettings["FCMEnvironment"];
+            _CORSSite = ConfigurationManager.AppSettings["CORSSite"];
+            _CORSMethod = ConfigurationManager.AppSettings["CORSMethod"];
 
         }
 
@@ -290,5 +294,7 @@ namespace Bikewale.Utility
         public string FCMSusbscribeUserUrl { get { return _FCMSusbscribeUserUrl; } }
         public string FCMUnSusbscribeUserUrl { get { return _FCMUnSusbscribeUserUrl; } }
         public string FCMEnvironment { get { return _FCMEnvironment; } }
+        public string CORSSite { get { return _CORSSite; } }
+        public string CORSMethod { get { return _CORSMethod; } }
     }   // class
 }   // namespace
