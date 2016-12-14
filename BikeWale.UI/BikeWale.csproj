@@ -71,7 +71,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
-    <Reference Include="Carwale.Cache">
+    <Reference Include="Carwale.Cache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Cache.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
