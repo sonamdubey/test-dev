@@ -45,6 +45,8 @@ namespace Bikewale.BAL.MobileAppAlert
             ushort subscriptionId; bool isSuccess = false;
             try
             {
+                if (appInput.SubsMasterId.Contains("2")) appInput.SubsMasterId = "2";
+
                 if (ushort.TryParse(appInput.SubsMasterId, out subscriptionId))
                 {
                     subscriptionTopic = SubscriptionTypes.GetSubscriptionType(subscriptionId);
