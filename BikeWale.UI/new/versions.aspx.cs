@@ -164,7 +164,12 @@ namespace Bikewale.New
                         {
                             var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).FirstOrDefault();
                             if (selected != null)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
+                            {
+                                if (isOnRoadPrice)
+                                    currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
+                                else
+                                    currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.Price));
+                            }
                         }
                     }
                 }
@@ -668,33 +673,38 @@ namespace Bikewale.New
                             if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                             {
                                 #region BikeWale PQ
-
-                                if (hdnVariant.Value != "0")
+                                if (isOnRoadPrice)
                                 {
-                                    variantId = Convert.ToUInt32(hdnVariant.Value);
-                                    if (variantId != 0)
+                                    if (variantId > 0)
                                     {
                                         objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
                                         if (objSelectedVariant != null)
                                             price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
-                                }
-                                else if (variantId != 0 && isOnRoadPrice)
-                                {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
-                                    if (objSelectedVariant != null)
+                                    else
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                    }
                                 }
-                                else if (isOnRoadPrice)
+                                else
                                 {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                    if (variantId > 0)
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == variantId);
+                                        if (objSelectedVariant != null)
+                                            price = Convert.ToUInt32(objSelectedVariant.Price);
+                                    }
+                                    else
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
+                                        price = Convert.ToUInt32(objSelectedVariant.Price);
+                                    }
+
                                 }
                                 campaignId = pqOnRoad.BPQOutput.CampaignId;
                                 manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
-
                                 isBikeWalePQ = true;
-
                                 #endregion BikeWale PQ
                             }
                         }
@@ -703,7 +713,7 @@ namespace Bikewale.New
                     {
                         if (variantId != 0)
                         {
-                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            var modelVersions = modelPage.ModelVersions.FirstOrDefault(p => p.VersionId == variantId);
                             if (modelVersions != null)
                                 price = Convert.ToUInt32(modelVersions.Price);
                         }
