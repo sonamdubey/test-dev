@@ -1,11 +1,4 @@
-﻿.trackday-banner {
-    background: url(/m/images/trackday/landing-images/trackday-banner.jpg) center bottom no-repeat #787878;
-    background-size: cover;
-    height: 203px;
-    padding-top: 85px;
-}
-
-.text-white {
+﻿.text-white {
     color: #fff;
 }
 
@@ -244,11 +237,11 @@ h2.section-heading {
 
 /* track-day-article */
 .trackday-logo {
-    width: 66px;
-    height: 22px;
+    width: 120px;
+    height: 35px;
     background: url('/m/images/trackday/landing-images/trackday-logo.png') no-repeat;
     display: inline-block;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .article-paragraph-heading {

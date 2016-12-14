@@ -3,8 +3,8 @@
 <html>
 <head>
     <% 
-        //title       = "Bike News - Latest Indian Bike News & Views - BikeWale";
-        //description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
+        title = "BikeWale Track Day 2016";
+        description = "BikeWale brings to you the celebration of motoring in its finest and purest form! The idea is to bring together bikes on a racetrack that have impressed us by their sheer dynamic ability and their prowess.";
         //keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
         //canonical   = "https://www.bikewale.com/news/";
         //AdPath = "/1017752/Bikewale_Mobile_NewBikes";
@@ -29,7 +29,7 @@
         <section>
             <div class="container text-center section-container">
                 <div class="video-content">
-                    <iframe src="https://www.youtube.com/embed/5zt8wvn_9Uc?rel=0" frameborder="0" width="320" height="180" allowfullscreen></iframe>
+                    <iframe width="320" height="180" src="https://www.youtube.com/embed/94hLbNXL3JE" frameborder="0" allowfullscreen></iframe>
                     <div class="bg-loader-placeholder"></div>
                 </div>
             </div>

@@ -2,9 +2,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <% switch (articleid) {
+        case 1: 
+            title = "BikeWale Track Day 2016 - An Introduction";
+            description = "Inaugural BikeWale Track Day gave us the perfect opportunity to find out the limits of a regular bike on a racetrack in Chennai";
+            break;
+        case 2:
+            title = "BikeWale Track Day 2016 - TVS Apache RTR 200 4V";
+            description = "BikeWale team put TVS Apache RTR 200 4V to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
+            break;
+        case 3:
+            title = "BikeWale Track Day 2016 - Yamaha YZF-R3";
+            description = "BikeWale team put Yamaha YZF-R3 to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
+            break;
+        case 4:
+            title = "BikeWale Track Day 2016 - Benelli TNT 600i ABS";
+            description = "BikeWale team put Benelli TNT 600i ABS to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
+            break;
+        case 5:
+            title = "BikeWale Track Day 2016 - Ducati 959 Panigale";
+            description = "BikeWale team put Ducati 959 Panigale to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
+            break;
+        case 6:
+            title = "Ten best photos of BikeWale Track Day 2016";
+            description = "Check out the 10 best photos of RTR 200, R3, TNT 660i ABS, 959 Panigale on a racetrack";
+            break;
+        default:
+            title = "BikeWale Track Day 2016 - An Introduction";
+            description = "Inaugural BikeWale Track Day gave us the perfect opportunity to find out the limits of a regular bike on a racetrack in Chennai";
+            break;        
+    } %>
+
     <% 
-        //title       = "Bike News - Latest Indian Bike News & Views - BikeWale";
-        //description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
         //keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
         //canonical   = "https://www.bikewale.com/news/";
         //AdPath = "/1017752/Bikewale_Mobile_NewBikes";

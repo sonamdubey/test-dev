@@ -5,7 +5,7 @@
 
     <div class="text-center margin-bottom30">
         <h1 class="article-heading text-unbold">BikeWale Track Day 2016: An Introduction</h1>
-        <p class="article-author margin-bottom5"><a href="https://www.carwale.com/m/authors/charles-pennefather/"><i>Charles Pennefather</i></a></p>
+        <p class="article-author margin-bottom5"><i>Charles Pennefather</i></p>
         <p class="font12 text-light-grey">Dec 14, 2016</p>
     </div>
 
