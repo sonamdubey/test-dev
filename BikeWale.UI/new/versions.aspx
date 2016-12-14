@@ -48,7 +48,7 @@
         var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= canonical %>";
-    </script>
+     </script>
 
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
@@ -482,7 +482,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
@@ -514,7 +514,7 @@
                                                         <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                             <span class="bwsprite offers-sm-box"></span>
                                                             <span class="font14 text-default text-bold"><%=bike.OfferCount %></span>
-                                                            <span class="font12 text-light-grey">Offers available</span>
+                                                            <span class="font12 text-light-grey">Offer<%=(bike.OfferCount)>1?"s":""%> available</span>
                                                         </div>
                                                         <% } %>
 								                        <div class="clear"></div>
@@ -1313,6 +1313,8 @@
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
+                if ($('#getOffersPrimary').length>0)
+                $('#getOffersPrimary').attr('v',bikeVersionLocation) ;
             }
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
@@ -1325,6 +1327,32 @@
                 if ($('.dealership-benefit-list li').length <= 2) {
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
+            });
+           
+            $('#getEmailID').on("focus", function () {
+                $('#assistGetEmail').parent().addClass('not-empty');
+            });
+
+            $('#getFullName').on("focus", function () {
+                $('#assistGetName').parent().addClass('not-empty');
+            });
+            
+            $('#getMobile').on("focus", function () {
+                $('#assistGetMobile').parent().addClass('not-empty');
+            });
+            $('#getEmailID').on("blur", function () {
+                if ($('#assistGetEmail').val()=="")
+                $('#assistGetEmail').parent().removeClass('not-empty');
+            });
+
+            $('#getFullName').on("blur", function () {
+                if ($('#assistGetName').val() == "")
+                $('#assistGetName').parent().removeClass('not-empty');
+            });
+
+            $('#getMobile').on("blur", function () {
+                if ($('#assistGetMobile').val() == "")
+                $('#assistGetMobile').parent().removeClass('not-empty');
             });
 
             $(".leadcapturebtn").click(function (e) {

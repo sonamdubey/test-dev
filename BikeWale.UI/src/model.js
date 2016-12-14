@@ -43,6 +43,9 @@ $(document).ready(function (e) {
     if ($('#btnGetOnRoadPrice').length > 0) {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_On_Road_Price_Button_Shown", "lab": myBikeName + "_" + getBikeVersion() });
     }
+    if ($('#getOffersPrimary').length > 0) {
+        dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Button_Shown", "lab": bikeVersionLocation });
+    }
     if ($('#getassistance').length > 0)
     {
         dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": bikeVersionLocation });
@@ -472,12 +475,22 @@ else
 
 /* GA Tags */
 $('#btnGetOnRoadPrice').on('click', function (e) {
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Check_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Check_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion()});
 });
 
 $('#btnDealerPricePopup').on('click', function () {
     dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Show_On_Road_Price_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
 });
+
+$('#getdealerdetails').on('click', function () {
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "View_Dealer_Details_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
+});
+
+$('#getOffersPrimary').on('click', function () {
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Button_Clicked", "lab": myBikeName + "_" + getBikeVersion() + "_" + getCityArea });
+});
+
+
 
 function getBikeVersionLocation() {
     var versionName = getBikeVersion();
@@ -499,6 +512,9 @@ function getBikeVersion() {
         versionName = $("#ddlVersion option:selected").text();
     } else {
         versionName = $('#singleversion').html();
+    }
+    else if ($("#ddlVersion").length>0) {
+        versionName = $('#ddlVersion').find("option:selected").text();
     }
     return versionName;
 }

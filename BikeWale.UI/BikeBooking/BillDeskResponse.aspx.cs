@@ -5,8 +5,10 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Service.TCAPI;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
+using Carwale.DAL.Classified.SellCar;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.Enum;
+using Carwale.Interfaces.Classified.SellCar;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
@@ -47,6 +49,10 @@ namespace Bikewale.BikeBooking
         }
 
         #region CompleteTransaction Method
+        /// <summary>
+        /// Modified by :   Sumit Kate on 09 Dec 2016
+        /// Description :   PG Transaction MySql Migration
+        /// </summary>
         private void CompleteTransaction()
         {
             bool isUpdated = false;
@@ -56,6 +62,7 @@ namespace Bikewale.BikeBooking
                 using (IUnityContainer containerTran = new UnityContainer())
                 {
                     containerTran.RegisterType<ITransaction, Transaction>()
+                        .RegisterType<ISellCarRepository, SellCarRepository>()
                                 .RegisterType<IPaymentGateway, BillDesk>()
                                 .RegisterType<ITransactionRepository, TransactionRepository>()
                                 .RegisterType<IPackageRepository, PackageRepository>()

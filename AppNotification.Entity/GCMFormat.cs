@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AppNotification.Entity
 {
     public class GCMFormat
     {
-        public MobileAppNotificationBase data { get; set; }
-        public List<string> registration_ids { get; set; }
+        public string to { get; set; }
+        public List<string> registration_tokens { get; set; }
     }
 }
