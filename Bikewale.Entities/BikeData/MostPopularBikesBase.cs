@@ -42,5 +42,7 @@ namespace Bikewale.Entities.BikeData
         public string MakeName { get; set; }
         [DataMember]
         public string CityName { get; set; }
+        [DataMember]
+        public string CityMaskingName { get; set; }
     }
 }
