@@ -495,11 +495,10 @@ function getBikeVersionLocation() {
 
 function getBikeVersion() {
     var versionName = '';
-    if ($('#defaultVariant').length > 0) {
-        versionName = $('#defaultVariant').html();
-    }
-    else if ($('#versText').length > 0) {
-        versionName = $('#versText').html();
+    if ($("#ddlVersion").length > 0) {
+        versionName = $("#ddlVersion option:selected").text();
+    } else {
+        versionName = $('#singleversion').html();
     }
     return versionName;
 }

@@ -174,7 +174,7 @@
                                     <% } %>
                                     <% else { %>
                                     <p class="font12 text-light-grey">Version</p>
-                                    <p class="font14 text-bold margin-bottom15"><%= variantText %></p>
+                                    <p id="singleversion" class="font14 text-bold margin-bottom15"><%= variantText %></p>
                                     <% }
                                 } %>
                                 <!-- Variant div ends -->
@@ -238,7 +238,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %></span>
@@ -623,7 +623,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>
-                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
+                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" >Get offers from dealer</a>
                             <%} %>
 
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
@@ -1328,7 +1328,6 @@
             });
 
             $(".leadcapturebtn").click(function (e) {
-
                 ele = $(this);
                 var leadOptions = {
                     "dealerid": ele.attr('data-item-id'),
@@ -1345,12 +1344,10 @@
                     "gaobject": {
                         cat: ele.attr("c"),
                         act: ele.attr("a"),
-                        lab: ele.attr("v")
+                        lab: bikeVersionLocation
                     }
                 };
-
                 dleadvm.setOptions(leadOptions);
-
             });
         </script>
     </form>
