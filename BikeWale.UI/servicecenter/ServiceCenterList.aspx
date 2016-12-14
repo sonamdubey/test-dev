@@ -83,7 +83,7 @@
                     <div class="content-box-shadow">
                         <div class="padding-15-20">
                             <h2 class="font18 text-black text-bold bg-white leftfloat"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
-                            <div class="rightfloat">    
+                            <div class="leftfloat margin-left15">    
                                 <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                             </div>
                             <div class="clear"></div>                                                                                         

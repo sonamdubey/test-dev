@@ -18,8 +18,7 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>
-
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -58,8 +57,7 @@
                     <div class="vertical-middle text-center">
                         <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue"></span><span class="change-text text-link">change</span></span>
                     </div>
-                    <div class="clear"></div>
-                </div>
+                       </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>

@@ -8,12 +8,12 @@
         <div id="popupHeading" class="content-inner-block-20">
             <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
               { %>
-            <p class="font18 margin-bottom5 text-capitalize">Looking for a different dealer?</p>
+            <p class="font18 margin-bottom5">Looking for a different Dealer?</p>
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Select the brand and city to see dealer details</div>
             <%} %>
             <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
               { %>
-            <p class="font18 margin-bottom5 text-capitalize">Looking for a different service center?</p>
+            <p class="font18 margin-bottom5">Looking for a different Service Center?</p>
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Select the brand and city to see service center details</div>
             <%} %>
             <% if (isOperaBrowser)
