@@ -53,7 +53,7 @@
 
     <p class="photography-credit"><i>Photography by Kapil Angane and Sanchit Arora</i></p>
 
-    <p class="related-articles-heading">Related articles</p>
+    <p class="related-articles-heading">More BikeWale Track Day Articles</p>
     <ul class="related-articles-list">
         <li>
             <a href="/m/trackday/details.aspx?articleid=1" title="BikeWale Track Day 2016: An Introduction">BikeWale Track Day 2016: An Introduction</a>

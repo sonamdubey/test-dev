@@ -27,14 +27,17 @@
         <% } %>
 
         <section>
-            <div class="container trackday-banner text-center section-container">
-                <h1 class="font24 text-uppercase text-white padding-bottom10">Track Day 2016</h1>
+            <div class="container text-center section-container">
+                <div class="video-content">
+                    <iframe src="https://www.youtube.com/embed/5zt8wvn_9Uc?rel=0" frameborder="0" width="320" height="180" allowfullscreen></iframe>
+                    <div class="bg-loader-placeholder"></div>
+                </div>
             </div>
         </section>
 
         <section>
             <div class="container section-container">
-                <h2 class="section-heading">Articles</h2>
+                <h2 class="section-heading">Track day updates</h2>
                 <div class="content-box-shadow padding-right20 padding-left20 font14">
                     <ul class="article-list">
                         <li>
@@ -182,16 +185,6 @@
                             <p class="margin-top10">A picture is worth a thousand words, they say, so we've got Kapil Angane, our resident photographer, to say a little over ten thousand words about his...</p>
                         </li>
                     </ul>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="container section-container">
-                <h2 class="section-heading">Videos</h2>
-                <div class="video-content">
-                    <iframe src="https://www.youtube.com/embed/5zt8wvn_9Uc?rel=0" frameborder="0" width="320" height="180" allowfullscreen></iframe>
-                    <div class="bg-loader-placeholder"></div>
                 </div>
             </div>
         </section>
@@ -883,12 +876,7 @@
                     <ul class="track-day-collage-list">
                         <li>
                             <div class="bg-loader-placeholder">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/600x337/bw/ec/20754/Honda-CB-Shine-SP-Exterior-60339.jpg?wm=0" src="" border="0" />
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bg-loader-placeholder">
-                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/600x337/bw/ec/20754/Honda-CB-Shine-SP-Exterior-60339.jpg?wm=0" src="" border="0" />
+                                <img class="lazy" data-original="/m/images/trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
                             </div>
                         </li>
                     </ul>
