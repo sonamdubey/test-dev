@@ -513,9 +513,6 @@ function getBikeVersion() {
     } else {
         versionName = $('#singleversion').html();
     }
-    else if ($("#ddlVersion").length>0) {
-        versionName = $('#ddlVersion').find("option:selected").text();
-    }
     return versionName;
 }
 

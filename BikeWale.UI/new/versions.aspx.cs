@@ -691,7 +691,7 @@ namespace Bikewale.New
                                 {
                                     if (variantId > 0)
                                     {
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == variantId);
                                         if (objSelectedVariant != null)
                                             price = Convert.ToUInt32(objSelectedVariant.Price);
                                     }
@@ -713,7 +713,7 @@ namespace Bikewale.New
                     {
                         if (variantId != 0)
                         {
-                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            var modelVersions = modelPage.ModelVersions.FirstOrDefault(p => p.VersionId == variantId);
                             if (modelVersions != null)
                                 price = Convert.ToUInt32(modelVersions.Price);
                         }

@@ -237,10 +237,6 @@
                 if (options.gaobject != null) {
                     self.GAObject(options.gaobject);
                 }
-                else {
-                    console.log('GA object is null');
-                }
-
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
 
