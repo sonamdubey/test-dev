@@ -23,7 +23,7 @@
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
 
-    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/css/track-day.css?<%= staticFileVersion %>" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -46,7 +46,7 @@
 
                     <div class="padding-right20 padding-left20">
                         <div class="bg-loader-placeholder">
-                            <img class="article-image lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objTrackDay.OriginalImgUrl, objTrackDay.HostUrl, Bikewale.Utility.ImageSize._640x348) %>" alt="<%= objTrackDay.Title %>" src="" border="0" />
+                            <img class="article-image lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objTrackDay.OriginalImgUrl, objTrackDay.HostUrl, Bikewale.Utility.ImageSize._762x429) %>" alt="<%= objTrackDay.Title %>" src="" border="0" />
                         </div>
 
                         <div class="text-center margin-bottom30">
@@ -73,41 +73,42 @@
                     </div>
 
                 </div>
+
+                <% if(objImages!=null) { %>
+                    <p class="margin-left20 photography-heading">Photos</p>
+                    <div class="connected-carousels-photos">
+                        <div class="stage-photos">
+                            <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                                <div class="swiper-wrapper">
+                                    <% foreach(var image in objImages) { %>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._762x429)  %>" alt="<%= image.ImageName %>" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <% } %>
+                                </div>
+                                <div class="bwmsprite swiper-button-next"></div>
+                                <div class="bwmsprite swiper-button-prev"></div>
+                            </div>
+                        </div>
+
+                        <div class="navigation-photos">
+                            <div class="swiper-container noSwiper carousel-navigation-photos">
+                                <div class="swiper-wrapper">
+                                     <% foreach(var image in objImages) { %>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
             </div>
             <% } %>
         </section>
-
-        <% if(objImages!=null) { %>
-            <div class="connected-carousels-photos">
-    <div class="stage-photos">
-        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-            <div class="swiper-wrapper">
-                <% foreach(var image in objImages) { %>
-                <div class="swiper-slide">
-                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
-                    <span class="swiper-lazy-preloader"></span>
-                </div>
-                <% } %>
-            </div>
-            <div class="bwmsprite swiper-button-next"></div>
-            <div class="bwmsprite swiper-button-prev"></div>
-        </div>
-    </div>
-
-    <div class="navigation-photos">
-        <div class="swiper-container noSwiper carousel-navigation-photos">
-            <div class="swiper-wrapper">
-                 <% foreach(var image in objImages) { %>
-                <div class="swiper-slide">
-                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
-                    <span class="swiper-lazy-preloader"></span>
-                </div>
-                <% } %>
-            </div>
-        </div>
-    </div>
-</div>
-        <% } %>
 
         <div id="gallery-close-btn" class="bwmsprite cross-lg-white"></div>
         <div id="gallery-blackOut-window"></div>
@@ -121,7 +122,7 @@
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/src/track-day.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 

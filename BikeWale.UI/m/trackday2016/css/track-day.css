@@ -30,13 +30,15 @@ h2.section-heading {
 .article-list li:nth-child(2n+1) .review-image-wrapper {
     width: 100%;
     max-width: 320px;
-    min-height: 156px;
+    height: auto;
     border: 1px solid #e2e2e2;
     margin: 0 auto 10px;
+    display: block;
 }
 
 .article-list li:nth-child(2n+1) .review-image-wrapper img {
     width: 100%;
+    height: auto;
     min-height: 156px;
 }
 
@@ -54,7 +56,7 @@ h2.section-heading {
 }
 
 .article-list li:nth-child(2n+1) .review-heading-wrapper {
-    width: 100%;
+    width: 100% !important;
 }
 
 .bg-loader-placeholder {
@@ -311,6 +313,11 @@ h2.section-heading {
     margin-bottom: 20px;
 }
 
+.article-image-margin img {
+    width: 100%;
+    max-width: 768px;
+}
+
 .margin-bottom30 {
     margin-bottom: 30px;
 }
@@ -348,7 +355,7 @@ h2.section-heading {
 }
 
 .related-articles-list {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     margin-left: 17px;
 }
 
@@ -360,5 +367,8 @@ h2.section-heading {
 @media (max-width: 350px) {
     .review-heading-wrapper {
         width: 50%;
+    }
+    .article-list li:nth-child(2n+1) .article-stats-content {
+        width: 85%;
     }
 }

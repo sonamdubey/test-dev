@@ -48,7 +48,7 @@
                             <div class="review-image-wrapper">
                                 <a class="block" href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%=article.Title %>">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= article.Title %>" src="">
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._360x202)  %>" alt="<%= article.Title %>" src="">
                                     </div>
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
                                 <div class="swiper-wrapper">
                                     <% foreach(var image in objImages) { %>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
+                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._762x429)  %>" alt="<%= image.ImageName %>" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                     <% } %>
@@ -136,7 +136,7 @@
                     <ul class="track-day-collage-list">
                         <li>
                             <div class="bg-loader-placeholder">
-                                <img class="lazy" data-original="/m/images/trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
+                                <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/making-of-the-event.jpg" alt="Making of Track Day" src="" border="0" />
                             </div>
                         </li>
                     </ul>
