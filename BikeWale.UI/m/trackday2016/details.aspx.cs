@@ -67,7 +67,7 @@ namespace Bikewale.Mobile.TrackDay
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
                     objTrackDay = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
-                    objTrackDayArticles = _cache.GetArticlesByCategoryList(((int)EnumCMSContentType.TrackDay).ToString(), 1, 10, 0, 0);
+                    objTrackDayArticles = _cache.GetTrackDayArticlesByCategoryList(((int)EnumCMSContentType.TrackDay).ToString(), 1, 10, 0, 0);
                     objImages = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
 
                     if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
