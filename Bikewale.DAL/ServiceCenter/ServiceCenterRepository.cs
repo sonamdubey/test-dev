@@ -432,5 +432,50 @@ namespace Bikewale.DAL.ServiceCenter
             }
             return objSMSData;
         }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 15 Dec 2016
+        /// Description : To get number of service centers by brand
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand()
+        {
+            IList<BrandServiceCenters> listServiceCenter = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getallservicecentersbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        { 
+                            BrandServiceCenters objServiceCenters=null;
+                            listServiceCenter = new List<BrandServiceCenters>();
+                             while (dr.Read())
+                            {
+                                
+                                 
+                                objServiceCenters = new BrandServiceCenters();
+                                objServiceCenters.MakeName = Convert.ToString(dr["MakeName"]);
+                                objServiceCenters.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objServiceCenters.ServiceCenterCount=SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
+                                listServiceCenter.Add(objServiceCenters);
+                            }
+                                dr.Close();
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Error in ServiceCenterRepository.GetAllServiceCentersByBrand");
+                objErr.SendMail();
+            }
+            return listServiceCenter;
+
+        }
+
     }
 }
