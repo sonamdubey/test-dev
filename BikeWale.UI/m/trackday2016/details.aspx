@@ -63,7 +63,7 @@
                             <ul class="related-articles-list">
                                 <% foreach(var article in objTrackDayArticles.Articles) { %>
                             <li>
-                                <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%= article.Title %>"><%= article.Title %></a>
+                                <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%= article.Title %>"><%= article.Title %></a>
                             </li>
                                 <% } %>
                         </ul>

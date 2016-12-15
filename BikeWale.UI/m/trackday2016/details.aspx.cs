@@ -19,8 +19,6 @@ namespace Bikewale.Mobile.TrackDay
     public class Details : System.Web.UI.Page
     {
         protected bool androidApp;
-        protected uint pageViews = 0;
-
         protected String _trackdayId = String.Empty;
         protected ArticleDetails objTrackDay = null;
         protected CMSContent objTrackDayArticles = null;
@@ -34,30 +32,22 @@ namespace Bikewale.Mobile.TrackDay
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Form.Action = Request.RawUrl;
+            ProcessQS();
 
-            if (!String.IsNullOrEmpty(Request.QueryString["isapp"]))
-                bool.TryParse(Request.QueryString["isapp"], out androidApp);
+            int _basicId = 0;
 
-
-            if (!IsPostBack)
+            if (Int32.TryParse(_trackdayId, out _basicId))
             {
-                ProcessQS();
+                GetTrackDayDetails(_basicId);
 
-                int _basicId = 0;
-
-                if (Int32.TryParse(_trackdayId, out _basicId))
-                {
-                    GetTrackDayDetails(_basicId);
-
-                }
-                else
-                {
-                    Response.Redirect("/m/pagenotfound.aspx", true);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
             }
+            else
+            {
+                Response.Redirect("/m/pagenotfound.aspx", true);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+
         }
 
         private void GetRelatedArticles()
@@ -91,7 +81,7 @@ namespace Bikewale.Mobile.TrackDay
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, string.Format("Url : {0}-GetTrackDayDetails , BasicId : {1}", Request.ServerVariables["URL"], _basicId));
                 objErr.SendMail();
             }
             finally
@@ -105,31 +95,6 @@ namespace Bikewale.Mobile.TrackDay
             }
         }
 
-        ///// <summary>
-        ///// PopulateWhere to set news details
-        ///// </summary>
-        //private void GetNewsData()
-        //{
-        //    newsTitle = objNews.Title;
-        //    author = objNews.AuthorName;
-        //    displayDate = objNews.DisplayDate.ToString();
-        //    newsContent = objNews.Content;
-        //    nextPageTitle = objNews.NextArticle.Title;
-        //    prevPageTitle = objNews.PrevArticle.Title;
-        //    pageViews = objNews.Views;
-        //    pageUrl = _newsId + '-' + objNews.ArticleUrl + ".html";
-        //    if (objNews != null && objNews.VehiclTagsList.Count > 0)
-        //    {
-        //        _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
-        //        FetchMakeDetails();
-        //    }
-        //    if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
-        //        nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
-
-        //    if (!String.IsNullOrEmpty(objNews.PrevArticle.ArticleUrl))
-        //        prevPageUrl = objNews.PrevArticle.BasicId + "-" + objNews.PrevArticle.ArticleUrl + ".html";
-        //}
-
         /// <summary>
         /// Populate Where to process query string and get carwale new basicid against bikewale basicid
         /// </summary>
@@ -137,6 +102,9 @@ namespace Bikewale.Mobile.TrackDay
         {
             if (Request.QueryString["id"] != null && !String.IsNullOrEmpty(Request.QueryString["id"]))
             {
+                if (!String.IsNullOrEmpty(Request.QueryString["isapp"]))
+                    bool.TryParse(Request.QueryString["isapp"], out androidApp);
+
                 //Check if basic id exists in mapped carwale basic id log **/
                 string basicid = BasicIdMapping.GetCWBasicId(Request["id"]);
                 //if id exists then redirect url to new basic id url
@@ -153,7 +121,7 @@ namespace Bikewale.Mobile.TrackDay
             }
             else
             {
-                Response.Redirect("/m/news/", false);
+                Response.Redirect("/m/trackday2016/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }

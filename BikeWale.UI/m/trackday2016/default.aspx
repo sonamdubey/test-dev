@@ -54,7 +54,7 @@
                             </div>
                             <div class="review-heading-wrapper">
                                 <h3>
-                                    <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%= article.Title %>" class="target-link"><%= article.Title %></a>
+                                    <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%= article.Title %>" class="target-link"><%= article.Title %></a>
                                 </h3>
                                 <div class="grid-7 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
