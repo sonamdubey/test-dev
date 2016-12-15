@@ -24,7 +24,7 @@
     .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
     .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
     .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
-    .related-comparison-container.container { border-bottom:0; padding:0; }
+    .related-comparison-container.container { border-bottom:0; padding:0; height:50%;}
     .related-comparison-carousel-content { width:260px; min-height:118px; border:1px solid #ccc; background:#fff; padding:20px 20px 10px; }
     .related-comparison-carousel-content a {color:#0288d1;font-size:14px;font-weight:400; margin-bottom:10px;display:block;}
     .related-comparison-carousel-content a:hover {color:#0288d1;}
@@ -835,8 +835,7 @@
     </div>
         </div>
     <% } %>
-
-    <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
+            <section class="container related-comparison-container margin-bottom50 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
         <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
         <div class="swiper-container">
             <div class="swiper-wrapper">             
@@ -844,7 +843,8 @@
             </div>
         </div>
     </section>
-    </div>
+    
+        </div>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#divFloat").hide();
