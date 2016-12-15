@@ -129,10 +129,6 @@
             <div class="container section-container">
                 <h2 class="section-heading">Making of Track Day</h2>
                 <div class="container bg-white box-shadow">
-                    <div class="padding-15-20 font14">
-                        <p class="text-bold text-black margin-bottom10">Lorem imsup dolor sit amet</p>
-                        <p class="text-light-grey">Lorem ipsum dolor sit amet, consectetuer adipis cing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
-                    </div>
                     <ul class="track-day-collage-list">
                         <li>
                             <div class="bg-loader-placeholder">
