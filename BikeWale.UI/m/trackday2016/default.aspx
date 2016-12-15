@@ -15,7 +15,7 @@
    
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
 
-    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/css/track-day.css?<%= staticFileVersion %>" />
+    <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -35,159 +35,45 @@
             </div>
         </section>
 
+        <%  if (objTrackDayArticles!=null && objTrackDayArticles.RecordCount > 0) { %>
+               
         <section>
             <div class="container section-container">
                 <h2 class="section-heading">Track day updates</h2>
                 <div class="content-box-shadow padding-right20 padding-left20 font14">
                     <ul class="article-list">
-                        <li>
-                            <div class="review-image-full-width-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=1" title="BikeWale Track Day 2016: An Introduction" class="block">
-                                    <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article1.jpg" alt="BikeWale Track Day 2016: An Introduction" src="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="review-heading-full-width-wrapper">
-                                <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=1" title="BikeWale Track Day 2016: An Introduction" class="target-link">BikeWale Track Day 2016: An Introduction</a>
-                                </h3>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
-                                </div>
-                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Charles Pennefather</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="margin-top10">There’s one thing motorcycles have in common – they’re fun. No, really. Even if it is a lowly 100 cc commuter, give it the right situation and a dollop of creativity...</p>
-                        </li>
+                        <% foreach (var article in objTrackDayArticles.Articles)
+                        { %>
                         <li>
                             <div class="review-image-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=2" title="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" class="block">
+                                <a class="block" href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%=article.Title %>">
                                     <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article2.jpg" alt="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" src="">
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= article.Title %>" src="">
                                     </div>
                                 </a>
                             </div>
                             <div class="review-heading-wrapper">
                                 <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=2" title="BikeWale Track Day 2016 - TVS Apache RTR 200 4V" class="target-link">BikeWale Track Day 2016 - TVS Apache RTR 200 4V</a>
+                                    <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%= article.Title %>" class="target-link"><%= article.Title %></a>
                                 </h3>
                                 <div class="grid-7 alpha padding-right5">
                                     <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
+                                    <span class="article-stats-content"> <%= Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
                                 </div>
                                 <div class="grid-5 alpha omega">
                                     <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Ranjan Bhat</span>
+                                    <span class="article-stats-content"> <%= article.AuthorName %></span>
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10">Sport riding enthusiasts exhibit a fundamental need to go faster. Those who prefer straight line speed yearn to end up on a drag strip while the rest...</p>
+                            <p class="margin-top10"><%= article.Description %></p>
                         </li>
-                        <li>
-                            <div class="review-image-full-width-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=3" title="BikeWale Track Day 2016 - Yamaha YZF-R3" class="block">
-                                    <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article3.jpg" alt="BikeWale Track Day 2016 - Yamaha YZF-R3" src="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="review-heading-full-width-wrapper">
-                                <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=3" title="BikeWale Track Day 2016 - Yamaha YZF-R3" class="target-link">BikeWale Track Day 2016 - Yamaha YZF-R3</a>
-                                </h3>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
-                                </div>
-                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Omkar Thakur</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="margin-top10">Brake. Downshift. Turn in. Lean. The apex is here. Throttle, throttle, throttle. I kept looking at everything in detail, while it played back in a loop. Trying to see...</p>
-                        </li>
-                        <li>
-                            <div class="review-image-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=4" title="BikeWale Track Day 2016 - Benelli TNT 600i ABS" class="block">
-                                    <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article4.jpg" alt="BikeWale Track Day 2016 - Benelli TNT 600i ABS" src="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=4" title="BikeWale Track Day 2016 - Benelli TNT 600i ABS" class="target-link">BikeWale Track Day 2016 - Benelli TNT 600i ABS</a>
-                                </h3>
-                                <div class="grid-7 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
-                                </div>
-                                <div class="grid-5 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Pratheek Kunder</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="margin-top10">At first glance, taking the TNT 600i to a racetrack doesn’t make sense because it is a comfortable street bike. We decided to get it anyway, because this bike...</p>
-                        </li>
-                        <li>
-                            <div class="review-image-full-width-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=5" title="BikeWale Track Day 2016 - Ducati 959 Panigale" class="block">
-                                    <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article5.jpg" alt="BikeWale Track Day 2016 - Ducati 959 Panigale" src="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="review-heading-full-width-wrapper">
-                                <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=5" title="BikeWale Track Day 2016 - Ducati 959 Panigale" class="target-link">BikeWale Track Day 2016 - Ducati 959 Panigale</a>
-                                </h3>
-                                <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
-                                </div>
-                                <div class="article-stats-wrapper article-stats-author font12 leftfloat text-light-grey">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Charles Pennefather</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="margin-top10">The track was wet. I was wet. The Innova in front from which tracking shots were being taken was spraying water from the track onto me. The driver of...</p>
-                        </li>
-                        <li>
-                            <div class="review-image-wrapper">
-                                <a href="/m/trackday/details.aspx?articleid=6" title="Ten best photos of BikeWale Track Day 2016" class="block">
-                                    <div class="bg-loader-placeholder">
-                                        <img class="lazy" data-original="/m/images/trackday/landing-images/article6.jpg" alt="Ten best photos of BikeWale Track Day 2016" src="">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="review-heading-wrapper">
-                                <h3>
-                                    <a href="/m/trackday/details.aspx?articleid=6" title="Ten best photos of BikeWale Track Day 2016" class="target-link">Ten best photos of BikeWale Track Day 2016</a>
-                                </h3>
-                                <div class="grid-7 alpha padding-right5">
-                                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Dec 14, 2016</span>
-                                </div>
-                                <div class="grid-5 alpha omega">
-                                    <span class="bwmsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content">Charles Pennefather</span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <p class="margin-top10">A picture is worth a thousand words, they say, so we've got Kapil Angane, our resident photographer, to say a little over ten thousand words about his...</p>
-                        </li>
+                        <%} %>
                     </ul>
                 </div>
             </div>
         </section>
+        <% } %>
 
         <section>
             <div class="container section-container">
@@ -893,7 +779,7 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday/src/track-day.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
