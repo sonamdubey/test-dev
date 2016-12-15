@@ -34,9 +34,9 @@ namespace Bikewale.Mobile.TrackDay
 
             ProcessQS();
 
-            int _basicId = 0;
+            uint _basicId = 0;
 
-            if (Int32.TryParse(_trackdayId, out _basicId))
+            if (UInt32.TryParse(_trackdayId, out _basicId))
             {
                 GetTrackDayDetails(_basicId);
 
@@ -50,12 +50,12 @@ namespace Bikewale.Mobile.TrackDay
 
         }
 
-        private void GetRelatedArticles()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void GetTrackDayDetails(int _basicId)
+        /// <summary>
+        /// Created By : Sushil Kumar on 15th Dec 2016
+        /// Description : Get track article details ,track day article images and also fetch related articles except current article
+        /// </summary>
+        /// <param name="_basicId"></param>
+        private void GetTrackDayDetails(uint _basicId)
         {
             try
             {
@@ -66,13 +66,13 @@ namespace Bikewale.Mobile.TrackDay
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    objTrackDay = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
+                    objTrackDay = _cache.GetNewsDetails(_basicId);
                     objTrackDayArticles = _cache.GetTrackDayArticlesByCategoryList(((int)EnumCMSContentType.TrackDay).ToString(), 1, 10, 0, 0);
                     objImages = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
 
                     if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
                     {
-                        objTrackDayArticles.Articles = objTrackDayArticles.Articles.Where(x => x.BasicId != Convert.ToUInt32(_basicId)).ToList();
+                        objTrackDayArticles.Articles = objTrackDayArticles.Articles.Where(x => x.BasicId != _basicId).ToList();
                         objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
                     }
 

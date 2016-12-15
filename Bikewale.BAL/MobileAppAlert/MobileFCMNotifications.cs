@@ -36,6 +36,9 @@ namespace Bikewale.BAL.MobileAppAlert
         /// <summary>
         /// Created By : Sushil Kumar on 12nd Dec 2016
         /// Description : To subscribe fcm user
+        /// Modified By : Sushil Kumar on 15th Dec 2016
+        /// Description : Added consdition to check for news category 1,2 and remove 1 if contains
+        ///                 Handle condition to register multiple subscription topics
         /// </summary>
         /// <param name="appInput"></param>
         /// <returns></returns>
@@ -45,36 +48,44 @@ namespace Bikewale.BAL.MobileAppAlert
             ushort subscriptionId; bool isSuccess = false;
             try
             {
-                if (appInput.SubsMasterId.Contains("2")) appInput.SubsMasterId = "2";
 
-                if (ushort.TryParse(appInput.SubsMasterId, out subscriptionId))
+                //for supporting earlier versions of app related to news subscription
+                List<string> submasterIds = new List<string>(appInput.SubsMasterId.Split(','));
+                submasterIds.RemoveAll(item => item.Contains("1"));
+
+                foreach (string _submasterId in submasterIds)
                 {
-                    subscriptionTopic = SubscriptionTypes.GetSubscriptionType(subscriptionId);
-                    SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string> { appInput.GcmId } };
-                    string payload = JsonConvert.SerializeObject(subscriptionRequest);
 
-                    SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMSusbscribeUserUrl, payload, 0);
-                    if (subscriptionResponse != null)
+                    if (ushort.TryParse(_submasterId, out subscriptionId))
                     {
-                        var result = subscriptionResponse.Results[0];
-                        if (string.IsNullOrEmpty(result.Error))
+
+                        subscriptionTopic = SubscriptionTypes.GetSubscriptionType(subscriptionId);
+                        SubscriptionRequest subscriptionRequest = new SubscriptionRequest() { To = subscriptionTopic, RegistrationTokens = new List<string> { appInput.GcmId } };
+                        string payload = JsonConvert.SerializeObject(subscriptionRequest);
+
+                        SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(Bikewale.Utility.BWConfiguration.Instance.FCMSusbscribeUserUrl, payload, 0);
+                        if (subscriptionResponse != null)
                         {
-                            isSuccess = _appAlertRepo.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
-                        }
-                        else
-                        {
-                            msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
-                            ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg));
-                            objErr.SendMail();
+                            var result = subscriptionResponse.Results[0];
+                            if (string.IsNullOrEmpty(result.Error))
+                            {
+                                isSuccess = _appAlertRepo.SaveIMEIFCMData(appInput.Imei, appInput.GcmId, appInput.OsType, appInput.SubsMasterId);
+                            }
+                            else
+                            {
+                                msg = string.Format("Android : Subscribing failed for Registration id - {0} : {1} due to {2}", appInput.Imei, appInput.GcmId, result.Error);
+                                ErrorClass objErr = new ErrorClass(new Exception(), string.Format("{0} - SubscribeUser : IMEI : {1}, GCMId : {2}, Message : {3} ,subsmasterId : {4}", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, msg, appInput.SubsMasterId));
+                                objErr.SendMail();
+
+                            }
 
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2},subsmasterId : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, appInput.SubsMasterId));
                 objErr.SendMail();
 
             }

@@ -5,16 +5,11 @@
 <head>
 
     <% 
-        if(objTrackDay!=null)
+        if (objTrackDay != null)
         {
             title = objTrackDay.Title;
-            description = objTrackDay.Description;  
+            description = objTrackDay.Description;
         }
-         
-        //keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
-        //canonical   = "https://www.bikewale.com/news/";
-        //AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-        //AdId = "1398766302464";
         Ad_320x50 = false;
         Ad_Bot_320x50 = false;
         Ad_300x250 = false;
@@ -45,65 +40,71 @@
                     </div>
 
                     <div class="padding-right20 padding-left20">
+                        <% if (objTrackDay.BasicId != 26199) //hardcoded for no main image 
+                           {%>
                         <div class="bg-loader-placeholder">
                             <img class="article-image lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objTrackDay.OriginalImgUrl, objTrackDay.HostUrl, Bikewale.Utility.ImageSize._762x429) %>" alt="<%= objTrackDay.Title %>" src="" border="0" />
                         </div>
-
+                        <%} %>
                         <div class="text-center margin-bottom30">
                             <h1 class="article-heading text-unbold"><%= objTrackDay.Title %></h1>
                             <p class="article-author margin-bottom5"><i><%= objTrackDay.AuthorName %></i></p>
                             <p class="font12 text-light-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(objTrackDay.DisplayDate.ToString(),"MMM dd, yyyy") %></p>
                         </div>
 
-                         <%= String.IsNullOrEmpty(objTrackDay.Content) ? "" : objTrackDay.Content %>
-
-                        <% if(objTrackDayArticles!=null && objTrackDayArticles.RecordCount > 0) { %>
-
-                         <p class="related-articles-heading">More BikeWale Track Day Articles</p>
-                            <ul class="related-articles-list">
-                                <% foreach(var article in objTrackDayArticles.Articles) { %>
-                            <li>
-                                <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%= article.Title %>"><%= article.Title %></a>
-                            </li>
-                                <% } %>
-                        </ul>
-
-                        <% } %>
-                        
+                        <%= String.IsNullOrEmpty(objTrackDay.Content) ? "" : objTrackDay.Content %>
                     </div>
 
                 </div>
 
-                <% if(objImages!=null) { %>
-                    <p class="margin-left20 photography-heading">Photos</p>
-                    <div class="connected-carousels-photos">
-                        <div class="stage-photos">
-                            <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-                                <div class="swiper-wrapper">
-                                    <% foreach(var image in objImages) { %>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._762x429)  %>" alt="<%= image.ImageName %>" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <% } %>
+                <% if (objImages != null)
+                   { %>
+                <p class="margin-left20 photography-heading">Photos</p>
+                <div class="connected-carousels-photos">
+                    <div class="stage-photos">
+                        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                            <div class="swiper-wrapper">
+                                <% foreach (var image in objImages)
+                                   { %>
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._762x429)  %>" alt="<%= image.ImageName %>" />
+                                    <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <div class="bwmsprite swiper-button-next"></div>
-                                <div class="bwmsprite swiper-button-prev"></div>
+                                <% } %>
                             </div>
+                            <div class="bwmsprite swiper-button-next"></div>
+                            <div class="bwmsprite swiper-button-prev"></div>
                         </div>
+                    </div>
 
-                        <div class="navigation-photos">
-                            <div class="swiper-container noSwiper carousel-navigation-photos">
-                                <div class="swiper-wrapper">
-                                     <% foreach(var image in objImages) { %>
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <% } %>
+                    <div class="navigation-photos">
+                        <div class="swiper-container noSwiper carousel-navigation-photos">
+                            <div class="swiper-wrapper">
+                                <% foreach (var image in objImages)
+                                   { %>
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
+                                    <span class="swiper-lazy-preloader"></span>
                                 </div>
+                                <% } %>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <% } %>
+
+                <% if (objTrackDayArticles != null && objTrackDayArticles.RecordCount > 0)
+                   { %>
+                    <div class="padding-right20 padding-left20">
+                        <p class="related-articles-heading">More BikeWale Track Day Articles</p>
+                        <ul class="related-articles-list">
+                            <% foreach (var article in objTrackDayArticles.Articles)
+                               { %>
+                            <li>
+                                <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%= article.Title %>"><%= article.Title %></a>
+                            </li>
+                            <% } %>
+                        </ul>
                     </div>
                 <% } %>
             </div>

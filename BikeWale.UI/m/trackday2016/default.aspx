@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <p class="margin-top10"><%= article.Description %></p>
+                            <p class="margin-top10"><%= Bikewale.Utility.FormatDescription.TruncateDescription(article.Description)  %></p>
                         </li>
                         <%} %>
                     </ul>
