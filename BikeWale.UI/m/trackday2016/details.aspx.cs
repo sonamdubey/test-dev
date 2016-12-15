@@ -3,12 +3,15 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.Mobile.TrackDay
@@ -21,6 +24,7 @@ namespace Bikewale.Mobile.TrackDay
         protected String _trackdayId = String.Empty;
         protected ArticleDetails objTrackDay = null;
         protected CMSContent objTrackDayArticles = null;
+        protected IEnumerable<ModelImage> objImages = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,7 +49,6 @@ namespace Bikewale.Mobile.TrackDay
                 if (Int32.TryParse(_trackdayId, out _basicId))
                 {
                     GetTrackDayDetails(_basicId);
-                    GetRelatedArticles();
 
                 }
                 else
@@ -75,9 +78,14 @@ namespace Bikewale.Mobile.TrackDay
 
                     objTrackDay = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
                     objTrackDayArticles = _cache.GetArticlesByCategoryList(((int)EnumCMSContentType.TrackDay).ToString(), 1, 10, 0, 0);
+                    objImages = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
 
                     if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
+                    {
+                        objTrackDayArticles.Articles = objTrackDayArticles.Articles.Where(x => x.BasicId != Convert.ToUInt32(_basicId)).ToList();
                         objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
+                    }
+
 
                 }
             }
@@ -90,7 +98,7 @@ namespace Bikewale.Mobile.TrackDay
             {
                 if (objTrackDayArticles != null && objTrackDayArticles.RecordCount < 1)
                 {
-                    Response.Redirect("/m/news/", false);
+                    Response.Redirect("/m/trackday2016/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

@@ -43,36 +43,6 @@
                     <div class="text-center">
                         <div class="trackday-logo"></div>
                     </div>
-                    <%-- <% switch (articleid)
-                       {
-                        case 1: %>
-                            <!-- #include file="/m/trackday/articles/Introduction.aspx" -->
-                            <% break;
-                        case 2: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/TVSApache.aspx" -->
-                            <% break;
-                        case 3: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/YamahaYZF.aspx" -->
-                            <% break;
-                        case 4: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/BenelliTNT.aspx" -->
-                            <% break;
-                        case 5: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/DucatiPanigale.aspx" -->
-                            <% break;
-                        case 6: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/TopBikes.aspx" -->
-                            <% break;
-                        default: 
-                        %>
-                            <!-- #include file="/m/trackday/articles/Introduction.aspx" -->
-                            <% break;
-                       } %>--%>
 
                     <div class="padding-right20 padding-left20">
                         <div class="bg-loader-placeholder">
@@ -106,6 +76,38 @@
             </div>
             <% } %>
         </section>
+
+        <% if(objImages!=null) { %>
+            <div class="connected-carousels-photos">
+    <div class="stage-photos">
+        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+            <div class="swiper-wrapper">
+                <% foreach(var image in objImages) { %>
+                <div class="swiper-slide">
+                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
+                    <span class="swiper-lazy-preloader"></span>
+                </div>
+                <% } %>
+            </div>
+            <div class="bwmsprite swiper-button-next"></div>
+            <div class="bwmsprite swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <div class="navigation-photos">
+        <div class="swiper-container noSwiper carousel-navigation-photos">
+            <div class="swiper-wrapper">
+                 <% foreach(var image in objImages) { %>
+                <div class="swiper-slide">
+                    <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= image.ImageName %>" />
+                    <span class="swiper-lazy-preloader"></span>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+        <% } %>
 
         <div id="gallery-close-btn" class="bwmsprite cross-lg-white"></div>
         <div id="gallery-blackOut-window"></div>

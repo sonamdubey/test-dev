@@ -2,6 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -17,6 +18,7 @@ namespace Bikewale.Mobile.TrackDay
     {
         protected bool androidApp;
         protected CMSContent objTrackDayArticles = null;
+        protected IEnumerable<ModelImage> objImages = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -61,7 +63,11 @@ namespace Bikewale.Mobile.TrackDay
 
                     objTrackDayArticles = _cache.GetArticlesByCategoryList(contentTypeList, 1, 10, 0, 0);
                     if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
+                    {
                         objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
+                        objImages = _cache.GetArticlePhotos(Convert.ToInt32(objTrackDayArticles.Articles[3].BasicId));
+                    }
+
                 }
             }
             catch (Exception err)
