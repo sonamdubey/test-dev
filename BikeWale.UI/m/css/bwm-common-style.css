@@ -445,7 +445,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 /* sprite classes */
-.bwmsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=9Nov2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v1=15Dec2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -1135,7 +1135,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 26px;
     height: 26px;
     background-position: -188px -498px;
-    display: inline-block;
     position: relative;
     top: 7px;
     opacity: 0.5;
