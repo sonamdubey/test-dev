@@ -240,12 +240,12 @@ h2.section-heading {
     padding: 15px 20px;
 }
 
-.track-day-collage-list li {
-    min-height: 160px;
+.track-day-collage-content {
+    min-height: 200px;
     display: block;
 }
 
-.track-day-collage-list img {
+.track-day-collage-content img {
     width: 100%;
 }
 
