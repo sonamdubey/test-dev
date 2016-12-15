@@ -181,7 +181,7 @@ namespace Bikewale.Utility
                         _articleUrl = string.Format("/bike-care/{0}-{1}.html", articleUrl, basicId);
                         break;
                     case EnumCMSContentType.TrackDay:
-                        _articleUrl = string.Format("/trackday2016/{0}-{1}.html", articleUrl, basicId);
+                        _articleUrl = string.Format("/trackday2016/{0}-{1}.html", basicId, articleUrl);
                         break;
                     default:
                         _articleUrl = "/";
