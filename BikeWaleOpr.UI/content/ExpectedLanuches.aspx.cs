@@ -51,6 +51,12 @@ namespace BikeWaleOpr.Content
             }
         } // Page_Load
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 15-12-16
+        /// Desc : Refreshed modeldetails key for new bike launch.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object sender, EventArgs e)
         {
             string selId = "";
@@ -77,6 +83,9 @@ namespace BikeWaleOpr.Content
                 UpdateBikeIsLaunched(selId, selModelId);
 
                 BindGrid(false);
+
+                //Refresh memcache object for newbikelaunches
+                MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", selModelId));
             }
 
             //Refresh memcache object for newbikelaunches
