@@ -10,7 +10,7 @@
                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+        <p class="font20 margin-top15 margin-bottom10">Provide contact details</p>
         <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
         <div class="personal-info-form-container">
             <!-- ko if : isDealerBikes() -->  
@@ -20,29 +20,29 @@
                 <span class="bwsprite error-icon errorIcon"></span>
                 <div class="bw-blackbg-tooltip errorText"></div>
                 <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
-            </div> 
+            </div>
             <!-- /ko --> 
-            <div class="form-control-box personal-info-list">
-                <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                    id="getFullName" data-bind="textInput: fullName">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+            <div class="input-box form-control-box personal-info-list">
+                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName">
+                <label for="getFullName">Name<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
             </div>
-            <div class="form-control-box personal-info-list">
-                <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                    id="getEmailID" data-bind="textInput: emailId">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+            <div class="input-box form-control-box personal-info-list">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId">
+                <label for="getEmailID">Email<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
             </div>
-            <div class="form-control-box personal-info-list">
-                <p class="mobile-prefix">+91</p>
-                <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                    id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+            <div class="input-box input-number-box form-control-box personal-info-list">
+                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                <label for="getMobile">Mobile number<sup>*</sup></label>
+                <span class="input-number-prefix">+91</span>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -105,28 +105,31 @@
             $("#dealer-assist-msg").parent().slideUp();
         });
 
-        $("#getFullName").on("focus", function () {
-            hideError($(this));
+        $("#getFullName, #assistGetName").on("focus", function () {
+            validate.onFocus($(this));
         });
 
-        $("#getEmailID").on("focus", function () {
-            hideError($(this));
+        $("#getEmailID, #assistGetEmail").on("focus", function () {
+            validate.onFocus($(this));
             prevEmail = $(this).val().trim();
         });
 
-        $("#getMobile").on("focus", function () {
-            hideError($(this));
+        $("#getMobile, #assistGetMobile").on("focus", function () {
+            validate.onFocus($(this));
             prevMobile = $(this).val().trim();
-        }); 
+        });
 
-        $("#getMobile").on("blur", function () {
-           
+        $("#getFullName, #assistGetName").on("blur", function () {
+            validate.onBlur($(this));
+        });
+
+        $("#getMobile, #assistGetMobile").on("blur", function () {
+            validate.onBlur($(this));
             if (prevMobile != $(this).val().trim()) {
                 if (dleadvm.validateMobileNo($(this))) {
                     dleadvm.IsVerified(false);
                     //otpText.val('');
                     //otpContainer.removeClass("show").addClass("hide");
-                    hideError($(this));
                 }
             }
         });
@@ -137,13 +140,13 @@
             else setError($(this)) ;
         });
 
-        $("#getEmailID").on("blur", function () {
+        $("#getEmailID, #assistGetEmail").on("blur", function () {
+            validate.onBlur($(this));
             if (prevEmail != $(this).val().trim()) {
                 if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
                     //otpText.val('');
                     //otpContainer.removeClass("show").addClass("hide");
-                    hideError($(this));
                 }
             }
         });
@@ -231,9 +234,9 @@
                 if (options.pqid != null)
                     self.pqId(options.pqid);
 
-                if (options.gaobject != null)
+                if (options.gaobject != null) {
                     self.GAObject(options.gaobject);
-
+                }
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
 
@@ -447,9 +450,25 @@
                 self.submitCampaignLead(data, event);
             }
             else {
-
                 self.IsVerified(false);
-                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
+
+                var eventButtonId = $(event.currentTarget).attr('id');
+                switch (eventButtonId) {
+                    case 'user-details-submit-btn': // model 'get offers from dealers', dealer locator listing 'submit'
+                        isValidDetails = self.validateUserInfo('#getFullName', '#getEmailID', '#getMobile');
+                        break;
+
+                    case 'assistFormSubmit': // model 'get dealer assistance'
+                        isValidDetails = self.validateUserInfo('#assistGetName', '#assistGetEmail', '#assistGetMobile');
+                        break;
+
+                    case 'dealer-assist-btn': // dealer details 'get assistance'
+                        isValidDetails = self.validateUserInfo('#assistGetName', '#assistGetEmail', '#assistGetMobile');
+                        break;
+
+                    default:
+                        break;
+                }
 
                 if (self.dealerId() && isValidDetails) {
                     self.verifyCustomer();
@@ -506,79 +525,72 @@
 
         };
 
-        self.validateUserInfo = function () {
+        self.validateUserInfo = function (inputName, inputEmail, inputMobile) {
             var isValid = true;
-            isValid =  self.validateUserName();
-            isValid &= self.validateEmailId();
-            isValid &= self.validateMobileNo(); 
+            isValid = self.validateUserName(inputName);
+            isValid &= self.validateEmailId(inputEmail);
+            isValid &= self.validateMobileNo(inputMobile);
             if(self.isDealerBikes())
                 isValid &= self.validateBike(); 
             return isValid;
         };
 
-        self.validateUserName = function () {
-            leadUsername = fullName;
+        self.validateUserName = function (inputName) {
             var isValid = false;              
-            if (self.fullName()!=null && self.fullName().trim() != "") {
-                nameLength = self.fullName().length;
+            if (self.fullName() != null && self.fullName().trim() != "") {
+                var nameLength = self.fullName().length;
 
                 if (self.fullName().indexOf('&') != -1) {
-                    setError(leadUsername, 'Invalid name');
-                    isValid = false;
-                }
-                else if (nameLength == 0) {
-                    setError(leadUsername, 'Please enter your name');
+                    validate.setError($(inputName), 'Invalid name');
                     isValid = false;
                 }
                 else if (nameLength >= 1) {
-                    hideError(leadUsername);
+                    validate.hideError($(inputName));
                     isValid = true;
                 }
             }
             else
             {
-                setError(leadUsername, 'Please enter your name');
+                validate.setError($(inputName), 'Please enter your name');
                 isValid = false;
             }
             return isValid;
         };
 
-        self.validateEmailId = function () {
-            leadEmailId = emailid;
+        self.validateEmailId = function (inputEmail) {
             var isValid = true,
-                emailVal = leadEmailId.val(),
+                emailVal = $(inputEmail).val(),
                 reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+
             if (emailVal == "") {
-                setError(leadEmailId, 'Please enter email id');
+                validate.setError($(inputEmail), 'Please enter email id');
                 isValid = false;
             }
             else if (!reEmail.test(emailVal)) {
-                setError(leadEmailId, 'Invalid Email');
+                validate.setError($(inputEmail), 'Invalid Email');
                 isValid = false;
             }
             return isValid;
         };
 
-        self.validateMobileNo = function () {
-            leadMobileNo = mobile;
-            //var mobile = $("#getMobile");
+        self.validateMobileNo = function (inputMobile) {
             var isValid = true,
-                mobileVal = leadMobileNo.val(),
+                mobileVal = $(inputMobile).val(),
                 reMobile = /^[1-9][0-9]{9}$/;
             if (mobileVal == "") {
-                setError(leadMobileNo, "Please enter your mobile no.");
+                validate.setError($(inputMobile), 'Please enter your mobile no.');
                 isValid = false;
             }
             else if (mobileVal[0] == "0") {
-                setError(leadMobileNo, "Mobile no. should not start with zero");
+                validate.setError($(inputMobile), 'Mobile no. should not start with zero');
                 isValid = false;
             }
             else if (!reMobile.test(mobileVal) && isValid) {
-                setError(leadMobileNo, "Mobile no. should be 10 digits only");
+                validate.setError($(inputMobile), 'Mobile no. should be 10 digits only');
                 isValid = false;
             }
             else
-                hideError(leadMobileNo)
+                validate.hideError($(inputMobile));
             return isValid;
         };
 
@@ -635,6 +647,43 @@
     var hideError = function (element) {
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
+
+    /* form validation */
+    var validate = {
+        setError: function (element, message) {
+            var elementLength = element.val().length,
+                errorTag = element.siblings('span.error-text');
+
+            errorTag.text(message);
+            if (!elementLength) {
+                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+            }
+            else {
+                element.closest('.input-box').addClass('not-empty invalid');
+            }
+        },
+
+        hideError: function (element) {
+            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+            element.siblings('span.error-text').text('');
+        },
+
+        onFocus: function (inputField) {
+            if (inputField.closest('.input-box').hasClass('invalid')) {
+                validate.hideError(inputField);
+            }
+        },
+
+        onBlur: function (inputField) {
+            var inputLength = inputField.val().length;
+            if (!inputLength) {
+                inputField.closest('.input-box').removeClass('not-empty');
+            }
+            else {
+                inputField.closest('.input-box').addClass('not-empty');
+            }
+        }
+    }
 
     function startLoading(ele) {
         try {

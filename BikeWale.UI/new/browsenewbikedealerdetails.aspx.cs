@@ -25,6 +25,8 @@ namespace Bikewale.New
     /// <summary>
     /// Created By : Sushil Kumar on 19th March 2016
     /// Class to show the bike dealers details
+    /// Modified By : Aditi Srivasatva on 30 Nov 2016
+    /// Description : Added control to change brand and city for dealers list
     /// </summary>
     public class BrowseNewBikeDealerDetails : Page
     {
@@ -37,7 +39,8 @@ namespace Bikewale.New
         protected UsedBikeWidget ctrlRecentUsedBikes;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
-
+        protected ServiceCenterCard ctrlServiceCenterCard;
+        protected BrandCityPopUp ctrlBrandCity;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -46,7 +49,7 @@ namespace Bikewale.New
         void InitializeComponent()
         {
             base.Load += new EventHandler(this.Page_Load);
-        }
+            }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,29 +83,51 @@ namespace Bikewale.New
             BindUserControls();
 
         }
-
+        /// Modified By :-Subodh Jain on 1 Dec 2016
+        /// Summary :- Added Service center Widget
+        /// Modified By : Aditi Srivasatva on 30 Nov 2016
+        /// Description : Set request type according to page for brand city pop up
+        /// </summary>
         private void BindUserControls()
         {
-            ctrlPopoularBikeMake.makeId = (int)makeId;
-            ctrlPopoularBikeMake.cityId = (int)cityId;
-            ctrlPopoularBikeMake.totalCount = 9;
-            ctrlPopoularBikeMake.cityname = cityName;
-            ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
-            ctrlPopoularBikeMake.makeName = makeName;
+            try
+            {
+                ctrlPopoularBikeMake.makeId = (int)makeId;
+                ctrlPopoularBikeMake.cityId = (int)cityId;
+                ctrlPopoularBikeMake.totalCount = 9;
+                ctrlPopoularBikeMake.cityname = cityName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
+                ctrlPopoularBikeMake.makeName = makeName;
 
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.MakeId = makeId;
-            ctrlRecentUsedBikes.TopCount = 4;
-            ctrlRecentUsedBikes.isAd = true;
-            ctrlRecentUsedBikes.cityName = cityName;
-            ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-            ctrlRecentUsedBikes.AdId = "1395986297721";
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.MakeId = makeId;
+                ctrlRecentUsedBikes.TopCount = 4;
+                ctrlRecentUsedBikes.isAd = true;
+                ctrlRecentUsedBikes.cityName = cityName;
+                ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
+                ctrlRecentUsedBikes.AdId = "1395986297721";
 
-            ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.CityId = cityId;
+            ctrlBrandCity.requestType = EnumBikeType.Dealer;
+            ctrlBrandCity.makeId = makeId;
+            ctrlBrandCity.cityId = cityId;
 
-            //ctrlLeadCapture.ModelId = modelId;
-            //ctrlLeadCapture.AreaId = 0;
-        }
+                ctrlServiceCenterCard.MakeId = makeId;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = makeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
+                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BrowseNewBikeDealerDetails.BindUserControls");
+                objErr.SendMail();
+            }
+            }
 
         /// <summary>
         /// Created By  : Sushil Kumar
@@ -178,8 +203,6 @@ namespace Bikewale.New
                     _makes = objCache.GetMakesByType(EnumBikeType.Dealer);
                     if (_makes != null && _makes.Count() > 0)
                     {
-                        //rptMakes.DataSource = _makes;
-                        //rptMakes.DataBind();
                         var firstMake = _makes.FirstOrDefault(x => x.MakeId == makeId);
                         if (firstMake != null)
                         {
@@ -216,9 +239,7 @@ namespace Bikewale.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                        //rptCities.DataSource = _cities;
-                        //rptCities.DataBind();
-                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
+                       var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (firstCity != null)
                         {
                             cityName = firstCity.CityName;

@@ -22,7 +22,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId);
         List<BikeVersionsListEntity> GetVersionsList(U modelId, bool isNew);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
-
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex);
@@ -30,6 +29,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPage(U modelId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
+        IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         /// <summary>
         /// To Get Overall Most Popular Bikes

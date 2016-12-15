@@ -97,13 +97,15 @@
 	.select-label
 		font-size: $font-size-small
 		top: -20px
-		padding: 11px 20px
-		cursor: text
 
+// focus
+.select-box
+	.chosen-single
+		&:focus
+			outline: none
 
-
-// selection done
-.done
-	.select-label
-		font-size: $font-size-small
-		top: -20px
+// disabled state
+.chosen-disabled
+	&.single-version
+		opacity: 1 !important
+		background: none

@@ -37,6 +37,9 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("address")]
         public string Address { get; set; }
 
+        [JsonProperty("distance")]
+        public string Distance { get; set; }
+
         [JsonProperty("maskingNumber")]
         public string MaskingNumber { get; set; }
 

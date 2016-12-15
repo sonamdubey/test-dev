@@ -29,7 +29,7 @@ namespace AppNotification.DAL
                         {
                             while (dr.Read())
                             {
-                                regList.Add(dr["gcmregid"].ToString() + "," + dr["os"]);
+                                regList.Add(dr["gcmregid"].ToString());
                             }
                         }
                     }

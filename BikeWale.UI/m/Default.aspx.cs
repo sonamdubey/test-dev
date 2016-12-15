@@ -2,10 +2,12 @@
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -84,7 +86,9 @@ namespace Bikewale.Mobile
                 //To get Upcoming Bike List Details 
                 mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 mctrlUpcomingBikes.pageSize = 9;
-
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                string _cityName = currentCityArea.City;
+                ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(_cityName) ? _cityName : "India");
                 ctrlPopularUsedBikes.TotalRecords = 6;
             }
             catch (Exception ex)

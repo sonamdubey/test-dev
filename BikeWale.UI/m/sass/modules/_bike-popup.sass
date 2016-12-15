@@ -1,0 +1,76 @@
+﻿.cover-window-popup
+	display: none
+	width: 100%
+	position: fixed
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	z-index: 2
+	overflow-x: hidden
+	overflow-y: scroll
+	background: #fff
+
+	.cover-popup-back,
+	.body-popup-back
+		padding: 15px 15px 12px
+
+	.cover-popup-header
+		font-size: 18px
+		font-weight: $font-bold
+		margin-top: 12px
+
+	.cover-popup-list
+		overflow: hidden
+
+		li
+			padding-right: 20px
+			padding-left: 20px
+
+			span
+				font-size: $font-size-medium
+				padding: 10px 20px 10px 0
+				display: block
+				position: relative
+				border-top: 1px solid $border-x-light
+				cursor: pointer
+
+			&:hover
+				background-color: $border-x-light
+
+			&:first-child
+				span
+					border-top: 0
+
+	.with-arrow
+		li
+			background: url('https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png') no-repeat 94% 50%
+
+	.cover-popup-loader-body
+		display: none
+
+.bike-banner
+	width: 100%
+	height: 110px
+	background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom
+
+.cover-popup-body-head
+	.head-label
+		font-size: $font-size-medium
+		font-weight: $font-bold
+		color: #000
+
+	.body-popup-back
+		padding-left: 20px
+
+	.no-back-btn-label
+		padding-top: 13px
+		padding-left: 20px
+		padding-bottom: 12px
+
+#select-model-wrapper, #select-version-wrapper
+	display: none
+
+.extra-padding
+	.cover-popup-body
+		padding-bottom: 40px

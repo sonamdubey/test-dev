@@ -75,22 +75,14 @@
 .carousel-stage ul li { cursor:pointer; }
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }
 
-/* lead capture popup */
-#leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:10%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
-.personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
-.personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
-.personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
-#otpPopup { display:none; }
-#otpPopup .otp-box, #otpPopup .update-mobile-box { width:280px; margin:15px auto 0; }
-#otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
-#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
-#otpPopup .update-mobile-box { display:none; }
-#otpPopup .edit-mobile-btn, .resend-otp-btn { cursor:pointer; }
-#otpPopup .phone-black-icon { top:0; margin-right:0; }
-.user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
-.otp-icon { width:30px; height:40px; background-position: -46px -391px; }
-#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
-.input-border-bottom { border-bottom:1px solid #ccc; }
+.media-prev-next-stage, .media-prev-next-nav {
+    display: none;
+}
+
+.stage-photos:hover .media-prev-next-stage, .navigation-media:hover .media-prev-next-nav {
+    display: block;
+}
+
 /* TnC hide*/
 li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline} 
@@ -141,7 +133,6 @@ li.offertxt:hover span {display:inline}
 .inr-sm-grey { width:8px; height:12px; background-position:-92px -468px; }
 .inr-md-lg { width:12px; height:17px; background-position:-64px -515px; position: relative; top: 1px; }
 .inr-lg-dark { width:10px; height:14px; background-position:-85px -515px; }
-.phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
 .chevron-down, .chevron-up { width:10px; height:6px; }
 .chevron-up { background-position:-156px -101px; }
 .chevron-down { background-position:-156px -107px; }
@@ -298,9 +289,14 @@ li.offertxt:hover span {display:inline}
 }
 
 @media only screen and (max-width:1024px) {
+    /* assistance-submit-btn */
+    .assistance-submit-btn {
+        width: 160px;
+    }
+
     #modelDetailsContainer .model-details-wrapper { width:500px; }
     .form-control-username { width: 250px; }
-    .btn.btn-teal { padding: 8px 55px; }
+    
     #modelDetailsFloatingCardContent { width:960px; left:2%; right:2%; }
     #modelDetailsFloatingCardContent .model-details-floating-card{ width:940px; }
     .model-card-title-content { width:230px; }

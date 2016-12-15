@@ -73,7 +73,7 @@
                        { %>
                     <div class="margin-top10"> 
                         <% if(listingDetails.StatusId == 1) { %>                                       
-                        <div class= "left-float"><a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>#uploadphoto">Upload bike photos</a> | <a class="pointer" title="Remove this listing" href="/used/inquiry/<%= listingDetails.InquiryId %>/remove/">Remove from listing</a></div>                        
+                        <div class= "left-float"><a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>">Edit bike details</a> | <a target="_blank" href="/used/sell/default.aspx?id=<%= listingDetails.InquiryId %>&hash=uploadphoto">Upload bike photos</a> | <a class="pointer" title="Remove this listing" href="/used/inquiry/<%= listingDetails.InquiryId %>/remove/">Remove from listing</a></div>                        
                         <% } 
                            if (!isFake) { %>
                         <div id="div_status" class="right-float" style="color:#f00;">

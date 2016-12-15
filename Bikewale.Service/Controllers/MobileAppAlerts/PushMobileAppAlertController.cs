@@ -1,8 +1,8 @@
-﻿using Bikewale.Notifications;
-using RabbitMqPublishing;
+﻿using Bikewale.Entities.MobileAppAlert;
+using Bikewale.Interfaces.MobileAppAlert;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -16,6 +16,15 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
     /// </summary>
     public class PushMobileAppAlertController : ApiController
     {
+
+
+        private readonly IMobileAppAlert _objMobileAppAlert = null;
+
+        public PushMobileAppAlertController(IMobileAppAlert ObjMobileAppAlert)
+        {
+            _objMobileAppAlert = ObjMobileAppAlert;
+        }
+
         /// <summary>
         /// Created By : Sushil Kumar
         /// Created On : 5th December 2015
@@ -29,23 +38,45 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
         {
             try
             {
-
                 NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
-                nvc.Add("publishDate", DateTime.Now.ToString("yyyyMMdd"));
+                if (nvc != null)
+                {
+                    MobilePushNotificationData data = new MobilePushNotificationData();
+                    data.Title = nvc["title"];
+                    data.DetailUrl = nvc["detailUrl"];
+                    data.SmallPicUrl = nvc["smallPicUrl"];
+                    data.LargePicUrl = nvc["largePicUrl"];
+                    data.AlertId = Convert.ToInt32(nvc["alertId"]);
+                    data.AlertTypeId = Convert.ToInt32(nvc["alertTypeId"]);
+                    data.IsFeatured = Convert.ToBoolean(nvc["isFeatured"]);
+                    data.PublishDate = DateTime.Now.ToString("yyyyMMdd");
+
+                    if (_objMobileAppAlert.SendFCMNotification(data))
+                    {
+                        return Ok(true);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
 
 
-                RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
 
-                return Ok(true);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.MobileAppAlerts.PushMobileAppAlertController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.MobileAppAlerts.PushMobileAppAlertController : " + Request.RequestUri.Query);
                 objErr.SendMail();
                 return InternalServerError();
             }
 
         }
+
+
     }
 }

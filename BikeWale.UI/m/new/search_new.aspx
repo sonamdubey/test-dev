@@ -53,7 +53,7 @@
             <!-- Fixed Header code starts here -->
             <span id="bikecount" class="font18 text-white brand-total"></span>
             <div class="leftfloat">
-                <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>
+                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
             </div>
             <div class="rightfloat">
                 <a class="global-search" id="global-search" style="display: none">
@@ -138,7 +138,7 @@
                                         <span class="bwmsprite inr-sm-icon"></span>
                                         <span class="text-bold font18" data-bind="text: price"></span>
                                     </div>                                    
-                                    <a data-bind="attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top20 getquotation" rel="nofollow">Check on-road price</a>
+                                    <a data-bind=" visible:price()!='N/A', attr: { 'data-modelId': bikemodel.modelId, 'data-pqSourceId': PQSourceId }" class="btn btn-sm btn-white font14 margin-top20 getquotation" rel="nofollow">Check on-road price</a>
                                 </div>
                             </div>
                         </div>

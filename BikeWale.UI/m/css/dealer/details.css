@@ -2,6 +2,10 @@
     padding: 15px 20px;
 }
 
+.padding-10-15 {
+    padding: 10px 15px;
+}
+
 .dealer-details a:hover {
     text-decoration: none;
 }
@@ -145,7 +149,27 @@
     overflow: hidden;
 }
 
-@media only screen and (max-width:320px) {
+.details-column{width: 92%}
+
+.bw-horizontal-swiper.card-container .swiper-slide {
+    width: 308px;
+}
+.bw-horizontal-swiper .swiper-card {
+    width: 308px;
+    font-size: 14px;
+    min-height: 140px;
+}
+.bw-horizontal-swiper .swiper-card a {
+    display: block;
+    padding: 15px 10px 10px;
+}
+@media only screen and (max-width: 320px) {
+    .bw-horizontal-swiper.card-container .swiper-slide {
+        width: 275px;
+    }
+    .bw-horizontal-swiper .swiper-card {
+        width: 275px;
+    }
     .location-details {
         font-size: 13px;
     }

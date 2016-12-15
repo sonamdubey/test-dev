@@ -156,7 +156,7 @@ var sellBike = function () {
             maxFilesize: 4,
             maxFiles: 10,
             addRemoveLinks: true,
-            acceptedFiles: ".png, .jpg",            
+            acceptedFiles: ".png, .jpg, .jpeg",
             url: self.photoUploadUrl(),
             headers: { "customerId": self.customerId() },
             init: function () {
@@ -204,7 +204,6 @@ var sellBike = function () {
 
                 this.on("success", function (file, response) {
                     var resp = JSON.parse(response);
-                    setProfilePhoto();                    
                     if (resp && resp.imageResult && resp.imageResult.length > 0 && resp.status == 1) {
                         setRemoveLinkUrl(file, resp.imageResult);
                     }
@@ -218,15 +217,39 @@ var sellBike = function () {
                         $(file.previewElement).find('.dz-error-message').text(response);
                     $(file.previewElement).find('.dz-error-mark').on('click', function () {
                         myDropzone.removeFile(file);
+                        morePhotos.detach();
                         myDropzone.addFile(file);
+                        if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                            morePhotos.attach();
+                        }
                     });
                 });
 
                 this.on("maxfilesexceeded", function (file) {
                     $(file.previewElement).find('.dz-error-message').text("File upload limit reached");
+                });                
+
+                this.on("addedfiles", function (file) {                    
+                    morePhotos.detach();
+                    if (myDropzone.files.length > 10) {
+                        $(file).each(function (i) {                                    
+                            if (i >= 10 - self.serverImg().length) {
+                                myDropzone.cancelUpload(this);
+                                myDropzone.removeFile(this);
+                            }
+                        });
+                    }
+                    if (myDropzone.options.maxFiles > 0)
+                        myDropzone.options.maxFiles -= file.length;
+                    if (myDropzone.files.length > 0 && myDropzone.files.length < 10) {
+                        morePhotos.attach();
+                    }
+                    else {
+                        morePhotos.detach();
+                    }                    
                 });
 
-                this.on("addedfiles", function (file) {
+                this.on("drop", function (file) {                    
                     morePhotos.detach();
                     if (myDropzone.files.length > myDropzone.options.maxFiles) {
                         $(file).each(function (i) {
@@ -243,7 +266,11 @@ var sellBike = function () {
                     }
                     else {
                         morePhotos.detach();
-                    }                    
+                    }
+                });
+
+                this.on("queuecomplete", function (file) {
+                    setProfilePhoto();
                 });
                 
             }
@@ -416,6 +443,9 @@ var bikeDetails = function () {
     };
 
     self.versionChanged = function (data, event) {
+
+        self.color('');
+        $('#select-color-box').removeClass('selection-done');
 
         self.colorArray([]);
 
@@ -626,13 +656,7 @@ var bikeDetails = function () {
     self.errors = ko.validation.group(self);
     self.colorError = ko.validation.group(self.otherColor);
 
-    self.manufactureYear = ko.observable('');
-    self.manufactureMonth = ko.observable('');
-    self.manufactureMonthName = ko.observable('');
-
-    self.manufacturingDate = ko.computed(function () {
-        return self.manufactureMonthName() + ' ' + self.manufactureYear();
-    }).extend({
+    self.manufacturingDate = ko.observable('').extend({
         required: {
             params: true,
             message: 'Please select year of manufacturing',
@@ -643,24 +667,22 @@ var bikeDetails = function () {
     });
 
     self.manufacturingTime = ko.computed(function () {
-        return self.manufactureYear() + '-' + self.manufactureMonth() + '-01';
-    });
+        var bikeDate = self.manufacturingDate(), // Jan 1980
+            monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            monthName = bikeDate.substr(0, 3),
+            yearNumber = bikeDate.substr(4, bikeDate.length - 1),
+            monthNumber,
+            i;
 
-    self.submitManufacturingDate = function (data, event) {
-        if (self.manufactureYear() != '') {
-            if (self.manufactureMonth() != '') {
-                selectCalendarBox.addClass('selection-done');
-                calender.close();
-                calendarErrorBox.text('');
-            }
-            else {
-                calendarErrorBox.text('Please select month');
+        for (i = 0; i < 12; i++) {
+            if (monthList[i] == monthName) {
+                monthNumber = i + 1;
+                break;
             }
         }
-        else {
-            calendarErrorBox.text('Please select year');
-        }
-    };
+
+        return yearNumber + '-' + monthNumber + '-01'; //yyyy-mm-dd
+    });
 };
 
 var personalDetails = function () {
@@ -674,7 +696,7 @@ var personalDetails = function () {
             validator: function (val) {
                 return val;
             },
-            message: 'Required!',
+            message: 'You must accept the Terms & Conditions to list your bike on BikeWale.',
             onlyIf: function () {
                 return self.validate();
             }
@@ -765,7 +787,7 @@ var personalDetails = function () {
     self.sellerTypeVal = ko.observable(2);
 
     self.listYourBike = function () {
-        self.validate(true);
+        self.validate(true);       
 
         if (!("colorId" in window))
             colorId = 0;
@@ -1058,18 +1080,40 @@ $(document).ready(function () {
 
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
-    //set year
-    calender.year.set(1980);
-    calender.month.set();
+
+    var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        currentDate = new Date(),
+        currentMonth = currentDate.getMonth(),
+        currentYear = currentDate.getFullYear(),
+        manufacturingDateInput = $('#manufacturingDate');
+
+    manufacturingDateInput.Zebra_DatePicker({
+        format: 'M Y',
+        direction: ['Jan 1980', monthList[currentMonth] + ' ' + currentYear],
+        start_date: monthList[currentMonth] + ' ' + currentYear,
+        onOpen: function () {
+            var positionLeft = manufacturingDateInput.offset().left,
+                manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
+
+            manufacturingDatePicker.datepicker.css({
+                'top': manufacturingDatePicker.datepicker.offset().top - 4,
+                'left': positionLeft
+            });
+        },
+        onSelect: function () {
+            vmSellBike.bikeDetails().manufacturingDate($(this).val());
+        }
+    });
+
+    // set custom heading for date picker
+    var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
+    manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');
+
 });
 
 $('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
     $('#add-photos-dropzone').trigger('click');
 });
-
-function setPhotoId() {
-
-}
 
 var setProfilePhoto = function () {
     var container = $('#add-photos-dropzone .dz-preview.dz-success').first();
@@ -1138,23 +1182,6 @@ $(document).mouseup(function (event) {
         }
     }
 
-    if (selectCalendarBox.hasClass('open') && $('#calendar-content').is(':visible')) {
-        if (!selectCalendarBox.is(event.target) && selectCalendarBox.has(event.target).length === 0) {
-            if (vmSellBike.bikeDetails().manufactureYear() == '' && vmSellBike.bikeDetails().manufactureMonth() != '') {
-                calendarErrorBox.text('Please select year');
-            }
-            if (vmSellBike.bikeDetails().manufactureYear() != '' && vmSellBike.bikeDetails().manufactureMonth() == '') {
-                calendarErrorBox.text('Please select month');
-            }
-            if (vmSellBike.bikeDetails().manufactureYear() == '' && vmSellBike.bikeDetails().manufactureMonth() == '') {
-                calender.close();
-            }
-            else {
-                $('#submit-calendar-btn').trigger('click');
-            }
-        }
-    }
-
 });
 
 // seller type
@@ -1196,180 +1223,6 @@ var scrollToForm = {
     }
 };
 
-selectCalendarBox.on('click', '.calendar-box-default', function () {
-    if (!selectCalendarBox.hasClass('open')) {
-        calender.open();
-    }
-    else {
-        calender.close();
-    }
-});
-
-$('.year-prev').on('click', function () {
-    var activeElement = calender.year.list.find('.active'),
-        prevElement = activeElement.prev();
-
-    if (prevElement.length !== 0) {
-        calender.year.scrollPosition(prevElement);
-    }
-});
-
-$('.year-next').on('click', function () {
-    var activeElement = calender.year.list.find('.active'),
-        nextElement = activeElement.next();
-
-    if (nextElement.length !== 0) {
-        calender.year.scrollPosition(nextElement);
-    }
-});
-
-$('#year-list').on('click', 'span', function () {
-    var element = $(this);
-    calender.year.selection(element);
-});
-
-$('#month-list').on('click', 'li', function () {
-    var element = $(this);
-    calender.month.selection(element);
-});
-
-// calender
-var calender = {
-
-    width: 360,
-
-    year: {
-        list: $('#year-list'),
-
-        set: function (startYear) {
-            var endYear = new Date().getFullYear(),
-                yearCount = endYear - startYear,
-                years = [],
-                limit = 5;
-
-            for (var i = endYear; i >= startYear; i--) {
-                years.push(i);
-            }
-
-            for (var i = 0; i < yearCount; i += 5) {
-                if (i != 0) {
-                    limit = i + 5;
-                }
-
-                var bundle = [];
-                for (var j = i; j < limit; j++) {
-                    if (years[j] !== undefined) {
-                        bundle.push(years[j]);
-                        bundle.sort();
-                    }
-                }
-
-                var item = '';
-                for (var x = 0; x < bundle.length; x++) {
-                    item += '<span data-value="' + bundle[x] + '">' + bundle[x] + '</span>';
-                };
-
-                var listItems = calender.year.list.find('li');
-                if (listItems.length == 0) {
-                    calender.year.list.append('<li>' + item + '</li>');
-                }
-                else {
-                    $('<li>' + item + '</li>').insertBefore(listItems.first());
-                }
-            }
-
-        },
-
-        selection: function (element) {
-            if (!element.hasClass('selected')) {
-                calender.year.list.find('.selected').removeClass('selected');
-                element.addClass('selected')
-                elementValue = element.attr('data-value');
-                vmSellBike.bikeDetails().manufactureYear(elementValue);
-                calendarErrorBox.text('');
-
-                var currentYear = new Date().getFullYear();
-                if (elementValue == currentYear) {
-                    var currentMonth = new Date().getMonth() + 1,
-                        monthList = calender.month.list.find('li');
-
-                    for (var i = 0; i < 12; i++) {
-                        var item = monthList[i];
-                        if ($(item).attr('data-value') > currentMonth) {
-                            $(item).removeClass('selected').addClass('not-allowed');
-                        }
-                    }
-                    if (vmSellBike.bikeDetails().manufactureMonth() > currentMonth) {
-                        vmSellBike.bikeDetails().manufactureMonth('');
-                        vmSellBike.bikeDetails().manufactureMonthName('');
-                    }
-                }
-                else {
-                    calender.month.list.find('.not-allowed').removeClass('not-allowed');
-                }
-            }
-        },
-
-        scrollPosition: function (element) {
-            var containerOffset = calender.year.list.offset().left - 70;
-
-            calender.year.list.find('.active').removeClass('active');
-            element.addClass('active');
-            calender.year.list.animate({
-                scrollLeft: element.index() * element.width() - containerOffset
-            });
-        },
-
-        initScroll: function (element) {
-            var containerOffset = calender.year.list.offset().left - 100;
-
-            element.addClass('active');
-            calender.year.list.scrollLeft(element.index() * element.width() - containerOffset);
-        }
-    },
-
-    month: {
-        list: $('#month-list'),
-
-        set: function () {
-            var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            for (var i = 0; i < 12; i++) {
-                calender.month.list.append('<li data-value="' + (i + 1) + '">' + monthArr[i] + '</li>');
-            }
-
-            var currentMonth = new Date().getMonth() + 1;
-
-        },
-
-        selection: function (element) {
-            if (!element.hasClass('selected')) {
-                var elementValue = element.attr('data-value'),
-                    elementText = element.text();
-
-                calender.month.list.find('.selected').removeClass('selected');
-                element.addClass('selected')
-                calendarErrorBox.text('');
-
-                vmSellBike.bikeDetails().manufactureMonth(elementValue);
-                vmSellBike.bikeDetails().manufactureMonthName(elementText);
-            }
-        },
-    },
-
-    open: function () {
-        var lastElement = calender.year.list.find('li').last();
-
-        selectCalendarBox.addClass('open');
-        calender.year.initScroll(lastElement);
-    },
-
-    close: function () {
-        selectCalendarBox.removeClass('open');
-    }
-};
-
-
 var morePhotos = {
     dropzoneDiv: $('#add-photos-dropzone'),
 
@@ -1401,6 +1254,10 @@ $(function () {
         var bdetails = vmSellBike.bikeDetails();
         var pdetails = vmSellBike.personalDetails();
         var mdetails = vmSellBike.moreDetails();
+       
+        pdetails.sellerName(inquiryDetails.seller.customerName);
+        pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
+
         bdetails.make(inquiryDetails.make.makeId);
         bdetails.version(inquiryDetails.version.versionId);
         bdetails.kmsRidden(inquiryDetails.kiloMeters);
@@ -1411,13 +1268,18 @@ $(function () {
         $("#div-kmsRidden").addClass('not-empty');
         $("#div-expectedPrice").addClass('not-empty');
         bdetails.colorId(inquiryDetails.colorId);
-        bdetails.manufactureYear((new Date(inquiryDetails.manufacturingYear)).getFullYear());
-        bdetails.manufactureMonth((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1);
+        
+        // set manufacture date
+        var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            bikeManufactureDate = new Date(inquiryDetails.manufacturingYear),
+            manufactureYear = bikeManufactureDate.getFullYear(),
+            manufactureMonth = bikeManufactureDate.getMonth(),
+            manufactureMonthName = monthArr[manufactureMonth];
+
+        bdetails.manufacturingDate(manufactureMonthName + ' ' + manufactureYear);
+        $("#manufacturingDate").val(manufactureMonthName + ' ' + manufactureYear).data('Zebra_DatePicker');
+
         $("#select-registeredCity").trigger("change").trigger("chosen:updated");
-        var monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var month = (new Date(inquiryDetails.manufacturingYear)).getMonth();
-        bdetails.manufactureMonthName(monthArr[month]);
-        $("#select-calendar-box").addClass('selection-done');
         pdetails.sellerTypeVal(inquiryDetails.seller.sellerType);
         pdetails.sellerName(inquiryDetails.seller.customerName);
         pdetails.sellerEmail(inquiryDetails.seller.customerEmail);
@@ -1430,8 +1292,6 @@ $(function () {
         mdetails.registrationNumber(inquiryDetails.otherInfo.registrationNo);
         mdetails.insuranceType(inquiryDetails.otherInfo.insuranceType);
         $("#select-insuranceType").trigger("change").trigger("chosen:updated");
-        $('#month-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getMonth() + 1) + "']").addClass('selected');
-        $('#year-list').find("[data-value='" + ((new Date(inquiryDetails.manufacturingYear)).getFullYear()) + "']").addClass('selected');
 
         $('#model-select-element select').prop('disabled', true).trigger("chosen:updated");
         $('#make-select-element select').prop('disabled', true).trigger("chosen:updated");
@@ -1453,7 +1313,7 @@ $(function () {
         $("#kmsRidden").val('');
         $("#expectedPrice").val('');
     }
-    if (userId != null) {
+    if (isEdit != "True" &&  userId != null) {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
         pdetails.sellerEmail(userEmail);

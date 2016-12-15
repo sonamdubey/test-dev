@@ -65,7 +65,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%-- <section>
+        <section>
             <div class="container text-center section-container">
                 <h2 class="font18 section-heading">Best way to sell your bike</h2>
                 <div class="bg-white box-shadow content-inner-block-20">
@@ -87,10 +87,10 @@
                             <span class="inline-block">Get contact details of buyers</span>
                         </li>
                     </ul>
-                    <a href="" class="btn btn-teal margin-top5">Sell now</a>
+                    <a href="/m/used/sell/" title="Sell Your bike" class="btn btn-teal margin-top5">Sell now</a>
                 </div>
             </div>
-        </section> --%>
+        </section>
         <% if( viewModel.TopMakeList!= null ){  %>
         <section>
             <div class="container text-center section-container">

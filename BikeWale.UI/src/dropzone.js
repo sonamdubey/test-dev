@@ -382,7 +382,7 @@
             canceledmultiple: noop,
             complete: function (file) {
                 if (file._removeLink) {
-                    file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite cross-md-white\" title=\"Remove photo\"></span>";
+                    file._removeLink.innerHTML = "<span class=\"dz-remove-icon bwsprite bwmsprite cross-md-white\" title=\"Remove photo\"></span>";
                 }
                 if (file.previewElement) {
                     return file.previewElement.classList.add("dz-complete");
@@ -393,7 +393,7 @@
             maxfilesreached: noop,
             queuecomplete: noop,
             addedfiles: noop,
-            previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><div class=\"dz-image-thumbnail\"><img data-dz-thumbnail /></div></div>\n  <div id=\"spinner-content\"><svg class=\"bw-spinner\" width=\"50px\" height=\"50px\" viewBox=\"0 0 50 50\"><circle class=\"circle-path\" fill=\"none\" stroke-width=\"4\" stroke-linecap=\"round\" cx=\"25\" cy=\"25\" r=\"22\"></circle></svg></div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n <span class=\"sell-bike-sprite success-icon\"></span><br><span>Success</span> </div>\n  <div class=\"dz-error-mark\">\n <span class=\"sell-bike-sprite retry-icon\"></span><br><span>Retry</span> </div>\n</div>"
+            previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><div class=\"dz-image-thumbnail\"><img data-dz-thumbnail /></div></div>\n  <div id=\"spinner-content\"><svg class=\"bw-spinner\" width=\"50px\" height=\"50px\" viewBox=\"0 0 50 50\"><circle class=\"circle-path\" fill=\"none\" stroke-width=\"4\" stroke-linecap=\"round\" cx=\"25\" cy=\"25\" r=\"22\"></circle></svg></div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"></div>\n  <div class=\"dz-success-mark\">\n <span class=\"sell-bike-sprite success-icon\"></span><br><span>Success</span> </div>\n  <div class=\"dz-error-mark\">\n <span class=\"sell-bike-sprite retry-icon\"></span><br><span>Retry</span> </div>\n</div>"
         };
 
         extend = function () {
@@ -428,7 +428,7 @@
                 throw new Error("Invalid dropzone element.");
             }
             if (this.element.dropzone) {
-                throw new Error("Dropzone already attached.");
+                //throw new Error("Dropzone already attached.");
             }
             Dropzone.instances.push(this);
             this.element.dropzone = this;
@@ -626,7 +626,7 @@
               {
                   element: this.element,
                   events: {
-                      "dragstart": (function (_this) {
+                      "dragstart": (function (_this) {                          
                           return function (e) {
                               return _this.emit("dragstart", e);
                           };
@@ -737,20 +737,87 @@
             if (existingFallback = this.getExistingFallback()) {
                 return existingFallback;
             }
-            fieldsString = "<div class=\"dz-fallback\">";
-            if (this.options.dictFallbackText) {
-                fieldsString += "<p>" + this.options.dictFallbackText + "</p>";
-            }
-            fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + " /><input type=\"submit\" value=\"Upload!\"></div>";
+            fieldsString = "<div class=\"dz-fallback text-center\">";
+            fieldsString += "<span class='sell-bike-sprite no-support margin-bottom15'></span>";
+            fieldsString += "<p class='font18 margin-bottom5 text-bold'>Your current browser is outdated!</p>"
+            fieldsString += "<p class='font14 margin-bottom5 text-grey margin-bottom15'>" + this.getBrowserName() + " browser does not support photo upload functionality.<br />Try upgrading to any of the following browsers</p>"
+            fieldsString += "<ul id='browser-list'>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite chrome-icon'></span></div><p>Chrome 7+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite firefox-icon'></span></div><p>Firefox 4+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite opera-icon'></span></div><p>Opera 12+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite ie-icon'></span></div><p>IE 10+</p></li>";
+            fieldsString += "<li><div class='browser-circle'><span class='sell-bike-sprite safari-icon'></span></div><p>Safari 6+</p></li>";
+            fieldsString += "</ul>";
+            fieldsString += "</div>";
             fields = Dropzone.createElement(fieldsString);
-            if (this.element.tagName !== "FORM") {
-                form = Dropzone.createElement("<form action=\"" + this.options.url + "\" enctype=\"multipart/form-data\" method=\"" + this.options.method + "\"></form>");
-                form.appendChild(fields);
-            } else {
-                this.element.setAttribute("enctype", "multipart/form-data");
-                this.element.setAttribute("method", this.options.method);
+            
+            return fields;
+        };
+
+        Dropzone.prototype.getBrowserName = function () {
+            var nVer = navigator.appVersion;
+            var nAgt = navigator.userAgent;
+            var browserName = navigator.appName;
+            var fullVersion = '' + parseFloat(navigator.appVersion);
+            var majorVersion = parseInt(navigator.appVersion, 10);
+            var nameOffset, verOffset, ix;
+
+            // In Opera 15+, the true version is after "OPR/" 
+            if ((verOffset = nAgt.indexOf("OPR/")) != -1) {
+                browserName = "Opera";
+                fullVersion = nAgt.substring(verOffset + 4);
             }
-            return form != null ? form : fields;
+                // In older Opera, the true version is after "Opera" or after "Version"
+            else if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+                browserName = "Opera";
+                fullVersion = nAgt.substring(verOffset + 6);
+                if ((verOffset = nAgt.indexOf("Version")) != -1)
+                    fullVersion = nAgt.substring(verOffset + 8);
+            }
+                // In MSIE, the true version is after "MSIE" in userAgent
+            else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+                browserName = "Microsoft Internet Explorer";
+                fullVersion = nAgt.substring(verOffset + 5);
+            }
+                // In Chrome, the true version is after "Chrome" 
+            else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+                browserName = "Chrome";
+                fullVersion = nAgt.substring(verOffset + 7);
+            }
+                // In Safari, the true version is after "Safari" or after "Version" 
+            else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+                browserName = "Safari";
+                fullVersion = nAgt.substring(verOffset + 7);
+                if ((verOffset = nAgt.indexOf("Version")) != -1)
+                    fullVersion = nAgt.substring(verOffset + 8);
+            }
+                // In Firefox, the true version is after "Firefox" 
+            else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+                browserName = "Firefox";
+                fullVersion = nAgt.substring(verOffset + 8);
+            }
+                // In most other browsers, "name/version" is at the end of userAgent 
+            else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+                      (verOffset = nAgt.lastIndexOf('/'))) {
+                browserName = nAgt.substring(nameOffset, verOffset);
+                fullVersion = nAgt.substring(verOffset + 1);
+                if (browserName.toLowerCase() == browserName.toUpperCase()) {
+                    browserName = navigator.appName;
+                }
+            }
+            // trim the fullVersion string at semicolon/space if present
+            if ((ix = fullVersion.indexOf(";")) != -1)
+                fullVersion = fullVersion.substring(0, ix);
+            if ((ix = fullVersion.indexOf(" ")) != -1)
+                fullVersion = fullVersion.substring(0, ix);
+
+            majorVersion = parseInt('' + fullVersion, 10);
+            if (isNaN(majorVersion)) {
+                fullVersion = '' + parseFloat(navigator.appVersion);
+                majorVersion = parseInt(navigator.appVersion, 10);
+            }
+
+            return browserName + ' ' + majorVersion;
         };
 
         Dropzone.prototype.getExistingFallback = function () {
@@ -870,8 +937,7 @@
             var files, items;
             if (!e.dataTransfer) {
                 return;
-            }
-            this.emit("drop", e);
+            }            
             files = e.dataTransfer.files;
             this.emit("addedfiles", files);
             if (files.length) {
@@ -882,6 +948,7 @@
                     this.handleFiles(files);
                 }
             }
+            this.emit("drop", e);
         };
 
         Dropzone.prototype.paste = function (e) {
@@ -971,7 +1038,7 @@
                 return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
             } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
                 return done(this.options.dictInvalidFileType);
-            } else if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+            } else if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= 10) {
                 done(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}", this.options.maxFiles));
                 return this.emit("maxfilesexceeded", file);
             } else {
@@ -1300,7 +1367,7 @@
             })(this);
 
             imageUploadToAWS = function (file, photoId, itemId) {
-                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.lastIndexOf('.') + 1) };
+                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase() };
                 imgUpldUtil.photoId = photoId;
                 imgUpldUtil.upload(file);
                 $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));

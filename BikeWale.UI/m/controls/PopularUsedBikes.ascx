@@ -2,7 +2,7 @@
 <%if(FetchedRecordsCount > 0) { %>
 <div class="container">
     <div class="grid-12 alpha omega ">
-        <h2 class="text-center margin-top20 margin-bottom10"><%= FormatControlHeader() %></h2>
+        <h2 class="text-center margin-top20 margin-bottom10"><%= header %></h2>
         <div class="content-box-shadow padding-top15 padding-bottom20">
             <div class="swiper-container card-container used-swiper">
             <div class="swiper-wrapper">
@@ -37,7 +37,7 @@
             </div>
         </div>
             <div class="text-center margin-top10">
-                <a class="font14" href="<%= FormatCompleteListUrl() %>">View more used bikes</a>
+                <a class="font14" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View more used bikes</a>
             </div>
         </div>
     </div>

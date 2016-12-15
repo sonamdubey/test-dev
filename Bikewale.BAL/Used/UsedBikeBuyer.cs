@@ -190,7 +190,7 @@ namespace Bikewale.BAL.Used
                 //Get Sellers info
                 UsedBikeSellerBase seller = _objSellerRepository.GetSellerDetails(inquiryId, isDealer);
                 //Form the upload url for seller email
-                string listingUrl = string.Format("{0}/used/sell/default.aspx?id={1}#uploadphoto", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, request.ProfileId);
+                string listingUrl = string.Format("{0}/used/sell/default.aspx?id={1}#uploadphoto", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, request.ProfileId.Substring(1, (request.ProfileId).Length - 1));
                 if (seller != null)
                 {
                     if (seller.Details != null)
