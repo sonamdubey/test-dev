@@ -819,6 +819,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 }
 
 @media all and (max-width: 350px) {
+    .review-heading-wrapper {
+        width: 52% !important;
+    }
     .article-stats-content { width:72%; }
     #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
 }
@@ -837,4 +840,19 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     bottom: 20px;
     padding-right: 20px;
     padding-left: 20px;
+}
+
+/* track day icon */
+.track-day {
+    width: 26px;
+    height: 26px;
+    background-position: -188px -498px;
+    position: relative;
+    top: 7px;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    margin-right: 10px;
 }
