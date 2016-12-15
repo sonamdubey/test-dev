@@ -186,6 +186,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Created By : Sadhana Upadhyay on 24 Sept 2014
         /// Summary : to get model color by versionId
+        /// Modified By : Aditi Srivastava on 15 Dec 2016
+        /// Description : FIxed html formatting for colors displayed
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -198,18 +200,18 @@ namespace Bikewale.Mobile.New
                             group r by r.Field<int>("ColorId") into g
                             select g;
 
-            cs.Append("<div style='width:100; text-align:center;padding:5px;'>");
+            
             foreach (var color in colorData)
             {
-                cs.AppendFormat("<div class='color-box {0}'>", ((color.Count() >= 3) ? "color-count-three" : (color.Count() == 2) ? "color-count-two" : "color-count-one"));
+                cs.AppendFormat("<div style='text-align:center;' class='color-box {0}'>", ((color.Count() >= 3) ? "color-count-three" : (color.Count() == 2) ? "color-count-two" : "color-count-one"));
                 IList<string> HexCodeList = new List<string>();
                 foreach (var colorList in color)
                 {
                     cs.AppendFormat("<span style='background-color:#{0}'></span>", colorList.ItemArray[5]);   //5 is for hexcode
                 }
-                cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div></div>", color.FirstOrDefault().ItemArray[3]);    //3 is for colorName
+                cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div>", color.FirstOrDefault().ItemArray[3]);    //3 is for colorName
             }
-
+            
             return cs.ToString();
         }
 
