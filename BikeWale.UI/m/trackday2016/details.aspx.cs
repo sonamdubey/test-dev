@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -15,14 +16,11 @@ namespace Bikewale.Mobile.TrackDay
     public class Details : System.Web.UI.Page
     {
         protected bool androidApp;
-        protected ushort articleid;
-        protected String nextPageUrl = String.Empty, prevPageUrl = String.Empty, prevPageTitle = String.Empty, nextPageTitle = String.Empty, pageUrl = String.Empty;
-        protected String newsContent = String.Empty, newsTitle = String.Empty, author = String.Empty, displayDate = String.Empty, mainImg = String.Empty;
         protected uint pageViews = 0;
 
         protected String _trackdayId = String.Empty;
         protected ArticleDetails objTrackDay = null;
-        private bool _isContentFound = true;
+        protected CMSContent objTrackDayArticles = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,6 +45,7 @@ namespace Bikewale.Mobile.TrackDay
                 if (Int32.TryParse(_trackdayId, out _basicId))
                 {
                     GetTrackDayDetails(_basicId);
+                    GetRelatedArticles();
 
                 }
                 else
@@ -56,6 +55,11 @@ namespace Bikewale.Mobile.TrackDay
                     this.Page.Visible = false;
                 }
             }
+        }
+
+        private void GetRelatedArticles()
+        {
+            throw new NotImplementedException();
         }
 
         private void GetTrackDayDetails(int _basicId)
@@ -70,18 +74,21 @@ namespace Bikewale.Mobile.TrackDay
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
                     objTrackDay = _cache.GetNewsDetails(Convert.ToUInt32(_basicId));
+                    objTrackDayArticles = _cache.GetArticlesByCategoryList(((int)EnumCMSContentType.TrackDay).ToString(), 1, 10, 0, 0);
+
+                    if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
+                        objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
 
                 }
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
             finally
             {
-                if (!_isContentFound)
+                if (objTrackDayArticles != null && objTrackDayArticles.RecordCount < 1)
                 {
                     Response.Redirect("/m/news/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
