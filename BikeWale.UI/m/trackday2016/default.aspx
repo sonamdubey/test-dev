@@ -46,7 +46,7 @@
                         { %>
                         <li>
                             <div class="review-image-wrapper">
-                                <a class="block" href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%=article.Title %>">
+                                <a class="block" href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=true":string.Empty) %>" title="<%=article.Title %>">
                                     <div class="bg-loader-placeholder">
                                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._110x61)  %>" alt="<%= article.Title %>" src="">
                                     </div>

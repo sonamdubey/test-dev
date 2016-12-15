@@ -5,6 +5,7 @@ using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -37,25 +38,36 @@ namespace Bikewale.Mobile.TrackDay
             LoadTackDayArticlesList();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void LoadTackDayArticlesList()
         {
-            List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-            categorList.Add(EnumCMSContentType.TrackDay);
-            string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
-
-            categorList.Clear();
-            categorList = null;
-
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<IArticles, Bikewale.BAL.EditCMS.Articles>()
-                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                       .RegisterType<ICacheManager, MemcacheManager>();
-                ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.TrackDay);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
-                objTrackDayArticles = _cache.GetArticlesByCategoryList(contentTypeList, 1, 10, 0, 0);
-                if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
-                    objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
+                categorList.Clear();
+                categorList = null;
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Bikewale.BAL.EditCMS.Articles>()
+                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                           .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    objTrackDayArticles = _cache.GetArticlesByCategoryList(contentTypeList, 1, 10, 0, 0);
+                    if (objTrackDayArticles != null && objTrackDayArticles.Articles != null)
+                        objTrackDayArticles.RecordCount = (uint)objTrackDayArticles.Articles.Count;
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + "LoadTackDayArticlesList");
+                objErr.SendMail();
             }
 
         }

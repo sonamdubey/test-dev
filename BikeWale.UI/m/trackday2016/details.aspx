@@ -3,45 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <% switch (articleid)
-       {
-           case 1:
-               title = "BikeWale Track Day 2016 - An Introduction";
-               description = "Inaugural BikeWale Track Day gave us the perfect opportunity to find out the limits of a regular bike on a racetrack in Chennai";
-               break;
-           case 2:
-               title = "BikeWale Track Day 2016 - TVS Apache RTR 200 4V";
-               description = "BikeWale team put TVS Apache RTR 200 4V to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
-               break;
-           case 3:
-               title = "BikeWale Track Day 2016 - Yamaha YZF-R3";
-               description = "BikeWale team put Yamaha YZF-R3 to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
-               break;
-           case 4:
-               title = "BikeWale Track Day 2016 - Benelli TNT 600i ABS";
-               description = "BikeWale team put Benelli TNT 600i ABS to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
-               break;
-           case 5:
-               title = "BikeWale Track Day 2016 - Ducati 959 Panigale";
-               description = "BikeWale team put Ducati 959 Panigale to test on a racetrack in Chennai. Check out the details of its performance in areas like on-the-edge handling, late braking performance, and ultimate lap time at MMRT";
-               break;
-           case 6:
-               title = "Ten best photos of BikeWale Track Day 2016";
-               description = "Check out the 10 best photos of RTR 200, R3, TNT 660i ABS, 959 Panigale on a racetrack";
-               break;
-           default:
-               title = "BikeWale Track Day 2016 - An Introduction";
-            description = "Inaugural BikeWale Track Day gave us the perfect opportunity to find out the limits of a regular bike on a racetrack in Chennai";
-            break;        
-    } %>
 
     <% 
+        if(objTrackDay!=null)
+        {
+            title = objTrackDay.Title;
+            description = objTrackDay.Description;  
+        }
+         
         //keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
         //canonical   = "https://www.bikewale.com/news/";
         //AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         //AdId = "1398766302464";
-        //Ad_320x50 = true;
-        //Ad_Bot_320x50 = true;
+        Ad_320x50 = false;
+        Ad_Bot_320x50 = false;
+        Ad_300x250 = false;
+        
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -109,6 +86,19 @@
                         </div>
 
                          <%= String.IsNullOrEmpty(objTrackDay.Content) ? "" : objTrackDay.Content %>
+
+                        <% if(objTrackDayArticles!=null && objTrackDayArticles.RecordCount > 0) { %>
+
+                         <p class="related-articles-heading">More BikeWale Track Day Articles</p>
+                            <ul class="related-articles-list">
+                                <% foreach(var article in objTrackDayArticles.Articles) { %>
+                            <li>
+                                <a href="<%= string.Format("/m{0}{1}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString()),androidApp?"?isapp=1":string.Empty) %>" title="<%= article.Title %>"><%= article.Title %></a>
+                            </li>
+                                <% } %>
+                        </ul>
+
+                        <% } %>
                         
                     </div>
 
