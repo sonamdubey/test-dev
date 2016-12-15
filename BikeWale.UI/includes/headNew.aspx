@@ -74,7 +74,7 @@
             <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
             googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
             googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
-            googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");
+            googletag.pubads().setTargeting("CompareBike-D", [<%= TargetedModels %>]);
             <% } %>
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();

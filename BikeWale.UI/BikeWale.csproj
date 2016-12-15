@@ -71,13 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
-    <Reference Include="Carwale.CMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Carwale.Cache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Carwale.CMS.dll</HintPath>
-    </Reference>
-    <Reference Include="Carwale.CoreDAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Carwale.CoreDAL.dll</HintPath>
+      <HintPath>..\Libs\Carwale.Cache.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,6 +94,12 @@
     <Reference Include="Carwale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\Libs\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperWrapper">
+      <HintPath>..\Libs\DapperWrapper.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

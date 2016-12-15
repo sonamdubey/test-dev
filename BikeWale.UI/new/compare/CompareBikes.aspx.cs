@@ -125,7 +125,7 @@ namespace Bikewale.New
                     keyword += ds.Tables[0].Rows[i]["Bike"].ToString() + " and ";
                     canonicalUrl += ds.Tables[0].Rows[i]["MakeMaskingName"] + "-" + ds.Tables[0].Rows[i]["ModelMaskingName"] + "-vs-";
                     Trace.Warn("Bike Name : ", title);
-                    targetedModels += ds.Tables[0].Rows[i]["Model"] + ",";
+                    targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
                 }
 
                 if (title.Length > 2)
@@ -133,7 +133,7 @@ namespace Bikewale.New
                     title = title.Substring(0, title.Length - 3);
                     keyword = keyword.Substring(0, keyword.Length - 5);
                     canonicalUrl = canonicalUrl.Substring(0, canonicalUrl.Length - 4);
-                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1).ToLower();
+                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
                 }
 
                 if (isFeatured)

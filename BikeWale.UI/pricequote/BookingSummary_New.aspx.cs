@@ -7,13 +7,16 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
+using Carwale.DAL.Classified.SellCar;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
+using Carwale.Interfaces.Classified.SellCar;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -332,6 +335,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Modified By :   Sumit Kate on 18 Nov 2015
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062
+        /// Modified by :   Sumit Kate on 09 Dec 2016
+        /// Description :   PG Transaction MySql Migration
         /// </summary>
         /// <param name="sourceType"></param>
         protected void BeginTransaction(string sourceType)
@@ -372,6 +377,7 @@ namespace Bikewale.BikeBooking
 
                     IUnityContainer container = new UnityContainer();
                     container.RegisterType<ITransaction, Transaction>()
+                    .RegisterType<ISellCarRepository, SellCarRepository>()
                     .RegisterType<ITransactionRepository, TransactionRepository>()
                     .RegisterType<IPackageRepository, PackageRepository>()
                     .RegisterType<ITransactionValidator, ValidateTransaction>();
@@ -405,6 +411,10 @@ namespace Bikewale.BikeBooking
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
+            }
+            catch (ThreadAbortException)
+            {
+                //Do nothing for thread abort exception
             }
             catch (Exception ex)
             {

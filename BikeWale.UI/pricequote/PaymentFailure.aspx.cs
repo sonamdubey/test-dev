@@ -3,8 +3,10 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
+using Carwale.DAL.Classified.SellCar;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
+using Carwale.Interfaces.Classified.SellCar;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
@@ -132,6 +134,11 @@ namespace Bikewale.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 09 Dec 2016
+        /// Description :   PG Transaction MySql Migration
+        /// </summary>
+        /// <param name="sourceType"></param>
         protected void BeginTransaction(string sourceType)
         {
             string transresp = string.Empty;
@@ -168,6 +175,7 @@ namespace Bikewale.PriceQuote
 
                 IUnityContainer container = new UnityContainer();
                 container.RegisterType<ITransaction, Transaction>()
+                    .RegisterType<ISellCarRepository, SellCarRepository>()
                 .RegisterType<ITransactionRepository, TransactionRepository>()
                 .RegisterType<IPackageRepository, PackageRepository>()
                 .RegisterType<ITransactionValidator, ValidateTransaction>();

@@ -234,9 +234,9 @@
                 if (options.pqid != null)
                     self.pqId(options.pqid);
 
-                if (options.gaobject != null)
+                if (options.gaobject != null) {
                     self.GAObject(options.gaobject);
-
+                }
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
 

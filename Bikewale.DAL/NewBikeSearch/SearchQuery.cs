@@ -402,12 +402,6 @@ namespace Bikewale.DAL.NewBikeSearch
             string searchResultQuery = string.Empty;
             try
             {
-                //searchResultQuery = @" WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MO.MinPrice ASC, MO.Name ASC) AS DenseRank "
-                //                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank, "
-                //                    + GetSelectClause()
-                //                    + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
-                //                    + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
-                //                    + " AND ModelRank = 1 ORDER BY " + GetOrderByClause() + " ; ";
 
                 searchResultQuery = string.Format(@"set @row_number:=0;set @curr_id:=0;
                                                     drop temporary table if exists temp_bikes_searched;

@@ -39,7 +39,7 @@ namespace Bikewale.Notifications.MailTemplates
                     versionName, //7
                     color, //8
                     img//9
-                    ); 
+                    );
                 if (priceList != null && priceList.Count > 0)
                 {
                     mail.Append("<div style=\"clear:both; border-top:1px solid #f5f5f5; margin-bottom:15px; \"></div>");
