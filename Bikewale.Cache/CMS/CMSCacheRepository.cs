@@ -171,5 +171,42 @@ namespace Bikewale.Cache.CMS
             return _objArticleDetails;
         }
 
+
+
+        public CMSContent GetTrackDayArticlesByCategoryList(string categoryIdList, int startIndex, int endIndex, int makeId, int modelId)
+        {
+            CMSContent objFeaturedArticles = null;
+            try
+            {
+                string apiUrl = string.Format("/webapi/article/listbycategory/?applicationid=2&categoryidlist={0}&startindex={1}&endindex={2}", categoryIdList, startIndex, endIndex);
+                if (makeId > 0 && modelId > 0)
+                {
+                    apiUrl = string.Format("{0}&makeid={1}&modelid={2}", apiUrl, makeId, modelId);
+                }
+                else
+                {
+                    if (makeId > 0)
+                    {
+                        apiUrl = string.Format("{0}&makeid={1}", apiUrl, makeId);
+                    }
+                    else
+                    {
+                        apiUrl = string.Format("{0}&modelid={1}", apiUrl, modelId);
+                    }
+                }
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    return objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "");
+                objErr.SendMail();
+            }
+
+            return objFeaturedArticles;
+        }
     }
 }
