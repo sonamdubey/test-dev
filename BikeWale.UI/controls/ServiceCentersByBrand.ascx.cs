@@ -3,6 +3,7 @@ using Bikewale.Entities.ServiceCenters;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Controls
 {
@@ -12,7 +13,9 @@ namespace Bikewale.Controls
     /// </summary>
     public class ServiceCentersByBrand : System.Web.UI.UserControl
     {
-        public IEnumerable<BrandServiceCenters> AllServiceCenters;
+        protected IEnumerable<BrandServiceCenters> AllServiceCenters;
+        protected string WidgetTitle;
+        public int FetchedRecordsCount;
         public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
         {
@@ -25,6 +28,9 @@ namespace Bikewale.Controls
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
+                if (AllServiceCenters != null)
+                    FetchedRecordsCount = AllServiceCenters.Count();
+                WidgetTitle = "Other brand service centers in India";
             }
             catch (Exception ex)
             {

@@ -11,7 +11,6 @@ using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
-using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;

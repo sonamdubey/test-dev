@@ -1,5 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ServiceCentersByBrand.ascx.cs" Inherits="Bikewale.m.controls.ServiceCentersByBrand" %>
-
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ServiceCentersByBrand" %>
+<%if (AllServiceCenters!=null){ %>
 <style>
     .bwm-brands-swiper .swiper-slide, .bwm-brands-swiper .swiper-card {
         width: 200px;
@@ -41,7 +41,7 @@
 
 </style>
 <div class="container bg-white box-shadow padding-top15 padding-bottom20 font14 active">
-    <h2 class="font18 padding-bottom20 padding-left20">Other brand service centers in India</h2>
+    <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
 
     <div class="swiper-container padding-top5 padding-bottom5 sw-0 swiper-container-horizontal bwm-brands-swiper">
         <div class="swiper-wrapper">
@@ -65,5 +65,4 @@
         </div>
     </div>
 </div>
-
-
+<%} %>

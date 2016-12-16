@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ServiceCentersByBrand" %>
+<%if(AllServiceCenters!=null){ %>
 <style>
     .brand-logo-image{
     height: 80px;
@@ -27,14 +28,14 @@
 <div class="container section-container ">
 <div class="grid-12 margin-bottom20">
     <div class="content-box-shadow padding-top20 padding-bottom20">
-    <h2 class="font18 padding-bottom20 padding-left20">Other brand service centers in India</h2>
+    <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
 
       <div class="jcarousel-wrapper inner-content-carousel">
 
      
                 <div class="jcarousel" data-jcarousel="true">
 
-                    <ul style="left: 0px; top: 0px;">
+                    <ul>
                         <%foreach (var centers in AllServiceCenters)
                           { %>
                                 <li>
@@ -64,3 +65,4 @@
     </div>
     </div>
 </div>
+<%} %>

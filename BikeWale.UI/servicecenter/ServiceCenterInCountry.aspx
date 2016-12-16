@@ -106,7 +106,7 @@
             </div>
             <div id="listing-footer"></div>
         </section>
-        <%if(ctrlOtherServiceCenters.AllServiceCenters!=null){ %>
+        <%if(ctrlOtherServiceCenters.FetchedRecordsCount>0){ %>
             <BW:OtherServiceCenters runat="server" ID="ctrlOtherServiceCenters" />
        
         <%} %>
