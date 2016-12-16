@@ -8,8 +8,8 @@
 <head>
     <%
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, dealerCity);
-        description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, dealerCity, dealerName);
-        title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, dealerCity);
+        description = String.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", makeName, dealerCity, dealerName);
+        title = String.Format("{0} | {0} showroom in {1} - BikeWale", dealerName, dealerCity);
         canonical =  String.Format("https://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -26,7 +26,7 @@
         
         <section class="container bg-white margin-bottom10">
             <div class="bg-white box-shadow">
-                <h1 class="font20 box-shadow padding-15-20"><%= dealerDetails.Name %></h1>
+                <h1 class="font20 box-shadow padding-15-20"><%=string.Format("{0},{1}",dealerDetails.Name,dealerCity)%></h1>
                 <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
                     <%if (dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                     { %>
@@ -43,7 +43,7 @@
                      { %>
                     <p class="margin-bottom10">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        <span class="vertical-top dealership-details text-light-grey"><%= dealerDetails.Address %></span>
+                        <span class="vertical-top dealership-details text-light-grey"><%=string.Format("{0}, {1}, {2}",dealerDetails.Address,dealerDetails.Pincode,dealerCity) %></span>
                     </p>
                     <% } %>
                     <% if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
@@ -178,6 +178,17 @@
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
+
+         <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12 font12">
+                    <span class="font14"><strong>Disclaimer:</strong></span> The above mentioned information about <%=makeName %> dealership showrooms in <%=cityName %> is furnished to the best of our knowledge. 
+                        All <%=makeName %> bike models and colour options may not be available at each of the <%=makeName %> dealers. 
+                        We recommend that you call and check with your nearest <%=makeName %> dealer before scheduling a showroom visit.
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

@@ -28,7 +28,7 @@ namespace Bikewale.New
     public class BikeDealerDetails : Page
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
-        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty,
+        address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty, pincode = string.Empty,
         clientIP = string.Empty, pageUrl = string.Empty;
         protected int makeId;
         protected uint cityId, dealerId;
@@ -129,6 +129,8 @@ namespace Bikewale.New
         /// <summary>
         /// Created by: Aditi Srivastava on 27 Sep 2016
         /// Summary: Get dealer details by dealer id and make id
+        /// Modeified By:- Subodh Jain 15 dec 2016
+        /// Summary:- Added pincode data
         /// </summary>
         /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
@@ -159,6 +161,8 @@ namespace Bikewale.New
                         makeName = dealerObj.MakeName;
                         cityMaskingName = dealerObj.CityMaskingName;
                         cityId = (uint)dealerObj.CityId;
+                        pincode = dealerObj.Pincode;
+
                     }
                     else
                     {

@@ -8,8 +8,8 @@
 <head>
         <%
         keywords = String.Format("{0}, {0} dealer, {0} Showroom, {0} {1}", dealerName, cityName);
-        description = String.Format("{2} is dealer of {0} bikes in {1}. Get best offers on {0} bikes at {2} showroom", makeName, cityName,dealerName);
-        title = String.Format("{0} {1} - {0} Showroom in {1} - BikeWale", dealerName, cityName);
+        description = String.Format("{2} is an authorized {0} showroom in {1}. Get address, contact details direction, EMI quotes etc. of {2} {0} showroom.", makeName, cityName, dealerName);
+        title = String.Format("{0} | {0} showroom in {1} - BikeWale", dealerName, cityName);
         canonical = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         alternate = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/{2}-{3}/", makeMaskingName, cityMaskingName,dealerId, dealerMaskingName);
         AdId = "1395986297721";
@@ -64,7 +64,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1><%=dealerName %></h1>
+                            <h1><%=string.Format("{0},{1}",dealerName,cityName)%></h1>
                         </div>
                         <div class="content-inner-block-20">
                             <div class="grid-7 alpha omega font14">
@@ -82,7 +82,7 @@
                                    {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top text-light-grey dealership-card-details"><%=address %></span>
+                                    <span class="vertical-top text-light-grey dealership-card-details"><%=string.Format("{0}, {1}, {2}",address,pincode,cityName) %></span>
                                 </div>
                                 <%} %>
                                 <% if (!string.IsNullOrEmpty(maskingNumber))
@@ -271,6 +271,16 @@
                </div>
             </section>
         <% } %>
+          <section>
+            <div class="container margin-top10 margin-bottom30">
+                <div class="grid-12 font12">
+                    <span class="font14"><strong>Disclaimer</strong>:</span> The above mentioned information about <%=makeName%> dealership showrooms in <%=cityName%> is furnished to the best of our knowledge. 
+                        All <%=makeName%> bike models and colour options may not be available at each of the <%=makeName%> dealers. 
+                        We recommend that you call and check with your nearest <%=makeName%> dealer before scheduling a showroom visit.
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">

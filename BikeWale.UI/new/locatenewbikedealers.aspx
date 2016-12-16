@@ -7,7 +7,7 @@
 <html>
 <head>
     <%
-        title = "New Bike Dealer Showrooms in India | Locate Authorized Bike Showrooms - BikeWale";
+        title = "New Bike Showroom in India | Find Authorized Bike Dealers - BikeWale";
         keywords = "new bike dealers, new bike showrooms, bike dealers, bike showrooms, showrooms, dealerships";
         description = "Locate new bike showrooms and authorized bike dealers in India. Find new bike dealer information for more than 200 cities in India. ";
         canonical = "https://www.bikewale.com/dealer-showroom-locator/";
@@ -44,7 +44,7 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <div class="content-box-shadow negative-50 text-center padding-25-30">
-                        <h2 class="section-header">Search dealers</h2>
+                        <h2 class="section-header">Find bike dealers in your city</h2>
                         <div class="locator-search-container">
                             <div class="locator-search-brand form-control-box">
                                 <select id="ddlMakes" class="form-control  chosen-select">
@@ -84,7 +84,7 @@
         <section>
             <div class="container section-container">
                 <div class="grid-12">
-                    <h2 class="section-header">Dealer showroom by brands</h2>
+                    <h2 class="section-header">Explore showroom by brand</h2>
                     <div class="content-box-shadow padding-top20">
                         <div class="brand-type-container">
                             <ul class="text-center">
