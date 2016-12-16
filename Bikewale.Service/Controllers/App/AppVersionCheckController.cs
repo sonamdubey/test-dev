@@ -66,6 +66,7 @@ namespace Bikewale.Service.Controllers.App
                         dto.Code = AppVersionMessageCode.OldVersion;
                         dto.Message = "Your application is not supported please download latest version";
                     }
+                    dto.IsTrackDayVisible = Bikewale.Utility.BWConfiguration.Instance.IsAppTrackDayVisible;
                     return Ok(dto);
                 }
                 else
