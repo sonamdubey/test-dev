@@ -53,9 +53,9 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
                 <div class="border-solid-bottom padding-15-20">
-                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading"><%=listingHeading %></h2>
+                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading padding-right10"><%=listingHeading %></h2>
                     <div class="vertical-middle text-center">
-                        <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue"></span><span class="change-text text-link">change</span></span>
+                        <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
                     </div>
                        </div>
                 <ul id="center-list">
