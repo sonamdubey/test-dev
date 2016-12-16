@@ -49,6 +49,8 @@ namespace Bikewale.New
         private string makeMaskingName;
 
         private uint cityId = Convert.ToUInt32(GlobalCityArea.GetGlobalCityArea().CityId);
+        private string cityName = Convert.ToString(GlobalCityArea.GetGlobalCityArea().City);
+
 
         protected UsedBikes ctrlRecentUsedBikes;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -65,7 +67,8 @@ namespace Bikewale.New
         /// Description : Removed postback.
         /// Modified By : Vivek Gupta on 22 june 2016
         /// Desc: ctrlRecentUsedBikes (values assigned)
-        /// </summary>
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -120,6 +123,8 @@ namespace Bikewale.New
                 ctrlDealerCard.LeadSourceId = 29;
                 ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                 ctrlDealerCard.pageName = "Make_Page";
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
+
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.AreaId = 0;
                 BindDiscountinuedBikes();

@@ -50,7 +50,8 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -76,6 +77,7 @@ namespace Bikewale.New
                     ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                     ctrlDealerCard.pageName = "DealerDetail_Page_Desktop";
                     ctrlDealerCard.DealerId = (uint)dealerId;
+                    ctrlDealerCard.widgetHeading = string.Format("Other {0} showrooms in {1}", makeName, cityName);
                     ctrlLeadCapture.CityId = cityId;
                     ctrlLeadCapture.AreaId = 0;
                 }

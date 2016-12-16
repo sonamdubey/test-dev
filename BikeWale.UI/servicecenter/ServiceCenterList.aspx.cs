@@ -100,9 +100,10 @@ namespace Bikewale.Service
                 ctrlDealerCard.LeadSourceId = 11;
                 ctrlDealerCard.TopCount = 3;
                 ctrlDealerCard.isHeading = false;
-            ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
-            ctrlBrandCity.makeId = makeId;
-            ctrlBrandCity.cityId = cityId;
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", makeName, cityName);
+                ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+                ctrlBrandCity.makeId = makeId;
+                ctrlBrandCity.cityId = cityId;
 
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
