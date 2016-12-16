@@ -87,6 +87,8 @@ namespace Bikewale.Service
         /// Description : Set request type according to page for brand city pop up
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added widget heading
         /// </summary>
         /// <returns></returns>
         private void BindUserControls()
