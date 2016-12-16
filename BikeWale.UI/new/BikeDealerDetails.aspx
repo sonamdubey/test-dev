@@ -82,7 +82,7 @@
                                    {%>
                                 <div class="margin-bottom10">
                                     <span class="bwsprite dealership-loc-icon vertical-top"></span>
-                                    <span class="vertical-top text-light-grey dealership-card-details"><%=string.Format("{0}, {1}, {2}",address,pincode,cityName) %></span>
+                                    <span class="vertical-top text-light-grey dealership-card-details"><%=String.IsNullOrEmpty(pincode)?string.Format("{0}, {1}",address,cityName):string.Format("{0}, {1}, {2}",address,pincode,cityName)%></span>
                                 </div>
                                 <%} %>
                                 <% if (!string.IsNullOrEmpty(maskingNumber))
