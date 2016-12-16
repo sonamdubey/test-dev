@@ -854,6 +854,10 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
+      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
       <DependentUpon>PopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -948,10 +952,6 @@
     </Compile>
     <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
-      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarUsedBikes.ascx.cs">
@@ -2423,6 +2423,7 @@
     <Content Include="m\controls\LogInOutControl.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2447,7 +2448,6 @@
     <Content Include="m\controls\UsedOtherBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
-    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\SimilarUsedBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />

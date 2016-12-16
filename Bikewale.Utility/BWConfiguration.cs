@@ -92,7 +92,7 @@ namespace Bikewale.Utility
             _FCMEnvironment = String.Empty,
             _CORSSite = String.Empty,
             _CORSMethod = String.Empty;
-        private readonly bool _CORSEnabled = false;
+        private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
         private readonly int _SecurityHashLength = 0;
 
         // Private constructor, so no outsiders have access.
@@ -171,6 +171,7 @@ namespace Bikewale.Utility
             _CORSSite = ConfigurationManager.AppSettings["CORSSite"];
             _CORSMethod = ConfigurationManager.AppSettings["CORSMethod"];
             _CORSEnabled = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["CORSEnabled"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["CORSEnabled"]) : false;
+            _IsAppTrackDayVisible = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) : false;
 
         }
 
@@ -298,5 +299,7 @@ namespace Bikewale.Utility
         public string CORSSite { get { return _CORSSite; } }
         public string CORSMethod { get { return _CORSMethod; } }
         public bool CORSEnabled { get { return _CORSEnabled; } }
+        public bool IsAppTrackDayVisible { get { return _IsAppTrackDayVisible; } }
+
     }   // class
 }   // namespace
