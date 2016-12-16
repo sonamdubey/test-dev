@@ -3,11 +3,15 @@ using Bikewale.Entities.ServiceCenters;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace Bikewale.Controls
+namespace Bikewale.m.controls
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 15 Dec 2016
+    /// Created By : Aditi Srivastava on 16 Dec 2016
     /// Summary    : Widget to show number of service centers of all brands
     /// </summary>
     public class ServiceCentersByBrand : System.Web.UI.UserControl
@@ -25,6 +29,7 @@ namespace Bikewale.Controls
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
+             
             }
             catch (Exception ex)
             {
@@ -32,7 +37,5 @@ namespace Bikewale.Controls
                 objErr.SendMail();
             }
         }
-
-
     }
 }

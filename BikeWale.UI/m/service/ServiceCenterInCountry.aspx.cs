@@ -11,6 +11,7 @@ using Bikewale.Entities.service;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -25,11 +26,14 @@ namespace Bikewale.Mobile.Service
 
     /// Created by :Subodh Jain 7 nov 2016
     /// Summary: For Service Center Locator page in India
+    /// Modified By : Aditi Srivastava on 16 Dec 2016
+    /// Summary     : Added widget for service centers by brand
     /// </summary>
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
+        protected ServiceCentersByBrand ctrlOtherServiceCenters;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;

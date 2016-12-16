@@ -236,6 +236,15 @@ namespace Bikewale.Utility
         {
             return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
         }
+        /// <summary>
+        ///  Created By : Aditi Srivastava
+        ///  Created On  : 15 Dec 2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static object GetServiceCenterUrl(string makeMaskingName)
+        {
+            return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+        }
     }
 }
 

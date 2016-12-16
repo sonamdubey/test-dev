@@ -1,7 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.ServiceCenter.ServiceCenterInCountry" EnableViewState="false" Trace="false" Debug="false" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register Src="~/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/ServiceCentersByBrand.ascx" TagName="OtherServiceCenters" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -106,6 +106,10 @@
             </div>
             <div id="listing-footer"></div>
         </section>
+        <%if(ctrlOtherServiceCenters.AllServiceCenters!=null){ %>
+            <BW:OtherServiceCenters runat="server" ID="ctrlOtherServiceCenters" />
+       
+        <%} %>
            <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />

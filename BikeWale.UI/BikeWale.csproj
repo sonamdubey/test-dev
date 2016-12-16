@@ -253,6 +253,7 @@
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
+    <Compile Include="BindViewModels\Controls\BindOtherBrandsServiceCenters.cs" />
     <Compile Include="BindViewModels\Controls\BindOtherUsedBikesForCity.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceCenter.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
@@ -614,6 +615,10 @@
       <DependentUpon>servicecentercard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ServiceCentersByBrand.ascx.cs">
+      <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\serviceschedule.ascx.cs">
       <DependentUpon>serviceschedule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -856,6 +861,10 @@
     </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
       <DependentUpon>PopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
+      <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UpcomingBikesMin.ascx.cs">
@@ -1898,6 +1907,7 @@
     <Content Include="controls\RepeaterPagerUsed.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\servicecentercard.ascx" />
+    <Content Include="controls\ServiceCentersByBrand.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
@@ -2416,6 +2426,7 @@
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
+    <Content Include="m\controls\ServiceCentersByBrand.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
     <Content Include="m\controls\serviceschedule.ascx" />

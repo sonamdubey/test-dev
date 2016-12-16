@@ -15,6 +15,9 @@ namespace Bikewale.Entities.ServiceCenters
     public class BrandServiceCenters
     {
        [DataMember]
+       public int MakeId { get; set; }
+
+       [DataMember]
        public string MakeName { get; set; }
 
        [DataMember]
@@ -22,5 +25,11 @@ namespace Bikewale.Entities.ServiceCenters
 
        [DataMember]
        public int ServiceCenterCount { get; set; }
+
+       [DataMember]
+       public string LogoURL { get; set; }
+
+       [DataMember]
+       public string HostURL { get; set; }
      }
 }
