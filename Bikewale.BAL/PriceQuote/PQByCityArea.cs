@@ -522,8 +522,10 @@ namespace Bikewale.BAL.PriceQuote
 
                 if (versionID <= 0)
                 {
-
-                    versionID = objDealer.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                    if (areaId.HasValue && areaId.Value > 0)
+                        versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelID, (uint)cityId.Value, (uint)areaId.Value);
+                    else
+                        versionID = objDealer.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
                 }
 
                 if (cityId > 0 && versionID > 0)

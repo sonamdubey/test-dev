@@ -295,7 +295,10 @@ namespace Bikewale.BAL.BikeBooking
             {
                 if (PQParams.VersionId <= 0)
                 {
-                    PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+                    if (PQParams.AreaId > 0)
+                        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
+                    else
+                        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
                 }
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
@@ -335,7 +338,10 @@ namespace Bikewale.BAL.BikeBooking
                     //Fails to register for requested version get the default version price quote
                     if (quoteId == 0)
                     {
-                        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+                        if (PQParams.AreaId > 0)
+                            PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
+                        else
+                            PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
                         using (IUnityContainer container = new UnityContainer())
                         {
                             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
@@ -434,5 +440,18 @@ namespace Bikewale.BAL.BikeBooking
             return dealerPQRepository.IsDealerDailyLeadLimitExceeds(campaignId);
         }
 
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Dec 2016
+        /// Description :   Call DAL GetDefaultPriceQuoteVersion
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId)
+        {
+            return dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId, areaId);
+        }
     }   //End of Class
 }   //End of namespace
