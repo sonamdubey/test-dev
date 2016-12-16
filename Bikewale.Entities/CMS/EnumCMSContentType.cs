@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bikewale.Entities.CMS
 {
     public enum EnumCMSContentType
-    {        
+    {
         News = 1,
         ComparisonTests = 2,
         BuyingUsed = 3,
@@ -22,7 +17,8 @@ namespace Bikewale.Entities.CMS
         AutoExpo2014 = 12,
         AutoExpoMedia = 13,
         SpecialFeature = 18,
-        AutoExpo2016 = 19
+        AutoExpo2016 = 19,
+        TrackDay = 23
     }
 
 }   // namespace

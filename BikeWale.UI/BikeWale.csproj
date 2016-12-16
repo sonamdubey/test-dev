@@ -1149,6 +1149,14 @@
       <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\trackday2016\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\trackday2016\details.aspx.cs">
+      <DependentUpon>details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\used\BikeDetails.aspx.cs">
       <DependentUpon>BikeDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2616,6 +2624,10 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\trackday2016\css\track-day.css" />
+    <Content Include="m\trackday2016\default.aspx" />
+    <Content Include="m\trackday2016\details.aspx" />
+    <Content Include="m\trackday2016\src\track-day.js" />
     <Content Include="m\used\BikeDetails.aspx" />
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
