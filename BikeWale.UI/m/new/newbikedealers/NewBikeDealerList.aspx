@@ -47,7 +47,7 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=makeName%> Showrooms in <%=cityName%></h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                      <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}'.",makeName,cityName,totalDealers)%>
+                      <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}.",makeName,cityName,totalDealers)%>
                     </div>
                 </div>
             </div>
