@@ -66,17 +66,9 @@ namespace Bikewale.DAL.BikeBooking
 
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("SaveCustomerDetail sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveCustomerDetail ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "SaveCustomerDetail ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -109,17 +101,9 @@ namespace Bikewale.DAL.BikeBooking
                         isSuccess = true;
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdateIsMobileVerified sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdateIsMobileVerified ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "UpdateIsMobileVerified ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -151,17 +135,9 @@ namespace Bikewale.DAL.BikeBooking
                         isSuccess = true;
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdateMobileNumber sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdateMobileNumber ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "UpdateMobileNumber ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -193,17 +169,9 @@ namespace Bikewale.DAL.BikeBooking
                         isSuccess = true;
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("PushedToAB sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("PushedToAB ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "PushedToAB ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -265,17 +233,9 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("GetCustomerDetails sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                // isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetCustomerDetails ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GetCustomerDetails ex : " + ex.Message);
                 objErr.SendMail();
                 // isSuccess = false;
             }
@@ -311,17 +271,9 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("IsNewBikePQExists sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                // isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("IsNewBikePQExists ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "IsNewBikePQExists ex : " + ex.Message);
                 objErr.SendMail();
                 // isSuccess = false;
             }
@@ -363,16 +315,9 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("GetVersionList sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetVersionList ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GetVersionList ex : " + ex.Message);
                 objErr.SendMail();
             }
 
@@ -409,16 +354,9 @@ namespace Bikewale.DAL.BikeBooking
                     isSuccess = MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SaveRSAOfferClaim sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveRSAOfferClaim ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "SaveRSAOfferClaim ex : " + ex.Message);
                 objErr.SendMail();
             }
 
@@ -450,17 +388,9 @@ namespace Bikewale.DAL.BikeBooking
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdatePQBikeColor sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdatePQBikeColor ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "UpdatePQBikeColor ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -495,17 +425,9 @@ namespace Bikewale.DAL.BikeBooking
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdatePQTransactionalDetail sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isSuccess = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdatePQTransactionalDetail ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "UpdatePQTransactionalDetail ex : " + ex.Message);
                 objErr.SendMail();
                 isSuccess = false;
             }
@@ -543,17 +465,9 @@ namespace Bikewale.DAL.BikeBooking
                     isNotified = SqlReaderConvertor.ToBoolean(cmd.Parameters["par_isdealernotified"].Value);
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("IsDealerNotified sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-                isNotified = false;
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("IsDealerNotified ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "IsDealerNotified ex : " + ex.Message);
                 objErr.SendMail();
                 isNotified = false;
             }
@@ -589,8 +503,7 @@ namespace Bikewale.DAL.BikeBooking
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("IsDealerPriceAvailable ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "IsDealerPriceAvailable ex : " + ex.Message);
                 objErr.SendMail();
                 isDealerAreaAvailable = false;
             }
@@ -631,11 +544,6 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion sqlex : " + ex.Message);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
@@ -644,6 +552,47 @@ namespace Bikewale.DAL.BikeBooking
 
             return versionId;
         }   //End of GetDefaultPriceQuoteVersion
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Dec 2016
+        /// Description :   Call getpricequoteversion_15122016 SP
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId)
+        {
+            uint versionId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getpricequoteversion_15122016";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                                versionId = Convert.ToUInt32(dr["VersionId"]);
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("GetDefaultPriceQuoteVersion({0},{1},{2}) : Exception : {3}", modelId, cityId, areaId, ex.Message));
+                objErr.SendMail();
+            }
+            return versionId;
+        }
         #endregion
 
         #region GetAreaList Method
@@ -688,11 +637,6 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "GetAreaList sqlex : " + ex.Message);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
@@ -701,11 +645,6 @@ namespace Bikewale.DAL.BikeBooking
             return objArea;
         }   //End of GetAreaList
         #endregion
-
-        public PQOutputEntity ProcessPQ(Entities.PriceQuote.PriceQuoteParametersEntity PQParams)
-        {
-            throw new NotImplementedException();
-        }
 
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
@@ -984,15 +923,8 @@ namespace Bikewale.DAL.BikeBooking
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetModelColor sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetModelColor ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
@@ -1038,11 +970,6 @@ namespace Bikewale.DAL.BikeBooking
                         }
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -1141,5 +1068,9 @@ namespace Bikewale.DAL.BikeBooking
 
         }
 
+        public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams)
+        {
+            throw new NotImplementedException();
+        }
     }   //End of class
 }   //End of namespace
