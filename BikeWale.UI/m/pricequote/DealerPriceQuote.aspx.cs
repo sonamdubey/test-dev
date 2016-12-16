@@ -93,7 +93,7 @@ namespace Bikewale.Mobile.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    BindAlternativeBikeControl(versionId.ToString());
+                    BindAlternativeBikeControl(versionId);
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), areaId.ToString(), Convert.ToString(versionId), Convert.ToString(dealerId)));
 
                     ctrlLeadCapture.CityId = cityId;
@@ -418,13 +418,13 @@ namespace Bikewale.Mobile.BikeBooking
             return string.Empty;
         }
 
-        private void BindAlternativeBikeControl(string versionId)
+        private void BindAlternativeBikeControl(uint versionId)
         {
             ctrlAlternateBikes.TopCount = 9;
 
-            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
+            if (versionId > 0)
             {
-                ctrlAlternateBikes.VersionId = Convert.ToUInt32(versionId);
+                ctrlAlternateBikes.VersionId = versionId;
                 ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
                 ctrlAlternateBikes.CityId = cityId;
                 ctrlAlternateBikes.modelName = (objPriceQuote != null && objPriceQuote.objModel != null) ? objPriceQuote.objModel.ModelName : string.Empty;

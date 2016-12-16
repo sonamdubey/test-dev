@@ -166,7 +166,6 @@
                                     <div id="model-version-dropdown" class="padding-top25">
                                         <div class="select-box select-box-no-input done size-small">
                                             <p class="select-label">Version</p>
-                                            <%--<asp:Label Visible="false" runat="server" ID="defaultVariant"></asp:Label>--%>
                                             <asp:DropDownList AutoPostBack="true" runat="server" ID="ddlVersion" CssClass="chosen-select" data-title="Version" />
                                             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />           
                                         </div>
