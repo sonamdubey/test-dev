@@ -105,7 +105,8 @@
                                                 </div>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                    <span class="vertical-top dealership-card-details"><%#string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                                    <span class="vertical-top dealership-card-details"><%#(String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.PinCode").ToString()))?string.Format("{0}, {1}",DataBinder.Eval(Container.DataItem,"Address"),cityName):string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                                
                                                 </p>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
                                                     <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>

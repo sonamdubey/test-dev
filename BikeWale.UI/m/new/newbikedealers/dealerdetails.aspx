@@ -43,7 +43,7 @@
                      { %>
                     <p class="margin-bottom10">
                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                        <span class="vertical-top dealership-details text-light-grey"><%=string.Format("{0}, {1}, {2}",dealerDetails.Address,dealerDetails.Pincode,dealerCity) %></span>
+                        <span class="vertical-top dealership-details text-light-grey"><%=String.IsNullOrEmpty(dealerDetails.Pincode)?string.Format("{0}, {1}",dealerDetails.Address,dealerCity):string.Format("{0}, {1}, {2}",dealerDetails.Address,dealerDetails.Pincode,dealerCity) %></span>
                     </p>
                     <% } %>
                     <% if (!string.IsNullOrEmpty(dealerDetails.MaskingNumber))
