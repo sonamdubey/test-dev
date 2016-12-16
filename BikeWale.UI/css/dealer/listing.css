@@ -171,7 +171,7 @@
 .details-column {
     width: 92%
 }
-.edit-blue { width: 16px; height: 16px; background-position: -205px -330px; }
+.edit-blue { width: 18px; height: 16px; background-position: -205px -330px; position: relative; top: 3px; }
 
 @media only screen and (max-width:1024px) {
     #city-dealer-list li, .bw-horizontal-cards .card {
