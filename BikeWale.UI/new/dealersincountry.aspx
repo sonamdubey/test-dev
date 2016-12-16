@@ -8,9 +8,9 @@
 <html>
 <head>
     <% 
-        title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale - BikeWale", objMMV.MakeName, stateName);
+        title = string.Format("{0} Bike Showrooms in India | {0} Bike Dealers in India - BikeWale", objMMV.MakeName, stateName);
         keywords = string.Format("{0} bike dealers, {0} bike showrooms, {0} dealers, {0} showrooms, {0} dealerships, dealerships, test drive, {0} dealer contact number", objMMV.MakeName);
-        description = string.Format("{0} bike dealer showrooms in India. Find {0} dealer showroom information for more than {1} dealers in {2} cities", objMMV.MakeName, DealerCount, citiesCount);
+        description = string.Format("Find the nearest {0} showroom in your city. There are {1} {0} showrooms in {2} cities in India. Get contact details, address, and direction of {0} dealers.", objMMV.MakeName, DealerCount, citiesCount);
         canonical = string.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-india/", objMMV.MaskingName);
         alternate = string.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-india/", objMMV.MaskingName);
         isAd970x90Shown = false;
@@ -72,10 +72,10 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1><%=objMMV.MakeName %> dealer showrooms in India</h1>
+                            <h1><%=objMMV.MakeName %> Showrooms in India</h1>
                         </div>
                         <p class="font14 text-light-grey content-inner-block-20">
-                            <%=objMMV.MakeName %> sells bikes through a vast network of dealer showrooms.The network consists of <%=DealerCount%> authorized <%=objMMV.MakeName %> showrooms spread across <%=citiesCount%> cities in India. The <%=objMMV.MakeName%> dealer showroom locator will help you find the nearest authorized dealer in your city. In case, there are no <%=objMMV.MakeName %> showrooms in your city, you can get in touch with an authorized dealer in your nearby city.
+                            <%=string.Format("BikeWale recommends to buy your {0} bike only from authorized {0} showrooms. We bring you a list of {1} {0} showrooms present in {2} cities in India. The showroom locator tool will help you find the {0} showroom in your city. BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get {0} showroom’s address, contact details, EMI options for your nearest dealer.",objMMV.MakeName,DealerCount,citiesCount)%>
                         </p>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 bg-white padding-18-20"><%=DealerCount%> <%=objMMV.MakeName %> dealer showrooms in <%=citiesCount%> cities</h2>
+                        <h2 class="font18 bg-white padding-18-20"><%=DealerCount%> <%=objMMV.MakeName %> dealers in <%=citiesCount%> cities</h2>
                         <div id="listing-left-column" class="grid-4">
                             <div id="filter-input" class="form-control-box">
                                 <span class="bwsprite search-icon-grey"></span>

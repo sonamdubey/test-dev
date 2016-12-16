@@ -17,13 +17,14 @@ namespace AppNotification.BAL
 {
     public class AndroidGCMAPI<TResponse> : IAPIService<TResponse>
 
-        where TResponse : APIResponseEntity, new()
+        where TResponse : SubscriptionResponse, new()
     {
 
         private static readonly string _androidGlobalTopic = ConfigurationManager.AppSettings["AndroidGlobalTopic"];
         private static readonly string _FCMSendURL = ConfigurationManager.AppSettings["FCMSendURL"];
         private static readonly string _FCMApiKey = ConfigurationManager.AppSettings["FCMApiKey"];
         private static readonly string _genericQueueName = ConfigurationManager.AppSettings["GenericQueueName"];
+        private static readonly int _oneWeek = 604800;
         private static readonly int _maxRetries = 3;
 
 
@@ -32,10 +33,8 @@ namespace AppNotification.BAL
 
             string postData = GetGCMData(regKeyList);
             SubscriptionResponse subscriptionResponse = SubscribeFCMNotification(postData, 0);
-            var responseEntity = new TResponse()
-            {
-                ResponseText = Convert.ToString(subscriptionResponse),
-            };
+            var responseEntity = (TResponse)subscriptionResponse;
+
             return responseEntity;
         }
         public string GetGCMData(List<string> regKeyList)
@@ -111,10 +110,10 @@ namespace AppNotification.BAL
         //    return responseLine;
         //}
 
-        //private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-        //{
-        //    return true;
-        //}
+        private static bool ValidateServerCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
 
         public SubscriptionResponse SubscribeFCMNotification(string payload, int retries)
         {
@@ -169,37 +168,5 @@ namespace AppNotification.BAL
 
             return subsResponse;
         }
-
     }
-
-
-    public class NotificationResponse
-    {
-        public string Error { get; set; }
-    }
-
-    public class FCMPushNotificationStatus
-    {
-        public bool Successful { get; set; }
-
-        public NotificationResponse Response { get; set; }
-
-        public Exception Error { get; set; }
-    }
-    [Serializable]
-    public class SubscriptionResponse
-    {
-        [JsonProperty("results")]
-        public List<SubscriptionResult> Results { get; set; }
-    }
-    [Serializable]
-    public class SubscriptionResult
-    {
-        [JsonProperty("error")]
-        public string Error { get; set; }
-    }
-
-
-
-
 }

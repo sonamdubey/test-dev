@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AppNotification.Interfaces
 {
-    public interface IRequestManager<T>
+    public interface IRequestManager
     {
-        void ProcessRequest(T t);
+        void ProcessRequest();
     }
 }

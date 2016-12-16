@@ -26,6 +26,8 @@ namespace Bikewale.Controls
     /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
     /// Modified by Sajal Gupta on 17-11-2016
     /// Description : Added isHeading variable for making heading of repeater optional.
+    /// Modified By :-Subodh Jain on 16 Dec 2016
+    /// Summary :- Added heading to dealer widget
     /// </summary>
     public class DealerCard : UserControl
     {
@@ -44,6 +46,7 @@ namespace Bikewale.Controls
         public bool showWidget = false;
         public uint DealerId { get; set; }
         public bool isHeading = true;
+        public string widgetHeading { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

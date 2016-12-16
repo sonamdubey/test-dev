@@ -8,7 +8,7 @@
 %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
     <% if(isHeadingNeeded)  { %>  
-    <h2 class="padding-right20 padding-left20 text-bold"><%= makeName %> dealers in <%= cityName %></h2>
+    <h2 class="padding-right20 padding-left20 text-bold"><%=widgetHeading%></h2>
     <% } %>
     <div class="swiper-container card-container margin-bottom15">
         <!-- dealers by city -->
@@ -32,7 +32,7 @@
     </div>
 
     <div class="padding-right20 padding-left20">
-        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Dealer showrooms in <%= cityName %>">View all <%=makeName %> dealer showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
+        <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%= cityName %>">View all <%=makeName %> showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
     </div>
 </div>
 <% }

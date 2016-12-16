@@ -10,8 +10,8 @@
 
     <% 
         keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", makeName, cityName);
-        description = String.Format("There are {2} {0} dealer showrooms in {1}. Get in touch with {0} showroom for prices, availability, test rides, EMI options and more!", makeName, cityName,totalDealers);
-        title = String.Format("{0} Showrooms in {1} | {2} {0} Bike Dealers  - BikeWale", makeName, cityName,totalDealers);
+        description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", makeName, cityName, totalDealers);
+        title = String.Format("{0} showroom in {1} | {2} {0} bike dealers- BikeWale", makeName, cityName, totalDealers);
         canonical = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
@@ -45,10 +45,9 @@
         <section>
             <div class="container margin-bottom10">
                 <div class="bg-white">
-                    <h1 class="box-shadow padding-15-20"><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
+                    <h1 class="box-shadow padding-15-20"><%=makeName%> Showrooms in <%=cityName%></h1>
                     <div class="box-shadow font14 text-light-grey padding-15-20">
-                       <%=makeName%> has <%=totalDealers %> authorized dealer<%=(totalDealers>1)?"s":"" %> in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
-                            For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
+                      <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}' . Read More after completion of three sentences.",makeName,cityName,totalDealers)%>
                     </div>
                 </div>
             </div>
@@ -76,7 +75,7 @@
                                     </h3>
                                     <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"margin-bottom5" %>">
                                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top dealership-details text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                        <span class="vertical-top dealership-details text-light-grey"><%# string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
                                     </p>
                                     <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
                                         <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold maskingNumber">

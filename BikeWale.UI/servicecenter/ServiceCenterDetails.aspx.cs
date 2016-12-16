@@ -60,7 +60,8 @@ namespace Bikewale.ServiceCenter
         /// Desc: Bind Controls for page
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
-        /// </summary>
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// <returns></returns>
         private void BindControls()
         {
@@ -87,6 +88,7 @@ namespace Bikewale.ServiceCenter
                     ctrlDealerCard.cityName = serviceVM.CityName;
                     ctrlDealerCard.TopCount = 3;
                     ctrlDealerCard.isHeading = false;
+                    ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", serviceVM.MakeName, serviceVM.CityName);
                 }
                 ctrlPopoularBikeMake.makeId = Convert.ToInt32(serviceVM.MakeId);
                 ctrlPopoularBikeMake.cityId = Convert.ToInt32(serviceVM.CityId);

@@ -10,8 +10,8 @@
 <head>
     <%      
         keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", makeName, cityName);
-        description = String.Format("There are {2} {0} dealer showrooms in {1}. Get in touch with {0} showroom for prices, availability, test rides, EMI options and more!", makeName, cityName, totalDealers);
-        title = String.Format("{0} Showrooms in {1} | {2} {0} Bike Dealers  - BikeWale", makeName, cityName, totalDealers);
+        description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", makeName, cityName, totalDealers);
+        title = String.Format("{0} showroom in {1} | {2} {0} bike dealers- BikeWale", makeName, cityName, totalDealers);
         canonical = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         alternate = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
@@ -48,15 +48,12 @@
                                 <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Dealer Showroom Locator</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Showroom</span></a>
                             </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Dealer Showrooms</span></a>
-                            </li>
-                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Bikes Dealer Showroom in <%=cityName %></li>
+                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Showroom in <%=cityName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -70,12 +67,10 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1><%=makeName%> Dealer Showrooms in <%=cityName%></h1>
+                            <h1><%=makeName%> Showrooms in <%=cityName%></h1>
                              </div>
-                        <p class="font14 text-light-grey content-inner-block-20">
-                            <%=makeName%> has <%=totalDealers %> authorized dealer<%=(totalDealers>1)?"s":"" %> in <%=cityName%>. BikeWale recommends buying bikes only from authorized <%=makeName%> showroom in <%=cityName%>. 
-                            For information on prices, offers, EMI options , test rides etc. you may get in touch with any of the below mentioned authorized <%=makeName%> dealers in <%=cityName%>.
-
+                        <p class="font14 text-light-grey content-inner-block-20">       
+                            <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}' . Read More after completion of three sentences.",makeName,cityName,totalDealers)%>
                         </p>
                     </div>
                 </div>
@@ -110,7 +105,7 @@
                                                 </div>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                    <span class="vertical-top dealership-card-details"><%# DataBinder.Eval(Container.DataItem,"Address") %></span>
+                                                    <span class="vertical-top dealership-card-details"><%#string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
                                                 </p>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
                                                     <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
