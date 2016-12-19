@@ -45,10 +45,7 @@
         <section>
             <div class="container margin-bottom10">
                 <div class="bg-white">
-                    <h1 class="box-shadow padding-15-20"><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>
-                <%--    <div class="box-shadow font14 text-light-grey padding-15-20">
-                     Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There are <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%>.
-                    </div>--%>                    							
+                    <h1 class="box-shadow padding-15-20"><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>                  							
                     <div class="box-shadow padding-15-20 font14 text-light-grey">
                         <p id="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There are <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%>...</p>
 					    <p id="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>. </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
