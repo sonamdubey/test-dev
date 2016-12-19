@@ -38,8 +38,9 @@
             <div class="container margin-bottom10">
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=objMMV.MakeName %> Showrooms in India</h1>
-                    <div class="box-shadow font14 text-light-grey padding-15-20">
-                       <%=string.Format("BikeWale recommends to buy your {0} bike only from authorized {0} showrooms. We bring you a list of {1} {0} showrooms present in {2} cities in India. The showroom locator tool will help you find the {0} showroom in your city. BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get {0} showroom’s address, contact details, EMI options for your nearest dealer.",objMMV.MakeName,DealerCount,citiesCount)%>
+                 <div class="box-shadow padding-15-20 font14 text-light-grey">
+                        <p id="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+					    <p id="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
                     </div>
                 </div>
             </div>
