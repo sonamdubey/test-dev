@@ -273,5 +273,18 @@ namespace Bikewale.BAL.Dealer
                 return false;
             }
         }
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+            try
+            {
+                return dealerRepository.GetDealerByBrandList();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetDealerByBrandList"));
+                objErr.SendMail();
+                return null;
+            }
+        }
     }
 }

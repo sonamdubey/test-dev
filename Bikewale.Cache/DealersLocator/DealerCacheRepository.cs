@@ -135,5 +135,23 @@ namespace Bikewale.Cache.DealersLocator
             }
             return dealersMakes;
         }
+
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+
+            IEnumerable<DealerBrandEntity> dealersMakes = null;
+            string key = String.Format("BW_DealerByBrand_List");
+            try
+            {
+                dealersMakes = _cache.GetFromCache<IEnumerable<DealerBrandEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByBrandList());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByBrandList");
+                objErr.SendMail();
+            }
+            return dealersMakes;
+
+        }
     }
 }
