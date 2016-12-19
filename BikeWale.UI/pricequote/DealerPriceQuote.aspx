@@ -69,6 +69,12 @@
             </div>
         </section>
 
+        <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <section>
+            <%=String.Format(objQuotation.ManufacturerAd) %>
+        </section>
+        <%} %>
+
         <section>
             <div class="container" id="modelDetailsContainer">
                 <div class="grid-12 margin-bottom20">

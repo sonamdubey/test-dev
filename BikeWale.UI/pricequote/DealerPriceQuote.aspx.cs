@@ -39,7 +39,6 @@ namespace Bikewale.BikeBooking
         #region Variables
 
         protected GlobalCityAreaEntity CityArea { get; set; }
-        protected Repeater rptUSPBenefits;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
@@ -165,17 +164,13 @@ namespace Bikewale.BikeBooking
                                 isDeluxe = dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe;
                             }
 
-                            //bind Offer
                             if (primarydealer.OfferList != null && primarydealer.OfferList.Count() > 0)
                             {
                                 isoffer = true;
                             }
 
-                            //bind USP benefits.
                             if (primarydealer.Benefits != null && primarydealer.Benefits.Count() > 0)
                             {
-                                rptUSPBenefits.DataSource = primarydealer.Benefits;
-                                rptUSPBenefits.DataBind();
                                 isUSPBenfits = true;
                             }
 
@@ -229,9 +224,9 @@ namespace Bikewale.BikeBooking
             {
                 if (dealerId == 0 && detailedDealer.SecondaryDealerCount == 0 && pqId > 0)
                 {
-                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    //Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    //HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    //this.Page.Visible = false;
                 }
             }
         }
