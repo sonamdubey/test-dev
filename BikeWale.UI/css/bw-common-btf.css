@@ -117,9 +117,6 @@ footer ul li a:hover { text-decoration: underline; }
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
-.loggedin-box, .login-with-photo { width: 29px; height: 29px; overflow: hidden; display:inline-block; vertical-align:middle; }
-.login-with-photo img { width: 100%; }
-.loggedin-box:hover { cursor: pointer; }
 .loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
 
 .user-profile-banner { background:#161209 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/user-profile-banner.jpg) no-repeat center top; width:280px; height: 146px; }

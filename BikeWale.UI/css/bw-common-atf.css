@@ -164,7 +164,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .header-fixed-inner { padding-top: 55px; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Oct2016) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Dec2016) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -192,6 +192,10 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .ui-menu .ui-menu-item a.target-popup-link { display:none; float:right; color:#0288d1; font-size:13px; }
 .ui-menu .ui-menu-item:hover a.target-popup-link,.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link { display:block; }
 .ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; font-size:13px; }
+
+/*logged in classes*/
+.loggedin-box, .login-with-photo { width: 29px; height: 29px; overflow: hidden; display:inline-block; vertical-align:middle; }
+.login-with-photo img { width: 100%; }
 
 /* common properties */
 .leftfloat{float:left;}
@@ -275,6 +279,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .margin-right10 { margin-right: 10px; }
 .margin-right15 { margin-right: 15px; }
 .margin-right20 { margin-right: 20px; }
+.margin-right25 { margin-right: 25px; }
 
 .margin-bottom5 { margin-bottom: 5px; }
 .margin-bottom10 { margin-bottom: 10px; }
