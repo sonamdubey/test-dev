@@ -23,5 +23,6 @@ namespace Bikewale.Interfaces.ServiceCenter
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);
         EnumServiceCenterSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl);
         IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand();
+        IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId, int makeId, int topCount);
     }
 }

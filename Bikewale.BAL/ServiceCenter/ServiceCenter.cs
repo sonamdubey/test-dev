@@ -155,6 +155,25 @@ namespace Bikewale.BAL.ServiceCenter
             }
             
         }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 19 Dec 2016
+        /// Description: BAL layer Function for fetching service centers by brands in nearby cities.
+        /// </summary>
+        public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId, int makeId, int topCount)
+        {
+            try
+            {
 
+                return _objServiceCenter.GetServiceCentersNearbyCitiesByBrand(cityId,makeId,topCount);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}", cityId, makeId, topCount));
+                objErr.SendMail();
+                return null;
+            }
+
+        }
     }
 }

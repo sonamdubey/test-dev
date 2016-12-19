@@ -445,28 +445,28 @@ namespace Bikewale.DAL.ServiceCenter
                 using (DbCommand cmd = DbFactory.GetDBCommand("getallservicecentersbymake"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
-                        { 
-                            BrandServiceCenters objServiceCenters=null;
+                        {
+                            BrandServiceCenters objServiceCenters = null;
                             listServiceCenter = new List<BrandServiceCenters>();
-                             while (dr.Read())
+                            while (dr.Read())
                             {
-                                
-                                 
+
+
                                 objServiceCenters = new BrandServiceCenters();
                                 objServiceCenters.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 objServiceCenters.MakeName = Convert.ToString(dr["MakeName"]);
                                 objServiceCenters.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objServiceCenters.ServiceCenterCount=SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
+                                objServiceCenters.ServiceCenterCount = SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
                                 objServiceCenters.LogoURL = Convert.ToString(dr["LogoUrl"]);
                                 objServiceCenters.HostURL = Convert.ToString(dr["HostURL"]);
                                 listServiceCenter.Add(objServiceCenters);
                             }
-                                dr.Close();
-                            
+                            dr.Close();
+
                         }
                     }
                 }
@@ -478,6 +478,55 @@ namespace Bikewale.DAL.ServiceCenter
             }
             return listServiceCenter;
 
+        }
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 19 Dec 2016
+        /// Description : To get number of service centers by brand in nearby cities
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId, int makeId, int topCount)
+        {
+            IList<CityBrandServiceCenters> listServiceCenter = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getservicecentersfornearbycities"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            CityBrandServiceCenters objServiceCenters = null;
+                            listServiceCenter = new List<CityBrandServiceCenters>();
+                            while (dr.Read())
+                            {
+                                objServiceCenters = new CityBrandServiceCenters();
+                                objServiceCenters.CityId = SqlReaderConvertor.ToInt32(dr["CityId"]);
+                                objServiceCenters.CityName = Convert.ToString(dr["CityName"]);
+                                objServiceCenters.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                objServiceCenters.ServiceCenterCount = SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
+                                listServiceCenter.Add(objServiceCenters);
+                            }
+                            dr.Close();
+
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Error in ServiceCenterRepository.GetServiceCentersNearbyCitiesByBrand for paramerters cityId : {0},makeId: {1},topCount: {2}", cityId, makeId, topCount));
+                objErr.SendMail();
+            }
+            return listServiceCenter;
         }
 
     }
