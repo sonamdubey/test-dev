@@ -6,6 +6,7 @@ using Bikewale.Entities.service;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -20,20 +21,32 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindNearbyCitiesServiceCenters
     {
-        public IEnumerable<CityBrandServiceCenters> serviceData = null;
+        
         public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByMake(int cityId,int makeId,int topCount)
         {
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
-                .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
-                .RegisterType<ICacheManager, MemcacheManager>();
-                var objSC = container.Resolve<IServiceCenter>();
-                if (objSC != null)
-                    serviceData = objSC.GetServiceCentersNearbyCitiesByBrand(cityId,makeId,topCount);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
+                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    var objSC = container.Resolve<IServiceCenter>();
+                    if (objSC != null)
+                        return objSC.GetServiceCentersNearbyCitiesByBrand(cityId, makeId, topCount);
+                    else
+                        return null;
+                }
             }
-            return serviceData;
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Error in BindNearbyCitiesServiceCenters.GetServiceCentersNearbyCitiesByMake");
+                objErr.SendMail();
+                return null;
+            }
+           
+            
         }
     }
 }
