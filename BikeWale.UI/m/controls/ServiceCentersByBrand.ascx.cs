@@ -16,6 +16,7 @@ namespace Bikewale.Mobile.Controls
     {
         protected IEnumerable<BrandServiceCenters> AllServiceCenters;
         protected string WidgetTitle;
+        public int makeId;
         public int FetchedRecordsCount;
         public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
@@ -30,8 +31,11 @@ namespace Bikewale.Mobile.Controls
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
                 if (AllServiceCenters != null)
+                {
                     FetchedRecordsCount = AllServiceCenters.Count();
-                WidgetTitle = "Other brand service centers in India";
+                    AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);
+                }
+                WidgetTitle = "Find Service Centers for other brands";
             }
             catch (Exception ex)
             {

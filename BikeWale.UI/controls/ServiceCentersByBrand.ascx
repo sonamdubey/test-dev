@@ -23,6 +23,8 @@
     width: 39px;
     background-position: -2616px 0;
 }
+#carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
+
 </style>
 
 <div class="container section-container ">
@@ -30,7 +32,7 @@
     <div class="content-box-shadow padding-top20 padding-bottom20">
     <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
 
-      <div class="jcarousel-wrapper inner-content-carousel">
+      <div class="jcarousel-wrapper inner-content-carousel" id="carouselServiceCenter">
 
      
                 <div class="jcarousel" data-jcarousel="true">
@@ -49,7 +51,7 @@
                                         <div class="card-desc-block">
                                             <h3 class="bikeTitle border-solid-top padding-top15"><%= centers.MakeName%></h3>
                                           
-                                            <p class="font14 text-light-grey margin-bottom5"><%=centers.ServiceCenterCount %> Service Centers</p>
+                                            <p class="font14 text-light-grey margin-bottom5"><%=centers.ServiceCenterCount %> Service Center<%=(centers.ServiceCenterCount)>1?"s":"" %></p>
                                            
                                         </div>
                                     </a>

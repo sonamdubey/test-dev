@@ -61,7 +61,7 @@ namespace Bikewale.Mobile.Service
                 }
                 BindCities();
                 ctrlBikeCare.TotalRecords = 3;
-
+                ctrlOtherServiceCenters.makeId = makeId;
             }
 
         }
