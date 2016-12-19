@@ -135,7 +135,7 @@
                             <% foreach (var article in objTrackDayArticles.Articles)
                                { %>
                             <li>
-                                <a href="<%= string.Format("/trackday2016/{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" title="<%= article.Title %>"><%= article.Title %></a>
+                                <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" title="<%= article.Title %>"><%= article.Title %></a>
                             </li>
                             <% } %>
                         </ul>
