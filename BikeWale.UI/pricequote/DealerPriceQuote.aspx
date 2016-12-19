@@ -18,6 +18,10 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+     <style type="text/css">
+            .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
+            #campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:bold}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;display:inline-block;vertical-align:middle;margin-top:15px;margin-bottom:10px;padding-right:5px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
+        </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
 
@@ -107,7 +111,7 @@
 
                                 <div class="position-rel top-minus5 vertical-top">
                                     <p class="font12 text-light-grey">Location</p>
-                                    <p class="font14 text-bold block position-rel pos-top2"><%= location %> <a class="margin-left5"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-bold block position-rel pos-top2"><%= location %> <span class="margin-left5"><span class="bwsprite loc-change-blue-icon"></span></span></p>
                                 </div>
 
                                 <div runat="server">
@@ -512,6 +516,11 @@
             </div>
         </section>
 
+        <% if (objQuotation != null && detailedDealer.PrimaryDealer!= null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <section>
+            <%=String.Format(objQuotation.ManufacturerAd) %>
+        </section>
+        <%} %>
         <!-- Secondary dealer section -->
         <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0 )
           { %>
@@ -906,7 +915,7 @@
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
                     success: function (json) {
-                        var jsonObj = json;                                               
+                        var jsonObj = json; 
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
                             window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);

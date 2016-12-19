@@ -39,7 +39,6 @@ namespace Bikewale.BikeBooking
         #region Variables
 
         protected GlobalCityAreaEntity CityArea { get; set; }
-        protected Repeater rptUSPBenefits;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
@@ -49,7 +48,7 @@ namespace Bikewale.BikeBooking
         protected NewAlternativeBikes ctrlAlternativeBikes;
 
         protected string bikeName = string.Empty, bikeVersionName = string.Empty, minspecs = string.Empty, pageUrl = string.Empty, clientIP = CommonOpn.GetClientIP(),
-            location = string.Empty, dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString;
+            location = string.Empty, dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58";
 
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
         protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
@@ -146,6 +145,8 @@ namespace Bikewale.BikeBooking
                                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                                 objPriceQuote = container.Resolve<IPriceQuote>();
                                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Desktop);
+                                if (objQuotation != null)
+                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
                             }
 
                             if (primarydealer.DealerDetails != null)
@@ -169,17 +170,13 @@ namespace Bikewale.BikeBooking
                                 }
                             }
 
-                            //bind Offer
                             if (primarydealer.OfferList != null && primarydealer.OfferList.Count() > 0)
                             {
                                 isoffer = true;
                             }
 
-                            //bind USP benefits.
                             if (primarydealer.Benefits != null && primarydealer.Benefits.Count() > 0)
                             {
-                                rptUSPBenefits.DataSource = primarydealer.Benefits;
-                                rptUSPBenefits.DataBind();
                                 isUSPBenfits = true;
                             }
 
@@ -229,15 +226,7 @@ namespace Bikewale.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> SetDealerPriceQuoteDetail(): versionId {0}", versionId));
                 objErr.SendMail();
             }
-            finally
-            {
-                if (dealerId == 0 && detailedDealer.SecondaryDealerCount == 0 && pqId > 0)
-                {
-                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
+            
         }
 
         /// <summary>
@@ -378,26 +367,10 @@ namespace Bikewale.BikeBooking
             {
                 if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
-                    if (objPQOutput.DealerId > 0)
-                    {
-                        // Save pq cookie
-                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable)
-                    {
-                        // Save pq cookie
-                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                    else if (objPQOutput.DealerId == 0 && !objPQOutput.IsDealerAvailable)
-                    {
-                        Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    // Save pq cookie
+                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else
                 {
