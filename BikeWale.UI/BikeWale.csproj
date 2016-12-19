@@ -71,13 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
-    <Reference Include="Carwale.CMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Carwale.Cache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Carwale.CMS.dll</HintPath>
-    </Reference>
-    <Reference Include="Carwale.CoreDAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Carwale.CoreDAL.dll</HintPath>
+      <HintPath>..\Libs\Carwale.Cache.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,6 +94,12 @@
     <Reference Include="Carwale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\Libs\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperWrapper">
+      <HintPath>..\Libs\DapperWrapper.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -181,7 +183,7 @@
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -251,6 +253,7 @@
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
+    <Compile Include="BindViewModels\Controls\BindOtherBrandsServiceCenters.cs" />
     <Compile Include="BindViewModels\Controls\BindOtherUsedBikesForCity.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceCenter.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
@@ -612,6 +615,10 @@
       <DependentUpon>servicecentercard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ServiceCentersByBrand.ascx.cs">
+      <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\serviceschedule.ascx.cs">
       <DependentUpon>serviceschedule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -852,8 +859,16 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
+      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
       <DependentUpon>PopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
+      <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UpcomingBikesMin.ascx.cs">
@@ -946,10 +961,6 @@
     </Compile>
     <Compile Include="m\controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
-      <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarUsedBikes.ascx.cs">
@@ -1145,6 +1156,14 @@
     </Compile>
     <Compile Include="m\pricequote\RSAOfferClaim.aspx.cs">
       <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\trackday2016\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\trackday2016\details.aspx.cs">
+      <DependentUpon>details.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\used\BikeDetails.aspx.cs">
@@ -1896,6 +1915,7 @@
     <Content Include="controls\RepeaterPagerUsed.ascx" />
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\servicecentercard.ascx" />
+    <Content Include="controls\ServiceCentersByBrand.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
@@ -2413,7 +2433,9 @@
     <Content Include="m\controls\LogInOutControl.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
+    <Content Include="m\controls\ServiceCentersByBrand.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
     <Content Include="m\controls\serviceschedule.ascx" />
@@ -2437,7 +2459,6 @@
     <Content Include="m\controls\UsedOtherBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />
-    <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\SimilarUsedBikes.ascx" />
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
@@ -2614,6 +2635,10 @@
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
+    <Content Include="m\trackday2016\css\track-day.css" />
+    <Content Include="m\trackday2016\default.aspx" />
+    <Content Include="m\trackday2016\details.aspx" />
+    <Content Include="m\trackday2016\src\track-day.js" />
     <Content Include="m\used\BikeDetails.aspx" />
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />

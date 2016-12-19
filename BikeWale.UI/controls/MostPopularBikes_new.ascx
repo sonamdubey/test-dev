@@ -51,14 +51,14 @@
                                             <p class="text-xt-light-grey font14 margin-bottom10">
                                                 <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.KerbWeight"))) %>
                                             </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, <%=cityname %></p>
+                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CityName"))%></p>
                                             <p class="text-bold text-default">
                                                 <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                             </p>
                                         </div>
                                     </a>
                                     <div class="margin-left20 margin-bottom20">
-                                        <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")),cityMaskingName) %>" class="btn btn-white btn-truncate font14 btn-size-2" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%> On-road price in <%=cityname %>" >On-road price in <%=cityname %></a>
+                                        <a href="<%# Bikewale.Utility.UrlFormatter.PriceInCityUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")), Convert.ToString(DataBinder.Eval(Container.DataItem, "CityMaskingName"))) %>" class="btn btn-white btn-truncate font14 btn-size-2" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName"))+" "+Convert.ToString( DataBinder.Eval(Container.DataItem, "objModel.ModelName"))%> On-road price in <%#Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %>" >On-road price in <%#Convert.ToString(DataBinder.Eval(Container.DataItem,"CityName")) %></a>
                                     </div>
                                 </li>
                             </ItemTemplate>

@@ -23,6 +23,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+
     <link rel="stylesheet" href="/css/dealer/listing.css" type="text/css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
@@ -82,8 +83,8 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-18-20">
-                            <h2 class="font18 text-black text-bold bg-white dealer-heading leftfloat"><%=totalDealers %> <%=makeName %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
-                            <div class="rightfloat">
+                            <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10"><%=totalDealers %> <%=makeName %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
+                            <div class="inline-block">
                                 <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                             </div>
                             <div class="clear"></div>
@@ -105,7 +106,8 @@
                                                 </div>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                    <span class="vertical-top dealership-card-details"><%#string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                                    <span class="vertical-top dealership-card-details"><%#(String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.PinCode").ToString()))?string.Format("{0}, {1}",DataBinder.Eval(Container.DataItem,"Address"),cityName):string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                                
                                                 </p>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
                                                     <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>

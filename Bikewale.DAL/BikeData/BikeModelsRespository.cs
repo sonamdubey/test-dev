@@ -1209,6 +1209,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
+                                objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
                                 objList.Add(objData);
                             }
                             dr.Close();

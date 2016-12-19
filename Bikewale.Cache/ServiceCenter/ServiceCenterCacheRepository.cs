@@ -131,5 +131,27 @@ namespace Bikewale.Cache.ServiceCenter
             }
             return null;
         }
+
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 15 Dec 2016
+        /// Description : To get number of service centers by brand
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand()
+        {
+            string key = "BW_ServiceCentersByBrand";
+            try
+            {
+                return _cache.GetFromCache<IEnumerable<BrandServiceCenters>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetAllServiceCentersByBrand());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex,"Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
+                objErr.SendMail();
+                return null;
+            }
+
+        }
+
     }
 }

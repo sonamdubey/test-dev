@@ -508,14 +508,10 @@ function getBikeVersionLocation() {
 
 function getBikeVersion() {
     var versionName = '';
-    if ($('#defaultVariant').length > 0) {
-        versionName = $('#defaultVariant').html();
-    }
-    else if ($('#versText').length > 0) {
-        versionName = $('#versText').html();
-    }
-    else if ($("#ddlVersion").length>0) {
-        versionName = $('#ddlVersion').find("option:selected").text();
+    if ($("#ddlVersion").length > 0) {
+        versionName = $("#ddlVersion option:selected").text();
+    } else {
+        versionName = $('#singleversion').html();
     }
     return versionName;
 }
