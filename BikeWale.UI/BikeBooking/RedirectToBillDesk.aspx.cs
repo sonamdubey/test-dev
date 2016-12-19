@@ -2,14 +2,8 @@
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Carwale.BL.PaymentGateway;
 
 
 namespace Bikewale.BikeBooking
@@ -33,7 +27,7 @@ namespace Bikewale.BikeBooking
         {
             if (Request.QueryString["msg"] != null && Request.QueryString["msg"] != "")
             {
-                msg =Carwale.Utility.CarwaleSecurity.Decrypt(Request.QueryString["msg"].ToString());
+                msg = Carwale.Utility.CarwaleSecurity.Decrypt(Request.QueryString["msg"].ToString());
                 submit = 1;
             }
             Trace.Warn("msg : " + msg);

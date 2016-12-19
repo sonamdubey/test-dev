@@ -1,38 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using AppNotification.BAL;
+using AppNotification.DAL;
+using AppNotification.Interfaces;
+using AppNotification.Notifications;
+using Microsoft.Practices.Unity;
+using System;
 using System.Web.Http;
 using System.Web.Http.Description;
-using AppNotification.Service;
-using AppNotification.Notifications;
-using AppNotification.Entity;
-using AppNotification.Interfaces;
-using AppNotification.DAL;
-using Microsoft.Practices.Unity;
-using AppNotification.BAL;
 
 
 namespace AppNotification.Service.Controllers
 {
     public class MobileAppAlertController : ApiController
     {
-        private IRequestManager<MobileAppNotifications> _queueProcessor;
+        private IRequestManager _queueProcessor;
 
         // POST api/<controller>
         [ResponseType(typeof(IHttpActionResult))]
         [HttpPost]
-        public IHttpActionResult Post([FromBody]MobileAppNotifications appNotification)
+        public IHttpActionResult Post()
         {
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
 
-                    container.RegisterType<IRequestManager<MobileAppNotifications>, MobileAppAlertService<MobileAppNotifications>>().RegisterType<IMobileAppAlertRepository, MobileAppAlertRepository>();
-                    _queueProcessor = container.Resolve<IRequestManager<MobileAppNotifications>>();
-                    _queueProcessor.ProcessRequest(appNotification);
+                    container.RegisterType<IRequestManager, MobileAppAlertService>()
+                        .RegisterType<IMobileAppAlertRepository, MobileAppAlertRepository>();
+                    _queueProcessor = container.Resolve<IRequestManager>();
+                    _queueProcessor.ProcessRequest();
                     return Ok(true);
 
                 }

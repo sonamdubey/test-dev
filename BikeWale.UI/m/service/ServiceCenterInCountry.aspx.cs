@@ -25,11 +25,14 @@ namespace Bikewale.Mobile.Service
 
     /// Created by :Subodh Jain 7 nov 2016
     /// Summary: For Service Center Locator page in India
+    /// Modified By : Aditi Srivastava on 16 Dec 2016
+    /// Summary     : Added widget for service centers by brand
     /// </summary>
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
+        protected ServiceCentersByBrand ctrlOtherServiceCenters;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -58,7 +61,7 @@ namespace Bikewale.Mobile.Service
                 }
                 BindCities();
                 ctrlBikeCare.TotalRecords = 3;
-
+                ctrlOtherServiceCenters.makeId = makeId;
             }
 
         }

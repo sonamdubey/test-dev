@@ -1,15 +1,10 @@
 ﻿using Bikewale.DTO.App.AppAlert;
-using Bikewale.DTO.PriceQuote.MobileVerification;
-using Bikewale.Entities.MobileVerification;
-using Bikewale.Interfaces.AppAlert;
-using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Entities.MobileAppAlert;
+using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
+using Bikewale.Service.AutoMappers.MobileAppAlert;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -24,12 +19,13 @@ namespace Bikewale.Service.Controllers.AppNotifications
     /// </summary>
     public class AppAlertController : ApiController
     {
-        private readonly IAppAlert _appAlert = null;
+
+        private readonly IMobileAppAlert _appAlert = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="appAlert"></param>
-        public AppAlertController(IAppAlert appAlert)
+        public AppAlertController(IMobileAppAlert appAlert)
         {
             _appAlert = appAlert;
         }
@@ -39,21 +35,34 @@ namespace Bikewale.Service.Controllers.AppNotifications
         /// <param name="input">entity</param>
         /// <returns></returns>
         [ResponseType(typeof(bool))]
-        public IHttpActionResult Post([FromBody]AppImeiDetailsInput input)
+        public IHttpActionResult Post([FromBody]AppIMEIDetailsInput input)
         {
             bool isSuccess = false;
+            string msg = string.Empty;
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.Imei) && !String.IsNullOrEmpty(input.GcmId) && !String.IsNullOrEmpty(input.OsType))
+                if (ModelState.IsValid)
                 {
-                    isSuccess = _appAlert.SaveImeiGcmData(input.Imei, input.GcmId, input.OsType, input.SubsMasterId);
+                    AppFCMInput requestEntity = FCMNotificationMapper.Convert(input);
+
+                    if (!string.IsNullOrEmpty(input.SubsMasterId))
+                    {
+
+                        isSuccess = _appAlert.SubscribeFCMUser(requestEntity);
+                    }
+                    else
+                    {
+                        isSuccess = _appAlert.UnSubscribeFCMUser(requestEntity);
+
+                    }
+
                     if (isSuccess)
                     {
                         return Ok(true);
                     }
                     else
                     {
-                        return NotFound();
+                        return BadRequest();
                     }
                 }
                 else
@@ -63,10 +72,14 @@ namespace Bikewale.Service.Controllers.AppNotifications
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.AppNotifications.Post");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.Service.Controllers.AppAlertController.AppNotifications.Post : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], input.Imei, input.GcmId));
                 objErr.SendMail();
                 return InternalServerError();
             }
+
         }
+
+
     }
+
 }

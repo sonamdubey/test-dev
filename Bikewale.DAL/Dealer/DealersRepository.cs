@@ -489,7 +489,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
                                 dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
                                 dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
-
+                                dealerdetail.objArea.PinCode = Convert.ToString(dr["dealerpincode"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -628,6 +628,8 @@ namespace Bikewale.DAL.Dealer
         /// <summary>
         /// Created By : Sajal Gupta on 26/09/2016
         /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// Modeified By:- Subodh Jain 15 dec 2016
+        /// Summary:- Added pincode data
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -670,6 +672,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
                                 dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
+                                dealers.DealerDetails.Pincode = Convert.ToString(dr["Pincode"]);
                             }
                             if (dr.NextResult())
                             {

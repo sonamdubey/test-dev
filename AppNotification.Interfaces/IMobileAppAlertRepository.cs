@@ -1,9 +1,5 @@
-﻿using System;
+﻿using AppNotification.Entity;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AppNotification.Entity;
 
 namespace AppNotification.Interfaces
 {
@@ -12,6 +8,6 @@ namespace AppNotification.Interfaces
         int GetTotalNumberOfSubs(int alertTypeId);
         List<string> GetRegistrationIds(int alertTypeId, int startNum, int endNum);
         bool SubscriberActivity(MobileAppNotificationRegistration t);
-        bool CompleteNotificationProcess(int alertTypeId);
+        bool CompleteNotificationProcess(int alertTypeId, string response);
     }
 }

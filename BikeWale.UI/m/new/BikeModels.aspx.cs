@@ -307,9 +307,13 @@ namespace Bikewale.Mobile.New
                         {
                             var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).First();
                             if (selected != null)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
-                        }
+                            {
+                                if (isOnRoadPrice)
+                                    currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
+                                else currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.Price));
 
+                            }
+                        }
                     }
                 }
             }
@@ -688,30 +692,37 @@ namespace Bikewale.Mobile.New
                             #region BikeWale PQ
                             if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                             {
-                                if (hdnVariant.Value != "0")
+                                if (isOnRoadPrice)
                                 {
-                                    versionId = Convert.ToUInt32(hdnVariant.Value);
-                                    if (versionId != 0)
+                                    if (versionId > 0)
                                     {
-
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == versionId);
+                                        if (objSelectedVariant != null)
+                                            price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                    }
+                                    else
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                         price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
                                     }
                                 }
-
-                                else if (versionId != 0 && isOnRoadPrice)
+                                else
                                 {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
-                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
+                                    if (versionId > 0)
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == versionId);
+                                        if (objSelectedVariant != null)
+                                            price = Convert.ToUInt32(objSelectedVariant.Price);
+                                    }
+                                    else
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
+                                        price = Convert.ToUInt32(objSelectedVariant.Price);
+                                    }
+
                                 }
 
-                                else if (isOnRoadPrice)
-                                {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                    price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
-                                }
                                 isBikeWalePQ = true;
-
                                 campaignId = pqOnRoad.BPQOutput.CampaignId;
                                 manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
                             }

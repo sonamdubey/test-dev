@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.App
 {
@@ -24,5 +19,7 @@ namespace Bikewale.DTO.App
         public string Message { get; set; }
         [JsonProperty("code")]
         public AppVersionMessageCode Code { get; set; }
+        [JsonProperty("isTrackDayVisible")]
+        public bool IsTrackDayVisible { get; set; }  //to handle track day option in navigation menu for app
     }
 }

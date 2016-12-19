@@ -92,6 +92,8 @@ namespace Bikewale.Mobile.Service
         /// Description: Method to bind dealer card widget data.
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// </summary>
         private void BindWidgets()
         {
@@ -107,6 +109,8 @@ namespace Bikewale.Mobile.Service
                 ctrlDealerCard.LeadSourceId = 16;
                 ctrlDealerCard.DealerId = 0;
                 ctrlDealerCard.isHeadingNeeded = false;
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", makeName, cityName);
+
                 ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
                 ctrlBrandCity.makeId = makeId;
                 ctrlBrandCity.cityId = cityId;

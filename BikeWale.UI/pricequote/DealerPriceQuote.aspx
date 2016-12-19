@@ -286,7 +286,7 @@
                                     <%if (isPremium)
                                       { %>
                                         <div class="grid-6 omega">
-                                            <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+                                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
                                         
                                             <div id="dealerMap" style="width:438px;height:202px;border:1px solid #f5f5f5;"></div>
                                             <div id="get-direction-button" title="get directions">
@@ -301,7 +301,7 @@
                                                     var longitude = '<%= longitude %>';
 
                                                     try {
-                                                        mapUrl = "http://maps.google.com/?q=" + latitude + "," + longitude;
+                                                        mapUrl = "https://maps.google.com/?q=" + latitude + "," + longitude;
                                                         latLng = new google.maps.LatLng(latitude, longitude),
                                                         mapOptions = {
                                                             zoom: 13,
@@ -704,11 +704,11 @@
         </div>
         <!-- lead capture popup End-->
         </div>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         
         <script type="text/javascript">
 

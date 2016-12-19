@@ -41,6 +41,7 @@ namespace Bikewale.Mobile.Controls
         public bool showWidget = false;
         public string dealerUrl = string.Empty;
         protected bool isCitySelected { get { return CityId > 0; } }
+        public string widgetHeading { get; set; }
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();

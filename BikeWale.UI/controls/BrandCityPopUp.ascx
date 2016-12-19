@@ -12,12 +12,12 @@
         </div>
         <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
           { %>
-        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different dealer?</p>
+        <p class="font20 margin-top15 text-center">Looking for a different Dealer?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Dealer details</p>
         <%} %>
         <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
           { %>
-        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different service center?</p>
+        <p class="font20 margin-top15 text-center">Looking for a different Service Center?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Service Center details</p>
         <%} %>
         <div class="padding-top10" id="brandCityPopUpContent">

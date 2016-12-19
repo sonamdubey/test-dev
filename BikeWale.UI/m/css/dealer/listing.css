@@ -4,6 +4,24 @@
     padding: 15px 20px;
 }
 
+#main-content,
+#more-content {
+    display: inline;
+}
+
+#more-content {
+    display: none;
+}
+
+#more-content.active {
+    display: inline;
+}
+
+.vertical-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 /* dealer listing */
 #dealersList {
     padding: 0 20px 20px;
@@ -167,6 +185,20 @@
     width: 16px;
     height: 16px;
     background-position: -83px -257px;
+    position: relative;
+    top: 3px;
+}
+
+@media only screen and (max-width: 420px) {
+    .change-text {
+        display: block
+    }
+    .dealer-heading {
+        width: 80%;
+    }
+    .edit-blue {
+        left: 3px;
+    }
 }
 
 @media only screen and (max-width: 320px) {

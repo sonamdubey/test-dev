@@ -369,7 +369,12 @@ namespace Bikewale.Service.Controllers.Model
                                     {
                                         container.RegisterType<IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
                                         IDealerPriceQuote dealerPQRepository = container.Resolve<IDealerPriceQuote>();
-                                        versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+
+                                        if (areaId.HasValue && areaId.Value > 0)
+                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion((uint)modelID, (uint)cityId.Value, (uint)areaId.Value);
+                                        else
+                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+
                                     }
                                 }
                                 objDTOModelPage = ModelMapper.ConvertV4(objModelPage, pqEntity,

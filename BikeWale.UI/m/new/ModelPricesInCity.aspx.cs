@@ -60,7 +60,8 @@ namespace Bikewale.Mobile.New
         /// Description :   Pass ModelId to get the dealers for Price in city page
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
-        /// </summary>
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
@@ -87,7 +88,7 @@ namespace Bikewale.Mobile.New
                 ctrlDealers.TopCount = 3;
                 ctrlDealers.ModelId = modelId;
                 ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
-
+                ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", makeName, cityName);
                 ctrlDealers.PageName = "Price_in_City_Page";
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.ModelId = modelId;

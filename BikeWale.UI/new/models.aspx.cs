@@ -5,6 +5,7 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -47,8 +48,10 @@ namespace Bikewale.New
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         private string makeMaskingName;
+        private GlobalCityAreaEntity currentCityArea;
+        private uint cityId = 0;
+        private string cityName;
 
-        private uint cityId = Convert.ToUInt32(GlobalCityArea.GetGlobalCityArea().CityId);
 
         protected UsedBikes ctrlRecentUsedBikes;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -65,7 +68,8 @@ namespace Bikewale.New
         /// Description : Removed postback.
         /// Modified By : Vivek Gupta on 22 june 2016
         /// Desc: ctrlRecentUsedBikes (values assigned)
-        /// </summary>
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -78,6 +82,9 @@ namespace Bikewale.New
             //Function to process and validate Query String  
             if (ProcessQueryString())
             {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                cityId = currentCityArea.CityId;
+                cityName = currentCityArea.City;
                 //to get complete make page
                 GetMakePage();
                 // Modified By :Ashish Kamble on 5 Feb 2016
@@ -120,6 +127,8 @@ namespace Bikewale.New
                 ctrlDealerCard.LeadSourceId = 29;
                 ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                 ctrlDealerCard.pageName = "Make_Page";
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
+
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.AreaId = 0;
                 BindDiscountinuedBikes();

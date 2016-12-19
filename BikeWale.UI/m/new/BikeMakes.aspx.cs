@@ -53,7 +53,8 @@ namespace Bikewale.Mobile
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         protected void Page_Load(object sender, EventArgs e)
         {
             //Function to process and validate Query String  
@@ -89,10 +90,10 @@ namespace Bikewale.Mobile
                 ctrlDealerCard.makeName = _make.MakeName;
                 ctrlDealerCard.cityName = cityName;
                 ctrlDealerCard.PageName = "Make_Page";
-
                 ctrlDealerCard.TopCount = 6;
                 ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_MakePage_GetOffersFromDealer;
                 ctrlDealerCard.LeadSourceId = 30;
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
@@ -170,7 +171,7 @@ namespace Bikewale.Mobile
                         }
                     }
                     catch (Exception ex)
-                    {                        
+                    {
                         Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                         objErr.SendMail();
                         Response.Redirect("/new/", false);
@@ -193,14 +194,14 @@ namespace Bikewale.Mobile
                             {
                                 Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;                     
+                                this.Page.Visible = false;
                             }
                         }
                         else
                         {
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;                            
+                            this.Page.Visible = false;
                         }
                     }
                 }

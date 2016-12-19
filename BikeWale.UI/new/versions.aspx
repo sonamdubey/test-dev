@@ -48,7 +48,7 @@
         var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";
         var pageUrl = "<%= canonical %>";
-    </script>
+     </script>
 
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
@@ -173,7 +173,7 @@
                                     <% } %>
                                     <% else { %>
                                     <p class="font12 text-light-grey">Version</p>
-                                    <p class="font14 text-bold margin-bottom15"><%= variantText %></p>
+                                    <p id="singleversion" class="font14 text-bold margin-bottom15"><%= variantText %></p>
                                     <% }
                                 } %>
                                 <!-- Variant div ends -->
@@ -237,7 +237,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> ">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %></span>
@@ -333,7 +333,7 @@
                                                         <li>
                                                             <div class="carousel-nav-img-container">
                                                                 <span>
-                                                                    <img class="<%# Container.ItemIndex > 7 ? "lazy" : "" %>" data-original="<%# Container.ItemIndex > 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "" %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="<%# Container.ItemIndex <= 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "http://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"%>" border="0" />
+                                                                    <img class="<%# Container.ItemIndex > 7 ? "lazy" : "" %>" data-original="<%# Container.ItemIndex > 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "" %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="<%# Container.ItemIndex <= 7 ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) : "https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif"%>" border="0" />
                                                                 </span>
                                                             </div>
                                                         </li>
@@ -481,7 +481,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more Partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
@@ -513,7 +513,7 @@
                                                         <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                             <span class="bwsprite offers-sm-box"></span>
                                                             <span class="font14 text-default text-bold"><%=bike.OfferCount %></span>
-                                                            <span class="font12 text-light-grey">Offers available</span>
+                                                            <span class="font12 text-light-grey">Offer<%=(bike.OfferCount)>1?"s":""%> available</span>
                                                         </div>
                                                         <% } %>
 								                        <div class="clear"></div>
@@ -622,7 +622,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>
-                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="myBikeName">Get offers from dealer</a>
+                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" >Get offers from dealer</a>
                             <%} %>
 
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
@@ -1312,6 +1312,8 @@
             var getCityArea = GetGlobalCityArea();
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();
+                if ($('#getOffersPrimary').length>0)
+                $('#getOffersPrimary').attr('v',bikeVersionLocation) ;
             }
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
@@ -1325,9 +1327,34 @@
                     $('.dealership-benefit-list').addClass("dealer-two-offers");
                 }
             });
+           
+            $('#getEmailID').on("focus", function () {
+                $('#assistGetEmail').parent().addClass('not-empty');
+            });
+
+            $('#getFullName').on("focus", function () {
+                $('#assistGetName').parent().addClass('not-empty');
+            });
+            
+            $('#getMobile').on("focus", function () {
+                $('#assistGetMobile').parent().addClass('not-empty');
+            });
+            $('#getEmailID').on("blur", function () {
+                if ($('#assistGetEmail').val()=="")
+                $('#assistGetEmail').parent().removeClass('not-empty');
+            });
+
+            $('#getFullName').on("blur", function () {
+                if ($('#assistGetName').val() == "")
+                $('#assistGetName').parent().removeClass('not-empty');
+            });
+
+            $('#getMobile').on("blur", function () {
+                if ($('#assistGetMobile').val() == "")
+                $('#assistGetMobile').parent().removeClass('not-empty');
+            });
 
             $(".leadcapturebtn").click(function (e) {
-
                 ele = $(this);
                 var leadOptions = {
                     "dealerid": ele.attr('data-item-id'),
@@ -1344,12 +1371,10 @@
                     "gaobject": {
                         cat: ele.attr("c"),
                         act: ele.attr("a"),
-                        lab: ele.attr("v")
+                        lab: bikeVersionLocation
                     }
                 };
-
                 dleadvm.setOptions(leadOptions);
-
             });
         </script>
     </form>

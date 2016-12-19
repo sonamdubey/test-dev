@@ -353,7 +353,8 @@ $('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {
 
 var sellBike = function () {
     var self = this;
-
+    
+    self.isPhotoQueued = ko.observable(false);
     self.isDropzoneInitiated = ko.observable(false);
     self.isEdit = ko.observable(false);
     self.isFakeCustomer = ko.observable(false);
@@ -432,7 +433,8 @@ var sellBike = function () {
                         }
 
                         this.on("sending", function (file) {
-                            $(file.previewElement).find('#spinner-content').hide();
+                            self.isPhotoQueued(true);
+                            $(file.previewElement).find('#spinner-content').hide();                           
                         });
 
                         this.on("removedfile", function (file) {
@@ -519,7 +521,10 @@ var sellBike = function () {
                         this.on("queuecomplete", function (file) {
                             setProfilePhoto();
                         });
-
+                        
+                        this.on("complete", function (file) {
+                            self.isPhotoQueued(false);
+                        });
                     }
                 });
             }
@@ -1310,29 +1315,33 @@ var moreDetails = function () {
 
     try {
         self.updateAd = function () {
-            var moreDetailsData = {
-                "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
-                "insuranceType": vmSellBike.moreDetails().insuranceType(),
-                "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
-            }
-            $.ajax({
-                type: "Post",
-                url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
-                contentType: "application/json",
-                dataType: 'json',
-                data: ko.toJSON(moreDetailsData),
-                success: function (response) {
+            
+            if ((!vmSellBike.isPhotoQueued()) || confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?")) {
+
+                    var moreDetailsData = {
+                        "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
+                        "insuranceType": vmSellBike.moreDetails().insuranceType(),
+                        "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
+                    }
+                    $.ajax({
+                        type: "Post",
+                        url: "/api/used/sell/listing/otherinfo/?inquiryId=" + vmSellBike.inquiryId() + "&customerId=" + vmSellBike.customerId(),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        data: ko.toJSON(moreDetailsData),
+                        success: function (response) {
 
 
-                }
-               ,
-                complete: function (xhr, ajaxOptions, thrownError) {
+                        }
+                       ,
+                        complete: function (xhr, ajaxOptions, thrownError) {
 
-                }
-            });
+                        }
+                    });
 
-            vmSellBike.formStep(4);
-            scrollToForm.activate();
+                    vmSellBike.formStep(4);
+                    scrollToForm.activate();
+                }            
         };
     } catch (e) {
         console.warn(e);
@@ -1623,6 +1632,10 @@ var morePhotos = {
     }
 };
 
+$('.chosen-container').on('mousedown', function (event) {
+    $('input').blur();
+});
+
 
 $('.chosen-container').on('touchstart', function (event) {
     event.stopPropagation();
@@ -1664,13 +1677,19 @@ $('input[type=number]').on('keydown', function (event) {
     }
 });
 
-$('#kmsRidden, #expectedPrice').on('keyup', function () {
+$('#kmsRidden, #expectedPrice').on('focus', function () {
     var inputBox = $(this),
-        inputValue = inputBox.val(),
-        withoutCommaValue = inputValue.replace(/,/g, "");
+        withoutCommaValue = inputBox.attr('data-value');
 
-    inputBox.attr('data-value', withoutCommaValue);
-    inputBox.val(formatNumber(withoutCommaValue));
+    inputBox.val(withoutCommaValue);
+});
+
+$('#kmsRidden, #expectedPrice').on('blur', function () {
+    var inputBox = $(this),
+        inputValue = inputBox.val();
+
+    inputBox.attr('data-value', inputValue);
+    inputBox.val(formatNumber(inputValue));
 });
 
 // input value formatter

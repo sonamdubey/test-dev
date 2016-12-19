@@ -6,6 +6,14 @@
     padding: 18px 20px;
 }
 
+#dealer-more-content {
+    display: none;
+}
+
+#dealer-main-content, #dealer-more-content.active {
+    display: inline;
+}
+
 #listing-left-column.grid-4 {
     padding-right: 20px;
     padding-left: 20px;
@@ -171,10 +179,10 @@
 .details-column {
     width: 92%
 }
-.edit-blue { width: 16px; height: 16px; background-position: -205px -330px; }
+.edit-blue { width: 18px; height: 16px; background-position: -205px -330px; position: relative; top: 3px; }
 
 @media only screen and (max-width:1024px) {
-    #city-dealer-list li {
+    #city-dealer-list li, .bw-horizontal-cards .card {
         width: 280px;
     }
 }

@@ -29,7 +29,7 @@ namespace AppNotification.DAL
                         {
                             while (dr.Read())
                             {
-                                regList.Add(dr["gcmregid"].ToString() + "," + dr["os"]);
+                                regList.Add(dr["gcmregid"].ToString());
                             }
                         }
                     }
@@ -107,16 +107,16 @@ namespace AppNotification.DAL
         /// </summary>
         /// <param name="alertTypeId"></param>
         /// <returns></returns>
-        public bool CompleteNotificationProcess(int alertTypeId)
+        public bool CompleteNotificationProcess(int alertTypeId, string response)
         {
             bool isNotificationComplete = false;
-
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("resetsubscriptionmaster_isprocessing"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_obj_type_id", DbType.Int32, alertTypeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_id_response", DbType.String, response));
 
                     isNotificationComplete = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
@@ -126,6 +126,7 @@ namespace AppNotification.DAL
                 ExceptionHandler objErr = new ExceptionHandler(ex, "IMobileAppAlertRepositoryCompleteNotificationProcess(int alertTypeId)");
                 objErr.LogException();
             }
+
 
             return isNotificationComplete;
         }

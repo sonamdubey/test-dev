@@ -221,18 +221,18 @@ function CustomerModel() {
                 }
 
                 if (getOfferClick) {
-                    triggerGA('Dealer_PQ', 'Lead_Submitted', 'Main_Form_' + bikeVerLocation);
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Main_Form_" + bikeVerLocation);
                     getOfferClick = false;
                 }
                 else if (btnId == 'buyingAssistBtn') {
-                    triggerGA('Dealer_PQ', 'Lead_Submitted', 'Open_Form_' + bikeVerLocation);
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Open_Form_" + bikeVerLocation);
                 }
                 else if (getEMIClick) {
-                    triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_EMI_' + bikeVerLocation);
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Get_EMI_" + bikeVerLocation);
                     getEMIClick = false;
                 }
                 else if (getMoreDetailsClick) {
-                    triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + bikeVerLocation);
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Get_more_details_" + bikeVerLocation);
                     getMoreDetailsClick = false;
                 }
             }
@@ -285,7 +285,7 @@ function CustomerModel() {
 
                 // OTP Success
                 if (getMoreDetailsClick) {
-                    triggerGA('Dealer_PQ', 'Lead_Submitted', 'Get_more_details_' + bikeVerLocation);
+                    triggerGA("Dealer_PQ", "Lead_Submitted", 'Get_more_details_' + bikeVerLocation);
                     getMoreDetailsClick = false;
                 }
             }
