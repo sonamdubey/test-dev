@@ -167,6 +167,7 @@
     <Compile Include="Compare\CompareBikeColor.cs" />
     <Compile Include="Compare\CompareBikeColorCategory.cs" />
     <Compile Include="Compare\CompareBikeData.cs" />
+    <Compile Include="Compare\CompareSources.cs" />
     <Compile Include="Compare\CompareSubMainCategory.cs" />
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
