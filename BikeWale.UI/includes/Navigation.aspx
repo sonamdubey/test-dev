@@ -56,6 +56,12 @@
                 <li><a href="/bike-videos/">Videos</a></li>
             </ul>
         </li>
+        <li>
+            <a href="/trackday2016/">
+                <span class="bwsprite track-day"></span>
+                <span class="navbarTitle">Track Day 2016</span>
+            </a>
+        </li>
         <%--<li>
             <a href="/insurance/">
                 <span class="bwsprite insurance-icon"></span>
