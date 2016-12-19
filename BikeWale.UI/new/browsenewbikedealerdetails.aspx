@@ -23,9 +23,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <style type="text/css">
-        .dealer-card-target:hover,.dealer-info-tooltip a:hover{text-decoration:none}.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%}#dealersList li{padding-bottom:20px;border-top:1px solid #eee}#dealersList li:first-child{border-top:0}.dealer-card-target{display:block;padding-top:18px}.dealer-card-target .dealer-name{display:block;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.featured-tag{width:74px;display:block;text-align:center;line-height:20px;background:#3799a7;z-index:1;font-weight:400;font-size:12px;color:#fff;border-radius:2px;position:relative;top:-4px}.vertical-top{display:inline-block;vertical-align:top}.dealership-card-details{width:92%}.dealer-map-wrapper{width:100%;height:530px;display:block;position:relative}.dealer-info-tooltip{max-width:350px}#dealersMap .dealership-card-details{width:80%}.dealer-info-tooltip a:hover p{text-decoration:underline}#used-bikes-content .grid-6{display:inline-block;vertical-align:top;width:49%;float:none}.dealership-loc-icon{width:9px;height:12px;background-position:-52px -469px;position:relative;top:4px}.phone-black-icon{width:10px;height:10px;background-position:-73px -444px;position:relative;top:5px}.star-white{width:8px;height:8px;background-position:-222px -107px;margin-right:4px}.blue-right-arrow-icon{width:6px;height:10px;background-position:-74px -469px;position:relative;top:1px;left:7px}.btn.btn-size-2{padding:9px 20px}.card{width:292px;min-height:140px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);-o-box-shadow:0 1px 2px 0 rgba(0,0,0,.2);box-shadow:0 1px 2px 0 rgba(0,0,0,.2);float:left;margin-left:30px;margin-bottom:20px}.card:first-child{margin-left:20px}.card .card-target{min-height:140px;display:block;padding:15px 20px 0}.card .card-target:hover{text-decoration:none}.card .text-truncate{width:100%}.details-column{width:92%}.edit-blue{width:16px;height:16px;background-position:-205px -330px}@media only screen and (max-width:1024px){#city-dealer-list li,.bw-horizontal-cards .card{width:280px}}
-    </style>
+    <link rel="stylesheet" href="/css/dealer/listing.css" type="text/css" />
     <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -67,11 +65,13 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow padding-14-20">
-                            <h1><%=makeName%> Showrooms in <%=cityName%></h1>
+                            <h1><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>
                              </div>
-                        <p class="font14 text-light-grey content-inner-block-20">       
-                            <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}' . Read More after completion of three sentences.",makeName,cityName,totalDealers)%>
-                        </p>
+                         <div class="padding-14-20 font14 text-light-grey">
+                        <p id="dealer-main-content" >Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There are <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%>. BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%>...</p>
+                            <p id="dealer-more-content"> For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>.</p>
+                            <a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>

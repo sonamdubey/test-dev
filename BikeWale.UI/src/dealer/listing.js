@@ -161,3 +161,18 @@ function mapDealersArray() {
         dealerArr.push(_dealer);
     });
 }
+
+// read more-collapse
+var readMoreTarget = $('#read-more-target'),
+    dealerMoreContent = $('#dealer-more-content');
+
+readMoreTarget.on('click', function () {
+    if (!dealerMoreContent.hasClass('active')) {
+        dealerMoreContent.addClass('active');
+        readMoreTarget.text('Collapse');
+    }
+    else {
+        dealerMoreContent.removeClass('active');
+        readMoreTarget.text('Read more');
+    }
+});
