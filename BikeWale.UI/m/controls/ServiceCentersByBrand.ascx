@@ -56,7 +56,7 @@
                             </div>
                             <div class="swiper-details-block">
                                 <h3 class="target-link font12 text-truncate margin-bottom5 border-solid-top padding-top10"><%=centers.MakeName%></h3>
-                                <p class="text-truncate text-light-grey font11"><%=centers.ServiceCenterCount%> Service Centers</p>
+                                <p class="text-truncate text-light-grey font11"><%=centers.ServiceCenterCount%> Service Center<%=(centers.ServiceCenterCount)>1?"s":"" %></p>
                             </div>
                         </a>
                     </div>

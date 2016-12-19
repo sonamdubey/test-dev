@@ -71,7 +71,7 @@ namespace Bikewale.ServiceCenter
                 }
                 BindStatesCities();
                 ctrlBikeCare.TotalRecords = 3;
-
+                ctrlOtherServiceCenters.makeId = makeId;
             }
         }
         /// <summary>
