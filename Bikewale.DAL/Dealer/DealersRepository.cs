@@ -878,5 +878,49 @@ namespace Bikewale.DAL.Dealer
 
             return status;
         }
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+            IList<DealerBrandEntity> objDealerList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getalldealersbybrand"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            DealerBrandEntity objDealer = null;
+                            objDealerList = new List<DealerBrandEntity>();
+                            while (dr.Read())
+                            {
+
+
+                                objDealer = new DealerBrandEntity();
+                                objDealer.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objDealer.MakeName = Convert.ToString(dr["MakeName"]);
+                                objDealer.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objDealer.DealerCount = SqlReaderConvertor.ToInt32(dr["DealerCount"]);
+                                objDealerList.Add(objDealer);
+                            }
+                            dr.Close();
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetDealerByBrandList");
+                objErr.SendMail();
+            }
+            return objDealerList;
+
+        }
     }//End class
 }

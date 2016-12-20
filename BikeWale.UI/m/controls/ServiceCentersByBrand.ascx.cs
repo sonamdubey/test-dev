@@ -4,7 +4,6 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -18,7 +17,6 @@ namespace Bikewale.Mobile.Controls
         protected string WidgetTitle;
         public int makeId;
         public int FetchedRecordsCount;
-        public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

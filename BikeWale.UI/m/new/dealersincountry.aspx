@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.DealerInCountry" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/DealersByBrand.ascx" TagName="DealersByBrand" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +78,17 @@
                 </div>
             </div>
         </section>
+            <% if (ctrlDealersByBrand.FetchedRecordsCount > 0)
+                           { %>
+        <section>
+            <div class="container bg-white margin-bottom10 box-shadow">
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
+                        <BW:DealersByBrand runat="server" ID="ctrlDealersByBrand" />
+                    </div>
+                </div>
+                </section>
+           <%} %>
          <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">

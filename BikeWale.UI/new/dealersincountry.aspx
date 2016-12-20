@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealersInCountry" EnableViewState="false" Trace="false" Debug="false" %>
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealersByBrand.ascx" TagName="DealersByBrand" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -131,6 +132,20 @@
             </div>
             <div id="listing-footer"></div>
         </section>
+         <% if (ctrlDealerByBrand.FetchedRecordsCount > 0)
+                           { %>
+        <section>
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <BW:DealersByBrand runat="server" ID="ctrlDealerByBrand" />
+                    </div>
+                    </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
+                      
            <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
         <section>
             <div class="container margin-bottom20">
