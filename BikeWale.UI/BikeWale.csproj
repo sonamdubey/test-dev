@@ -715,6 +715,10 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="generic\BikeListing.aspx.cs">
+      <DependentUpon>BikeListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2286,6 +2290,7 @@
     <Content Include="Finance\EMICalculator.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
+    <Content Include="generic\BikeListing.aspx" />
     <Content Include="Global.asax" />
     <Content Include="google863c8bc3ae47cfff.html" />
     <Content Include="images\0.gif" />
@@ -2944,6 +2949,8 @@
     <Content Include="sass\service\landing.sass" />
     <Content Include="sass\service\_landing-style.sass" />
     <Content Include="sass\modules\_brand-logo.sass" />
+    <Content Include="sass\generic\listing.sass" />
+    <Content Include="sass\generic\_listing-style.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
