@@ -4,7 +4,7 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Bikewale.Controls
+namespace Bikewale.Mobile.Controls
 {
     /// <summary>
     /// Created By : Subodh Jain on 20 Dec 2016

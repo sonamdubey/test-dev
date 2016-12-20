@@ -31,6 +31,7 @@ namespace Bikewale.New
         protected BikeMakeEntityBase objMMV;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected DealersByBrand ctrlDealerByBrand;
         public ushort makeId;
         public string cityArr = string.Empty, makeMaskingName = string.Empty, stateMaskingName = string.Empty, stateName = string.Empty, stateArray = string.Empty;
         public uint stateCount = 0, DealerCount = 0;
@@ -47,7 +48,8 @@ namespace Bikewale.New
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-
+        /// Modified by  :   Subodh jain on 20 Dec 2016
+        /// Description :   Get Dealer By BrandList widget
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -76,6 +78,8 @@ namespace Bikewale.New
                 ctrlNewLaunchedBikes.makeid = makeId;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = makeId;
+                ctrlDealerByBrand.WidgetTitle = string.Format("Find showroom for other brands");
+                ctrlDealerByBrand.makeId = makeId;
                 BindStatesCities();
 
             }

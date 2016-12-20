@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.DealersByBrand" %>
-<%if(AllServiceCenters!=null){ %>
+<%if(AllDealers!=null){ %>
 <style>
     .brand-logo-image{
     height: 80px;
@@ -31,27 +31,22 @@
 <div class="grid-12 margin-bottom20">
     <div class="content-box-shadow padding-top20 padding-bottom20">
     <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
-
       <div class="jcarousel-wrapper inner-content-carousel" id="carouselServiceCenter">
-
-     
                 <div class="jcarousel" data-jcarousel="true">
-
                     <ul>
-                        <%foreach (var centers in AllServiceCenters)
+                        <%foreach (var DealerDetails in AllDealers)
                           { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(centers.MakeMaskingName)%>" title="<%=String.Format("{0} Service Centers in India",centers.MakeName)%>" class="jcarousel-card">
-                                      
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetDealerShowroomUrl(DealerDetails.MakeMaskingName)%>" title="<%=String.Format("{0} showrooms in India",DealerDetails.MakeName)%>" class="jcarousel-card">
                                         <div class="brand-logo-image">
                                             <span class="brand-type">
-                                                <span class="brandlogosprite brand-<%=centers.MakeId%>"></span>
+                                                <span class="brandlogosprite brand-<%=DealerDetails.MakeId%>"></span>
                                             </span>
                                         </div>
                                         <div class="card-desc-block">
-                                            <h3 class="bikeTitle border-solid-top padding-top15"><%= centers.MakeName%></h3>
+                                            <h3 class="bikeTitle border-solid-top padding-top15"><%= DealerDetails.MakeName%></h3>
                                           
-                                            <p class="font14 text-light-grey margin-bottom5"><%=centers.DealerCount %> Service Center<%=(centers.DealerCount)>1?"s":"" %></p>
+                                            <p class="font14 text-light-grey margin-bottom5"><%=DealerDetails.DealerCount %> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></p>
                                            
                                         </div>
                                     </a>

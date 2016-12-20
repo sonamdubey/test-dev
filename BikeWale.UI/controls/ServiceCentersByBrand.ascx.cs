@@ -14,10 +14,9 @@ namespace Bikewale.Controls
     public class ServiceCentersByBrand : System.Web.UI.UserControl
     {
         protected IEnumerable<BrandServiceCenters> AllServiceCenters;
-        protected string WidgetTitle;
-        public int makeId;
+        public string WidgetTitle { get; set; }
+        public int makeId { get; set; }
         public int FetchedRecordsCount;
-        public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -29,7 +28,7 @@ namespace Bikewale.Controls
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
-                if (AllServiceCenters != null)
+                if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
                 {
                     FetchedRecordsCount = AllServiceCenters.Count();
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);

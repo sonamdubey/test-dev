@@ -273,6 +273,10 @@ namespace Bikewale.BAL.Dealer
                 return false;
             }
         }
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
         public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
         {
             try

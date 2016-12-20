@@ -135,7 +135,10 @@ namespace Bikewale.Cache.DealersLocator
             }
             return dealersMakes;
         }
-
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
         public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
         {
 

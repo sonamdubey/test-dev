@@ -6,34 +6,45 @@ using Bikewale.DAL.Dealer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 15 Dec 2016
-    /// Summary    : To bind service center data by brand
+    /// Created By : Subodh Jain on 20 Dec 2016
+    /// Summary    : To bind dealers data by brand
     /// </summary>
     public class BindDealersByBrand
     {
-        public string MakeName { get; set; }
-        public string MakeMaskingName { get; set; }
-        public int Count { get; set; }
-        public IEnumerable<DealerBrandEntity> serviceData = null;
-        public IEnumerable<DealerBrandEntity> GetAllServiceCentersbyMake()
-        {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>()
-                           .RegisterType<IDealer, DealersRepository>()
-                          ;
-                var objCache = container.Resolve<IDealerCacheRepository>();
+        public IEnumerable<DealerBrandEntity> dealersData = null;
 
-                if (objCache != null)
-                    serviceData = objCache.GetDealerByBrandList();
+        /// <summary>
+        /// Created By :  Subodh Jain on 20 Dec 2016
+        /// Summary    :  To bind dealers data by brand
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>()
+                               .RegisterType<IDealer, DealersRepository>()
+                              ;
+                    var objCache = container.Resolve<IDealerCacheRepository>();
+                    dealersData = objCache.GetDealerByBrandList();
+                }
             }
-            return serviceData;
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindDealersByBrand.GetDealerByBrandList()");
+                objErr.SendMail();
+            }
+            return dealersData;
         }
 
     }
