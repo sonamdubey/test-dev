@@ -507,10 +507,12 @@ namespace Bikewale.DAL.ServiceCenter
                             while (dr.Read())
                             {
                                 objServiceCenters = new CityBrandServiceCenters();
-                                objServiceCenters.CityId = SqlReaderConvertor.ToInt32(dr["CityId"]);
+                                objServiceCenters.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                                 objServiceCenters.CityName = Convert.ToString(dr["CityName"]);
                                 objServiceCenters.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 objServiceCenters.ServiceCenterCount = SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
+                                objServiceCenters.Lattitude = SqlReaderConvertor.ToFloat(dr["Lattitude"]);
+                                objServiceCenters.Longitude = SqlReaderConvertor.ToFloat(dr["Longitude"]);
                                 listServiceCenter.Add(objServiceCenters);
                             }
                             dr.Close();

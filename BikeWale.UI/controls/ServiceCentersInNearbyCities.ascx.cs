@@ -17,11 +17,13 @@ namespace Bikewale.Controls
     public class ServiceCentersInNearbyCities : System.Web.UI.UserControl
     {
         protected IEnumerable<CityBrandServiceCenters> ServiceCentersNearbyCities;
-        protected string WidgetTitle;
-        public int makeId,cityId,topCount;
-        public string makeName, makeMaskingName,cityName;
-        public int FetchedRecordsCount;
-        public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
+        public int makeId {get;set;}
+        public int cityId {get;set;}
+        public int topCount { get; set; }
+        public string makeName{get;set;}
+        public string makeMaskingName {get;set;}
+        public string cityName { get; set; }
+        public int FetchedRecordsCount { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -37,7 +39,6 @@ namespace Bikewale.Controls
                 {
                     FetchedRecordsCount = ServiceCentersNearbyCities.Count();
                 }
-                WidgetTitle = String.Format("Explore {0} Service centers in cities near {1}",makeName,cityName);
             }
             catch (Exception ex)
             {

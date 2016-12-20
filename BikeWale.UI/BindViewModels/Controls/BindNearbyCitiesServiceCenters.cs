@@ -21,22 +21,17 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindNearbyCitiesServiceCenters
     {
-        
         public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByMake(int cityId,int makeId,int topCount)
         {
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    container.RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
                     .RegisterType<ICacheManager, MemcacheManager>();
-                    var objSC = container.Resolve<IServiceCenter>();
-                    if (objSC != null)
-                        return objSC.GetServiceCentersNearbyCitiesByBrand(cityId, makeId, topCount);
-                    else
-                        return null;
+                    var objSC = container.Resolve<IServiceCenterCacheRepository>();
+                   return objSC.GetServiceCentersNearbyCitiesByBrand(cityId, makeId, topCount);
                 }
             }
             catch(Exception ex)

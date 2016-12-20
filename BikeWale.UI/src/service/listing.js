@@ -128,8 +128,26 @@ function initializeMap(dealerArr) {
                     map.fitBounds(results[0].geometry.viewport);
                 }
             });
-        }    
+    }
+    initializeCityMaps();
+   }
+
+function initializeCityMaps() {
+      $(".city-map").each(function (index) {
+        var lat = $(this).attr("data-item-lat");
+        var lng = $(this).attr("data-item-long");
+        var latlng = new google.maps.LatLng(lat, lng);
+        var mapOptions = {
+            zoom: 10,
+            center: latlng,
+            streetViewControl: false,
+            mapTypeControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map($(".city-map")[index], mapOptions);
+         });
 }
+
 
 // dealer card mouseover show tooltip
 $(document).on('mouseover', '#center-list li', function () {
