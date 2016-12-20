@@ -20,9 +20,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <style type="text/css">
-        @charset "utf-8";.padding-14-20{padding:14px 20px}.padding-18-20{padding:18px 20px}#listing-left-column.grid-4{padding-right:20px;padding-left:20px;width:32.333333%;box-shadow:0 0 8px #ddd;z-index:1}#listing-right-column.grid-8{width:67.666667%;overflow:hidden}#filter-input{margin-top:20px;background:#fff}#filter-input .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2}#filter-input .fa-spinner{display:none;right:14px;top:12px}#filter-input .errorIcon,#filter-input .errorText{display:none}#location-list .item-state{border-top:1px solid #f1f1f1}#location-list .item-state:first-child{border-top:0}#location-list .type-state,#location-list a{color:#4d5057;font-size:14px;display:block;padding-top:13px;padding-bottom:13px}#location-list .type-state,#no-result{font-size:16px}#no-result,.gm-style-iw+div,.location-list-city{display:none}#location-list li .type-state:hover,.dealer-location-tooltip .type-state:hover,.dealer-location-tooltip a:hover{color:#2a2a2a;text-decoration:none}#location-list .location-list-city a{color:#82888b;padding-top:10px;padding-bottom:10px}#location-list .location-list-city a:hover{color:#4d5057;text-decoration:none}#no-result{padding:13px 0;color:#82888b}.labels{top:-14px;left:-12px}.labels a{color:#4d5057;background-color:#fff;font-size:10px;font-weight:700;text-align:center;width:24px;height:24px;display:block;border-radius:50%;white-space:nowrap;padding-top:4px;border:2px solid #82888b}.labels a:hover{border:2px solid #ef3f30;text-decoration:none}
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/dealer/location.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -74,9 +72,11 @@
                         <div class="content-box-shadow padding-14-20">
                             <h1><%=objMMV.MakeName %> Showrooms in India</h1>
                         </div>
-                        <p class="font14 text-light-grey content-inner-block-20">
-                            <%=string.Format("BikeWale recommends to buy your {0} bike only from authorized {0} showrooms. We bring you a list of {1} {0} showrooms present in {2} cities in India. The showroom locator tool will help you find the {0} showroom in your city. BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get {0} showroom’s address, contact details, EMI options for your nearest dealer.",objMMV.MakeName,DealerCount,citiesCount)%>
-                        </p>
+                        <div class="box-shadow padding-15-20 font14 text-light-grey">
+                        <p id="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+					    <p id="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">Read more</a>
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="clear"></div>

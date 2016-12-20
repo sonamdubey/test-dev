@@ -4,6 +4,19 @@
     padding: 15px 20px;
 }
 
+#main-content,
+#more-content {
+    display: inline;
+}
+
+#more-content {
+    display: none;
+}
+
+#more-content.active {
+    display: inline;
+}
+
 /* input box */
 .form-control-box .search-icon-grey {
     position: absolute;
