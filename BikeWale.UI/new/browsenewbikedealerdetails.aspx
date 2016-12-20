@@ -4,6 +4,7 @@
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -25,7 +26,7 @@
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
     <link rel="stylesheet" href="/css/dealer/listing.css" type="text/css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     var currentCityName = '<%= cityName %>';
@@ -138,6 +139,11 @@
             </div>
             <div id="listing-footer"></div>
         </section>
+
+        <% if(ctrlDealerCount.FetchedRecordsCount > 0) { %>
+        <BW:DealersCount ID="ctrlDealerCount" runat="server" />
+        <% } %>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
            { %>
         <section>

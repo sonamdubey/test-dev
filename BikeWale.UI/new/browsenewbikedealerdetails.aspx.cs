@@ -3,6 +3,7 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -41,7 +42,7 @@ namespace Bikewale.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BrandCityPopUp ctrlBrandCity;
-        protected string pgDescription;
+        protected DealersInNearByCities ctrlDealerCount;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -88,11 +89,20 @@ namespace Bikewale.New
         /// Summary :- Added Service center Widget
         /// Modified By : Aditi Srivasatva on 30 Nov 2016
         /// Description : Set request type according to page for brand city pop up
+        /// Modified by : Sajal Gupta on 20-12-2016
+        /// Desc : Binded dealer count widget
         /// </summary>
         private void BindUserControls()
         {
             try
             {
+                ctrlDealerCount.MakeId = makeId;
+                ctrlDealerCount.CityId = cityId;
+                ctrlDealerCount.TopCount = 8;
+                ctrlDealerCount.MakeMaskingName = makeMaskingName;
+                ctrlDealerCount.CityName = cityName;
+                ctrlDealerCount.MakeName = makeName;
+
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
                 ctrlPopoularBikeMake.totalCount = 9;
