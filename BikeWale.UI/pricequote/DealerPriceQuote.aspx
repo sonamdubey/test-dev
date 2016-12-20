@@ -442,7 +442,7 @@
                                                         <span class="inline-block benefit-list-image pq-sprite <%=string.Format("offerIcon_{0}", offer.OfferCategoryId) %>"></span>
                                                         <span class="inline-block benefit-list-title"><%= offer.OfferText %>
                                                             <% if(offer.IsOfferTerms) { %>
-                                                            <span class="tnc font9 margin-left5 id="<%= offer.OfferId %>">
+                                                            <span class="tnc font9 margin-left5" id="<%= offer.OfferId %>">
                                                                 View terms
                                                             </span>
                                                             <% } %>
