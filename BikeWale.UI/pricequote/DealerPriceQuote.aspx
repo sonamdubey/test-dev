@@ -111,9 +111,10 @@
 
                                 <div class="position-rel top-minus5 vertical-top">
                                     <p class="font12 text-light-grey">Location</p>
-                                    <p class="font14 text-bold block position-rel pos-top2"><%= location %> <span class="margin-left5"><span class="bwsprite loc-change-blue-icon"></span></span></p>
+                                    <p class="font14 text-bold block position-rel pos-top2">
+                                        <%= location %> <span class="margin-left5">
+                                <span class="bwsprite loc-change-blue-icon"></span></span></p>
                                 </div>
-
                                 <div runat="server">
                                     <div id="pq-table" class="margin-top15">
                                     <% if (primaryPriceList != null && primaryPriceList.Count() > 0)
@@ -143,16 +144,18 @@
                                                 <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td>
-                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by Dealer</p>
+                                                <% if(isPrimaryDealer){ %>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %></p>
+                                                <% } %>
                                             </td>
                                             <td align="right">
-                                                <a href="javascript:void(0)" class="font14 bw-ga" leadSourceId="8" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                <% if(isPrimaryDealer){ %>
+                                                <a href="javascript:void(0)" class="font14 bw-ga" leadSourceId="8" data-dealerId="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                <% } %>
                                             </td>
                                         </tr>
-
                                         <tr>
                                             <td colspan="2" class="text-right padding-top5">
                                                 </td>
@@ -240,26 +243,23 @@
                                             <li>Exchange benefits</li>
                                         </ul>
                                     </div>
-                                    <%if (!isStandard)
-                                      { %>
                                     <div id="get-offers-btn-content" class="inline-block">
-                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers</a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers</a>
                                     </div>
-                                    <% } %>
                                     <div class="clear"></div>                                    
                                 </div>
 
                                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                                 <div id="dealer-contact-details" class="content-inner-block-20 <%= isPremium ? "" : "map-absent" %>"><!-- if no map, add 'map-absent' class -->
                                     <div class="alpha font14 <%= isPremium ? "grid-6" : "grid-12 omega" %>"><!-- if no map, replace grid-6 with grid-12 -->
+                                        <% if (!string.IsNullOrEmpty(primarydealer.DealerDetails.Address))
+                                           { %>
                                         <p class="text-bold margin-bottom15">Dealer contact details</p>
-                                        <%if (!isStandard)
-                                          { %>
                                         <div class="margin-bottom10">
                                             <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                             <span class="vertical-top text-light-grey details-column"><%= primarydealer.DealerDetails.Address %></span>
                                         </div>
-                                        <%} %>
+                                        <% } %>
 
                                         <% if (!string.IsNullOrEmpty(primarydealer.DealerDetails.MaskingNumber))
                                            { %>
@@ -341,7 +341,7 @@
                                 </div>
                                 
                                 <!-- EMI calculator starts -->
-                                <% if (isPremium && primarydealer.EMIDetails != null)
+                                <% if (isPremium && _objEMI != null )
                                    { %>
                                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                                 <div class="content-inner-block-20">
@@ -417,7 +417,7 @@
                                                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                                     </span>                                            
                                                 </div>
-                                                <a id="btnEmiQuote" leadSourceId="11" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                                <a id="btnEmiQuote" leadSourceId="11" data-dealerId="<%=dealerId %>" class="btn btn-grey btn-md font14">Get EMI quote</a>
                                             </div>
                                             
                                         </div>
@@ -513,10 +513,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
         </section>
 
-        <% if (objQuotation != null && detailedDealer.PrimaryDealer!= null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <% if (objQuotation != null && detailedDealer.PrimaryDealer == null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
         <section>
             <%=String.Format(objQuotation.ManufacturerAd) %>
         </section>
@@ -567,7 +568,7 @@
 							                    </div>
                                             </a>
                                             <div class="bottom-block-button margin-top15">
-                                                <a href="javascript:void(0);" onclick="secondarydealer_Click(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="34" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
                                             </div>
                                         </li>
                                     <% } %>
@@ -741,12 +742,12 @@
                 var self = this;
                 self.breakPoints = ko.observable(5);
                 self.bikePrice = ko.observable(bikeVersionPrice);
-                self.minDnPay = ko.observable(<%= primarydealer.EMIDetails.MinDownPayment %> * bikeVersionPrice/100);
-                self.maxDnPay = ko.observable(<%= primarydealer.EMIDetails.MaxDownPayment %> * bikeVersionPrice/100);
-                self.minTenure = ko.observable(<%= primarydealer.EMIDetails.MinTenure %>);
-                self.maxTenure = ko.observable(<%= primarydealer.EMIDetails.MaxTenure  %>);
-                self.minROI = ko.observable(<%= primarydealer.EMIDetails.MinRateOfInterest %>);
-                self.maxROI = ko.observable(<%= primarydealer.EMIDetails.MaxRateOfInterest %>);
+                self.minDnPay = ko.observable(<%= _objEMI.MinDownPayment %> * bikeVersionPrice/100);
+                self.maxDnPay = ko.observable(<%= _objEMI.MaxDownPayment %> * bikeVersionPrice/100);
+                self.minTenure = ko.observable(<%= _objEMI.MinTenure %>);
+                self.maxTenure = ko.observable(<%= _objEMI.MaxTenure  %>);
+                self.minROI = ko.observable(<%= _objEMI.MinRateOfInterest %>);
+                self.maxROI = ko.observable(<%= _objEMI.MaxRateOfInterest %>);
                 <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
                 self.processingFees = ko.observable(0);
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
@@ -893,6 +894,11 @@
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
                 registerPQ(dealerID);
             }
+            function openLeadCaptureForm(dealerID) {
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
+                event.stopPropagation();
+            }
+            
             function registerPQ(secondaryDealerId) {
                 var obj = {
                     'cityId': cityId,

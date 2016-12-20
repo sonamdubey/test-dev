@@ -46,12 +46,12 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-
+        protected EMI _objEMI;
         protected string bikeName = string.Empty, bikeVersionName = string.Empty, minspecs = string.Empty, pageUrl = string.Empty, clientIP = CommonOpn.GetClientIP(),
             location = string.Empty, dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58";
 
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
-        protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
+        protected bool isBWPriceQuote, isPrimaryDealer, IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
         protected double latitude, longitude;
@@ -133,11 +133,12 @@ namespace Bikewale.BikeBooking
                         if (detailedDealer.PrimaryDealer != null)
                         {
                             primarydealer = detailedDealer.PrimaryDealer;
+                            if (detailedDealer.PrimaryDealer.DealerDetails != null)
+                                isPrimaryDealer = true;
                             primaryPriceList = primarydealer.PriceList;
                             IEnumerable<OfferEntityBase> offerList = primarydealer.OfferList;
                             if (primaryPriceList != null && primaryPriceList.Count() > 0)
                             {
-
                                 totalPrice = (uint)primaryPriceList.Sum(x => x.Price);
                             }
                             else
@@ -145,6 +146,8 @@ namespace Bikewale.BikeBooking
                                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                                 objPriceQuote = container.Resolve<IPriceQuote>();
                                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Desktop);
+                                isBWPriceQuote = true;
+                                totalPrice = (uint)objQuotation.OnRoadPrice;
                                 if (objQuotation != null)
                                     objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
                             }
@@ -188,7 +191,7 @@ namespace Bikewale.BikeBooking
                             //EMI details
                             if (primarydealer.EMIDetails != null)
                             {
-                                EMI _objEMI = setEMIDetails();
+                                _objEMI = setEMIDetails();
                                 if (primarydealer.EMIDetails.MinDownPayment < 1 || primarydealer.EMIDetails.MaxDownPayment < 1)
                                 {
                                     primarydealer.EMIDetails.MinDownPayment = _objEMI.MinDownPayment;
@@ -226,7 +229,7 @@ namespace Bikewale.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> SetDealerPriceQuoteDetail(): versionId {0}", versionId));
                 objErr.SendMail();
             }
-            
+
         }
 
         /// <summary>
@@ -390,19 +393,26 @@ namespace Bikewale.BikeBooking
         /// <returns></returns>
         protected string GetLocationCookie()
         {
-            string location = String.Empty;
+            string loctn = string.Empty;
             try
             {
                 CityArea = GlobalCityArea.GetGlobalCityArea();
                 if (CityArea != null)
                 {
-                    if (!String.IsNullOrEmpty(CityArea.Area))
+                    if (isBWPriceQuote)
                     {
-                        location = String.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
+                        loctn = string.Format("<span>{0}</span>", CityArea.City);
                     }
                     else
                     {
-                        location = String.Format("<span>{0}</span>", CityArea.City);
+                        if (!String.IsNullOrEmpty(CityArea.Area))
+                        {
+                            loctn = string.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
+                        }
+                        else
+                        {
+                            loctn = string.Format("<span>{0}</span>", CityArea.City);
+                        }
                     }
                 }
             }
@@ -411,7 +421,7 @@ namespace Bikewale.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            return location;
+            return loctn;
         }
 
         /// <summary>

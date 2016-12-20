@@ -1,4 +1,4 @@
-﻿var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
+﻿var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote,#leadSecondary"), leadCapturePopup = $("#leadCapturePopup");
 var fullName = $("#getFullName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
@@ -17,6 +17,8 @@ var getEMIClick = false;
 $(function () {
     leadBtnBookNow.on('click', function () {
         leadSourceId = $(this).attr('leadSourceId');
+        customerViewModel.dealerId($(this).attr('data-dealerId'));
+        customerViewModel.leadSourceId(leadSourceId);
         leadCapturePopup.show();
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
@@ -87,6 +89,8 @@ function CustomerModel() {
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
+    self.dealerId = ko.observable();
+    self.leadSourceId = ko.observable();
     self.IsVerified = ko.observable(false);
     self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
@@ -96,7 +100,7 @@ function CustomerModel() {
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
             var objCust = {
-                "dealerId": dealerId,
+                "dealerId": customerViewModel.dealerId(),
                 "pqId": pqId,
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
@@ -105,7 +109,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": leadSourceId,
+                "leadSourceId": customerViewModel.leadSourceId(),
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
