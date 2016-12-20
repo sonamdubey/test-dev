@@ -2,7 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
-using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;

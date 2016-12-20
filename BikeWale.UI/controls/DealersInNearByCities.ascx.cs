@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     /// <summary>
     /// Added By : Sajal Gupta on 19-12-2016;
@@ -33,12 +33,21 @@ namespace Bikewale.controls
         /// </summary>
         private void BindDealerCountNearByCity()
         {
-            BindDealersCountInNearByCitiesControl objDealerCnt = new BindDealersCountInNearByCitiesControl();
-            objDealerCnt.TopCount = TopCount;
-            objDealerCnt.CityId = CityId;
-            objDealerCnt.MakeId = MakeId;
-            DealerCountCityList = objDealerCnt.BindDealersCountInNearByCities();
-            FetchedRecordsCount = DealerCountCityList.Count();
+            try
+            {
+                BindDealersCountInNearByCitiesControl objDealerCnt = new BindDealersCountInNearByCitiesControl();
+                objDealerCnt.TopCount = TopCount;
+                objDealerCnt.CityId = CityId;
+                objDealerCnt.MakeId = MakeId;
+                DealerCountCityList = objDealerCnt.BindDealersCountInNearByCities();
+                if (DealerCountCityList != null)
+                    FetchedRecordsCount = DealerCountCityList.Count();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "DealersInNearByCities.BindDealerCountNearByCity");
+                objErr.SendMail();
+            }
         }
     }
 }

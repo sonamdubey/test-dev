@@ -10,7 +10,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.m.controls;
+using Bikewale.m.Controls;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;

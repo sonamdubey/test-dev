@@ -16,10 +16,8 @@ namespace Bikewale.BindViewModels.Controls
     /// Added By : Sajal Gupta on 19-12-2016;
     /// Desc : class to bind Dealers Count In Near By Cities 
     /// </summary>
-    /// <param name="rptAlternativeBikes"></param>
     public class BindDealersCountInNearByCitiesControl
     {
-        public int FetchedRecordsCount { get; set; }
         public uint MakeId { get; set; }
         public uint CityId { get; set; }
         public int TopCount { get; set; }
@@ -27,12 +25,10 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Added By : Sajal Gupta on 19-12-2016;
         /// Desc : Bind Dealers Count In Near By Cities 
-        /// </summary>
-        /// <param name="rptAlternativeBikes"></param>
+        /// </summary>        
         public IEnumerable<NearByCityDealerCountEntity> BindDealersCountInNearByCities()
         {
             IEnumerable<NearByCityDealerCountEntity> DealerCountCityList = null;
-            FetchedRecordsCount = 0;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
