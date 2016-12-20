@@ -11,6 +11,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Descrption  :   Added optional parameter modelId for GetDealerByMakeCity
     /// Modified by  :   Sumit Kate on 21 Jun 2016
     /// Description :   Get Popular City Dealer Count.
+    /// Modified by  :   Subodh jain on 20 Dec 2016
+    /// Description :   Get Dealer By BrandList
     /// </summary>
     public interface IDealerCacheRepository
     {
@@ -19,5 +21,6 @@ namespace Bikewale.Interfaces.Dealer
         DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId);
         IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount);
         IEnumerable<NewBikeDealersMakeEntity> GetDealersMakesList();
+        IEnumerable<DealerBrandEntity> GetDealerByBrandList();
     }
 }

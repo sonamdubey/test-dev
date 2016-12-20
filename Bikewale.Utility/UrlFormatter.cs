@@ -247,7 +247,7 @@ namespace Bikewale.Utility
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static object GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
             return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
         }
@@ -256,9 +256,18 @@ namespace Bikewale.Utility
         ///  Created On  : 15 Dec 2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static object GetServiceCenterUrl(string makeMaskingName)
+        public static string GetServiceCenterUrl(string makeMaskingName)
         {
             return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+        }
+        /// <summary>
+        ///  Created By : Subodh Jain 
+        ///  Created On  : 20 Dec 2016
+        ///  Description : To get url for dealershowroom.
+        /// </summary>
+        public static string GetDealerShowroomUrl(string makeMaskingName)
+        {
+            return string.Format("/{0}-dealer-showrooms-in-india/", makeMaskingName);
         }
     }
 }
