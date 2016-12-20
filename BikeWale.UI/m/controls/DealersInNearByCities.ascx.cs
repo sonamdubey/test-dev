@@ -15,7 +15,7 @@ namespace Bikewale.m.Controls
         public int FetchedRecordsCount;
         public uint MakeId { get; set; }
         public uint CityId { get; set; }
-        public int TopCount { get; set; }
+        public uint TopCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string CityName { get; set; }
         public string MakeName { get; set; }

@@ -14,13 +14,13 @@ namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
     /// Added By : Sajal Gupta on 19-12-2016;
-    /// Desc : class to bind Dealers Count In Near By Cities 
+    /// Desc : Class to bind make Dealers Count In Near By Cities 
     /// </summary>
     public class BindDealersCountInNearByCitiesControl
     {
         public uint MakeId { get; set; }
         public uint CityId { get; set; }
-        public int TopCount { get; set; }
+        public uint TopCount { get; set; }
 
         /// <summary>
         /// Added By : Sajal Gupta on 19-12-2016;
@@ -43,7 +43,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (DealerCountCityList != null && DealerCountCityList.Count() > 0)
                     {
-                        DealerCountCityList = DealerCountCityList.Take(TopCount);
+                        DealerCountCityList = DealerCountCityList.Take((int)TopCount);
                     }
                 }
             }
