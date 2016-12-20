@@ -18,8 +18,6 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindDealersByBrand
     {
-        public IEnumerable<DealerBrandEntity> dealersData = null;
-
         /// <summary>
         /// Created By :  Subodh Jain on 20 Dec 2016
         /// Summary    :  To bind dealers data by brand
@@ -27,6 +25,7 @@ namespace Bikewale.BindViewModels.Controls
         /// <returns></returns>
         public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
         {
+            IEnumerable<DealerBrandEntity> dealersData = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
