@@ -89,6 +89,8 @@ namespace Bikewale.New
         /// Summary :- Added Service center Widget
         /// Modified By : Aditi Srivasatva on 30 Nov 2016
         /// Description : Set request type according to page for brand city pop up
+        /// Modified by : Sajal Gupta on 20-12-2016
+        /// Desc : Binded dealer count widget
         /// </summary>
         private void BindUserControls()
         {

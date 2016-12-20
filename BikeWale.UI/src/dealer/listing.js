@@ -166,16 +166,20 @@ function mapDealersArray() {
 
 
 function initializeCityMap() {
-    $(".map_canvas").each(function (index) {
-        var lat = $(this).attr("data-lat")
-        var lng = $(this).attr("data-long");
-        var latlng = new google.maps.LatLng(lat, lng);
+    try{
+        $(".map_canvas").each(function (index) {
+            var lat = $(this).attr("data-lat")
+            var lng = $(this).attr("data-long");
+            var latlng = new google.maps.LatLng(lat, lng);
 
-        var myOptions = {
-        zoom: 10,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-        var map = new google.maps.Map($(".map_canvas")[index], myOptions);
-    });    
+            var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map($(".map_canvas")[index], myOptions);
+        });   
+    } catch (e) {
+        console.warn(e);
+    }
 }

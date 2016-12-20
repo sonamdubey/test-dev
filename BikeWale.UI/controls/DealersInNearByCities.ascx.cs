@@ -27,6 +27,10 @@ namespace Bikewale.controls
             BindDealerCountNearByCity();
         }
 
+        /// <summary>
+        /// Added By : Sajal Gupta on 19-12-2016;
+        /// Desc : Function to bind Dealers Count In Near By Cities 
+        /// </summary>
         private void BindDealerCountNearByCity()
         {
             BindDealersCountInNearByCitiesControl objDealerCnt = new BindDealersCountInNearByCitiesControl();

@@ -83,6 +83,8 @@ namespace Bikewale.Mobile.New
         }
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
+        /// Modified by : Sajal Gupta on 20-12-2016
+        /// Desc : Binded Dealercount widget
         private void BindUserControls()
         {
             try
