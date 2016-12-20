@@ -37,7 +37,7 @@
                         <%foreach (var DealerDetails in AllDealers)
                           { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetDealerShowroomUrl(DealerDetails.MakeMaskingName)%>" title="<%=String.Format("{0} showrooms in India",DealerDetails.MakeName)%>" class="jcarousel-card">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetDealerShowroomUrl(DealerDetails.MaskingName)%>" title="<%=String.Format("{0} showrooms in India",DealerDetails.MakeName)%>" class="jcarousel-card">
                                         <div class="brand-logo-image">
                                             <span class="brand-type">
                                                 <span class="brandlogosprite brand-<%=DealerDetails.MakeId%>"></span>

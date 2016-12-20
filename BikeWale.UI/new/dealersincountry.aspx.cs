@@ -78,7 +78,7 @@ namespace Bikewale.New
                 ctrlNewLaunchedBikes.makeid = makeId;
                 ctrlUpcomingBikes.pageSize = 6;
                 ctrlUpcomingBikes.MakeId = makeId;
-                ctrlDealerByBrand.WidgetTitle = string.Format("Find showroom for other brands");
+                ctrlDealerByBrand.WidgetTitle = "Find showroom for other brands";
                 ctrlDealerByBrand.makeId = makeId;
                 BindStatesCities();
 
