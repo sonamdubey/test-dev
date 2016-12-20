@@ -1,16 +1,21 @@
 // ErrorClass.cs
 //
 
+using log4net;
 using System;
-using System.Web;
 using System.Configuration;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Text;
-using System.Data.SqlClient;
-using System.Data.OleDb;
+using System.Web;
 
 namespace Bikewale.Common
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 20 Dec 2016
+    /// Description :   Log the exception in GreyLog and Disable Error Emails
+    /// </summary>
     public class ErrorClass
     {
         Exception err;
@@ -20,7 +25,7 @@ namespace Bikewale.Common
         bool sendMail = false;
         //string errorMail = "vspl.bugs@gmail.com";
         //string localMail = "";
-
+        protected static readonly ILog log = LogManager.GetLogger(typeof(ErrorClass));
         //used for writing the debug messages
         private HttpContext objTrace = HttpContext.Current;
 
@@ -29,6 +34,7 @@ namespace Bikewale.Common
         {
             this.err = ex;	//assign the exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         public ErrorClass(SqlException ex, string pageUrl)
@@ -36,6 +42,7 @@ namespace Bikewale.Common
             this.sqlErr = ex;	//assign the sql exeption
             err = (Exception)sqlErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         public ErrorClass(OleDbException ex, string pageUrl)
@@ -43,6 +50,7 @@ namespace Bikewale.Common
             this.oleErr = ex;	//assign the sql exeption
             err = (Exception)oleErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            log.Error(pageUrl, ex);
         }
 
         /********************************************************************************************
@@ -58,112 +66,112 @@ namespace Bikewale.Common
         public void SendMail()
         {
             //exception log
-           // ExceptionLogging.SendErrorToText(err);
+            // ExceptionLogging.SendErrorToText(err);
 
 
-            string sendError = "";
-            //get the value of sendError from web.config file
-            try
-            {
-                sendError = ConfigurationManager.AppSettings["sendError"].ToString();
-                if (sendError != "On")
-                {
-                    sendError = "Off";
-                }
-            }
-            catch (Exception ex)
-            {
-                sendError = "Off";
-                objTrace.Trace.Warn("Common:Error:SendMail: " + ex.Message);
-            }
+            //string sendError = "";
+            ////get the value of sendError from web.config file
+            //try
+            //{
+            //    sendError = ConfigurationManager.AppSettings["sendError"].ToString();
+            //    if (sendError != "On")
+            //    {
+            //        sendError = "Off";
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    sendError = "Off";
+            //    objTrace.Trace.Warn("Common:Error:SendMail: " + ex.Message);
+            //}
 
-            if (sendError == "On")
-                sendMail = true;	//default it is false
+            //if (sendError == "On")
+            //    sendMail = true;	//default it is false
 
-            if (sendMail == true)
-            {
-                //do further operation
-                try
-                {
-                    // make sure we use the local SMTP server
-                    //SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
-                    SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);
-                    //get the from mail address
-                    string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
+            //if (sendMail == true)
+            //{
+            //    //do further operation
+            //    try
+            //    {
+            //        // make sure we use the local SMTP server
+            //        //SmtpClient client = new SmtpClient("124.153.73.180");//"127.0.0.1";
+            //        SmtpClient client = new SmtpClient(ConfigurationManager.AppSettings["SMTPSERVER"]);
+            //        //get the from mail address
+            //        string localMail = ConfigurationManager.AppSettings["localMail"].ToString();
 
-                    MailAddress from = new MailAddress(localMail, "CarWale.com");
+            //        MailAddress from = new MailAddress(localMail, "CarWale.com");
 
-                    //get the to mail id
-                    string email = ConfigurationManager.AppSettings["errorMailTo"].ToString();
-                    string subject = "Error in bikewale.com at page: " + pageUrl;
+            //        //get the to mail id
+            //        string email = ConfigurationManager.AppSettings["errorMailTo"].ToString();
+            //        string subject = "Error in bikewale.com at page: " + pageUrl;
 
-                    // Set destinations for the e-mail message.
-                    MailAddress to = new MailAddress(email);
+            //        // Set destinations for the e-mail message.
+            //        MailAddress to = new MailAddress(email);
 
-                    // create mail message object
-                    MailMessage msg = new MailMessage(from, to);
+            //        // create mail message object
+            //        MailMessage msg = new MailMessage(from, to);
 
-                    // Add Reply-to in the message header.
-                    msg.Headers.Add("Reply-to", "contact@carwale.com");
+            //        // Add Reply-to in the message header.
+            //        msg.Headers.Add("Reply-to", "contact@carwale.com");
 
-                    // set some properties
-                    msg.IsBodyHtml = false;
-                    msg.Priority = MailPriority.High;
+            //        // set some properties
+            //        msg.IsBodyHtml = false;
+            //        msg.Priority = MailPriority.High;
 
-                    //prepare the subject
-                    msg.Subject = subject;
+            //        //prepare the subject
+            //        msg.Subject = subject;
 
-                    StringBuilder sb = new StringBuilder();
+            //        StringBuilder sb = new StringBuilder();
 
-                    sb.Append("Person Accessing the Page : " + CurrentUser.Email + "\n\n");
+            //        sb.Append("Person Accessing the Page : " + CurrentUser.Email + "\n\n");
 
-                    sb.Append("\nHOST : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString());
+            //        sb.Append("\nHOST : ");
+            //        sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString());
 
-                    sb.Append("\nURL : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["URL"].ToString());
+            //        sb.Append("\nURL : ");
+            //        sb.Append(HttpContext.Current.Request.ServerVariables["URL"].ToString());
 
-                    sb.Append("\nREWRITE URL : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
+            //        sb.Append("\nREWRITE URL : ");
+            //        sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
 
-                    sb.Append("\nREFERRER : ");
-                    if (HttpContext.Current.Request.ServerVariables["HTTP_REFERER"] != null)
-                        sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_REFERER"].ToString());
+            //        sb.Append("\nREFERRER : ");
+            //        if (HttpContext.Current.Request.ServerVariables["HTTP_REFERER"] != null)
+            //            sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_REFERER"].ToString());
 
-                    //get the page 
-                    sb.Append("\nError on Page : ");
-                    sb.Append(pageUrl);
+            //        //get the page 
+            //        sb.Append("\nError on Page : ");
+            //        sb.Append(pageUrl);
 
-                    //get the error message
-                    sb.Append("\nError Message : ");
-                    sb.Append(err.Message);
+            //        //get the error message
+            //        sb.Append("\nError Message : ");
+            //        sb.Append(err.Message);
 
-                    //get the innerexception
-                    sb.Append("\nInner Exception : ");
-                    sb.Append(err.InnerException);
+            //        //get the innerexception
+            //        sb.Append("\nInner Exception : ");
+            //        sb.Append(err.InnerException);
 
-                    //get the stack trace
-                    sb.Append("\nStack Trace : ");
-                    sb.Append(err.StackTrace);
+            //        //get the stack trace
+            //        sb.Append("\nStack Trace : ");
+            //        sb.Append(err.StackTrace);
 
-                    msg.Body = sb.ToString();
+            //        msg.Body = sb.ToString();
 
-                    //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
+            //        //body = " Person Accessing the Page : " + CurrentUser.Email + "\n" + body;                            
 
-                    // Mail Server Configuration. Needed for Rediff Hosting.
-                    //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
-                    //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
+            //        // Mail Server Configuration. Needed for Rediff Hosting.
+            //        //msg.Fields["http://schemas.microsoft.com/cdo/configuration/sendusing"] = 1;
+            //        //msg.Fields["http://schemas.microsoft.com/cdo/configuration/smtpserverpickupdirectory"] = "C:\\inetpub\\mailroot\\pickup";
 
-                    // Send the e-mail
-                    client.Send(msg);
+            //        // Send the e-mail
+            //        client.Send(msg);
 
-                    objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
-                }
-                catch (Exception ex)
-                {
-                    objTrace.Trace.Warn("CommonOpn:SendMail: " + ex.Message);
-                }
-            }
+            //        objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        objTrace.Trace.Warn("CommonOpn:SendMail: " + ex.Message);
+            //    }
+            //}
         }
 
         /********************************************************************************************
