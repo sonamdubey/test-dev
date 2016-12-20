@@ -9,8 +9,7 @@
     <h2 class="font18 padding-bottom20 padding-left20">Explore <%= MakeName %> showrooms in cities near <%= CityName %></h2>
     <div class="swiper-container padding-top5 padding-bottom5 sw-0 swiper-container-horizontal bwm-brands-swiper">
         <div class="swiper-wrapper">
-            <%  if (DealerCountCityList != null) { 
-                foreach (var Dealer in DealerCountCityList)
+            <% foreach (var Dealer in DealerCountCityList)
               { %>
             <div class="swiper-slide swiper-slide-visible swiper-slide-active">
                 <div class="swiper-card">
@@ -24,7 +23,7 @@
                     </a>
                 </div>
             </div>
-            <%} } %>
+            <%} %>
         </div>
     </div>
 </div>

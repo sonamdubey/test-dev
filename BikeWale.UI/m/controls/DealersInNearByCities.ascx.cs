@@ -20,7 +20,7 @@ namespace Bikewale.m.Controls
         public string CityName { get; set; }
         public string MakeName { get; set; }
 
-        public IEnumerable<NearByCityDealerCountEntity> DealerCountCityList;
+        protected IEnumerable<NearByCityDealerCountEntity> DealerCountCityList;
 
         protected void Page_Load(object sender, EventArgs e)
         {

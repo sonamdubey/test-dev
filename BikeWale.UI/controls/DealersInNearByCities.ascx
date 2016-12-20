@@ -13,6 +13,8 @@
 #carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
 #card-block.card-desc-block { height: 80px; }
 </style>
+<% if (DealerCountCityList != null)
+   {  %>
 <div class="container section-container ">
     <div class="grid-12 margin-bottom20">
         <div class="content-box-shadow padding-top20 padding-bottom20">
@@ -20,8 +22,7 @@
             <div class="jcarousel-wrapper inner-content-carousel" id="carouselServiceCenter">
                 <div class="jcarousel" data-jcarousel="true">
                     <ul>
-                        <% if (DealerCountCityList != null) { 
-                            foreach (var Dealer in DealerCountCityList)
+                        <% foreach (var Dealer in DealerCountCityList)
                           { %>
                         <li>
                             <a href="/<%= MakeMaskingName %>-dealer-showrooms-in-<%= Dealer.CityMaskingName %>/" title="<%= MakeName %> showrooms in <%= Dealer.CityName %>" class="jcarousel-card">
@@ -35,7 +36,7 @@
                                 </div>
                             </a>
                         </li>
-                        <%} } %>
+                        <%} %>
                     </ul>
                 </div>
                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
@@ -44,6 +45,7 @@
         </div>
     </div>
 </div>
+<% } %>
 <%} %>
 
 

@@ -22,6 +22,28 @@ namespace Bikewale.BindViewModels.Controls
         public uint CityId { get; set; }
         public uint TopCount { get; set; }
 
+        protected IDealerCacheRepository objDealer;
+
+        public BindDealersCountInNearByCitiesControl()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IDealer, Dealer>()
+                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
+
+                    objDealer = container.Resolve<IDealerCacheRepository>();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindDealersCountInNearByCitiesControl()");
+                objErr.SendMail();
+            }
+        }
+
         /// <summary>
         /// Added By : Sajal Gupta on 19-12-2016;
         /// Desc : Bind Dealers Count In Near By Cities 
@@ -31,21 +53,13 @@ namespace Bikewale.BindViewModels.Controls
             IEnumerable<NearByCityDealerCountEntity> DealerCountCityList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                DealerCountCityList = objDealer.FetchNearByCityDealersCount(MakeId, CityId);
+
+                if (DealerCountCityList != null && DealerCountCityList.Count() > 0)
                 {
-                    container.RegisterType<IDealer, Dealer>()
-                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                        .RegisterType<ICacheManager, MemcacheManager>();
-
-                    IDealerCacheRepository objDealer = container.Resolve<IDealerCacheRepository>();
-
-                    DealerCountCityList = objDealer.FetchNearByCityDealersCount(MakeId, CityId);
-
-                    if (DealerCountCityList != null && DealerCountCityList.Count() > 0)
-                    {
-                        DealerCountCityList = DealerCountCityList.Take((int)TopCount);
-                    }
+                    DealerCountCityList = DealerCountCityList.Take((int)TopCount);
                 }
+
             }
             catch (Exception ex)
             {
