@@ -459,10 +459,8 @@ namespace Bikewale.DAL.ServiceCenter
                                 objServiceCenters = new BrandServiceCenters();
                                 objServiceCenters.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 objServiceCenters.MakeName = Convert.ToString(dr["MakeName"]);
-                                objServiceCenters.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objServiceCenters.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objServiceCenters.ServiceCenterCount=SqlReaderConvertor.ToInt32(dr["ServiceCenterCount"]);
-                                objServiceCenters.LogoURL = Convert.ToString(dr["LogoUrl"]);
-                                objServiceCenters.HostURL = Convert.ToString(dr["HostURL"]);
                                 listServiceCenter.Add(objServiceCenters);
                             }
                                 dr.Close();

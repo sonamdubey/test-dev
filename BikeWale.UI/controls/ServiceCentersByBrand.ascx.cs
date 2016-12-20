@@ -14,7 +14,6 @@ namespace Bikewale.Controls
     public class ServiceCentersByBrand : System.Web.UI.UserControl
     {
         protected IEnumerable<BrandServiceCenters> AllServiceCenters;
-        public string WidgetTitle { get; set; }
         public int makeId { get; set; }
         public int FetchedRecordsCount;
         protected override void OnInit(EventArgs e)
@@ -33,7 +32,6 @@ namespace Bikewale.Controls
                     FetchedRecordsCount = AllServiceCenters.Count();
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);
                 }
-                WidgetTitle = "Find Service Centers for other brands";
             }
             catch (Exception ex)
             {
