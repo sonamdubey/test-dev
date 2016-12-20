@@ -23,6 +23,7 @@ function initializeCityMaps() {
             zoom: 10,
             center: latlng,
             streetViewControl: false,
+            scrollwheel: false,
             mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };

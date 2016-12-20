@@ -140,6 +140,7 @@ function initializeCityMaps() {
         var mapOptions = {
             zoom: 10,
             center: latlng,
+            scrollwheel :false,
             streetViewControl: false,
             mapTypeControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
