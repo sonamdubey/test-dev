@@ -100,6 +100,14 @@ $(document).ready(function () {
     visibleThumbnails.each(function () {
         $(this).find('img.lazy').trigger('imgLazyLoad');
     });
+
+    var trackDayVideo = $('#td-iframe-video'),
+        trackDayVideoSource = trackDayVideo.attr('src');
+
+    $('#track-day-video').on('click', '.video-overlay', function (event) {
+        $(this).hide();
+        trackDayVideo.attr('src', trackDayVideoSource + '?autoplay=1');        
+    });
 });
 
 var gallery = {
@@ -142,7 +150,7 @@ var gallery = {
 
         if (windowWidth >= 1024) {
             $('.carousel-stage-media li, .stage-media, .navigation-media').css({
-                width: 996
+                width: 976
             });
         }
         else {

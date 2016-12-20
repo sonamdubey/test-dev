@@ -12,11 +12,14 @@
 
         isHeaderFix = true;
         isTransparentHeader = false;
+        isAd970x90Shown = false;
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90BottomShown = false;
         
 		//AdId="1395995626568";
 		//AdPath="/1017752/BikeWale_News_";
-        //isAd300x250Shown = false;
-        //isAd300x250BTFShown = false;
+        
 	%>
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -59,8 +62,10 @@
         <section>
             <% if (objTrackDay != null)
                { %>
-            <div id="track-day-article" class="container content-box-shadow section-container">
-                <div class="padding-top20">
+            <div id="track-day-article" class="container section-container">
+                <div class="grid-12">
+                    <div class="content-box-shadow">
+                        <div class="padding-top20">
                     <div class="text-center">
                         <div class="trackday-logo"></div>
                     </div>
@@ -81,66 +86,69 @@
                         <%= String.IsNullOrEmpty(objTrackDay.Content) ? "" : objTrackDay.Content %>
                     </div>
 
-                </div>
-
-                <% if (objImages != null)
-                   { %>
-                <p class="margin-left20 photography-heading">Photos</p>
-                <div class="connected-carousels-photos">
-                <div class="stage-photos stage-media">
-                    <div class="carousel-photos carousel-stage-photos carousel-stage-media">
-                        <ul>
-                            <% foreach (var image in objImages)
-                               { %>
-                            <li>
-                                <div class="gallery-photo-img-container">
-                                    <span>
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._1280x720)%>" alt="<%= image.ImageName %>" src="" />
-                                    </span>
-                                </div>
-                            </li>
-                            <% } %>
-                        </ul>
                     </div>
-                    <a href="#" class="prev photos-prev-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
-                </div>
 
-                <div class="navigation-photos navigation-media">
-                    <a href="#" class="prev photos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
-                    <a href="#" class="next photos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
-                    <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
-                        <ul>
-                            <% foreach (var image in objImages)
-                               { %>
-                            <li>
-                                <div class="gallery-photo-nav-img-container">
-                                    <span>
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= image.ImageName %>" src="" />
-                                    </span>
-                                </div>
-                            </li>
-                            <% } %>
-                        </ul>
+                        <% if (objImages != null)
+                           { %>
+                        <p class="margin-left20 photography-heading">Photos</p>
+                        <div class="connected-carousels-photos">
+                        <div class="stage-photos stage-media">
+                            <div class="carousel-photos carousel-stage-photos carousel-stage-media">
+                                <ul>
+                                    <% foreach (var image in objImages)
+                                       { %>
+                                    <li>
+                                        <div class="gallery-photo-img-container">
+                                            <span>
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._1280x720)%>" alt="<%= image.ImageName %>" src="" />
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                            <a href="#" class="prev photos-prev-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                        </div>
+
+                        <div class="navigation-photos navigation-media">
+                            <a href="#" class="prev photos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
+                                <ul>
+                                    <% foreach (var image in objImages)
+                                       { %>
+                                    <li>
+                                        <div class="gallery-photo-nav-img-container">
+                                            <span>
+                                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%= image.ImageName %>" src="" />
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                        <% } %>
+
+                        <% if (objTrackDayArticles != null && objTrackDayArticles.RecordCount > 0)
+                           { %>
+                            <div class="padding-right20 padding-left20">
+                                <p class="related-articles-heading">More BikeWale Track Day Articles</p>
+                                <ul class="related-articles-list">
+                                    <% foreach (var article in objTrackDayArticles.Articles)
+                                       { %>
+                                    <li>
+                                        <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" c="bw_trackday" a="<%= article.Title %>-related-article" l="bw_trackday" title="<%= article.Title %>" class="bw-ga"><%= article.Title %></a>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
-            </div>
-                <% } %>
-
-                <% if (objTrackDayArticles != null && objTrackDayArticles.RecordCount > 0)
-                   { %>
-                    <div class="padding-right20 padding-left20">
-                        <p class="related-articles-heading">More BikeWale Track Day Articles</p>
-                        <ul class="related-articles-list">
-                            <% foreach (var article in objTrackDayArticles.Articles)
-                               { %>
-                            <li>
-                                <a href="<%= string.Format("{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(article.BasicId.ToString(),article.ArticleUrl,article.CategoryId.ToString())) %>" title="<%= article.Title %>"><%= article.Title %></a>
-                            </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                <% } %>
+                <div class="clear"></div>
             </div>
             <% } %>
         </section>
