@@ -2,6 +2,7 @@
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
+using Bikewale.controls;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
@@ -41,6 +42,7 @@ namespace Bikewale.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BrandCityPopUp ctrlBrandCity;
+        protected DealersInNearByCities ctrlDealerCount;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace Bikewale.New
         void InitializeComponent()
         {
             base.Load += new EventHandler(this.Page_Load);
-            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -92,6 +94,13 @@ namespace Bikewale.New
         {
             try
             {
+                ctrlDealerCount.MakeId = makeId;
+                ctrlDealerCount.CityId = cityId;
+                ctrlDealerCount.TopCount = 8;
+                ctrlDealerCount.MakeMaskingName = makeMaskingName;
+                ctrlDealerCount.CityName = cityName;
+                ctrlDealerCount.MakeName = makeName;
+
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
                 ctrlPopoularBikeMake.totalCount = 9;
@@ -108,9 +117,9 @@ namespace Bikewale.New
                 ctrlRecentUsedBikes.AdId = "1395986297721";
 
                 ctrlLeadCapture.CityId = cityId;
-            ctrlBrandCity.requestType = EnumBikeType.Dealer;
-            ctrlBrandCity.makeId = makeId;
-            ctrlBrandCity.cityId = cityId;
+                ctrlBrandCity.requestType = EnumBikeType.Dealer;
+                ctrlBrandCity.makeId = makeId;
+                ctrlBrandCity.cityId = cityId;
 
                 ctrlServiceCenterCard.MakeId = makeId;
                 ctrlServiceCenterCard.CityId = cityId;
@@ -127,7 +136,7 @@ namespace Bikewale.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BrowseNewBikeDealerDetails.BindUserControls");
                 objErr.SendMail();
             }
-            }
+        }
 
         /// <summary>
         /// Created By  : Sushil Kumar
@@ -239,7 +248,7 @@ namespace Bikewale.New
                     _cities = objCities.FetchDealerCitiesByMake(makeId);
                     if (_cities != null && _cities.Count() > 0)
                     {
-                       var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
+                        var firstCity = _cities.FirstOrDefault(x => x.CityId == cityId);
                         if (firstCity != null)
                         {
                             cityName = firstCity.CityName;

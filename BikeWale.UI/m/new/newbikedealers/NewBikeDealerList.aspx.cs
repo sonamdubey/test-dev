@@ -10,6 +10,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.m.controls;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -41,6 +42,8 @@ namespace Bikewale.Mobile.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCenterCard ctrlServiceCenterCard;
+        protected DealersInNearByCities ctrlDealerCount;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -84,6 +87,13 @@ namespace Bikewale.Mobile.New
         {
             try
             {
+                ctrlDealerCount.MakeId = makeId;
+                ctrlDealerCount.CityId = cityId;
+                ctrlDealerCount.TopCount = 8;
+                ctrlDealerCount.MakeMaskingName = makeMaskingName;
+                ctrlDealerCount.CityName = cityName;
+                ctrlDealerCount.MakeName = makeName;
+
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
                 ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;

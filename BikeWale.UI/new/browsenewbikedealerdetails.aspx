@@ -4,6 +4,7 @@
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -137,6 +138,11 @@
             </div>
             <div id="listing-footer"></div>
         </section>
+
+        <% if(ctrlDealerCount.FetchedRecordsCount > 0) { %>
+        <BW:DealersCount ID="ctrlDealerCount" runat="server" />
+        <% } %>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
            { %>
         <section>

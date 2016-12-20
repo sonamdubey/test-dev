@@ -878,5 +878,52 @@ namespace Bikewale.DAL.Dealer
 
             return status;
         }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 19-12-2016
+        /// Description :   Fetch dealers count for nearby city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
+        {
+            IList<NearByCityDealerCountEntity> objDealerCountList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerinnearbycity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Convert.ToInt32(cityId)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objDealerCountList = new List<NearByCityDealerCountEntity>();
+                            while (dr.Read())
+                            {
+                                objDealerCountList.Add(new NearByCityDealerCountEntity
+                                {
+                                    DealersCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["name"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    Lattitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                objErr.SendMail();
+            }
+            return objDealerCountList;
+        }
     }//End class
 }

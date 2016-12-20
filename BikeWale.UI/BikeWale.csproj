@@ -245,6 +245,7 @@
     </Compile>
     <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
@@ -397,6 +398,10 @@
     </Compile>
     <Compile Include="controls\DealerCard.ascx.cs">
       <DependentUpon>DealerCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DealersInNearByCities.ascx.cs">
+      <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
@@ -821,6 +826,10 @@
     </Compile>
     <Compile Include="m\controls\DealersCard.ascx.cs">
       <DependentUpon>DealersCard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\DealersInNearByCities.ascx.cs">
+      <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
@@ -1856,6 +1865,7 @@
     <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
     <Content Include="controls\DealerCard.ascx" />
+    <Content Include="controls\DealersInNearByCities.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
@@ -2424,6 +2434,7 @@
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\DealersCard.ascx" />
+    <Content Include="m\controls\DealersInNearByCities.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
