@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,6 +92,10 @@
             </div>
         </section>
 
+         <% if(ctrlDealerCount.FetchedRecordsCount > 0) { %>
+        <BW:DealersCount ID="ctrlDealerCount" runat="server" />
+        <% } %>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
@@ -138,6 +143,7 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
         <script type="text/javascript">
             // read more-collapse
             var readMoreTarget = $('#read-more-target'),
@@ -169,6 +175,21 @@
                 };
                 dleadvm.setOptions(leadOptions);
             });
+            initializeCityMap();
+            function initializeCityMap() {
+                $(".map_canvas").each(function (index) {
+                    var lat = $(this).attr("data-lat")
+                    var lng = $(this).attr("data-long");
+                    var latlng = new google.maps.LatLng(lat, lng);
+
+                    var myOptions = {
+                        zoom: 10,
+                        center: latlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map($(".map_canvas")[index], myOptions);
+                });
+            }
         </script>
     </form>
 </body>
