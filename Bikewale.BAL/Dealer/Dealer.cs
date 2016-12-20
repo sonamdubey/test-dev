@@ -285,7 +285,7 @@ namespace Bikewale.BAL.Dealer
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetDealerByBrandList"));
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByBrandList");
                 objErr.SendMail();
                 return null;
             }
