@@ -22,6 +22,10 @@ namespace Bikewale.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            DealerData();
+        }
+        private void DealerData()
+        {
             try
             {
                 BindDealersByBrand servicecentViewModel = new BindDealersByBrand();
