@@ -1,12 +1,8 @@
-﻿using System;
-using System.Configuration;
+﻿using log4net;
+using System;
 using System.Data.OleDb;
 using System.Data.SqlClient;
-using System.Text;
 using System.Web;
-using Bikewale.Notifications.MailTemplates;
-using Bikewale.Notifications.Configuration;
-using log4net;
 
 namespace Bikewale.Notifications
 {
@@ -14,18 +10,18 @@ namespace Bikewale.Notifications
     {
         protected static readonly ILog log = LogManager.GetLogger(typeof(ErrorClass));
         //used for writing the debug messages
-        private HttpContext objTrace = HttpContext.Current;       
+        private HttpContext objTrace = HttpContext.Current;
 
         /// <summary>
         /// Error object.
         /// </summary>
-        private Exception  _err;
-        public Exception  Error
+        private Exception _err;
+        public Exception Error
         {
             get { return _err; }
             set { _err = value; }
         }
-        
+
         /// <summary>
         /// Page URL on which error occured.
         /// </summary>
@@ -35,7 +31,7 @@ namespace Bikewale.Notifications
             get { return _pageUrl; }
             set { _pageUrl = value; }
         }
-        
+
         /// <summary>
         /// constructor which assigns the exception
         /// </summary>
@@ -47,7 +43,7 @@ namespace Bikewale.Notifications
             Error = ex;	//assign the exception
             PageUrl = pageUrl;		//assign the page url
             log.Error(pageUrl, ex);
-            
+
         }
 
         /// <summary>
@@ -88,6 +84,8 @@ namespace Bikewale.Notifications
         /// to be sent, from the key,: 'errorMail'. default it is set to rajeevmantu@gmail.com.
         /// The mail id from which the mail is to be sent is get from the key, "localMail".
         /// Add mentioned keys in web.config file : errorMailTo, ApplicationName
+        /// Modified by :   Sumit Kate on 20 Dec 2016
+        /// Description :   Commented Send Mail for Error Emails
         /// </summary>
         public void SendMail()
         {
@@ -95,12 +93,12 @@ namespace Bikewale.Notifications
             //ExceptionLogging.SendErrorToText(Error);
 
 
-            string email = ErrorMailConfiguration.ERRORMAILTO;
-            string subject = "Error in " + ErrorMailConfiguration.APPLICATIONNAME + " at page: " + PageUrl;
+            //string email = ErrorMailConfiguration.ERRORMAILTO;
+            //string subject = "Error in " + ErrorMailConfiguration.APPLICATIONNAME + " at page: " + PageUrl;
 
-            ComposeEmailBase mail = new ErrorMailTemplate(Error, PageUrl);
-            
-            mail.Send(email, subject);
+            //ComposeEmailBase mail = new ErrorMailTemplate(Error, PageUrl);
+
+            //mail.Send(email, subject);
         }
 
     }//class
