@@ -904,10 +904,8 @@ namespace Bikewale.DAL.Dealer
                                 objDealer = new DealerBrandEntity();
                                 objDealer.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 objDealer.MakeName = Convert.ToString(dr["MakeName"]);
-                                objDealer.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objDealer.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objDealer.DealerCount = SqlReaderConvertor.ToInt32(dr["DealerCount"]);
-                                objDealer.LogoURL = Convert.ToString(dr["LogoUrl"]);
-                                objDealer.HostURL = Convert.ToString(dr["HostURL"]);
                                 objDealerList.Add(objDealer);
                             }
                             dr.Close();

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.BikeData;
 using System;
 using System.Runtime.Serialization;
 namespace Bikewale.Entities.Dealer
@@ -9,26 +10,10 @@ namespace Bikewale.Entities.Dealer
     /// </summary>
     [Serializable, DataContract]
 
-    public class DealerBrandEntity
+    public class DealerBrandEntity : BikeMakeEntityBase
     {
-
-        [DataMember]
-        public int MakeId { get; set; }
-
-        [DataMember]
-        public string MakeName { get; set; }
-
-        [DataMember]
-        public string MakeMaskingName { get; set; }
-
         [DataMember]
         public int DealerCount { get; set; }
-
-        [DataMember]
-        public string LogoURL { get; set; }
-
-        [DataMember]
-        public string HostURL { get; set; }
 
     }
 }
