@@ -10,6 +10,7 @@
     line-height: 0;
     display: table;
     text-align: center;
+    pointer-events: none !important;
     }
 #nearbyCities.swiper-wrapper div div a div h3 {text-decoration:none;}
 #nearbyCities.swiper-wrapper div div a div.swiper-details-block{height:60px;}   
