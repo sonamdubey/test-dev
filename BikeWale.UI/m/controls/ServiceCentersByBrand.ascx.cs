@@ -23,6 +23,14 @@ namespace Bikewale.Mobile.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GetAllServiceCenters();
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Dec 2016
+        /// Summary    : Function to get number of service centers of all brands
+        /// </summary>
+        private void GetAllServiceCenters()
+        {
             try
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
@@ -35,7 +43,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.Page_Load()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.GetAllServiceCenters()");
                 objErr.SendMail();
             }
         }
