@@ -291,7 +291,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=07Dec2016) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=19Dec2016) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -936,6 +936,20 @@ input[type="number"] {
     height: 60px;
     background-position: -164px -436px;
     margin-top: 15px;
+}
+
+.track-day {
+    width: 26px;
+    height: 26px;
+    background-position: -188px -543px;
+    position: relative;
+    top: 8px;
+    margin-right: 10px;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
 }
 
 /* lead capture control */
