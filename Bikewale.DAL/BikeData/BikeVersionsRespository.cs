@@ -107,10 +107,6 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getversions";
-
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    //cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 

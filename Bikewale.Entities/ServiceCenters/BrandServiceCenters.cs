@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,24 +13,12 @@ namespace Bikewale.Entities.ServiceCenters
     /// Description : To hold service center info by brand
     /// </summary>
    [Serializable, DataContract]
-    public class BrandServiceCenters
+    public class BrandServiceCenters : BikeMakeEntityBase
     {
-       [DataMember]
-       public int MakeId { get; set; }
-
-       [DataMember]
-       public string MakeName { get; set; }
-
-       [DataMember]
-       public string MakeMaskingName { get; set; }
-
+       
        [DataMember]
        public int ServiceCenterCount { get; set; }
 
-       [DataMember]
-       public string LogoURL { get; set; }
-
-       [DataMember]
-       public string HostURL { get; set; }
+   
      }
 }

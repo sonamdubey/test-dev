@@ -14,9 +14,8 @@ namespace Bikewale.Controls
     public class ServiceCentersByBrand : System.Web.UI.UserControl
     {
         protected IEnumerable<BrandServiceCenters> AllServiceCenters;
-        protected string WidgetTitle;
+        public int makeId { get; set; }
         public int FetchedRecordsCount;
-        public string ClientIP { get { return Bikewale.Common.CommonOpn.GetClientIP(); } }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -24,17 +23,27 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GetAllServiceCenters();
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 15 Dec 2016
+        /// Summary     : Function to get number of service centers of all brands
+        /// </summary>
+        private void GetAllServiceCenters()
+        {
             try
             {
                 BindOtherBrandsServiceCenters servicecentViewModel = new BindOtherBrandsServiceCenters();
                 AllServiceCenters = servicecentViewModel.GetAllServiceCentersbyMake();
-                if (AllServiceCenters != null)
+                if (AllServiceCenters != null && AllServiceCenters.Count() > 0)
+                {
                     FetchedRecordsCount = AllServiceCenters.Count();
-                WidgetTitle = "Other brand service centers in India";
+                    AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.Page_Load()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.GetAllServiceCenters()");
                 objErr.SendMail();
             }
         }

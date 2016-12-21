@@ -23,14 +23,16 @@
     width: 39px;
     background-position: -2616px 0;
 }
+#carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
+#carouselServiceCenter ul a div h3.bikeTitle {text-decoration:none;}
 </style>
 
 <div class="container section-container ">
 <div class="grid-12 margin-bottom20">
     <div class="content-box-shadow padding-top20 padding-bottom20">
-    <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
+    <h2 class="font18 padding-bottom20 padding-left20">Find service centers for other brands</h2>
 
-      <div class="jcarousel-wrapper inner-content-carousel">
+      <div class="jcarousel-wrapper inner-content-carousel" id="carouselServiceCenter">
 
      
                 <div class="jcarousel" data-jcarousel="true">
@@ -39,7 +41,7 @@
                         <%foreach (var centers in AllServiceCenters)
                           { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(centers.MakeMaskingName)%>" title="<%=String.Format("{0} Service Centers in India",centers.MakeName)%>" class="jcarousel-card">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(centers.MaskingName)%>" title="<%=String.Format("{0} Service Centers in India",centers.MakeName)%>" class="jcarousel-card">
                                       
                                         <div class="brand-logo-image">
                                             <span class="brand-type">
@@ -49,7 +51,7 @@
                                         <div class="card-desc-block">
                                             <h3 class="bikeTitle border-solid-top padding-top15"><%= centers.MakeName%></h3>
                                           
-                                            <p class="font14 text-light-grey margin-bottom5"><%=centers.ServiceCenterCount %> Service Centers</p>
+                                            <p class="font14 text-light-grey margin-bottom5"><%=centers.ServiceCenterCount %> <%=centers.MakeName %> Service Center<%=(centers.ServiceCenterCount)>1?"s":"" %></p>
                                            
                                         </div>
                                     </a>

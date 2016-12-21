@@ -118,7 +118,7 @@
             count++;
         }
         queryStr += "bike" + count + "=" + $(drpVersion).val();
-        window.location = url + queryStr;
+        window.location = url + queryStr + "&source=" + <%= (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection %>;
     }
 
 </script>

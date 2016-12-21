@@ -38,17 +38,17 @@
     width: 23px;
     background-position: -1577px 0;
 } 
-
+#servicecenterSwiper div div a div h3 {text-decoration:none;}
 </style>
 <div class="container bg-white box-shadow padding-top15 padding-bottom20 font14 active">
-    <h2 class="font18 padding-bottom20 padding-left20"><%=WidgetTitle%></h2>
+    <h2 class="font18 padding-bottom20 padding-left20">Find service centers for other brands</h2>
 
     <div class="swiper-container padding-top5 padding-bottom5 sw-0 swiper-container-horizontal bwm-brands-swiper">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="servicecenterSwiper">
             <%foreach(var centers in AllServiceCenters){ %>
                 <div class="swiper-slide swiper-slide-visible swiper-slide-active">
                     <div class="swiper-card">
-                        <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(centers.MakeMaskingName)%>" title="<%=String.Format("{0} Service Centers in India",centers.MakeName)%>">
+                        <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(centers.MaskingName)%>" title="<%=String.Format("{0} Service Centers in India",centers.MakeName)%>">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-<%=centers.MakeId%>"></span>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="swiper-details-block">
                                 <h3 class="target-link font12 text-truncate margin-bottom5 border-solid-top padding-top10"><%=centers.MakeName%></h3>
-                                <p class="text-truncate text-light-grey font11"><%=centers.ServiceCenterCount%> Service Centers</p>
+                                <p class="text-truncate text-light-grey font11"><%=centers.ServiceCenterCount%> <%=centers.MakeName %> Service Center<%=(centers.ServiceCenterCount)>1?"s":"" %></p>
                             </div>
                         </a>
                     </div>

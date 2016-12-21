@@ -902,7 +902,7 @@
 
             newBasicUrl = newBasicUrl.substring(0, newBasicUrl.lastIndexOf("-vs-"));
             newQueryStr = newQueryStr.substring(0, newQueryStr.length - 1);
-            window.location = "/comparebikes/" + newBasicUrl + "/?" + newQueryStr;;
+            window.location = "/comparebikes/" + newBasicUrl + "/?" + newQueryStr+ "&source=" + <%= (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection %>;
 
         });
     });

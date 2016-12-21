@@ -2,7 +2,7 @@
  <% if(FetchedRecordsCount > 0) { %>
 <div class="grid-6">
     <% if(TopRecord!=null) { %>
-    <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2, TopRecord.VersionId1.ToString(), TopRecord.VersionId2.ToString())%>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" id="main-compare-bikes-target">
+    <a href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2, TopRecord.VersionId1.ToString(), TopRecord.VersionId2.ToString(),Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget) %>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2)  %>" id="main-compare-bikes-target">
         <div class="grid-6 padding-left20 border-light-right">
             <div class="imageWrapper margin-bottom30">
                 <div class="comparison-image">
@@ -44,7 +44,8 @@
     <ul id="compare-sidebar-list">
         <%foreach(var bike in compareList) { %>
         <li>
-            <a href="<%= FormatComparisonUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1.ToString(), bike.VersionId2.ToString())%>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>" class="compare-bikes-target">
+            <a href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMaskingName1,bike.ModelMaskingName1,bike.MakeMaskingName2,bike.ModelMaskingName2, bike.VersionId1.ToString(), bike.VersionId2.ToString(),Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)
+            %>" title="Compare <%= FormatBikeCompareAnchorText(bike.Bike1,bike.Bike2) %>" class="compare-bikes-target">
                 <div class="grid-6 compare-bike-box">
                     <div class="sidebar-image inline-block">
                         <img  class="lazy"  data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.VersionImgUrl1,bike.HostUrl1,Bikewale.Utility.ImageSize._110x61) %>"/>

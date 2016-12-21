@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +18,9 @@
         Ad_Bot_320x50 = true;
         
     %>
-
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <style type="text/css">
-        @charset "utf-8";.swiper-card,.swiper-slide:first-child{margin-left:5px}#dealersList a:hover,.swiper-card a:hover{text-decoration:none}.padding-15-20{padding:15px 20px}.vertical-middle{display:inline-block;vertical-align:middle}#dealersList{padding:0 20px 20px}#dealersList li{border-top:1px solid #e2e2e2;padding-top:15px;margin-top:20px;font-size:14px}#dealersList li:first-child{border-top:0;margin-top:0}#dealersList a{display:block}.featured-tag{width:74px;text-align:center;background:#3799a7;margin-bottom:5px;z-index:1;font-size:12px;color:#fff;line-height:20px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;border-radius:2px}.vertical-top{display:inline-block;vertical-align:top}.dealership-details{width:92%}.leadcapturebtn.btn{font-size:14px;padding:9px 21px}.dealership-loc-icon{width:10px;height:14px;background-position:-40px -436px;position:relative;top:4px;margin-right:3px}.star-white{width:8px;height:8px;background-position:-174px -447px;margin-right:4px}.tel-sm-grey-icon{width:10px;height:10px;background-position:0 -437px;position:relative;top:5px;margin-right:3px}.card-container{padding-top:5px;padding-bottom:5px}.card-container .swiper-slide{width:200px}.swiper-card{width:200px;min-height:210px;border:1px solid #e2e2e2\9;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0,0,0,.2);-moz-box-shadow:0 1px 4px rgba(0,0,0,.2);-ms-box-shadow:0 1px 4px rgba(0,0,0,.2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.swiper-image-preview{height:95px;padding:5px 5px 0}.swiper-image-preview img{height:90px}.padding-10-15{padding:10px 15px}.btn-card{padding:6px;overflow:hidden}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.details-column{width:92%}.bw-horizontal-swiper.card-container .swiper-slide{width:308px}.bw-horizontal-swiper .swiper-card{width:308px;font-size:14px;min-height:140px}.bw-horizontal-swiper .swiper-card a{display:block;padding:15px 10px 10px}.edit-blue{width:16px;height:16px;background-position:-83px -257px;position:relative;top:3px}@media only screen and (max-width:420px){.change-text{display:block}.dealer-heading{width:80%}.edit-blue{left:3px}}@media only screen and (max-width:320px){.bw-horizontal-swiper .swiper-card,.bw-horizontal-swiper.card-container .swiper-slide{width:275px}}
-    </style>
+
+  <link rel="stylesheet" type="text/css" href="/m/css/dealer/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
 
@@ -45,10 +44,11 @@
         <section>
             <div class="container margin-bottom10">
                 <div class="bg-white">
-                    <h1 class="box-shadow padding-15-20"><%=makeName%> Showrooms in <%=cityName%></h1>
-                    <div class="box-shadow font14 text-light-grey padding-15-20">
-                      <%=string.Format("Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of {0} Showroom to improve your buying experience. There are {2} {0} showrooms in {1}. BikeWale recommends buying bikes from authorized {0} showroom in {1}. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned {0} dealers in {1}' . Read More after completion of three sentences.",makeName,cityName,totalDealers)%>
-                    </div>
+                    <h1 class="box-shadow padding-15-20"><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>                  							
+                    <div class="box-shadow padding-15-20 font14 text-light-grey">
+                        <p id="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are":"is"%> <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%></p>
+					    <p id="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>. </p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
+                    </div>	
                 </div>
             </div>
         </section>
@@ -75,7 +75,7 @@
                                     </h3>
                                     <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"margin-bottom5" %>">
                                         <span class="bwmsprite dealership-loc-icon vertical-top"></span>
-                                        <span class="vertical-top dealership-details text-light-grey"><%# string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                        <span class="vertical-top dealership-details text-light-grey"><%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.PinCode").ToString())?string.Format("{0}, {1}",DataBinder.Eval(Container.DataItem,"Address"),cityName):string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
                                     </p>
                                     <div class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
                                         <a href="tel:<%#DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString() %>" class="text-default text-bold maskingNumber">
@@ -91,6 +91,10 @@
                 </ul>
             </div>
         </section>
+
+         <% if(ctrlDealerCount.FetchedRecordsCount > 0) { %>
+        <BW:DealersCount ID="ctrlDealerCount" runat="server" />
+        <% } %>
 
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
         <section>
@@ -139,7 +143,22 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
         <script type="text/javascript">
+            // read more-collapse
+            var readMoreTarget = $('#read-more-target'),
+                dealereMoreContent = $('#more-content');
+
+            readMoreTarget.on('click', function () {
+                if (!dealereMoreContent.hasClass('active')) {
+                    dealereMoreContent.addClass('active');
+                    readMoreTarget.text('Collapse');
+                }
+                else {
+                    dealereMoreContent.removeClass('active');
+                    readMoreTarget.text('Read more');
+                }
+            });
             $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
                 var leadOptions = {
@@ -156,6 +175,22 @@
                 };
                 dleadvm.setOptions(leadOptions);
             });
+            initializeCityMap();
+            function initializeCityMap() {
+                $(".map_canvas").each(function (index) {
+                    var lat = $(this).attr("data-lat")
+                    var lng = $(this).attr("data-long");
+                    var latlng = new google.maps.LatLng(lat, lng);
+
+                    var myOptions = {
+                        scrollwheel: false,
+                        zoom: 10,
+                        center: latlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map($(".map_canvas")[index], myOptions);
+                });
+            }
         </script>
     </form>
 </body>

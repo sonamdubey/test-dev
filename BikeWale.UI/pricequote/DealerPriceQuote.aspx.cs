@@ -19,7 +19,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Text;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -30,11 +30,15 @@ namespace Bikewale.BikeBooking
     /// Modified By : Lucky Rathore
     /// Modified On : 31 March 2016
     /// Description : Removed rptColors function.
+    /// Modified By : Sangram Nandkhile
+    /// Modified On : 15 Dec 2016
+    /// Description : Better designed dealer property, removed unnecessary code
     /// </summary>
     public class DealerPriceQuote : System.Web.UI.Page
     {
+        #region Variables
+
         protected GlobalCityAreaEntity CityArea { get; set; }
-        protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptVersion, rptUSPBenefits, rptDealers;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
@@ -42,24 +46,26 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected NewAlternativeBikes ctrlAlternativeBikes;
-        protected string BikeName = string.Empty, pageUrl = string.Empty, clientIP = string.Empty,cityArea = string.Empty;
+        protected EMI _objEMI;
+        protected string bikeName = string.Empty, bikeVersionName = string.Empty, minspecs = string.Empty, pageUrl = string.Empty, clientIP = CommonOpn.GetClientIP(),
+            location = string.Empty, dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58";
+
         protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0;
-        protected bool IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount;
+        protected bool isBWPriceQuote, isPrimaryDealer, IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
         protected CustomerEntity objCustomer = new CustomerEntity();
-        protected DetailedDealerQuotationEntity detailedDealer = null;
-        protected string dealerName, dealerArea, maskingNum, dealerAddress, makeName, modelName, versionName, mpqQueryString;
+        protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
         protected double latitude, longitude;
         protected HiddenField hdnVariant, hdnDealerId;
         protected Label defaultVariant;
         protected DealerPackageTypes dealerType;
         protected DealerQuotationEntity primarydealer = null;
-        IPriceQuote objPriceQuote = null;
+        private IPriceQuote objPriceQuote = null;
         protected BikeQuotationEntity objQuotation = null;
         protected IEnumerable<PQ_Price> primaryPriceList = null;
-        protected bool isSecondaryDealerAvailable = false;
-        protected string pq_leadsource = "34";
-        protected string pq_sourcepage = "58";
 
+        #endregion Variables
+
+        #region events
 
         protected override void OnInit(EventArgs e)
         {
@@ -71,33 +77,20 @@ namespace Bikewale.BikeBooking
         /// Modified On : 16 March 2016
         /// Description :  Chages for updating version id functionality, function SetDealerPriceQuoteDetail(cityId, versionId, dealerId) used.
         /// Modified By : Sushil Kumar on 18th March 2016
-        /// Description : Moved process query functionality to new function ProcessQueryString();  
+        /// Description : Moved process query functionality to new function ProcessQueryString();
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Modified By :Lucky Rathore on 12 July 2016.
-            Form.Action = Request.RawUrl;
-            //code for device detection added by Ashwini Todkar
-            // Modified By :Ashish Kamble on 5 Feb 2016
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-
-            DeviceDetection dd = new DeviceDetection(originalUrl);
-            dd.DetectDevice();
-
-            ProcessQueryString();
-
+            DetectDevice();
+            ParseQueryString();
             if (versionId > 0)
             {
                 BindVersion();
                 hdnVariant.Value = versionId.ToString();
-                BindAlternativeBikeControl(versionId.ToString());
-                clientIP = CommonOpn.GetClientIP();
-                cityArea = GetLocationCookie();
                 SetDealerPriceQuoteDetail(cityId, versionId, dealerId);
+                location = GetLocationCookie();
+                BindAlternativeBikeControl(versionId.ToString());
                 mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
-
             }
             else
             {
@@ -105,28 +98,11 @@ namespace Bikewale.BikeBooking
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
-
         }
 
-        #region Version Change Event
-        /// <summary>
-        /// Modified By : Lucky Rathore
-        /// Modified On : 16 March 2016
-        /// Description :  Chages for updating version id functionality, function SetDealerPriceQuoteDetail(cityId, versionId, dealerId) used.
-        /// </summary>
-        protected void btnVariant_Command(object sender, CommandEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(e.CommandName))
-            {
-                versionId = Convert.ToUInt32(e.CommandName);
-                defaultVariant.Text = Convert.ToString(e.CommandArgument);
-                SavePriceQuote();
-            }
-        }
         #endregion
 
-
-        #region Dealer PriceQuote Details Binding
+        #region methods
         /// <summary>
         /// Created By : Lucky Rathore
         /// Created on : 15 March 2016
@@ -141,27 +117,14 @@ namespace Bikewale.BikeBooking
         {
             try
             {
-                
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    detailedDealer = objIPQ.GetDealerQuotation(cityId, versionId, dealerId);
+                    detailedDealer = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, areaId);
 
                     if (detailedDealer != null)
                     {
-                        if (detailedDealer.objMake != null)
-                        {
-                            makeName = detailedDealer.objMake.MakeName;
-                        }
-
-                        if (detailedDealer.objModel != null)
-                        {
-                            modelName = detailedDealer.objModel.ModelName;
-                        }
-
-                        BikeName = String.Format("{0} {1}", makeName, modelName);
-
                         if (detailedDealer.objVersion != null)
                         {
                             versionName = detailedDealer.objVersion.VersionName;
@@ -170,25 +133,24 @@ namespace Bikewale.BikeBooking
                         if (detailedDealer.PrimaryDealer != null)
                         {
                             primarydealer = detailedDealer.PrimaryDealer;
+                            if (detailedDealer.PrimaryDealer.DealerDetails != null)
+                                isPrimaryDealer = true;
                             primaryPriceList = primarydealer.PriceList;
                             IEnumerable<OfferEntityBase> offerList = primarydealer.OfferList;
                             if (primaryPriceList != null && primaryPriceList.Count() > 0)
                             {
-                                rptPriceList.DataSource = primaryPriceList;
-                                rptPriceList.DataBind();
-                                foreach (var price in primaryPriceList)
-                                {
-                                    totalPrice += price.Price;
-                                }
+                                totalPrice = (uint)primaryPriceList.Sum(x => x.Price);
                             }
                             else
                             {
                                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                                 objPriceQuote = container.Resolve<IPriceQuote>();
                                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(pqId), LeadSourceEnum.DPQ_Desktop);
-
+                                isBWPriceQuote = true;
+                                totalPrice = (uint)objQuotation.OnRoadPrice;
+                                if (objQuotation != null)
+                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
                             }
-
 
                             if (primarydealer.DealerDetails != null)
                             {
@@ -196,34 +158,29 @@ namespace Bikewale.BikeBooking
                                 dealerName = dealerDetails.Organization;
                                 dealerArea = dealerDetails.objArea.AreaName;
                                 dealerAddress = dealerDetails.Address;
-                                maskingNum = dealerDetails.MaskingNumber;
                                 latitude = dealerDetails.objArea.Latitude;
                                 longitude = dealerDetails.objArea.Longitude;
                                 dealerType = dealerDetails.DealerPackageType;
+
+                                switch (dealerType)
+                                {
+                                    case DealerPackageTypes.Premium: isPremium = true;
+                                        break;
+                                    case DealerPackageTypes.Standard: isStandard = true;
+                                        break;
+                                    case DealerPackageTypes.Deluxe: isDeluxe = true;
+                                        break;
+                                }
                             }
 
-                            //bind Offer
                             if (primarydealer.OfferList != null && primarydealer.OfferList.Count() > 0)
                             {
-                                rptOffers.DataSource = primarydealer.OfferList;
-                                rptOffers.DataBind();
                                 isoffer = true;
                             }
 
-                            //bind USP benefits.
                             if (primarydealer.Benefits != null && primarydealer.Benefits.Count() > 0)
                             {
-                                rptUSPBenefits.DataSource = primarydealer.Benefits;
-                                rptUSPBenefits.DataBind();
                                 isUSPBenfits = true;
-                            }
-
-                            //bind secondary Dealer
-                            if (detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealers.Count() > 0)
-                            {
-                                isSecondaryDealerAvailable = true;
-                                rptDealers.DataSource = detailedDealer.SecondaryDealers;
-                                rptDealers.DataBind();
                             }
 
                             //booking amount
@@ -234,7 +191,7 @@ namespace Bikewale.BikeBooking
                             //EMI details
                             if (primarydealer.EMIDetails != null)
                             {
-                                EMI _objEMI = setEMIDetails();
+                                _objEMI = setEMIDetails();
                                 if (primarydealer.EMIDetails.MinDownPayment < 1 || primarydealer.EMIDetails.MaxDownPayment < 1)
                                 {
                                     primarydealer.EMIDetails.MinDownPayment = _objEMI.MinDownPayment;
@@ -252,13 +209,11 @@ namespace Bikewale.BikeBooking
                                     primarydealer.EMIDetails.MinRateOfInterest = _objEMI.MinRateOfInterest;
                                     primarydealer.EMIDetails.MaxRateOfInterest = _objEMI.MaxRateOfInterest;
                                 }
-
                             }
                             else
                             {
                                 primarydealer.EMIDetails = setEMIDetails();
                             }
-
                         }
                     }
                     else
@@ -271,24 +226,12 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Trace.Warn("SetDealerPriceQuoteDetail Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> SetDealerPriceQuoteDetail(): versionId {0}", versionId));
                 objErr.SendMail();
             }
 
-            finally
-            {
-                if (dealerId == 0 && !isSecondaryDealerAvailable && pqId > 0)
-                {
-                    Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
         }
-        #endregion
 
-        #region Set Default EMI details
         /// <summary>
         /// Created BY : Sushil Kumar on 14th March 2015
         /// Summary : To set EMI details for the dealer if no EMI Details available for the dealer
@@ -309,21 +252,21 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                Trace.Warn("setEMIDetails Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> setEMIDetails(): versionId {0}", versionId));
                 objErr.SendMail();
             }
             return _objEMI;
         }
-        #endregion
 
-        #region Bind Versions
         /// <summary>
         /// Created By : Sadhana Upadhyay on 2 Dec 2014
         /// Summary : To Fill version dropdownlist
+        /// Created By : Sangram Nandkhile on 16 Dec 2016
+        /// Summary : Fetch minspecs and show on DPQ
         /// </summary>
         protected void BindVersion()
         {
+            IEnumerable<BikeVersionMinSpecs> minSpecs = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -335,26 +278,36 @@ namespace Bikewale.BikeBooking
                     var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
                     objVersionDetails = objCache.GetById(versionId);
-                    versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
-                    if (versionList != null && versionList.Count > 0)
+                    if (objVersionDetails != null && objVersionDetails.ModelBase != null)
                     {
-                        rptVersion.DataSource = versionList;
-                        rptVersion.DataBind();
-                        var defVar = versionList.Find(x => x.VersionId == versionId);
-                        if (defVar != null)
-                            defaultVariant.Text = defVar.VersionName;
-                    }
+                        modelName = objVersionDetails.ModelBase.ModelName;
+                        makeName = objVersionDetails.MakeBase.MakeName;
+                        bikeName = String.Format("{0} {1}", makeName, modelName);
+                        bikeVersionName = objVersionDetails.BikeName;
+                        versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
+                        minSpecs = objCache.GetVersionMinSpecs((uint)objVersionDetails.ModelBase.ModelId, true);
 
+                        if (versionList != null && versionList.Count > 0)
+                        {
+                            ddlVersion.DataSource = versionList;
+                            ddlVersion.DataValueField = "VersionId";
+                            ddlVersion.DataTextField = "VersionName";
+                            if (versionId > 0)
+                                ddlVersion.SelectedValue = versionId.ToString();
+                            ddlVersion.DataBind();
+                            var objMin = minSpecs.FirstOrDefault(x => x.VersionId == versionId);
+                            if (objMin != null)
+                                minspecs = FormatVarientMinSpec(objMin);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Trace.Warn("DeaperPriceQuote.BindVersion Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> BindVersion() versionId {0}", versionId));
                 objErr.SendMail();
             }
         }
-        #endregion
 
         /// <summary>
         /// Description : To bind alternative bikes controle.
@@ -373,7 +326,6 @@ namespace Bikewale.BikeBooking
             }
         }
 
-        #region Save PriceQuote on Version Change
         /// <summary>
         /// Modified By : Sushil Kumar on 18th March 2016
         /// Description : Changed finally section from code as no check was made for objPQOutput == null
@@ -385,7 +337,6 @@ namespace Bikewale.BikeBooking
         protected void SavePriceQuote()
         {
             uint cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId), areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
-            uint selectedVersionId = Convert.ToUInt32(versionId);
             PQOutputEntity objPQOutput = null;
             try
             {
@@ -400,9 +351,8 @@ namespace Bikewale.BikeBooking
                     {
                         objPQEntity.CityId = cityId;
                         objPQEntity.AreaId = areaId;
-                        objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
-                        objPQEntity.VersionId = selectedVersionId;
+                        objPQEntity.VersionId = versionId;
                         objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                         objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
@@ -413,37 +363,17 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> SavePriceQuote(): versionId {0}", versionId));
                 objErr.SendMail();
             }
             finally
             {
                 if (objPQOutput != null && objPQOutput.PQId > 0)
                 {
-                    if (objPQOutput.DealerId > 0)
-                    {
-                        // Save pq cookie
-                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                          
-                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-
-                    else if (objPQOutput.DealerId == 0 && objPQOutput.IsDealerAvailable)
-                    {
-                        // Save pq cookie
-                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
-                        Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                    else if (objPQOutput.DealerId == 0 && !objPQOutput.IsDealerAvailable)
-                    {
-                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), "");                        
-                        Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), Convert.ToString(dealerId))), false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    // Save pq cookie
+                    Response.Redirect("/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), versionId.ToString(), Convert.ToString(dealerId))), false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else
                 {
@@ -453,9 +383,7 @@ namespace Bikewale.BikeBooking
                 }
             }
         }
-        #endregion
 
-        #region Set user location from location cookie
         /// <summary>
         /// Created By : Sushil Kumar on 15th March 2016
         /// Description : To set user location
@@ -465,43 +393,45 @@ namespace Bikewale.BikeBooking
         /// <returns></returns>
         protected string GetLocationCookie()
         {
-            string location = String.Empty;
+            string loctn = string.Empty;
             try
             {
                 CityArea = GlobalCityArea.GetGlobalCityArea();
                 if (CityArea != null)
                 {
+                    if (areaId == 0)
+                    {
+                        loctn = string.Format("<span>{0}</span>", CityArea.City);
+                    }
+                    else
+                    {
                         if (!String.IsNullOrEmpty(CityArea.Area))
                         {
-                            location = String.Format("<span>{0}</span>, <span>{1}</span>",CityArea.Area, CityArea.City);
+                            loctn = string.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
                         }
                         else
                         {
-                            location = String.Format("<span>{0}</span>", CityArea.City);
+                            loctn = string.Format("<span>{0}</span>", CityArea.City);
                         }
+                    }
                 }
-                
             }
             catch (Exception ex)
             {
-                Trace.Warn("GetLocationCookie Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> GetLocationCookie() versionid {0}", versionId));
                 objErr.SendMail();
             }
-
-            return location;
+            return loctn;
         }
-        #endregion
 
-        #region Private Method to process querystring
         /// <summary>
-        /// Created By : Suhsil Kumar
-        /// Created On : 16th March 2016 
+        /// Created By : Sushil Kumar
+        /// Created On : 16th March 2016
         /// Description : Private Method to proceess mpq queryString and set the for queried parameters viz. versionId,dealerId,cityId,pqId and areaId
         /// Modified By : Lucky Rathore
         /// Description : DealerId Assingment moved in "if" condition
         /// </summary>
-        private void ProcessQueryString()
+        private void ParseQueryString()
         {
             try
             {
@@ -510,7 +440,6 @@ namespace Bikewale.BikeBooking
                     UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId);
                     UInt32.TryParse(PriceQuoteQueryString.CityId, out cityId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out areaId);
-                    clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = Request.ServerVariables["URL"];
                 }
                 else
@@ -522,15 +451,78 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-
-                Trace.Warn("GetLocationCookie Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> ParseQueryString() versionid {0}", versionId));
                 objErr.SendMail();
             }
-
+            if (IsPostBack)
+            {
+                if (hdnVariant != null && !string.IsNullOrEmpty(hdnVariant.Value))
+                    versionId = Convert.ToUInt32(hdnVariant.Value);
+                SavePriceQuote();
+            }
         }
+
+        /// <summary>
+        /// Created By:Sangram Nandkhile on 07 Dec 2016
+        /// Summary: Detect device and redirect
+        /// </summary>
+        private void DetectDevice()
+        {
+            Form.Action = Request.RawUrl;
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
+        }
+
+        /// <summary>
+        /// Createdby: Sangram Nandkhile on 15 Dec 2016
+        /// Summary: Format Minspecs for each version
+        /// </summary>
+        /// <returns></returns>
+        protected string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
+        {
+            string returnStr = string.Empty;
+            StringBuilder strMinSpecs = new StringBuilder();
+            strMinSpecs.Append("<ul id='version-specs-list'>");
+
+            if (objVersion.AlloyWheels)
+            {
+                strMinSpecs.Append("<li>Alloy Wheels</li>");
+            }
+            else
+            {
+                strMinSpecs.Append("<li>Spoke Wheels</li>");
+            }
+            if (objVersion.ElectricStart)
+            {
+                strMinSpecs.Append("<li>Electric Start</li>");
+            }
+            else
+            {
+                strMinSpecs.Append("<li>Kick Start</li>");
+            }
+            if (objVersion.AntilockBrakingSystem)
+            {
+                strMinSpecs.Append("<li>ABS</li>");
+            }
+            if (!String.IsNullOrEmpty(objVersion.BrakeType))
+            {
+                strMinSpecs.Append(string.Format("<li>{0} Brake</li>", objVersion.BrakeType));
+            }
+            strMinSpecs.Append("</ul>");
+            returnStr = strMinSpecs.ToString();
+            if (String.IsNullOrEmpty(returnStr))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return returnStr;
+            }
+        }
+
         #endregion
-
-
     }   //End of Class
 }   //End of namespace

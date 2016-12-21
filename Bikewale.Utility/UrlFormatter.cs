@@ -21,9 +21,21 @@ namespace Bikewale.Utility
             return String.Format("/bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
         }
 
-        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2)
+        /// <summary>
+        /// Modified by :   Sumit Kate on 19 Dec 2016
+        /// Description :   If source is passed consider it for url qs for compare tracking
+        /// </summary>
+        /// <param name="makeMasking1"></param>
+        /// <param name="modelMasking1"></param>
+        /// <param name="makeMasking2"></param>
+        /// <param name="modelMasking2"></param>
+        /// <param name="versionId1"></param>
+        /// <param name="versionId2"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2, Bikewale.Entities.Compare.CompareSources? source = null)
         {
-            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/", makeMasking1, modelMasking1, makeMasking2, modelMasking2);
+            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
         }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)
@@ -235,7 +247,7 @@ namespace Bikewale.Utility
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static object GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
             return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
         }
@@ -244,9 +256,18 @@ namespace Bikewale.Utility
         ///  Created On  : 15 Dec 2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static object GetServiceCenterUrl(string makeMaskingName)
+        public static string GetServiceCenterUrl(string makeMaskingName)
         {
             return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+        }
+        /// <summary>
+        ///  Created By : Subodh Jain 
+        ///  Created On  : 20 Dec 2016
+        ///  Description : To get url for dealershowroom.
+        /// </summary>
+        public static string GetDealerShowroomUrl(string makeMaskingName)
+        {
+            return string.Format("/{0}-dealer-showrooms-in-india/", makeMaskingName);
         }
     }
 }

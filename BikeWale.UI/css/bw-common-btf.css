@@ -117,9 +117,6 @@ footer ul li a:hover { text-decoration: underline; }
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
-.loggedin-box, .login-with-photo { width: 29px; height: 29px; overflow: hidden; display:inline-block; vertical-align:middle; }
-.login-with-photo img { width: 100%; }
-.loggedin-box:hover { cursor: pointer; }
 .loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
 
 .user-profile-banner { background:#161209 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/user-profile-banner.jpg) no-repeat center top; width:280px; height: 146px; }
@@ -491,7 +488,7 @@ a.action-btn:hover{text-decoration:none;}
 }
 
 /* offers popup */
-.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
+.termsPopUpContainer { width: 700px; height: 450px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
@@ -646,6 +643,20 @@ input[type="number"] {
     height: 60px;
     background-position: -164px -436px;
     margin-top: 15px;
+}
+
+.track-day {
+    width: 26px;
+    height: 26px;
+    background-position: -188px -543px;
+    position: relative;
+    top: 8px;
+    margin-right: 10px;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
 }
 
 /* lead capture control */
