@@ -100,6 +100,7 @@ namespace Bikewale.Utility
         public const string _860x484 = "860x484";
         public const string _958x539 = "958x539";
         public const string _1056x594 = "1056x594";
+        public const string _1280x720 = "1280x720";
 
         public const string _110x61 = "110x61";
         public const string _160x89 = "160x89";

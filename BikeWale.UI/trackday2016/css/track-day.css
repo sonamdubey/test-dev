@@ -1,0 +1,440 @@
+﻿.trackday-banner {
+    background: #393a3e url(https://imgd2.aeplcdn.com/0x0/cw/es/trackday/2016/bw-trackday/landing-images/trackday-banner.jpg) no-repeat center bottom;
+    height: 400px;
+    padding-top: 1px
+}
+
+.trackday-banner .welcome-box {
+    margin-top: 275px;
+}
+
+.margin-top25 {
+    margin-top: 25px;
+}
+
+/* section-container */
+.section-container {
+    margin-bottom: 25px;
+}
+
+h2.section-header {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* articles */
+.article-list li {
+    padding-top: 20px;
+    margin-bottom: 15px;
+    width: 50%;
+    float: left;
+}
+
+.article-stats-wrapper {
+    min-width: 115px;
+    padding-right: 10px;
+}
+
+.review-image-wrapper {
+    width: 207px;
+    height: 115px;
+    border: 1px solid #e2e2e2;
+    float: left;
+    margin-right: 20px;
+}
+
+.review-image-wrapper img {
+    width: 100%;
+    height: 115px;
+}
+
+.review-heading-wrapper {
+    width: 45%;
+    float: left;
+}
+
+.article-target-link {
+    color: #2a2a2a;
+    line-height: 1.6;
+}
+
+.review-heading-wrapper .article-target-link {
+    margin-bottom: 7px;
+}
+
+.article-desc-wrapper {
+    width: 94%;
+    float: left;
+}
+
+.article-desc-wrapper p {
+    line-height: 1.6;
+}
+
+.bg-loader-placeholder {
+    width: 100%;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+    line-height: 0;
+}
+
+.article-list li:nth-child(3n+1) {
+    width: 100%;
+}
+
+.article-list li:nth-child(3n+1) .review-image-wrapper {
+    width: 100%;
+    max-width: 621px;
+    height: auto;
+    min-height: 341px;
+    border: 1px solid #e2e2e2;
+}
+
+.article-list li:nth-child(3n+1) .review-image-wrapper img {
+    width: 100%;
+    height: auto;
+    min-height: 349px;
+}
+
+.article-list li:nth-child(3n+1) .review-heading-wrapper {
+    width: 30%;
+}
+
+.article-list li:nth-child(3n+1) .article-desc-wrapper {
+    width: 30%;
+}
+
+.article-list li:nth-child(3n+1) .article-stats-left-grid, .article-list li:nth-child(3n+1) .article-stats-right-grid {
+    width: auto;
+}
+
+/* aricle-stats */
+.review-heading-wrapper .article-stats-left-grid, .review-heading-wrapper .article-stats-right-grid {
+    width: 100px;
+    min-width: 100px;
+}
+
+.article-stats-content.text-truncate {
+    width: 80%;
+}
+
+.track-day-collage-content {
+    min-height: 300px;
+    display: block;
+}
+
+.track-day-collage-content img {
+    width: 100%;
+}
+
+/* video container */
+.video-content {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-content .bg-loader-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+}
+ 
+.video-content iframe,
+.video-content object,
+.video-content embed,
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-content iframe,
+.video-content object,
+.video-content embed {
+     z-index: 2;
+}
+
+.video-overlay {
+    z-index: 3;
+}
+
+
+/* track-day-article */
+.trackday-logo {
+    width: 120px;
+    height: 35px;
+    background: url('https://imgd3.aeplcdn.com/0x0/cw/es/trackday/2016/bwm-trackday/landing-images/trackday-logo.png') no-repeat;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+.article-paragraph-heading {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#track-day-article .bg-loader-placeholder {
+    min-height: 537px;
+    text-align: center;
+}
+
+#track-day-article .article-image {
+    width: 100%;
+}
+
+.article-heading {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 28px;
+    position: relative;
+}
+
+.article-heading:before,
+.article-heading:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    margin: 0 auto;
+}
+.article-heading:before {
+    width: 62px;
+    border-top: 1px solid #b72d32;
+    z-index: 1;
+}
+.article-heading:after {
+    width: 172px;
+    border-top: 1px solid #d1d1d1;
+}
+.article-author {
+    font-size: 18px;
+    color: #0288d1;
+    margin-top: 15px;
+}
+
+.article-content-section {
+    margin-bottom: 20px;
+}
+
+.article-content-section .article-image-margin {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.article-image-margin img {
+    width: 100%;
+}
+
+.margin-bottom30 {
+    margin-bottom: 30px;
+}
+
+.article-paragraph {
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.photography-credit {
+    margin-bottom: 20px;
+}
+
+.photography-heading {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.article-image-margin {
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.no-lead-image .article-heading {
+    padding-top: 5px;
+}
+
+.related-articles-heading {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.related-articles-list {
+    padding-bottom: 20px;
+    padding-left: 17px;
+    overflow: hidden;
+}
+
+.related-articles-list li {
+    list-style: disc;
+    margin-top: 10px;
+}
+
+/* gallery */
+.padding-bottom1 {
+    padding-bottom: 1px;
+}
+.connected-carousels-photos {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+#gallery-close-btn {
+    display: none;
+}
+
+#gallery-blackOut-window {
+    display: none;
+    background: #000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    opacity: .9;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    filter: alpha(opacity=90);
+    -moz-opacity: 0.9;
+    -khtml-opacity: 0.9;
+}
+.stage-media, .navigation-media {
+    width: 976px;
+    position: relative;
+    margin: 0 auto;
+}
+.stage-media ul, .navigation-media ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
+
+.carousel-stage-media { min-height: 400px; overflow: hidden; position: relative; }
+.carousel-stage-media li { float: left; width:976px; min-height:400px; }
+
+.gallery-photo-img-container { width:100%; display:table; text-align:center; }
+.gallery-photo-img-container span { display: table-cell; vertical-align: middle; width: 100%; background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; }
+.gallery-photo-img-container img { width: 100%; }
+
+.carousel-navigation-media { width: 100%; background: none; padding-left:0; overflow: hidden; position: relative; margin-top: 10px; }
+.carousel-navigation-media li { display: block; float: left; width:130px; height:70px; }
+.carousel-navigation-media li:first-child { margin-left: 10px; }
+.carousel-navigation-media li:hover { cursor:pointer; }
+.carousel-navigation-media img { border:1px solid rgba(34,34,34,0.1); }
+
+.gallery-photo-nav-img-container { display:table; width:130px; height:70px; text-align:center; }
+.gallery-photo-nav-img-container span { display:table-cell; width:130px; vertical-align:middle; background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center; position: relative;  }
+
+.carousel-navigation-media .active img { border:1px solid #2a2a2a; }
+
+/** Stage carousel controls **/
+.media-prev-next-stage { position: absolute; top: 40%; z-index: 1; width: 40px; height: 80px; text-indent: -9999px ;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+
+.photos-prev-stage { background-position: -32px -73px; left: 0; }
+.photos-next-stage { right: 0; background-position: -63px -73px; }
+.photos-prev-stage:hover { background-position: -32px -128px; }
+.photos-next-stage:hover { background-position: -63px -128px;}
+.photos-prev-stage.inactive { background-position:-32px -18px; cursor:not-allowed; }
+.photos-next-stage.inactive { background-position:-61px -18px; cursor:not-allowed; }
+
+/** Navigation carousel controls **/
+.photos-prev-navigation { left: 0 }
+.photos-next-navigation { right: 0 }
+
+.media-prev-next-nav { position: absolute; top: 12%; z-index:1; color: #fff; width: 26px; height: 48px; text-indent: -9999; border: 1px solid #e2e2e2; background-color: #fff; padding:6px 3px;}
+
+.photos-prev-navigation { background-position: -125px -355px; }
+.photos-next-navigation { background-position: -150px -355px; }
+
+.photos-prev-navigation:hover { background-position: -125px -386px; }
+.photos-next-navigation:hover { background-position: -150px -386px;}
+
+.photos-prev-navigation.inactive { background-position:-125px -325px; cursor:not-allowed; }
+.photos-next-navigation.inactive { background-position:-150px -325px; cursor:not-allowed; }
+
+.carousel-stage ul li { cursor:pointer; }
+
+.media-prev-next-stage, .media-prev-next-nav {
+    display: none;
+    z-index: 3;
+}
+
+.stage-photos:hover .media-prev-next-stage, .navigation-media:hover .media-prev-next-nav {
+    display: block;
+}
+
+/* active gallery */
+.gallery-active #gallery-blackOut-window {
+    display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+    position: fixed;
+    top: 5%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: hidden;
+    z-index: 6;
+}
+
+.gallery-active #gallery-close-btn {
+    display: block;
+    position: fixed;
+    top: 20px;
+    right: 50px;
+    z-index: 6;
+}
+
+.gallery-active .gallery-photo-nav-img-container span:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 65px;
+    display: block;
+    background: #2a2a2a;
+    opacity: .4;
+}
+
+.gallery-active .active .gallery-photo-nav-img-container span:after {
+    content: none
+}
+
+.gallery-active .carousel-navigation-media .active img { border:1px solid #ccc; }
+
+@media only screen and (max-width: 1024px) {
+    .review-heading-wrapper {
+        width: 43%;
+    }
+    .review-heading-wrapper .article-target-link {
+        font-size: 15px;
+    }
+    .review-heading-wrapper .article-stats-left-grid, .review-heading-wrapper .article-stats-right-grid {
+        width: 100%;
+    }
+    .article-list li:nth-child(3n+1) .review-image-wrapper {
+        max-width: 590px;
+        min-height: 332px;
+    }
+    .article-list li:nth-child(3n+1) .review-image-wrapper img {
+        min-height: 332px;
+    }
+
+    #track-day-article .bg-loader-placeholder {
+        min-height: 514px;
+    }
+
+    .stage-media, .navigation-media, .carousel-navigation-media {
+        width: 960px;
+    }
+}
