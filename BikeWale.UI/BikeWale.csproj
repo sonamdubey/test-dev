@@ -1419,6 +1419,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
+    <Compile Include="trackday2016\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="trackday2016\details.aspx.cs">
+      <DependentUpon>details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\bikedetails.aspx.cs">
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2814,6 +2822,10 @@
     <Content Include="test\js\jquery-1.10.2.min.js" />
     <Content Include="test\js\jquery.mobile-1.4.2.min.js" /> -->
     <Content Include="Thankyou.aspx" />
+    <Content Include="trackday2016\css\track-day.css" />
+    <Content Include="trackday2016\default.aspx" />
+    <Content Include="trackday2016\details.aspx" />
+    <Content Include="trackday2016\src\track-day.js" />
     <Content Include="url_mapping\map_cities.txt" />
     <Content Include="url_mapping\map_makes.txt" />
     <Content Include="url_mapping\map_models.txt" />
