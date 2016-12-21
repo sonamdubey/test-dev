@@ -26,6 +26,9 @@
 .border-grey-right
 	border-right: 1px solid #ecedee
 
+.text-grey
+	color: #787878 !important
+
 /* bike-list */
 #bike-list
 	overflow: hidden
@@ -101,6 +104,29 @@
 			font-weight: $font-normal
 			font-size: $font-size-small
 			color: $text-light
+			padding-bottom: 5px			
+
+/* item-more-details-list */
+.item-more-details-list
+	li
+		float: left
+		margin-left: 10px
+
+	a
+		display: block
+		padding: 0 7px 2px
+		color: #787878
+		background: rgba(245,245,245,.9)
+		@include border-radius(2px)
+
+		&:hover
+			text-decoration: none
+
+	.icon-label
+		font-size: $font-size-small
+		display: inline-block
+		vertical-align: middle
+		line-height: 12px
 
 /* icons */
 .generic-sprite
@@ -125,9 +151,12 @@
 .weight-sm
 	background-position: -63px 0
 
-.reviews-sm, .news-sm, videos-sm, specs-sm
+.reviews-sm, .news-sm, .videos-sm, .specs-sm
 	width: 14px
 	height: 14px
+	vertical-align: middle
+	position: relative
+	top: 1px
 
 .reviews-sm
 	background-position: -84px -3px

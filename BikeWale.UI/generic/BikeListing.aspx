@@ -73,44 +73,58 @@
                                                 <span>121 kgs</span>
                                             </li>
                                         </ul>
-                                        <table class="item-table-content" width="100%" cellspacing="0" cellpadding="">
+                                        <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
                                             <thead>
                                                 <tr class="table-head-row">
-                                                    <th width="35%">Available in</th>
-                                                    <th width="25%">Launched in</th>
-                                                    <th width="30%">Unit sold (May)</th>
+                                                    <th valign="top" width="35%">Available in</th>
+                                                    <th valign="top" width="25%">Launched in</th>
+                                                    <th valign="top" width="30%">Unit sold (May)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>3 variants, 2 colors</td>
-                                                    <td>May 2016</td>
-                                                    <td>32,293</td>
+                                                    <td valign="top" class="text-bold text-grey">3 variants, 2 colors</td>
+                                                    <td valign="top" class="text-bold text-grey">May 2016</td>
+                                                    <td valign="top" class="text-bold text-grey">32,293</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="grid-3 padding-right20">
-
+                                        <p>Ex-showroom price, Mumbai</p>
+                                        <span class="bwsprite inr-md"></span><span>54,238</span>
+                                        <button type="button" class="btn btn-white">Check on-road price</button>
                                     </div>
                                     <div class="clear"></div>
 
                                     <div class="margin-top10 padding-right20 padding-left20">
-                                        <p class="text-light-grey margin-bottom10">The Jupiter is an 110cc scooter from TVS, positioned above the Wego. The country’s second best-selling scooter after the Activa, the Jupiter has been primarily targeted towards men, women also seem to buy it alot. The TVS Jupiter gets a conservative no frills design which has turned out to be quite a hit among the Indian audience. The instrument cluster is a contemporary-looking analogue unit which misses out.</p>
+                                        <p class="text-light-grey margin-bottom15">The Jupiter is an 110cc scooter from TVS, positioned above the Wego. The country’s second best-selling scooter after the Activa, the Jupiter has been primarily targeted towards men, women also seem to buy it alot. The TVS Jupiter gets a conservative no frills design which has turned out to be quite a hit among the Indian audience. The instrument cluster is a contemporary-looking analogue unit which misses out.</p>
                                         <div>
-                                            <span class="text-light-grey">More info about Fascino:</span>
-                                            <ul>
+                                            <span class="text-light-grey inline-block">More info about Fascino:</span>
+                                            <ul class="item-more-details-list inline-block">
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Reviews">Reviews</a>
+                                                    <a href="" title="Yamaha Fascino Reviews">
+                                                        <span class="generic-sprite reviews-sm"></span>
+                                                        <span class="icon-label">Reviews</span>
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino News">News</a>
+                                                    <a href="" title="Yamaha Fascino News">
+                                                        <span class="generic-sprite news-sm"></span>
+                                                        <span class="icon-label">News</span>
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Videos">Videos</a>
+                                                    <a href="" title="Yamaha Fascino Videos">
+                                                        <span class="generic-sprite videos-sm"></span>
+                                                        <span class="icon-label">Videos</span>
+                                                    </a>
                                                 </li>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Specs">Specs</a>
+                                                    <a href="" title="Yamaha Fascino Specs">
+                                                        <span class="generic-sprite specs-sm"></span>
+                                                        <span class="icon-label">Specs</span>
+                                                    </a>
                                                 </li>
                                             </ul>
                                         </div>
