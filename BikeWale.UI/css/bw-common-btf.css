@@ -269,13 +269,6 @@ a.action-btn:hover{text-decoration:none;}
 
 .booking-how-it-works { background-color: #cbcbcb; width: 976px; height: 1291px; }
 
-.chosen-container.chosen-container-single a:hover { text-decoration:none; }
-.progress-bar {width:0;height:2px;background:#16A085;bottom:0px;left:0;border-radius:2px;}
-.btn-loader {background-color:#822821;}
-.btnSpinner {right:22px;top:10px;z-index:9;background:rgb(255, 255, 255);}
-#popupWrapper .form-control, #popupWrapper .chosen-container { border:none; }
-#brandcityPopup .form-control, #brandcityPopup .chosen-container { border:none; }
-#divCityLoader, #divAreaLoader, #divBrandLoader, #divCitiesLoader { border:1px solid #ccc; border-radius:4px; }
 
 .bg-footer { background: #323434; }
 .margin-left-1 { margin-left:-1px;}

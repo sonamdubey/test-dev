@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.MPopupWidget" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MPopupWidget" %>
 <script type="text/javascript">
 
     var pCityId = <%= CityId %>;

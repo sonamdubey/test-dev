@@ -38,7 +38,7 @@
                                 </div>
                             </a>
                             <div class="margin-left20 margin-bottom20">
-                                <a href="javascript:void(0)" pqsourceid="<%= PQSourceId %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 fillPopupData" rel="nofollow">Check on-road price</a>
+                                <a href="javascript:void(0)" data-pqsourceid="<%= PQSourceId %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
                             </div>
 
                                     <%} %>
