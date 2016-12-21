@@ -19,7 +19,6 @@
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
      <style type="text/css">
-            .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
             #campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:bold}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;display:inline-block;vertical-align:middle;margin-top:15px;margin-bottom:10px;padding-right:5px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
     <script type="text/javascript">
@@ -240,11 +239,11 @@
                                         <ul id="offers-label-list">
                                             <li>Best offers</li>
                                             <li>Test rides</li>
-                                            <li>Exchange benefits</li>
+                                            <li>EMI options</li>
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block">
-                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers</a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers from dealers</a>
                                     </div>
                                     <div class="clear"></div>                                    
                                 </div>
@@ -518,7 +517,8 @@
         </section>
 
         <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd) && detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0)
-           { %>
+           {
+               dealerName = objQuotation.ManufacturerName; %>
         <section>
             <%=String.Format(objQuotation.ManufacturerAd) %>
         </section>
@@ -738,7 +738,7 @@
                 }
             };
 
-           
+           <% if(_objEMI!=null){ %>
             var BikeEMI = function () {
                 var self = this;
                 self.breakPoints = ko.observable(5);
@@ -749,7 +749,6 @@
                 self.maxTenure = ko.observable(<%= _objEMI.MaxTenure  %>);
                 self.minROI = ko.observable(<%= _objEMI.MinRateOfInterest %>);
                 self.maxROI = ko.observable(<%= _objEMI.MaxRateOfInterest %>);
-                <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
                 self.processingFees = ko.observable(0);
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
@@ -843,7 +842,7 @@
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
-
+            <% } %>
             <% } %>
 
             $( document ).ready(function() {
