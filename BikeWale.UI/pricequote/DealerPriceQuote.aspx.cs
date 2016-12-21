@@ -399,7 +399,7 @@ namespace Bikewale.BikeBooking
                 CityArea = GlobalCityArea.GetGlobalCityArea();
                 if (CityArea != null)
                 {
-                    if (isBWPriceQuote)
+                    if (areaId == 0)
                     {
                         loctn = string.Format("<span>{0}</span>", CityArea.City);
                     }

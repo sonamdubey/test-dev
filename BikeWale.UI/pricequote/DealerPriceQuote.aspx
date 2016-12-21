@@ -517,7 +517,7 @@
             </div>
         </section>
 
-        <% if (objQuotation != null && detailedDealer.PrimaryDealer == null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <% if (objQuotation != null && detailedDealer.PrimaryDealer.DealerDetails == null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
         <section>
             <%=String.Format(objQuotation.ManufacturerAd) %>
         </section>
