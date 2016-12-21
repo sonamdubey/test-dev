@@ -155,7 +155,7 @@ var gallery = {
         }
         else {
             $('.carousel-stage-media li, .stage-media, .navigation-media').css({
-                width: 960
+                width: 940
             });
         }
 

@@ -434,7 +434,7 @@ h2.section-header {
         min-height: 514px;
     }
 
-    .stage-media, .navigation-media, .carousel-navigation-media {
-        width: 960px;
+    .stage-media, .navigation-media {
+        width: 940px;
     }
 }
