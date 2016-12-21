@@ -94,10 +94,6 @@
                                                 <span class="generic-sprite power-sm"></span>
                                                 <span>10 bhp</span>
                                             </li>
-                                            <li>
-                                                <span class="generic-sprite weight-sm"></span>
-                                                <span>121 kgs</span>
-                                            </li>
                                         </ul>
                                         <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
                                             <thead>
@@ -183,10 +179,6 @@
                                                 <span class="generic-sprite power-sm"></span>
                                                 <span>10 bhp</span>
                                             </li>
-                                            <li>
-                                                <span class="generic-sprite weight-sm"></span>
-                                                <span>121 kgs</span>
-                                            </li>
                                         </ul>
                                         <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
                                             <thead>
@@ -271,10 +263,6 @@
                                             <li>
                                                 <span class="generic-sprite power-sm"></span>
                                                 <span>10 bhp</span>
-                                            </li>
-                                            <li>
-                                                <span class="generic-sprite weight-sm"></span>
-                                                <span>121 kgs</span>
                                             </li>
                                         </ul>
                                         <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
