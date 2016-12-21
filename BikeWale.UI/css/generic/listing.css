@@ -21,9 +21,183 @@
   margin-bottom: 15px; }
 
 .generic-banner {
-  background: #6f6c67 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/bw-service-banner.jpg) no-repeat center;
+  background-size: cover;
   height: 268px;
   padding-top: 1px; }
 
 .banner-box {
-  margin-top: 40px; }
+  margin-top: 95px; }
+
+.margin-minus50 {
+  margin-top: -50px; }
+
+/* more-less desc */
+.desc-main-content {
+  display: inline; }
+
+.desc-more-content {
+  display: none; }
+
+.active .desc-more-content {
+  display: inline; }
+
+.border-light-bottom {
+  border-bottom: 1px solid #e2e2e2; }
+
+.border-grey-right {
+  border-right: 1px solid #ecedee; }
+
+.text-grey {
+  color: #787878 !important; }
+
+.btn-size-180 {
+  font-size: 14px;
+  width: 180px;
+  padding: 5px 0; }
+
+/* bike-list */
+#bike-list {
+  overflow: hidden; }
+  #bike-list .list-item {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative; }
+    #bike-list .list-item:before {
+      content: '';
+      width: 96%;
+      height: 1px;
+      display: block;
+      border-top: 1px solid #f1f1f1;
+      margin: 0 auto;
+      position: absolute;
+      top: 0;
+      left: 2%;
+      right: 2%; }
+    #bike-list .list-item:first-child:before {
+      content: none; }
+  #bike-list .bike-details-block {
+    position: relative;
+    top: -3px; }
+
+.item-image-content {
+  width: 100%;
+  background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;
+  display: block;
+  position: relative; }
+  .item-image-content:hover {
+    text-decoration: none; }
+  .item-image-content img {
+    width: 100%; }
+  .item-image-content .item-rank {
+    min-width: 46px;
+    display: block;
+    padding: 2px 5px;
+    background: #ef3f30;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    z-index: 1; }
+
+.key-specs-list {
+  padding-bottom: 15px;
+  overflow: hidden;
+  border-bottom: 1px solid #ecedee; }
+  .key-specs-list li {
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative; }
+    .key-specs-list li:before {
+      content: "";
+      width: 1px;
+      height: 15px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      border-left: 1px solid #ecedee; }
+    .key-specs-list li:first-child {
+      padding-left: 0; }
+      .key-specs-list li:first-child:before {
+        border-left: 0; }
+  .key-specs-list li,
+  .key-specs-list span {
+    display: inline-block;
+    vertical-align: middle; }
+
+.item-table-content .table-head-row th {
+  font-weight: 400;
+  font-size: 12px;
+  color: #82888b;
+  padding-bottom: 5px; }
+
+/* item-more-details-list */
+.item-more-details-list li {
+  float: left;
+  margin-left: 10px; }
+
+.item-more-details-list a {
+  display: block;
+  padding: 0 7px 2px;
+  color: #787878;
+  background: rgba(245, 245, 245, 0.9);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+  .item-more-details-list a:hover {
+    text-decoration: none; }
+
+.item-more-details-list .icon-label {
+  font-size: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 12px; }
+
+/* generic carousel */
+.generic-carousel .text-truncate {
+  width: 100%; }
+
+/* icons */
+.generic-sprite {
+  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
+  display: inline-block; }
+
+.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
+  width: 16px;
+  height: 18px;
+  margin-right: 5px; }
+
+.capacity-sm {
+  background-position: 0 0; }
+
+.mileage-sm {
+  background-position: -21px 0; }
+
+.power-sm {
+  background-position: -42px 0;
+  margin-right: 2px; }
+
+.weight-sm {
+  background-position: -63px 0; }
+
+.reviews-sm, .news-sm, .videos-sm, .specs-sm {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  position: relative;
+  top: 1px; }
+
+.reviews-sm {
+  background-position: -84px -3px; }
+
+.news-sm {
+  background-position: -102px -3px; }
+
+.videos-sm {
+  background-position: -121px -3px; }
+
+.specs-sm {
+  background-position: -140px -3px; }

@@ -1,17 +1,14 @@
-﻿using Bikewale.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Generic
+namespace Bikewale.Controls
 {
-    public partial class BikeListing : System.Web.UI.Page
+    public partial class BestBikes : System.Web.UI.UserControl
     {
-        protected BestBikes ctrlBestBikes;
-
         protected void Page_Load(object sender, EventArgs e)
         {
 

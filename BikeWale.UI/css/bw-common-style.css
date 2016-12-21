@@ -181,6 +181,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 #modelNewsContent .article-target-link, #modelReviewsContent .article-target-link, #modelVideosContent .article-target-link { margin-bottom: 8px; line-height: 1.5; }
 #modelNewsContent .model-news-title-container.model-news-text-wrapper { display:block; width: auto; padding-left:0; }
 #modelNewsContent .grid-8 .article-target-link { line-height:1.6; }
+.text-truncate { width:90%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+.generic-carousel .text-truncate {
+    width: 100%;
+}
 
 @-moz-document url-prefix() {
 	.findBtn .btn-md {padding: 7px 20px 7px;}
