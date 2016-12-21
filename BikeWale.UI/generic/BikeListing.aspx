@@ -347,7 +347,7 @@
 
         <section>
             <div class="container section-bottom-margin">
-                <h2 class="section-heading">Best of bikes</h2>
+                <h2 class="section-heading">Explore best bikes in other categories</h2>
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-bottom20">
                         <BW:BestBikes runat="server" ID="ctrlBestBikes" />
