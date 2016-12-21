@@ -11,6 +11,7 @@
     display: table;
     text-align: center;
     }
+#nearbyCities.swiper-wrapper div div a div h3 {text-decoration:none;}
 #nearbyCities.swiper-wrapper div div a div.swiper-details-block{height:60px;}   
 </style>
    <%if (ServiceCentersNearbyCities != null  ){ %>
@@ -27,7 +28,7 @@
                             <div class="city-map" data-item-lat="<%=centers.Lattitude%>" data-item-long="<%=centers.Longitude%>">
                             </div>
                             <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5 padding-top10"><%=centers.CityName%></h3>
+                                <h3 class="target-link font12 text-truncate margin-bottom5 padding-top5"><%=centers.CityName%></h3>
                                 <p class="text-truncate text-light-grey font11 padding-bottom10"><%=centers.ServiceCenterCount%> <%=makeName %> Service Center<%=(centers.ServiceCenterCount)>1?"s":"" %></p>
                             </div>
                         </a>

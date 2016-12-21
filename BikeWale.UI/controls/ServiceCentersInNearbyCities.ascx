@@ -8,6 +8,7 @@
     text-align: center;
     }
 #carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
+#nearbyCities.jcarousel ul a div h3.bikeTitle {text-decoration:none;}
 #nearbyCities.jcarousel ul a div.card-desc-block { height: 80px; width:290px; }
 </style>
     <%if (ServiceCentersNearbyCities != null) { %>

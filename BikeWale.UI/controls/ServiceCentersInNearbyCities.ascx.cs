@@ -31,10 +31,18 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GetServiceCentersNearbyCities();
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 19 Dec 2016
+        /// Summary    : Function to get number of service centers in nearby cities
+        /// </summary>
+        private void GetServiceCentersNearbyCities()
+        {
             try
             {
                 BindNearbyCitiesServiceCenters servicecentViewModel = new BindNearbyCitiesServiceCenters();
-                ServiceCentersNearbyCities = servicecentViewModel.GetServiceCentersNearbyCitiesByMake(cityId,makeId,topCount);
+                ServiceCentersNearbyCities = servicecentViewModel.GetServiceCentersNearbyCitiesByMake(cityId, makeId, topCount);
                 if (ServiceCentersNearbyCities != null)
                 {
                     FetchedRecordsCount = ServiceCentersNearbyCities.Count();
@@ -42,12 +50,10 @@ namespace Bikewale.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersInNearbyCities.Page_Load()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersInNearbyCities.GetServiceCentersNearbyCities()");
                 objErr.SendMail();
             }
         }
-
-
 
     }
 }
