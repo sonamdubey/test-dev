@@ -24,7 +24,7 @@
     background-position: -2616px 0;
 }
 #carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
-
+#carouselServiceCenter ul a div h3.bikeTitle {text-decoration:none;}
 </style>
 
 <div class="container section-container ">

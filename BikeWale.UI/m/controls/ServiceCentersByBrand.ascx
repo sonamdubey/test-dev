@@ -38,13 +38,13 @@
     width: 23px;
     background-position: -1577px 0;
 } 
-
+#servicecenterSwiper div div a div h3 {text-decoration:none;}
 </style>
 <div class="container bg-white box-shadow padding-top15 padding-bottom20 font14 active">
     <h2 class="font18 padding-bottom20 padding-left20">Find service centers for other brands</h2>
 
     <div class="swiper-container padding-top5 padding-bottom5 sw-0 swiper-container-horizontal bwm-brands-swiper">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="servicecenterSwiper">
             <%foreach(var centers in AllServiceCenters){ %>
                 <div class="swiper-slide swiper-slide-visible swiper-slide-active">
                     <div class="swiper-card">
