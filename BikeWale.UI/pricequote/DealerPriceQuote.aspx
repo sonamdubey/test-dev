@@ -341,7 +341,7 @@
                                 </div>
                                 
                                 <!-- EMI calculator starts -->
-                                <% if (isPremium && _objEMI != null )
+                                <% if (_objEMI != null )
                                    { %>
                                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                                 <div class="content-inner-block-20">
@@ -517,7 +517,8 @@
             </div>
         </section>
 
-        <% if (objQuotation != null && detailedDealer.PrimaryDealer.DealerDetails == null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd) && detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0)
+           { %>
         <section>
             <%=String.Format(objQuotation.ManufacturerAd) %>
         </section>
@@ -716,7 +717,7 @@
             var bikeName = "<%= bikeName %>";
             var bikeVersionPrice = "<%= totalPrice %>";
             var leadSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers %>';
-            <% if (isPremium)
+            <% if (isPrimaryDealer)
                { %>  
 
             ko.bindingHandlers.slider = {

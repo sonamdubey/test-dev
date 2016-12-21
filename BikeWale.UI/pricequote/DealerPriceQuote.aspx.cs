@@ -418,7 +418,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> GetLocationCookie() versionid {0}", versionId));
                 objErr.SendMail();
             }
             return loctn;
