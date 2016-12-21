@@ -20,6 +20,5 @@ namespace Bikewale.Interfaces.ServiceCenter
         IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);
         EnumServiceCenterSMSStatus GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber, string pageUrl);
-        IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand();
-    }
+     }
 }

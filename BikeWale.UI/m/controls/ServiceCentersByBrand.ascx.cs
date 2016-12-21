@@ -14,7 +14,6 @@ namespace Bikewale.Mobile.Controls
     public class ServiceCentersByBrand : System.Web.UI.UserControl
     {
         protected IEnumerable<BrandServiceCenters> AllServiceCenters;
-        protected string WidgetTitle;
         public int makeId;
         public int FetchedRecordsCount;
         protected override void OnInit(EventArgs e)
@@ -23,6 +22,14 @@ namespace Bikewale.Mobile.Controls
         }
 
         protected void Page_Load(object sender, EventArgs e)
+        {
+            GetAllServiceCenters();
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 16 Dec 2016
+        /// Summary    : Function to get number of service centers of all brands
+        /// </summary>
+        private void GetAllServiceCenters()
         {
             try
             {
@@ -33,11 +40,10 @@ namespace Bikewale.Mobile.Controls
                     FetchedRecordsCount = AllServiceCenters.Count();
                     AllServiceCenters = AllServiceCenters.Where(v => v.MakeId != makeId);
                 }
-                WidgetTitle = "Find Service Centers for other brands";
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.Page_Load()");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCentersByBrand.GetAllServiceCenters()");
                 objErr.SendMail();
             }
         }

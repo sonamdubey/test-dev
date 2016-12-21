@@ -21,7 +21,6 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindOtherBrandsServiceCenters
     {
-        public IEnumerable<BrandServiceCenters> serviceData = null;
         /// <summary>
         /// Created By : Aditi Srivastava on 15 Dec 2016
         /// Summary    : To bind service center data by brand
@@ -33,12 +32,11 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IServiceCenter, ServiceCenter<ServiceCenterLocatorList, int>>()
-                    .RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
+                    container.RegisterType<IServiceCenterCacheRepository, ServiceCenterCacheRepository>()
                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
                     .RegisterType<ICacheManager, MemcacheManager>();
-                    var objSC = container.Resolve<IServiceCenter>();
-                    serviceData = objSC.GetAllServiceCentersByBrand();
+                    var objSC = container.Resolve<IServiceCenterCacheRepository>();
+                    return objSC.GetAllServiceCentersByBrand();
                 }
 
             }
@@ -46,9 +44,9 @@ namespace Bikewale.BindViewModels.Controls
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetAllServiceCentersbyMake");
                 objErr.SendMail();
-
+                return null;
             }
-            return serviceData;
+            
         }
     }
 }
