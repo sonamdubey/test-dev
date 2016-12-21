@@ -10,6 +10,8 @@
    display: table;
    text-align: center;
    }
+
+#nearbyCities.jcarousel ul a div h3.bikeTitle {text-decoration:none;}
 #carouselServiceCenter span.jcarousel-control-right,#carouselServiceCenter span.jcarousel-control-left {top: 31%;}
 #card-block.card-desc-block { height: 80px; }
 </style>
@@ -20,7 +22,7 @@
         <div class="content-box-shadow padding-top20 padding-bottom20">
             <h2 class="font18 padding-bottom20 padding-left20">Explore <%= MakeName %> showrooms in cities near <%= CityName %></h2>
             <div class="jcarousel-wrapper inner-content-carousel" id="carouselServiceCenter">
-                <div class="jcarousel" data-jcarousel="true">
+                <div id="nearbyCities" class="jcarousel" data-jcarousel="true">
                     <ul>
                         <% foreach (var Dealer in DealerCountCityList)
                           { %>
@@ -31,7 +33,7 @@
                                 <div class="card-desc-block">
                                     <h3 class="bikeTitle padding-top15"><%= Dealer.CityName %></h3>
 
-                                    <p class="font14 text-light-grey margin-bottom5"><%= Dealer.DealersCount %> dealer<%if(Dealer.DealersCount > 1){%>s<%}%></p>
+                                    <p class="font14 text-light-grey margin-bottom5"><%= Dealer.DealersCount %> <%= MakeName%> showroom<%if(Dealer.DealersCount > 1){%>s<%}%></p>
 
                                 </div>
                             </a>
