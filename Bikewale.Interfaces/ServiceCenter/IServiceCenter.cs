@@ -9,8 +9,6 @@ namespace Bikewale.Interfaces.ServiceCenter
     /// Summary:- For service center locator 
     /// Modified by Sajal Gupta on 09-11-2016 added GetServiceCentersByCity and GetServiceCenterDataById method.
     /// Modified by Sajal Gupta on 16-11-2016 added GetServiceCenterSMSData method.
-    /// Modified By : Aditi Srivastava on 15 Dec 2016
-    /// Summary     : Added function to get all service centers by brand
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>

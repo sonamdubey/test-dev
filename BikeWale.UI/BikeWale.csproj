@@ -252,6 +252,7 @@
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindNearbyCitiesServiceCenters.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
@@ -629,6 +630,10 @@
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ServiceCentersInNearbyCities.ascx.cs">
+      <DependentUpon>ServiceCentersInNearbyCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\serviceschedule.ascx.cs">
       <DependentUpon>serviceschedule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -883,6 +888,10 @@
     </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
       <DependentUpon>PopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ServiceCentersInNearbyCities.ascx.cs">
+      <DependentUpon>ServiceCentersInNearbyCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
@@ -1944,6 +1953,7 @@
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\servicecentercard.ascx" />
     <Content Include="controls\ServiceCentersByBrand.ascx" />
+    <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
@@ -2465,6 +2475,7 @@
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
+    <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />

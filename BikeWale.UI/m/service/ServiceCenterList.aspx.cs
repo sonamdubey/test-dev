@@ -45,6 +45,7 @@ namespace Bikewale.Mobile.Service
         protected UsedBikes ctrlRecentUsedBikes;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected BrandCityPopUp ctrlBrandCity;
+        protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
@@ -94,6 +95,8 @@ namespace Bikewale.Mobile.Service
         /// Summary :- Added Used Bike and popular bike widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        ///  Modified By : Aditi Srivasatva on 19 dec 2016
+        /// Description : Added widget for service centers in nearby cities
         /// </summary>
         private void BindWidgets()
         {
@@ -114,6 +117,13 @@ namespace Bikewale.Mobile.Service
                 ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
                 ctrlBrandCity.makeId = makeId;
                 ctrlBrandCity.cityId = cityId;
+
+                ctrlNearbyServiceCenters.cityId = (int)cityId;
+                ctrlNearbyServiceCenters.cityName = cityName;
+                ctrlNearbyServiceCenters.makeId = (int)makeId;
+                ctrlNearbyServiceCenters.makeName = makeName;
+                ctrlNearbyServiceCenters.makeMaskingName = makeMaskingName;
+                ctrlNearbyServiceCenters.topCount = 8;
 
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.CityId = (int?)cityId;
