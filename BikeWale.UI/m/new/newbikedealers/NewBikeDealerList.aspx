@@ -183,6 +183,7 @@
                     var latlng = new google.maps.LatLng(lat, lng);
 
                     var myOptions = {
+                        scrollwheel: false,
                         zoom: 10,
                         center: latlng,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
