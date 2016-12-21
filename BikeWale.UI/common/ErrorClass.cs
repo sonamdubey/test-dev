@@ -34,6 +34,7 @@ namespace Bikewale.Common
         {
             this.err = ex;	//assign the exception
             this.pageUrl = pageUrl;		//assign the page url
+            LogCurrentHttpParameters();
             log.Error(pageUrl, ex);
         }
 
@@ -42,6 +43,7 @@ namespace Bikewale.Common
             this.sqlErr = ex;	//assign the sql exeption
             err = (Exception)sqlErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            LogCurrentHttpParameters();
             log.Error(pageUrl, ex);
         }
 
@@ -50,6 +52,7 @@ namespace Bikewale.Common
             this.oleErr = ex;	//assign the sql exeption
             err = (Exception)oleErr;	//convert the sqlexceptio to exception
             this.pageUrl = pageUrl;		//assign the page url
+            LogCurrentHttpParameters();
             log.Error(pageUrl, ex);
         }
 
@@ -342,6 +345,31 @@ namespace Bikewale.Common
                     objTrace.Trace.Warn("CommonOpn:SendMail: " + err.Message);
                     ErrorClass objErr = new ErrorClass(err, "SendMail in CommonOpn");
                     objErr.SendMail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 21 Dec 2016
+        /// Description :   Log Current Http Parameters to GreyLog
+        /// </summary>
+        private void LogCurrentHttpParameters()
+        {
+            if (objTrace != null && objTrace.Request != null)
+            {
+                log4net.ThreadContext.Properties["ClientIP"] = Convert.ToString(objTrace.Request.ServerVariables["HTTP_CLIENT_IP"]);
+                log4net.ThreadContext.Properties["Browser"] = objTrace.Request.Browser.Type;
+                log4net.ThreadContext.Properties["Referrer"] = objTrace.Request.UrlReferrer;
+                log4net.ThreadContext.Properties["UserAgent"] = objTrace.Request.UserAgent;
+                log4net.ThreadContext.Properties["PhysicalPath"] = objTrace.Request.PhysicalPath;
+                log4net.ThreadContext.Properties["Host"] = objTrace.Request.Url.Host;
+                log4net.ThreadContext.Properties["Url"] = objTrace.Request.Url;
+                log4net.ThreadContext.Properties["QueryString"] = Convert.ToString(objTrace.Request.QueryString);
+                var Cookies = objTrace.Request.Cookies;
+                if (Cookies != null)
+                {
+                    log4net.ThreadContext.Properties["BWC"] = (Cookies["BWC"] != null ? Cookies["BWC"].Value : "NULL");
+                    log4net.ThreadContext.Properties["location"] = (Cookies["location"] != null ? Cookies["location"].Value : "NULL");
                 }
             }
         }
