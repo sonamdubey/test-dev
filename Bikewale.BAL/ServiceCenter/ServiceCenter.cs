@@ -135,26 +135,6 @@ namespace Bikewale.BAL.ServiceCenter
             }
             return 0;
         }
-        /// <summary>
-        /// Created By : Aditi Srivastava on 15 Dec 2016
-        /// Description: BAL layer Function for fetching service centers by brands.
-        /// </summary>
-        public IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand()
-        {
-            try
-            {
-
-                return _objServiceCenter.GetAllServiceCentersByBrand();
-                
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex,"Error in ServiceCenters.GetAllServiceCentersByBrand");
-                objErr.SendMail();
-                return null;
-            }
-            
-        }
-
+        
     }
 }

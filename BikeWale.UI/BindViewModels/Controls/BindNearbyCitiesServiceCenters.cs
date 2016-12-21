@@ -10,23 +10,18 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.BindViewModels.Controls
 {
     /// <summary>
     /// Created By : Aditi Srivastava on 15 Dec 2016
-    /// Summary    : To bind service center data by brand
-    /// Modified By:- Subodh Jain 20 Dec 2016
-    /// Summary : Added try catch
+    /// Summary    : To bind service center data of nearby cities of a brand
     /// </summary>
-    public class BindOtherBrandsServiceCenters
+    public class BindNearbyCitiesServiceCenters
     {
-        /// <summary>
-        /// Created By : Aditi Srivastava on 15 Dec 2016
-        /// Summary    : To bind service center data by brand
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<BrandServiceCenters> GetAllServiceCentersbyMake()
+        public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByMake(int cityId,int makeId,int topCount)
         {
             try
             {
@@ -36,16 +31,16 @@ namespace Bikewale.BindViewModels.Controls
                     .RegisterType<IServiceCenterRepository<ServiceCenterLocatorList, int>, ServiceCenterRepository<ServiceCenterLocatorList, int>>()
                     .RegisterType<ICacheManager, MemcacheManager>();
                     var objSC = container.Resolve<IServiceCenterCacheRepository>();
-                    return objSC.GetAllServiceCentersByBrand();
+                   return objSC.GetServiceCentersNearbyCitiesByBrand(cityId, makeId, topCount);
                 }
-
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "GetAllServiceCentersbyMake");
+                ErrorClass objErr = new ErrorClass(ex, "Error in BindNearbyCitiesServiceCenters.GetServiceCentersNearbyCitiesByMake");
                 objErr.SendMail();
                 return null;
             }
+           
             
         }
     }
