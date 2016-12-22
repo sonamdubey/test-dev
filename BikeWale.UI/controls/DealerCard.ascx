@@ -32,35 +32,33 @@
 <% }
    else
    { %>
+<%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
-    <h2 class="padding-left20 padding-right20"><%= makeName %> Dealers in India</h2>
+    <h2 class="padding-left20 padding-right20"><%= makeName %> Showrooms & Service Centers</h2>
     <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
         <div class="jcarousel">
             <ul>
-                <asp:Repeater ID="rptPopularCityDealers" runat="server">
-                    <ItemTemplate>
+       <% foreach(var details in cityDealers.DealerDetails){ %>
                         <li>
-                            <a href="<%# String.Format("/{0}-dealer-showrooms-in-{1}/", makeMaskingName ,DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName")) %>" title="<%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %>" class="dealer-card-target">
                                 <div class="dealer-jcarousel-image-preview">
-                                    <span class="city-sprite <%# DataBinder.Eval(Container.DataItem,"CityBase.CityMaskingName") %>-icon"></span>
+                                    <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
                                 </div>
                                 <div class="font14 padding-left20 padding-right20 padding-bottom25">
-                                    <p class="text-default text-bold margin-bottom5"><%= makeName %> dealers in <%# DataBinder.Eval(Container.DataItem,"CityBase.CityName") %></p>
-                                    <p class="text-light-grey"><%# DataBinder.Eval(Container.DataItem,"NumOfDealers") %> <%# Convert.ToUInt16(DataBinder.Eval(Container.DataItem,"NumOfDealers")) > 1 ? "showrooms" : "showroom" %></p>
+                                    <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
+                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                                    <p><a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p>
                                 </div>
-                            </a>
                         </li>
-                    </ItemTemplate>
-                </asp:Repeater>
+                <%} %>
+                 
             </ul>
         </div>
         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
-    <div class="padding-left20">
-        <a href="/new/<%= makeMaskingName %>-dealers/" title="<%=makeName %> dealer showrooms in India">View all <%=makeName %> dealer showrooms<span class="bwsprite blue-right-arrow-icon"></span></a>
-    </div>
+
 </div>
+<%} %>
 <% } %>
 <% } %>
  <script type="text/javascript">

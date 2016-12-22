@@ -8,6 +8,8 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/PopularModelComparison.ascx" TagName="SimilarBikesCompare" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -386,6 +388,10 @@
                              { %>
                                 <li data-tabs="#makeComparisonContent">Comparisons</li>
                              <% } %>
+                              <% if (ctrlDealerCard.showWidget)
+                               { %>
+                            <li data-tabs="#makeDealersContent">Dealer & Service Center</li>
+                            <%} %>
                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
                                  <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
@@ -831,7 +837,14 @@
                    { %>
                 <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
                 <% } %>
-
+                 <% if (ctrlDealerCard.showWidget) { %>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                <% }  %>
+                   <% if (ctrlServiceCenterCard.showWidget&&cityId>0)
+                   { %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                <% }  %>
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           

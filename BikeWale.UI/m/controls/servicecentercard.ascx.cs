@@ -1,11 +1,18 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-
 namespace Bikewale.Mobile.Controls
 {
     /// <summary>
@@ -44,6 +51,8 @@ namespace Bikewale.Mobile.Controls
         {
             if (MakeId > 0)
                 BindDealers();
+            if (CityId > 0 && string.IsNullOrEmpty(cityMaskingName))
+                GetCityMaskingName(CityId);
         }
 
         /// <summary>
@@ -70,6 +79,41 @@ namespace Bikewale.Mobile.Controls
                 ErrorClass objErr = new ErrorClass(err, "ServiceCenterCard.BindDealers()");
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created By:- Subodh Jain 22 Dec 2016
+        /// Summary :- To get citymasking name
+        /// </summary>
+        /// <param name="maskingName"></param>
+        /// <returns></returns>
+        private void GetCityMaskingName(uint cityId)
+        {
+            IEnumerable<CityEntityBase> objCityList = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>(); ;
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
+                    objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
+
+
+                    CityEntityBase SelectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
+                    if (SelectedCity != null)
+                    {
+                        cityMaskingName = SelectedCity.CityName;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, " GetCityMaskingName - model");
+                objErr.SendMail();
+            }
+
         }
     }
 }

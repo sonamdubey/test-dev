@@ -42,6 +42,7 @@ namespace Bikewale.Mobile.Controls
         public string dealerUrl = string.Empty;
         protected bool isCitySelected { get { return CityId > 0; } }
         public string widgetHeading { get; set; }
+        public PopularDealerServiceCenter cityDealers;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();
@@ -82,6 +83,8 @@ namespace Bikewale.Mobile.Controls
         /// Description :   If City Id is not passed Get the popular city dealer count
         /// Modified By : Sajal Gupta on 27-09-2016
         /// Description : Skipped particular dealer if dealer id present.
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :  merge dealer card and service center card
         /// </summary>
         protected void BindDealers()
         {
@@ -121,11 +124,9 @@ namespace Bikewale.Mobile.Controls
                     }
                     else
                     {
-                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
-                        if (cityDealers != null && cityDealers.Count() > 0)
+                        cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
+                        if (cityDealers != null)
                         {
-                            rptPopularCityDealers.DataSource = cityDealers;
-                            rptPopularCityDealers.DataBind();
                             showWidget = true;
                         }
                     }
@@ -133,7 +134,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "DealersCard.BindDealers");
                 objErr.SendMail();
             }
         }

@@ -47,6 +47,7 @@ namespace Bikewale.Mobile.New
         protected PopularModelComparison ctrlCompareBikes;
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected NewVideosWidget ctrlVideos;
         protected NewUserReviewList ctrlUserReviews;
         protected BikeModelPageEntity modelPage;
@@ -59,6 +60,7 @@ namespace Bikewale.Mobile.New
         //Varible to Hide or show controlers
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton, isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive, isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
         protected NewAlternativeBikes ctrlAlternativeBikes;
+        protected DealersCard ctrlDealerCard;
         protected ushort reviewTabsCnt, moreOffersCount, versionCount = 1;
         public DropDownList ddlNewVersionList;
         //Variable to Assing ACTIVE class
@@ -207,6 +209,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- values to controls field
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :  Added dealer card and service center card
         /// </summary>
         private void BindControls()
         {
@@ -251,6 +255,26 @@ namespace Bikewale.Mobile.New
 
             ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
             ctrlTopCityPrices.TopCount = 4;
+
+            ctrlDealerCard.CityId = cityId;
+            ctrlDealerCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+            ctrlDealerCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+            ctrlDealerCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlDealerCard.cityName = cityName;
+            ctrlDealerCard.PageName = "Model_Page";
+            ctrlDealerCard.TopCount = 6;
+            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage;
+            ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
+
+
+            ctrlServiceCenterCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+            ctrlServiceCenterCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+            ctrlServiceCenterCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlServiceCenterCard.CityId = cityId;
+            ctrlServiceCenterCard.cityName = cityName;
+            ctrlServiceCenterCard.TopCount = 9;
+            ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
+
 
             ctrlLeadCapture.CityId = cityId;
             ctrlLeadCapture.ModelId = modelId;

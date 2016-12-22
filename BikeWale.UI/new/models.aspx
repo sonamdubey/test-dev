@@ -8,6 +8,7 @@
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!Doctype html>
 <html>
 <head>
@@ -191,7 +192,7 @@
                                 <%} %>
                                 <% if (ctrlDealerCard.showWidget)
                                    { %>
-                                <a href="#makeDealersContent" rel="nofollow">Dealers</a>
+                                <a href="#makeDealersContent" rel="nofollow">Dealer & Service Center</a>
                                 <%} %>
                                 <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                                    {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
@@ -248,7 +249,10 @@
                     <% } %>
 
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-
+                    <% if(ctrlServiceCenterCard.showWidget&&cityId>0){ %>
+                          <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                          <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                        <% } %>
                     <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                        {%> 
                     <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />

@@ -6,7 +6,6 @@ using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Utility;
@@ -26,6 +25,7 @@ namespace Bikewale.New
     public class Model : PageBase
     {
         protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected News_Widget ctrlNews;
         //protected ExpertReviews ctrlExpertReviews;
         protected NewExpertReviews ctrlExpertReviews;
@@ -49,8 +49,8 @@ namespace Bikewale.New
 
         private string makeMaskingName;
         private GlobalCityAreaEntity currentCityArea;
-        private uint cityId = 0;
-        private string cityName;
+        protected uint cityId = 0;
+        protected string cityName = string.Empty, cityMaskingName = string.Empty;
 
 
         protected UsedBikes ctrlRecentUsedBikes;
@@ -70,6 +70,8 @@ namespace Bikewale.New
         /// Desc: ctrlRecentUsedBikes (values assigned)
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :  Added dealer card and service center card
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -123,18 +125,28 @@ namespace Bikewale.New
                 ctrlDealerCard.makeName = _make.MakeName;
                 ctrlDealerCard.makeMaskingName = _make.MaskingName;
                 ctrlDealerCard.CityId = cityId;
-                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
-                ctrlDealerCard.LeadSourceId = 29;
                 ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
                 ctrlDealerCard.pageName = "Make_Page";
                 ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlLeadCapture.AreaId = 0;
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId); ;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = _make.MakeName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = _make.MaskingName;
+                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
+
                 BindDiscountinuedBikes();
+
             }
 
         }
+
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 17 Jun 2016
