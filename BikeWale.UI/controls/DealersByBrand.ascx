@@ -46,7 +46,7 @@
                                         <div class="card-desc-block">
                                             <h3 class="bikeTitle border-solid-top padding-top15"><%= DealerDetails.MakeName%></h3>
                                           
-                                            <p class="font14 text-light-grey margin-bottom5"><%=DealerDetails.DealerCount %> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></p>
+                                            <p class="font14 text-light-grey margin-bottom5"><%=DealerDetails.DealerCount %> <%=DealerDetails.MakeName %> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></p>
                                            
                                         </div>
                                     </a>
