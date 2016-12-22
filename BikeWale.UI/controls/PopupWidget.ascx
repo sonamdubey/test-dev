@@ -169,57 +169,214 @@ input[type="number"]:focus {
     text-align: center;
 }
 
+#priceQuoteWidget .bw-popup {
+    left: 5%;
+    right: 5%;
+    margin: 0 auto;
+}
+
+#priceQuoteWidget .bw-popup-sm {
+    height: 400px;
+    min-height: 400px;
+    top: 0% !important;
+    margin-top: 10%;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#priceQuoteWidget .location-loader-active.bw-popup-sm {
+    width: 220px;
+    height: 120px;
+    min-height: 120px;
+    position: fixed;
+    top: 0%;
+    margin: 20% auto;
+    z-index: 999;
+    text-align: center;
+}
+
+.popup-inner-container {
+    opacity: 0;
+}
+
+.activate-popup-content .popup-inner-container {
+    opacity: 1;
+    transition: opacity 0.2s;
+    transition-delay: 0.2s;
+}
+
+.location-loader-container {
+    perspective: 1000px;
+    margin: 0 auto 10px;
+}
+
+.location-loader-container, .loader-front, .loader-back {
+    width: 22px;
+    height: 30px;
+}
+
+.loader-flipper {
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.loader-front, .loader-back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-duration: 2s;
+    animation-iteration-count: 20;
+    animation-timing-function: ease;
+}
+
+.loader-front {
+    -webkit-animation-name: flipOutFront;
+    -moz-animation-name: flipOutFront;
+    -o-animation-name: flipOutFront;
+    -ms-animation-name: flipOutFront;
+    animation-name: flipOutFront;
+}
+
+.loader-back {
+    -webkit-animation-name: flipInBack;
+    -moz-animation-name: flipInBack;
+    -o-animation-name: flipInBack;
+    -ms-animation-name: flipInBack;
+    animation-name: flipInBack;
+}
+
+.loader-front {
+    z-index: 2;
+}
+
+@keyframes flipOutFront {
+    0% {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    50% {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+    100% {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes flipInBack {
+    0% {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+    50% {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+    }
+    100% {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        -ms-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+}
+
+.progress-bar {
+    width: 0;
+    height: 2px;
+    background: #16A085;
+    top: 28px;
+    left: 0;
+    border-radius: 2px;
+}
+
+.progress-bar-label {
+    left: 0;
+    top: 32px;
+}
+
 </style>
 
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
 <script type="text/javascript" src="<%= staticUrl1 != "" ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/knockout.validation.js?<%= staticFileVersion1 %>"></script>
+
 <div id="priceQuoteWidget" class="hide">
-           <!-- ko if : IsLoading() -->
-        <div id="popup-loader-container">
-            <div id="popup-loader"></div>
-            <div id="popup-loader-text">
-                <p data-bind="text : LoadingText()" class="font14"></p> 
-            </div>
-        </div>
-        <!-- /ko -->
-    <!-- ko ifnot : IsLoading() -->
-    <div class="bw-popup bw-popup-sm">
-    <div class="popup-inner-container">
-        <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div class="cityPop-icon-container">
-            <div class="icon-outer-container rounded-corner50 margin-bottom20">
-                <div class="icon-inner-container rounded-corner50">
-                    <span class="bwsprite orp-location-icon margin-top20"></span>
+    
+    <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
+        <!-- ko if : IsLoading() -->
+        <div class="content-inner-block-20">
+            <div class="location-loader-container">
+                <div class="loader-flipper">
+                    <div class="loader-front">
+                        <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png" border="0" />
+                    </div>
+                    <div class="loader-back">
+                        <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png" border="0" />
+                    </div>
                 </div>
             </div>
+            <p data-bind="text : LoadingText()" class="font14"></p> 
         </div>
-        <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
-        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
+        <!-- /ko -->
+        <!-- ko ifnot : IsLoading() -->
+        <div class="popup-inner-container">
+            <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+            <div class="cityPop-icon-container">
+                <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                    <div class="icon-inner-container rounded-corner50">
+                        <span class="bwsprite orp-location-icon margin-top20"></span>
+                    </div>
+                </div>
+            </div>
+            <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
+            <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
          
             <div class="padding-top10" id="popupContent">
                 <div class="select-box margin-top10">
                    <p class="select-label">City</p>
                     <select class="chosen-select" data-placeholder="Select city" id="ddlCitiesPopup" tabindex="2"
                             data-bind="options: BookingCities(),value: SelectedCityId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true },event : { change : selectCity }">
-                     </select>
-                     <span class="boundary"></span>
+                        </select>
+                        <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div> 
-                <div class="select-box margin-top10" data-bind="visible: BookingAreas().length > 0">
+                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 0">
                    <p class="select-label">Area</p>
                     <select class="chosen-select" data-placeholder="Select area" id="ddlAreaPopup" tabindex="3"
-                            data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">
-                        </select>
-                     <span class="boundary"></span>
+                         data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">
+                    </select>
+                    <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
+                    <p class="position-abt progress-bar"></p>
+                    <p class="position-abt progress-bar-label"></p>
                 </div>  
                 <%--<input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>--%>
             </div>
        
+        </div>
+        <!-- /ko -->
     </div>
-</div>
-     <!-- /ko -->
+    <!-- /ko -->
 </div>
 
 <!--bw popup code ends here-->
@@ -231,6 +388,7 @@ input[type="number"]:focus {
         $(document).on("click",".blackOut-window,#priceQuoteWidget div.bw-popup div.close-btn",function(){ 
             $('.getquotation').removeClass('ui-btn-active');
             $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
+            pqPopupContent.inactive();
         });
 
         var chosenSelectBox = $('.chosen-select');
@@ -403,6 +561,7 @@ input[type="number"]:focus {
                                     self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
                                     var areas = ko.toJS(_responseData.pqAreas);
+                                    progressBar.stopLoading('#area-dropdown-field');
                                     if (areas != null && areas.length > 0) {
                                         areas.splice(0, 0, dummyOption);
                                         self.BookingAreas(areas);
@@ -419,7 +578,7 @@ input[type="number"]:focus {
                                 }
                             }
                             self.IsLoading(false);
-
+                            pqPopupContent.active();
                         }
                         else if (_responseData.priceQuote != null) {
 
@@ -481,6 +640,9 @@ input[type="number"]:focus {
                                 $('#ddlAreaPopup').parent().addClass('done');
                             }
                         }
+
+                        pqPopupContent.updateChosen( $('#ddlCitiesPopup'));
+                        pqPopupContent.updateChosen( $('#ddlAreaPopup'));
                         
                     }
                 });
@@ -494,27 +656,30 @@ input[type="number"]:focus {
                 self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
 
                 if (self.SelectedCity() != null &&  self.SelectedCity().id > 0) {
-                    $('#ddlCitiesPopup').trigger("chosen:updated").parent().addClass('done');
+                    $('#ddlCitiesPopup').parent().addClass('done');
+
+                    self.SelectedArea(null);
+                    self.SelectedAreaId(0);
+                    self.BookingAreas([]);
+
+                    pqPopupContent.updateChosen( $('#ddlAreaPopup'));
+
                     if (!self.SelectedCity().hasAreas) {                       
                         self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
                         self.IsLoading(true);
                         self.IsPersistance(false);
                     }
                     else {
+                        self.BookingAreas.push(dummyOption);
+                        progressBar.startLoading('#area-dropdown-field', 'Loading areas...');
                         self.LoadingText("Loading areas for " + self.SelectedCity().name);
                     }
 
                     if (self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
-                        self.SelectedArea(null);
-                        self.SelectedAreaId(0);
-                        self.InitializePQ(true);
-                        self.BookingAreas([]);
+                        self.InitializePQ(true); 
                     }
                     else{
                         self.IsLoading(false);
-                        self.SelectedArea(null);
-                        self.SelectedAreaId(0);
-                        self.BookingAreas([]);
                     }
 
                     if (ga_pg_id != null && ga_pg_id == 2) {
@@ -620,6 +785,46 @@ input[type="number"]:focus {
             }
         }
 
+    }
+
+    var timeOutVariable;
+
+    var pqPopupContent = {
+        
+        active: function(){
+            timeOutVariable = setTimeout(function(){
+                    $('#priceQuoteWidget').addClass('activate-popup-content');
+            }, 200);
+        },
+
+        inactive: function(){
+            $('#priceQuoteWidget').removeClass('activate-popup-content');
+            clearTimeout(timeOutVariable);
+        },
+
+        updateChosen: function(element){
+            $(element).trigger("chosen:updated");
+        }
+    };
+
+    var progressBar = {
+        startLoading: function (element, message) {    
+            try {
+                var _self = $(element).find(".progress-bar").css({'width':'0'}).show();
+                _self.animate({ width: '100%' }, 7000);
+                $(element).find(".progress-bar-label").text(message);
+            }
+            catch (e) { return };
+        },
+
+        stopLoading: function(element){
+            try {
+                var _self = $(element).find(".progress-bar");
+                _self.stop(true, true).css({'width':'100%'}).fadeOut(1000);
+                $(element).find(".progress-bar-label").empty();
+            }
+            catch (e) { return };
+        }
     }
 
     var vmquotation = new mPopup;
