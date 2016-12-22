@@ -318,7 +318,7 @@ input[type="number"]:focus {
 
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
-<script type="text/javascript" src="<%= staticUrl1 != "" ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/knockout.validation.js?<%= staticFileVersion1 %>"></script>
+
 
 <div id="priceQuoteWidget" class="hide">
     
@@ -401,7 +401,7 @@ input[type="number"]:focus {
     });
 
     $(document).on("click", ".getquotation", function (e) {
-        var ele = $(this); e.stopPropagation();
+        var ele = $(this); e.stopPropagation(); e.preventDefault();
 
         vmquotation.CheckCookies();
         var options = {
@@ -431,12 +431,6 @@ input[type="number"]:focus {
 
     });
 
-    ko.validation.init({
-        errorelementclass: 'invalid',
-        insertmessages: false
-    }, true);
-
-    //for jquery chosen
     ko.bindingHandlers.chosen = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
             var $element = $(element);
@@ -480,16 +474,6 @@ input[type="number"]:focus {
         self.IsLoading = ko.observable(false);
 
         var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
-
-        self.SelectedCity = ko.observable().extend({
-            required: {
-                params: true,
-                message: 'Please select city',
-                onlyIf: function () {
-                    return self.validate();
-                }
-            }
-        });
 
         self.setOptions = function (options, event) {
             if (options != null) {
@@ -607,7 +591,7 @@ input[type="number"]:focus {
 
 
                             if (!self.IsReload() && _responseData.qStr != '') {
-                                window.location.href = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
+                                window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
                             }
                             else window.location.reload(true);
                         }

@@ -169,53 +169,27 @@
         self.setOptions = function (options,event) {
             if (options != null) {
 
-                if (options.modelId != null)
-                    self.SelectedModelId(options.modelId);
+                self.SelectedModelId(options.modelId || 0);
+                self.SelectedCityId(options.cityId || 0);
 
-                if (options.cityId != null)
-                {
-                    self.SelectedCityId(options.cityId);
-                }else{
-                    self.LoadingText('Fetching Cities...');
-                }
-                   
+                if (self.SelectedCityId() == 0)  self.LoadingText('Fetching Cities...');
+                
+                self.SelectedAreaId(options.areaId || 0);
+                self.SelectedCity(options.city || null);
+                self.SelectedArea(options.area || null);
+                self.ModelName = options.modelname || "";
+                self.MakeName = options.makename || "";
+                self.PageCatId = options.pagecatid || "";
+                self.PageSourceId = options.pagesrcid || "";
+                self.IsPersistance(options.ispersistent || false);
+                self.IsReload(options.isreload || false);
 
-                if (options.areaId != null)
-                    self.SelectedAreaId(options.areaId);
+                if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
-                if (options.city != null)
-                    self.SelectedCity(options.city);
-
-                if (options.area != null)
-                    self.SelectedArea(options.area);
-
-                if (options.modelname != null)
-                    self.ModelName = options.modelname;
-
-                if (options.makename != null)
-                    self.MakeName = options.makename;
-
-                if (options.pagecatid != null)
-                    self.PageCatId = options.pagecatid;
-
-                if (options.pagesrcid != null)
-                    self.PageSourceId = options.pagesrcid;
-                        
-                if (options.ispersistent != null)
-                {
-                    self.IsPersistance(options.ispersistent);
-                    self.LoadingText("Loading locations...");
-                }
-                   
-
-                if (options.isreload != null)
-                    self.IsReload(options.isreload);
-
-
-                if(self.SelectedModelId())
-                {
+                if (self.SelectedModelId()) {
                     self.InitializePQ();
                 }
+
 
                 gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
             }
@@ -271,7 +245,12 @@
                                         {
                                             self.SelectedArea(findAreaById(self.SelectedAreaId()));
                                         }
-                                        else self.SelectedArea(null);
+                                        else
+                                        {
+                                            self.BookingAreas([]);
+                                            self.SelectedArea(null);
+                                            self.SelectedAreaId(0);
+                                        }
                                     }                                                                         
                                 }
                             }
@@ -312,7 +291,6 @@
 
                             if(!self.IsReload() && _responseData.qStr!='')
                             {                                          
-                                        //$('#popupWrapper').hide();
                                 window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
                             }                                        
                             else   window.location.reload(true);   
@@ -367,6 +345,12 @@
                 self.SelectedArea(null);
                 self.SelectedAreaId(0);
                 self.InitializePQ(true);
+                self.BookingAreas([]);
+            }
+            else{
+                self.SelectedArea(null);
+                self.SelectedAreaId(0);
+                self.BookingAreas([]);
             }                                
 
             if (ga_pg_id != null && ga_pg_id == 2) {
