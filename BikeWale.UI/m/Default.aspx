@@ -9,6 +9,7 @@
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -309,6 +310,16 @@
             <!-- #include file="/ads/Ad320x150_Second.aspx" -->
         </section>
         <% } %>
+
+        <section>
+            <div class="container">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Best bikes of November 2016</h2>
+                <div class="box-shadow bg-white padding-top10 padding-bottom10">
+                    <BW:BestBikes runat="server" ID="ctrlBestBikes" />
+                </div>
+            </div>
+        </section>
+
         <section>
             <!--  Compare section code starts here -->
             <BW:CompareBike ID="ctrlCompareBikes" runat="server" />

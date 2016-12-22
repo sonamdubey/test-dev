@@ -810,6 +810,10 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\BestBikes.ascx.cs">
+      <DependentUpon>BestBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\BrandCityPopUp.ascx.cs">
       <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1024,6 +1028,10 @@
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
       <DependentUpon>VideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\generic\BikeListing.aspx.cs">
+      <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\service\Default.aspx.cs">
@@ -2455,6 +2463,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\BestBikes.ascx" />
     <Content Include="m\controls\BrandCityPopUp.ascx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
@@ -2539,6 +2548,7 @@
     <Content Include="m\css\dealer\listing.css" />
     <Content Include="m\css\dealer\location.css" />
     <Content Include="m\css\design.css" />
+    <Content Include="m\css\generic\listing.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
@@ -2562,6 +2572,7 @@
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
+    <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -2923,6 +2934,9 @@
     <Content Include="m\sass\modules\_textarea-box.sass" />
     <Content Include="m\sass\modules\_bike-popup.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
+    <Content Include="m\sass\generic\listing.sass" />
+    <Content Include="m\sass\generic\_listing-style.sass" />
+    <Content Include="m\sass\generic\_media-query.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
