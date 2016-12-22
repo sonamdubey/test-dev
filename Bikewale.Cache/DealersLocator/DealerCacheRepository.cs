@@ -100,16 +100,17 @@ namespace Bikewale.Cache.DealersLocator
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Cached Popular City Dealer Count
-        /// </summary>
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
-            IEnumerable<PopularCityDealerEntity> cityDealers = null;
+            PopularDealerServiceCenter cityDealers = null;
             string key = String.Format("BW_MakePopularCity_Dealers_{0}_Cnt_{1}", makeId, topCount);
             try
             {
-                cityDealers = _cache.GetFromCache<IEnumerable<PopularCityDealerEntity>>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId, topCount));
+                cityDealers = _cache.GetFromCache<PopularDealerServiceCenter>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId, topCount));
             }
             catch (Exception ex)
             {

@@ -19,6 +19,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Description :   Get Popular City Dealer Count.
     /// Modified by  :   Subodh jain on 20 Dec 2016
     /// Description :   Get Dealer By BrandList
+    /// Modified by :  Subodh Jain on 21 Dec 2016
+    /// Description :   Merge Dealer and service center for make and model page
     /// </summary>    
     public interface IDealer
     {
@@ -35,7 +37,7 @@ namespace Bikewale.Interfaces.Dealer
         DealersEntity GetDealerByMakeCity(uint cityId, uint makeId, uint modelid = 0);
         DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId);
         DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId);
-        IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount);
+        PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount);
         bool UpdateManufaturerLead(uint pqId, string custEmail, string mobile, string response);
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
     }

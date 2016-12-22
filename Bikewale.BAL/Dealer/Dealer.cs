@@ -235,10 +235,11 @@ namespace Bikewale.BAL.Dealer
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Popular City Dealer Count
-        /// </summary>
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
             try
             {

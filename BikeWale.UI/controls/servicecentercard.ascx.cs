@@ -1,6 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Common;
+using Bikewale.DAL.Location;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.Location;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +48,8 @@ namespace Bikewale.Controls
         {
             if (MakeId > 0)
                 BindDealers();
+            if (CityId > 0 && string.IsNullOrEmpty(cityMaskingName))
+                GetCityMaskingName(CityId);
         }
 
         /// <summary>
@@ -66,13 +72,35 @@ namespace Bikewale.Controls
                         showWidget = true;
 
                 }
-
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "ServiceCenterCard.BindDealers()");
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created By:- Subodh Jain 22 Dec 2016
+        /// Summary :- To get citymasking name
+        /// </summary>
+        /// <param name="maskingName"></param>
+        /// <returns></returns>
+        private void GetCityMaskingName(uint cityId)
+        {
+            ICity _city = new CityRepository();
+            List<CityEntityBase> objCityList = null;
+
+            try
+            {
+                objCityList = _city.GetAllCities(EnumBikeType.All);
+                cityMaskingName = objCityList.Find(c => c.CityId == cityId).CityMaskingName;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, " GetCityMaskingName - model");
+                objErr.SendMail();
+            }
+
         }
     }
 }

@@ -10,6 +10,8 @@
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularModelCompare.ascx" TagName="PopularCompare" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -663,6 +665,10 @@
                              { %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
                         <%} %>
+                        <% if (ctrlDealerCard.showWidget)
+                                   { %>
+                                <a href="#makeDealersContent" rel="nofollow">Dealers</a>
+                                <%} %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
                         <%} %>
@@ -711,6 +717,10 @@
                             <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
                             <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
                             <%} %>
+                              <% if (ctrlDealerCard.showWidget)
+                                   { %>
+                                <a href="#makeDealersContent" rel="nofollow">Dealers</a>
+                                <%} %>
                              <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                             <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
                             <%} %>
@@ -1222,6 +1232,11 @@
                         <% if (ctrlPopularCompare.fetchedCount > 0)
                            { %>
                         <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
+                        <% } %>
+                          <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                          <% if(ctrlServiceCenterCard.showWidget&&cityId>0){ %>
+                          <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                         
                         <% } %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                            { %>

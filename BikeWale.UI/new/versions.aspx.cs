@@ -47,8 +47,10 @@ namespace Bikewale.New
         protected PriceInTopCities ctrlTopCityPrices;
         protected BikeModelPageEntity modelPageEntity;
         protected PopularModelCompare ctrlPopularCompare;
+        protected DealerCard ctrlDealerCard;
         protected VersionSpecifications bikeSpecs;
         protected PQOnRoadPrice pqOnRoad;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         protected int grid1_size = 9, grid2_size = 3, colorCount;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptSecondaryDealers;
         protected string modelQuerystring = string.Empty, cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
@@ -237,6 +239,8 @@ namespace Bikewale.New
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- values to controls field
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :  Added dealer card and service center card
         /// </summary>
         private void BindControls(BikeModelPageEntity modelPage)
         {
@@ -253,6 +257,22 @@ namespace Bikewale.New
                 ctrlPopularCompare.TopCount = 6;
                 ctrlPopularCompare.ModelName = modelPageEntity.ModelDetails.ModelName;
                 ctrlPopularCompare.cityid = Convert.ToInt32(cityId);
+
+                ctrlDealerCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlDealerCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlDealerCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+                ctrlDealerCard.pageName = "Model_Page";
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.makeName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlServiceCenterCard.TopCount = 3;
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", modelPage.ModelDetails.MakeBase.MaskingName, cityName);
 
                 if (!isDiscontinued)
                     ctrlPopularCompare.versionId = Convert.ToString(variantId);
