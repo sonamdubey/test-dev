@@ -85,7 +85,7 @@
                                 <% if (detailedDealer != null)
                                 { %>
                                 <div id="model-image">
-                                    <img alt="<%= bikeVersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Photos" width="100%" />
+                                    <img alt="<%= bikeVersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Photo" alt="<%= bikeVersionName %> Photo" width="100%" />
                                 </div>
                                 <% } %>
                                 <%= minspecs %>
@@ -146,7 +146,7 @@
                                         <tr>
                                             <td>
                                                 <% if(isPrimaryDealer){ %>
-                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %></p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                                 <% } %>
                                             </td>
                                             <td align="right">
@@ -204,7 +204,21 @@
                                                     <td align="right">
                                                         <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                                     </td>
-                                                </tr>	
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <% if (isPrimaryDealer)
+                                                           { %>
+                                                        <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
+                                                        <% } %>
+                                                    </td>
+                                                    <td align="right">
+                                                        <% if (isPrimaryDealer)
+                                                           { %>
+                                                        <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
                                             </table>
                       
                                        <%}
@@ -221,7 +235,7 @@
                             </div>
                             <div class="clear"></div>
 
-                            <%if (primarydealer.DealerDetails != null)
+                            <%if (primarydealer.DealerDetails != null && primarydealer.DealerDetails.objArea != null)
                               { %>
                             <div class="inner-card-shadow margin-top20">
                                 <div class="content-inner-block-20">
@@ -230,7 +244,7 @@
                                             <span class="pq-sprite partner-dealer"></span>
                                         </div>
                                         <div class="inline-block dealer-name-content">
-                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %></h3>
+                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></h3>
                                             <p class="font12 text-light-grey">BikeWale partner dealer</p>
                                         </div>
                                     </div>
@@ -401,7 +415,7 @@
                                         </div>
                                         <div class="grid-4 padding-left20 omega">
                                             <div class="margin-left10 margin-bottom15">
-                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable+Interest)</p>
+                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable + Interest)</p>
                                                 <div>
                                                     <span class="bwsprite inr-md"></span>
                                                     <span class="font16 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>                               
@@ -520,7 +534,7 @@
            {
                dealerName = objQuotation.ManufacturerName; %>
         <section>
-            <%=String.Format(objQuotation.ManufacturerAd) %>
+            <%= string.Format(objQuotation.ManufacturerAd) %>
         </section>
         <%} %>
         <!-- Secondary dealer section -->
@@ -547,18 +561,21 @@
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                     <span class="vertical-top details-column font14 text-light-grey"><%= dealer.Area%></span>
                                                 </div>
-                                                <% if(!string.IsNullOrEmpty(dealer.MaskingNumber)) { %>
+                                                
                                                 <div>
+                                                    <% if(!string.IsNullOrEmpty(dealer.MaskingNumber)) { %>
                                                     <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                                    <% } %>
                                                     <span class="vertical-top details-column font14 text-default text-bold"><%= dealer.MaskingNumber%></span>
                                                 </div>
-                                                <% } %>
+                                                
                                                 <div class="margin-top10">
                                                     <div class="grid-5 alpha omega">
                                                         <p class="font12 text-light-grey margin-bottom2">On-road price</p>
                                                         <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold"><%=Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())%></span>
                                                     </div>
-                                                    <% if(dealer.OfferCount > 0) { %>
+                                                    <% if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
+                                                       { %>
                                                     <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                         <span class="bwsprite offers-sm-box"></span>
                                                         <span class="font14 text-default text-bold"><%=dealer.OfferCount %></span>
