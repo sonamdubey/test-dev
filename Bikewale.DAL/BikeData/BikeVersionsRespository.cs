@@ -552,12 +552,14 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Aditi Srivastava on 17 Oct 2016
         /// Description: get colors by version id for used bikes
+        /// Modified by :   Sumit Kate on 22 Dec 2016
+        /// Description :   Used List instead of IEnumerable for return value
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            IEnumerable<BikeColorsbyVersion> objVersionColors = null;
-            List<VersionColor> versionColors = null;
+            List<BikeColorsbyVersion> objVersionColors = null;
+            ICollection<VersionColor> versionColors = null;
 
             try
             {
