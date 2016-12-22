@@ -246,11 +246,13 @@
     <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindDealersByBrand.cs" />
+    <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindNearbyCitiesServiceCenters.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
@@ -402,6 +404,10 @@
     </Compile>
     <Compile Include="controls\DealersByBrand.ascx.cs">
       <DependentUpon>DealersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DealersInNearByCities.ascx.cs">
+      <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
@@ -624,6 +630,10 @@
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ServiceCentersInNearbyCities.ascx.cs">
+      <DependentUpon>ServiceCentersInNearbyCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\serviceschedule.ascx.cs">
       <DependentUpon>serviceschedule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -832,6 +842,10 @@
       <DependentUpon>DealersCard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\DealersInNearByCities.ascx.cs">
+      <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -874,6 +888,10 @@
     </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
       <DependentUpon>PopularBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ServiceCentersInNearbyCities.ascx.cs">
+      <DependentUpon>ServiceCentersInNearbyCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
@@ -1410,6 +1428,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
+    <Compile Include="trackday2016\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="trackday2016\details.aspx.cs">
+      <DependentUpon>details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="used\bikedetails.aspx.cs">
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1866,6 +1892,7 @@
     <Content Include="controls\BikeCare.ascx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\DealersByBrand.ascx" />
+    <Content Include="controls\DealersInNearByCities.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
@@ -1926,6 +1953,7 @@
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="controls\servicecentercard.ascx" />
     <Content Include="controls\ServiceCentersByBrand.ascx" />
+    <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
@@ -2435,6 +2463,7 @@
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\DealersByBrand.ascx" />
     <Content Include="m\controls\DealersCard.ascx" />
+    <Content Include="m\controls\DealersInNearByCities.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
@@ -2446,6 +2475,7 @@
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\MPriceInTopCities.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
+    <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2803,6 +2833,10 @@
     <Content Include="test\js\jquery-1.10.2.min.js" />
     <Content Include="test\js\jquery.mobile-1.4.2.min.js" /> -->
     <Content Include="Thankyou.aspx" />
+    <Content Include="trackday2016\css\track-day.css" />
+    <Content Include="trackday2016\default.aspx" />
+    <Content Include="trackday2016\details.aspx" />
+    <Content Include="trackday2016\src\track-day.js" />
     <Content Include="url_mapping\map_cities.txt" />
     <Content Include="url_mapping\map_makes.txt" />
     <Content Include="url_mapping\map_models.txt" />

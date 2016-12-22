@@ -483,7 +483,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in <%=cityName %><span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
@@ -522,7 +522,7 @@
 							                        </div>
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn">Get offers from dealer</a>
                                                 </div>
                                             </li>
                                     <% } %>                             
@@ -1336,6 +1336,10 @@
             function secondarydealer_Click(dealerID) {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
                 window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+            }
+            function openLeadCaptureForm(dealerID) {
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
+                event.stopPropagation();
             }
             $(function () {
                 if ($('.dealership-benefit-list li').length <= 2) {

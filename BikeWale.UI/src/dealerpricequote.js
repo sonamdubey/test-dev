@@ -23,10 +23,22 @@ $(function () {
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
         $("#otpPopup").hide();
-        $('body').addClass('lock-browser-scroll');
+        //$('body').addClass('lock-browser-scroll');
         $(".blackOut-window").show();
 
     });
+
+    $('#btnManufacturer').on('click', function () {
+        customerViewModel.dealerId($(this).attr('data-item-id'));
+        customerViewModel.leadSourceId($(this).attr('data-leadsourceid'));
+        leadCapturePopup.show();
+        $("#dealer-lead-msg").hide();
+        $("div#contactDetailsPopup").show();
+        $("#otpPopup").hide();
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window").show();
+    });
+
     $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
         leadCapturePopup.hide();
         $('body').removeClass('lock-browser-scroll');

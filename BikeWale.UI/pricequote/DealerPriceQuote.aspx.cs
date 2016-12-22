@@ -399,7 +399,7 @@ namespace Bikewale.BikeBooking
                 CityArea = GlobalCityArea.GetGlobalCityArea();
                 if (CityArea != null)
                 {
-                    if (isBWPriceQuote)
+                    if (areaId == 0)
                     {
                         loctn = string.Format("<span>{0}</span>", CityArea.City);
                     }
@@ -418,7 +418,7 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> GetLocationCookie() versionid {0}", versionId));
                 objErr.SendMail();
             }
             return loctn;

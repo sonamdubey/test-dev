@@ -4,6 +4,7 @@
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 
@@ -188,6 +189,9 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
+       <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
+        <%} %>
            <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
         <section>
             <div class="container">

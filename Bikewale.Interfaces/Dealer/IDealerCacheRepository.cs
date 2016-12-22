@@ -15,6 +15,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Description :   Get Dealer By BrandList
     /// Modified by :  Subodh Jain on 21 Dec 2016
     /// Description :   Merge Dealer and service center for make and model page
+    /// Modified by : Sajal Gupta on 19-12-216
+    /// Desc : Added function FetchNearByCityDealersCount;
     /// </summary>
     public interface IDealerCacheRepository
     {
@@ -24,5 +26,6 @@ namespace Bikewale.Interfaces.Dealer
         PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount);
         IEnumerable<NewBikeDealersMakeEntity> GetDealersMakesList();
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
+        IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
     }
 }

@@ -19,7 +19,6 @@
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
      <style type="text/css">
-            .phone-black-icon { width:11px; height:15px; position:relative; top:2px; margin-right:4px; background-position:-73px -444px; }
             #campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:bold}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;display:inline-block;vertical-align:middle;margin-top:15px;margin-bottom:10px;padding-right:5px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
     <script type="text/javascript">
@@ -86,7 +85,7 @@
                                 <% if (detailedDealer != null)
                                 { %>
                                 <div id="model-image">
-                                    <img alt="<%= bikeVersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Photos" width="100%" />
+                                    <img alt="<%= bikeVersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Photo" alt="<%= bikeVersionName %> Photo" width="100%" />
                                 </div>
                                 <% } %>
                                 <%= minspecs %>
@@ -147,7 +146,7 @@
                                         <tr>
                                             <td>
                                                 <% if(isPrimaryDealer){ %>
-                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %></p>
+                                                <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                                 <% } %>
                                             </td>
                                             <td align="right">
@@ -205,7 +204,21 @@
                                                     <td align="right">
                                                         <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                                     </td>
-                                                </tr>	
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <% if (isPrimaryDealer)
+                                                           { %>
+                                                        <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
+                                                        <% } %>
+                                                    </td>
+                                                    <td align="right">
+                                                        <% if (isPrimaryDealer)
+                                                           { %>
+                                                        <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                        <% } %>
+                                                    </td>
+                                                </tr>
                                             </table>
                       
                                        <%}
@@ -222,7 +235,7 @@
                             </div>
                             <div class="clear"></div>
 
-                            <%if (primarydealer.DealerDetails != null)
+                            <%if (primarydealer.DealerDetails != null && primarydealer.DealerDetails.objArea != null)
                               { %>
                             <div class="inner-card-shadow margin-top20">
                                 <div class="content-inner-block-20">
@@ -231,7 +244,7 @@
                                             <span class="pq-sprite partner-dealer"></span>
                                         </div>
                                         <div class="inline-block dealer-name-content">
-                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %></h3>
+                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></h3>
                                             <p class="font12 text-light-grey">BikeWale partner dealer</p>
                                         </div>
                                     </div>
@@ -240,11 +253,11 @@
                                         <ul id="offers-label-list">
                                             <li>Best offers</li>
                                             <li>Test rides</li>
-                                            <li>Exchange benefits</li>
+                                            <li>EMI options</li>
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block">
-                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers</a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers from dealers</a>
                                     </div>
                                     <div class="clear"></div>                                    
                                 </div>
@@ -341,7 +354,7 @@
                                 </div>
                                 
                                 <!-- EMI calculator starts -->
-                                <% if (isPremium && _objEMI != null )
+                                <% if (_objEMI != null )
                                    { %>
                                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                                 <div class="content-inner-block-20">
@@ -402,7 +415,7 @@
                                         </div>
                                         <div class="grid-4 padding-left20 omega">
                                             <div class="margin-left10 margin-bottom15">
-                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable+Interest)</p>
+                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable + Interest)</p>
                                                 <div>
                                                     <span class="bwsprite inr-md"></span>
                                                     <span class="font16 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>                               
@@ -442,7 +455,7 @@
                                                         <span class="inline-block benefit-list-image pq-sprite <%=string.Format("offerIcon_{0}", offer.OfferCategoryId) %>"></span>
                                                         <span class="inline-block benefit-list-title"><%= offer.OfferText %>
                                                             <% if(offer.IsOfferTerms) { %>
-                                                            <span class="tnc font9 margin-left5 id="<%= offer.OfferId %>">
+                                                            <span class="tnc font9 margin-left5" id="<%= offer.OfferId %>">
                                                                 View terms
                                                             </span>
                                                             <% } %>
@@ -517,9 +530,11 @@
             </div>
         </section>
 
-        <% if (objQuotation != null && detailedDealer.PrimaryDealer == null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd)){ %>
+        <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd) && detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0)
+           {
+               dealerName = objQuotation.ManufacturerName; %>
         <section>
-            <%=String.Format(objQuotation.ManufacturerAd) %>
+            <%= string.Format(objQuotation.ManufacturerAd) %>
         </section>
         <%} %>
         <!-- Secondary dealer section -->
@@ -546,18 +561,21 @@
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                     <span class="vertical-top details-column font14 text-light-grey"><%= dealer.Area%></span>
                                                 </div>
-                                                <% if(!string.IsNullOrEmpty(dealer.MaskingNumber)) { %>
+                                                
                                                 <div>
+                                                    <% if(!string.IsNullOrEmpty(dealer.MaskingNumber)) { %>
                                                     <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                                    <% } %>
                                                     <span class="vertical-top details-column font14 text-default text-bold"><%= dealer.MaskingNumber%></span>
                                                 </div>
-                                                <% } %>
+                                                
                                                 <div class="margin-top10">
                                                     <div class="grid-5 alpha omega">
                                                         <p class="font12 text-light-grey margin-bottom2">On-road price</p>
                                                         <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-default text-bold"><%=Bikewale.Utility.Format.FormatPrice(dealer.SelectedVersionPrice.ToString())%></span>
                                                     </div>
-                                                    <% if(dealer.OfferCount > 0) { %>
+                                                    <% if (dealer.DealerPackageType != Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard && dealer.OfferCount > 0)
+                                                       { %>
                                                     <div class="grid-7 border-solid-left padding-top10 padding-bottom10 padding-left20 omega ">
                                                         <span class="bwsprite offers-sm-box"></span>
                                                         <span class="font14 text-default text-bold"><%=dealer.OfferCount %></span>
@@ -568,7 +586,7 @@
 							                    </div>
                                             </a>
                                             <div class="bottom-block-button margin-top15">
-                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="34" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
                                             </div>
                                         </li>
                                     <% } %>
@@ -716,7 +734,7 @@
             var bikeName = "<%= bikeName %>";
             var bikeVersionPrice = "<%= totalPrice %>";
             var leadSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DPQ_SecondaryDealers %>';
-            <% if (isPremium)
+            <% if (isPrimaryDealer)
                { %>  
 
             ko.bindingHandlers.slider = {
@@ -737,7 +755,7 @@
                 }
             };
 
-           
+           <% if(_objEMI!=null){ %>
             var BikeEMI = function () {
                 var self = this;
                 self.breakPoints = ko.observable(5);
@@ -748,7 +766,6 @@
                 self.maxTenure = ko.observable(<%= _objEMI.MaxTenure  %>);
                 self.minROI = ko.observable(<%= _objEMI.MinRateOfInterest %>);
                 self.maxROI = ko.observable(<%= _objEMI.MaxRateOfInterest %>);
-                <%--self.processingFees = ko.observable(<%= primarydealer.EMIDetails.ProcessingFee %>);--%>
                 self.processingFees = ko.observable(0);
                 self.exshowroomprice = ko.observable(bikeVersionPrice);
                 self.loan = ko.observable();
@@ -842,7 +859,7 @@
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);
-
+            <% } %>
             <% } %>
 
             $( document ).ready(function() {
