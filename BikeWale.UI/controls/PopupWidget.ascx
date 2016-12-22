@@ -140,14 +140,15 @@ input[type="number"]:focus {
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all; }
 
-  #popup-loader-container{
-    position: fixed;
-    border: 1px solid #ccc;
-    width: 200px;
-    min-height: 100px;
-    top: 50%;
-    left: 60%;
-          position:relative}
+    #popup-loader-container {
+        position: fixed;
+        border: 1px solid #ccc;
+        width: 200px;
+        min-height: 100px;
+        top: 40%;
+        left: 50%;
+        background-color: white;
+    }
 
   #popup-loader, .cover-popup-loader {
     height: 50px;
@@ -226,14 +227,11 @@ input[type="number"]:focus {
 <!-- widget script starts here-->
 <script type="text/javascript">
 
-
     $(document).ready(function(){
-
-        $('.blackOut-window,#priceQuoteWidget .close-btn').click(function () {
+        $(document).on("click",".blackOut-window,#priceQuoteWidget div.bw-popup div.close-btn",function(){ 
             $('.getquotation').removeClass('ui-btn-active');
             $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
         });
-
 
         var chosenSelectBox = $('.chosen-select');
 
@@ -425,6 +423,11 @@ input[type="number"]:focus {
                                         }
                                         else self.SelectedArea(null);
                                     }
+                                    else{
+                                        self.BookingAreas([]);
+                                        self.SelectedArea(null);
+                                        self.SelectedAreaId(0);
+                                    }
                                 }
                             }
                             self.IsLoading(false);
@@ -510,6 +513,7 @@ input[type="number"]:focus {
                     $('#ddlCitiesPopup').trigger("chosen:updated").parent().addClass('done');
                     if (!self.SelectedCity().hasAreas) {                       
                         self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
+                        self.IsLoading(true);
                         self.IsPersistance(false);
                     }
                     else {
@@ -553,6 +557,7 @@ input[type="number"]:focus {
 
                     if (self.SelectedArea().id != onCookieObj.PQAreaSelectedId) {
                         self.LoadingText("Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name);
+                        self.IsLoading(true);
                         self.InitializePQ(true);
                     }
 
@@ -629,5 +634,6 @@ input[type="number"]:focus {
     var vmquotation = new mPopup;
     ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
     $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
+
 
 </script>
