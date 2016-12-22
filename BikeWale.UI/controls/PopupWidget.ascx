@@ -199,7 +199,7 @@ input[type="number"]:focus {
          
             <div class="padding-top10" id="popupContent">
                 <div class="select-box margin-top10">
-                   <p class="select-label">City<sup>*</sup></p>
+                   <p class="select-label">City</p>
                     <select class="chosen-select" data-placeholder="Select city" id="ddlCitiesPopup" tabindex="2"
                             data-bind="options: BookingCities(),value: SelectedCityId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true },event : { change : selectCity }">
                      </select>
@@ -207,14 +207,14 @@ input[type="number"]:focus {
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div> 
                 <div class="select-box margin-top10" data-bind="visible: BookingAreas().length > 0">
-                   <p class="select-label">Area<sup>*</sup></p>
+                   <p class="select-label">Area</p>
                     <select class="chosen-select" data-placeholder="Select area" id="ddlAreaPopup" tabindex="3"
                             data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">
                         </select>
                      <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div>  
-                <input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>
+                <%--<input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>--%>
             </div>
        
     </div>
@@ -333,16 +333,6 @@ input[type="number"]:focus {
             }
         });
 
-        //self.SelectedCityId = ko.observable().extend({
-        //    required: {
-        //        params: true,
-        //        message: 'Please select city',
-        //        onlyIf: function () {
-        //            return self.validate();
-        //        }
-        //    }
-        //});
-
         self.setOptions = function (options, event) {
             if (options != null) {
 
@@ -411,9 +401,7 @@ input[type="number"]:focus {
                                 self.BookingCities(cities);
                                 if (self.SelectedCityId() > 0) {
                                     self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
-
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
-
                                     var areas = ko.toJS(_responseData.pqAreas);
                                     if (areas != null && areas.length > 0) {
                                         areas.splice(0, 0, dummyOption);
@@ -435,13 +423,11 @@ input[type="number"]:focus {
                         }
                         else if (_responseData.priceQuote != null) {
 
-                            var jsonObj = _responseData.priceQuote;
-
+                            var jsonObj = _responseData.priceQuote; 
                             gaLabel = GetGlobalCityArea() + ', ';
 
                             if (self.MakeName || self.ModelName)
-                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
-
+                                gaLabel += self.MakeName + ',' + self.ModelName + ','; 
 
                             if (self.SelectedCityId() > 0) {
                                 if (self.SelectedCity() && self.SelectedCity().id > 0) {
@@ -451,11 +437,9 @@ input[type="number"]:focus {
                                         cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
                                         lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
                                     }
-                                    SetCookieInDays("location", cookieValue, 365);
-
+                                    SetCookieInDays("location", cookieValue, 365); 
                                     self.LoadingText(lbtext);
                                 }
-
                             }
 
                             if (jsonObj.dealerId > 0)
@@ -524,6 +508,13 @@ input[type="number"]:focus {
                         self.SelectedArea(null);
                         self.SelectedAreaId(0);
                         self.InitializePQ(true);
+                        self.BookingAreas([]);
+                    }
+                    else{
+                        self.IsLoading(false);
+                        self.SelectedArea(null);
+                        self.SelectedAreaId(0);
+                        self.BookingAreas([]);
                     }
 
                     if (ga_pg_id != null && ga_pg_id == 2) {
