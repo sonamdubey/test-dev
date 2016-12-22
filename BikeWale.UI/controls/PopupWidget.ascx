@@ -140,7 +140,14 @@ input[type="number"]:focus {
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all; }
 
-  #popup-loader-container{position:relative}
+  #popup-loader-container{
+    position: fixed;
+    border: 1px solid #ccc;
+    width: 200px;
+    min-height: 100px;
+    top: 50%;
+    left: 60%;
+          position:relative}
 
   #popup-loader, .cover-popup-loader {
     height: 50px;
@@ -166,7 +173,7 @@ input[type="number"]:focus {
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
 <script type="text/javascript" src="<%= staticUrl1 != "" ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/knockout.validation.js?<%= staticFileVersion1 %>"></script>
-<div id="priceQuoteWidget">
+<div id="priceQuoteWidget" class="hide">
            <!-- ko if : IsLoading() -->
         <div id="popup-loader-container">
             <div id="popup-loader"></div>
@@ -176,7 +183,7 @@ input[type="number"]:focus {
         </div>
         <!-- /ko -->
     <!-- ko ifnot : IsLoading() -->
-    <div class="bw-popup hide bw-popup-sm">
+    <div class="bw-popup bw-popup-sm">
     <div class="popup-inner-container">
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div class="cityPop-icon-container">
@@ -260,9 +267,10 @@ input[type="number"]:focus {
 
         if(options.modelId > 0)
         {
+            $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
             vmquotation.IsLoading(true);
             vmquotation.setOptions(options);
-            $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+           
         }
 
     });
@@ -340,6 +348,8 @@ input[type="number"]:focus {
         self.setOptions = function (options, event) {
             if (options != null) {
 
+                self.IsLoading(true);
+
                 self.SelectedModelId(options.modelId || 0);
                 self.SelectedCityId(options.cityId || 0);
 
@@ -366,8 +376,6 @@ input[type="number"]:focus {
         };
 
         self.InitializePQ = function (isLocChanged) {
-
-            self.IsLoading(true);
 
             if (self.SelectedModelId() != null && self.SelectedModelId() > 0) {
 
