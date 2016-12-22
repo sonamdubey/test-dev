@@ -498,12 +498,13 @@
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                         <span class="vertical-top details-column font14 text-light-grey"><%= bike.Area %></span>
                                                     </div>
-                                                    <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
                                                     <div>
+                                                        <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
                                                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                                         <% } %>
                                                         <span class="vertical-top details-column font14 text-default text-bold"><%= bike.MaskingNumber %></span>
                                                     </div>
-                                                    <% } %>
+                                                   
                                                     <div class="margin-top10">
                                                         <div class="grid-5 alpha omega">
                                                             <p class="font12 text-light-grey margin-bottom5">On-road price</p>
