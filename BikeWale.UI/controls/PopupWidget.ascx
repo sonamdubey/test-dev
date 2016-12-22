@@ -370,7 +370,6 @@ input[type="number"]:focus {
                     <p class="position-abt progress-bar"></p>
                     <p class="position-abt progress-bar-label"></p>
                 </div>  
-                <%--<input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>--%>
             </div>
        
         </div>
