@@ -1,15 +1,18 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.ServiceCenters;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-
 namespace Bikewale.Mobile.Controls
 {
     /// <summary>
@@ -85,13 +88,25 @@ namespace Bikewale.Mobile.Controls
         /// <returns></returns>
         private void GetCityMaskingName(uint cityId)
         {
-            ICity _city = new CityRepository();
-            List<CityEntityBase> objCityList = null;
-
+            IEnumerable<CityEntityBase> objCityList = null;
             try
             {
-                objCityList = _city.GetAllCities(EnumBikeType.All);
-                cityMaskingName = objCityList.Find(c => c.CityId == cityId).CityMaskingName;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>(); ;
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
+                    objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
+
+
+                    CityEntityBase SelectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
+                    if (SelectedCity != null)
+                    {
+                        cityMaskingName = SelectedCity.CityName;
+                    }
+
+                }
             }
             catch (Exception ex)
             {

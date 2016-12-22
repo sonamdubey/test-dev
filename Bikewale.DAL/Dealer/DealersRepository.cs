@@ -820,11 +820,11 @@ namespace Bikewale.DAL.Dealer
                                 {
                                     objDealerServiceDetails.DealerDetails.Add(new PopularCityDealerEntity
                                         {
-                                            CityId = Convert.ToUInt32(dr["CityId"]),
+                                            CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                             CityName = Convert.ToString(dr["Name"]),
                                             CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-                                            DealerCount = Convert.ToUInt32(dr["dealerscnt"]),
-                                            ServiceCenterCount = Convert.ToUInt32(dr["ServiceCenterCount"])
+                                            DealerCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
+                                            ServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"])
                                         });
 
                                 }
@@ -834,14 +834,14 @@ namespace Bikewale.DAL.Dealer
                             {
                                 while (dr.Read())
                                 {
-                                    objDealerServiceDetails.TotalDealerCount = Convert.ToUInt32(dr["DealerCount"]);
+                                    objDealerServiceDetails.TotalDealerCount = SqlReaderConvertor.ToUInt32(dr["DealerCount"]);
                                 }
                             }
                             if (dr.NextResult())
                             {
                                 while (dr.Read())
                                 {
-                                    objDealerServiceDetails.TotalServiceCenterCount = Convert.ToUInt32(dr["ServiceCenterCount"]);
+                                    objDealerServiceDetails.TotalServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"]);
                                 }
                             }
 

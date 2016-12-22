@@ -667,7 +667,7 @@
                         <%} %>
                         <% if (ctrlDealerCard.showWidget)
                                    { %>
-                                <a href="#makeDealersContent" rel="nofollow">Dealers</a>
+                                <a href="#makeDealersContent" rel="nofollow">Dealer & Service Center</a>
                                 <%} %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>

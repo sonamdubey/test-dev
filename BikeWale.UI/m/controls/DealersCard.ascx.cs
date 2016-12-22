@@ -134,7 +134,7 @@ namespace Bikewale.Mobile.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "DealersCard.BindDealers");
                 objErr.SendMail();
             }
         }

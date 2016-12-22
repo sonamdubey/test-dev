@@ -38,9 +38,9 @@
 <% }
        else
        { %>
+<%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
 <h2 class="padding-right20 padding-left20"><%= makeName %> Showrooms & Service Centers</h2>
-
     <div class="swiper-container card-container margin-bottom15">
         <!-- dealers when no city selected -->
         <div class="swiper-wrapper">
@@ -64,5 +64,6 @@
         <a href="<%= String.Format("/m/new/{0}-dealers/", makeMaskingName) %>"title="<%=makeName %> Dealers in India">View all dealers in India<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
      </div>
 </div>
+<%} %>
 <% } %>
 <% } %>

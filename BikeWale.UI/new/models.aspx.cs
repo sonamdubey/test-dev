@@ -50,7 +50,7 @@ namespace Bikewale.New
         private string makeMaskingName;
         private GlobalCityAreaEntity currentCityArea;
         protected uint cityId = 0;
-        protected string cityName, cityMaskingName;
+        protected string cityName = string.Empty, cityMaskingName = string.Empty;
 
 
         protected UsedBikes ctrlRecentUsedBikes;
