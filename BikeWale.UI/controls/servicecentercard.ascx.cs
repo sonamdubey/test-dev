@@ -72,7 +72,7 @@ namespace Bikewale.Controls
                     if (totalList != null)
                         ServiceCenteList = totalList.Take(TopCount);
 
-                    if (centerData.Count > 1)
+                    if (centerData.Count > 0)
                         showWidget = true;
 
                 }
