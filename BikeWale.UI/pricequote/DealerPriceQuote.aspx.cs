@@ -391,37 +391,24 @@ namespace Bikewale.BikeBooking
         /// Description : get city area name from global city
         /// </summary>
         /// <returns></returns>
-        protected string GetLocationCookie()
+
+        private string GetLocationCookie()
         {
-            string loctn = string.Empty;
-            try
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
             {
-                CityArea = GlobalCityArea.GetGlobalCityArea();
-                if (CityArea != null)
+                location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
+                string[] arr = location.Split('_');
+                if (arr.Length > 0)
                 {
-                    if (areaId == 0)
+                    if (arr.Length > 2)
                     {
-                        loctn = string.Format("<span>{0}</span>", CityArea.City);
+                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
                     }
-                    else
-                    {
-                        if (!String.IsNullOrEmpty(CityArea.Area))
-                        {
-                            loctn = string.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
-                        }
-                        else
-                        {
-                            loctn = string.Format("<span>{0}</span>", CityArea.City);
-                        }
-                    }
+                    return String.Format("<span>{0}</span>", arr[1]);
                 }
             }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> GetLocationCookie() versionid {0}", versionId));
-                objErr.SendMail();
-            }
-            return loctn;
+            return string.Empty;
         }
 
         /// <summary>
