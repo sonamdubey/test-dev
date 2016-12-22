@@ -27,7 +27,7 @@
                                 <tbody><tr>
                                     <td width="120">
                                         <span class="leftfloat">
-                                            &#62;&nbsp;<a class="fillPopupData" modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" href="/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" title="Check <%#DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price">On-Road Price</a>
+                                            &#62;&nbsp;<a class="getquotation" data-modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" href="/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" title="Check <%#DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price">On-Road Price</a>
                                         </span>
                                     </td>
                                     <td width="100">

@@ -190,15 +190,15 @@
                                     <% } %>
                                     <% else if (!isCitySelected)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
-                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                     <% } %>
                                     <%  if (price == 0)
@@ -231,7 +231,7 @@
                                        else
                                            if (toShowOnRoadPriceButton)
                                            { %>
-                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                     <div class="clear"></div>
 
                                     <% } %>
@@ -621,7 +621,7 @@
                         <div class="grid-3 model-orp-btn alpha omega">
                             <% if (toShowOnRoadPriceButton && !isDiscontinued)
                                { %>
-                            <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check on-road price</a>
+                            <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> getquotation bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check on-road price</a>
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>

@@ -157,7 +157,7 @@
 									<p>Complete buying assistance</p>
 								</li>
 							</ul>
-							<a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity bw-ga" rel="nofollow">Select your area</a>
+							<a href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="<%=cityId %>" data-persistent="true" data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
 							<%}
 							   else
 							   { %>

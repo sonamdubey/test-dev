@@ -107,7 +107,7 @@
                                                 <div class="text-bold">
                                                     <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                                 </div>
-                                                <a href="Javascript:void(0)" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
+                                                <a href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" data-makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" data-modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" data-modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -131,7 +131,7 @@
                                                 <div class="text-bold">
                                                     <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                                 </div>
-                                                <a href="Javascript:void(0)" pagecatid="1" pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 fillPopupData">Check on-road price</a>
+                                                <a href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" data-makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" data-modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" data-modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                             </div>
                                         </div>
                                     </li>
