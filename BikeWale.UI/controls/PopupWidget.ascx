@@ -5,323 +5,15 @@
 </script>
 
 <!--bw popup code starts here-->
-<script type="text/javascript">
-
-    var pCityId = <%= CityId %>;
-    var pAreaId = <%= AreaId %>;
-    var onCookieObj = {};
-</script>
-
 <style type="text/css" >
-    
-.select-box {
-  height: 60px;
-  position: relative; }
-  .select-box .select-label {
-    position: absolute;
-    top: 0;
-    color: #82888b;
-    font-size: 16px; }
-  .select-box .chosen-container {
-    height: 30px;
-    position: relative;
-    top: 0;
-    padding: 0;
-    border: 0;
-    cursor: pointer;
-    border-bottom: 1px solid #82888b;
-    background: transparent url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    border-radius: 0; }
-    .select-box .chosen-container .chosen-single {
-      color: #4d5057;
-      font-size: 16px;
-      font-weight: 700;
-      background: transparent; }
-    .select-box .chosen-container .chosen-default {
-      display: none; }
-    .select-box .chosen-container .chosen-search {
-      padding: 0;
-      border-bottom: 1px solid #41b4c4; }
-      .select-box .chosen-container .chosen-search input[type=text] {
-        border: 0;
-        padding: 12px 10px;
-        font-size: 16px; }
-    .select-box .chosen-container .chosen-results {
-      margin: 0;
-      padding: 0;
-      font-size: 14px; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar {
-        width: 5px; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar {
-        width: 5px; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
-        background: #fff; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar-track {
-        background: #fff; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
-        background: #ddd; }
-      .select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb {
-        background: #ddd; }
-      .select-box .chosen-container .chosen-results li {
-        padding: 8px 10px;
-        transition: background .1s linear; }
-      .select-box .chosen-container .chosen-results .highlighted {
-        background-color: #f5f5f5; }
-      .select-box .chosen-container .chosen-results .result-selected {
-        font-weight: 700; }
-    .select-box .chosen-container .chosen-drop {
-      width: 350px;
-      z-index: 1;
-      top: -15px;
-      border: 1px solid #e2e2e2;
-      -webkit-box-shadow: 0 2px 10px 1px #ccc;
-      -moz-box-shadow: 0 2px 10px 1px #ccc;
-      -ms-box-shadow: 0 2px 10px 1px #ccc;
-      -o-box-shadow: 0 2px 10px 1px #ccc;
-      box-shadow: 0 2px 10px 1px #ccc;
-      -webkit-border-radius: 2px;
-      -moz-border-radius: 2px;
-      -ms-border-radius: 2px;
-      border-radius: 2px; }
-
-.select-box.select-box-no-input .chosen-search {
-  border-bottom: 1px solid #e2e2e2; }
-
-.select-box.select-box-no-input .chosen-results li {
-  padding-right: 20px;
-  padding-left: 20px; }
-
-.select-box.select-box-no-input .no-input-label {
-  font-size: 16px;
-  color: #4d5057;
-  padding: 11px 20px;
-  cursor: text; }
-
-.done .select-label {
-  font-size: 12px;
-  top: -20px; }
-
-.select-box .chosen-single:focus {
-  outline: none; }
-
-.chosen-disabled.single-version {
-  opacity: 1 !important;
-  background: none; }
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-  outline: none;
-  box-shadow: none; }
-
-.input-box {
-  height: 60px;
-  text-align: left; }
-  .input-box input {
-    width: 100%;
-    display: block;
-    padding: 7px 0;
-    border-bottom: 1px solid #82888b;
-    font-size: 16px;
-    font-weight: 700;
-    color: #4d5057; }
-  .input-box label {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    user-select: none;
-    font-size: 16px;
-    color: #82888b;
-    cursor: text;
-    -webkit-transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -o-transition: 0.2s ease all;
-    transition: 0.2s ease all; }
-
-    #popup-loader-container {
-        position: fixed;
-        border: 1px solid #ccc;
-        width: 200px;
-        min-height: 100px;
-        top: 40%;
-        left: 50%;
-        background-color: white;
-    }
-
-  #popup-loader, .cover-popup-loader {
-    height: 50px;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) no-repeat center center;
-    position: absolute;
-    top: 45%;
-    left: 5%;
-    right: 5%;
-    margin: 0 auto;
-}
-
-  #popup-loader-text, .cover-popup-loader-text {
-    position: absolute;
-    top: 60%;
-    margin: 0 auto;
-    left: 5%;
-    right: 5%;
-    text-align: center;
-}
-
-#priceQuoteWidget .bw-popup {
-    left: 5%;
-    right: 5%;
-    margin: 0 auto;
-}
-
-#priceQuoteWidget .bw-popup-sm {
-    height: 400px;
-    min-height: 400px;
-    top: 0% !important;
-    margin-top: 10%;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#priceQuoteWidget .location-loader-active.bw-popup-sm {
-    width: 220px;
-    height: 120px;
-    min-height: 120px;
-    position: fixed;
-    top: 0%;
-    margin: 20% auto;
-    z-index: 999;
-    text-align: center;
-}
-
-.popup-inner-container {
-    opacity: 0;
-}
-
-.activate-popup-content .popup-inner-container {
-    opacity: 1;
-    transition: opacity 0.2s;
-    transition-delay: 0.2s;
-}
-
-.location-loader-container {
-    perspective: 1000px;
-    margin: 0 auto 10px;
-}
-
-.location-loader-container, .loader-front, .loader-back {
-    width: 22px;
-    height: 30px;
-}
-
-.loader-flipper {
-    transform-style: preserve-3d;
-    position: relative;
-}
-
-.loader-front, .loader-back {
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation-duration: 2s;
-    animation-iteration-count: 20;
-    animation-timing-function: ease;
-}
-
-.loader-front {
-    -webkit-animation-name: flipOutFront;
-    -moz-animation-name: flipOutFront;
-    -o-animation-name: flipOutFront;
-    -ms-animation-name: flipOutFront;
-    animation-name: flipOutFront;
-}
-
-.loader-back {
-    -webkit-animation-name: flipInBack;
-    -moz-animation-name: flipInBack;
-    -o-animation-name: flipInBack;
-    -ms-animation-name: flipInBack;
-    animation-name: flipInBack;
-}
-
-.loader-front {
-    z-index: 2;
-}
-
-@keyframes flipOutFront {
-    0% {
-        -webkit-transform: rotateY(0deg);
-        -moz-transform: rotateY(0deg);
-        -o-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        transform: rotateY(0deg);
-    }
-    50% {
-        -webkit-transform: rotateY(180deg);
-        -moz-transform: rotateY(180deg);
-        -o-transform: rotateY(180deg);
-        -ms-transform: rotateY(180deg);
-        transform: rotateY(180deg);
-    }
-    100% {
-        -webkit-transform: rotateY(0deg);
-        -moz-transform: rotateY(0deg);
-        -o-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        transform: rotateY(0deg);
-    }
-}
-
-@keyframes flipInBack {
-    0% {
-        -webkit-transform: rotateY(180deg);
-        -moz-transform: rotateY(180deg);
-        -o-transform: rotateY(180deg);
-        -ms-transform: rotateY(180deg);
-        transform: rotateY(180deg);
-    }
-    50% {
-        -webkit-transform: rotateY(0deg);
-        -moz-transform: rotateY(0deg);
-        -o-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        transform: rotateY(0deg);
-    }
-    100% {
-        -webkit-transform: rotateY(180deg);
-        -moz-transform: rotateY(180deg);
-        -o-transform: rotateY(180deg);
-        -ms-transform: rotateY(180deg);
-        transform: rotateY(180deg);
-    }
-}
-
-.progress-bar {
-    width: 0;
-    height: 2px;
-    background: #16A085;
-    top: 28px;
-    left: 0;
-    border-radius: 2px;
-}
-
-.progress-bar-label {
-    left: 0;
-    top: 32px;
-}
-
+.select-box{height:60px;position:relative}.select-box .select-label{position:absolute;top:0;color:#82888b;font-size:16px}.select-box .chosen-container{height:30px;position:relative;top:0;padding:0;border:0;cursor:pointer;border-bottom:1px solid #82888b;background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;border-radius:0}.select-box .chosen-container .chosen-single{color:#4d5057;font-size:16px;font-weight:700;background:0 0}.select-box .chosen-container .chosen-default{display:none}.select-box .chosen-container .chosen-search{padding:0;border-bottom:1px solid #41b4c4}.select-box .chosen-container .chosen-search input[type=text]{border:0;padding:12px 10px;font-size:16px}.select-box .chosen-container .chosen-results{margin:0;padding:0;font-size:14px}.select-box .chosen-container .chosen-results::-webkit-scrollbar{width:5px}.select-box .chosen-container .chosen-results::-webkit-scrollbar-track{background:#fff}.select-box .chosen-container .chosen-results::-webkit-scrollbar-thumb{background:#ddd}.select-box .chosen-container .chosen-results li{padding:8px 10px;transition:background .1s linear}.select-box .chosen-container .chosen-results .highlighted{background-color:#f5f5f5}.select-box .chosen-container .chosen-results .result-selected{font-weight:700}.select-box .chosen-container .chosen-drop{width:350px;z-index:1;top:-15px;border:1px solid #e2e2e2;-webkit-box-shadow:0 2px 10px 1px #ccc;-moz-box-shadow:0 2px 10px 1px #ccc;-ms-box-shadow:0 2px 10px 1px #ccc;-o-box-shadow:0 2px 10px 1px #ccc;box-shadow:0 2px 10px 1px #ccc;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.select-box.select-box-no-input .chosen-search{border-bottom:1px solid #e2e2e2}.select-box.select-box-no-input .chosen-results li{padding-right:20px;padding-left:20px}.select-box.select-box-no-input .no-input-label{font-size:16px;color:#4d5057;padding:11px 20px;cursor:text}.done .select-label{font-size:12px;top:-20px}.select-box .chosen-single:focus{outline:0}.chosen-disabled.single-version{opacity:1!important;background:0 0}input[type=text]:focus,input[type=number]:focus{outline:0;box-shadow:none}.input-box{height:60px;text-align:left}.input-box input{width:100%;display:block;padding:7px 0;border-bottom:1px solid #82888b;font-size:16px;font-weight:700;color:#4d5057}.input-box label{position:absolute;top:4px;left:0;user-select:none;font-size:16px;color:#82888b;cursor:text;-webkit-transition:.2s ease all;-moz-transition:.2s ease all;-o-transition:.2s ease all;transition:.2s ease all}#popup-loader-container{position:fixed;border:1px solid #ccc;width:200px;min-height:100px;top:40%;left:50%;background-color:#fff}#popup-loader,.cover-popup-loader{height:50px;background:url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/loader-red.gif) center center no-repeat;position:absolute;top:45%;left:5%;right:5%;margin:0 auto}#popup-loader-text,.cover-popup-loader-text{position:absolute;top:60%;margin:0 auto;left:5%;right:5%;text-align:center}#priceQuoteWidget .bw-popup{left:5%;right:5%;margin:0 auto}#priceQuoteWidget .bw-popup-sm{height:400px;min-height:400px;top:0!important;margin-top:10%;-webkit-transition:all .5s ease;-moz-transition:all .5s ease;-ms-transition:all .5s ease;transition:all .5s ease}#priceQuoteWidget .location-loader-active.bw-popup-sm{width:220px;height:120px;min-height:120px;position:fixed;top:0;margin:20% auto;z-index:999;text-align:center}.popup-inner-container{opacity:0}.activate-popup-content .popup-inner-container{opacity:1;transition:opacity .2s;transition-delay:.2s}.location-loader-container{perspective:1000px;margin:0 auto 10px}.loader-back,.loader-front,.location-loader-container{width:22px;height:30px}.loader-flipper{transform-style:preserve-3d;position:relative}.loader-back,.loader-front{backface-visibility:hidden;position:absolute;top:0;left:0;animation-duration:2s;animation-iteration-count:20;animation-timing-function:ease}.loader-front{-webkit-animation-name:flipOutFront;-moz-animation-name:flipOutFront;-o-animation-name:flipOutFront;-ms-animation-name:flipOutFront;animation-name:flipOutFront;z-index:2}.loader-back{-webkit-animation-name:flipInBack;-moz-animation-name:flipInBack;-o-animation-name:flipInBack;-ms-animation-name:flipInBack;animation-name:flipInBack}@keyframes flipOutFront{0%,100%{-webkit-transform:rotateY(0);-moz-transform:rotateY(0);-o-transform:rotateY(0);-ms-transform:rotateY(0);transform:rotateY(0)}50%{-webkit-transform:rotateY(180deg);-moz-transform:rotateY(180deg);-o-transform:rotateY(180deg);-ms-transform:rotateY(180deg);transform:rotateY(180deg)}}@keyframes flipInBack{0%,100%{-webkit-transform:rotateY(180deg);-moz-transform:rotateY(180deg);-o-transform:rotateY(180deg);-ms-transform:rotateY(180deg);transform:rotateY(180deg)}50%{-webkit-transform:rotateY(0);-moz-transform:rotateY(0);-o-transform:rotateY(0);-ms-transform:rotateY(0);transform:rotateY(0)}}.progress-bar{width:0;height:2px;background:#16A085;top:28px;left:0;border-radius:2px}.progress-bar-label{left:0;top:32px}
 </style>
 
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
 
 
-<div id="priceQuoteWidget" class="hide">
-    
+<div id="priceQuoteWidget" class="hide">     
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
         <div class="content-inner-block-20">
@@ -360,7 +52,7 @@ input[type="number"]:focus {
                         <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div> 
-                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 0">
+                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 1 ">
                    <p class="select-label">Area</p>
                     <select class="chosen-select" data-placeholder="Select area" id="ddlAreaPopup" tabindex="3"
                          data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">
@@ -370,19 +62,17 @@ input[type="number"]:focus {
                     <p class="position-abt progress-bar"></p>
                     <p class="position-abt progress-bar-label"></p>
                 </div>  
-                <%--<input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>--%>
             </div>
        
         </div>
-        <!-- /ko -->
+         <!-- /ko -->
     </div>
-    <!-- /ko -->
-</div>
-
+</div> 
 <!--bw popup code ends here-->
 
 <!-- widget script starts here-->
 <script type="text/javascript">
+    var onCookieObj = {};
 
     $(document).ready(function(){
         $(document).on("click",".blackOut-window,#priceQuoteWidget div.bw-popup div.close-btn",function(){ 
@@ -505,7 +195,7 @@ input[type="number"]:focus {
             }
         };
 
-        self.InitializePQ = function (isLocChanged) {
+        self.InitializePQ = function () {
 
             if (self.SelectedModelId() != null && self.SelectedModelId() > 0) {
 
@@ -614,8 +304,7 @@ input[type="number"]:focus {
                         }
                     },
                     complete : function()
-                    {
-                       
+                    {                       
                         if(self.SelectedCityId() > 0)
                         {
                             $('#ddlCitiesPopup').parent().addClass('done');
@@ -624,7 +313,6 @@ input[type="number"]:focus {
                                 $('#ddlAreaPopup').parent().addClass('done');
                             }
                         }
-
                         pqPopupContent.updateChosen( $('#ddlCitiesPopup'));
                         pqPopupContent.updateChosen( $('#ddlAreaPopup'));
                         
@@ -659,8 +347,8 @@ input[type="number"]:focus {
                         self.LoadingText("Loading areas for " + self.SelectedCity().name);
                     }
 
-                    if (self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
-                        self.InitializePQ(true); 
+                    if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
+                        self.InitializePQ(); 
                     }
                     else{
                         self.IsLoading(false);
@@ -698,7 +386,7 @@ input[type="number"]:focus {
                     if (self.SelectedArea().id != onCookieObj.PQAreaSelectedId) {
                         self.LoadingText("Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name);
                         self.IsLoading(true);
-                        self.InitializePQ(true);
+                        self.InitializePQ();
                     }
 
                     if (ga_pg_id != null && ga_pg_id == 2) {
@@ -713,17 +401,21 @@ input[type="number"]:focus {
 
         self.CheckCookies = function()
         {
-            c = document.cookie.split('; ');
-            for (i = c.length - 1; i >= 0; i--) {
-                C = c[i].split('=');
-                if (C[0] == "location") {
-                    var cData = (String(C[1])).split('_');
-                    onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
-                    onCookieObj.PQCitySelectedName = cData[1] || "";
-                    onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
-                    onCookieObj.PQAreaSelectedName = cData[3] || "";
-                    break;
+            try {
+                c = document.cookie.split('; ');
+                for (i = c.length - 1; i >= 0; i--) {
+                    C = c[i].split('=');
+                    if (C[0] == "location") {
+                        var cData = (String(C[1])).split('_');
+                        onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
+                        onCookieObj.PQCitySelectedName = cData[1] || "";
+                        onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
+                        onCookieObj.PQAreaSelectedName = cData[3] || "";
+                        break;
+                    }
                 }
+            } catch (e) {
+                console.warn(e);
             }
         };
 
