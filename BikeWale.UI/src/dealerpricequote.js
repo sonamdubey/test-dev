@@ -23,7 +23,7 @@ $(function () {
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
         $("#otpPopup").hide();
-        $('body').addClass('lock-browser-scroll');
+        //$('body').addClass('lock-browser-scroll');
         $(".blackOut-window").show();
 
     });
