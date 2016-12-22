@@ -109,7 +109,7 @@
                                 <% } %>
                                 <asp:HiddenField ID="hdnVariant" runat="server" />
 
-                                <div class="position-rel top-minus5 vertical-top">
+                                <div class="position-rel top-minus5 vertical-top getquotation" data-persistent="true" data-modelid="<%= modelId %>">
                                     <p class="font12 text-light-grey">Location</p>
                                     <p class="font14 text-bold block position-rel pos-top2">
                                         <%= location %> <span class="margin-left5">

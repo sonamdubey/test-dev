@@ -166,8 +166,18 @@ input[type="number"]:focus {
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
 <script type="text/javascript" src="<%= staticUrl1 != "" ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/knockout.validation.js?<%= staticFileVersion1 %>"></script>
-<div class="bw-popup hide bw-popup-sm" id="popupWrapper">
-    <div class="popup-inner-container" stopbinding: true>
+<div id="priceQuoteWidget">
+           <!-- ko if : IsLoading() -->
+        <div id="popup-loader-container">
+            <div id="popup-loader"></div>
+            <div id="popup-loader-text">
+                <p data-bind="text : LoadingText()" class="font14"></p> 
+            </div>
+        </div>
+        <!-- /ko -->
+    <!-- ko ifnot : IsLoading() -->
+    <div class="bw-popup hide bw-popup-sm">
+    <div class="popup-inner-container">
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div class="cityPop-icon-container">
             <div class="icon-outer-container rounded-corner50 margin-bottom20">
@@ -178,15 +188,7 @@ input[type="number"]:focus {
         </div>
         <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
-        <!-- ko if : IsLoading() -->
-        <div id="popup-loader-container">
-            <div id="popup-loader"></div>
-            <div id="popup-loader-text">
-                <p data-bind="text : LoadingText()" class="font14"></p> 
-            </div>
-        </div>
-        <!-- /ko -->
-         <!-- ko ifnot : IsLoading() -->
+         
             <div class="padding-top10" id="popupContent">
                 <div class="select-box margin-top10">
                    <p class="select-label">City<sup>*</sup></p>
@@ -206,9 +208,12 @@ input[type="number"]:focus {
                 </div>  
                 <input id="btnDealerPricePopup" class ="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Show on-road price" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} "/>
             </div>
-        <!-- /ko -->
+       
     </div>
 </div>
+     <!-- /ko -->
+</div>
+
 <!--bw popup code ends here-->
 
 <!-- widget script starts here-->
@@ -217,10 +222,9 @@ input[type="number"]:focus {
 
     $(document).ready(function(){
 
-        $('.blackOut-window,#popupWrapper .close-btn').click(function () {
+        $('.blackOut-window,#priceQuoteWidget .close-btn').click(function () {
             $('.getquotation').removeClass('ui-btn-active');
-            $("#popupContent,.blackOut-window").hide();
-            $('#popupWrapper').removeClass('loader-active').hide();
+            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
         });
 
 
@@ -236,7 +240,7 @@ input[type="number"]:focus {
     $(document).on("click", ".getquotation", function (e) {
         var ele = $(this); e.stopPropagation();
 
-        checkCookies();
+        vmquotation.CheckCookies();
         var options = {
             "modelId": ele.attr('data-modelid'),
             "cityId": onCookieObj.PQCitySelectedId,
@@ -258,7 +262,7 @@ input[type="number"]:focus {
         {
             vmquotation.IsLoading(true);
             vmquotation.setOptions(options);
-            $('#popupWrapper,#popupContent,.blackOut-window').show();
+            $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
         }
 
     });
@@ -400,16 +404,16 @@ input[type="number"]:focus {
                                 cities.splice(0, 0, dummyOption);
                                 self.BookingCities(cities);
                                 if (self.SelectedCityId() > 0) {
-                                    self.SelectedCity(findCityById(self.SelectedCityId()));
+                                    self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
 
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
                                     var areas = ko.toJS(_responseData.pqAreas);
-                                    if (areas) {
+                                    if (areas != null && areas.length > 0) {
                                         areas.splice(0, 0, dummyOption);
                                         self.BookingAreas(areas);
                                         if (self.SelectedAreaId() > 0) {
-                                            self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                                            self.SelectedArea(self.findItemById(self.BookingAreas(),"id",self.SelectedAreaId()));
                                         }
                                         else self.SelectedArea(null);
                                     }
@@ -492,7 +496,7 @@ input[type="number"]:focus {
         self.selectCity = function (nVal) {
 
             try {
-                self.SelectedCity(findCityById(self.SelectedCityId()));
+                self.SelectedCity(self.findItemById(self.BookingCities(),"id",self.SelectedCityId()));
 
                 if (self.SelectedCity() != null &&  self.SelectedCity().id > 0) {
                     $('#ddlCitiesPopup').trigger("chosen:updated").parent().addClass('done');
@@ -533,7 +537,7 @@ input[type="number"]:focus {
 
             try {
 
-                self.SelectedArea(findAreaById(self.SelectedAreaId()));
+                self.SelectedArea(self.findItemById(self.BookingAreas(),"id",self.SelectedAreaId()));
 
                 if (self.SelectedArea()!=null && self.SelectedArea().id > 0) {
                     $('#ddlAreaPopup').trigger("chosen:updated").parent().addClass('done');
@@ -553,20 +557,31 @@ input[type="number"]:focus {
             }
 
         };
+
+        self.CheckCookies = function()
+        {
+            c = document.cookie.split('; ');
+            for (i = c.length - 1; i >= 0; i--) {
+                C = c[i].split('=');
+                if (C[0] == "location") {
+                    var cData = (String(C[1])).split('_');
+                    onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
+                    onCookieObj.PQCitySelectedName = cData[1] || "";
+                    onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
+                    onCookieObj.PQAreaSelectedName = cData[3] || "";
+                    break;
+                }
+            }
+        };
+
+        self.findItemById = function(items,attr,item)
+        {
+            return ko.utils.arrayFirst(items, function (child) {
+                return (child[attr]==item);
+            });
+        };
     }
 
-
-    function findAreaById(id) {
-        return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
-            return (child.id == id || child.areaId == id);
-        });
-    }
-
-    function findCityById(id) {
-        return ko.utils.arrayFirst(vmquotation.BookingCities(), function (child) {
-            return (child.id == id || child.cityId == id);
-        });
-    }
 
     function gtmCodeAppender(pageId, action, label) {
         var category = '';
@@ -603,23 +618,8 @@ input[type="number"]:focus {
 
     }
 
-    function checkCookies() {
-        c = document.cookie.split('; ');
-        for (i = c.length - 1; i >= 0; i--) {
-            C = c[i].split('=');
-            if (C[0] == "location") {
-                var cData = (String(C[1])).split('_');
-                onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
-                onCookieObj.PQCitySelectedName = cData[1] || "";
-                onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
-                onCookieObj.PQAreaSelectedName = cData[3] || "";
-                break;
-            }
-        }
-    }
-
     var vmquotation = new mPopup;
-    ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
-    $('.chosen-select').chosen();
+    ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
+    $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
 
 </script>

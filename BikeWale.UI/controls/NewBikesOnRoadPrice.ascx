@@ -228,7 +228,7 @@
                     //SetCookie("_MPQ", cookieValue);
 
 
-                    if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                    if (jsonObj != undefined && jsonObj.quoteId > 0) {
 
                         if (jsonObj.dealerId > 0) {
                             gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
