@@ -360,7 +360,7 @@ input[type="number"]:focus {
                         <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div> 
-                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 0">
+                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 1 ">
                    <p class="select-label">Area</p>
                     <select class="chosen-select" data-placeholder="Select area" id="ddlAreaPopup" tabindex="3"
                          data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">
@@ -659,7 +659,7 @@ input[type="number"]:focus {
                         self.LoadingText("Loading areas for " + self.SelectedCity().name);
                     }
 
-                    if (self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
+                    if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
                         self.InitializePQ(true); 
                     }
                     else{
