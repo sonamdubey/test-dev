@@ -554,7 +554,7 @@
                                                 <div class="grid-10 alpha margin-bottom5">
                                                     <h3 class="text-black text-truncate"><%= dealer.Name%></h3>
                                                 </div>
-                                                <div class="grid-2 dealer-distance alpha omega font12 text-light-grey text-right pos-top2"><%= dealer.Distance%> kms</div>
+                                                <div class="grid-2 dealer-distance alpha omega font12 text-light-grey text-right pos-top2"><%= Math.Truncate(dealer.Distance) %> kms</div>
                                                 <div class="clear"></div>
 
                                                 <div class="margin-bottom5">
