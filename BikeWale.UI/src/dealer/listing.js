@@ -188,6 +188,7 @@ function initializeCityMap() {
 
             var myOptions = {
                 scrollwheel: false,
+                draggable: false,
                 zoom: 10,
                 center: latlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
