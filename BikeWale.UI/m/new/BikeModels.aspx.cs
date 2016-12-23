@@ -371,6 +371,7 @@ namespace Bikewale.Mobile.New
                 ctrlAlternativeBikes.WidgetTitle = bikeName;
                 ctrlAlternativeBikes.CityId = cityId;
                 ctrlAlternativeBikes.modelName = modelPage.ModelDetails.ModelName;
+                ctrlAlternativeBikes.CustomHeading = "More info about similar bikes";
             }
         }
 
