@@ -75,7 +75,6 @@
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
-    <Compile Include="MailTemplates\ModelSoldUnitMailTemplate.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate_old.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteToCustomerTemplate.cs" />

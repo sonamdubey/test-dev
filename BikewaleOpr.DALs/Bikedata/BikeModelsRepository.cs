@@ -2,7 +2,6 @@
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
-using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using MySql.CoreDAL;
 using System;
@@ -58,73 +57,5 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return _objBikeModels;
         }
-
-        /// <summary>
-        /// Created by Sajal Gupta on 22-12-2016
-        /// Des : Save model unit sold data in db
-        /// </summary>
-        /// <returns></returns>
-        public void SaveModelUnitSold(string list, DateTime date)
-        {
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "savemodelunitsold";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelunitsoldList", DbType.String, list));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_monthyear", DbType.DateTime, date));
-
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
-                objErr.SendMail();
-            }
-        }
-
-        /// <summary>
-        /// Created by Sajal Gupta on 22-12-2016
-        /// Des : Fetch last sold unit data from db
-        /// </summary>
-        /// <returns></returns>
-        public SoldUnitData GetLastSoldUnitData()
-        {
-            SoldUnitData dataObj = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    dataObj = new SoldUnitData();
-                    cmd.CommandText = "getlastsoldunitdate";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_lastUpdateDate", DbType.DateTime, ParameterDirection.Output));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isEmailToSend", DbType.Int16, ParameterDirection.Output));
-
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-
-                    if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_lastUpdateDate"].Value)))
-                        dataObj.LastUpdateDate = Convert.ToDateTime(cmd.Parameters["par_lastUpdateDate"].Value.ToString());
-
-                    if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_isEmailToSend"].Value)))
-                        dataObj.IsEmailToSend = (Convert.ToInt16(cmd.Parameters["par_isEmailToSend"].Value) == 1) ? true : false;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
-                objErr.SendMail();
-            }
-            return dataObj;
-        }
     }
 }
-
-
-
