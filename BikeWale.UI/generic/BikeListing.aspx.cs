@@ -1,20 +1,45 @@
 ﻿using Bikewale.Controls;
+using Bikewale.Entities.BikeData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Generic
 {
-    public partial class BikeListing : System.Web.UI.Page
+    public class BikeListing : System.Web.UI.Page
     {
         protected BestBikes ctrlBestBikes;
+        protected EnumBestBikeArticleType thisPage;
+
+        protected override void OnInit(EventArgs e)
+        {
+            InitializeComponent();
+        }
+
+        void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            ParseQueryString();
+            if (thisPage != null)
+                ctrlBestBikes.CurrentPage = thisPage;
+        }
 
+        private void ParseQueryString()
+        {
+            string page = Request.QueryString["page"];
+            if (!string.IsNullOrEmpty(page))
+            {
+                try
+                {
+                    thisPage = (EnumBestBikeArticleType)System.Enum.Parse(typeof(EnumBestBikeArticleType), page, true);
+                }
+                catch
+                {
+                    // 404
+                }
+            }
         }
     }
 }

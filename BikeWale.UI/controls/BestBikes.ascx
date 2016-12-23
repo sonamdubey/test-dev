@@ -1,9 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="BestBikes.ascx.cs" Inherits="Bikewale.Controls.BestBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.BestBikes" %>
 
 <div class="jcarousel-wrapper inner-content-carousel generic-carousel">
     <div class="jcarousel">
         <ul>
-            <li>
+            <li runat="server" id="bikes">
                 <a href="/best-bikes-in-india/" title="Top 10 bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
@@ -16,7 +16,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li runat="server" id="scooters">
                 <a href="/best-scooters-in-india/" title="Top 10 scooters in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
@@ -29,7 +29,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li runat="server" id="mileage">
                 <a href="/best-mileage-bikes-in-india/" title="Top 10 mileage bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
@@ -42,7 +42,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li runat="server" id="sports">
                 <a href="/best-sports-bikes-in-india/" title="Top 10 sports bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
@@ -55,7 +55,7 @@
                     </div>
                 </a>
             </li>
-            <li>
+            <li runat="server" id="cruiser">
                 <a href="/best-cruiser-bikes-in-india/" title="Top 10 cruiser bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">

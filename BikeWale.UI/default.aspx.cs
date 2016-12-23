@@ -92,6 +92,7 @@ namespace Bikewale
                 //To get Upcoming Bike List Details 
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
+
             }
             catch (Exception ex)
             {
