@@ -305,6 +305,20 @@
     font-weight: 400
 }
 
+/* dealer carousel */
+.dealer-city-image-preview { height: 75px; display:block; text-align:center; margin-bottom:10px; }
+.city-sprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 70px; }
+.mumbai-icon { width: 98px; background-position: 0 0; }
+.pune-icon { width: 140px; background-position: -108px 0; }
+.bangalore-icon { width: 102px; background-position: -258px 0; }
+.delhi-icon { width: 54px; background-position: -370px 0; }
+.chennai-icon { width: 41px; background-position: -434px 0; }
+.hyderabad-icon { width: 49px; background-position: -485px 0; }
+.kolkata-icon { width: 138px; background-position: -544px 0; }
+.lucknow-icon { width: 132px; background-position: -692px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
 
 @media all and (max-width: 350px) {
     .summary-overview-box > div.odd{padding-left:0;}

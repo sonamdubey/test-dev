@@ -70,7 +70,7 @@
 
 .locator-search-brand .chosen-container,
 .locator-search-city .chosen-container {
-  border: 1px solid #e2e2e2;
+  border: 1px solid #e2e2e2 !important;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
