@@ -54,10 +54,12 @@ namespace BikeWaleOpr
                     _objModelsRepo = container.Resolve<IBikeModels>();
 
                 }
+
+                NotificationTrigger();
             }
 
 
-            NotificationTrigger();
+
         }
 
         /// <summary>
