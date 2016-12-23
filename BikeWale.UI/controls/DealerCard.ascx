@@ -54,7 +54,7 @@
                                 </div>
                         </li>
                 <%} %>
-                <%if(cityDealers.TotalDealerCount>0||cityDealers.TotalServiceCenterCount>0) {%>
+               <%if(cityDealers.TotalDealerCount>0||cityDealers.TotalServiceCenterCount>0) {%>
                     <li>
                                 <div class="dealer-jcarousel-image-preview">
                                     <span class="city-sprite india-icon"></span>
@@ -63,14 +63,14 @@
                                     <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in india</p>
                                    <%if (cityDealers.TotalDealerCount > 0)
                                      {%>
-                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" ><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount>0 )? "showrooms" : "showroom" %></a>
+                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in india" ><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount>0 )? "showrooms" : "showroom" %></a>
                                     <%} %>
                                     <%if (cityDealers.TotalServiceCenterCount > 0)
                                       {%>
-                                    <p><a href="/<%=makeMaskingName%>-service-center-in-india/"><%=cityDealers.TotalServiceCenterCount %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p>
-                            <%} %>
-                        </div>
-                    </li>
+                                    <p><a href="/<%=makeMaskingName%>-service-center-in-india/" title="<%=makeName%> service center in india" ><%=cityDealers.TotalServiceCenterCount %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p>
+                                    <%} %>
+                                </div>
+                        </li>
                 <%} %>
             </ul>
         </div>
