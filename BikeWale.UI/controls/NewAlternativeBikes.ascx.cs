@@ -20,6 +20,7 @@ namespace Bikewale.Controls
         public string cityName { get; set; }
         public uint cityId { get; set; }
         public bool priceincitypage = false;
+        public string customHeading { get; set; }
         public ushort TopCount
         {
             get { return _topCount; }

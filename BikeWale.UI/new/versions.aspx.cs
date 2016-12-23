@@ -323,6 +323,7 @@ namespace Bikewale.New
                     ctrlAlternativeBikes.WidgetTitle = bikeName;
                     ctrlAlternativeBikes.model = modelPage.ModelDetails.ModelName;
                     ctrlAlternativeBikes.cityId = cityId;
+                    ctrlAlternativeBikes.customHeading = "More info about similar bikes";
                     if (modelPage != null)
                     {
                         var modelVersions = modelPage.ModelVersions;
