@@ -108,11 +108,11 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
 
-                    if (!string.IsNullOrEmpty(cmd.Parameters["par_lastUpdateDate"].Value.ToString()))
+                    if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_lastUpdateDate"].Value)))
                         dataObj.LastUpdateDate = Convert.ToDateTime(cmd.Parameters["par_lastUpdateDate"].Value.ToString());
 
-                    if (!string.IsNullOrEmpty(cmd.Parameters["par_isEmailToSend"].Value.ToString()))
-                        dataObj.IsEmailToSend = Convert.ToInt16(cmd.Parameters["par_isEmailToSend"].Value.ToString());
+                    if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_isEmailToSend"].Value)))
+                        dataObj.IsEmailToSend = (Convert.ToInt16(cmd.Parameters["par_isEmailToSend"].Value) == 1) ? true : false;
 
                 }
             }

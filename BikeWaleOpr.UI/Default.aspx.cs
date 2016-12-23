@@ -20,17 +20,6 @@ namespace BikeWaleOpr
 
         public Default()
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-
-                container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
-                .RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModels, BikeModelsRepository>()
-                .RegisterType<IBikeVersions, BikeVersionsRepository>();
-
-                _objModelsRepo = container.Resolve<IBikeModels>();
-
-            }
         }
 
         protected override void OnInit(EventArgs e)
@@ -53,6 +42,18 @@ namespace BikeWaleOpr
             else if (CurrentUser.Id == "1225") //customer id of nandu
             {
                 isShownNotification = true;
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+
+                    container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
+                    .RegisterType<IBikeMakes, BikeMakesRepository>()
+                    .RegisterType<IBikeModels, BikeModelsRepository>()
+                    .RegisterType<IBikeVersions, BikeVersionsRepository>();
+
+                    _objModelsRepo = container.Resolve<IBikeModels>();
+
+                }
             }
 
 
@@ -67,11 +68,11 @@ namespace BikeWaleOpr
         {
             dataObj = _objModelsRepo.GetLastSoldUnitData();
 
-            if (isShownNotification && dataObj.IsEmailToSend == 1)
+            if (isShownNotification && dataObj.IsEmailToSend)
             {
-                string[] arr1 = new string[] { "abhishek.singh@carwale.com" };
+                string[] ccArray = new string[] { "abhishek.singh@carwale.com" };
                 ComposeEmailBase objEmail = new ModelSoldUnitMailTemplate("NandKishor Sanas", dataObj.LastUpdateDate);
-                objEmail.Send("nandkishor.sanas@carwale.com", "Please update last month model sold data", "", arr1, null);
+                objEmail.Send("nandkishor.sanas@carwale.com", "Please update last month model sold data", "", ccArray, null);
             }
         }
     }

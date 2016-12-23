@@ -8,7 +8,7 @@ namespace BikewaleOpr.Entity.BikeData
     /// </summary>
     public class SoldUnitData
     {
-        public int IsEmailToSend { get; set; }
+        public bool IsEmailToSend { get; set; }
         public DateTime LastUpdateDate { get; set; }
 
     }

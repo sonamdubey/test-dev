@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="UnitSoldUpload.aspx.cs" Inherits="BikewaleOpr.content.UnitSoldUpload" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.UnitSoldUpload" %>
 <%@ Register TagPrefix="Vspl" TagName="Calendar" Src="/controls/DateControl.ascx" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script type="text/javascript" src="/src/common/common.js?V1.1"></script>

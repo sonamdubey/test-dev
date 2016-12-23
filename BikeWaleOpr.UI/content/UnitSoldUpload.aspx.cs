@@ -26,24 +26,54 @@ namespace BikewaleOpr.content
         private IBikeModels _objModelsRepo = null;
         protected BikeWaleOpr.Controls.DateControl calFrom;
         protected HtmlGenericControl spnFile;
+        protected Label lbl;
 
         protected override void OnInit(EventArgs e)
         {
+            intializeComponent();
             btnUploadFile.Click += new EventHandler(btnUploadFile_Click);
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 23-12-2016
+        /// Desac : Intialize span and label;
+        /// </summary>
+        private void intializeComponent()
+        {
+            try
+            {
+                lbl = FindControl("lblMessage") as Label;
+                spnFile = FindControl("spnFile") as HtmlGenericControl;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.intializeComponent()");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 22-12-2016
+        /// Desc : Constructor to intialize _objModelsRepo;
+        /// </summary>
         public UnitSoldUpload()
         {
             using (IUnityContainer container = new UnityContainer())
             {
+                try
+                {
+                    container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
+                    .RegisterType<IBikeMakes, BikeMakesRepository>()
+                    .RegisterType<IBikeModels, BikeModelsRepository>()
+                    .RegisterType<IBikeVersions, BikeVersionsRepository>();
 
-                container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
-                .RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModels, BikeModelsRepository>()
-                .RegisterType<IBikeVersions, BikeVersionsRepository>();
-
-                _objModelsRepo = container.Resolve<IBikeModels>();
-
+                    _objModelsRepo = container.Resolve<IBikeModels>();
+                }
+                catch (Exception err)
+                {
+                    ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.UnitSoldUpload()");
+                    objErr.SendMail();
+                }
             }
         }
 
@@ -54,9 +84,6 @@ namespace BikewaleOpr.content
         /// <param name="data"></param>
         void btnUploadFile_Click(object sender, EventArgs e)
         {
-            Label lbl = FindControl("lblMessage") as Label;
-            HtmlGenericControl spnFile = FindControl("spnFile") as HtmlGenericControl;
-
             if (UploadFile() == true)
             {
                 spnFile.InnerHtml = "";
@@ -71,9 +98,7 @@ namespace BikewaleOpr.content
             }
             else
             {
-
                 spnFile.InnerHtml = "Please update file";
-
                 lbl.Visible = false;
             }
         }
@@ -122,10 +147,7 @@ namespace BikewaleOpr.content
                 ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.ProcessData()");
                 objErr.SendMail();
 
-                HtmlGenericControl spnFile = FindControl("spnFile") as HtmlGenericControl;
                 spnFile.InnerHtml = "Please update file in correct format";
-
-                Label lbl = FindControl("lblMessage") as Label;
                 lbl.Visible = false;
 
             } // catch Exception
@@ -176,28 +198,35 @@ namespace BikewaleOpr.content
         /// <param name="data"></param>
         private DataTable GetDataFromExcel(string file)
         {
+            DataTable data = null;
             try
             {
                 OleDbConnection conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + file + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES;IMEX=1\";");
                 OleDbDataAdapter adapter = new OleDbDataAdapter("select * from [modelunitsold$]", conn);
                 DataSet dset = new DataSet();
                 adapter.Fill(dset);
-                var data = dset.Tables[0];
-                return data;
+
+                if (dset.Tables != null && dset.Tables.Count > 0)
+                {
+                    data = dset.Tables[0];
+                }
+                else
+                {
+                    spnFile.InnerHtml = "Please update file in correct format";
+                    lbl.Visible = false;
+                }
+
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "UnitSoldUpload.GetDataFromExcel()");
                 objErr.SendMail();
 
-                HtmlGenericControl spnFile = FindControl("spnFile") as HtmlGenericControl;
                 spnFile.InnerHtml = "Please update file in correct format";
-
-                Label lbl = FindControl("lblMessage") as Label;
                 lbl.Visible = false;
-
-                return null;
             }
+
+            return data;
         }
     }
 }
