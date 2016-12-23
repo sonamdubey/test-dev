@@ -57,11 +57,22 @@
                                  </div>
                     </div>
                 <%} %>
+               <%if(cityDealers.TotalDealerCount>0||cityDealers.TotalServiceCenterCount>0) {%>
+             <div class="swiper-slide no-city-dealer-list">
+                        <div class="swiper-card">
+                               <span class="dealer-city-image-preview">
+                                    <span class="city-sprite india-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in india</p>
+                                      <%if (cityDealers.TotalDealerCount > 0)
+                                        {%><a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-india/" ><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount > 1 )? "showrooms" : "showroom" %></a><%} %>
+                                     <%if (cityDealers.TotalServiceCenterCount > 0)
+                                       {%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-india/"><%=cityDealers.TotalServiceCenterCount>0 %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
+                                 </div>
+                    </div>
+             <%} %>
              
         </div>
-     </div>
-     <div class="padding-right20 padding-left20">
-        <a href="<%= String.Format("/m/new/{0}-dealers/", makeMaskingName) %>"title="<%=makeName %> Dealers in India">View all dealers in India<span class="bwmsprite blue-right-arrow-icon font14"></span></a>
      </div>
 </div>
 <%} %>
