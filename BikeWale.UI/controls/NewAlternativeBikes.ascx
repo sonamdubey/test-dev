@@ -2,7 +2,10 @@
 <!-- Alternative Bikes Starts here-->    
 
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20 margin-bottom15"><%=heading %></h2>
+    <% if(!string.IsNullOrEmpty(customHeading)) {%>
+    <h3 class="padding-left20 padding-right20 margin-bottom15"><%=customHeading %></h3>
+    <%}else{%>
+    <h2 class="padding-left20 padding-right20 margin-bottom15"><%=heading %></h2><%} %>
     <div class="jcarousel-wrapper inner-content-carousel">
         <div class="jcarousel">
             <ul>

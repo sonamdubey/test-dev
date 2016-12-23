@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularModelCompare" %>
 
 <% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
-<div id="modelComparisonContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20 margin-bottom15">Popular comparisons for  <%=ModelName%> </h2>
     <div class="jcarousel-wrapper inner-content-carousel margin-bottom20">
         <div class="jcarousel">
             <ul class="model-comparison-list">
