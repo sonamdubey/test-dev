@@ -380,23 +380,17 @@
                                 { %>
                                 <li data-tabs="#modelVideosContent">Videos</li>
                             <%} %>
-                             <% if (ctrlNews.FetchedRecordsCount > 0)
-                             { %>
-                                <li data-tabs="#makeNewsContent">News</li>
+                         
+                          <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                              { %>
+                                 <li data-tabs="#makeComparisonContent">Similar Bikes</li>
                             <%} %>
-                            <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
-                             { %>
-                                <li data-tabs="#makeComparisonContent">Comparisons</li>
-                             <% } %>
-                              <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                              <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                { %>
                             <li data-tabs="#makeDealersContent"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></li>
                             <%} %>
-                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
-                              { %>
-                                 <li data-tabs="#modelAlternateBikeContent">Alternatives</li>
-                            <%} %>
+                          
                               <% if (ctrlRecentUsedBikes.fetchedCount>0)
                                    {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
@@ -834,24 +828,33 @@
                  <BW:News runat="server" ID="ctrlNews" />
                 <% } %>      
 
-                <% if (ctrlCompareBikes.fetchedCount > 0 && !isDiscontinued)
+                <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)
                    { %>
-                <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
+                <div id="makeComparisonContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
+              <h2 class="padding-left20 padding-right20 margin-bottom20">Bikes Similar to <%=modelPage.ModelDetails.ModelName%>  </h2>
+                        <%if (ctrlCompareBikes.fetchedCount > 0){ %>
+                     <h3 class="padding-left20 padding-right20 margin-bottom20">Most compared alternatives</h3>
+                        <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />s
+                        <%} %>
+                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                               { %>
+                                <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
+                            <%} %>
                 <% } %>
-                <% if (ctrlDealerCard.showWidget) { %>
-                 <div id="makeDealersContent">
-                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                <% }  %>
-                   <% if (ctrlServiceCenterCard.showWidget&& cityId>0)
+
+                <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                    { %>
-                      <div id="makeDealersContent">
+                 <div id="makeDealersContent">
+                       <% if (ctrlDealerCard.showWidget) { %>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                     <%} %>
+                      <% if (ctrlServiceCenterCard.showWidget&& cityId>0)
+                   { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                         
                 <% }  %>
-                <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
-                   { %>
-                    <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />           
-                <%} %>
+                <% }  %>
+                  
                     <% if (ctrlRecentUsedBikes.fetchedCount > 0)
                                    {%>  <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" /><%} %>
                 <div id="modelSpecsFooter"></div>

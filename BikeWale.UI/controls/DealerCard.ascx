@@ -38,23 +38,40 @@
     <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
         <div class="jcarousel">
             <ul>
-       <% foreach(var details in cityDealers.DealerDetails){ %>
-                        <li>
-                                <div class="dealer-jcarousel-image-preview">
-                                    <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
-                                </div>
-                                <div class="font14 padding-left20 padding-right20 padding-bottom25">
-                                    <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
-                                   <%if (details.DealerCount>0) {%>
-                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
-                                    <%} %>
-                                    <%if (details.ServiceCenterCount>0){%>
-                                    <p><a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p>
+                <% foreach(var details in cityDealers.DealerDetails){ %>
+                    <li>
+                        <div class="dealer-jcarousel-image-preview">
+                            <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
+                        </div>
+                        <div class="font14 padding-left20 padding-right20 padding-bottom20">
+                            <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
+                            <%if (details.DealerCount>0) {%>
+                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/"title="<%=makeName%> showroom in <%=details.CityName%>" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                            <%} %>
+                            <%if (details.ServiceCenterCount>0){%>
+                                    <p><a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p>
                                     <%} %>
                                 </div>
                         </li>
                 <%} %>
-                 
+                <%if(cityDealers.TotalDealerCount>0||cityDealers.TotalServiceCenterCount>0) {%>
+                    <li>
+                                <div class="dealer-jcarousel-image-preview">
+                                    <span class="city-sprite india-icon"></span>
+                                </div>
+                                <div class="font14 padding-left20 padding-right20 padding-bottom25">
+                                    <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in india</p>
+                                   <%if (cityDealers.TotalDealerCount > 0)
+                                     {%>
+                                    <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" ><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount>0 )? "showrooms" : "showroom" %></a>
+                                    <%} %>
+                                    <%if (cityDealers.TotalServiceCenterCount > 0)
+                                      {%>
+                                    <p><a href="/<%=makeMaskingName%>-service-center-in-india/"><%=cityDealers.TotalServiceCenterCount %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p>
+                            <%} %>
+                        </div>
+                    </li>
+                <%} %>
             </ul>
         </div>
         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>

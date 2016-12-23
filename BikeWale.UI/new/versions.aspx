@@ -662,7 +662,7 @@
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Similar Bikes</a>
                         <%} %>
-                        <% if (!isDiscontinued&&!modelPageEntity.ModelDetails.Futuristic&&ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                        <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
@@ -708,7 +708,7 @@
                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                             <a href="#modelAlternateBikeContent" rel="nofollow">Similar Bikes</a>
                             <%} %>
-                              <% if (!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic && ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                              <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
@@ -1210,14 +1210,11 @@
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                         { %>
                         <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-
                             <!-- Video reviews -->
                             <BW:Videos runat="server" ID="ctrlVideos" />
                             <!-- Video reviews ends -->
                         </div>
                         <% } %>
-
-                     
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
                         <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
@@ -1232,13 +1229,11 @@
                         
                                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                            { %>
-                      
                                                   <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                                            
                                         <% } %>
                                                </div>
                            <% } %>
-                         <%if (!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic && ctrlDealerCard.showWidget || ctrlServiceCenterCard.showWidget && cityId > 0)
+                         <%if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                            { %>
                      <div id="makeDealersContent"class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                   
@@ -1261,6 +1256,9 @@
                         <%} %>
 
                       <div id="overallSpecsDetailsFooter"></div>
+                    </div>
+                </div>
+
                     </div>
                 </div>
                 <div class="clear"></div>

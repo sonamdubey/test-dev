@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="PopularModelComparison.ascx.cs" Inherits="Bikewale.Mobile.Controls.PopularModelComparison" %>
 <% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
 <div id="ctrlCompareBikes">
-    <div id="makeComparisonContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
-        <h2 class="padding-left20 padding-right20 margin-bottom20">Popular Comparisons for <%=versionName %> </h2>
         <div class="swiper-container padding-top5 padding-bottom5">
             <div class="swiper-wrapper model-comparison-list">
                 <% foreach(var bike in  objSimilarBikes) { %>
