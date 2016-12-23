@@ -61,7 +61,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
                 {
                     BodyStyleType = GenericBikesCategoriesMapping.GetBodyStyleByBikeType(_biketype);
                     BikeBodyStyleId = (ushort)BodyStyleType;
-                    PageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(BodyStyleType).Replace("-", " ");
+                    PageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(BodyStyleType);
                     PageName = new CultureInfo("en-US", false).TextInfo.ToTitleCase(PageMaskingName).Replace("-", " "); ;
                     SetPageMetas(PageName, PageMaskingName);
                     PageContent = SetPageContent(BodyStyleType);

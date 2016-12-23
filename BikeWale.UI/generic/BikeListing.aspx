@@ -8,14 +8,13 @@
 <head>
     <%
         title = (pageMetas!=null) ? pageMetas.Title : string.Empty;
-            description = (pageMetas!=null) ? pageMetas.Description : string.Empty;
+        description = (pageMetas!=null) ? pageMetas.Description : string.Empty;
         isAd970x90Shown = false;
         isTransparentHeader = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
-        
-        
+        canonical = pageMetas.CanonicalUrl;        
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/generic/listing.css" />
