@@ -1,7 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -125,6 +125,20 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <% if(ctrlBestBikes!= null) { %>
+        <section>
+            <div class="container section-bottom-margin">
+                <h2 class="text-center margin-top30 margin-bottom20 font22">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <BW:BestBikes runat="server" ID="ctrlBestBikes" />
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <% } %>
 
         <section>
             <div class="container section-container">

@@ -21,6 +21,12 @@ namespace Bikewale.Generic
         protected string bannerImageUrl = string.Empty;
 
 
+        void InitializeComponent()
+        {
+            base.Load += new EventHandler(Page_Load);
+        }
+
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -48,6 +54,7 @@ namespace Bikewale.Generic
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
             GetBestBikesList();
+
         }
 
         /// <summary>
@@ -72,7 +79,7 @@ namespace Bikewale.Generic
                         pageMaskingName = objBestBikesvm.PageMaskingName;
                         pageName = objBestBikesvm.PageName;
                         bannerImageUrl = SetBannerImage(objBestBikesvm.BodyStyleType);
-
+                        ctrlBestBikes.CurrentPage = objBestBikesvm.BodyStyleType;
                     }
 
                 }
