@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Utility;
 using System;
 using System.Web.UI.WebControls;
 
@@ -38,18 +39,14 @@ namespace Bikewale.Controls
             ber.BindExpertReviews(rptExpertReviews);
             this.FetchedRecordsCount = ber.FetchedRecordsCount;
 
-            if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            MoreExpertReviewUrl = UrlFormatter.FormatExpertReviewUrl(MakeMaskingName, ModelMaskingName);
+
+            if (String.IsNullOrEmpty(ModelMaskingName))
             {
-                MoreExpertReviewUrl = "/expert-reviews/";
-            }
-            else if (String.IsNullOrEmpty(ModelMaskingName))
-            {
-                MoreExpertReviewUrl = String.Format("/{0}-bikes/expert-reviews/", MakeMaskingName);
                 linkTitle = string.Format("{0} Expert Reviews", MakeName);
             }
             else
             {
-                MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/expert-reviews/", MakeMaskingName, ModelMaskingName);
                 linkTitle = string.Format("{0} {1} Expert Reviews", MakeName, ModelName);
             }
         }

@@ -85,6 +85,7 @@
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
+    <Compile Include="GenericBikes\IBestBikes.cs" />
     <Compile Include="Images\IImage.cs" />
     <Compile Include="Images\IImageRepository.cs" />
     <Compile Include="Insurance\IInsuranceDetail.cs" />

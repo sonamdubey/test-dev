@@ -51,7 +51,13 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ifnull(bv.reviewrate, 0) vsreviewrate
 		                        ,ifnull(bv.reviewcount, 0) vsreviewcount
                                 ,ifnull(sd.maximumtorque,0) maximumtorque
-                                ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount ";
+                                ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount
+                                ,ifnull(bs.smalldescription,'') as smalldescription
+                                ,ifnull(bs.fulldescription,'') as fulldescription
+                                ,ifnull(mo.PhotosCount,0) as PhotoCount
+                                ,ifnull(mo.VideosCount,0) as VideoCount
+                                ,ifnull(mo.UnitsSold,0) as UnitsSold
+                                ,mo.launchdate as launchdate";
             }
             catch (Exception ex)
             {
@@ -68,6 +74,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 fromClause = " bikeversions as bv "
                             + " inner join bikemodels as mo on mo.id = bv.bikemodelid "
+                            + " left join bikesynopsis bs on bs.modelid = mo.id and bs.isactive = 1"
                             + " left join newbikespecifications as sd  on sd.bikeversionid = bv.id "
                             + " left join mostpopularbikes mpb  on mpb.modelid = mo.id and mpb.rownum = 1 ";
             }

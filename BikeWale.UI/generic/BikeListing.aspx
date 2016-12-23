@@ -1,16 +1,21 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="BikeListing.aspx.cs" Inherits="Bikewale.Generic.BikeListing" %>
 <%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Import Namespace="System.Linq" %>
+<%@ Import Namespace="Bikewale.Utility" %>
 <!DOCTYPE html>
 
 <html>
 <head>
-    <title>Generic listing page</title>
     <%
+        title = (pageMetas!=null) ? pageMetas.Title : string.Empty;
+            description = (pageMetas!=null) ? pageMetas.Description : string.Empty;
         isAd970x90Shown = false;
         isTransparentHeader = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
+        
+        
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/generic/listing.css" />
@@ -22,30 +27,12 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <%--
-            background images:
-            1. top bikes
-                style="background: #988f7f url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/top-bikes-banner.jpg) no-repeat center"
-
-            2. scooters
-                style="background: #988f7f url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg) no-repeat center right"
-
-            3. mileage
-                style="background: #988f7f url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/mileage-bikes-banner.jpg) no-repeat center right"
-
-            4. sports bikes
-                style="background: #948a76 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/sports-style-banner.jpg) no-repeat center"
-
-            5. cruiser bikes
-                style="background: #988f7f url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/cruiser-style-banner.jpg) no-repeat left center"
-        --%>
-
         <header>
-            <div class="generic-banner" style="background: #988f7f url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg) no-repeat center right">
+            <div class="generic-banner" style="background: #988f7f url(<%=bannerImageUrl %>) no-repeat center right">
                 <div class="container">
                     <div class="banner-box text-center">
-                        <h1 class="font30 text-uppercase margin-bottom5 text-white">Best Scooters in India</h1>
-                        <h2 class="font20 text-unbold text-white">Explore the list of top 10 scooters in India</h2>
+                        <h1 class="font30 text-uppercase margin-bottom5 text-white">Best <%= pageName %> in India</h1>
+                        <h2 class="font20 text-unbold text-white">Explore the list of top 10 <%= pageMaskingName %> in India</h2>
                     </div>
                 </div>
             </div>
@@ -55,283 +42,152 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
-                        <p class="desc-main-content">Whether you live in a metro or a small town, you will find lots of scooters around! Scooters in India have gained immense popularity in the last decade. With more than 10 brands and over 50 models, it gets really difficult to pick the best scooter. We have more than 50 lakh people researching scooters on BikeWale every month, so this list of best scooters in India is made out of our users’ choice and</p><p class="desc-more-content">  truly reflects the popularity of scooters. We bring you information about ex-showroom price, colors, variants, monthly units sold, popularity and launch date of best scooters to help you pick the best one. Have a look at the list of best scooters in India to find the most suitable scooter for you. </p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+                        <p class="desc-main-content"><%= pageContent %></p>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
+        <% if (objBestBikes != null && objBestBikes.Count() > 0)
+           {
+               %>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-right20 padding-left20">
-                            <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 scooters are...</h2>
+                            <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 <%= pageMaskingName %> are...</h2>
                         </div>
 
                         <ul id="bike-list" class="font14">
+                            <%  int i = 1;
+                                foreach(var bike in objBestBikes) { %>
+
                             <li class="list-item">
                                 <div class="item-details-content">
                                     <div class="grid-3 padding-left20">
-                                        <a href="" title="Yamaha Fascino" class="item-image-content">
-                                            <span class="item-rank">#1</span>
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/227x128/bw/models/vespa-fly125.jpg" alt="Yamaha Fascino" src="" />
+                                        <a href="" title="<% %>" class="item-image-content">
+                                            <span class="item-rank">#<%= i++ %></span>
+                                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128) %>" alt="<%= bike.BikeName %>" src="" />
                                         </a>
                                     </div>
                                     <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                        <h3><a href="" class="bikeTitle">Yamaha Fascino</a></h3>
+                                        <h3><a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" class="bikeTitle"><%= bike.BikeName %></a></h3>
                                         <ul class="key-specs-list text-light-grey margin-bottom15">
+                                             <%if (bike.MinSpecs.Displacement != 0)
+                                        { %>
                                             <li>
                                                 <span class="generic-sprite capacity-sm"></span>
-                                                <span>125 cc</span>
+                                                 <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(),"cc") %></span>
                                             </li>
+                                             <% } %>
+                                            <%if (bike.MinSpecs.FuelEfficiencyOverall != 0)
+                                        { %>
                                             <li>
                                                 <span class="generic-sprite mileage-sm"></span>
-                                                <span>65 kmpl</span>
+                                                   <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") %></span>
                                             </li>
+                                            <% } %>
+                                    <%if (bike.MinSpecs.MaxPower != 0)
+                                        { %>
                                             <li>
                                                 <span class="generic-sprite power-sm"></span>
-                                                <span>10 bhp</span>
-                                            </li>
+                                                   <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(),"bhp") %></span>
+                                            </li>                                            
+                                    <% } %>
                                         </ul>
                                         <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
                                             <thead>
                                                 <tr class="table-head-row">
+                                                    <% if(bike.TotalVersions + bike.TotalModelColors > 1) { %>
                                                     <th valign="top" width="35%">Available in</th>
+                                                     <% } %>
+                                                    <% if(bike.LaunchDate !=null) { %>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (May)</th>
+                                                      <% } %>
+                                                    <% if(bike.UnitsSold > 0) { %>
+                                                    <th valign="top" width="30%">Unit sold</th>
+                                                      <% } %>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td valign="top" class="text-bold text-grey">3 variants, 2 colors</td>
-                                                    <td valign="top" class="text-bold text-grey">May 2016</td>
+                                                    <% if(bike.TotalVersions + bike.TotalModelColors > 1) { %>
+                                                    <td valign="top" class="text-bold text-grey"><%= bike.TotalVersions %><%= (bike.TotalVersions > 1 ? "variants" : "variant") %>, <%= bike.TotalModelColors %><%= (bike.TotalModelColors > 1 ? "colors" : "color")  %></td>
+                                                    <% } %>
+                                                    <% if(bike.LaunchDate !=null) { %>
+                                                    <td valign="top" class="text-bold text-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM, yyyy") %></td>
+                                                    <% } %>
+                                                    <% if(bike.UnitsSold > 0) { %>
                                                     <td valign="top" class="text-bold text-grey">32,293</td>
+                                                     <% } %>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="grid-3 padding-left20 padding-right20">
-                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, Mumbai</p>
+                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                         <div class="margin-bottom10">
-                                            <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">54,238</span>
+                                            <span class="bwsprite inr-lg"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                                         </div>
+                                        <%if(bike.Price > 0) { %>
                                         <button type="button" class="btn btn-white font14 btn-size-180">Check on-road price</button>
+                                        <% } %>
                                     </div>
                                     <div class="clear"></div>
 
                                     <div class="margin-top15 padding-right20 padding-left20">
-                                        <p class="text-light-grey margin-bottom15">The Jupiter is an 110cc scooter from TVS, positioned above the Wego. The country’s second best-selling scooter after the Activa, the Jupiter has been primarily targeted towards men, women also seem to buy it alot. The TVS Jupiter gets a conservative no frills design which has turned out to be quite a hit among the Indian audience. The instrument cluster is a contemporary-looking analogue unit which misses out.</p>
+                                        <p class="text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                                         <div>
-                                            <span class="text-light-grey inline-block">More info about Fascino:</span>
+                                            <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">
+                                                 <% if(bike.ExpertReviewsCount > 0) { %>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Reviews">
+                                                    <a href="<%= UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
                                                         <span class="generic-sprite reviews-sm"></span>
                                                         <span class="icon-label">Reviews</span>
                                                     </a>
                                                 </li>
+                                                <%} %>
+                                                <% if(bike.PhotosCount > 0) { %>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino News">
+                                                    <a href="<%= UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
                                                         <span class="generic-sprite news-sm"></span>
-                                                        <span class="icon-label">News</span>
+                                                        <span class="icon-label">Photos</span>
                                                     </a>
                                                 </li>
+                                                <% } %>
+                                                  <% if(bike.VideosCount > 0) { %>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Videos">
+                                                    <a href="<%= UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
                                                         <span class="generic-sprite videos-sm"></span>
                                                         <span class="icon-label">Videos</span>
                                                     </a>
                                                 </li>
+                                               <% } %>
+                                                  <% if(bike.MinSpecs !=null) { %>
                                                 <li>
-                                                    <a href="" title="Yamaha Fascino Specs">
+                                                    <a href="<%= UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
                                                         <span class="generic-sprite specs-sm"></span>
                                                         <span class="icon-label">Specs</span>
                                                     </a>
                                                 </li>
+                                                <% } %>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             
                             </li>
-                            <li class="list-item">
-                                <div class="item-details-content">
-                                    <div class="grid-3 padding-left20">
-                                        <a href="" title="Yamaha Fascino" class="item-image-content">
-                                            <span class="item-rank">#2</span>
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/227x128/bw/models/hyosung-ste3eva.jpg" alt="Yamaha Fascino" src="" />
-                                        </a>
-                                    </div>
-                                    <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                        <h3><a href="" class="bikeTitle">Yamaha Fascino</a></h3>
-                                        <ul class="key-specs-list text-light-grey margin-bottom15">
-                                            <li>
-                                                <span class="generic-sprite capacity-sm"></span>
-                                                <span>125 cc</span>
-                                            </li>
-                                            <li>
-                                                <span class="generic-sprite mileage-sm"></span>
-                                                <span>65 kmpl</span>
-                                            </li>
-                                            <li>
-                                                <span class="generic-sprite power-sm"></span>
-                                                <span>10 bhp</span>
-                                            </li>
-                                        </ul>
-                                        <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
-                                            <thead>
-                                                <tr class="table-head-row">
-                                                    <th valign="top" width="35%">Available in</th>
-                                                    <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (May)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td valign="top" class="text-bold text-grey">3 variants, 2 colors</td>
-                                                    <td valign="top" class="text-bold text-grey">May 2016</td>
-                                                    <td valign="top" class="text-bold text-grey">32,293</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="grid-3 padding-left20 padding-right20">
-                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, Mumbai</p>
-                                        <div class="margin-bottom10">
-                                            <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">54,238</span>
-                                        </div>
-                                        <button type="button" class="btn btn-white font14 btn-size-180">Check on-road price</button>
-                                    </div>
-                                    <div class="clear"></div>
-
-                                    <div class="margin-top15 padding-right20 padding-left20">
-                                        <p class="text-light-grey margin-bottom15">The Jupiter is an 110cc scooter from TVS, positioned above the Wego. The country’s second best-selling scooter after the Activa, the Jupiter has been primarily targeted towards men, women also seem to buy it alot. The TVS Jupiter gets a conservative no frills design which has turned out to be quite a hit among the Indian audience. The instrument cluster is a contemporary-looking analogue unit which misses out.</p>
-                                        <div>
-                                            <span class="text-light-grey inline-block">More info about Fascino:</span>
-                                            <ul class="item-more-details-list inline-block">
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Reviews">
-                                                        <span class="generic-sprite reviews-sm"></span>
-                                                        <span class="icon-label">Reviews</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino News">
-                                                        <span class="generic-sprite news-sm"></span>
-                                                        <span class="icon-label">News</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Videos">
-                                                        <span class="generic-sprite videos-sm"></span>
-                                                        <span class="icon-label">Videos</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Specs">
-                                                        <span class="generic-sprite specs-sm"></span>
-                                                        <span class="icon-label">Specs</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            </li>
-                            <li class="list-item">
-                                <div class="item-details-content">
-                                    <div class="grid-3 padding-left20">
-                                        <a href="" title="Yamaha Fascino" class="item-image-content">
-                                            <span class="item-rank">#3</span>
-                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/227x128/bw/models/vespa-fly125.jpg" alt="Yamaha Fascino" src="" />
-                                        </a>
-                                    </div>
-                                    <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                        <h3><a href="" class="bikeTitle">Yamaha Fascino</a></h3>
-                                        <ul class="key-specs-list text-light-grey margin-bottom15">
-                                            <li>
-                                                <span class="generic-sprite capacity-sm"></span>
-                                                <span>125 cc</span>
-                                            </li>
-                                            <li>
-                                                <span class="generic-sprite mileage-sm"></span>
-                                                <span>65 kmpl</span>
-                                            </li>
-                                            <li>
-                                                <span class="generic-sprite power-sm"></span>
-                                                <span>10 bhp</span>
-                                            </li>
-                                        </ul>
-                                        <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
-                                            <thead>
-                                                <tr class="table-head-row">
-                                                    <th valign="top" width="35%">Available in</th>
-                                                    <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (May)</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td valign="top" class="text-bold text-grey">3 variants, 2 colors</td>
-                                                    <td valign="top" class="text-bold text-grey">May 2016</td>
-                                                    <td valign="top" class="text-bold text-grey">32,293</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="grid-3 padding-left20 padding-right20">
-                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, Mumbai</p>
-                                        <div class="margin-bottom10">
-                                            <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">54,238</span>
-                                        </div>
-                                        <button type="button" class="btn btn-white font14 btn-size-180">Check on-road price</button>
-                                    </div>
-                                    <div class="clear"></div>
-
-                                    <div class="margin-top15 padding-right20 padding-left20">
-                                        <p class="text-light-grey margin-bottom15">The Jupiter is an 110cc scooter from TVS, positioned above the Wego. The country’s second best-selling scooter after the Activa, the Jupiter has been primarily targeted towards men, women also seem to buy it alot. The TVS Jupiter gets a conservative no frills design which has turned out to be quite a hit among the Indian audience. The instrument cluster is a contemporary-looking analogue unit which misses out.</p>
-                                        <div>
-                                            <span class="text-light-grey inline-block">More info about Fascino:</span>
-                                            <ul class="item-more-details-list inline-block">
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Reviews">
-                                                        <span class="generic-sprite reviews-sm"></span>
-                                                        <span class="icon-label">Reviews</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino News">
-                                                        <span class="generic-sprite news-sm"></span>
-                                                        <span class="icon-label">News</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Videos">
-                                                        <span class="generic-sprite videos-sm"></span>
-                                                        <span class="icon-label">Videos</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="" title="Yamaha Fascino Specs">
-                                                        <span class="generic-sprite specs-sm"></span>
-                                                        <span class="icon-label">Specs</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            </li>
+                            <%} %>
                         </ul>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
+        <%} %>
 
         <section>
             <div class="container section-bottom-margin">

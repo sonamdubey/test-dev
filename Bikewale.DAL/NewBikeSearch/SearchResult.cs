@@ -1,19 +1,14 @@
-﻿using Bikewale.Entities.NewBikeSearch;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
-using Bikewale.CoreDAL;
-using System.Data.SqlClient;
 using System.Data;
-using Bikewale.Entities.BikeData;
-using Bikewale.Utility;
 using System.Data.Common;
-using MySql.CoreDAL;
 
 namespace Bikewale.DAL.NewBikeSearch
 {
@@ -29,7 +24,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     .RegisterType<IProcessFilter, ProcessFilter>();
 
                 objSearchQuery = container.Resolve<ISearchQuery>();
-                
+
             }
         }
         public SearchOutputEntity GetSearchResult(FilterInput filterInputs, InputBaseEntity input)
@@ -37,7 +32,7 @@ namespace Bikewale.DAL.NewBikeSearch
             SearchOutputEntity objSearch = new SearchOutputEntity();
 
             List<SearchOutputEntityBase> objSearchList = null;
-            
+
             string sqlStr = string.Empty;
             try
             {
@@ -51,11 +46,11 @@ namespace Bikewale.DAL.NewBikeSearch
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        if(dr!=null)
+                        if (dr != null)
                         {
                             objSearchList = new List<SearchOutputEntityBase>();
 
-                            while(dr.Read())
+                            while (dr.Read())
                             {
                                 SearchOutputEntityBase objList = new SearchOutputEntityBase();
 
@@ -84,7 +79,12 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.BikeModel.ReviewRate = Convert.ToDouble(dr["MoReviewRate"]);
                                 objList.FinalPrice = Format.FormatPrice(dr["MinPrice"].ToString());
                                 objList.AvailableSpecs = FormatMinSpecs.GetMinSpecs(dr["Displacement"].ToString(), dr["FuelEfficiencyOverall"].ToString(), dr["Power"].ToString(), dr["weight"].ToString());
-
+                                objList.SmallDescription = Convert.ToString(dr["smalldescription"]);
+                                objList.FullDescription = Convert.ToString(dr["fulldescription"]);
+                                objList.UnitsSold = SqlReaderConvertor.ToUInt32(dr["UnitsSold"]);
+                                objList.LaunchedDate = SqlReaderConvertor.ToDateTime(dr["launchdate"]);
+                                objList.PhotoCount = SqlReaderConvertor.ToUInt32(dr["PhotoCount"]);
+                                objList.VideoCount = SqlReaderConvertor.ToUInt32(dr["VideoCount"]);
                                 objSearchList.Add(objList);
                             }
                             dr.NextResult();
@@ -101,7 +101,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     objSearch.CurrentPageNo = Convert.ToInt32(filterInputs.PageNo);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetSearchResult");
                 objErr.SendMail();
@@ -115,7 +115,7 @@ namespace Bikewale.DAL.NewBikeSearch
             int totalPageCount = 0;
             try
             {
-                objPager=new PagingUrl();
+                objPager = new PagingUrl();
                 string apiUrlStr = GetApiUrl(input);
                 totalPageCount = Paging.GetTotalPages(totalRecordCount, Convert.ToInt32(filterInputs.PageSize));
 
@@ -134,7 +134,7 @@ namespace Bikewale.DAL.NewBikeSearch
                         objPager.PrevPageUrl = controllerurl + "PageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetPrevNextUrl");
                 objErr.SendMail();
@@ -172,7 +172,7 @@ namespace Bikewale.DAL.NewBikeSearch
                 if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
                     apiUrlstr += "&AntiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetApiUrl");
                 objErr.SendMail();

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeData;
-
+﻿using Bikewale.Entities.BikeData;
+using System;
 namespace Bikewale.Entities.NewBikeSearch
 {
     public class SearchOutputEntityBase
@@ -19,5 +14,11 @@ namespace Bikewale.Entities.NewBikeSearch
         public string FinalPrice { get; set; }
         public string AvailableSpecs { get; set; }
         public BikeModelEntity BikeModel { get; set; }
+        public string SmallDescription { get; set; }
+        public string FullDescription { get; set; }
+        public uint UnitsSold { get; set; }
+        public DateTime LaunchedDate { get; set; }
+        public uint PhotoCount { get; set; }
+        public uint VideoCount { get; set; }
     }
 }

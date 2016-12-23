@@ -278,6 +278,7 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
+    <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
     <Compile Include="BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
@@ -734,7 +735,7 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="generic\BikeListing.aspx.cs">
+    <Compile Include="Generic\BikeListing.aspx.cs">
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2334,7 +2335,7 @@
     <Content Include="Finance\EMICalculator.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
-    <Content Include="generic\BikeListing.aspx" />
+    <Content Include="Generic\BikeListing.aspx" />
     <Content Include="Global.asax" />
     <Content Include="google863c8bc3ae47cfff.html" />
     <Content Include="images\0.gif" />
