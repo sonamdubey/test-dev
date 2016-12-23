@@ -388,9 +388,10 @@
                              { %>
                                 <li data-tabs="#makeComparisonContent">Comparisons</li>
                              <% } %>
-                              <% if (ctrlDealerCard.showWidget)
+                              <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                { %>
-                            <li data-tabs="#makeDealersContent">Dealer & Service Center</li>
+                            <li data-tabs="#makeDealersContent"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                                                                         { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></li>
                             <%} %>
                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                               { %>
@@ -837,13 +838,15 @@
                    { %>
                 <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
                 <% } %>
-                 <% if (ctrlDealerCard.showWidget) { %>
+                <% if (ctrlDealerCard.showWidget) { %>
+                 <div id="makeDealersContent">
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                 <% }  %>
-                   <% if (ctrlServiceCenterCard.showWidget&&cityId>0)
+                   <% if (ctrlServiceCenterCard.showWidget&& cityId>0)
                    { %>
+                      <div id="makeDealersContent">
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                        
                 <% }  %>
                 <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                    { %>

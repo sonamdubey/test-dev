@@ -52,8 +52,8 @@
                                     <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
                                 </span>
                                 <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
-                                    <a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
-                                    <p><a href="/m/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p>
+                                      <%if (details.DealerCount>0) {%><a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a><%} %>
+                                     <%if (details.ServiceCenterCount>0){%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
                                  </div>
                     </div>
                 <%} %>
