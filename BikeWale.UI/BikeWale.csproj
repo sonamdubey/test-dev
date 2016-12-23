@@ -2923,6 +2923,8 @@
     <Content Include="m\sass\modules\_textarea-box.sass" />
     <Content Include="m\sass\modules\_bike-popup.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
+    <Content Include="m\sass\service\_brand-carousel.sass" />
+    <Content Include="m\sass\service\_map-carousel.sass" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
@@ -2989,6 +2991,8 @@
     <Content Include="sass\service\landing.sass" />
     <Content Include="sass\service\_landing-style.sass" />
     <Content Include="sass\modules\_brand-logo.sass" />
+    <Content Include="sass\service\_brand-carousel.sass" />
+    <Content Include="sass\service\_map-carousel.sass" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

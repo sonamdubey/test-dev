@@ -1259,6 +1259,9 @@
                         <div id="overallSpecsDetailsFooter"></div>
                     </div>
                 </div>
+
+                    </div>
+                </div>
                 <div class="clear"></div>
             </div>
         </section>

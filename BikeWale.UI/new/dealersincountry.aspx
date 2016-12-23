@@ -134,14 +134,7 @@
          <% if (ctrlDealerByBrand.FetchedRecordsCount > 0)
                            { %>
         <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <BW:DealersByBrand runat="server" ID="ctrlDealerByBrand" />
-                    </div>
-                    </div>
-                <div class="clear"></div>
-            </div>
+            <BW:DealersByBrand runat="server" ID="ctrlDealerByBrand" />
         </section>
         <%} %>
                       
