@@ -20,5 +20,7 @@ namespace Bikewale.Entities.NewBikeSearch
         public DateTime LaunchedDate { get; set; }
         public uint PhotoCount { get; set; }
         public uint VideoCount { get; set; }
+        public uint VersionCount { get; set; }
+        public uint ColorCount { get; set; }
     }
 }

@@ -85,6 +85,8 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.LaunchedDate = SqlReaderConvertor.ToDateTime(dr["launchdate"]);
                                 objList.PhotoCount = SqlReaderConvertor.ToUInt32(dr["PhotoCount"]);
                                 objList.VideoCount = SqlReaderConvertor.ToUInt32(dr["VideoCount"]);
+                                objList.VersionCount = SqlReaderConvertor.ToUInt32(dr["VersionCount"]);
+                                objList.ColorCount = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
                                 objSearchList.Add(objList);
                             }
                             dr.NextResult();

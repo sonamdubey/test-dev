@@ -72,7 +72,9 @@ namespace Bikewale.BAL.GenericBikes
                             LaunchDate = (!bike.LaunchedDate.Equals(startOfTime) ? bike.LaunchedDate : default(Nullable<DateTime>)),
                             PhotosCount = bike.PhotoCount,
                             VideosCount = bike.VideoCount,
-                            UnitsSold = bike.UnitsSold
+                            UnitsSold = bike.UnitsSold,
+                            TotalVersions = bike.VersionCount,
+                            TotalModelColors = bike.ColorCount
                         };
                 bikes = b.ToList();
             }

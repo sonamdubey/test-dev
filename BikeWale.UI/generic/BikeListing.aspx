@@ -100,28 +100,19 @@
                                         <table class="item-table-content" width="100%" cellspacing="0" cellpadding="0">
                                             <thead>
                                                 <tr class="table-head-row">
-                                                    <% if(bike.TotalVersions + bike.TotalModelColors > 1) { %>
                                                     <th valign="top" width="35%">Available in</th>
-                                                     <% } %>
-                                                    <% if(bike.LaunchDate !=null) { %>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                      <% } %>
-                                                    <% if(bike.UnitsSold > 0) { %>
                                                     <th valign="top" width="30%">Unit sold</th>
-                                                      <% } %>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <% if(bike.TotalVersions + bike.TotalModelColors > 1) { %>
-                                                    <td valign="top" class="text-bold text-grey"><%= bike.TotalVersions %><%= (bike.TotalVersions > 1 ? "variants" : "variant") %>, <%= bike.TotalModelColors %><%= (bike.TotalModelColors > 1 ? "colors" : "color")  %></td>
-                                                    <% } %>
-                                                    <% if(bike.LaunchDate !=null) { %>
-                                                    <td valign="top" class="text-bold text-grey"><%= Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM, yyyy") %></td>
-                                                    <% } %>
-                                                    <% if(bike.UnitsSold > 0) { %>
-                                                    <td valign="top" class="text-bold text-grey">32,293</td>
-                                                     <% } %>
+                                                    <td valign="top" class="text-bold text-grey">
+                                                       <% if((bike.TotalModelColors + bike.TotalVersions) > 0){ %> <%= bike.TotalVersions %><%= (bike.TotalVersions > 1 ? " variants" : " variant") %><% if (bike.TotalModelColors > 0){ %>, <%= bike.TotalModelColors %><%= (bike.TotalModelColors > 1 ? " colors" : " color")  %> <% }
+                                                        } %>
+                                                    </td>
+                                                    <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM yyyy") : "Before 2012" %></td>
+                                                    <td valign="top" class="text-bold text-grey"><%= bike.UnitsSold > 0 ? Bikewale.Utility.Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available" %></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -132,7 +123,11 @@
                                             <span class="bwsprite inr-lg"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                                         </div>
                                         <%if(bike.Price > 0) { %>
-                                        <button type="button" class="btn btn-white font14 btn-size-180">Check on-road price</button>
+                                        <a 
+                                            href="javascript:void(0)" data-pagecatid="<%= 0 %>" 
+                                            data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bike.Make.MakeName %>" 
+                                            data-modelname="<%= bike.Model.ModelName %>" data-modelid="<%= bike.Model.ModelId %>" 
+                                            class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                         <% } %>
                                     </div>
                                     <div class="clear"></div>
