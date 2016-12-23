@@ -53,7 +53,6 @@
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
-    <Compile Include="BikeData\SoldUnitData.cs" />
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikePricing\BikePrice.cs" />
