@@ -38,7 +38,7 @@ namespace Bikewale.Mobile.Controls
         public int DealerId { get; set; }
         public bool isHeadingNeeded = true;
         public IEnumerable<DealersList> dealerList { get; set; }
-        public bool showWidget = false;
+        public bool showWidget, showServiceCenter;
         public string dealerUrl = string.Empty;
         protected bool isCitySelected { get { return CityId > 0; } }
         public string widgetHeading { get; set; }
@@ -118,6 +118,7 @@ namespace Bikewale.Mobile.Controls
                             if (_dealers.Dealers.Count() > 0)
                             {
                                 showWidget = true;
+
                             }
                             dealerList = _dealers.Dealers.Take(TopCount);
                         }
@@ -127,7 +128,10 @@ namespace Bikewale.Mobile.Controls
                         cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
                         if (cityDealers != null)
                         {
-                            showWidget = true;
+                            if (cityDealers.TotalDealerCount > 0 || cityDealers.TotalServiceCenterCount > 0)
+                                showWidget = true;
+                            if (cityDealers.TotalServiceCenterCount > 0)
+                                showServiceCenter = true;
                         }
                     }
                 }

@@ -70,7 +70,7 @@ namespace Bikewale.Mobile.Controls
                     IEnumerable<ServiceCenterDetails> totalList = centerData.ServiceCenters.Where(x => x.ServiceCenterId != ServiceCenterId);
                     if (totalList != null)
                         ServiceCenteList = totalList.Take(TopCount);
-                    if (centerData.Count > 1)
+                    if (centerData.Count > 0)
                         showWidget = true;
                 }
             }

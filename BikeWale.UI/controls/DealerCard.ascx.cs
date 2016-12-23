@@ -42,7 +42,7 @@ namespace Bikewale.Controls
         public bool IsDiscontinued { get; set; }
         protected bool isCitySelected { get { return CityId > 0; } }
         public string pageName { get; set; }
-        public bool showWidget = false;
+        public bool showWidget, showServiceCenter;
         public uint DealerId { get; set; }
         public bool isHeading = true;
         public string widgetHeading { get; set; }
@@ -123,6 +123,7 @@ namespace Bikewale.Controls
                             if (_dealers.Dealers.Count() > 0)
                             {
                                 showWidget = true;
+
                             }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
@@ -133,7 +134,10 @@ namespace Bikewale.Controls
                         cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
                         if (cityDealers != null)
                         {
-                            showWidget = true;
+                            if (cityDealers.TotalDealerCount > 0 || cityDealers.TotalServiceCenterCount > 0)
+                                showWidget = true;
+                            if (cityDealers.TotalServiceCenterCount > 0)
+                                showServiceCenter = true;
                         }
                     }
                 }

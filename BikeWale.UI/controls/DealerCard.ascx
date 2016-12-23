@@ -45,8 +45,12 @@
                                 </div>
                                 <div class="font14 padding-left20 padding-right20 padding-bottom25">
                                     <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
+                                   <%if (details.DealerCount>0) {%>
                                     <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                                    <%} %>
+                                    <%if (details.ServiceCenterCount>0){%>
                                     <p><a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p>
+                                    <%} %>
                                 </div>
                         </li>
                 <%} %>

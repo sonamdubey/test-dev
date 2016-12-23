@@ -666,9 +666,10 @@
                              { %>
                         <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
                         <%} %>
-                        <% if (ctrlDealerCard.showWidget)
+                        <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                    { %>
-                                <a href="#makeDealersContent" rel="nofollow">Dealer & Service Center</a>
+                                <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                                                                         { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
                                 <%} %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
@@ -718,9 +719,10 @@
                             <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
                             <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
                             <%} %>
-                              <% if (ctrlDealerCard.showWidget)
+                              <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                    { %>
-                                <a href="#makeDealersContent" rel="nofollow">Dealers</a>
+                                <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                                                                         { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
                                 <%} %>
                              <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                             <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
@@ -1234,10 +1236,14 @@
                            { %>
                         <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
                         <% } %>
-                          <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                          <% if(ctrlServiceCenterCard.showWidget&&cityId>0){ %>
+                         <%if(ctrlDealerCard.showWidget){ %>
+                     <div id="makeDealersContent">
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                    <%} %>
+                    <% if(ctrlServiceCenterCard.showWidget&&cityId>0){ %>
+                     <div id="makeDealersContent">
                           <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                         
+                          <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <% } %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                            { %>
