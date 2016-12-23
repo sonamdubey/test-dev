@@ -1,10 +1,26 @@
-<Bajaj>
-<version name='Discover 100 4 Speed ' city='Pune' price='42900' />
-<version name='Discover 100 4 Speed ' city='Mumbai' price='43400' />
-<version name='Discover 100 M Standard ' city='Pune' price='47029' />
-<version name='Discover 100 M Standard ' city='Mumbai' price='50122' />
-<version name='Discover 125 ST Standard ' city='Pune' price='49029' />
-<version name='Discover 125 ST Standard ' city='Mumbai' price='52122' />
-<version name='Pulsor 135 LS ' city='Pune' price='69029' />
-<version name='Pulsor 135 LS ' city='Mumbai' price='72122' />
-</Bajaj>
+drop temporary table if exists dumpInquiry;
+create temporary table dumpInquiry
+(select  
+sum(ismain*isapproved*IsActive) as psum, 
+bikephotos.inquiryid 
+from bikephotos inner join livelistings on bikephotos.inquiryid = livelistings.inquiryid 
+group by inquiryid
+having psum = 0) ;
+
+select * from dumpInquiry;
+
+create temporary table dumpData (select bikephotos.InquiryId,min(bikephotos.id) photoid
+from bikephotos 
+inner join dumpInquiry on bikephotos.InquiryId = dumpInquiry.Inquiryid and bikephotos.IsActive=1 and bikephotos.IsApproved = 1
+group by bikephotos.inquiryId);
+
+create temporary table dumpData1 ( select bikephotos.InquiryId,max(bikephotos.IsMain * bikephotos.id) photoid
+from bikephotos 
+inner join dumpData on bikephotos.InquiryId = dumpData.Inquiryid 
+group by bikephotos.inquiryId);
+
+update bikephotos set ismain = 0 where id in (select photoid from dumpData1);
+
+update bikephotos set ismain = 1 where id in (select photoid from dumpData);
+
+

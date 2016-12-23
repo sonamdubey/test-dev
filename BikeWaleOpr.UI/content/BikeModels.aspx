@@ -162,45 +162,7 @@
                     <div class="clear"></div>
                 </div>
             </fieldset>
-        </div>
-
-        <div class="floatLeft" style="width: 450px;">
-            <fieldset>
-                <legend>Bulk upload unit sold</legend>
-                <div>
-                    <div class="margin10">
-                        <p>For date</p>
-                        <select name="DOBMonth">
-                            <option>- Month - </option>
-                            <option value="January">January</option>
-                            <option value="Febuary">Febuary</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="August">August</option>
-                            <option value="September">September</option>
-                            <option value="October">October</option>
-                            <option value="November">November</option>
-                            <option value="December">December</option>
-                        </select>
-                        <select name="DOBYear">
-                            <option>- Year - </option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                        </select>
-                        <br /><br />
-                        <p>Upload last month unit sold file</p>
-                        <input type="file" id="flUpload" runat="server" />
-                        <asp:button id="btnUploadFile" runat="server" text="Upload File"></asp:button>                                               
-                    </div>
-                </div>
-            </fieldset>
-        </div>
+        </div>       
 
     </div>
     <div class="clear"></div>
