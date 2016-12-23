@@ -79,6 +79,7 @@ namespace Bikewale.Mobile.New
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         protected ModelPageVM viewModel = null;
         protected int colorCount;
+        GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
         #region Events
         protected override void OnInit(EventArgs e)
@@ -107,7 +108,9 @@ namespace Bikewale.Mobile.New
                 if (modelId > 0)
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
-                    CheckCityCookie();
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    cityId = currentCityArea.CityId;
+                    cityName = currentCityArea.City;
                     SetFlags();
                     Trace.Warn("Trace 6 : CheckCityCookie End");
                     if (hdnVariant.Value != "0")
@@ -465,63 +468,7 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        /// <summary>
-        /// Summary     :  Set isCitySelected, isAreaSelected
-        /// Modified by :   Sumit Kate on 04 Jan 2016
-        /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
-        /// Modified By : Sushil Kumar on 26th August 2016
-        /// Description : Replaced location name from location cookie to selected location objects for city and area respectively.
-        /// 
-        /// </summary>
-        private void CheckCityCookie()
-        {
-            // Read current cookie values
-            // Check if there are areas for current model and City
-            // If No then drop area cookie
-            string location = String.Empty;
-            var cookies = this.Context.Request.Cookies;
-            if (cookies.AllKeys.Contains("location"))
-            {
-                location = cookies["location"].Value;
-                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
-                {
-                    string[] locArray = location.Split('_');
-                    if (locArray.Length > 0)
-                    {
-                        UInt32.TryParse(locArray[0], out cityId);
-                        if (modelId > 0)
-                        {
-                            objCityList = FetchCityByModelId(modelId);
-                            if (objCityList != null && objCityList.Count() > 0)
-                            {
-                                // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                                var _objCity = objCityList.FirstOrDefault(p => p.CityId == cityId);
-                                if (_objCity != null)
-                                {
-                                    cityName = _objCity.CityName;
-                                    isCitySelected = true;
-                                }
-                            }
-                        }
-                    }
-                    // This function will check if Areas are available for city and Model
-                    objAreaList = GetAreaForCityAndModel();
-                    // locArray.Length = 4 Means City and area exists
-                    if (locArray.Length > 3 && cityId != 0)
-                    {
-                        if (objAreaList != null && UInt32.TryParse(locArray[2], out areaId))
-                        {
-                            var _objArea = objAreaList.FirstOrDefault(p => p.AreaId == areaId);
-                            if (_objArea != null)
-                            {
-                                areaName = _objArea.AreaName;
-                                isAreaSelected = true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
 
         /// <summary>
         /// Author          :   Sangram Nandkhile
