@@ -59,10 +59,10 @@ namespace Bikewale.Utility
                     str += "<span>" + displacement + " cc</span>";
 
                 if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
-                    str += ", <span>" + fuelEffecient + " kmpl</span></span>";
+                    str += ", <span>" + fuelEffecient + " kmpl</span>";
 
                 if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
-                    str += ", <span>" + maxpower + " bhp</span></span>";
+                    str += ", <span>" + maxpower + " bhp</span>";
 
                 if (!string.IsNullOrEmpty(weight) && weight != "0")
                     str += ", <span>" + weight + " kgs</span>";

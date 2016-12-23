@@ -559,7 +559,7 @@
                     <div class="content-box-shadow content-inner-block-1020">
                         <div class="grid-5 alpha omega">
                             <div class="model-card-image-content inline-block-top margin-right20">
-                                <img src="<%= modelImage %>"></img>
+                                <img src="<%= modelImage %>"/>
                             </div>
                             <div class="model-card-title-content inline-block-top">
                                 <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
@@ -1256,7 +1256,8 @@
                            { %>
                         <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                         <%} %>
-                        <div id="overallSpecsDetailsFooter"></div>
+
+                      <div id="overallSpecsDetailsFooter"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
