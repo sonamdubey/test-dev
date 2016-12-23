@@ -169,6 +169,10 @@ input[type="number"]:focus {
     text-align: center;
 }
 
+#priceQuoteWidget {
+    display: none;
+}
+
 #priceQuoteWidget .bw-popup {
     left: 5%;
     right: 5%;
@@ -320,7 +324,7 @@ input[type="number"]:focus {
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
 
 
-<div id="priceQuoteWidget" class="hide">
+<div id="priceQuoteWidget">
     
     <div class="bw-popup bw-popup-sm" data-bind="css: IsLoading() ? 'location-loader-active' : ''">
         <!-- ko if : IsLoading() -->
@@ -385,10 +389,8 @@ input[type="number"]:focus {
 <script type="text/javascript">
 
     $(document).ready(function(){
-        $(document).on("click",".blackOut-window,#priceQuoteWidget div.bw-popup div.close-btn",function(){ 
-            $('.getquotation').removeClass('ui-btn-active');
-            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
-            pqPopupContent.inactive();
+        $(document).on("click",".blackOut-window, #priceQuoteWidget .close-btn",function(){
+            pqPopupContent.close();
         });
 
         var chosenSelectBox = $('.chosen-select');
@@ -398,6 +400,14 @@ input[type="number"]:focus {
             $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
         });
  
+    });
+
+    $(document).keydown(function(event){
+        if(event.keyCode == 27){
+            if($('#priceQuoteWidget').is(':visible')){
+                pqPopupContent.close();
+            }
+        }
     });
 
     $(document).on("click", ".getquotation", function (e) {
@@ -788,6 +798,12 @@ input[type="number"]:focus {
 
         updateChosen: function(element){
             $(element).trigger("chosen:updated");
+        },
+
+        close: function(){
+            $('.getquotation').removeClass('ui-btn-active');
+            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
+            pqPopupContent.inactive();
         }
     };
 
