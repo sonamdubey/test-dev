@@ -385,7 +385,7 @@
                               { %>
                                  <li data-tabs="#makeComparisonContent">Similar Bikes</li>
                             <%} %>
-                              <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                              <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                { %>
                             <li data-tabs="#makeDealersContent"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></li>
@@ -842,7 +842,7 @@
                             <%} %>
                 <% } %>
 
-                <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                    { %>
                  <div id="makeDealersContent">
                        <% if (ctrlDealerCard.showWidget) { %>

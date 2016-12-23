@@ -662,7 +662,7 @@
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                         <a href="#modelAlternateBikeContent" rel="nofollow">Similar Bikes</a>
                         <%} %>
-                        <% if (!isDiscontinued&&!modelPageEntity.ModelDetails.Futuristic&&ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                        <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
@@ -708,7 +708,7 @@
                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
                             <a href="#modelAlternateBikeContent" rel="nofollow">Similar Bikes</a>
                             <%} %>
-                              <% if (!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic && ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                              <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                                    { %>
                                 <a href="#makeDealersContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
@@ -1233,7 +1233,7 @@
                                         <% } %>
                                                </div>
                            <% } %>
-                         <%if (!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic && ctrlDealerCard.showWidget || ctrlServiceCenterCard.showWidget && cityId > 0)
+                         <%if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                            { %>
                      <div id="makeDealersContent"class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                   

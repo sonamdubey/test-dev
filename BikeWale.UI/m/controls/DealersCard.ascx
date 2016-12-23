@@ -52,8 +52,8 @@
                                     <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
                                 </span>
                                 <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
-                                      <%if (details.DealerCount>0) {%><a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a><%} %>
-                                     <%if (details.ServiceCenterCount>0){%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/"><%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
+                                      <%if (details.DealerCount>0) {%><a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" ><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a><%} %>
+                                     <%if (details.ServiceCenterCount>0){%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>"> <%=details.ServiceCenterCount %> Service Center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
                                  </div>
                     </div>
                 <%} %>
@@ -67,7 +67,7 @@
                                       <%if (cityDealers.TotalDealerCount > 0)
                                         {%><a href="/m/<%=makeMaskingName%>-dealer-showrooms-in-india/" ><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount > 1 )? "showrooms" : "showroom" %></a><%} %>
                                      <%if (cityDealers.TotalServiceCenterCount > 0)
-                                       {%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-india/"><%=cityDealers.TotalServiceCenterCount>0 %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
+                                       {%> <p><a href="/m/<%=makeMaskingName%>-service-center-in-india/"><%=cityDealers.TotalServiceCenterCount %> Service Center<%=(cityDealers.TotalServiceCenterCount > 1 )? "s" : "" %></a></p><%} %>
                                  </div>
                     </div>
              <%} %>
