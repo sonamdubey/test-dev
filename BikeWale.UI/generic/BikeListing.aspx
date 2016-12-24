@@ -199,7 +199,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12 font12">
                     <p>
-                        <span class="font14"><strong>Disclaimer</strong>: </span>The list of top 10 bikes has been curated based on data collected from users of BikeWale. The best bike's list doesn't intend to comment anything on the quality of bikes in absolute terms. We don't comment anything about bikes or scooters which are not included in this list. The list is revised every month based on interest shown by users. The data for monthly unit sold which has been used for top 10 bikes has been taken from www.autopunditz.com. The unit sold is presented to help users make an informed decision.
+                        <span class="font14"><strong>Disclaimer</strong>: </span>The list of top 10 <%= pageName.ToLower() %> has been curated based on data collected from users of BikeWale. The best <%= pageName.ToLower() %>'s list doesn't intend to comment anything on the quality of bikes in absolute terms. We don't comment anything about bikes or scooters which are not included in this list. The list is revised every month based on interest shown by users. The data for monthly unit sold which has been used for top 10 <%= pageName.ToLower() %> has been taken from www.autopunditz.com. The unit sold is presented to help users make an informed decision.
                     </p>
                 </div>
                 <div class="clear"></div>
