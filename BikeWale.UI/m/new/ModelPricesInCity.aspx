@@ -133,9 +133,13 @@
         </section>
         
          <% if (ctrlServiceCenterCard.showWidget)
-                   { %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                <% }  %>
+            { %>
+        <section>
+            <div class="bg-white box-shadow padding-top20 margin-bottom10">
+                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+            </div>
+        </section>
+        <% }  %>
 
         <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
            <section>
