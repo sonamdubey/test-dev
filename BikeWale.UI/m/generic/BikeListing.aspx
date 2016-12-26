@@ -91,7 +91,7 @@
                             </div>
                             <table class="item-table-content border-light-bottom" width="100%" cellspacing="0" cellpadding="0">
                                 <thead>
-                                    <tr class="table-head-row">
+                                    <tr class="table-head-row" style="text-align:left">
                                         <th valign="top" width="35%">Available in</th>
                                         <th valign="top" width="35%">Launched in</th>
                                         <th valign="top" width="30%">Unit sold (<%= prevMonth %>)</th>
