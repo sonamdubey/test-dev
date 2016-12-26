@@ -5,7 +5,7 @@ namespace Bikewale.Notifications.MailTemplates
 {
     /// <summary>
     /// Created by : Sajal Gupta on 22-12-216
-    /// Desc : Send mail to nandu and abhishek for last month model sold unit not updated.
+    /// Desc : Send mail to the mentioned bikewale operations user for the bike model units sold data. Class to construct the body for the given mail
     /// </summary>
     public class ModelSoldUnitMailTemplate : ComposeEmailBase
     {
@@ -18,8 +18,8 @@ namespace Bikewale.Notifications.MailTemplates
                 StringBuilder message = new StringBuilder();
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
-
-                message.Append("<p>Please update Last month model sold unit data.<br> It was last updated on " + date + "</p>");
+                message.Append("<p>Model sold unit data was last updated on " + date + "</p>");
+                message.Append("<p>Click here to update the data <a href='http://localhost:9010/content/bikeunitssold.aspx'></a></p>");
 
                 ModelSoldUnitMailHtml = message.ToString();
             }
