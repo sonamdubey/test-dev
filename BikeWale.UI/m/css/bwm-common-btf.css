@@ -276,6 +276,8 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     overflow:hidden;
 }
 
+.block { display: block; }
+
 /* featured bikes */
 .featured-bikes-panel .bw-tabs-flex { margin-bottom: 15px; }
 
@@ -283,25 +285,20 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .comparebikesHomePage li { width: 976px; }
 
 /* dealers */
-#makeDealersContent h2 { margin-bottom: 15px }
-#makeDealersContent .swiper-slide:first-child { margin-left: 5px; }
+.dealer-horizontal-swiper h2 { margin-bottom: 15px }
+.dealer-horizontal-swiper .swiper-slide:first-child { margin-left: 5px; }
 
-#makeDealersContent .card-container .swiper-slide { 
+.dealer-horizontal-swiper .swiper-slide { 
     width:308px;
 }
 
-#makeDealersContent .swiper-card {
+.dealer-horizontal-swiper .swiper-card {
     width: 308px;
     min-height: 140px;
     padding: 15px 10px 10px;
 }
 
-#makeDealersContent .card-container .swiper-slide.no-city-dealer-list {
-    width: 308px;
-}
-
-#makeDealersContent .no-city-dealer-list .swiper-card {
-    width: 308px;
+.dealer-horizontal-swiper.no-city-selection-carousel .swiper-card {
     min-height: 180px;
     padding: 15px 20px 10px;
 }
@@ -822,8 +819,11 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     .review-heading-wrapper {
         width: 52% !important;
     }
-    .article-stats-content { width:72%; }
+    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
     #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
+        width: 265px;
+    }
 }
 
 #ub-ajax-loader{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(245,245,245,.95);z-index:11}

@@ -47,8 +47,8 @@
 .dealer-card-target { display: block; }
 .dealer-card-target:hover { text-decoration: none; }
 .dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }
-.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
-.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
+.city-sprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
+.mumbai-icon, .pune-icon, .bangalore-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 92px; }
 .mumbai-icon { width: 130px; background-position: 0 0; }
 .pune-icon { width: 186px; background-position: -140px 0; }
 .bangalore-icon { width: 136px; background-position: -336px 0; }
@@ -59,6 +59,7 @@
 .lucknow-icon { width: 174px; background-position: -892px 0; }
 .ahmedabad-icon { width: 0px; background-position: 0 0; }
 .chandigarh-icon { width: 0px; background-position: 0 0; }
+.india-icon { width: 81px; background-position: -1076px 0; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }
@@ -85,9 +86,9 @@
     margin-left: 20px;
 }
 .card .card-target {
-    min-height: 140px;
+    min-height: 147px;
     display: block;
-    padding: 15px 20px 0;
+    padding: 15px 20px;
 }
 .card .card-target:hover {
     text-decoration: none;

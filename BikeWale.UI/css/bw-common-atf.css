@@ -164,7 +164,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .header-fixed-inner { padding-top: 55px; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=19Dec2016) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v2.png?v1=26Dec2016) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }

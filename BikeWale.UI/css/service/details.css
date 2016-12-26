@@ -96,6 +96,9 @@
     -o-box-shadow: 1px 5px 15px 0 #999;
     box-shadow: 1px 5px 15px 0 #999; }
 
+.btn.btn-size-2 {
+  padding: 9px 20px; }
+
 .dealership-loc-icon {
   width: 9px;
   height: 12px;
@@ -177,9 +180,9 @@
   .card:first-child {
     margin-left: 20px; }
   .card .card-target {
-    min-height: 140px;
+    min-height: 147px;
     display: block;
-    padding: 15px 20px 0; }
+    padding: 15px 20px; }
     .card .card-target:hover {
       text-decoration: none; }
   .card .text-truncate, .card .select-box .chosen-container .chosen-single, .select-box .chosen-container .card .chosen-single {
