@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 
 namespace Bikewale.DAL.NewBikeSearch
@@ -14,8 +13,6 @@ namespace Bikewale.DAL.NewBikeSearch
     public class SearchQuery : ISearchQuery
     {
         FilterInput filterInputs;
-        IUnityContainer container;
-        IProcessFilter processFilter;
         string _whereClause = " bv.isnewmake = 1 and mo.isdeleted = 0 and mo.new = 1 "
                             + " and mo.futuristic = 0 and bv.new = 1 and bv.isdeleted = 0";
 

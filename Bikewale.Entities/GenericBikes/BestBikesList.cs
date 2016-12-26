@@ -22,5 +22,6 @@ namespace Bikewale.Entities.GenericBikes
         public uint Price { get; set; }
         public string FullModelDescription { get; set; }
         public string SmallModelDescription { get; set; }
+        public string Description { get { return String.Concat(SmallModelDescription, FullModelDescription); } }
     }
 }

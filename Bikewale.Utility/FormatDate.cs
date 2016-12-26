@@ -134,5 +134,15 @@ namespace Bikewale.Utility
             return DateTime.TryParse(date, culture, styles, out ouput) ? ouput.ToString(format) : "";
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Dec 2016
+        /// Description :   Returns Current Month Name
+        /// </summary>
+        /// <returns></returns>
+        public static string CurrentMonth()
+        {
+            return DateTime.Now.ToString("MMMM");
+        }
+
     }
 }

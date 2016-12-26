@@ -31,23 +31,30 @@
                 <div class="container">
                     <div class="banner-box text-center">
                         <h1 class="font30 text-uppercase margin-bottom5 text-white">Best <%= pageName %> in India</h1>
-                        <h2 class="font20 text-unbold text-white">Explore the list of top 10 <%= pageMaskingName %> in India</h2>
+                        <h2 class="font20 text-unbold text-white">Explore the list of top 10 <%= pageName.ToLower() %> in India</h2>
                     </div>
                 </div>
             </div>
         </header>
 
+        <% if (!String.IsNullOrEmpty(pageContent)){ %>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
+                        <% if (pageContent.Length > 410){ %>
+                        <p class="desc-main-content"><%= pageContent.Substring(0,410) %></p>
+                        <p class="desc-more-content"><%= pageContent.Substring(410) %></p>
+                        <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+                        <%} else{ %>
                         <p class="desc-main-content"><%= pageContent %></p>
+                        <%} %>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% } %>
         <% if (objBestBikes != null && objBestBikes.Count() > 0)
            {
                %>
@@ -56,7 +63,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-right20 padding-left20">
-                            <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 <%= pageMaskingName %> are...</h2>
+                            <h2 class="font18 text-black padding-top15 padding-bottom15 border-light-bottom">And the top 10 <%= pageName.ToLower() %> are...</h2>
                         </div>
 
                         <ul id="bike-list" class="font14">
@@ -101,7 +108,7 @@
                                                 <tr class="table-head-row">
                                                     <th valign="top" width="35%">Available in</th>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold</th>
+                                                    <th valign="top" width="30%">Unit sold (<%= FormatDate.CurrentMonth() %>)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -123,7 +130,7 @@
                                         </div>
                                         <%if(bike.Price > 0) { %>
                                         <a 
-                                            href="javascript:void(0)" data-pagecatid="<%= 0 %>" 
+                                            href="javascript:void(0)" data-pagecatid="0" 
                                             data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bike.Make.MakeName %>" 
                                             data-modelname="<%= bike.Model.ModelName %>" data-modelid="<%= bike.Model.ModelId %>" 
                                             class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
@@ -131,8 +138,15 @@
                                     </div>
                                     <div class="clear"></div>
 
-                                    <div class="margin-top15 padding-right20 padding-left20">
-                                        <p class="text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
+                                    <div class="margin-top15 padding-right20 description-content padding-left20">
+                                        <% if (bike.Description.Length > 410)
+                                           { %>
+                                            <p class="text-light-grey margin-bottom15 desc-main-content"><%= bike.Description.Substring(0,410) %></p>
+                                            <p class="text-light-grey margin-bottom15 desc-more-content"><%= bike.Description.Substring(410) %></p>
+                                            <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+                                            <%} else{ %>
+                                            <p class="text-light-grey margin-bottom15 desc-main-content"><%= bike.Description %></p>
+                                            <%} %>
                                         <div>
                                             <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">
@@ -250,7 +264,7 @@
                     }
                     else {
                         $(descWrapper).removeClass('active');
-                        readMoreTarget.text('... Read more');
+                        readMoreTarget.text('...Read more');
                     }
                 }
             };
