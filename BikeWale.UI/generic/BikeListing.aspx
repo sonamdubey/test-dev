@@ -7,14 +7,20 @@
 <html>
 <head>
     <%
-        title = (pageMetas!=null) ? pageMetas.Title : string.Empty;
-        description = (pageMetas!=null) ? pageMetas.Description : string.Empty;
+        if(pageMetas!=null)
+        {
+            title = pageMetas.Title;
+            description = pageMetas.Description;
+            canonical = pageMetas.CanonicalUrl;
+            alternate = pageMetas.AlternateUrl;   
+        }
+       
         isAd970x90Shown = false;
         isTransparentHeader = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
-        canonical = pageMetas.CanonicalUrl;        
+            
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/generic/listing.css" />
@@ -73,7 +79,7 @@
                             <li class="list-item">
                                 <div class="item-details-content">
                                     <div class="grid-3 padding-left20">
-                                        <a href="" title="<% %>" class="item-image-content">
+                                        <a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="item-image-content">
                                             <span class="item-rank">#<%= i++ %></span>
                                             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._227x128) %>" alt="<%= bike.BikeName %>" src="" />
                                         </a>
