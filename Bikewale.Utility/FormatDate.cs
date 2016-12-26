@@ -139,9 +139,9 @@ namespace Bikewale.Utility
         /// Description :   Returns Current Month Name
         /// </summary>
         /// <returns></returns>
-        public static string CurrentMonth()
+        public static string PreviousMonth()
         {
-            return DateTime.Now.ToString("MMMM");
+            return DateTime.Now.AddMonths(-1).ToString("MMMM");
         }
 
     }

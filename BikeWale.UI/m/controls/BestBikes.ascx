@@ -11,7 +11,7 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="margin-bottom5">Top 10 bikes in India</h3>
-                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Dio, Suzuki Aviator</p>
+                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
                     </div>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="margin-bottom5">Top 10 scooters in India</h3>
-                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Dio, Suzuki Aviator</p>
+                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Activa 125, TVS Jupiter</p>
                     </div>
                 </a>
             </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="margin-bottom5">Top 10 mileage bikes in India</h3>
-                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Dio, Suzuki Aviator</p>
+                        <p class="font12 text-light-grey text-truncate">Hero Passion PRO, Hero Splendor PRO, TVS Sport</p>
                     </div>
                 </a>
             </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="margin-bottom5">Top 10 sports bikes in India</h3>
-                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Dio, Suzuki Aviator</p>
+                        <p class="font12 text-light-grey text-truncate">Bajaj Pulsar RS200, KTM RC200, KTM RC390</p>
                     </div>
                 </a>
             </div>
@@ -71,7 +71,7 @@
                     </div>
                     <div class="swiper-details-block">
                         <h3 class="margin-bottom5">Top 10 cruiser bikes in India</h3>
-                        <p class="font12 text-light-grey text-truncate">Honda Activa 3G, Honda Dio, Suzuki Aviator</p>
+                        <p class="font12 text-light-grey text-truncate">Royal Enfield Classic 350, Royal Enfield Bullet 350, Bajaj Avenger 150 Street</p>
                     </div>
                 </a>
             </div>
