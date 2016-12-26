@@ -49,7 +49,7 @@
 
         <div runat="server" id="sports" class="swiper-slide">
             <div class="swiper-card">
-                <a href="/m/best-cruiser-bikes-in-india/" title="Top 10 sports bikes in India" class="block swiper-card-target">
+                <a href="/m/best-sports-bikes-in-india/" title="Top 10 sports bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
                         <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/210x118/bw/best-bikes/sports-style-thumb.jpg" alt="Top 10 sports bikes in India" src="" />
                         <span class="swiper-lazy-preloader"></span>

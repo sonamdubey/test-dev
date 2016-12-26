@@ -4,10 +4,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 namespace Bikewale.Cache.GenericBikes
 {
     /// <summary>
@@ -42,53 +39,21 @@ namespace Bikewale.Cache.GenericBikes
         /// <param name="filterInputs"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        public IEnumerable<BestBikeEntityBase> BestBikesByType(EnumBikeBodyStyles bodyStyle, FilterInput filterInputs, InputBaseEntity input)
+        public SearchOutputEntity BestBikesByType(EnumBikeBodyStyles bodyStyle, FilterInput filterInputs, InputBaseEntity input)
         {
             string key = string.Format("BW_GenericBikes_{0}", (int)bodyStyle);
             SearchOutputEntity objSearchList = null;
-            IEnumerable<BestBikeEntityBase> bikes = null;
             try
             {
                 objSearchList = _cache.GetFromCache<SearchOutputEntity>(key, new TimeSpan(0, 30, 0), () => _searchResult.GetSearchResult(filterInputs, input));
-                if (objSearchList != null && objSearchList.TotalCount > 0)
-                {
-                    DateTime startOfTime = new DateTime();
 
-                    var b = from bike in objSearchList.SearchResult
-                            select new BestBikeEntityBase()
-                            {
-                                BikeName = bike.BikeName,
-                                Model = bike.BikeModel,
-                                Make = bike.BikeModel.MakeBase,
-                                HostUrl = bike.BikeModel.HostUrl,
-                                OriginalImagePath = bike.BikeModel.OriginalImagePath,
-                                MinSpecs = new Entities.BikeData.MinSpecsEntity()
-                                {
-                                    Displacement = bike.Displacement,
-                                    FuelEfficiencyOverall = bike.FuelEfficiency,
-                                    KerbWeight = bike.KerbWeight,
-                                    MaximumTorque = bike.MaximumTorque,
-                                    MaxPower = SqlReaderConvertor.ToNullableFloat(bike.Power)
-                                },
-                                Price = SqlReaderConvertor.ParseToUInt32(bike.BikeModel.MinPrice),
-                                SmallModelDescription = bike.SmallDescription,
-                                FullModelDescription = bike.FullDescription,
-                                LaunchDate = (!bike.LaunchedDate.Equals(startOfTime) ? bike.LaunchedDate : default(Nullable<DateTime>)),
-                                PhotosCount = bike.PhotoCount,
-                                VideosCount = bike.VideoCount,
-                                UnitsSold = bike.UnitsSold,
-                                TotalVersions = bike.VersionCount,
-                                TotalModelColors = bike.ColorCount
-                            };
-                    bikes = b.ToList();
-                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("DealerCacheRepository.BestBikesByType_BodyStyle_{0}", bodyStyle));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.BestBikesByType_BodyStyle_{0}", bodyStyle));
                 objErr.SendMail();
             }
-            return bikes;
+            return objSearchList;
         }
     }
 }

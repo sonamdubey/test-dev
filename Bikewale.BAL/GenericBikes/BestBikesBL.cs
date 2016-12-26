@@ -6,8 +6,11 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace Bikewale.BAL.GenericBikes
 {
     /// <summary>
@@ -39,36 +42,75 @@ namespace Bikewale.BAL.GenericBikes
         public IEnumerable<BestBikeEntityBase> BestBikesByType(EnumBikeBodyStyles bodyStyle)
         {
             IEnumerable<BestBikeEntityBase> bikes = null;
-
-            InputBaseEntity filterInput = new InputBaseEntity();
-            filterInput.PageSize = "10";
-            switch (bodyStyle)
+            SearchOutputEntity objSearchList = null;
+            try
             {
-
-                case EnumBikeBodyStyles.AllBikes:
-                    break;
-                case EnumBikeBodyStyles.Cruiser:
-                case EnumBikeBodyStyles.Sports:
-                case EnumBikeBodyStyles.Scooter:
-                    filterInput.RideStyle = Convert.ToString((int)bodyStyle);
-                    break;
-                case EnumBikeBodyStyles.Mileage:
-                    filterInput.Mileage = "1";
-                    break;
-                default:
-                    break;
-            }
-
-            FilterInput filterInputs = _processFilter.ProcessFilters(filterInput);
-
-            bikes = _bestBikeCache.BestBikesByType(bodyStyle, filterInputs, filterInput);
-            foreach (var bike in bikes)
-            {
-                var articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), 1, 10, (int)bike.Make.MakeId, (int)bike.Model.ModelId);
-                if (articles != null)
+                InputBaseEntity filterInput = new InputBaseEntity();
+                filterInput.PageSize = "10";
+                switch (bodyStyle)
                 {
-                    bike.ExpertReviewsCount = articles.RecordCount;
+
+                    case EnumBikeBodyStyles.AllBikes:
+                        break;
+                    case EnumBikeBodyStyles.Cruiser:
+                    case EnumBikeBodyStyles.Sports:
+                    case EnumBikeBodyStyles.Scooter:
+                        filterInput.RideStyle = Convert.ToString((int)bodyStyle);
+                        break;
+                    case EnumBikeBodyStyles.Mileage:
+                        filterInput.Mileage = "1";
+                        break;
+                    default:
+                        break;
                 }
+
+                FilterInput filterInputs = _processFilter.ProcessFilters(filterInput);
+
+                bikes = _bestBikeCache.BestBikesByType(bodyStyle, filterInputs, filterInput);
+                if (objSearchList != null && objSearchList.TotalCount > 0)
+                {
+                    DateTime startOfTime = new DateTime();
+
+                    var b = from bike in objSearchList.SearchResult
+                            select new BestBikeEntityBase()
+                            {
+                                BikeName = bike.BikeName,
+                                Model = bike.BikeModel,
+                                Make = bike.BikeModel.MakeBase,
+                                HostUrl = bike.BikeModel.HostUrl,
+                                OriginalImagePath = bike.BikeModel.OriginalImagePath,
+                                MinSpecs = new Entities.BikeData.MinSpecsEntity()
+                                {
+                                    Displacement = bike.Displacement,
+                                    FuelEfficiencyOverall = bike.FuelEfficiency,
+                                    KerbWeight = bike.KerbWeight,
+                                    MaximumTorque = bike.MaximumTorque,
+                                    MaxPower = SqlReaderConvertor.ToNullableFloat(bike.Power)
+                                },
+                                Price = SqlReaderConvertor.ParseToUInt32(bike.BikeModel.MinPrice),
+                                SmallModelDescription = bike.SmallDescription,
+                                FullModelDescription = bike.FullDescription,
+                                LaunchDate = (!bike.LaunchedDate.Equals(startOfTime) ? bike.LaunchedDate : default(Nullable<DateTime>)),
+                                PhotosCount = bike.PhotoCount,
+                                VideosCount = bike.VideoCount,
+                                UnitsSold = bike.UnitsSold,
+                                TotalVersions = bike.VersionCount,
+                                TotalModelColors = bike.ColorCount
+                            };
+                    bikes = b.ToList();
+                }
+                foreach (var bike in bikes)
+                {
+                    var articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), 1, 10, (int)bike.Make.MakeId, (int)bike.Model.ModelId);
+                    if (articles != null)
+                    {
+                        bike.ExpertReviewsCount = articles.RecordCount;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesBL.BestBikesByType({0})", bodyStyle));
             }
             return bikes;
         }

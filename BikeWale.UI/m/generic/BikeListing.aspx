@@ -65,7 +65,7 @@
                                     <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bike.BikeName %>" src="" />
                                 </a>
                                 <div class="bike-details-block vertical-top">
-                                    <h3 class="margin-bottom5"><a href="" class="target-link"><%= bike.BikeName %></a></h3>
+                                    <h3 class="margin-bottom5"><a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" class="target-link"><%= bike.BikeName %></a></h3>
                                     <ul class="key-specs-list font12 text-xx-light">
                                          <%if (bike.MinSpecs.Displacement != 0)
                                         { %>
@@ -100,11 +100,10 @@
                                 <tbody>
                                     <tr>
                                         <td valign="top" class="text-bold text-grey">
-                                             <% if(bike.TotalModelColors > 0) { %> 
-                                                <%= bike.TotalModelColors %> <%= (bike.TotalModelColors > 1 ? " colors" : " color") %><% } %>
+                                                <%= bike.TotalModelColors > 0 ? bike.TotalModelColors : 1 %> <%= (bike.TotalModelColors > 1 ? " colors" : " color") %>
                                         </td>
                                         <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMM yyyy") : "Before 2012" %></td>
-                                        <td valign="top" class="text-bold text-grey"><%= bike.UnitsSold > 0 ? Bikewale.Utility.Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available" %></td>
+                                        <td valign="top" class="text-bold text-grey"><%= Bikewale.Utility.Format.FormatPrice(bike.UnitsSold.ToString()) %></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -118,14 +117,14 @@
                                 <button type="button" data-pagecatid="0" 
                                             data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bike.Make.MakeName %>" 
                                             data-modelname="<%= bike.Model.ModelName %>" data-modelid="<%= bike.Model.ModelId %>" 
-                                    class="btn btn-white font14 btn-size-180">Check on-road price</button>
+                                    class="btn btn-white font14 btn-size-180 getquotation">Check on-road price</button>
                                  <% } %>
                             </div>
                             <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                             <ul class="item-more-details-list">
                                   <% if(bike.ExpertReviewsCount > 0) { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
                                         <span class="generic-sprite reviews-sm"></span>
                                         <span class="icon-label">Reviews</span>
                                     </a>
@@ -133,7 +132,7 @@
                                  <%} %>
                             <% if(bike.PhotosCount > 0) { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
                                         <span class="generic-sprite news-sm"></span>
                                         <span class="icon-label">Photos</span>
                                     </a>
@@ -141,7 +140,7 @@
                                  <% } %>
                             <% if(bike.VideosCount > 0) { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
                                         <span class="generic-sprite videos-sm"></span>
                                         <span class="icon-label">Videos</span>
                                     </a>
@@ -149,7 +148,7 @@
                                  <% } %>
                             <% if(bike.MinSpecs !=null) { %>
                                 <li>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
                                         <span class="generic-sprite specs-sm"></span>
                                         <span class="icon-label">Specs</span>
                                     </a>
