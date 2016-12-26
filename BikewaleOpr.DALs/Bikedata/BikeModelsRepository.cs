@@ -89,7 +89,7 @@ namespace BikewaleOpr.DALs.Bikedata
 
         /// <summary>
         /// Created by Sajal Gupta on 22-12-2016
-        /// Des : Fetch last sold unit data from db
+        /// Des : function to get the last month's sold units data for all bikes
         /// </summary>
         /// <returns></returns>
         public SoldUnitData GetLastSoldUnitData()
@@ -106,10 +106,10 @@ namespace BikewaleOpr.DALs.Bikedata
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastUpdateDate", DbType.DateTime, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isEmailToSend", DbType.Int16, ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
 
-                    if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_lastUpdateDate"].Value)))
-                        dataObj.LastUpdateDate = Convert.ToDateTime(cmd.Parameters["par_lastUpdateDate"].Value.ToString());
+                    if (cmd.Parameters["par_lastUpdateDate"].Value != DBNull.Value)
+                        dataObj.LastUpdateDate = Convert.ToDateTime(cmd.Parameters["par_lastUpdateDate"].Value);
 
                     if (!string.IsNullOrEmpty(Convert.ToString(cmd.Parameters["par_isEmailToSend"].Value)))
                         dataObj.IsEmailToSend = (Convert.ToInt16(cmd.Parameters["par_isEmailToSend"].Value) == 1) ? true : false;

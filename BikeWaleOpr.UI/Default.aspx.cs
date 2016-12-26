@@ -1,10 +1,8 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
 using BikewaleOpr.DALs.Bikedata;
-using BikewaleOpr.DALs.PopularComparisions;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
-using BikewaleOpr.Interface.PopularComparisions;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using System;
@@ -12,15 +10,14 @@ using System.Web.UI;
 
 namespace BikeWaleOpr
 {
+    /// <summary>
+    /// Modified By : Sajal Gupta on 23 Dec 2016
+    /// </summary>
     public class Default : Page
     {
-        private IBikeModels _objModelsRepo = null;
+
         protected SoldUnitData dataObj = null;
         protected bool isShownNotification = false;
-
-        public Default()
-        {
-        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,7 +26,7 @@ namespace BikeWaleOpr
 
         /// <summary>
         /// Modified by : Sajal gupta on 22-12-2016
-        /// Desc : Added condition for showing notification panel to nandu.
+        /// Desc : Function modified to show the notifications to the logged in user. Users are fetched from the web.config file.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -39,42 +36,39 @@ namespace BikeWaleOpr
             {
                 Response.Redirect("/users/login.aspx");
             }
-            else if (CurrentUser.Id == "1225") //customer id of nandu
+            else if (CurrentUser.Id == Bikewale.Utility.BWOprConfiguration.Instance.NotificationUserId) // If customer id matches the user id from the config file then send the notification to the user
             {
-                isShownNotification = true;
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-
-                    container.RegisterType<IPopularBikeComparisions, PopularBikeComparisionsRepository>()
-                    .RegisterType<IBikeMakes, BikeMakesRepository>()
-                    .RegisterType<IBikeModels, BikeModelsRepository>()
-                    .RegisterType<IBikeVersions, BikeVersionsRepository>();
-
-                    _objModelsRepo = container.Resolve<IBikeModels>();
-
-                }
-
                 NotificationTrigger();
             }
-
-
-
         }
 
         /// <summary>
-        /// Created by Sajal Gupta o 22-12-2016
-        /// Desc : Mail trigger to nandu and abhishek .
+        /// Created by : Sajal Gupta o 22-12-2016
+        /// Desc : Function to send a mail to the specific user mentioned in the config file. Also to show the notification in the notification panel for that user only.
         /// </summary>
         protected void NotificationTrigger()
         {
-            dataObj = _objModelsRepo.GetLastSoldUnitData();
+            isShownNotification = true;
 
-            if (isShownNotification && dataObj.IsEmailToSend)
+            using (IUnityContainer container = new UnityContainer())
             {
-                string[] ccArray = new string[] { "abhishek.singh@carwale.com" };
-                ComposeEmailBase objEmail = new ModelSoldUnitMailTemplate("NandKishor Sanas", dataObj.LastUpdateDate);
-                objEmail.Send("nandkishor.sanas@carwale.com", "Please update last month model sold data", "", ccArray, null);
+                container.RegisterType<IBikeModels, BikeModelsRepository>();
+                IBikeModels _objModelsRepo = container.Resolve<IBikeModels>();
+
+                dataObj = _objModelsRepo.GetLastSoldUnitData();
+            }
+
+            if (dataObj.IsEmailToSend)
+            {
+                string ccList = Bikewale.Utility.BWOprConfiguration.Instance.NotificationCCUserMailId;
+
+                string[] cc = ccList.Split(',');
+
+                //string[] cc = new string[] { "abhishek.singh@carwale.com" };
+
+                ComposeEmailBase objEmail = new ModelSoldUnitMailTemplate(CurrentUser.UserName, dataObj.LastUpdateDate);
+
+                objEmail.Send(Bikewale.Utility.BWOprConfiguration.Instance.NotificationToUserMailId, "Please update last month model sold data", "", cc, null);
             }
         }
     }
