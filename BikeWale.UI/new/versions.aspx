@@ -1196,7 +1196,6 @@
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>
                         <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                            <h2 class="padding-right10 padding-left10"><%= bikeName %> Reviews</h2>
                             <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                             <!-- expert review starts-->
                             <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />

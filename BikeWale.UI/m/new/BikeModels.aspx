@@ -372,14 +372,13 @@
                             { %>
                             <li data-tabs="#modelColoursContent">Colors</li>
                             <%} %>
-                            <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
-                             { %>
-                            <li data-tabs="#modelReviewsContent">Reviews</li>
-                              <%} %>
-                            <% if (ctrlExpertReviews.FetchedRecordsCount == 0 && ctrlUserReviews.FetchedRecordsCount == 0 && ctrlNews.FetchedRecordsCount > 0)
-                               { %>
+                           <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                           { %>
+                             <li data-tabs="#modelReviewsContent">Reviews</li>
+                        <%} %>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount == 0 && ctrlUserReviews.FetchedRecordsCount == 0 && ctrlNews.FetchedRecordsCount > 0) { %>
                             <li data-tabs="#modelReviewsContent">News</li>
-                            <% } %>
+                        <% } %>
                             <% if (ctrlVideos.FetchedRecordsCount > 0)
                                 { %>
                                 <li data-tabs="#modelVideosContent">Videos</li>
@@ -806,12 +805,11 @@
                 <% } %>
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
-                    { %>
-                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
-                    <h2><%=bikeName %> Reviews</h2>
-                       
+                    { %>                       
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                        { %>
+                  <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
+                    <h2><%=bikeName %> Reviews</h2>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                     <% } %>
 
@@ -822,6 +820,7 @@
 
                     <%if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
+                   <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
                     <BW:News runat="server" ID="ctrlNews" />
                     <% } %>                        
                 </div>

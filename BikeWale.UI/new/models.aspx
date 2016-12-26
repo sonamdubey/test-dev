@@ -248,7 +248,8 @@
                         <!-- videos control ends -->
                     </div>
                     <% } %>
-                    <%if(ctrlDealerCard.showWidget){ %>
+                    <%if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0))
+                      { %>
                     <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                         <BW:DealerCard runat="server" ID="ctrlDealerCard" />
 
