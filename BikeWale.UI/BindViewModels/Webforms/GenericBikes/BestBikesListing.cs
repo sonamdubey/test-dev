@@ -1,7 +1,14 @@
-﻿using Bikewale.BAL.GenericBikes;
+﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.GenericBikes;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.GenericBikes;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
@@ -32,14 +39,19 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
 
         /// <summary>
-        /// 
+        /// Created by  :   Sushil Kumar on 22 Dec 2016
+        /// Description :   
         /// </summary>
         public BestBikesListing()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBestBikes, BestBikesBL>()
+                    .RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
                     .RegisterType<ISearchResult, SearchResult>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IArticles, Articles>()
+                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                     .RegisterType<IProcessFilter, ProcessFilter>();
                 objBestBikesBal = container.Resolve<IBestBikes>();
             }

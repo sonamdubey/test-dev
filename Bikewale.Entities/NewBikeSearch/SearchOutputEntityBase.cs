@@ -2,6 +2,7 @@
 using System;
 namespace Bikewale.Entities.NewBikeSearch
 {
+    [Serializable]
     public class SearchOutputEntityBase
     {
         public string BikeName { get; set; }
