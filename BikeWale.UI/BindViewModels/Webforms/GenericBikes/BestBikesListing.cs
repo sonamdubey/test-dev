@@ -91,7 +91,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GenericBikes.ProcessQueryString");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GenericBikes.ParseQueryString");
                 objErr.SendMail();
             }
         }

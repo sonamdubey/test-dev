@@ -35,10 +35,8 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="banner-box-shadow content-inner-block-20 description-content font14 text-light-grey">
-                         <% if (pageContent.Length > 410){ %>
-                        <p class="desc-main-content"><%= pageContent.Substring(0,200) %></p>
-                        <p class="desc-more-content"><%= pageContent.Substring(200) %></p>
-                        <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+                         <% if (pageContent.Length > 200){ %>
+                        <p class="desc-main-content"><%= pageContent.Substring(0,200) %></p><p class="desc-more-content"><%= pageContent.Substring(200) %></p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
                         <%} else{ %>
                         <p class="desc-main-content"><%= pageContent %></p>
                         <%} %>

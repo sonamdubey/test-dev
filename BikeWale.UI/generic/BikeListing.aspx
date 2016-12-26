@@ -49,9 +49,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 margin-minus50 description-content font14 text-light-grey">
                         <% if (pageContent.Length > 410){ %>
-                        <p class="desc-main-content"><%= pageContent.Substring(0,410) %></p>
-                        <p class="desc-more-content"><%= pageContent.Substring(410) %></p>
-                        <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
+                        <p class="desc-main-content"><%= pageContent.Substring(0,410) %></p><p class="desc-more-content"><%= pageContent.Substring(410) %></p><a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
                         <%} else{ %>
                         <p class="desc-main-content"><%= pageContent %></p>
                         <%} %>
