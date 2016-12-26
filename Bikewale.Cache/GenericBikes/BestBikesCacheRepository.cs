@@ -85,7 +85,8 @@ namespace Bikewale.Cache.GenericBikes
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByMakeCity");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("DealerCacheRepository.BestBikesByType_BodyStyle_{0}", bodyStyle));
+                objErr.SendMail();
             }
             return bikes;
         }

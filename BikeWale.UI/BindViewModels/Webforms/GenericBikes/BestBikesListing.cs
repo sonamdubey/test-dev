@@ -70,13 +70,13 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         private void ParseQueryString()
         {
             var request = HttpContext.Current.Request;
-            string _biketype = request.QueryString["biketype"];
+            string biketype = request.QueryString["biketype"];
             try
             {
 
-                if (!string.IsNullOrEmpty(_biketype))
+                if (!string.IsNullOrEmpty(biketype))
                 {
-                    BodyStyleType = GenericBikesCategoriesMapping.GetBodyStyleByBikeType(_biketype);
+                    BodyStyleType = GenericBikesCategoriesMapping.GetBodyStyleByBikeType(biketype);
                     BikeBodyStyleId = (ushort)BodyStyleType;
                     PageMaskingName = GenericBikesCategoriesMapping.BodyStyleByType(BodyStyleType);
                     PageName = new CultureInfo("en-US", false).TextInfo.ToTitleCase(PageMaskingName).Replace("-", " "); ;

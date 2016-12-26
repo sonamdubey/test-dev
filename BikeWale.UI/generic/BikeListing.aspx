@@ -71,7 +71,7 @@
                         </div>
 
                         <ul id="bike-list" class="font14">
-                            <%  int i = 1;
+                            <%  int i = 1; string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
                                 foreach(var bike in objBestBikes) { %>
 
                             <li class="list-item">
@@ -112,7 +112,7 @@
                                                 <tr class="table-head-row">
                                                     <th valign="top" width="35%">Available in</th>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (<%= FormatDate.PreviousMonth() %>)</th>
+                                                    <th valign="top" width="30%">Unit sold (<%= prevMonth %>)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

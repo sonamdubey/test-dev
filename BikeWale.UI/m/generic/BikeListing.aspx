@@ -56,7 +56,7 @@
                         <h2 class="padding-top10 padding-bottom10 border-solid-bottom">And the top 10 <%= pageName.ToLower() %> are...</h2>
                     </div>
                     <ul id="bike-list">
-                        <%  int i = 1;
+                        <%  int i = 1; string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMM");
                                 foreach(var bike in objBestBikes) { %>
                         <li class="list-item">
                             <div class="padding-bottom15 border-light-bottom">
@@ -94,16 +94,16 @@
                                     <tr class="table-head-row">
                                         <th valign="top" width="35%">Available in</th>
                                         <th valign="top" width="35%">Launched in</th>
-                                        <th valign="top" width="30%">Unit sold (<%= Bikewale.Utility.FormatDate.PreviousMonth() %>)</th>
+                                        <th valign="top" width="30%">Unit sold (<%= prevMonth %>)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td valign="top" class="text-bold text-grey">
-                                             <% if((bike.TotalModelColors + bike.TotalVersions) > 0){ %> <%= bike.TotalVersions %><%= (bike.TotalVersions > 1 ? " variants" : " variant") %><% if (bike.TotalModelColors > 0){ %>, <%= bike.TotalModelColors %><%= (bike.TotalModelColors > 1 ? " colors" : " color")  %> <% }
-                                                        } %>
+                                             <% if(bike.TotalModelColors > 0) { %> 
+                                                <%= bike.TotalModelColors %> <%= (bike.TotalModelColors > 1 ? " colors" : " color") %><% } %>
                                         </td>
-                                        <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMMM yyyy") : "Before 2012" %></td>
+                                        <td valign="top" class="text-bold text-grey"><%= bike.LaunchDate.HasValue ? Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchDate.ToString(),"MMM yyyy") : "Before 2012" %></td>
                                         <td valign="top" class="text-bold text-grey"><%= bike.UnitsSold > 0 ? Bikewale.Utility.Format.FormatNumeric(bike.UnitsSold.ToString()) : "Not Available" %></td>
                                     </tr>
                                 </tbody>
