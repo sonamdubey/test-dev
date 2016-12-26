@@ -64,8 +64,6 @@ namespace BikeWaleOpr
 
                 string[] cc = ccList.Split(',');
 
-                //string[] cc = new string[] { "abhishek.singh@carwale.com" };
-
                 ComposeEmailBase objEmail = new ModelSoldUnitMailTemplate(CurrentUser.UserName, dataObj.LastUpdateDate);
 
                 objEmail.Send(Bikewale.Utility.BWOprConfiguration.Instance.NotificationToUserMailId, "Please update last month model sold data", "", cc, null);

@@ -19,7 +19,7 @@ namespace Bikewale.Notifications.MailTemplates
 
                 message.Append("<h4>Dear " + customerName + ",</h4>");
                 message.Append("<p>Model sold unit data was last updated on " + date + "</p>");
-                message.Append("<p>Click here to update the data <a href='http://localhost:9010/content/bikeunitssold.aspx'></a></p>");
+                message.AppendFormat("<p><a href=\"{0}/content/bikeunitssold.aspx\">Click here to update the data</a></p>", Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs);
 
                 ModelSoldUnitMailHtml = message.ToString();
             }

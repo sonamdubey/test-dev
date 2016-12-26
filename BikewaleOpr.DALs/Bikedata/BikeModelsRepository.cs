@@ -76,7 +76,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelunitsoldList", DbType.String, list));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_monthyear", DbType.DateTime, date));
 
-                    MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+                    MySqlDatabase.InsertQuery(cmd, ConnectionType.ReadOnly);
 
                 }
             }

@@ -157,7 +157,6 @@ namespace Bikewale.Utility
 
         public string ImgHostURL { get { return _imgHostURL; } }
 
-
         public string DefaultCity { get { return _defaultCity; } }
 
         public string ReadOnlyConnectionString { get { return _ReadOnlyConnectionString; } }
