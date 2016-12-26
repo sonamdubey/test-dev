@@ -66,7 +66,7 @@ namespace Bikewale.BAL.GenericBikes
 
                 FilterInput filterInputs = _processFilter.ProcessFilters(filterInput);
 
-                bikes = _bestBikeCache.BestBikesByType(bodyStyle, filterInputs, filterInput);
+                objSearchList = _bestBikeCache.BestBikesByType(bodyStyle, filterInputs, filterInput);
                 if (objSearchList != null && objSearchList.TotalCount > 0)
                 {
                     DateTime startOfTime = new DateTime();
