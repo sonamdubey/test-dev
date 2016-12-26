@@ -83,7 +83,7 @@
                                         </a>
                                     </div>
                                     <div class="grid-6 bike-details-block border-grey-right padding-right20">
-                                        <h3><a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" class="bikeTitle"><%= bike.BikeName %></a></h3>
+                                        <h3><a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="bikeTitle"><%= bike.BikeName %></a></h3>
                                         <ul class="key-specs-list text-light-grey margin-bottom15">
                                              <%if (bike.MinSpecs.Displacement != 0)
                                         { %>

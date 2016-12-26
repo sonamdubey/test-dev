@@ -65,7 +65,7 @@
                                     <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bike.BikeName %>" src="" />
                                 </a>
                                 <div class="bike-details-block vertical-top">
-                                    <h3 class="margin-bottom5"><a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" class="target-link"><%= bike.BikeName %></a></h3>
+                                    <h3 class="margin-bottom5"><a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="target-link"><%= bike.BikeName %></a></h3>
                                     <ul class="key-specs-list font12 text-xx-light">
                                          <%if (bike.MinSpecs.Displacement != 0)
                                         { %>
