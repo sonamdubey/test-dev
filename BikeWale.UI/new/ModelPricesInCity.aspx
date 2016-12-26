@@ -116,11 +116,8 @@
 												</td>
 											</tr>
 											<tr>
-												<td colspan="2" class="padding-bottom15 border-divider"></td>
-											</tr>
-											<tr>
-												<td class="text-bold text-default"><%= modelName %> On-road price in <%= cityName %></td>
-												<td align="right" class="font16 text-bold text-default"><span class="bwsprite inr-lg"></span>
+												<td class="text-bold text-default padding-top15 border-divider"><%= modelName %> On-road price in <%= cityName %></td>
+												<td align="right" class="font16 text-bold text-default padding-top15 border-divider"><span class="bwsprite inr-lg"></span>
 													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
 												</td>
 											</tr>
