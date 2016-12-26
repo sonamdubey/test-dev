@@ -51,6 +51,11 @@ var sassPaths = {
         sellBike: {
             source: 'BikeWale.UI/m/sass/sell-bike/**',
             target: 'BikeWale.UI/build/min/m/css/'
+        },
+
+        generic: {
+            source: 'BikeWale.UI/m/sass/generic/**',
+            target: 'BikeWale.UI/build/min/m/css/generic'
         }
     }
 }
@@ -77,7 +82,9 @@ var page = {
             city: 'BikeWale.UI/m/service/ServiceCenterInCountry.aspx',
             listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
             details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
-        }
+        },
+
+        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx'
     }
 }
 
@@ -164,7 +171,7 @@ gulp.task('bw-generic-css', function () {
 
 // mobile: sass to min css [build folder]
 gulp.task('bwm-sass', function (callback) {
-    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass')(callback)
+    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass', 'bwm-generic-sass')(callback)
 });
 
 gulp.task('bwm-service-sass', function () {
@@ -181,9 +188,16 @@ gulp.task('bwm-sell-bike-sass', function () {
         .pipe(gulp.dest(sassPaths.bwm.sellBike.target));
 });
 
+gulp.task('bwm-generic-sass', function () {
+    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bwm.generic.target));
+});
+
 // mobile: sass to original css
 gulp.task('bwm-sass-to-css', function (callback) {
-    gulpSequence('bwm-service-css', 'bwm-sell-bike-css')(callback)
+    gulpSequence('bwm-service-css', 'bwm-sell-bike-css', 'bwm-generic-css')(callback)
 });
 
 gulp.task('bwm-service-css', function () {
@@ -196,6 +210,12 @@ gulp.task('bwm-sell-bike-css', function () {
     return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('BikeWale.UI/m/css/'));
+});
+
+gulp.task('bwm-generic-css', function () {
+    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/m/css/generic/'));
 });
 
 //Watch task
