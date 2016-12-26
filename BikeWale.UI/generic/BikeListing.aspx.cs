@@ -12,13 +12,17 @@ using System.Web;
 
 namespace Bikewale.Generic
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 22nd Dec 2016
+    /// Description : DEsktop Page for Bike listing for generic bikes by bike type scooters,mileage bikes,sports bikes ,etc. 
+    /// </summary>
     public class BikeListing : System.Web.UI.Page
     {
         protected BestBikes ctrlBestBikes;
         protected IEnumerable<BestBikeEntityBase> objBestBikes = null;
         protected PageMetaTags pageMetas = new PageMetaTags();
-        protected string pageMaskingName = string.Empty, pageName = string.Empty;
-        protected string pageContent = "";
+        protected string pageName = string.Empty;
+        protected string pageContent = string.Empty;
         protected string bannerImageUrl = string.Empty;
         protected PQSourceEnum pqSource;
         void InitializeComponent()
@@ -40,10 +44,7 @@ namespace Bikewale.Generic
         /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
-            // Modified By :Lucky Rathore on 12 July 2016.
             Form.Action = Request.RawUrl;
-            //code for device detection added by Ashwini Todkar
-            // Modified By :Ashish Kamble on 5 Feb 2016
             string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
             if (String.IsNullOrEmpty(originalUrl))
                 originalUrl = Request.ServerVariables["URL"];
@@ -58,8 +59,8 @@ namespace Bikewale.Generic
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : Get news list
+        /// Created By : Sushil Kumar on 22nd Dec 2016
+        /// Description : Get best bikes list and bind other page related components 
         /// </summary>
         private void GetBestBikesList()
         {
@@ -78,7 +79,6 @@ namespace Bikewale.Generic
                         objBestBikes = objBestBikesvm.objBestBikesList;
                         pageMetas = objBestBikesvm.PageMetas;
                         pageContent = objBestBikesvm.PageContent;
-                        pageMaskingName = objBestBikesvm.PageMaskingName;
                         pageName = objBestBikesvm.PageName;
                         bannerImageUrl = SetBannerImage(objBestBikesvm.BodyStyleType);
                         ctrlBestBikes.CurrentPage = objBestBikesvm.BodyStyleType;
@@ -96,7 +96,7 @@ namespace Bikewale.Generic
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Generic.GetBestBikesList.GetNewsList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Generic.GetBestBikesList.GetBestBikesList");
                 objErr.SendMail();
             }
         }

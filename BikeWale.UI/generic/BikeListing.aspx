@@ -145,14 +145,7 @@
                                     <div class="clear"></div>
 
                                     <div class="margin-top15 padding-right20 description-content padding-left20">
-                                        <% if (bike.Description.Length > 410)
-                                           { %>
-                                            <p class="text-light-grey margin-bottom15 desc-main-content"><%= bike.Description.Substring(0,410) %></p>
-                                            <p class="text-light-grey margin-bottom15 desc-more-content"><%= bike.Description.Substring(410) %></p>
-                                            <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
-                                            <%} else{ %>
-                                            <p class="text-light-grey margin-bottom15 desc-main-content"><%= bike.Description %></p>
-                                            <%} %>
+                                         <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                                         <div>
                                             <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">

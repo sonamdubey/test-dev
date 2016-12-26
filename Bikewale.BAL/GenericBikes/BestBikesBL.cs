@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 namespace Bikewale.BAL.GenericBikes
 {
+    /// <summary>
+    /// Created By : Sumit Kate on 23rd Dec 2016
+    /// Description : BAL Layer to manage bussiness logic related to generic pages
+    /// </summary>
     public class BestBikesBL : IBestBikes
     {
         private readonly ISearchResult _searchResult = null;

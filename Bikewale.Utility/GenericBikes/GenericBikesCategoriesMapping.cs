@@ -13,10 +13,10 @@ namespace Bikewale.Utility.GenericBikes
 
 
         /// <summary>
-        /// Created By : Sushil Kumar on 15th Dec 2016
-        /// Deascription : Android App notification categories
+        /// Created By : Sushil Kumar on 21th Dec 2016
+        /// Deascription : Get body type by bike type
         /// </summary>
-        /// <param name="subId"></param>
+        /// <param name="bikeType"></param>
         /// <returns></returns>
         public static EnumBikeBodyStyles GetBodyStyleByBikeType(string bikeType)
         {
@@ -25,6 +25,12 @@ namespace Bikewale.Utility.GenericBikes
             return bodyStyle;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 21th Dec 2016
+        /// Deascription : Get body style by type
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
         public static string BodyStyleByType(EnumBikeBodyStyles bodyStyle)
         {
             switch (bodyStyle)

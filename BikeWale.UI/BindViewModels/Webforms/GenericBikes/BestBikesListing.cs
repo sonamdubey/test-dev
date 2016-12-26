@@ -22,6 +22,10 @@ using System.Web;
 
 namespace Bikewale.BindViewModels.Webforms.GenericBikes
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 22nd Dec 2016
+    /// Description : View model for generic page
+    /// </summary>
     public class BestBikesListing
     {
         private readonly IBestBikes objBestBikesBal = null;
@@ -39,8 +43,8 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         public EnumBikeBodyStyles BodyStyleType = EnumBikeBodyStyles.AllBikes;
 
         /// <summary>
-        /// Created by  :   Sushil Kumar on 22 Dec 2016
-        /// Description :   
+        /// Created By : Sushil Kumar on 22nd DEc 2016
+        /// Description : REgister unity container for generic page 
         /// </summary>
         public BestBikesListing()
         {
@@ -60,7 +64,8 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 22nd Dec 2016
+        /// Description : Parse query string to get bike type
         /// </summary>
         private void ParseQueryString()
         {
@@ -87,12 +92,13 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GenericBikes.ProcessQueryString");
-                //objErr.SendMail();
+                objErr.SendMail();
             }
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 22nd Dec 2016
+        /// Description : Function to set page content type
         /// </summary>
         /// <param name="bodyType"></param>
         /// <returns></returns>
@@ -147,10 +153,14 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("FetchBestBikesList{0} ", BodyStyleType));
-                //objErr.SendMail();
+                objErr.SendMail();
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 22nd Dec 2016
+        /// Description : Set page meta tags according to bike type
+        /// </summary>
         private void SetPageMetas(string pgName, string pgMaskingName)
         {
             string formattedDate = Bikewale.Utility.FormatDate.GetFormatDate(DateTime.Now.ToString(), "Y");

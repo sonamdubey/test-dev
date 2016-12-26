@@ -3,6 +3,10 @@ using System;
 
 namespace Bikewale.Entities.GenericBikes
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 22nd DEc 2016
+    /// Description : Entity for bikewale generic pages
+    /// </summary>
     [Serializable]
     public class BestBikeEntityBase
     {

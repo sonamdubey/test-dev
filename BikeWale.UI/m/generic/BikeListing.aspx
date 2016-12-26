@@ -36,8 +36,8 @@
                 <div class="grid-12">
                     <div class="banner-box-shadow content-inner-block-20 description-content font14 text-light-grey">
                          <% if (pageContent.Length > 410){ %>
-                        <p class="desc-main-content"><%= pageContent.Substring(0,410) %></p>
-                        <p class="desc-more-content"><%= pageContent.Substring(410) %></p>
+                        <p class="desc-main-content"><%= pageContent.Substring(0,200) %></p>
+                        <p class="desc-more-content"><%= pageContent.Substring(200) %></p>
                         <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
                         <%} else{ %>
                         <p class="desc-main-content"><%= pageContent %></p>
@@ -123,18 +123,11 @@
                                     class="btn btn-white font14 btn-size-180">Check on-road price</button>
                                  <% } %>
                             </div>
-                             <% if (bike.Description.Length > 410)
-                                           { %>
-                                             <p class="font14 text-light-grey margin-bottom15"><%= bike.Description.Substring(0,410) %></p>
-                                             <p class="font14 text-light-grey margin-bottom15"><%= bike.Description.Substring(410) %></p>
-                                            <a href="javascript:void(0)" class="read-more-desc-target" rel="nofollow">... Read more</a>
-                                            <%} else{ %>
-                            <p class="font14 text-light-grey margin-bottom15"><%= bike.Description %></p>
-                                            <%} %>
+                            <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                             <ul class="item-more-details-list">
                                   <% if(bike.ExpertReviewsCount > 0) { %>
                                 <li>
-                                    <a href="" title="Honda Activa 3G Reviews">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
                                         <span class="generic-sprite reviews-sm"></span>
                                         <span class="icon-label">Reviews</span>
                                     </a>
@@ -142,15 +135,15 @@
                                  <%} %>
                             <% if(bike.PhotosCount > 0) { %>
                                 <li>
-                                    <a href="" title="Honda Activa 3G News">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
                                         <span class="generic-sprite news-sm"></span>
-                                        <span class="icon-label">News</span>
+                                        <span class="icon-label">Photos</span>
                                     </a>
                                 </li>
                                  <% } %>
                             <% if(bike.VideosCount > 0) { %>
                                 <li>
-                                    <a href="" title="Honda Activa 3G Videos">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
                                         <span class="generic-sprite videos-sm"></span>
                                         <span class="icon-label">Videos</span>
                                     </a>
@@ -158,7 +151,7 @@
                                  <% } %>
                             <% if(bike.MinSpecs !=null) { %>
                                 <li>
-                                    <a href="" title="Honda Activa 3G Specs">
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
                                         <span class="generic-sprite specs-sm"></span>
                                         <span class="icon-label">Specs</span>
                                     </a>

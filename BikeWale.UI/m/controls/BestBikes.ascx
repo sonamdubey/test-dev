@@ -2,7 +2,7 @@
 
 <div class="swiper-container card-container best-bikes-swiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide">
+        <div runat="server" id="allbikes" class="swiper-slide">
             <div class="swiper-card">
                 <a href="/m/best-bikes-in-india/" title="Top 10 bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <div class="swiper-slide">
+        <div runat="server" id="scooter" class="swiper-slide">
             <div class="swiper-card">
                 <a href="/m/best-scooters-in-india/" title="Top 10 scooters in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="swiper-slide">
+        <div runat="server" id="mileage" class="swiper-slide">
             <div class="swiper-card">
                 <a href="/m/best-mileage-bikes-in-india/" title="Top 10 mileage bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <div class="swiper-slide">
+        <div runat="server" id="sports" class="swiper-slide">
             <div class="swiper-card">
                 <a href="/m/best-cruiser-bikes-in-india/" title="Top 10 sports bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="swiper-slide">
+        <div runat="server" id="cruiser" class="swiper-slide">
             <div class="swiper-card">
                 <a href="/m/best-cruiser-bikes-in-india/" title="Top 10 cruiser bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">

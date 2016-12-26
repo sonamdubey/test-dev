@@ -11,6 +11,10 @@ using System.Web;
 
 namespace Bikewale.Mobile.Generic
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 22nd Dec 2016
+    /// Description : Mobile Page for Bike listing for generic bikes by bike type scooters,mileage bikes,sports bikes ,etc. 
+    /// </summary>
     public class BikeListing : System.Web.UI.Page
     {
         protected BestBikes ctrlBestBikes;
@@ -46,8 +50,8 @@ namespace Bikewale.Mobile.Generic
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : Get news list
+        /// Created By : Sushil Kumar on 22nd Dec 2016
+        /// Description : Get best bikes list and bind other page related components 
         /// </summary>
         private void GetBestBikesList()
         {
@@ -69,7 +73,7 @@ namespace Bikewale.Mobile.Generic
                         pageMaskingName = objBestBikesvm.PageMaskingName;
                         pageName = objBestBikesvm.PageName;
                         bannerImageUrl = SetBannerImage(objBestBikesvm.BodyStyleType);
-                        //ctrlBestBikes.CurrentPage = objBestBikesvm.BodyStyleType;
+                        ctrlBestBikes.CurrentPage = objBestBikesvm.BodyStyleType;
                     }
 
                 }
@@ -84,7 +88,7 @@ namespace Bikewale.Mobile.Generic
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Generic.GetBestBikesList.GetNewsList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.Generic.GetBestBikesList.GetBestBikesList");
                 objErr.SendMail();
             }
         }
