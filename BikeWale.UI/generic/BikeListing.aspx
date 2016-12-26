@@ -114,7 +114,7 @@
                                                 <tr class="table-head-row">
                                                     <th valign="top" width="35%">Available in</th>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (<%= FormatDate.CurrentMonth() %>)</th>
+                                                    <th valign="top" width="30%">Unit sold (<%= FormatDate.PreviousMonth() %>)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
