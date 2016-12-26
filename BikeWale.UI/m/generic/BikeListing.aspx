@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BikeListing.aspx.cs" Inherits="Bikewale.Mobile.Generic.BikeListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Generic.BikeListing" %>
 <%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 
 <!DOCTYPE html>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="BestBikes.ascx.cs" Inherits="Bikewale.Mobile.Controls.BestBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.BestBikes" %>
 
 <div class="swiper-container card-container best-bikes-swiper">
     <div class="swiper-wrapper">
