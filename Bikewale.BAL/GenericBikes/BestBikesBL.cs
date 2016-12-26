@@ -1,28 +1,40 @@
 ﻿
+using Bikewale.Entities.CMS;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.NewBikeSearch;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 namespace Bikewale.BAL.GenericBikes
 {
     public class BestBikesBL : IBestBikes
     {
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
-
-        public BestBikesBL(ISearchResult searchResult, IProcessFilter processFilter)
+        private readonly IBestBikesCacheRepository _bestBikeCache = null;
+        private readonly IArticles _objArticles = null;
+        private readonly ICMSCacheContent _cmsCache = null;
+        public BestBikesBL(IBestBikesCacheRepository bestBikeCache, ISearchResult searchResult, IProcessFilter processFilter, IArticles objArticles, ICMSCacheContent cmsCache)
         {
+            _bestBikeCache = bestBikeCache;
             _searchResult = searchResult;
             _processFilter = processFilter;
+            _objArticles = objArticles;
+            _cmsCache = cmsCache;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 26 Dec 2016
+        /// Description :   Get Top 10 Bikes for Generic Page
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
         public IEnumerable<BestBikeEntityBase> BestBikesByType(EnumBikeBodyStyles bodyStyle)
         {
-            ICollection<BestBikeEntityBase> bikes = null;
+            IEnumerable<BestBikeEntityBase> bikes = null;
 
             InputBaseEntity filterInput = new InputBaseEntity();
             filterInput.PageSize = "10";
@@ -44,41 +56,16 @@ namespace Bikewale.BAL.GenericBikes
             }
 
             FilterInput filterInputs = _processFilter.ProcessFilters(filterInput);
-            SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, filterInput);
 
-            if (objSearchList.TotalCount > 0)
+            bikes = _bestBikeCache.BestBikesByType(bodyStyle, filterInputs, filterInput);
+            foreach (var bike in bikes)
             {
-                DateTime startOfTime = new DateTime();
-
-                var b = from bike in objSearchList.SearchResult
-                        select new BestBikeEntityBase()
-                        {
-                            BikeName = bike.BikeName,
-                            Model = bike.BikeModel,
-                            Make = bike.BikeModel.MakeBase,
-                            HostUrl = bike.BikeModel.HostUrl,
-                            OriginalImagePath = bike.BikeModel.OriginalImagePath,
-                            MinSpecs = new Entities.BikeData.MinSpecsEntity()
-                            {
-                                Displacement = bike.Displacement,
-                                FuelEfficiencyOverall = bike.FuelEfficiency,
-                                KerbWeight = bike.KerbWeight,
-                                MaximumTorque = bike.MaximumTorque,
-                                MaxPower = SqlReaderConvertor.ToNullableFloat(bike.Power)
-                            },
-                            Price = SqlReaderConvertor.ParseToUInt32(bike.BikeModel.MinPrice),
-                            SmallModelDescription = bike.SmallDescription,
-                            FullModelDescription = bike.FullDescription,
-                            LaunchDate = (!bike.LaunchedDate.Equals(startOfTime) ? bike.LaunchedDate : default(Nullable<DateTime>)),
-                            PhotosCount = bike.PhotoCount,
-                            VideosCount = bike.VideoCount,
-                            UnitsSold = bike.UnitsSold,
-                            TotalVersions = bike.VersionCount,
-                            TotalModelColors = bike.ColorCount
-                        };
-                bikes = b.ToList();
+                var articles = _cmsCache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), 1, 10, (int)bike.Make.MakeId, (int)bike.Model.ModelId);
+                if (articles != null)
+                {
+                    bike.ExpertReviewsCount = articles.RecordCount;
+                }
             }
-
             return bikes;
         }
     }
