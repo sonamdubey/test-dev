@@ -165,7 +165,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlRecentUsedBikes.FetchedRecordsCount > 0)){ %>
         <section class="container">
             <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
@@ -268,7 +268,7 @@
             </div>
             <div class="clear"></div>
         </section>
-
+        <%} %>
         <section>
             <div class="container">
                 <div class="grid-12">

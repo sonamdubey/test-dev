@@ -133,7 +133,8 @@
            { %>
         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
         <%} %>
-
+        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlRecentUsedBikes.fetchedCount > 0))
+          { %>
         <section>
             <div id="makeTabsContentWrapper" class="container bg-white clearfix box-shadow margin-bottom20">
                 <div id="makeOverallTabsWrapper">
@@ -224,6 +225,7 @@
                 <div id="makeSpecsFooter"></div>
             </div>
         </section>
+        <%} %>
         <!--  News, reviews and videos code ends here -->
         <!--  About code ends here -->
 
