@@ -10,7 +10,7 @@
 <%@ Register Src="~/controls/EMICalculatorMin.ascx" TagName="EmiCalc" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LocateDealer_New.ascx" TagName="LocateDealer" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewBikesOnRoadPrice.ascx" TagName="NBOnRoadPrice" TagPrefix="BW" %>
-
+<%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -341,6 +341,20 @@
             </div>
             <div class="clear"></div>
         </section>
+
+         <% if(ctrlBestBikes!= null) { %>
+        <section>
+            <div class="container section-bottom-margin">
+                <h2 class="text-center margin-top30 margin-bottom20 font22">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                        <BW:BestBikes runat="server" ID="ctrlBestBikes" />
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <% } %>
 
         <section class="container">
             <!--  Compare section code starts here -->

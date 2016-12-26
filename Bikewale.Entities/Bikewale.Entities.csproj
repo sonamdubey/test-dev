@@ -209,6 +209,8 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="GenericBikes\BestBikesList.cs" />
+    <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />

@@ -54,9 +54,9 @@
     margin-left: 20px;
 }
 .card .card-target {
-    min-height: 140px;
+    min-height: 147px;
     display: block;
-    padding: 15px 20px 0;
+    padding: 15px 20px;
 }
 .card .card-target:hover {
     text-decoration: none;

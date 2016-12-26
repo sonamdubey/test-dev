@@ -293,6 +293,10 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     margin-left: 5px;
 }
 
+.block {
+    display: block;
+}
+
 .swiper-card {
     margin-left: 5px;
     width:200px;
@@ -316,6 +320,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .swiper-image-preview {
     height: 95px;
     padding: 5px 5px 0;
+    position: relative;
 }
 
 .swiper-image-preview img {
@@ -344,29 +349,26 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     overflow:hidden;
 }
 
+.block { display: block; }
+
 .upComingbikes li { height: 400px; }
 .comparebikesHomePage li { width: 976px; }
 
 /* dealers */
-#makeDealersContent h2 { margin-bottom: 15px }
-#makeDealersContent .swiper-slide:first-child { margin-left: 5px; }
+.dealer-horizontal-swiper h2 { margin-bottom: 15px }
+.dealer-horizontal-swiper .swiper-slide:first-child { margin-left: 5px; }
 
-#makeDealersContent .card-container .swiper-slide { 
+.dealer-horizontal-swiper .swiper-slide { 
     width:308px;
 }
 
-#makeDealersContent .swiper-card {
+.dealer-horizontal-swiper .swiper-card {
     width: 308px;
     min-height: 140px;
     padding: 15px 10px 10px;
 }
 
-#makeDealersContent .card-container .swiper-slide.no-city-dealer-list {
-    width: 308px;
-}
-
-#makeDealersContent .no-city-dealer-list .swiper-card {
-    width: 308px;
+.dealer-horizontal-swiper.no-city-selection-carousel .swiper-card {
     min-height: 180px;
     padding: 15px 20px 10px;
 }
@@ -927,8 +929,11 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     .review-heading-wrapper {
         width: 52% !important;
     }
-    .article-stats-content { width:72%; }
+    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
     #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
+        width: 265px;
+    }
 }
 #popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
     display: none;

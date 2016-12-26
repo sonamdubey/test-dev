@@ -1,6 +1,10 @@
 ﻿
 namespace Bikewale.Entities.CMS
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 21st Dec 2016
+    /// Description : Add new category for tackday
+    /// </summary>
     public enum EnumCMSContentType
     {
         News = 1,
