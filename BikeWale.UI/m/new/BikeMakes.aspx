@@ -189,16 +189,18 @@
                     </div>
                 </div>
                 <% } %>
-                <% if (ctrlNews.FetchedRecordsCount > 0)
+             
+                     <% if (ctrlNews.FetchedRecordsCount > 0)
                    {%>
+                  <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" >
                 <BW:News runat="server" ID="ctrlNews" />
                 <%} %>
-
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                    { %>
-                <div class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" id="makeReviewsContent">
+              
                     <h2 class="text-bold"><%=_make.MakeName %> Reviews</h2>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                  
                 </div>
                 <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
@@ -208,14 +210,14 @@
                     <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
                 <% } %>
-
+                 <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) { %>
                 <div id="dealerAndServiceContent" class="bw-model-tabs-data">
-                    <% if (ctrlDealerCard.showWidget) { %>
+                    <%if (ctrlDealerCard.showWidget){ %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-                    <% }  %>
-
+                    <%} %>
                     <% if (ctrlServiceCenterCard.showWidget&& cityId>0) { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />    
+                    <% }  %>
                     <% }  %>
                 </div>
 
