@@ -450,8 +450,9 @@
                                     <div class="alpha <%= (isPremium && isUSPBenfits) ? "grid-6 border-light-right" : "grid-12 omega offers-or-benefits" %>">
                                         <p class="text-bold margin-bottom5">Offers from this dealer:</p>
                                         <ul class="dealership-benefit-list">
-                                            <% foreach(var offer in primarydealer.OfferList) { %>
-                                                    <li>
+                                            <% foreach(var offer in primarydealer.OfferList) {
+                                                   %>
+                                                    <li class="<%= offerCount == 1 ? "single-offer" :"" %>">
                                                         <span class="inline-block benefit-list-image pq-sprite <%=string.Format("offerIcon_{0}", offer.OfferCategoryId) %>"></span>
                                                         <span class="inline-block benefit-list-title"><%= offer.OfferText %>
                                                             <% if(offer.IsOfferTerms) { %>

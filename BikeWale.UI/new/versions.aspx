@@ -242,7 +242,7 @@
                                 <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
-                                    <span class="font14"><%= viewModel.Organization %></span>
+                                    <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
                                 </div>
                                 <div class="clear"></div>
                                 <%  }
@@ -631,7 +631,7 @@
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
                             <%if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                               { %>
-                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %></p>
+                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
                             <%} %>
                         </div>
                         <div class="clear"></div>

@@ -348,6 +348,7 @@ h3 {
 .offers-or-benefits .dealership-benefit-list li { width:49%; padding-top: 10px; margin-bottom:10px; display: inline-block; vertical-align: middle; }
 .dealership-benefit-list li { width:98%; padding-top: 10px; margin-bottom:10px; }
 .dealership-benefit-list .benefit-list-title { width:80%; }
+.offers-or-benefits .dealership-benefit-list .single-offer { width: 99%; margin-bottom: 0; }
 
 #booking-benefits-list {
     margin-left: 17px;

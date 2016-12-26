@@ -50,7 +50,7 @@ namespace Bikewale.BikeBooking
         protected string bikeName = string.Empty, bikeVersionName = string.Empty, minspecs = string.Empty, pageUrl = string.Empty, clientIP = CommonOpn.GetClientIP(),
             location = string.Empty, dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58";
 
-        protected uint totalPrice = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0, modelId = 0;
+        protected uint totalPrice = 0, offerCount = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0, modelId = 0;
         protected bool isBWPriceQuote, isPrimaryDealer, IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
@@ -175,6 +175,7 @@ namespace Bikewale.BikeBooking
 
                             if (primarydealer.OfferList != null && primarydealer.OfferList.Count() > 0)
                             {
+                                offerCount = (uint)primarydealer.OfferList.Count();
                                 isoffer = true;
                             }
 
