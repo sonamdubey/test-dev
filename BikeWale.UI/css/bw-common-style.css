@@ -1269,9 +1269,20 @@ input[type="number"]:focus {
     top: 32px;
 }
 
+/* area dropdown height */
+#area-dropdown-field.select-box .chosen-container .chosen-drop {
+    height: 220px;
+    overflow: hidden;
+}
+
 /* card */
 .card .details-column.text-truncate {
     width: 92%
+}
+
+/* no-city-selection-carousel */
+.no-city-selection-carousel.inner-content-carousel .jcarousel li {
+    min-height: 216px;
 }
 
 /* lead capture control */
