@@ -277,13 +277,14 @@
 
 .done .select-label {
   font-size: 12px;
-  top: -20px;
-  padding: 11px 20px;
-  cursor: text; }
-
-.done .select-label {
-  font-size: 12px;
   top: -20px; }
+
+.select-box .chosen-single:focus {
+  outline: none; }
+
+.chosen-disabled.single-version {
+  opacity: 1 !important;
+  background: none; }
 
 #bw-tips-list li {
   padding-right: 30px;

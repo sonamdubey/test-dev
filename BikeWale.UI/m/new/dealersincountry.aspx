@@ -80,13 +80,10 @@
             <% if (ctrlDealersByBrand.FetchedRecordsCount > 0)
                            { %>
         <section>
-            <div class="container bg-white margin-bottom10 box-shadow">
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper">
-                        <BW:DealersByBrand runat="server" ID="ctrlDealersByBrand" />
-                    </div>
-                </div>
-                </section>
+            <div class="margin-bottom10">
+                <BW:DealersByBrand runat="server" ID="ctrlDealersByBrand" />
+            </div>
+        </section>
            <%} %>
          <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
         <section>
