@@ -7,6 +7,7 @@ namespace Bikewale.Utility
     /// </summary>
     public static class FormatDescription
     {
+        /// <summary>
         /// Function will return the description with truncated content.
         /// </summary>
         /// <param name="_desc">description which needs to be truncated.</param>
