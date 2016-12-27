@@ -30,12 +30,12 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div class="container">
-                <div class="banner-home content-inner-block-10">
+            <div class="banner-home">
+                <div id="campaign-banner-container" class="container banner-container text-center">
                     <!-- Top banner code starts here -->
-                    <h1 class="font22 text-uppercase text-white text-center padding-top30">Find your bike</h1>
-                    <h2 class="text-unbold text-white margin-top15 text-center font14">Get Comprehensive Information on Bikes!</h2>
-                    <div class="new-used-search new-bikes-search margin-top30 position-rel">
+                    <h1 class="font22 text-uppercase text-white">Find your bike</h1>
+                    <%--<h2 class="banner-subheading font14 text-unbold text-white">Get Comprehensive Information on Bikes!</h2>--%>
+                    <div class="new-used-search new-bikes-search position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
                         <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
                         <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
@@ -46,6 +46,11 @@
                             <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                         </li>
                     </ul>
+
+                    <div id="campaign-banner-text">
+                        <p class="font14 text-bold text-white">BikeWale Track Day</p>
+                        <a href="/m/trackday2016/" class="font12 text-white text-underline bw-ga" c="Home_Page" a="BikeWale_Track_Day_Discover_Now_Clicked" l="BikeWale_Track_Day">Discover now</a>
+                    </div>
                 </div>
             </div>
         </section>

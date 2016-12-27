@@ -39,30 +39,32 @@
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="home-top-banner">
-            <div class="container">
+            <div id="campaign-banner-container" class="container">
                 <div class="welcome-box">
                     <h1>Find your bike</h1>
-                    <p class="font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
+                    <p class="banner-subheading font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
                     <div class="margin-top60">
-                        <div>
-                            <div class="bike-search-container position-rel">
-                                <div class="bike-search new-bike-search position-rel">
-                                    <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
-                                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                                </div>
-                                <div class="findBtn">
-                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
-                                </div>
-                                <div class="clear"></div>
-                                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                                    <li class="ui-menu-item" tabindex="-1">
-                                        <span class="text-bold">Oops! No suggestions found</span><br />
-                                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                                    </li>
-                                </ul>
+                        <div class="bike-search-container position-rel">
+                            <div class="bike-search new-bike-search position-rel">
+                                <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
+                                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                             </div>
+                            <div class="findBtn">
+                                <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
+                            </div>
+                            <div class="clear"></div>
+                            <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+                                <li class="ui-menu-item" tabindex="-1">
+                                    <span class="text-bold">Oops! No suggestions found</span><br />
+                                    <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                </div>
+                <div id="campaign-banner-text">
+                    <p class="font18 text-white text-bold margin-bottom10">BikeWale Track Day</p>
+                    <a href="/trackday2016/" class="btn btn-banner-white bw-ga" c="Home_Page" a="BikeWale_Track_Day_Discover_Now_Clicked" l="BikeWale_Track_Day">Discover now &#10095;</a>
                 </div>
             </div>
         </header>

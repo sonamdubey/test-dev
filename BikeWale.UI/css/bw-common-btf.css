@@ -15,9 +15,6 @@
 .rounded-corner0 { -moz-border-radius: 0px; -webkit-border-radius: 0px; -o-border-radius: 0px; -ms-border-radius: 0px; border-radius: 0px; }
 .rounded-corner-no-left { -moz-border-radius: 0 2px 2px 0; -webkit-border-radius: 0 2px 2px 0; -o-border-radius: 0 2px 2px 0; -ms-border-radius: 0 2px 2px 0; border-radius: 0 2px 2px 0; }
 
-.home-top-banner { background:#161209 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
-.home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
-
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
 .globalcity-popup-data { padding: 30px 20px 30px; }
@@ -150,10 +147,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 2; }
 .cityPopup-icon { background-position: -106px -273px; width: 60px; height: 52px; }
-.final-price-logo, .locate-dealer-logo, .emi-calc-logo { width: 92px; height: 92px; }
-.final-price-logo { background-position: 0 0; }
-.locate-dealer-logo { background-position: -102px 0; }
-.emi-calc-logo {  background-position: -204px 0; }
 .filter-icon { width:23px; height:21px; background-position: -180px -329px;}
 .more-filters-btn:hover .filter-icon { background-position: -180px -358px;}
 .orp-location-icon {background-position:-99px -35px; width: 50px; height: 50px; }
