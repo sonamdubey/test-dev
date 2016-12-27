@@ -482,7 +482,6 @@ var usedBikes = function () {
             }
 
             self.Filters.notifySubscribers();
-
             var qs = self.QueryString();
             if (self.PreviousQS() != qs) {
                 $('body').addClass('loader-active');
@@ -515,13 +514,18 @@ var usedBikes = function () {
                         $('body').removeClass('loader-active');
                         spinnerBackground.hide();
                         loaderColumn.hide();
-                        bwSpinner.hide();
+                        bwSpinner.hide();                        
                     }
-                });
+                });  
             }
+
+            if (loaderColumn.next().text().trim() == "") loaderColumn.next().hide();
+
         } catch (e) {
             console.warn("Unable to set fetch used bike records : " + e.message);
         }
+
+       
     };
 
     self.ChangePageNumber = function (e) {
@@ -700,7 +704,7 @@ $(function () {
 
     filters.set.bike();
 
-    vwUsedBikes.SetPageFilters(null,event);
+    vwUsedBikes.SetPageFilters(null, event);
 
 });
 
