@@ -6,7 +6,8 @@
   -o-box-shadow: 0 2px 2px 0 #dcdcdc;
   box-shadow: 0 2px 2px 0 #dcdcdc; }
 
-.card-bottom-margin {
+.card-bottom-margin,
+.section-bottom-margin {
   margin-bottom: 10px; }
 
 .card-inner-padding {
@@ -130,6 +131,9 @@
   height: 75px;
   display: table;
   pointer-events: none !important; }
+
+.map-type-carousel .swiper-details-block {
+  padding-bottom: 12px; }
 
 #bw-tips-list {
   padding: 0 20px 5px; }

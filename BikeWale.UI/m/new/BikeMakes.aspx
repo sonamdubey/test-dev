@@ -189,18 +189,18 @@
                     </div>
                 </div>
                 <% } %>
-             
-                     <% if (ctrlNews.FetchedRecordsCount > 0)
+                
+                <% if (ctrlNews.FetchedRecordsCount > 0)
                    {%>
-                  <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" >
-                <BW:News runat="server" ID="ctrlNews" />
+                <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                    <BW:News runat="server" ID="ctrlNews" />
+                </div>
                 <%} %>
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                    { %>
-              <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14" >
+                <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold"><%=_make.MakeName %> Reviews</h2>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                  
                 </div>
                 <% } %>
                 <%if (ctrlVideos.FetchedRecordsCount > 0)

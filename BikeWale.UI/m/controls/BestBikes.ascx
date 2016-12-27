@@ -6,7 +6,7 @@
             <div class="swiper-card">
                 <a href="/m/best-bikes-in-india/" title="Top 10 bikes in India" class="block swiper-card-target">
                     <div class="swiper-image-preview">
-                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com/210x118/bw/best-bikes/top-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
+                        <img class="swiper-lazy" data-src="https://imgd3.aeplcdn.com/210x118/bw/best-bikes/best-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
                         <span class="swiper-lazy-preloader"></span>
                     </div>
                     <div class="swiper-details-block">

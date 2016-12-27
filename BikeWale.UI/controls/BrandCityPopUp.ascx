@@ -103,13 +103,13 @@
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
                         self.listCities([]);
-                        startLoading($("#divBrandLoader"));
+                        progressBar.startLoading($("#divBrandLoader"));
                         $("#divBrandLoader .placeholder-loading-text").show();
                         BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
                         if (data = lscache.get(BrandsKey)) {
                             var brands = ko.toJS(data);
                             if (brands) {
-                                stopLoading($("#divBrandLoader"));
+                                progressBar.stopLoading($("#divBrandLoader"));
                                 $("#divBrandLoader .placeholder-loading-text").hide();
                                 self.bookingBrands(brands);
                                 isAborted = true;
@@ -125,7 +125,7 @@
                         var brands = ko.toJS(response);
                         if (brands) {
                             lscache.set(BrandsKey, brands.makes, 60);
-                            stopLoading($("#divBrandLoader"));
+                            progressBar.stopLoading($("#divBrandLoader"));
                             $("#divBrandLoader .placeholder-loading-text").hide();
                             self.bookingBrands(brands.makes);
 
@@ -154,7 +154,6 @@
             }
             popupcity.find("option[value='0']").prop('disabled', true);
             popupcity.trigger('chosen:updated');
-            cityChangedPopup();
 
             popupBrand.find("option[value='0']").prop('disabled', true);
             popupBrand.trigger('chosen:updated');
@@ -178,11 +177,11 @@
                         self.listCities([]);
                         $("#divCitiesLoader").show();
                         $("#divCitiesLoader .placeholder-loading-text").show();
-                        startLoading($("#divCitiesLoader"));
+                        progressBar.startLoading($("#divCitiesLoader"));
                         if (data = lscache.get(BrandCityKey)) {
                             var cities = ko.toJS(data);
                             if (cities) {
-                                stopLoading($("#divCitiesLoader"));
+                                progressBar.stopLoading($("#divCitiesLoader"));
                                 $("#divCitiesLoader .placeholder-loading-text").hide();
                                 insertCitySeparatorNew(cities);
                                 self.listCities(data);
@@ -200,7 +199,7 @@
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
                         if (cities.length) {
-                            stopLoading($("#divCitiesLoader"));
+                            progressBar.stopLoading($("#divCitiesLoader"));
                             $("#divCitiesLoader .placeholder-loading-text").hide();
                             insertCitySeparatorNew(cities);
                             self.listCities(cities);
