@@ -222,7 +222,7 @@
                 </div>
 
                 <% if (ctrlRecentUsedBikes.fetchedCount>0) {%>
-                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                <div id="makeUsedBikeContent" class="margin-right20 margin-left20 border-solid-bottom"></div>
                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                 <%} %>
                 
