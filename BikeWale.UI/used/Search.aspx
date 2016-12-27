@@ -198,7 +198,7 @@
                                                 </a>
                                             </div>
                                             <div class="model-details-content font14">
-                                                <h2 class="margin-bottom10"><a href="" data-bind="text: bikeName, attr: { 'href': '/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="text-truncate text-black" ></a></h2>
+                                                <h2><a href="" data-bind="text: bikeName, attr: { 'href': '/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="text-truncate text-black" ></a></h2>
                                                 <div class="margin-bottom5">
                                                     <span class="font12 text-xt-light-grey" data-bind="text: 'Updated on: ' + strLastUpdated"></span>
                                                 </div>
@@ -222,8 +222,8 @@
                                                 </div>
 
                                                 <div class="clear"></div>
-                                                <p class="margin-bottom15" data-bind="visible: askingPrice == 0" ><span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold" >N/A</span></p>
-                                                <p class="margin-bottom15" data-bind="visible: askingPrice > 0" ><span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold" data-bind="CurrencyText: askingPrice"></span></p>
+                                                <p class="margin-bottom10" data-bind="visible: askingPrice == 0" ><span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold" >N/A</span></p>
+                                                <p class="margin-bottom10" data-bind="visible: askingPrice > 0" ><span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold" data-bind="CurrencyText: askingPrice"></span></p>
                                                 <a href="javascript:void(0)" class="btn btn-white seller-details-btn used-bike-lead" rel="nofollow" data-ga-cat="Used_Bike_Listing" data-ga-act="Get_Seller_Details_Clicked" data-bind="attr: { 'data-ga-lab': profileId, 'data-profile-id': profileId }">Get seller details</a>
                                             </div>
                                             <div class="clear"></div>
