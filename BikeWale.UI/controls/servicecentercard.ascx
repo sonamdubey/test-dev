@@ -14,7 +14,7 @@
             <% if (!string.IsNullOrEmpty(serviceCenter.Address)){ %>
             <p class="text-light-grey margin-bottom5">
                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                <span class="vertical-top details-column text-truncate"><%=serviceCenter.Address %></span>
+                <span class="vertical-top details-column"><%= Bikewale.Utility.FormatDescription.TruncateDescription(serviceCenter.Address, 80) %></span>
             </p>
             <% } %>
             <% if (!string.IsNullOrEmpty(serviceCenter.Phone)){ %>
