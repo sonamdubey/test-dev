@@ -35,7 +35,7 @@
    { %>
 <%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20"><%= makeName %> Showrooms & Service Centers</h2>
+    <h2 class="padding-left20 padding-right20"><%= makeName %> <%=(cityDealers.TotalDealerCount>0)?"Showrooms":"" %> <%=(cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":"" %> <%=(cityDealers.TotalServiceCenterCount>0)?"Service Centers":"" %></h2>
     <div class="jcarousel-wrapper inner-content-carousel no-city-selection-carousel">
         <div class="jcarousel">
             <ul>

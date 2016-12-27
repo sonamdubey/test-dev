@@ -40,7 +40,7 @@
        { %>
 <%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
-<h2 class="padding-right20 padding-left20"><%= makeName %> Showrooms & Service Centers</h2>
+<h2 class="padding-right20 padding-left20"><%= makeName %> <%=(cityDealers.TotalDealerCount>0)?"Showrooms":"" %> <%=(cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":"" %> <%=(cityDealers.TotalServiceCenterCount>0)?"Service Centers":"" %></h2>
     <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
         <!-- dealers when no city selected -->
         <div class="swiper-wrapper">

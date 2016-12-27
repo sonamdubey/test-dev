@@ -806,16 +806,18 @@
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                     { %>                       
-                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || (ctrlUserReviews.FetchedRecordsCount > 0))
                        { %>
                   <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
-                    <h2><%=bikeName %> Reviews</h2>
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                    <% } %>
-
-                    <%if (ctrlUserReviews.FetchedRecordsCount > 0)
-                       { %>
-                    <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                   <h2><%=bikeName %> Reviews</h2>
+                             <%if (ctrlExpertReviews.FetchedRecordsCount > 0)
+                               { %>
+                              <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                              <%} %>
+                            <%if (ctrlUserReviews.FetchedRecordsCount > 0)
+                               { %>
+                                  <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                            <% } %>
                     <% } %>
 
                     <%if (ctrlNews.FetchedRecordsCount > 0)
