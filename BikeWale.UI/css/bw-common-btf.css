@@ -111,7 +111,7 @@ footer ul li a:hover { text-decoration: underline; }
 .navUL li ul a { padding: 11px 0 0 51px; border-left: 4px solid transparent; }
 .navUL li ul a:hover, .navUL li ul a.active { background: #fff; border-left: 4px solid #ef3f30; }
 .navUL li .nestedUL li a:hover, .navUL li .nestedUL li a.open { border-left:4px solid red; font-weight:bold; background:#fff; }
-.navUL li a span.nav-drop { position: absolute; right: 10px; top: 24px; }
+.navUL li a span.nav-drop { position: absolute; right: 15px; top: 20px; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
@@ -167,23 +167,18 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 }
 
 /* nav classes */
-.home-icon, .newBikes-icon, .usedBikes-icon, .reviews-icon, .News-icon, .insurance-icon, .sellBikes-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
-.home-icon { background-position: 0 -58px; }
-.newBikes-icon { background-position: 0 -93px; top: 9px; }
-.usedBikes-icon { background-position: 0 -127px; top: 7px; }
-.reviews-icon { background-position: 0 -184px; }
-.News-icon { background-position: 0 -184px; }
-.sellBikes-icon { background-position: 3px -307px; }
-.forum-icon { background-position: 0 -248px; }
-.myBikeWale-icon { background-position: 0 -277px; top: 6px; }
-.insurance-icon { background-position: 0 -214px; }
-.claim-offer-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
-.cancellation-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
-.inquiry-icon {  width:24px; height:23px; position:relative; top:3px; }
-.newsletter-icon { width:24px; height:22px; position:relative; top:3px;}
+.home-icon, .newBikes-icon, .usedBikes-icon, .reviews-icon, .sellBikes-icon, .forum-icon, .myBikeWale-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:4px; position: relative; }
+.home-icon { background-position: 0 -52px; }
+.newBikes-icon { background-position: 0 -121px; top: 5px; }
+.usedBikes-icon { background-position: 0 -189px; }
+.reviews-icon { background-position: 0 -143px; }
+.sellBikes-icon { background-position: 0 -167px; }
+.forum-icon { background-position: 0 -282px; }
+.myBikeWale-icon { background-position: 0 -98px; }
+.inquiry-icon { background-position: 0 -235px; top: 7px; }
+.newsletter-icon { background-position: 0 -259px; top: 5px; }
+.claim-offer-icon, .cancellation-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
 .claim-offer-icon { background-position: -183px -160px; }
-.inquiry-icon { background-position: -183px -191px;}
-.newsletter-icon { background-position: -183px -225px; }
 .cancellation-icon { background-position: -187px -118px; }
 
 .fixed-close-btn-wrapper { position:relative; width:98%; text-align:right; }
@@ -222,11 +217,11 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .jcarousel li:hover .back-circle-icon { background-position: -150px -291px; }
 
 .login-no-photo-icon { background-position:-151px -121px; width: 27px; height: 29px; }
-.login-edit-icon, .login-garage-icon, .login-password-icon, .login-logout-icon { width: 24px; height: 20px; position: relative; top: -2px; }
+.login-edit-icon, .login-garage-icon, .login-password-icon, .login-logout-icon { width: 24px; height: 22px; position: relative; top: -2px; margin-right: 10px; }
 .login-edit-icon { background-position:-150px -160px; }
 .login-garage-icon { background-position:-150px -190px; }
-.login-password-icon { background-position:-150px -220px; }
-.login-logout-icon { background-position:-150px -250px; }
+.login-password-icon { background-position: 0 -213px; }
+.login-logout-icon { background-position: 0 -74px; left: 2px; }
 
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
@@ -646,17 +641,12 @@ input[type="number"] {
 }
 
 .track-day {
-    width: 26px;
-    height: 26px;
-    background-position: -188px -543px;
+    width: 24px;
+    height: 22px;
+    background-position: -187px -543px;
     position: relative;
-    top: 8px;
+    top: 5px;
     margin-right: 10px;
-    opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    -moz-opacity: 0.5;
-    -khtml-opacity: 0.5;
 }
 
 /* popup widget */
