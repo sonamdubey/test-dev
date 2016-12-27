@@ -23,7 +23,8 @@ namespace Bikewale.Generic
         protected PageMetaTags pageMetas = new PageMetaTags();
         protected string pageName = string.Empty;
         protected string pageContent = string.Empty;
-        protected string bannerImageUrl = string.Empty;
+        protected string bannerImageUrl = string.Empty, bannerImagePos = string.Empty;        
+
         protected PQSourceEnum pqSource;
         void InitializeComponent()
         {
@@ -108,11 +109,11 @@ namespace Bikewale.Generic
             {
                 case EnumBikeBodyStyles.AllBikes:
                     pqSource = PQSourceEnum.Desktop_Generic_Bikes;
-                    bannerImage = "https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/top-bikes-banner.jpg";
+                    bannerImage = "https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/best-bikes-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Cruiser:
                     pqSource = PQSourceEnum.Desktop_Generic_CruiserBikes;
-                    bannerImage = "https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/cruiser-style-banner.jpg";
+                    bannerImage = "https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/cruiser-style-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Mileage:
                     pqSource = PQSourceEnum.Desktop_Generic_MileageBikes;
@@ -120,15 +121,15 @@ namespace Bikewale.Generic
                     break;
                 case EnumBikeBodyStyles.Scooter:
                     pqSource = PQSourceEnum.Desktop_Generic_Scooters;
-                    bannerImage = "https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg";
+                    bannerImage = "https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/scooter-style-banner.jpg";
                     break;
                 case EnumBikeBodyStyles.Sports:
                     pqSource = PQSourceEnum.Desktop_Generic_SportsBikes;
-                    bannerImage = "https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/sports-style-banner.jpg";
+                    bannerImage = "https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/sports-style-banner.jpg";
                     break;
                 default:
                     pqSource = PQSourceEnum.Desktop_Generic_Bikes;
-                    bannerImage = "https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/top-bikes-banner.jpg";
+                    bannerImage = "https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/d/best-bikes-banner.jpg";
                     break;
 
             }

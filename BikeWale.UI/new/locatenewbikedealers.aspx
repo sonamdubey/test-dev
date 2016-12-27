@@ -125,9 +125,9 @@
 
         <% if(ctrlBestBikes!= null) { %>
         <section>
-            <div class="container section-bottom-margin">
-                <h2 class="text-center margin-top30 margin-bottom20 font22">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
+            <div class="container section-container">
                 <div class="grid-12">
+                    <h2 class="section-header">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
                     <div class="content-box-shadow padding-top20 padding-bottom20">
                         <BW:BestBikes runat="server" ID="ctrlBestBikes" />
                     </div>

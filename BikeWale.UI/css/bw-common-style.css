@@ -1128,11 +1128,11 @@ input[type="number"]:focus {
     text-align: center;
 }
 
-.popup-inner-container {
+#priceQuoteWidget .popup-inner-container {
     opacity: 0;
 }
 
-.activate-popup-content .popup-inner-container {
+#priceQuoteWidget.activate-popup-content .popup-inner-container {
     opacity: 1;
     transition: opacity 0.2s;
     transition-delay: 0.2s;
@@ -1277,6 +1277,19 @@ input[type="number"]:focus {
 /* no-city-selection-carousel */
 .no-city-selection-carousel.inner-content-carousel .jcarousel li {
     min-height: 216px;
+}
+
+/* brand city popup */
+#brandcityPopup .progress-bar {
+    top: 38px;
+}
+#divBrandLoader .chosen-drop {
+    height: 240px;
+    overflow: hidden;
+}
+#divCitiesLoader .chosen-drop {
+    height: 190px;
+    overflow: hidden;
 }
 
 /* lead capture control */

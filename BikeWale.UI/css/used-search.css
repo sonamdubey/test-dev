@@ -346,7 +346,7 @@
 #filter-bike-list::-webkit-scrollbar-thumb:hover, #filter-type-city .chosen-container .chosen-results::-webkit-scrollbar-thumb:hover {background: #bbb;}
 
 /* slider */
-.ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; cursor: pointer; }
+#filter-sidebar .ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; cursor: pointer; }
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }

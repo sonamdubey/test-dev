@@ -21,9 +21,20 @@
   margin-bottom: 15px; }
 
 .generic-banner {
+  background-color: #787878;
+  background-repeat: no-repeat;
   background-size: cover;
   height: 268px;
   padding-top: 1px; }
+
+.center-pos {
+  background-position: center; }
+
+.center-right-pos {
+  background-position: center right; }
+
+.left-center-pos {
+  background-position: left center; }
 
 .banner-box {
   margin-top: 95px; }
@@ -131,7 +142,7 @@
   font-weight: 400;
   font-size: 12px;
   color: #82888b;
-  text-align:left;
+  text-align: left;
   padding-bottom: 5px; }
 
 /* item-more-details-list */
@@ -184,7 +195,7 @@
 .weight-sm {
   background-position: -63px 0; }
 
-.reviews-sm, .news-sm, .videos-sm, .specs-sm {
+.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm {
   width: 14px;
   height: 14px;
   vertical-align: middle;
@@ -202,3 +213,7 @@
 
 .specs-sm {
   background-position: -140px -3px; }
+
+.photos-sm {
+  width: 16px;
+  background-position: -213px -207px; }

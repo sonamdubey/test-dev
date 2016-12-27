@@ -39,8 +39,20 @@
   margin-bottom: 10px; }
 
 .generic-banner {
+  background-color: #787878;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 130px;
   padding-top: 20px; }
+
+.center-pos {
+  background-position: center; }
+
+.center-right-pos {
+  background-position: center right; }
+
+.left-center-pos {
+  background-position: left center; }
 
 /* common */
 .text-white {
@@ -142,9 +154,9 @@
   padding-bottom: 12px; }
   .item-table-content .table-head-row th {
     font-weight: 400;
-    text-align:left;
     font-size: 12px;
-    color: #82888b; }
+    color: #82888b;
+    text-align: left; }
   .item-table-content tr td {
     font-size: 14px;
     padding-right: 5px; }
@@ -194,7 +206,7 @@
   background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.png) no-repeat;
   display: inline-block; }
 
-.reviews-sm, .news-sm, .videos-sm, .specs-sm {
+.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm {
   width: 14px;
   height: 14px;
   vertical-align: middle;
@@ -216,6 +228,16 @@
 .specs-sm {
   background-position: -140px -3px; }
 
+.photos-sm {
+  width: 16px;
+  background-position: 0 -486px; }
+
 @media only screen and (max-width: 320px) {
+  .generic-banner h1 {
+    font-size: 20px; }
+  .item-image-content {
+    width: 75px;
+    height: 42px;
+    margin-right: 3px; }
   .bike-details-block {
-    width: 59%; } }
+    width: 68%; } }

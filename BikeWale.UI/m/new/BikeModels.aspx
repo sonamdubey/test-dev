@@ -96,8 +96,7 @@
                             Not rated yet
                         </p>
                         <% if (modelPage.ModelDetails.ReviewCount > 0)
-
-                                       { %>
+                           { %>
                         <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                         <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                         <meta itemprop="worstRating" content="1">
@@ -105,9 +104,9 @@
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
                                 <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
                                 </span>Reviews
-                                  <% } %>
                             </a>
                         </span>
+                        <% } %>
                         <div class="clear"></div>
                     </div>
                     <% } %>
@@ -805,11 +804,15 @@
                 <% } %>
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
-                    { %>                       
+                    { %>   
+                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
+                    <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                       { %>
+                    <h2><%=bikeName %> Reviews</h2>
+                    <% } %>
+
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                        { %>
-                  <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
-                    <h2><%=bikeName %> Reviews</h2>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                     <% } %>
 
@@ -820,8 +823,9 @@
 
                     <%if (ctrlNews.FetchedRecordsCount > 0)
                        { %>
-                   <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
-                    <BW:News runat="server" ID="ctrlNews" />
+                    <div class="padding-top15">
+                        <BW:News runat="server" ID="ctrlNews" />
+                    </div>
                     <% } %>                        
                 </div>
                 <% } %>

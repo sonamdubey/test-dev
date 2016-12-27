@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="Bikewale.Utility" %>
+<%@ Import Namespace="Bikewale.Entities.GenericBikes" %>
 <!DOCTYPE html>
 
 <html>
@@ -32,8 +33,28 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
+        <% 
+            switch (ctrlBestBikes.CurrentPage.Value)
+            {
+                case EnumBikeBodyStyles.AllBikes:
+                case EnumBikeBodyStyles.Sports:
+                    bannerImagePos = "center-pos";
+                    break;
+                case EnumBikeBodyStyles.Scooter:
+                case EnumBikeBodyStyles.Mileage:
+                    bannerImagePos = "center-right-pos";
+                    break;
+                case EnumBikeBodyStyles.Cruiser:
+                    bannerImagePos = "left-center-pos";
+                    break;
+                default:
+                    bannerImagePos = "center-pos";
+                    break;
+            }               
+        %>
+
         <header>
-            <div class="generic-banner" style="background: #988f7f url(<%=bannerImageUrl %>) no-repeat center right">
+            <div class="generic-banner <%= bannerImagePos %>" style="background-image: url(<%=bannerImageUrl %>)">
                 <div class="container">
                     <div class="banner-box text-center">
                         <h1 class="font30 text-uppercase margin-bottom5 text-white">Best <%= pageName %> in India</h1>
@@ -137,7 +158,7 @@
                                             href="javascript:void(0)" data-pagecatid="0" 
                                             data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bike.Make.MakeName %>" 
                                             data-modelname="<%= bike.Model.ModelName %>" data-modelid="<%= bike.Model.ModelId %>" 
-                                            class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+                                            class="btn btn-grey btn-sm font14 getquotation">Check on-road price</a>
                                         <% } %>
                                     </div>
                                     <div class="clear"></div>
@@ -158,7 +179,7 @@
                                                 <% if(bike.PhotosCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
-                                                        <span class="generic-sprite news-sm"></span>
+                                                        <span class="bwsprite photos-sm"></span>
                                                         <span class="icon-label">Photos</span>
                                                     </a>
                                                 </li>
@@ -210,7 +231,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12 font12">
                     <p>
-                        <span class="font14"><strong>Disclaimer</strong>: </span>The list of top 10 <%= pageName.ToLower() %> has been curated based on data collected from users of BikeWale. The best <%= pageName.ToLower() %>'s list doesn't intend to comment anything on the quality of bikes in absolute terms. We don't comment anything about bikes or scooters which are not included in this list. The list is revised every month based on interest shown by users. The data for monthly unit sold which has been used for top 10 <%= pageName.ToLower() %> has been taken from www.autopunditz.com. The unit sold is presented to help users make an informed decision.
+                        <span class="font14"><strong>Disclaimer</strong>: </span>The list of top 10 <%= pageName.ToLower() %> has been curated based on data collected from users of BikeWale. The best <%= pageName.ToLower() %>'s list doesn't intend to comment anything on the quality of bikes. The list is revised every month based on interest shown by users and hence the list shows only monthly trends. The data for monthly unit sold which has been used for top 10 <%= pageName.ToLower() %> has been taken from www.autopunditz.com. The unit sold is presented to help users make an informed decision.<br />Note: Data of unit sold for top models of Passion, Splendor, Glamour, Xtreme, Karizma, Activa, Gusto, Access, GIXXER, Apache, Ray and FZ series bikes has been produced same as for entire series as the data of individual model is not available.
                     </p>
                 </div>
                 <div class="clear"></div>

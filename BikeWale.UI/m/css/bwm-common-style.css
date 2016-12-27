@@ -1149,3 +1149,22 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     top: 4px;
     margin-right: 10px;
 }
+
+/* dealer icons */
+.dealership-loc-icon {
+    width: 10px;
+    height: 15px;
+    background-position: -40px -435px;
+    position: relative;
+    top: 4px;
+}
+.tel-sm-grey-icon {
+    width: 15px;
+    height: 15px;
+    background-position: 0 -435px;
+    position: relative;
+    top: 2px;
+}
+.dealership-address, .details-column {
+    width: 87%;
+}

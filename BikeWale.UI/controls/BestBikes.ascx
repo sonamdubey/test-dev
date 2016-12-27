@@ -7,7 +7,7 @@
                 <a href="/best-bikes-in-india/" title="Top 10 bikes in India" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="card-image-block">
-                            <img class="lazy" data-original="https://imgd1.aeplcdn.com/0x0/bw/best-bikes/top-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
+                            <img class="lazy" data-original="https://imgd3.aeplcdn.com/0x0/bw/best-bikes/best-bikes-thumb.jpg" alt="Top 10 bikes in India" src="" />
                         </div>
                     </div>
                     <div class="card-desc-block">
