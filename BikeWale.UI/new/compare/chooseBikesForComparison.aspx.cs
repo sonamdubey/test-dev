@@ -64,7 +64,7 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-            
+
             // fill makes in drop-downs
             FillMakes();
 
@@ -73,7 +73,7 @@ namespace Bikewale.New
                 if (Request["bike" + i] != null && Bikewale.Common.CommonOpn.CheckId(Request["bike" + i]))
                     FillExisting(Request["bike" + i], i);
         } // Page_Load
-        
+
         /// <summary>
         ///  Modified by : Lucky Rathore on 21 July 2016.
         ///  Description : Remove function's "onlyNew" parameter. 
@@ -369,8 +369,7 @@ namespace Bikewale.New
                 }
             }
             compareUrl = "/comparebikes/" + compareUrl + "/?" + compString;
-            Trace.Warn(compString);
-            Trace.Warn("+++compare url : ", compareUrl);
+            compareUrl += "&source=" + (int)Bikewale.Entities.Compare.CompareSources.Desktop_CompareBike_UserSelection;
             Response.Redirect(compareUrl);
         } // btnSend_Click
 

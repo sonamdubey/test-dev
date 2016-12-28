@@ -8,7 +8,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -26,6 +25,8 @@ namespace Bikewale.Controls
     /// Description :   Added Repeater to bind the Popular City Dealers when city is not selected
     /// Modified by Sajal Gupta on 17-11-2016
     /// Description : Added isHeading variable for making heading of repeater optional.
+    /// Modified By :-Subodh Jain on 16 Dec 2016
+    /// Summary :- Added heading to dealer widget
     /// </summary>
     public class DealerCard : UserControl
     {
@@ -41,10 +42,11 @@ namespace Bikewale.Controls
         public bool IsDiscontinued { get; set; }
         protected bool isCitySelected { get { return CityId > 0; } }
         public string pageName { get; set; }
-        public bool showWidget = false;
+        public bool showWidget, showServiceCenter;
         public uint DealerId { get; set; }
         public bool isHeading = true;
-
+        public string widgetHeading { get; set; }
+        public PopularDealerServiceCenter cityDealers;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponents();
@@ -61,6 +63,7 @@ namespace Bikewale.Controls
                 BindDealers();
             }
         }
+
 
         /// <summary>
         /// Function to validate the data passed to the widget
@@ -85,6 +88,8 @@ namespace Bikewale.Controls
         /// Description :   Pass ModelId to get the dealers for Price in city page
         /// Modified by :   Sumit Kate on 22 Jun 2016
         /// Description :   If City Id is not passed Get the popular city dealer count
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// </summary>
         protected void BindDealers()
         {
@@ -118,6 +123,7 @@ namespace Bikewale.Controls
                             if (_dealers.Dealers.Count() > 0)
                             {
                                 showWidget = true;
+
                             }
                             rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
                             rptDealers.DataBind();
@@ -125,12 +131,13 @@ namespace Bikewale.Controls
                     }
                     else
                     {
-                        IEnumerable<PopularCityDealerEntity> cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
-                        if (cityDealers != null && cityDealers.Count() > 0)
+                        cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
+                        if (cityDealers != null)
                         {
-                            rptPopularCityDealers.DataSource = cityDealers;
-                            rptPopularCityDealers.DataBind();
-                            showWidget = true;
+                            if (cityDealers.TotalDealerCount > 0 || cityDealers.TotalServiceCenterCount > 0)
+                                showWidget = true;
+                            if (cityDealers.TotalServiceCenterCount > 0)
+                                showServiceCenter = true;
                         }
                     }
                 }

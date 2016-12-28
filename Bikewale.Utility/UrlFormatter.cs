@@ -21,9 +21,58 @@ namespace Bikewale.Utility
             return String.Format("/bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
         }
 
-        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2)
+
+        public static string FormatVideoPageUrl(string makeMaskingName, string modelMaskingName)
         {
-            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/", makeMasking1, modelMasking1, makeMasking2, modelMasking2);
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/videos/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/videos/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/videos/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+
+        public static string FormatPhotoPageUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/photos/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/photos/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/photos/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+
+        /// <summary>
+        /// Modified by :   Sumit Kate on 19 Dec 2016
+        /// Description :   If source is passed consider it for url qs for compare tracking
+        /// </summary>
+        /// <param name="makeMasking1"></param>
+        /// <param name="modelMasking1"></param>
+        /// <param name="makeMasking2"></param>
+        /// <param name="modelMasking2"></param>
+        /// <param name="versionId1"></param>
+        /// <param name="versionId2"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string CreateCompareUrl(string makeMasking1, string modelMasking1, string makeMasking2, string modelMasking2, string versionId1, string versionId2, Bikewale.Entities.Compare.CompareSources? source = null)
+        {
+            return String.Format("comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}{6}", makeMasking1, modelMasking1, makeMasking2, modelMasking2, versionId1, versionId2, (source.HasValue ? "&source=" + (int)source.Value : ""));
         }
 
         public static string CreateCompareTitle(string make1, string model1, string make2, string model2)
@@ -48,6 +97,16 @@ namespace Bikewale.Utility
         public static string PriceInCityUrl(string make, string model, string city)
         {
             return String.Format("/{0}-bikes/{1}/price-in-{2}/", make, model, city);
+        }
+
+        /// <summary>
+        /// Created By Vivek Gupta on 25-05-2016
+        /// Desc : url format /<make>-bikes/<model>/specifications-features/#specs,/<make>-bikes/<model>/specifications-features/#features
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewAllFeatureSpecs(string make, string model)
+        {
+            return String.Format("/{0}-bikes/{1}/specifications-features/", make, model);
         }
 
         /// <summary>
@@ -235,9 +294,52 @@ namespace Bikewale.Utility
         ///  Created On  : 11-11-2016
         ///  Description : To get url for serviceCenter.
         /// </summary>
-        public static object GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
+        public static string GetServiceCenterUrl(string makeMaskingName, string cityMaskingName)
         {
             return string.Format("/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
+        }
+        /// <summary>
+        ///  Created By : Aditi Srivastava
+        ///  Created On  : 15 Dec 2016
+        ///  Description : To get url for serviceCenter.
+        /// </summary>
+        public static string GetServiceCenterUrl(string makeMaskingName)
+        {
+            return string.Format("/{0}-service-center-in-india/", makeMaskingName);
+        }
+        /// <summary>
+        ///  Created By : Subodh Jain 
+        ///  Created On  : 20 Dec 2016
+        ///  Description : To get url for dealershowroom.
+        /// </summary>
+        public static string GetDealerShowroomUrl(string makeMaskingName)
+        {
+            return string.Format("/{0}-dealer-showrooms-in-india/", makeMaskingName);
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 23 Dec 2016
+        /// Description :   Format Expert review url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatExpertReviewUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/expert-reviews/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/expert-reviews/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+            }
+            return url;
         }
     }
 }

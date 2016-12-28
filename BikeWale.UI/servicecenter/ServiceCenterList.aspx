@@ -4,6 +4,7 @@
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 
@@ -82,11 +83,11 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-15-20">
-                            <h2 class="font18 text-black text-bold bg-white leftfloat"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
-                            <div class="rightfloat">    
+                            <h2 class="font18 text-black text-bold bg-white inline-block margin-right10"><%=totalServiceCenters %> <%=makeName %> service center<%=(totalServiceCenters > 1)?"s":"" %> in <%=cityName %></h2>
+                            <div class="inline-block">    
                                 <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                             </div>
-                            <div class="clear"></div>                                                                                         
+                            <div class="clear"></div>                                                                                        
                         </div>
                         <div id="listing-left-column" class="grid-4 alpha omega">
                             <ul id="center-list">
@@ -188,6 +189,9 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
+       <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
+        <%} %>
            <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
         <section>
             <div class="container">
@@ -212,6 +216,7 @@
             </div>
         </section>
           <% } %>
+        <%if(ctrlDealerCard.showWidget) {%>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -226,7 +231,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-   
+   <%} %>
 
         <section>
             <div class="container margin-bottom30">

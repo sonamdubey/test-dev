@@ -2,7 +2,7 @@ var markerArr = [],dealerArr = [], map, infowindow;
 var blackMarkerImage = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/map-marker-black.png';
 var redMarkerImage = 'https://imgd3.aeplcdn.com/0x0/bw/static/design15/map-marker-red.png';
 
-$(document).ready(function () {
+$(document).ready(function () {    
     var windowHeight = window.innerHeight,
         mapWrapper = $('#listing-right-column'),
         mapColumn = $('#dealerMapWrapper'),
@@ -42,8 +42,7 @@ $(document).ready(function () {
                 'left': 0
             });
         }  
-    });    
-
+    });
 });
 
 $(window).resize(function () {
@@ -123,6 +122,8 @@ function initializeMap(dealerArr) {
             }
         });
     }
+
+    initializeCityMap();
 }
 
 // dealer card mouseover show tooltip
@@ -160,4 +161,41 @@ function mapDealersArray() {
         _dealer.dealermaskingname = _self.attr("data-item-url");
         dealerArr.push(_dealer);
     });
+}
+
+// read more-collapse
+var readMoreTarget = $('#read-more-target'),
+    dealerMoreContent = $('#dealer-more-content');
+
+readMoreTarget.on('click', function () {
+    if (!dealerMoreContent.hasClass('active')) {
+        dealerMoreContent.addClass('active');
+        readMoreTarget.text('Collapse');
+    }
+    else {
+        dealerMoreContent.removeClass('active');
+        readMoreTarget.text('Read more');
+    }
+});
+
+
+function initializeCityMap() {
+    try{
+        $(".map_canvas").each(function (index) {
+            var lat = $(this).attr("data-lat")
+            var lng = $(this).attr("data-long");
+            var latlng = new google.maps.LatLng(lat, lng);
+
+            var myOptions = {
+                scrollwheel: false,
+                draggable: false,
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map($(".map_canvas")[index], myOptions);
+        });   
+    } catch (e) {
+        console.warn(e);
+    }
 }

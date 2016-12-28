@@ -78,7 +78,7 @@
                                             <div class="panel-row margin-bottom10">
                                                 <div id="make-select-element" class="grid-4 alpha select-box">
                                                     <p class="select-label">Make<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {}, value: make, validationElement: make, event: { change: makeChanged }">
+                                                    <select class="chosen-select" data-placeholder="Select make" data-bind="chosen: {width: '100%'}, value: make, validationElement: make, event: { change: makeChanged }">
                                                          <option value></option>
                                                             <% if (objMakeList != null)
                                                                 { %>
@@ -93,14 +93,14 @@
                                                 </div>
                                                 <div id="model-select-element" class="grid-4 select-box">
                                                     <p class="select-label">Model<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: {}, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }" disabled>                                                       
+                                                    <select class="chosen-select" data-placeholder="Select model" data-bind="options: modelArray(), chosen: { width: '100%' }, value: model, optionsText: 'modelName', optionsValue: 'modelId', validationElement: model, event: { change: modelChanged }" disabled>                                                       
                                                     </select>
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: model"></span>
                                                 </div>
                                                 <div id="version-select-element" class="grid-4 omega select-box">
                                                     <p class="select-label">Version<sup>*</sup></p>                                                                                                 
-                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: {}, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }" disabled>  
+                                                    <select class="chosen-select" data-placeholder="Select version" data-bind="options: versionArray(), chosen: { width: '100%' }, value: version, optionsText: 'versionName', optionsValue: 'versionId', validationElement: version, event: { change: versionChanged }" disabled>  
                                                     </select>                                                   
                                                     <span class="boundary"></span>
                                                     <span class="error-text" data-bind="validationMessage: version"></span>
@@ -129,7 +129,7 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div id="city-select-element" class="select-box">
                                                     <p class="select-label">City<sup>*</sup></p>
-                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: city, validationElement: city">
+                                                    <select class="chosen-select" data-placeholder="Select city" data-bind="chosen: { width: '100%' }, value: city, validationElement: city">
                                                         <option value></option>
                                                         <% if (objCityList != null)
                                                                 { %>
@@ -156,7 +156,7 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box select-box-no-input">
                                                     <p class="select-label">Owner<sup>*</sup></p>
-                                                    <select class="chosen-select" data-bind="chosen: {}, value: owner, validationElement: owner" data-title="Owner">
+                                                    <select class="chosen-select" data-bind="chosen: { width: '100%' }, value: owner, validationElement: owner" data-title="Owner">
                                                         <option value></option>
                                                         <option value="1">I bought it new</option>
                                                         <option value="2">I'm the second owner</option>
@@ -172,7 +172,7 @@
                                             <div class="panel-row margin-bottom20">
                                                 <div class="select-box">
                                                     <p class="select-label">Bike registered at<sup>*</sup></p>
-                                                    <select id="select-registeredCity" class="chosen-select" data-placeholder="Select city" data-bind="chosen: {}, value: registeredCity, validationElement: registeredCity">
+                                                    <select id="select-registeredCity" class="chosen-select" data-placeholder="Select city" data-bind="chosen: { width: '100%' }, value: registeredCity, validationElement: registeredCity">
                                                         <option value></option>
                                                         <% if (objCityList != null)
                                                                 { %>
@@ -537,13 +537,18 @@
             <script src="/src/html5.js"></script>
         <![endif]-->
         <script type="text/javascript">
+
             window.onbeforeunload = function () {
                 if (vmSellBike.formStep() < 4) {
                     return true;
                 }                
             }
         </script>
-        
+        <style type="text/css">
+            .select-box .chosen-container .chosen-drop {
+            width:300px;
+            }
+            </style>
     </form>
 </body>
 </html>

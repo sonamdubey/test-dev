@@ -131,5 +131,48 @@ namespace Bikewale.Cache.ServiceCenter
             }
             return null;
         }
+
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 15 Dec 2016
+        /// Description : To get number of service centers by brand
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand()
+        {
+            string key = "BW_ServiceCentersByBrand";
+            try
+            {
+                return _cache.GetFromCache<IEnumerable<BrandServiceCenters>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetAllServiceCentersByBrand());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex,"Error in ServiceCentersCacheRepository.GetAllServiceCentersByBrand");
+                objErr.SendMail();
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// Created By  : Aditi Srivastava on 19 Dec 2016
+        /// Description : To get number of service centers by brand in nearby cities
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId, int makeId, int topCount)
+        {
+            string key = String.Format("BW_ServiceCentersByBrandinnearbyCities_{0}_{1}",makeId,cityId);
+            try
+            {
+                return _cache.GetFromCache<IEnumerable<CityBrandServiceCenters>>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCentersNearbyCitiesByBrand(cityId,makeId,topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Error in ServiceCentersCacheRepository.GetServiceCentersNearbyCitiesByBrand; parameters: cityId : {0},makeId : {1},topcount : {2}",cityId, makeId,topCount));
+                objErr.SendMail();
+                return null;
+            }
+
+        }
+
     }
 }

@@ -688,7 +688,7 @@ $('.view-features-link').on('click', function () {
 });
 
 $(document).ready(function() {
-    var comparisonCarousel = $("#modelComparisonContent");
+    var comparisonCarousel = $("#comparisonCarousel");
     comparisonCarousel.find(".jcarousel").jcarousel();
 
     comparisonCarousel.find(".jcarousel-control-prev").jcarouselControl({
@@ -698,6 +698,21 @@ $(document).ready(function() {
     comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
         target: '+=2'
     });
+
+    // remove tabs highlight class for combined sections
+    var newsContent = $('#modelNewsContent'),
+        alternativeContent = $('#modelAlternateBikeContent'),
+        makeDealersContent = $('#makeDealersContent');
+
+    if (newsContent.length != 0) { // check if news content is present
+        newsContent.removeClass('bw-model-tabs-data').addClass('model-news-content');
+    }
+    if (alternativeContent.length != 0) {
+        alternativeContent.removeClass('bw-model-tabs-data');
+    }
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
+    }
 });
 
 $('.navigation').on('click', '.all-photos-target', function () {

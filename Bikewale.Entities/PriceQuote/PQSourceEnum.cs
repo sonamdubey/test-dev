@@ -86,7 +86,13 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_ServiceCenter_Listing_CityPage = 66,
         Mobile_ServiceCenter_DetailsPage = 67,
         Desktop_ServiceCenter_DefaultPage = 68,
-        Mobile_ServiceCenter_DefaultPage = 69
-
+        Mobile_ServiceCenter_DefaultPage = 69,
+        Desktop_DPQ_SecondaryDealers = 70,
+        Mobile_DPQ_SecondaryDealers = 71,
+        Desktop_Generic_Bikes = 72,
+        Desktop_Generic_Scooters = 73,
+        Desktop_Generic_MileageBikes = 74,
+        Desktop_Generic_SportsBikes = 75,
+        Desktop_Generic_CruiserBikes = 76,
     }
 }

@@ -68,7 +68,7 @@
             <div class="margin-top10">
                 <span class="text-highlight"><%=!IsNew && IsUsed ? "Last Recorded Price Rs: " : "Start at Rs: " %> <%= CommonOpn.FormatPrice( ModelStartPrice ) %></span><br />
                 <span><a title="<%= BikeMake %> <%= BikeModel %> details" href='/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName %>/'><%=BikeModel%> Details</a><% if (IsNew && IsUsed)
-                                                                                                                                                                    { %><span class="text-grey"> | </span><a href="/pricequote/default.aspx?model=<%= ModelId %>" class="fillPopupData" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_UserReview_ModelPage %>" modelid="<%= ModelId %>">Check On-Road Price</a><% } %></span>
+                                                                                                                                                                    { %><span class="text-grey"> | </span><a href="/pricequote/default.aspx?model=<%= ModelId %>" class="getquotation" data-pqsourceid="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_UserReview_ModelPage %>" data-modelid="<%= ModelId %>">Check On-Road Price</a><% } %></span>
             </div>
         </div>
         <div class="grid_5 omega margin-top10">

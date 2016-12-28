@@ -34,6 +34,8 @@ namespace Bikewale
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
 
+        protected BestBikes ctrlBestBikes;
+
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -90,6 +92,7 @@ namespace Bikewale
                 //To get Upcoming Bike List Details 
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
+
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote"), leadCapturePopup = $("#leadCapturePopup");
+﻿var leadBtnBookNow = $("#leadBtnBookNow,#leadLink,#leadBtn,#btnEmiQuote,#leadSecondary"), leadCapturePopup = $("#leadCapturePopup");
 var fullName = $("#getFullName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
@@ -17,14 +17,28 @@ var getEMIClick = false;
 $(function () {
     leadBtnBookNow.on('click', function () {
         leadSourceId = $(this).attr('leadSourceId');
+        customerViewModel.dealerId($(this).attr('data-dealerId'));
+        customerViewModel.leadSourceId(leadSourceId);
+        leadCapturePopup.show();
+        $("#dealer-lead-msg").hide();
+        $("div#contactDetailsPopup").show();
+        $("#otpPopup").hide();
+        //$('body').addClass('lock-browser-scroll');
+        $(".blackOut-window").show();
+
+    });
+
+    $('#btnManufacturer').on('click', function () {
+        customerViewModel.dealerId($(this).attr('data-item-id'));
+        customerViewModel.leadSourceId($(this).attr('data-leadsourceid'));
         leadCapturePopup.show();
         $("#dealer-lead-msg").hide();
         $("div#contactDetailsPopup").show();
         $("#otpPopup").hide();
         $('body').addClass('lock-browser-scroll');
         $(".blackOut-window").show();
-
     });
+
     $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
         leadCapturePopup.hide();
         $('body').removeClass('lock-browser-scroll');
@@ -38,25 +52,41 @@ $(function () {
         }
     });
     $("#leadBtn").on('click', function () {
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_Offers_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+        triggerGA('Dealer_PQ', 'Get_Offers_Clicked', bikeVerLocation);
         getOfferClick = true;
         getEMIClick = false;
     });
 
     $("#btnEmiQuote").on('click', function () {
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_EMI_Quote_Clicked", "lab": bikeName + "_" + versionName + "_" + getCityArea });
+        triggerGA('Dealer_PQ', 'Get_EMI_Quote_Clicked', bikeVerLocation);
         getEMIClick = true;
         getOfferClick = false;
     });
 
-    $("#ulVersions li input").on('click', function () {
-        versionName = $(this).attr("value");
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + versionName + "_" + getCityArea });
-    });
+});
+
+$('#ddlVersion').on("change", function () {
+    $('#hdnVariant').val($(this).val());
+    triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
 });
 
 if ($('#dealerAssistance').length > 0)
     ko.applyBindings(customerViewModel, $('#dealerAssistance')[0]);
+
+// version dropdown
+$('.chosen-select').chosen();
+
+$(document).ready(function () {
+    // version dropdown
+    var selectDropdownBox = $('.select-box-no-input');
+
+    selectDropdownBox.each(function () {
+        var text = $(this).find('.chosen-select').attr('data-title'),
+            searchBox = $(this).find('.chosen-search')
+
+        searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
+    });
+});
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -71,6 +101,8 @@ function CustomerModel() {
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
+    self.dealerId = ko.observable();
+    self.leadSourceId = ko.observable();
     self.IsVerified = ko.observable(false);
     self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
@@ -80,7 +112,7 @@ function CustomerModel() {
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
             var objCust = {
-                "dealerId": dealerId,
+                "dealerId": customerViewModel.dealerId(),
                 "pqId": pqId,
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
@@ -89,7 +121,7 @@ function CustomerModel() {
                 "pageUrl": pageUrl,
                 "versionId": versionId,
                 "cityId": cityId,
-                "leadSourceId": leadSourceId,
+                "leadSourceId": customerViewModel.leadSourceId(),
                 "deviceId": getCookie('BWC')
             }
             $.ajax({
@@ -205,18 +237,18 @@ function CustomerModel() {
                 }
 
                 if (getOfferClick) {
-                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Main_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Main_Form_" + bikeVerLocation);
                     getOfferClick = false;
                 }
                 else if (btnId == 'buyingAssistBtn') {
-                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Open_Form_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Open_Form_" + bikeVerLocation);
                 }
                 else if (getEMIClick) {
-                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_EMI_" + bikeName + "_" + versionName + "_" + getCityArea });
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Get_EMI_" + bikeVerLocation);
                     getEMIClick = false;
                 }
                 else if (getMoreDetailsClick) {
-                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
+                    triggerGA("Dealer_PQ", "Lead_Submitted", "Get_more_details_" + bikeVerLocation);
                     getMoreDetailsClick = false;
                 }
             }
@@ -269,7 +301,7 @@ function CustomerModel() {
 
                 // OTP Success
                 if (getMoreDetailsClick) {
-                    dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Lead_Submitted", "lab": "Get_more_details_" + GetBikeVerLoc() });
+                    triggerGA("Dealer_PQ", "Lead_Submitted", 'Get_more_details_' + bikeVerLocation);
                     getMoreDetailsClick = false;
                 }
             }

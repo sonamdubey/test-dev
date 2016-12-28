@@ -10,6 +10,8 @@
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularModelCompare.ascx" TagName="PopularCompare" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -166,7 +168,6 @@
                                     <div id="model-version-dropdown" class="padding-top25">
                                         <div class="select-box select-box-no-input done size-small">
                                             <p class="select-label">Version</p>
-                                            <%--<asp:Label Visible="false" runat="server" ID="defaultVariant"></asp:Label>--%>
                                             <asp:DropDownList AutoPostBack="true" runat="server" ID="ddlVersion" CssClass="chosen-select" data-title="Version" />
                                             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />           
                                         </div>
@@ -189,15 +190,15 @@
                                     <% } %>
                                     <% else if (!isCitySelected)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
-                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
                                     <% } %>
                                     <%  if (price == 0)
@@ -230,7 +231,7 @@
                                        else
                                            if (toShowOnRoadPriceButton)
                                            { %>
-                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Check on-road price</a>
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="btn btn-orange margin-top10 getquotation">Check on-road price</a>
                                     <div class="clear"></div>
 
                                     <% } %>
@@ -241,7 +242,7 @@
                                 <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
-                                    <span class="font14"><%= viewModel.Organization %></span>
+                                    <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
                                 </div>
                                 <div class="clear"></div>
                                 <%  }
@@ -482,7 +483,7 @@
                 <div class="grid-12 margin-bottom20">
                     <div class="content-box-shadow">
                         <div id="partner-dealer-panel" class="content-box-shadow padding-14-20 font18 text-bold text-black position-rel cur-pointer">
-                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in Mumbai<span class="model-sprite plus-icon"></span>
+                            Prices from <%=viewModel.SecondaryDealerCount %> more partner <%= viewModel.SecondaryDealerCount == 1 ? "dealer" : "dealers"%>  in <%=cityName %><span class="model-sprite plus-icon"></span>
                         </div>
                         <div id="moreDealersList" class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
@@ -499,12 +500,13 @@
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                         <span class="vertical-top details-column font14 text-light-grey"><%= bike.Area %></span>
                                                     </div>
-                                                    <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
                                                     <div>
+                                                        <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
                                                         <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
+                                                         <% } %>
                                                         <span class="vertical-top details-column font14 text-default text-bold"><%= bike.MaskingNumber %></span>
                                                     </div>
-                                                    <% } %>
+                                                   
                                                     <div class="margin-top10">
                                                         <div class="grid-5 alpha omega">
                                                             <p class="font12 text-light-grey margin-bottom5">On-road price</p>
@@ -521,7 +523,7 @@
 							                        </div>
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn">Get offers from dealer</a>
                                                 </div>
                                             </li>
                                     <% } %>                             
@@ -557,7 +559,7 @@
                     <div class="content-box-shadow content-inner-block-1020">
                         <div class="grid-5 alpha omega">
                             <div class="model-card-image-content inline-block-top margin-right20">
-                                <img src="<%= modelImage %>"></img>
+                                <img src="<%= modelImage %>"/>
                             </div>
                             <div class="model-card-title-content inline-block-top">
                                 <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
@@ -619,7 +621,7 @@
                         <div class="grid-3 model-orp-btn alpha omega">
                             <% if (toShowOnRoadPriceButton && !isDiscontinued)
                                { %>
-                            <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> fillPopupData bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check on-road price</a>
+                            <a href="javascript:void(0)" id="btnCheckOnRoadPriceFloating" data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="btn btn-orange font14 <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %> getquotation bw-ga" rel="nofollow" c="Model_Page" a="Floating_Card_Check_On_Road_Price_Button_Clicked" v="myBikeName">Check on-road price</a>
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>
@@ -629,7 +631,7 @@
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
                             <%if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                               { %>
-                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %></p>
+                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
                             <%} %>
                         </div>
                         <div class="clear"></div>
@@ -653,20 +655,26 @@
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
                         <%} %>
+                        <% if (ctrlExpertReviews.FetchedRecordsCount == 0 && ctrlUserReviews.FetchedRecordsCount == 0 && ctrlNews.FetchedRecordsCount > 0) { %>
+                        <a href="#modelReviewsContent" rel="nofollow">News</a>
+                        <% } %>
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                             { %>
                         <a href="#modelVideosContent" rel="nofollow">Videos</a>
                         <%} %>
-                        <% if (ctrlNews.FetchedRecordsCount > 0)
-                             { %>
-                        <a href="#modelNewsContent" rel="nofollow">News</a><%} %>
-                        <% if ((ctrlPopularCompare.fetchedCount > 0))
-                             { %>
-                        <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
-                        <%} %>
                         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
-                        <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
+                        <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
                         <%} %>
+                        <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
+                        { %>
+                        <a href="#dealerAndServiceContent" rel="nofollow">
+                            <% if (ctrlDealerCard.showWidget){%> Dealers<%} %>
+                            <% if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0)) { %>
+                                <% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers
+                            <%} %>
+                        </a>
+                        <%} %>
+                        
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                            { %>
                         <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
@@ -700,21 +708,25 @@
                                { %>
                             <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
                             <%} %>
+                            <% if (ctrlExpertReviews.FetchedRecordsCount == 0 && ctrlUserReviews.FetchedRecordsCount == 0 && ctrlNews.FetchedRecordsCount > 0) { %>
+                            <a href="#modelReviewsContent" rel="nofollow">News</a>
+                            <% } %>
                             <% if (ctrlVideos.FetchedRecordsCount > 0)
                                 { %>
                             <a href="#modelVideosContent" rel="nofollow">Videos</a>
                             <%} %>
-                            <% if (ctrlNews.FetchedRecordsCount > 0)
-                                 { %>
-                            <a href="#modelNewsContent" rel="nofollow">News</a>
+                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
+                            <a href="#modelSimilarContent" rel="nofollow">Similar Bikes</a>
                             <%} %>
-
-                            <% if ((ctrlPopularCompare.fetchedCount > 0) ){ %>
-                            <a href="#modelComparisonContent" rel="nofollow">Comparisons</a>
-                            <%} %>
-                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0) { %>
-                            <a href="#modelAlternateBikeContent" rel="nofollow">Alternatives</a>
-                            <%} %>
+                            <% if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
+                            { %>
+                            <a href="#dealerAndServiceContent" rel="nofollow">
+                                <% if (ctrlDealerCard.showWidget){%> Dealers<%} %>
+                                <% if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0)){ %>
+                                    <% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers
+                                <%} %>
+                            </a>
+                            <%} %>                          
                             <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                                { %>
                             <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
@@ -1181,10 +1193,10 @@
                         </div>
                         <%} %>
 
-                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
+                        <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>
                         <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-                            <h2 class="padding-right10 padding-left10"><%= bikeName %> Reviews</h2>
+                              <h2><%=bikeName %> Reviews</h2>
                             <% if(ctrlExpertReviews.FetchedRecordsCount > 0){ %>
                             <!-- expert review starts-->
                             <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
@@ -1199,43 +1211,63 @@
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                             <!-- user reviews ends -->
                             <% } %>
+                            <% if (ctrlNews.FetchedRecordsCount > 0)
+                            { %>
+                            <!-- News widget starts -->
+                                <BW:LatestNews runat="server" ID="ctrlNews" />
+                            <!-- News widget ends -->
+                            <% } %>
                         </div>
                         <%} %>
 
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                         { %>
                         <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
-
                             <!-- Video reviews -->
                             <BW:Videos runat="server" ID="ctrlVideos" />
                             <!-- Video reviews ends -->
                         </div>
                         <% } %>
-
-                        <% if (ctrlNews.FetchedRecordsCount > 0)
-                           { %>
-                        <!-- News widget starts -->
-                        <BW:LatestNews runat="server" ID="ctrlNews" />
-                        <!-- News widget ends -->
-                        <% } %>
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
-                        <% if (ctrlPopularCompare.fetchedCount > 0)
+                        <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
                            { %>
-                        <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
+                        <div id="modelSimilarContent" class="bw-model-tabs-data padding-top20 font14">
+                            <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
+                            <% if (ctrlPopularCompare.fetchedCount > 0 )
+                                { %>
+                            <h3 class="padding-left20 padding-right20 margin-bottom15">Most compared alternatives</h3>
+                            <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
+
+                            <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
+                            <%} %>
+                            <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                               { %>
+                            <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                            <% } %>
+                        </div>
+                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         <% } %>
-                        <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <div class="margin-right10 margin-left10 border-solid-top"></div>
-                        <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                        <% } %>
-                        <!-- Alternative reviews ends -->
+
+                        <%if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
+                        { %>
+                        <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+                            <% if (ctrlDealerCard.showWidget)
+                            { %>
+                            <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                            <% } %>
+                            <% if(ctrlServiceCenterCard.showWidget&&cityId>0){ %>
+                            <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                            <% } %>
+                        </div>
+                        <%} %>
                         <!-- Used bikes widget -->
                         <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
                            { %>
                         <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                         <%} %>
-                        <div id="overallSpecsDetailsFooter"></div>
+
+                      <div id="overallSpecsDetailsFooter"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -1322,6 +1354,10 @@
             function secondarydealer_Click(dealerID) {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
                 window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+            }
+            function openLeadCaptureForm(dealerID) {
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
+                event.stopPropagation();
             }
             $(function () {
                 if ($('.dealership-benefit-list li').length <= 2) {

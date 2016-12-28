@@ -42,6 +42,7 @@ namespace Bikewale.New
         public BikeQuotationEntity firstVersion;
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected LeadCaptureControl ctrlLeadCapture;
+        protected ServiceCenterCard ctrlServiceCenterCard;
         public Repeater rprVersionPrices, rpVersioNames;
         protected uint modelId = 0, cityId = 0, versionId, makeId, dealerCount;
         public int versionCount, colourCount;
@@ -51,8 +52,7 @@ namespace Bikewale.New
         protected bool isAreaAvailable, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
-        public DealerLocatorList states = null;
-        protected ServiceCenterCard ctrlServiceCenterCard;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -63,6 +63,8 @@ namespace Bikewale.New
         /// Description :   Pass ModelId to get the dealers for Price in city page
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -85,45 +87,63 @@ namespace Bikewale.New
             else
             {
                 FetchVersionPrices();
-                ctrlTopCityPrices.ModelId = modelId;
-                ctrlTopCityPrices.CityId = cityId;
-                ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
-                ctrlTopCityPrices.TopCount = 8;
-                ctrlTopCityPrices.cityName = cityName;
-                ctrlDealers.MakeId = makeId;
-                ctrlDealers.CityId = cityId;
-                ctrlDealers.IsDiscontinued = isDiscontinued;
-                ctrlDealers.TopCount = 3;
-                ctrlDealers.ModelId = modelId;
-                ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
-                ctrlDealers.ModelId = modelId;
-                ctrlDealers.pageName = "Price_In_City_Page";
-
-                ctrlLeadCapture.CityId = cityId;
-                ctrlLeadCapture.ModelId = modelId;
-                ctrlLeadCapture.AreaId = 0;
-
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.TopCount = 6;
-                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
-
-
-
-                ctrlServiceCenterCard.MakeId = makeId;
-                ctrlServiceCenterCard.CityId = cityId;
-                ctrlServiceCenterCard.makeName = makeName;
-                ctrlServiceCenterCard.cityName = cityName;
-                ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
-                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
-                ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
-                BindAlternativeBikeControl();
+                BindControl();
                 BindDealers();
                 ColorCount();
                 BindDescription();
 
             }
+        }
+
+        /// <summary>
+        /// Created by:-Subodh Jain 26 Dec 2016
+        /// Summary:- Bind Controls
+        /// </summary>
+        private void BindControl()
+        {
+            ctrlTopCityPrices.ModelId = modelId;
+            ctrlTopCityPrices.CityId = cityId;
+            ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
+            ctrlTopCityPrices.TopCount = 8;
+            ctrlTopCityPrices.cityName = cityName;
+            ctrlDealers.MakeId = makeId;
+            ctrlDealers.CityId = cityId;
+            ctrlDealers.IsDiscontinued = isDiscontinued;
+            ctrlDealers.TopCount = 3;
+            ctrlDealers.ModelId = modelId;
+            ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
+            ctrlDealers.ModelId = modelId;
+            ctrlDealers.pageName = "Price_In_City_Page";
+            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", makeName, cityName);
+
+            ctrlLeadCapture.CityId = cityId;
+            ctrlLeadCapture.ModelId = modelId;
+            ctrlLeadCapture.AreaId = 0;
+
+            ctrlRecentUsedBikes.CityId = (int?)cityId;
+            ctrlRecentUsedBikes.TopCount = 6;
+            ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+
+
+
+            ctrlServiceCenterCard.MakeId = makeId;
+            ctrlServiceCenterCard.CityId = cityId;
+            ctrlServiceCenterCard.makeName = makeName;
+            ctrlServiceCenterCard.cityName = cityName;
+            ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
+            ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+            ctrlServiceCenterCard.TopCount = 3;
+            ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
+            ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+
+            ctrlAlternativeBikes.TopCount = 9;
+            ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
+            ctrlAlternativeBikes.WidgetTitle = bikeName;
+            ctrlAlternativeBikes.model = modelName;
+            ctrlAlternativeBikes.cityId = cityId;
+            ctrlAlternativeBikes.cityName = cityName;
+            if (firstVersion != null)
+                ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
         }
         /// <summary>
         /// Created By Subodh Jain 18 oct 2016
@@ -425,18 +445,32 @@ namespace Bikewale.New
 
         /// <summary>
         /// Returns City Masking Name from City Id
+        ///Modified By :Subodh Jain 26 Dec 2016
+        ///Summary:- Added cache layer for city masking name retrival
         /// </summary>
         /// <param name="cityId">city id</param>
         /// <returns></returns>
         public uint GetCityMaskingName(string maskingName)
         {
-            ICity _city = new CityRepository();
-            List<CityEntityBase> objCityList = null;
+            IEnumerable<CityEntityBase> objCityList = null;
             uint _cityId = 0;
             try
             {
-                objCityList = _city.GetAllCities(EnumBikeType.All);
-                _cityId = objCityList.Find(c => c.CityMaskingName == maskingName).CityId;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICity, CityRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>(); ;
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
+                    objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
+
+                    CityEntityBase SelectedCity = objCityList.FirstOrDefault(c => c.CityMaskingName == maskingName);
+                    if (SelectedCity != null)
+                    {
+                        _cityId = SelectedCity.CityId;
+                    }
+
+                }
             }
             catch (Exception ex)
             {
@@ -444,18 +478,6 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
             return _cityId;
-        }
-
-        private void BindAlternativeBikeControl()
-        {
-            ctrlAlternativeBikes.TopCount = 9;
-            ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_Alternative;
-            ctrlAlternativeBikes.WidgetTitle = bikeName;
-            ctrlAlternativeBikes.model = modelName;
-            ctrlAlternativeBikes.cityId = cityId;
-            ctrlAlternativeBikes.cityName = cityName;
-            if (firstVersion != null)
-                ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
         }
     }   // class
 }   // namespace

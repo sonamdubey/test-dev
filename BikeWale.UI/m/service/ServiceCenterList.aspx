@@ -4,6 +4,7 @@
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,7 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>
-
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css">
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -54,12 +54,11 @@
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
                 <div class="border-solid-bottom padding-15-20">
-                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading"><%=listingHeading %></h2>
+                    <h2 class="vertical-middle font18 text-black text-bold bg-white dealer-heading padding-right10"><%=listingHeading %></h2>
                     <div class="vertical-middle text-center">
-                        <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue"></span><span class="change-text text-link">change</span></span>
+                        <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
                     </div>
-                    <div class="clear"></div>
-                </div>
+                       </div>
                 <ul id="center-list">
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
@@ -139,6 +138,9 @@
                 </ul>
             </div>
         </section>
+        <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
+         <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
+        <%} %>
            <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
@@ -190,6 +192,7 @@
         <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeCityMaps" async defer></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 

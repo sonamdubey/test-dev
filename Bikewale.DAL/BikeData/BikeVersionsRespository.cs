@@ -107,10 +107,6 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getversions";
-
-                    //cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
-                    //cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -556,12 +552,14 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Aditi Srivastava on 17 Oct 2016
         /// Description: get colors by version id for used bikes
+        /// Modified by :   Sumit Kate on 22 Dec 2016
+        /// Description :   Used List instead of IEnumerable for return value
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            IEnumerable<BikeColorsbyVersion> objVersionColors = null;
-            List<VersionColor> versionColors = null;
+            ICollection<BikeColorsbyVersion> objVersionColors = null;
+            ICollection<VersionColor> versionColors = null;
 
             try
             {
@@ -596,7 +594,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             ColorId = vc.Key.ColorId,
                             ColorName = vc.Key.ColorName,
-                            HexCode = vc.Select(hc => hc.ColorCode)
+                            HexCode = vc.Select(hc => hc.ColorCode).ToList()
                         }
                         ).ToList();
                 }

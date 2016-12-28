@@ -42,6 +42,7 @@ namespace Bikewale.Service
         protected CityEntityBase objCityEntityBase;
         protected UsedBikeWidget ctrlRecentUsedBikes;
         protected BrandCityPopUp ctrlBrandCity;
+        protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected override void OnInit(EventArgs e)
         {
@@ -87,6 +88,10 @@ namespace Bikewale.Service
         /// Description : Set request type according to page for brand city pop up
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Used Bike and popular bike widget
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added widget heading
+        /// Modified By : Aditi Srivasatva on 19 dec 2016
+        /// Description : Added widget for service centers in nearby cities
         /// </summary>
         /// <returns></returns>
         private void BindUserControls()
@@ -100,9 +105,17 @@ namespace Bikewale.Service
                 ctrlDealerCard.LeadSourceId = 11;
                 ctrlDealerCard.TopCount = 3;
                 ctrlDealerCard.isHeading = false;
-            ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
-            ctrlBrandCity.makeId = makeId;
-            ctrlBrandCity.cityId = cityId;
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", makeName, cityName);
+                ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
+                ctrlBrandCity.makeId = makeId;
+                ctrlBrandCity.cityId = cityId;
+                
+                ctrlNearbyServiceCenters.cityId = (int)cityId;
+                ctrlNearbyServiceCenters.cityName = cityName;
+                ctrlNearbyServiceCenters.makeId = (int)makeId;
+                ctrlNearbyServiceCenters.makeName = makeName;
+                ctrlNearbyServiceCenters.makeMaskingName = makeMaskingName;
+                ctrlNearbyServiceCenters.topCount = 8;
 
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;

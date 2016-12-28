@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AndroidGCMAPI.cs" />
-    <Compile Include="ApnsPushApi.cs" />
     <Compile Include="MobileAppAlertService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

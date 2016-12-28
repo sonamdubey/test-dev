@@ -105,6 +105,8 @@ namespace Bikewale.Mobile
         /// Description : dealerLat, dealerLong, dealerName, dealerArea, dealerCity Intialize, renamed dealer from _dealer.
         /// Modified By : Sajal Gupta on 26-09-2016
         /// Description : Changed method to get details only on basis of (dealerId and makeid) and added details of dealer to the controller.
+        /// Modified By :-Subodh Jain on 16 Dec 2016
+        /// Summary :- Added heading to dealer widget
         /// </summary>
         private void GetDealerDetails()
         {
@@ -146,7 +148,7 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.TopCount = 6;
                         ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
                         ctrlDealerCard.LeadSourceId = 15;
-
+                        ctrlDealerCard.widgetHeading = string.Format("Other {0} showrooms in {1}", dealerDetails.MakeName, dealerCity);
                         makeName = dealerDetails.MakeName;
                         campaignId = dealerDetails.CampaignId;
                         ctrlDealerCard.DealerId = (int)dealerId;

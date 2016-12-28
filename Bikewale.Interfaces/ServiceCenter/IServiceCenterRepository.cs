@@ -10,6 +10,10 @@ namespace Bikewale.Interfaces.ServiceCenter
     /// Summary:- For service center locator 
     /// Modified by Sajal Gupta on 09-11-2016 added GetServiceCentersByCity and GetServiceCenterDataById method.
     /// Modified by Sajal Gupta on 16-11-2016 added GetServiceCenterSMSData method.
+    /// Modified by : Aditi Srivastava on 15 Dec 2016 
+    /// Summary : Added function to get service centers by make
+    /// Modified by : Aditi Srivastava on 19 Dec 2016 
+    /// Summary : Added function to get service centers by make in nearby cities
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -21,5 +25,7 @@ namespace Bikewale.Interfaces.ServiceCenter
         IEnumerable<ModelServiceSchedule> GetServiceScheduleByMake(uint makeId);
         ServiceCenterCompleteData GetServiceCenterDataById(uint serviceCenterId);
         ServiceCenterSMSData GetServiceCenterSMSData(uint serviceCenterId, string mobileNumber);
+        IEnumerable<BrandServiceCenters> GetAllServiceCentersByBrand();
+        IEnumerable<CityBrandServiceCenters> GetServiceCentersNearbyCitiesByBrand(int cityId,int makeId,int topCount);
     }
 }

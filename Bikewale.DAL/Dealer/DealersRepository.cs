@@ -12,7 +12,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-
 namespace Bikewale.DAL.Dealer
 {
     /// <summary>
@@ -489,7 +488,7 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.objArea.AreaName = Convert.ToString(dr["Area"]);
                                 dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
                                 dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
-
+                                dealerdetail.objArea.PinCode = Convert.ToString(dr["dealerpincode"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -628,6 +627,8 @@ namespace Bikewale.DAL.Dealer
         /// <summary>
         /// Created By : Sajal Gupta on 26/09/2016
         /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// Modeified By:- Subodh Jain 15 dec 2016
+        /// Summary:- Added pincode data
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -670,6 +671,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.WorkingHours = Convert.ToString(dr["WorkingHours"]);
                                 dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
+                                dealers.DealerDetails.Pincode = Convert.ToString(dr["Pincode"]);
                             }
                             if (dr.NextResult())
                             {
@@ -785,12 +787,14 @@ namespace Bikewale.DAL.Dealer
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Popular City Dealer Count.
         ///                 Calls: GetPopularCityDealer
-        /// </summary>
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
-            IList<PopularCityDealerEntity> cityDealers = null;
+
+            PopularDealerServiceCenter objDealerServiceDetails = null;
             try
             {
                 if (makeId > 0)
@@ -799,7 +803,7 @@ namespace Bikewale.DAL.Dealer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "getpopularcitydealer";
+                        cmd.CommandText = "getpopularcitydealer_21122016";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, Convert.ToInt32(topCount)));
@@ -807,23 +811,40 @@ namespace Bikewale.DAL.Dealer
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
+                            objDealerServiceDetails = new PopularDealerServiceCenter();
                             if (dr != null)
                             {
-                                cityDealers = new List<PopularCityDealerEntity>();
+
+                                objDealerServiceDetails.DealerDetails = new List<PopularCityDealerEntity>();
                                 while (dr.Read())
                                 {
-                                    cityDealers.Add(new PopularCityDealerEntity()
-                                    {
-                                        CityBase = new CityEntityBase()
+                                    objDealerServiceDetails.DealerDetails.Add(new PopularCityDealerEntity
                                         {
-                                            CityId = !Convert.IsDBNull(dr["CityId"]) ? Convert.ToUInt32(dr["CityId"]) : default(UInt32),
-                                            CityName = !Convert.IsDBNull(dr["Name"]) ? Convert.ToString(dr["Name"]) : default(string),
-                                            CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(String)
-                                        },
-                                        NumOfDealers = !Convert.IsDBNull(dr["DealersCnt"]) ? Convert.ToUInt32(dr["DealersCnt"]) : default(UInt32)
-                                    });
+                                            CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                            CityName = Convert.ToString(dr["Name"]),
+                                            CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                            DealerCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
+                                            ServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"])
+                                        });
+
                                 }
                             }
+
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    objDealerServiceDetails.TotalDealerCount = SqlReaderConvertor.ToUInt32(dr["DealerCount"]);
+                                }
+                            }
+                            if (dr.NextResult())
+                            {
+                                while (dr.Read())
+                                {
+                                    objDealerServiceDetails.TotalServiceCenterCount = SqlReaderConvertor.ToUInt32(dr["ServiceCenterCount"]);
+                                }
+                            }
+
                         }
                     }
                 }
@@ -834,7 +855,7 @@ namespace Bikewale.DAL.Dealer
                 objErr.SendMail();
             }
 
-            return cityDealers;
+            return objDealerServiceDetails;
         }
 
         /// <summary>
@@ -874,6 +895,97 @@ namespace Bikewale.DAL.Dealer
             }
 
             return status;
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+            IList<DealerBrandEntity> objDealerList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getalldealersbybrand"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            DealerBrandEntity objDealer = null;
+                            objDealerList = new List<DealerBrandEntity>();
+                            while (dr.Read())
+                            {
+
+
+                                objDealer = new DealerBrandEntity();
+                                objDealer.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objDealer.MakeName = Convert.ToString(dr["MakeName"]);
+                                objDealer.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objDealer.DealerCount = SqlReaderConvertor.ToInt32(dr["DealerCount"]);
+                                objDealerList.Add(objDealer);
+                            }
+                            dr.Close();
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GetDealerByBrandList");
+                objErr.SendMail();
+            }
+            return objDealerList;
+
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 19-12-2016
+        /// Description :   Fetch dealers count for nearby city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
+        {
+            IList<NearByCityDealerCountEntity> objDealerCountList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerinnearbycity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.ToInt32(makeId)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, Convert.ToInt32(cityId)));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objDealerCountList = new List<NearByCityDealerCountEntity>();
+                            while (dr.Read())
+                            {
+                                objDealerCountList.Add(new NearByCityDealerCountEntity
+                                {
+                                    DealersCount = SqlReaderConvertor.ToUInt32(dr["dealerscnt"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["name"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    Lattitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
+                                    Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                objErr.SendMail();
+            }
+            return objDealerCountList;
         }
     }//End class
 }

@@ -2,33 +2,14 @@
     selectCalendarBox = $('#select-calendar-box'),
     calendarErrorBox = $('#calendar-error');
 
-$('.chosen-select').chosen();
+
 
 ko.validation.init({
     errorElementClass: 'invalid',
     insertMessages: false
 }, true);
 
-//for jquery chosen
-ko.bindingHandlers.chosen = {
-    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var $element = $(element);
-        var options = ko.unwrap(valueAccessor());
-        if (typeof options === 'object')
-            $element.chosen(options);
 
-        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-            if (allBindings.has(propName)) {
-                var prop = allBindings.get(propName);
-                if (ko.isObservable(prop)) {
-                    prop.subscribe(function () {
-                        $element.trigger('chosen:updated');
-                    });
-                }
-            }
-        });
-    }
-}
 
 // custom validation function
 var validation = {
@@ -1317,5 +1298,6 @@ $(function () {
         var pdetails = vmSellBike.personalDetails();
         pdetails.sellerName(userName);
         pdetails.sellerEmail(userEmail);
-    }    
+    }  
+    
 });

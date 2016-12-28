@@ -4,6 +4,7 @@ using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -235,10 +236,11 @@ namespace Bikewale.BAL.Dealer
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Popular City Dealer Count
-        /// </summary>
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
             try
             {
@@ -271,6 +273,47 @@ namespace Bikewale.BAL.Dealer
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("UpdateManufaturerLead({0}, {1}, {2}, {3})", pqId, custEmail, mobile, response));
                 objErr.SendMail();
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 19-12-2016
+        /// Description :   Fetch dealers count for nearby city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
+        {
+            IEnumerable<NearByCityDealerCountEntity> objDealerCountList = null;
+            try
+            {
+                if (makeId > 0 && cityId > 0)
+                {
+                    objDealerCountList = dealerRepository.FetchNearByCityDealersCount(makeId, cityId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in BAL layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                objErr.SendMail();
+            }
+            return objDealerCountList;
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+            try
+            {
+                return dealerRepository.GetDealerByBrandList();
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetDealerByBrandList");
+                objErr.SendMail();
+                return null;
             }
         }
     }

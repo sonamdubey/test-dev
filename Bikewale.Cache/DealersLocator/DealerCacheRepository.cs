@@ -100,16 +100,17 @@ namespace Bikewale.Cache.DealersLocator
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016
         /// Description :   Get Cached Popular City Dealer Count
-        /// </summary>
+        /// Modified by :  Subodh Jain on 21 Dec 2016
+        /// Description :   Merge Dealer and service center for make and model page
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public IEnumerable<PopularCityDealerEntity> GetPopularCityDealer(uint makeId, uint topCount)
+        public PopularDealerServiceCenter GetPopularCityDealer(uint makeId, uint topCount)
         {
-            IEnumerable<PopularCityDealerEntity> cityDealers = null;
+            PopularDealerServiceCenter cityDealers = null;
             string key = String.Format("BW_MakePopularCity_Dealers_{0}_Cnt_{1}", makeId, topCount);
             try
             {
-                cityDealers = _cache.GetFromCache<IEnumerable<PopularCityDealerEntity>>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId, topCount));
+                cityDealers = _cache.GetFromCache<PopularDealerServiceCenter>(key, new TimeSpan(0, 30, 0), () => _objDealers.GetPopularCityDealer(makeId, topCount));
             }
             catch (Exception ex)
             {
@@ -134,6 +135,49 @@ namespace Bikewale.Cache.DealersLocator
                 objErr.SendMail();
             }
             return dealersMakes;
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 20 Dec 2016
+        /// Summary    : To bind dealers data by brand
+        /// </summary>
+        public IEnumerable<DealerBrandEntity> GetDealerByBrandList()
+        {
+
+            IEnumerable<DealerBrandEntity> dealersMakes = null;
+            string key = String.Format("BW_DealerByBrand_List");
+            try
+            {
+                dealersMakes = _cache.GetFromCache<IEnumerable<DealerBrandEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealers.GetDealerByBrandList());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "DealerCacheRepository.GetDealerByBrandList");
+                objErr.SendMail();
+            }
+            return dealersMakes;
+
+        }
+
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 19-12-2016
+        /// Description :   Fetch dealers count for nearby city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId)
+        {
+            IEnumerable<NearByCityDealerCountEntity> objDealerCountList = null;
+            string key = String.Format("BW_NearByCityDealerCount_{0}_{1}", makeId, cityId);
+            try
+            {
+                objDealerCountList = _cache.GetFromCache<IEnumerable<NearByCityDealerCountEntity>>(key, new TimeSpan(1, 0, 0), () => _objDealers.FetchNearByCityDealersCount(makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("exception in CAche layer for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
+                objErr.SendMail();
+            }
+            return objDealerCountList;
         }
     }
 }

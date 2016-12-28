@@ -167,6 +167,7 @@
     <Compile Include="Compare\CompareBikeColor.cs" />
     <Compile Include="Compare\CompareBikeColorCategory.cs" />
     <Compile Include="Compare\CompareBikeData.cs" />
+    <Compile Include="Compare\CompareSources.cs" />
     <Compile Include="Compare\CompareSubMainCategory.cs" />
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
@@ -181,7 +182,9 @@
     <Compile Include="DealerLocator\DealerLocatorList.cs" />
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
+    <Compile Include="Dealer\NearByCityDealerCountEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
+    <Compile Include="Dealer\DealerBrandEntity.cs" />
     <Compile Include="Dealer\DealerInfo.cs" />
     <Compile Include="Dealer\Dealers.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
@@ -192,6 +195,7 @@
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
     <Compile Include="Dealer\Offer.cs" />
     <Compile Include="Dealer\PopularCityDealerEntity.cs" />
+    <Compile Include="Dealer\PopularDealerServiceCenter.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
     <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
@@ -205,6 +209,8 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="GenericBikes\BestBikesList.cs" />
+    <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
@@ -266,6 +272,8 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceCenters\BrandServiceCenters.cs" />
+    <Compile Include="ServiceCenters\CityBrandServiceCenters.cs" />
     <Compile Include="ServiceCenters\EnumServiceCenterSMSStatus.cs" />
     <Compile Include="ServiceCenters\ServiceCenterSMSData.cs" />
     <Compile Include="ServiceCenters\ServiceScheduleBase.cs" />

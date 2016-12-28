@@ -25,11 +25,14 @@ namespace Bikewale.ServiceCenter
     /// <summary>
     /// Created by : Sangram Nandkhile on 27 Jun 2016
     /// Summary: To show dealers in State and list of cities
+    /// Modified By : Aditi Srivastava on 15 Dec 2016
+    /// Summary     : Added widget for service centers by brand
     /// </summary>
     public class ServiceCenterInCountry : Page
     {
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
+        protected ServiceCentersByBrand ctrlOtherServiceCenters;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -68,7 +71,7 @@ namespace Bikewale.ServiceCenter
                 }
                 BindStatesCities();
                 ctrlBikeCare.TotalRecords = 3;
-
+                ctrlOtherServiceCenters.makeId = makeId;
             }
         }
         /// <summary>

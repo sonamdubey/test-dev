@@ -35,6 +35,11 @@ var sassPaths = {
         sellBike: {
             source: 'BikeWale.UI/sass/sell-bike/**',
             target: 'BikeWale.UI/build/min/css/'
+        },
+
+        generic: {
+            source: 'BikeWale.UI/sass/generic/**',
+            target: 'BikeWale.UI/build/min/css/generic'
         }
     },
     bwm: {
@@ -46,6 +51,11 @@ var sassPaths = {
         sellBike: {
             source: 'BikeWale.UI/m/sass/sell-bike/**',
             target: 'BikeWale.UI/build/min/m/css/'
+        },
+
+        generic: {
+            source: 'BikeWale.UI/m/sass/generic/**',
+            target: 'BikeWale.UI/build/min/m/css/generic'
         }
     }
 }
@@ -60,7 +70,9 @@ var page = {
             details: 'BikeWale.UI/servicecenter/ServiceCenterDetails.aspx',
         },
 
-        model: 'BikeWale.UI/new/versions.aspx'
+        model: 'BikeWale.UI/new/versions.aspx',
+
+        genericListing: 'BikeWale.UI/generic/BikeListing.aspx'
     },
 
     mobile: {
@@ -70,7 +82,9 @@ var page = {
             city: 'BikeWale.UI/m/service/ServiceCenterInCountry.aspx',
             listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
             details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
-        }
+        },
+
+        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx'
     }
 }
 
@@ -105,11 +119,12 @@ gulp.task('minify-bwm-js', function () {
         }))
         .pipe(gulp.dest(paths.destinationM_JS));
 });
+
+// desktop: sass to min css [build folder]
 gulp.task('bw-sass', function (callback) {
-    gulpSequence('bw-service-sass', 'bw-sell-bike-sass')(callback)
+    gulpSequence('bw-service-sass', 'bw-sell-bike-sass', 'bw-generic-sass')(callback)
 });
 
-// sass to min css [build folder]
 gulp.task('bw-service-sass', function () {
     return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
         .pipe(sass().on('error', sass.logError))
@@ -124,7 +139,18 @@ gulp.task('bw-sell-bike-sass', function () {
         .pipe(gulp.dest(sassPaths.bw.sellBike.target));
 });
 
-// sass to original css
+gulp.task('bw-generic-sass', function () {
+    return gulp.src(sassPaths.bw.generic.source, { base: 'BikeWale.UI/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bw.generic.target));
+});
+
+// desktop: sass to original css
+gulp.task('bw-sass-to-css', function (callback) {
+    gulpSequence('bw-service-sass', 'bw-sell-bike-sass', 'bw-generic-css')(callback)
+});
+
 gulp.task('bw-service-css', function () {
     return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
         .pipe(sass().on('error', sass.logError))
@@ -137,8 +163,15 @@ gulp.task('bw-sell-bike-css', function () {
         .pipe(gulp.dest('BikeWale.UI/css/'));
 });
 
+gulp.task('bw-generic-css', function () {
+    return gulp.src(sassPaths.bw.generic.source, { base: 'BikeWale.UI/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/css/generic/'));
+});
+
+// mobile: sass to min css [build folder]
 gulp.task('bwm-sass', function (callback) {
-    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass')(callback)
+    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass', 'bwm-generic-sass')(callback)
 });
 
 gulp.task('bwm-service-sass', function () {
@@ -155,6 +188,18 @@ gulp.task('bwm-sell-bike-sass', function () {
         .pipe(gulp.dest(sassPaths.bwm.sellBike.target));
 });
 
+gulp.task('bwm-generic-sass', function () {
+    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
+        .pipe(gulp.dest(sassPaths.bwm.generic.target));
+});
+
+// mobile: sass to original css
+gulp.task('bwm-sass-to-css', function (callback) {
+    gulpSequence('bwm-service-css', 'bwm-sell-bike-css', 'bwm-generic-css')(callback)
+});
+
 gulp.task('bwm-service-css', function () {
     return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
         .pipe(sass().on('error', sass.logError))
@@ -165,6 +210,12 @@ gulp.task('bwm-sell-bike-css', function () {
     return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('BikeWale.UI/m/css/'));
+});
+
+gulp.task('bwm-generic-css', function () {
+    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('BikeWale.UI/m/css/generic/'));
 });
 
 //Watch task
@@ -276,4 +327,13 @@ gulp.task('bw-framework-js', function () {
         .pipe(gulp.dest(paths.destinationD_JS));
 });
 
-gulp.task('default', gulpSequence('clean', 'minify-bw-css', 'minify-bw-js', 'minify-bwm-css', 'minify-bwm-js', 'bw-framework-js', 'bw-sass', 'bwm-sass', 'bw-service-css', 'bwm-service-css', 'bw-sell-bike-css', 'bwm-sell-bike-css', 'replace-css-reference'));
+gulp.task('default', gulpSequence(
+    'clean',
+    'minify-bw-css', 'minify-bw-js',
+    'minify-bwm-css', 'minify-bwm-js',
+    'bw-framework-js',
+    'bw-sass', 'bwm-sass',
+    'bw-sass-to-css', 'bwm-sass-to-css',
+    'replace-css-reference'
+    )
+);

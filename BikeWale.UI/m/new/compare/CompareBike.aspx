@@ -343,7 +343,7 @@
         $("#hdnModel2").val(formatedModel2);
         $("#hdnBikeName1").val($("#divMakeddl1 p").html());
         $("#hdnBikeName2").val($("#divMakeddl2 p").html());
-        location.href = "/m/comparebikes/" + url + '/?' + qs;
+        location.href = "/m/comparebikes/" + url + '/?' + qs + "&source=" + <%= (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_UserSelection %>;
     }
 
     function formatURL(str) {

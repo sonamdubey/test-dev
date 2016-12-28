@@ -111,6 +111,12 @@ $(document).ready(function () {
 
     makeOverallTabs.find('.overall-specs-tabs-wrapper a').first().addClass('active');
 
+    var makeDealersContent = $('#makeDealersContent');
+
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
+    }
+
     $(window).scroll(function () {
         var windowScrollTop = $(window).scrollTop(),
             makeOverallTabsOffsetTop = makeOverallTabs.offset().top,

@@ -12,12 +12,12 @@
         </div>
         <%if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer))
           { %>
-        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different dealer?</p>
+        <p class="font20 margin-top15 text-center">Looking for a different Dealer?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Dealer details</p>
         <%} %>
         <%else if (requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter))
           { %>
-        <p class="font20 margin-top15 text-capitalize text-center">Looking for a different service center?</p>
+        <p class="font20 margin-top15 text-center">Looking for a different Service Center?</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-center">Select the Brand and City to see Service Center details</p>
         <%} %>
         <div class="padding-top10" id="brandCityPopUpContent">
@@ -103,13 +103,13 @@
                     beforeSend: function (xhr) {
                         self.bookingBrands([]);
                         self.listCities([]);
-                        startLoading($("#divBrandLoader"));
+                        progressBar.startLoading($("#divBrandLoader"));
                         $("#divBrandLoader .placeholder-loading-text").show();
                         BrandsKey="BrandCityPopUp_"+'<%=requestType%>';
                         if (data = lscache.get(BrandsKey)) {
                             var brands = ko.toJS(data);
                             if (brands) {
-                                stopLoading($("#divBrandLoader"));
+                                progressBar.stopLoading($("#divBrandLoader"));
                                 $("#divBrandLoader .placeholder-loading-text").hide();
                                 self.bookingBrands(brands);
                                 isAborted = true;
@@ -125,7 +125,7 @@
                         var brands = ko.toJS(response);
                         if (brands) {
                             lscache.set(BrandsKey, brands.makes, 60);
-                            stopLoading($("#divBrandLoader"));
+                            progressBar.stopLoading($("#divBrandLoader"));
                             $("#divBrandLoader .placeholder-loading-text").hide();
                             self.bookingBrands(brands.makes);
 
@@ -154,7 +154,6 @@
             }
             popupcity.find("option[value='0']").prop('disabled', true);
             popupcity.trigger('chosen:updated');
-            cityChangedPopup();
 
             popupBrand.find("option[value='0']").prop('disabled', true);
             popupBrand.trigger('chosen:updated');
@@ -178,11 +177,11 @@
                         self.listCities([]);
                         $("#divCitiesLoader").show();
                         $("#divCitiesLoader .placeholder-loading-text").show();
-                        startLoading($("#divCitiesLoader"));
+                        progressBar.startLoading($("#divCitiesLoader"));
                         if (data = lscache.get(BrandCityKey)) {
                             var cities = ko.toJS(data);
                             if (cities) {
-                                stopLoading($("#divCitiesLoader"));
+                                progressBar.stopLoading($("#divCitiesLoader"));
                                 $("#divCitiesLoader .placeholder-loading-text").hide();
                                 insertCitySeparatorNew(cities);
                                 self.listCities(data);
@@ -200,7 +199,7 @@
                         if (cities != null)
                             lscache.set(BrandCityKey, cities, 60);
                         if (cities.length) {
-                            stopLoading($("#divCitiesLoader"));
+                            progressBar.stopLoading($("#divCitiesLoader"));
                             $("#divCitiesLoader .placeholder-loading-text").hide();
                             insertCitySeparatorNew(cities);
                             self.listCities(cities);

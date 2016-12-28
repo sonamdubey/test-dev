@@ -1,12 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewAlternativeBikes" %>
 <!-- Most Alternative Bikes Starts here-->
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top15 font14 margin-bottom20">
-     <% if (!IsPriceInCity)
-       { %>
-    <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes for <%=modelName%></h2>
-    <% } else { %>
-     <h2 class="padding-left20 padding-right20 margin-bottom20">Prices of <%=modelName%> alternative bikes in <%= CityName %></h2>
-    <% } %>
+    <%if(!string.IsNullOrEmpty(CustomHeading)) {%>
+    <h3 class="padding-left20 padding-right20 margin-bottom20"><%=CustomHeading %></h3>
+    <%}else{ %>
+    
+                 <% if (!IsPriceInCity)
+                   { %>
+                <h2 class="padding-left20 padding-right20 margin-bottom20">Alternative bikes for <%=modelName%></h2>
+                <% } else { %>
+                 <h2 class="padding-left20 padding-right20 margin-bottom20">Prices of <%=modelName%> alternative bikes in <%= CityName %></h2>
+                <% } %>
+    <%} %>
     <div class="swiper-container padding-top5 padding-bottom5">
         <div class="swiper-wrapper">
           <asp:Repeater ID="rptAlternateBikes" runat="server">   

@@ -2,7 +2,10 @@
 <!-- Alternative Bikes Starts here-->    
 
 <div id="modelAlternateBikeContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20 margin-bottom15"><%=heading %></h2>
+    <% if(!string.IsNullOrEmpty(customHeading)) {%>
+    <h3 class="padding-left20 padding-right20 margin-bottom15"><%=customHeading %></h3>
+    <%}else{%>
+    <h2 class="padding-left20 padding-right20 margin-bottom15"><%=heading %></h2><%} %>
     <div class="jcarousel-wrapper inner-content-carousel">
         <div class="jcarousel">
             <ul>
@@ -38,7 +41,7 @@
                                 </div>
                             </a>
                             <div class="margin-left20 margin-bottom20">
-                                <a href="javascript:void(0)" pqsourceid="<%= PQSourceId %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 fillPopupData" rel="nofollow">Check on-road price</a>
+                                <a href="javascript:void(0)" data-pqsourceid="<%= PQSourceId %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?string.Empty:"hide" %> btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
                             </div>
 
                                     <%} %>
