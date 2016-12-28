@@ -315,6 +315,20 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
     top: 10px;
 }
 
+.welcome-box {
+    margin-top: 120px;
+    text-align: center;
+    color: #fff;
+}
+
+.welcome-box h1 {
+    font-size: 34px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .reviews-icon, .News-icon, .insurance-icon, .sellBikes-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }

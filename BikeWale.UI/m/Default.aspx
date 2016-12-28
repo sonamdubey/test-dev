@@ -49,7 +49,7 @@
 
                     <div id="campaign-banner-text">
                         <p class="font14 text-bold text-white">BikeWale Track Day</p>
-                        <a href="/m/trackday2016/" class="font12 text-white text-underline bw-ga" c="Home_Page" a="BikeWale_Track_Day_Discover_Now_Clicked" l="BikeWale_Track_Day">Discover now</a>
+                        <a href="/m/trackday2016/" class="font12 text-white text-underline bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more</a>
                     </div>
                 </div>
             </div>

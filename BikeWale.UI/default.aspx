@@ -64,7 +64,7 @@
                 </div>
                 <div id="campaign-banner-text">
                     <p class="font18 text-white text-bold margin-bottom10">BikeWale Track Day</p>
-                    <a href="/trackday2016/" class="btn btn-banner-white bw-ga" c="Home_Page" a="BikeWale_Track_Day_Discover_Now_Clicked" l="BikeWale_Track_Day">Discover now &#10095;</a>
+                    <a href="/trackday2016/" class="btn btn-banner-white bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more &#10095;</a>
                 </div>
             </div>
         </header>
