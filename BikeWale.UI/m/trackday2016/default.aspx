@@ -76,7 +76,7 @@
         <% } %>
 
         <section>
-            <div class="container section-container">
+            <div id="trackdayGallery" class="container section-container">
                 <h2 class="section-heading">Gallery</h2>
                 <div class="content-box-shadow padding-bottom1">
                     <div class="connected-carousels-photos">
