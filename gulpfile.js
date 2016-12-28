@@ -72,7 +72,9 @@ var page = {
 
         model: 'BikeWale.UI/new/versions.aspx',
 
-        genericListing: 'BikeWale.UI/generic/BikeListing.aspx'
+        genericListing: 'BikeWale.UI/generic/BikeListing.aspx',
+
+        homepage: 'BikeWale.UI/default.aspx'
     },
 
     mobile: {
@@ -84,7 +86,9 @@ var page = {
             details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
         },
 
-        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx'
+        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx',
+
+        homepage: 'BikeWale.UI/m/default.aspx'
     }
 }
 
@@ -226,7 +230,7 @@ gulp.task('watch-sass', function () {
 
 // replace css reference with internal css
 gulp.task('replace-css-reference', function (callback) {
-    gulpSequence('desktop-service-center', 'mobile-service-center', 'desktop-model')(callback)
+    gulpSequence('desktop-service-center', 'mobile-service-center', 'desktop-model','desktop-homepage')(callback)
 });
 
 // desktop service center
@@ -280,6 +284,15 @@ gulp.task('desktop-model', function () {
         .pipe(gulp.dest('BikeWale.UI/build/new'));
 });
 
+gulp.task('desktop-homepage', function () {
+    return gulp.src(page.desktop.homepage, { base: 'BikeWale.UI/' })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/home.css"[^>]*>/, function () {
+            var style = fs.readFileSync(paths.destinationD_CSS + '/home.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest('BikeWale.UI/build/'));
+});
+
 // mobile service center
 gulp.task('mobile-service-center', function (callback) {
     gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details')(callback)
@@ -319,6 +332,15 @@ gulp.task('mobile-service-details', function () {
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
         .pipe(gulp.dest('BikeWale.UI/build/m/service'));
+});
+
+gulp.task('mobile-homepage', function () {
+    return gulp.src(page.mobile.homepage, { base: 'Bikewale.UI/m/' })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/home.css"[^>]*>/, function () {
+            var style = fs.readFileSync(paths.destinationM_CSS + '/home.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest('BikeWale.UI/build/m/'));
 });
 
 // replace desktop frameworks js, ie8 fix

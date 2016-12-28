@@ -29,12 +29,15 @@
         isAd976x204 = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
-        PopupWidget.Visible = true;
+        PopupWidget.Visible = true;        
+        isTransparentHeader = true;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
-    <%  isTransparentHeader = true;
-    %>
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/css/home.css" />
+    <script type="text/javascript">
+         <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
+
 </head>
 <body>
     <form runat="server">
@@ -442,10 +445,13 @@
             </div>
         </section>
         <!-- Ends here -->
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+         <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
+
         <script type="text/javascript">
             ga_pg_id = '1';
             //for jquery chosen : knockout event 
@@ -473,6 +479,12 @@
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
         </script>
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+
+         <!--[if lt IE 9]>
+            <script src="/src/html5.js"></script>
+        <![endif]-->
     </form>
 </body>
 </html>
