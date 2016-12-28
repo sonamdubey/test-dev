@@ -216,6 +216,7 @@
             </div>
         </section>
           <% } %>
+        <%if(ctrlDealerCard.showWidget) {%>
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
@@ -230,7 +231,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-   
+   <%} %>
 
         <section>
             <div class="container margin-bottom30">
