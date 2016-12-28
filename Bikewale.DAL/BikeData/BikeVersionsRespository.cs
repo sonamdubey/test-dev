@@ -558,7 +558,7 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            List<BikeColorsbyVersion> objVersionColors = null;
+            ICollection<BikeColorsbyVersion> objVersionColors = null;
             ICollection<VersionColor> versionColors = null;
 
             try
@@ -594,7 +594,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             ColorId = vc.Key.ColorId,
                             ColorName = vc.Key.ColorName,
-                            HexCode = vc.Select(hc => hc.ColorCode)
+                            HexCode = vc.Select(hc => hc.ColorCode).ToList()
                         }
                         ).ToList();
                 }

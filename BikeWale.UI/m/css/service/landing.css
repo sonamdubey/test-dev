@@ -20,7 +20,8 @@
   -o-box-shadow: 0 2px 2px 0 #dcdcdc;
   box-shadow: 0 2px 2px 0 #dcdcdc; }
 
-.card-bottom-margin {
+.card-bottom-margin,
+.section-bottom-margin {
   margin-bottom: 10px; }
 
 .card-inner-padding {
@@ -163,7 +164,7 @@
       font-size: 22px; } }
 
 .brandlogosprite {
-  background-image: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
+  background-image: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
   background-repeat: no-repeat;
   display: inline-block; }
 

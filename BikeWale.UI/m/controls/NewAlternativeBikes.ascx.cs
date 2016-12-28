@@ -16,7 +16,7 @@ namespace Bikewale.Mobile.Controls
         public bool IsPriceInCity { get; set; }
         public string CityName { get; set; }
         public uint CityId { get; set; }
-
+        public string CustomHeading { get; set; }
         private ushort _topCount = 6;
         public ushort TopCount
         {

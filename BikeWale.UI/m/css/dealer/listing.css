@@ -189,6 +189,23 @@
     top: 3px;
 }
 
+/* map type carousel */
+.map-type-carousel .swiper-slide, .map-type-carousel .swiper-card {
+    width: 200px;
+    min-height: 110px;
+}
+
+.map-type-carousel .city-map {
+    width: 100%;
+    height: 75px;
+    display: table;
+    pointer-events: none !important;
+}
+
+.map-type-carousel .swiper-details-block {
+    padding-bottom: 12px
+}
+
 @media only screen and (max-width: 420px) {
     .change-text {
         display: block

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
+<%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
@@ -94,8 +94,7 @@
                         <div id="listing-left-column" class="grid-4">
                             <ul id="dealersList">
                                 <asp:Repeater ID="rptDealers" runat="server">
-                                    <ItemTemplate>
-                                     <a href="<%# Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName,DataBinder.Eval(Container.DataItem,"Name").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"DealerId"))) %>"">
+                                    <ItemTemplate>                                     
                                         <li data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-inquired="false" data-item-number="<%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %>" data-lat="<%# DataBinder.Eval(Container.DataItem,"objArea.Latitude") %>" data-log="<%# DataBinder.Eval(Container.DataItem,"objArea.Longitude") %>" data-address="<%# DataBinder.Eval(Container.DataItem,"Address") %>" 
                                             data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-item-url="<%# Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>" >
                                             <a href="/<%=makeMaskingName %>-dealer-showrooms-in-<%=cityMaskingName %>/<%# DataBinder.Eval(Container.DataItem,"DealerId") %>-<%# Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>/" title="<%# DataBinder.Eval(Container.DataItem,"Name") %>" class="dealer-card-target font14">
@@ -107,7 +106,7 @@
                                                 </div>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Address").ToString()))?"hide":"text-light-grey margin-bottom5" %>">
                                                     <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                                                    <span class="vertical-top dealership-card-details"><%#(String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"objArea.PinCode").ToString()))?string.Format("{0}, {1}",DataBinder.Eval(Container.DataItem,"Address"),cityName):string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
+                                                    <span class="vertical-top dealership-card-details"><%#(String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"objArea.PinCode"))))?string.Format("{0}, {1}",DataBinder.Eval(Container.DataItem,"Address"),cityName):string.Format("{0}, {1}, {2}",DataBinder.Eval(Container.DataItem,"Address"),DataBinder.Eval(Container.DataItem,"objArea.PinCode"),cityName)%></span>
                                                 
                                                 </p>
                                                 <p class="<%# (String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()))?"hide":"" %>">
@@ -119,8 +118,7 @@
                                                 <a data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" href="Javascript:void(0)" data-leadsourceid="14"
                                                     data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" class="btn btn-white btn-full-width font14 leadcapturebtn">Get offers from dealer</a>
                                             </div>
-                                        </li>
-                                    </a>
+                                        </li>                                    
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>

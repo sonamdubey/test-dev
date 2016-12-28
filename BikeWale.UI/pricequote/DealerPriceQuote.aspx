@@ -108,7 +108,7 @@
                                 <% } %>
                                 <asp:HiddenField ID="hdnVariant" runat="server" />
 
-                                <div class="position-rel top-minus5 vertical-top">
+                                <div class="position-rel top-minus5 vertical-top getquotation" data-persistent="true" data-modelid="<%= modelId %>">
                                     <p class="font12 text-light-grey">Location</p>
                                     <p class="font14 text-bold block position-rel pos-top2">
                                         <%= location %> <span class="margin-left5">
@@ -450,8 +450,9 @@
                                     <div class="alpha <%= (isPremium && isUSPBenfits) ? "grid-6 border-light-right" : "grid-12 omega offers-or-benefits" %>">
                                         <p class="text-bold margin-bottom5">Offers from this dealer:</p>
                                         <ul class="dealership-benefit-list">
-                                            <% foreach(var offer in primarydealer.OfferList) { %>
-                                                    <li>
+                                            <% foreach(var offer in primarydealer.OfferList) {
+                                                   %>
+                                                    <li class="<%= offerCount == 1 ? "single-offer" :"" %>">
                                                         <span class="inline-block benefit-list-image pq-sprite <%=string.Format("offerIcon_{0}", offer.OfferCategoryId) %>"></span>
                                                         <span class="inline-block benefit-list-title"><%= offer.OfferText %>
                                                             <% if(offer.IsOfferTerms) { %>

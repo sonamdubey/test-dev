@@ -335,7 +335,7 @@ h3 {
 .emi-slider-box { margin-top: 25px; }
 .emi-slider-box:first-child { margin-top: 0; }
 /* slider */
-.ui-widget-content { background: #bababa; height: 3px; margin-top: 20px; width: 97%; border-radius: 0px; cursor: pointer; }
+#EMISection .ui-widget-content { background: #bababa; height: 3px; margin-top: 20px; width: 97%; border-radius: 0px; cursor: pointer; }
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }
@@ -348,6 +348,7 @@ h3 {
 .offers-or-benefits .dealership-benefit-list li { width:49%; padding-top: 10px; margin-bottom:10px; display: inline-block; vertical-align: middle; }
 .dealership-benefit-list li { width:98%; padding-top: 10px; margin-bottom:10px; }
 .dealership-benefit-list .benefit-list-title { width:80%; }
+.offers-or-benefits .dealership-benefit-list .single-offer { width: 99%; margin-bottom: 0; }
 
 #booking-benefits-list {
     margin-left: 17px;

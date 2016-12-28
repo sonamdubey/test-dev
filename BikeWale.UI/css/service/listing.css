@@ -179,9 +179,30 @@
 .limit-reached .response-icon {
   background-position: 0 -147px; }
 
+.edit-blue {
+  width: 18px;
+  height: 16px;
+  background-position: -205px -330px;
+  position: relative;
+  top: 3px; }
+
 @media only screen and (max-width: 1024px) {
   .submit-lead-mobile-btn {
     margin-left: 10px; } }
+
+.map-type-carousel .city-map {
+  width: 100%;
+  height: 90px;
+  line-height: 0;
+  display: table;
+  text-align: center; }
+
+.map-type-carousel .card-heading {
+  margin-bottom: 2px; }
+
+.inner-content-carousel.map-type-carousel .jcarousel-control-left,
+.inner-content-carousel.map-type-carousel .jcarousel-control-right {
+  top: 30%; }
 
 input[type="text"]:focus,
 input[type="number"]:focus {
@@ -228,6 +249,7 @@ input[type="number"]:focus {
   top: 4px;
   color: #a2a2a2; }
 
+/* on focus */
 .input-box input:focus ~ label {
   top: -16px;
   font-size: 12px; }
@@ -255,6 +277,17 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield; }
+
+/* input box with no highlight on focus */
+.input-box.input-no-focus input {
+  cursor: pointer; }
+
+.input-box.input-no-focus input:focus {
+  border-color: #82888b; }
+
+.input-box.input-no-focus input:focus ~ .boundary:before,
+.input-box.input-no-focus input:focus ~ .boundary:after {
+  width: 0; }
 
 .boundary {
   position: relative;
@@ -343,16 +376,14 @@ input[type="number"] {
   .card:first-child {
     margin-left: 20px; }
   .card .card-target {
-    min-height: 140px;
+    min-height: 147px;
     display: block;
-    padding: 15px 20px 0; }
+    padding: 15px 20px; }
     .card .card-target:hover {
       text-decoration: none; }
   .card .text-truncate {
     width: 100%; }
-  .edit-blue { width: 16px; height: 16px; background-position: -205px -330px;vertical-align: middle; }
+
 @media only screen and (max-width: 1024px) {
   .card {
     width: 280px; } }
-.dealer-heading{display:inline-block;padding:18px 20px;}
-.edit-blue-link{display:inline-block;font-size:14px;}

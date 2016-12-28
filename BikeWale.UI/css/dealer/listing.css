@@ -167,7 +167,7 @@
 .card .card-target {
     min-height: 140px;
     display: block;
-    padding: 15px 20px 0;
+    padding: 15px 20px;
 }
 .card .card-target:hover {
     text-decoration: none;
@@ -180,6 +180,23 @@
     width: 92%
 }
 .edit-blue { width: 18px; height: 16px; background-position: -205px -330px; position: relative; top: 3px; }
+
+/* map-type-carousel */
+.map-type-carousel .city-map{
+    height: 90px;
+    width: 100%;
+    line-height: 0;
+    display: table;
+    text-align: center;
+}
+
+.map-type-carousel .card-heading{
+    margin-bottom: 2px;
+}
+
+.inner-content-carousel.map-type-carousel .jcarousel-control-left, .inner-content-carousel.map-type-carousel .jcarousel-control-right {
+    top: 26%
+}
 
 @media only screen and (max-width:1024px) {
     #city-dealer-list li, .bw-horizontal-cards .card {

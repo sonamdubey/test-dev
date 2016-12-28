@@ -62,7 +62,7 @@ h2.section-header {
 }
 .locator-search-brand .chosen-container,
 .locator-search-city .chosen-container {
-    border: 1px solid #e2e2e2;
+    border: 1px solid #e2e2e2 !important;
     border-radius: 0;
     padding: 12px 20px;
 }

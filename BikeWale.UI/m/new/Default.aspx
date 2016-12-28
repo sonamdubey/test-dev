@@ -237,7 +237,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="bw-tabs-data" id="ctrlNews">
+                            <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                                 <%if (!isNewsZero)
                                     { %>
                                 <BW:News runat="server" ID="ctrlNews" />

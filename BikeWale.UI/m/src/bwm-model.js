@@ -221,6 +221,21 @@ $(document).ready(function () {
 
     $('.overall-specs-tabs-wrapper li').first().addClass('active');
 
+    // remove tabs highlight class for combined sections
+    var newsContent = $('#makeNewsContent'),
+        alternativeContent = $('#modelAlternateBikeContent'),
+        makeDealersContent = $('#makeDealersContent');
+
+    if (newsContent.length != 0) { // check if news content is present
+        newsContent.removeClass('bw-model-tabs-data').addClass('model-news-content');
+    }
+    if (alternativeContent.length != 0) {
+        alternativeContent.removeClass('bw-model-tabs-data margin-bottom20');
+    }
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
+    }
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,

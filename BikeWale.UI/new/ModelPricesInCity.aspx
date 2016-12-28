@@ -116,11 +116,8 @@
 												</td>
 											</tr>
 											<tr>
-												<td colspan="2" class="padding-bottom15 border-divider"></td>
-											</tr>
-											<tr>
-												<td class="text-bold text-default"><%= modelName %> On-road price in <%= cityName %></td>
-												<td align="right" class="font16 text-bold text-default"><span class="bwsprite inr-lg"></span>
+												<td class="text-bold text-default padding-top15 border-divider"><%= modelName %> On-road price in <%= cityName %></td>
+												<td align="right" class="font16 text-bold text-default padding-top15 border-divider"><span class="bwsprite inr-lg"></span>
 													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
 												</td>
 											</tr>
@@ -157,7 +154,7 @@
 									<p>Complete buying assistance</p>
 								</li>
 							</ul>
-							<a href="javascript:void(0)" pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" selcityid="<%=cityId %>" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 fillPopupData changeCity bw-ga" rel="nofollow">Select your area</a>
+							<a href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="<%=cityId %>" data-persistent="true" data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
 							<%}
 							   else
 							   { %>

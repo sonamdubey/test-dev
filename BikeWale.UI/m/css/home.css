@@ -149,3 +149,23 @@
     display: inline-block;
     vertical-align: top;
 }
+
+/* best bikes swiper */
+.best-bikes-swiper .swiper-card,
+.best-bikes-swiper .swiper-card-target {
+    min-height: 205px
+}
+
+.best-bikes-swiper .swiper-image-preview {
+    height: 113px;
+    padding: 0
+}
+
+.best-bikes-swiper .swiper-image-preview img {
+    height: 113px
+}
+
+.best-bikes-swiper .swiper-details-block {
+    padding-top: 10px;
+    padding-bottom: 20px
+}

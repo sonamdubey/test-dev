@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 
 namespace Bikewale.DAL.NewBikeSearch
@@ -14,8 +13,6 @@ namespace Bikewale.DAL.NewBikeSearch
     public class SearchQuery : ISearchQuery
     {
         FilterInput filterInputs;
-        IUnityContainer container;
-        IProcessFilter processFilter;
         string _whereClause = " bv.isnewmake = 1 and mo.isdeleted = 0 and mo.new = 1 "
                             + " and mo.futuristic = 0 and bv.new = 1 and bv.isdeleted = 0";
 
@@ -51,7 +48,15 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ifnull(bv.reviewrate, 0) vsreviewrate
 		                        ,ifnull(bv.reviewcount, 0) vsreviewcount
                                 ,ifnull(sd.maximumtorque,0) maximumtorque
-                                ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount ";
+                                ,ifnull(mpb.modelwisepqcount, 0) modelwisepqcount
+                                ,ifnull(bs.smalldescription,'') as smalldescription
+                                ,ifnull(bs.fulldescription,'') as fulldescription
+                                ,ifnull(mo.PhotosCount,0) as PhotoCount
+                                ,ifnull(mo.VideosCount,0) as VideoCount
+                                ,ifnull(mo.UnitsSold,0) as UnitsSold
+                                ,mo.launchdate as launchdate
+                                ,ifnull((select count(1) from bikeversions ibv where ibv.bikemodelid = mo.id and ibv.isdeleted = 0 and ibv.new = 1 group by mo.id),0) as VersionCount
+                                ,ifnull((select count(1) from bikemodelcolors ibc where ibc.modelid = bv.bikemodelid and ibc.isactive = 1 group by ibc.modelid),0) as ColorCount";
             }
             catch (Exception ex)
             {
@@ -68,6 +73,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 fromClause = " bikeversions as bv "
                             + " inner join bikemodels as mo on mo.id = bv.bikemodelid "
+                            + " left join bikesynopsis bs on bs.modelid = mo.id and bs.isactive = 1"
                             + " left join newbikespecifications as sd  on sd.bikeversionid = bv.id "
                             + " left join mostpopularbikes mpb  on mpb.modelid = mo.id and mpb.rownum = 1 ";
             }

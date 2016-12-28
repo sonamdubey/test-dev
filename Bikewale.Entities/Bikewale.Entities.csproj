@@ -195,6 +195,7 @@
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
     <Compile Include="Dealer\Offer.cs" />
     <Compile Include="Dealer\PopularCityDealerEntity.cs" />
+    <Compile Include="Dealer\PopularDealerServiceCenter.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
     <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
@@ -208,6 +209,8 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="GenericBikes\BestBikesList.cs" />
+    <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageToken.cs" />
     <Compile Include="Insurance\InsuranceLead.cs" />
