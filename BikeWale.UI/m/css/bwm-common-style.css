@@ -228,7 +228,7 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item span.upcoming-link { color: #4d5057; }
 
 /** Swiper 3.1.7 **/
-.swiper-container { margin: 0 auto; position: relative; overflow: hidden; /* Fix of Webkit flickering */
+.swiper-container { margin: 0 auto; padding-right: 15px; position: relative; overflow: hidden; /* Fix of Webkit flickering */
 z-index: 1; }
 .swiper-container-no-flexbox .swiper-slide { float: left; }
 .swiper-container-vertical > .swiper-wrapper { -webkit-box-orient: vertical; -moz-box-orient: vertical; -ms-flex-direction: column; -webkit-flex-direction: column; flex-direction: column; }

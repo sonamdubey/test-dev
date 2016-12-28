@@ -1,4 +1,67 @@
-﻿#used-bikes-list h2 a {
+﻿/* city-model-carousel */
+#city-model-used-carousel {
+    margin-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: #f9f9f9;
+    position: relative;
+}
+
+#city-model-used-carousel .carousel-heading {
+    width: 88%;
+}
+
+#close-city-model-carousel {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+}
+
+.city-model-carousel.card-container .swiper-slide {
+    width: 220px;
+}
+
+.city-model-carousel.card-container .swiper-card {
+    width: 220px;
+    height: 66px;
+    min-height: 66px;
+    background: #fff;
+}
+
+.city-model-carousel .card-target-block {
+    display: block;
+    padding: 10px;
+}
+
+.city-model-carousel .card-target-block:hover {
+    text-decoration: none;
+}
+
+.city-model-carousel .card-image-placeholder, .city-model-carousel .card-details-placeholder {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.city-model-carousel .card-image-placeholder {
+    width: 63px;
+    height: 35px;
+    text-align: center;
+    position: relative;
+}
+
+.city-model-carousel .card-image-placeholder img {
+    width: 100%;
+    height: 35px;
+    line-height: 0;
+}
+
+.city-model-carousel .card-details-placeholder {
+    width: 65%;
+    padding-left: 3px;
+}
+
+/* used-bikes-list */
+#used-bikes-list h2 a {
     color: #2a2a2a;
 }
 
@@ -759,3 +822,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 /* validation */
 .input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
 .input-box.invalid .error-text { display:inline-block; }
+
+.back-to-top {
+    bottom: 50px !important;
+}

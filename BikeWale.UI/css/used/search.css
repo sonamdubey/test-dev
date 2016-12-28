@@ -36,6 +36,131 @@
 .sort-div.open .fa-angle-down{-moz-transform:rotateZ(180deg);-webkit-transform:rotateZ(180deg);-o-transform:rotateZ(180deg);-ms-transform:rotateZ(180deg);transform:rotateZ(180deg)}
 .sort-by-text p{height:35px;line-height:35px}
 
+/* city-model-carousel */
+#city-model-used-carousel {
+    margin: 5px 5px 10px;
+    padding-top: 15px;
+    padding-bottom: 18px;
+    background: #f9f9f9;
+    position: relative;
+}
+
+#close-city-model-carousel {
+    position: absolute;
+    top: 15px;
+    right: 18px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel {
+    width: 940px;
+    left: 12px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel li {
+    height: 75px;
+}
+
+.city-model-carousel .jcarousel li {
+    width: 292px;
+}
+
+.city-model-carousel .card-target-block {
+    display: block;
+    padding: 15px 20px;
+}
+
+.city-model-carousel .card-target-block:hover {
+    text-decoration: none;
+}
+
+.city-model-carousel .card-image-placeholder, .city-model-carousel .card-details-placeholder {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.city-model-carousel .card-image-placeholder {
+    width: 80px;
+    height: 45px;
+    text-align: center;
+}
+
+.type-model-carousel .card-image-placeholder {
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+}
+
+.type-model-carousel .card-image-placeholder img {
+    width: 100%;
+    height: 45px;
+}
+
+.city-model-carousel .card-details-placeholder {
+    width: 65%;
+    padding-left: 10px;
+}
+
+.card-details-placeholder .text-truncate {
+    width: 100%;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-left, .city-model-carousel.inner-content-carousel .jcarousel-control-right {
+    top: 26%;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-right {
+    right: 12px;
+}
+
+.city-model-carousel .jcarousel-control-prev, .city-model-carousel .jcarousel-control-next {
+    width: 30px;
+    height: 35px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-prev {
+    background-position: -122px -361px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-next {
+    background-position: -148px -361px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-prev:hover {
+    background-position: -122px -392px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-next:hover {
+    background-position: -148px -392px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-prev.inactive {
+    background-position: -122px -330px;
+}
+
+.city-model-carousel.inner-content-carousel .jcarousel-control-next.inactive {
+    background-position: -148px -330px;
+}
+
+/* city-sm-sprite */
+.city-sm-sprite {
+    background: url('/images/city-sm-sprite.png') no-repeat;
+    display: inline-block;
+}
+
+.mumbai-sm-icon {
+    width: 52px;
+    height: 32px;
+    background-position: 0 0;
+    position: relative;
+    top: 6px;
+}
+
+.pune-sm-icon {
+    width: 74px;
+    height: 32px;
+    background-position: -57px 0;
+    position: relative;
+    top: 6px;
+}
+
 /* selected filters */
 #selected-filters li p {
     float: left;
@@ -843,5 +968,9 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     #previous-owners-list .last-item {
         padding-right: 20px;
         padding-left: 20px;
+    }
+
+    .type-model-carousel .card-details-placeholder {
+        width: 64%;
     }
 }
