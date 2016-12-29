@@ -30,6 +30,13 @@
 .budget-container ul li:hover .inr-budget { background-position:-20px -515px; }
 .newbike-discover-bike-container { background-color: #fff; }
 .newbike-discover-bike-container .bw-tabs-flex ul { margin-bottom: 20px; }
+
+/* tools */
+.bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
+.final-price-logo, .locate-dealer-logo, .emi-calc-logo { width: 92px; height: 92px; }
+.final-price-logo { background-position: 0 0; }
+.locate-dealer-logo { background-position: -102px 0; }
+.emi-calc-logo {  background-position: -204px 0; }
 .tools-may-need-wrapper { background:#fff; }
 .final-price-logo {  margin:0 auto; }
 .final-price-search-container { margin:0 auto; width:775px; height: 40px; }

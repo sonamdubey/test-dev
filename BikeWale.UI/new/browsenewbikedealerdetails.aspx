@@ -51,9 +51,9 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Showroom</span></a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/<%=makeMaskingName %>-dealer-showrooms-in-india/"><span itemprop="title"><%=makeName%> Showrooms</span></a>
                             </li>
-                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Showroom in <%=cityName %></li>
+                            <li class="current"><span class="bwsprite fa-angle-right margin-right10"></span><%=makeName%> Showrooms in <%=cityName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>

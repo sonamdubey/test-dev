@@ -1,6 +1,18 @@
 ﻿@charset "utf-8";
-.banner-home { height: 268px; background: #161209 url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/home-top-banner.jpg) no-repeat scroll center top;  background-size: cover; }
+.banner-home { height: 268px; }
+/* 268px #161209 home-top-banner right center */
+.banner-container {
+    padding: 40px 10px 20px;
+}
+.banner-container h1 {
+    margin-bottom: 15px;
+}
+.banner-container .banner-subheading {
+    margin-bottom: 30px;
+}
 .btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;border-bottom-left-radius: 0;height:41px;}
+.new-used-search-container { margin: 0 auto; width: 264px; }
+.new-bikes-search input[type="text"] { border: 1px solid #ccc; width: 100%; padding: 13px 10px; padding-right:52px; height: 43px;}
 
 .brand-budget-mileage-style-wrapper { background:#fff; padding-bottom:30px; }
 .bw-tabs-data ul li:hover { cursor: pointer; }
