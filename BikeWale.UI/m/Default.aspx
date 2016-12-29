@@ -31,12 +31,12 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div class="container">
-                <div class="banner-home content-inner-block-10">
+            <div class="banner-home">
+                <div class="container banner-container text-center top-campaign-banner-container">
                     <!-- Top banner code starts here -->
-                    <h1 class="font22 text-uppercase text-white text-center padding-top30">Find your bike</h1>
-                    <h2 class="text-unbold text-white margin-top15 text-center font14">Get Comprehensive Information on Bikes!</h2>
-                    <div class="new-used-search new-bikes-search margin-top30 position-rel">
+                    <h1 class="font22 text-uppercase text-white">Find your bike</h1>
+                    <h2 class="banner-subheading font14 text-unbold text-white">Get Comprehensive Information on Bikes!</h2>
+                    <div class="new-used-search new-bikes-search position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
                         <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
                         <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
@@ -47,6 +47,42 @@
                             <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                         </li>
                     </ul>
+                    <style type="text/css">
+                        .banner-home {
+                            height: 290px;
+                            background: #868281 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/es/trackday-banner.jpg) no-repeat scroll left center;
+                            background-size: cover;
+                        }
+                        /* campaign-banner-container */
+                        .top-campaign-banner-container {
+                            position: relative;
+                            height: 290px;
+                            padding-top: 180px;
+                        }
+
+                        .top-campaign-banner-container h1 {
+                            margin-bottom: 12px;
+                        }
+
+                        .top-campaign-banner-container .banner-subheading {
+                            display: none;
+                        }
+
+                        .top-campaign-banner-text {
+                            text-align: left;
+                            position: absolute;
+                            top: 10px;
+                            left: 10px;
+                        }
+
+                        .text-underline {
+                            text-decoration: underline;
+                        }
+                    </style>
+                    <div class="top-campaign-banner-text">
+                        <p class="font14 text-bold text-white">BikeWale Track Day</p>
+                        <a href="/m/trackday2016/" class="font12 text-white text-underline bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more</a>
+                    </div>
                 </div>
             </div>
         </section>

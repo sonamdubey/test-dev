@@ -40,30 +40,70 @@
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="home-top-banner">
-            <div class="container">
+            <div class="container top-campaign-banner-container">
                 <div class="welcome-box">
                     <h1>Find your bike</h1>
-                    <p class="font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
+                    <p class="banner-subheading font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
                     <div class="margin-top60">
-                        <div>
-                            <div class="bike-search-container position-rel">
-                                <div class="bike-search new-bike-search position-rel">
-                                    <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
-                                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                                </div>
-                                <div class="findBtn">
-                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
-                                </div>
-                                <div class="clear"></div>
-                                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                                    <li class="ui-menu-item" tabindex="-1">
-                                        <span class="text-bold">Oops! No suggestions found</span><br />
-                                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                                    </li>
-                                </ul>
+                        <div class="bike-search-container position-rel">
+                            <div class="bike-search new-bike-search position-rel">
+                                <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
+                                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                             </div>
+                            <div class="findBtn">
+                                <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
+                            </div>
+                            <div class="clear"></div>
+                            <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+                                <li class="ui-menu-item" tabindex="-1">
+                                    <span class="text-bold">Oops! No suggestions found</span><br />
+                                    <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                </div>
+                <style type="text/css">
+                    .home-top-banner{
+                        background:#7f8e92 url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/es/trackday-banner.jpg) no-repeat left center;
+                        height: 490px;
+                        background-size: cover;
+                    }
+                    /* campaign-banner-container */
+                    .top-campaign-banner-container {
+                        position: relative;
+                        height: 490px;
+                    }
+                    .top-campaign-banner-container .welcome-box {
+                        padding-top: 125px;
+                        margin-top: 0;
+                    }
+                    .top-campaign-banner-container .margin-top60 {
+                        margin-top: 40px;
+                    }
+                    .top-campaign-banner-container .banner-subheading {
+                        font-size: 18px;
+                    }
+                    .top-campaign-banner-text {
+                        position: absolute;
+                        right: 10px;
+                        bottom: 16px;
+                    }
+                    .btn-banner-white {
+                        font-size: 14px;
+                        color: #fff;
+                        border: 1px solid #fff;
+                        padding: 3px 15px 4px;
+                    }
+                    .btn-banner-white:hover {
+                        text-decoration: none;
+                        color: #4d5057;
+                        background: #fff;
+                    }
+                </style>
+                <div class="top-campaign-banner-text">
+                    <p class="font18 text-white text-bold margin-bottom10">BikeWale Track Day</p>
+                    <a href="/trackday2016/" class="btn btn-banner-white bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more &#10095;</a>
                 </div>
             </div>
         </header>
