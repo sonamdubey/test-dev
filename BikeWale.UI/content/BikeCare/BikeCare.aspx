@@ -17,7 +17,7 @@
     isAd300x250BTFShown = false;
 
 %>
-            <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">

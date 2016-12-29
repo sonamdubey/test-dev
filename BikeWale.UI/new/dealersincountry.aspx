@@ -37,27 +37,14 @@
                     <div class="breadcrumb margin-bottom15">
                         <ul>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <a href="/" itemprop="url">
-                                    <span itemprop="title">Home</span>
-                                </a>
+                                <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span>
-                                 <a href="/new/" itemprop="url">
-                                    <span itemprop="title">New Bikes</span>
-                                </a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><a itemprop="url" href="/dealer-showroom-locator/"><span itemprop="title">Showroom Locator</span></a>
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span>
-                                 <a href="/dealer-showroom-locator/" itemprop="url">
-                                    <span itemprop="title">Dealer Showroom locator</span>
-                                </a>
+                                <span class="bwsprite fa-angle-right margin-right10"></span><%=objMMV.MakeName %> Showrooms in India
                             </li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                <span class="bwsprite fa-angle-right margin-right10"></span>
-                                    <span itemprop="title"><%=objMMV.MakeName %> Dealer Showrooms</span>
-                            </li>
-                            <%--<li><span class="bwsprite fa fa-angle-right margin-right10"></span>Dealer Locator</li>--%>
                         </ul>
                         <div class="clear"></div>
                     </div>
