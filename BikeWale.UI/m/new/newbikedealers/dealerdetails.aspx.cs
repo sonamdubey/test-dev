@@ -36,7 +36,7 @@ namespace Bikewale.Mobile
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
         protected string cityName = string.Empty;
-        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty;
+        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, ctaSmallText = string.Empty;
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -107,6 +107,8 @@ namespace Bikewale.Mobile
         /// Description : Changed method to get details only on basis of (dealerId and makeid) and added details of dealer to the controller.
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified by : Sajal Gupta on 29-12-2016
+        /// Description : Added ctaSmallText
         /// </summary>
         private void GetDealerDetails()
         {
@@ -133,6 +135,7 @@ namespace Bikewale.Mobile
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
+                        ctaSmallText = dealerDetails.DisplayTextSmall;
 
                         if (dealerDetails.Area != null)
                         {

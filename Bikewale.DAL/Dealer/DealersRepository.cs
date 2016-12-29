@@ -447,6 +447,8 @@ namespace Bikewale.DAL.Dealer
         /// Desc : MakeName , CityName, CityMaskingName and MakeMaskingName retrieved
         /// Modified by :   Sumit Kate on 19 Jun 2016
         /// Description :   Added Optional parameter(inherited from Interface) and pass model id if value is > 0
+        /// Modified By : Sajal Gupta on 29-12-2016
+        /// Description : Read CallToActionLongText, CallToActionSmallText parameters.
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -461,7 +463,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getdealerbymakecity_31052016";
+                    cmd.CommandText = "getdealerbymakecity_29122016";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));
@@ -489,6 +491,8 @@ namespace Bikewale.DAL.Dealer
                                 dealerdetail.objArea.Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]);
                                 dealerdetail.objArea.Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]);
                                 dealerdetail.objArea.PinCode = Convert.ToString(dr["dealerpincode"]);
+                                dealerdetail.DisplayTextLarge = Convert.ToString(dr["CtaLongText"]);
+                                dealerdetail.DisplayTextSmall = Convert.ToString(dr["CtaSmallText"]);
                                 dealerList.Add(dealerdetail);
                             }
 
@@ -629,6 +633,8 @@ namespace Bikewale.DAL.Dealer
         /// Description: DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
         /// Modeified By:- Subodh Jain 15 dec 2016
         /// Summary:- Added pincode data
+        /// Modified by : Sajal Gupta on 29-12-2016
+        /// Description : Added DisplayTextLarge, DisplayTextSmall
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -637,7 +643,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_29122016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -672,6 +678,8 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.CampaignId = SqlReaderConvertor.ToUInt32(dr["id"]);
                                 dealers.DealerDetails.CityId = Convert.ToInt32(dr["cityid"]);
                                 dealers.DealerDetails.Pincode = Convert.ToString(dr["Pincode"]);
+                                dealers.DealerDetails.DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]);
+                                dealers.DealerDetails.DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]);
                             }
                             if (dr.NextResult())
                             {
