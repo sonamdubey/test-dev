@@ -8,6 +8,8 @@ namespace Bikewale.Entities.DealerLocator
     /// Created By : Sushil Kumar
     /// Created on : 21 March 2016
     /// Description : DealersList for dealer locator
+    /// Modified by : Sajal Gupta on 29-12-2016
+    /// Description Added DisplayTextLarge, DisplayTextSmall
     /// </summary>
     [Serializable]
     public class DealersList : NewBikeDealerBase
@@ -19,5 +21,7 @@ namespace Bikewale.Entities.DealerLocator
         public string Address { get; set; }
         public string WorkingHours { get; set; }
         public uint CampaignId { get; set; }
+        public string DisplayTextLarge { get; set; }
+        public string DisplayTextSmall { get; set; }
     }
 }
