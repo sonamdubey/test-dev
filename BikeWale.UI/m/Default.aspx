@@ -23,9 +23,11 @@
         Ad320x150_I = true;
         Ad320x150_II = true;
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/m/css/home.css" />
+     <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+      </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -298,7 +300,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/onroad-price-banner.jpg">
             <!--  Get Final Price code starts here -->
             <BW:MOnRoadPricequote PageId="5" ID="MOnRoadPricequote" runat="server" />
@@ -409,17 +411,24 @@
                 <!--Bottom Ad banner code ends here -->
             </div>
         </section>
+
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+
         <script type="text/javascript">
             ga_pg_id = '1';
+            $("img.lazy").lazyload();
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
         </script>
+        <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        
     </form>
 </body>
 </html>

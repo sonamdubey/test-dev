@@ -60,9 +60,6 @@
     <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
     <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
     <form id="form1" runat="server">
-        <%--<div id="top-progress-bar">
-            <div class="progress-bar"></div>
-        </div>--%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container bg-white clearfix">

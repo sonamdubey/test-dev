@@ -295,7 +295,7 @@ gulp.task('desktop-homepage', function () {
 
 // mobile service center
 gulp.task('mobile-service-center', function (callback) {
-    gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details')(callback)
+    gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details','mobile-homepage')(callback)
 });
 
 gulp.task('mobile-service-landing', function () {

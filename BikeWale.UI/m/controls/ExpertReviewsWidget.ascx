@@ -36,7 +36,4 @@
     <div class="text-center margin-bottom40">
         <a class="font16" href="<%=MoreExpertReviewUrl%>">View more reviews</a>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () { $("img.lazy").lazyload(); });
-    </script>
 </div>
