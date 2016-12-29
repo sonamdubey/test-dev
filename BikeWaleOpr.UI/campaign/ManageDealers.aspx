@@ -105,11 +105,15 @@
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
-                            <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
-                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
-                            <%--<a id="mapNewMaskingNumber" href="javascript:void(0)" onclick="ShowMapMaskingNumberPopup()">Map new Masking number</a>--%>
+                            <%
+                                if (ddlMaskingNumber.DataSource != null) { 
+                                 %>
+                            <asp:dropdownlist id="ddlMaskingNumber" runat="server">                                
+                            </asp:dropdownlist>
+                            <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />                            
                             <% if (isCampaignPresent)
                                { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
+                            <%} %>
                         </td>
                     </tr>
                     <tr>
@@ -129,6 +133,14 @@
                         <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
                         <td>
                             <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%"><strong>Call to Action :</strong></td>
+                        <td>
+                            <asp:checkbox runat="server" id="chkUseDefaultCallToAction" text="Use Default" autopostback="false" ></asp:checkbox>
+                            <asp:dropdownlist id="ddlCallToAction" autopostback="false" runat="server">                                
+                            </asp:dropdownlist>
                         </td>
                     </tr>
                     <tr>
@@ -217,8 +229,18 @@
     $("#backbutton").on("click", function () {
         window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
     });
+
+    $("#chkUseDefaultCallToAction").change(function () {
+        if ($(this).is(":checked")) {
+            $("#ddlCallToAction").hide();
+        }
+        else {
+            $("#ddlCallToAction").show();
+        }
+    });
+
         $(window).ready(function () {
-            $("#pageloaddiv").hide();
+            $("#pageloaddiv").hide();            
         });
 
         $("#releaseMaskingNumber").on("click", function () {

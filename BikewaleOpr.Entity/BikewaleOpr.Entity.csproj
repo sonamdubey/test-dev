@@ -60,6 +60,7 @@
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
+    <Compile Include="CallToActionEntityBase.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
     <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
