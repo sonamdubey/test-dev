@@ -42,5 +42,11 @@ namespace Bikewale.Entities.PriceQuote.v2
 
         [JsonProperty("selectedVersionPrice")]
         public uint SelectedVersionPrice { get; set; }
+
+        [JsonProperty("displayTextLarge")]
+        public string DisplayTextLarge { get; set; }
+
+        [JsonProperty("displayTextSmall")]
+        public string DisplayTextSmall { get; set; }
     }
 }

@@ -52,5 +52,11 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("dealerPackageType")]
         public DealerPackageTypes DealerPackageType { get; set; }
 
+        [JsonProperty("displayTextLarge")]
+        public string DisplayTextLarge { get; set; }
+
+        [JsonProperty("displayTextSmall")]
+        public string DisplayTextSmall { get; set; }
+
     }   //End of Class
 }   //End of namespace

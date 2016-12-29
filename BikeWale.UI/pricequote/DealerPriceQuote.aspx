@@ -257,7 +257,7 @@
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block">
-                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers from dealers</a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>                                    
                                 </div>
@@ -587,7 +587,7 @@
 							                    </div>
                                             </a>
                                             <div class="bottom-block-button margin-top15">
-                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn"><%=leadBtnLargeText %></a>
                                             </div>
                                         </li>
                                     <% } %>

@@ -239,7 +239,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
@@ -523,7 +523,7 @@
 							                        </div>
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn">Get offers from dealer</a>
+                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn"><%=bike.DisplayTextLarge %></a>
                                                 </div>
                                             </li>
                                     <% } %>                             
@@ -625,7 +625,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>
-                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" >Get offers from dealer</a>
+                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" ><%= viewModel.LeadBtnTextLarge %></a>
                             <%} %>
 
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
