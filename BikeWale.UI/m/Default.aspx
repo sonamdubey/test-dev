@@ -47,41 +47,9 @@
                             <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                         </li>
                     </ul>
-                    <style type="text/css">
-                        .banner-home {
-                            height: 290px;
-                            background: #868281 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/es/trackday-banner.jpg) no-repeat scroll left center;
-                            background-size: cover;
-                        }
-                        .top-campaign-banner-container {
-                            position: relative;
-                            height: 290px;
-                            padding-top: 180px;
-                        }
-
-                        .top-campaign-banner-container h1 {
-                            margin-bottom: 12px;
-                        }
-
-                        .top-campaign-banner-container .banner-subheading {
-                            display: none;
-                        }
-
-                        .top-campaign-banner-text {
-                            text-align: left;
-                            position: absolute;
-                            top: 10px;
-                            left: 10px;
-                        }
-
-                        .text-underline {
-                            text-decoration: underline;
-                        }
-                    </style>
-                    <div class="top-campaign-banner-text">
-                        <p class="font14 text-bold text-white">BikeWale Track Day</p>
-                        <a href="/m/trackday2016/" class="font12 text-white text-underline bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more</a>
-                    </div>
+                    <%= bannerEntity.MobileCss %>
+                    <%= bannerEntity.MobileHtml %>
+                    <%= bannerEntity.MobileJS %>                    
                 </div>
             </div>
         </section>

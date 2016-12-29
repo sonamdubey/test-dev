@@ -63,47 +63,9 @@
                         </div>
                     </div>
                 </div>
-                <style type="text/css">
-                    .home-top-banner{
-                        background:#7f8e92 url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/es/trackday-banner.jpg) no-repeat left center;
-                        height: 490px;
-                        background-size: cover;
-                    }
-                    .top-campaign-banner-container {
-                        position: relative;
-                        height: 490px;
-                    }
-                    .top-campaign-banner-container .welcome-box {
-                        padding-top: 125px;
-                        margin-top: 0;
-                    }
-                    .top-campaign-banner-container .margin-top60 {
-                        margin-top: 40px;
-                    }
-                    .top-campaign-banner-container .banner-subheading {
-                        font-size: 18px;
-                    }
-                    .top-campaign-banner-text {
-                        position: absolute;
-                        right: 10px;
-                        bottom: 16px;
-                    }
-                    .btn-banner-white {
-                        font-size: 14px;
-                        color: #fff;
-                        border: 1px solid #fff;
-                        padding: 3px 15px 4px;
-                    }
-                    .btn-banner-white:hover {
-                        text-decoration: none;
-                        color: #4d5057;
-                        background: #fff;
-                    }
-                </style>
-                <div class="top-campaign-banner-text">
-                    <p class="font18 text-white text-bold margin-bottom10">BikeWale Track Day</p>
-                    <a href="/trackday2016/" class="btn btn-banner-white bw-ga" c="Home_Page" a="BikeWale_Track_Day_Explore_More_Clicked" l="BikeWale_Track_Day">Explore more &#10095;</a>
-                </div>
+                <%= bannerEntity.DesktopCss %>
+                <%= bannerEntity.DesktopHtml %>
+                <%= bannerEntity.DesktopJS %>
             </div>
         </header>
         <!--  Ends here -->
