@@ -2071,7 +2071,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
-    <Content Include="css\used-search.css" />
+    <Content Include="css\used\search.css" />
     <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
@@ -2580,7 +2580,7 @@
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\used-details.css" />
-    <Content Include="m\css\used-search.css" />
+    <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />

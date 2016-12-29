@@ -56,8 +56,6 @@
 #pagination-list a,#pagination-list .active {
     color: #82888b;
     font-size: 12px;
-    padding-right: 5px;
-    padding-left: 5px;
     border: 1px solid #fff;
     display: block;
     min-width: 25px;
@@ -105,4 +103,11 @@
 .pagination-control-prev.inactive .prev-page-icon, .pagination-control-next.inactive .next-page-icon {
     opacity: 0.2;
     pointer-events: none;
+}
+
+@media only screen and (max-width: 350px) {
+    #pagination-list a {
+        font-size: 12px;
+        min-width: 22px;
+    }
 }
