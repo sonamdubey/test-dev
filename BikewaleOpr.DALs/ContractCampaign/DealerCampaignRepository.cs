@@ -147,7 +147,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DealerCampaignRepository.InsertBWDealerCampaign");
+                ErrorClass objErr = new ErrorClass(ex, "DealerCampaignRepository.UpdateBWDealerCampaign");
                 objErr.SendMail();
             }
 
@@ -191,7 +191,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_calltoaction", DbType.Int16, callToAction));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbType.Int32, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    newCampaignId = Convert.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
+                    newCampaignId = SqlReaderConvertor.ToInt32(cmd.Parameters["par_newcampaignid"].Value);
 
                 }
             }
