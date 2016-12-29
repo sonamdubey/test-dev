@@ -374,5 +374,49 @@ namespace Bikewale.DAL.Location
 
             return usedBikeCities;
         }
+
+        /// <summary>
+        /// Created by : Subodh Jain 29 Dec 2016
+        /// Summary: Get Used bikes by make in cities
+        /// </summary>
+        public IEnumerable<UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeId)
+        {
+            IList<UsedBikeCities> usedBikeCities = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikeincitybymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            usedBikeCities = new List<UsedBikeCities>();
+                            while (dr.Read())
+                            {
+                                usedBikeCities.Add(new UsedBikeCities
+                                {
+                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByMakeCityWithCount"));
+                objErr.SendMail();
+            }
+
+            return usedBikeCities;
+        }
     }
 }

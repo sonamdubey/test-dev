@@ -144,5 +144,24 @@ namespace Bikewale.Cache.Location
             }
             return objUsedBikesCity;
         }
+        /// <summary>
+        /// Created by : Subodh Jain 29 Dec 2016
+        /// Summary: Get Used bikes by make in cities
+        /// </summary>
+        public IEnumerable<UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeid)
+        {
+            IEnumerable<UsedBikeCities> objUsedBikesCity = null;
+            string key = string.Format("BW_UsedBikeInMakeCityWithCount_{0}", makeid);
+            try
+            {
+                objUsedBikesCity = _cache.GetFromCache<IEnumerable<UsedBikeCities>>(key, new TimeSpan(1, 0, 0), () => _objCity.GetUsedBikeByMakeCityWithCount(makeid));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CityCacheRepository.GetUsedBikeByMakeCityWithCount");
+                objErr.SendMail();
+            }
+            return objUsedBikesCity;
+        }
     }
 }
