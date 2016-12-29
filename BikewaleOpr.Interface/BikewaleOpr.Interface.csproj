@@ -45,6 +45,7 @@
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
+    <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
     <Compile Include="IDealers.cs" />
     <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs">
