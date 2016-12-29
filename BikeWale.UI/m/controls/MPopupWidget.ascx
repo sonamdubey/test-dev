@@ -239,18 +239,18 @@
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
                                     var areas = ko.toJS(_responseData.pqAreas);
-                                    if (areas) {
+                                     if (areas != null && areas.length > 0) {
+                                        
                                         self.BookingAreas(areas);
-                                        if(self.SelectedAreaId() > 0)
-                                        {
+                                        if (self.SelectedAreaId() > 0) {
                                             self.SelectedArea(findAreaById(self.SelectedAreaId()));
                                         }
-                                        else
-                                        {
-                                            self.BookingAreas([]);
-                                            self.SelectedArea(null);
-                                            self.SelectedAreaId(0);
-                                        }
+                                        else self.SelectedArea(null);
+                                    }
+                                    else{
+                                        self.BookingAreas([]);
+                                        self.SelectedArea(null);
+                                        self.SelectedAreaId(0);
                                     }                                                                         
                                 }
                             }
@@ -336,22 +336,18 @@
                 $('#city-area-content').addClass('city-selected');
                 self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
                 self.IsPersistance(false);
+				
             }
             else{
                 self.LoadingText("Loading areas for " + self.SelectedCity().name);  
             }
-            
-            if(data.id != onCookieObj.PQCitySelectedId){ 
-                self.SelectedArea(null);
-                self.SelectedAreaId(0);
-                self.InitializePQ(true);
-                self.BookingAreas([]);
-            }
-            else{
-                self.SelectedArea(null);
-                self.SelectedAreaId(0);
-                self.BookingAreas([]);
-            }                                
+            self.SelectedArea(null);
+			self.SelectedAreaId(0);                
+			self.BookingAreas([]);
+				
+             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
+				self.InitializePQ(true);
+            }                              
 
             if (ga_pg_id != null && ga_pg_id == 2) {
                 var actText = '';
