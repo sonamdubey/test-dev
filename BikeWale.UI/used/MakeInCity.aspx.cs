@@ -1,17 +1,10 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Used;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 namespace Bikewale.Used
 {
     /// <summary>
@@ -46,95 +39,39 @@ namespace Bikewale.Used
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             ProcessQueryString();
-            BindCities();
+            if (MakeDetails != null)
+                BindCities();
         }
         /// <summary>
         /// Created by : Subodh Jain 29 Dec 2016
         /// Summary: for processing querystring
         /// </summary>
-        bool ProcessQueryString()
+        private void ProcessQueryString()
         {
-            bool isSuccess = true;
 
-            if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+            try
             {
-                makeMaskingName = Request.QueryString["make"];
-
-                if (!String.IsNullOrEmpty(makeMaskingName))
+                if (!String.IsNullOrEmpty(Request.QueryString["make"]))
                 {
-                    MakeMaskingResponse objResponse = null;
+                    makeMaskingName = Request.QueryString["make"];
 
-                    try
+                    if (!String.IsNullOrEmpty(makeMaskingName))
                     {
-                        using (IUnityContainer container = new UnityContainer())
+                        makeMaskingName = Request.QueryString["make"];
+                        if (!string.IsNullOrEmpty(makeMaskingName))
                         {
-                            container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                                  .RegisterType<ICacheManager, MemcacheManager>()
-                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                 ;
-                            var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                            if (objResponse != null && objResponse.MakeId > 0)
-                                MakeDetails = objCache.GetMakeDetails(objResponse.MakeId);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        isSuccess = false;
-                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakeInCity.ProcessQueryString");
-                        objErr.SendMail();
-                        Response.Redirect("/new/", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                    finally
-                    {
-                        if (objResponse != null)
-                        {
-                            if (objResponse.StatusCode == 200)
-                            {
-                                makeId = objResponse.MakeId;
-                            }
-                            else if (objResponse.StatusCode == 301)
-                            {
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
-                            }
-                            else
-                            {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
-                                isSuccess = false;
-                            }
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                            isSuccess = false;
+                            MakeMaskingResponse objMake = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
+                            if (objMake != null)
+                                MakeDetails = new MakeHelper().GetMakeNameByMakeId(Convert.ToUInt16(objMake.MakeId));
                         }
                     }
                 }
-                else
-                {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                    isSuccess = false;
-                }
             }
-            else
+            catch (Exception ex)
             {
-                //invalid make id, hence redirect to the new default page
-                Response.Redirect("/new/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-                isSuccess = false;
-            }
 
-            return isSuccess;
+                ErrorClass objErr = new ErrorClass(ex, "MakesInCity.ProcessQueryString");
+            }
         }
         /// <summary>
         /// Created By Subodh Jain on 29 dec 2016
@@ -146,7 +83,7 @@ namespace Bikewale.Used
             {
                 BindUsedBikesByMakeCity objBikeCity = new BindUsedBikesByMakeCity();
                 objBikeCity.MakeName = MakeDetails.MakeName;
-                UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount(makeId);
+                UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount(Convert.ToUInt16(MakeDetails.MakeId));
                 objBikeCity.CreateMetas();
                 UsedBikeCityCountTopList = UsedBikeCityCountList.Where(x => x.priority > 0); ;
                 UsedBikeCityCountList = UsedBikeCityCountList.OrderBy(c => c.CityName);
@@ -158,8 +95,8 @@ namespace Bikewale.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "MakeInCity.BindCities");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "MakesInCity.BindCities");
+
             }
         }
     }

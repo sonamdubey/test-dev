@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Used.MakeInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Used.MakeInCity" EnableViewState="false" %>
 <!DOCTYPE html>
 
 <html>
@@ -67,7 +67,7 @@
                                 <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
                             </div>
                              <ul id="location-list">
-                                         <% foreach (var objCity in UsedBikeCityCountTopList)
+                                         <% foreach (var objCity in UsedBikeCityCountList)
                                             { %>
                                             
                                         <ul class="location-list-city">
@@ -84,7 +84,7 @@
                         </div>
                            <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
-                       <%foreach (var objCity in UsedBikeCityCountList)
+                       <%foreach (var objCity in UsedBikeCityCountTopList)
                          {%>
                             <li>
                                 <a href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>" class="city-card-target">
@@ -146,7 +146,7 @@
                     $('.location-list-city').hide();
                     $('.type-state.active').removeClass('active');
                     item.addClass('active').siblings('.location-list-city').show();
-                    var cityArr = mapCityArray(item);
+                    var cityArr = CityArray(item);
                     $('html, body').animate({ scrollTop: item.offset().top });
                 }
                 else {
@@ -225,7 +225,7 @@
             }
 
 
-            function mapCityArray(listitem) {
+            function CityArray(listitem) {
                 var citynewArr = [];
                 $(listitem).next('ul').children('li').children().each(function () {
                     _self = $(this);

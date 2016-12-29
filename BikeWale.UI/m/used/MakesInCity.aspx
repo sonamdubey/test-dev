@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Used.MakesInCity" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Used.MakesInCity" EnableViewState="false"%>
 
 <!DOCTYPE html>
 <html>

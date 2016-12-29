@@ -23,15 +23,23 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public BindUsedBikesByMakeCity()
         {
 
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<ICityCacheRepository, CityCacheRepository>()
-                .RegisterType<ICity, CityRepository>()
-                .RegisterType<ICacheManager, MemcacheManager>();
-                objCitiesCache = container.Resolve<ICityCacheRepository>();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<ICityCacheRepository, CityCacheRepository>()
+                    .RegisterType<ICity, CityRepository>()
+                    .RegisterType<ICacheManager, MemcacheManager>();
+                    objCitiesCache = container.Resolve<ICityCacheRepository>();
+
+                }
 
             }
+            catch (Exception ex)
+            {
 
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesByMakeCity.BindUsedBikesByMakeCity"));
+            }
 
         }
         /// <summary>
@@ -48,7 +56,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesByMakeCity.GetUsedBikeByMakeCityWithCount_{0}", makeid));
-                objErr.SendMail();
             }
             return objBikeCity;
         }
@@ -68,9 +75,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesByMakeCity.CreateMetas");
-                objErr.SendMail();
             }
 
         }
