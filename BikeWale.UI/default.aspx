@@ -69,7 +69,6 @@
                         height: 490px;
                         background-size: cover;
                     }
-                    /* campaign-banner-container */
                     .top-campaign-banner-container {
                         position: relative;
                         height: 490px;

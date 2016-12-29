@@ -53,7 +53,6 @@
                             background: #868281 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/es/trackday-banner.jpg) no-repeat scroll left center;
                             background-size: cover;
                         }
-                        /* campaign-banner-container */
                         .top-campaign-banner-container {
                             position: relative;
                             height: 290px;
