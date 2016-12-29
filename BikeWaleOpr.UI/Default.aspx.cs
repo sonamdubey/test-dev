@@ -36,7 +36,7 @@ namespace BikeWaleOpr
             {
                 Response.Redirect("/users/login.aspx");
             }
-            else if (CurrentUser.Id == Bikewale.Utility.BWOprConfiguration.Instance.NotificationUserId) // If customer id matches the user id from the config file then send the notification to the user
+            else if (CurrentUser.Id == Bikewale.Utility.BWOprConfiguration.Instance.NotificationUserId && DateTime.Now.Day > 15) // If customer id matches the user id from the config file then send the notification to the user
             {
                 NotificationTrigger();
             }
@@ -48,8 +48,6 @@ namespace BikeWaleOpr
         /// </summary>
         protected void NotificationTrigger()
         {
-            isShownNotification = true;
-
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeModels, BikeModelsRepository>();
@@ -67,6 +65,11 @@ namespace BikeWaleOpr
                 ComposeEmailBase objEmail = new ModelSoldUnitMailTemplate(CurrentUser.UserName, dataObj.LastUpdateDate);
 
                 objEmail.Send(Bikewale.Utility.BWOprConfiguration.Instance.NotificationToUserMailId, "Please update last month model sold data", "", cc, null);
+            }
+
+            if (dataObj.LastUpdateDate.Month != DateTime.Now.Month)
+            {
+                isShownNotification = true;
             }
         }
     }

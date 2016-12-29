@@ -23,7 +23,7 @@
                         <br /><br />
                         <p>Upload last month unit sold file</p>
                         <span id="spnFile" class="errorMessage" runat="server"> </span>                        
-                        <input type="file" id="flUpload" runat="server" />
+                        <input type="file" id="flUpload" runat="server" required/>
                         <asp:button id="btnUploadFile" runat="server" text="Upload File"></asp:button>                                               
                     </div>
                     <asp:Label ID="lblMessage" Visible="false" CssClass="successMessage" runat="server">Updation Successfull</asp:Label>
