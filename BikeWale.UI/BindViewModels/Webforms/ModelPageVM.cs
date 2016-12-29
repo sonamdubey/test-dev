@@ -12,6 +12,8 @@ namespace Bikewale.BindViewModels.Webforms
     /// <summary>
     /// Created by  : Sangram Nandkhile on 16 mar 2016
     /// Summary     : A ViewModel to bind data with Model page view
+    /// Modified by  : Sangram Nandkhile on 16 mar 2016
+    /// Summary: Addded fields LeadBtnTextLarge and LeadBtnTextSmall
     /// </summary>
     public class ModelPageVM
     {

@@ -10,7 +10,7 @@ namespace Bikewale.Entities.PriceQuote.v2
     /// Description : Dealer Basics details with version prices.
     /// Modified by :   Sumit Kate on 03 Aug 2016
     /// Description :   Added new property SelectedVersionPrice
-    /// Modified By :Sangram Nandkhile on 29 Dec 2016
+    /// Modified By : Sangram Nandkhile on 29 Dec 2016
     /// Description : Added DisplayTextLarge, DisplayTextSmall
     /// </summary>
     public class NewBikeDealerBase
