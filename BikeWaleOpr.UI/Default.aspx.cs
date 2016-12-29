@@ -67,7 +67,7 @@ namespace BikeWaleOpr
                 objEmail.Send(Bikewale.Utility.BWOprConfiguration.Instance.NotificationToUserMailId, "Please update last month model sold data", "", cc, null);
             }
 
-            if (dataObj.LastUpdateDate.Month != DateTime.Now.Month)
+            if (dataObj.LastUpdateDate.Month != (DateTime.Now.Month - 1))
             {
                 isShownNotification = true;
             }
