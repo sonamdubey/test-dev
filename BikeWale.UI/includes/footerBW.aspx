@@ -1,6 +1,6 @@
 ﻿<BW:PopupWidget runat="server" id="PopupWidget" />
 <%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
-<% if(isAd970x90Shown){ %>
+<% if(isAd970x90BottomShown){ %>
 <section>
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
 </section>

@@ -24,11 +24,11 @@
         canonical = "https://www.bikewale.com/";
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
-        isAd976x400FirstShown = true;
-        isAd976x400SecondShown = true;
-        isAd976x204 = true;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
+        isAd976x400FirstShown = true;
+        isAd976x400SecondShown = true;
+        isAd976x204 = false;
         PopupWidget.Visible = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
