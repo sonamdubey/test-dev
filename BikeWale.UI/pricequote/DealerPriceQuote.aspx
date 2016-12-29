@@ -11,7 +11,7 @@
         description = String.Format("{0} {1} price quote", bikeName, versionName);
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
-        isAd970x90Shown = true;
+        isAd970x90Shown = dealerId <= 0;
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
         
