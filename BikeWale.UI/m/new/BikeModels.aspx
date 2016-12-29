@@ -170,7 +170,7 @@
                         <% if (viewModel!=null && viewModel.IsPremiumDealer)
                             { 
                         %>  <div class="grid-<%= String.IsNullOrEmpty(viewModel.MaskingNumber)? "12":"6" %> alpha omega padding-right5">
-                                <a  class="btn btn-orange btn-full-width rightfloat leadcapturebtn"  data-leadsourceid="19"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> " href="javascript:void(0);">Get offers</a>
+                                <a  class="btn btn-orange btn-full-width rightfloat leadcapturebtn"  data-leadsourceid="19"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %> " href="javascript:void(0);"><%= viewModel.LeadBtnTextSmall %></a>
                             </div>
                             <%  if(!string.IsNullOrEmpty(viewModel.MaskingNumber))
                                 { %>
@@ -955,7 +955,7 @@
                 </li>
             </ul>
             <div class="text-center">
-                <a  data-leadsourceid="31"  data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>"  data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn">Get offers from dealer</a>
+                <a  data-leadsourceid="31"  data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>"  data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn"><%=viewModel.LeadBtnTextLarge %></a>
             </div>
         </div>
         <% if(viewModel != null){ %>

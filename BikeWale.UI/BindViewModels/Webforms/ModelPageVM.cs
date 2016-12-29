@@ -12,12 +12,16 @@ namespace Bikewale.BindViewModels.Webforms
     /// <summary>
     /// Created by  : Sangram Nandkhile on 16 mar 2016
     /// Summary     : A ViewModel to bind data with Model page view
+    /// Modified by  : Sangram Nandkhile on 16 mar 2016
+    /// Summary: Addded fields LeadBtnTextLarge and LeadBtnTextSmall
     /// </summary>
     public class ModelPageVM
     {
         public bool IsPremiumDealer { get; set; }
         public string Organization { get; set; }
         public string AreaName { get; set; }
+        public string LeadBtnTextLarge { get; set; }
+        public string LeadBtnTextSmall { get; set; }
         public short SecondaryDealerCount { get; set; }
         public string MaskingNumber { get; set; }
         public IEnumerable<OfferEntityBase> Offers { get; set; }
@@ -48,6 +52,8 @@ namespace Bikewale.BindViewModels.Webforms
                                 Organization = dealeDetails.Organization;
                                 if (dealeDetails.objArea != null)
                                     AreaName = dealeDetails.objArea.AreaName;
+                                LeadBtnTextLarge = dealeDetails.DisplayTextLarge;
+                                LeadBtnTextSmall = dealeDetails.DisplayTextSmall;
                                 SecondaryDealerCount = Convert.ToInt16(DealerCampaignV2.SecondaryDealerCount);
                                 MaskingNumber = dealeDetails.MaskingNumber;
                                 Offers = DealerCampaignV2.PrimaryDealer.OfferList;

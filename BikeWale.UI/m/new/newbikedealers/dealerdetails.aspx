@@ -94,7 +94,7 @@
                     <% if (!string.IsNullOrEmpty(maskingNumber))
                        { %>
                     <div class="grid-6 alpha omega padding-right5">
-                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);"><%= ctaSmallText %></a>
                     </div>
                     <div class="grid-6 alpha omega padding-left5">
                         <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:<%= dealerDetails.MaskingNumber %>">
@@ -103,7 +103,7 @@
                     <% } else 
                       { %>
                     <div class="grid-12 alpha omega padding-right5">
-                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);">Get offers</a>
+                        <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);"><%= ctaSmallText %></a>
                     </div>
                     <% } %>
                     <div class="clear"></div>

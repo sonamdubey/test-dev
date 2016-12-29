@@ -15,6 +15,8 @@ namespace Bikewale.Entities.DealerLocator
     /// Description : Added CityId, CampaignId, MakeName, MakeId, MakeMaskingName, CityMaskingName.
     /// Modeified By:- Subodh Jain 15 dec 2016
     /// Summary:- Added pincode data
+    /// Modified By :Sajal Gupta on 29-12-2016
+    /// Description : Added DisplayTextLarge, DisplayTextSmall
     /// </summary>
     [Serializable, DataContract]
     public class DealerDetailEntity : NewBikeDealerBase
@@ -45,5 +47,9 @@ namespace Bikewale.Entities.DealerLocator
         public string CityMaskingName { get; set; }
         [DataMember]
         public string Pincode { get; set; }
+        [DataMember]
+        public string DisplayTextLarge { get; set; }
+        [DataMember]
+        public string DisplayTextSmall { get; set; }
     }
 }

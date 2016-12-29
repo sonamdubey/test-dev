@@ -5,6 +5,10 @@ using System;
 
 namespace Bikewale.Entities.BikeBooking
 {
+    /// <summary>
+    /// Modified By :Sangram Nandkhile on 29 Dec 2016
+    /// Description : Added DisplayTextLarge, DisplayTextSmall
+    /// </summary>
     public class NewBikeDealers
     {
         [JsonProperty("dealerId")]
@@ -51,6 +55,12 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("dealerPackageType")]
         public DealerPackageTypes DealerPackageType { get; set; }
+
+        [JsonProperty("displayTextLarge")]
+        public string DisplayTextLarge { get; set; }
+
+        [JsonProperty("displayTextSmall")]
+        public string DisplayTextSmall { get; set; }
 
     }   //End of Class
 }   //End of namespace
