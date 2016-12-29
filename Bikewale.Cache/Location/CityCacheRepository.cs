@@ -158,7 +158,7 @@ namespace Bikewale.Cache.Location
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.CityCacheRepository.GetUsedBikeByMakeCityWithCount");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("CityCacheRepository.GetUsedBikeByMakeCityWithCount_{0}", makeid));
                 objErr.SendMail();
             }
             return objUsedBikesCity;

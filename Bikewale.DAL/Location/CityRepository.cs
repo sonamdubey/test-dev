@@ -412,7 +412,7 @@ namespace Bikewale.DAL.Location
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByMakeCityWithCount"));
+                ErrorClass objErr = new ErrorClass(err, string.Format("CityRepository.GetUsedBikeByMakeCityWithCount_{0}", makeId));
                 objErr.SendMail();
             }
 

@@ -33,7 +33,10 @@ namespace Bikewale.Used
         {
             base.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Created by : Subodh Jain 29 Dec 2016
+        /// Summary: Get Used bikes by make in cities
+        /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
             //Device Detection

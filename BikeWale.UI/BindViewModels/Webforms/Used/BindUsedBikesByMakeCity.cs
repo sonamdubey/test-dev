@@ -47,7 +47,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesCityWithCount.getusedbikebycitywithcount");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesByMakeCity.GetUsedBikeByMakeCityWithCount_{0}", makeid));
                 objErr.SendMail();
             }
             return objBikeCity;
@@ -58,11 +58,20 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// </summary>
         public void CreateMetas()
         {
-            title = string.Format("Browse used {0} bikes by cities", MakeName);
-            description = string.Format("Browse used {0} bikes by cities in India", MakeName);
-            canonical = string.Format("https://www.bikewale.com/used/browse-{0}-bikes-by-cities/", MakeName);
-            keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
-            alternative = string.Format("https://www.bikewale.com/m/used/browse-{0}-bikes-by-cities/", MakeName);
+            try
+            {
+                title = string.Format("Browse used {0} bikes by cities", MakeName);
+                description = string.Format("Browse used {0} bikes by cities in India", MakeName);
+                canonical = string.Format("https://www.bikewale.com/used/browse-{0}-bikes-by-cities/", MakeName);
+                keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
+                alternative = string.Format("https://www.bikewale.com/m/used/browse-{0}-bikes-by-cities/", MakeName);
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesByMakeCity.CreateMetas");
+                objErr.SendMail();
+            }
 
         }
 
