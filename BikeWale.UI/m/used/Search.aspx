@@ -35,6 +35,7 @@
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
 
                     <div id="city-model-used-carousel">
+                        <!-- model start -->
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Used Royal Enfield bikes in Mumbai</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
 
@@ -84,7 +85,56 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- model end -->
 
+                        <!-- city start -->
+                        <%--<h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Used Royal Enfield Classic Desert Storm in top cities</h2>
+                        <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
+
+                        <div class="swiper-container card-container city-model-carousel">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
+                                            <div class="card-image-placeholder">
+                                                <span class="city-sm-sprite mumbai-sm-icon"></span>
+                                            </div>
+                                            <div class="card-details-placeholder">
+                                                <h2 class="font14 text-truncate margin-bottom5">Mumbai</h2>
+                                                <p class="font14 text-light-grey text-truncate">34 used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="Used Thunderbird 500 bikes in Pune" class="card-target-block">
+                                            <div class="card-image-placeholder">
+                                                <span class="city-sm-sprite pune-sm-icon"></span>
+                                            </div>
+                                            <div class="card-details-placeholder">
+                                                <h2 class="font14 text-truncate margin-bottom5">Pune</h2>
+                                                <p class="font14 text-light-grey text-truncate">56 used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="Used Classic Desert Storm bikes in Bangalore" class="card-target-block">
+                                            <div class="card-image-placeholder">
+                                                <span class="city-sm-sprite bangalore-sm-icon"></span>
+                                            </div>
+                                            <div class="card-details-placeholder">
+                                                <h2 class="font14 text-truncate margin-bottom5">Bangalore</h2>
+                                                <p class="font14 text-light-grey text-truncate">78 used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>--%>
+                        <!-- city end -->
                     </div>
 
                     <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
@@ -113,7 +163,7 @@
                                     <div class="model-thumbnail-image">
                                     <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" class="model-image-target">
                                             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" 
-                                                 alt="<%= curBikeName %>" title="<%= curBikeName %>" border="0" />
+                                                 alt="<%= curBikeName %>" title="<%= curBikeName %>" border="0" src="" />
                                          <% if(bike.TotalPhotos > 0) { %>
                                             <div class="model-media-details ">
                                                 <div class="model-media-item">
@@ -169,11 +219,16 @@
                         <li>
                             <div class="model-thumbnail-image">
                                 <a data-bind=" attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }" class="model-image-target">
-                                    <!-- ko if : $index() < 3 -->
-                                    <img data-bind="attr: { alt: bikeName, title: bikeName, src: (photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'https://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'} " alt="" title="" border="0" />
-                                    <!-- /ko --><!-- ko if : $index() > 2 -->
-                                    <img data-bind="attr: { alt: bikeName, title: bikeName, src: 'https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif' }, lazyload: ((photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'https://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'), " alt="" title="" border="0" />
+                                    <!-- ko if: photo.originalImagePath != '' -->
+                                    <img data-bind="attr: { alt: bikeName, title: bikeName, src: '' }, lazyload: photo.hostUrl + '/370x208/' + photo.originalImagePath" src="" alt="" title="" border="0" />
                                     <!-- /ko -->
+                                    <!-- ko if: photo.originalImagePath == '' -->
+                                    <div class="bg-light-grey">
+                                        <span class="bwmsprite no-image-icon margin-bottom15"></span>
+                                        <p class="font12 text-bold text-light-grey">Image not available</p>
+                                    </div>
+                                    <!-- /ko -->
+                                    
                                     <div class="model-media-details">
                                         <div class="model-media-item" data-bind="visible: totalPhotos > 0">
                                             <span class="bwmsprite gallery-photo-icon"></span>
@@ -183,7 +238,7 @@
                                 </a>
                             </div>
                             <div class="margin-right20 margin-left20 padding-top10 font14">
-                                <h2 class="margin-bottom10"><a data-bind="text: bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
+                                <h2 class="margin-bottom5"><a data-bind="text: bikeName, attr: { 'href': '/m/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' }"></a></h2>
                                 <div class="margin-bottom5">
                                     <span class="font12 text-x-light" data-bind="text: 'Updated on: ' + strLastUpdated"></span>
                                 </div>
@@ -217,12 +272,12 @@
                     </div>                     
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <div class="font14 " style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
+                    <div class="font14" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
                     <% if(totalListing >0){ %>
-                            <div data-bind="visible: OnInit()" class="font14 "><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span>  bikes</div>
+                            <div data-bind="visible: OnInit()" class="font14"><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span>  bikes</div>
                             <% } %>
                     </div>
-                        <div data-bind="visible: OnInit()">
+                        <div data-bind="visible: OnInit()" class="init-pagination">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />
                         </div>
                     <div data-bind="visible: !OnInit() && Pagination().paginated() > 0">

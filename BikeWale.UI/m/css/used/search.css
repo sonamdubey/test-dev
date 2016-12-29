@@ -60,6 +60,28 @@
     padding-left: 3px;
 }
 
+/* city-sm-sprite */
+.city-sm-sprite {
+    background: url('') no-repeat;
+    display: inline-block;
+}
+
+.mumbai-sm-icon {
+    width: 52px;
+    height: 32px;
+    background-position: 0 0;
+    position: relative;
+    top: 6px;
+}
+
+.pune-sm-icon {
+    width: 74px;
+    height: 32px;
+    background-position: -57px 0;
+    position: relative;
+    top: 6px;
+}
+
 /* used-bikes-list */
 #used-bikes-list h2 a {
     color: #2a2a2a;
@@ -105,9 +127,15 @@
     background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center center;
 }
 
+.model-image-target:hover {
+    text-decoration: none;
+}
+
 .model-thumbnail-image img {
     max-height: 202px;
 }
+
+.model-thumbnail-image img[src$=""]{background: #fff;}
 
 .model-media-details {
     position: absolute;
@@ -233,17 +261,15 @@
     overflow: hidden;
 }
 
-#pagination-list li {
+.init-pagination li, #pagination-list li {
     float: left;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-#pagination-list a,#pagination-list .active {
+.init-pagination li.active, #pagination-list a {
     color: #82888b;
     font-size: 12px;
-    padding-right: 5px;
-    padding-left: 5px;
     border: 1px solid #fff;
     display: block;
     min-width: 25px;
@@ -699,8 +725,6 @@
     }
 
     #pagination-list a {
-        padding-right: 3px;
-        padding-left: 3px;
         font-size: 12px;
         min-width: 22px;
     }
@@ -799,8 +823,6 @@
     font-size: 16px;
     font-weight: bold;
 }
-
-.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 
 /* input field */
 input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }

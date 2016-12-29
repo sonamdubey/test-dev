@@ -339,11 +339,15 @@
                                             <li>
 
                                                 <div class="model-thumbnail-image">
-                                                    <a href="" data-bind="attr: { 'href': '/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/' },title:bikeName" title="">
-                                                        <!-- ko if : $index() < 3 -->
-                                                        <img data-bind="attr: { alt: bikeName, title: bikeName, src: (photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'https://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'} " alt="" title="" border="0" />
-                                                        <!-- /ko --><!-- ko if : $index() > 2 -->
-                                                        <img data-bind="attr: { alt: bikeName, title: bikeName}, lazyload: ((photo.originalImagePath != '') ? (photo.hostUrl + '/370x208/' + photo.originalImagePath) : 'https://imgd3.aeplcdn.com/174x98/bikewaleimg/images/noimage.png'), " alt="" title="" border="0" />
+                                                    <a href="" data-bind="attr: { 'href': '/used/bikes-in-' + cityMasking + '/' + makeMasking + '-' + modelMasking + '-' + profileId + '/', title: bikeName }" title="">
+                                                        <!-- ko if: photo.originalImagePath != '' -->
+                                                        <img data-bind="attr: { alt: bikeName }, lazyload: photo.hostUrl + '/370x208/' + photo.originalImagePath" src="" alt="" border="0" />
+                                                        <!-- /ko -->
+                                                        <!-- ko if: photo.originalImagePath == '' -->
+                                                        <div class="bg-light-grey">
+                                                            <span class="bwsprite no-image-icon margin-bottom15"></span>
+                                                            <p class="font12 text-bold text-light-grey">Image not available</p>
+                                                        </div>
                                                         <!-- /ko -->
                                                         <div class="model-media-details" data-bind="visible: totalPhotos > 0">
                                                             <div class="model-media-item">
@@ -351,7 +355,6 @@
                                                                 <span class="model-media-count" data-bind="text: totalPhotos"></span>
                                                             </div>
                                                         </div>
-
                                                     </a>
                                                 </div>
                                                 <div class="model-details-content font14">

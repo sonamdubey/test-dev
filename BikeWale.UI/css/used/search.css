@@ -1,5 +1,4 @@
-﻿@charset "utf-8";
-.padding-14-20 {
+﻿.padding-14-20 {
     padding: 14px 20px;
 }
 
@@ -141,7 +140,7 @@
 
 /* city-sm-sprite */
 .city-sm-sprite {
-    background: url('/images/city-sm-sprite.png') no-repeat;
+    background: url('') no-repeat;
     display: inline-block;
 }
 
@@ -192,6 +191,10 @@
     vertical-align: middle;
     line-height: 0;
     background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat;
+}
+
+.model-thumbnail-image a:hover {
+    text-decoration: none;
 }
 
 .model-thumbnail-image img {
@@ -646,6 +649,12 @@
 
 .inactive .prev-page-icon, .inactive .next-page-icon.inactive {
     opacity: 0.2;
+}
+
+.no-image-icon {
+    width: 40px;
+    height: 30px;
+    background-position: -97px -543px;
 }
 
 /* search-listing-footer */
