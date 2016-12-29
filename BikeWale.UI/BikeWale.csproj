@@ -272,6 +272,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
+    <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />

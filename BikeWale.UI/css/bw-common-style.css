@@ -107,8 +107,6 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-top-banner { background:#161209 url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
-.home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* global-search classes */
 .global-search { width: 420px; position: relative; display: inline-block; vertical-align:middle; margin-right: 30px; }
@@ -132,7 +130,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* global-location classes */
 .global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; }
-.gl-default-stage { border: 1px solid #acaba7; padding: 4px 10px; cursor: pointer; }
+.gl-default-stage { border: 1px solid #e2e2e2; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
 /* login classes */
@@ -141,9 +139,6 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .loginCloseBtn.cross-md-dark-grey { background-position: -62px -223px; }
 .loginCloseBtn.cross-md-dark-grey:hover { background-position: -62px -246px; }
 
-/* welcome box home page classes */
-.welcome-box { text-align: center; margin-top: 120px; color: #fff; }
-.welcome-box h1 { font-size:34px; color: #fff; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; }
 .bw-tabs { display: block; }
 .bw-tabs-flex { display: table; width: 100%; }
 .bw-tabs-flex ul { border-bottom: 1px solid #cccccc; margin-bottom: 25px; }
@@ -166,13 +161,6 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .bw-tabs-inner-margin30 ul { margin-bottom: 30px; }
 .bw-tabs-inner-margin35 ul { margin-bottom: 35px; }
 .bw-tabs-inner-margin40 ul { margin-bottom: 40px; }
-
-.bike-search-container { margin: 0 auto; width: 585px; }
-.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 40px; }
-.new-bike-search input[type="text"] { width: 100%; padding: 11px 10px; }
-.used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
-.findBtn { float:left; }
-.findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
 
 /* news, review and videos section on home page classes */
 .news-expert-video-content .img-preview { width:100%; height:174px; display:table; text-align:center;}
@@ -295,8 +283,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?26Dec2016) no-repeat; display: inline-block; }
-.bw-circle-icon { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-circle-icon.png) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?27Dec2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -307,10 +294,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 2; }
 .cityPopup-icon { background-position: -106px -273px; width: 60px; height: 52px; }
-.final-price-logo, .locate-dealer-logo, .emi-calc-logo { width: 92px; height: 92px; }
-.final-price-logo { background-position: 0 0; }
-.locate-dealer-logo { background-position: -102px 0; }
-.emi-calc-logo {  background-position: -204px 0; }
 .filter-icon { width:23px; height:21px; background-position: -180px -329px;}
 .more-filters-btn:hover .filter-icon { background-position: -180px -358px;}
 .orp-location-icon {background-position:-99px -35px; width: 50px; height: 50px; }
@@ -333,6 +316,20 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fa-google-plus { width:30px; height:20px; background-position:-111px -92px; }
 #floatingSocialShare .fa-facebook, #floatingSocialShare .fa-twitter, #floatingSocialShare .fa-google-plus {
     top: 10px;
+}
+
+.welcome-box {
+    margin-top: 120px;
+    text-align: center;
+    color: #fff;
+}
+
+.welcome-box h1 {
+    font-size: 34px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 /* nav classes */

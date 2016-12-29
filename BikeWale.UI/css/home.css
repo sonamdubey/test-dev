@@ -1,6 +1,16 @@
 ﻿@charset "utf-8";
-.booking-online-box { height:140px; padding:65px 20px 20px;}
-.booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
+.home-top-banner { padding-top: 1px; }
+/* 490px #161209 home-top-banner right top */
+.home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
+/* welcome box home page classes */
+.welcome-box { text-align: center; margin-top: 120px; color: #fff; }
+.welcome-box h1 { font-size:34px; color: #fff; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; }
+.bike-search-container { margin: 0 auto; width: 585px; }
+.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 40px; }
+.new-bike-search input[type="text"] { width: 100%; padding: 11px 10px; }
+.findBtn { float:left; }
+.findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
+
 .brand-budget-mileage-style-wrapper { background:#fff; }
 .bw-tabs-data ul li:hover { cursor: pointer; }
 .brand-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:180px; height:85px; margin:0 5px 30px; text-align:center; font-size:18px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
@@ -18,7 +28,8 @@
 .brand-71 {
     width: 39px;
     background-position: -2616px 0;
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+}
+                                                                                  
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
 .styletypesprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat; display: inline-block;  }
 .style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }

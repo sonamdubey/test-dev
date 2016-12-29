@@ -1,9 +1,11 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BindViewModels.Webforms;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.HomePage;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -42,11 +44,19 @@ namespace Bikewale
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
         protected Repeater rptPopularBrand, rptOtherBrands;
+        protected BindDefaultPage bindHomePage;
+        protected HomePageBannerEntity bannerEntity;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 29 Dec 2016
+        /// Description :   Bind the Home Page banner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             //device detection
@@ -54,6 +64,8 @@ namespace Bikewale
             DeviceDetection dd = new DeviceDetection("/");
             dd.DetectDevice();
 
+            BindDefaultPage bindHomePage = new BindDefaultPage();
+            bannerEntity = bindHomePage.HomePage;
             BindBikesWidgets();
 
             ctrlNews.TotalRecords = 3;

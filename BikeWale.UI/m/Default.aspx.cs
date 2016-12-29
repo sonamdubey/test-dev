@@ -1,7 +1,9 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BindViewModels.Webforms;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.HomePage;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -39,7 +41,8 @@ namespace Bikewale.Mobile
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
         protected Repeater rptPopularBrand, rptOtherBrands;
-
+        protected BindDefaultPage bindHomePage;
+        protected HomePageBannerEntity bannerEntity;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -48,11 +51,16 @@ namespace Bikewale.Mobile
         /// <summary>
         /// MOdified By : Sushil Kumar on 27th Oct 2016
         /// Description : Fetch 4 comparisions list obj
+        /// Modified by :   Sumit Kate on 29 Dec 2016
+        /// Description :   Bind the Home Page banner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindDefaultPage bindHomePage = new BindDefaultPage();
+            bannerEntity = bindHomePage.HomePage;
+
             BindBikesWidgets();
 
             ctrlNews.TotalRecords = 3;
