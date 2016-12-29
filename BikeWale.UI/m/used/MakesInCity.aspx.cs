@@ -20,8 +20,8 @@ namespace Bikewale.Mobile.Used
     /// </summary>
     public class MakesInCity : System.Web.UI.Page
     {
-        protected IEnumerable<UsedBikeCities> objBikeCityCountTop = null;
-        protected IEnumerable<UsedBikeCities> objBikeCityCount = null;
+        protected IEnumerable<UsedBikeCities> UsedBikeCityCountTopList = null;
+        protected IEnumerable<UsedBikeCities> UsedBikeCityCountList = null;
         protected BikeMakeEntityBase MakeDetails;
         protected uint makeId;
         protected string pgTitle = string.Empty, pgDescription = string.Empty, pgCanonical = string.Empty, pgKeywords = string.Empty, makeMaskingName = string.Empty, pgAlternative = string.Empty;
@@ -70,14 +70,14 @@ namespace Bikewale.Mobile.Used
                             var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
 
                             objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                            if (objResponse != null && objResponse.MakeId != null)
+                            if (objResponse != null && objResponse.MakeId > 0)
                                 MakeDetails = objCache.GetMakeDetails(objResponse.MakeId);
                         }
                     }
                     catch (Exception ex)
                     {
                         isSucess = false;
-                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                        Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "MakeInCity.ProcessQueryString");
                         objErr.SendMail();
                         Response.Redirect("/new/", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -141,10 +141,10 @@ namespace Bikewale.Mobile.Used
             {
                 BindUsedBikesByMakeCity objBikeCity = new BindUsedBikesByMakeCity();
                 objBikeCity.MakeName = MakeDetails.MakeName;
-                objBikeCityCount = objBikeCity.GetUsedBikeByMakeCityWithCount(makeId);
+                UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount(makeId);
                 objBikeCity.CreateMetas();
-                objBikeCityCountTop = objBikeCityCount.Where(x => x.priority > 0); ;
-                objBikeCityCount = objBikeCityCount.OrderBy(c => c.CityName);
+                UsedBikeCityCountTopList = UsedBikeCityCountList.Where(x => x.priority > 0); ;
+                UsedBikeCityCountList = UsedBikeCityCountList.OrderBy(c => c.CityName);
                 pgKeywords = objBikeCity.keywords;
                 pgTitle = objBikeCity.title;
                 pgDescription = objBikeCity.description;

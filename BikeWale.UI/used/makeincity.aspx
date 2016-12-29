@@ -55,7 +55,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <%if(MakeDetails!=null) {%>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -67,7 +67,7 @@
                                 <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
                             </div>
                              <ul id="location-list">
-                                         <% foreach (var objCity in objBikeCityCount)
+                                         <% foreach (var objCity in UsedBikeCityCountTopList)
                                             { %>
                                             
                                         <ul class="location-list-city">
@@ -84,7 +84,8 @@
                         </div>
                            <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
-                       <%foreach (var objCity in  objBikeCityCountTop) {%>
+                       <%foreach (var objCity in UsedBikeCityCountList)
+                         {%>
                             <li>
                                 <a href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>" class="city-card-target">
                                     <div class="city-image-preview">
@@ -101,7 +102,7 @@
                         <div class="padding-top20 padding-right10 padding-bottom10 padding-left10">
                             <p class="font16 text-default text-bold padding-left10 margin-bottom20">Other cities</p>
                             <ul id="other-city-list">
-                                <%foreach (var objCity in objBikeCityCount)
+                                <%foreach (var objCity in UsedBikeCityCountList)
                                     {%>
                                     <li class="grid-4">
                                         <a href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>">
@@ -116,7 +117,8 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>       
+        </section>   
+        <%} %>    
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->

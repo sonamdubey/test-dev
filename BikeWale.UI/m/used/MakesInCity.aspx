@@ -26,7 +26,7 @@
 <body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        
+        <%if(MakeDetails!=null){ %>
         <section>
             <div class="container bg-white clearfix box-shadow padding-bottom15 margin-bottom10">
                 <div class="padding-top20 padding-right20 padding-left20">
@@ -40,7 +40,8 @@
                 <div id="popular-city-content" class="margin-top20 margin-bottom15 font14">
                     <p class="text-bold margin-left20 margin-bottom20">Popular cities</p>
                     <ul id="used-popular-cities">
-                        <%foreach ( Bikewale.Entities.Used.UsedBikeCities objCity in  objBikeCityCountTop) {%>
+                        <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in UsedBikeCityCountTopList)
+                          {%>
                                         
                              <li>
                                 <a href="/m/used/<%=makeMaskingName %>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName %> bikes in <%=objCity.CityName %>" class="popular-city-target">
@@ -64,7 +65,7 @@
                 <div class="padding-right20 padding-left20">
                     <p id="other-cities-label" class="font14 text-bold">Other cities</p>
                     <ul id="other-cities-list">
-                        <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
+                        <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in UsedBikeCityCountList)
                           {%>
                         <li>
                             <a href="/m/used/<%=makeMaskingName %>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName %> bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%></a>
@@ -74,6 +75,7 @@
 
             </div>
         </section>
+        <%} %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
