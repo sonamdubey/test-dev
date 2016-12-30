@@ -587,7 +587,7 @@
 							                    </div>
                                             </a>
                                             <div class="bottom-block-button margin-top15">
-                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn"><%=leadBtnLargeText %></a>
+                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn"><%= dealer.DisplayTextLarge %></a>
                                             </div>
                                         </li>
                                     <% } %>
