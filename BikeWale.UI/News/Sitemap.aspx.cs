@@ -23,6 +23,11 @@ namespace Bikewale.News
         {
             GenerateNewsSiteMap();
         }
+
+        /// <summary>
+        /// Modified by :   Sumit Kate on 30 Dec 2016
+        /// Description :   Added missing Google News Sitemap elements
+        /// </summary>
         private void GenerateNewsSiteMap()
         {
             string mydomain = "https://www.bikewale.com/news/";
@@ -55,8 +60,8 @@ namespace Bikewale.News
                 writer.Formatting = System.Xml.Formatting.Indented;
                 writer.WriteStartDocument();
                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
-                writer.WriteAttributeString("xmlns", "news", null, "https://www.google.com/schemas/sitemap-news/0.9");
-                writer.WriteAttributeString("xmlns", "image", null, "https://www.google.com/schemas/sitemap-image/1.1");
+                writer.WriteAttributeString("xmlns", "news", null, "http://www.google.com/schemas/sitemap-news/0.9");
+                writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
                 if (objNews != null && objNews.RecordCount > 0)
                 {
                     articles = objNews.Articles;
@@ -76,17 +81,21 @@ namespace Bikewale.News
                             writer.WriteElementString("news:name", "BikeWale");
                             writer.WriteElementString("news:language", "en");
                             writer.WriteEndElement();
-                            writer.WriteElementString("news:genres", "PressRelease, Blog");
+                            writer.WriteElementString("news:genres", "Blog");
                             writer.WriteElementString("news:publication_date", article.DisplayDate.ToString("yyyy-MM-ddThh:mm:sszzz"));
-                            //writer.WriteElementString("news:keywords", article.tTag"]) ? "" : dtr["Tag"].ToString());
+                            writer.WriteElementString("news:geo_locations", "India");
+
+                            string keywords = GetKeywords(article.BasicId);
+
+                            writer.WriteElementString("news:keywords", keywords);
                             writer.WriteElementString("news:title", article.Title);
                             writer.WriteEndElement();
                             if (!String.IsNullOrEmpty(article.HostUrl))
                             {
                                 writer.WriteStartElement("image:image");
-                                writer.WriteElementString("image:loc", string.Format("{0},{1},{2}", article.HostUrl, ImageSize._174x98, article.OriginalImgUrl));
-                                //writer.WriteElementString("image:title", dtr["Caption"].ToString());
-                                //writer.WriteElementString("image:caption", dtr["Caption"].ToString());
+                                writer.WriteElementString("image:loc", Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._174x98));
+                                writer.WriteElementString("image:title", article.Title);
+                                writer.WriteElementString("image:caption", article.Title);
                                 writer.WriteElementString("image:geo_location", "India");
                                 writer.WriteEndElement();
                             }
@@ -105,9 +114,41 @@ namespace Bikewale.News
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "GenerateNewsSiteMap");
             }
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 30 Dec 2016
+        /// Description :   Returns the tags associated with an article
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        private string GetKeywords(ulong basicId)
+        {
+            string keywords = "";
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                               .RegisterType<ICacheManager, MemcacheManager>();
+                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+
+                    ArticlePageDetails article = _cache.GetArticlesDetails((uint)basicId);
+                    if (article != null)
+                    {
+                        if (article.TagsList != null)
+                            keywords = String.Join(", ", article.TagsList);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetKeywords({0})", basicId));
+            }
+            return keywords;
         }
     }//class
 }//namespace
