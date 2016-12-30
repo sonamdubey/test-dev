@@ -81,7 +81,7 @@ namespace Bikewale.News
                             writer.WriteElementString("news:name", "BikeWale");
                             writer.WriteElementString("news:language", "en");
                             writer.WriteEndElement();
-                            writer.WriteElementString("news:genres", "PressRelease, Blog");
+                            writer.WriteElementString("news:genres", "Blog");
                             writer.WriteElementString("news:publication_date", article.DisplayDate.ToString("yyyy-MM-ddThh:mm:sszzz"));
                             writer.WriteElementString("news:geo_locations", "India");
 
@@ -93,7 +93,7 @@ namespace Bikewale.News
                             if (!String.IsNullOrEmpty(article.HostUrl))
                             {
                                 writer.WriteStartElement("image:image");
-                                writer.WriteElementString("image:loc", string.Format("{0}{1}{2}", article.HostUrl, ImageSize._174x98, article.OriginalImgUrl));
+                                writer.WriteElementString("image:loc", Image.GetPathToShowImages(article.OriginalImgUrl, article.HostUrl, ImageSize._174x98));
                                 writer.WriteElementString("image:title", article.Title);
                                 writer.WriteElementString("image:caption", article.Title);
                                 writer.WriteElementString("image:geo_location", "India");
@@ -114,7 +114,7 @@ namespace Bikewale.News
 
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, "GenerateNewsSiteMap");
             }
         }
 
@@ -141,13 +141,12 @@ namespace Bikewale.News
                     {
                         if (article.TagsList != null)
                             keywords = String.Join(", ", article.TagsList);
-                        keywords = keywords.Trim(',');
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, String.Format("GetKeywords({0})", basicId));
             }
             return keywords;
         }
