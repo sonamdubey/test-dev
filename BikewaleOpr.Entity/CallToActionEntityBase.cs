@@ -10,6 +10,6 @@ namespace BikewaleOpr.Entities
         public ushort Id { get; set; }
         public string DisplayTextLarge { get; set; }
         public string DisplayTextSmall { get; set; }
-        public string Display { get { return string.Format("{0}(Desktop) - {1}(Mobile)", this.DisplayTextLarge, this.DisplayTextSmall); } }
+        public string Display { get { return string.Format("{2}{0}(Desktop) / {1}(Mobile)", this.DisplayTextLarge, this.DisplayTextSmall, (Id == 1 ? "[Default] " : "")); } }
     }
 }

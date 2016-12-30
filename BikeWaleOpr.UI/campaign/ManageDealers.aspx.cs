@@ -270,7 +270,7 @@ namespace BikewaleOpr.Campaign
             {
                 ddlCallToAction.SelectedValue = Convert.ToString(campaign.CallToAction);
             }
-            ddlCallToAction.CssClass = useDefaultCallToAction ? "hide margin-left10" : "";
+            ddlCallToAction.CssClass = string.Format("margin-left10 {0}", useDefaultCallToAction ? "hide" : "");
             ddlCallToAction.DataBind();
         }
 
