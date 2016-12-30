@@ -16,7 +16,8 @@ var citiesList = $("#filter-type-city select option");
 var listingStartPoint = $('#listing-start-point'),
     spinnerBackground = $('#loader-bg-window'),
     bwSpinner = $('#ub-ajax-loader'),
-    loaderColumn = $('#loader-right-column');
+    loaderColumn = $('#loader-right-column'),
+    cityModelCarousel = $('#city-model-used-carousel');
 
 var getQueryString = function () {
     var qsColl = new Object();
@@ -506,7 +507,12 @@ var usedBikes = function () {
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
-                        $('html, body').scrollTop(listingStartPoint.offset().top - 50);
+                        if (!$('body').hasClass('city-model-carousel-inactive')) {
+                            $('html, body').scrollTop(cityModelCarousel.offset().top - 50);
+                        }
+                        else {
+                            $('html, body').scrollTop(listingStartPoint.offset().top - 50);
+                        }
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
@@ -1299,3 +1305,8 @@ $(document).mouseup(function (e) {
 
 })(jQuery, ko);
 
+// close popular city-model widget
+$('#close-city-model-carousel').on('click', function () {
+    $('body').addClass('city-model-carousel-inactive');
+    $('#city-model-used-carousel').slideUp();
+});
