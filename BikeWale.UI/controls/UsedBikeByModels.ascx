@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikeByModels" EnableViewState="false" %>
-<%if (UsedBikeModelInCityList!=null) %>
+<%if (UsedBikeModelInCityList!=null){ %>
 <div class="jcarousel-wrapper inner-content-carousel city-model-carousel type-model-carousel">
     <div class="jcarousel">
         <ul>
