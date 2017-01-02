@@ -133,7 +133,7 @@
                                                 <tr class="table-head-row">
                                                     <th valign="top" width="35%">Available in</th>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (<%= prevMonth %>)</th>
+                                                    <th valign="top" width="30%">Unit sold <% if(bike.UnitsSold > 0){ %>(<%= bike.LastUpdatedModelSold.Value.ToString("MMMM") %>)<%}%></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

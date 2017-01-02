@@ -20,6 +20,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To get Selected Clause of New Bike Search query
+        /// Modified by : SAJAL GUPTA on 02-01-2017
+        /// Desc : Added UnitSoldDate in select clause
         /// </summary>
         /// <returns></returns>
         public string GetSelectClause()
@@ -55,6 +57,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 ,ifnull(mo.VideosCount,0) as VideoCount
                                 ,ifnull(mo.UnitsSold,0) as UnitsSold
                                 ,mo.launchdate as launchdate
+                                ,mo.UnitSoldDate 
                                 ,ifnull((select count(1) from bikeversions ibv where ibv.bikemodelid = mo.id and ibv.isdeleted = 0 and ibv.new = 1 group by mo.id),0) as VersionCount
                                 ,ifnull((select count(1) from bikemodelcolors ibc where ibc.modelid = bv.bikemodelid and ibc.isactive = 1 group by ibc.modelid),0) as ColorCount";
             }
