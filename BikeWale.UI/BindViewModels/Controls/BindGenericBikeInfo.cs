@@ -26,7 +26,7 @@ namespace Bikewale.BindViewModels.Controls
 
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Jan 2016
-        /// Summary :  Toget generic bike info by modelid
+        /// Summary :  To get generic bike info by modelid
         /// </summary>
         public GenericBikeInfo GetGenericBikeInfo()
         {

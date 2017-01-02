@@ -2,11 +2,9 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -153,6 +151,8 @@ namespace Bikewale.Mobile.Content
 
         /// <summary>
         /// PopulateWhere to set news details
+        /// Modified By : Sushil Kumar on 2nd Jan 2016
+        /// Description : Get tagged model for article 
         /// </summary>
         private void GetNewsData()
         {
@@ -189,6 +189,8 @@ namespace Bikewale.Mobile.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: bind upcoming and popular bikes
+        /// Modified By : Sushil Kumar on 2nd Jan 2016
+        /// Description : Bind ctrlGenericBikeInfo control 
         /// </summary>
         protected void BindPageWidgets()
         {

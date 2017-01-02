@@ -21,6 +21,8 @@ namespace Bikewale.Cache.GenericBikes
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Dec 2016
         /// Description :   Constructor to intialize the member variables
+        /// Modified By : Sushil Kumar on 2nd Jan 2016
+        /// Description : Addded new interface input parameter for generic bike info
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="searchResult"></param>
@@ -57,7 +59,12 @@ namespace Bikewale.Cache.GenericBikes
             return objSearchList;
         }
 
-
+        /// <summary>
+        /// Created by  :   Sushil Kumar on 2nd Jan 2016
+        /// Description :   Calls DAL via Cache layer for generic bike info
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public GenericBikeInfo GetGenericBikeInfo(uint modelId)
         {
             string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);

@@ -5,7 +5,8 @@ using System;
 namespace Bikewale.Controls
 {
     /// <summary>
-    /// 
+    /// Created By : Sushil Kumar on 2nd Jan 2016
+    /// Description : To bind desktop generic bike info control 
     /// </summary>
     public class GenericBikeInfoControl : System.Web.UI.UserControl
     {

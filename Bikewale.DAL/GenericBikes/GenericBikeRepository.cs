@@ -9,12 +9,16 @@ using System.Data.Common;
 
 namespace Bikewale.DAL.GenericBikes
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 2nd Jan 2016
+    /// Summary :  Generic Bike repository
+    /// </summary>
     public class GenericBikeRepository : IGenericBikeRepository
     {
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 29 Dec 2016 
-        /// Description :   Calls sp gethomepagebanner
+        /// Created By : Sushil Kumar on 2nd Jan 2016
+        /// Summary :  To get generic bike info by modelid
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetGenericBikeInfo(uint modelId)

@@ -4,6 +4,10 @@ using System;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 2nd Jan 2016
+    /// Description : To bind mobile generic bike info control 
+    /// </summary>
     public class GenericBikeInfoControl : System.Web.UI.UserControl
     {
         public uint ModelId { get; set; }

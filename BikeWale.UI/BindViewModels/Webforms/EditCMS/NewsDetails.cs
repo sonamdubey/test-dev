@@ -1,12 +1,10 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -23,6 +21,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// <summary>
     /// Created By : Sushil Kumar on 10th Nov 2016
     /// Description : Common logic to bind news details page
+    /// Modified By : Sushil Kumar on 2nd Jan 2016
+    /// Description : Modified maka and model ffetch logic to get details from model and make helper;
+    ///                 Also removed send mail statements as log are maintained in graylog
     /// </summary>
     public class NewsDetails
     {
@@ -62,7 +63,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 {
                     container.RegisterType<IArticles, Articles>()
                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
@@ -82,7 +82,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
-                objErr.SendMail();
             }
         }
 
@@ -107,7 +106,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.CreateMetaTags");
-                objErr.SendMail();
             }
         }
 
@@ -137,7 +135,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
-                objErr.SendMail();
             }
         }
 
@@ -169,7 +166,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
-                objErr.SendMail();
             }
         }
 
@@ -209,7 +205,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
-                objErr.SendMail();
             }
             return true;
         }
