@@ -20,6 +20,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To get Selected Clause of New Bike Search query
+        /// Modified by : SAJAL GUPTA on 02-01-2017
+        /// Desc : Added UnitSoldDate in select clause
         /// </summary>
         /// <returns></returns>
         public string GetSelectClause()

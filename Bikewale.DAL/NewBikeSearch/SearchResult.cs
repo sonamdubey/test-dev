@@ -27,6 +27,13 @@ namespace Bikewale.DAL.NewBikeSearch
 
             }
         }
+        /// <summary>
+        /// Modified by : Sajal Gupta on 02-01-2017
+        /// Desc : Read LastUpdatedModelSold from Db
+        /// </summary>
+        /// <param name="filterInputs"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public SearchOutputEntity GetSearchResult(FilterInput filterInputs, InputBaseEntity input)
         {
             SearchOutputEntity objSearch = new SearchOutputEntity();
