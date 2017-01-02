@@ -930,7 +930,7 @@
             </div>
         </div>
         <!-- Terms and condition Popup end -->
-
+         <% if(viewModel != null){ %>
         <div id="dealer-offers-popup" class="bwm-fullscreen-popup">
             <div class="offers-popup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent margin-bottom10">
@@ -958,7 +958,7 @@
                 <a  data-leadsourceid="31"  data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>"  data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn"><%=viewModel.LeadBtnTextLarge %></a>
             </div>
         </div>
-        <% if(viewModel != null){ %>
+       
         <div id="more-dealers-popup" class="bwm-fullscreen-popup">
             <div class="dealers-popup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="icon-outer-container rounded-corner50percent margin-bottom10">

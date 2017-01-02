@@ -226,6 +226,10 @@ namespace Bikewale.Mobile.New
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);
             ctrlNews.WidgetTitle = bikeName;
+            ctrlNews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+            ctrlNews.ModelMaskingName = modelPage.ModelDetails.MaskingName;
+            ctrlNews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlNews.ModelName = modelPage.ModelDetails.ModelName;
 
             ctrlExpertReviews.TotalRecords = 3;
             ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);

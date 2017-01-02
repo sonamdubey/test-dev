@@ -20,11 +20,11 @@ namespace Bikewale.News
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
 
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
-        private NewsListing objNews = null;
+        protected NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected string startIndex, endIndex, totalArticles;
-
+        private GlobalCityAreaEntity currentCityArea;
         private const int _pagerSlotSize = 10;
         protected override void OnInit(EventArgs e)
         {
@@ -51,15 +51,11 @@ namespace Bikewale.News
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            BindUpcoming();
-
             GetNewsList();
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            BindUpcoming();
+            BindPopularBikes();
 
-            ctrlPopularBikes.totalCount = 4;
-            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-            ctrlPopularBikes.cityName = currentCityArea.City;
         }
 
         /// <summary>
@@ -77,12 +73,20 @@ namespace Bikewale.News
                 startIndex = Bikewale.Utility.Format.FormatPrice(objNews.StartIndex.ToString());
                 endIndex = Format.FormatPrice(objNews.EndIndex.ToString());
                 totalArticles = Format.FormatPrice(objNews.TotalArticles.ToString());
-
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.GetNewsList");
                 objErr.SendMail();
+            }
+            finally
+            {
+                if (objNews != null && objNews.IsPageNotFound)
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -112,6 +116,21 @@ namespace Bikewale.News
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.topCount = 4;
+            ctrlUpcomingBikes.MakeId = (int?)objNews.MakeId;
+            ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 02 jan 2017
+        /// Description :   Bind Popular Bikes Widget
+        /// </summary>
+        private void BindPopularBikes()
+        {
+            ctrlPopularBikes.totalCount = 4;
+            ctrlPopularBikes.CityId = (int)currentCityArea.CityId;
+            ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularBikes.MakeId = (int)objNews.MakeId;
+            ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
         }
 
     }//End of Class

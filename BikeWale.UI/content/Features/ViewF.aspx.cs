@@ -284,7 +284,7 @@ namespace Bikewale.Content
 
                 if (_taggedMakeObj != null)
                 {
-                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                    ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
                     ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;

@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_Widget" %>
+<%@ Import Namespace="Bikewale.Utility" %>
 <div id="ctrlNews">
     <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
         <% if(ShowWidgetTitle) { %>
@@ -39,7 +40,7 @@
         <!-- main content -->
 
         <div class="more-article-target">
-            <a href="/news/">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a href="<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} news", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} news",MakeName) : "News") %>">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
         </div>
     </div>
 </div>

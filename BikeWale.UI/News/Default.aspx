@@ -8,13 +8,13 @@
 <html>
 <head>
     <%
-        title = "Bike News - Latest Indian Bike News & Views | BikeWale";
-        description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
-        keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-        canonical = "https://www.bikewale.com/news/";
-        relPrevPageUrl = prevUrl;
-        relNextPageUrl = nextUrl;
-        alternate = "https://www.bikewale.com/m/news/";
+        title = objNews.PageTitle;
+        description = objNews.Description;
+        keywords = objNews.Keywords;
+        canonical = objNews.Canonical;
+        relPrevPageUrl = objNews.prevUrl;
+        relNextPageUrl = objNews.nextUrl;
+        alternate = objNews.Alternate;
         AdId = "1395995626568";
         AdPath = "/1017752/BikeWale_News_";
         isAd300x250Shown=true;
@@ -41,6 +41,22 @@
                                 <span itemprop="title">Home</span>
                             </a>
                         </li>
+                        <% if(objNews.MakeId > 0){ %>
+                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                             <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="<%= String.Format("/{0}-bikes/",objNews.objMake.MaskingName) %>" itemprop="url">
+                                <span itemprop="title"><%= objNews.objMake.MakeName %> Bikes</span>
+                            </a>
+                        </li>
+                        <%} %>
+                        <% if(objNews.ModelId > 0){ %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="<%= String.Format("/{0}-bikes/{1}/",objNews.objMake.MaskingName,objNews.objModel.MaskingName) %>" itemprop="url">
+                                <span itemprop="title"><%= objNews.objMake.MakeName %> <%= objNews.objModel.ModelName %> Bikes</span>
+                            </a>
+                        </li>
+                        <%} %>
                         <li><span class="bwsprite fa-angle-right margin-right10"></span>News</li>
                     </ul>
                     <div class="clear"></div>
