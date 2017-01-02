@@ -20,7 +20,7 @@
         //menu = "10";
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/service/landing.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/service/landing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
