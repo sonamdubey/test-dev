@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Used.Search" EnableViewState="false" %>
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
+<%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCount" %>
 
 <!DOCTYPE html>
 <html>
@@ -96,163 +97,17 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <div id="city-model-used-carousel">
-                                <!-- model -->
-                                <h2 class="font14 text-default padding-left15 margin-bottom20">Used Royal Enfield bikes in Mumbai</h2>
+                            <% if(ctrlUsedBikesCityCount.fetchedCount > 0) { %>
+                            <div id="city-model-used-carousel">                               
+                                <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>
-                                <div class="jcarousel-wrapper inner-content-carousel city-model-carousel type-model-carousel">
-                                    <div class="jcarousel">
-                                        <ul>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-classic-desert-storm-standard-493.jpg" src="" alt="Classic Desert Storm" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Classic Desert Storm</h2>
-                                                        <p class="font14 text-light-grey text-truncate">34 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Thunderbird 500 bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-thunderbird-500-standard-286.jpg" src="" alt="Thunderbird 500" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Thunderbird 500</h2>
-                                                        <p class="font14 text-light-grey text-truncate">56 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Bullet Electra Twinspark bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-bullet-electra-twinspark-disc/electric-start-138.jpg" src="" alt="Bullet Electra Twinspark" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Bullet Electra Twinspark</h2>
-                                                        <p class="font14 text-light-grey text-truncate">78 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-classic-desert-storm-standard-493.jpg" src="" alt="Classic Desert Storm" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Classic Desert Storm</h2>
-                                                        <p class="font14 text-light-grey text-truncate">34 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Thunderbird 500 bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-thunderbird-500-standard-286.jpg" src="" alt="Thunderbird 500" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Thunderbird 500</h2>
-                                                        <p class="font14 text-light-grey text-truncate">56 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Bullet Electra Twinspark bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <img class="lazy" data-original="https://imgd1.aeplcdn.com/110x61/bw/models/royal-enfield-bullet-electra-twinspark-disc/electric-start-138.jpg" src="" alt="Bullet Electra Twinspark" />
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Bullet Electra Twinspark</h2>
-                                                        <p class="font14 text-light-grey text-truncate">78 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
+                                      <BW:UBCCount runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCount>  
                                     <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                                     <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                                 </div>
-
-                                <!-- city -->
-                                <%--<h2 class="font14 text-default padding-left15 margin-bottom20">Used Royal Enfield Classic Desert Storm in top cities</h2>
-                                <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>
-                                <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
-                                    <div class="jcarousel">
-                                        <ul>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite mumbai-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Mumbai</h2>
-                                                        <p class="font14 text-light-grey text-truncate">56 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Pune" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite pune-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Pune</h2>
-                                                        <p class="font14 text-light-grey text-truncate">34 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite mumbai-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Mumbai</h2>
-                                                        <p class="font14 text-light-grey text-truncate">56 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Pune" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite pune-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Pune</h2>
-                                                        <p class="font14 text-light-grey text-truncate">34 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Mumbai" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite mumbai-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Mumbai</h2>
-                                                        <p class="font14 text-light-grey text-truncate">56 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="" title="Used Classic Desert Storm bikes in Pune" class="card-target-block">
-                                                    <div class="card-image-placeholder">
-                                                        <span class="city-sm-sprite pune-sm-icon"></span>
-                                                    </div>
-                                                    <div class="card-details-placeholder">
-                                                        <h2 class="font14 text-truncate margin-bottom5">Pune</h2>
-                                                        <p class="font14 text-light-grey text-truncate">34 used bikes</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                                </div>--%>
                             </div>
+                            <% } %>
 
                             <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">

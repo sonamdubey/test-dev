@@ -266,6 +266,7 @@
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesCityWithCount.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsedBikesInCityCount.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedRecentBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
@@ -696,6 +697,10 @@
       <DependentUpon>UsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikesCityCountByBrand.ascx.cs">
+      <DependentUpon>UsedBikesCityCountByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedBikeSearch.ascx.cs">
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -990,6 +995,10 @@
     </Compile>
     <Compile Include="m\controls\NewVideosWidget.ascx.cs">
       <DependentUpon>NewVideosWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedBikesCityCountByBrand.ascx.cs">
+      <DependentUpon>UsedBikesCityCountByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedOtherBikeByCity.ascx.cs">
@@ -1987,6 +1996,7 @@
     <Content Include="controls\UpcomingBikesMinNew.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
+    <Content Include="controls\UsedBikesCityCountByBrand.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UsedRecentBikes.ascx" />
@@ -2519,6 +2529,7 @@
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\NewVideosWidget.ascx" />
+    <Content Include="m\controls\UsedBikesCityCountByBrand.ascx" />
     <Content Include="m\controls\UsedOtherBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />

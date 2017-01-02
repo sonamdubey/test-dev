@@ -10,6 +10,8 @@ namespace Bikewale.Interfaces.Used
     /// Description : Added GetInquiryDetailsByProfileId function.
     /// Modified by :   Sumit Kate on 02 Nov 2016
     /// Description :   Added method to get bike photos
+    /// Modified by Sajal Gupta on 30-12-2016
+    /// Desc : Added GetUsedBikeInCityCount method;
     /// </summary>
     public interface IUsedBikeDetails
     {
@@ -19,5 +21,6 @@ namespace Bikewale.Interfaces.Used
         InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId);
         IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount);
         IEnumerable<BikePhoto> GetBikePhotos(uint inquiryId, bool isApproved);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId);
     }
 }

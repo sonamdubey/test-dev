@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
+using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Bikewale.Mobile.Used
         protected uint modelId, cityId, totalListing;
         protected CityEntityBase objCity = null;
         protected int _startIndex = 0, _endIndex = 0;
+        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCount = null;
 
         #endregion
 
@@ -40,6 +42,7 @@ namespace Bikewale.Mobile.Used
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadUsedBikesList();
+            BindBrandIndiaWidget();
         }
 
         #endregion
@@ -96,6 +99,18 @@ namespace Bikewale.Mobile.Used
 
             }
 
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 2-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and city id is null;
+        /// </summary>
+        private void BindBrandIndiaWidget()
+        {
+            if (makeId != 0 && cityId == 0)
+            {
+                ctrlUsedBikesCityCount.MakeId = makeId;
+            }
         }
         #endregion
 

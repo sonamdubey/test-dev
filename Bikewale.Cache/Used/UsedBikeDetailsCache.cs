@@ -140,5 +140,27 @@ namespace Bikewale.Cache.Used
             }
             return objInquiryDetailsByProfileId;
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 30-12-2016
+        /// Description : CAche function to read available used bikes in city by make
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId)
+        {
+            IEnumerable<UsedBikesCountInCity> bikesCountList = null;
+            string key = String.Format("BW_Used_Bikes_City_Count_{0}", makeId);
+            try
+            {
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCount(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}", makeId));
+                objErr.SendMail();
+            }
+            return bikesCountList;
+        }
     }
 }

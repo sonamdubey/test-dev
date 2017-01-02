@@ -8,6 +8,8 @@ namespace Bikewale.Interfaces.Used
     /// Description : Cache Interface for used bikes
     /// Modified by : Sajal Gupta on 07/10/2016
     /// Description : Added GetInquiryDetailsByProfileId function.
+    /// Modified by : Sajal Gupta on 30-12-2016
+    /// Desc Added GetUsedBikeInCityCount
     /// </summary>
     public interface IUsedBikeDetailsCacheRepository
     {
@@ -16,5 +18,6 @@ namespace Bikewale.Interfaces.Used
         IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount);
         InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId);
         IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId);
     }
 }

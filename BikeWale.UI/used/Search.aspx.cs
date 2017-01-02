@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
 using Bikewale.Common;
+using Bikewale.controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
@@ -31,7 +32,7 @@ namespace Bikewale.Used
         protected BikeMakeEntityBase objMake = null;
         protected int _startIndex = 0, _endIndex = 0;
         protected string currentQueryString = string.Empty;
-
+        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCount = null;
 
         #region events
 
@@ -39,8 +40,6 @@ namespace Bikewale.Used
         {
             this.Load += new EventHandler(Page_Load);
         }
-
-
 
         /// <summary>
         /// Modified by : Sajal Gupta on 21/11/2016
@@ -59,6 +58,20 @@ namespace Bikewale.Used
 
             LoadUsedBikesList();
 
+            BindBrandIndiaWidget();
+
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 2-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and city id is null;
+        /// </summary>
+        private void BindBrandIndiaWidget()
+        {
+            if (makeId != 0 && cityId == 0)
+            {
+                ctrlUsedBikesCityCount.MakeId = makeId;
+            }
         }
 
         /// <summary>
@@ -96,7 +109,6 @@ namespace Bikewale.Used
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
                 currentQueryString = objUsedBikesPage.CurrentQS;
-
             }
             else
             {
@@ -109,7 +121,6 @@ namespace Bikewale.Used
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                 }
-
 
             }
 
