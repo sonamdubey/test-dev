@@ -183,7 +183,7 @@
                         </div>
                         <div class="type-sumit-button">
 <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers %>" 
-    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="Get offers" />
+    data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="<%= ctaSmallText %>" />
                   </div>
                     </div>
                     <div id="dealer-assist-msg" class="hide">

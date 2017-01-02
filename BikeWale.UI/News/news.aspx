@@ -83,6 +83,43 @@
 										<div class="clear"></div>
 									</div>
 								</div>
+
+                                <div class="model-slug-content">
+                                    <a href="" class="item-image-content inline-block">
+                                        <img class="lazy" data-original="http://imgd1.aeplcdn.com//110x61//bw/models/honda-cb-shine-kick/drum/spokes-111.jpg?20151209184344" src="" alt="Honda CB Shine" />
+                                    </a>
+                                    <div class="bike-details-block inline-block">
+                                        <p class="font12 text-light-grey">More info about:</p>
+                                        <a href="" class="block text-bold text-default text-truncate">Honda CB Shine</a>
+                                    </div>
+                                    <ul class="item-more-details-list inline-block">
+                                        <li>
+                                            <a href="" title="Honda CB Shine Expert Reviews">
+                                                <span class="generic-sprite reviews-sm"></span>
+                                                <span class="icon-label">Reviews</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="Honda CB Shine Photos">
+                                                <span class="bwsprite photos-sm"></span>
+                                                <span class="icon-label">Photos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="Honda CB Shine Videos">
+                                                <span class="generic-sprite videos-sm"></span>
+                                                <span class="icon-label">Videos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="Honda CB Shine Specification">
+                                                <span class="generic-sprite specs-sm"></span>
+                                                <span class="icon-label">Specs</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
 								<div class="border-solid-top padding-top10">
 									<% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))
 									   { %>

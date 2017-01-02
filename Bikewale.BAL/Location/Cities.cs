@@ -55,5 +55,13 @@ namespace Bikewale.BAL.Location
         {
             return objCities.GetUsedBikeByCityWithCount();
         }
+        /// <summary>
+        /// Created by : Subodh Jain 29 Dec 2016
+        /// Summary: Get Used bikes by make in cities
+        /// </summary>
+        public IEnumerable<Entities.Used.UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeid)
+        {
+            return objCities.GetUsedBikeByMakeCityWithCount(makeid);
+        }
     }
 }

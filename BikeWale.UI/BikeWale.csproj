@@ -272,6 +272,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
+    <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
@@ -282,6 +283,7 @@
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
     <Compile Include="BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
+    <Compile Include="BindViewModels\Webforms\Used\BindUsedBikesByMakeCity.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
@@ -1222,6 +1224,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\used\MakesInCity.aspx.cs">
+      <DependentUpon>MakesInCity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\used\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1506,6 +1512,10 @@
     </Compile>
     <Compile Include="used\sell\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\MakeInCity.aspx.cs">
+      <DependentUpon>MakeInCity.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="used\sell\UploadBasic.aspx.cs">
@@ -2706,6 +2716,7 @@
     <Content Include="m\used\BikeDetails.aspx" />
     <Content Include="m\used\BikesInCity.aspx" />
     <Content Include="m\used\Default.aspx" />
+    <Content Include="m\used\MakesInCity.aspx" />
     <Content Include="m\used\Search.aspx" />
     <Content Include="m\used\sell\Default.aspx" />
     <Content Include="m\users\Login.aspx" />
@@ -2874,6 +2885,7 @@
     <Content Include="used\Search.aspx" />
     <Content Include="used\sell\confirmation.aspx" />
     <Content Include="used\sell\default.aspx" />
+    <Content Include="used\MakeInCity.aspx" />
     <Content Include="used\sell\UploadBasic.aspx" />
     <Content Include="used\sell\UploadPhotos.aspx" />
     <Content Include="used\sell\UploadPreview.aspx" />
