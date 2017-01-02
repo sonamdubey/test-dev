@@ -993,7 +993,6 @@ $(window).on('popstate', function (event) {
 
 })(jQuery, ko);
 
-// close popular city-model widget
 $('#close-city-model-carousel').on('click', function () {
     $('#city-model-used-carousel').slideUp();
     SetUsedCookie();

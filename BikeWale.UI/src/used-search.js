@@ -1305,7 +1305,6 @@ $(document).mouseup(function (e) {
 
 })(jQuery, ko);
 
-// close popular city-model widget
 $('#close-city-model-carousel').on('click', function () {
     $('body').addClass('city-model-carousel-inactive');
     $('#city-model-used-carousel').slideUp();

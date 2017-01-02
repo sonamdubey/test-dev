@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikeByModels" EnableViewState="false" %>
-	<div class="swiper-container card-container city-model-carousel">
+<%if(UsedBikeModelInCityList!=null){ %>	<div class="swiper-container card-container city-model-carousel">
                             <div class="swiper-wrapper">
                                
                                         <%foreach (var ModelDetails in UsedBikeModelInCityList)
@@ -20,4 +20,4 @@
                                 </div>
                                         <%} %>
                             </div>
-                        </div>
+                        </div><%} %>

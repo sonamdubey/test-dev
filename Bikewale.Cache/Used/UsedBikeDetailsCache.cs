@@ -89,7 +89,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetUsedBikeByModelCountInCity");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }

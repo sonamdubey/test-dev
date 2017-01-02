@@ -51,10 +51,18 @@ namespace Bikewale.Controls
         /// </summary>
         private void Bindwidget()
         {
-            BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
-            UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
-            if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
-                FetchCount = UsedBikeModelInCityList.Count();
+            try
+            {
+                BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
+                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
+                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
+                    FetchCount = UsedBikeModelInCityList.Count();
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikeByModels.Bindwidget");
+            }
 
         }
 
