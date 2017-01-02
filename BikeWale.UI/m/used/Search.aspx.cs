@@ -4,6 +4,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility.UsedCookie;
 using System;
 using System.Collections.Generic;
 
@@ -18,15 +19,16 @@ namespace Bikewale.Mobile.Used
         SearchUsedBikes objUsedBikesPage = null;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty,
-                 cityName = string.Empty, currentQueryString = string.Empty;
+                 cityName = string.Empty, currentQueryString = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, cityMaskingName = string.Empty;
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
         public LinkPagerControl ctrlPager;
         protected ushort makeId;
-        protected uint modelId, cityId, totalListing;
+        protected uint modelId, cityId, totalListing, PageIdentifier;
         protected CityEntityBase objCity = null;
         protected int _startIndex = 0, _endIndex = 0;
+        protected UsedBikeByModels ctrlUsedBikeByModels;
 
         #endregion
 
@@ -36,10 +38,19 @@ namespace Bikewale.Mobile.Used
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Modified By :Subodh Jain 2 jan 2017
+        /// Description:- Added cookie and widget binding function 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadUsedBikesList();
+            UsedCookie.SetUsedCookie();
+
+            if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
+                BindBrandCityWidget();
         }
 
         #endregion
@@ -50,6 +61,8 @@ namespace Bikewale.Mobile.Used
         /// Description : Bind Used bikes search page with listing,cities and makemodels
         /// Modified by :   Sumit Kate on 28 Sep 2016
         /// Description :   Use property RedirectionUrl
+        /// Modiefied By:Subodh Jain 2 jan 2017
+        /// Description :- Addded makeMaskingName modelMaskingName cityMaskingName  
         /// </summary>
         private void LoadUsedBikesList()
         {
@@ -79,6 +92,9 @@ namespace Bikewale.Mobile.Used
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
                 currentQueryString = objUsedBikesPage.CurrentQS;
+                makeMaskingName = objUsedBikesPage.makeMaskingName;
+                modelMaskingName = objUsedBikesPage.modelMaskingName;
+                cityMaskingName = objUsedBikesPage.cityMaskingName;
 
             }
             else
@@ -95,6 +111,31 @@ namespace Bikewale.Mobile.Used
 
 
             }
+
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Bind Used bikes Widget
+        /// </summary>
+        private void BindBrandCityWidget()
+        {
+            try
+            {
+                ctrlUsedBikeByModels.CityId = cityId;
+                ctrlUsedBikeByModels.MakeId = makeId;
+                ctrlUsedBikeByModels.TopCount = 6;
+                ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
+                ctrlUsedBikeByModels.ModelMaskingName = modelMaskingName;
+                ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
+                ctrlUsedBikeByModels.CityName = cityName;
+                PageIdentifier = 1;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandCityWidget");
+
+            }
+
 
         }
         #endregion

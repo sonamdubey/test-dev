@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Used;
+using Bikewale.Entities.UsedBikes;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Used
@@ -10,6 +11,8 @@ namespace Bikewale.Interfaces.Used
     /// Description : Added GetInquiryDetailsByProfileId function.
     /// Modified by :   Sumit Kate on 02 Nov 2016
     /// Description :   Added method to get bike photos
+    /// Modified by :Subodh jain  on 2 Jan 2017
+    /// Description : Added GetUsedBikeByModelCountInCity function
     /// </summary>
     public interface IUsedBikeDetails
     {
@@ -19,5 +22,6 @@ namespace Bikewale.Interfaces.Used
         InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId);
         IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount);
         IEnumerable<BikePhoto> GetBikePhotos(uint inquiryId, bool isApproved);
+        IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount);
     }
 }

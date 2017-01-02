@@ -992,3 +992,29 @@ $(window).on('popstate', function (event) {
     ko.bindingHandlers.lazyload = new KoLazyLoad();
 
 })(jQuery, ko);
+
+$('#close-city-model-carousel').on('click', function () {
+    $('#city-model-used-carousel').slideUp();
+    SetUsedCookie();
+});
+function SetUsedCookie() {
+    var arr = getCookie("Used").split('&');
+    switch (usedPageIdentifier) {
+        case "0":
+            arr[0] = "BrandIndia=0";
+            break;
+        case "1":
+            arr[1] = "BrandCity=0";
+            break;
+        case "2":
+            arr[2] = "ModelIndia=0";
+            break;
+        case "3":
+            arr[3] = "UsedCity=0";
+            break;
+
+
+    }
+    var newKeyValuePair = arr.join('&');
+    SetCookie("Used", newKeyValuePair);
+}

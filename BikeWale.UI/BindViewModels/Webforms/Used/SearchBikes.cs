@@ -63,7 +63,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public CityEntityBase SelectedCity = null;
         public BikeMakeEntityBase SelectedMake = null;
 
-        private string _modelMaskingName = string.Empty, _cityMaskingName = string.Empty, _makeMaskingName = string.Empty;
+        public string modelMaskingName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
 
 
 
@@ -107,7 +107,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created By: Aditi Srivastava on 15 Sep 2016
         /// Description: To fetch all cities
-        /// </summary>
+        /// Modified By :Subodh Jain 2 jan 2017
+        /// Description :- Made citymaksing name public
         /// <returns></returns>
         public void GetAllCities()
         {
@@ -115,7 +116,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 Cities = objCitiesCache.GetAllCities(EnumBikeType.Used);
 
-                SelectedCity = Cities.FirstOrDefault(c => c.CityMaskingName == _cityMaskingName);
+                SelectedCity = Cities.FirstOrDefault(c => c.CityMaskingName == cityMaskingName);
                 if (SelectedCity != null)
                 {
                     City = SelectedCity.CityName;
@@ -131,6 +132,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created By: Aditi Srivastava on 15 Sep 2016
         /// Description: Gets all makes and models for filter binding
+        /// Modified By :Subodh Jain 2 jan 2017
+        /// Description :- Made masking name ,model masking name public
         /// </summary>
         /// <returns></returns>
         private void GetAllMakeModels()
@@ -141,14 +144,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                 if (MakeModels != null)
                 {
-                    var _objMake = MakeModels.FirstOrDefault(m => m.Make.MaskingName == _makeMaskingName);
+                    var _objMake = MakeModels.FirstOrDefault(m => m.Make.MaskingName == makeMaskingName);
                     if (_objMake != null && _objMake.Make != null)
                     {
                         Make = _objMake.Make.MakeName;
                         SelectedMake = _objMake.Make;
                         if (_objMake.Models != null)
                         {
-                            var _objModel = _objMake.Models.FirstOrDefault(m => m.MaskingName == _modelMaskingName);
+                            var _objModel = _objMake.Models.FirstOrDefault(m => m.MaskingName == modelMaskingName);
                             if (_objModel != null)
                                 Model = _objModel.ModelName;
                         }
@@ -347,22 +350,22 @@ namespace Bikewale.BindViewModels.Webforms.Used
             MakeMaskingResponse objMakeResponse = null;
             try
             {
-                _cityMaskingName = page.Request.QueryString["city"];
-                if (!string.IsNullOrEmpty(_cityMaskingName))
+                cityMaskingName = page.Request.QueryString["city"];
+                if (!string.IsNullOrEmpty(cityMaskingName))
                 {
-                    objCityResponse = objCityCache.GetCityMaskingResponse(_cityMaskingName);
+                    objCityResponse = objCityCache.GetCityMaskingResponse(cityMaskingName);
                 }
 
-                _makeMaskingName = page.Request.QueryString["make"];
-                if (!string.IsNullOrEmpty(_makeMaskingName))
+                makeMaskingName = page.Request.QueryString["make"];
+                if (!string.IsNullOrEmpty(makeMaskingName))
                 {
-                    objMakeResponse = objMakeCache.GetMakeMaskingResponse(_makeMaskingName);
+                    objMakeResponse = objMakeCache.GetMakeMaskingResponse(makeMaskingName);
                 }
 
-                _modelMaskingName = page.Request.QueryString["model"];
-                if (!string.IsNullOrEmpty(_modelMaskingName))
+                modelMaskingName = page.Request.QueryString["model"];
+                if (!string.IsNullOrEmpty(modelMaskingName))
                 {
-                    objModelResponse = objModelsCache.GetModelMaskingResponse(_modelMaskingName);
+                    objModelResponse = objModelsCache.GetModelMaskingResponse(modelMaskingName);
                 }
 
                 if (!String.IsNullOrEmpty(page.Request.QueryString["pn"]))
@@ -388,7 +391,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     }
                     else if (objMakeResponse.StatusCode == 301)
                     {
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_makeMaskingName, objMakeResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(makeMaskingName, objMakeResponse.MaskingName);
                         IsPermanentRedirection = true;
                     }
                     else
@@ -407,12 +410,12 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     else if (objCityResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_cityMaskingName, objCityResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(cityMaskingName, objCityResponse.MaskingName);
                         IsPermanentRedirection = true;
                     }
                     else
                     {
-                        if (!_cityMaskingName.ToLower().Equals("india"))
+                        if (!cityMaskingName.ToLower().Equals("india"))
                             IsPageNotFound = true;
                     }
                 }
@@ -427,7 +430,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     else if (objModelResponse.StatusCode == 301)
                     {
                         //redirect permanent to new page                         
-                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(_modelMaskingName, objModelResponse.MaskingName);
+                        RedirectionUrl = page.Request.RawUrl.ToLower().Replace(modelMaskingName, objModelResponse.MaskingName);
                         IsPermanentRedirection = true;
                     }
                     else

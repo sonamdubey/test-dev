@@ -72,7 +72,13 @@ var page = {
 
         model: 'BikeWale.UI/new/versions.aspx',
 
-        genericListing: 'BikeWale.UI/generic/BikeListing.aspx'
+        genericListing: 'BikeWale.UI/generic/BikeListing.aspx',
+
+        used: {
+            baseFolder: 'BikeWale.UI/used/',
+            search: 'BikeWale.UI/used/Search.aspx',
+            targetFolder: 'BikeWale.UI/build/used/'
+        }
     },
 
     mobile: {
@@ -84,7 +90,13 @@ var page = {
             details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
         },
 
-        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx'
+        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx',
+
+        used: {
+            baseFolder: 'BikeWale.UI/m/used/',
+            search: 'BikeWale.UI/m/used/Search.aspx',
+            targetFolder: 'BikeWale.UI/build/m/used/'
+        }
     }
 }
 
@@ -226,14 +238,22 @@ gulp.task('watch-sass', function () {
 
 // replace css reference with internal css
 gulp.task('replace-css-reference', function (callback) {
-    gulpSequence('desktop-service-center', 'mobile-service-center', 'desktop-model')(callback)
+    gulpSequence('replace-desktop-css', 'replace-mobile-css')(callback)
+});
+
+// replace css reference from desktop pages
+gulp.task('replace-desktop-css', function (callback) {
+    gulpSequence(
+        'desktop-service-landing',
+        'desktop-service-city',
+        'desktop-service-listing',
+        'desktop-service-details',
+        'desktop-model',
+        'desktop-used-search'
+        )(callback)
 });
 
 // desktop service center
-gulp.task('desktop-service-center', function (callback) {
-    gulpSequence('desktop-service-landing', 'desktop-service-city', 'desktop-service-listing', 'desktop-service-details')(callback)
-});
-
 gulp.task('desktop-service-landing', function () {
     return gulp.src(page.desktop.service.landing, { base: page.desktop.service.baseFolder })
         .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/service\/landing.css"[^>]*>/, function () {
@@ -271,6 +291,7 @@ gulp.task('desktop-service-details', function () {
         .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
 });
 
+// desktop model
 gulp.task('desktop-model', function () {
     return gulp.src(page.desktop.model, { base: 'BikeWale.UI/new' })
         .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/model-atf.css"[^>]*>/, function () {
@@ -280,11 +301,28 @@ gulp.task('desktop-model', function () {
         .pipe(gulp.dest('BikeWale.UI/build/new'));
 });
 
-// mobile service center
-gulp.task('mobile-service-center', function (callback) {
-    gulpSequence('mobile-service-landing', 'mobile-service-city', 'mobile-service-listing', 'mobile-service-details')(callback)
+// desktop used search
+gulp.task('desktop-used-search', function () {
+    return gulp.src(page.desktop.used.search, { base: page.desktop.used.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/used\/search.css"[^>]*>/, function () {
+            var style = fs.readFileSync(paths.destinationD_CSS + '/used/search.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.desktop.used.targetFolder));
 });
 
+// replace css reference from mobile pages
+gulp.task('replace-mobile-css', function (callback) {
+    gulpSequence(
+        'mobile-service-landing',
+        'mobile-service-city',
+        'mobile-service-listing',
+        'mobile-service-details',
+        'mobile-used-search'
+        )(callback)
+});
+
+// mobile service center
 gulp.task('mobile-service-landing', function () {
     return gulp.src(page.mobile.service.landing, { base: page.mobile.service.baseFolder })
         .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/landing.css"[^>]*>/, function () {
@@ -319,6 +357,16 @@ gulp.task('mobile-service-details', function () {
             return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
         }))
         .pipe(gulp.dest('BikeWale.UI/build/m/service'));
+});
+
+// mobile used search
+gulp.task('mobile-used-search', function () {
+    return gulp.src(page.mobile.used.search, { base: page.mobile.used.baseFolder })
+        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/used\/search.css"[^>]*>/, function () {
+            var style = fs.readFileSync(paths.destinationM_CSS + '/used/search.css', 'utf-8');
+            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
+        }))
+        .pipe(gulp.dest(page.mobile.used.targetFolder));
 });
 
 // replace desktop frameworks js, ie8 fix
