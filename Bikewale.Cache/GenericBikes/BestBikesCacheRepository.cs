@@ -16,6 +16,7 @@ namespace Bikewale.Cache.GenericBikes
         private readonly ICacheManager _cache;
         private readonly ISearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
+        private readonly IGenericBikeRepository _genericBike = null;
 
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Dec 2016
@@ -24,11 +25,12 @@ namespace Bikewale.Cache.GenericBikes
         /// <param name="cache"></param>
         /// <param name="searchResult"></param>
         /// <param name="processFilter"></param>
-        public BestBikesCacheRepository(ICacheManager cache, ISearchResult searchResult, IProcessFilter processFilter)
+        public BestBikesCacheRepository(ICacheManager cache, ISearchResult searchResult, IProcessFilter processFilter, IGenericBikeRepository genericBike)
         {
             _searchResult = searchResult;
             _processFilter = processFilter;
             _cache = cache;
+            _genericBike = genericBike;
         }
 
         /// <summary>
@@ -51,7 +53,23 @@ namespace Bikewale.Cache.GenericBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.BestBikesByType_BodyStyle_{0}", bodyStyle));
-                objErr.SendMail();
+            }
+            return objSearchList;
+        }
+
+
+        public GenericBikeInfo GetGenericBikeInfo(uint modelId)
+        {
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+            GenericBikeInfo objSearchList = null;
+            try
+            {
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _genericBike.GetGenericBikeInfo(modelId));
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetGenericBikeInfo_{0}", modelId));
             }
             return objSearchList;
         }

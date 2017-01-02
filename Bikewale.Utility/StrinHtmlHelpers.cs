@@ -39,7 +39,7 @@ namespace System
             }
 
             // Truncate the html and keep whole words only
-            var trunc = new StringBuilder(html.TruncateWords(charCount));
+            var trunc = new StringBuilder(html.Substring(0, maxCharacters));
 
             // keep track of open tags and close any tags left open
             var tags = new Stack<string>();
@@ -69,25 +69,27 @@ namespace System
                 }
             }
 
-            /*
-            // add the trailing text
-            if (html.Length > charCount)
-                trunc.Append(trailingText);
-            */
-            StringBuilder prependStr = new StringBuilder("");
+            string restOfText = html.Substring(maxCharacters);
+            int closingTagIndex = 0, actualEndingIndex = 0;
 
             // pop the rest off the stack to close remainder of tags
             while (tags.Count > 0)
             {
                 var _tag = tags.Pop();
-                trunc.Append("</");
-                trunc.Append(_tag);
-                trunc.Append('>');
-                prependStr.Insert(0, string.Format("<{0}>", _tag));
+                if (string.Equals(_tag, "div", StringComparison.CurrentCultureIgnoreCase) || string.Equals(_tag, "p", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    string closingTag = string.Format("</{0}>", _tag);
+                    closingTagIndex = restOfText.IndexOf(closingTag);
+                    if (closingTagIndex != -1)
+                    {
+                        actualEndingIndex = closingTagIndex + closingTag.Length;
+                        trunc = new StringBuilder(html.Substring(0, maxCharacters + actualEndingIndex));
+                    }
+                }
 
             }
 
-            trunc.AppendFormat("{0}{1}{2}", prependStr, insertHtml, html.Substring(maxCharacters));
+            trunc.AppendFormat("{0}{1}", insertHtml, restOfText.Substring(actualEndingIndex));
 
 
 

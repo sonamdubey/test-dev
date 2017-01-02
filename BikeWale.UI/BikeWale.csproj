@@ -249,6 +249,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
@@ -415,6 +416,10 @@
     </Compile>
     <Compile Include="controls\DealersInNearByCities.ascx.cs">
       <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\GenericBikeInfoControl.ascx.cs">
+      <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
@@ -867,6 +872,10 @@
     </Compile>
     <Compile Include="m\controls\ExpertReviewsVideos.ascx.cs">
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\GenericBikeInfoControl.ascx.cs">
+      <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
@@ -1921,6 +1930,7 @@
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\DealersByBrand.ascx" />
     <Content Include="controls\DealersInNearByCities.ascx" />
+    <Content Include="controls\GenericBikeInfoControl.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
@@ -2497,6 +2507,7 @@
     <Content Include="m\controls\DealersInNearByCities.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
+    <Content Include="m\controls\GenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />

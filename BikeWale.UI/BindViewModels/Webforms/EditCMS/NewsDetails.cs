@@ -28,6 +28,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     {
 
         public BikeMakeEntityBase TaggedMake;
+        public BikeModelEntityBase TaggedModel;
         public ArticleDetails ArticleDetails { get; set; }
         public uint BasicId;
         public bool IsContentFound { get; set; }
@@ -61,6 +62,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 {
                     container.RegisterType<IArticles, Articles>()
                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
                             .RegisterType<ICacheManager, MemcacheManager>();
                     ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
@@ -69,7 +71,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     if (ArticleDetails != null)
                     {
                         IsContentFound = true;
-                        GetTaggedBikeList();
+                        GetTaggedBikeListByMake();
+                        GetTaggedBikeListByModel();
                         CreateMetaTags();
                     }
 
@@ -110,9 +113,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : To get tagged bike along with article
+        /// Description : To get tagged bike along with article by make
         /// </summary>
-        private void GetTaggedBikeList()
+        private void GetTaggedBikeListByMake()
         {
             try
             {
@@ -127,7 +130,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         TaggedMake = ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
-                        FetchMakeDetails();
+                        TaggedMake = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)TaggedMake.MakeId);
                     }
                 }
             }
@@ -141,28 +144,31 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : Fetch make details from makeID
+        /// Description : To get tagged bike along with article by model
         /// </summary>
-        private void FetchMakeDetails()
+        private void GetTaggedBikeListByModel()
         {
             try
             {
-
-                if (TaggedMake != null && TaggedMake.MakeId > 0)
+                if (ArticleDetails != null && ArticleDetails.VehiclTagsList.Count > 0)
                 {
 
-                    using (IUnityContainer container = new UnityContainer())
+                    var taggedModelObj = ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
+                    if (taggedModelObj != null)
                     {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        TaggedMake = makesRepository.GetMakeDetails(TaggedMake.MakeId.ToString());
+                        TaggedModel = taggedModelObj.ModelBase;
+                    }
+                    else
+                    {
+                        TaggedModel = ArticleDetails.VehiclTagsList.FirstOrDefault().ModelBase;
+                        TaggedModel = new Bikewale.common.ModelHelper().GetModelDataById((uint)TaggedModel.ModelId);
 
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.FetchMakeDetails");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
                 objErr.SendMail();
             }
         }
@@ -178,7 +184,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             var request = HttpContext.Current.Request;
             string _basicId = request.QueryString["id"];
             try
-            {                
+            {
 
                 if (!string.IsNullOrEmpty(_basicId))
                 {

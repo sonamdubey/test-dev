@@ -11,5 +11,6 @@ namespace Bikewale.Interfaces.GenericBikes
     public interface IBestBikesCacheRepository
     {
         SearchOutputEntity BestBikesByType(EnumBikeBodyStyles bodyStyle, FilterInput filterInputs, InputBaseEntity input);
+        GenericBikeInfo GetGenericBikeInfo(uint modelId);
     }
 }
