@@ -6,6 +6,8 @@ namespace Bikewale.Entities.GenericBikes
     /// <summary>
     /// Created By : Sushil Kumar on 22nd DEc 2016
     /// Description : Entity for bikewale generic pages
+    /// Modified by : Sajal Gupta on 02-01-2017
+    /// Description : Added LastUpdatedModelSold
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase
@@ -27,5 +29,6 @@ namespace Bikewale.Entities.GenericBikes
         public string FullModelDescription { get; set; }
         public string SmallModelDescription { get; set; }
         public string Description { get { return String.Concat(SmallModelDescription, FullModelDescription); } }
+        public DateTime? LastUpdatedModelSold { get; set; }
     }
 }

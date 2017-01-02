@@ -55,6 +55,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 ,ifnull(mo.VideosCount,0) as VideoCount
                                 ,ifnull(mo.UnitsSold,0) as UnitsSold
                                 ,mo.launchdate as launchdate
+                                ,mo.UnitSoldDate 
                                 ,ifnull((select count(1) from bikeversions ibv where ibv.bikemodelid = mo.id and ibv.isdeleted = 0 and ibv.new = 1 group by mo.id),0) as VersionCount
                                 ,ifnull((select count(1) from bikemodelcolors ibc where ibc.modelid = bv.bikemodelid and ibc.isactive = 1 group by ibc.modelid),0) as ColorCount";
             }
