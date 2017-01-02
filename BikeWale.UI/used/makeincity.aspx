@@ -18,9 +18,8 @@
     %>
 
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-      <link rel="stylesheet" type="text/css" href="/css/service/location.css" />
     <style type="text/css">
-        @charset "utf-8";#popular-city-list{margin-right:10px;margin-left:10px;padding-bottom:15px;border-bottom:1px solid #e2e2e2}#popular-city-list li{margin:12px;display:inline-block;vertical-align:top}#popular-city-list a{width:292px;height:201px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px rgba(0,0,0,.2);-o-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2)}.city-card-target{display:block}.city-card-target:hover{text-decoration:none}#other-city-list li{font-size:16px;margin-bottom:20px}#other-city-list a{color:#82888b}.city-bike-count{color:#a2a2a2}.city-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}.city-sprite{background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;display:inline-block}.c128-icon,.c2-icon,.c239-icon,.c176-icon,.c10-icon,.c105-icon,.c198-icon,.c220-icon,.c1-icon,.c12-icon{height:92px}.c1-icon{width:130px;background-position:0 0}.c12-icon{width:186px;background-position:-140px 0}.c2-icon{width:136px;background-position:-336px 0}.c10-icon{width:70px;background-position:-482px 0}.c176-icon{width:53px;background-position:-562px 0}.c105-icon{width:65px;background-position:-625px 0}.c198-icon{width:182px;background-position:-700px 0}.c220-icon{width:174px;background-position:-892px 0}.c128-icon,.c239-icon{width:0;background-position:0 0}@media only screen and (max-width:1024px){#popular-city-list li{margin:6px}}
+        @charset "utf-8";#popular-city-list{margin-right:10px;margin-left:10px;padding-bottom:15px;border-bottom:1px solid #e2e2e2}#popular-city-list li{margin:12px;display:inline-block;vertical-align:top}#popular-city-list a{width:292px;height:201px;border:1px solid #f6f6f6;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.2);-moz-box-shadow:0 1px 2px rgba(0,0,0,.2);-ms-box-shadow:0 1px 2px rgba(0,0,0,.2);-o-box-shadow:0 1px 2px rgba(0,0,0,.2);box-shadow:0 1px 2px rgba(0,0,0,.2)}.city-card-target{display:block}.city-card-target:hover{text-decoration:none}#other-city-list li{font-size:16px;margin-bottom:20px}#other-city-list a{color:#82888b}.city-bike-count{color:#a2a2a2}.city-image-preview{width:292px;height:114px;display:block;margin-bottom:15px;text-align:center;padding-top:10px}.city-sprite{background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;display:inline-block}.c1-icon,.c10-icon,.c105-icon,.c12-icon,.c128-icon,.c176-icon,.c198-icon,.c2-icon,.c220-icon,.c239-icon{height:92px}.c1-icon{width:130px;background-position:0 0}.c12-icon{width:186px;background-position:-140px 0}.c2-icon{width:136px;background-position:-336px 0}.c10-icon{width:70px;background-position:-482px 0}.c176-icon{width:53px;background-position:-562px 0}.c105-icon{width:65px;background-position:-625px 0}.c198-icon{width:182px;background-position:-700px 0}.c220-icon{width:174px;background-position:-892px 0}.c128-icon,.c239-icon{width:0;background-position:0 0}.form-control-box .search-icon-grey{position:absolute;right:10px;top:10px;cursor:pointer;z-index:2}.no-result-found{color:#82888b;font-size:16px;margin-bottom:20px;padding-right:10px;padding-left:10px}@media only screen and (max-width:1024px){#popular-city-list li{margin:6px}}
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -61,47 +60,35 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <h1 class="content-inner-block-20">Browse <%=MakeDetails.MakeName %> used bike by cities</h1>
-                               <div id="listing-left-column" class="grid-12">
-                            <div id="filter-input" class="form-control-box">
-                                <span class="bwsprite search-icon-grey"></span>
-                                <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
-                            </div>
-                             <ul id="location-list">
-                                         <% foreach (var objCity in UsedBikeCityCountList)
-                                            { %>
-                                            
-                                        <ul class="location-list-city">
-                                                  
-                                                <li>
-                                                    <a data-item-id="<%=objCity.CityId %>" data-item-name="<%=objCity.CityName %>"  title="<Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>" href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/"><%=objCity.CityName %> (<%=objCity.bikesCount %>)</a>
-                                                </li>
-                                         
-                                        </ul>                                   
-                                    
-                                <%}%>                                
-                            </ul>  
-                            <div id="no-result"></div>
-                        </div>
-                           <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
+                        <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
-                       <%foreach (var objCity in UsedBikeCityCountTopList)
-                         {%>
-                            <li>
-                                <a href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>" class="city-card-target">
-                                    <div class="city-image-preview">
-                                        <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
-                                    </div>
-                                    <div class="font14 padding-left20 padding-right20">
-                                        <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
-                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
-                                    </div>
-                                </a>
-                            </li>
-                       <%} %> 
+                            <%foreach (var objCity in UsedBikeCityCountTopList)
+                                {%>
+                                <li>
+                                    <a href="/used/<%=makeMaskingName%>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName%> bikes in <%=objCity.CityName %>" class="city-card-target">
+                                        <div class="city-image-preview">
+                                            <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
+                                        </div>
+                                        <div class="font14 padding-left20 padding-right20">
+                                            <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
+                                            <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            <%} %> 
                         </ul>
                         <div class="padding-top20 padding-right10 padding-bottom10 padding-left10">
-                            <p class="font16 text-default text-bold padding-left10 margin-bottom20">Other cities</p>
-                            <ul id="other-city-list">
+                            <p class="font16 text-default text-bold padding-left10 margin-bottom15">Other cities</p>
+
+                            <div class="grid-12">
+                                <div id="filter-input" class="form-control-box margin-bottom15">
+                                    <span class="bwsprite search-icon-grey"></span>
+                                    <input type="text" class="form-control padding-right40" placeholder="Type to search city" id="getCityInput" />
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+
+                            <ul id="other-city-list" data-error-message="No city found!">
                                 <%foreach (var objCity in UsedBikeCityCountList)
                                     {%>
                                     <li class="grid-4">
@@ -111,6 +98,7 @@
                                     </li>
                                 <%} %>
                             </ul>
+                            <div id="city-no-result" class="no-result-found"></div>
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -129,45 +117,18 @@
             <script src="/src/html5.js"></script>
         <![endif]-->
         <script type="text/javascript">
-            $(document).ready(function () {
-                var windowHeight = window.innerHeight,
-                    listingFooter = $('#listing-footer');
-
-            });
-
-            /* state links */
-            $('#location-list').on('click', '.type-state', function (event) {
-                var item = $(this),
-                    bgFooter = $('#bg-footer');
-
-                event.preventDefault();
-
-                if (!item.hasClass('active')) {
-                    $('.location-list-city').hide();
-                    $('.type-state.active').removeClass('active');
-                    item.addClass('active').siblings('.location-list-city').show();
-                    var cityArr = CityArray(item);
-                    $('html, body').animate({ scrollTop: item.offset().top });
-                }
-                else {
-                    item.removeClass('active').siblings('.location-list-city').hide();
-                   
-                }
-
-            });
 
             /* filter */
             $("#getCityInput").on("keyup", function (event) {
-                $('.location-list-city').show();
-                filter.location($(this));
+                filter.location($(this), '#other-city-list', '#city-no-result'); // (input field, list to filter, error message container)
             });
 
             var filter = {
 
-                location: function (filterContent) {
+                location: function (filterContent, filterList, noResultContent) {
                     var inputText = $(filterContent).val(),
                         inputTextLength = inputText.length,
-                        elementList = $('.location-list-city li'),
+                        elementList = $(filterList + ' li'),
                         len = elementList.length,
                         element, i;
 
@@ -191,26 +152,23 @@
                             }
                         }
 
-                        var cityList = $('.location-list-city'),
-                            visibleState = 0;
+                        var list = $(filterList),
+                            visibilityCount = 0;
 
-                        cityList.each(function () {
+                        list.each(function () {
                             var visibleElements = $(this).find('li[style*="display: block;"]').length;
 
-                            if (visibleElements == 0) {
-                                $(this).closest('li').hide();
-                            }
-                            else {
-                                $(this).closest('li').show();
-                                visibleState++;
+                            if (visibleElements != 0) {
+                                visibilityCount++;
                             }
                         });
 
-                        if (visibleState == 0) {
-                            $('#no-result').show();
+                        if (visibilityCount == 0) {
+                            var errorMessage = $(filterList).attr('data-error-message');
+                            $(noResultContent).show().text(errorMessage);
                         }
                         else {
-                            $('#no-result').hide();
+                            $(noResultContent).hide();
                         }
                     }
                     else {
@@ -218,52 +176,11 @@
                             element = elementList[i];
                             element.style.display = "block";
                         }
-                        $('.item-state').show();
-                        $('#no-result, .location-list-city').hide();
+                        $(noResultContent).hide();
                     }
                 }
             }
-
-
-            function CityArray(listitem) {
-                var citynewArr = [];
-                $(listitem).next('ul').children('li').children().each(function () {
-                    _self = $(this);
-                    _objCity = new Object();
-                    _objCity.id = _self.attr("data-item-id");
-                    _objCity.CityName = _self.attr("data-item-name")
-                    citynewArr.push(_objCity);
-                });
-                return citynewArr;
-            }
-
-          
-            // faqs
-            $('.accordion-list').on('click', '.accordion-head', function () {
-                var element = $(this);
-
-                if (!element.hasClass('active')) {
-                    accordion.open(element);
-                }
-                else {
-                    accordion.close(element);
-                }
-            });
-
-            var accordion = {
-                open: function (element) {
-                    var elementSiblings = element.closest('.accordion-list').find('.accordion-head.active');
-                    elementSiblings.removeClass('active').next('.accordion-body').slideUp();
-
-                    element.addClass('active').next('.accordion-body').slideDown();
-                },
-
-                close: function (element) {
-                    element.removeClass('active').next('.accordion-body').slideUp();
-                }
-            };
-            $('#no-result').text('No result found!');
-          
+                      
         </script>
     </form>
 </body>

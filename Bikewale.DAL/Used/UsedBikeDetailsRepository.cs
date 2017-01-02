@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
+using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -413,8 +414,60 @@ namespace Bikewale.DAL.Used
             }
             return photos;
         }
-
         /// <summary>
+        ///Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model Count In City
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="totalCount"></param>
+
+        /// <returns></returns>
+
+        public IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesinpopularcitybymodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topcount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objUsedBikesList = new List<MostRecentBikes>();
+                            while (dr.Read())
+                            {
+
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    CityName = Convert.ToString(dr["CityName"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBikeByModelCountInCity_makeId:{0}_cityid:{1}", makeid, cityid));
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikesbyMake
+	
+         /// <summary>
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by make
         /// </summary>

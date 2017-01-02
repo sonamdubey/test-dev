@@ -1,8 +1,4 @@
-﻿$(document).ready(function () {
-    $('#cityInput').fastLiveFilter('#other-cities-list');
-});
-
-$('#cityInput').on('focus', function () {
+﻿$('#cityInput').on('focus', function () {
     $('html, body').animate({
         scrollTop: $(this).offset().top - 20
     });
@@ -17,64 +13,64 @@ $('#cityInput').on('keyup', function () {
     else {
         $('body').removeClass('filter-active');
     }
+
+    filter.location($(this), '#other-cities-list', '#city-no-result'); // (input field, list to filter, error message container)
 });
 
-/* cw_fastFilter for popup search box code starts here */
-jQuery.fn.fastLiveFilter = function (list, options) {
-  
-    options = options || {};
-    list = jQuery(list);
-    var input = this;
-    var lastFilter = '', noResultLen = 0;
-    var noResult = '<div class="noResult">No city found!</div>';
-    var timeout = options.timeout || 100;
-    var callback = options.callback || function (total) {
-        noResultLen = list.siblings(".noResult").length;
-        
-        if (total == 0 && noResultLen < 1) {
-            list.after(noResult).show();
-        }
-        else if (total > 0 && noResultLen > 0) {
-            $('.noResult').remove();
-        }
-    };
+var filter = {
 
-    var keyTimeout;
-    var lis = list.children();
-    var len = lis.length;
-    var oldDisplay = len > 0 ? lis[0].style.display : "block";
-    callback(len); // do a one-time callback on initialization to make sure everything's in sync
+    location: function (filterContent, filterList, noResultContent) {
+        var inputText = $(filterContent).val(),
+            inputTextLength = inputText.length,
+            elementList = $(filterList + ' li'),
+            len = elementList.length,
+            element, i;
 
-    input.change(function () {
-        var filter = input.val().toLowerCase();
-        var li, innerText;
-        var numShown = 0;
-        for (var i = 0; i < len; i++) {
-            li = lis[i];
-            innerText = !options.selector ?
-                (li.textContent || li.innerText || "") :
-                $(li).find(options.selector).text();
+        inputText = inputText.toLowerCase();
 
-            if (innerText.toLowerCase().indexOf(filter) >= 0) {
-                if (li.style.display == "none") {
-                    li.style.display = oldDisplay;
+        if (inputText != "") {
+            for (i = 0; i < len; i++) {
+                element = elementList[i];
+
+                var locationName = $(element).text().toLowerCase().trim();
+                if (/\s/.test(locationName))
+                    var splitlocationName = locationName.split(" ")[1];
+                else
+                    splitlocationName = "";
+
+                if ((inputText == locationName.substring(0, inputTextLength)) || inputText == splitlocationName.substring(0, inputTextLength)) {
+                    element.style.display = "block";
                 }
-                numShown++;
-            } else {
-                if (li.style.display != "none") {
-                    li.style.display = "none";
+                else {
+                    element.style.display = "none";
                 }
             }
+
+            var list = $(filterList),
+                visibilityCount = 0;
+
+            list.each(function () {
+                var visibleElements = $(this).find('li[style*="display: block;"]').length;
+
+                if (visibleElements != 0) {
+                    visibilityCount++;
+                }
+            });
+
+            if (visibilityCount == 0) {
+                var errorMessage = $(filterList).attr('data-error-message');
+                $(noResultContent).show().text(errorMessage);
+            }
+            else {
+                $(noResultContent).hide();
+            }
         }
-        callback(numShown);
-        return false;
-    }).keydown(function () {
-        clearTimeout(keyTimeout);
-        keyTimeout = setTimeout(function () {
-            if (input.val() === lastFilter) return;
-            lastFilter = input.val();
-            input.change();
-        }, timeout);
-    });
-    return this; // maintain jQuery chainability
+        else {
+            for (i = 0; i < len; i++) {
+                element = elementList[i];
+                element.style.display = "block";
+            }
+            $(noResultContent).hide();
+        }
+    }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.Utility
@@ -36,6 +33,8 @@ namespace Bikewale.Utility
     /// <summary>
     /// Written By : Ashish G. Kamble on 2 Sept 2016
     /// Class to add the cookies to the browser with given values
+    /// Modified By :Subodh jain 2 jan 2017
+    /// Dec:-Added if contion in Expires time
     /// </summary>
     public static class CookieManager
     {
@@ -45,9 +44,10 @@ namespace Bikewale.Utility
             {
                 HttpCookie cookie = new HttpCookie(obj.Name);
                 cookie.Value = obj.Value;
-                cookie.Expires = obj.Expires;
+                if (DateTime.MinValue != obj.Expires)
+                    cookie.Expires = obj.Expires;
                 cookie.Domain = obj.Domain;
-                cookie.Secure = obj.Secure;                
+                cookie.Secure = obj.Secure;
 
                 foreach (KeyValuePair<string, string> value in obj.Values)
                 {

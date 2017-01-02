@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCount" %>
+<%@ Register Src="/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
 
 <!DOCTYPE html>
 <html>
@@ -96,16 +97,16 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-
+                            <%if( ctrlUsedBikeByModels.FetchCount>0){ %>
                             <% if(ctrlUsedBikesCityCount.fetchedCount > 0) { %>
                             <div id="city-model-used-carousel">                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
-                                <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>
-                                <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
+                                <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                            </div>
+                            <%} %>
+                              
+                          
                                       <BW:UBCCount runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCount>  
-                                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                                </div>
                             </div>
                             <% } %>
 
@@ -399,6 +400,7 @@
              var OnInitTotalBikes = <%= totalListing %>; 
              var pageQS = "<%= currentQueryString %>";
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
+             var usedPageIdentifier="<%=PageIdentifier%>";
         </script>
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-search.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
