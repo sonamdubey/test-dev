@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Used;
+using Bikewale.Entities.UsedBikes;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
@@ -73,7 +74,25 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
-
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model Count In City
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount)
+        {
+            IEnumerable<MostRecentBikes> objUsedBikes = null;
+            string key = String.Format("BW_UsedBikeByModelCountCity_makeid_{0}_cityid_{1}", makeid, cityid);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetUsedBikeByModelCountInCity(makeid, cityid, topcount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetUsedBikeByModelCountInCity");
+                objErr.SendMail();
+            }
+            return objUsedBikes;
+        }
         /// <summary>
         /// Created by  : Sangram on 29th August 2016
         /// Description : Cache layer other used bikes by city id

@@ -264,6 +264,7 @@
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsedBikeModelInCity.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesCityWithCount.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedRecentBikes.cs" />
@@ -693,6 +694,10 @@
       <DependentUpon>UpcomingBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikeByModels.ascx.cs">
+      <DependentUpon>UsedBikeByModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -935,6 +940,10 @@
     </Compile>
     <Compile Include="controls\UsedBikeLeadCaptureControl.ascx.cs">
       <DependentUpon>UsedBikeLeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedBikeByModels.ascx.cs">
+      <DependentUpon>UsedBikeByModels.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedBikeLeadCaptureControl.ascx.cs">
@@ -1995,6 +2004,7 @@
     <Content Include="controls\UpcomingBikesMin.ascx" />
     <Content Include="controls\UpcomingBikesMinNew.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
+    <Content Include="controls\UsedBikeByModels.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
@@ -2514,6 +2524,7 @@
     <Content Include="m\controls\UploadPhotoRequestPopup.ascx" />
     <Content Include="m\controls\PopularModelComparison.ascx" />
     <Content Include="controls\UsedBikeLeadCaptureControl.ascx" />
+    <Content Include="m\controls\UsedBikeByModels.ascx" />
     <Content Include="m\controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\UsedBikePhotoGallery.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />
