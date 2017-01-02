@@ -99,7 +99,7 @@
                     <ul id="main-brand-list">
                         <% foreach(var bike in viewModel.TopMakeList){ %>    
                         <li>
-                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                            <a href="/m/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
@@ -113,7 +113,7 @@
                     <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">
                         <% foreach(var bike in viewModel.OtherMakeList){ %> 
                         <li>
-                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                            <a href="/m/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
