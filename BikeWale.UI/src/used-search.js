@@ -1310,6 +1310,7 @@ $('#close-city-model-carousel').on('click', function () {
     $('#city-model-used-carousel').slideUp();
     SetUsedCookie();
 });
+
 function SetUsedCookie()
 {
     var arr = getCookie("Used").split('&');

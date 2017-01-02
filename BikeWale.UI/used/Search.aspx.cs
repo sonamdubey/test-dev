@@ -76,9 +76,10 @@ namespace Bikewale.Used
         /// </summary>
         private void BindBrandIndiaWidget()
         {
-            if (makeId != 0 && cityId == 0)
+            if (makeId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
             {
                 ctrlUsedBikesCityCount.MakeId = makeId;
+                PageIdentifier = 0;
             }
         }
 

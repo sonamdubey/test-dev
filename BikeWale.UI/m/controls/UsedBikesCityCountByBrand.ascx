@@ -2,8 +2,6 @@
 
 <% if (viewModel != null && viewModel.bikesCountCityList != null)
    { %>
-<span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
-
 <div class="swiper-container card-container city-model-carousel">
     <div class="swiper-wrapper">
         <% foreach (var cityBikeCount in viewModel.bikesCountCityList)
