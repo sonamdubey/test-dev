@@ -158,7 +158,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         TaggedModel = ArticleDetails.VehiclTagsList.FirstOrDefault().ModelBase;
-                        TaggedModel = new Bikewale.common.ModelHelper().GetModelDataById((uint)TaggedModel.ModelId);
+                        TaggedModel = new Bikewale.Common.ModelHelper().GetModelDataById((uint)TaggedModel.ModelId);
 
                     }
                 }
