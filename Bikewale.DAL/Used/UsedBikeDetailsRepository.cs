@@ -465,7 +465,56 @@ namespace Bikewale.DAL.Used
                 ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBikeByModelCountInCity_makeId:{0}_cityid:{1}", makeid, cityid));
             }
             return objUsedBikesList;
-        }//end of GetUsedBikesbyMake
+        }//end of GetUsedBikeByModelCountInCity
 
+        /// <summary>
+        ///Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model Count In City
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="totalCount"></param>
+        public IEnumerable<MostRecentBikes> GetUsedBikeCountInCity(uint cityid, uint topcount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikespopularmodelincity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topcount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objUsedBikesList = new List<MostRecentBikes>();
+                            while (dr.Read())
+                            {
+
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    CityName = Convert.ToString(dr["CityName"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBikeCountInCity:_cityid:{0}", cityid));
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikeCountInCity
     }
 }

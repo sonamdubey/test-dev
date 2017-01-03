@@ -29,6 +29,7 @@ namespace Bikewale.Mobile.Used
         protected CityEntityBase objCity = null;
         protected int _startIndex = 0, _endIndex = 0;
         protected UsedBikeByModels ctrlUsedBikeByModels;
+        protected UsedBikeModelByCity ctrlUsedBikeModelByCity;
 
         #endregion
 
@@ -48,13 +49,32 @@ namespace Bikewale.Mobile.Used
         {
             LoadUsedBikesList();
             UsedCookie.SetUsedCookie();
+            BindWigets();
 
-            if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
-                BindBrandCityWidget();
         }
 
         #endregion
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Bind Used bikes Widgets
+        /// </summary>
+        private void BindWigets()
+        {
+            try
+            {
+                if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
+                    BindBrandCityWidget();
+                else if (makeId == 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.UsedCity)
+                    BindUsedCityWidget();
 
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindWigets");
+            }
+
+        }
         #region methods
         /// <summary>
         /// Created By : Sushil Kumar on 23rd Sep 2016 
@@ -115,6 +135,30 @@ namespace Bikewale.Mobile.Used
         }
         /// <summary>
         /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Bind Used bikes Widget Used City
+        /// </summary>
+        private void BindUsedCityWidget()
+        {
+            try
+            {
+                ctrlUsedBikeModelByCity.CityId = cityId;
+                ctrlUsedBikeModelByCity.TopCount = 6;
+                ctrlUsedBikeModelByCity.MakeMaskingName = makeMaskingName;
+                ctrlUsedBikeModelByCity.ModelMaskingName = modelMaskingName;
+                ctrlUsedBikeModelByCity.CityMaskingName = cityMaskingName;
+                ctrlUsedBikeModelByCity.CityName = cityName;
+                PageIdentifier = 3;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindUsedCityWidget");
+            }
+
+
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Bind Used bikes Widget
         /// </summary>
         private void BindBrandCityWidget()
@@ -128,7 +172,10 @@ namespace Bikewale.Mobile.Used
                 ctrlUsedBikeByModels.ModelMaskingName = modelMaskingName;
                 ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
                 ctrlUsedBikeByModels.CityName = cityName;
-                PageIdentifier = 1;
+                if (makeId > 0)
+                    PageIdentifier = 1;
+                else
+                    PageIdentifier = 3;
             }
             catch (Exception ex)
             {

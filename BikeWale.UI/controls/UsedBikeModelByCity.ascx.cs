@@ -1,5 +1,4 @@
-﻿
-using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Common;
 using Bikewale.Entities.UsedBikes;
 using System;
@@ -7,14 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Controls
 {
-    public class UsedBikeByModels : System.Web.UI.UserControl
+    public class UsedBikeModelByCity : System.Web.UI.UserControl
     {
         /// <summary>
         /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Bind Used Bike By Models 
         /// </summary>
-        protected IEnumerable<MostRecentBikes> UsedBikeModelInCityList;
-        public uint MakeId { get; set; }
+        protected IEnumerable<MostRecentBikes> UsedBikeInCityList;
+
         public uint CityId { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
@@ -36,7 +35,7 @@ namespace Bikewale.Controls
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (MakeId > 0 && CityId > 0)
+            if (CityId > 0)
                 Bindwidget();
 
         }
@@ -49,17 +48,16 @@ namespace Bikewale.Controls
             try
             {
                 BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
-                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
-                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
-                    FetchCount = UsedBikeModelInCityList.Count();
+                UsedBikeInCityList = objUsedBikeModelCity.GetUsedBikeCountInCity(CityId, TopCount);
+                if (UsedBikeInCityList != null && UsedBikeInCityList.Count() > 0)
+                    FetchCount = UsedBikeInCityList.Count();
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikeByModels.Bindwidget");
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikeModelByCity.Bindwidget");
             }
 
         }
-
     }
 }

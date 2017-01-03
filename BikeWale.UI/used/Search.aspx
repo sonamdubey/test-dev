@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
+<%@ Register Src="/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
 
 <!DOCTYPE html>
 <html>
@@ -96,17 +97,19 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <%if( ctrlUsedBikeByModels.FetchCount>0){ %>
+                           <%if(ctrlUsedBikeByModels.FetchCount>0||ctrlUsedBikeModelByCity.FetchCount > 0){ %>
                             <div id="city-model-used-carousel" >
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>
-                                <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                                 <%if( ctrlUsedBikeByModels.FetchCount>0){ %>
+                                        <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                                <%} %>
+                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                                        <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
+                               <%}%>
                             </div>
-                            <%} %>
-                              
-                          
-
-                            <div id="search-listing-content" class="position-rel bg-white">
+                            <%} %>  
+                    <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">
                                     <div id="loader-right-column"></div>
                                     <div class="margin-top15 font12 padding-bottom5 border-solid-bottom" data-bind="visible: PreviousQS() != ''">

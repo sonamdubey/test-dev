@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/m/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
+<%@ Register Src="~/m/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,12 +35,18 @@
             <section>
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1>
-                    <%if(ctrlUsedBikeByModels.FetchCount>0){ %>
+                    <%if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount>0)
+                      { %>
                     <div id="city-model-used-carousel">
                         <!-- model start -->
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Refine your search further!</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
-                        <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                        <%if( ctrlUsedBikeByModels.FetchCount>0){ %>
+                                  <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                           <%} %>
+                       <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                                  <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
+                        <%}%>
                     </div>
                     <%} %>
                     <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()"></span> bikes</div>
