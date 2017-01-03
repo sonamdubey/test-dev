@@ -143,8 +143,6 @@ namespace Bikewale.Mobile.Used
             {
                 ctrlUsedBikeModelByCity.CityId = cityId;
                 ctrlUsedBikeModelByCity.TopCount = 6;
-                ctrlUsedBikeModelByCity.MakeMaskingName = makeMaskingName;
-                ctrlUsedBikeModelByCity.ModelMaskingName = modelMaskingName;
                 ctrlUsedBikeModelByCity.CityMaskingName = cityMaskingName;
                 ctrlUsedBikeModelByCity.CityName = cityName;
                 PageIdentifier = 3;
@@ -172,17 +170,13 @@ namespace Bikewale.Mobile.Used
                 ctrlUsedBikeByModels.ModelMaskingName = modelMaskingName;
                 ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
                 ctrlUsedBikeByModels.CityName = cityName;
-                if (makeId > 0)
-                    PageIdentifier = 1;
-                else
-                    PageIdentifier = 3;
+                PageIdentifier = 1;
             }
             catch (Exception ex)
             {
+
                 ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandCityWidget");
-
             }
-
 
         }
         #endregion
