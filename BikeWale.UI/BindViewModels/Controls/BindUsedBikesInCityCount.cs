@@ -17,28 +17,62 @@ namespace Bikewale.BindViewModels.Controls
     public class BindUsedBikesInCityCount
     {
         public IEnumerable<UsedBikesCountInCity> bikesCountCityList { get; set; }
+        private IUsedBikeDetailsCacheRepository objCache = null;
 
-        public BindUsedBikesInCityCount(uint makeId)
+        public BindUsedBikesInCityCount()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                        .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                        .RegisterType<ICacheManager, Bikewale.Cache.Core.MemcacheManager>();
+                    objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindUsedBikesInCityCount.BindUsedBikesInCityCount");
+            }
+        }
+
+        /// <summary>
+        /// Created by Sajal Gupta on 03-01-2017
+        /// Desc : function to bind used bikes in city count list by make
+        /// </summary>
+        public void BindUsedBikesInCityCountByMake(uint makeId)
         {
             try
             {
                 if (makeId > 0)
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                            .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
-                            .RegisterType<ICacheManager, Bikewale.Cache.Core.MemcacheManager>();
-                        var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                        bikesCountCityList = objCache.GetUsedBikeInCityCount(makeId);
-                    }
+                    bikesCountCityList = objCache.GetUsedBikeInCityCountByMake(makeId);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCount {0}", makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByMake {0}", makeId));
             }
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 03-01-2017
+        /// Desc : function to bind used bikes in city count list by model
+        /// </summary>
+        public void BindUsedBikesInCityCountByModel(uint modelId)
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    bikesCountCityList = objCache.GetUsedBikeInCityCountByModel(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByModel {0}", modelId));
+            }
+        }
     }
 }

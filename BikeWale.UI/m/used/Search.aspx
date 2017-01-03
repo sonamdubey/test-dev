@@ -1,8 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.Search" %>
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
-<%@ Register Src="~/m/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCount" %>
+<%@ Register Src="~/m/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCountByMake" %>
 <%@ Register Src="~/m/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
+<%@ Register Src="~/m/controls/UsedBikesCityCountByModel.ascx" TagPrefix="BW" TagName="UBCCountByModel" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +37,8 @@
             <section>
                 <div class="container bg-white clearfix">
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1> 
-                    <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikesCityCount.fetchedCount > 0) { %>                
+                    <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikesCityCount.fetchedCount > 0 || ctrlUsedBikesCityCountByModel.fetchedCount > 0)
+                       { %>                
                     <div id="city-model-used-carousel">                        
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Refine your search further!</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
@@ -45,8 +48,12 @@
                         <% }
                            else if (ctrlUsedBikesCityCount.fetchedCount > 0)
                            { %>                        
-                        <BW:UBCCount runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCount>  
-                        <%} %>
+                        <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCountByMake>  
+                        <% }
+                           else if (ctrlUsedBikesCityCountByModel.fetchedCount > 0)
+                           { %>    
+                        <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
+                        <% } %>    
                     </div>
                     <%} %>
                     <div class="font14 padding-top10 padding-right20 padding-bottom10 padding-left20" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
