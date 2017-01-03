@@ -41,10 +41,11 @@
                         <!-- model start -->
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Refine your search further!</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
-                        <%if( ctrlUsedBikeByModels.FetchCount>0){ %>
+                        <%if (ctrlUsedBikeByModels.FetchCount > 0)
+                          { %>
                                   <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
-                           <%} %>
-                       <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                          
+                       <%}else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
                                   <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
                         <%}%>
                     </div>

@@ -179,7 +179,6 @@ namespace Bikewale.Used
                 ctrlUsedBikeByModels.MakeId = makeId;
                 ctrlUsedBikeByModels.TopCount = 6;
                 ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
-                ctrlUsedBikeByModels.ModelMaskingName = modelMaskingName;
                 ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
                 ctrlUsedBikeByModels.CityName = cityName;
                 PageIdentifier = 1;

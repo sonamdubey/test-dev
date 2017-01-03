@@ -449,10 +449,9 @@ namespace Bikewale.DAL.Used
                                     ModelName = Convert.ToString(dr["ModelName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
-                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
-                                    CityName = Convert.ToString(dr["CityName"])
+
                                 });
                             }
                             dr.Close();
@@ -499,10 +498,9 @@ namespace Bikewale.DAL.Used
                                     ModelName = Convert.ToString(dr["ModelName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
-                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
-                                    CityName = Convert.ToString(dr["CityName"])
+                                    MakeMaskingName = Convert.ToString(dr["makeMaskingName"])
                                 });
                             }
                             dr.Close();
