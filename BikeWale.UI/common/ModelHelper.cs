@@ -11,11 +11,10 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
-using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-namespace Bikewale.common
+namespace Bikewale.Common
 {
     /// <summary>
     /// Created By: Sangram Nandkhile on 23 Nov 2016

@@ -19,7 +19,7 @@ namespace Bikewale.Controls
         public string cityName = string.Empty;
 
 
-        public int makeId { get; set; }
+        public int MakeId { get; set; }
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;
 
@@ -42,7 +42,7 @@ namespace Bikewale.Controls
         {
             BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
             objPop.totalCount = totalCount.HasValue && totalCount.Value > 0 ? totalCount : 4;
-            objPop.makeId = makeId;
+            objPop.makeId = MakeId;
             objPop.cityId = CityId;
             if (CityId > 0)
             {

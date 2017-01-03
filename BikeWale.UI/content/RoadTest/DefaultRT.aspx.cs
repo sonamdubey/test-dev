@@ -339,7 +339,7 @@ namespace Bikewale.Content
 
                 if (!string.IsNullOrEmpty(makeId) && makeId != "0")
                 {
-                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.MakeId = Convert.ToInt32(makeId);
                     ctrlPopularBikes.makeMasking = makeMaskingName;
                     ctrlPopularBikes.makeName = makeName;
 
