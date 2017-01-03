@@ -59,7 +59,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h1 class="content-inner-block-20">Browse <%=MakeDetails.MakeName %> used bike by cities</h1>
+                        <h1 class="content-inner-block-20">Browse used <%=MakeDetails.MakeName %> bike by cities</h1>
                         <p class="font16 text-default text-bold padding-left20 margin-bottom10">Popular cities</p>
                         <ul id="popular-city-list">
                             <%foreach (var objCity in UsedBikeCityCountTopList)
