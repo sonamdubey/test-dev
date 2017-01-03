@@ -28,8 +28,10 @@ namespace Bikewale.Mobile.Controls
                 bikeInfo = genericBikeInfo.GetGenericBikeInfo();
                 if (bikeInfo != null)
                 {
-                    bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
-                    bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                    if (bikeInfo.Make != null)
+                        bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
+                    if (bikeInfo.Model != null)
+                        bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                 };
             }
 

@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Notifications;
 using System;
 
 namespace Bikewale.Controls
@@ -21,16 +22,25 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ModelId > 0)
+            try
             {
-                BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
-                genericBikeInfo.ModelId = ModelId;
-                bikeInfo = genericBikeInfo.GetGenericBikeInfo();
-                if (bikeInfo != null)
+                if (ModelId > 0)
                 {
-                    bikeUrl = string.Format("/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
-                    bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
-                };
+                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+                    genericBikeInfo.ModelId = ModelId;
+                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+                    if (bikeInfo != null)
+                    {
+                        if (bikeInfo.Make != null)
+                            bikeUrl = string.Format("/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
+                        if (bikeInfo.Model != null)
+                            bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Controls.GenericBikeInfoControl.Page_Load");
             }
 
         }

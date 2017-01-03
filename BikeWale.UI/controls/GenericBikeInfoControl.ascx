@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.GenericBikeInfoControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.GenericBikeInfoControl" EnableViewState="false" %>
 
 <% if(bikeInfo!=null)
    { %>
