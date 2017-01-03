@@ -24,6 +24,7 @@
 
     /* function to upload image to amazon S3 */
     self.upload = function (file) {
+        triggerGA('Sell_Page', 'Photo_Upload_Initiated', vmSellBike.inquiryId() + '_'+ file.size);
         try {
             $.when(self.getToken(self.request)).done()
             {
@@ -50,7 +51,7 @@
                     dataType: "xml"
 
                 });
-                awsReqPromise.done(self.uploadComplete);
+                awsReqPromise.done(function (response) { self.uploadComplete(response,file) });
                 awsReqPromise.fail(function () { self.status = false; });
             }
         }
@@ -59,7 +60,7 @@
         }
     };
     /* This event is raised when the amazon S3 sends back a response */
-    self.uploadComplete = function (response) {        
+    self.uploadComplete = function (response, file) {
         if (response) {
             var xmlResponse = response.getElementsByTagName("PostResponse");;
             if (xmlResponse) {
@@ -74,7 +75,8 @@
                 }).done(function (response) {
                     if (response != null)
                         self.status = response;
-                }).fail(function () { self.status = false; });
+                    triggerGA('Sell_Page', 'Photo_Upload_Success', vmSellBike.inquiryId() + '_' + file.size);
+                }).fail(function () { self.status = false; triggerGA('Sell_Page', 'Photo_Upload_Failure', vmSellBike.inquiryId() + '_' + file.size); });
             };
         }
     };

@@ -5,16 +5,16 @@
 <html>
 <head>
     <%
-    title = "Sell Bike | Sell Used Bike in India - BikeWale";
-    description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
-    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
-    canonical = "https://www.bikewale.com/used/sell/";
-    alternate = "https://www.bikewale.com/m/used/sell/";
-    AdId = "1475577527140";
-    AdPath = "/1017752/BikeWale_UsedSellBikes_";
-    isAd300x250Shown = false;
-    isAd300x250BTFShown = false;
-    isAd970x90Shown = false;
+        title = "Sell Your Used Bike| Post Ad for FREE - BikeWale";
+        description = "Sell your used/second-hand bike on BikeWale for free. Post your Ad for free and get verified buyers on BikeWale. Easy, Quick & Effective.";
+        keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
+        canonical = "https://www.bikewale.com/used/sell/";
+        alternate = "https://www.bikewale.com/m/used/sell/";
+        AdId = "1475577527140";
+        AdPath = "/1017752/BikeWale_UsedSellBikes_";
+        isAd300x250Shown = false;
+        isAd300x250BTFShown = false;
+        isAd970x90Shown = false;
 %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
@@ -230,7 +230,7 @@
                                             </div>
 
                                             <div class="panel-row">
-                                                <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big" value="Save and Continue" data-bind="click: saveBikeDetails" />
+                                                <input type="button" id="btnSaveBikeDetails" class="btn btn-orange btn-primary-big bw-ga" value="Save and Continue" data-bind="click: saveBikeDetails" />
                                             </div>
                                         </div>
                                         <div class="clear"></div>
@@ -504,6 +504,73 @@
 
                         </div>
                         
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container margin-bottom20">
+                <h2 class="section-heading">FAQs- Selling Bike on BikeWale</h2>
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-bottom20">
+                        <ul class="accordion-list">
+                            <li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">Why should you sell your second hand bike on BikeWale?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body" style="overflow: hidden; display: none;">
+		                            <p>Every month more than 3.5+ million users visit BikeWale to research about used and new bikes. BikeWale has 5,000+ listings posted across more than 200 cities in India. BikeWale doesn’t charge any fee for posting your Ad. You can post your Ad for FREE. There are no limits on the number of postings.
+BikeWale ensures that only verified buyers can reach out to you. You can re-post your Ad after 90 days if your bike is not sold. It’s Easy, Quick and Reliable!</p>
+	                            </div>
+                            </li>
+                            <li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">How to post an effective used bike Ad on BikeWale to reduce the selling period?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body">
+		                            <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colors, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
+	                            </div>
+                            </li>
+                            <li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">How long will your bike be posted on BikeWale?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body">
+		                            <p>Your Ad will be posted for 90 days. If you are not able to sell your bike till then, you can re-post your Ad for FREE. Your bike will be made available again to the buyers.</p>
+	                            </div>
+                            </li>
+							<li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">Can the details of posted Ad be changed/edited?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body">
+		                            <p>Yes, you can edit your listing by logging in your account. However, we have restricted certain fields like bike make, models, city etc. for the ease of buyers. Your bike will again be made available after approval from BikeWale team and you can continue selling your used bike on BikeWale.</p>
+	                            </div>
+                            </li>
+							<li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">What can improve the number of responses for your listed bike?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body">
+		                            <p>You should provide comprehensive and correct details of your bike and upload multiple photos of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
+	                            </div>
+                            </li>
+							<li>
+	                            <div class="accordion-head">
+		                            <p class="accordion-head-title">How can you remove your second hand bike listing from BikeWale?</p>
+		                            <span class="bwsprite arrow-sm-down"></span>
+	                            </div>                        
+	                            <div class="accordion-body">
+		                            <p>It is very easy to remove/delete your listing from BikeWale. You can remove/delete your listing from BikeWale after logging in your myBikeWale account and your bike will no more be available on BikeWale for sell. If you don’t remove the listing, your Ad will be automatically removed after 90 days from the date of posting.</p>
+	                            </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="clear"></div>
