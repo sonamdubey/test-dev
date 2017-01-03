@@ -3,7 +3,7 @@ using Bikewale.Common;
 using System;
 using System.Linq;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     /// <summary>
     /// Created by Sajal Gupta on 20-01-2017
