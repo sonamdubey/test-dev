@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/carwale/bikewaleweb/"
   },
-  "author": "",
+  "author": "Dutiyesh Salunkhe",
   "license": "ISC",
   "devDependencies": {
     "del": "^2.2.2",

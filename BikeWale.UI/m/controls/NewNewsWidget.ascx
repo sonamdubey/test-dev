@@ -34,7 +34,4 @@
 </div>
 
 <div class="bw-tabs-data" id="ctrlNews">  
-    <script type="text/javascript">
-        $(document).ready(function () { $("img.lazy").lazyload(); });
-    </script>
 </div>

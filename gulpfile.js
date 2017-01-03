@@ -1,12 +1,16 @@
 var gulp = require('gulp'),
-  cleanCss = require('gulp-clean-css'),
-  uglify = require('gulp-uglify'),
-  del = require('del'),
-  sass = require('gulp-sass'),
-  watch = require('gulp-watch'),
-  gulpSequence = require('gulp-sequence'),
-  fs = require('fs'),
-  replace = require('gulp-replace');
+    cleanCss = require('gulp-clean-css'),
+    uglify = require('gulp-uglify'),
+    del = require('del'),
+    sass = require('gulp-sass'),
+    watch = require('gulp-watch'),
+    gulpSequence = require('gulp-sequence'),
+    fs = require('fs'),
+    replace = require('gulp-replace');
+
+var app = 'BikeWale.UI/',
+    buildFolder = app + 'build/',
+    minifiedAssetsFolder = buildFolder + 'min/';
 
 var paths = {
     bwCSS: 'BikeWale.UI/css/**',
@@ -74,11 +78,7 @@ var page = {
 
         genericListing: 'BikeWale.UI/generic/BikeListing.aspx',
 
-        used: {
-            baseFolder: 'BikeWale.UI/used/',
-            search: 'BikeWale.UI/used/Search.aspx',
-            targetFolder: 'BikeWale.UI/build/used/'
-        }
+        homepage: 'BikeWale.UI/default.aspx'
     },
 
     mobile: {
@@ -92,11 +92,7 @@ var page = {
 
         genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx',
 
-        used: {
-            baseFolder: 'BikeWale.UI/m/used/',
-            search: 'BikeWale.UI/m/used/Search.aspx',
-            targetFolder: 'BikeWale.UI/build/m/used/'
-        }
+        homepage: 'BikeWale.UI/m/default.aspx'
     }
 }
 
@@ -236,137 +232,91 @@ gulp.task('watch-sass', function () {
     gulp.watch(paths.bwmSASS, ['bwm-sass']);
 });
 
+// desktop and mobile pages array to replace css link reference with internal css
+var pageArray = [
+    {
+        folderName: 'servicecenter/',
+        fileName: 'Default.aspx',
+        stylesheet: 'css/service/landing.css'
+    },
+    {
+        folderName: 'servicecenter/',
+        fileName: 'ServiceCenterInCountry.aspx',
+        stylesheet: 'css/service/location.css'
+    },
+    {
+        folderName: 'servicecenter/',
+        fileName: 'ServiceCenterList.aspx',
+        stylesheet: 'css/service/listing.css'
+    },
+    {
+        folderName: 'servicecenter/',
+        fileName: 'ServiceCenterDetails.aspx',
+        stylesheet: 'css/service/details.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'versions.aspx',
+        stylesheet: 'css/model-atf.css'
+    },
+    {
+        folderName: 'generic/',
+        fileName: 'BikeListing.aspx',
+        stylesheet: 'css/generic/listing.css'
+    },
+    {
+        folderName: 'm/service/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/service/landing.css'
+    },
+    {
+        folderName: 'm/service/',
+        fileName: 'ServiceCenterInCountry.aspx',
+        stylesheet: 'm/css/service/location.css'
+    },
+    {
+        folderName: 'm/service/',
+        fileName: 'ServiceCenterList.aspx',
+        stylesheet: 'm/css/service/listing.css'
+    },
+    {
+        folderName: 'm/service/',
+        fileName: 'ServiceCenterDetails.aspx',
+        stylesheet: 'm/css/service/details.css'
+    },
+    {
+        folderName: 'm/generic/',
+        fileName: 'BikeListing.aspx',
+        stylesheet: 'm/css/generic/listing.css'
+    },
+    {
+        folderName: '',
+        fileName: 'default.aspx',
+        stylesheet: 'css/home.css'
+    },
+    {
+        folderName: 'm/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/home.css'
+    },
+];
+
 // replace css reference with internal css
-gulp.task('replace-css-reference', function (callback) {
-    gulpSequence('replace-desktop-css', 'replace-mobile-css')(callback)
-});
+gulp.task('replace-css-reference', function () {
+    var pageLength = pageArray.length;
 
-// replace css reference from desktop pages
-gulp.task('replace-desktop-css', function (callback) {
-    gulpSequence(
-        'desktop-service-landing',
-        'desktop-service-city',
-        'desktop-service-listing',
-        'desktop-service-details',
-        'desktop-model',
-        'desktop-used-search'
-        )(callback)
-});
+    for (var i = 0; i < pageLength; i++) {
+        var element = pageArray[i],
+            style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
+            styleTag = '<style type="text/css">\n@charset "utf-8";' + style + '\n</style>',
+            styleLink = '<link rel="stylesheet" type="text/css" href="/' + element.stylesheet + '" />';
 
-// desktop service center
-gulp.task('desktop-service-landing', function () {
-    return gulp.src(page.desktop.service.landing, { base: page.desktop.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/service\/landing.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bw.service.target + '/landing.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
-});
+        gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+            .pipe(replace(styleLink, styleTag))
+            .pipe(gulp.dest(buildFolder + element.folderName));
+    }
 
-gulp.task('desktop-service-city', function () {
-    return gulp.src(page.desktop.service.city, { base: page.desktop.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/service\/location.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bw.service.target + '/location.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
-});
-
-gulp.task('desktop-service-listing', function () {
-    return gulp.src(page.desktop.service.listing, { base: page.desktop.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/service\/listing.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bw.service.target + '/listing.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
-});
-
-
-gulp.task('desktop-service-details', function () {
-    return gulp.src(page.desktop.service.details, { base: page.desktop.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/service\/details.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bw.service.target + '/details.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/servicecenter'));
-});
-
-// desktop model
-gulp.task('desktop-model', function () {
-    return gulp.src(page.desktop.model, { base: 'BikeWale.UI/new' })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/model-atf.css"[^>]*>/, function () {
-            var style = fs.readFileSync(paths.destinationD_CSS + '/model-atf.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/new'));
-});
-
-// desktop used search
-gulp.task('desktop-used-search', function () {
-    return gulp.src(page.desktop.used.search, { base: page.desktop.used.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/css\/used\/search.css"[^>]*>/, function () {
-            var style = fs.readFileSync(paths.destinationD_CSS + '/used/search.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest(page.desktop.used.targetFolder));
-});
-
-// replace css reference from mobile pages
-gulp.task('replace-mobile-css', function (callback) {
-    gulpSequence(
-        'mobile-service-landing',
-        'mobile-service-city',
-        'mobile-service-listing',
-        'mobile-service-details',
-        'mobile-used-search'
-        )(callback)
-});
-
-// mobile service center
-gulp.task('mobile-service-landing', function () {
-    return gulp.src(page.mobile.service.landing, { base: page.mobile.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/landing.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bwm.service.target + '/landing.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/m/service'));
-});
-
-gulp.task('mobile-service-city', function () {
-    return gulp.src(page.mobile.service.city, { base: page.mobile.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/location.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bwm.service.target + '/location.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/m/service'));
-});
-
-gulp.task('mobile-service-listing', function () {
-    return gulp.src(page.mobile.service.listing, { base: page.mobile.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/listing.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bwm.service.target + '/listing.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/m/service'));
-});
-
-gulp.task('mobile-service-details', function () {
-    return gulp.src(page.mobile.service.details, { base: page.mobile.service.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/service\/details.css"[^>]*>/, function () {
-            var style = fs.readFileSync(sassPaths.bwm.service.target + '/details.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest('BikeWale.UI/build/m/service'));
-});
-
-// mobile used search
-gulp.task('mobile-used-search', function () {
-    return gulp.src(page.mobile.used.search, { base: page.mobile.used.baseFolder })
-        .pipe(replace(/<link rel="stylesheet" type="text\/css" href="\/m\/css\/used\/search.css"[^>]*>/, function () {
-            var style = fs.readFileSync(paths.destinationM_CSS + '/used/search.css', 'utf-8');
-            return '<style type="text/css">\n@charset "utf-8";' + style + '</style>';
-        }))
-        .pipe(gulp.dest(page.mobile.used.targetFolder));
+    console.log('internal css reference replaced');
 });
 
 // replace desktop frameworks js, ie8 fix

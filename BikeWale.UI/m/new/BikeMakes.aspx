@@ -276,6 +276,8 @@
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
+
+            $("img.lazy").lazyload();
              
             var clientIP = '<%= Bikewale.Common.CommonOpn.GetClientIP() %>';
             var pageUrl = window.location.href;

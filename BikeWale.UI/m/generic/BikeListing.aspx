@@ -16,7 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>

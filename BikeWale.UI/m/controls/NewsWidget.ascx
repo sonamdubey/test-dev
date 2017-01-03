@@ -36,7 +36,4 @@
     <div class="text-center margin-bottom30">
         <a class="font16" href="/m/news/">View more news</a>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () { $("img.lazy").lazyload(); });
-    </script>
 </div>
