@@ -147,7 +147,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetProfileDetails_InquiryId :  {1}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId));
-                objErr.SendMail();
             }
 
             return _objInquiryDetails;
@@ -206,7 +205,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetSimilarBikes_InquiryId_{1}_ModelId_{2}_CityId_{3}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, modelId, cityId));
-                objErr.SendMail();
             }
 
             return similarBikeDetails;
@@ -268,7 +266,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0}_GetOtherBikesByCityId_InquiryId_{1}_CityId_{2}", HttpContext.Current.Request.ServerVariables["URL"], inquiryId, cityId));
-                objErr.SendMail();
             }
             return similarBikeDetails;
         }
@@ -326,7 +323,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetRecentUsedBikesInIndia");
-                objErr.SendMail();
             }
             return recentBikes;
         }
@@ -365,7 +361,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in DAL function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
-                objErr.SendMail();
             }
             return objInquiryDetails;
         }
@@ -410,7 +405,6 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
-                objErr.SendMail();
             }
             return photos;
         }
@@ -467,5 +461,46 @@ namespace Bikewale.DAL.Used
             return objUsedBikesList;
         }//end of GetUsedBikesbyMake
 
+        /// <summary>
+        /// Created by  :   Sajal Gupta on 30-12-2016
+        /// Description :   DAL function to read available used bikes in city by make
+        /// </summary>
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId)
+        {
+            IList<UsedBikesCountInCity> bikesCountList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikeincitycountbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            bikesCountList = new List<UsedBikesCountInCity>();
+
+                            while (dr.Read())
+                            {
+                                bikesCountList.Add(
+                                    new UsedBikesCountInCity()
+                                    {
+                                        BikeCount = Utility.SqlReaderConvertor.ToUInt32(dr["bikescount"]),
+                                        CityId = Utility.SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                        CityName = Convert.ToString(dr["name"]),
+                                        CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCount({0})", makeId));
+            }
+            return bikesCountList;
+        }
     }
 }

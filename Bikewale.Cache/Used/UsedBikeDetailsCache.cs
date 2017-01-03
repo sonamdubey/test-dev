@@ -45,7 +45,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetProfileDetails");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -70,7 +69,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetSimilarBikes");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -110,7 +108,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -132,7 +129,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -154,9 +150,29 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
-                objErr.SendMail();
             }
             return objInquiryDetailsByProfileId;
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 30-12-2016
+        /// Description : CAche function to read available used bikes in city by make
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId)
+        {
+            IEnumerable<UsedBikesCountInCity> bikesCountList = null;
+            string key = String.Format("BW_Used_Bikes_City_Count_{0}", makeId);
+            try
+            {
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCount(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}", makeId));
+            }
+            return bikesCountList;
         }
     }
 }

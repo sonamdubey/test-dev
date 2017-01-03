@@ -19,7 +19,7 @@ namespace Bikewale.Mobile.Used
         SearchUsedBikes objUsedBikesPage = null;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty,
-                 cityName = string.Empty, currentQueryString = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, cityMaskingName = string.Empty;
+                 cityName = string.Empty, currentQueryString = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, cityMaskingName = string.Empty, makeName = string.Empty;
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
@@ -28,6 +28,7 @@ namespace Bikewale.Mobile.Used
         protected uint modelId, cityId, totalListing, PageIdentifier;
         protected CityEntityBase objCity = null;
         protected int _startIndex = 0, _endIndex = 0;
+        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCount = null;
         protected UsedBikeByModels ctrlUsedBikeByModels;
 
         #endregion
@@ -48,6 +49,7 @@ namespace Bikewale.Mobile.Used
         {
             LoadUsedBikesList();
             UsedCookie.SetUsedCookie();
+            BindBrandIndiaWidget();
 
             if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
                 BindBrandCityWidget();
@@ -63,6 +65,8 @@ namespace Bikewale.Mobile.Used
         /// Description :   Use property RedirectionUrl
         /// Modiefied By:Subodh Jain 2 jan 2017
         /// Description :- Addded makeMaskingName modelMaskingName cityMaskingName  
+        /// Modified by : Sajal Gupta on 03-01-2017
+        /// Desc : Read makeName from view model
         /// </summary>
         private void LoadUsedBikesList()
         {
@@ -95,6 +99,7 @@ namespace Bikewale.Mobile.Used
                 makeMaskingName = objUsedBikesPage.makeMaskingName;
                 modelMaskingName = objUsedBikesPage.modelMaskingName;
                 cityMaskingName = objUsedBikesPage.cityMaskingName;
+                makeName = objUsedBikesPage.Make;
 
             }
             else
@@ -137,6 +142,27 @@ namespace Bikewale.Mobile.Used
             }
 
 
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 2-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and city id is null;
+        /// </summary>
+        private void BindBrandIndiaWidget()
+        {
+            try
+            {
+                if (makeId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
+                {
+                    ctrlUsedBikesCityCount.MakeId = makeId;
+                    ctrlUsedBikesCityCount.MakeMaskingName = makeMaskingName;
+                    PageIdentifier = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandIndiaWidget");
+            }
         }
         #endregion
 
