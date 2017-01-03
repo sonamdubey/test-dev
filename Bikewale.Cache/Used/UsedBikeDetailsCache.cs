@@ -45,7 +45,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetProfileDetails");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -70,7 +69,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetSimilarBikes");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -110,7 +108,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -132,7 +129,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.Used.GetOtherBikesByCityId");
-                objErr.SendMail();
             }
             return objUsedBikes;
         }
@@ -154,7 +150,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetInquiryDetailsByProfileId for profileId : {0}, customerId : {1}", profileId, customerId));
-                objErr.SendMail();
             }
             return objInquiryDetailsByProfileId;
         }
@@ -176,7 +171,6 @@ namespace Bikewale.Cache.Used
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}", makeId));
-                objErr.SendMail();
             }
             return bikesCountList;
         }

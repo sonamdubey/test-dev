@@ -3,7 +3,6 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
-using Bikewale.m.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility.UsedCookie;
 using System;

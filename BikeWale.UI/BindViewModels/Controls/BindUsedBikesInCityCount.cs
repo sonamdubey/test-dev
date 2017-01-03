@@ -20,28 +20,25 @@ namespace Bikewale.BindViewModels.Controls
 
         public BindUsedBikesInCityCount(uint makeId)
         {
-            if (makeId > 0)
-                BindBikeCountList(makeId);
-        }
-
-        public void BindBikeCountList(uint makeId)
-        {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (makeId > 0)
                 {
-                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                        .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
-                        .RegisterType<ICacheManager, Bikewale.Cache.Core.MemcacheManager>();
-                    var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                    bikesCountCityList = objCache.GetUsedBikeInCityCount(makeId);
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                            .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                            .RegisterType<ICacheManager, Bikewale.Cache.Core.MemcacheManager>();
+                        var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                        bikesCountCityList = objCache.GetUsedBikeInCityCount(makeId);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindBikeCountList {0}", makeId));
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCount {0}", makeId));
             }
         }
+
     }
 }

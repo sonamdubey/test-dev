@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.UsedBikesCityCountByBrand" %>
+﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikesCityCountByBrand" %>
 
 <% if (viewModel != null && viewModel.bikesCountCityList != null)
    { %>

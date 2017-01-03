@@ -3,9 +3,13 @@ using Bikewale.Common;
 using System;
 using System.Linq;
 
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.Controls
 {
-    public partial class UsedBikesCityCountByBrand : System.Web.UI.UserControl
+    /// <summary>
+    /// Created by : Sajal Gupta on 03-01-2017
+    /// Desc : Class to bind brand india city wise bike count.
+    /// </summary>
+    public class UsedBikesCityCountByBrand : System.Web.UI.UserControl
     {
         public BindUsedBikesInCityCount viewModel = null;
         public uint MakeId { get; set; }
@@ -23,15 +27,26 @@ namespace Bikewale.m.controls
                 BindCountList();
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 03-01-2017
+        /// Desc : Function to bind brand india city wise bike count.
+        /// </summary>
         private void BindCountList()
         {
-            viewModel = new BindUsedBikesInCityCount(MakeId);
+            try
+            {
+                viewModel = new BindUsedBikesInCityCount(MakeId);
 
-            fetchedCount = (uint)viewModel.bikesCountCityList.Count();
+                fetchedCount = (uint)viewModel.bikesCountCityList.Count();
 
-            var objMake = new MakeHelper().GetMakeNameByMakeId(MakeId);
-            makeName = objMake.MakeName;
-            makeMaskingName = objMake.MaskingName;
+                var objMake = new MakeHelper().GetMakeNameByMakeId(MakeId);
+                makeName = objMake.MakeName;
+                makeMaskingName = objMake.MaskingName;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.m.controls.UsedBikesCityCountByBrand.BindCountList()");
+            }
         }
     }
 }

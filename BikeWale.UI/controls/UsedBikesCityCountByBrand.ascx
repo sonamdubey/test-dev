@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.UsedBikesCityCountByBrand" %>
+﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.controls.UsedBikesCityCountByBrand" %>
 <% if(viewModel != null && viewModel.bikesCountCityList != null) { %>
 <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
     <div class="jcarousel">

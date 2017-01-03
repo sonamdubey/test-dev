@@ -27,15 +27,27 @@ namespace Bikewale.controls
                 BindCountList();
         }
 
+        /// <summary>
+        /// Created by Sajal Gupta on 20-01-2017
+        /// Desc : Function to bind brand india widget.
+        /// </summary>
         private void BindCountList()
         {
-            viewModel = new BindUsedBikesInCityCount(MakeId);
+            try
+            {
+                viewModel = new BindUsedBikesInCityCount(MakeId);
 
-            fetchedCount = (uint)viewModel.bikesCountCityList.Count();
+                if (viewModel.bikesCountCityList != null)
+                    fetchedCount = (uint)viewModel.bikesCountCityList.Count();
 
-            var objMake = new MakeHelper().GetMakeNameByMakeId(MakeId);
-            makeName = objMake.MakeName;
-            makeMaskingName = objMake.MaskingName;
+                var objMake = new MakeHelper().GetMakeNameByMakeId(MakeId);
+                makeName = objMake.MakeName;
+                makeMaskingName = objMake.MaskingName;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.controls.UsedBikesCityCountByBrand.BindCountList()");
+            }
         }
     }
 }
