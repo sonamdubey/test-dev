@@ -201,6 +201,7 @@ var usedBikes = function () {
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
+        $("#city-model-used-carousel").hide();
         var ele = $(e.target).find("option:selected");
         if (ele) {
             self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
@@ -209,7 +210,8 @@ var usedBikes = function () {
         else self.Filters()["city"] = "";
         self.GetUsedBikes();
     };
-    self.ApplyBikeFilter = function (d,e) {
+    self.ApplyBikeFilter = function (d, e) {
+        $("#city-model-used-carousel").hide();
         try {
             var selMakes = bikesList.find("div.accordion-tab.tab-checked span.unchecked-box");
             var selModels = bikesList.find("div.accordion-tab:not(.tab-checked)");
