@@ -299,6 +299,16 @@ var pageArray = [
         fileName: 'Default.aspx',
         stylesheet: 'm/css/home.css'
     },
+    {
+        folderName: 'includes/',
+        fileName: 'headscript_desktop_min.aspx',
+        stylesheet: 'css/bw-common-atf.css'
+    },
+    {
+        folderName: 'includes/',
+        fileName: 'headscript_mobile_min.aspx',
+        stylesheet: 'm/css/bwm-common-atf.css'
+    }
 ];
 
 // replace css reference with internal css
