@@ -17,7 +17,7 @@
         Ad_Bot_320x50 = true;
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/service/details.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/service/details.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>

@@ -16,7 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -113,7 +113,7 @@
                                     <tr class="table-head-row" style="text-align:left">
                                         <th valign="top" width="35%" align="left">Available in</th>
                                         <th valign="top" width="35%" align="left">Launched in</th>
-                                        <th valign="top" width="30%" align="left">Unit sold (<%= prevMonth %>)</th>
+                                        <th valign="top" width="30%" align="left">Unit sold <% if(bike.UnitsSold > 0){ %>(<%= bike.LastUpdatedModelSold.Value.ToString("MMM") %>)<%}%></th>
                                     </tr>
                                 </thead>
                                 <tbody>

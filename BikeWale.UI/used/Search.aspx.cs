@@ -1,9 +1,10 @@
 ﻿using Bikewale.BindViewModels.Webforms.Used;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
-using Bikewale.Mobile.Controls;
+using Bikewale.Utility.UsedCookie;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
@@ -20,18 +21,20 @@ namespace Bikewale.Used
         SearchUsedBikes objUsedBikesPage = null;
         protected string pageTitle = string.Empty, pageDescription = string.Empty, pageKeywords = string.Empty, pageCanonical = string.Empty
                  , heading = string.Empty, nextUrl = string.Empty, prevUrl = string.Empty, redirectUrl = string.Empty, alternateUrl = string.Empty,
-                 cityName = string.Empty;
+                 cityName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, cityMaskingName = string.Empty, makeName = string.Empty;
         protected IEnumerable<UsedBikeBase> usedBikesList = null;
         protected IEnumerable<CityEntityBase> citiesList = null;
         protected IEnumerable<BikeMakeModelBase> makeModelsList = null;
-        public LinkPagerControl ctrlPager;
+        public Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected ushort makeId;
-        protected uint modelId, cityId, totalListing;
+        protected uint modelId, cityId, totalListing, PageIdentifier = 0;
         protected CityEntityBase objCity = null;
         protected BikeMakeEntityBase objMake = null;
         protected int _startIndex = 0, _endIndex = 0;
         protected string currentQueryString = string.Empty;
-
+        protected UsedBikeByModels ctrlUsedBikeByModels;
+        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCount = null;
+        protected UsedBikeModelByCity ctrlUsedBikeModelByCity;
 
         #region events
 
@@ -40,11 +43,11 @@ namespace Bikewale.Used
             this.Load += new EventHandler(Page_Load);
         }
 
-
-
         /// <summary>
         /// Modified by : Sajal Gupta on 21/11/2016
         /// Desc : Added device detection
+        /// Modified By :Subodh Jain 2 jan 2017
+        /// Description:- Added cookie and widget binding function 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -57,8 +60,73 @@ namespace Bikewale.Used
             Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            LoadUsedBikesList();
+            UsedCookie.SetUsedCookie();
 
+            LoadUsedBikesList();
+            BindBrandIndiaWidget();
+            BindWigets();
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Bind Used bikes Widgets
+        /// </summary>
+        private void BindWigets()
+        {
+            try
+            {
+                if (cityId > 0 && modelId == 0)
+                {
+                    if (makeId > 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
+                    {
+                        ctrlUsedBikeByModels.CityId = cityId;
+                        ctrlUsedBikeByModels.MakeId = makeId;
+                        ctrlUsedBikeByModels.TopCount = 6;
+                        ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
+                        ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
+                        ctrlUsedBikeByModels.CityName = cityName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandCity);
+                    }
+                    else if (makeId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.UsedCity)
+                    {
+
+                        ctrlUsedBikeModelByCity.CityId = cityId;
+                        ctrlUsedBikeModelByCity.TopCount = 6;
+                        ctrlUsedBikeModelByCity.CityMaskingName = cityMaskingName;
+                        ctrlUsedBikeModelByCity.CityName = cityName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Used.Search.BindWigets");
+            }
+
+
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 2-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and city id is null;
+        /// </summary>
+        private void BindBrandIndiaWidget()
+        {
+            try
+            {
+                if (makeId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
+                {
+                    ctrlUsedBikesCityCount.MakeId = makeId;
+                    ctrlUsedBikesCityCount.MakeMaskingName = makeMaskingName;
+                    ctrlUsedBikesCityCount.MakeName = makeName;
+                    PageIdentifier = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandIndiaWidget");
+            }
         }
 
         /// <summary>
@@ -66,7 +134,11 @@ namespace Bikewale.Used
         /// Description : Bind Used bikes search page with listing,cities and makemodels
         /// Modified by :   Sumit Kate on 28 Sep 2016
         /// Description :   Use property RedirectionUrl
-        /// </summary>
+        /// Modiefied By:Subodh Jain 2 jan 2017
+        /// Description :- Addded makeMaskingName modelMaskingName cityMaskingName  
+        /// Modified by : Sajal Gupta on 03-01-2017
+        /// Desc : Read makeName from view model
+        /// </summary>                            
         private void LoadUsedBikesList()
         {
             objUsedBikesPage = new SearchUsedBikes();
@@ -96,7 +168,10 @@ namespace Bikewale.Used
                 makeModelsList = objUsedBikesPage.MakeModels;
                 usedBikesList = objUsedBikesPage.UsedBikes.Result;
                 currentQueryString = objUsedBikesPage.CurrentQS;
-
+                makeMaskingName = objUsedBikesPage.makeMaskingName;
+                modelMaskingName = objUsedBikesPage.modelMaskingName;
+                cityMaskingName = objUsedBikesPage.cityMaskingName;
+                makeName = objUsedBikesPage.Make;
             }
             else
             {
@@ -109,7 +184,6 @@ namespace Bikewale.Used
                 {
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                 }
-
 
             }
 

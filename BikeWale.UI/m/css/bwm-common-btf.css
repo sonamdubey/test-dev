@@ -148,7 +148,7 @@ footer ul li a { display: inline-block; color: #fff; padding: 10px; }
 footer ul li a:hover { text-decoration: underline; }
 
 /** Swiper 3.1.7 **/
-.swiper-container { margin: 0 auto; position: relative; overflow: hidden; /* Fix of Webkit flickering */
+.swiper-container { margin: 0 auto; padding-right: 15px; position: relative; overflow: hidden; /* Fix of Webkit flickering */
 z-index: 1; }
 .swiper-container-no-flexbox .swiper-slide { float: left; }
 .swiper-container-vertical > .swiper-wrapper { -webkit-box-orient: vertical; -moz-box-orient: vertical; -ms-flex-direction: column; -webkit-flex-direction: column; flex-direction: column; }

@@ -2,11 +2,9 @@
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -34,9 +32,11 @@ namespace Bikewale.Mobile.Content
         protected String _newsId = String.Empty;
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         private BikeMakeEntityBase _taggedMakeObj;
+        private BikeModelEntityBase _taggedModelObj;
         protected GlobalCityAreaEntity currentCityArea;
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
@@ -151,6 +151,8 @@ namespace Bikewale.Mobile.Content
 
         /// <summary>
         /// PopulateWhere to set news details
+        /// Modified By : Sushil Kumar on 2nd Jan 2016
+        /// Description : Get tagged model for article 
         /// </summary>
         private void GetNewsData()
         {
@@ -165,7 +167,10 @@ namespace Bikewale.Mobile.Content
             if (objNews != null && objNews.VehiclTagsList.Count > 0)
             {
                 _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
-                FetchMakeDetails();
+                _taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)_taggedMakeObj.MakeId);
+                _taggedModelObj = objNews.VehiclTagsList.FirstOrDefault().ModelBase;
+                _taggedModelObj = new Bikewale.common.ModelHelper().GetModelDataById((uint)_taggedModelObj.ModelId);
+
             }
             if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
                 nextPageUrl = objNews.NextArticle.BasicId + "-" + objNews.NextArticle.ArticleUrl + ".html";
@@ -184,6 +189,8 @@ namespace Bikewale.Mobile.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: bind upcoming and popular bikes
+        /// Modified By : Sushil Kumar on 2nd Jan 2016
+        /// Description : Bind ctrlGenericBikeInfo control 
         /// </summary>
         protected void BindPageWidgets()
         {
@@ -209,6 +216,10 @@ namespace Bikewale.Mobile.Content
                         ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                         ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     }
+                    if (_taggedModelObj != null)
+                    {
+                        ctrlGenericBikeInfo.ModelId = (uint)_taggedModelObj.ModelId;
+                    }
 
                 }
             }
@@ -218,31 +229,6 @@ namespace Bikewale.Mobile.Content
                 objErr.SendMail();
             }
 
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 16 Nov 2016
-        /// Description: get make details according to makeid
-        /// </summary>
-        private void FetchMakeDetails()
-        {
-            try
-            {
-                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
-                {
-
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.newsdetails.FetchMakeDetails");
-                objErr.SendMail();
-            }
         }
     }
 }

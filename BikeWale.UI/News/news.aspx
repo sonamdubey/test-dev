@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Import NameSpace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -83,6 +84,9 @@
 										<div class="clear"></div>
 									</div>
 								</div>
+
+                                 <BW:GenericBikeInfo  ID="ctrlGenericBikeInfo" runat="server" />
+
 								<div class="border-solid-top padding-top10">
 									<% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))
 									   { %>

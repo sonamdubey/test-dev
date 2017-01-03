@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,10 +42,11 @@
                 </div>
                 <div class="article-content-padding">
                     <div id="divDesc" class="article-content">
-                    <%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
-                        <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
-                    <%= String.IsNullOrEmpty(newsContent) ? "" : newsContent %>
-                </div>
+                        <%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
+                            <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
+                        <%= String.IsNullOrEmpty(newsContent) ? "" : newsContent %>
+                    </div>
+                 <BW:GenericBikeInfo  ID="ctrlGenericBikeInfo" runat="server" />
 
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">

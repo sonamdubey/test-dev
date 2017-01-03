@@ -256,3 +256,99 @@
 .stage-photos:hover .media-prev-next-stage, .navigation-media:hover .media-prev-next-nav {
     display: block;
 }
+
+/* model-slug-content */
+.model-slug-content {
+    padding: 8px 0 8px 5px;
+    border: 1px solid #a0d9e1;
+    margin-bottom: 20px;
+}
+
+.model-slug-content .item-image-content {
+    width: 68px;
+    height: 38px;
+    margin-right: 5px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+}
+
+.item-image-content img {
+    width: 100%;
+}
+
+.model-slug-content .bike-details-block {
+    font-size: 15px;
+    width: 190px;
+    padding-right: 10px;
+}
+
+.bike-details-block .text-truncate {
+    width: 100%;
+}
+
+.item-more-details-list li {
+    float: left;
+    margin-left: 10px;
+}
+
+.item-more-details-list li:first-child {
+    margin-left: 0;
+}
+
+.item-more-details-list a {
+    display: block;
+    padding: 0 7px 2px;
+    color: #787878;
+    background: rgba(245, 245, 245, 0.9);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.item-more-details-list a:hover {
+    text-decoration: none;
+}
+
+.item-more-details-list .icon-label {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 12px;
+}
+
+/* icons */
+.generic-sprite {
+  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
+  display: inline-block; }
+
+.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  position: relative;
+  top: 1px; }
+
+.reviews-sm {
+  background-position: -84px -3px; }
+
+.news-sm {
+  background-position: -102px -3px; }
+
+.videos-sm {
+  background-position: -121px -3px; }
+
+.specs-sm {
+  background-position: -140px -3px; }
+
+.photos-sm {
+  width: 16px;
+  background-position: -213px -207px; }
+
+@media only screen and (max-width: 1024px) {
+    .model-slug-content .bike-details-block {
+        width: 185px;
+    }
+    .item-more-details-list li {
+        margin-left: 5px;
+    }
+}
