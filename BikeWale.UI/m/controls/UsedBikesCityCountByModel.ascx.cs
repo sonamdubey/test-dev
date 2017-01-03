@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created by Sajal Gupta on 20-01-2017
+    /// Desc : Class to bind mpdel india widget.
+    /// </summary>
     public class UsedBikesCityCountByModel : System.Web.UI.UserControl
     {
         public BindUsedBikesInCityCount viewModel = null;
@@ -13,7 +17,6 @@ namespace Bikewale.Mobile.Controls
         public string ModelMaskingName { get; set; }
         public string MakeMaskingName { get; set; }
         public uint fetchedCount;
-
 
         protected override void OnInit(EventArgs e)
         {

@@ -187,7 +187,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandIndiaWidget");
+                ErrorClass objErr = new ErrorClass(ex, "Search.BindModelIndiaWidget");
             }
         }
         #endregion
