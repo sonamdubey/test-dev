@@ -3,6 +3,7 @@
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCount" %>
 <%@ Register Src="/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
+<%@ Register Src="/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
 
 <!DOCTYPE html>
 <html>
@@ -105,15 +106,19 @@
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>  
                                 <%if (ctrlUsedBikeByModels.FetchCount > 0)
                                   { %>   
-                                <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
+                                        <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
                                  <%}
                                   else if (ctrlUsedBikesCityCount.fetchedCount > 0)
                                   { %>
                                 <BW:UBCCount runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCount>        
+                                <%} %>
+                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                                        <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
+                               <%}%>
                             <% } %>                                  
                             </div>
                             <% } %>  
-                            <div id="search-listing-content" class="position-rel bg-white">
+                    <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">
                                     <div id="loader-right-column"></div>
                                     <div class="margin-top15 font12 padding-bottom5 border-solid-bottom" data-bind="visible: PreviousQS() != ''">

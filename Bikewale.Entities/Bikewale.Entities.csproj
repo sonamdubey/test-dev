@@ -310,6 +310,7 @@
     <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikeCities.cs" />
     <Compile Include="Used\UsedBikesCountInCity.cs" />
+    <Compile Include="Used\UsedBikePageEntity.cs" />
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />

@@ -35,8 +35,8 @@ namespace Bikewale.Mobile.Controls
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            Bindwidget();
+            if (MakeId > 0 && CityId > 0)
+                Bindwidget();
 
         }
         /// <summary>

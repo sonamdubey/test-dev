@@ -507,12 +507,16 @@ var usedBikes = function () {
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
-                        if (!$('body').hasClass('city-model-carousel-inactive')) {
-                            $('html, body').scrollTop(cityModelCarousel.offset().top - 50);
+                        if (cityModelCarousel && cityModelCarousel.offset())
+                        {
+                            if (!$('body').hasClass('city-model-carousel-inactive')) {
+                                $('html, body').scrollTop(cityModelCarousel.offset().top - 50);
+                            }
+                            else {
+                                $('html, body').scrollTop(listingStartPoint.offset().top - 50);
+                            }
                         }
-                        else {
-                            $('html, body').scrollTop(listingStartPoint.offset().top - 50);
-                        }
+                        
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);

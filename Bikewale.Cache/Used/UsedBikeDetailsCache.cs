@@ -82,11 +82,29 @@ namespace Bikewale.Cache.Used
             string key = String.Format("BW_UsedBikeByModelCountCity_makeid_{0}_cityid_{1}", makeid, cityid);
             try
             {
-                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetUsedBikeByModelCountInCity(makeid, cityid, topcount));
+                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeByModelCountInCity(makeid, cityid, topcount));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetUsedBikeByModelCountInCity");
+            }
+            return objUsedBikes;
+        }
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model Count In City
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetUsedBikeCountInCity(uint cityid, uint topcount)
+        {
+            IEnumerable<MostRecentBikes> objUsedBikes = null;
+            string key = String.Format("BW_GetUsedBikeCountInCity_cityid_{0}", cityid);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeCountInCity(cityid, topcount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsCache.GetUsedBikeCountInCity:_cityid:{0}", cityid));
             }
             return objUsedBikes;
         }
