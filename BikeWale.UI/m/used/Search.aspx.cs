@@ -140,7 +140,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandCityWidget");
+                ErrorClass objErr = new ErrorClass(ex, "Mobile.Used.Search.BindBrandCityWidget");
             }
 
 
@@ -164,7 +164,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandIndiaWidget");
+                ErrorClass objErr = new ErrorClass(ex, "Mobile.Used.Search.BindBrandIndiaWidget");
             }
         }
 
@@ -187,7 +187,7 @@ namespace Bikewale.Mobile.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindModelIndiaWidget");
+                ErrorClass objErr = new ErrorClass(ex, "Mobile.Used.Search.BindModelIndiaWidget");
             }
         }
         #endregion

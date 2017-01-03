@@ -17,7 +17,7 @@ namespace Bikewale.BindViewModels.Controls
     public class BindUsedBikesInCityCount
     {
         public IEnumerable<UsedBikesCountInCity> bikesCountCityList { get; set; }
-        private IUsedBikeDetailsCacheRepository objCache = null;
+        private readonly IUsedBikeDetailsCacheRepository _objCache = null;
 
         public BindUsedBikesInCityCount()
         {
@@ -28,7 +28,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
                         .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
                         .RegisterType<ICacheManager, Bikewale.Cache.Core.MemcacheManager>();
-                    objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                    _objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
                 }
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Bikewale.BindViewModels.Controls
             {
                 if (makeId > 0)
                 {
-                    bikesCountCityList = objCache.GetUsedBikeInCityCountByMake(makeId);
+                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByMake(makeId);
                 }
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace Bikewale.BindViewModels.Controls
             {
                 if (modelId > 0)
                 {
-                    bikesCountCityList = objCache.GetUsedBikeInCityCountByModel(modelId);
+                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByModel(modelId);
                 }
             }
             catch (Exception ex)
