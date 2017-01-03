@@ -5,7 +5,7 @@
         <ul>
             <% foreach(var cityBikeCount in viewModel.bikesCountCityList) { %>
             <li>
-                <a href="<%= string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityBikeCount.CityMaskingName) %>" title="<%= string.Format("Used {0} bikes in {1}", makeName, cityBikeCount.CityName) %>" class="card-target-block">
+                <a href="<%= string.Format("/used/{0}-bikes-in-{1}/", MakeMaskingName, cityBikeCount.CityMaskingName) %>" title="<%= string.Format("Used {0} bikes in {1}", MakeName, cityBikeCount.CityName) %>" class="card-target-block">
                     <div class="card-image-placeholder">
                         <span class="city-sm-sprite mumbai-sm-icon"></span>
                     </div>

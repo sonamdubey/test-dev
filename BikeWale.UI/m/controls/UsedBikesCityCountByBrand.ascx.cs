@@ -13,8 +13,10 @@ namespace Bikewale.Mobile.Controls
     {
         public BindUsedBikesInCityCount viewModel = null;
         public uint MakeId { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string MakeName { get; set; }
         public uint fetchedCount;
-        public string makeName = String.Empty, makeMaskingName = String.Empty;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -37,15 +39,14 @@ namespace Bikewale.Mobile.Controls
             {
                 viewModel = new BindUsedBikesInCityCount(MakeId);
 
-                fetchedCount = (uint)viewModel.bikesCountCityList.Count();
-
-                var objMake = new MakeHelper().GetMakeNameByMakeId(MakeId);
-                makeName = objMake.MakeName;
-                makeMaskingName = objMake.MaskingName;
+                if (viewModel.bikesCountCityList != null)
+                {
+                    fetchedCount = (uint)viewModel.bikesCountCityList.Count();
+                }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.m.controls.UsedBikesCityCountByBrand.BindCountList()");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Controls.UsedBikesCityCountByBrand.BindCountList()");
             }
         }
     }
