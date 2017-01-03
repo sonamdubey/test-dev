@@ -100,7 +100,8 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikesCityCount.fetchedCount > 0) { %>                                                           
+                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikesCityCount.fetchedCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0)
+                               { %>                                                           
                             <div id="city-model-used-carousel">                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>  
@@ -114,8 +115,7 @@
                                 <%} %>
                                 <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
                                         <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
-                               <%}%>
-                            <% } %>                                  
+                               <%}%>                                  
                             </div>
                             <% } %>  
                     <div id="search-listing-content" class="position-rel bg-white">

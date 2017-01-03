@@ -156,7 +156,6 @@ namespace Bikewale.Mobile.Used
             }
 
         }
-        }
 
         /// <summary>
         /// Created by : Sajal Gupta on 2-01-2017
@@ -177,6 +176,7 @@ namespace Bikewale.Mobile.Used
             {
                 ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandIndiaWidget");
             }
+        }
+    }
         #endregion
-    } // class
-}   // namespace
+}

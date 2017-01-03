@@ -63,6 +63,7 @@ namespace Bikewale.Used
             UsedCookie.SetUsedCookie();
 
             LoadUsedBikesList();
+            BindBrandIndiaWidget();
             BindWigets();
         }
         /// <summary>
@@ -103,7 +104,6 @@ namespace Bikewale.Used
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Used.Search.BindWigets");
             }
 
-            BindBrandIndiaWidget();
 
         }
 
