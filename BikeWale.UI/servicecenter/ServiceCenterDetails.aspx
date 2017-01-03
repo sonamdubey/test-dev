@@ -131,7 +131,7 @@
                     <div class="clear"></div>
                 </div>
             </section>
-         <% if(ctrlServiceCenterCard.showWidget){ %>
+         <% if(ctrlServiceCenterCard.showWidget && ctrlServiceCenterCard.centerData!=null && ctrlServiceCenterCard.centerData.Count>1){ %>
             <section>
                 <div class="container section-bottom-margin">
                    <div class="grid-12">
