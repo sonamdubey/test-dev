@@ -183,11 +183,8 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

@@ -2454,6 +2454,7 @@
     <Content Include="includes\footermobile.aspx" />
     <Content Include="includes\footermobile_home.aspx" />
     <Content Include="includes\footermobile_noad.aspx" />
+    <Content Include="includes\fontBW.aspx" />
     <Content Include="includes\footerscript.aspx" />
     <Content Include="includes\footerscript_mobile.aspx" />
     <Content Include="includes\gacode_desktop.aspx" />

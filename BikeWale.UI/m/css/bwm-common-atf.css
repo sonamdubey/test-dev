@@ -111,6 +111,16 @@ header.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 3; }
 header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-index: 3;}
 .header-fixed-inner { padding-top: 65px; }
 
+/* welcome box home page classes */
+.welcome-box { text-align: center; color: #fff; }
+.bw-tabs { display: block; }
+.bw-tabs-flex { display:block; width:100%; overflow-x:auto;margin-bottom: 25px; -webkit-overflow-scrolling: touch; }
+.bw-tabs-flex ul { border-bottom: 1px solid #cccccc; width:100%;display:table }
+.bw-tabs-flex li { display: table-cell; white-space:nowrap; padding: 10px; text-align: center; width: 1%; color: #82888b; font-size: 14px; cursor: pointer; }
+.bw-tabs-flex li:hover { color: #4d5057; }
+.bw-tabs-flex li.active { border-bottom: 4px solid #ef3f30; padding-bottom:4px; color: #4d5057; cursor:default; font-weight: 600; }
+.bw-tabs::-webkit-scrollbar {width: 0;}
+
 /* sprite classes */
 .bwmsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?26Dec2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
@@ -206,6 +216,9 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .padding-right20 { padding-right: 20px; }
 .padding-bottom20 { padding-bottom: 20px; }
 .padding-left20 { padding-left: 20px; }
+
+.position-rel { position: relative; }
+.position-abt { position: absolute; }
 
 .bg-white { background: #FFF; }
 .bg-light-grey { background: #f5f5f5; }
