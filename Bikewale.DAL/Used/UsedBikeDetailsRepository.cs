@@ -482,7 +482,7 @@ namespace Bikewale.DAL.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topcount));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -497,7 +497,7 @@ namespace Bikewale.DAL.Used
                                 {
                                     ModelName = Convert.ToString(dr["ModelName"]),
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
+                                    AvailableBikes = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     MakeMaskingName = Convert.ToString(dr["makeMaskingName"])

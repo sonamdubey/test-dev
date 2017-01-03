@@ -74,16 +74,34 @@ namespace Bikewale.Used
         {
             try
             {
-                if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
-                    BindBrandCityWidget();
-                else if (makeId == 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.UsedCity)
-                    BindUsedCityWidget();
+                if (cityId > 0 && modelId == 0)
+                {
+                    if (makeId > 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
+                    {
+                        ctrlUsedBikeByModels.CityId = cityId;
+                        ctrlUsedBikeByModels.MakeId = makeId;
+                        ctrlUsedBikeByModels.TopCount = 6;
+                        ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
+                        ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
+                        ctrlUsedBikeByModels.CityName = cityName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandCity);
+                    }
+                    else if (makeId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.UsedCity)
+                    {
+
+                        ctrlUsedBikeModelByCity.CityId = cityId;
+                        ctrlUsedBikeModelByCity.TopCount = 6;
+                        ctrlUsedBikeModelByCity.CityMaskingName = cityMaskingName;
+                        ctrlUsedBikeModelByCity.CityName = cityName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
+                    }
+                }
 
             }
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindWigets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Used.Search.BindWigets");
             }
 
         }
@@ -143,52 +161,6 @@ namespace Bikewale.Used
 
 
             }
-
-        }
-        /// <summary>
-        /// Created By : Subodh Jain on 2 jan 2017 
-        /// Description : Bind Used bikes Widget Used City
-        /// </summary>
-        private void BindUsedCityWidget()
-        {
-            try
-            {
-                ctrlUsedBikeModelByCity.CityId = cityId;
-                ctrlUsedBikeModelByCity.TopCount = 6;
-                ctrlUsedBikeModelByCity.CityMaskingName = cityMaskingName;
-                ctrlUsedBikeModelByCity.CityName = cityName;
-                PageIdentifier = 3;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindUsedCityWidget");
-            }
-
-
-        }
-        /// <summary>
-        /// Created By : Subodh Jain on 2 jan 2017 
-        /// Description : Bind Used bikes Widget
-        /// </summary>
-        private void BindBrandCityWidget()
-        {
-            try
-            {
-                ctrlUsedBikeByModels.CityId = cityId;
-                ctrlUsedBikeByModels.MakeId = makeId;
-                ctrlUsedBikeByModels.TopCount = 6;
-                ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
-                ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
-                ctrlUsedBikeByModels.CityName = cityName;
-                PageIdentifier = 1;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, "Search.BindBrandCityWidget");
-            }
-
 
         }
         #endregion

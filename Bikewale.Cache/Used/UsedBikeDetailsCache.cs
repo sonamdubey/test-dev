@@ -106,7 +106,7 @@ namespace Bikewale.Cache.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetUsedBikeCountInCity");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsCache.GetUsedBikeCountInCity:_cityid:{0}", cityid));
             }
             return objUsedBikes;
         }
