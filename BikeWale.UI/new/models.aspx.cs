@@ -72,6 +72,8 @@ namespace Bikewale.New
         /// Summary :- Added heading to dealer widget
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :  Added dealer card and service center card
+        /// Modified by :   Sumit Kate on 02 Jan 2017
+        /// Description :   Set Make name and masking name
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -103,6 +105,8 @@ namespace Bikewale.New
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.MakeId = Convert.ToInt32(makeId);
                 ctrlNews.WidgetTitle = _make.MakeName;
+                ctrlNews.MakeMaskingName = _make.MaskingName;
+                ctrlNews.MakeName = _make.MakeName;
 
                 ctrlExpertReviews.TotalRecords = 2;
                 ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);

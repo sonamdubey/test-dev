@@ -16,6 +16,10 @@ namespace Bikewale.Controls
         public uint TotalRecords { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
         public int FetchedRecordsCount { get; set; }
         public ArticleSummary firstPost;
         public string WidgetTitle { get; set; }

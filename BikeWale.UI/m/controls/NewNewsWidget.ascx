@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewNewsWidget" %>
+<%@ Import Namespace="Bikewale.Utility" %>
 <% if(ShowWidgetTitle) { %>
 <h2 class="text-bold"><%= WidgetTitle %> News</h2>
 <% } %>
@@ -30,7 +31,7 @@
 </asp:Repeater>
 
 <div>
-    <a href="/m/news/" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="/m<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} news", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} news",MakeName) : "News") %>" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 
 <div class="bw-tabs-data" id="ctrlNews">  

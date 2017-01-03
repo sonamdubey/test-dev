@@ -128,7 +128,6 @@ namespace Bikewale.News
             ctrlUpcomingBikes.pageSize = 9;
             ctrlUpcomingBikes.topCount = 3;
 
-
             if (_taggedMakeObj != null)
             {
                 ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
@@ -137,8 +136,6 @@ namespace Bikewale.News
                 ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                 ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
                 ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-
-
 
             }
             if (_taggedModelObj != null)
