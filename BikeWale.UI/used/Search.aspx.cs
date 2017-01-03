@@ -61,7 +61,7 @@ namespace Bikewale.Used
             dd.DetectDevice();
 
             UsedCookie.SetUsedCookie();
-            
+
             LoadUsedBikesList();
             if (makeId > 0 && cityId > 0 && modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandCity)
                 BindBrandCityWidget();
@@ -85,7 +85,7 @@ namespace Bikewale.Used
                     ctrlUsedBikesCityCountByMake.MakeId = makeId;
                     ctrlUsedBikesCityCountByMake.MakeMaskingName = makeMaskingName;
                     ctrlUsedBikesCityCountByMake.MakeName = makeName;
-                    PageIdentifier = 0;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
                 }
             }
             catch (Exception ex)
@@ -108,7 +108,7 @@ namespace Bikewale.Used
                     ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
                     ctrlUsedBikesCityCountByModel.ModelId = modelId;
                     ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
-                    PageIdentifier = 2;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
                 }
             }
             catch (Exception ex)

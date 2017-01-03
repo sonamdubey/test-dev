@@ -159,7 +159,7 @@ namespace Bikewale.Mobile.Used
                     ctrlUsedBikesCityCount.MakeId = makeId;
                     ctrlUsedBikesCityCount.MakeMaskingName = makeMaskingName;
                     ctrlUsedBikesCityCount.MakeName = makeName;
-                    PageIdentifier = 0;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
                 }
             }
             catch (Exception ex)
@@ -182,7 +182,7 @@ namespace Bikewale.Mobile.Used
                     ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
                     ctrlUsedBikesCityCountByModel.ModelId = modelId;
                     ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
-                    PageIdentifier = 2;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
                 }
             }
             catch (Exception ex)
