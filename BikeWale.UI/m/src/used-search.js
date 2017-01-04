@@ -183,7 +183,7 @@ var usedBikes = function()
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
-        $("#city-model-used-carousel").hide();
+
         var ele = $(e.target);
         if (!ele.hasClass("active")) {
             ele.addClass("active").siblings().removeClass("active");
@@ -191,7 +191,7 @@ var usedBikes = function()
         };
     };
     self.ApplyBikeFilter = function () {
-        $("#city-model-used-carousel").hide();
+       
         try {
             var selMakes = bikesList.find("div.accordion-tab.tab-checked span.unchecked-box");
             var selModels = bikesList.find("div.accordion-tab:not(.tab-checked)");
@@ -247,6 +247,7 @@ var usedBikes = function()
         self.Filters()["st"] = sellerList.substr(1);
     };
     self.ApplyFilters = function () {
+        $("#city-model-used-carousel").hide();
         try {
             self.ResetFilters();
             self.ApplyBikeFilter();

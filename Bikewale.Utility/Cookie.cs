@@ -23,7 +23,7 @@ namespace Bikewale.Utility
             this.Name = name;
             Path = "/";
             Expires = DateTime.MinValue;
-            if (Utility.BWConfiguration.Instance.WebsiteDomain != "localhost")
+            if (Utility.BWConfiguration.Instance.WebsiteDomain != "localhost" || Utility.BWConfiguration.Instance.WebsiteDomain != "webserver")
                 Domain = "." + Utility.BWConfiguration.Instance.WebsiteDomain;
             Secure = false;
             Values = new List<KeyValuePair<string, string>>();

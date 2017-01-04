@@ -106,7 +106,7 @@
         </div>
 
         <section>
-            <% if (ctrlServiceCenterCard.showWidget)
+            <% if (ctrlServiceCenterCard.showWidget && ctrlServiceCenterCard.centerData!=null && ctrlServiceCenterCard.centerData.Count>1)
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
