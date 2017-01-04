@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.Content
                 _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
                 _taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)_taggedMakeObj.MakeId);
                 _taggedModelObj = objNews.VehiclTagsList.FirstOrDefault().ModelBase;
-                _taggedModelObj = new Bikewale.common.ModelHelper().GetModelDataById((uint)_taggedModelObj.ModelId);
+                _taggedModelObj = new Bikewale.Common.ModelHelper().GetModelDataById((uint)_taggedModelObj.ModelId);
 
             }
             if (!String.IsNullOrEmpty(objNews.NextArticle.ArticleUrl))
