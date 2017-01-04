@@ -496,6 +496,9 @@ var sellBike = function () {
                             else {
                                 morePhotos.detach();
                             }
+                            $.each(myDropzone.getQueuedFiles(), function (index) {
+                                triggerGA('Sell_Page', 'Photo_Upload_Initiated', vmSellBike.inquiryId() + '_' + myDropzone.getQueuedFiles()[index].size);
+                            })
                         });
 
                         this.on("drop", function (file) {
