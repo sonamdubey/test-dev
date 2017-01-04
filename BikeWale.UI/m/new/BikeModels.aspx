@@ -59,6 +59,7 @@
     <meta itemprop="image" content="<%= modelImage %>" />
     <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>">  
     <meta itemprop="model" content="<%= modelPage.ModelDetails.ModelName %>"/>
+    <meta itemprop="brand" content="<%= modelPage.ModelDetails.MakeBase.MakeName %>"> 
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -98,8 +99,9 @@
                         <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                         <meta itemprop="worstRating" content="1">
                         <meta itemprop="bestRating" content="5">
+                        <meta itemprop="itemreviewed" content="<%= bikeName %>" />
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
-                                <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
+                                <span itemprop="ratingCount"><%= modelPage.ModelDetails.ReviewCount %>
                                 </span>Reviews
                             </a>
                         </span>
