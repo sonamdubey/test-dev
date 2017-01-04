@@ -17,6 +17,7 @@ namespace Bikewale.Controls
         public uint MakeId { get; set; }
         public uint CityId { get; set; }
         public string MakeMaskingName { get; set; }
+        public string MakeName { get; set; }
         public string ModelMaskingName { get; set; }
         public string CityMaskingName { get; set; }
         public string CityName { get; set; }
