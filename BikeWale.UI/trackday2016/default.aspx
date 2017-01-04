@@ -87,7 +87,7 @@
                     <h2 class="section-header">Video</h2>
                     <div class="content-box-shadow">
                         <div id="track-day-video" class="video-content">
-                            <iframe id="td-iframe-video" width="976" height="549" src="https://www.youtube.com/embed/94hLbNXL3JE" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="td-iframe-video" width="976" height="549" src="https://www.youtube.com/embed/XuEp3JO6zCw" frameborder="0" allowfullscreen></iframe>
                             <div class="bg-loader-placeholder"></div>
                             <div c="bw_trackday" a="Track day video" l="bw_trackday" class="video-overlay cur-pointer bw-ga"></div>
                         </div>

@@ -29,7 +29,7 @@
         <section>
             <div class="container text-center section-container">
                 <div class="video-content">
-                    <iframe width="320" height="180" src="https://www.youtube.com/embed/94hLbNXL3JE" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="320" height="180" src="https://www.youtube.com/embed/XuEp3JO6zCw" frameborder="0" allowfullscreen></iframe>
                     <div class="bg-loader-placeholder"></div>
                 </div>
             </div>
