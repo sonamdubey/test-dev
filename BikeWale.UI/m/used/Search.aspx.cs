@@ -90,20 +90,23 @@ namespace Bikewale.Mobile.Used
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
                     }
                 }
-                else if (makeId != 0 && modelId == 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
+                else if (makeId != 0 && cityId == 0)
                 {
-                    ctrlUsedBikesCityCountByMake.MakeId = makeId;
-                    ctrlUsedBikesCityCountByMake.MakeMaskingName = makeMaskingName;
-                    ctrlUsedBikesCityCountByMake.MakeName = makeName;
-                    PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
-                }
-                else if (makeId != 0 && modelId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.ModelIndia)
-                {
-                    ctrlUsedBikesCityCountByModel.ModelName = modelName;
-                    ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
-                    ctrlUsedBikesCityCountByModel.ModelId = modelId;
-                    ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
-                    PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
+                    if (modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
+                    {
+                        ctrlUsedBikesCityCountByMake.MakeId = makeId;
+                        ctrlUsedBikesCityCountByMake.MakeMaskingName = makeMaskingName;
+                        ctrlUsedBikesCityCountByMake.MakeName = makeName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
+                    }
+                    else if (modelId != 0 && Bikewale.Utility.UsedCookie.UsedCookie.ModelIndia)
+                    {
+                        ctrlUsedBikesCityCountByModel.ModelName = modelName;
+                        ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
+                        ctrlUsedBikesCityCountByModel.ModelId = modelId;
+                        ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
+                        PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
+                    }
                 }
             }
             catch (Exception ex)
