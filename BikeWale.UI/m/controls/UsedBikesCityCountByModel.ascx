@@ -10,7 +10,7 @@
             <div class="swiper-card">
                 <a href="<%= string.Format("/m/used/{0}-{1}-bikes-in-{2}/", MakeMaskingName, ModelMaskingName, cityBikeCount.CityMaskingName) %>" title="<%= string.Format("Used {0} bikes in {1}", ModelName, cityBikeCount.CityName) %>" class="card-target-block">    
                     <div class="card-image-placeholder">
-                        <span class="city-sm-sprite pune-sm-icon"></span>
+                        <span class="city-sm-sprite c<%= cityBikeCount.CityId %>-sm-icon"></span>
                     </div>
                     <div class="card-details-placeholder">
                         <h2 class="font14 text-truncate margin-bottom5"><%=cityBikeCount.CityName %></h2>

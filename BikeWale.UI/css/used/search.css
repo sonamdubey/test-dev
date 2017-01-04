@@ -81,6 +81,7 @@
     width: 80px;
     height: 45px;
     text-align: center;
+    padding-top: 7px;
 }
 
 .type-model-carousel .card-image-placeholder {
@@ -140,24 +141,53 @@
 
 /* city-sm-sprite */
 .city-sm-sprite {
-    background: url('') no-repeat;
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sm-sprite.png?04Jan2017v2) no-repeat;
     display: inline-block;
 }
-
-.mumbai-sm-icon {
-    width: 52px;
+/*
+1   mumbai
+2   bangalore
+10  new-delhi
+12  pune
+105 hyderabad
+176 chennai
+198 kolkata
+220 lucknow
+*/
+.c2-sm-icon, .c176-sm-icon, .c10-sm-icon, .c105-sm-icon, .c198-sm-icon, .c220-sm-icon, .c1-sm-icon, .c12-sm-icon {
     height: 32px;
-    background-position: 0 0;
-    position: relative;
-    top: 6px;
 }
-
-.pune-sm-icon {
+.c1-sm-icon {
+    width: 52px;
+    background-position: 0 0;
+}
+.c12-sm-icon {
     width: 74px;
-    height: 32px;
     background-position: -57px 0;
-    position: relative;
-    top: 6px;
+}
+.c2-sm-icon {
+    width: 54px;
+    background-position: -136px 0;
+}
+.c10-sm-icon {
+    width: 25px;
+    background-position: -195px 0;
+}
+.c176-sm-icon {
+    width: 21px;
+    background-position: -225px 0;
+}
+.c105-sm-icon {
+    width: 22px;
+    background-position: -251px 0;
+}
+.c198-sm-icon {
+    width: 72px;
+    background-position: -278px 0;
+}
+.c220-sm-icon {
+    width: 70px;
+    background-position: -355px 0;
 }
 
 /* selected filters */
