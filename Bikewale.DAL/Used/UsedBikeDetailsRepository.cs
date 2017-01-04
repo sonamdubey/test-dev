@@ -513,7 +513,7 @@ namespace Bikewale.DAL.Used
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by make
         /// </summary>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, uint topCount)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount)
         {
             IList<UsedBikesCountInCity> bikesCountList = null;
             try
@@ -556,7 +556,7 @@ namespace Bikewale.DAL.Used
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by model
         /// </summary>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, uint topCount)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount)
         {
             IList<UsedBikesCountInCity> bikesCountList = null;
             try

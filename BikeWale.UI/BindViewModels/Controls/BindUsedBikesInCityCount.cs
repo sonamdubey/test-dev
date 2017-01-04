@@ -41,7 +41,7 @@ namespace Bikewale.BindViewModels.Controls
         /// Created by Sajal Gupta on 03-01-2017
         /// Desc : function to bind used bikes in city count list by make
         /// </summary>
-        public void BindUsedBikesInCityCountByMake(uint makeId, uint topCount)
+        public void BindUsedBikesInCityCountByMake(uint makeId, ushort topCount)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Bikewale.BindViewModels.Controls
         /// Created by Sajal Gupta on 03-01-2017
         /// Desc : function to bind used bikes in city count list by model
         /// </summary>
-        public void BindUsedBikesInCityCountByModel(uint modelId, uint topCount)
+        public void BindUsedBikesInCityCountByModel(uint modelId, ushort topCount)
         {
             try
             {

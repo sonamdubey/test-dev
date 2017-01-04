@@ -30,7 +30,7 @@ namespace Bikewale.Interfaces.Used
         IEnumerable<BikePhoto> GetBikePhotos(uint inquiryId, bool isApproved);
         IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount);
         IEnumerable<MostRecentBikes> GetUsedBikeCountInCity(uint cityid, uint topcount);
-        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, uint topCount);
-        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, uint topCount);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount);
     }
 }

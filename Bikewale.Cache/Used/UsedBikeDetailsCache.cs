@@ -178,7 +178,7 @@ namespace Bikewale.Cache.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, uint topCount)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount)
         {
             IEnumerable<UsedBikesCountInCity> bikesCountList = null;
             string key = String.Format("BW_Used_Bikes_City_Count_Make_{0}_Count_{1}", makeId, topCount);
@@ -199,7 +199,7 @@ namespace Bikewale.Cache.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, uint topCount)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount)
         {
             IEnumerable<UsedBikesCountInCity> bikesCountList = null;
             string key = String.Format("BW_Used_Bikes_City_Count_Model_{0}_Count_{1}", modelId, topCount);
