@@ -9,7 +9,7 @@
         </a>
         <div class="bike-details-block inline-block">
             <p class="font12 text-light-grey">More info about:</p>
-            <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"><%= bikeName %></a>
+            <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"  title="<%= bikeName %>"><%= bikeName %></a>
         </div>
     </div>
     <ul class="item-more-details-list">
