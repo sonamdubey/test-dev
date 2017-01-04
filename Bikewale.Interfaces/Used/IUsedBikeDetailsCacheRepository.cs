@@ -25,9 +25,9 @@ namespace Bikewale.Interfaces.Used
         IEnumerable<OtherUsedBikeDetails> GetOtherBikesByCityId(uint inquiryId, uint cityId, ushort topCount);
         InquiryDetails GetInquiryDetailsByProfileId(string profileId, string customerId);
         IEnumerable<OtherUsedBikeDetails> GetRecentUsedBikesInIndia(ushort topCount);
-        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId);
         IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount);
         IEnumerable<MostRecentBikes> GetUsedBikeCountInCity(uint cityid, uint topcount);
-        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, uint topCount);
+        IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, uint topCount);
     }
 }

@@ -41,18 +41,18 @@ namespace Bikewale.BindViewModels.Controls
         /// Created by Sajal Gupta on 03-01-2017
         /// Desc : function to bind used bikes in city count list by make
         /// </summary>
-        public void BindUsedBikesInCityCountByMake(uint makeId)
+        public void BindUsedBikesInCityCountByMake(uint makeId, uint topCount)
         {
             try
             {
                 if (makeId > 0)
                 {
-                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByMake(makeId);
+                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByMake(makeId, topCount);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByMake {0}", makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByMake {0} {1}", makeId, topCount));
             }
         }
 
@@ -60,18 +60,18 @@ namespace Bikewale.BindViewModels.Controls
         /// Created by Sajal Gupta on 03-01-2017
         /// Desc : function to bind used bikes in city count list by model
         /// </summary>
-        public void BindUsedBikesInCityCountByModel(uint modelId)
+        public void BindUsedBikesInCityCountByModel(uint modelId, uint topCount)
         {
             try
             {
                 if (modelId > 0)
                 {
-                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByModel(modelId);
+                    bikesCountCityList = _objCache.GetUsedBikeInCityCountByModel(modelId, topCount);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByModel {0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikesInCityCount.BindUsedBikesInCityCountByModel {0} {1}", modelId, topCount));
             }
         }
     }

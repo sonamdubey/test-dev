@@ -16,6 +16,7 @@ namespace Bikewale.Controls
         public string MakeName { get; set; }
         public string MakeMaskingName { get; set; }
         public uint FetchedCount { get; set; }
+        public uint Count { get; set; }
 
 
         protected override void OnInit(EventArgs e)
@@ -38,7 +39,11 @@ namespace Bikewale.Controls
             try
             {
                 viewModel = new BindUsedBikesInCityCount();
-                viewModel.BindUsedBikesInCityCountByMake(MakeId);
+
+                if (Count == 0)
+                    Count = 6;
+
+                viewModel.BindUsedBikesInCityCountByMake(MakeId, Count);
 
                 if (viewModel.bikesCountCityList != null)
                 {
