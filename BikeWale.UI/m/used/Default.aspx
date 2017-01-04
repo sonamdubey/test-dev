@@ -148,7 +148,7 @@
                                         </div>
                                         <div class="swiper-details-block">
                                             <h3 class="font14 margin-bottom5"><%=objCity.CityName %></h3>
-                                            <p class="font14 text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                            <p class="font14 text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                         </div>
                                     </a>
                                 </div>
