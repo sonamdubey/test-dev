@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="padding-right10 padding-left10">
                                         <p class="text-bold"><%=objCity.CityName %></p>
-                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                        <p class="text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                     </div>
                                 </a>
                             </li>
@@ -68,7 +68,7 @@
                         <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in UsedBikeCityCountList)
                           {%>
                         <li>
-                            <a href="/m/used/<%=makeMaskingName %>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName %> bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%></a>
+                            <a href="/m/used/<%=makeMaskingName %>-bikes-in-<%=objCity.CityMaskingName %>/" title="Used <%=MakeDetails.MakeName %> bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.BikesCount )%></a>
                         </li>                       <%} %>
                     </ul>
                     <div id="city-no-result" class="no-result-found"></div>
