@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Used.Search" EnableViewState="false" %>
 <%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
-<%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCount" %>
+<%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCountByMake" %>
 <%@ Register Src="/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
 <%@ Register Src="/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
+<%@ Register Src="/controls/UsedBikesCityCountByModel.ascx" TagPrefix="BW" TagName="UBCCountByModel" %>
 
 <!DOCTYPE html>
 <html>
@@ -100,7 +101,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikesCityCount.fetchedCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0)
+                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                                { %>                                                           
                             <div id="city-model-used-carousel">                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
@@ -109,9 +110,13 @@
                                   { %>   
                                         <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
                                  <%}
-                                  else if (ctrlUsedBikesCityCount.fetchedCount > 0)
+                                  else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
                                   { %>
-                                <BW:UBCCount runat="server" ID="ctrlUsedBikesCityCount"></BW:UBCCount>        
+                                <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCountByMake"></BW:UBCCountByMake>        
+                            <% } 
+                               else if(ctrlUsedBikesCityCountByModel.FetchedCount > 0)
+                               { %>    
+                                    <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
                                 <%} %>
                                 <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
                                         <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />

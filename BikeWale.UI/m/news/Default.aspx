@@ -4,12 +4,12 @@
 <html>
 <head>
     <% 
-	    title       = "Bike News - Latest Indian Bike News & Views - BikeWale";
-	    description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
-	    keywords    = "news, bike news, auto news, latest bike news, indian bike news, bike news of india"; 
-	    canonical   = "https://www.bikewale.com/news/";
-	    relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
-	    relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
+	    title       = objNews.PageTitle;
+	    description = objNews.Description;
+	    keywords    = objNews.Keywords; 
+	    canonical   = objNews.Canonical;
+	    relPrevPageUrl = objNews.prevUrl;
+	    relNextPageUrl = objNews.nextUrl;
 	    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
 	    AdId = "1398766302464";
 	    Ad_320x50 = true;
@@ -32,37 +32,36 @@
                 <h1 class="box-shadow padding-15-20">Latest Bike News</h1>
 
                 <div id="divListing" class="article-list">
-			        <asp:Repeater id="rptNews" runat="server">
-				        <ItemTemplate>
-					        <a href="<%# string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),Convert.ToString(DataBinder.Eval(Container.DataItem,"CategoryId")))) %>" title="<%# DataBinder.Eval(Container.DataItem,"Title") %>">
-                                <div class="article-item-content <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")).ToLower().Contains("sponsored") ? "sponsored-content" : ""%>">
+			        <% foreach (var news in newsArticles)
+	{ %>
+					        <a href="<%= string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString( news.BasicId),news.ArticleUrl,Convert.ToString(news.CategoryId))) %>" title="<%=  news.Title %>">
+                                <div class="article-item-content <%= news.AuthorName.ToLower().Contains("sponsored") ? "sponsored-content" : ""%>">
 
-                                    <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+                                    <%= Regex.Match(news.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                                     
                                     <div class="article-wrapper">
 								        <div class="article-image-wrapper">
-									        <img class="lazy" alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title="<%# DataBinder.Eval(Container.DataItem,"Title") %>" data-original='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
+									        <img class="lazy" alt='<%= news.Title %>' title="<%= news.Title %>" data-original='<%= Bikewale.Utility.Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl,Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
 								        </div>
 								        <div class="padding-left10 article-desc-wrapper">
 									        <div class="article-category">
-										        <span class="text-uppercase font12 text-bold"><%# GetContentCategory(DataBinder.Eval(Container.DataItem,"CategoryId").ToString()) %></span>
+										        <span class="text-uppercase font12 text-bold"><%= GetContentCategory(Convert.ToString(news.CategoryId)) %></span>
 									        </div>
-									        <h2 class="font14"><%# DataBinder.Eval(Container.DataItem,"Title") %></h2>
+									        <h2 class="font14"><%= news.Title %></h2>
 								        </div>
 							        </div>
 
 							        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-								        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+								        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(news.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
 							        </div>
 
 							        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-								        <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem,"AuthorName") %></span>
+								        <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%= news.AuthorName %></span>
 							        </div>
 							        <div class="clear"></div>
                                 </div>
                             </a> 
-				        </ItemTemplate>
-			         </asp:Repeater>              
+                                 <%} %>
 		        </div>
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                     <div class="grid-5 omega text-light-grey font13">

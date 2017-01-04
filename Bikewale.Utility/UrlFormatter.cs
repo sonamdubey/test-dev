@@ -341,6 +341,31 @@ namespace Bikewale.Utility
             }
             return url;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 02 jan 2017
+        /// Description :   Format News Url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatNewsUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = String.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/news/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/news/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/news/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
     }
 }
 

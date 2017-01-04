@@ -178,17 +178,38 @@ namespace Bikewale.Cache.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCount(uint makeId)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId)
         {
             IEnumerable<UsedBikesCountInCity> bikesCountList = null;
-            string key = String.Format("BW_Used_Bikes_City_Count_{0}", makeId);
+            string key = String.Format("BW_Used_Bikes_City_Count_Make_{0}", makeId);
             try
             {
-                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCount(makeId));
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByMake(makeId));
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}", makeId));
+            }
+            return bikesCountList;
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 03-01-2017
+        /// Description : Cache function to read available used bikes in city by model
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId)
+        {
+            IEnumerable<UsedBikesCountInCity> bikesCountList = null;
+            string key = String.Format("BW_Used_Bikes_City_Count_Model_{0}", modelId);
+            try
+            {
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByModel(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCountByModel for modelId : {0}", modelId));
             }
             return bikesCountList;
         }

@@ -249,6 +249,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
@@ -417,6 +418,10 @@
     </Compile>
     <Compile Include="controls\DealersInNearByCities.ascx.cs">
       <DependentUpon>DealersInNearByCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\GenericBikeInfoControl.ascx.cs">
+      <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
@@ -711,6 +716,10 @@
       <DependentUpon>UsedBikesCityCountByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedBikesCityCountByModel.ascx.cs">
+      <DependentUpon>UsedBikesCityCountByModel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedBikeSearch.ascx.cs">
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -883,6 +892,10 @@
       <DependentUpon>ExpertReviewsVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\GenericBikeInfoControl.ascx.cs">
+      <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1017,6 +1030,10 @@
     </Compile>
     <Compile Include="m\controls\UsedBikesCityCountByBrand.ascx.cs">
       <DependentUpon>UsedBikesCityCountByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedBikesCityCountByModel.ascx.cs">
+      <DependentUpon>UsedBikesCityCountByModel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedOtherBikeByCity.ascx.cs">
@@ -1947,6 +1964,7 @@
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\DealersByBrand.ascx" />
     <Content Include="controls\DealersInNearByCities.ascx" />
+    <Content Include="controls\GenericBikeInfoControl.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
@@ -2025,6 +2043,7 @@
     <Content Include="controls\UsedBikeModelByCity.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
     <Content Include="controls\UsedBikesCityCountByBrand.ascx" />
+    <Content Include="controls\UsedBikesCityCountByModel.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UsedRecentBikes.ascx" />
@@ -2526,6 +2545,7 @@
     <Content Include="m\controls\DealersInNearByCities.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
+    <Content Include="m\controls\GenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2560,6 +2580,7 @@
     <Content Include="m\controls\NewUserReviewList.ascx" />
     <Content Include="m\controls\NewVideosWidget.ascx" />
     <Content Include="m\controls\UsedBikesCityCountByBrand.ascx" />
+    <Content Include="m\controls\UsedBikesCityCountByModel.ascx" />
     <Content Include="m\controls\UsedOtherBikeByCity.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\SimilarCompareBikes.ascx" />

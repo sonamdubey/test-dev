@@ -66,9 +66,11 @@
                         </div>
                     </div>
                 </div>
+                <% if(bannerEntity!=null) { %>
                 <%= bannerEntity.DesktopCss %>
                 <%= bannerEntity.DesktopHtml %>
                 <%= bannerEntity.DesktopJS %>
+                <% } %>
             </div>
         </header>
         <!--  Ends here -->

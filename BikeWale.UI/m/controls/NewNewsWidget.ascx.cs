@@ -17,7 +17,10 @@ namespace Bikewale.Mobile.Controls
         private bool _showWidget = true;
         public bool ShowWidgetTitle { get { return _showWidget; } set { _showWidget = value; } }
         public ArticleSummary firstPost;
-
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
