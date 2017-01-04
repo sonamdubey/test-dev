@@ -4,7 +4,7 @@
    { %>
 
 <div class="model-slug-content">
-    <a href="<%= bikeUrl%>" class="item-image-content inline-block">
+    <a href="<%= bikeUrl%>" class="item-image-content inline-block"  title="<%= bikeName %>" >
         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
     </a>
     <div class="bike-details-block inline-block">
@@ -41,7 +41,7 @@
           <% } %>
         <% if(bikeInfo.IsSpecsAvailable) { %>
         <li>
-            <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %>Specification">
+            <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                 <span class="generic-sprite specs-sm"></span>
                 <span class="icon-label">Specs</span>
             </a>
