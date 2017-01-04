@@ -178,17 +178,17 @@ namespace Bikewale.Cache.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount)
         {
             IEnumerable<UsedBikesCountInCity> bikesCountList = null;
-            string key = String.Format("BW_Used_Bikes_City_Count_Make_{0}", makeId);
+            string key = String.Format("BW_Used_Bikes_City_Count_Make_{0}_Count_{1}", makeId, topCount);
             try
             {
-                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByMake(makeId));
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByMake(makeId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}", makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCount for makeId : {0}, {1}", makeId, topCount));
             }
             return bikesCountList;
         }
@@ -199,17 +199,17 @@ namespace Bikewale.Cache.Used
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount)
         {
             IEnumerable<UsedBikesCountInCity> bikesCountList = null;
-            string key = String.Format("BW_Used_Bikes_City_Count_Model_{0}", modelId);
+            string key = String.Format("BW_Used_Bikes_City_Count_Model_{0}_Count_{1}", modelId, topCount);
             try
             {
-                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByModel(modelId));
+                bikesCountList = _cache.GetFromCache<IEnumerable<UsedBikesCountInCity>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeInCityCountByModel(modelId, topCount));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCountByModel for modelId : {0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Exception in Cache Layer function GetUsedBikeInCityCountByModel for modelId : {0}, {1}", modelId, topCount));
             }
             return bikesCountList;
         }

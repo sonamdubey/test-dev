@@ -109,6 +109,7 @@ namespace Bikewale.Used
                         ctrlUsedBikesCityCountByMake.MakeId = makeId;
                         ctrlUsedBikesCityCountByMake.MakeMaskingName = makeMaskingName;
                         ctrlUsedBikesCityCountByMake.MakeName = makeName;
+                        ctrlUsedBikesCityCountByMake.TopCount = 6;
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
                     }
                     else if (modelId != 0 && Bikewale.Utility.UsedCookie.UsedCookie.ModelIndia)
@@ -117,6 +118,7 @@ namespace Bikewale.Used
                         ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
                         ctrlUsedBikesCityCountByModel.ModelId = modelId;
                         ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
+                        ctrlUsedBikesCityCountByModel.TopCount = 6;
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
                     }
                 }
