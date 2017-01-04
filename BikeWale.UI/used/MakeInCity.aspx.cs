@@ -85,7 +85,7 @@ namespace Bikewale.Used
                 objBikeCity.MakeName = MakeDetails.MakeName;
                 UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount(Convert.ToUInt16(MakeDetails.MakeId));
                 objBikeCity.CreateMetas();
-                UsedBikeCityCountTopList = UsedBikeCityCountList.Where(x => x.priority > 0); ;
+                UsedBikeCityCountTopList = UsedBikeCityCountList.Where(x => x.Priority > 0); ;
                 UsedBikeCityCountList = UsedBikeCityCountList.OrderBy(c => c.CityName);
                 pgKeywords = objBikeCity.keywords;
                 pgTitle = objBikeCity.title;

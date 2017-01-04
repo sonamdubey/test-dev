@@ -354,11 +354,11 @@ namespace Bikewale.DAL.Location
                             {
                                 usedBikeCities.Add(new UsedBikeCities
                                 {
-                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    BikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                     CityName = Convert.ToString(dr["city"]),
                                     CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
-                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                    Priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
                                 });
                             }
                             dr.Close();
@@ -398,11 +398,11 @@ namespace Bikewale.DAL.Location
                             {
                                 usedBikeCities.Add(new UsedBikeCities
                                 {
-                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    BikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                     CityName = Convert.ToString(dr["city"]),
                                     CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
-                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                    Priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
                                 });
                             }
                             dr.Close();
