@@ -5,7 +5,7 @@
 <html>
 <head>
     <%
-        title = "Sell Your Used Bike | Post Ad for FREE - BikeWale";
+        title = "Sell Bike | Sell Used Bike in India - BikeWale";
         description = "Sell your used/second-hand bike on BikeWale for free. Post your Ad for free and get verified buyers on BikeWale. Easy, Quick & Effective.";
         keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
         canonical = "https://www.bikewale.com/used/sell/";
@@ -58,7 +58,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-box-shadow card-header">
-                            <h1>Sell your bike</h1>
+                            <h1>Sell Your Used Bike - Post Ad for FREE</h1>
                         </div>
                         <div id="sell-bike-content">
                         

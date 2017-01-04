@@ -24,7 +24,6 @@
 
     /* function to upload image to amazon S3 */
     self.upload = function (file) {
-        triggerGA('Sell_Page', 'Photo_Upload_Initiated', vmSellBike.inquiryId() + '_'+ file.size);
         try {
             $.when(self.getToken(self.request)).done()
             {
