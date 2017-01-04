@@ -188,7 +188,8 @@
         if (isValidInfoOnRoad()) {
 
             //set global cookie
-            setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
+            if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
+                setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
             var obj = {
                 'CityId': viewModelOnRoad.selectedCity(),
                 'AreaId': viewModelOnRoad.selectedArea(),
@@ -225,8 +226,6 @@
                     }
 
                     cookieValue = "CityId=" + viewModelOnRoad.selectedCity() + "&AreaId=" + (!isNaN(viewModelOnRoad.selectedArea()) ? viewModelOnRoad.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-                    //SetCookie("_MPQ", cookieValue);
-
 
                     if (jsonObj != undefined && jsonObj.quoteId > 0) {
 
@@ -288,10 +287,10 @@
             C = c[i].split('=');
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-                onCookieObj.PQCitySelectedName = cData[1];
-                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-                onCookieObj.PQAreaSelectedName = cData[3];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
+                onCookieObj.PQCitySelectedName = cData[1] || "";
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
+                onCookieObj.PQAreaSelectedName = cData[3] || "";
 
             }
         }

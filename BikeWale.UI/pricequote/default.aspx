@@ -188,8 +188,10 @@
             }
             else {
                 cityId = viewModel.selectedCity();
+                areaId = viewModel.selectedArea();
                 //set global cookie
-                setLocationCookie($('#ddlCity option:selected'), $('#ddlArea option:selected'));
+                if (cityId != onCookieObj.PQCitySelectedId || areaId > 0)
+                    setLocationCookie($('#ddlCity option:selected'), $('#ddlArea option:selected'));
             }
         });
 

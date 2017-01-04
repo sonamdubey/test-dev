@@ -272,7 +272,8 @@
                                         cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
                                         lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
                                     }
-                                    SetCookieInDays("location", cookieValue, 365); 
+                                    if (self.SelectedCityId() != onCookieObj.PQCitySelectedId || self.SelectedAreaId() > 0)
+                                        SetCookieInDays("location", cookieValue, 365);
                                     self.LoadingText(lbtext);
                                 }
                             }
@@ -296,7 +297,8 @@
                                         cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
                                         lbtext = "Fetching on-road price for " + self.SelectedArea().name + ", " + self.SelectedCity().name;
                                     }
-                                    SetCookieInDays("location", cookieValue, 365);
+                                    if (self.SelectedCityId() != onCookieObj.PQCitySelectedId || self.SelectedAreaId() > 0)
+                                        SetCookieInDays("location", cookieValue, 365);
 
                                     self.LoadingText(lbtext);
                                 }
