@@ -4,7 +4,7 @@
 
 <div class="model-slug-content">
     <div class="margin-bottom10">
-        <a href="<%= bikeUrl%>" class="item-image-content inline-block">
+        <a href="<%= bikeUrl%>" class="item-image-content inline-block"   title="<%= bikeName %>" >
             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="Honda CB Shine" />
         </a>
         <div class="bike-details-block inline-block">
