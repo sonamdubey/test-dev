@@ -4,12 +4,12 @@
    { %>
 
 <div class="model-slug-content">
-    <a href="<%= bikeUrl%>" class="item-image-content inline-block">
+    <a href="<%= bikeUrl%>" class="item-image-content inline-block"  title="<%= bikeName %>" >
         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
     </a>
     <div class="bike-details-block inline-block">
         <p class="font12 text-light-grey">More info about:</p>
-        <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"><%= bikeName %></a>
+        <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"  title="<%= bikeName %>"><%= bikeName %></a>
     </div>
     <ul class="item-more-details-list inline-block">
         <% if (bikeInfo.ExpertReviewsCount > 0)
@@ -41,7 +41,7 @@
           <% } %>
         <% if(bikeInfo.IsSpecsAvailable) { %>
         <li>
-            <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %>Specification">
+            <a href="<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                 <span class="generic-sprite specs-sm"></span>
                 <span class="icon-label">Specs</span>
             </a>
