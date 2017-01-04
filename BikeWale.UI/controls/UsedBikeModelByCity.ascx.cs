@@ -12,7 +12,7 @@ namespace Bikewale.Controls
         /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Bind Used Bike By Models 
         /// </summary>
-        protected IEnumerable<MostRecentBikes> UsedBikeInCityList;
+        protected IList<MostRecentBikes> UsedBikeInCityList;
 
         public uint CityId { get; set; }
         public string MakeMaskingName { get; set; }
@@ -48,7 +48,7 @@ namespace Bikewale.Controls
             try
             {
                 BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
-                UsedBikeInCityList = objUsedBikeModelCity.GetUsedBikeCountInCity(CityId, TopCount);
+                UsedBikeInCityList = objUsedBikeModelCity.GetUsedBikeCountInCity(CityId, TopCount).ToList();
                 if (UsedBikeInCityList != null && UsedBikeInCityList.Count() > 0)
                     FetchCount = UsedBikeInCityList.Count();
             }
