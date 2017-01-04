@@ -10,8 +10,8 @@ namespace Bikewale.Entities.Used
     public class UsedBikeCities : Location.CityEntityBase
     {
         [DataMember]
-        public uint bikesCount { get; set; }
+        public uint BikesCount { get; set; }
         [DataMember]
-        public uint priority { get; set; }
+        public uint Priority { get; set; }
     }
 }
