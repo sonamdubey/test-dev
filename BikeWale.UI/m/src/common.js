@@ -181,10 +181,6 @@ $(document).ready(function () {
     function CloseCityPopUp() {
         $("#globalcity-popup").hide();
         unlockPopup();
-        /*
-        if (!isCookieExists("location"))
-            SetCookieInDays("location", "0", 365); 
-        */
     }
 
     $("#globalCity").autocomplete({
@@ -371,10 +367,6 @@ $(document).ready(function () {
         if (e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
             globalLocation.hide();
             unlockPopup();
-            /*
-            if (!isCookieExists("location"))
-                SetCookieInDays("location", "0", 365);
-                */
         }
     });
 

@@ -1037,8 +1037,6 @@ function CloseCityPopUp() {
     var globalLocation = $("#globalcity-popup");
     globalLocation.removeClass("show").addClass("hide");
     unlockPopup();
-    if (!isCookieExists("location"))
-        SetCookieInDays("location", "0", 365);
 }
 
 function popupHideOnESC() {
