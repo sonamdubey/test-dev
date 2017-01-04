@@ -79,7 +79,7 @@ namespace Bikewale.Cache.Used
         public IEnumerable<MostRecentBikes> GetUsedBikeByModelCountInCity(uint makeid, uint cityid, uint topcount)
         {
             IEnumerable<MostRecentBikes> objUsedBikes = null;
-            string key = String.Format("BW_UsedBikeByModelCountCity_makeid_{0}_cityid_{1}", makeid, cityid);
+            string key = String.Format("BW_UsedBikeByModelCountCity_makeid_{0}_cityid_{1}_topcount_{2}", makeid, cityid, topcount);
             try
             {
                 objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeByModelCountInCity(makeid, cityid, topcount));
@@ -97,7 +97,7 @@ namespace Bikewale.Cache.Used
         public IEnumerable<MostRecentBikes> GetUsedBikeCountInCity(uint cityid, uint topcount)
         {
             IEnumerable<MostRecentBikes> objUsedBikes = null;
-            string key = String.Format("BW_GetUsedBikeCountInCity_cityid_{0}", cityid);
+            string key = String.Format("BW_GetUsedBikeCountInCity_cityid_{0}_topcount_{1}", cityid, topcount);
             try
             {
                 objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetUsedBikeCountInCity(cityid, topcount));
