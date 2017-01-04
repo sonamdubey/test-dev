@@ -37,7 +37,8 @@ namespace Bikewale.Mobile.Controls
         {
             try
             {
-                viewModel = new BindUsedBikesInCityCount(MakeId);
+                viewModel = new BindUsedBikesInCityCount();
+                viewModel.BindUsedBikesInCityCountByMake(MakeId);
 
                 if (viewModel.bikesCountCityList != null)
                 {
