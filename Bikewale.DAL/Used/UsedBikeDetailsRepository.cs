@@ -514,7 +514,7 @@ namespace Bikewale.DAL.Used
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by make
         /// </summary>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount)
         {
             IList<UsedBikesCountInCity> bikesCountList = null;
             try
@@ -523,6 +523,7 @@ namespace Bikewale.DAL.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int16, topCount));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -547,7 +548,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByMake({0})", makeId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByMake({0} {1})", makeId, topCount));
             }
             return bikesCountList;
         }
@@ -556,7 +557,7 @@ namespace Bikewale.DAL.Used
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by model
         /// </summary>
-        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId)
+        public IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount)
         {
             IList<UsedBikesCountInCity> bikesCountList = null;
             try
@@ -565,6 +566,7 @@ namespace Bikewale.DAL.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_count", DbType.Int16, topCount));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -589,7 +591,7 @@ namespace Bikewale.DAL.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByModel({0})", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsRepository.GetUsedBikeInCityCountByModel({0}, {1})", modelId, topCount));
             }
             return bikesCountList;
         }//end of GetUsedBikeCountInCity

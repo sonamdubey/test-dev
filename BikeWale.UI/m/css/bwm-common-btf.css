@@ -23,15 +23,6 @@
 .home-getFinalPrice-banner { background:#161209 no-repeat center top; background-size: cover; height: 373px; }
 
 .booking-how-it-works { background-color: #cbcbcb; width: 320px; height: 900px; margin:0 auto;}
-/* welcome box home page classes */
-.welcome-box { text-align: center; color: #fff; }
-.bw-tabs { display: block; }
-.bw-tabs-flex { display:block; width:100%; overflow-x:auto;margin-bottom: 25px; -webkit-overflow-scrolling: touch; }
-.bw-tabs-flex ul { border-bottom: 1px solid #cccccc; width:100%;display:table }
-.bw-tabs-flex li { display: table-cell; white-space:nowrap; padding: 10px; text-align: center; width: 1%; color: #82888b; font-size: 14px; cursor: pointer; }
-.bw-tabs-flex li:hover { color: #4d5057; }
-.bw-tabs-flex li.active { border-bottom: 4px solid #ef3f30; padding-bottom:4px; color: #4d5057; cursor:default; font-weight: 600; }
-.bw-tabs::-webkit-scrollbar {width: 0;}
  
 /* Track & Handle */
 .bw-tabs::-webkit-scrollbar-track, .bw-tabs::-webkit-scrollbar-thumb {display:none;}
@@ -561,9 +552,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .padding-bottom60 { padding-bottom: 60px; }
 .padding-bottom70 { padding-bottom: 70px; }
 .padding-bottom90 { padding-bottom: 90px; }
-
-.position-rel { position: relative; }
-.position-abt { position: absolute; }
 
 .pos-left0 { left: 0; }
 .pos-left5 { left: 5px; }

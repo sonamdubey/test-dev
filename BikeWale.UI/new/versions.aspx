@@ -1328,14 +1328,11 @@
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
         <script type="text/javascript">
             ga_pg_id = '2';
@@ -1415,6 +1412,8 @@
                 dleadvm.setOptions(leadOptions);
             });
         </script>
+
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

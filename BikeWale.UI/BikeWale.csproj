@@ -2473,6 +2473,7 @@
     <Content Include="images\white-shadow.png" />
     <Content Include="ads\Ad976x400_First.aspx" />
     <Content Include="ads\Ad976x400_Second.aspx" />
+    <Content Include="includes\fontBW_Mobile.aspx" />
     <Content Include="includes\footer.aspx" />
     <Content Include="includes\footerloginBW.aspx" />
     <Content Include="includes\footerBW.aspx" />
@@ -2482,6 +2483,7 @@
     <Content Include="includes\footermobile.aspx" />
     <Content Include="includes\footermobile_home.aspx" />
     <Content Include="includes\footermobile_noad.aspx" />
+    <Content Include="includes\fontBW.aspx" />
     <Content Include="includes\footerscript.aspx" />
     <Content Include="includes\footerscript_mobile.aspx" />
     <Content Include="includes\gacode_desktop.aspx" />

@@ -330,14 +330,12 @@
 
         </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+
+        <!-- #include file="/includes/footerBW.aspx" -->        
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';

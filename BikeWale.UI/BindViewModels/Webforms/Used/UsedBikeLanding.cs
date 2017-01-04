@@ -122,7 +122,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
                 objCitiesWithCount = objBikeCity.GetUsedBikeByCityWithCount();
-                objCitiesWithCount = objCitiesWithCount.Where(x => x.priority > 0);
+                objCitiesWithCount = objCitiesWithCount.Where(x => x.Priority > 0);
             }
             catch (Exception ex)
             {
