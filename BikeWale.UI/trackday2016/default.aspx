@@ -98,7 +98,7 @@
         </section>
 
         <section>
-            <div class="container section-container">
+            <div id="trackdayGallery" class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Gallery</h2>
                     <div class="content-box-shadow padding-bottom1">
