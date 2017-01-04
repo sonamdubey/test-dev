@@ -1274,9 +1274,9 @@ function dpqLeadCaptureClosePopup() {
     leadCapturePopup.hide();
 }
 
-var popupHeading = $("#popupHeading")
-popupContent = $("#popupContent");
-brandcitypopupContent = $("#brandcitypopupContent");
+var popupHeading = $("#popupHeading"),
+    popupContent = $("#popupContent"),
+    brandcitypopupContent = $("#brandcitypopupContent");
 
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
