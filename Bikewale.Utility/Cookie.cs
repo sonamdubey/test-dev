@@ -20,7 +20,7 @@ namespace Bikewale.Utility
         public string Domain { get; set; }
         public bool Secure { get; set; }
         public List<KeyValuePair<string, string>> Values { get; set; }
-        private const string[] _localDomains = new string[] { "localhost", "webserver" };
+        private readonly string[] _localDomains = { "localhost", "webserver" };
         /// <summary>
         /// Modified by :   Sumit Kate on 04 Jan 2017
         /// Description :   Support local/webserver Cookie Domain
