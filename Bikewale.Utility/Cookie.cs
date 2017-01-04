@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.Utility
@@ -7,6 +8,8 @@ namespace Bikewale.Utility
     /// <summary>
     /// Written By : Ashish G. Kamble on 2 Sept 2016
     /// Class to manage cookies. Also sets website domain for cookies
+    /// Modified by :   Sumit Kate on 04 Jan 2017
+    /// Description :   Added local domains
     /// </summary>
     public class Cookie
     {
@@ -17,14 +20,21 @@ namespace Bikewale.Utility
         public string Domain { get; set; }
         public bool Secure { get; set; }
         public List<KeyValuePair<string, string>> Values { get; set; }
-
+        private const string[] _localDomains = new string[] { "localhost", "webserver" };
+        /// <summary>
+        /// Modified by :   Sumit Kate on 04 Jan 2017
+        /// Description :   Support local/webserver Cookie Domain
+        /// </summary>
+        /// <param name="name"></param>
         public Cookie(string name)
         {
             this.Name = name;
             Path = "/";
             Expires = DateTime.MinValue;
-            if (Utility.BWConfiguration.Instance.WebsiteDomain != "localhost" || Utility.BWConfiguration.Instance.WebsiteDomain != "webserver")
+            if (!_localDomains.Contains(Utility.BWConfiguration.Instance.WebsiteDomain))
                 Domain = "." + Utility.BWConfiguration.Instance.WebsiteDomain;
+            else
+                Domain = Utility.BWConfiguration.Instance.WebsiteDomain;
             Secure = false;
             Values = new List<KeyValuePair<string, string>>();
         }
