@@ -108,8 +108,9 @@
                                                     <meta itemprop="ratingValue" content="<%= modelPageEntity.ModelDetails.ReviewRate %>">
                                                     <meta itemprop="worstRating" content="1">
                                                     <meta itemprop="bestRating" content="5">
+                                                    <meta itemprop="itemreviewed" content="<%= bikeName %>" />
                                                     <a href="<%= FormatShowReview(modelPageEntity.ModelDetails.MakeBase.MaskingName,modelPageEntity.ModelDetails.MaskingName) %>" class="review-count-target">
-                                                    <span itemprop="reviewCount"><%= modelPageEntity.ModelDetails.ReviewCount %></span> Reviews</a>
+                                                    <span itemprop="ratingCount"><%= modelPageEntity.ModelDetails.ReviewCount %></span> Reviews</a>
                                                 </span>
                                                 <a href="<%= FormatWriteReviewLink() %>">Write a review</a>
                                             </div>
@@ -548,7 +549,7 @@
         <%} %>
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">
         <meta itemprop="model" content="<%= TargetedModel %>" />
-
+        <meta itemprop="brand" content="<%= bikeMakeName %>" />
         <style type="text/css">
         .padding-left2{padding-left: 2px;},#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
