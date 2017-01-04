@@ -29,7 +29,7 @@ namespace Bikewale.Mobile.Used
         protected uint modelId, cityId, totalListing, PageIdentifier;
         protected CityEntityBase objCity = null;
         protected int _startIndex = 0, _endIndex = 0;
-        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCount;
+        protected UsedBikesCityCountByBrand ctrlUsedBikesCityCountByMake;
         protected UsedBikeByModels ctrlUsedBikeByModels;
         protected UsedBikeModelByCity ctrlUsedBikeModelByCity;
         protected UsedBikesCityCountByModel ctrlUsedBikesCityCountByModel;
@@ -52,16 +52,17 @@ namespace Bikewale.Mobile.Used
         {
             LoadUsedBikesList();
             UsedCookie.SetUsedCookie();
-            BindBrandIndiaWidget();
             BindWigets();
-            BindModelIndiaWidget();
-
         }
 
         #endregion
         /// <summary>
         /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Bind Used bikes Widgets
+        ///  Modified by : Sajal Gupta on 2-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and city id is null;
+        /// Created by : Sajal Gupta on 3-01-2017
+        /// Desc : Bind brand india widget if makeid is not null and modelid is not null and city id is null;
         /// </summary>
         private void BindWigets()
         {
@@ -89,7 +90,21 @@ namespace Bikewale.Mobile.Used
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
                     }
                 }
-
+                else if (makeId != 0 && modelId == 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
+                {
+                    ctrlUsedBikesCityCountByMake.MakeId = makeId;
+                    ctrlUsedBikesCityCountByMake.MakeMaskingName = makeMaskingName;
+                    ctrlUsedBikesCityCountByMake.MakeName = makeName;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
+                }
+                else if (makeId != 0 && modelId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.ModelIndia)
+                {
+                    ctrlUsedBikesCityCountByModel.ModelName = modelName;
+                    ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
+                    ctrlUsedBikesCityCountByModel.ModelId = modelId;
+                    ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
+                    PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
+                }
             }
             catch (Exception ex)
             {
@@ -160,50 +175,6 @@ namespace Bikewale.Mobile.Used
 
         }
 
-        /// <summary>
-        /// Created by : Sajal Gupta on 2-01-2017
-        /// Desc : Bind brand india widget if makeid is not null and city id is null;
-        /// </summary>
-        private void BindBrandIndiaWidget()
-        {
-            try
-            {
-                if (makeId != 0 && modelId == 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
-                {
-                    ctrlUsedBikesCityCount.MakeId = makeId;
-                    ctrlUsedBikesCityCount.MakeMaskingName = makeMaskingName;
-                    ctrlUsedBikesCityCount.MakeName = makeName;
-                    PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandIndia);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Mobile.Used.Search.BindBrandIndiaWidget");
-            }
-        }
-
-        /// <summary>
-        /// Created by : Sajal Gupta on 03-01-2017
-        /// Desc : Bind model india widget if makeid is not null and modelindia is not null and city id is null;
-        /// </summary>
-        private void BindModelIndiaWidget()
-        {
-            try
-            {
-                if (makeId != 0 && modelId != 0 && cityId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.ModelIndia)
-                {
-                    ctrlUsedBikesCityCountByModel.ModelName = modelName;
-                    ctrlUsedBikesCityCountByModel.MakeMaskingName = makeMaskingName;
-                    ctrlUsedBikesCityCountByModel.ModelId = modelId;
-                    ctrlUsedBikesCityCountByModel.ModelMaskingName = modelMaskingName;
-                    PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Mobile.Used.Search.BindModelIndiaWidget");
-            }
-        }
         #endregion
 
     } // class

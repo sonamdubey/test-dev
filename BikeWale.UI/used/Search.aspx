@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.fetchedCount > 0 || ctrlUsedBikesCityCountByModel.fetchedCount > 0)
+                            <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                                { %>                                                           
                             <div id="city-model-used-carousel">                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
@@ -110,11 +110,11 @@
                                   { %>   
                                         <BW:UsedBikeByModels ID="ctrlUsedBikeByModels" runat="server" />
                                  <%}
-                                  else if (ctrlUsedBikesCityCountByMake.fetchedCount > 0)
+                                  else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
                                   { %>
                                 <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCountByMake"></BW:UBCCountByMake>        
                             <% } 
-                               else if(ctrlUsedBikesCityCountByModel.fetchedCount > 0)
+                               else if(ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                                { %>    
                                     <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
                                 <%} %>
