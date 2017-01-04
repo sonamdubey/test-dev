@@ -494,7 +494,8 @@ namespace Bikewale.DAL.Used
                                     AvailableBikes = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
-                                    MakeMaskingName = Convert.ToString(dr["makeMaskingName"])
+                                    MakeMaskingName = Convert.ToString(dr["makeMaskingName"]),
+                                    MakeName = Convert.ToString(dr["makename"])
                                 });
                             }
                             dr.Close();

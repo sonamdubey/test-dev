@@ -89,6 +89,7 @@ namespace Bikewale.Used
                         ctrlUsedBikeByModels.MakeMaskingName = makeMaskingName;
                         ctrlUsedBikeByModels.CityMaskingName = cityMaskingName;
                         ctrlUsedBikeByModels.CityName = cityName;
+                        ctrlUsedBikeByModels.MakeName = makeName;
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.BrandCity);
                     }
                     else if (makeId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.UsedCity)
