@@ -29,7 +29,7 @@
 
         <section>
             <div class="container box-shadow bg-white section-bottom-margin">
-                <h1 class="box-shadow padding-15-20">Latest Bike News</h1>
+                <h1 class="box-shadow padding-15-20"><%= objNews.PageH1 %></h1>
 
                 <div id="divListing" class="article-list">
 			        <% foreach (var news in newsArticles)

@@ -71,8 +71,8 @@
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
                             <div id="news-header" class="section-header">
-                                <h1 class="margin-right5">Bike News</h1>
-                                <h2 class="font14 text-unbold text-light-grey">Latest Indian Bikes News and Views</h2>
+                                <h1 class="margin-right5"><%= objNews.PageH1 %></h1>
+                                <h2 class="font14 text-unbold text-light-grey"><%= objNews.PageH2 %></h2>
                             </div>
                              <%if(newsArticles!=null) { %>
                             <div class="section-inner-padding">

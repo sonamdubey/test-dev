@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private readonly MakeHelper makeHelper = null;
         private readonly ModelHelper modelHelper = null;
         private string RedirectUrl = String.Empty;
-        public string PageTitle = String.Empty, Description, Keywords, Canonical, PrevUrl, NextUrl, Alternate;
+        public string PageTitle = String.Empty, Description, Keywords, Canonical, PrevUrl, NextUrl, Alternate, PageH1, PageH2;
         public BikeMakeEntityBase objMake;
         public BikeModelEntityBase objModel;
         /// <summary>
@@ -347,17 +347,23 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             {
                 PageTitle = String.Format("Latest News about {0} {1} | {0} {1} News - BikeWale", objMake.MakeName, objModel.ModelName);
                 Description = String.Format("Read the latest news about {0} {1} bikes exclusively on BikeWale. Know more about {1}.", objMake.MakeName, objModel.ModelName);
+                PageH1 = String.Format("{0} {1} Bikes News", objMake.MakeName, objModel.ModelName);
+                PageH2 = String.Format("Latest {0} {1} Bikes News and Views", objMake.MakeName, objModel.ModelName);
             }
             else if (MakeId > 0)
             {
                 PageTitle = String.Format("Latest News about {0} Bikes | {0} Bikes News - BikeWale", objMake.MakeName);
                 Description = String.Format("Read the latest news about popular and upcoming {0} bikes exclusively on BikeWale. Know more about {0} bikes.", objMake.MakeName);
+                PageH1 = String.Format("{0} Bikes News", objMake.MakeName);
+                PageH2 = String.Format("Latest {0} Bikes News and Views", objMake.MakeName);
             }
             else
             {
                 PageTitle = "Bike News - Latest Indian Bike News & Views | BikeWale";
                 Description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
                 Keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
+                PageH1 = String.Format("Bike News");
+                PageH2 = String.Format("Latest Indian Bikes News and Views");
             }
         }
 
