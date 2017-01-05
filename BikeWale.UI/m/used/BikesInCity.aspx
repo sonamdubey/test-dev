@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="padding-right10 padding-left10">
                                         <p class="text-bold"><%=objCity.CityName %></p>
-                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                        <p class="text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                     </div>
                                 </a>
                             </li>
@@ -67,7 +67,7 @@
                         <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
                           {%>
                         <li>
-                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%></a>
+                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.BikesCount )%></a>
                         </li>                       <%} %>
                     </ul>
                 </div>
