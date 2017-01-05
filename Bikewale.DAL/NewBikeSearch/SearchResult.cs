@@ -29,7 +29,7 @@ namespace Bikewale.DAL.NewBikeSearch
         }
         /// <summary>
         /// Modified by : Sajal Gupta on 02-01-2017
-        /// Desc : Read LastUpdatedModelSold from Db
+        /// Desc : Read LastUpdatedModelSold, NewsCount from Db
         /// </summary>
         /// <param name="filterInputs"></param>
         /// <param name="input"></param>
@@ -95,6 +95,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.VersionCount = SqlReaderConvertor.ToUInt32(dr["VersionCount"]);
                                 objList.ColorCount = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
                                 objList.LastUpdatedModelSold = SqlReaderConvertor.ToDateTime(dr["UnitSoldDate"]);
+                                objList.NewsCount = SqlReaderConvertor.ToUInt32(dr["NewsCount"]);
                                 objSearchList.Add(objList);
                             }
                             dr.NextResult();

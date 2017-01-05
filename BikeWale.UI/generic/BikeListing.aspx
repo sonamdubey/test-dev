@@ -168,6 +168,14 @@
                                         <div>
                                             <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">
+                                                <% if(bike.NewsCount > 0) { %>
+                                                <li>
+                                                    <a href="<%= UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
+                                                        <span class="generic-sprite news-sm"></span>
+                                                        <span class="icon-label">News</span>
+                                                    </a>
+                                                </li>
+                                                <%} %>
                                                  <% if(bike.ExpertReviewsCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">

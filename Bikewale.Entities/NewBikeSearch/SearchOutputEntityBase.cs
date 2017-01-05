@@ -5,6 +5,8 @@ namespace Bikewale.Entities.NewBikeSearch
     /// <summary>
     /// Modified by : Sajal Gupta on 02-01-2017
     /// Description : Added LastUpdatedModelSold
+    /// Modified by : Sajal Gupta on 05-01-2017
+    /// Deac : Added NewsCount
     /// /// </summary>
     [Serializable]
     public class SearchOutputEntityBase
@@ -28,5 +30,6 @@ namespace Bikewale.Entities.NewBikeSearch
         public uint VersionCount { get; set; }
         public uint ColorCount { get; set; }
         public DateTime? LastUpdatedModelSold { get; set; }
+        public uint NewsCount { get; set; }
     }
 }
