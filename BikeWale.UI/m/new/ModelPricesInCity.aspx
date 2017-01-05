@@ -108,10 +108,17 @@
                 <div class="margin-right20 margin-left20 border-divider"></div> 
                     <BW:Dealers runat="server" ID="ctrlDealers" />
                 <% }  %>
-
+                
                 <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
-
-
+                 <div class="clear"></div>
+                       <% if (ctrlServiceCenterCard.showWidget)
+            { %>
+        <section>
+            <div class="box-shadow bg-white padding-top20 border-divider">
+                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+            </div>
+        </section>
+        <% }  %>
                 <% if (isAreaAvailable && !isDiscontinued)
                    { %>
                 <div class="grid-12 float-button float-fixed">
@@ -132,14 +139,7 @@
             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
         </section>
         
-         <% if (ctrlServiceCenterCard.showWidget)
-            { %>
-        <section>
-            <div class="bg-white box-shadow padding-top20 margin-bottom10">
-                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-            </div>
-        </section>
-        <% }  %>
+  
 
         <% if (ctrlRecentUsedBikes.fetchedCount > 0) { %>
            <section>
