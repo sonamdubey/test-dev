@@ -1088,6 +1088,10 @@
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\photos\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\service\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2630,6 +2634,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\photos.css" />
     <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
@@ -2651,6 +2656,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2734,6 +2740,7 @@
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\photos.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
