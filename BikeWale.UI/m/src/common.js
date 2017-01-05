@@ -9,7 +9,7 @@ var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
     try {
-        
+
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
@@ -126,13 +126,29 @@ function GetCatForNav() {
     return ret_category;
 }
 
-function navbarShow() {
-    var category = GetCatForNav();
-    if (category != null) {
-        dataLayer.push({
-            'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click'
-        });
+function pushNavMenuAnalytics(menuItem) {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        triggerGA(categ,'Hamburger_Menu_Item_Click',menuItem);
     }
+}
+
+$("#navbarBtn").on("click", function () {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        triggerGA(categ, 'Hamburger_Menu_Icon', 'Icon_Click');
+    }
+});
+
+// Google Analytics code for Click of Item on Nav_Bar on HP
+$(".navUL ul li").on("click", function () {
+    pushNavMenuAnalytics($(this).text());
+});
+$(".navbarTitle").on("click", function () {
+    pushNavMenuAnalytics($(this).text());
+});
+
+function navbarShow() {
     $('body').addClass('lock-browser-scroll');
     $("#nav").addClass('open').stop().animate({
         'left': '0px'
@@ -281,7 +297,7 @@ $(document).ready(function () {
         var id = $('#newBikeList');
         var searchVal = id.val().trim();
         var placeHolder = id.attr('placeholder');
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
+        triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
             $('#errNewBikeSearch').hide();
             return false;
@@ -505,7 +521,6 @@ $(document).ready(function () {
                 $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
             });
         }
-        
     });
     // common autocomplete data call function
     function dataListDisplay(availableTags, request, response) {
@@ -589,13 +604,6 @@ $(document).ready(function () {
         }
     });
 
-    // Google Analytics code for Click of Item on Nav_Bar on HP
-    $(".navUL ul li").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
-    $(".navbarTitle").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
 
     $("#bwheader-logo").on("click", function () {
         var categ = GetCatForNav();
@@ -603,13 +611,6 @@ $(document).ready(function () {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
         }
     });
-
-    function pushNavMenuAnalytics(menuItem) {
-        var categ = GetCatForNav();
-        if (categ != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
-        }
-    }
 
     $('#btnGlobalCityPopup').on('click', function () {
         ele = $('#globalCityPopUp');

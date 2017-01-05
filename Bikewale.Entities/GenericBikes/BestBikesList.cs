@@ -8,6 +8,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Entity for bikewale generic pages
     /// Modified by : Sajal Gupta on 02-01-2017
     /// Description : Added LastUpdatedModelSold
+    /// Modified By  : SAJAL GUPTA on 05-01-2017
+    /// Desc : Added NewsCount property
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase
@@ -30,5 +32,6 @@ namespace Bikewale.Entities.GenericBikes
         public string SmallModelDescription { get; set; }
         public string Description { get { return String.Concat(SmallModelDescription, FullModelDescription); } }
         public DateTime? LastUpdatedModelSold { get; set; }
+        public uint NewsCount { get; set; }
     }
 }

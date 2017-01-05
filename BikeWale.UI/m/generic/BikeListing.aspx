@@ -141,6 +141,14 @@
                             </div>
                             <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                             <ul class="item-more-details-list">
+                                <% if(bike.NewsCount > 0) { %>
+                                <li>
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
+                                        <span class="generic-sprite news-sm"></span>
+                                        <span class="icon-label">News</span>
+                                    </a>
+                                </li>
+                                 <%} %>
                                   <% if(bike.ExpertReviewsCount > 0) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">

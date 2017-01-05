@@ -332,7 +332,7 @@ $(document).ready(function () {
 	$("#bwheader-logo").on("click", function () {
 	    var categ = GetCatForNav();
 	    if (categ != null) {
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
+	        triggerGA(categ, 'Logo', 'Logo_Clicked');
 	    }
 	});
 });
@@ -520,7 +520,7 @@ function MakeModelRedirection(items) {
 function pushNavMenuAnalytics(menuItem) {
     var categ = GetCatForNav();
     if (categ != null) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
+        triggerGA(categ, 'Hamburger_Menu_Item_Click', menuItem);
     }
 }
 
@@ -873,7 +873,7 @@ function navbarHideOnESC() {
 function navbarShow() {
     var category = GetCatForNav();
     if (category != null) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click' });
+        triggerGA(category, 'Hamburger_Menu_Icon', 'Icon_Click');
     }
     $("#nav").addClass('open').animate({ 'left': '0px' });
     $(".blackOut-window").show();
