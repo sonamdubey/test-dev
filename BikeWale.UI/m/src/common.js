@@ -195,19 +195,9 @@ $(document).ready(function () {
     });
 
     function CloseCityPopUp() {
-        //var globalLocation = $("#globalcity-popup");
-        //globalLocation.hide();
-        //globalLocation.removeClass("show").addClass("hide");
         $("#globalcity-popup").hide();
         unlockPopup();
-        if (!isCookieExists("location"))
-            SetCookieInDays("location", "0", 365);
     }
-
-    //function closePopUp() {
-    //    var bwPopup = $(document).find('.bw-popup');
-    //    bwPopup.removeClass("show").addClass("hide");
-    //}
 
     $("#globalCity").autocomplete({
         source: function (request, response) {
@@ -335,8 +325,8 @@ $(document).ready(function () {
             city.cityId = ui.item.payload.cityId;
             city.maskingName = ui.item.payload.cityMaskingName;
             var cityName = ui.item.label.split(',')[0];
-            var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
-            SetCookieInDays("location", CookieValue, oneYear);
+            if(city.cityId!=globalCityId)
+                SetCookieInDays("location", city.cityId + "_" + cityName , 365);
             CloseCityPopUp();
             showGlobalCity(ui.item.label);            
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
@@ -393,8 +383,6 @@ $(document).ready(function () {
         if (e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
             globalLocation.hide();
             unlockPopup();
-            if (!isCookieExists("location"))
-                SetCookieInDays("location", "0", 365);
         }
     });
 

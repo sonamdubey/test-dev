@@ -172,6 +172,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// Description : To Load news list
         /// Modified by :   Sumit Kate on 02 Jan 2017
         /// Description :   Pass Make and Model to get news lists
+        /// Modified by :   Sumit Kate on 05 Jan 2017
+        /// Description :   Get only News for make and model specific news
         /// </summary>
         public void FetchNewsList(LinkPagerControl ctrlPager, bool isMobile = false)
         {
@@ -182,13 +184,16 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 _objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
 
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.AutoExpo2016);
                 categorList.Add(EnumCMSContentType.News);
-                categorList.Add(EnumCMSContentType.Features);
-                categorList.Add(EnumCMSContentType.RoadTest);
-                categorList.Add(EnumCMSContentType.ComparisonTests);
-                categorList.Add(EnumCMSContentType.SpecialFeature);
-                categorList.Add(EnumCMSContentType.TipsAndAdvices);
+                if (MakeId == 0 && ModelId == 0)
+                {
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    categorList.Add(EnumCMSContentType.Features);
+                    categorList.Add(EnumCMSContentType.RoadTest);
+                    categorList.Add(EnumCMSContentType.ComparisonTests);
+                    categorList.Add(EnumCMSContentType.SpecialFeature);
+                    categorList.Add(EnumCMSContentType.TipsAndAdvices);
+                }
                 string contentTypeList = Bikewale.Utility.CommonApiOpn.GetContentTypesString(categorList);
 
                 categorList.Clear();
