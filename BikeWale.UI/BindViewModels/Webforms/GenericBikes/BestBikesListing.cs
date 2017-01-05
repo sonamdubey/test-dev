@@ -3,6 +3,7 @@ using Bikewale.BAL.GenericBikes;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.GenericBikes;
+using Bikewale.DAL.GenericBikes;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
@@ -56,6 +57,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
                     .RegisterType<ICacheManager, MemcacheManager>()
                     .RegisterType<IArticles, Articles>()
                     .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                    .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
                     .RegisterType<IProcessFilter, ProcessFilter>();
                 objBestBikesBal = container.Resolve<IBestBikes>();
             }

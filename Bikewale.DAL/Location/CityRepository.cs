@@ -334,6 +334,8 @@ namespace Bikewale.DAL.Location
         /// <summary>
         /// Created by Subodh jain 6 oct 2016
         /// Describtion To get Top 6 cities order by poplarity and remaining by alphabetic order
+        /// Created By : Sajal Gupta on 05-01-2017
+        /// Desc : Changed SP getusedbikebycitywithcount_04012017
         /// </summary>
         /// <returns></returns>
         public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
@@ -341,7 +343,7 @@ namespace Bikewale.DAL.Location
             IList<UsedBikeCities> usedBikeCities = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_06102016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_04012017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
