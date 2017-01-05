@@ -518,6 +518,9 @@ var usedBikes = function () {
                                 $('html, body').scrollTop(listingStartPoint.offset().top - 50);
                             }
                         }
+                        else {
+                            $('html, body').scrollTop(listingStartPoint.offset().top - 50);
+                        }
                         
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
