@@ -13,7 +13,7 @@
                                     <a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" class="jcarousel-card">
                                     <div class="model-jcarousel-image-preview">
                                         <div class="card-image-block">
-                                            <img class="lazy" src="" data-original="<%# String.Format("{0}/{1}",DataBinder.Eval(Container.DataItem,"HostURL").ToString(),DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString()) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>">
+                                            <img class="lazy" src="" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>">
                                         </div>
                                     </div>
                                     <div class="card-desc-block">
