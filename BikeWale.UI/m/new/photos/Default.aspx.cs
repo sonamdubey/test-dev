@@ -1,8 +1,7 @@
 ﻿using Bikewale.BindViewModels.Webforms.Photos;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Photos;
+using Bikewale.Mobile.Controls;
 using System;
-using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Mobile.New.Photos
 {
@@ -14,10 +13,7 @@ namespace Bikewale.Mobile.New.Photos
     {
 
         //protected ModelGallery ctrlModelGallery;
-        protected string bikeName = string.Empty, modelName = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, modelImage = string.Empty;
-        protected int totalImages = 0, remainingImages = 0, modelId = 0, imgCount = 0;
-        protected List<ModelImage> objImageList = null;
-        protected BikeMakeEntityBase objMake = null;
+        protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
 
         protected override void OnInit(EventArgs e)
@@ -50,7 +46,9 @@ namespace Bikewale.Mobile.New.Photos
                 }
                 else  //page not found
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", true);
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -61,6 +59,15 @@ namespace Bikewale.Mobile.New.Photos
 
         private void BindModelPhotosPageWidgets()
         {
+            if (vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)
+            {
+                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.MakeMaskingName = vmModelPhotos.objMake.MaskingName;
+                ctrlVideos.ModelMaskingName = vmModelPhotos.objModel.MaskingName;
+                ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
+                ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
+                ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
+            }
 
         }
     }
