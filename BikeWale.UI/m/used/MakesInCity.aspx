@@ -30,7 +30,7 @@
         <section>
             <div class="container bg-white clearfix box-shadow padding-bottom15 margin-bottom10">
                 <div class="padding-top20 padding-right20 padding-left20">
-                    <h1 class="margin-bottom15">Browse used <%=MakeDetails.MakeName %> bike by cities</h1>
+                    <h1 class="margin-bottom15">Browse used <%=MakeDetails.MakeName %> bikes by cities</h1>
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>
                         <input type="text" id="cityInput" class="form-control padding-right40" placeholder="Type to select city" />
