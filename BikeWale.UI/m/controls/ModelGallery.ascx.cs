@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
@@ -8,13 +9,14 @@ namespace Bikewale.Mobile.Controls
 {
     public class ModelGallery : System.Web.UI.UserControl
     {
-        protected Repeater rptVideoNav, rptModelPhotos, rptNavigationPhoto;
-        public string bikeName = String.Empty, modelName = string.Empty, articleName=string.Empty;
+        protected Repeater rptVideoNav;
+        public string bikeName = String.Empty, modelName = string.Empty, articleName = string.Empty;
         public int imageCount = 0, videoCount = 0;
         public int modelId;
-        public List<ModelImage> Photos;
+        public IList<ModelImage> Photos;
+        public bool showWidget;
         //set this variable to false when model gallery is injected to any other page
-        public bool isModelPage=true;
+        public bool isModelPage = true;
 
         protected override void OnInit(EventArgs e)
         {
@@ -24,19 +26,32 @@ namespace Bikewale.Mobile.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Photos != null && Photos.Count >= 1)
-            {
-                BindModelGalleryWidget();
-            }
+            BindModelGalleryWidget();
         }
-
+        /// <summary>
+        /// Modified By :Subodh Jain 6 Jan 2017
+        /// Summary:- Added Check for count and removed repeater for photo binding
+        /// </summary>
         private void BindModelGalleryWidget()
         {
-            BindModelGallery bmg = new BindModelGallery();
-            bmg.ModelId = modelId;
-            bmg.BindImages(rptModelPhotos, rptNavigationPhoto, Photos);
-            bmg.BindVideos(rptVideoNav);
-            videoCount = bmg.FetchedVideoCount;
+            try
+            {
+                BindModelGallery ObjBindModelGallery = new BindModelGallery();
+                if (ObjBindModelGallery != null)
+                {
+
+                    ObjBindModelGallery.ModelId = modelId;
+                    ObjBindModelGallery.BindVideos(rptVideoNav);
+                    videoCount = ObjBindModelGallery.FetchedVideoCount;
+                    if (videoCount > 1 || Photos.Count > 1)
+                        showWidget = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Controls.BindModelGalleryWidget");
+            }
         }
     }
 }

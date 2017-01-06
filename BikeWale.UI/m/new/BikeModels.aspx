@@ -10,6 +10,7 @@
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,18 +110,18 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="model-main-image" class="cursor-pointer" />
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.showWidget?"model-main-image":"") %>" class="cursor-pointer" />
                             <div class="model-media-details">
                                 <% if (modelPage.ModelDetails.PhotosCount>0)
                                 { %>
-                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos" class="model-media-item">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" class="model-media-item">
                                     <span class="bwmsprite gallery-photo-icon"></span>
                                     <span class="model-media-count"><%= modelPage.ModelDetails.PhotosCount %></span>
                                 </a>
                                 <% } %>
                                <% if (modelPage.ModelDetails.VideosCount>0)
                                 { %>
-                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/#videos" class="model-media-item">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/videos/" class="model-media-item">
                                     <span class="bwmsprite gallery-video-icon"></span>
                                     <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
                                 </a>                              
@@ -873,6 +874,7 @@
                 <div id="modelSpecsFooter"></div>
             </div>
         </section>
+         
       
         <% 
             if (ctrlUserReviews.FetchedRecordsCount > 0)
@@ -993,121 +995,9 @@
             </ul>
         </div>
         <% } %>
-
-        <section>
-            <div class="model-gallery-container relative-gallery-container">
-                <h3 class="font16 text-white">Bajaj Pular RS200 Photos</h3>
-
-                <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
-
-                <div class="bw-tabs-panel">
-
-                    <ul class="bw-tabs horizontal-tabs-wrapper">
-                        <li class="active" data-tabs="photos" id="photos-tab">Photos</li>
-                        <li data-tabs="videos" id="videos-tab">Videos</li>
-                    </ul>
-
-                    <div id="bike-gallery-popup">
-                        <div class="bw-tabs-data" id="photos">
-                            <div class="font14 text-white margin-bottom15">
-                                <span class="leftfloat media-title"></span>
-                                <span class="rightfloat gallery-count"></span>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="connected-carousels-photos">
-                                <div class="stage-photos">
-                                    <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Side-50239.jpg?20151004164119&t=164119207&t=164119207" src="" alt="" title="Model Image" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Side-50240.jpg?20151004164217&t=164217690&t=164217690" src="" alt="" title="Model Image" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd5.aeplcdn.com//310x174//n/bw/olwlr33_2812.jpg" src="" alt="" title="Model Image" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50242.jpg?20151004165351&t=165351703&t=165351703" src="" alt="" title="Model Image" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50243.jpg?20151004165357&t=165357333&t=165357333" src="" alt="" title="Model Image" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                        </div>
-                                        <div class="bwmsprite swiper-button-next"></div>
-                                        <div class="bwmsprite swiper-button-prev"></div>
-                                    </div>
-                                </div>
-
-                                <div class="navigation-photos">
-                                    <div class="swiper-container noSwiper carousel-navigation-photos">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Side-50239.jpg?20151004164119&t=164119207&t=164119207" src="" alt="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Side-50240.jpg?20151004164217&t=164217690&t=164217690" src="" alt="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd5.aeplcdn.com//310x174//n/bw/olwlr33_2812.jpg" src="" alt="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50242.jpg?20151004165351&t=165351703&t=165351703" src="" alt="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50243.jpg?20151004165357&t=165357333&t=165357333" src="" alt="" />
-                                                <span class="swiper-lazy-preloader"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bw-tabs-data" id="videos">
-                            <div class="connected-carousels-videos">
-                                <div class="stage-videos">
-                                    <div class="carousel-videos carousel-stage-videos">
-                                        <div class="yt-iframe-preview">
-                                            <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="navigation-videos">
-                                    <div class="swiper-container noSwiper carousel-navigation-videos">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img iframe-data="https://www.youtube.com/embed/2olrXRfebos?rel=0&showinfo=0" src="http://img.youtube.com/vi/2olrXRfebos/1.jpg" width="83" height="47" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img iframe-data="https://www.youtube.com/embed/8Pvu-DqbsCc?rel=0&showinfo=0" src="http://img.youtube.com/vi/8Pvu-DqbsCc/1.jpg" width="83" height="47" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img iframe-data="https://www.youtube.com/embed/h399XRm-OcA?rel=0&showinfo=0" src="http://img.youtube.com/vi/h399XRm-OcA/1.jpg" width="83" height="47" />
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <img iframe-data="https://www.youtube.com/embed/SqqTPir9v9g?rel=0&showinfo=0" src="http://img.youtube.com/vi/SqqTPir9v9g/1.jpg" width="83" height="47" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        <%if(ctrlModelGallery.showWidget){ %>
+          <BW:ModelGallery runat="server" ID="ctrlModelGallery" />
+        <%} %>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
