@@ -37,7 +37,8 @@
                     <%= ++serialNo%> 
                     <asp:CheckBox ID="chkLaunched" runat="server" Idvalue='' ></asp:CheckBox>
                     <asp:Label ID="lblId" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Id") %>' style="display:none;"></asp:Label>
-                    <asp:Label ID="lblModelId" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "BikeModelId") %>' style="display:none;"></asp:Label>            
+                    <asp:Label ID="lblModelId" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "BikeModelId") %>' style="display:none;"></asp:Label>
+                    <asp:Label ID="lblMakeId" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "BikeMakeId") %>' style="display:none;"></asp:Label>            
                 </itemtemplate>
             </asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Expected Launch Date" >
