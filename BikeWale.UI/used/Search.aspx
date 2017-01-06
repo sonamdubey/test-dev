@@ -157,7 +157,15 @@
 
                                                 <div class="model-thumbnail-image">
                                                     <a href="<%= string.Format("/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" title="<%= curBikeName %>">
+                                                        <% if (!(String.IsNullOrEmpty(bike.Photo.OriginalImagePath) || String.IsNullOrEmpty(bike.Photo.HostUrl)))
+                                                           { %>
                                                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= curBikeName %>" title="<%= curBikeName %>" src="" />
+                                                        <%}else{ %>
+                                                        <div class="bg-light-grey">
+                                                            <span class="bwsprite no-image-icon margin-bottom15"></span>
+                                                            <p class="font12 text-bold text-light-grey">Image not available</p>
+                                                        </div>
+                                                        <%} %>
                                                         <% if (bike.TotalPhotos > 0)
                                                            { %>
                                                         <div class="model-media-details">
