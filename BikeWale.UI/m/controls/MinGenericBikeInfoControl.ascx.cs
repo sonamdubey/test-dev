@@ -1,6 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.PriceQuote;
 using System;
 
 namespace Bikewale.Mobile.Controls
@@ -14,7 +13,6 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         protected GenericBikeInfo bikeInfo { get; set; }
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
-        protected PQSourceEnum pqSource;
 
         protected override void OnInit(EventArgs e)
         {
@@ -34,7 +32,6 @@ namespace Bikewale.Mobile.Controls
                         bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
                     if (bikeInfo.Model != null)
                         bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
-                    pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
                 };
             }
 

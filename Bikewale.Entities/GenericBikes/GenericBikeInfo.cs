@@ -6,6 +6,8 @@ namespace Bikewale.Entities.GenericBikes
     /// <summary>
     /// Created by : Sushil Kuamr on 2nd Jan 2016
     /// DEscription : To store generic bike info related to model
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get genericbike info with min specs
     /// </summary>
     [Serializable]
     public class GenericBikeInfo

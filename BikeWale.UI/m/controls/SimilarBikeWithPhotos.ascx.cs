@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 5th Jan 2017
+    /// Description : Control to bind similar bikes with photos count 
+    /// </summary>
     public class SimilarBikeWithPhotos : System.Web.UI.UserControl
     {
         public ushort TotalRecords { get; set; }
@@ -19,7 +23,8 @@ namespace Bikewale.Mobile.Controls
         }
 
         /// <summary>
-        /// 
+        /// Created By : Sushil Kumar on 5th Jan 2017
+        /// Description : Control to bind similar bikes with photos count 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -28,14 +33,11 @@ namespace Bikewale.Mobile.Controls
             if (ModelId > 0)
             {
                 BindSimilarBikesWithPhotos vmSimilarBikes = new BindSimilarBikesWithPhotos();
-                if (vmSimilarBikes != null)
-                {
-                    vmSimilarBikes.TotalRecords = TotalRecords;
-                    vmSimilarBikes.ModelId = ModelId;
-                    objSimilarBikes = vmSimilarBikes.SimilarBikesWithPhotosCount();
-                    if (objSimilarBikes != null)
-                        FetchedRecordsCount = objSimilarBikes.Count();
-                }
+                vmSimilarBikes.TotalRecords = TotalRecords;
+                vmSimilarBikes.ModelId = ModelId;
+                objSimilarBikes = vmSimilarBikes.SimilarBikesWithPhotosCount();
+                if (objSimilarBikes != null)
+                    FetchedRecordsCount = objSimilarBikes.Count();
             }
         }
     }

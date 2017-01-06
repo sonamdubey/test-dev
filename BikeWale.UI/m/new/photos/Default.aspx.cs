@@ -6,7 +6,7 @@ using System.Web;
 namespace Bikewale.Mobile.New.Photos
 {
     /// <summary>
-    /// Created By : Sushil Kumar on 5th Jan 2017
+    /// Created By : Sushil Kumar on 6th Jan 2017
     /// Description : Added new page for photos page and bind modelgallery,videos and generic bike info widgets
     /// </summary>
     public class Default : System.Web.UI.Page
@@ -15,7 +15,7 @@ namespace Bikewale.Mobile.New.Photos
         protected ModelGallery ctrlModelGallery;
         protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
-        protected MinGenericBikeInfoControl ctrlGenericBikeInfo;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
 
         protected override void OnInit(EventArgs e)
@@ -28,6 +28,10 @@ namespace Bikewale.Mobile.New.Photos
             BindPhotosPage();
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 6th Jan 2017
+        /// Description : Bind photos page with metas,photos and widgets
+        /// </summary>
         private void BindPhotosPage()
         {
             try
@@ -59,6 +63,10 @@ namespace Bikewale.Mobile.New.Photos
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 6th Jan 2017
+        /// Description : bind photos page widgets
+        /// </summary>
         private void BindModelPhotosPageWidgets()
         {
             if (vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)

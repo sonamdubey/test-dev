@@ -11,11 +11,14 @@ using System.Collections.Generic;
 
 namespace Bikewale.BindViewModels.Controls
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 6th Jan 2016
+    /// Summary :  Viewmodel for similar bikes with photos count
+    /// </summary>
     public class BindSimilarBikesWithPhotos
     {
         public ushort TotalRecords { get; set; }
         public int ModelId { get; set; }
-        public int FetchedRecordsCount { get; set; }
 
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2016

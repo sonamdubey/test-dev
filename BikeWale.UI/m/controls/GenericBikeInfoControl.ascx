@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MinGenericBikeInfoControl" EnableViewState="false" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.GenericBikeInfoControl" EnableViewState="false" %>
 <% if (bikeInfo != null)
    { %>
 
@@ -80,7 +80,7 @@
           { %>
         <button type="button" data-pagecatid="0"
             data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bikeInfo.Make.MakeName %>"
-            data-modelname="<%= bikeInfo.Model.ModelName %>" data-modelid="<%= bikeInfo.Model.ModelId %>"
+            data-modelname="<%= bikeInfo.Model.ModelName %>" data-modelid="<%= ModelId %>"
             class="btn btn-white font14 btn-size-180 getquotation">
             Check on-road price</button>
         <% } %>

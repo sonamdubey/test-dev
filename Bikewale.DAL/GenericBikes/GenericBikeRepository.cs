@@ -12,7 +12,9 @@ namespace Bikewale.DAL.GenericBikes
 {
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
-    /// Summary :  Generic Bike repository
+    /// Description :  Generic Bike repository
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get generic bike info with min specs
     /// </summary>
     public class GenericBikeRepository : IGenericBikeRepository
     {
@@ -20,6 +22,8 @@ namespace Bikewale.DAL.GenericBikes
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Jan 2016
         /// Summary :  To get generic bike info by modelid
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get generic bike info with min specs
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetGenericBikeInfo(uint modelId)

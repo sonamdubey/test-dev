@@ -17,6 +17,8 @@ namespace Bikewale.DAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get similar bikes with photos count
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -1342,7 +1344,8 @@ namespace Bikewale.DAL.BikeData
 
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get similar bikes with photos count
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
