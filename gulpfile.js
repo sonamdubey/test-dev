@@ -308,6 +308,11 @@ var pageArray = [
         folderName: 'includes/',
         fileName: 'headscript_mobile_min.aspx',
         stylesheet: 'm/css/bwm-common-atf.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'BikeModels.aspx',
+        stylesheet: 'm/css/bwm-model-atf.css'
     }
 ];
 
