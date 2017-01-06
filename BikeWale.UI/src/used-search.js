@@ -48,7 +48,7 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
         return div - 1;
     });
     self.paginated = ko.computed(function () {
-        var pgSlot = self.pageNumber() + self.pageSlot();
+        var pgSlot = self.pageNumber() + self.pageSlot() - 2;
         if (pgSlot > self.totalPages()) pgSlot = self.totalPages() + 1;
         return pgSlot;
     });
@@ -451,10 +451,12 @@ var usedBikes = function () {
                 var n = self.Pagination().paginated(), pages = '', prevpg = '', nextpg = '';
                 var qs = window.location.pathname + window.location.hash;
                 var rstr = qs.match(/page-[0-9]+/i);
-                for (var i = self.Pagination().pageNumber() ; i < n; i++) {
+                var startIndex = (self.Pagination().pageNumber() - 2 > 0) ? (self.Pagination().pageNumber() - 2) : 1;
+                var endIndex = (self.Pagination().pageNumber() - 2 > 0) ? n : 6;
+                for (var i = startIndex ; i < endIndex; i++) {
                     var pageUrl = qs.replace(rstr, "page-" + i);
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
-                }
+                }                
                 self.PagesListHtml(pages);
 
                 if (self.Pagination().hasPrevious()) {
