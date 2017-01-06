@@ -17,6 +17,9 @@
 }
 
 /* photos-grid-list */
+.bg-grid {
+    background: #f0f0f0;
+}
 .photos-grid-list {
     padding: 5px 2px 3px;
     overflow: hidden;
@@ -38,7 +41,7 @@
 
 .photos-grid-list li:nth-child(6n+2) {
     width: 67%;
-    padding-bottom: 38.1%;
+    padding-bottom: 37.5%;
 }
 
 .photos-grid-list li:nth-child(6n+3),

@@ -285,6 +285,7 @@
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
+    <Compile Include="BindViewModels\Webforms\Photos\ModelPhotos.cs" />
     <Compile Include="BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
     <Compile Include="BindViewModels\Webforms\Used\BindUsedBikesByMakeCity.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
