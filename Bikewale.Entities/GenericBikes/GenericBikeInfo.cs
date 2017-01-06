@@ -20,6 +20,8 @@ namespace Bikewale.Entities.GenericBikes
         public uint ExpertReviewsCount { get; set; }
         public uint FeaturesCount { get; set; }
         public bool IsSpecsAvailable { get; set; }
+        public MinSpecsEntity MinSpecs { get; set; }
+        public uint BikePrice { get; set; }
 
     }
 }

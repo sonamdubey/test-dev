@@ -1,9 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Interfaces.BikeData
 {
@@ -13,9 +9,10 @@ namespace Bikewale.Interfaces.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public interface IBikeMaskingCacheRepository<T,U>
+    public interface IBikeMaskingCacheRepository<T, U>
     {
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
+        IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords);
     }
 }

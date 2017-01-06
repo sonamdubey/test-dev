@@ -53,5 +53,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
         ModelPhotos GetModelPhotoInfo(U modelId);
+        IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
     }
 }
