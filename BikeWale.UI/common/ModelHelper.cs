@@ -23,6 +23,7 @@ namespace Bikewale.Common
     /// </summary>
     public class ModelHelper
     {
+
         /// <summary>
         /// Created by : Sangram Nandkhile on 23 Nov 2016
         /// Description: Method to get Model name by makeId.

@@ -2,9 +2,11 @@
 using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
@@ -14,83 +16,143 @@ using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Photos
 {
     /// <summary>
-    /// Created By : Sushil Kumar 
+    /// Created By : Sushil Kumar on 5th Jan 2017
+    /// Description : Viewmodel for Model's Photos page
     /// </summary>
-    public class ModelPhotos
+    public class BindModelPhotos
     {
-        protected string bikeName = string.Empty, modelName = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, modelImage = string.Empty;
-        protected int modelId = 0, imgCount = 0;
-        public bool IsPageNotFound = false, IsPermanentRedirection = false;
-        protected BikeModelPageEntity modelPage = null;
+        private uint _modelId = 0, _noOfGrid = 6;
         private IBikeModelsCacheRepository<int> objModelCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache = null;
-        IBikeModels<BikeModelEntity, int> objModel = null;
-        public bool IsRedirectToModelPage = false;
+        public string bikeName = string.Empty, modelImage = string.Empty;
+        public uint totalPhotosCount, gridPhotosCount, nongridPhotosCount;
+        public bool isPageNotFound = false, isPermanentRedirection = false;
+        public bool isRedirectToModelPage = false;
+        public string pageRedirectUrl = "/";
+        public BikeMakeEntityBase objMake = null;
+        public BikeModelEntityBase objModel = null;
+        public List<ModelImage> objImageList = null;
+        public PageMetaTags pageMetas = null;
+        public uint gridSize = 30;  //show more photos available after grid size more than 30
 
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
-        /// Description: ModelPhotos constructor
+        /// Description: ModelPhotos constructor to resolve unity containers on intialization
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public ModelPhotos()
+        public BindModelPhotos()
         {
-
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                    .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                    .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                    .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                    .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
+                        
 
-                objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                    objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                }
+
+                ParseQueryString();
             }
-
-            ParseQueryString();
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : BindModelPhotos");
+            }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 5th Jan 2016
+        /// Description: To get Model Details
+        /// </summary>
+        public void GetModelDetails()
+        {
+            try
+            {
+                var bikemodelEnt = new ModelHelper().GetModelDataById(_modelId);
 
+                if (bikemodelEnt != null)
+                {
+                    objMake = bikemodelEnt.MakeBase;
+                    objModel = new BikeModelEntityBase();
+                    objModel.ModelId = bikemodelEnt.ModelId;
+                    objModel.ModelName = bikemodelEnt.ModelName;
+                    bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
+                }
+
+                GetModelImages();
+                SetPageMetas();
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 5th Jan 2016
+        /// Description: To get model images .Calculate grid and non grid images count based on total count
+        /// </summary>
         public void GetModelImages()
         {
             try
             {
-                BikeModelEntity bikemodelEnt = null;
-                bikemodelEnt = objModel.GetById(Convert.ToInt32(modelId));
-                List<ModelImage> objImageList = (List<ModelImage>)objModelCache.GetModelPhotos(modelId);
-
-                if (bikemodelEnt != null)
-                {
-                    modelName = bikemodelEnt.ModelName;
-                    makeMaskingName = bikemodelEnt.MakeBase.MaskingName;
-                    makeName = bikemodelEnt.MakeBase.MakeName;
-                    bikeName = string.Format("{0} {1}", makeName, modelName);
-                }
-
+                objImageList = (List<ModelImage>)objModelCache.GetModelPhotos((int)_modelId);
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
-                    imgCount = objImageList.Count;
+                    totalPhotosCount = (uint)objImageList.Count;
+                    nongridPhotosCount = totalPhotosCount % _noOfGrid;
+                    gridPhotosCount = totalPhotosCount - nongridPhotosCount;
                     modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Photos : GetModelImages");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
             }
         }
 
         /// <summary>
-        /// Function to get the required parameters from the query string.
-        /// Desc: It sets variantId and modelId
+        /// Created By : Sushil Kumar on 6th Jan 2017
+        /// Description : Set mode photos page metas
+        /// </summary>
+        private void SetPageMetas()
+        {
+            try
+            {
+                if (objMake != null && objModel != null)
+                {
+                    pageMetas = new PageMetaTags();
+                    pageMetas.Title = String.Format("{0} Photos - BikeWale", bikeName);
+                    pageMetas.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", objModel.ModelName, objMake.MakeName);
+                    pageMetas.Description = String.Format("View pictures of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
+                    pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/photos/", objMake.MaskingName, objModel.MaskingName);
+                    pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/photos/", objMake.MaskingName, objModel.MaskingName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : SetPageMetas");
+            }
+
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 5th Jan 2016
+        /// Description: Parse query string to validate model masking name
         /// </summary>
         private void ParseQueryString()
         {
             ModelMaskingResponse objResponse = null;
+            string modelMaskingName = string.Empty;
             var request = HttpContext.Current.Request;
             try
             {
@@ -102,8 +164,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Photos : ParseQueryString");
-                IsRedirectToModelPage = true;
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : ParseQueryString");
+                isRedirectToModelPage = true;
             }
             finally
             {
@@ -113,25 +175,26 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     {
                         if (objResponse.StatusCode == 200)
                         {
-                            modelId = Convert.ToInt32(objResponse.ModelId);
+                            _modelId = objResponse.ModelId;
                         }
                         else if (objResponse.StatusCode == 301)
                         {
-                            IsPermanentRedirection = true;
+                            pageRedirectUrl = request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName);
+                            isPermanentRedirection = true;
                         }
                         else
                         {
-                            IsPageNotFound = true;
+                            isPageNotFound = true;
                         }
                     }
                     else
                     {
-                        IsPageNotFound = true;
+                        isPageNotFound = true;
                     }
                 }
                 else
                 {
-                    IsPageNotFound = true;
+                    isPageNotFound = true;
                 }
             }
         }
