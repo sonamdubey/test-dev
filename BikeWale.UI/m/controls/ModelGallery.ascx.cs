@@ -14,7 +14,7 @@ namespace Bikewale.Mobile.Controls
         public int imageCount = 0, videoCount = 0;
         public int modelId;
         public IList<ModelImage> Photos;
-        public bool showWidget;
+        public bool ShowWidget;
         //set this variable to false when model gallery is injected to any other page
         public bool isModelPage = true;
 
@@ -44,7 +44,7 @@ namespace Bikewale.Mobile.Controls
                     ObjBindModelGallery.BindVideos(rptVideoNav);
                     videoCount = ObjBindModelGallery.FetchedVideoCount;
                     if (videoCount > 1 || Photos.Count > 1)
-                        showWidget = true;
+                        ShowWidget = true;
                 }
             }
             catch (Exception ex)

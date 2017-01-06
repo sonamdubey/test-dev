@@ -16,6 +16,7 @@
                 <li data-tabs="videos" id="videos-tab">Videos</li>
             </ul>
             <% } %>
+        
             <div id="bike-gallery-popup">
                 <div class="bw-tabs-data" id="photos">
                     <div class="font14 text-white margin-bottom15">
@@ -23,6 +24,7 @@
                         <span class="rightfloat gallery-count"></span>
                         <div class="clear"></div>
                     </div>
+                        <%if(Photos!=null){ %>
                     <div class="connected-carousels-photos">
                         <div class="stage-photos">
                             <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
@@ -54,6 +56,7 @@
                             </div>
                         </div>
                     </div>
+                    <%} %>
                 </div>
                 <% if(videoCount > 0) { %>
                 <div class="bw-tabs-data" id="videos">

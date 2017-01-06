@@ -110,7 +110,7 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.showWidget?"model-main-image":"") %>" class="cursor-pointer" />
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image":"") %>" class="cursor-pointer" />
                             <div class="model-media-details">
                                 <% if (modelPage.ModelDetails.PhotosCount>0)
                                 { %>
@@ -995,7 +995,7 @@
             </ul>
         </div>
         <% } %>
-        <%if(ctrlModelGallery.showWidget){ %>
+        <%if(ctrlModelGallery.ShowWidget){ %>
           <BW:ModelGallery runat="server" ID="ctrlModelGallery" />
         <%} %>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
