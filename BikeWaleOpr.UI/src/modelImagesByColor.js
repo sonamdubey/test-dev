@@ -32,7 +32,12 @@ $(document).ready(function () {
         if(!imgExists){
             // call webAPI
         }
-        uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
+        var imgUpldUtil = uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
+        var status = imgUpldUtil.status;
+        if (status) {
+            var imgPath = 'https://imgd5.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
+            $(this).closest('tr').find('img').attr('src',imgPath);
+        }
     });
 });
 
@@ -54,14 +59,12 @@ function fillDropdowns() {
 }
 
 function uploadToAWS(file, photoId, itemId, path, ext) {
-    debugger;
     var imgUpldUtil = new ImageUploadUtility();
     imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
     imgUpldUtil.photoId = photoId;
     imgUpldUtil.baseURL = hostUrl;
     file.type = "image/" + ext;    
     imgUpldUtil.upload(file);
-    var status = imgUpldUtil.status;
     $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
-
+    return imgUpldUtil;
 };
