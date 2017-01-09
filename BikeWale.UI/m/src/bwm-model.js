@@ -545,6 +545,8 @@ $('#model-main-image').on('click', function () {
     appendState('gallery');
 
     $("#photos-tab").trigger('click');
+    // slide thumbnail to active gallery image
+    galleryThumbs.slideTo(galleryTop.activeIndex, 500);
 });
 
 var slideToClick = function (swiper) {
