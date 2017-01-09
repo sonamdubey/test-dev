@@ -113,6 +113,12 @@ namespace BikeWaleOpr.Content
              }*/
         } // Page_Load
 
+        /// <summary>
+        /// modified by : Sajal Gupta on 9-1-2017
+        /// Description : Refreshed memcache popular bike makes key
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Page.Validate();
@@ -150,9 +156,10 @@ namespace BikeWaleOpr.Content
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key
-                        BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(null, Convert.ToUInt32(cmbMakes.SelectedValue));
-                        BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(6, Convert.ToUInt32(cmbMakes.SelectedValue));
-                        BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(9, Convert.ToUInt32(cmbMakes.SelectedValue));
+                        UInt32? makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                     }
 
                     if (_mc != null)
@@ -345,9 +352,10 @@ namespace BikeWaleOpr.Content
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteModelVersions(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
             //CLear popularBikes key
-            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(null, Convert.ToUInt32(cmbMakes.SelectedValue));
-            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(6, Convert.ToUInt32(cmbMakes.SelectedValue));
-            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(9, Convert.ToUInt32(cmbMakes.SelectedValue));
+            UInt32? makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
             BindGrid();
         }
 
