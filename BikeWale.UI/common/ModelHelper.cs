@@ -27,6 +27,8 @@ namespace Bikewale.Common
         /// <summary>
         /// Created by : Sangram Nandkhile on 23 Nov 2016
         /// Description: Method to get Model name by makeId.
+        /// modified By:-Subodh jain 9 jan 2017
+        /// Description :- Added cache call
         /// </summary>
         public BikeModelEntity GetModelDataById(uint modelId)
         {
@@ -35,8 +37,11 @@ namespace Bikewale.Common
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    IBikeModels<BikeModelEntity, int> obj = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            ;
+                    var obj = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     objModel = obj.GetById((int)modelId);
                 }
             }
