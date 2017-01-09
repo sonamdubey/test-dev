@@ -136,7 +136,19 @@
 
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+            <div class="container box-shadow bg-white margin-bottom10">
+                <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+
+                <div class="margin-left20 margin-right20 margin-top15 padding-bottom20">
+                    <a href="" title="" class="model-rank-slug">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwmsprite rank-graph"></span>
+                        </div>
+                        <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />'Best Cruisers' list can come in handy.</p>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </div>
+            </div>
         </section>
         
   

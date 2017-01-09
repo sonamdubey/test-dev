@@ -466,6 +466,19 @@
                         </span>
                         <a href="javascript:void(0)" class="font14 read-more-model-preview">Read more</a>
                     </p>
+
+                    <a href="" title="Top 10 Cruisers in India" class="model-rank-slug margin-top20 margin-bottom10">
+                        <div class="inline-block">
+                            <span class="item-rank">#2</span>
+                        </div>
+                        <div class="rank-slug-label inline-block text-bold text-default">
+                            <p class="font16">Ranked 2nd in</p>
+                            <p class="font14">Top 10 Cruisers in India</p>
+                        </div>
+                        <span class="trend-arrow"></span>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+
                     <% if (modelPage.ModelVersionSpecs != null)
                        { %>
                     <h3 class="margin-top15">Specification summary</h3>
@@ -849,6 +862,28 @@
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                     { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />
+
+                    <div class="margin-left20 margin-right20 margin-top15">
+                        <a href="" title="" class="model-rank-slug">
+                            <div class="inline-block icon-red-bg">
+                                <span class="bwmsprite rank-graph"></span>
+                            </div>
+                            <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />'Best Cruisers' list can come in handy.</p>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </div>
+
+                    <%-- version 2 --%>
+                    <%--<div class="margin-left20 margin-right20 margin-top15">
+                        <a href="" title="" class="model-rank-slug">
+                            <div class="inline-block">
+                                <span class="item-rank">#2</span>
+                            </div>
+                            <p class="rank-slug-label inline-block text-default font14">Rank 2nd</p>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </div>--%>
+
                     <% } %>
                 </div>
                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>

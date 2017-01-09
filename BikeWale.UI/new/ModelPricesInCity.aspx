@@ -189,22 +189,37 @@
 					   { %>
 					<!-- Alternative reviews ends -->
 					<BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+
+                    <div class="margin-left20 margin-right20 padding-bottom20">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block icon-red-bg">
+                                    <span class="bwsprite rank-graph"></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? 'Best Cruisers' list can come in handy.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
 					<!-- Alternative reviews ends -->
 					<% } %>
-			    <div id="makeTabsContentWrapper" class="margin-bottom20">
-				    <div class="content-box-shadow">
-					    <div id="makeOverallTabsWrapper">
-						    <div id="makeOverallTabs" class="overall-floating-tabs">
-			      <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-					       { %>
-                        <div class="border-solid-top margin-right10 margin-left10"></div>
-					    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-					    <%} %>
-						     </div>
-			            </div>
-					</div>
-				</div>
+                    <div id="makeTabsContentWrapper" class="margin-bottom20">
+				        <div class="content-box-shadow">
+					        <div id="makeOverallTabsWrapper">
+						        <div id="makeOverallTabs" class="overall-floating-tabs">
+			                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+					                { %>
+                                    <div class="border-solid-top margin-right10 margin-left10"></div>
+					                <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+					            <%} %>
+						        </div>
+			                </div>
+					    </div>
+				    </div>
                 </div>
 			    <div class="clear"></div>
             </div>

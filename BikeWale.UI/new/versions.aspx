@@ -740,8 +740,24 @@
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                             <%if (!modelPageEntity.ModelDetails.Futuristic && modelPageEntity.ModelDetails.MinPrice>0)
                               { %>
-                            <h2><%=bikeName %> summary</h2>
-                            <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
+                            <h2 class="margin-bottom0"><%=bikeName %> summary</h2>
+                            <div class="grid-8 alpha margin-top15"><%-- add class - grid-12 and omega, if no slug instead of grid-8 --%>
+                                <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
+                            </div>
+                            <div class="grid-4 omega">
+                                <a href="" title="Top 10 Cruisers in India" class="model-rank-slug">
+                                    <div class="inline-block">
+                                        <span class="item-rank">#2</span>
+                                    </div>
+                                    <div class="rank-slug-label inline-block text-bold text-default">
+                                        <p class="font16">Ranked 2nd in</p>
+                                        <p class="font14">Top 10 Cruisers in India</p>
+                                    </div>
+                                    <span class="trend-arrow"></span>
+                                    <span class="bwsprite right-arrow"></span>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
 
                             <div class="border-solid-bottom margin-bottom20">
                                 <div class="grid-8 alpha margin-bottom10">
@@ -1245,6 +1261,39 @@
                             <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                { %>
                             <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+
+                            <div class="margin-left20 margin-right20 padding-bottom20">
+                                <div class="content-inner-block-15 border-solid font14">
+                                    <div class="grid-9 alpha">
+                                        <div class="inline-block icon-red-bg">
+                                            <span class="bwsprite rank-graph"></span>
+                                        </div>
+                                        <p class="inline-block checkout-list-slug-label">Not sure what to buy? 'Best Cruisers' list can come in handy.</p>
+                                    </div>
+                                    <div class="grid-3 text-right position-rel pos-top5">
+                                        <a href="">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <%-- version 2 --%>
+
+                            <%--<div class="margin-left20 margin-right20 padding-bottom20">
+                                <div class="content-inner-block-15 border-solid font14">
+                                    <div class="grid-9 alpha">
+                                        <div class="inline-block">
+                                            <span class="item-rank">#2</span>
+                                        </div>
+                                        <p class="inline-block checkout-list-slug-label">Ranked 2nd</p>
+                                    </div>
+                                    <div class="grid-3 text-right position-rel pos-top5">
+                                        <a href="" title="Check out the list now">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>--%>
+
                             <% } %>
                         </div>
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
@@ -1267,8 +1316,8 @@
                            { %>
                         <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                         <%} %>
-
-                      <div id="overallSpecsDetailsFooter"></div>
+                        
+                        <div id="overallSpecsDetailsFooter"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
