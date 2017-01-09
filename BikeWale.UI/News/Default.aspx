@@ -92,7 +92,7 @@
                                                     <span class="text-uppercase font12 text-bold"><%= GetContentCategory(article.CategoryId.ToString()) %></span>
                                                 </div>
                                                 <h3 class="font14 margin-bottom10">
-                                                    <a href="<%= articleUrl %>" rel="bookmark" class="text-black text-bold"><%= article.Title %></a>
+                                                    <a href="<%= articleUrl %>" title='<%= article.Title %>' rel="bookmark" class="text-black text-bold"><%= article.Title %></a>
                                                 </h3>
                                                 <div class="font12 text-light-grey margin-bottom20">
                                                     <div class="article-date">
