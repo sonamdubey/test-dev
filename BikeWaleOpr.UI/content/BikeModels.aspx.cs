@@ -336,6 +336,10 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = true;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 9-1-2017
+        /// Desc : Refresh popular bikes memcache keys.
+        /// </summary>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
             MakeModelVersion mmv = new MakeModelVersion();

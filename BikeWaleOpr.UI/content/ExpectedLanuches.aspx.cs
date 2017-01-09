@@ -57,6 +57,8 @@ namespace BikeWaleOpr.Content
         /// Desc : Refreshed modeldetails key for new bike launch.
         /// Modified by : Sangram Nandkhile on 5th Jan 2017
         /// Desc : Refreshed modeldetails, launch Details, PopularBikesByMake_ keys for new bike launch.
+        /// Modified by : Sajal Gupta on 9-1-2017
+        /// Desc : Refreshed popularbikekeys for new bike launch.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
