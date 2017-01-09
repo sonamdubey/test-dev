@@ -11,5 +11,6 @@ namespace Bikewale.Entities.Images
         public bool Status { get; set; }
         public bool ServerError { get; set; }
         public uint PhotoId { get; set; }
+        public string OriginalImagePath { get; set; }
     }
 }
