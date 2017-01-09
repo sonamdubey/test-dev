@@ -20,11 +20,14 @@ var listingStartPoint = $('#listing-start-point'),
     cityModelCarousel = $('#city-model-used-carousel');
 
 $(function () {
-    var arr = getCookie("Used").split('&');
-    if(arr[usedPageIdentifier].split('=')[1]=="1")
-        cityModelCarousel.show();
-    else
-        cityModelCarousel.hide();
+
+    if (getCookie("Used")!=null) {
+        var arr = getCookie("Used").split('&');
+        if (arr[usedPageIdentifier].split('=')[1] == "1")
+            cityModelCarousel.show();
+        else
+            cityModelCarousel.hide();
+    }
 
 })
 
