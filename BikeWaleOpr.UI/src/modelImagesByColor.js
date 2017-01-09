@@ -1,5 +1,6 @@
 ﻿var modelId;
 var environment;
+var hostUrl;
 $(document).ready(function () {
     $(document).ready(function () {
         if ($('#hdnModelId').val() > 0) {
@@ -33,7 +34,6 @@ $(document).ready(function () {
     });
 });
 
-
 $("#btnSubmit").live("click", function () {
     if ($("#cmbMake").val() > 0 && $("#cmbModel").val() > 0) {
         return true;
@@ -44,7 +44,6 @@ $("#btnSubmit").live("click", function () {
     }
 });
 
-
 function fillDropdowns() {
     var response = AjaxFunctions.GetNewModels($('#cmbMake').val());
     var dependentCmbs = new Array;
@@ -52,11 +51,12 @@ function fillDropdowns() {
     FillCombo_Callback(response, document.getElementById("cmbModel"), "hdn_cmbModel", dependentCmbs);
 }
 
-
 function uploadToAWS(file, photoId, itemId, path, ext) {
+    debugger;
     var imgUpldUtil = new ImageUploadUtility();
-    imgUpldUtil.request = { "originalImagePath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
+    imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
     imgUpldUtil.photoId = photoId;
+    imgUpldUtil.baseURL = hostUrl;
     imgUpldUtil.upload(file);
     var status = imgUpldUtil.status;
     $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));

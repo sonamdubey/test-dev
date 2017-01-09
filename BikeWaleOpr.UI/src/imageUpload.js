@@ -12,7 +12,7 @@
     //function to get token from server 
     self.getToken = function (request) {
         return $.ajax({
-            type: "POST", async: false, url: "/api/image/request/", dataType: 'json',
+            type: "POST", async: false, url: self.baseURL + "/api/image/request/", dataType: 'json',
             headers: { 'apiKey': self.apiKey },
             contentType: "application/json;charset=utf-8", data: JSON.stringify(request),
             success: function (response) {
@@ -68,7 +68,7 @@
 
                 //call api that processes image through Rabbit MQ and saves its details in database
                 $.ajax({
-                    type: "POST", async: false, url: "/api/image/", dataType: 'json', contentType: "application/json;charset=utf-8",
+                    type: "POST", async: false, url: self.baseURL + "/api/image/", dataType: 'json', contentType: "application/json;charset=utf-8",
                     headers: { 'apiKey': self.apiKey },
                     data: JSON.stringify(requestObject)
                 }).done(function (response) {

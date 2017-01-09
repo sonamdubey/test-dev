@@ -84,5 +84,6 @@
 <script type="text/javascript">
     modelId = '<%= modelId %>';
     environment = '<%= ConfigurationManager.AppSettings["AWSEnvironment"] %>';
+    hostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
