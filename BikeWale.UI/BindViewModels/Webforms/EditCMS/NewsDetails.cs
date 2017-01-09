@@ -99,7 +99,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 PageMetas.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
                 PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
                 PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
-                PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl); ;
+                PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
+                PageMetas.AmpUrl = String.Format("{0}/m/news/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, ArticleDetails.ArticleUrl, ArticleDetails.BasicId);
             }
             catch (Exception ex)
             {
