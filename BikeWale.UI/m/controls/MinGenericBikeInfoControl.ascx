@@ -8,7 +8,7 @@
             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
         </a>
         <div class="bike-details-block inline-block">
-            <p class="font12 text-light-grey">Know more about this bike:</p>
+            <p class="font12 text-light-grey">Know more</p>
             <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"  title="<%= bikeName %>"><%= bikeName %></a>
         </div>
     </div>
