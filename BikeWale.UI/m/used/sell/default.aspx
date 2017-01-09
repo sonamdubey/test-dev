@@ -467,7 +467,7 @@
 
         <section>
             <h2 class="text-center padding-bottom20">FAQs- Selling Bike on BikeWale</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
+            <div class="container bg-white box-shadow card-bottom-margin">
                 <ul class="accordion-list">
                     <li>
                         <div class="accordion-head">
