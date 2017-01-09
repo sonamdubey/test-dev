@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     Bikewale.Common.CommonOpn.RedirectPermanent(vmModelPhotos.pageRedirectUrl);
                 }
-                else  //page not found
+                else if(vmModelPhotos.isPageNotFound)  //page not found
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
