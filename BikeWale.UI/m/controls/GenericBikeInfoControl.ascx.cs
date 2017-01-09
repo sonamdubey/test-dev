@@ -34,7 +34,7 @@ namespace Bikewale.Mobile.Controls
                         bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
                     if (bikeInfo.Model != null)
                         bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
-                    bikeInfo.PhotosCount = 0;  // for photos page
+                    bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0; // for photos page
                     pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
                 };
             }

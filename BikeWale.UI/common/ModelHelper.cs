@@ -48,7 +48,6 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataById() - ModelId :{0}", modelId));
-                objErr.SendMail();
             }
             return objModel;
         }
@@ -76,7 +75,6 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetModelDataByMasking() - modelMaskingName :{0}", modelMaskingName));
-                objErr.SendMail();
             }
             return objModel;
         }
@@ -108,7 +106,6 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetAreaForModelAndCity() - modelId:{0}, cityId {1}", modelId, cityId));
-                objErr.SendMail();
             }
             return areaList;
         }
@@ -138,7 +135,6 @@ namespace Bikewale.Common
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, string.Format("ModelHelper.GetCitiesByModelId() - modelId:{0}", modelId));
-                    objErr.SendMail();
                 }
             }
             return cityList;

@@ -34,6 +34,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public List<ModelImage> objImageList = null;
         public PageMetaTags pageMetas = null;
         public uint gridSize = 30;  //show more photos available after grid size more than 30
+        public bool IsUpcoming = false, IsDiscontinued = false;
 
 
         /// <summary>
@@ -84,6 +85,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     objModel.ModelId = bikemodelEnt.ModelId;
                     objModel.ModelName = bikemodelEnt.ModelName;
                     bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
+                    IsUpcoming = bikemodelEnt.Futuristic;
+                    IsDiscontinued = !bikemodelEnt.Futuristic && !bikemodelEnt.New;
                 }
 
                 GetModelImages();
