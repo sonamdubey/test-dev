@@ -3,6 +3,9 @@
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
 </div>
+<script language="javascript" src="/src/AjaxFunctions.js"></script>
+<script language="javascript" src="/src/modelImagesByColor.js"></script>
+<script language="javascript" src="/src/imageUpload.js"></script>
 <style>
     #one {
         width: 50px;
@@ -10,11 +13,11 @@
         border: 1px solid #ccc;
         margin: 0 auto 10px;
     }
+    td.color{
+        border-right: 0;
+        border-top: 0;
+    }
 </style>
-<script language="javascript" src="/src/AjaxFunctions.js"></script>
-<script language="javascript" src="/src/modelImagesByColor.js"></script>
-<script language="javascript" src="/src/imageUpload.js"></script>
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 <div class="left min-height600" id="divManagePrices">
     <h1>Model Images by Color</h1>
     <span id="spnError" class="error" runat="server"></span>
@@ -53,7 +56,7 @@
                         <table border="0" id="one" cellspacing="0">
                             <% foreach(var hexColor in color.ColorCodes) {  %>
                              <tr style='background:#<%= hexColor.HexCode %>'>
-                                 <td></td>
+                                 <td class="color"></td>
 
                              </tr>
                             <% } %>
@@ -64,7 +67,7 @@
                         <input type="file" name="fileUpload" id="fileUpload" accept="image/*" />
                         <%--<input data-id="<%=color.Id %>" name="uploadImage" type="button" class="padding10" value="Upload Image" />--%>
                     </td>
-                    <td><input data-id="<%=color.Id %>" name="deleteImage" type="button" class="padding10" value="Delete Image" /></td>
+                    <td><input data-id="<%=color.Id %>" name="deleteImage" type="button" class="padding10 deleteImage" value="Delete Image" /></td>
                 </tr>
              <% } %>
                         </tbody>
@@ -85,5 +88,6 @@
     modelId = '<%= modelId %>';
     environment = '<%= ConfigurationManager.AppSettings["AWSEnvironment"] %>';
     hostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
+    userid = '<%= BikeWaleOpr.Common.CurrentUser.Id %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

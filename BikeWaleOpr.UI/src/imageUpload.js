@@ -15,7 +15,7 @@
             type: "POST",
             async: false,
             url: self.baseURL + "/api/image/request/",
-            dataType: 'json',            
+            dataType: 'json',
             crossDomain: true,
             contentType: "application/json;charset=utf-8", data: JSON.stringify(request),
             success: function (response) {
@@ -76,7 +76,7 @@
                     url: self.baseURL + "/api/image/",
                     dataType: 'json',
                     contentType: "application/json;charset=utf-8",
-                    crossDomain: true,                    
+                    crossDomain: true,
                     data: JSON.stringify(requestObject)
                 }).done(function (response) {
                     if (response != null)

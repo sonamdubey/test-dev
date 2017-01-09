@@ -1,6 +1,7 @@
 ﻿var modelId;
 var environment;
 var hostUrl;
+var userid;
 $(document).ready(function () {
     $(document).ready(function () {
         if ($('#hdnModelId').val() > 0) {
@@ -16,6 +17,11 @@ $(document).ready(function () {
         $('#hdnModelId').val($('#cmbModel').val());
     });
 
+    $('.deleteImage').change(function () {
+        var cid = $(this).attr('data-colorId');
+        alert(cid);
+    });
+
     $("input[type='file']").change(function (e) {
         var files = e.target.files;
         curFile = files[0];
@@ -24,19 +30,47 @@ $(document).ready(function () {
             alert('invalid extension!');
             return false;
         }
-        var imgExists = $(this).parent().attr('data-isImageExists');
-        var responsePhotoId = 3;
-        var bikeName = $('#cmbMake').find('option:selected').text() + ' ' + $('#cmbModel').find('option:selected').text() +' '+ $(this).parent().attr('data-color');
+        var td = $(this).parent();
+        var imgExists = td.attr('data-isImageExists');
+        var responsePhotoId;
+        var colorId = td.attr('data-colorId');
+        var bikeName = $('#cmbMake').find('option:selected').text() + ' ' + $('#cmbModel').find('option:selected').text() + ' ' + td.attr('data-color');
         bikeName = bikeName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-') + "-" + Date.now() + '.' + ext;
         var path = 'n/bw/' + environment + bikeName;
-        if(!imgExists){
-            // call webAPI
-        }
-        var imgUpldUtil = uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
-        var status = imgUpldUtil.status;
-        if (status) {
-            var imgPath = 'https://imgd5.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
-            $(this).closest('tr').find('img').attr('src',imgPath);
+        if(imgExists == 'False'){
+            $.ajax({
+                type: "POST",
+                url: "/api/model/images/color/",
+                data: '{"Modelid":"' + modelId + '" , "ModelColorId":"' + colorId + '","UserId":' + userid + '}',
+                contentType: 'application/json',
+                dataType: 'json',
+                crossDomain: true,
+                async: false,
+                beforeSend: function () {
+                    return;
+                },
+                success: function (data) {
+                    responsePhotoId = data;
+                    console.log(responsePhotoId);
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+
+                    }
+                }
+            });
+        }        
+        if (responsePhotoId) {
+            var imgUpldUtil = uploadToAWS(curFile, responsePhotoId, modelId, path.toLowerCase(), ext);
+            if (imgUpldUtil && imgUpldUtil.status) {
+                var status = imgUpldUtil.status;
+                if (status) {
+                    var imgPath = 'https://imgd5.aeplcdn.com/' + '144x81/' + imgUpldUtil.response.originalImagePath;
+                    $(this).closest('tr').find('img').attr('src', imgPath);
+                    $(this).val('');
+                    alert('Image has been updated');
+                }
+            }
         }
     });
 });
