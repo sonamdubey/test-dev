@@ -13,8 +13,8 @@
                         </p>
                     </div>
                     <div class="model-user-review-title-container">
-                        <a class="article-target-link line-height" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
-                            <%#Eval("ReviewTitle").ToString() %>
+                        <a class="article-target-link line-height" title="<%#DataBinder.Eval(Container.DataItem,"ReviewTitle").ToString() %>" href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">
+                           <%#DataBinder.Eval(Container.DataItem,"ReviewTitle").ToString() %>
                         </a>
                         <div class="article-stats-left-grid">
                             <span class="bwsprite calender-grey-sm-icon"></span>

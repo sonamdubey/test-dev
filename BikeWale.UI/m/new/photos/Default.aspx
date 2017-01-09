@@ -5,9 +5,8 @@
 <%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/m/controls/SimilarBikeWithPhotos.ascx" %>
 <!DOCTYPE html>
 <html>
-<head runat="server">
-   <%  if (vmModelPhotos != null && vmModelPhotos.pageMetas != null)
-        {
+<head>
+   <%  if (vmModelPhotos != null && vmModelPhotos.pageMetas != null) {
             title = vmModelPhotos.pageMetas.Title;
             keywords = vmModelPhotos.pageMetas.Keywords;
             description = vmModelPhotos.pageMetas.Description;

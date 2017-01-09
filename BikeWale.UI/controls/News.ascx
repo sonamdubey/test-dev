@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="grid-8">
-                        <a href="<%#Bikewale.Utility.UrlFormatter.GetArticleUrl(DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString(),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString())  %>" class="article-target-link line-height">
+                        <a href="<%#Bikewale.Utility.UrlFormatter.GetArticleUrl(DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString(),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString())  %>"  title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>" class="article-target-link line-height">
                             <%#DataBinder.Eval(Container.DataItem,"Title").ToString()%>
                         </a>
                         <div class="article-stats-left-grid">
