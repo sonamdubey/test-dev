@@ -12,8 +12,11 @@
     //function to get token from server 
     self.getToken = function (request) {
         return $.ajax({
-            type: "POST", async: false, url: self.baseURL + "/api/image/request/", dataType: 'json',
-            headers: { 'apiKey': self.apiKey },
+            type: "POST",
+            async: false,
+            url: self.baseURL + "/api/image/request/",
+            dataType: 'json',            
+            crossDomain: true,
             contentType: "application/json;charset=utf-8", data: JSON.stringify(request),
             success: function (response) {
                 if (response != null && response != "")
@@ -68,14 +71,17 @@
 
                 //call api that processes image through Rabbit MQ and saves its details in database
                 $.ajax({
-                    type: "POST", async: false, url: self.baseURL + "/api/image/", dataType: 'json', contentType: "application/json;charset=utf-8",
-                    headers: { 'apiKey': self.apiKey },
+                    type: "POST",
+                    async: false,
+                    url: self.baseURL + "/api/image/",
+                    dataType: 'json',
+                    contentType: "application/json;charset=utf-8",
+                    crossDomain: true,                    
                     data: JSON.stringify(requestObject)
                 }).done(function (response) {
                     if (response != null)
-                        self.status = response;
-                    triggerGA('Sell_Page', 'Photo_Upload_Success', vmSellBike.inquiryId() + '_' + file.size);
-                }).fail(function () { self.status = false; triggerGA('Sell_Page', 'Photo_Upload_Failure', vmSellBike.inquiryId() + '_' + file.size); });
+                        self.status = response;                    
+                }).fail(function () { self.status = false;});
             };
         }
     };

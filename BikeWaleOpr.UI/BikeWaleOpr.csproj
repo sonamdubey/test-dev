@@ -290,7 +290,6 @@
       <DependentUpon>FeaturedListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\ListItem.cs" />
     <Compile Include="content\MakeSynopsis.aspx.cs">
       <DependentUpon>MakeSynopsis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

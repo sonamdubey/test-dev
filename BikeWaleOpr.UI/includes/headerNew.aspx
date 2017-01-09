@@ -4,9 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
 <link rel="stylesheet" href="/css/chosen.min.css?03102016" />
-<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
+<script src="https://st1.aeplcdn.com/bikewale/min/src/frameworks.js?09Jan2017v1" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
-<script src="/src/knockout.js?03102016" type="text/javascript"></script>
 <script type="text/javascript" src="/src/common/common.js?03102016"></script>
 <script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <title>BikeWale Operations</title>
