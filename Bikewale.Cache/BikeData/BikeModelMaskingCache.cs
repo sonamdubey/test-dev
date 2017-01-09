@@ -88,5 +88,27 @@ namespace Bikewale.Cache.BikeData
 
             return specs;
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get similar bikes with photos count
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords)
+        {
+            IEnumerable<SimilarBikesWithPhotos> similarBikes = null;
+            string key = "BW_SimilarBikes_PhotosCnt_" + modelId;
+            try
+            {
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotos(modelId, totalRecords));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetSimilarBikeWithPhotos");
+            }
+
+            return similarBikes;
+        }
     }
 }
