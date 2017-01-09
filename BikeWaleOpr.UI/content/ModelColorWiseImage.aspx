@@ -67,7 +67,12 @@
                         <input type="file" name="fileUpload" id="fileUpload" accept="image/*" />
                         <%--<input data-id="<%=color.Id %>" name="uploadImage" type="button" class="padding10" value="Upload Image" />--%>
                     </td>
-                    <td><input data-id="<%=color.Id %>" name="deleteImage" type="button" class="padding10 deleteImage" value="Delete Image" /></td>
+                    <td>
+                        <% if (color.IsImageExists && !string.IsNullOrEmpty(color.BikeModelColorId))
+                           { %>
+                        <input data-id="<%=color.BikeModelColorId %>" name="deleteImage" type="button" class="padding10 deleteImage" value="Delete Image" />
+                        <% } %>
+                    </td>
                 </tr>
              <% } %>
                         </tbody>

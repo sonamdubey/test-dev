@@ -18,5 +18,6 @@ namespace BikewaleOpr.Entities
         public string Host { get; set; }
         public string OriginalImagePath { get; set; }
         public bool IsImageExists { get; set; }
+        public string BikeModelColorId { get; set; }
     }
 }

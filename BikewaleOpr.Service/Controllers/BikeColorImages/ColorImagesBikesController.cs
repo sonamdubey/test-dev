@@ -50,17 +50,17 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
         /// Created By :- Subodh Jain 09 jan 2017
         /// Summary :- To delete Bike Color details 
         /// </summary>
-        /// <param name="photoid"></param>
+        /// <param name="photoId"></param>
         /// <returns></returns>
         [HttpPost, Route("api/image/delete/modelid/")]
-        public IHttpActionResult DeleteBikeColorDetails(uint photoid)
+        public IHttpActionResult DeleteBikeColorDetails(uint photoId)
         {
 
             try
             {
-                if (photoid > 0)
+                if (photoId > 0)
                 {
-                    return Ok(_objColorImagesBikes.DeleteBikeColorDetails(photoid));
+                    return Ok(_objColorImagesBikes.DeleteBikeColorDetails(photoId));
                 }
                 else
                 {

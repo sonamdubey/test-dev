@@ -463,6 +463,7 @@ namespace BikewaleOpr.Common
                                     Host = Convert.ToString(reader["Host"]),
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     IsImageExists = Convert.ToBoolean(reader["IsImageExists"]),
+                                    BikeModelColorId = Convert.ToString(reader["BikeModelColorId"]),
                                 });
                             }
                             if (reader.NextResult())

@@ -74,10 +74,10 @@ namespace BikewaleOpr.DALs.BikeColorImages
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int32, photoId));
-                    isDeleted = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly));
+                    Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
+                    isDeleted = true;
 
                 }
-
             }
             catch (Exception ex)
             {
