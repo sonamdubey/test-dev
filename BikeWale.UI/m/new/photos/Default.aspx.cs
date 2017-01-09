@@ -42,7 +42,14 @@ namespace Bikewale.Mobile.New.Photos
                     vmModelPhotos.GetModelDetails();
                     BindModelPhotosPageWidgets();
                 }
-                else if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : BindPhotosPage");
+            }
+            finally
+            {
+                if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
                 {
                     Response.Redirect("/m/new/", true);
                 }
@@ -56,10 +63,6 @@ namespace Bikewale.Mobile.New.Photos
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos : BindPhotosPage");
             }
         }
 
