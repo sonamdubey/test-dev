@@ -103,7 +103,7 @@
                             </div>
                             <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                                { %>                                                           
-                            <div id="city-model-used-carousel">                               
+                            <div id="city-model-used-carousel" style="display:none">                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>  
                                 <%if (ctrlUsedBikeByModels.FetchCount > 0)
