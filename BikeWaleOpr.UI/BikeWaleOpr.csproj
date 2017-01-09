@@ -290,6 +290,7 @@
       <DependentUpon>FeaturedListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="content\ListItem.cs" />
     <Compile Include="content\MakeSynopsis.aspx.cs">
       <DependentUpon>MakeSynopsis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1842,6 +1843,7 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\modelImagesByColor.js" />
