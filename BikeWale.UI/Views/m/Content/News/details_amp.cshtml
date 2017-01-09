@@ -28,12 +28,12 @@
             @Html.Raw(ViewBag.NewsContent)
         </div>
 
-        <p class="share-story-title">Share this story</p>
-        <div>
+        <p class="share-story-title margin-bottom10">Share this story</p>
+        <div class="margin-bottom10">
             <amp-social-share type="whatsapp" width="38" height="24" data-share-endpoint="whatsapp://send" data-param-text="@ViewBag.Title - Bikewale News CANONICAL_URL"></amp-social-share>
             <amp-social-share type="facebook" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News" data-param-app_id="481333722014878"></amp-social-share>
             <amp-social-share type="twitter" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News"></amp-social-share>
-            <amp-social-share type="gplus" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News"></amp-social-share> 
+            <amp-social-share type="gplus" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News"></amp-social-share>
         </div>       
         <ul class="next-prev-article-list">
             <li>
@@ -66,6 +66,19 @@
 }
 else
 {
-    <article class="article no-content">Oops no content found. <a href="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/news/">Click here to View News</a> on bikewale.com</article>
+    <article class="article no-content">
+        <div class="not-found">
+            <h3>Oops! We failed to serve the content on this page.</h3>
+            <div class="margin-top15">
+                Possible causes for this inconvenience are:
+                <ul class="margin-left20 margin-top5">
+                    <li>The requested page might have been removed from the server.</li>
+                    <li>The URL might be mis-typed by you.</li>
+                    <li>Some maintenance process is going on the server.</li>
+                </ul>
+            </div>
+            <p class="margin-top15">Please visit <a href="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/news/">www.bikewale.com</a> to continue reading news of your favourite bike.</p>
+        </div>        
+    </article>
 }
 
