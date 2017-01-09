@@ -244,10 +244,20 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = true;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 9-1-2017
+        /// Desc : Refresh popular bikes memcache keys.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteMakeModelVersion(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
+            //CLear popularBikes key
+            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(null, Convert.ToUInt32(dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(6, Convert.ToUInt32(dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(9, Convert.ToUInt32(dtgrdMembers.DataKeys[e.Item.ItemIndex]));
             BindGrid();
         }
 

@@ -86,6 +86,10 @@ namespace BikeWaleOpr.Content
                         if (lblMakeId != null)
                         {
                             MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                            //CLear popularBikes key
+                            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(null, Convert.ToUInt32(lblMakeId.Text));
+                            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(6, Convert.ToUInt32(lblMakeId.Text));
+                            BikewaleOpr.ClearCache.CacheClear.ClearPopularBikesCacheKey(9, Convert.ToUInt32(lblMakeId.Text));
                         }
                     }
                 }
