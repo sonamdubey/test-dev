@@ -13,6 +13,7 @@
 </style>
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <script language="javascript" src="/src/modelImagesByColor.js"></script>
+<script language="javascript" src="/src/imageUpload.js"></script>
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 <div class="left min-height600" id="divManagePrices">
     <h1>Model Images by Color</h1>
@@ -59,9 +60,9 @@
                         </table>
                     </td>
                     <td><img src='<%= Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath,color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
-                    <td data-isImageExists="<%= color.IsImageExists %>" data-modelId="<%=modelId %>" data-colorId="<%=color.Id %>">
-                        <input type="file" name="fileUpload" id="fileUpload" />
-                        <input data-id="<%=color.Id %>" name="uploadImage" type="button" class="padding10" value="Upload Image" />
+                    <td data-isImageExists="<%= color.IsImageExists %>" data-modelId="<%=modelId %>" data-colorId="<%=color.Id %>" data-color="<%= color.Name %>">
+                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" />
+                        <%--<input data-id="<%=color.Id %>" name="uploadImage" type="button" class="padding10" value="Upload Image" />--%>
                     </td>
                     <td><input data-id="<%=color.Id %>" name="deleteImage" type="button" class="padding10" value="Delete Image" /></td>
                 </tr>
@@ -82,5 +83,6 @@
 </div>
 <script type="text/javascript">
     modelId = '<%= modelId %>';
+    environment = '<%= ConfigurationManager.AppSettings["AWSEnvironment"] %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

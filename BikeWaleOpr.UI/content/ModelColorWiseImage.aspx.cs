@@ -63,6 +63,9 @@ namespace BikeWaleOpr.Content
             cmbMake.DataTextField = "MakeName";
             cmbMake.DataValueField = "MakeId";
             cmbMake.DataBind();
+            cmbMake.Items.Insert(0, "-- Select Make --");
+            cmbMake.SelectedIndex = 0;
+
         }
 
         private void BindModelColorRepeater()
