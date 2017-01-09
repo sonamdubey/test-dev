@@ -83,7 +83,7 @@
                                             <%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : string.Empty %>
 
                                             <div class="article-image-wrapper">
-                                                <a href='<%= articleUrl %>'>
+                                                <a href='<%= articleUrl %>' title='<%= article.Title %>'>
                                                     <img src='<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._210x118) %>' alt='<%= article.Title %>' title='<%= article.Title %>' width='100%' border='0' />
                                                 </a>
                                             </div>
