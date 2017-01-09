@@ -17,6 +17,7 @@ namespace Bikewale.Mobile.New.Photos
         protected BindModelPhotos vmModelPhotos = null;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
+        protected bool isUpcoming = false, isDiscontinued = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -40,6 +41,8 @@ namespace Bikewale.Mobile.New.Photos
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
                     vmModelPhotos.GetModelDetails();
+                    isDiscontinued = vmModelPhotos.IsDiscontinued;
+                    isUpcoming = vmModelPhotos.IsUpcoming;
                     BindModelPhotosPageWidgets();
                 }
             }
@@ -57,7 +60,7 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     Bikewale.Common.CommonOpn.RedirectPermanent(vmModelPhotos.pageRedirectUrl);
                 }
-                else if(vmModelPhotos.isPageNotFound)  //page not found
+                else if (vmModelPhotos.isPageNotFound)  //page not found
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -86,10 +89,17 @@ namespace Bikewale.Mobile.New.Photos
                 ctrlModelGallery.modelId = vmModelPhotos.objModel.ModelId;
                 ctrlModelGallery.Photos = vmModelPhotos.objImageList;
 
-                ctrlSimilarBikesWithPhotos.TotalRecords = 6;
-                ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
+                if (!isDiscontinued)
+                {
+                    ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                    ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
+                }
 
-                ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                if (!isUpcoming)
+                {
+                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                }
+
             }
 
         }
