@@ -25,7 +25,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         private IBikeModelsCacheRepository<int> objModelCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache = null;
         public string bikeName = string.Empty, modelImage = string.Empty;
-        public uint totalPhotosCount, gridPhotosCount, nongridPhotosCount;
+        public int totalPhotosCount, gridPhotosCount, nongridPhotosCount;
         public bool isPageNotFound = false, isPermanentRedirection = false;
         public bool isRedirectToModelPage = false;
         public string pageRedirectUrl = "/";
@@ -53,7 +53,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>();
-                        
+
 
                     objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
@@ -104,12 +104,12 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         {
             try
             {
-                objImageList = (List<ModelImage>)objModelCache.GetModelPhotos((int)_modelId);
+                objImageList = objModelCache.GetModelPhotos((int)_modelId) as List<ModelImage>;
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
-                    totalPhotosCount = (uint)objImageList.Count;
-                    nongridPhotosCount = totalPhotosCount % _noOfGrid;
+                    totalPhotosCount = objImageList.Count;
+                    nongridPhotosCount = (int)(totalPhotosCount % _noOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
                     modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
                 }
