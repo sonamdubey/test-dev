@@ -40,7 +40,7 @@
                     <h1 class="padding-top15 padding-right20 padding-bottom15 padding-left20 box-shadow"><%= heading %></h1> 
                     <%if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                       { %>
-                    <div id="city-model-used-carousel">                        
+                    <div id="city-model-used-carousel" style="display:none">                        
                         <h2 class="carousel-heading font14 text-default padding-left20 margin-bottom10">Refine your search further!</h2>
                         <span id="close-city-model-carousel" class="bwmsprite cross-md-dark-grey cur-pointer"></span>
                         <%if (ctrlUsedBikeByModels.FetchCount > 0)
