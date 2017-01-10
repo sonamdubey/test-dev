@@ -15,5 +15,6 @@ namespace Bikewale.Entities.SEO
         public string ShareImage { get; set; }
         public string NextPageUrl { get; set; }
         public string PreviousPageUrl { get; set; }
+        public string AmpUrl { get; set; }
     }
 }
