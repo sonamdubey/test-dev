@@ -29,7 +29,7 @@
         <section>
             <div class="container text-center section-container">
                 <div class="video-content">
-                    <iframe width="320" height="180" src="https://www.youtube.com/embed/94hLbNXL3JE" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="320" height="180" src="https://www.youtube.com/embed/XuEp3JO6zCw" frameborder="0" allowfullscreen></iframe>
                     <div class="bg-loader-placeholder"></div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <% } %>
 
         <section>
-            <div class="container section-container">
+            <div id="trackdayGallery" class="container section-container">
                 <h2 class="section-heading">Gallery</h2>
                 <div class="content-box-shadow padding-bottom1">
                     <div class="connected-carousels-photos">
@@ -203,11 +203,9 @@
         <% } %>
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
-
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
 
     </form>
 </body>

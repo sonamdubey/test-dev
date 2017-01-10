@@ -15,7 +15,7 @@
             </div>
             <div class="review-heading-wrapper">
                 <a href="/m<%# Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(DataBinder.Eval(Container.DataItem,"VideoTitleUrl").ToString(),DataBinder.Eval(Container.DataItem,"BasicId").ToString()) %>" 
-                    class="font14 target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"VideoTitle").ToString(), 44) %></a>
+                    class="font14 target-link" title="<%#DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %>" ><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem,"VideoTitle").ToString(), 44) %></a>
                 <div class="grid-7 alpha padding-right5">
                     <span class="bwmsprite calender-grey-sm-icon"></span>
                     <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(DataBinder.Eval(Container.DataItem,"DisplayDate")), string.Format("MMM dd, yyyy")) %></span>

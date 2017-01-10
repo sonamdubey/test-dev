@@ -227,7 +227,10 @@ var sellBike = function () {
                     }
                     else {
                         morePhotos.detach();
-                    }                    
+                    }
+                    $.each(myDropzone.getQueuedFiles(), function (index) {
+                        triggerGA('Sell_Page', 'Photo_Upload_Initiated', vmSellBike.inquiryId() + '_' + myDropzone.getQueuedFiles()[index].size);
+                    })
                 });
 
                 this.on("drop", function (file) {                    
@@ -253,7 +256,6 @@ var sellBike = function () {
                 this.on("queuecomplete", function (file) {
                     setProfilePhoto();
                 });
-                
             }
         });
     }
@@ -625,6 +627,7 @@ var bikeDetails = function () {
 
         if (self.errors().length === 0) {
             vmSellBike.formStep(2);
+            triggerGA('Sell_Page', 'Step1_Save_and_Continue_Clicked', vmSellBike.bikeDetails().makeName +'_'+ vmSellBike.bikeDetails().modelName + '_' + self.registeredCity());
         }
         else {
             self.errors.showAllMessages();
@@ -837,6 +840,7 @@ var personalDetails = function () {
                         vmSellBike.verificationDetails().status(true);
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
+                        
                     }
                     else if (res != null && res.Status != null && res.Status.Code == 5) {                    
                         vmSellBike.inquiryId(res.InquiryId);
@@ -847,6 +851,7 @@ var personalDetails = function () {
                     else {
                         vmSellBike.isFakeCustomer(true);
                     }
+                    triggerGA('Sell_Page', 'Step2_List_Your_Bike_Clicked', bdetails.makeName + '_' + bdetails.modelName + '_' + bdetails.registeredCity() + '_' + res.InquiryId);
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
 
@@ -985,6 +990,7 @@ var verificationDetails = function () {
                         $("#otpErrorText").text("");
                         vmSellBike.formStep(3);                        
                         vmSellBike.initPhotoUpload();
+                        triggerGA('Sell_Page', 'Step2_Verification_Successful', vmSellBike.bikeDetails().makeName + '_' + vmSellBike.bikeDetails().modelName + '_' + vmSellBike.bikeDetails().registeredCity() + '_' + vmSellBike.inquiryId());
                     }
                 },
                 complete: function (xhr, ajaxOptions, thrownError) {
@@ -1035,11 +1041,13 @@ var moreDetails = function () {
 
         vmSellBike.formStep(4);
         scrollToForm.activate();
+        triggerGA('Sell_Page', 'Step3_Update_My_Ad_Clicked', vmSellBike.bikeDetails().makeName + '_' + vmSellBike.bikeDetails().modelName + '_' + vmSellBike.bikeDetails().registeredCity() + '_' + vmSellBike.inquiryId());
     };
 
     self.noThanks = function () {
         vmSellBike.formStep(4);
         scrollToForm.activate();
+        triggerGA('Sell_Page', 'Step3_No_Thanks_Clicked', vmSellBike.bikeDetails().makeName + '_' + vmSellBike.bikeDetails().modelName + '_' + vmSellBike.bikeDetails().registeredCity() + '_' + vmSellBike.inquiryId());
     };
 };
 
@@ -1301,3 +1309,27 @@ $(function () {
     }  
     
 });
+
+$('.accordion-list').on('click', '.accordion-head', function () {
+    var element = $(this);
+
+    if (!element.hasClass('active')) {
+        accordion.open(element);
+    }
+    else {
+        accordion.close(element);
+    }
+});
+
+var accordion = {
+    open: function (element) {
+        var elementSiblings = element.closest('.accordion-list').find('.accordion-head.active');
+        elementSiblings.removeClass('active').next('.accordion-body').slideUp();
+
+        element.addClass('active').next('.accordion-body').slideDown();
+    },
+
+    close: function (element) {
+        element.removeClass('active').next('.accordion-body').slideUp();
+    }
+};

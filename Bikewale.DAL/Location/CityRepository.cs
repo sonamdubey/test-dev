@@ -334,6 +334,8 @@ namespace Bikewale.DAL.Location
         /// <summary>
         /// Created by Subodh jain 6 oct 2016
         /// Describtion To get Top 6 cities order by poplarity and remaining by alphabetic order
+        /// Created By : Sajal Gupta on 05-01-2017
+        /// Desc : Changed SP getusedbikebycitywithcount_04012017
         /// </summary>
         /// <returns></returns>
         public IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount()
@@ -341,7 +343,7 @@ namespace Bikewale.DAL.Location
             IList<UsedBikeCities> usedBikeCities = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_06102016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikebycitywithcount_04012017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -354,11 +356,11 @@ namespace Bikewale.DAL.Location
                             {
                                 usedBikeCities.Add(new UsedBikeCities
                                 {
-                                    bikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    BikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
                                     CityMaskingName = Convert.ToString(dr["citymaskingname"]),
                                     CityName = Convert.ToString(dr["city"]),
                                     CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
-                                    priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                    Priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
                                 });
                             }
                             dr.Close();
@@ -369,6 +371,50 @@ namespace Bikewale.DAL.Location
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, String.Format("GetUsedBikeByCityWithCount"));
+                objErr.SendMail();
+            }
+
+            return usedBikeCities;
+        }
+
+        /// <summary>
+        /// Created by : Subodh Jain 29 Dec 2016
+        /// Summary: Get Used bikes by make in cities
+        /// </summary>
+        public IEnumerable<UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeId)
+        {
+            IList<UsedBikeCities> usedBikeCities = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikeincitybymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            usedBikeCities = new List<UsedBikeCities>();
+                            while (dr.Read())
+                            {
+                                usedBikeCities.Add(new UsedBikeCities
+                                {
+                                    BikesCount = SqlReaderConvertor.ToUInt32(dr["bikecount"]),
+                                    CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                    CityName = Convert.ToString(dr["city"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                    Priority = SqlReaderConvertor.ToUInt32(dr["priority"]),
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("CityRepository.GetUsedBikeByMakeCityWithCount_{0}", makeId));
                 objErr.SendMail();
             }
 

@@ -99,7 +99,7 @@
                     <ul id="main-brand-list">
                         <% foreach(var bike in viewModel.TopMakeList){ %>    
                         <li>
-                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                            <a href="/m/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
@@ -113,7 +113,7 @@
                     <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center">
                         <% foreach(var bike in viewModel.OtherMakeList){ %> 
                         <li>
-                            <a href="/m/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                            <a href="/m/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                 <span class="brand-type">
                                     <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                 </span>
@@ -148,7 +148,7 @@
                                         </div>
                                         <div class="swiper-details-block">
                                             <h3 class="font14 margin-bottom5"><%=objCity.CityName %></h3>
-                                            <p class="font14 text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                            <p class="font14 text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                         </div>
                                     </a>
                                 </div>
@@ -203,9 +203,9 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/landing.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <% } %>
     </form>
 </body>

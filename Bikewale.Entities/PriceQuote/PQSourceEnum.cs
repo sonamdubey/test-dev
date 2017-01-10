@@ -94,5 +94,6 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_Generic_MileageBikes = 74,
         Desktop_Generic_SportsBikes = 75,
         Desktop_Generic_CruiserBikes = 76,
+        Mobile_GenricBikeInfo_Widget = 77
     }
 }

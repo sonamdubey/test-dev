@@ -97,52 +97,6 @@
             </div>
         </section>
 
-        <%--<section class="bg-white">
-            <div class="container padding-bottom70">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom50 font28">Offers you can avail</h2>
-                    <div class="grid-4">
-                        <div class="inline-block offers-icon-wrapper">
-                            <span class="booking-landing-sprite offer-insurance-icon"></span>
-                        </div>
-                        <div class="inline-block offers-desc-wrapper">
-                            <h2 class="text-default text-bold margin-bottom5">Insurance</h2>
-                            <p class="font14 text-light-grey">
-                                Get free comprehensive<br />
-                                insurance worth Rs.1000
-                            </p>
-                        </div>
-                    </div>
-                    <div class="grid-4">
-                        <div class="inline-block offers-icon-wrapper">
-                            <span class="booking-landing-sprite offer-voucher-icon"></span>
-                        </div>
-                        <div class="inline-block offers-desc-wrapper">
-                            <h2 class="text-default text-bold margin-bottom5">Gift Voucher</h2>
-                            <p class="font14 text-light-grey">
-                                Get free Flipkart voucher<br />
-                                worth Rs.1000
-                            </p>
-                        </div>
-                    </div>
-                    <div class="grid-4">
-                        <div class="inline-block offers-icon-wrapper">
-                            <span class="booking-landing-sprite offer-doorstep-icon"></span>
-                        </div>
-                        <div class="inline-block offers-desc-wrapper">
-                            <h2 class="text-default text-bold margin-bottom5">Doorstep service</h2>
-                            <p class="font14 text-light-grey">
-                                Get free document collection &<br />
-                                bike delivery
-                            </p>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>--%>
-
         <section id="bookingWorksWrapper">
             <div class="container">
                 <div class="grid-12 text-center text-white">

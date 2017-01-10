@@ -36,6 +36,8 @@ namespace Bikewale.BAL.GenericBikes
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Dec 2016
         /// Description :   Get Top 10 Bikes for Generic Page
+        /// Modified BY : Sajal Gypta on 02-01-2017
+        /// Descriuption : Read LastUpdatedModelSold, NewsCount
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
@@ -95,7 +97,9 @@ namespace Bikewale.BAL.GenericBikes
                                 VideosCount = bike.VideoCount,
                                 UnitsSold = bike.UnitsSold,
                                 TotalVersions = bike.VersionCount,
-                                TotalModelColors = bike.ColorCount
+                                TotalModelColors = bike.ColorCount,
+                                LastUpdatedModelSold = bike.LastUpdatedModelSold,
+                                NewsCount = bike.NewsCount
                             };
                     bikes = b.ToList();
                 }

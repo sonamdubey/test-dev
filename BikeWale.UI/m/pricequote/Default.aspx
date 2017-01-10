@@ -503,11 +503,15 @@
 
     function pqSetLocationCookie()
     {
-        if (parseInt($("#ddlCity").val()) > 0) {
-            cookieValue = parseInt($("#ddlCity").val()) + "_" + $("#ddlCity option:selected").text();
-            if ($("#txtArea").val() > 0)
-                cookieValue += "_" + parseInt(pqAreaId) + "_" + pqAreaName;
-            SetCookieInDays("location", cookieValue, 365);
+        var selectedCityId = parseInt($("#ddlCity").val()); 
+        if (selectedCityId > 0) {
+            cookieValue = selectedCityId + "_" + $("#ddlCity option:selected").text();
+            var selectedAreaId = parseInt($("#txtArea").val());
+            if (selectedAreaId > 0)
+                cookieValue += "_" + selectedAreaId + "_" + pqAreaName;
+
+            if (selectedCityId != onCookieObj.PQCitySelectedId && selectedAreaId > 0)
+                SetCookieInDays("location", cookieValue, 365);
         }
     }
 </script>

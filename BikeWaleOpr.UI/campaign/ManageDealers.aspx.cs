@@ -2,6 +2,8 @@
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.CommuteDistance;
+using BikewaleOpr.DALs.ContractCampaign;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Common;
@@ -27,29 +29,66 @@ namespace BikewaleOpr.Campaign
     public class ManageDealers : System.Web.UI.Page
     {
         #region variable
-
         protected int dealerId, contractId, campaignId, currentUserId;
         protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqFormRadius, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
         protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit;
         protected string startDate, endDate;
-        public Label lblGreenMessage, lblErrorSummary;
-        public HtmlGenericControl textArea;
-        public bool isCampaignPresent;
-        public DropDownList ddlMaskingNumber;
-        public HiddenField hdnOldMaskingNumber;
-        protected CommuteDistanceBL objCommuteDistanceBL;
+        protected Label lblGreenMessage, lblErrorSummary;
+        protected HtmlGenericControl textArea;
+        protected bool isCampaignPresent;
+        protected DropDownList ddlMaskingNumber, ddlCallToAction;
+        protected HiddenField hdnOldMaskingNumber;
+        protected CheckBox chkUseDefaultCallToAction;
+        private const int DEFAULT_CALL_TO_ACTION = 1;
+        private CommuteDistanceBL objCommuteDistanceBL;
+        private IDealerCampaignRepository campaignRepository;
+        private IContractCampaign objCC;
+        private DealerCampaignEntity campaign;
+        protected bool useDefaultCallToAction = true;
+        #region Unit Container
+        private readonly IUnityContainer container = new UnityContainer();
+        #endregion
+
         #endregion
 
         #region events
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 29 Dec 2016
+        /// Description :   Call registerTypes
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
             btnUpdate.Click += new EventHandler(InserOrUpdateDealerCampaign);
             dealerCampaign = new ManageDealerCampaign();
+            RegisterTypes();
+        }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Dec 2016
+        /// Description :   Register Types in Unity Container and initilize the references
+        /// </summary>
+        private void RegisterTypes()
+        {
+            try
+            {
+                using (container)
+                {
+                    container.RegisterType<IContractCampaign, ContractCampaign>();
+                    container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
+
+                    campaignRepository = container.Resolve<IDealerCampaignRepository>();
+                    objCC = container.Resolve<IContractCampaign>();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "RegisterTypes");
+            }
         }
 
         /// <summary>
@@ -57,6 +96,8 @@ namespace BikewaleOpr.Campaign
         /// Description :   Save the Areas to Dealer Commute Distance mapping
         /// Modified By : Sushil Kumar on 29th Nov 2016
         /// Description : Added dailylimit textbox to update daily limit lead for the dealer campaign
+        /// Modified by :   Sumit Kate on 29 Dec 2016
+        /// Description :   Use New DAL and pass the call to action value
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -65,37 +106,45 @@ namespace BikewaleOpr.Campaign
             try
             {
                 // Update campaign
+                bool isActive = true;
+                int leadLimit = !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0;
+                int leadRadius = Convert.ToInt16(reqFormRadius);
+                UInt16 callToAction = (UInt16)(chkUseDefaultCallToAction.Checked ? DEFAULT_CALL_TO_ACTION : Convert.ToUInt16(ddlCallToAction.SelectedValue));
+                string campaignName = txtCampaignName.Text.Trim();
+                string dealerEmail = txtDealerEmail.Text.Trim();
                 if (isCampaignPresent)
                 {
-                    dealerCampaign.UpdateBWDealerCampaign(
-                        true,
+                    campaignRepository.UpdateBWDealerCampaign(
+                        isActive,
                         campaignId,
                         currentUserId,
                         dealerId,
                         contractId,
-                        Convert.ToInt16(reqFormRadius),
+                        leadRadius,
                         reqFormMaskingNumber,
-                        txtCampaignName.Text.Trim(),
-                        txtDealerEmail.Text.Trim(),
-                        !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
-                        false);
+                        campaignName,
+                        dealerEmail,
+                        leadLimit,
+                        callToAction
+                        );
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
 
                 }
                 else // Insert new campaign
                 {
-                    campaignId = dealerCampaign.InsertBWDealerCampaign(
-                         true,
+                    campaignId = campaignRepository.InsertBWDealerCampaign(
+                         isActive,
                          currentUserId,
                          dealerId,
                          contractId,
-                         Convert.ToInt16(reqFormRadius),
+                         leadRadius,
                          reqFormMaskingNumber,
-                         txtCampaignName.Text.Trim(),
-                         txtDealerEmail.Text.Trim(),
-                         !String.IsNullOrEmpty(reqLeadsLimit) ? Convert.ToInt32(reqLeadsLimit) : 0,
-                         false);
+                         campaignName,
+                         dealerEmail,
+                         leadLimit,
+                         callToAction
+                         );
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
 
@@ -196,6 +245,7 @@ namespace BikewaleOpr.Campaign
                     {
                         txtCampaignName.Text = dealerName;
                     }
+                    LoadDealerCallToAction();
                 }
             }
             if (Request.Form["txtMaskingNumber"] != null)
@@ -208,6 +258,23 @@ namespace BikewaleOpr.Campaign
         }
 
         /// <summary>
+        /// Created by  :   Sumit Kate on 29 Dec 2016
+        /// Description :   Load Dealer CallToAction dropdown
+        /// </summary>
+        private void LoadDealerCallToAction()
+        {
+            ddlCallToAction.DataSource = campaignRepository.FetchDealerCallToActions();
+            ddlCallToAction.DataTextField = "Display";
+            ddlCallToAction.DataValueField = "Id";
+            if (campaign != null)
+            {
+                ddlCallToAction.SelectedValue = Convert.ToString(campaign.CallToAction);
+            }
+            ddlCallToAction.CssClass = string.Format("margin-left10 {0}", useDefaultCallToAction ? "hide" : "");
+            ddlCallToAction.DataBind();
+        }
+
+        /// <summary>
         /// Created By : Sangram Nandkhile on 05-Apr-2016
         /// Description : To Load masking numbers dropdown
         /// </summary>
@@ -216,12 +283,8 @@ namespace BikewaleOpr.Campaign
             try
             {
                 IEnumerable<MaskingNumber> numbersList = null;
-                using (IUnityContainer container = new UnityContainer())
+                if (objCC != null)
                 {
-
-                    container.RegisterType<IContractCampaign, ContractCampaign>();
-                    IContractCampaign objCC = container.Resolve<IContractCampaign>();
-
                     numbersList = objCC.GetAllMaskingNumbers(Convert.ToUInt32(dealerId));
 
                     if (numbersList != null && numbersList.Count() > 0)
@@ -230,12 +293,8 @@ namespace BikewaleOpr.Campaign
                         ddlMaskingNumber.DataTextField = "Number";
                         ddlMaskingNumber.DataValueField = "IsAssigned";
                         ddlMaskingNumber.DataBind();
-                        //ddlMaskingNumber.Items.Insert(0, item);
                     }
-
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -260,22 +319,29 @@ namespace BikewaleOpr.Campaign
         {
             try
             {
-                DataTable dtCampaign = dealerCampaign.FetchBWDealerCampaign(campaignId);
-                if (dtCampaign != null && dtCampaign.Rows.Count > 0)
+                if (campaignRepository != null)
                 {
-                    txtdealerRadius.Text = dtCampaign.Rows[0]["DealerLeadServingRadius"].ToString();
-                    if (!String.IsNullOrEmpty(Convert.ToString(dtCampaign.Rows[0]["Number"])))
+                    campaign = campaignRepository.FetchBWDealerCampaign((uint)campaignId);
+                    if (campaign != null)
                     {
-                        txtMaskingNumber.Text = Convert.ToString(dtCampaign.Rows[0]["Number"]);
+                        txtdealerRadius.Text = Convert.ToString(campaign.ServingRadius);
+                        if (!String.IsNullOrEmpty(campaign.MaskingNumber))
+                        {
+                            txtMaskingNumber.Text = campaign.MaskingNumber;
+                            oldMaskingNumber = txtMaskingNumber.Text;
+                            hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
+                        }
+                        txtCampaignName.Text = campaign.CampaignName;
                         oldMaskingNumber = txtMaskingNumber.Text;
-                        hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
+                        txtDealerEmail.Text = campaign.EmailId;
+                        dealerMobile = campaign.DealerMobile;
+                        txtLeadsLimit.Text = Convert.ToString(campaign.DailyLeadLimit);
+                        useDefaultCallToAction = campaign.CallToAction == DEFAULT_CALL_TO_ACTION ? true : false;
+                        chkUseDefaultCallToAction.Checked = useDefaultCallToAction;
                     }
-                    txtCampaignName.Text = Convert.ToString(dtCampaign.Rows[0]["DealerName"]);
-                    oldMaskingNumber = txtMaskingNumber.Text;
-                    txtDealerEmail.Text = dtCampaign.Rows[0]["DealerEmailId"].ToString().Trim();
-                    dealerMobile = dtCampaign.Rows[0]["dealerMobile"].ToString();
-                    txtLeadsLimit.Text = dtCampaign.Rows[0]["dailyleadlimit"].ToString().Trim();
                 }
+
+
             }
             catch (Exception ex)
             {

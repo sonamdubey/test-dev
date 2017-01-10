@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Bikewale.Utility
@@ -10,6 +8,8 @@ namespace Bikewale.Utility
     /// <summary>
     /// Written By : Ashish G. Kamble on 2 Sept 2016
     /// Class to manage cookies. Also sets website domain for cookies
+    /// Modified by :   Sumit Kate on 04 Jan 2017
+    /// Description :   Added local domains
     /// </summary>
     public class Cookie
     {
@@ -20,14 +20,21 @@ namespace Bikewale.Utility
         public string Domain { get; set; }
         public bool Secure { get; set; }
         public List<KeyValuePair<string, string>> Values { get; set; }
-
+        private readonly string[] _localDomains = { "localhost", "webserver" };
+        /// <summary>
+        /// Modified by :   Sumit Kate on 04 Jan 2017
+        /// Description :   Support local/webserver Cookie Domain
+        /// </summary>
+        /// <param name="name"></param>
         public Cookie(string name)
         {
             this.Name = name;
             Path = "/";
             Expires = DateTime.MinValue;
-            if (Utility.BWConfiguration.Instance.WebsiteDomain != "localhost")
+            if (!_localDomains.Contains(Utility.BWConfiguration.Instance.WebsiteDomain))
                 Domain = "." + Utility.BWConfiguration.Instance.WebsiteDomain;
+            else
+                Domain = Utility.BWConfiguration.Instance.WebsiteDomain;
             Secure = false;
             Values = new List<KeyValuePair<string, string>>();
         }
@@ -36,6 +43,8 @@ namespace Bikewale.Utility
     /// <summary>
     /// Written By : Ashish G. Kamble on 2 Sept 2016
     /// Class to add the cookies to the browser with given values
+    /// Modified By :Subodh jain 2 jan 2017
+    /// Dec:-Added if contion in Expires time
     /// </summary>
     public static class CookieManager
     {
@@ -45,9 +54,10 @@ namespace Bikewale.Utility
             {
                 HttpCookie cookie = new HttpCookie(obj.Name);
                 cookie.Value = obj.Value;
-                cookie.Expires = obj.Expires;
+                if (DateTime.MinValue != obj.Expires)
+                    cookie.Expires = obj.Expires;
                 cookie.Domain = obj.Domain;
-                cookie.Secure = obj.Secure;                
+                cookie.Secure = obj.Secure;
 
                 foreach (KeyValuePair<string, string> value in obj.Values)
                 {

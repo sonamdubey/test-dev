@@ -133,7 +133,7 @@
                                                 <tr class="table-head-row">
                                                     <th valign="top" width="35%">Available in</th>
                                                     <th valign="top" width="25%">Launched in</th>
-                                                    <th valign="top" width="30%">Unit sold (<%= prevMonth %>)</th>
+                                                    <th valign="top" width="30%">Unit sold <% if(bike.UnitsSold > 0){ %>(<%= bike.LastUpdatedModelSold.Value.ToString("MMMM") %>)<%}%></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -168,6 +168,14 @@
                                         <div>
                                             <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">
+                                                <% if(bike.NewsCount > 0) { %>
+                                                <li>
+                                                    <a href="<%= UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
+                                                        <span class="generic-sprite news-sm"></span>
+                                                        <span class="icon-label">News</span>
+                                                    </a>
+                                                </li>
+                                                <%} %>
                                                  <% if(bike.ExpertReviewsCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
@@ -243,13 +251,8 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/fontBW.aspx" -->
 
         <script type="text/javascript">
 

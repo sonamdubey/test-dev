@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="padding-right10 padding-left10">
                                         <p class="text-bold"><%=objCity.CityName %></p>
-                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                        <p class="text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                     </div>
                                 </a>
                             </li>
@@ -67,7 +67,7 @@
                         <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objBikeCityCount)
                           {%>
                         <li>
-                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%></a>
+                            <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>"><%=string.Format("{0} ({1})",objCity.CityName ,objCity.BikesCount )%></a>
                         </li>                       <%} %>
                     </ul>
                 </div>
@@ -78,9 +78,9 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/used/bikes-in-city.js?<%= staticFileVersion%>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

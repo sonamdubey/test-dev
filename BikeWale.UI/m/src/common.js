@@ -9,7 +9,7 @@ var ga_pg_id = '0';
 
 function triggerGA(cat, act, lab) {
     try {
-        
+
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
@@ -126,13 +126,29 @@ function GetCatForNav() {
     return ret_category;
 }
 
-function navbarShow() {
-    var category = GetCatForNav();
-    if (category != null) {
-        dataLayer.push({
-            'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click'
-        });
+function pushNavMenuAnalytics(menuItem) {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        triggerGA(categ,'Hamburger_Menu_Item_Click',menuItem);
     }
+}
+
+$("#navbarBtn").on("click", function () {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        triggerGA(categ, 'Hamburger_Menu_Icon', 'Icon_Click');
+    }
+});
+
+// Google Analytics code for Click of Item on Nav_Bar on HP
+$(".navUL ul li").on("click", function () {
+    pushNavMenuAnalytics($(this).text());
+});
+$(".navbarTitle").on("click", function () {
+    pushNavMenuAnalytics($(this).text());
+});
+
+function navbarShow() {
     $('body').addClass('lock-browser-scroll');
     $("#nav").addClass('open').stop().animate({
         'left': '0px'
@@ -179,19 +195,9 @@ $(document).ready(function () {
     });
 
     function CloseCityPopUp() {
-        //var globalLocation = $("#globalcity-popup");
-        //globalLocation.hide();
-        //globalLocation.removeClass("show").addClass("hide");
         $("#globalcity-popup").hide();
         unlockPopup();
-        if (!isCookieExists("location"))
-            SetCookieInDays("location", "0", 365);
     }
-
-    //function closePopUp() {
-    //    var bwPopup = $(document).find('.bw-popup');
-    //    bwPopup.removeClass("show").addClass("hide");
-    //}
 
     $("#globalCity").autocomplete({
         source: function (request, response) {
@@ -291,7 +297,7 @@ $(document).ready(function () {
         var id = $('#newBikeList');
         var searchVal = id.val().trim();
         var placeHolder = id.attr('placeholder');
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
+        triggerGA('HP', 'Search_Not_Keyword_Present_in_Autosuggest', searchVal);
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
             $('#errNewBikeSearch').hide();
             return false;
@@ -319,8 +325,8 @@ $(document).ready(function () {
             city.cityId = ui.item.payload.cityId;
             city.maskingName = ui.item.payload.cityMaskingName;
             var cityName = ui.item.label.split(',')[0];
-            var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
-            SetCookieInDays("location", CookieValue, oneYear);
+            if(city.cityId!=globalCityId)
+                SetCookieInDays("location", city.cityId + "_" + cityName , 365);
             CloseCityPopUp();
             showGlobalCity(ui.item.label);            
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
@@ -377,8 +383,6 @@ $(document).ready(function () {
         if (e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
             globalLocation.hide();
             unlockPopup();
-            if (!isCookieExists("location"))
-                SetCookieInDays("location", "0", 365);
         }
     });
 
@@ -517,7 +521,6 @@ $(document).ready(function () {
                 $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
             });
         }
-        
     });
     // common autocomplete data call function
     function dataListDisplay(availableTags, request, response) {
@@ -601,13 +604,6 @@ $(document).ready(function () {
         }
     });
 
-    // Google Analytics code for Click of Item on Nav_Bar on HP
-    $(".navUL ul li").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
-    $(".navbarTitle").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
 
     $("#bwheader-logo").on("click", function () {
         var categ = GetCatForNav();
@@ -615,13 +611,6 @@ $(document).ready(function () {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
         }
     });
-
-    function pushNavMenuAnalytics(menuItem) {
-        var categ = GetCatForNav();
-        if (categ != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
-        }
-    }
 
     $('#btnGlobalCityPopup').on('click', function () {
         ele = $('#globalCityPopUp');
@@ -995,18 +984,29 @@ function slideChangeStart() {
     };
 })(jQuery);
 
+var getHost = function () {
+    var host = document.domain;
+
+    if (host.match("bikewale.com$"))
+        host = ".bikewale.com";
+    else if (host.match("webserver$"))
+        host = "webserver";
+    else
+        host = "localhost";
+
+    return host;
+}
+
 function SetCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
-    if (typeof (cookieValue) == "string") {
-        cookieValue = cookieValue.toString().replace(/\s+/g, '-');
-    }
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    cookieValue = cookieValue.replace(/\s+/g, '-');
+    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {
@@ -1274,9 +1274,9 @@ function dpqLeadCaptureClosePopup() {
     leadCapturePopup.hide();
 }
 
-var popupHeading = $("#popupHeading")
-popupContent = $("#popupContent");
-brandcitypopupContent = $("#brandcitypopupContent");
+var popupHeading = $("#popupHeading"),
+    popupContent = $("#popupContent"),
+    brandcitypopupContent = $("#brandcitypopupContent");
 
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();

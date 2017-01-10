@@ -29,7 +29,7 @@ namespace Bikewale.New
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
         address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty, pincode = string.Empty,
-        clientIP = string.Empty, pageUrl = string.Empty;
+        clientIP = string.Empty, pageUrl = string.Empty, ctaSmallText = string.Empty;
         protected int makeId;
         protected uint cityId, dealerId;
         protected ushort totalDealers;
@@ -133,6 +133,8 @@ namespace Bikewale.New
         /// Summary: Get dealer details by dealer id and make id
         /// Modeified By:- Subodh Jain 15 dec 2016
         /// Summary:- Added pincode data
+        /// Modified by : Sajal Gupta on 29-12-2016
+        /// Description : Added ctaSmallText
         /// </summary>
         /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
@@ -164,6 +166,7 @@ namespace Bikewale.New
                         cityMaskingName = dealerObj.CityMaskingName;
                         cityId = (uint)dealerObj.CityId;
                         pincode = dealerObj.Pincode;
+                        ctaSmallText = dealerObj.DisplayTextSmall;
 
                     }
                     else

@@ -82,8 +82,8 @@ $(document).ready(function () {
 	        city.cityId = ui.item.payload.cityId;
 	        city.maskingName = ui.item.payload.cityMaskingName;
 	        var cityName = ui.item.label.split(',')[0];
-	        var CookieValue = city.cityId + "_" + cityName, oneYear = 365;
-	        SetCookieInDays("location", CookieValue, oneYear);
+	        if (city.cityId != globalCityId)
+	            SetCookieInDays("location", city.cityId + "_" + cityName, 365);
 	        globalCityId = city.cityId;
 	        CloseCityPopUp();
 	        showGlobalCity(cityName);
@@ -332,7 +332,7 @@ $(document).ready(function () {
 	$("#bwheader-logo").on("click", function () {
 	    var categ = GetCatForNav();
 	    if (categ != null) {
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
+	        triggerGA(categ, 'Logo', 'Logo_Clicked');
 	    }
 	});
 });
@@ -520,7 +520,7 @@ function MakeModelRedirection(items) {
 function pushNavMenuAnalytics(menuItem) {
     var categ = GetCatForNav();
     if (categ != null) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
+        triggerGA(categ, 'Hamburger_Menu_Item_Click', menuItem);
     }
 }
 
@@ -699,12 +699,21 @@ function pushNavMenuAnalytics(menuItem) {
     };
 })(jQuery);
 
-function SetCookie(cookieName, cookieValue) {    
-    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+var getHost = function () {
+    var host = document.domain;
+
+    if (host.match("bikewale.com$"))
+        host = ".bikewale.com";
+    else if (host.match("webserver$"))
+        host = "webserver";
+    else
+        host = "localhost";
+
+    return host;
 }
 
-function SetCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+function SetCookie(cookieName, cookieValue) {    
+    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -712,7 +721,7 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {
@@ -873,7 +882,7 @@ function navbarHideOnESC() {
 function navbarShow() {
     var category = GetCatForNav();
     if (category != null) {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click' });
+        triggerGA(category, 'Hamburger_Menu_Icon', 'Icon_Click');
     }
     $("#nav").addClass('open').animate({ 'left': '0px' });
     $(".blackOut-window").show();
@@ -1037,8 +1046,6 @@ function CloseCityPopUp() {
     var globalLocation = $("#globalcity-popup");
     globalLocation.removeClass("show").addClass("hide");
     unlockPopup();
-    if (!isCookieExists("location"))
-        SetCookieInDays("location", "0", 365);
 }
 
 function popupHideOnESC() {

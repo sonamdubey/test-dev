@@ -182,6 +182,9 @@
             <div class="container margin-bottom20">
 			<div class="grid-12">
 				<div class="content-box-shadow">
+                      <% if(ctrlServiceCenterCard.showWidget){ %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% } %>
 					<% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
 					   { %>
 					<!-- Alternative reviews ends -->
@@ -189,9 +192,6 @@
                     <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 					<!-- Alternative reviews ends -->
 					<% } %>
-                  <% if(ctrlServiceCenterCard.showWidget){ %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                  <% } %>
 			    <div id="makeTabsContentWrapper" class="margin-bottom20">
 				    <div class="content-box-shadow">
 					    <div id="makeOverallTabsWrapper">

@@ -9,6 +9,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Linq;
 
 namespace Bikewale.Generic
 {
@@ -23,7 +24,7 @@ namespace Bikewale.Generic
         protected PageMetaTags pageMetas = new PageMetaTags();
         protected string pageName = string.Empty;
         protected string pageContent = string.Empty;
-        protected string bannerImageUrl = string.Empty, bannerImagePos = string.Empty;        
+        protected string bannerImageUrl = string.Empty, bannerImagePos = string.Empty;
 
         protected PQSourceEnum pqSource;
         void InitializeComponent()

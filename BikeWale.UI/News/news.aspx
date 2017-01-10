@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Import NameSpace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -83,6 +84,9 @@
 										<div class="clear"></div>
 									</div>
 								</div>
+
+                                 <BW:GenericBikeInfo  ID="ctrlGenericBikeInfo" runat="server" />
+
 								<div class="border-solid-top padding-top10">
 									<% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))
 									   { %>
@@ -136,18 +140,15 @@
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
 		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
-		<script type="text/javascript" type="text/javascript">
+		<script type="text/javascript">
 		    $(document).ready(function () {
 		        $("body").floatingSocialShare();
 		    });
 
 		</script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

@@ -4,14 +4,14 @@
 <html>
 <head>
     <%
-    title = "Sell Bike | Sell Used Bike in India - BikeWale";
-    description = "Sell Your Used / pre-owned bike at bikewale.com. Selling at bikewale.com is easy, quick, effective and guaranteed.";
-    keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
-    canonical = "https://www.bikewale.com/used/sell/";    
-    %>
+        title = "Sell Bike | Sell Used Bike in India - BikeWale";
+        description = "Sell your used/second-hand bike on BikeWale for free. Post your Ad for free and get verified buyers on BikeWale. Easy, Quick & Effective.";
+        keywords = "sell bike, bike sale, used bike sell, second-hand bike sell, sell bike India, list your bike";
+        canonical = "https://www.bikewale.com/used/sell/";    
+    %> 
     
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link href="/m/css/sell-bike.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
@@ -465,6 +465,69 @@
             <% } %>
         </section>
 
+        <section>
+            <h2 class="text-center padding-bottom20">FAQs- Selling Bike on BikeWale</h2>
+            <div class="container bg-white box-shadow card-bottom-margin">
+                <ul class="accordion-list">
+                    <li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">Why should you sell your second hand bike on BikeWale?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>Every month more than 3.5+ million users visit BikeWale to research about used and new bikes. BikeWale has 5,000+ listings posted across more than 200 cities in India. BikeWale doesn’t charge any fee for posting your Ad. You can post your Ad for FREE. There are no limits on the number of postings.
+BikeWale ensures that only verified buyers can reach out to you. You can re-post your Ad after 90 days if your bike is not sold. It’s Easy, Quick and Reliable!</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">How to post an effective used bike Ad on BikeWale to reduce the selling period?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                             <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colors, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">How long will your bike be posted on BikeWale?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>Your Ad will be posted for 90 days. If you are not able to sell your bike till then, you can re-post your Ad for FREE. Your bike will be made available again to the buyers.</p>
+                        </div>
+                    </li>
+					<li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">Can the details of posted Ad be changed/edited?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>Yes, you can edit your listing by logging in your account. However, we have restricted certain fields like bike make, models, city etc. for the ease of buyers. Your bike will again be made available after approval from BikeWale team and you can continue selling your used bike on BikeWale.</p>
+                        </div>
+                    </li>
+					<li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">What can improve the number of responses for your listed bike?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>You should provide comprehensive and correct details of your bike and upload multiple photos of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accordion-head">
+                            <p class="accordion-head-title">How can you remove your second hand bike listing from BikeWale?</p>
+                            <span class="bwmsprite arrow-sm-down"></span>
+                        </div>
+                        <div class="accordion-body">
+                            <p>It is very easy to remove/delete your listing from BikeWale. You can remove/delete your listing from BikeWale after logging in your myBikeWale account and your bike will no more be available on BikeWale for sell. If you don’t remove the listing, your Ad will be automatically removed after 90 days from the date of posting.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
         <script type="text/javascript">
             var userId = '<%= userId%>';            
             var userName = '<%= userName%>';
@@ -481,7 +544,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
@@ -490,7 +553,7 @@
         <% if(isAuthorized) { %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <% } %>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         
         <script type="text/javascript">
             window.onbeforeunload = function () {

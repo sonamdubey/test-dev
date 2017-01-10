@@ -10,7 +10,7 @@
                         <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span class="content-inner-block-5 text-default position-abt font12" style="right:0;top:0">Sponsored</span>   <% } %>
                     <div class="grid-6 padding-bottom20">
                         <div class="model-img-content">
-                            <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />
+                            <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <p class="font11 text-light-grey margin-bottom5 block text-truncate">Ex-showroom, <%= bike.City1  %></p>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="grid-6">
                         <div class="model-img-content">
-                            <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
+                            <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
                             <span class="swiper-lazy-preloader"></span>
                         </div>
                         <p class="font11 text-light-grey margin-bottom5 block text-truncate">Ex-showroom, <%= bike.City2  %></p>

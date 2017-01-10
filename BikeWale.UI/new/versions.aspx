@@ -108,8 +108,9 @@
                                                     <meta itemprop="ratingValue" content="<%= modelPageEntity.ModelDetails.ReviewRate %>">
                                                     <meta itemprop="worstRating" content="1">
                                                     <meta itemprop="bestRating" content="5">
+                                                    <meta itemprop="itemreviewed" content="<%= bikeName %>" />
                                                     <a href="<%= FormatShowReview(modelPageEntity.ModelDetails.MakeBase.MaskingName,modelPageEntity.ModelDetails.MaskingName) %>" class="review-count-target">
-                                                    <span itemprop="reviewCount"><%= modelPageEntity.ModelDetails.ReviewCount %></span> Reviews</a>
+                                                    <span itemprop="ratingCount"><%= modelPageEntity.ModelDetails.ReviewCount %></span> Reviews</a>
                                                 </span>
                                                 <a href="<%= FormatWriteReviewLink() %>">Write a review</a>
                                             </div>
@@ -239,7 +240,7 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
                                 <div class="leftfloat margin-top15">
                                     <span class="font12 text-light-grey">Powered by</span><br />
                                     <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
@@ -523,7 +524,7 @@
 							                        </div>
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn">Get offers from dealer</a>
+                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn"><%=bike.DisplayTextLarge %></a>
                                                 </div>
                                             </li>
                                     <% } %>                             
@@ -548,7 +549,7 @@
         <%} %>
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">
         <meta itemprop="model" content="<%= TargetedModel %>" />
-
+        <meta itemprop="brand" content="<%= bikeMakeName %>" />
         <style type="text/css">
         .padding-left2{padding-left: 2px;},#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}
         </style>
@@ -625,7 +626,7 @@
                             <%} else
                                     if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ && !isDiscontinued)
                                     {%>
-                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" >Get offers from dealer</a>
+                            <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" ><%= viewModel.LeadBtnTextLarge %></a>
                             <%} %>
 
                             <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
@@ -1327,14 +1328,11 @@
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
 
         <script type="text/javascript">
             ga_pg_id = '2';
@@ -1414,6 +1412,8 @@
                 dleadvm.setOptions(leadOptions);
             });
         </script>
+
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

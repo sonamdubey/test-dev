@@ -186,6 +186,9 @@
                 case 5:
                     this.ColorCode = '#ff6666';
                     break;
+                default : 
+                    this.ColorCode = '#cfcfcf';
+                    break;
             }
         });
         ko.mapping.fromJS(self.models, {}, this);

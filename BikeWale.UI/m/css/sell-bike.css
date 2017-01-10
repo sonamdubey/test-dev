@@ -1,7 +1,3 @@
-#ub-ajax-loader {
-	display: none !important}
-.loader-active #ub-ajax-loader {
-	display: block !important}
 #form-tab-list li {
   width: 33.33%;
   display: inline-block;
@@ -32,8 +28,13 @@
 .step-3-inactive ~ .tab-title {
   color: #82888b; }
 
+#ub-ajax-loader {
+  display: none !important; }
+
+.loader-active #ub-ajax-loader {
+  display: block !important; }
+
 #sell-bike-content {
-    min-height: 500px;
   -webkit-tap-highlight-color: transparent; }
 
 #form-step-tabs {
@@ -798,3 +799,43 @@ textarea {
 .textarea-box textarea:focus ~ .boundary:before,
 .textarea-box textarea:focus ~ .boundary:after {
   width: 50%; }
+
+.accordion-list {
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  font-size: 14px; }
+  .accordion-list li {
+    border-top: 1px solid #e2e2e2; }
+    .accordion-list li:first-child {
+      border-top: 0; }
+  .accordion-list .accordion-head {
+    position: relative;
+    cursor: pointer;
+    padding-top: 18px;
+    padding-bottom: 18px; }
+  .accordion-list .accordion-head-title {
+    padding-right: 25px;
+    font-weight: 700;
+    color: #2a2a2a; }
+  .accordion-list .accordion-body {
+    display: none; }
+    .accordion-list .accordion-body p {
+      padding-bottom: 15px; }
+  .accordion-list .arrow-sm-down {
+    width: 11px;
+    height: 7px;
+    background-position: -85px -177px;
+    position: absolute;
+    top: 44%;
+    right: 0;
+    -webkit-transition: 0.2s linear transform;
+    -moz-transition: 0.2s linear transform;
+    -o-transition: 0.2s linear transform;
+    transition: 0.2s linear transform; }
+
+.accordion-head.active .arrow-sm-down {
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg); }

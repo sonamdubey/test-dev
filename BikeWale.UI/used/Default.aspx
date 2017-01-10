@@ -126,7 +126,7 @@
                             <ul class="text-center">
                                   <% foreach(var bike in viewModel.TopMakeList){ %>  
                                 <li>
-                                    <a href="/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                                    <a href="/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                         </span>
@@ -139,7 +139,7 @@
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                 <% foreach(var bike in viewModel.OtherMakeList){ %> 
                                 <li>
-                                     <a href="/used/<%=bike.MaskingName %>-bikes-in-india/" title="<%=bike.MakeName %> used bikes in India">
+                                     <a href="/used/browse-<%=bike.MaskingName %>-bikes-in-cities/" title="Used <%=bike.MakeName %> bikes">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-<%=bike.MakeId %>"></span>
                                         </span>
@@ -177,7 +177,7 @@
                                                 </div>
                                                 <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
                                                     <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
-                                                    <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                                    <p class="text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                                 </div>
                                             </a>
                                         </li>
@@ -223,16 +223,13 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/used-landing.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" >  
         var CustomerId="<%=currentUser%>";
             </script>
 
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

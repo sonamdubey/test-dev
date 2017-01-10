@@ -29,12 +29,15 @@
         isAd976x400FirstShown = true;
         isAd976x400SecondShown = true;
         isAd976x204 = false;
-        PopupWidget.Visible = true;
+        PopupWidget.Visible = true;        
+        isTransparentHeader = true;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
-    <%  isTransparentHeader = true;
-    %>
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/css/home.css" />
+    <script type="text/javascript">
+         <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
+
 </head>
 <body>
     <form runat="server">
@@ -63,9 +66,11 @@
                         </div>
                     </div>
                 </div>
+                <% if(bannerEntity!=null) { %>
                 <%= bannerEntity.DesktopCss %>
                 <%= bannerEntity.DesktopHtml %>
                 <%= bannerEntity.DesktopJS %>
+                <% } %>
             </div>
         </header>
         <!--  Ends here -->
@@ -329,6 +334,8 @@
             </div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
         <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
             <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server" />
         </section>
@@ -443,10 +450,12 @@
             </div>
         </section>
         <!-- Ends here -->
+        
         <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
+
         <script type="text/javascript">
             ga_pg_id = '1';
             //for jquery chosen : knockout event 
@@ -474,6 +483,8 @@
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
         </script>
+
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

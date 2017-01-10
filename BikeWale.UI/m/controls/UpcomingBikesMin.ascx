@@ -13,7 +13,7 @@
                             <div class="swiper-card">
                                 <a href="/m<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName) %>" title="<%=bikeName%>">
                                     <div class="swiper-image-preview position-rel">
-                                        <img class="swiper-lazy" alt="<%=bikeName %>" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="<%=bikeName %>">
+                                        <img class="swiper-lazy" alt="<%=bikeName %>" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98) %>" title="<%=bikeName %>">
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom5"><%=bikeName %></h3>

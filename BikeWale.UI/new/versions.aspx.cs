@@ -243,6 +243,8 @@ namespace Bikewale.New
         /// Desc:- values to controls field
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :  Added dealer card and service center card
+        /// Modified by :   Sumit Kate on 02 Jan 2017
+        /// Description :   Set makename,modelname,make and model masking name to news widget
         /// </summary>
         private void BindControls(BikeModelPageEntity modelPage)
         {
@@ -285,6 +287,10 @@ namespace Bikewale.New
                     ctrlNews.TotalRecords = 3;
                     ctrlNews.ModelId = _modelId;
                     ctrlNews.WidgetTitle = bikeName;
+                    ctrlNews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                    ctrlNews.ModelMaskingName = modelPage.ModelDetails.MaskingName;
+                    ctrlNews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                    ctrlNews.ModelName = modelPage.ModelDetails.ModelName;
 
                     ctrlExpertReviews.TotalRecords = 3;
                     ctrlExpertReviews.ModelId = _modelId;

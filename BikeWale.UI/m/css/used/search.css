@@ -1,4 +1,118 @@
-﻿#used-bikes-list h2 a {
+﻿/* city-model-carousel */
+#city-model-used-carousel {
+    margin-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: #f9f9f9;
+    position: relative;
+}
+
+#city-model-used-carousel .carousel-heading {
+    width: 88%;
+}
+
+#close-city-model-carousel {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+}
+
+.city-model-carousel.card-container .swiper-slide {
+    width: 220px;
+}
+
+.city-model-carousel.card-container .swiper-card {
+    width: 220px;
+    height: 66px;
+    min-height: 66px;
+    background: #fff;
+}
+
+.city-model-carousel .card-target-block {
+    display: block;
+    padding: 10px;
+}
+
+.city-model-carousel .card-target-block:hover {
+    text-decoration: none;
+}
+
+.city-model-carousel .card-image-placeholder, .city-model-carousel .card-details-placeholder {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.city-model-carousel .card-image-placeholder {
+    width: 63px;
+    height: 35px;
+    text-align: center;
+    position: relative;
+}
+
+.city-model-carousel .card-image-placeholder img {
+    width: 100%;
+    height: 35px;
+    line-height: 0;
+}
+
+.city-model-carousel .card-details-placeholder {
+    width: 65%;
+    padding-left: 3px;
+}
+
+/* city-sm-sprite */
+.city-sm-sprite {
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/city-sm-sprite.png?04Jan2017v2) no-repeat;
+    display: inline-block;
+}
+/*
+1   mumbai
+2   bangalore
+10  new-delhi
+12  pune
+105 hyderabad
+176 chennai
+198 kolkata
+220 lucknow
+*/
+.c2-sm-icon, .c176-sm-icon, .c10-sm-icon, .c105-sm-icon, .c198-sm-icon, .c220-sm-icon, .c1-sm-icon, .c12-sm-icon {
+    height: 32px;
+}
+.c1-sm-icon {
+    width: 52px;
+    background-position: 0 0;
+}
+.c12-sm-icon {
+    width: 43px;
+    background-position: -430px 0;
+}
+.c2-sm-icon {
+    width: 54px;
+    background-position: -136px 0;
+}
+.c10-sm-icon {
+    width: 25px;
+    background-position: -195px 0;
+}
+.c176-sm-icon {
+    width: 21px;
+    background-position: -225px 0;
+}
+.c105-sm-icon {
+    width: 22px;
+    background-position: -251px 0;
+}
+.c198-sm-icon {
+    width: 43px;
+    background-position: -478px 0;
+}
+.c220-sm-icon {
+    width: 41px;
+    background-position: -526px 0;
+}
+
+/* used-bikes-list */
+#used-bikes-list h2 a {
     color: #2a2a2a;
 }
 
@@ -42,9 +156,15 @@
     background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center center;
 }
 
+.model-image-target:hover {
+    text-decoration: none;
+}
+
 .model-thumbnail-image img {
     max-height: 202px;
 }
+
+.model-thumbnail-image img[src$=""]{background: #fff;}
 
 .model-media-details {
     position: absolute;
@@ -170,17 +290,15 @@
     overflow: hidden;
 }
 
-#pagination-list li {
+.init-pagination li, #pagination-list li {
     float: left;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-#pagination-list a,#pagination-list .active {
+.init-pagination li.active, #pagination-list a {
     color: #82888b;
     font-size: 12px;
-    padding-right: 5px;
-    padding-left: 5px;
     border: 1px solid #fff;
     display: block;
     min-width: 25px;
@@ -636,8 +754,6 @@
     }
 
     #pagination-list a {
-        padding-right: 3px;
-        padding-left: 3px;
         font-size: 12px;
         min-width: 22px;
     }
@@ -737,8 +853,6 @@
     font-weight: bold;
 }
 
-.text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
-
 /* input field */
 input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
 .input-box { height:60px; text-align: left; }
@@ -759,3 +873,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 /* validation */
 .input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
 .input-box.invalid .error-text { display:inline-block; }
+
+.back-to-top {
+    bottom: 50px !important;
+}

@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <div class="model-user-review-title-container">
-                    <a class="target-link" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Eval("ReviewTitle").ToString(),44) %></a>
+                    <a class="target-link" href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"  title="<%#DataBinder.Eval(Container.DataItem,"ReviewTitle").ToString() %>"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Eval("ReviewTitle").ToString(),44) %></a>
                     <div class="grid-7 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
                         <span class="article-stats-content"><%#Eval("ReviewDate", "{0:MMM dd, yyyy}") %></span>

@@ -257,7 +257,7 @@
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block">
-                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow">Get offers from dealers</a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadSourceId="9" data-dealerId="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>                                    
                                 </div>
@@ -587,7 +587,7 @@
 							                    </div>
                                             </a>
                                             <div class="bottom-block-button margin-top15">
-                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn">Get offers from dealer</a>
+                                                <a href="javascript:void(0);" id="leadSecondary" leadSourceId="39" data-dealerId="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn"><%= dealer.DisplayTextLarge %></a>
                                             </div>
                                         </li>
                                     <% } %>
@@ -728,8 +728,8 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        
+
+        <!-- #include file="/includes/footerscript.aspx" -->       
         <script type="text/javascript">
 
             var bikeName = "<%= bikeName %>";

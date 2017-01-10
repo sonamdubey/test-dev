@@ -16,7 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css">
+    <link rel="stylesheet" type="text/css" href="/m/css/generic/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -113,7 +113,7 @@
                                     <tr class="table-head-row" style="text-align:left">
                                         <th valign="top" width="35%" align="left">Available in</th>
                                         <th valign="top" width="35%" align="left">Launched in</th>
-                                        <th valign="top" width="30%" align="left">Unit sold (<%= prevMonth %>)</th>
+                                        <th valign="top" width="30%" align="left">Unit sold <% if(bike.UnitsSold > 0){ %>(<%= bike.LastUpdatedModelSold.Value.ToString("MMM") %>)<%}%></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -141,6 +141,14 @@
                             </div>
                             <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
                             <ul class="item-more-details-list">
+                                <% if(bike.NewsCount > 0) { %>
+                                <li>
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
+                                        <span class="generic-sprite news-sm"></span>
+                                        <span class="icon-label">News</span>
+                                    </a>
+                                </li>
+                                 <%} %>
                                   <% if(bike.ExpertReviewsCount > 0) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
@@ -202,9 +210,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
 
         <script type="text/javascript">
             $('.read-more-desc-target').on('click', function () {

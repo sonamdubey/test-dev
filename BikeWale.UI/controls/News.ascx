@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_Widget" %>
+<%@ Import Namespace="Bikewale.Utility" %>
 <div id="ctrlNews">
     <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom font14">
         <% if(ShowWidgetTitle) { %>
@@ -16,7 +17,7 @@
                         </div>
                     </div>
                     <div class="grid-8">
-                        <a href="<%#Bikewale.Utility.UrlFormatter.GetArticleUrl(DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString(),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString())  %>" class="article-target-link line-height">
+                        <a href="<%#Bikewale.Utility.UrlFormatter.GetArticleUrl(DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString(),Bikewale.Entities.CMS.EnumCMSContentType.News.ToString())  %>"  title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>" class="article-target-link line-height">
                             <%#DataBinder.Eval(Container.DataItem,"Title").ToString()%>
                         </a>
                         <div class="article-stats-left-grid">
@@ -39,7 +40,7 @@
         <!-- main content -->
 
         <div class="more-article-target">
-            <a href="/news/">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
+            <a href="<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} news", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} news",MakeName) : "News") %>">Read all news<span class="bwsprite blue-right-arrow-icon"></span></a>
         </div>
     </div>
 </div>

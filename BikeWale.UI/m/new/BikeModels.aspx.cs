@@ -78,6 +78,7 @@ namespace Bikewale.Mobile.New
         protected string pq_leadsource = "33", pq_sourcepage = "59", hide = string.Empty, pgDescription = string.Empty;
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         protected ModelPageVM viewModel = null;
+        protected ModelGallery ctrlModelGallery;
         protected int colorCount;
         GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
@@ -212,6 +213,8 @@ namespace Bikewale.Mobile.New
         /// Desc:- values to controls field
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :  Added dealer card and service center card
+        /// Modified By :Subodh Jain 06 Jan 2016
+        /// Summary : Added Model gallery widget
         /// </summary>
         private void BindControls()
         {
@@ -226,6 +229,10 @@ namespace Bikewale.Mobile.New
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);
             ctrlNews.WidgetTitle = bikeName;
+            ctrlNews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+            ctrlNews.ModelMaskingName = modelPage.ModelDetails.MaskingName;
+            ctrlNews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+            ctrlNews.ModelName = modelPage.ModelDetails.ModelName;
 
             ctrlExpertReviews.TotalRecords = 3;
             ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
@@ -285,6 +292,16 @@ namespace Bikewale.Mobile.New
             ctrlRecentUsedBikes.CityId = (int?)cityId;
             ctrlRecentUsedBikes.TopCount = 6;
             ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
+
+            if (modelPage != null && modelPage.Photos != null)
+            {
+                ctrlModelGallery.Photos = modelPage.Photos;
+                ctrlModelGallery.articleName = string.Format("{0} {1}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName);
+                ctrlModelGallery.isModelPage = false;
+                ctrlModelGallery.modelId = modelPage.ModelDetails.ModelId;
+                ctrlModelGallery.modelName = modelPage.ModelDetails.ModelName;
+
+            }
 
         }
 

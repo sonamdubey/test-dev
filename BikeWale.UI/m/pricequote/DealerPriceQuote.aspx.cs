@@ -37,7 +37,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty;
+        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty,leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0, areaId = 0, modelId = 0;
         protected bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
@@ -135,6 +135,8 @@ namespace Bikewale.Mobile.BikeBooking
                         if (objPriceQuote.PrimaryDealer.DealerDetails != null)
                         {
                             isPrimaryDealer = true;
+                            leadBtnSmallText = objPriceQuote.PrimaryDealer.DealerDetails.DisplayTextSmall;
+                            leadBtnLargeText = objPriceQuote.PrimaryDealer.DealerDetails.DisplayTextLarge;
                         }
 
                         if (objPriceQuote.PrimaryDealer != null && objPriceQuote.PrimaryDealer.PriceList != null && objPriceQuote.PrimaryDealer.PriceList.Count() > 0)

@@ -1008,6 +1008,8 @@ namespace Bikewale.DAL.AutoBiz
         /// Description :   Secondary Dealer Offer count and secondary dealer distance from given area
         /// Modified by :   Sumit Kate on 03 Aug 2016
         /// Description :   Set the Selected version price for secondary dealers for easy binding
+        /// Modified By : Sangram Nandkhile on 29 Dec 2016
+        /// Description : Added DisplayTextLarge, DisplayTextSmall
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -1026,7 +1028,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_08122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_29122016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1112,6 +1114,9 @@ namespace Bikewale.DAL.AutoBiz
                                     DealerPackageTypes s;
                                     if (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s))
                                         primaryDealer.DealerPackageType = s;
+                                    primaryDealer.DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]);
+                                    primaryDealer.DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]);
+
                                 }
                                 dealerQuotation.DealerDetails = primaryDealer;
                             }
@@ -1242,7 +1247,9 @@ namespace Bikewale.DAL.AutoBiz
                                             MaskingNumber = !Convert.IsDBNull(dr["MaskingNumber"]) ? Convert.ToString(dr["MaskingNumber"]) : default(string),
                                             DealerPackageType = (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s)) ? s : DealerPackageTypes.Invalid,
                                             Distance = !Convert.IsDBNull(dr["distance"]) ? Convert.ToDouble(dr["distance"]) : default(double),
-                                            OfferCount = !Convert.IsDBNull(dr["offerCount"]) ? Convert.ToUInt16(dr["offerCount"]) : default(UInt16)
+                                            OfferCount = !Convert.IsDBNull(dr["offerCount"]) ? Convert.ToUInt16(dr["offerCount"]) : default(UInt16),
+                                            DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]),
+                                            DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"])
                                         }
                                         );
                                 }

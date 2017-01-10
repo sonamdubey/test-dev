@@ -87,7 +87,7 @@
                     <h2 class="section-header">Video</h2>
                     <div class="content-box-shadow">
                         <div id="track-day-video" class="video-content">
-                            <iframe id="td-iframe-video" width="976" height="549" src="https://www.youtube.com/embed/94hLbNXL3JE" frameborder="0" allowfullscreen></iframe>
+                            <iframe id="td-iframe-video" width="976" height="549" src="https://www.youtube.com/embed/XuEp3JO6zCw" frameborder="0" allowfullscreen></iframe>
                             <div class="bg-loader-placeholder"></div>
                             <div c="bw_trackday" a="Track day video" l="bw_trackday" class="video-overlay cur-pointer bw-ga"></div>
                         </div>
@@ -98,7 +98,7 @@
         </section>
 
         <section>
-            <div class="container section-container">
+            <div id="trackdayGallery" class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Gallery</h2>
                     <div class="content-box-shadow padding-bottom1">
@@ -288,13 +288,10 @@
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
 
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/fontBW.aspx" -->
 
         <script type="text/javascript">
             $(document).ready(function () {

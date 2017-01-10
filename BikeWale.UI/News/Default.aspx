@@ -8,13 +8,13 @@
 <html>
 <head>
     <%
-        title = "Bike News - Latest Indian Bike News & Views | BikeWale";
-        description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
-        keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-        canonical = "https://www.bikewale.com/news/";
-        relPrevPageUrl = prevUrl;
-        relNextPageUrl = nextUrl;
-        alternate = "https://www.bikewale.com/m/news/";
+        title = objNews.PageTitle;
+        description = objNews.Description;
+        keywords = objNews.Keywords;
+        canonical = objNews.Canonical;
+        relPrevPageUrl = objNews.prevUrl;
+        relNextPageUrl = objNews.nextUrl;
+        alternate = objNews.Alternate;
         AdId = "1395995626568";
         AdPath = "/1017752/BikeWale_News_";
         isAd300x250Shown=true;
@@ -41,6 +41,22 @@
                                 <span itemprop="title">Home</span>
                             </a>
                         </li>
+                        <% if(objNews.MakeId > 0){ %>
+                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                             <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="<%= String.Format("/{0}-bikes/",objNews.objMake.MaskingName) %>" itemprop="url">
+                                <span itemprop="title"><%= objNews.objMake.MakeName %> Bikes</span>
+                            </a>
+                        </li>
+                        <%} %>
+                        <% if(objNews.ModelId > 0){ %>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
+                            <a href="<%= String.Format("/{0}-bikes/{1}/",objNews.objMake.MaskingName,objNews.objModel.MaskingName) %>" itemprop="url">
+                                <span itemprop="title"><%= objNews.objMake.MakeName %> <%= objNews.objModel.ModelName %> Bikes</span>
+                            </a>
+                        </li>
+                        <%} %>
                         <li><span class="bwsprite fa-angle-right margin-right10"></span>News</li>
                     </ul>
                     <div class="clear"></div>
@@ -55,8 +71,8 @@
                     <div id="content" class="grid-8 alpha">
                         <div class="bg-white">
                             <div id="news-header" class="section-header">
-                                <h1 class="margin-right5">Bike News</h1>
-                                <h2 class="font14 text-unbold text-light-grey">Latest Indian Bikes News and Views</h2>
+                                <h1 class="margin-right5"><%= objNews.PageH1 %></h1>
+                                <h2 class="font14 text-unbold text-light-grey"><%= objNews.PageH2 %></h2>
                             </div>
                              <%if(newsArticles!=null) { %>
                             <div class="section-inner-padding">
@@ -67,7 +83,7 @@
                                             <%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : string.Empty %>
 
                                             <div class="article-image-wrapper">
-                                                <a href='<%= articleUrl %>'>
+                                                <a href='<%= articleUrl %>' title='<%= article.Title %>'>
                                                     <img src='<%= Bikewale.Utility.Image.GetPathToShowImages(article.OriginalImgUrl,article.HostUrl,Bikewale.Utility.ImageSize._210x118) %>' alt='<%= article.Title %>' title='<%= article.Title %>' width='100%' border='0' />
                                                 </a>
                                             </div>
@@ -76,7 +92,7 @@
                                                     <span class="text-uppercase font12 text-bold"><%= GetContentCategory(article.CategoryId.ToString()) %></span>
                                                 </div>
                                                 <h3 class="font14 margin-bottom10">
-                                                    <a href="<%= articleUrl %>" rel="bookmark" class="text-black text-bold"><%= article.Title %></a>
+                                                    <a href="<%= articleUrl %>" title='<%= article.Title %>' rel="bookmark" class="text-black text-bold"><%= article.Title %></a>
                                                 </h3>
                                                 <div class="font12 text-light-grey margin-bottom20">
                                                     <div class="article-date">
@@ -138,11 +154,8 @@
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

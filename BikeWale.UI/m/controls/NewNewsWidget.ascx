@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewNewsWidget" %>
+<%@ Import Namespace="Bikewale.Utility" %>
 <% if(ShowWidgetTitle) { %>
 <h2 class="text-bold"><%= WidgetTitle %> News</h2>
 <% } %>
@@ -7,11 +8,11 @@
         <div class="margin-bottom20">
             <div class="review-image-wrapper">
                 <a href="/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html" >
-                    <img class="lazy" data-original="<%#Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ,Bikewale.Utility.ImageSize._370x208) %>" title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>" alt="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>"  />
+                    <img class="lazy" data-original="<%#Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ,Bikewale.Utility.ImageSize._144x81) %>" title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>" alt="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>"  />
                 </a>
             </div>
             <div class="review-heading-wrapper">
-                <a href="/m/news/<%#String.Format("{0}-{1}.html", DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString()) %>" class="target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Title").ToString(), 44) %></a>
+                <a href="/m/news/<%#String.Format("{0}-{1}.html", DataBinder.Eval(Container.DataItem,"BasicId").ToString(),DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString()) %>" title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>"  class="target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Title").ToString(), 44) %></a>
                 <div class="grid-7 alpha padding-right5">
                     <span class="bwmsprite calender-grey-sm-icon"></span>
                     <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(), "MMM dd, yyyy") %></span>
@@ -30,11 +31,8 @@
 </asp:Repeater>
 
 <div>
-    <a href="/m/news/" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    <a href="/m<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} news", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} news",MakeName) : "News") %>" class="font14">Read all news<span class="bwmsprite blue-right-arrow-icon"></span></a>
 </div>
 
 <div class="bw-tabs-data" id="ctrlNews">  
-    <script type="text/javascript">
-        $(document).ready(function () { $("img.lazy").lazyload(); });
-    </script>
 </div>

@@ -166,6 +166,16 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
     text-transform: uppercase;
 }
 
+/* tabs */
+.bw-tabs { display: block; }
+.bw-tabs-flex { display: table; width: 100%; }
+.bw-tabs-flex ul { border-bottom: 1px solid #cccccc; margin-bottom: 25px; }
+.bw-tabs-flex li { display: table-cell; padding: 10px; text-align: center; width: 1%; cursor: pointer; }
+.bw-tabs-flex li h3, .home-tabs li h3 { color: #82888b; font-size: 18px; font-weight: 400; }
+.bw-tabs-flex li:hover h3, .home-tabs li h3 { color: #4d5057; }
+.bw-tabs-flex li.active { border-bottom: 3px solid #ef3f30; cursor:default; }
+.bw-tabs-flex li.active h3 { color: #4d5057; }
+
 /* sprite classes */
 .bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?27Dec2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
@@ -276,6 +286,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .margin-top12 { margin-top: 12px; }
 .margin-top15 { margin-top: 15px; }
 .margin-top20 { margin-top: 20px; }
+.margin-top30 { margin-top: 30px; }
 
 .margin-right5 { margin-right: 5px; }
 .margin-right10 { margin-right: 10px; }

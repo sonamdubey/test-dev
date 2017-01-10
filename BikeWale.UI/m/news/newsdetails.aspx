@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/MinGenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,10 +42,11 @@
                 </div>
                 <div class="article-content-padding">
                     <div id="divDesc" class="article-content">
-                    <%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
-                        <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
-                    <%= String.IsNullOrEmpty(newsContent) ? "" : newsContent %>
-                </div>
+                        <%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
+                            <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
+                        <%= String.IsNullOrEmpty(newsContent) ? "" : newsContent %>
+                    </div>
+                 <BW:GenericBikeInfo  ID="ctrlGenericBikeInfo" runat="server" />
 
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
@@ -103,8 +105,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/common.min.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = "11";
 

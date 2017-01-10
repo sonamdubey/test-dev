@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="font14 padding-left20 padding-right20">
                                         <p class="text-default text-bold margin-bottom5"><%=objCity.CityName %></p>
-                                        <p class="text-light-grey"><%=objCity.bikesCount %> Used bikes</p>
+                                        <p class="text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
                                     </div>
                                 </a>
                             </li>
@@ -83,7 +83,7 @@
                                     {%>
                                     <li class="grid-4">
                                         <a href="/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>">
-                                            <%=string.Format("{0} ({1})",objCity.CityName ,objCity.bikesCount )%>
+                                            <%=string.Format("{0} ({1})",objCity.CityName ,objCity.BikesCount )%>
                                         </a>
                                     </li>
                                 <%} %>
@@ -99,11 +99,8 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
-        <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
-        <![endif]-->
+        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>
