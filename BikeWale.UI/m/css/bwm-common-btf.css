@@ -561,7 +561,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .pq-no-name { background-position: -510px 0; }
 .pq-no-mobile { background-position: -611px 0; }
 .pq-no-email { background-position: -712px 0; }
-.inline-block { display:inline-block; vertical-align: middle; }
 
  /* Budget Validation classes */
 .bw-blackbg-tooltip-search-error {right:-150px; top:50px; width:357px;}
