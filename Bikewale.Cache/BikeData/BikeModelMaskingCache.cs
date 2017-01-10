@@ -64,7 +64,6 @@ namespace Bikewale.Cache.BikeData
 
             return response;
         }
-
         /// <summary>
         /// Created By : Lucky Rathore On 07 June 2016
         /// Description : To cache version Specification Detail.
@@ -87,6 +86,50 @@ namespace Bikewale.Cache.BikeData
             }
 
             return specs;
+        }
+
+        /// <summary>
+        /// Created By:-Subodh jain 9 jan 2017
+        /// Description :- Added cache call for model helper
+        /// </summary>
+        /// <param name="modelid"></param>
+        /// <returns></returns>
+        public T GetById(U modelid)
+        {
+            T objModel = default(T);
+            string key = string.Format("BW_GetModelById_{0}", modelid);
+            try
+            {
+                objModel = _cache.GetFromCache<T>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetById(modelid));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetById_{0}", modelid));
+
+            }
+            return objModel;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get similar bikes with photos count
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords)
+        {
+            IEnumerable<SimilarBikesWithPhotos> similarBikes = null;
+            string key = "BW_SimilarBikes_PhotosCnt_" + modelId;
+            try
+            {
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikesWithPhotos>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetAlternativeBikesWithPhotos(modelId, totalRecords));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetSimilarBikeWithPhotos");
+            }
+
+            return similarBikes;
         }
     }
 }

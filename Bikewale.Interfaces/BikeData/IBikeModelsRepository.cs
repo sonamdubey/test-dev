@@ -14,6 +14,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetModelPhotos(int modelId) for getting imageurl and original path;
     /// Modified by : Subodh Jain 22 sep 2016
     /// Description by : Added GetMostPopularBikesbyMakeCity method
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get similar bikes with photos count
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -53,5 +55,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
         ModelPhotos GetModelPhotoInfo(U modelId);
+        IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
     }
 }

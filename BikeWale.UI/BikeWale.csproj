@@ -262,6 +262,7 @@
     <Compile Include="BindViewModels\Controls\BindServiceCenter.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarBikesWithPhotos.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
+    <Compile Include="BindViewModels\Webforms\Photos\ModelPhotos.cs" />
     <Compile Include="BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
     <Compile Include="BindViewModels\Webforms\Used\BindUsedBikesByMakeCity.cs" />
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
@@ -896,6 +898,10 @@
       <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MinGenericBikeInfoControl.ascx.cs">
+      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -938,6 +944,10 @@
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
+      <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UpcomingBikesMin.ascx.cs">
@@ -1086,6 +1096,10 @@
     </Compile>
     <Compile Include="m\generic\BikeListing.aspx.cs">
       <DependentUpon>BikeListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\photos\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\service\Default.aspx.cs">
@@ -2548,6 +2562,7 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\GenericBikeInfoControl.ascx" />
+    <Content Include="m\controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2559,6 +2574,7 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
+    <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
     <Content Include="m\controls\serviceschedule.ascx" />
@@ -2630,6 +2646,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\photos.css" />
     <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
@@ -2651,6 +2668,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
     <Content Include="m\service\ServiceCenterInCountry.aspx" />
@@ -2734,6 +2752,7 @@
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\photos.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />

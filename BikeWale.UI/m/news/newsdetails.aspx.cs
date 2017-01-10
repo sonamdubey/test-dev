@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.Content
         protected String _newsId = String.Empty;
         private ArticleDetails objNews = null;
         private bool _isContentFound = true;
-        protected GenericBikeInfoControl ctrlGenericBikeInfo;
+        protected MinGenericBikeInfoControl ctrlGenericBikeInfo;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         private BikeMakeEntityBase _taggedMakeObj;

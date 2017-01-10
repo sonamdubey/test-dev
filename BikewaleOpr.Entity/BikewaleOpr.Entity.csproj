@@ -36,6 +36,7 @@
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +51,7 @@
     <Compile Include="AreaEntityBase.cs" />
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
+    <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />

@@ -16,6 +16,7 @@
                 <li data-tabs="videos" id="videos-tab">Videos</li>
             </ul>
             <% } %>
+        
             <div id="bike-gallery-popup">
                 <div class="bw-tabs-data" id="photos">
                     <div class="font14 text-white margin-bottom15">
@@ -23,18 +24,17 @@
                         <span class="rightfloat gallery-count"></span>
                         <div class="clear"></div>
                     </div>
+                        <%if(Photos!=null){ %>
                     <div class="connected-carousels-photos">
                         <div class="stage-photos">
                             <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
                                 <div class="swiper-wrapper">
-                                    <asp:Repeater ID="rptModelPhotos" runat="server">
-                                        <ItemTemplate>
+                                <%foreach(var PhotoDetails in Photos){ %>
                                             <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>"  title="<%=modelName %> <%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(PhotoDetails.OriginalImgPath,PhotoDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%=PhotoDetails.ImageCategory %>"  title="<%=string.Format("{0} {1}",modelName,PhotoDetails.ImageCategory) %>" />
                                                 <span class="swiper-lazy-preloader"></span>
                                             </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                      <%} %>
                                 </div>
                                 <div class="bwmsprite swiper-button-next"></div>
                                 <div class="bwmsprite swiper-button-prev"></div>
@@ -44,20 +44,19 @@
                         <div class="navigation-photos">
                             <div class="swiper-container noSwiper carousel-navigation-photos">
                                 <div class="swiper-wrapper">
-                                    <asp:Repeater ID="rptNavigationPhoto" runat="server">
-                                        <ItemTemplate>
+                                   <%foreach(var PhotoDetails in Photos){ %>
                                             <div class="swiper-slide">
-                                                <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>"  />
+                                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(PhotoDetails.OriginalImgPath,PhotoDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%=PhotoDetails.ImageCategory %>"  title="<%=string.Format("{0} {1}",modelName,PhotoDetails.ImageCategory) %>" />
                                                 <span class="swiper-lazy-preloader"></span>
                                             </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                      <%} %>
                                 </div>
                                 <div class="bwmsprite swiper-button-next hide"></div>
                                 <div class="bwmsprite swiper-button-prev hide"></div>
                             </div>
                         </div>
                     </div>
+                    <%} %>
                 </div>
                 <% if(videoCount > 0) { %>
                 <div class="bw-tabs-data" id="videos">
