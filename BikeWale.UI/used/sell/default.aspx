@@ -17,7 +17,6 @@
         isAd970x90Shown = false;
 %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-
     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -513,7 +512,7 @@
             <div class="container margin-bottom20">
                 <h2 class="section-heading">FAQs- Selling Bike on BikeWale</h2>
                 <div class="grid-12">
-                    <div class="content-box-shadow padding-bottom20">
+                    <div class="content-box-shadow">
                         <ul class="accordion-list">
                             <li>
 	                            <div class="accordion-head">
