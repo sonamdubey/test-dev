@@ -19,6 +19,18 @@ var listingStartPoint = $('#listing-start-point'),
     loaderColumn = $('#loader-right-column'),
     cityModelCarousel = $('#city-model-used-carousel');
 
+$(function () {
+
+    if (getCookie("Used")!=null) {
+        var arr = getCookie("Used").split('&');
+        if (arr[usedPageIdentifier].split('=')[1] == "1")
+            cityModelCarousel.show();
+        else
+            cityModelCarousel.hide();
+    }
+
+})
+
 var getQueryString = function () {
     var qsColl = new Object();
     try {
@@ -44,19 +56,28 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
     self.pageSlot = ko.observable(5);
     self.totalPages = ko.computed(function () {
         var div = Math.ceil(self.totalData() / self.pageSize());
-        div += self.totalData() % self.pageSize() > 0 ? 1 : 0;
-        return div - 1;
+        return div;
     });
     self.paginated = ko.computed(function () {
-        var pgSlot = self.pageNumber() + self.pageSlot();
-        if (pgSlot > self.totalPages()) pgSlot = self.totalPages() + 1;
-        return pgSlot;
+        var pgSlot;
+
+        if (self.pageNumber() < 4) {
+            pgSlot = self.pageSlot();
+        } else {
+            pgSlot = self.pageNumber() + self.pageSlot() - 3;
+        }
+
+        if (self.totalPages() > pgSlot) {
+            return pgSlot;
+        } else {
+            return self.totalPages();
+        }               
     });
     self.hasPrevious = ko.computed(function () {
         return self.pageNumber() != 1;
     });
     self.hasNext = ko.computed(function () {
-        return self.pageNumber() != self.totalPages();
+        return self.pageNumber() != self.totalPages();       
     });
     self.next = function () {
         if (self.pageNumber() < self.totalPages())
@@ -451,19 +472,19 @@ var usedBikes = function () {
                 var n = self.Pagination().paginated(), pages = '', prevpg = '', nextpg = '';
                 var qs = window.location.pathname + window.location.hash;
                 var rstr = qs.match(/page-[0-9]+/i);
-                for (var i = self.Pagination().pageNumber() ; i < n; i++) {
+                var startIndex = (self.Pagination().pageNumber() - 2 > 0) ? (self.Pagination().pageNumber() - 2) : 1;                
+                for (var i = startIndex ; i <= n; i++) {
                     var pageUrl = qs.replace(rstr, "page-" + i);
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
-                }
+                }                
                 self.PagesListHtml(pages);
-
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwsprite prev-page-icon'/>";
                 } else {
                     prevpg = "<a href='javascript:void(0)' class='bwsprite prev-page-icon'/>";
                 }
                 self.PrevPageHtml(prevpg);
-                if (self.Pagination().hasNext()) {
+                if (self.Pagination().hasNext()) {                    
                     nextpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwsprite next-page-icon'/>";
                 } else {
                     nextpg = "<a href='javascript:void(0)' class='bwsprite next-page-icon'/>";

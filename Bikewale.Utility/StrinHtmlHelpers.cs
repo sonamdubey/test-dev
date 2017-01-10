@@ -222,9 +222,9 @@ namespace System
         /// <param name="maxCharacters"></param>
         /// <param name="trailingText"></param>
         /// <returns></returns>
-        public static string Truncate(this string text, int maxCharacters)
+        public static string HtmlTruncate(this string text, int maxCharacters)
         {
-            return text.Truncate(maxCharacters, null);
+            return text.HtmlTruncate(maxCharacters, null);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace System
         /// <param name="maxCharacters"></param>
         /// <param name="trailingText"></param>
         /// <returns></returns>
-        public static string Truncate(this string text, int maxCharacters, string trailingText)
+        public static string HtmlTruncate(this string text, int maxCharacters, string trailingText)
         {
             if (string.IsNullOrEmpty(text) || maxCharacters <= 0 || text.Length <= maxCharacters)
                 return text;
@@ -268,7 +268,7 @@ namespace System
                 return text;
 
             // trunctate the text, then remove the partial word at the end
-            return Regex.Replace(text.Truncate(maxCharacters),
+            return Regex.Replace(text.HtmlTruncate(maxCharacters),
                 @"\s+[^\s]+$", string.Empty, RegexOptions.IgnoreCase | RegexOptions.Compiled) + trailingText;
         }
     }

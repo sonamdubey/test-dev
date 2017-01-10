@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -11,7 +12,9 @@ namespace Bikewale.DAL.GenericBikes
 {
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
-    /// Summary :  Generic Bike repository
+    /// Description :  Generic Bike repository
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get generic bike info with min specs
     /// </summary>
     public class GenericBikeRepository : IGenericBikeRepository
     {
@@ -19,6 +22,8 @@ namespace Bikewale.DAL.GenericBikes
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Jan 2016
         /// Summary :  To get generic bike info by modelid
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get generic bike info with min specs
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetGenericBikeInfo(uint modelId)
@@ -41,6 +46,7 @@ namespace Bikewale.DAL.GenericBikes
                                 genericBikeInfo = new GenericBikeInfo();
                                 genericBikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
                                 genericBikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                genericBikeInfo.MinSpecs = new MinSpecsEntity();
                                 genericBikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 genericBikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 genericBikeInfo.VideosCount = SqlReaderConvertor.ToUInt32(dr["videoscount"]);
@@ -49,10 +55,16 @@ namespace Bikewale.DAL.GenericBikes
                                 genericBikeInfo.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["expertreviewscount"]);
                                 genericBikeInfo.FeaturesCount = SqlReaderConvertor.ToUInt32(dr["featurescount"]);
                                 genericBikeInfo.IsSpecsAvailable = SqlReaderConvertor.ToBoolean(dr["isspecsavailable"]);
+                                genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
                                 genericBikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                                 genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                                 genericBikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                genericBikeInfo.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
+                                genericBikeInfo.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
+                                genericBikeInfo.MinSpecs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
+                                genericBikeInfo.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maxpowerrpm"]);
+                                genericBikeInfo.MinSpecs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
 
 
                             }

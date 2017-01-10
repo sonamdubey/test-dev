@@ -12,7 +12,7 @@
                     </a>
                 </div>
                 <div class="review-heading-wrapper">
-                    <a href="/m/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="font14 target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Title").ToString(), 44) %></a>
+                    <a href="/m/expert-reviews/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" title="<%#DataBinder.Eval(Container.DataItem,"Title").ToString() %>"  class="font14 target-link"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Title").ToString(), 44) %></a>
                     <div class="grid-7 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
                         <span class="article-stats-content"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString(), "MMM dd, yyyy") %></span>

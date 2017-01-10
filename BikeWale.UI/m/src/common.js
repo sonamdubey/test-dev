@@ -984,18 +984,29 @@ function slideChangeStart() {
     };
 })(jQuery);
 
+var getHost = function () {
+    var host = document.domain;
+
+    if (host.match("bikewale.com$"))
+        host = ".bikewale.com";
+    else if (host.match("webserver$"))
+        host = "webserver";
+    else
+        host = "localhost";
+
+    return host;
+}
+
 function SetCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
-    if (typeof (cookieValue) == "string") {
-        cookieValue = cookieValue.toString().replace(/\s+/g, '-');
-    }
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    cookieValue = cookieValue.replace(/\s+/g, '-');
+    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {

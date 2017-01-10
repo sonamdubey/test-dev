@@ -88,8 +88,16 @@
                                 <li >
                                     <div class="model-thumbnail-image">
                                     <a href="<%= string.Format("/m/used/bikes-in-{0}/{1}-{2}-{3}/",bike.CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName,bike.ProfileId) %>" class="model-image-target">
-                                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" 
+                                        <%  if (!(String.IsNullOrEmpty(bike.Photo.OriginalImagePath) || String.IsNullOrEmpty(bike.Photo.HostUrl)))
+                                            { %>    
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" 
                                                  alt="<%= curBikeName %>" title="<%= curBikeName %>" border="0" src="" />
+                                        <% } else { %>
+                                        <div class="bg-light-grey">
+                                        <span class="bwmsprite no-image-icon margin-bottom15"></span>
+                                        <p class="font12 text-bold text-light-grey">Image not available</p>
+                                    </div>
+                                        <% } %>
                                          <% if (bike.TotalPhotos > 0)
                                             { %>
                                             <div class="model-media-details ">

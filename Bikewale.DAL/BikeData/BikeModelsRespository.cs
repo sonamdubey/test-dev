@@ -17,6 +17,8 @@ namespace Bikewale.DAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble
+    /// Modified By : Sushil Kumar on 5th Jan 2016
+    /// Description : To get similar bikes with photos count
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -1340,5 +1342,57 @@ namespace Bikewale.DAL.BikeData
             return objMinspecs;
         }
 
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get similar bikes with photos count
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords)
+        {
+            IList<SimilarBikesWithPhotos> SimilarBikeInfoList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalternativebikeswithphotoscount";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            SimilarBikeInfoList = new List<SimilarBikesWithPhotos>();
+
+                            while (dr.Read())
+                            {
+                                var bikeInfo = new SimilarBikesWithPhotos();
+                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                bikeInfo.PhotosCount = SqlReaderConvertor.ToUInt32(dr["photoscount"]);
+                                bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                                bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                                bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                SimilarBikeInfoList.Add(bikeInfo);
+
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetAlternativeBikesWithPhotos_Model" + modelId);
+            }
+            return SimilarBikeInfoList;
+        }
     }   // class
 }   // namespace

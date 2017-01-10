@@ -122,7 +122,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .bw-tabs::-webkit-scrollbar {width: 0;}
 
 /* sprite classes */
-.bwmsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?26Dec2016) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite.png?6Jan2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -173,6 +173,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-xx-light { color:#a2a2a2; }
 .text-light-grey { color: #82888b; }
 .text-medium-grey { color: #82888b; }
+.text-white { color: #fff; }
 
 .font9 { font-size: 9px; }
 .font10 { font-size: 10px; }
@@ -191,6 +192,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
 .content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; border:1px solid #e2e2e2\9; }
+
+.margin-bottom5 { margin-bottom: 5px; }
 
 .margin-top10 { margin-top: 10px; }
 .margin-right10 { margin-right: 10px; }
@@ -259,3 +262,58 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 .hide { display: none }
 .show { display: block }
+
+/* swiper-card */
+.card-container {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.card-container .swiper-slide { 
+    width:200px;
+}
+
+.swiper-slide:first-child {
+    margin-left: 5px;
+}
+
+.block {
+    display: block;
+}
+
+.swiper-card {
+    margin-left: 5px;
+    width: 200px;
+    min-height: 210px;
+    border: 1px solid #e2e2e2\9;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -ms-box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.swiper-card a:hover {
+    text-decoration: none;
+}
+
+.swiper-image-preview {
+    height: 95px;
+    padding: 5px 5px 0;
+    position: relative;
+}
+
+.swiper-image-preview img {
+    height: 90px;
+}
+
+.swiper-details-block {
+    padding: 3px 15px 0;
+}
+
+.swiper-btn-block {
+    padding: 10px 15px;
+}

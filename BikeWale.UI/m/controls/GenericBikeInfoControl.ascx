@@ -1,19 +1,38 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.GenericBikeInfoControl" EnableViewState="false" %>
-<% if(bikeInfo!=null)
+<% if (bikeInfo != null)
    { %>
 
-<div class="model-slug-content">
+<div class="model-more-info-section">
     <div class="margin-bottom10">
-        <a href="<%= bikeUrl%>" class="item-image-content inline-block"   title="<%= bikeName %>" >
-            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="Honda CB Shine" />
+        <a href="<%= bikeUrl%>" class="item-image-content inline-block" title="<%= bikeName %>">
+            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
         </a>
         <div class="bike-details-block inline-block">
-            <p class="font12 text-light-grey">More info about:</p>
-            <a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate"  title="<%= bikeName %>"><%= bikeName %></a>
+            <h3 class="margin-bottom5"><a href="<%= bikeUrl%>" class="block text-bold text-default text-truncate" title="<%= bikeName %>"><%= bikeName %></a></h3>
+            <ul class="key-specs-list font12 text-xx-light">
+                <%if (bikeInfo.MinSpecs.Displacement != 0)
+                  { %>
+                <li>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.Displacement.ToString(),"cc") %></span>
+                </li>
+                <% } %>
+                <%if (bikeInfo.MinSpecs.FuelEfficiencyOverall != 0)
+                  { %>
+                <li>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") %></span>
+                </li>
+                <% } %>
+                <%if (bikeInfo.MinSpecs.MaxPower != 0)
+                  { %>
+                <li>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.MaxPower.ToString(),"bhp") %></span>
+                </li>
+                <% } %>
+            </ul>
         </div>
     </div>
     <ul class="item-more-details-list">
-         <% if (bikeInfo.ExpertReviewsCount > 0)
+        <% if (bikeInfo.ExpertReviewsCount > 0)
            { %>
         <li>
             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert Reviews">
@@ -21,7 +40,7 @@
                 <span class="icon-label">Reviews</span>
             </a>
         </li>
-         <%} %>
+        <%} %>
         <% if (bikeInfo.PhotosCount > 0)
            { %>
         <li>
@@ -30,7 +49,7 @@
                 <span class="icon-label">Photos</span>
             </a>
         </li>
-          <% } %>
+        <% } %>
         <% if (bikeInfo.VideosCount > 0)
            { %>
         <li>
@@ -39,16 +58,32 @@
                 <span class="icon-label">Videos</span>
             </a>
         </li>
-          <% } %>
-        <% if(bikeInfo.IsSpecsAvailable) { %>
+        <% } %>
+        <% if (bikeInfo.IsSpecsAvailable)
+           { %>
         <li>
             <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
                 <span class="generic-sprite specs-sm"></span>
                 <span class="icon-label">Specs</span>
             </a>
         </li>
-         <% } %>
+        <% } %>
     </ul>
     <div class="clear"></div>
+    <div class="margin-top5 margin-bottom5">
+        <p class="font13 text-grey">Ex-showroom, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+        <div class="margin-bottom10">
+            <span class="bwmsprite inr-xsm-icon"></span>
+            <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bikeInfo.BikePrice.ToString()) %></span>
+        </div>
+        <%if (bikeInfo.BikePrice > 0)
+          { %>
+        <button type="button" data-pagecatid="0"
+            data-pqsourceid="<%= (int)pqSource %>" data-makename="<%= bikeInfo.Make.MakeName %>"
+            data-modelname="<%= bikeInfo.Model.ModelName %>" data-modelid="<%= ModelId %>"
+            class="btn btn-white font14 btn-size-180 getquotation">
+            Check on-road price</button>
+        <% } %>
+    </div>
 </div>
 <% }  %>
