@@ -209,6 +209,24 @@
 .bike-review-features .star-one-icon { vertical-align: text-top;}
 .sidebar-bike-list a:hover { text-decoration: none;}
 
+.padding-top0 {padding-top: 0;}
+.margin-top15.format-content > p {
+    margin-bottom: 10px;
+}
+.helpful .pointer {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #4d5057;
+    display: inline-block;
+    font-size: 14px;
+    height: 32px;
+    margin-left: 8px;
+    padding-top: 5px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 42px;
+}
 @media only screen and (max-width: 1024px) {
     .rating-category-list-container {
         width: 72%;
