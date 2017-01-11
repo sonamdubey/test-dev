@@ -1,0 +1,228 @@
+﻿.section-bottom-margin {
+    margin-bottom: 10px;
+}
+
+.padding-15-20 {
+    padding: 15px 20px;
+}
+
+/* top card */
+.model-review-image {
+    width: 100px;
+}
+
+.model-review-image img {
+    width: 100%;
+}
+
+.model-review-details {
+    width: 65%;
+    padding-left: 20px;
+}
+
+/* rating box */
+.rating-box-container {
+    background: #fafafa;
+}
+.rating-box.overall {
+    width: 120px;
+}
+.rating-box.overall .star-one-icon {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 3px;
+}
+
+.rating-category-list-container {
+    width: 63%;
+    background: #fff;
+}
+
+.rating-category-list li {
+    width: 100%;
+    display: block;
+    padding: 5px 0 5px 10px;
+    font-size: 14px;
+}
+
+.rating-category-label {
+    width: 115px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* reviews list */
+.model-user-review-list li {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.model-user-review-list li:first-child {
+    border-top: 0;
+}
+
+.model-user-review-rating-container {
+    width: 120px;
+    height: 68px;
+    border: 1px solid #e2e2e2;
+    background: #f9f9f9;
+    padding-top: 10px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.model-user-review-title-container {
+    width: 55%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.margin-bottom7 {
+    margin-bottom: 7px;
+}
+
+/* icon */
+.star-icon-sm .star-one-icon {
+    vertical-align: text-top;
+    background-size: 100%;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
+}
+
+/* pagination */
+#pagination-list-content {
+    width:auto
+}
+
+#pagination-list {
+    margin-right: 20px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+
+#pagination-list li {
+    float: left;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+#pagination-list a,#pagination-list .active {
+    color: #82888b;
+    font-size: 12px;
+    border: 1px solid #fff;
+    display: block;
+    min-width: 25px;
+    text-align: center;
+}
+
+#pagination-list a:hover {
+    text-decoration: none;
+}
+
+#pagination-list li.active {
+    color: #4d5057;
+    font-weight: bold;
+    border: 1px solid #a2a2a2;
+    border-radius: 1px;
+}
+
+.pagination-control-prev, .pagination-control-next {
+    position: absolute;
+    top: 0;
+    height: 20px;
+}
+
+.pagination-control-prev {
+    left: 0;
+}
+
+.pagination-control-next {
+    right: 0;
+}
+
+.prev-page-icon, .next-page-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.prev-page-icon {
+    background-position: -164px -391px;
+}
+
+.next-page-icon {
+    background-position: -178px -391px;
+}
+
+.pagination-control-prev.inactive .prev-page-icon, .pagination-control-next.inactive .next-page-icon {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+@media only screen and (max-width: 350px) {
+    #pagination-list a {
+        font-size: 12px;
+        min-width: 22px;
+    }
+}
+
+/* carousel */
+.user-reviews-type-carousel .swiper-slide, .user-reviews-type-carousel .swiper-card {
+    width: 200px;
+    min-height: 110px;
+}
+
+.user-reviews-type-carousel .swiper-details-block {
+    padding-top: 7px;
+    padding-bottom: 15px;
+}
+
+.bike-review-features li {
+    border-left: 1px solid #e2e2e2;
+    color: #a2a2a2;
+    display: inline-block;
+    line-height: 18px;
+    padding-left: 10px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.bike-review-features li:first-child {
+    border-left: 0 none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.bike-review-features .star-one-icon {
+    position: relative;
+    top: -2px;
+}
+
+@media only screen and (max-width: 320px) {
+    .model-review-details {
+        width: 62%;
+    }
+    .rating-category-list-container {
+        width: 58%;
+    }
+    .rating-category-list li {
+        font-size: 13px;
+        padding-left: 5px;
+    }
+    .rating-category-label {
+        width: 85px;
+        font-size: 12px;
+    }
+    .star-icon-sm .star-one-icon {
+        margin-right: 0;
+    }
+    .model-user-review-title-container {
+        width: 50%;
+    }
+}
