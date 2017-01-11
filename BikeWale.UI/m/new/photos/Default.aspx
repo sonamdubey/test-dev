@@ -126,6 +126,46 @@
                     <div class="clear"></div>
                 </div>
 
+                <!-- color -->
+                <%--<div id="color-tab-screen" class="footer-tab-card">
+                    <div class="swiper-container card-container color-palette-swiper">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="color-box color-count-one inline-block">
+                                        <span style="background-color: #F3CF1C"></span>    
+                                    </div>
+                                    <p class="font16 inline-block">Yellow</p>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="color-box color-count-one inline-block">
+                                        <span style="background-color: #F3CF1C"></span>    
+                                    </div>
+                                    <p class="font16 inline-block">Yellow</p>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="color-box color-count-one inline-block">
+                                        <span style="background-color: #F3CF1C"></span>    
+                                    </div>
+                                    <p class="font16 inline-block">Yellow</p>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="swiper-card">
+                                    <div class="color-box color-count-one inline-block">
+                                        <span style="background-color: #F3CF1C"></span>    
+                                    </div>
+                                    <p class="font16 inline-block">Yellow</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>--%>
+
                 <!-- share -->
                 <div id="share-tab-screen" class="footer-tab-card" data-bind="visible: shareScreen()">
                     <ul class="social-share-list">
@@ -137,7 +177,47 @@
 
                 <!-- model info -->
                 <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelScreen()">
-                    <h2>Bajaj Pulsar RS200</h2>
+                    <div class="model-more-info-section padding-15-20">
+                        <div class="margin-bottom10">
+                            <a href="" class="item-image-content vertical-top" title="Bajaj Pulsar AS200">
+                                <img src="http://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" src="" alt="Bajaj Pulsar AS200">
+                            </a>
+                            <div class="bike-details-block vertical-top">
+                                <h3 class="margin-bottom5"><a href="" class="block text-bold text-default text-truncate" title="Bajaj Pulsar AS200">Bajaj Pulsar AS200</a></h3>
+                                <ul class="item-more-details-list">
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar AS200 Reviews">
+                                            <span class="bwmsprite reviews-sm"></span>
+                                            <span class="icon-label">Reviews</span>
+                                        </a>
+                                    </li>        
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar AS200 News">
+                                            <span class="bwmsprite news-sm"></span>
+                                            <span class="icon-label">News</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar AS200 Specs">
+                                            <span class="bwmsprite specs-sm"></span>
+                                            <span class="icon-label">Specs</span>
+                                        </a>
+                                    </li>         
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid-5 alpha omega">
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                            <div>
+                                <span class="bwmsprite inr-xsm-icon"></span>
+                                <span class="font16 text-bold">50,615</span>
+                            </div>
+                        </div>
+                        <div class="grid-7 omega">
+                            <a href="" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
 
             </div>
