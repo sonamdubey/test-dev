@@ -183,6 +183,6 @@
     background-position: -222px -187px;
 }
 
-.inactive .prev-page-icon, .inactive .next-page-icon.inactive {
+.inactive .prev-page-icon, .inactive .next-page-icon {
     opacity: 0.2;
 }

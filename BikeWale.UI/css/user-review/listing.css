@@ -1,0 +1,162 @@
+﻿.padding-14-20 {padding: 14px 20px;}
+.btn.btn-teal> a {color: #fff;}
+.btn.btn-teal> a:hover {text-decoration: none;}
+.bike-review-features > li {
+    border-left: 1px solid #b7b7b7;
+    color: #a2a2a2;
+    display: inline-block;
+    line-height: 14px;
+    padding: 0 6px 0 8px;
+    vertical-align: middle;
+}
+.bike-review-features > li:first-child {
+    border-left: 0 none;
+    padding-left: 0;
+}
+.rating-box {
+    display: inline-block;
+    margin-left: 35px;
+    vertical-align: top;
+    width: 185px;
+}
+.rating-box:first-child { margin-left:0;}
+.rating-box > div {
+    line-height: 33px;
+}
+.rating-box .star-one-icon {vertical-align: text-top; background-size: 100%; height: 15px; width: 15px;}
+.rating-box.overall {
+    background: #fafafa;
+    width: 145px;
+}
+.rating-box.overall .star-one-icon {height: 20px; width: 20px; vertical-align: text-bottom;}
+.review-dropdown { padding-top: 20px; width: 200px;}
+#drpVersions_chosen, #drpSort_chosen {
+    min-width: 200px !important;
+}
+
+.model-user-review-rating-container {    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #e2e2e2;
+    height: 84px;
+    margin-right: 20px;
+    width: 148px;
+    padding-top: 17px;
+    text-align: center;
+    margin-top: 6px;
+}
+
+/* pagination */
+#footer-pagination .grid-5 {
+    position: relative;
+    top: 4px
+}
+#pagination-list-content {
+    min-width: 185px;
+    width: auto;
+    max-width: 355px;
+    float: right;
+}
+
+#pagination-list {
+    margin-right: 35px;
+    margin-left: 35px;
+    overflow: hidden;
+}
+
+#pagination-list li {
+    float: left;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+#pagination-list .active, #pagination-list a {
+    color: #82888b;
+    font-size: 12px;
+    padding: 5px;
+    border: 1px solid #fff;
+    display: block;
+    min-width: 30px;
+    text-align: center;
+}
+
+#pagination-list a:hover {
+    color: #4d5057;
+    text-decoration: none;
+}
+
+#pagination-list .active {
+    color: #4d5057;
+    font-weight: bold;
+    border: 1px solid #a2a2a2;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    -ms-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.pagination-control-prev, .pagination-control-next {
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 29px;
+}
+
+.pagination-control-prev {
+    left: 0;
+}
+
+.pagination-control-next {
+    right: 0;
+}
+
+.pagination-control-prev.inactive, .pagination-control-next.inactive {
+    pointer-events: none;
+}
+
+.prev-page-icon, .next-page-icon {
+    width: 8px;
+    height: 12px;
+    position: relative;
+    left: 10px;
+    top: 5px;
+}
+
+.prev-page-icon {
+    background-position: -213px -187px;
+}
+
+.next-page-icon {
+    background-position: -222px -187px;
+}
+
+.inactive .prev-page-icon, .inactive .next-page-icon {
+    opacity: 0.2;
+}
+
+
+.sidebar-bike-list .bike-target-image img {
+    border: 1px solid #f5f5f5;
+    height: 45px;
+    width: 80px;
+}
+.padding-15-20-10 {
+    padding: 15px 20px 10px;
+}
+.sidebar-bike-list .bike-target-content {
+    width: 68%;
+}
+.sidebar-bike-list .bike-target-link h3 {
+    margin-bottom: 3px;
+}
+
+.sidebar-bike-list .bike-target-link {
+    border-top: 1px solid #f5f5f5;
+    color: #4d5057;
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.sidebar-bike-list li:first-child .bike-target-link {
+    border-top: 0 none;
+}
+.bike-review-features .star-one-icon { vertical-align: text-top;}
+.sidebar-bike-list a:hover { text-decoration: none;}
