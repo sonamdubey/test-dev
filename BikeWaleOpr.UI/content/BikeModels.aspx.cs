@@ -160,6 +160,7 @@ namespace BikeWaleOpr.Content
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
                     }
 
                     if (_mc != null)
@@ -356,6 +357,7 @@ namespace BikeWaleOpr.Content
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
             BindGrid();
         }
 
