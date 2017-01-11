@@ -1,4 +1,15 @@
 ﻿.padding-14-20 {padding: 14px 20px;}
+.padding-18-20 {
+    padding: 18px 20px;
+}
+.float-none {
+    float: none;
+}
+.btn-size-150 {
+    font-size: 14px;
+    width: 150px;
+    padding: 5px 0;
+}
 .btn.btn-teal> a {color: #fff;}
 .btn.btn-teal> a:hover {text-decoration: none;}
 .bike-review-features > li {
@@ -6,12 +17,16 @@
     color: #a2a2a2;
     display: inline-block;
     line-height: 14px;
-    padding: 0 6px 0 8px;
+    padding: 0 10px;
     vertical-align: middle;
 }
 .bike-review-features > li:first-child {
     border-left: 0 none;
     padding-left: 0;
+}
+.bike-review-features .star-one-icon {
+    position: relative;
+    top: -3px;
 }
 .rating-box {
     display: inline-block;
@@ -20,18 +35,50 @@
     width: 185px;
 }
 .rating-box:first-child { margin-left:0;}
-.rating-box > div {
-    line-height: 33px;
+.star-icon-sm .star-one-icon {
+    vertical-align: text-top;
+    background-size: 100%;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    top: 1px;
+    margin-right: 3px;
 }
-.rating-box .star-one-icon {vertical-align: text-top; background-size: 100%; height: 15px; width: 15px;}
+
 .rating-box.overall {
     background: #fafafa;
     width: 145px;
 }
-.rating-box.overall .star-one-icon {height: 20px; width: 20px; vertical-align: text-bottom;}
+.rating-box.overall .star-one-icon {
+    height: 20px;
+    width: 20px;
+    position: relative;
+    top: 3px;
+}
+
+.rating-category-list-container {
+    width: 75%;
+}
+
+.rating-category-list li {
+    width: 50%;
+    float: left;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.rating-category-label {
+    width: 130px;
+    display: inline-block;
+}
+
 .review-dropdown { padding-top: 20px; width: 200px;}
 #drpVersions_chosen, #drpSort_chosen {
     min-width: 200px !important;
+}
+
+.review-dropdown .select-box {
+    height: 50px;
 }
 
 .model-user-review-rating-container {    background: #f9f9f9 none repeat scroll 0 0;
@@ -140,6 +187,9 @@
 }
 .padding-15-20-10 {
     padding: 15px 20px 10px;
+}
+.sidebar-bike-list .bike-target-image {
+    line-height: 0;
 }
 .sidebar-bike-list .bike-target-content {
     width: 68%;
