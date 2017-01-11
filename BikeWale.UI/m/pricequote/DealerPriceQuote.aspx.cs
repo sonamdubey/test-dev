@@ -36,8 +36,9 @@ namespace Bikewale.Mobile.BikeBooking
     {
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
+        protected DealersCard ctrlDealers;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty,leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
+        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty, leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0, areaId = 0, modelId = 0;
         protected bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
@@ -93,12 +94,10 @@ namespace Bikewale.Mobile.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    BindAlternativeBikeControl(versionId);
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), areaId.ToString(), Convert.ToString(versionId), Convert.ToString(dealerId)));
 
-                    ctrlLeadCapture.CityId = cityId;
-                    ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
-                    ctrlLeadCapture.AreaId = 0;
+                    BindPageWidgets();
+
                 }
                 else
                     SavePriceQuote();
@@ -113,6 +112,54 @@ namespace Bikewale.Mobile.BikeBooking
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
+        }
+
+        private void BindPageWidgets()
+        {
+
+            try
+            {
+                if (objVersionDetails != null)
+                {
+                    ctrlAlternateBikes.TopCount = 9;
+                    ctrlAlternateBikes.VersionId = versionId;
+                    ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
+                    ctrlAlternateBikes.CityId = cityId;
+
+                    ctrlLeadCapture.CityId = cityId;
+                    ctrlLeadCapture.AreaId = areaId;
+
+
+                    if (objVersionDetails.ModelBase != null)
+                    {
+                        ctrlAlternateBikes.modelName = objVersionDetails.ModelBase.ModelName;
+
+                        ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
+
+                        if (ctrlDealers != null && objVersionDetails.MakeBase != null)
+                        {
+                            ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
+                            ctrlDealers.CityId = cityId;
+                            ctrlDealers.IsDiscontinued = false;
+                            ctrlDealers.TopCount = 3;
+                            ctrlDealers.ModelId = modelId;
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", objVersionDetails.MakeBase.MakeName, currentCity);
+                            ctrlDealers.PageName = "Price_in_City_Page";
+                            ctrlLeadCapture.CityId = cityId;
+                            ctrlLeadCapture.ModelId = modelId;
+                            ctrlLeadCapture.AreaId = areaId;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
@@ -272,9 +319,7 @@ namespace Bikewale.Mobile.BikeBooking
             }
             catch (Exception ex)
             {
-                Trace.Warn("GetDealerPriceQuote Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Mobile.BikeBooking.Dealerpricequote.GetDealerPriceQuote_city_{0}_versionid_{0}_modelid_{2}", cityId, versionId, modelId));
             }
         }
 
@@ -420,19 +465,6 @@ namespace Bikewale.Mobile.BikeBooking
             return string.Empty;
         }
 
-        private void BindAlternativeBikeControl(uint versionId)
-        {
-            ctrlAlternateBikes.TopCount = 9;
-
-            if (versionId > 0)
-            {
-                ctrlAlternateBikes.VersionId = versionId;
-                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
-                ctrlAlternateBikes.CityId = cityId;
-                ctrlAlternateBikes.modelName = (objPriceQuote != null && objPriceQuote.objModel != null) ? objPriceQuote.objModel.ModelName : string.Empty;
-
-            }
-        }
 
         /// <summary>
         /// Author          :   Sumit Kate

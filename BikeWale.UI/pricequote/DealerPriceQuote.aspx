@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" EnableEventValidation="false" %>
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 
@@ -603,6 +604,13 @@
         </section>
         <% } %>
         <!-- Secondary dealer section ends -->
+
+        <% if (dealerId == 0 && detailedDealer.SecondaryDealerCount == 0 && string.IsNullOrEmpty(objQuotation.ManufacturerAd))
+           { %>
+               <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+
+					<BW:Dealers ID="ctrlDealers" runat="server" />
+        <% } %>
 
         <!-- Alternate bikes section starts-->
         <section>
