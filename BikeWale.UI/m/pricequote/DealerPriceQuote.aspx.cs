@@ -114,6 +114,10 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Bind page related widgets
+        /// </summary>
         private void BindPageWidgets()
         {
 
@@ -154,10 +158,9 @@ namespace Bikewale.Mobile.BikeBooking
 
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.BikeBooking.Dealerpricequote.BindPageWidgets");
             }
 
         }

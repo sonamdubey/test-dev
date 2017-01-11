@@ -42,6 +42,7 @@ namespace Bikewale.BikeBooking
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
+        protected DealerCard ctrlDealers;
         protected List<VersionColor> objColors = null;
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
@@ -89,8 +90,8 @@ namespace Bikewale.BikeBooking
                 hdnVariant.Value = versionId.ToString();
                 SetDealerPriceQuoteDetail(cityId, versionId, dealerId);
                 location = GetLocationCookie();
-                BindAlternativeBikeControl(versionId.ToString());
                 mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
+                BindPageWidgets();
             }
             else
             {
@@ -98,6 +99,50 @@ namespace Bikewale.BikeBooking
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Bind page related widgets
+        /// </summary>
+        private void BindPageWidgets()
+        {
+
+            try
+            {
+                if (objVersionDetails != null)
+                {
+                    ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
+                    ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
+                    ctrlAlternativeBikes.cityId = cityId;
+
+                    if (objVersionDetails.ModelBase != null)
+                    {
+                        ctrlAlternativeBikes.model = objVersionDetails.ModelBase.ModelName;
+
+
+                        if (ctrlDealers != null && objVersionDetails.MakeBase != null)
+                        {
+                            CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+                            ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
+                            ctrlDealers.CityId = cityId;
+                            ctrlDealers.IsDiscontinued = false;
+                            ctrlDealers.TopCount = 3;
+                            ctrlDealers.ModelId = modelId;
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", objVersionDetails.MakeBase.MakeName, CityArea.City);
+                            ctrlDealers.pageName = "Price_in_City_Page";
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BikeBooking.Dealerpricequote.BindPageWidgets");
+            }
+
         }
 
         #endregion
@@ -311,23 +356,6 @@ namespace Bikewale.BikeBooking
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Desktop: PriceQuote.DealerPriceQuote.aspx ==> BindVersion() versionId {0}", versionId));
                 objErr.SendMail();
-            }
-        }
-
-        /// <summary>
-        /// Description : To bind alternative bikes controle.
-        /// </summary>
-        /// <param name="versionId"></param>
-        private void BindAlternativeBikeControl(String versionId)
-        {
-            ctrlAlternativeBikes.TopCount = 9;
-
-            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
-            {
-                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
-                ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
-                ctrlAlternativeBikes.cityId = cityId;
-                ctrlAlternativeBikes.model = modelName;
             }
         }
 
