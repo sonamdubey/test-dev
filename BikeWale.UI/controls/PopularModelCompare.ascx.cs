@@ -39,7 +39,9 @@ namespace Bikewale.Controls
         /// Created by : Subodh Jain 12 sep 2016
         /// Desc       : To bind popular compare  bikes for model page
         /// Modified By : Sushil Kumar on 2nd Dec 2016
-        /// Description : To check for sponsord bike for version 
+        /// Description : To check for sponsord bike for version
+        /// Modified By : Sushil Kumar on 11th Jan 2016
+        /// Description : Commented method to get sponsored versions to skip binding of sponsored model
         /// </summary>
         private void BindPopularCompareBikes()
         {
@@ -49,7 +51,7 @@ namespace Bikewale.Controls
                 {
                     BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
                     objAlt.cityid = cityid.HasValue && cityid > 0 ? cityid.Value : Convert.ToInt16(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
-                    SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
+                    //SponsoredVersionId = objAlt.CheckSponsoredBikeForAnyVersion(versionId.ToString());
                     objSimilarBikes = objAlt.BindPopularCompareBikes(versionId, TopCount);
                     fetchedCount = objAlt.FetchedRecordsCount;
                     FeaturedBikeLink = objAlt.FeaturedBikeLink;
