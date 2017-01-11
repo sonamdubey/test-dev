@@ -10,9 +10,7 @@
     width: 150px;
     padding: 5px 0;
 }
-.btn.btn-teal> a {color: #fff;}
-.btn.btn-teal> a:hover {text-decoration: none;}
-.bike-review-features > li {
+.bike-review-features li {
     border-left: 1px solid #b7b7b7;
     color: #a2a2a2;
     display: inline-block;
@@ -20,7 +18,7 @@
     padding: 0 10px;
     vertical-align: middle;
 }
-.bike-review-features > li:first-child {
+.bike-review-features li:first-child {
     border-left: 0 none;
     padding-left: 0;
 }
@@ -210,3 +208,12 @@
 }
 .bike-review-features .star-one-icon { vertical-align: text-top;}
 .sidebar-bike-list a:hover { text-decoration: none;}
+
+@media only screen and (max-width: 1024px) {
+    .rating-category-list-container {
+        width: 72%;
+    }
+    .rating-category-label {
+        width: 110px;
+    }
+}
