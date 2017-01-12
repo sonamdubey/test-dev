@@ -214,8 +214,8 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    <div>
-                         <div class="grid-12 alpha omega padding-top20 border-solid-top padding-bottom15">
+                    <ul>
+                         <li class="padding-top15 border-solid-top padding-bottom15">
                             <div class="model-user-review-rating-container leftfloat">
                                 <p class="font16 text-bold">4</p>
                                 <p class="margin-top5">
@@ -223,9 +223,7 @@
                                 </p>
                             </div>
                             <div class="model-user-review-title-container">
-                                <a class="article-target-link line-height" title="Packers and Movers Hyderabad" href="/bajaj-bikes/avenger/user-reviews/1042.html">
-                                   Packers and Movers Hyderabad
-                                </a>
+                                <h3><a class="article-target-link line-height" title="Packers and Movers Hyderabad" href="/bajaj-bikes/avenger/user-reviews/1042.html">Packers and Movers Hyderabad</a></h3>
                                 <div class="article-stats-left-grid">
                                     <span class="bwsprite calender-grey-sm-icon"></span>
                                     <span class="article-stats-content">Apr 21, 2016</span>
@@ -240,9 +238,9 @@
                                 </p>
                             </div>
                             <div class="clear"></div>
-                        </div>
+                        </li>
 
-                         <div class="grid-12 alpha omega padding-top20 border-solid-top padding-bottom15">
+                         <li class="padding-top15 border-solid-top padding-bottom15">
                             <div class="model-user-review-rating-container leftfloat">
                                 <p class="font16 text-bold">4</p>
                                 <p class="margin-top5">
@@ -250,9 +248,7 @@
                                 </p>
                             </div>
                             <div class="model-user-review-title-container">
-                                <a class="article-target-link line-height" title="Packers and Movers Hyderabad" href="/bajaj-bikes/avenger/user-reviews/1042.html">
-                                   Packers and Movers Hyderabad
-                                </a>
+                                <h3><a class="article-target-link line-height" title="Packers and Movers Hyderabad" href="/bajaj-bikes/avenger/user-reviews/1042.html">Packers and Movers Hyderabad</a></h3>
                                 <div class="article-stats-left-grid">
                                     <span class="bwsprite calender-grey-sm-icon"></span>
                                     <span class="article-stats-content">Apr 21, 2016</span>
@@ -267,15 +263,14 @@
                                 </p>
                             </div>
                             <div class="clear"></div>
+                        </li>
+                    </ul>
+                    <div id="footer-pagination" class="font14 padding-top10 border-solid-top">
+                        <div class="grid-5 alpha omega text-light-grey">
+                            <p>Showing <span class="text-default text-bold">1-10</span> of <span class="text-default text-bold">20</span> reviews</p>
                         </div>
-
-                        <div id="footer-pagination" class="font14 padding-top10">
-                            <div class="grid-5 alpha omega text-light-grey">
-                                <p>Showing <span class="text-default text-bold">1-10</span> of <span class="text-default text-bold">20</span> articles</p>
-                            </div>
-				    
-                            <div class="clear"></div>
-                        </div>
+                        <!-- pagination -->
+                        <div class="clear"></div>
                     </div>
 
                     <BW:RepeaterPagerReviews ID="rpgReviews" PageSize="10" ShowHeadersVisible="true" PagerPosition="Bottom" runat="server">
@@ -303,7 +298,7 @@
             </div>
             <div class="grid-4 omega">
                 <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                <h2>User reviews for similar bikes</h2>
+                <h2>User reviews of similar bikes</h2>
                 <ul class="sidebar-bike-list">
                     <li>
                         <a href="/honda-bikes/cbshine/" title="Honda CB Shine" class="bike-target-link text-default">
