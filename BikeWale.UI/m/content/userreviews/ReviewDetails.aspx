@@ -130,7 +130,7 @@
 
                     <p class="font14 text-light-grey margin-top10 margin-bottom10">Inappropriate Review? <a href="javascript:void(0)" id="report-abuse-target">Report Abuse</a></p>
 
-                    <div class="border-solid-top padding-top10 text-light-grey"><span class="margin-right10">Was this review helpful to you?</span><a href="" class="btn-transparent-sm margin-right5">Yes</a> <a href="" class="btn-transparent-sm">No</a></div>
+                    <div class="border-solid-top padding-top10 text-light-grey"><span class="margin-right10 feedback-label">Was this review helpful to you?</span><a href="" class="btn-transparent-sm margin-right5">Yes</a> <a href="" class="btn-transparent-sm">No</a></div>
                 </div>                
             </div>
         </section>

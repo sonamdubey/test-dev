@@ -317,4 +317,8 @@
     .model-user-review-title-container {
         width: 50%;
     }
+    .feedback-label {
+        display: block;
+        margin-bottom: 5px;
+    }
 }
