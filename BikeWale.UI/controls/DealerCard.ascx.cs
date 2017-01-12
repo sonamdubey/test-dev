@@ -146,7 +146,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controls.DealerCard.BindDealers");
             }
         }
     }
