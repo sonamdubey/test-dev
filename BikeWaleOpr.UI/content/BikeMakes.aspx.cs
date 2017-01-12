@@ -255,7 +255,8 @@ namespace BikeWaleOpr.Content
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteMakeModelVersion(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
             //CLear popularBikes key
-            UInt32? makeId = Convert.ToUInt32(dtgrdMembers.DataKeys[e.Item.ItemIndex]);
+            UInt32 makeId;
+            UInt32.TryParse(Convert.ToString(dtgrdMembers.DataKeys[e.Item.ItemIndex]), out makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);

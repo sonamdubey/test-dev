@@ -155,8 +155,9 @@ namespace BikeWaleOpr.Content
                         nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
-                        //CLear popularBikes key
-                        UInt32? makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+                        //CLear popularBikes key                       
+                        UInt32 makeId;
+                        UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                         BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
@@ -353,7 +354,8 @@ namespace BikeWaleOpr.Content
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteModelVersions(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
             //CLear popularBikes key
-            UInt32? makeId = Convert.ToUInt32(cmbMakes.SelectedValue);
+            UInt32 makeId;
+            UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
