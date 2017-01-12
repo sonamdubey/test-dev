@@ -25,5 +25,34 @@ namespace BikewaleOpr.Cache
             }
             return cacheKeyClearStatus;
         }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2016
+        /// Description: Clear cache for upcoming bikes with the necessary keys
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public static bool ClearUpcomingBikesCacheKey(int pageSize, int sortBy, uint?makeId,uint? modelId)
+        {
+            bool cacheKeyClearStatus = false;
+            try
+            {
+                string key = string.Empty;
+                key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,sortBy);
+                if (makeId.HasValue && makeId.Value > 0)
+                    key += "_MK_" + makeId;
+                if (modelId.HasValue && modelId.Value > 0)
+                    key += "_MO_" + modelId;
+                MemCachedUtil.Remove(key);
+                cacheKeyClearStatus = true;
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
+            }
+            return cacheKeyClearStatus;
+        }
     }
 }
