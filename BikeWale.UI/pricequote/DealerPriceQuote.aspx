@@ -611,12 +611,12 @@
         </section>
         <%} %>
 
+        <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0)
+          { %>
         <!-- Secondary dealer section -->
         <section>
             <div class="container margin-bottom20 bg-white">
-                <div class="grid-12">
-                    <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0)
-                      { %>
+                <div class="grid-12"> 
                     <div class="content-box-shadow padding-bottom20">
                         <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more partner dealers":"more partner dealer" %></h2>
                         <div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
@@ -671,16 +671,13 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-                    </div>
-                    <% } %>
-                  
+                    </div>    
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
-
+        </section> 
         <!-- Secondary dealer section ends -->
-
+        <% } %>
 
         <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
            { %>

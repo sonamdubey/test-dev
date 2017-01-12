@@ -30,7 +30,9 @@ namespace Bikewale.Mobile.BikeBooking
     /// <summary>
     /// Modified By : Lucky Rathore
     /// Modified On : 31 March 2016
-    /// Description : Removed rptColors and GetVersionColor function.
+    /// Description : Removed rptColors and GetVersionColor function. 
+    /// Modified By  : Sushil Kumar on 11th Jan 2016
+    /// Description : Added dealerscard to page  and related variables
     /// </summary>  
     public class DealerPriceQuote : PageBase
     {
@@ -74,6 +76,8 @@ namespace Bikewale.Mobile.BikeBooking
         /// <summary>
         /// Modified by :   Sumit Kate on 13 Oct 2016
         /// Description :   Call GetMPQCityName(), GetMPQAreaName()
+        /// Modified By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Moved binding of page related widgets to common function
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -136,6 +140,8 @@ namespace Bikewale.Mobile.BikeBooking
 
                     if (objVersionDetails.ModelBase != null)
                     {
+                        var CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+
                         ctrlAlternateBikes.modelName = objVersionDetails.ModelBase.ModelName;
 
                         ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
@@ -147,9 +153,9 @@ namespace Bikewale.Mobile.BikeBooking
                             ctrlDealers.IsDiscontinued = false;
                             ctrlDealers.TopCount = 3;
                             ctrlDealers.ModelId = modelId;
-                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_DealersCard_GetOfferButton;
-                            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", objVersionDetails.MakeBase.MakeName, currentCity);
-                            ctrlDealers.PageName = "Price_in_City_Page";
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_Dealerpricequote_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms", objVersionDetails.MakeBase.MakeName, CityArea != null ? " in " + CityArea.City : string.Empty);
+                            ctrlDealers.PageName = "DealerPriceQuote_Page";
                             ctrlLeadCapture.CityId = cityId;
                             ctrlLeadCapture.ModelId = modelId;
                             ctrlLeadCapture.AreaId = areaId;
@@ -165,6 +171,13 @@ namespace Bikewale.Mobile.BikeBooking
 
         }
 
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Removed binding of leadcapture control as it was used multiple times
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
         protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
@@ -178,9 +191,6 @@ namespace Bikewale.Mobile.BikeBooking
                     if (objPriceQuote != null)
                     {
                         BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
-                        ctrlLeadCapture.AreaId = Convert.ToUInt32(areaId);
-                        ctrlLeadCapture.CityId = cityId;
-                        ctrlLeadCapture.ModelId = Convert.ToUInt32(objPriceQuote.objModel.ModelId);
                         modelId = (objPriceQuote != null && objPriceQuote.objModel != null) ? Convert.ToUInt32(objPriceQuote.objModel.ModelId) : 0;
                         if (objPriceQuote.PrimaryDealer.DealerDetails != null)
                         {

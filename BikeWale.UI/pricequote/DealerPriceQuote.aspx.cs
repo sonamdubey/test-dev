@@ -33,12 +33,14 @@ namespace Bikewale.BikeBooking
     /// Modified By : Sangram Nandkhile
     /// Modified On : 15 Dec 2016
     /// Description : Better designed dealer property, removed unnecessary code
+    /// Modified By  : Sushil Kumar on 11th Jan 2016
+    /// Description : Added dealerscard to page  and related variables
     /// </summary>
     public class DealerPriceQuote : System.Web.UI.Page
     {
         #region Variables
 
-        protected GlobalCityAreaEntity CityArea { get; set; }
+        protected GlobalCityAreaEntity CityArea = null;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
@@ -89,6 +91,7 @@ namespace Bikewale.BikeBooking
                 BindVersion();
                 hdnVariant.Value = versionId.ToString();
                 SetDealerPriceQuoteDetail(cityId, versionId, dealerId);
+                CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
                 location = GetLocationCookie();
                 mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
                 BindPageWidgets();
@@ -123,15 +126,14 @@ namespace Bikewale.BikeBooking
 
                         if (ctrlDealers != null && objVersionDetails.MakeBase != null)
                         {
-                            CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
                             ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
                             ctrlDealers.CityId = cityId;
                             ctrlDealers.IsDiscontinued = false;
                             ctrlDealers.TopCount = 3;
                             ctrlDealers.ModelId = modelId;
-                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_PriceInCity_DealersCard_GetOfferButton;
-                            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", objVersionDetails.MakeBase.MakeName, CityArea.City);
-                            ctrlDealers.pageName = "Price_in_City_Page";
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_Dealerpricequote_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms", objVersionDetails.MakeBase.MakeName, CityArea != null ? " in " + CityArea.City : string.Empty);
+                            ctrlDealers.pageName = "DealerPriceQuote_Page";
 
                         }
                     }
@@ -422,23 +424,23 @@ namespace Bikewale.BikeBooking
         /// Description : To set user location
         /// Modified By : Aditi srivastava on 17 Nov 2016
         /// Description : get city area name from global city
+        /// Modified By :Sushil Kumar on 12th Jan 2017
+        /// Description : To set city area from bikewale common utility function
         /// </summary>
         /// <returns></returns>
 
         private string GetLocationCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+            if (CityArea != null)
             {
-                location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
-                string[] arr = location.Split('_');
-                if (arr.Length > 0)
+                if (!string.IsNullOrEmpty(CityArea.City))
                 {
-                    if (arr.Length > 2)
+                    if (!string.IsNullOrEmpty(CityArea.Area))
                     {
-                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                        return String.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
                     }
-                    return String.Format("<span>{0}</span>", arr[1]);
+                    return String.Format("<span>{0}</span>", CityArea.City);
                 }
             }
             return string.Empty;
