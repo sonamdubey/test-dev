@@ -83,7 +83,9 @@
             
                     <div class="content-inner-block-20">
                         <div class="grid-3 alpha">
-                            <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, OriginalImagePath,Bikewale.Utility.ImageSize._144x81) %>" title="<%= BikeName %>" />
+                            <a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" title="<%= BikeName %>">
+                                <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, OriginalImagePath,Bikewale.Utility.ImageSize._144x81) %>" title="<%= BikeName %>" />
+                            </a>
                             <%--<img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, "/bikewaleimg/models/" + LargePic) %>" title="<%= BikeName %>"/>
                             <div style="margin-top: 5px; line-height: 17px;">
                                 <span class="text-highlight"><%=!IsNew && IsUsed ? "Last Recorded Price Rs.":"Starts at Rs." %> <%= CommonOpn.FormatPrice( ModelStartPrice ) %></span><br />
@@ -91,7 +93,7 @@
                             </div>--%>
                         </div>
                         <div class="grid-9 omega">
-                            <h2 class="font14 text-default"><%= BikeName %></h2>
+                            <h2 class="font14 text-default"><a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" title="<%= BikeName %>" class="text-default"><%= BikeName %></a></h2>
                             <ul class="bike-review-features margin-top5">
                                 <li>163 cc</li>
                                 <li>62 kmpl</li>
@@ -105,7 +107,7 @@
                         </div>
                         <div class="clear"></div>
 
-                        <div class="border-solid ratings margin-top15">
+                        <div class="border-solid ratings margin-top15 display-table">
                             <div class="rating-box overall text-center content-inner-block-15">
                                 <p class="text-bold font14 margin-bottom10">Overall Rating</p>
                                 <div class="margin-bottom10">
@@ -117,7 +119,7 @@
                                 </div>
                                 <p class="font14 text-light-grey">23 Reviews</p>
                             </div>
-                            <div class="rating-category-list-container content-inner-block-10 inline-block star-icon-sm">
+                            <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                                 <ul class="rating-category-list">
                                     <li>
                                         <span class="rating-category-label">Looks</span>
