@@ -39,10 +39,12 @@
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">
-                            <img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, objReview.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
+                            <a href="" title="">
+                                <img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, objReview.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
+                            </a>
                         </div>
                         <div class="model-review-details inline-block">
-                            <h2 class="font14 margin-bottom5"><%= objReview.BikeEntity.MakeEntity.MakeName  + " " + objReview.BikeEntity.ModelEntity.ModelName %></h2>
+                            <h2 class="font14 margin-bottom5"><a href="" title="" class="text-default"><%= objReview.BikeEntity.MakeEntity.MakeName  + " " + objReview.BikeEntity.ModelEntity.ModelName %></a></h2>
                             <p class="font11 text-light-grey">Ex-showroom, New Delhi</p>
                             <span class="bwmsprite inr-xsm-icon"></span>
                             <span class="font16 text-bold">87,000</span>
