@@ -29,10 +29,12 @@
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">
-                            <img alt="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
+                            <a href="" title="">
+                                <img alt="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
+                            </a>
                         </div>
                         <div class="model-review-details inline-block">
-                            <h2 class="font14 margin-bottom5"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%></h2>
+                            <h2 class="font14 margin-bottom5"><a href="" title="" class="text-default"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%></a></h2>
                             <p class="font11 text-light-grey">Ex-showroom, New Delhi</p>
                             <span class="bwmsprite inr-xsm-icon"></span>
                             <span class="font16 text-bold">87,000</span>
@@ -182,7 +184,7 @@
 
         <section>
             <div class="container bg-white box-shadow padding-top15 padding-bottom15">
-                <h2 class="padding-right20 padding-bottom15 padding-left20">User reviews for similar bikes</h2>
+                <h2 class="padding-right20 padding-bottom15 padding-left20">User reviews of similar bikes</h2>
                 <div class="swiper-container padding-top5 padding-bottom5 user-reviews-type-carousel">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
