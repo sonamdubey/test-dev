@@ -90,6 +90,8 @@ namespace Bikewale.Controls
         /// Description :   If City Id is not passed Get the popular city dealer count
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :   Merge Dealer and service center for make and model page
+        /// Modified by : Sushil Kumar on 11th Jan 2016
+        /// Description :   Modified show widget values
         /// </summary>
         protected void BindDealers()
         {
