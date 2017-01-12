@@ -38,8 +38,8 @@
                             <span class="font16 text-bold">87,000</span>
                         </div>
                     </div>
-                    <div class="border-solid rating-box-container">
-                        <div class="rating-box overall text-center inline-block">
+                    <div class="border-solid rating-box-container display-table">
+                        <div class="rating-box overall text-center">
                             <p class="text-bold font14 margin-bottom10">Overall Rating</p>
                             <div class="margin-bottom10">
                                 <span class="star-one-icon"></span>
@@ -49,7 +49,8 @@
                                 </div>
                             </div>
                             <p class="font14 text-light-grey"><%= totalReviews %> Reviews</p>
-                        </div><div class="rating-category-list-container content-inner-block-10 inline-block star-icon-sm">
+                        </div>
+                        <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                             <ul class="rating-category-list">
                                 <li>
                                     <span class="rating-category-label">Looks</span><span>
