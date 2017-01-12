@@ -2,6 +2,7 @@
 
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagPrefix="BW" TagName="LeadCapture" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 <%@ Import Namespace="System.Linq" %>
@@ -216,10 +217,7 @@
 						<td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
 					</tr>
 					<tr>
-						<td class="text-light-grey padding-bottom15" align="left">Insurance <%--(<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objExQuotation!=null)?(objExQuotation.MakeName + "_" + objExQuotation.ModelName + "_" + objExQuotation.VersionName + "_" + objExQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display: inline-block; position: relative; font-size: 11px; margin-top: 1px;">
-								Up to 60% off - PolicyBoss                                
-						</a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>--%>
-						</td>
+						<td class="text-light-grey padding-bottom15" align="left">Insurance </td>
 						<td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
 					</tr>
 
@@ -243,7 +241,12 @@
 				<section>
 					<%=String.Format(objExQuotation.ManufacturerAd) %>
 				</section>
-			<%} %>
+			<%}
+         else if (dealerId == 0 && objPriceQuote.SecondaryDealerCount == 0 && string.IsNullOrEmpty(objExQuotation.ManufacturerAd) && ctrlDealers.showWidget)
+       { %>
+                <div class="margin-right20 margin-left20 border-divider"></div> 
+                    <BW:Dealers runat="server" ID="ctrlDealers" />
+                <% }  %>
 			
 		<style type="text/css">
 			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
