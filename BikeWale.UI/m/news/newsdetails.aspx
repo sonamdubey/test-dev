@@ -14,6 +14,7 @@
           %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->

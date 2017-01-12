@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
+    ViewBag.ArticleType = "NewsArticle";
+}
+@if(!String.IsNullOrEmpty(ViewBag.NewsContent))
+{
+<article class="article">
+    <div class="article-head">
+        <h1 class="margin-bottom10">@ViewBag.Title</h1>
+        <ul class="article-stats-list">
+            <li>
+                <span class="bwmsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@Bikewale.Utility.FormatDate.GetFormatDate(ViewBag.PublishedDate, "MMM dd, yyyy hh:mm tt")</span>
+            </li>
+            <li>
+                <span class="bwmsprite author-grey-sm-icon"></span>
+                <span class="article-stats-content">@ViewBag.Author</span>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="article-body">
+        <div class="article-content">
+            @if (!String.IsNullOrEmpty(ViewBag.MainImageUrl))
+            {
+                <amp-img alt='@ViewBag.Title' title='@ViewBag.Title' src='@ViewBag.MainImageUrl' width="640" height="348" layout="responsive"></amp-img>
+            }
+            @Html.Raw(ViewBag.NewsContent)
+        </div>
+
+        <p class="share-story-title margin-bottom10">Share this story</p>
+        <div class="margin-bottom10">
+            <amp-social-share type="whatsapp" width="38" height="24" data-share-endpoint="whatsapp://send" data-param-text="@ViewBag.Title - Bikewale News CANONICAL_URL"></amp-social-share>
+            <amp-social-share type="facebook" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News" data-param-app_id="481333722014878"></amp-social-share>
+            <amp-social-share type="twitter" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News"></amp-social-share>
+            <amp-social-share type="gplus" width="38" height="24" data-param-text="@ViewBag.Title - Bikewale News"></amp-social-share>
+        </div>       
+        <ul class="next-prev-article-list">
+            <li>
+                @if( !String.IsNullOrEmpty(ViewBag.PrevPageUrl)) {
+                <a href="@ViewBag.PrevPageUrl" target="_top" title="@ViewBag.PrevPageTitle">
+                    <span class="bwmsprite prev-arrow"></span>
+                    <div class="article-item-box vertical-middle">
+                        <span class="next-prev-arrow-label">Previous</span><br>
+                        <span class="next-prev-article-title">@ViewBag.PrevPageTitle</span>
+                    </div>
+                </a>
+                }
+            </li>
+            <li>
+                @if( !String.IsNullOrEmpty(ViewBag.NextPageTitle)) {
+                <a href="@ViewBag.NextPageUrl" target="_top" title="@ViewBag.NextPageTitle">
+                    <div class="article-item-box vertical-middle">
+                        <span class="next-prev-arrow-label">Next</span>
+                        <span class="next-prev-article-title">@ViewBag.NextPageTitle</span>
+                    </div>
+                    <span class="bwmsprite next-arrow"></span>
+                </a>
+                }
+            </li>
+        </ul>
+        <div class="clear"></div>
+
+    </div>
+</article>
+}
+else
+{
+    ViewBag.Title = "Oops! We failed to serve the content on this page";
+        
+    <article class="article no-content">
+        <div class="not-found">
+            <h3>Oops! We failed to serve the content on this page.</h3>
+            <div class="margin-top15">
+                Possible causes for this inconvenience are:
+                <ul class="margin-left20 margin-top5">
+                    <li>The requested page might have been removed from the server.</li>
+                    <li>The URL might be mis-typed by you.</li>
+                    <li>Some maintenance process is going on the server.</li>
+                </ul>
+            </div>
+            <p class="margin-top15">Please visit <a href="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/news/">www.bikewale.com</a> to continue reading news of your favourite bike.</p>
+        </div>        
+    </article>
+}
+
