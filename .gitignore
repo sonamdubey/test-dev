@@ -4,7 +4,7 @@
 /packages
 *.log
 *.user
-*.XML
+Bikewale.Service/bin/*.XML
 *.orig
 BikeWale.UI/build/
 BikeWale.UI/min/
