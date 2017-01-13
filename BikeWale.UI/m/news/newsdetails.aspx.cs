@@ -26,7 +26,7 @@ namespace Bikewale.Mobile.Content
     public class newsdetails : System.Web.UI.Page
     {
         //private CMSPageDetailsEntity pageDetails = null;
-        protected String nextPageUrl = String.Empty, prevPageUrl = String.Empty, prevPageTitle = String.Empty, nextPageTitle = String.Empty, pageUrl = String.Empty;
+        protected String nextPageUrl = String.Empty, prevPageUrl = String.Empty, prevPageTitle = String.Empty, nextPageTitle = String.Empty, pageUrl = String.Empty, ampUrl = string.Empty;
         protected String newsContent = String.Empty, newsTitle = String.Empty, author = String.Empty, displayDate = String.Empty, mainImg = String.Empty;
         protected uint pageViews = 0;
         protected String _newsId = String.Empty;
@@ -164,6 +164,8 @@ namespace Bikewale.Mobile.Content
             prevPageTitle = objNews.PrevArticle.Title;
             pageViews = objNews.Views;
             pageUrl = _newsId + '-' + objNews.ArticleUrl + ".html";
+            ampUrl = String.Format("{0}/m/news/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.ArticleUrl, _newsId);
+
             if (objNews != null && objNews.VehiclTagsList.Count > 0)
             {
                 _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
