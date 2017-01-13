@@ -38,5 +38,5 @@
                 <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>                    
             </ul>
 		</div>
-	
+	    <div class='toast' style='display:none'></div>
 
