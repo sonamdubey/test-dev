@@ -116,15 +116,55 @@
     width: 70%;
 }
 
+/* ribbon */
+.model-ribbon-tag {
+    position: relative;
+    top: -5px;
+    left: -20px;
+    font-size: 12px;
+    padding: 2px 20px 2px 10px;
+    display: inline-block;
+}
+
+.upcoming-ribbon {
+    color: #fff;
+    background: #4d5057;
+}
+
+.discontinued-ribbon {
+    color: #4d5957;
+    background: #b5b5b5;
+}
+
+.model-ribbon-tag:after {
+    content: '';
+    position: absolute;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    right: 0;
+    top: 0;
+}
+
+.model-more-info-section.ribbon-present {
+    padding-top: 10px;
+}
+
+/* more info list */
 .item-more-details-list li {
     float: left;
     margin-bottom: 8px;
     margin-right: 8px;
 }
 
+.item-more-details-list a:hover {
+    color: #fff;
+    background: #54bbca;
+}
+
 .item-more-details-list a {
     display: block;
-    padding: 0 7px 2px;
+    padding: 1px 7px;
     color: #787878;
     background: rgba(245, 245, 245, 0.9);
     -webkit-border-radius: 2px;
@@ -316,6 +356,59 @@
     margin: 0 auto;
 }
 
+/* gallery */
+.gallery-swiper .swiper-slide:first-child {
+    margin-left: 0;
+}
+
+.gallery-swiper.swiper-container, .gallery-swiper.swiper-container .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-swiper.swiper-container .swiper-slide img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 22%;
+}
+
+/* thumbnail swiper */
+.thumbnail-swiper.swiper-container {
+    padding-right: 20px;
+}
+
+.thumbnail-swiper .swiper-slide {
+    width: 140px;
+    height: 68px;
+    padding-left: 20px;
+    text-align: center;
+}
+
+.thumbnail-swiper .swiper-slide:first-child {
+    margin-left: 0px
+}
+
+.thumbnail-swiper .swiper-slide img {
+    height: 68px;
+}
+
+.thumbnail-swiper .swiper-slide:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 120px;
+    height: 68px;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+}
+
+.thumbnail-swiper .swiper-slide-active.swiper-slide:after {
+    content: none;
+}
+
 /* gallery-footer */
 .footer-tabs-wrapper {
     width: 100%;
@@ -376,6 +469,13 @@
     position: fixed;
     bottom: 50px;
     background: #fff;
+    z-index: 1;
+    box-shadow: 0 0 3px #ccc;
+}
+
+#thumbnail-tab-screen {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #color-tab-screen {
@@ -388,7 +488,6 @@
 
 #info-tab-screen {
     min-height: 135px;
-    display: block !important;
 }
 
 .footer-tab-card .model-more-info-section .bike-details-block {
@@ -452,20 +551,39 @@
 }
 
 .news-sm {
-    background-position: -94px -555px;
+    background-position: -108px -555px;
 }
 
 .videos-sm {
-    background-position: -111px -555px;
+    background-position: -138px -555px;
 }
 
 .specs-sm {
-    background-position: -128px -555px;
+    background-position: -168px -555px;
 }
 
 .photos-sm {
-    width: 16px;
     background-position: 0 -486px;
+}
+
+.item-more-details-list a:hover .reviews-sm {
+    background-position: -93px -555px;
+}
+
+.item-more-details-list a:hover .news-sm {
+    background-position: -123px -555px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -153px -555px;
+}
+
+.item-more-details-list a:hover .specs-sm {
+    background-position: -183px -555px;
+}
+
+.item-more-details-list a:hover .photos-sm {
+    background-position: -198px -555px;
 }
 
 /* button arrows */

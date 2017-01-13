@@ -85,49 +85,20 @@
         <%--<BW:ModelGallery ID="ctrlModelGallery" runat="server" />--%>
         <!-- model-gallery-container ends here -->
 
-        <div id="gallery-container" class="gallery-container">
-            <div class="gallery-header">
-                <h2 class="font16 text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
-                <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
-                <ul class="horizontal-tabs-wrapper" data-bind="with: galleryHeader">
-                    <li data-bind="click: activateTab, css: photosTabActive() ? 'active' : ''">Photos</li>
-                    <li data-bind="click: activateTab, css: photosTabActive() ? '' : 'active'">Videos</li>
-                </ul>
-            </div>
+        <%--<div id="gallery-container" class="gallery-container">
+            
 
             <div class="gallery-body">
-                <div data-bind="visible: galleryHeader().photosTabActive()">Photos</div>
+                
 
                 <div data-bind="visible: !galleryHeader().photosTabActive()">Videos</div>
             </div>
 
             <div class="gallery-footer" data-bind="css: $root.galleryHeader().photosTabActive() ? '' : 'grid-2-tab', with: galleryFooter">
-                <div class="footer-tabs-wrapper" data-bind="css: screenActive() ? 'footer-shadow': ''">
-                    <div data-bind="visible: $root.galleryHeader().photosTabActive()" class="footer-tab all-option-tab position-rel tab-separator">
-                        <span class="bwmsprite grid-icon margin-right10"></span>
-                        <span class="inline-block font14">All photos</span>
-                    </div>
-                    <div data-bind="visible: !$root.galleryHeader().photosTabActive()" class="footer-tab all-option-tab position-rel tab-separator">
-                        <span class="bwmsprite grid-icon margin-right10"></span>
-                        <span class="inline-block font14">All videos</span>
-                    </div>
-
-                    <div data-bind="visible: $root.galleryHeader().photosTabActive()" class="footer-tab grid-3-tab">
-                        <span class="bwmsprite color-palette"></span>
-                    </div>
-
-                    <div class="footer-tab grid-3-tab" data-bind="click: activateShareScreen, css: shareScreen() ? 'tab-active' : ''">
-                        <span class="bwmsprite share-icon"></span>
-                    </div>
-
-                    <div class="footer-tab grid-3-tab" data-bind="click: activateModelScreen, css: modelScreen() ? 'tab-active' : ''">
-                        <span class="bwmsprite info-icon"></span>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                
 
                 <!-- color -->
-                <%--<div id="color-tab-screen" class="footer-tab-card">
+                <div id="color-tab-screen" class="footer-tab-card">
                     <div class="swiper-container card-container color-palette-swiper">
                         <ul class="swiper-wrapper">
                             <li class="swiper-slide">
@@ -164,7 +135,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>--%>
+                </div>
 
                 <!-- share -->
                 <div id="share-tab-screen" class="footer-tab-card" data-bind="visible: shareScreen()">
@@ -177,7 +148,9 @@
 
                 <!-- model info -->
                 <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelScreen()">
-                    <div class="model-more-info-section padding-15-20">
+                    <div class="model-more-info-section padding-15-20"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
+                        <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                        <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
                         <div class="margin-bottom10">
                             <a href="" class="item-image-content vertical-top" title="Bajaj Pulsar AS200">
                                 <img src="http://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" src="" alt="Bajaj Pulsar AS200">
@@ -221,6 +194,75 @@
                 </div>
 
             </div>
+        </div>--%>
+
+        <div id="gallery-root">
+            <!-- ko component: "gallery-component" -->
+            <!-- /ko -->
+            <script type="text/html" id="gallery-template-wrapper">
+                <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
+            </script>
+
+            <script type="text/html" id="gallery-template">
+                <!-- gallery header -->
+                <div class="gallery-header">
+                    <h2 class="font16 text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
+                    <span id="gallery-close-btn" class="position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></span>
+                    <ul class="horizontal-tabs-wrapper">
+                        <li data-bind="event: { click: function(){ postAction(ACTIONS.ACTIVATE_PHOTO_TAB) } }, css: photosTabActive() ? 'active': ''">Photos</li>
+                        <li data-bind="event: { click: function(){ postAction(ACTIONS.DEACTIVATE_PHOTO_TAB) } }, css: !photosTabActive() ? 'active': ''">Videos</li>
+                    </ul>
+                </div>
+
+                <div class="gallery-body">
+                    <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive()">
+                        <div class="swiper-wrapper" data-bind="foreach: photoList">
+                            <div class="swiper-slide">
+                                <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-bind="visible: !photosTabActive()">Videos</div>
+                </div>
+
+                <!-- gallery footer -->
+                <div class="gallery-footer" data-bind="css: photosTabActive() ? '' : 'grid-2-tab'">
+                    <div class="footer-tabs-wrapper" data-bind="css: screenActive() ? 'footer-shadow': ''">
+                        <div data-bind="event: { click: function() { postAction(ACTIONS.TOGGLE_PHOTO_THUMBNAIL_SCREEN) } }, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                            <span class="inline-block font14">All photos</span>
+                        </div>
+                        <div data-bind="visible: !photosTabActive()" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                            <span class="inline-block font14">All videos</span>
+                        </div>
+
+                        <div data-bind="visible: photosTabActive()" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite color-palette"></span>
+                        </div>
+
+                        <div class="footer-tab grid-3-tab">
+                            <span class="bwmsprite share-icon"></span>
+                        </div>
+
+                        <div class="footer-tab grid-3-tab">
+                            <span class="bwmsprite info-icon"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="thumbnail-tab-screen" class="footer-tab-card" data-bind="visible: photoThumbnailScreen()">
+                        <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                                <div class="swiper-slide">
+                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathThumbnail }" src="" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </script>
         </div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
