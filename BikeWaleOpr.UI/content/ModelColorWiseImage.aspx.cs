@@ -12,6 +12,10 @@ using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
+    /// <summary>
+    /// Created by: Sangram Nandkhile on 13 Jan 2017
+    /// Summary: Page to assign images to models by color
+    /// </summary>
     public class ModelColorWiseImage : Page
     {
         protected Repeater rptModelColor;
@@ -24,6 +28,8 @@ namespace BikeWaleOpr.Content
         ManageModelColor objManageModelColor = null;
         protected Button btnSubmit;
         protected HiddenField hdnModelId;
+
+        #region events
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,40 +53,6 @@ namespace BikeWaleOpr.Content
                 modelId = Convert.ToUInt16(hdnModelId.Value);
         }
 
-        private void BindMakeModel()
-        {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeMakes, BikeMakesRepository>()
-                .RegisterType<IBikeModels, BikeModelsRepository>()
-                .RegisterType<IBikeVersions, BikeVersionsRepository>();
-                _objMakesRepo = container.Resolve<IBikeMakes>();
-                _objModelsRepo = container.Resolve<IBikeModels>();
-            }
-
-            IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> makes = _objMakesRepo.GetMakes("NEW");
-            cmbMake.DataSource = makes;
-            cmbMake.DataTextField = "MakeName";
-            cmbMake.DataValueField = "MakeId";
-            cmbMake.DataBind();
-            cmbMake.Items.Insert(0, "-- Select Make --");
-            cmbMake.SelectedIndex = 0;
-
-        }
-
-        private void BindModelColorRepeater()
-        {
-            try
-            {
-                modelColors = objManageModelColor.FetchModelImagesByColors(modelId);
-                modelColorCount = (ushort)modelColors.Count();
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorRepeater()");
-            }
-        }
-
         void BtnSubmit_Click(object Sender, EventArgs e)
         {
             if (modelId > 0)
@@ -90,5 +62,59 @@ namespace BikeWaleOpr.Content
             }
 
         }
+        #endregion
+
+        #region functions
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 13 Jan 2017
+        /// Binds make and model dropdown
+        /// </summary>
+        private void BindMakeModel()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeMakes, BikeMakesRepository>()
+                    .RegisterType<IBikeModels, BikeModelsRepository>()
+                    .RegisterType<IBikeVersions, BikeVersionsRepository>();
+                    _objMakesRepo = container.Resolve<IBikeMakes>();
+                    _objModelsRepo = container.Resolve<IBikeModels>();
+                }
+
+                IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> makes = _objMakesRepo.GetMakes("NEW");
+                cmbMake.DataSource = makes;
+                cmbMake.DataTextField = "MakeName";
+                cmbMake.DataValueField = "MakeId";
+                cmbMake.DataBind();
+                cmbMake.Items.Insert(0, "-- Select Make --");
+                cmbMake.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindMakeModel()");
+            }
+
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 13 Jan 2017
+        /// Binds model color and respective images
+        /// </summary>
+        private void BindModelColorRepeater()
+        {
+            try
+            {
+                modelColors = objManageModelColor.FetchModelImagesByColors(modelId);
+                modelColorCount = (ushort)modelColors.Count();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ModelColorWiseImage.BindModelColorRepeater()");
+            }
+        }
+
+        #endregion
     }//Class
 }// Namespace
