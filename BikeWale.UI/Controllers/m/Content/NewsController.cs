@@ -111,7 +111,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
                     ViewBag.Canonical = String.Format("{0}/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
                     ViewBag.MobilePageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, basicid, objNews.ArticleUrl);
                     ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    ViewBag.Description = objNews.Description;
+                    ViewBag.Description = objNews.Description.RemovePTag(); ;
 
                     //Convert article content to the amp content
                     ViewBag.NewsContent = objNews.Content.ConvertToAmpContent();

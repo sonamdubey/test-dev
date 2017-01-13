@@ -81,6 +81,16 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
+        /// Function to remove the p tag from the given string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RemovePTag(this string input)
+        {
+            return Regex.Replace(input, @"<p>|<\/p>", "");
+        }
+
+        /// <summary>
         /// Function to remove the form tag from given string
         /// </summary>
         /// <param name="input"></param>
