@@ -282,6 +282,8 @@ namespace Bikewale.BAL.BikeBooking
         /// Description :   Consume the newer Subscription Model AB API version
         /// Modified By : Vivek Gupta on 29-04-2016
         /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
+        /// Modified By : Sajal Gupta on 13-01-2017
+        /// Desc : Removed code for selecting different version if pqid is 0;
         /// </summary>
         /// <param name="PQParams"></param>
         /// <returns></returns>
@@ -336,19 +338,19 @@ namespace Bikewale.BAL.BikeBooking
                         quoteId = objIPQ.RegisterPriceQuote(PQParams);
                     }
                     //Fails to register for requested version get the default version price quote
-                    if (quoteId == 0)
-                    {
-                        if (PQParams.AreaId > 0)
-                            PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
-                        else
-                            PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                            IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-                            quoteId = objIPQ.RegisterPriceQuote(PQParams);
-                        }
-                    }
+                    //if (quoteId == 0)
+                    //{
+                    //    if (PQParams.AreaId > 0)
+                    //        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
+                    //    else
+                    //        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+                    //    using (IUnityContainer container = new UnityContainer())
+                    //    {
+                    //        container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                    //        IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
+                    //        quoteId = objIPQ.RegisterPriceQuote(PQParams);
+                    //    }
+                    //}
                 }
                 objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false };
             }

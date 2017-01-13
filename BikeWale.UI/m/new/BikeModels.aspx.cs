@@ -673,6 +673,8 @@ namespace Bikewale.Mobile.New
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed 
         /// Modified by     :   Sumit Kate on 29 Apr 2016
         /// Description     :   Removed the Dealer Assistance code as it is not used.
+        /// Modified by     :   Sajal Gupta on 13-01-2017
+        /// Description     :   Changed flag isOnRoadPrice if onroad price not available
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -692,6 +694,11 @@ namespace Bikewale.Mobile.New
                         {
                             dealerId = pqOnRoad.PriceQuote.DealerId;
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+
+                            int priceQuoteId;
+                            Int32.TryParse(pqId, out priceQuoteId);
+                            if (priceQuoteId == 0)
+                                isOnRoadPrice = false;
                         }
 
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), dealerId.ToString()));
