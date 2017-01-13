@@ -23,3 +23,6 @@ function showHideMatchError(element, error) {
         element.removeClass('border-red');
     }
 }
+function showToast(msg) {
+    $('.toast').text(msg).stop().fadeIn(400).delay(3000).fadeOut(400);
+}

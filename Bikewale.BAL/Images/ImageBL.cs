@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 namespace Bikewale.BAL.Images
 {
     /// <summary>
@@ -28,6 +29,8 @@ namespace Bikewale.BAL.Images
         /// <summary>
         /// Created by  :   Sumit Kate on 09 Nov 2016
         /// Description :   This method saves image details in database and also gets token required for further processing request
+        /// Modified by :   Sumit Kate on 06 Jan 2017
+        /// Description :   If Original Image path is provided pass the original image path into token else pass the key
         /// </summary>
         /// <param name="objImage"></param>
         /// <returns></returns>
@@ -44,6 +47,7 @@ namespace Bikewale.BAL.Images
                     string hash = _security.GenerateHash((uint)objImage.Id.Value);
                     awsToken = _security.GetToken();
                     token.Key = String.Format("n/bw/{0}{1}_{2}.{3}", _environment, hash, objImage.Id, (!String.IsNullOrEmpty(objImage.Extension) ? objImage.Extension : "jpg"));
+                    token.OriginalImagePath = IfNull(objImage.OriginalPath, token.Key);
                     token.Policy = awsToken.Policy;
                     token.Signature = awsToken.Signature;
                     token.AccessKeyId = awsToken.AccessKeyId;
@@ -58,10 +62,22 @@ namespace Bikewale.BAL.Images
             }
             return token;
         }
+        /// <summary>
+        /// Created by  :   Sumit Kate on 06 Jan 2017
+        /// Description :   Returns the First non-null/Empty string or null
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
+        private String IfNull(params string[] arr)
+        {
+            return arr.FirstOrDefault(m => !String.IsNullOrEmpty(m));
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 10 nov 2016
         /// Description :   Sends the token to BW-IPC for further processing
+        /// Modified by :   Sumit Kate on 06 Jan 2017
+        /// Description :   If Original Image path is provided pass the original image path into token else pass the key
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
@@ -75,7 +91,7 @@ namespace Bikewale.BAL.Images
                 {
                     NameValueCollection objNVC = new NameValueCollection();
                     objNVC.Add("id", token.Id.ToString());
-                    objNVC.Add("originalPath", "/" + token.Key);
+                    objNVC.Add("originalPath", "/" + IfNull(token.OriginalImagePath, token.Key));
                     objNVC.Add("photoId", token.PhotoId.ToString());
                     //Process further through rabbit MQ
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();

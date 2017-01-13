@@ -302,6 +302,10 @@
       <DependentUpon>ManageUserReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="content\ModelColorWiseImage.aspx.cs">
+      <DependentUpon>ModelColorWiseImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\NewBikeFeatureItems.aspx.cs">
       <DependentUpon>NewBikeFeatureItems.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1283,6 +1287,7 @@
     <Content Include="content\mappingfiles\MappedBikeData.xml" />
     <Content Include="content\mappingfiles\MappedCityData.xml" />
     <Content Include="content\mappingfiles\PriceData.xml" />
+    <Content Include="content\ModelColorWiseImage.aspx" />
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
@@ -1837,8 +1842,10 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>

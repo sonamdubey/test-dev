@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BikeColorImages\IColorImagesBikeRepository.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />

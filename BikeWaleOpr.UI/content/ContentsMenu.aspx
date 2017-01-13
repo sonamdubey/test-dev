@@ -6,6 +6,7 @@
             <li><a href="/content/bikemodels.aspx">Bike Models</a></li> 
             <li><a href="/content/bikeversions.aspx">Bike Versions</a></li>
             <li><a href="/content/NewBikeModelColors_New.aspx">New Bike Model Colors</a></li>
+            <li><a href="/content/ModelColorWiseImage.aspx">Update Model Images By Color</a></li>
             <li><a href="/content/expectedlanuches.aspx">Expected Bike Launches</a></li>
             <li><a href="/content/bikecomparisonlist.aspx">Bike Comparison List</a></li>
             <li><a href="/content/bikeunitssold.aspx">Bulk Unit Sold Upload</a></li>
