@@ -1,4 +1,5 @@
 <%@ Page trace="false" Inherits="BikeWaleOpr.Content.ModelColorWiseImage" AutoEventWireUp="false" EnableEventValidation="false" Language="C#" %>
+<%@ Import Namespace ="System.Linq" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
@@ -17,11 +18,27 @@
         border-right: 0;
         border-top: 0;
     }
+    .progress-bar {
+        width: 0;
+        display: none;
+        height: 3px;
+        background: #16A085;
+        bottom: 0px;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .position-abt {
+        position: absolute;
+    }
+    .position-rel{
+        position: relative;
+    }
 </style>
 <div class="left min-height600" id="divManagePrices">
     <h1>Model Images by Color</h1>
     <span id="spnError" class="error" runat="server"></span>
-    <fieldset>
+    <fieldset id="inputSection" class="position-rel">
         <legend style="font-weight: bold">Select Model</legend>
         <asp:dropdownlist EnableViewstate="true" id="cmbMake" runat="server" tabindex="1" />
         <asp:dropdownlist id="cmbModel" runat="server" tabindex="2">
@@ -31,23 +48,24 @@
         <asp:HiddenField ID="hdnModelId" runat="server" value="0" />
         <asp:button id="btnSubmit" text="Show Images" runat="server" tabindex="3" />
         <span class="error" id="selectModel"></span>
+        <span class="position-abt progress-bar" style="width: 100%; overflow: hidden;"></span>
     </fieldset>
     <br>
     <% if(modelId > 0){ %>
-    <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
+    <div  class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
          <%
              if (modelColorCount > 0)
             {
         %>
-
+            
             <table class="table-bordered" cellspacing="0" cellpadding="5">
 					<tbody>
                         <tr>
                             <td>Color Name</td>
                             <td>Color</td>
                             <td>Image</td>
-                            <td></td>
-                            <td></td>
+                            <td>Upload Image</td>
+                            <td class="delcolumn <%= !modelColors.Any(m=>m.IsImageExists) ? "hide" :"" %>">Delete Images</td>
                         </tr>
                 <% foreach(var color in modelColors){ %>
                 <tr>
@@ -57,29 +75,24 @@
                             <% foreach(var hexColor in color.ColorCodes) {  %>
                              <tr style='background:#<%= hexColor.HexCode %>'>
                                  <td class="color"></td>
-
                              </tr>
                             <% } %>
                         </table>
                     </td>
-                    <td><img src='<%= Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath,color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
+                    <td><img id="mainImage" src='<%= Bikewale.Utility.Image.GetPathToShowImages(color.OriginalImagePath,color.Host,Bikewale.Utility.ImageSize._144x81) %>' /></td>
                     <td data-isImageExists="<%= color.IsImageExists %>" data-modelId="<%=modelId %>" data-colorId="<%=color.Id %>" data-color="<%= color.Name %>">
-                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" />
-                        <%--<input data-id="<%=color.Id %>" name="uploadImage" type="button" class="padding10" value="Upload Image" />--%>
+                        <img id="preview" src="" />
+                        <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="width:75px;"/>
+                        <input type="button" class="padding10 uploadImage" value="Upload" />
+                        
                     </td>
-                    <td>
-                        <% if (color.IsImageExists && !string.IsNullOrEmpty(color.BikeModelColorId))
-                           { %>
-                        <input data-id="<%=color.BikeModelColorId %>" name="deleteImage" type="button" class="padding10 deleteImage" value="Delete Image" />
-                        <% } %>
+                    <td class="delcolumn <%= !modelColors.Any(m=>m.IsImageExists) ? "hide" :"" %>">
+                        <input data-id="<%=color.BikeModelColorId %>" style="<%= (color.IsImageExists && !string.IsNullOrEmpty(color.BikeModelColorId))? "" : "display:none" %>" type="button" class=" padding10 deleteImage" value="Delete" />
                     </td>
                 </tr>
              <% } %>
                         </tbody>
             </table>
-                        <%-- <a href="javascript:openEditColorWindow(<%#DataBinder.Eval(Container.DataItem,"Id") %>, <%= modelId %>)" class="editBtn">Edit</a>
-                        <a runat="server" id="lnkDelete" href="javascript:confirmDelete(<%#DataBinder.Eval(Container.DataItem,"Id") %>" class="editBtn">Delete</a>                                                
-                        <asp:button id="btnDelete" text="Delete" runat="server" />--%>
         <% }
             else
             {
@@ -89,10 +102,11 @@
     </div>
     <% } %>
 </div>
+<div class='toast' style='display:none'>I did something!</div>
 <script type="text/javascript">
     modelId = '<%= modelId %>';
     environment = '<%= ConfigurationManager.AppSettings["AWSEnvironment"] %>';
-    hostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
+    bwHostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
     userid = '<%= BikeWaleOpr.Common.CurrentUser.Id %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
