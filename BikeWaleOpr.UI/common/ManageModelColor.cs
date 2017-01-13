@@ -458,11 +458,11 @@ namespace BikewaleOpr.Common
                             {
                                 modelColors.Add(new ModelColorImage()
                                 {
-                                    Id = Convert.ToUInt32(reader["modelColorId"]),
+                                    Id = SqlReaderConvertor.ToUInt32(reader["modelColorId"]),
                                     Name = Convert.ToString(reader["ColorName"]),
                                     Host = Convert.ToString(reader["Host"]),
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
-                                    IsImageExists = Convert.ToBoolean(reader["IsImageExists"]),
+                                    IsImageExists = SqlReaderConvertor.ToBoolean(reader["IsImageExists"]),
                                     BikeModelColorId = Convert.ToString(reader["BikeModelColorId"]),
                                 });
                             }
@@ -475,9 +475,9 @@ namespace BikewaleOpr.Common
                                         new ColorCodeBase()
                                         {
                                             HexCode = Convert.ToString(reader["HexCode"]),
-                                            Id = Convert.ToUInt32(reader["ColorId"]),
-                                            ModelColorId = Convert.ToUInt32(reader["modelColorId"]),
-                                            IsActive = Convert.ToBoolean(reader["IsActive"])
+                                            Id = SqlReaderConvertor.ToUInt32(reader["ColorId"]),
+                                            ModelColorId = SqlReaderConvertor.ToUInt32(reader["modelColorId"]),
+                                            IsActive = SqlReaderConvertor.ToBoolean(reader["IsActive"])
                                         });
                                 }
                                 modelColors.ForEach(

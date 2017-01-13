@@ -43,7 +43,7 @@ $(document).ready(function () {
         var colorId = td.attr('data-colorId');
         var bikeName = bikeFullName + ' ' + td.attr('data-color');
         bikeName = bikeName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-') + "-" + Date.now() + '.' + ext;
-        var path = 'n/bw/' + environment + bikeName;
+        var path = 'n/bw/' + environment + 'models/colors/' + bikeName;
             $.ajax({
                 type: "POST",
                 url: "/api/model/images/color/",
