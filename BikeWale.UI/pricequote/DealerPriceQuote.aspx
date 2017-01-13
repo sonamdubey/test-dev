@@ -415,7 +415,7 @@
                                         </div>
                                         <div class="grid-4 padding-left20 omega">
                                             <div class="margin-left10 margin-bottom15">
-                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Payable + Interest)</p>
+                                                <p class="font14 text-light-grey margin-bottom5">Total amount (Principal + Interest)</p>
                                                 <div>
                                                     <span class="bwsprite inr-md"></span>
                                                     <span class="font16 text-bold" data-bind="text: formatPrice(Math.round(totalPayable()))"></span>                               

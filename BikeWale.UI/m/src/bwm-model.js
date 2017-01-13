@@ -10,8 +10,7 @@ $('#getMoreDetailsBtn,#getAssistance').on('click', function (e) {
     $(".blackOut-window").show();
     appendHash("contactDetails");
 
-    if ($(this).attr("id") == "getAssistance")
-    {
+    if ($(this).attr("id") == "getAssistance") {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Get_Offers_Clicked", "lab": bikeVersionLocation });
         getOffersClicked = true;
     }
@@ -216,7 +215,7 @@ $(document).ready(function () {
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
     if (tabsLength < 3) {
-        $('.overall-specs-tabs-wrapper li').css({'display': 'inline-block', 'width': 'auto'});
+        $('.overall-specs-tabs-wrapper li').css({ 'display': 'inline-block', 'width': 'auto' });
     }
 
     $('.overall-specs-tabs-wrapper li').first().addClass('active');
@@ -251,7 +250,7 @@ $(document).ready(function () {
         }
 
         else if (windowScrollTop < modelSpecsTabsOffsetTop) {
-                overallSpecsTabsContainer.removeClass('fixed-tab-nav');
+            overallSpecsTabsContainer.removeClass('fixed-tab-nav');
         }
 
         if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
@@ -268,13 +267,13 @@ $(document).ready(function () {
                 $('#modelSpecsTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
 
                 $(this).addClass('active');
-                
+
                 var currentActiveTab = overallSpecsTabsContainer.find('li[data-tabs="#' + $(this).attr('id') + '"]');
                 overallSpecsTabsContainer.find(currentActiveTab).addClass('active');
-                
+
             }
         });
-        
+
         var scrollToTab = $('#modelSpecsTabsContentWrapper .bw-model-tabs-data:eq(4)');
         if (scrollToTab.length != 0) {
             if (windowScrollTop > scrollToTab.offset().top - 45) {
@@ -489,7 +488,7 @@ var dropdown = {
     },
 
     resizeWidth: function (newWidth) {
-        $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth/2);
+        $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
     }
 };
 
@@ -608,13 +607,19 @@ $(".gallery-close-btn").on('click', function () {
 
 var currentStagePhoto, currentStageActiveImage;
 function showImgTitle(swiper) {
-    imgTitle = $(galleryTop.slides[swiper.activeIndex]).find('img').attr('title');
-    imgTotalCount = galleryThumbs.slides.length;
-    $(".media-title").text(imgTitle);
-    $(".gallery-count").text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
-    currentStagePhoto = $(".connected-carousels-photos .stage-photos");
-    currentStageActiveImage = currentStagePhoto.find(".swiper-slide.swiper-slide-active img");
-    currentStagePhoto.find('.carousel-stage-photos').css({ 'height': currentStageActiveImage.height() });
+    try {
+        if (swiper.activeIndex != null) {
+            imgTitle = $(galleryTop.slides[swiper.activeIndex]).find('img').attr('title');
+            imgTotalCount = galleryThumbs.slides.length;
+            $(".media-title").text(imgTitle);
+            $(".gallery-count").text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
+            currentStagePhoto = $(".connected-carousels-photos .stage-photos");
+            currentStageActiveImage = currentStagePhoto.find(".swiper-slide.swiper-slide-active img");
+            currentStagePhoto.find('.carousel-stage-photos').css({ 'height': currentStageActiveImage.height() });
+        }
+    } catch (e) {
+        console.warn(e);
+    }
 }
 
 var videoiFrame = document.getElementById("video-iframe");
