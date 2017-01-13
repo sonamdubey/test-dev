@@ -226,7 +226,7 @@
                    if (!modelPage.ModelDetails.Futuristic)
                    { %>
                         <div class="padding-10-20">
-                            <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
+                            <p class="font12 text-light-grey"><%=priceText %> price in <%=(isOnRoadPrice?location:Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
                             <p>
                                 <span class="bwmsprite inr-md-icon"></span>
                                 <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>

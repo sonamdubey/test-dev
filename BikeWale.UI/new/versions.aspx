@@ -195,7 +195,7 @@
                                     <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></span><a data-persistent="true"  data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
