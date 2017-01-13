@@ -123,7 +123,6 @@ namespace Bikewale.BikeBooking
                     {
                         ctrlAlternativeBikes.model = objVersionDetails.ModelBase.ModelName;
 
-
                         if (ctrlDealers != null && objVersionDetails.MakeBase != null)
                         {
                             ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
@@ -132,7 +131,7 @@ namespace Bikewale.BikeBooking
                             ctrlDealers.TopCount = 3;
                             ctrlDealers.ModelId = modelId;
                             ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_Dealerpricequote_DealersCard_GetOfferButton;
-                            ctrlDealers.widgetHeading = string.Format("{0} showrooms", objVersionDetails.MakeBase.MakeName, CityArea != null ? " in " + CityArea.City : string.Empty);
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, CityArea != null ? "in " + CityArea.City : string.Empty);
                             ctrlDealers.pageName = "DealerPriceQuote_Page";
 
                         }
@@ -428,23 +427,34 @@ namespace Bikewale.BikeBooking
         /// Description : To set city area from bikewale common utility function
         /// </summary>
         /// <returns></returns>
-
         private string GetLocationCookie()
         {
             string location = String.Empty;
-            if (CityArea != null)
+
+            try
             {
-                if (!string.IsNullOrEmpty(CityArea.City))
+
+                if (CityArea != null && !string.IsNullOrEmpty(CityArea.City))
                 {
                     if (!string.IsNullOrEmpty(CityArea.Area))
                     {
-                        return String.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
+                        location = String.Format("<span>{0}</span>, <span>{1}</span>", CityArea.Area, CityArea.City);
                     }
-                    return String.Format("<span>{0}</span>", CityArea.City);
+                    else
+                    {
+                        location = String.Format("<span>{0}</span>", CityArea.City);
+                    }
                 }
             }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BikeBooking.Dealerpricequote.GetLocationCookie");
+            }
+
+            return location;
         }
+
+
 
         /// <summary>
         /// Created By : Sushil Kumar
