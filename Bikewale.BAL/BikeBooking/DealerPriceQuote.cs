@@ -337,20 +337,6 @@ namespace Bikewale.BAL.BikeBooking
                         IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
                         quoteId = objIPQ.RegisterPriceQuote(PQParams);
                     }
-                    //Fails to register for requested version get the default version price quote
-                    //if (quoteId == 0)
-                    //{
-                    //    if (PQParams.AreaId > 0)
-                    //        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
-                    //    else
-                    //        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
-                    //    using (IUnityContainer container = new UnityContainer())
-                    //    {
-                    //        container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                    //        IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-                    //        quoteId = objIPQ.RegisterPriceQuote(PQParams);
-                    //    }
-                    //}
                 }
                 objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false };
             }

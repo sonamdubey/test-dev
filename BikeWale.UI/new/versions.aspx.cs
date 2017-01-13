@@ -611,9 +611,7 @@ namespace Bikewale.New
                             }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
 
-                            int priceQuoteId;
-                            Int32.TryParse(pqId, out priceQuoteId);
-                            if (priceQuoteId == 0)
+                            if (pqOnRoad.PriceQuote.PQId == 0)
                                 isOnRoadPrice = false;
 
                         }
