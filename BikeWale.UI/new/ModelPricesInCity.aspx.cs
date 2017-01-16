@@ -49,7 +49,7 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, pageDescription = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
 
@@ -80,6 +80,7 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -478,6 +479,35 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
             return _cityId;
+        }
+        /// <summary>
+        /// Created By : Sushil Kumar 
+        /// Created On : 3rd Febrauary 2016
+        /// Read current cookie values
+        /// Check if there are areas for current model and City
+        /// If No then drop area cookie
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            string location = String.Empty;
+            uint _cityId;
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
+            {
+                location = cookies["location"].Value;
+                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
+                {
+                    string[] locArray = location.Split('_');
+                    if (locArray.Length > 0)
+                    {
+                        UInt32.TryParse(locArray[0], out _cityId);
+                        if (cityId > 0 && _cityId == cityId && locArray.Length > 3)
+                        {
+                            isAreaSelected = true;
+                        }
+                    }
+                }
+            }
         }
     }   // class
 }   // namespace

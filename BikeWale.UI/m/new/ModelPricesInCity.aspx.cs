@@ -41,7 +41,7 @@ namespace Bikewale.Mobile.New
         protected string areaName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         protected DealersEntity _dealers = null;
@@ -67,6 +67,7 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -432,6 +433,35 @@ namespace Bikewale.Mobile.New
                     pageDescription = newBikeDescription;
                 else
                     pageDescription = discontinuedDescription;
+            }
+        }
+        /// <summary>
+        /// Created By : Sushil Kumar 
+        /// Created On : 3rd Febrauary 2016
+        /// Read current cookie values
+        /// Check if there are areas for current model and City
+        /// If No then drop area cookie
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            string location = String.Empty;
+            uint _cityId;
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
+            {
+                location = cookies["location"].Value;
+                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
+                {
+                    string[] locArray = location.Split('_');
+                    if (locArray.Length > 0)
+                    {
+                        UInt32.TryParse(locArray[0], out _cityId);
+                        if (cityId > 0 && _cityId == cityId && locArray.Length > 3)
+                        {
+                            isAreaSelected = true;
+                        }
+                    }
+                }
             }
         }
 
