@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Used.Search;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -13,6 +14,7 @@ using Bikewale.DAL.Used.Search;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Used.Search;
@@ -40,6 +42,8 @@ namespace Bikewale.Mobile.New
     /// Created By : Ashish G. Kamble on 9 Sept 2015    
     /// Modified By : Lucky Rathore on 09 May 2016
     /// Description : modelImage declare used for bike model default image url.
+    /// Modified By :-Aditi Srivastava on 13 Jan 2017
+    /// Summary :- Added generic bike listing slug
     /// </summary>
     public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
@@ -80,6 +84,9 @@ namespace Bikewale.Mobile.New
         protected ModelPageVM viewModel = null;
         protected ModelGallery ctrlModelGallery;
         protected int colorCount;
+        protected BikeRankingEntity bikeRankObj;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
+
         GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
         #region Events
@@ -164,6 +171,7 @@ namespace Bikewale.Mobile.New
                     BindColorString();
                     CreateMetas();
                     BindDescription();
+                    GetBikeRankingCategory(modelId);
 
                 }
             }
@@ -174,6 +182,24 @@ namespace Bikewale.Mobile.New
             }
 
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
+            }
+        }
+
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- To bind Description on model page

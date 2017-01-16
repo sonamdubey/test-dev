@@ -135,8 +135,43 @@
         </section>
 
 
-        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0 || bikeRankObj!=null) ? string.Empty : "hide" %>">
+            <div class="container box-shadow bg-white margin-bottom10">
+                <%if (ctrlAlternateBikes.FetchedRecordsCount > 0)
+                  { %>
+            
+                <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+            
+                <%} %>
+                    <%if(bikeRankObj!=null){ %>
+          
+                 <%if(bikeRankObj.Rank>0){ %>
+           
+                <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 <%= (ctrlAlternateBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                        <div class="inline-block">
+                            <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                        </div>
+                        <p class="rank-slug-label inline-block text-default font14"><%=bikeName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %>. Check out other <%=styleName %> which made it to Top 10 list.</p>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </div>
+                <%} %>
+                <%else{ %>
+                <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 <%= (ctrlAlternateBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwmsprite rank-graph"></span>
+                        </div>
+                        <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName %><br /> can come in handy.</p>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </div>
+                
+               <%} %>
+              
+                <%} %>
+                  </div>
         </section>
         
   
