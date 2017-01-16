@@ -200,22 +200,32 @@
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
-                <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
+                <!-- ko if: vmPhotosPage.activateGallery() -->
+                    <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
+                <!-- /ko -->
             </script>
 
             <script type="text/html" id="gallery-template">
                 <!-- gallery header -->
-                <div class="gallery-header">
-                    <h2 class="font16 text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
-                    <span id="gallery-close-btn" class="position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></span>
+                <div class="gallery-header" data-bind="visible: galleryTabsActive()">
+                    <h2 class="text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
+                    <span id="gallery-close-btn" class="position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer" data-bind="event: { click: function() { postAction(ACTIONS.HIDE_GALLERY) } }"></span>
                     <ul class="horizontal-tabs-wrapper">
                         <li data-bind="event: { click: function(){ postAction(ACTIONS.ACTIVATE_PHOTO_TAB) } }, css: photosTabActive() ? 'active': ''">Photos</li>
                         <li data-bind="event: { click: function(){ postAction(ACTIONS.DEACTIVATE_PHOTO_TAB) } }, css: !photosTabActive() ? 'active': ''">Videos</li>
                     </ul>
                 </div>
 
+                <!-- gallery body -->
                 <div class="gallery-body">
                     <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive()">
+                        <div class="main-photo-swiper-details padding-bottom10 padding-right5 padding-left5" data-bind="visible: photoHeadingActive()">
+                            <p class="grid-9 font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
+                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top3">
+                                <span data-bind="text: activePhotoIndex()"></span> / <span data-bind="text: photoList.length"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
                                 <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
@@ -227,8 +237,8 @@
                 </div>
 
                 <!-- gallery footer -->
-                <div class="gallery-footer" data-bind="css: photosTabActive() ? '' : 'grid-2-tab'">
-                    <div class="footer-tabs-wrapper" data-bind="css: screenActive() ? 'footer-shadow': ''">
+                <div class="gallery-footer" data-bind="visible: galleryFooterActive(), css: photosTabActive() ? '' : 'grid-2-tab'">
+                    <div class="footer-tabs-wrapper">
                         <div data-bind="event: { click: function() { postAction(ACTIONS.TOGGLE_PHOTO_THUMBNAIL_SCREEN) } }, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All photos</span>
@@ -238,7 +248,7 @@
                             <span class="inline-block font14">All videos</span>
                         </div>
 
-                        <div data-bind="visible: photosTabActive()" class="footer-tab grid-3-tab">
+                        <div data-bind="event: { click: function() { postAction(ACTIONS.TOGGLE_COLORS_THUMBNAIL_SCREEN) } }, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite color-palette"></span>
                         </div>
 
@@ -246,13 +256,13 @@
                             <span class="bwmsprite share-icon"></span>
                         </div>
 
-                        <div class="footer-tab grid-3-tab">
+                        <div class="footer-tab grid-3-tab" data-bind="event: { click: function() { postAction(ACTIONS.TOGGLE_MODEL_INFO_SCREEN) } }, css: modelInfoScreen() ? 'tab-active' : ''">
                             <span class="bwmsprite info-icon"></span>
                         </div>
                         <div class="clear"></div>
                     </div>
 
-                    <div id="thumbnail-tab-screen" class="footer-tab-card" data-bind="visible: photoThumbnailScreen()">
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: photoThumbnailScreen()">
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
@@ -261,6 +271,93 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: colorsThumbnailScreen()">
+                        <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block color-count-two">
+                                        <span style="background-color: #00A8DD"></span>
+                                        <span style="background-color: #040004"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block">Dual Tone Blue</p>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block color-count-two">
+                                        <span style="background-color: #DA251F"></span>
+                                        <span style="background-color: #040004"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block">Dual Tone Red</p>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block color-count-two">
+                                        <span style="background-color: #EFEFEF"></span>
+                                        <span style="background-color: #040004"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block">Dual Tone White</p>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block color-count-one">
+                                        <span style="background-color: #00AEE8"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block">Deep Sky Blue</p>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block color-count-one">
+                                        <span style="background-color: #CE1417"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block">Volcano Red</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
+                        <div class="model-more-info-section padding-15-20"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
+                            <%--<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>--%>
+                            <%--<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>--%>
+                            <div class="margin-bottom10">
+                                <a href="" class="item-image-content vertical-top" title="Bajaj Pulsar AS200">
+                                    <img src="http://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" src="" alt="Bajaj Pulsar AS200">
+                                </a>
+                                <div class="bike-details-block vertical-top">
+                                    <h3 class="margin-bottom5"><a href="" class="block text-bold text-default text-truncate" title="Bajaj Pulsar AS200">Bajaj Pulsar AS200</a></h3>
+                                    <ul class="item-more-details-list">
+                                        <li>
+                                            <a href="" title="Bajaj Pulsar AS200 Reviews">
+                                                <span class="bwmsprite reviews-sm"></span>
+                                                <span class="icon-label">Reviews</span>
+                                            </a>
+                                        </li>        
+                                        <li>
+                                            <a href="" title="Bajaj Pulsar AS200 News">
+                                                <span class="bwmsprite news-sm"></span>
+                                                <span class="icon-label">News</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="Bajaj Pulsar AS200 Specs">
+                                                <span class="bwmsprite specs-sm"></span>
+                                                <span class="icon-label">Specs</span>
+                                            </a>
+                                        </li>         
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="grid-5 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold">50,615</span>
+                                </div>
+                            </div>
+                            <div class="grid-7 omega">
+                                <a href="" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    
                 </div>
             </script>
         </div>
