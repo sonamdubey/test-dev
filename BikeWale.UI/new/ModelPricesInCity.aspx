@@ -204,22 +204,55 @@
 					   { %>
 					<!-- Alternative reviews ends -->
 					<BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-					<!-- Alternative reviews ends -->
+            		<!-- Alternative reviews ends -->
 					<% } %>
-			    <div id="makeTabsContentWrapper" class="margin-bottom20">
-				    <div class="content-box-shadow">
-					    <div id="makeOverallTabsWrapper">
-						    <div id="makeOverallTabs" class="overall-floating-tabs">
-			      <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-					       { %>
-                        <div class="border-solid-top margin-right10 margin-left10"></div>
-					    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-					    <%} %>
-						     </div>
-			            </div>
-					</div>
-				</div>
+                            <%if(bikeRankObj!=null){ %>
+                    <%if(bikeRankObj.Rank>0){ %>
+                      <div class="margin-left20 margin-right20 padding-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block">
+                                    <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <%} %>
+                    <%else{ %>
+                    <div class="margin-left20 margin-right20 padding-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block icon-red-bg">
+                                    <span class="bwsprite rank-graph"></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName.ToLower() %> can come in handy.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <%} %>
+                    <%} %>
+                    <div id="makeTabsContentWrapper" class="margin-bottom20">
+				        <div class="content-box-shadow">
+					        <div id="makeOverallTabsWrapper">
+						        <div id="makeOverallTabs" class="overall-floating-tabs">
+			                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+					                { %>
+                                    <div class="border-solid-top margin-right10 margin-left10"></div>
+					                <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+					            <%} %>
+						        </div>
+			                </div>
+					    </div>
+				    </div>
                 </div>
 			    <div class="clear"></div>
             </div>
@@ -275,13 +308,17 @@
 			});
 		    $("#dealerDetails").click(function(e){
 		       ele = $(this);
-		       vmquotation.CheckCookies();		       vmquotation.IsLoading(true);		       $('#priceQuoteWidget,#popupContent,.blackOut-window').show();		        var options = {
+		       vmquotation.CheckCookies();
+		       vmquotation.IsLoading(true);
+		       $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+		        var options = {
 		            "modelId": "<%= modelId %>",
 		            "cityId": onCookieObj.PQCitySelectedId,
 		            "areaId": onCookieObj.PQAreaSelectedId,
 		            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
 		            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
-		        };		        vmquotation.setOptions(options);
+		        };
+		        vmquotation.setOptions(options);
 		    });
 			$('.model-versions-tabs-wrapper a').on('click', function () {
 				var verid = $(this).attr('id');

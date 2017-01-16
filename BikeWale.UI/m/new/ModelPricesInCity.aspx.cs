@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
@@ -10,6 +11,7 @@ using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -50,6 +52,8 @@ namespace Bikewale.Mobile.New
         protected int colourCount = 0;
         protected string pageDescription;
         protected ServiceCenterCard ctrlServiceCenterCard;
+        protected BikeRankingEntity bikeRankObj;
+        protected string styleName = string.Empty, rankText = string.Empty,bikeType=string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -63,6 +67,8 @@ namespace Bikewale.Mobile.New
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified By :-Aditi Srivastava on 13 Jan 2017
+        /// Summary :- Added generic bike listing slug
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
@@ -128,7 +134,25 @@ namespace Bikewale.Mobile.New
 
                 ColorCount();
                 BindDescription();
+                GetBikeRankingCategory(modelId);
 
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
             }
         }
         /// <summary>

@@ -80,5 +80,27 @@ namespace Bikewale.Cache.GenericBikes
             }
             return objSearchList;
         }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2017
+        /// Description : To get bike rankings by category
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeRankingEntity GetBikeRankingByCategory(uint modelId)
+        {
+            string key = string.Format("BW_BikeRankingByModel_MO_{0}",modelId);
+            BikeRankingEntity bikeRankObj = null;
+            try
+            {
+                bikeRankObj = _cache.GetFromCache<BikeRankingEntity>(key, new TimeSpan(0, 30, 0), () => _genericBike.GetBikeRankingByCategory(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId)); 
+                   
+            }
+            return bikeRankObj;
+        }
+       
     }
 }

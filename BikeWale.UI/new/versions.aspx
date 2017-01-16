@@ -740,8 +740,34 @@
                         <div id="modelSummaryContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 border-solid-bottom">
                             <%if (!modelPageEntity.ModelDetails.Futuristic && modelPageEntity.ModelDetails.MinPrice>0)
                               { %>
-                            <h2><%=bikeName %> summary</h2>
-                            <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
+                            <h2 class="margin-bottom0"><%=bikeName %> summary</h2>
+                            <%if(!modelPageEntity.ModelDetails.Futuristic && bikeRankObj!=null && bikeRankObj.Rank>0){ %>
+                            <div class="grid-8 alpha margin-top15"><%-- add class - grid-12 and omega, if no slug instead of grid-8 --%>
+                                <%} %>
+                                <%else{ %>
+                                <div class="grid-12 omega alpha margin-top15">
+                                <%} %>
+                                <p class="font14 text-light-grey line-height17 margin-bottom15"><%=summaryDescription %></p>
+                            </div>
+                            <%if (bikeRankObj!=null && bikeRankObj.Rank > 0)
+                              { %>
+                                
+                            <div class="grid-4 omega margin-bottom10">
+                                <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName%> in India" class="model-rank-slug">
+                                    <div class="inline-block">
+                                        <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                                    </div>
+                                    <div class="rank-slug-label inline-block text-bold text-default">
+                                        <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>
+                                        <p class="font11">Check out the complete list.</p>
+                                    </div>
+                                    <span class="trend-arrow"></span>
+                                    <span class="bwsprite right-arrow"></span>
+                                </a>
+                            </div>
+                                
+                            <%} %>
+                            <div class="clear"></div>
 
                             <div class="border-solid-bottom margin-bottom20">
                                 <div class="grid-8 alpha margin-bottom10">
@@ -1231,9 +1257,10 @@
                         <% } %>
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
-                        <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
-                           { %>
+                        
                         <div id="modelSimilarContent" class="bw-model-tabs-data padding-top20 font14">
+                            <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
+                           { %>
                             <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
                             <% if (ctrlPopularCompare.fetchedCount > 0 )
                                 { %>
@@ -1246,9 +1273,47 @@
                                { %>
                             <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
                             <% } %>
-                        </div>
-                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                        <% } %>
+                            <% } %>
+                            <%if (!modelPageEntity.ModelDetails.Futuristic && bikeRankObj != null)
+                              { %>
+                            <%if(bikeRankObj.Rank>0){ %>
+                            <div class="margin-left20 margin-right20 padding-bottom20">
+                                <div class="content-inner-block-15 border-solid font14">
+                                    <div class="grid-9 alpha">
+                                        <div class="inline-block">
+                                            <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                                        </div>
+                                        <p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                                    </div>
+                                    <div class="grid-3 text-right position-rel pos-top5">
+                                        <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <%} %>
+                            <%else{ %>
+                                <div class="margin-left20 margin-right20 padding-bottom20">
+                                <div class="content-inner-block-15 border-solid font14">
+                                    <div class="grid-9 alpha">
+                                        <div class="inline-block icon-red-bg">
+                                            <span class="bwsprite rank-graph"></span>
+                                        </div>
+                                        <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName.ToLower() %> can come in handy.</p>
+                                    </div>
+                                    <div class="grid-3 text-right position-rel pos-top5">
+                                        <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <%} %>
+                            <%} %>
+                          </div>
+                            <%if(!modelPageEntity.ModelDetails.Futuristic){ %>
+                               <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                            <%} %>
+                        
 
                         <%if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                         { %>
@@ -1267,8 +1332,8 @@
                            { %>
                         <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
                         <%} %>
-
-                      <div id="overallSpecsDetailsFooter"></div>
+                        
+                        <div id="overallSpecsDetailsFooter"></div>
                     </div>
                 </div>
                 <div class="clear"></div>

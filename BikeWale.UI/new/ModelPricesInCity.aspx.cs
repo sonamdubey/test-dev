@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
@@ -11,6 +12,7 @@ using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -53,7 +55,9 @@ namespace Bikewale.New
         protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
-
+        protected BikeRankingEntity bikeRankObj;
+        protected string styleName = string.Empty, rankText = string.Empty,bikeType=string.Empty;
+       
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -66,6 +70,8 @@ namespace Bikewale.New
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified By :-Aditi Srivastava on 13 Jan 2017
+        /// Summary :- Added generic bike listing slug
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -93,7 +99,7 @@ namespace Bikewale.New
                 BindDealers();
                 ColorCount();
                 BindDescription();
-
+                GetBikeRankingCategory(modelId);
             }
         }
 
@@ -146,6 +152,23 @@ namespace Bikewale.New
             ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
+            }
         }
         /// <summary>
         /// Created By Subodh Jain 18 oct 2016
