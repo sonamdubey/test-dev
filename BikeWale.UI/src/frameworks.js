@@ -146,4 +146,3 @@ if (typeof Array.prototype.forEach != 'function') {
         }
     };
 }
-document.cookie = "location=; expires=Thu, 18 Dec 0001 12:00:00 UTC; path=/";
