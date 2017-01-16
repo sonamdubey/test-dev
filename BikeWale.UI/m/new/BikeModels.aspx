@@ -470,8 +470,8 @@
                             <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                         </div>
                         <div class="rank-slug-label inline-block text-bold text-default">
-                            <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %></p>
-                            <p class="font10">Check out the complete list.</p>
+                            <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>
+                            <p class="font11">Check out the complete list.</p>
                         </div>
                         <span class="trend-arrow"></span>
                         <span class="bwmsprite right-arrow"></span>
@@ -870,7 +870,7 @@
                             <div class="inline-block">
                                 <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                             </div>
-                            <p class="rank-slug-label inline-block text-default font14"><%=bikeName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %>. Check out other <%=styleName %> which made<br /> it to Top 10 list.</p>
+                            <p class="rank-slug-label inline-block text-default font14"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made<br /> it to Top 10 list.</p>
                             <span class="bwmsprite right-arrow"></span>
                         </a>
                     </div>
@@ -881,7 +881,7 @@
                             <div class="inline-block icon-red-bg">
                                 <span class="bwmsprite rank-graph"></span>
                             </div>
-                            <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName %><br/> can come in handy.</p>
+                            <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName.ToLower() %><br/> can come in handy.</p>
                             <span class="bwmsprite right-arrow"></span>
                         </a>
                     </div>
@@ -889,8 +889,9 @@
                                  
                     <%} %>
                 </div>
+                 <%if(!modelPage.ModelDetails.Futuristic){%>
                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                
+                <%} %>
 
                 <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                    { %>

@@ -758,8 +758,8 @@
                                         <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                                     </div>
                                     <div class="rank-slug-label inline-block text-bold text-default">
-                                        <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %></p>
-                                        <p class="font10">Check out the complete list.</p>
+                                        <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>
+                                        <p class="font11">Check out the complete list.</p>
                                     </div>
                                     <span class="trend-arrow"></span>
                                     <span class="bwsprite right-arrow"></span>
@@ -1283,7 +1283,7 @@
                                         <div class="inline-block">
                                             <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                                         </div>
-                                        <p class="inline-block checkout-list-slug-label"><%=bikeName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %>. Check out other <%=styleName %> which made it to Top 10 list.</p>
+                                        <p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                                     </div>
                                     <div class="grid-3 text-right position-rel pos-top5">
                                         <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -1293,14 +1293,13 @@
                             </div>
                             <%} %>
                             <%else{ %>
-                            <%-- version 2 --%>
-                            <div class="margin-left20 margin-right20 padding-bottom20">
+                                <div class="margin-left20 margin-right20 padding-bottom20">
                                 <div class="content-inner-block-15 border-solid font14">
                                     <div class="grid-9 alpha">
                                         <div class="inline-block icon-red-bg">
                                             <span class="bwsprite rank-graph"></span>
                                         </div>
-                                        <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName %> can come in handy.</p>
+                                        <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName.ToLower() %> can come in handy.</p>
                                     </div>
                                     <div class="grid-3 text-right position-rel pos-top5">
                                         <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -1309,10 +1308,11 @@
                                 </div>
                             </div>
                             <%} %>
-
                             <%} %>
-                        </div>
-                        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                          </div>
+                            <%if(!modelPageEntity.ModelDetails.Futuristic){ %>
+                               <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+                            <%} %>
                         
 
                         <%if ((!isDiscontinued && !modelPageEntity.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))

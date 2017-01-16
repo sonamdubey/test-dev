@@ -152,7 +152,7 @@
                         <div class="inline-block">
                             <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                         </div>
-                        <p class="rank-slug-label inline-block text-default font14"><%=bikeName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %>. Check out other <%=styleName %> which made it to Top 10 list.</p>
+                        <p class="rank-slug-label inline-block text-default font14"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                         <span class="bwmsprite right-arrow"></span>
                     </a>
                 </div>
@@ -163,7 +163,7 @@
                         <div class="inline-block icon-red-bg">
                             <span class="bwmsprite rank-graph"></span>
                         </div>
-                        <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName %><br /> can come in handy.</p>
+                        <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName.ToLower() %><br /> can come in handy.</p>
                         <span class="bwmsprite right-arrow"></span>
                     </a>
                 </div>
