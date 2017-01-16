@@ -235,5 +235,32 @@ namespace Bikewale.Utility
 
             return retVal;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: Format numbers as ordinals (1st,2nd,4th etc)
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        public static string FormatRank(int num)
+        {
+            string RankText=string.Empty;
+            switch (num)
+            {
+                case 1:
+                    RankText = String.Format("{0}<sup>st</sup>", num);
+                    break;
+                case 2:
+                    RankText = String.Format("{0}<sup>nd</sup>", num);
+                    break;
+                case 3:
+                    RankText = String.Format("{0}<sup>rd</sup>", num);
+                    break;
+                default:
+                    RankText = String.Format("{0}<sup>th</sup>", num);
+                    break;
+
+            }
+            return RankText;
+        }
     }
 }

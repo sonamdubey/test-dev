@@ -15,6 +15,8 @@ namespace Bikewale.DAL.GenericBikes
     /// Description :  Generic Bike repository
     /// Modified By : Sushil Kumar on 5th Jan 2016
     /// Description : To get generic bike info with min specs
+    /// Modified by : Aditi Srivastava on 12 Jan 2017
+    /// Description : Added method to get bike ranking by category
     /// </summary>
     public class GenericBikeRepository : IGenericBikeRepository
     {
@@ -80,5 +82,46 @@ namespace Bikewale.DAL.GenericBikes
             }
             return genericBikeInfo;
         }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2017
+        /// Description : To get bike rankings by category
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeRankingEntity GetBikeRankingByCategory(uint modelId)
+        {
+            BikeRankingEntity bikeRankObj = null;
+            EnumBikeBodyStyles bodyStyle;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getbikerankingbymodel";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                bikeRankObj = new BikeRankingEntity();
+                                bikeRankObj.Rank = SqlReaderConvertor.ToInt32(dr["Rank"]);
+                                Enum.TryParse(Convert.ToString(dr["CategoryId"]),out bodyStyle);
+                                bikeRankObj.BodyStyle = bodyStyle;
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}",modelId));
+            }
+            return bikeRankObj;
+        }
+        
     }
 }

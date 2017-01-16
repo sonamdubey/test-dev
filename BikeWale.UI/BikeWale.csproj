@@ -285,6 +285,7 @@
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
+    <Compile Include="BindViewModels\Controls\BindGenericBikeRankingControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
