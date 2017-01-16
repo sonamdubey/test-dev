@@ -199,7 +199,7 @@
                                 <div class="inline-block">
                                     <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                                 </div>
-                                <p class="inline-block checkout-list-slug-label"><%=bikeName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> Most popular <%=bikeType %>. Check out other <%=styleName %> which made it to Top 10 list.</p>
+                                <p class="inline-block checkout-list-slug-label"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                             </div>
                             <div class="grid-3 text-right position-rel pos-top5">
                                 <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -215,7 +215,7 @@
                                 <div class="inline-block icon-red-bg">
                                     <span class="bwsprite rank-graph"></span>
                                 </div>
-                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName %> can come in handy.</p>
+                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName.ToLower() %> can come in handy.</p>
                             </div>
                             <div class="grid-3 text-right position-rel pos-top5">
                                 <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
