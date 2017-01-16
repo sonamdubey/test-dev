@@ -18,6 +18,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -481,32 +482,16 @@ namespace Bikewale.New
             return _cityId;
         }
         /// <summary>
-        /// Created By : Sushil Kumar 
-        /// Created On : 3rd Febrauary 2016
-        /// Read current cookie values
-        /// Check if there are areas for current model and City
-        /// If No then drop area cookie
+        /// Created By : Sangram Nandkhile 
+        /// Created On : 16th Jan 2016
+        /// Read location cookie values and set flag
         /// </summary>
         private void CheckLocationCookie()
         {
-            string location = String.Empty;
-            uint _cityId;
-            var cookies = this.Context.Request.Cookies;
-            if (cookies.AllKeys.Contains("location"))
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
             {
-                location = cookies["location"].Value;
-                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
-                {
-                    string[] locArray = location.Split('_');
-                    if (locArray.Length > 0)
-                    {
-                        UInt32.TryParse(locArray[0], out _cityId);
-                        if (cityId > 0 && _cityId == cityId && locArray.Length > 3)
-                        {
-                            isAreaSelected = true;
-                        }
-                    }
-                }
+                isAreaSelected = true;
             }
         }
     }   // class
