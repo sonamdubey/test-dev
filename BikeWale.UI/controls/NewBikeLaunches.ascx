@@ -19,7 +19,9 @@
 			    <div class="nl-links">
 				    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %></a>
                     <br/><span>Starts At : Rs. <%#!String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MinPrice").ToString()) ? CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"MinPrice").ToString() ): "N/A"%></span>
-				    <br/><a class="href-grey getquotation" data-pqSourceId="<%= PQSourceId%>" href="/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" data-modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" >Check On-Road Price</a>
+
+				    <br/><a class="href-grey getquotation" data-pqSourceId="<%= PQSourceId%>" href="/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" data-modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>" style="<%# (DataBinder.Eval(Container.DataItem,"MinPrice").ToString()!="0")?"":"display:none"%>">Check On-Road Price</a>
+
 			    </div>
 			    <div class="nl-clear"></div>
 		    </div>

@@ -50,7 +50,7 @@
 			                    <div style="margin:5px 0;" >
                                     <div><b>Price : </b> Rs. <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"MinPrice").ToString()) %></div>
                                     <span class="ex-showroom">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
-                                    <a class="buttons getquotation btn-xs" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding %>" title="Check <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price" href="/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelId") %>" style="margin-top:-25px; margin-right:25px; float:right;" data-modelId="<%#DataBinder.Eval(Container.DataItem,"ModelId") %>">Check On-Road Price</a>
+                                    <a class="buttons getquotation btn-xs" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewLaunchLanding %>" title="Check <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price" href="/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelId") %>" style="margin-top:-25px; margin-right:25px; float:right;<%# (DataBinder.Eval(Container.DataItem,"MinPrice").ToString()!="0")?"":"display:none" %>" data-modelId="<%#DataBinder.Eval(Container.DataItem,"ModelId") %>">Check On-Road Price</a>
                                     </div>
 			                    <div class="margin-top10 <%#DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "hide" : "" %>">
                                     <%# Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate"))) %>&nbsp;&nbsp;&nbsp;
@@ -65,7 +65,6 @@
                             </div>
                             <div class="right-float grid_3 alpha omega">
                                 <a href="/<%# DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/">
-                                    <%--<img class="redirect-rt margin-top5 img-border" alt="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %>" src="<%# ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + DataBinder.Eval(Container.DataItem, "LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>" />--%>
                                     <img class="redirect-rt margin-top5 img-border" alt="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._210x118) %>" />
                                 </a>
                             </div>
@@ -76,10 +75,6 @@
         <BikeWale:RepeaterPager ID="repeaterPager" runat="server" />
     </div>
     <div class="grid_4">
-        <%--<div class="margin-top15">
-            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>--%>
         <div class="grid_4 alpha margin-top15">
             <uc:UpcomingBikes ID="ctrl_UpcomingBikes" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
             <div class="clear"></div>
@@ -89,10 +84,6 @@
             <news:NewsMin ID="ctrl_News" runat="server" />
             <div class="clear"></div>
         </div>
-        <%--<div class="margin-top15">
-            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>--%>
     </div>
 </div>
 <!-- #include file="/includes/footerInner.aspx" -->
