@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Entities.UserReviews
 {
+    /// <summary>
+    /// modified By :- Subodh Jain on 17 jan 2017
+    /// Summary :- added ModelSpecs,ModelHighendPrice,ModelBasePrice,IsFuturistic
+    /// </summary>
     [Serializable, DataContract]
     public class ReviewDetailsEntity
     {
@@ -31,14 +32,22 @@ namespace Bikewale.Entities.UserReviews
         [DataMember]
         public string OriginalImagePath { get; set; }
         [DataMember]
-        public bool New { get; set; }   //Added by Suresh Prajapati on 20 Aug 2014
+        public bool IsFuturistic { get; set; }
         [DataMember]
-        public bool Used { get; set; }  //Added by Suresh Prajapati on 20 Aug 2014
+        public bool New { get; set; }
+        [DataMember]
+        public bool Used { get; set; }
         [DataMember]
         public uint NextReviewId { get; set; }
         [DataMember]
         public uint PrevReviewId { get; set; }
-        //public string NextReviewTitle { get; set; }
-        //public string PrevReviewTitle { get; set; }
+        [DataMember]
+        public string ModelBasePrice { get; set; }
+        [DataMember]
+        public string ModelHighendPrice { get; set; }
+
+        [DataMember]
+        public MinSpecsEntity ModelSpecs { get; set; }
+
     }
 }

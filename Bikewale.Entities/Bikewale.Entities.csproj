@@ -316,6 +316,7 @@
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
