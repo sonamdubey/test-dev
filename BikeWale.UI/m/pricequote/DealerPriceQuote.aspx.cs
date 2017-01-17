@@ -64,6 +64,13 @@ namespace Bikewale.Mobile.BikeBooking
         protected string pq_leadsource = "35";
         protected string pq_sourcepage = "56";
         protected string hide = "";
+        private readonly ModelHelper modelHelper = null;
+
+        public DealerPriceQuote()
+        {
+            modelHelper = new ModelHelper();
+        }
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -464,11 +471,26 @@ namespace Bikewale.Mobile.BikeBooking
 
             try
             {
-                var CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
-                currentCity = CityArea.City;
-                currentArea = CityArea.Area;
+                IEnumerable<Entities.Location.CityEntityBase> cities = modelHelper.GetCitiesByModelId(modelId);
 
-                if (cityArea != null && !string.IsNullOrEmpty(currentCity))
+                if (cities != null)
+                {
+                    Entities.Location.CityEntityBase city = cities.FirstOrDefault(m => m.CityId == cityId);
+                    currentCity = city != null ? city.CityName : String.Empty;
+
+                    IEnumerable<Entities.Location.AreaEntityBase> areas = modelHelper.GetAreaForModelAndCity(modelId, cityId);
+                    if (areas != null)
+                    {
+                        Entities.Location.AreaEntityBase area = areas.FirstOrDefault(m => m.AreaId == areaId);
+                        if (area != null)
+                        {
+                            currentArea = area != null ? area.AreaName : String.Empty;
+                        }
+                    }
+
+                }
+
+                if (!string.IsNullOrEmpty(currentCity))
                 {
                     if (!string.IsNullOrEmpty(currentArea))
                     {
