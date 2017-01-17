@@ -635,6 +635,8 @@ namespace Bikewale.DAL.Dealer
         /// Summary:- Added pincode data
         /// Modified by : Sajal Gupta on 29-12-2016
         /// Description : Added DisplayTextLarge, DisplayTextSmall
+        /// Modified by :   Sumit Kate on 19 Jan 2017
+        /// Description :   Populate AreaId
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -643,7 +645,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_19012017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -663,6 +665,7 @@ namespace Bikewale.DAL.Dealer
                                 dealers.DealerDetails.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 dealers.DealerDetails.Area = new AreaEntityBase
                                 {
+                                    AreaId = SqlReaderConvertor.ParseToUInt32(dr["areaid"]),
                                     AreaName = Convert.ToString(dr["Area"]),
                                     Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
                                     Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"])
