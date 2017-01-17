@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MPriceInTopCities" %>
 <% if(showWidget) { %>  
 <div id="prices-top-cities">
-    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Prices by cities<span class="text-light-grey text-unbold"> (<% if(!IsDiscontinued) { %>On road price<% } else { %>Ex-showroom price<%} %>)</span></h3>
+    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (<% if(!IsDiscontinued) { %>On road price<% } else { %>Ex-showroom price<%} %>)</span></h3>
     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 font14">
         <asp:Repeater ID="rptTopCityPrices" runat="server">
             <ItemTemplate>

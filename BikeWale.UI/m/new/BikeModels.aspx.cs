@@ -182,9 +182,9 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-                string versionDescirption = versionCount > 1 ? string.Format(" and is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
+                string versionDescirption = versionCount > 1 ? string.Format(" It is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
                 string specsDescirption = string.Empty;
-                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("Price - Rs. {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
 
                 if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
@@ -199,7 +199,7 @@ namespace Bikewale.Mobile.New
                         specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
                     }
                 }
-                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+                summaryDescription = string.Format("{0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
             }
             catch (Exception ex)
             {
