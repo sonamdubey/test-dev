@@ -140,7 +140,22 @@
 						</div>
 
 						<div class="grid-4 padding-top15 padding-left15">
-							<% if (isAreaAvailable && !isDiscontinued)
+                            <% if(isAreaSelected) { %>
+                            <p class="text-black">Get in touch with dealer for:</p>
+							<ul class="selectAreaToGetList margin-bottom20">
+								<li class="bullet-point">
+									<p>Best offers</p>
+								</li>
+								<li class="bullet-point">
+									<p>Test rides</p>
+								</li>
+								<li class="bullet-point">
+									<p>Complete buying assistance</p>
+								</li>
+							</ul>
+                            <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click %>" f="getBikeVersionName" c="Price_in_City_Page" a="View_dealer_details_Clicked" data-preselcity="<%=cityId %>"  data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 bw-ga" rel="nofollow">View dealer details</a>
+                            <% }
+                               else if (isAreaAvailable && !isDiscontinued)
 							   { %>
 							<p class="text-black">Please select your area to get:</p>
 							<ul class="selectAreaToGetList margin-bottom20">
@@ -262,7 +277,6 @@
 			var pageUrl = window.location.href; 
 			var bikeName='<%=bikeName%>';
 			var CityArea=GetGlobalCityArea()||"";
-		 
 			ga_pg_id=16;
 				$("#btnDealerPricePopup").click(function () {
 					var selArea = '';
@@ -273,7 +287,6 @@
 			
 				});
 			$(".leadcapturebtn").click(function(e){
-			   
 				ele = $(this);
 				var leadOptions = {
 					"dealerid" : ele.attr('data-item-id'),
@@ -291,16 +304,26 @@
 						lab: '<%= string.Format("{0}_", bikeName)%>'+ CityArea
 					}
 				};
-
 				dleadvm.setOptions(leadOptions);
-
 			});
-
+		    $("#dealerDetails").click(function(e){
+		       ele = $(this);
+		       vmquotation.CheckCookies();
+		       vmquotation.IsLoading(true);
+		       $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+		        var options = {
+		            "modelId": "<%= modelId %>",
+		            "cityId": onCookieObj.PQCitySelectedId,
+		            "areaId": onCookieObj.PQAreaSelectedId,
+		            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
+		            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+		        };
+		        vmquotation.setOptions(options);
+		    });
 			$('.model-versions-tabs-wrapper a').on('click', function () {
 				var verid = $(this).attr('id');
 				showTab(verid);
 			});
-
 			function showTab(version) {
 				$('.model-versions-tabs-wrapper a').removeClass('active');
 				$('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
@@ -312,9 +335,7 @@
 				var bikeVersion=$('#versions .active').text();
 				var bikeNameVersion='<%=bikeName%>'+'_'+ bikeVersion;
 				return bikeNameVersion;
-			
 			}
-
 		</script>
 	</form>
 </body>

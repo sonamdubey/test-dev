@@ -96,6 +96,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_Generic_CruiserBikes = 76,
         Mobile_GenricBikeInfo_Widget = 77,
         Mobile_Dealerpricequote_DealersCard_GetOfferButton = 78,
-        Desktop_Dealerpricequote_DealersCard_GetOfferButton = 79
+        Desktop_Dealerpricequote_DealersCard_GetOfferButton = 79,
+        Desktop_PriceInCity_Dealer_Detail_Click = 80,
+        Mobile_PriceInCity_Dealer_Detail_Click = 81
     }
 }

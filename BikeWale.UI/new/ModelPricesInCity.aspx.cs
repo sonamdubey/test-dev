@@ -20,6 +20,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, pageDescription = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         protected BikeRankingEntity bikeRankObj;
@@ -86,6 +87,7 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -501,6 +503,19 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
             return _cityId;
+        }
+        /// <summary>
+        /// Created By : Sangram Nandkhile 
+        /// Created On : 16th Jan 2016
+        /// Read location cookie values and set flag
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
+            {
+                isAreaSelected = true;
+            }
         }
     }   // class
 }   // namespace

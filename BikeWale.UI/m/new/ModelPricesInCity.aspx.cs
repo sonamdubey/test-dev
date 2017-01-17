@@ -20,6 +20,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace Bikewale.Mobile.New
         protected string areaName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         protected DealersEntity _dealers = null;
@@ -73,6 +74,7 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -458,6 +460,18 @@ namespace Bikewale.Mobile.New
                     pageDescription = discontinuedDescription;
             }
         }
-
+        /// <summary>
+        /// Created By : Sangram Nandkhile 
+        /// Created On : 16th Jan 2016
+        /// Read location cookie values and set flag
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
+            {
+                isAreaSelected = true;
+            }
+        }
     }   // class
 }
