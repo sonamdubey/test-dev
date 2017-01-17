@@ -3,7 +3,6 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -43,6 +42,7 @@ namespace Bikewale.New
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BrandCityPopUp ctrlBrandCity;
         protected DealersInNearByCities ctrlDealerCount;
+        protected ChangeLocationPopup ctrlChangeLocation;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -132,11 +132,17 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.TopCount = 3;
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BrowseNewBikeDealerDetails.BindUserControls");
-                objErr.SendMail();
             }
         }
 
@@ -187,7 +193,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindDealerList");
-                objErr.SendMail();
+
             }
         }
 
@@ -227,7 +233,7 @@ namespace Bikewale.New
             {
                 Trace.Warn(ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindMakesDropdown");
-                objErr.SendMail();
+
             }
         }
 
@@ -262,7 +268,7 @@ namespace Bikewale.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindCitiesDropdown");
-                objErr.SendMail();
+
             }
         }
 
@@ -296,7 +302,7 @@ namespace Bikewale.New
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
+
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -377,7 +383,7 @@ namespace Bikewale.New
             {
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, currentReq.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return isValidQueryString;
         }

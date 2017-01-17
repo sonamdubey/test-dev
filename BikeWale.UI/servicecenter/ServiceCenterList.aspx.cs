@@ -44,6 +44,7 @@ namespace Bikewale.Service
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected ChangeLocationPopup ctrlChangeLocation;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -109,7 +110,7 @@ namespace Bikewale.Service
                 ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
                 ctrlBrandCity.makeId = makeId;
                 ctrlBrandCity.cityId = cityId;
-                
+
                 ctrlNearbyServiceCenters.cityId = (int)cityId;
                 ctrlNearbyServiceCenters.cityName = cityName;
                 ctrlNearbyServiceCenters.makeId = (int)makeId;
@@ -132,11 +133,16 @@ namespace Bikewale.Service
                 ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
                 ctrlRecentUsedBikes.AdId = "1395986297721";
                 ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.GetCityNameByCityMaskingName");
-                objErr.SendMail();
             }
         }
 
@@ -166,7 +172,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
-                objErr.SendMail();
             }
         }
 
@@ -195,7 +200,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
-                objErr.SendMail();
             }
         }
 
@@ -230,7 +234,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
-                objErr.SendMail();
             }
         }
 
@@ -264,7 +267,6 @@ namespace Bikewale.Service
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
-                    objErr.SendMail();
                     isValidMake = false;
                 }
                 finally
@@ -337,7 +339,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ProcessQueryString for {0} makeMaskingName", makeMaskingName));
-                objErr.SendMail();
             }
             return isValidQueryString;
         }

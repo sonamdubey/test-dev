@@ -447,6 +447,10 @@
       <DependentUpon>BikeCare.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\ChangeLocationPopup.ascx.cs">
+      <DependentUpon>ChangeLocationPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\DealerCard.ascx.cs">
       <DependentUpon>DealerCard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2013,6 +2017,7 @@
     <Content Include="controls\BestBikes.ascx" />
     <Content Include="controls\BrandCityPopUp.ascx" />
     <Content Include="controls\BikeCare.ascx" />
+    <Content Include="controls\ChangeLocationPopup.ascx" />
     <Content Include="controls\DealerCard.ascx" />
     <Content Include="controls\DealersByBrand.ascx" />
     <Content Include="controls\DealersInNearByCities.ascx" />
@@ -2863,6 +2868,7 @@
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
+    <Content Include="src\bwcache.js" />
     <Content Include="src\cancellation.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />

@@ -261,8 +261,10 @@
 			var clientIP = "<%= clientIP%>";
 			var pageUrl = window.location.href; 
 			var bikeName='<%=bikeName%>';
-			var CityArea=GetGlobalCityArea()||"";
-		 
+		    var CityArea=GetGlobalCityArea()||"";
+
+
+
 			ga_pg_id=16;
 				$("#btnDealerPricePopup").click(function () {
 					var selArea = '';
@@ -272,6 +274,7 @@
 					triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_", bikeName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
 			
 				});
+
 			$(".leadcapturebtn").click(function(e){
 			   
 				ele = $(this);

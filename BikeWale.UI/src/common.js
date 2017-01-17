@@ -199,9 +199,9 @@ $(document).ready(function () {
 
 	//global city popup
 	$("#header div.gl-default-stage").click( function(){
-		$(".blackOut-window").show();
+	    $(".blackOut-window").show();
+	    CheckGlobalCookie();
 		$(".globalcity-popup").removeClass("hide").addClass("show");
-		CheckGlobalCookie();
 	});
 	
 	$(".blackOut-window").mouseup(function(e){
@@ -209,6 +209,11 @@ $(document).ready(function () {
         if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
         {
             CloseCityPopUp();
+        }
+        globalLocation = $("#globalchangecity-popup");
+        if (globalLocation && e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
+            globalLocation.hide();
+            unlockPopup();
         }
 	});
 
