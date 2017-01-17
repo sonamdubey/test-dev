@@ -31,70 +31,82 @@
 </div>
 
 <script type="text/javascript" src="/src/bwcache.js"></script>
-<script type="text/javascript">
-
-    var urlCityName = '<%= UrlCityName %>', cookieCityName = '<%= CookieCityName %>';
-    var urlCityId = parseInt('<%= UrlCityId %>',10), cookieCityId = parseInt('<%= CookieCityId %>',10),sessionKey = "bwchangecity";
-    var ignoreEle = document.getElementById("changecity-ignore"), acceptEle = document.getElementById("changecity-accept"),
-        popupEle = document.getElementById("globalchangecity-popup"), blackoutEle = document.getElementsByClassName('blackOut-window')[0];
-
-    bwcache.setOptions({ StorageScope: "", FallBack: true });
-
-    //check for location chnage and trigger the popup show
-    $(function () {
-        if (urlCityId > 0 && (urlCityId != cookieCityId))
-        {
-            if (!bwcache.get(sessionKey, true))   //surpress location chnage prompt for the session
+<script type="text/javascript">  
+    var locationChangePopup = (function () {
+        try {
+            var options = {
+                urlCityName: '<%: UrlCityName %>',
+                cookieCityName: '<%: CookieCityName %>',
+                urlCityId: parseInt('<%: UrlCityId %>', 10),
+                cookieCityId: parseInt('<%: CookieCityId %>', 10),
+                sessionKey: "bwchangecity",
+                ignoreEle: document.getElementById("changecity-ignore"),
+                acceptEle: document.getElementById("changecity-accept"),
+                popupEle: document.getElementById("globalchangecity-popup"),
+                blackoutEle: document.getElementsByClassName('blackOut-window')[0]
+            }; 
+            var ignoreCityChange = function()
             {
-                blackoutEle.style.display = "block";
-                popupEle.style.display = "block";
-            }           
+                bwcache.set(options.sessionKey, "1", true);
+                options.blackoutEle.style.display = "none";
+                options.popupEle.style.display = "none";
+            }; 
+            var acceptCityChange = function()
+            {
+                var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
+                expire.setTime(today.getTime() + 3600000 * 24 * 365);
+                cookieValue = cookieValue.replace(/\s+/g, '-');
+                document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
+                document.getElementById("cityName").innerText = options.urlCityName;
+                options.blackoutEle.style.display = "none";
+                options.popupEle.style.display = "none";
+            };
+
+            var closeChangeCityPopup = function()
+            {
+                igonoreCityChange();
+                options.blackoutEle.style.display = "none";
+                options.blackoutEle.style.display = "none";
+            };
+
+            var closeOnEsc = function (e) {
+                if (e.keyCode === 27)
+                    closeChangeCityPopup();
+            };
+            var init = function (){
+                try {
+                    bwcache.setOptions({ StorageScope: "", FallBack: true });
+                    if (options.urlCityId > 0 && (options.urlCityId != options.cookieCityId)) {
+                        if (!bwcache.get(options.sessionKey, true))   //surpress location chnage prompt for the session
+                        {
+                            options.blackoutEle.style.display = "block";
+                            options.popupEle.style.display = "block";
+                        }
+                    }
+                    else if (cookieCityId == 0)  //in case global city is not selected 
+                    {
+                        acceptCityChange();
+                    }
+
+
+                    options.ignoreEle.addEventListener("click", ignoreCityChange, false);
+                    options.acceptEle.addEventListener("click", acceptCityChange, false);
+                    document.addEventListener("keydown", closeOnEsc, false);
+                    options.blackoutEle.addEventListener("mouseup", closeOnEsc, false);
+
+                } catch (e) {
+                  
+                }
+            }();
         }
-        else if(cookieCityId==0)  //in case global city is not selected 
+        catch(e)
         {
-            AcceptCityChange();
+            console.log("Something went wrong with location change popup : " + e.message);
         }
-
-    }());
-
-
-    //check for existing value in localstorage /session storage
-    ////surpress location chnage prompt for the session
-    function IgonoreCityChange() {
-        bwcache.set(sessionKey, "1", true);
-        blackoutEle.style.display = "none";
-        popupEle.style.display = "none";
-    }
-
-    //accept city change and set cookie t
-    function AcceptCityChange()
-    {
-        var today = new Date(), expire = today, cookieValue = '<%= string.Format("{0}_{1}",UrlCityId,UrlCityName) %>';
-        expire.setTime(today.getTime() + 3600000 * 24 * 365);
-        cookieValue = cookieValue.replace(/\s+/g, '-');
-        document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
-        document.getElementById("cityName").innerText = '<%= UrlCityName %>';
-    }
-
-    function closeOnEsc(e)
-    {
-        if (e.keyCode === 27)
-            closeChangeCityPopup();
-    }
-
-    function closeChangeCityPopup(e)
-    {
-        IgonoreCityChange();
-        blackoutEle.style.display = "none";
-        blackoutEle.style.display = "none";
-    }
-
-    // add event listener
-    ignoreEle.addEventListener("click", IgonoreCityChange, false);
-    acceptEle.addEventListener("click", AcceptCityChange, false);
-    document.addEventListener("keydown", closeChangeCityPopup, false);
+    })();
 
 </script>
+
 
 
 <% } %>

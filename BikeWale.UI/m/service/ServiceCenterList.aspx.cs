@@ -46,6 +46,8 @@ namespace Bikewale.Mobile.Service
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
+        protected ChangeLocationPopup ctrlChangeLocation;
+
         protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
@@ -136,6 +138,12 @@ namespace Bikewale.Mobile.Service
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
             }
             catch (Exception ex)
             {

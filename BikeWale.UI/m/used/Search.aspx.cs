@@ -33,6 +33,7 @@ namespace Bikewale.Mobile.Used
         protected UsedBikeByModels ctrlUsedBikeByModels;
         protected UsedBikeModelByCity ctrlUsedBikeModelByCity;
         protected UsedBikesCityCountByModel ctrlUsedBikesCityCountByModel;
+        protected ChangeLocationPopup ctrlChangeLocation;
 
         #endregion
 
@@ -110,6 +111,13 @@ namespace Bikewale.Mobile.Used
                         ctrlUsedBikesCityCountByModel.TopCount = 6;
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
                     }
+                }
+
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
                 }
             }
             catch (Exception ex)

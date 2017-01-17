@@ -43,6 +43,7 @@ namespace Bikewale.Mobile.New
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected DealersInNearByCities ctrlDealerCount;
+        protected ChangeLocationPopup ctrlChangeLocation;
 
         protected override void OnInit(EventArgs e)
         {
@@ -120,6 +121,14 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.TopCount = 9;
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
+
+
             }
             catch (Exception ex)
             {

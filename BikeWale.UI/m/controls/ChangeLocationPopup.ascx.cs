@@ -1,11 +1,12 @@
 ﻿using Bikewale.Entities.Location;
+using Bikewale.Notifications;
 using System;
 
 namespace Bikewale.Mobile.Controls
 {
     /// <summary>
-    /// Created By : 
-    /// Description : 
+    /// Created By :  Sushil Kumar on 15th Jan 2017
+    /// Description : Control to handle user location for url and cookie city mismatch
     /// </summary>
     public class ChangeLocationPopup : System.Web.UI.UserControl
     {
@@ -29,10 +30,17 @@ namespace Bikewale.Mobile.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            GlobalCityAreaEntity objLocation = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
-            CookieCityId = objLocation.CityId;
-            CookieCityName = objLocation.City;
-            IsLocationChange = (UrlCityId > 0 && UrlCityId != CookieCityId);
+            try
+            {
+                GlobalCityAreaEntity objLocation = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+                CookieCityId = objLocation.CityId;
+                CookieCityName = objLocation.City;
+                IsLocationChange = (UrlCityId > 0 && UrlCityId != CookieCityId);
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Controls.ColorCount.ChangeLocationPopup.Page_Load");
+            }
         }
     }
 }
