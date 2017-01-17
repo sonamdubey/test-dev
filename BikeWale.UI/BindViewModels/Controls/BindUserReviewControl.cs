@@ -58,9 +58,10 @@ namespace Bikewale.BindViewModels.Controls
                     IUserReviewsCache objVersion = container.Resolve<IUserReviewsCache>();
                     uint recCount = Convert.ToUInt16(RecordCount);
                     ReviewListBase reviews = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter);
-                    reviews.ReviewList = reviews.ReviewList.Where(x => x.ReviewId != ReviewId).ToList();
+
                     if (reviews != null && reviews.ReviewList != null && reviews.ReviewList.Count > 0)
                     {
+                        reviews.ReviewList = reviews.ReviewList.Where(x => x.ReviewId != ReviewId).ToList();
                         FetchedRecordsCount = reviews.ReviewList.Count;
                         MakeMaskingName = reviews.ReviewList.FirstOrDefault().MakeMaskingName;
                         ModelMaskingName = reviews.ReviewList.FirstOrDefault().ModelMaskingName;

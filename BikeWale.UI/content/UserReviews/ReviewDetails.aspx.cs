@@ -308,7 +308,7 @@ namespace Bikewale.Content
             }
 
 
-            if (!string.IsNullOrEmpty(BikeName))
+            if (string.IsNullOrEmpty(BikeName))
             {
                 Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -317,6 +317,7 @@ namespace Bikewale.Content
 
             logoURL = objReview.BikeEntity.VersionEntity.VersionId + "b.jpg";
             BindControls();
+            CreatMetas();
         }//pageload
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017

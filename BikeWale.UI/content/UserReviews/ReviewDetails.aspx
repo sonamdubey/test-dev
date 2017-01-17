@@ -279,7 +279,7 @@
             <textarea id="txtAbuseComments"></textarea>
             <span id="spnAbuseComments" class="error font12 text-red"></span>
             <div class="text-center margin-top10">
-                <a id="btnReportReviewAbuse" class="btn btn-orange" onclick="javascript:reportAbuse()">Report</a>
+                <a id="btnReportReviewAbuse" class="btn btn-orange" rel="nofollow" onclick="javascript:reportAbuse()">Report</a>
             </div>
         </div>
 
@@ -300,7 +300,6 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             function helpfulClick(reviewId, helpful) {
-                //alert(reviewId + "," + helpful);
                 $.ajax({
                     type: "POST",
                     url: "/ajaxpro/Bikewale.Ajax.AjaxUserReviews,Bikewale.ashx",

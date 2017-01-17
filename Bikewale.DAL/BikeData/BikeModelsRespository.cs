@@ -1428,12 +1428,12 @@ namespace Bikewale.DAL.BikeData
                             objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                             objReview.HostUrl = Convert.ToString(dr["HostURL"]);
                             objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
-                            objReview.ReviewRatingEntity.ModelRatingLooks = Convert.ToSingle(dr["Looks"]);
-                            objReview.ReviewRatingEntity.PerformanceRating = Convert.ToSingle(dr["Performance"]);
-                            objReview.ReviewRatingEntity.ComfortRating = Convert.ToSingle(dr["Comfort"]);
-                            objReview.ReviewRatingEntity.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
-                            objReview.ReviewRatingEntity.FuelEconomyRating = Convert.ToSingle(dr["FuelEconomy"]);
-                            objReview.ReviewRatingEntity.OverAllRating = Convert.ToSingle(dr["ReviewRate"]);
+                            objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                            objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                            objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                            objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                            objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                            objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
                             objReview.BikeEntity.ReviewsCount = Convert.ToUInt32(dr["ReviewCount"]);
 
                             objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
@@ -1490,12 +1490,12 @@ namespace Bikewale.DAL.BikeData
                             objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                             objReview.HostUrl = Convert.ToString(dr["HostURL"]);
                             objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
-                            objReview.ReviewRatingEntity.ModelRatingLooks = Convert.ToSingle(dr["Looks"]);
-                            objReview.ReviewRatingEntity.PerformanceRating = Convert.ToSingle(dr["Performance"]);
-                            objReview.ReviewRatingEntity.ComfortRating = Convert.ToSingle(dr["Comfort"]);
-                            objReview.ReviewRatingEntity.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
-                            objReview.ReviewRatingEntity.FuelEconomyRating = Convert.ToSingle(dr["FuelEconomy"]);
-                            objReview.ReviewRatingEntity.OverAllRating = Convert.ToSingle(dr["ReviewRate"]);
+                            objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                            objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                            objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                            objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                            objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                            objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
                             objReview.BikeEntity.ReviewsCount = Convert.ToUInt32(dr["ReviewCount"]);
 
                             objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
@@ -1635,12 +1635,12 @@ namespace Bikewale.DAL.BikeData
                                 objReview.BikeEntity.ModelEntity.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
-                                objReview.ReviewRatingEntity.ModelRatingLooks = Convert.ToSingle(dr["Looks"]);
-                                objReview.ReviewRatingEntity.PerformanceRating = Convert.ToSingle(dr["Performance"]);
-                                objReview.ReviewRatingEntity.ComfortRating = Convert.ToSingle(dr["Comfort"]);
-                                objReview.ReviewRatingEntity.ValueRating = Convert.ToSingle(dr["ValueForMoney"]);
-                                objReview.ReviewRatingEntity.FuelEconomyRating = Convert.ToSingle(dr["FuelEconomy"]);
-                                objReview.ReviewRatingEntity.OverAllRating = Convert.ToSingle(dr["ReviewRate"]);
+                                objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                                objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                                objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                                objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                                objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                                objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
                                 objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
                                 objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
                                 objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
