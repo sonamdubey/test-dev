@@ -1,5 +1,4 @@
 ﻿using Bikewale.BAL.EditCMS;
-using Bikewale.BAL.GenericBikes;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.GenericBikes;
@@ -32,7 +31,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
     /// </summary>
     public class BestBikesListing
     {
-        private readonly IBestBikesCacheRepository objBestBikes = null;
+        private readonly IBestBikesCacheRepository _objBestBikes = null;
         public IEnumerable<BestBikeEntityBase> objBestBikesList = null;
 
         public int FetchedRecordCount = 0;
@@ -60,7 +59,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
                     .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                     .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
                     .RegisterType<IProcessFilter, ProcessFilter>();
-                objBestBikes = container.Resolve<IBestBikesCacheRepository>();
+                _objBestBikes = container.Resolve<IBestBikesCacheRepository>();
             }
 
             ParseQueryString();
@@ -144,9 +143,9 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         {
             try
             {
-                if (objBestBikes != null)
+                if (_objBestBikes != null)
                 {
-                     objBestBikesList = objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
+                     objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
                     if (objBestBikesList != null && objBestBikesList.Count() > 0)
                     {
                         FetchedRecordCount = objBestBikesList.Count();

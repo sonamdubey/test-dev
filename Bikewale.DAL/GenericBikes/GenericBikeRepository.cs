@@ -148,23 +148,23 @@ namespace Bikewale.DAL.GenericBikes
                             while(dr.Read())
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
-                                bestBikeObj.BikeName = dr["BikeName"].ToString();
+                                bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
                                 bestBikeObj.MinSpecs = new MinSpecsEntity();
                                 bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
                                 bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
                                 bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
                                 bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                bestBikeObj.HostUrl = dr["HostURL"].ToString();
-                                bestBikeObj.OriginalImagePath = dr["ImagePath"].ToString();
+                                bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
+                                bestBikeObj.OriginalImagePath = Convert.ToString(dr["ImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
                                 bestBikeObj.Model = new BikeModelEntityBase();
                                 bestBikeObj.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
-                                bestBikeObj.Model.ModelName = dr["ModelName"].ToString();
-                                bestBikeObj.Model.MaskingName = dr["ModelMaskingName"].ToString();
+                                bestBikeObj.Model.ModelName = Convert.ToString(dr["ModelName"]);
+                                bestBikeObj.Model.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 bestBikeObj.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
-                                bestBikeObj.Make.MakeName = dr["MakeName"].ToString();
-                                bestBikeObj.Make.MaskingName = dr["MakeMaskingName"].ToString();
+                                bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
+                                bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["MinPrice"]);
                                 bestBikeObj.SmallModelDescription = Convert.ToString(dr["SmallDescription"]);
                                 bestBikeObj.FullModelDescription = Convert.ToString(dr["FullDescription"]);
