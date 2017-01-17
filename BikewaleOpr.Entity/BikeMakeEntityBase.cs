@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
-using BikewaleOpr.Entities;
 
 namespace BikewaleOpr.Entities
 {
@@ -18,7 +13,7 @@ namespace BikewaleOpr.Entities
     [Serializable, DataContract]
     public class BikeMakeEntityBase
     {
-        [JsonProperty(PropertyName = "makeId"), DataMember]        
+        [JsonProperty(PropertyName = "makeId"), DataMember]
         public int MakeId { get; set; }
 
         [JsonProperty(PropertyName = "makeName"), DataMember]
@@ -26,10 +21,10 @@ namespace BikewaleOpr.Entities
 
         [JsonProperty(PropertyName = "maskingName"), DataMember]
         public string MaskingName { get; set; }
-        
+
         [JsonProperty(PropertyName = "hostUrl"), DataMember]
         public string HostUrl { get; set; }
-        
+
         [JsonProperty(PropertyName = "logoUrl"), DataMember]
         public string LogoUrl { get; set; }
 

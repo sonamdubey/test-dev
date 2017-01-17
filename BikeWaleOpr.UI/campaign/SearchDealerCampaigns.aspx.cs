@@ -9,7 +9,7 @@ namespace BikewaleOpr.campaign
 {
     public class SearchDealerCampaigns : System.Web.UI.Page
     {
-        protected DropDownList drpCity, drpDealer;
+        protected DropDownList drpCity;
         private string _requestType = "application/json";
         protected string BwOprHostUrl = ConfigurationManager.AppSettings["BwOprHostUrlForJs"];
         protected string BwHostUrl = ConfigurationManager.AppSettings["BwHostUrlForJs"];
