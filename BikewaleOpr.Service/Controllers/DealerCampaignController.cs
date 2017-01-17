@@ -1,6 +1,8 @@
-﻿using BikewaleOpr.Entities;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -27,22 +29,30 @@ namespace BikewaleOpr.Service.Controllers
         [HttpGet, Route("api/dealermakes/")]
         public IHttpActionResult MakesByDealerCity(uint cityId)
         {
-            if (cityId > 0)
+            try
             {
-                IEnumerable<BikeMakeEntityBase> makes = null;
-                makes = _objDealerCampaignRepository.MakesByDealerCity(cityId);
-                if (makes != null)
+                if (cityId > 0)
                 {
-                    return Ok(makes);
+                    IEnumerable<BikeMakeEntityBase> makes = null;
+                    makes = _objDealerCampaignRepository.MakesByDealerCity(cityId);
+                    if (makes != null)
+                    {
+                        return Ok(makes);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.MakesByDealerCity({0})", cityId));
+                return InternalServerError();
             }
         }
 
@@ -57,19 +67,27 @@ namespace BikewaleOpr.Service.Controllers
         [HttpGet, Route("api/dealers/city/{cityId}/make/{makeId}/")]
         public IHttpActionResult DealersByMakeCity(uint cityId, uint makeId, bool activecontract = false)
         {
-            if (cityId > 0 && makeId > 0)
+            try
             {
-                IEnumerable<DealerEntityBase> dealers = null;
-                dealers = _objDealerCampaignRepository.DealersByMakeCity(cityId, makeId, activecontract);
-                if (dealers != null)
+                if (cityId > 0 && makeId > 0)
                 {
-                    return Ok(dealers);
+                    IEnumerable<DealerEntityBase> dealers = null;
+                    dealers = _objDealerCampaignRepository.DealersByMakeCity(cityId, makeId, activecontract);
+                    if (dealers != null)
+                    {
+                        return Ok(dealers);
+                    }
+                    else { return NotFound(); }
                 }
-                else { return NotFound(); }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
+                return InternalServerError();
             }
         }
 
@@ -83,22 +101,30 @@ namespace BikewaleOpr.Service.Controllers
         [HttpGet, Route("api/dealercampaigns/")]
         public IHttpActionResult DealerCampaigns(uint dealerId, bool activecontract = false)
         {
-            if (dealerId > 0)
+            try
             {
-                IEnumerable<DealerCampaignDetailsEntity> campaigns = null;
-                campaigns = _objDealerCampaignRepository.DealerCampaigns(dealerId, activecontract);
-                if (campaigns != null)
+                if (dealerId > 0)
                 {
-                    return Ok(campaigns);
+                    IEnumerable<DealerCampaignDetailsEntity> campaigns = null;
+                    campaigns = _objDealerCampaignRepository.DealerCampaigns(dealerId, activecontract);
+                    if (campaigns != null)
+                    {
+                        return Ok(campaigns);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest();
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignController.DealerCampaigns({0},{1})", dealerId, activecontract));
+                return InternalServerError();
             }
         }
     }
