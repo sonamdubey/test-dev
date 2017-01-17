@@ -908,6 +908,10 @@
       <DependentUpon>BookBikeSlug.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\ChangeLocationPopup.ascx.cs">
+      <DependentUpon>ChangeLocationPopup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\CompareBikeMin.ascx.cs">
       <DependentUpon>CompareBikeMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2597,6 +2601,7 @@
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
+    <Content Include="m\controls\ChangeLocationPopup.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\DealersByBrand.ascx" />
