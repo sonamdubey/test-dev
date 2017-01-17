@@ -5,6 +5,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 
@@ -121,6 +123,73 @@ namespace Bikewale.DAL.GenericBikes
                 ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}",modelId));
             }
             return bikeRankObj;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 17 Jan 2017
+        /// Description : To get top 10 bikes of a given body style
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        {
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getgenericbikelisting";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            bestBikesList=new Collection<BestBikeEntityBase>();
+                            while(dr.Read())
+                            {
+                                BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
+                                bestBikeObj.BikeName = dr["BikeName"].ToString();
+                                bestBikeObj.MinSpecs = new MinSpecsEntity();
+                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
+                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
+                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
+                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                bestBikeObj.HostUrl = dr["HostURL"].ToString();
+                                bestBikeObj.OriginalImagePath = dr["ImagePath"].ToString();
+                                bestBikeObj.Make = new BikeMakeEntityBase();
+                                bestBikeObj.Model = new BikeModelEntityBase();
+                                bestBikeObj.Model.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                bestBikeObj.Model.ModelName = dr["ModelName"].ToString();
+                                bestBikeObj.Model.MaskingName = dr["ModelMaskingName"].ToString();
+                                bestBikeObj.Make.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                bestBikeObj.Make.MakeName = dr["MakeName"].ToString();
+                                bestBikeObj.Make.MaskingName = dr["MakeMaskingName"].ToString();
+                                bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["MinPrice"]);
+                                bestBikeObj.SmallModelDescription = Convert.ToString(dr["SmallDescription"]);
+                                bestBikeObj.FullModelDescription = Convert.ToString(dr["FullDescription"]);
+                                bestBikeObj.UnitsSold = SqlReaderConvertor.ToUInt32(dr["UnitsSold"]);
+                                bestBikeObj.LaunchDate = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]);
+                                bestBikeObj.PhotosCount = SqlReaderConvertor.ToUInt32(dr["PhotosCount"]);
+                                bestBikeObj.VideosCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]);
+                                bestBikeObj.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]);
+                                bestBikeObj.NewsCount = SqlReaderConvertor.ToUInt32(dr["NewsCount"]);
+                                bestBikeObj.TotalVersions = SqlReaderConvertor.ToUInt32(dr["VersionCount"]);
+                                bestBikeObj.TotalModelColors = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
+                                bestBikeObj.LastUpdatedModelSold = SqlReaderConvertor.ToDateTime(dr["UnitSoldDate"]);
+                                bestBikesList.Add(bestBikeObj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBestBikesByCategory: BodyStyleId:{0}", bodyStyle));
+            }
+            return bestBikesList;
         }
         
     }

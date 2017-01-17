@@ -5,6 +5,8 @@ using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 namespace Bikewale.Cache.GenericBikes
 {
     /// <summary>
@@ -101,6 +103,26 @@ namespace Bikewale.Cache.GenericBikes
             }
             return bikeRankObj;
         }
-       
+        /// <summary>
+        /// Created By : Aditi Srivastava on 17 Jan 2017
+        /// Description : To get top 10 bikes of a given body style
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        {
+            string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _genericBike.GetBestBikesByCategory(bodyStyle));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+
+            }
+            return bestBikesList;
+        }
     }
 }

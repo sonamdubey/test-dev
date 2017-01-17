@@ -26,11 +26,13 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
     /// <summary>
     /// Created By : Sushil Kumar on 22nd Dec 2016
     /// Description : View model for generic page
+    /// Modified by : Aditi srivastava on 17 Jan 2017
+    /// Description : Removed BL function call and 
+    ///      added cache function for top bikes listing
     /// </summary>
     public class BestBikesListing
     {
-        private readonly IBestBikes objBestBikesBal = null;
-
+        private readonly IBestBikesCacheRepository objBestBikes = null;
         public IEnumerable<BestBikeEntityBase> objBestBikesList = null;
 
         public int FetchedRecordCount = 0;
@@ -51,15 +53,14 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBestBikes, BestBikesBL>()
-                    .RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
+                container.RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
                     .RegisterType<ISearchResult, SearchResult>()
                     .RegisterType<ICacheManager, MemcacheManager>()
                     .RegisterType<IArticles, Articles>()
                     .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                     .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
                     .RegisterType<IProcessFilter, ProcessFilter>();
-                objBestBikesBal = container.Resolve<IBestBikes>();
+                objBestBikes = container.Resolve<IBestBikesCacheRepository>();
             }
 
             ParseQueryString();
@@ -136,14 +137,16 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         /// <summary>
         /// Created by : Sushil Kumar on 22nd Dec 2016
         /// Desc: Fetch Bikes by body style and category
+        /// Modified by : Aditi Srivastava on 17 Jan 2017
+        /// Description : Used a different function for getting lust of top bikes
         /// </summary>
         public void FetchBestBikesList(ushort topCount)
         {
             try
             {
-                if (objBestBikesBal != null)
+                if (objBestBikes != null)
                 {
-                    objBestBikesList = objBestBikesBal.BestBikesByType(BodyStyleType).Take(topCount);
+                     objBestBikesList = objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
                     if (objBestBikesList != null && objBestBikesList.Count() > 0)
                     {
                         FetchedRecordCount = objBestBikesList.Count();
