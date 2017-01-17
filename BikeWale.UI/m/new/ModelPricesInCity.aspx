@@ -119,7 +119,15 @@
             </div>
         </section>
         <% }  %>
-                <% if (isAreaAvailable && !isDiscontinued)
+                <% if(isAreaSelected) { %>
+                <div class="grid-12 float-button float-fixed">
+                    <p class="grid-6 font13 select-area-label text-light-grey">Please Get in touch with nearby dealer</p>
+                    <p class="grid-6 alpha">
+                        <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click %>" data-modelid="<%=modelId %>" c="Price_in_City_Page" a="View_dealer_details_Clicked" l="<%= string.Format("{0}_{1}_{2}", makeName, modelName, versionName)%>" class="bw-ga btn btn-xs btn-full-width font16 btn-orange" rel="nofollow">View dealer details</a>
+                    </p>
+                </div>
+                <% } else
+                if (isAreaAvailable && !isDiscontinued)
                    { %>
                 <div class="grid-12 float-button float-fixed">
                     <p class="grid-6 font13 select-area-label text-light-grey">Please select area to get accurate on-road price</p>
@@ -135,8 +143,43 @@
         </section>
 
 
-        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
-            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0 || bikeRankObj!=null) ? string.Empty : "hide" %>">
+            <div class="container box-shadow bg-white margin-bottom10">
+                <%if (ctrlAlternateBikes.FetchedRecordsCount > 0)
+                  { %>
+            
+                <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+            
+                <%} %>
+                    <%if(bikeRankObj!=null){ %>
+          
+                 <%if(bikeRankObj.Rank>0){ %>
+           
+                <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 <%= (ctrlAlternateBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                        <div class="inline-block">
+                            <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                        </div>
+                        <p class="rank-slug-label inline-block text-default font14"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </div>
+                <%} %>
+                <%else{ %>
+                <div class="margin-left20 margin-right20 margin-top15 padding-bottom20 <%= (ctrlAlternateBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwmsprite rank-graph"></span>
+                        </div>
+                        <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName.ToLower() %><br /> can come in handy.</p>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                </div>
+                
+               <%} %>
+              
+                <%} %>
+                  </div>
         </section>
         
   
@@ -187,11 +230,24 @@
                         lab: bikeNameLocation.concat(areaName == "" ? "" : "_" + areaName)
                     }
                 };
-
                 dleadvm.setOptions(leadOptions);
-
             });
 
+            $("#dealerDetails").click(function (e) {
+                ele = $(this);
+                checkCookies();
+                $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+                $('#popupWrapper').addClass('loader-active');
+                $('#popupWrapper,#popupContent').show();
+                var options = {
+                    "modelId": "<%= modelId %>",
+                    "cityId": onCookieObj.PQCitySelectedId,
+                    "areaId": onCookieObj.PQAreaSelectedId,
+                    "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
+                    "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+                };
+                vmquotation.setOptions(options);
+            });
 
             $(document).ready(function () {
                 var floatButton = $('.float-button'),

@@ -25,6 +25,7 @@
 	%>
 
 	<!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="amphtml" href="<%= metas.AmpUrl %>" />
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">

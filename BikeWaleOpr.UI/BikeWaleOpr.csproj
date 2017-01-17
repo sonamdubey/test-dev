@@ -302,6 +302,10 @@
       <DependentUpon>ManageUserReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="content\ModelColorWiseImage.aspx.cs">
+      <DependentUpon>ModelColorWiseImage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\NewBikeFeatureItems.aspx.cs">
       <DependentUpon>NewBikeFeatureItems.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1283,6 +1287,7 @@
     <Content Include="content\mappingfiles\MappedBikeData.xml" />
     <Content Include="content\mappingfiles\MappedCityData.xml" />
     <Content Include="content\mappingfiles\PriceData.xml" />
+    <Content Include="content\ModelColorWiseImage.aspx" />
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
@@ -1837,8 +1842,10 @@
     <Content Include="src\common\common.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
+    <Content Include="src\imageUpload.js" />
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\modelImagesByColor.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>
@@ -1880,6 +1887,10 @@
     <ProjectReference Include="..\BikewaleOpr.BAL\BikewaleOpr.BAL.csproj">
       <Project>{16f4a3eb-ab13-44c2-99cd-a942c05f3222}</Project>
       <Name>BikewaleOpr.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Cache\BikewaleOpr.Cache.csproj">
+      <Project>{23d53f9a-3b4e-4c7e-8843-5279d74542af}</Project>
+      <Name>BikewaleOpr.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>

@@ -2,16 +2,7 @@
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-city-list li");
 
-$(function () {
-    if (getCookie("Used") != null) {
-        var arr = getCookie("Used").split('&');
-        if (arr[usedPageIdentifier].split('=')[1] == "1")
-            $('#city-model-used-carousel').show();
-        else
-            $('#city-model-used-carousel').hide();
-    }
 
-})
 var getQueryString = function () {
     var qsColl = new Object();
     try {

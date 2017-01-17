@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Used.Search;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -12,6 +13,7 @@ using Bikewale.DAL.Used.Search;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Used.Search;
@@ -73,7 +75,9 @@ namespace Bikewale.New
         private StringBuilder colorStr = new StringBuilder();
         protected ModelPageVM viewModel = null;
         public DropDownList ddlVersion;
-
+        protected BikeRankingEntity bikeRankObj;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
+        
         #endregion Global Variables
 
         #region Events
@@ -340,12 +344,30 @@ namespace Bikewale.New
                             ctrlAlternativeBikes.VersionId = Convert.ToUInt32(modelVersions[0].VersionId);
                         }
                     }
+                    GetBikeRankingCategory((uint)_modelId);
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("versions.aspx --> CreateMetas() ModelId: {0}, MaskingName: {1}", modelId, modelQuerystring));
                 objErr.SendMail();
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj=bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
             }
         }
 
@@ -584,6 +606,8 @@ namespace Bikewale.New
         /// Description     :   Fetch On road price depending on City, Area and DealerPQ and BWPQ
         /// Modified By     :   Sushil Kumar on 19th April 2016
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed
+        /// Modified by     :   Sajal Gupta on 13-01-2017
+        /// Description     :   Changed flag isOnRoadPrice if onroad price not available
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -608,6 +632,10 @@ namespace Bikewale.New
                                 isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId.ToString());
                             }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+
+                            if (pqOnRoad.PriceQuote.PQId == 0)
+                                isOnRoadPrice = false;
+
                         }
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), variantId.ToString(), dealerId.ToString()));
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)

@@ -90,6 +90,8 @@ namespace Bikewale.Controls
         /// Description :   If City Id is not passed Get the popular city dealer count
         /// Modified by :  Subodh Jain on 21 Dec 2016
         /// Description :   Merge Dealer and service center for make and model page
+        /// Modified by : Sushil Kumar on 11th Jan 2016
+        /// Description :   Modified show widget values
         /// </summary>
         protected void BindDealers()
         {
@@ -117,16 +119,17 @@ namespace Bikewale.Controls
                             makeMaskingName = _dealers.MakeMaskingName;
                             if (DealerId > 0)
                             {
-
                                 _dealers.Dealers = _dealers.Dealers.Where(m => m.DealerId != DealerId);
                             }
-                            if (_dealers.Dealers.Count() > 0)
-                            {
-                                showWidget = true;
 
+                            showWidget = _dealers.Dealers.Count() > 0;
+
+                            if (rptDealers != null)
+                            {
+                                rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
+                                rptDealers.DataBind();
                             }
-                            rptDealers.DataSource = _dealers.Dealers.Take(TopCount);
-                            rptDealers.DataBind();
+
                         }
                     }
                     else
@@ -134,10 +137,8 @@ namespace Bikewale.Controls
                         cityDealers = objCache.GetPopularCityDealer(MakeId, TopCount);
                         if (cityDealers != null)
                         {
-                            if (cityDealers.TotalDealerCount > 0 || cityDealers.TotalServiceCenterCount > 0)
-                                showWidget = true;
-                            if (cityDealers.TotalServiceCenterCount > 0)
-                                showServiceCenter = true;
+                            showWidget = (cityDealers.TotalDealerCount > 0 || cityDealers.TotalServiceCenterCount > 0);
+                            showServiceCenter = (cityDealers.TotalServiceCenterCount > 0);
                         }
                     }
                 }
@@ -145,8 +146,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Controls.DealerCard.BindDealers");
             }
         }
     }

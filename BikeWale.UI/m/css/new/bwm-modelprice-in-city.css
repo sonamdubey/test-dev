@@ -89,6 +89,53 @@
     display: block;
     padding: 15px 10px 10px;
 }
+
+/* full-width slug */
+.model-rank-slug {
+    width: 100%;
+    min-height: 52px;
+    padding: 10px 40px 10px 20px;
+    border: 1px solid #e2e2e2;
+    display: block;
+    position: relative;
+}
+.model-rank-slug:hover {
+    text-decoration: none;
+}
+.rank-slug-label {
+    width: 83%;
+    padding-left: 15px;
+}
+.icon-red-bg {
+    width: 30px;
+    height: 30px;
+    background: #ef3f30;
+    text-align: center;
+    padding-top: 5px;
+}
+.rank-graph {
+    width: 20px;
+    height: 20px;
+    background-position: -190px -435px;
+}
+.right-arrow {
+    width: 8px;
+    height: 12px;
+    background-position: -182px -394px;
+    position: absolute;
+    right: 20px;
+    top: 41%;
+}
+.item-rank {
+    min-width: 30px;
+    display: block;
+    padding: 5px 2px;
+    background: #ef3f30;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
 @media only screen and (max-width: 320px) {
     .bw-horizontal-swiper.card-container .swiper-slide {
         width: 275px;
@@ -98,5 +145,8 @@
     }
     .location-details {
         font-size: 13px;
+    }
+    .rank-slug-label {
+        width: 80%;
     }
 }
