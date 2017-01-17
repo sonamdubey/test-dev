@@ -308,6 +308,7 @@
     <Compile Include="BindViewModels\Controls\BindUsedBikesInCityCount.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedRecentBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUserReviewsSimilarBike.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosSectionCatwise.cs" />
@@ -328,6 +329,8 @@
     <Compile Include="BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
+    <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviews.cs" />
+    <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviewsDetails.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -773,6 +776,10 @@
     </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserReviewSimilarBike.ascx.cs">
+      <DependentUpon>UserReviewSimilarBike.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UserReviewsList.ascx.cs">
@@ -2100,6 +2107,7 @@
     <Content Include="controls\UsedBikeWidget.ascx" />
     <Content Include="controls\UsedRecentBikes.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
+    <Content Include="controls\UserReviewSimilarBike.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoByCategory.ascx" />
@@ -2184,6 +2192,7 @@
     <Content Include="css\used\bikes-in-city.css" />
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
+    <Content Include="css\user-review\listing.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />

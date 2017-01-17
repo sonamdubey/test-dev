@@ -32,6 +32,9 @@ namespace Bikewale.Controls
         public string ModelMaskingName { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
+        public string WidgetHeading { get; set; }
+        public int ReviewId { get; set; }
+
         protected string linkTitle = string.Empty;
 
 
@@ -45,10 +48,14 @@ namespace Bikewale.Controls
         {
             BindUserReviews();
         }
-
+        /// <summary>
+        /// Modified By :- Subodh jain 17 Jan 2017
+        /// Summary :- Added review id
+        /// </summary>
         private void BindUserReviews()
         {
             BindUserReviewControl objUserReview = new BindUserReviewControl();
+            objUserReview.ReviewId = ReviewId;
             objUserReview.ModelId = ModelId;
             objUserReview.PageNo = PageNo;
             objUserReview.PageSize = PageSize;

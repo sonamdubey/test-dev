@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -15,6 +16,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added GetModelPhotos method
     /// Modeified by : Subodh Jain on 22 sep 2016
     /// Description : added GetMostPopularBikesbyMakeCity method
+    /// Modeified by : Subodh Jain on 22 sep 2016
+    /// Description : added GetUserReviewSimilarBike method
     /// </summary>
     /// <typeparam name="U"></typeparam>
     public interface IBikeModelsCacheRepository<U>
@@ -31,5 +34,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelImage> GetModelPhotos(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
+        IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
     }
 }
