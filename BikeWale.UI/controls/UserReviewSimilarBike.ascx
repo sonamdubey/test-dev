@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UserReviewSimilarBike" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UserReviewSimilarBike" EnableViewState="false" %>
 <%if (userReviewList!=null)
   { %>
                 <ul class="sidebar-bike-list">

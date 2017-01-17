@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,22 +25,30 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserReviewsSimilarBike();
+            UserReviewsSimilarBikes();
         }
         /// <summary>
         /// Created By :- Subodh Jain 17 Jan 2017
         /// Summary :- Get User Review Similar Bike 
         /// </summary>
-        private void UserReviewsSimilarBike()
+        private void UserReviewsSimilarBikes()
         {
-            BindUserReviewsSimilarBike objUserReview = new BindUserReviewsSimilarBike();
-            if (objUserReview != null)
+            try
             {
-                userReviewList = objUserReview.GetUserReviewSimilarBike(ModelId, TopCount);
-                if (userReviewList != null)
+                BindUserReviewsSimilarBike objUserReview = new BindUserReviewsSimilarBike();
+                if (objUserReview != null)
                 {
-                    FetchCount = Convert.ToUInt16(userReviewList.Count());
+                    userReviewList = objUserReview.GetUserReviewSimilarBike(ModelId, TopCount);
+                    if (userReviewList != null)
+                    {
+                        FetchCount = Convert.ToUInt16(userReviewList.Count());
+                    }
                 }
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, "UserReviewSimilarBike.UserReviewsSimilarBikes");
             }
         }
     }

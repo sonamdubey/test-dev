@@ -224,19 +224,21 @@
                 </div>
             </div>
             <div class="grid-4 omega">
-                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                 <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
+                 <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                 <h2>User reviews of similar bikes</h2>
                 <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
     
                 </div>
+                  <%} %>
                 <div>
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250.aspx" -->
                 </div>
-                
+                  <%if (ctrlPopularBikes.FetchedRecordsCount>0)
+                          { %>
                   <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                
-        
+                <%} %>
                 <div>
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250BTF.aspx" -->

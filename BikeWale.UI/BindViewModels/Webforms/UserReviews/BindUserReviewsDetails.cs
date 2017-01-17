@@ -55,7 +55,7 @@ namespace Bikewale.BindViewModels.Webforms.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.GetDetailsByModel");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.BindUserReviewsDetails.GetDetails_{0}", reviewId));
             }
             return objReview;
         }
