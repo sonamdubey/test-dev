@@ -473,8 +473,8 @@
                     </p>
                     <%if(!modelPage.ModelDetails.Futuristic && bikeRankObj!=null && bikeRankObj.Rank > 0){ %>
                     <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Top 10 <%=styleName%> in India" class="model-rank-slug margin-top20 margin-bottom10">
-                        <div class="inline-block">
-                            <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwmsprite rank-graph"></span>
                         </div>
                         <div class="rank-slug-label inline-block text-bold text-default">
                             <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>
@@ -877,7 +877,7 @@
                             <div class="inline-block">
                                 <span class="item-rank">#<%=bikeRankObj.Rank%></span>
                             </div>
-                            <p class="rank-slug-label inline-block text-default font14"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made<br /> it to Top 10 list.</p>
+                            <p class="rank-slug-label inline-block text-default font14"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                             <span class="bwmsprite right-arrow"></span>
                         </a>
                     </div>
