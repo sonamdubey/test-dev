@@ -30,6 +30,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
+    /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
@@ -53,7 +57,8 @@ namespace Bikewale.Mobile.New
         protected string pageDescription;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty,bikeType=string.Empty;
+        protected ChangeLocationPopup ctrlChangeLocation;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -69,6 +74,8 @@ namespace Bikewale.Mobile.New
         /// Summary :- Added heading to dealer widget
         /// Modified By :-Aditi Srivastava on 13 Jan 2017
         /// Summary :- Added generic bike listing slug
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Moved function related to widgets binding and getdealercount
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
@@ -82,6 +89,23 @@ namespace Bikewale.Mobile.New
             else
             {
                 FetchVersionPrices();
+                GetDealerCount();
+                ColorCount();
+                BindDescription();
+                GetBikeRankingCategory(modelId);
+                BindPageWidgets();
+
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Bind page related widgets and location change prompt
+        /// </summary>
+        private void BindPageWidgets()
+        {
+            try
+            {
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
@@ -102,7 +126,16 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
 
-                BindAlternativeBikeControl();
+                ctrlAlternateBikes.TopCount = 9;
+                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
+                ctrlAlternateBikes.WidgetTitle = bikeName;
+                ctrlAlternateBikes.modelName = modelName;
+                ctrlAlternateBikes.IsPriceInCity = true;
+                ctrlAlternateBikes.CityName = cityName;
+                ctrlAlternateBikes.CityId = cityId;
+
+                if (firstVersion != null)
+                    ctrlAlternateBikes.VersionId = firstVersion.VersionId;
 
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.ModelId = modelId;
@@ -120,6 +153,28 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
 
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.ModelPricesInCity-BindPageWidgets");
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Get dealer count by make and city
+        /// </summary>
+        private void GetDealerCount()
+        {
+            try
+            {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
@@ -131,13 +186,15 @@ namespace Bikewale.Mobile.New
 
                     dealerCount = _dealers.TotalCount;
                 }
-
-                ColorCount();
-                BindDescription();
-                GetBikeRankingCategory(modelId);
-
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.ModelPricesInCity-GetDealerCount");
             }
         }
+
+
+
         /// <summary>
         /// Created by : Aditi Srivastava on 13 Jan 2017
         /// Description: To get model ranking details
@@ -410,20 +467,6 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
             return _cityId;
-        }
-
-        private void BindAlternativeBikeControl()
-        {
-            ctrlAlternateBikes.TopCount = 9;
-            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
-            ctrlAlternateBikes.WidgetTitle = bikeName;
-            ctrlAlternateBikes.modelName = modelName;
-            ctrlAlternateBikes.IsPriceInCity = true;
-            ctrlAlternateBikes.CityName = cityName;
-            ctrlAlternateBikes.CityId = cityId;
-
-            if (firstVersion != null)
-                ctrlAlternateBikes.VersionId = firstVersion.VersionId;
         }
 
         public void BindDescription()

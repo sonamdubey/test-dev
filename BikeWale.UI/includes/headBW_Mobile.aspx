@@ -1,5 +1,6 @@
 ﻿
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
     <div id="appBanner" class="hide">
         <div class="banner-close-btn" id="btnCrossApp"></div>
@@ -15,7 +16,7 @@
         </div>
         <div class="clear"></div>
     </div>
-    <!---->
+    <!---->  
 
     <header>
         <div id="bw-header">

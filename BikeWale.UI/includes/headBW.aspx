@@ -1,5 +1,6 @@
 ﻿<%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
+<%@ Register Src="~/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
     <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?"header-landing":String.Empty   %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">

@@ -33,6 +33,9 @@
     </div>
     <div class="clear"></div>
 </div>
+
+<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
+
 <!-- global-search-popup code starts here -->
 <div id="global-search-popup" class="global-search-popup" style="display:none"> 
     <div class="form-control-box">
