@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
@@ -130,6 +131,69 @@ namespace Bikewale.Cache.BikeData
             }
 
             return similarBikes;
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Get details by model and city for review
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        public ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId)
+        {
+            ReviewDetailsEntity objReview = null;
+            string key = string.Format("BW_DetailsByModel_ModelId_{0}_CityId_{1}", modelId, cityId);
+            try
+            {
+                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByModel(modelId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByModel_ModelId_{0}_CityId_{1}", modelId, cityId));
+            }
+
+            return objReview;
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Get details by version and city for review
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        public ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId)
+        {
+            ReviewDetailsEntity objReview = null;
+            string key = string.Format("BW_DetailsByVersion_VersionId_{0}_CityId_{1}", versionId, cityId);
+            try
+            {
+                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByVersion(versionId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetailsByVersion_ModelId_{0}_CityId_{1}", versionId, cityId));
+            }
+
+            return objReview;
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Get details for review
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        public ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed)
+        {
+            ReviewDetailsEntity objReview = null;
+            string key = string.Format("BW_Details_ReviewId_{0}", reviewId);
+            try
+            {
+                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetails(reviewId, isAlreadyViewed));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetails_ReviewId_{0}", reviewId));
+            }
+
+            return objReview;
         }
     }
 }

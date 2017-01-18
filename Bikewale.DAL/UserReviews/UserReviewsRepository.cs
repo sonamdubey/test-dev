@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 
 namespace Bikewale.DAL.UserReviews
@@ -71,17 +70,10 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMostReviewedBikesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMostReviewedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return objBikeList;
         }
@@ -134,17 +126,9 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetReviewedBikesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetReviewedBikesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return objBikeList;
         }
@@ -208,17 +192,11 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMostReadReviews sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMostReadReviews ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objReviewList;
@@ -283,17 +261,11 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMostHelpfulReviews sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMostHelpfulReviews ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return objReviewList;
@@ -360,17 +332,12 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMostRecentReviews sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMostRecentReviews ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return objReviewList;
         }
@@ -437,17 +404,12 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetMostRatedReviews sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMostRatedReviews ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return objReviewList;
         }
@@ -490,17 +452,11 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetBikeRatings sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetBikeRatings ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return objRate;
         }
@@ -569,15 +525,11 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return reviews;
@@ -665,17 +617,12 @@ namespace Bikewale.DAL.UserReviews
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetReviewDetails sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetReviewDetails ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return objRating;
@@ -708,17 +655,12 @@ namespace Bikewale.DAL.UserReviews
                     success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("SQL Exception in AbuseReview () : " + sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("AbuseReview Exception : " + ex.Message);
+
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+
             }
 
             return success;
@@ -744,17 +686,12 @@ namespace Bikewale.DAL.UserReviews
                     success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdateReviewViews SQL Exception : " + sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdateReviewViews Exception : " + ex.Message);
+
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+
             }
 
             return success;
@@ -783,17 +720,12 @@ namespace Bikewale.DAL.UserReviews
                     success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("UpdateReviewUseful SQL Exception : " + sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("UpdateReviewUseful Exception : " + ex.Message);
+
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
+
             }
             return success;
         }

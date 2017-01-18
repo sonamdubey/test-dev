@@ -110,7 +110,14 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image":"") %>" class="cursor-pointer" />
+                            <%--<img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image":"") %>" class="cursor-pointer" />--%>
+							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
+							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" title="<%= bikeName + " Photos"%>">
+							<% } %>
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image-1":"") %>" class="cursor-pointer" />
+							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
+							</a>
+							<% } %>
                             <div class="model-media-details">
                                 <% if (modelPage.ModelDetails.PhotosCount>0)
                                 { %>
@@ -226,7 +233,7 @@
                    if (!modelPage.ModelDetails.Futuristic)
                    { %>
                         <div class="padding-10-20">
-                            <p class="font12 text-light-grey"><%=priceText %> price in <%= location %></p>
+                            <p class="font12 text-light-grey"><%=priceText %> price in <%=(isOnRoadPrice?location:Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
                             <p>
                                 <span class="bwmsprite inr-md-icon"></span>
                                 <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
@@ -464,6 +471,19 @@
                         </span>
                         <a href="javascript:void(0)" class="font14 read-more-model-preview">Read more</a>
                     </p>
+                    <%if(!modelPage.ModelDetails.Futuristic && bikeRankObj!=null && bikeRankObj.Rank > 0){ %>
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Top 10 <%=styleName%> in India" class="model-rank-slug margin-top20 margin-bottom10">
+                        <div class="inline-block icon-red-bg">
+                            <span class="bwmsprite rank-graph"></span>
+                        </div>
+                        <div class="rank-slug-label inline-block text-bold text-default">
+                            <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>
+                            <p class="font11">Check out the complete list.</p>
+                        </div>
+                        <span class="trend-arrow"></span>
+                        <span class="bwmsprite right-arrow"></span>
+                    </a>
+                    <%} %>
                     <% if (modelPage.ModelVersionSpecs != null)
                        { %>
                     <h3 class="margin-top15">Specification summary</h3>
@@ -835,10 +855,11 @@
                 </div>
                 <% } %>
 
-                <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)
+              
+                <div id="modelSimilarContent" class="bw-model-tabs-data padding-bottom20 font14">
+                      <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)
                    { %>
-                <div id="modelSimilarContent" class="bw-model-tabs-data padding-top15 padding-bottom20 font14">
-                    <h2 class="padding-left20 padding-right20 margin-bottom20">Bikes Similar to <%=modelPage.ModelDetails.ModelName%></h2>
+                    <h2 class="padding-left20 padding-right20 margin-bottom20 padding-top15">Bikes Similar to <%=modelPage.ModelDetails.ModelName%></h2>
                     <% if (ctrlCompareBikes.fetchedCount > 0){ %>
                     <h3 class="padding-left20 padding-right20 margin-bottom20">Most compared alternatives</h3>
                     <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
@@ -847,10 +868,37 @@
                     <% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
                     { %>
                     <BW:AlternateBikes ID="ctrlAlternativeBikes" runat="server" />
+                   <% } %>
                     <% } %>
+                        <%if(!modelPage.ModelDetails.Futuristic && bikeRankObj!=null){ %>
+                    <%if(bikeRankObj.Rank>0){ %>
+                          <div class="margin-left20 margin-right20 margin-top15">
+                        <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                            <div class="inline-block">
+                                <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                            </div>
+                            <p class="rank-slug-label inline-block text-default font14"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </div>
+                    <%} %>
+                    <%else{ %>
+                    <div class="margin-left20 margin-right20 margin-top15">
+                        <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India" class="model-rank-slug">
+                            <div class="inline-block icon-red-bg">
+                                <span class="bwmsprite rank-graph"></span>
+                            </div>
+                            <p class="rank-slug-label inline-block text-default font14">Not sure what to buy?<br />List of Top 10 <%=styleName.ToLower() %><br/> can come in handy.</p>
+                            <span class="bwmsprite right-arrow"></span>
+                        </a>
+                    </div>
+                    <%} %>
+                                 
+                    <%} %>
                 </div>
+                 <%if(!modelPage.ModelDetails.Futuristic){%>
                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-                <% } %>
+                <%} %>
 
                 <% if ((!isDiscontinued && !modelPage.ModelDetails.Futuristic) && (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)))
                    { %>

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
@@ -11,6 +12,7 @@ using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -18,6 +20,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -32,8 +35,8 @@ namespace Bikewale.New
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description :  Added and Linked LeadCapture Widget
     ///                Added  PQSourceId for DealerCard Widget
-    /// Modified By : Sushil Kumar on 8th June 2016
-    /// Description :              
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget        
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
@@ -49,9 +52,12 @@ namespace Bikewale.New
         public string makeName = string.Empty, makeMaskingName = string.Empty, modelName = string.Empty, modelMaskingName = string.Empty, bikeName = string.Empty, modelImage = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty, pageDescription = string.Empty;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
+        protected BikeRankingEntity bikeRankObj;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
+        protected ChangeLocationPopup ctrlChangeLocation;
 
         protected override void OnInit(EventArgs e)
         {
@@ -65,6 +71,8 @@ namespace Bikewale.New
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified By :-Aditi Srivastava on 13 Jan 2017
+        /// Summary :- Added generic bike listing slug
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -80,6 +88,7 @@ namespace Bikewale.New
             dd.DetectDevice();
 
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -91,13 +100,15 @@ namespace Bikewale.New
                 BindDealers();
                 ColorCount();
                 BindDescription();
-
+                GetBikeRankingCategory(modelId);
             }
         }
 
         /// <summary>
         /// Created by:-Subodh Jain 26 Dec 2016
         /// Summary:- Bind Controls
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindControl()
         {
@@ -144,6 +155,30 @@ namespace Bikewale.New
             ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
+
+            if (ctrlChangeLocation != null)
+            {
+                ctrlChangeLocation.UrlCityId = cityId;
+                ctrlChangeLocation.UrlCityName = cityName;
+            }
+
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
+            }
         }
         /// <summary>
         /// Created By Subodh Jain 18 oct 2016
@@ -212,7 +247,7 @@ namespace Bikewale.New
                 catch (Exception err)
                 {
                     ErrorClass objErr = new ErrorClass(err, "ModelPricesInCity.ColorCount");
-                    objErr.SendMail();
+
                 }
             }
 
@@ -478,6 +513,19 @@ namespace Bikewale.New
                 objErr.SendMail();
             }
             return _cityId;
+        }
+        /// <summary>
+        /// Created By : Sangram Nandkhile 
+        /// Created On : 16th Jan 2016
+        /// Read location cookie values and set flag
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
+            {
+                isAreaSelected = true;
+            }
         }
     }   // class
 }   // namespace

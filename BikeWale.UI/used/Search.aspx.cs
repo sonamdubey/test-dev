@@ -36,6 +36,7 @@ namespace Bikewale.Used
         protected UsedBikesCityCountByBrand ctrlUsedBikesCityCountByMake;
         protected UsedBikeModelByCity ctrlUsedBikeModelByCity;
         protected UsedBikesCityCountByModel ctrlUsedBikesCityCountByModel;
+        protected ChangeLocationPopup ctrlChangeLocation;
 
         #region events
 
@@ -121,6 +122,13 @@ namespace Bikewale.Used
                         ctrlUsedBikesCityCountByModel.TopCount = 6;
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.ModelIndia);
                     }
+                }
+
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
                 }
 
             }

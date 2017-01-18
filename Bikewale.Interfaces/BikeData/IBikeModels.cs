@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -13,6 +14,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: added new method  IEnumerable<ModelImage> GetModelPhotos() 
     /// Modified by: Subodh Jain on 22 sep 2016
     /// Description: added new method GetMostPopularBikesbyMakeCity
+    /// Modified by: Subodh Jain on 17 jan 2017
+    /// Description: added new method GetUserReviewSimilarBike
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -34,5 +37,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelContent GetRecentModelArticles(U modelId);
         IEnumerable<ModelImage> GetModelPhotos(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
+        IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
     }
 }

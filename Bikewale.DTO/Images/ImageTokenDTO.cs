@@ -16,5 +16,7 @@ namespace Bikewale.DTO.Images
         public bool ServerError { get; set; }
         [JsonProperty("photoId")]
         public uint? PhotoId { get; set; }
+        [JsonProperty("originalImagePath")]
+        public string OriginalImagePath { get; set; }
     }
 }

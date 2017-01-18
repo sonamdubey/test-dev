@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
@@ -116,7 +117,30 @@ namespace Bikewale.Cache.BikeData
             return objModelPage;
 
         }
+        /// <summary>
+        /// Created by Subodh Jain 17 jan 2017
+        /// Desc Get User Review Similar Bike
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount)
+        {
+            IEnumerable<BikeUserReviewRating> objReviewUser = null;
+            string key = string.Format("BW_UserReviewSimilarBike_ModelId_{0}_Topcount_{1}", modelId, topCount);
+            try
+            {
+                objReviewUser = _cache.GetFromCache<IEnumerable<BikeUserReviewRating>>(key, new TimeSpan(1, 0, 0), () => _objModels.GetUserReviewSimilarBike(modelId, topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" BikeModelsCacheRepository.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
 
+            }
+
+            return objReviewUser;
+
+        }
 
         /// <summary>
         /// Written By : Sushil Kumar on 28th June 2016

@@ -60,6 +60,7 @@ namespace Bikewale.Utility
             _areaMaxPerCall = String.Empty,
             _CwWebServiceHostUrl = String.Empty,
             _SmsQueue = String.Empty,
+            _AWSEnvironment = string.Empty,
             _notificationUserId = String.Empty,
             _notificationToUserMailId = String.Empty,
             _notificationCCUserMailId = String.Empty;
@@ -119,6 +120,7 @@ namespace Bikewale.Utility
             _areaMaxPerCall = ConfigurationManager.AppSettings["areaMaxPerCall"];
             _CwWebServiceHostUrl = ConfigurationManager.AppSettings["CwWebServiceHostUrl"];
             _SmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
+            _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
             _notificationUserId = ConfigurationManager.AppSettings["notificationUserId"];
             _notificationToUserMailId = ConfigurationManager.AppSettings["notificationToUserMailId"];
             _notificationCCUserMailId = ConfigurationManager.AppSettings["notificationCCUserMailId"];
@@ -244,6 +246,8 @@ namespace Bikewale.Utility
         public string CwWebServiceHostUrl { get { return _CwWebServiceHostUrl; } }
 
         public string SmsQueue { get { return _SmsQueue; } }
+
+        public string AWSEnvironment { get { return _AWSEnvironment; } }
 
         public string NotificationUserId { get { return _notificationUserId; } }
 

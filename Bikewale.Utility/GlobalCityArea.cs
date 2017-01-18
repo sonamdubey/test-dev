@@ -30,9 +30,9 @@ namespace Bikewale.Utility
                         string[] locArray = location.Split('_');
 
                         objGlobalCityArea.CityId = Convert.ToUInt32(locArray[0]);
-                        objGlobalCityArea.City = Convert.ToString(locArray[1]);
+                        objGlobalCityArea.City = Convert.ToString(locArray[1]).Replace('-', ' ');
                         objGlobalCityArea.AreaId = locArray.Length > 2 ? Convert.ToUInt32(locArray[2]) : default(UInt32);
-                        objGlobalCityArea.Area = locArray.Length > 3 ? Convert.ToString(locArray[3]) : default(string);
+                        objGlobalCityArea.Area = locArray.Length > 3 ? Convert.ToString(locArray[3]).Replace('-', ' ') : default(string);
                     }
                 }
             }
@@ -40,7 +40,6 @@ namespace Bikewale.Utility
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("{0} - GetGlobalCityArea() - location : {1}", HttpContext.Current.Request.ServerVariables["URL"], location));
-                objErr.SendMail();
             }
 
 

@@ -140,7 +140,22 @@
 						</div>
 
 						<div class="grid-4 padding-top15 padding-left15">
-							<% if (isAreaAvailable && !isDiscontinued)
+                            <% if(isAreaSelected) { %>
+                            <p class="text-black">Get in touch with dealer for:</p>
+							<ul class="selectAreaToGetList margin-bottom20">
+								<li class="bullet-point">
+									<p>Best offers</p>
+								</li>
+								<li class="bullet-point">
+									<p>Test rides</p>
+								</li>
+								<li class="bullet-point">
+									<p>Complete buying assistance</p>
+								</li>
+							</ul>
+                            <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click %>" f="getBikeVersionName" c="Price_in_City_Page" a="View_dealer_details_Clicked" data-preselcity="<%=cityId %>"  data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 bw-ga" rel="nofollow">View dealer details</a>
+                            <% }
+                               else if (isAreaAvailable && !isDiscontinued)
 							   { %>
 							<p class="text-black">Please select your area to get:</p>
 							<ul class="selectAreaToGetList margin-bottom20">
@@ -169,6 +184,11 @@
 					<div class="margin-left10 margin-right10 border-solid-bottom"></div>
 
 					<BW:Dealers ID="ctrlDealers" runat="server" />
+
+                     <% if(ctrlServiceCenterCard.showWidget){ %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% } %>
+
 					<%if (ctrlTopCityPrices.showWidget) {%>
 					<BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 					<%} %>
@@ -182,29 +202,60 @@
             <div class="container margin-bottom20">
 			<div class="grid-12">
 				<div class="content-box-shadow">
-                      <% if(ctrlServiceCenterCard.showWidget){ %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                  <% } %>
+                     
 					<% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
 					   { %>
 					<!-- Alternative reviews ends -->
 					<BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-					<!-- Alternative reviews ends -->
+            		<!-- Alternative reviews ends -->
 					<% } %>
-			    <div id="makeTabsContentWrapper" class="margin-bottom20">
-				    <div class="content-box-shadow">
-					    <div id="makeOverallTabsWrapper">
-						    <div id="makeOverallTabs" class="overall-floating-tabs">
-			      <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-					       { %>
-                        <div class="border-solid-top margin-right10 margin-left10"></div>
-					    <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-					    <%} %>
-						     </div>
-			            </div>
-					</div>
-				</div>
+                            <%if(bikeRankObj!=null){ %>
+                    <%if(bikeRankObj.Rank>0){ %>
+                      <div class="margin-left20 margin-right20 padding-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block">
+                                    <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <%} %>
+                    <%else{ %>
+                    <div class="margin-left20 margin-right20 padding-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
+                        <div class="content-inner-block-15 border-solid font14">
+                            <div class="grid-9 alpha">
+                                <div class="inline-block icon-red-bg">
+                                    <span class="bwsprite rank-graph"></span>
+                                </div>
+                                <p class="inline-block checkout-list-slug-label">Not sure what to buy? List of Top 10 <%=styleName.ToLower() %> can come in handy.</p>
+                            </div>
+                            <div class="grid-3 text-right position-rel pos-top5">
+                                <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <%} %>
+                    <%} %>
+                    <div id="makeTabsContentWrapper" class="margin-bottom20">
+				        <div class="content-box-shadow">
+					        <div id="makeOverallTabsWrapper">
+						        <div id="makeOverallTabs" class="overall-floating-tabs">
+			                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+					                { %>
+                                    <div class="border-solid-top margin-right10 margin-left10"></div>
+					                <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+					            <%} %>
+						        </div>
+			                </div>
+					    </div>
+				    </div>
                 </div>
 			    <div class="clear"></div>
             </div>
@@ -228,8 +279,7 @@
 			var clientIP = "<%= clientIP%>";
 			var pageUrl = window.location.href; 
 			var bikeName='<%=bikeName%>';
-			var CityArea=GetGlobalCityArea()||"";
-		 
+		    var CityArea=GetGlobalCityArea()||"";
 			ga_pg_id=16;
 				$("#btnDealerPricePopup").click(function () {
 					var selArea = '';
@@ -239,8 +289,8 @@
 					triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_", bikeName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
 			
 				});
+
 			$(".leadcapturebtn").click(function(e){
-			   
 				ele = $(this);
 				var leadOptions = {
 					"dealerid" : ele.attr('data-item-id'),
@@ -258,16 +308,27 @@
 						lab: '<%= string.Format("{0}_", bikeName)%>'+ CityArea
 					}
 				};
-
 				dleadvm.setOptions(leadOptions);
-
 			});
-
+		    $("#dealerDetails").click(function(e){
+		       ele = $(this);
+		       vmquotation.CheckCookies();
+		       vmquotation.IsLoading(true);
+		       $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+		        var options = {
+		            "modelId": "<%= modelId %>",
+		            "cityId": onCookieObj.PQCitySelectedId,
+		            "areaId": onCookieObj.PQAreaSelectedId,
+		            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName.replace(/-/g, ' ') } : null,
+		            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName.replace(/-/g, ' ') } : null,
+		        };
+		        vmquotation.IsOnRoadPriceClicked(false);
+		        vmquotation.setOptions(options);
+		    });
 			$('.model-versions-tabs-wrapper a').on('click', function () {
 				var verid = $(this).attr('id');
 				showTab(verid);
 			});
-
 			function showTab(version) {
 				$('.model-versions-tabs-wrapper a').removeClass('active');
 				$('.model-versions-tabs-wrapper a[id="' + version + '"]').addClass('active');
@@ -279,9 +340,7 @@
 				var bikeVersion=$('#versions .active').text();
 				var bikeNameVersion='<%=bikeName%>'+'_'+ bikeVersion;
 				return bikeNameVersion;
-			
 			}
-
 		</script>
 	</form>
 </body>

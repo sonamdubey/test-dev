@@ -101,7 +101,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .error-tooltip-siblings { display:none; }
 
 /* global-location classes */
-.global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; }
+.global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; z-index: 5; }
 .gl-default-stage { border: 1px solid #e2e2e2; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
@@ -177,13 +177,14 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .bw-tabs-flex li.active h3 { color: #4d5057; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?27Dec2016) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?12Jan2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -34px -275px; }
 .search-icon-white { background-position: -64px -278px; }
+.login-no-photo-icon { background-position:-151px -121px; width: 27px; height: 29px; }
 
 .inr-sm-dark { width:8px; height:12px; background-position:-128px -468px; }
 .inr-md, .inr-md-light { width:8px; height:13px; }

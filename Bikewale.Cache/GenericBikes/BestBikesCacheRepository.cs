@@ -5,6 +5,8 @@ using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 namespace Bikewale.Cache.GenericBikes
 {
     /// <summary>
@@ -79,6 +81,48 @@ namespace Bikewale.Cache.GenericBikes
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetGenericBikeInfo_{0}", modelId));
             }
             return objSearchList;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2017
+        /// Description : To get bike rankings by category
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeRankingEntity GetBikeRankingByCategory(uint modelId)
+        {
+            string key = string.Format("BW_BikeRankingByModel_MO_{0}",modelId);
+            BikeRankingEntity bikeRankObj = null;
+            try
+            {
+                bikeRankObj = _cache.GetFromCache<BikeRankingEntity>(key, new TimeSpan(0, 30, 0), () => _genericBike.GetBikeRankingByCategory(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId)); 
+                   
+            }
+            return bikeRankObj;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 17 Jan 2017
+        /// Description : To get top 10 bikes of a given body style
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        {
+            string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _genericBike.GetBestBikesByCategory(bodyStyle));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+
+            }
+            return bestBikesList;
         }
     }
 }

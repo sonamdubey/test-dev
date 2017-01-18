@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.NewUserReviewsList" %>
-
+<%if(string.IsNullOrEmpty(WidgetHeading)){ %>
 <h3 class="model-section-subtitle padding-right10 padding-left10">User reviews</h3>
+<%}else{%>
+ <h2 class="font18 margin-bottom15"><%=WidgetHeading %></h2>
+<%} %>
 <div class="bw-tabs-data" id="ctrlUserReviews"><!-- Reviews data code starts here-->
     <div class="model-user-review-container">
         <asp:Repeater ID="rptUserReview" runat="server">

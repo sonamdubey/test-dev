@@ -103,7 +103,7 @@
                             </div>
                             <% if (ctrlUsedBikeByModels.FetchCount > 0 || ctrlUsedBikeModelByCity.FetchCount > 0 || ctrlUsedBikesCityCountByMake.FetchedCount > 0 || ctrlUsedBikesCityCountByModel.FetchedCount > 0)
                                { %>                                                           
-                            <div id="city-model-used-carousel" style="display:none">                               
+                            <div id="city-model-used-carousel" >                               
                                 <h2 class="font14 text-default padding-left15 margin-bottom20">Refine your search further!</h2>
                                 <span id="close-city-model-carousel" class="bwsprite cross-md-dark-grey cur-pointer"></span>  
                                 <%if (ctrlUsedBikeByModels.FetchCount > 0)
@@ -316,7 +316,7 @@
                                         <div id="filter-type-city" class="filter-block">
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
-                                            <select class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
+                                            <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
                                                  <option data-cityid="0" >All India</option>
                                                  <% if (citiesList != null)
                                                     { %>

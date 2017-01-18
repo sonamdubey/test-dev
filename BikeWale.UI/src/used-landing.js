@@ -24,6 +24,10 @@ $(document).ready(function () {
             $('#header').removeClass("header-fixed").addClass("header-landing");
     });
 
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        $("#drpCities").val(obj.CityId).trigger("chosen:updated");
+    }
 });
 
 $("a.view-more-btn").click(function (e) {

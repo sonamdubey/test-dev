@@ -2,16 +2,7 @@
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-city-list li");
 
-$(function () {
-    if (getCookie("Used") != null) {
-        var arr = getCookie("Used").split('&');
-        if (arr[usedPageIdentifier].split('=')[1] == "1")
-            $('#city-model-used-carousel').show();
-        else
-            $('#city-model-used-carousel').hide();
-    }
 
-})
 var getQueryString = function () {
     var qsColl = new Object();
     try {
@@ -203,7 +194,6 @@ var usedBikes = function()
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
-
         var ele = $(e.target);
         if (!ele.hasClass("active")) {
             ele.addClass("active").siblings().removeClass("active");
@@ -584,7 +574,21 @@ $(document).ready(function () {
             sortFilter.show();
         }
     });
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        selectCityObject(obj.CityId);
+        vwUsedBikes.ApplyFilters();
+    }
 });
+
+function selectCityObject(cityId) {
+    $("#filter-city-list > li").each(function () {
+        if ($(this).attr('data-cityid') == cityId) {
+            $(this).trigger('click');
+            return false;
+        }
+    });
+}
 
 var filterContainer = $("#filter-container"),
     effect = 'slide',
