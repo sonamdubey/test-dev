@@ -21,12 +21,30 @@ $(document).ready(function () {
 
     // set min budget list
     budgetForm.set.minList();
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        var cityObj = FetchCityObject(obj.CityId);
+        if (cityObj != null) {
+            searchUsedVM.cityMaskingName(cityObj.CityMasking);
+            searchUsedVM.cityId(obj.CityId);
+            $('#search-form-city p').text(cityObj.CityName);
+        }
+    }
 });
 
+function FetchCityObject(cityId) {
+    var cityObj = {};
+    $("#city-slider-list > li").each(function () {
+        if ($(this).attr('data-item-id') == cityId) {
+            cityObj.CityMasking = $(this).attr('data-citymaskingname');
+            cityObj.CityName = $(this).text();
+        }
+    });
+    return cityObj;
+}
 $('#more-brand-tab').click(function () {
     var target = $(this),
         moreBrands = $('#more-brand-nav');
-    
     if (!target.hasClass('active')) {
         collapse.open(target, moreBrands, 'Collapse');
     }

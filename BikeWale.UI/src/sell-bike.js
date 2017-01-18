@@ -1097,7 +1097,12 @@ $(document).ready(function () {
     // set custom heading for date picker
     var manufacturingDatePicker = manufacturingDateInput.data('Zebra_DatePicker');
     manufacturingDatePicker.datepicker.find('.dp_heading').text('Year of manufacturing');
-
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        $('#city-select-element select').val(obj.CityId).trigger("chosen:updated");
+        $('#city-select-element').addClass('done');
+        vmSellBike.bikeDetails().city(obj.CityId);
+    }
 });
 
 $('#add-photos-dropzone').on('click', '#add-more-photos', function (event) {

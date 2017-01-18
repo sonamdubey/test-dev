@@ -184,9 +184,7 @@ $(document).ready(function () {
                 vmSellBike.bikeDetails().cityId(cookieCityId);
                 vmSellBike.bikeDetails().city(cookieCityName);
             }
-
         }
-
         ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
         sellLoader.close();
         $("section").show();
@@ -194,7 +192,11 @@ $(document).ready(function () {
         console.warn(e);
     }
     sellLoader.close();
-
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        vmSellBike.bikeDetails().cityId(obj.CityId);
+        vmSellBike.bikeDetails().city(obj.CityName);
+    }
 });
 
 
@@ -1450,6 +1452,7 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
+    alert('222');
     try {
         if (isEdit != "True") {
             $('#city-search-box').val("");
