@@ -198,10 +198,16 @@ $(document).ready(function () {
     });
 
 	//global city popup
-	$("#header div.gl-default-stage").click( function(){
-	    $(".blackOut-window").show();
-	    CheckGlobalCookie();
-		$(".globalcity-popup").removeClass("hide").addClass("show");
+	$("#header div.gl-default-stage").click(function (event) {
+	    var changeCityPopup = $('#globalchangecity-popup');
+	    if (typeof changeCityPopup !== 'undefined' && $(changeCityPopup).is(':visible')) { // ie lt 10 fix
+	        event.preventDefault();
+	    }
+	    else {
+	        $(".blackOut-window").show();
+	        CheckGlobalCookie();
+	        $(".globalcity-popup").removeClass("hide").addClass("show");
+	    }
 	});
 	
 	$(".blackOut-window").mouseup(function(e){

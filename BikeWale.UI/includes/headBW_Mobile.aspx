@@ -42,6 +42,7 @@
                         <span class="bwmsprite sort-icon"></span>
                     </a>
                 </div>
+                <div class="changecity-blackout-window"></div>
                 <div class="clear"></div>
             </div> <!-- ends here -->
     	    <div class="clear"></div>

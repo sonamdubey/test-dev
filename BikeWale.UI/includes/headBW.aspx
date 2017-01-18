@@ -25,10 +25,11 @@
                         <span class="cityName" id="cityName">Select City</span>
                         <span class="bwsprite global-map-marker margin-left10"></span>
                     </div>
-                </div>            
+                </div>
             </div>
 
             <BW:LoginStatus ID="ctrlLoginStatus" runat="server" />
+            <div class="changecity-blackout-window"></div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>

@@ -129,7 +129,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .nav-bike-booking-target a:hover { text-decoration:none; }
 
 /* global-location classes */
-.global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; }
+.global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; z-index: 5; }
 .gl-default-stage { border: 1px solid #e2e2e2; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
@@ -250,7 +250,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .navUL li .nestedUL li a:hover, .navUL li .nestedUL li a.open { border-left:4px solid red; font-weight:bold; background:#fff; }
 .navUL li a span.nav-drop { position: absolute; right: 15px; top: 20px; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
-.blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.changecity-blackout-window { z-index: 4; }
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
