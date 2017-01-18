@@ -1,5 +1,6 @@
 ﻿<%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
+<%@ Register Src="~/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
     <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?"header-landing":String.Empty   %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">
@@ -24,10 +25,11 @@
                         <span class="cityName" id="cityName">Select City</span>
                         <span class="bwsprite global-map-marker margin-left10"></span>
                     </div>
-                </div>            
+                </div>
             </div>
 
             <BW:LoginStatus ID="ctrlLoginStatus" runat="server" />
+            <div class="changecity-blackout-window"></div>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>

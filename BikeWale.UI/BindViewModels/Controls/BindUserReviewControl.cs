@@ -36,7 +36,12 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
-
+        public int ReviewId { get; set; }
+        /// <summary>
+        /// Modified By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Review list other than reviewid current review
+        /// </summary>
+        /// <param name="rptUserReviews"></param>
         public void BindUserReview(Repeater rptUserReviews)
         {
             FetchedRecordsCount = 0;
@@ -56,6 +61,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (reviews != null && reviews.ReviewList != null && reviews.ReviewList.Count > 0)
                     {
+                        reviews.ReviewList = reviews.ReviewList.Where(x => x.ReviewId != ReviewId).ToList();
                         FetchedRecordsCount = reviews.ReviewList.Count;
                         MakeMaskingName = reviews.ReviewList.FirstOrDefault().MakeMaskingName;
                         ModelMaskingName = reviews.ReviewList.FirstOrDefault().ModelMaskingName;

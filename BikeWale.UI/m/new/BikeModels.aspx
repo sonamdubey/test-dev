@@ -112,7 +112,7 @@
                         <div class="model-main-image">
                             <%--<img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image":"") %>" class="cursor-pointer" />--%>
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
-							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" class="model-media-item" title="<%= bikeName + " Photos"%>">
+							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" title="<%= bikeName + " Photos"%>">
 							<% } %>
                             <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image-1":"") %>" class="cursor-pointer" />
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>

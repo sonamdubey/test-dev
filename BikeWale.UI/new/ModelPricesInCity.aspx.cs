@@ -35,8 +35,8 @@ namespace Bikewale.New
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description :  Added and Linked LeadCapture Widget
     ///                Added  PQSourceId for DealerCard Widget
-    /// Modified By : Sushil Kumar on 8th June 2016
-    /// Description :              
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget        
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
@@ -56,8 +56,9 @@ namespace Bikewale.New
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty,bikeType=string.Empty;
-       
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
+        protected ChangeLocationPopup ctrlChangeLocation;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -106,6 +107,8 @@ namespace Bikewale.New
         /// <summary>
         /// Created by:-Subodh Jain 26 Dec 2016
         /// Summary:- Bind Controls
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindControl()
         {
@@ -152,6 +155,13 @@ namespace Bikewale.New
             ctrlAlternativeBikes.cityName = cityName;
             if (firstVersion != null)
                 ctrlAlternativeBikes.VersionId = firstVersion.VersionId;
+
+            if (ctrlChangeLocation != null)
+            {
+                ctrlChangeLocation.UrlCityId = cityId;
+                ctrlChangeLocation.UrlCityName = cityName;
+            }
+
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 13 Jan 2017
@@ -237,7 +247,7 @@ namespace Bikewale.New
                 catch (Exception err)
                 {
                     ErrorClass objErr = new ErrorClass(err, "ModelPricesInCity.ColorCount");
-                    objErr.SendMail();
+
                 }
             }
 

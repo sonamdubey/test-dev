@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -10,6 +11,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : To get similar bikes with photos count
     /// modified By:-Subodh jain 9 jan 2017
     /// Description :- Added cache call
+    ///modified By:-Subodh jain 17 jan 2017
+    /// Description :- Added GetDetailsByModel,GetDetailsByVersion,GetDetails
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -18,6 +21,9 @@ namespace Bikewale.Interfaces.BikeData
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords);
+        ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
+        ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
+        ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         T GetById(U id);
     }
 }

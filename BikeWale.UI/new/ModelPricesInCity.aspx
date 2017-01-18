@@ -184,6 +184,11 @@
 					<div class="margin-left10 margin-right10 border-solid-bottom"></div>
 
 					<BW:Dealers ID="ctrlDealers" runat="server" />
+
+                     <% if(ctrlServiceCenterCard.showWidget){ %>
+                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                  <% } %>
+
 					<%if (ctrlTopCityPrices.showWidget) {%>
 					<BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
 					<%} %>
@@ -197,9 +202,7 @@
             <div class="container margin-bottom20">
 			<div class="grid-12">
 				<div class="content-box-shadow">
-                      <% if(ctrlServiceCenterCard.showWidget){ %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                  <% } %>
+                     
 					<% if (ctrlAlternativeBikes.FetchedRecordsCount > 0)
 					   { %>
 					<!-- Alternative reviews ends -->
@@ -276,7 +279,7 @@
 			var clientIP = "<%= clientIP%>";
 			var pageUrl = window.location.href; 
 			var bikeName='<%=bikeName%>';
-			var CityArea=GetGlobalCityArea()||"";
+		    var CityArea=GetGlobalCityArea()||"";
 			ga_pg_id=16;
 				$("#btnDealerPricePopup").click(function () {
 					var selArea = '';
@@ -286,6 +289,7 @@
 					triggerGA('Price_in_City_Page', 'Show_On_Road_Price_Clicked', "<%= string.Format("{0}_", bikeName)%>"+ $('#versions .active').text() + '_' + $('#ddlCitiesPopup option:selected').text() + selArea);
 			
 				});
+
 			$(".leadcapturebtn").click(function(e){
 				ele = $(this);
 				var leadOptions = {

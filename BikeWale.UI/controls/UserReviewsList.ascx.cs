@@ -1,10 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.UserReviews;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
@@ -20,7 +16,7 @@ namespace Bikewale.Controls
         public int ModelId { get; set; }
 
         private int _reviewCount = 4;
-        public int ReviewCount 
+        public int ReviewCount
         {
             get { return _reviewCount; }
             set { _reviewCount = value; }
@@ -61,7 +57,7 @@ namespace Bikewale.Controls
             ModelMaskingName = objUserReview.ModelMaskingName;
             this.FetchedRecordsCount = objUserReview.FetchedRecordsCount;
         }
-            
+
         public override void Dispose()
         {
             rptUserReview.DataSource = null;
