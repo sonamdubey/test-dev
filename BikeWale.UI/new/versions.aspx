@@ -754,8 +754,8 @@
                                 
                             <div class="grid-4 omega margin-bottom10">
                                 <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName%> in India" class="model-rank-slug">
-                                    <div class="inline-block">
-                                        <span class="item-rank">#<%=bikeRankObj.Rank%></span>
+                                    <div class="inline-block icon-red-bg">
+                                        <span class="bwsprite rank-graph"></span>
                                     </div>
                                     <div class="rank-slug-label inline-block text-bold text-default">
                                         <p class="font14"><%=bikeRankObj.Rank>1?rankText:"" %> Most Popular <%=bikeType %></p>

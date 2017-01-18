@@ -60,8 +60,12 @@
 
 .rating-box.overall,
 .rating-category-list-container {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
+}
+
+.rating-category-list-container {
+    width: 75%;
 }
 
 .rating-category-list li {
