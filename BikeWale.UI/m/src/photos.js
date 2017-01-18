@@ -66,49 +66,71 @@ var modelImages = [
     }
 ];
 
-window.ACTIONS = {
-    ACTIVATE_PHOTO_TAB: 1,
-    DEACTIVATE_PHOTO_TAB: 2,
-    TOGGLE_PHOTO_THUMBNAIL_SCREEN: 3,
-    TOGGLE_MODEL_INFO_SCREEN: 4,
-    HIDE_GALLERY_TABS: 5,
-    SHOW_GALLERY_TABS: 6,
-    TOGGLE_GALLERY_TABS: 7,
-    HIDE_GALLERY_FOOTER: 8,
-    SHOW_GALLERY_FOOTER: 9,
-    TOGGLE_GALLERY_FOOTER: 10,
-    TOGGLE_COLORS_THUMBNAIL_SCREEN: 11,
-    HIDE_GALLERY: 12,
-    SHOW_PHOTO_HEADING: 13,
-    HIDE_PHOTO_HEADING: 14,
-    TOGGLE_PHOTO_HEADING: 15
-}
-
-var ACTION_HANDLER = (function () {
-    var self = {};
-
-    self.actions = {};
-
-    // action: action's assigned number from ACTIONS window variable
-    // data: data to pass while invoking the function
-    function executeAction(action, data) {
-        if (self.actions[action]) {
-            self.actions[action](data);
-        }
+var modelColorImages = [
+    {
+        'hostUrl': 'https://imgd6.aeplcdn.com/',
+        'imagePathLarge': '/bw/models/honda-cb-hornet-160r.jpg',
+        'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
+        'imageTitle': 'Dual Tone Green',
+        'colors': [
+            'b3ca20',
+            '040004'
+        ]
+    },
+    {
+        'hostUrl': 'https://imgd7.aeplcdn.com/',
+        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
+        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
+        'imageTitle': 'Dual Tone Orange',
+        'colors': [
+            'b83419',
+            '040004'
+        ]
+    },
+    {
+        'hostUrl': 'https://imgd8.aeplcdn.com/',
+        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
+        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
+        'imageTitle': 'Dual Tone White',
+        'colors': [
+            'cdcac3',
+            '040004'
+        ]
     }
+];
 
-    // action: action number from ACTIONS window variable
-    // handler: function to register on action number
-    function registerAction(action, handler) {
-        self.actions[action] = handler;
-    };
-
-    return {
-        executeAction: executeAction,
-        registerAction: registerAction
+var modelVideos = [
+    {
+        'imagePathLarge': 'https://img.youtube.com/vi/HhOik7KWJwc/sddefault.jpg',
+        'imagePathThumbnail': 'https://img.youtube.com/vi/HhOik7KWJwc/default.jpg',
+        'videoPath': 'https://www.youtube.com/embed/HhOik7KWJwc?rel=0&showinfo=0',
+        'videoTitle': 'Dominar 400 or the Classic 350, CBR 250R, Mahindra Mojo, KTM Duke 390, Pulsar RS 200'
+    },
+    {
+        'imagePathLarge': 'https://img.youtube.com/vi/WubzCZFId1o/sddefault.jpg',
+        'imagePathThumbnail': 'https://img.youtube.com/vi/WubzCZFId1o/default.jpg',
+        'videoPath': 'https://www.youtube.com/embed/WubzCZFId1o?rel=0&showinfo=0',
+        'videoTitle': 'All you need to know about the Bajaj Dominar 400 : PowerDrift'
+    },
+    {
+        'imagePathLarge': 'https://img.youtube.com/vi/h399XRm-OcA/sddefault.jpg',
+        'imagePathThumbnail': 'https://img.youtube.com/vi/h399XRm-OcA/default.jpg',
+        'videoPath': 'https://www.youtube.com/embed/h399XRm-OcA?rel=0&showinfo=0',
+        'videoTitle': 'Honda Navi : First Impression : PowerDrift'
+    },
+    {
+        'imagePathLarge': 'https://img.youtube.com/vi/jOdAplDI2FI/sddefault.jpg',
+        'imagePathThumbnail': 'https://img.youtube.com/vi/jOdAplDI2FI/default.jpg',
+        'videoPath': 'https://www.youtube.com/embed/jOdAplDI2FI?rel=0&showinfo=0',
+        'videoTitle': 'Launch Alert : Bajaj Dominar 400 : PowerDrift'
+    },
+    {
+        'imagePathLarge': 'https://img.youtube.com/vi/W1KOvK9_gAc/sddefault.jpg',
+        'imagePathThumbnail': 'https://img.youtube.com/vi/W1KOvK9_gAc/default.jpg',
+        'videoPath': 'https://www.youtube.com/embed/W1KOvK9_gAc?rel=0&showinfo=0',
+        'videoTitle': 'Indian Scout Sixty : Launch Alert : PowerDrift'
     }
-
-})();
+];
 
 function toggleFullScreen(goFullScreen) {
     var doc = window.document;
@@ -124,19 +146,6 @@ function toggleFullScreen(goFullScreen) {
         cancelFullScreen.call(doc);
     }
 }
-
-function resizeHandler() {
-    if (window.innerWidth > window.innerHeight) {
-        ACTION_HANDLER.executeAction(ACTIONS.HIDE_GALLERY_TABS);
-        ACTION_HANDLER.executeAction(ACTIONS.HIDE_GALLERY_FOOTER);
-        ACTION_HANDLER.executeAction(ACTIONS.HIDE_PHOTO_HEADING);
-    }
-    else {
-        ACTION_HANDLER.executeAction(ACTIONS.SHOW_GALLERY_TABS);
-        ACTION_HANDLER.executeAction(ACTIONS.SHOW_GALLERY_FOOTER);
-        ACTION_HANDLER.executeAction(ACTIONS.SHOW_PHOTO_HEADING);
-    }
-};
 
 function hideGallery() {
     vmPhotosPage.activateGallery(false);
@@ -163,38 +172,40 @@ var modelGallery = function () {
 
     self.galleryTabsActive = ko.observable(true);
     self.galleryFooterActive = ko.observable(true);
-    self.photoHeadingActive = ko.observable(true);
 
+    self.photoSwiperActive = ko.observable(true);
+
+    // footer screens
     self.screenActive = ko.observable(false);
     self.photoThumbnailScreen = ko.observable(false);
     self.colorsThumbnailScreen = ko.observable(false);
     self.modelInfoScreen = ko.observable(false);
 
+    // swiper
+    self.photoHeadingActive = ko.observable(true);
+
     self.activePhotoTitle = ko.observable('');
     self.activePhotoIndex = ko.observable(0);
-        
-    self.postAction = function (action, data) {
-        ACTION_HANDLER.executeAction(action, data);
-    };
 
-    // set images
-    self.photoList = modelImages;
+    self.activeColorTitle = ko.observable('');
+    self.activeColorIndex = ko.observable(0);
 
-    self.afterRender = function () {
-        // if swiper is not defined
+    self.photoList = ko.observableArray(modelImages);
+    self.colorPhotoList = ko.observableArray(modelColorImages);
+
+    self.afterRender = function(){
         if (!self.mainSwiper) {
             self.mainSwiper = $('#main-photo-swiper').swiper({
-                spaceBetween: 5,
+                spaceBetween: 0,
                 pagination: '.swiper-pagination',
                 paginationType: 'fraction',
                 onInit: function (swiper) {
-                    //toggleFullScreen(true);
                     setPhotoDetails(swiper);
                 },
                 onClick: function () {
                     if (window.innerWidth > window.innerHeight) {
-                        ACTION_HANDLER.executeAction(ACTIONS.TOGGLE_GALLERY_FOOTER);
-                        ACTION_HANDLER.executeAction(ACTIONS.TOGGLE_PHOTO_HEADING);
+                        self.TOGGLE_FOOTER_TABS();
+                        self.TOGGLE_PHOTO_HEADING();
                     }
                     if (self.screenActive()) {
                         deactivateAllScreens();
@@ -211,111 +222,69 @@ var modelGallery = function () {
             });
         };
 
-        if (!self.thumbnailSwiper) {
-            self.thumbnailSwiper = $('#thumbnail-photo-swiper').swiper({
-                slidesPerView: 'auto',
+        if (!self.mainColorSwiper) {
+            self.mainColorSwiper = $('#main-color-swiper').swiper({
                 spaceBetween: 0,
-                slideActiveClass: '',
-                slideToClickedSlide: true,
-                onClick: function (swiper) {
-                    focusGalleryPhoto();
+                pagination: '.swiper-pagination',
+                paginationType: 'fraction',
+                onInit: function (swiper) {
+                    setColorPhotoDetails(swiper);
+                },
+                onClick: function () {
+                    if (window.innerWidth > window.innerHeight) {
+                        self.TOGGLE_FOOTER_TABS();
+                        self.TOGGLE_PHOTO_HEADING();
+                    }
+                    if (self.modelInfoScreen()) {
+                        self.modelInfoScreen(false);
+                    }
+                },
+                onTouchStart: function () {
+                    if (self.modelInfoScreen()) {
+                        self.modelInfoScreen(false);
+                    }
+                },
+                onSlideChangeStart: function (swiper) {
+                    setColorPhotoDetails(swiper);
                 }
             });
-        }
+        };
+    };
 
-        if (!self.colorsThumbnailSwiper) {
-            self.colorsThumbnailSwiper = $('#thumbnail-colors-swiper').swiper({
-                slidesPerView: 'auto',
-                spaceBetween: 0
-            });
-        }
-
-        // set gallery image to clicked image index from listing
-        self.mainSwiper.slideTo(vmPhotosPage.imageIndex());
-    },
-
-    ACTION_HANDLER.registerAction(ACTIONS.ACTIVATE_PHOTO_TAB, function () {
+    self.ACTIVATE_PHOTO_TAB = function () {
         self.photosTabActive(true);
-    });
+    };
 
-    ACTION_HANDLER.registerAction(ACTIONS.DEACTIVATE_PHOTO_TAB, function () {
+    self.DEACTIVATE_PHOTO_TAB = function () {
         self.photosTabActive(false);
         if (self.screenActive()) {
             deactivateAllScreens();
         }
-    });
+    };
 
-    ACTION_HANDLER.registerAction(ACTIONS.HIDE_GALLERY_TABS, function () {
-        self.galleryTabsActive(false);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.SHOW_GALLERY_TABS, function () {
-        self.galleryTabsActive(true);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_GALLERY_TABS, function () {
-        self.galleryTabsActive() ? self.postAction(ACTIONS.HIDE_GALLERY_TABS) : self.postAction(ACTIONS.SHOW_GALLERY_TABS);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.HIDE_GALLERY_FOOTER, function () {
-        self.galleryFooterActive(false);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.SHOW_GALLERY_FOOTER, function () {
-        self.galleryFooterActive(true);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_GALLERY_FOOTER, function () {
-        self.galleryFooterActive() ? self.postAction(ACTIONS.HIDE_GALLERY_FOOTER) : self.postAction(ACTIONS.SHOW_GALLERY_FOOTER);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.SHOW_PHOTO_HEADING, function () {
-        self.photoHeadingActive(true);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.HIDE_PHOTO_HEADING, function () {
-        self.photoHeadingActive(false);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_PHOTO_HEADING, function () {
-        self.photoHeadingActive() ? self.postAction(ACTIONS.HIDE_PHOTO_HEADING) : self.postAction(ACTIONS.SHOW_PHOTO_HEADING);
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_PHOTO_THUMBNAIL_SCREEN, function () {
+    // all photos tab
+    self.TOGGLE_PHOTO_THUMBNAIL_SCREEN = function () {
         if (!self.photoThumbnailScreen()) {
             // deactivate all other screens
             deactivateAllScreens();
-            // activate current screen
             self.photoThumbnailScreen(true);
+            self.photoSwiperActive(true);
+            self.INITIATE_PHOTO_THUMBNAIL_SWIPER();
         }
         else {
             self.photoThumbnailScreen(false);
         }
-            
+
         self.screenActive(self.photoThumbnailScreen());
+    };
 
-        if (self.thumbnailSwiper) {
-            self.thumbnailSwiper.update(true);
-            focusThumbnail();
-        }
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_MODEL_INFO_SCREEN, function () {
-        if (!self.modelInfoScreen()) {
-            deactivateAllScreens();                
-            self.modelInfoScreen(true);
-        }
-        else {
-            self.modelInfoScreen(false);
-        }
-
-        self.screenActive(self.modelInfoScreen());
-    });
-
-    ACTION_HANDLER.registerAction(ACTIONS.TOGGLE_COLORS_THUMBNAIL_SCREEN, function () {
+    self.TOGGLE_COLORS_THUMBNAIL_SCREEN = function () {
         if (!self.colorsThumbnailScreen()) {
             deactivateAllScreens();
             self.colorsThumbnailScreen(true);
+            self.photoSwiperActive(false);
+            self.mainColorSwiper.update(true);
+            self.INITIATE_COLOR_THUMBNAIL_SWIPER();
         }
         else {
             self.colorsThumbnailScreen(false);
@@ -323,43 +292,148 @@ var modelGallery = function () {
 
         self.screenActive(self.colorsThumbnailScreen());
 
-        if (self.colorsThumbnailSwiper) {
-            self.colorsThumbnailSwiper.update(true);
+    };
+
+    self.TOGGLE_MODEL_INFO_SCREEN = function () {
+        if (!self.modelInfoScreen()) {
+            deactivateAllScreens();
+            self.modelInfoScreen(true);
         }
-    });
+        else {
+            self.modelInfoScreen(false);
+        }
 
-    ACTION_HANDLER.registerAction(ACTIONS.HIDE_GALLERY, function () {
-        hideGallery();
-    });
+        self.screenActive(self.modelInfoScreen());
+    };
 
-    window.addEventListener('resize', resizeHandler, false);
-    resizeHandler();
+    self.INITIATE_PHOTO_THUMBNAIL_SWIPER = function () {
+        self.thumbnailSwiper = $('#thumbnail-photo-swiper').swiper({
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            slideActiveClass: '',
+            slideToClickedSlide: true,
+            onClick: function (swiper) {
+                focusGalleryPhoto(swiper);
+            }
+        });
 
-    // set active image title and index
+        focusThumbnail(self.thumbnailSwiper);
+    };
+
+    self.INITIATE_COLOR_THUMBNAIL_SWIPER = function () {
+        self.colorThumbnailSwiper = $('#thumbnail-colors-swiper').swiper({
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            slideActiveClass: '',
+            slideToClickedSlide: true,
+            onClick: function (swiper) {
+                focusColorGalleryPhoto(swiper);
+            }
+        });
+
+        focusColorThumbnail(self.colorThumbnailSwiper);
+    };
+
+    self.HIDE_GALLERY_TABS = function () {
+        self.galleryTabsActive(false);
+    };
+
+    self.SHOW_GALLERY_TABS = function () {
+        self.galleryTabsActive(true);
+    };
+
+    self.HIDE_FOOTER_TABS = function () {
+        self.galleryFooterActive(false);
+    };
+
+    self.SHOW_FOOTER_TABS = function () {
+        self.galleryFooterActive(true);
+    };
+
+    self.TOGGLE_FOOTER_TABS = function () {
+        self.galleryFooterActive() ? self.HIDE_FOOTER_TABS() : self.SHOW_FOOTER_TABS();
+    };
+
+    self.HIDE_PHOTO_HEADING = function () {
+        self.photoHeadingActive(false);
+    };
+
+    self.SHOW_PHOTO_HEADING = function () {
+        self.photoHeadingActive(true);
+    };
+
+    self.TOGGLE_PHOTO_HEADING = function () {
+        self.photoHeadingActive() ? self.HIDE_PHOTO_HEADING() : self.SHOW_PHOTO_HEADING();
+    };
+
+    window.addEventListener('resize', resizeHandler, true);
+
+    function resizeHandler() {
+        if (window.innerWidth > window.innerHeight) {
+            self.HIDE_GALLERY_TABS();
+            self.HIDE_FOOTER_TABS();
+            self.HIDE_PHOTO_HEADING();
+        }
+        else {
+            self.SHOW_GALLERY_TABS();
+            self.SHOW_FOOTER_TABS();
+            self.SHOW_PHOTO_HEADING();
+        }
+    };
+
+    // swiper
     function setPhotoDetails(swiper) {
         var activeSlide = swiper.slides[swiper.activeIndex],
             activeSlideTitle = $(activeSlide).find('img').attr('title');
 
-        self.activePhotoIndex(swiper.activeIndex +1); // increment by 1, since swiper starts from index 0
+        self.activePhotoIndex(swiper.activeIndex + 1);
         self.activePhotoTitle(activeSlideTitle);
     };
 
+    function setColorPhotoDetails(swiper) {
+        var activeSlide = swiper.slides[swiper.activeIndex],
+            activeSlideTitle = $(activeSlide).find('img').attr('title');
+
+        self.activeColorIndex(swiper.activeIndex + 1);
+        self.activeColorTitle(activeSlideTitle);
+        
+        if (self.colorThumbnailSwiper) {
+            focusColorThumbnail(self.colorThumbnailSwiper);
+        }
+    };
+
     // focus gallery to clicked thumbnail index
-    function focusGalleryPhoto() {
-        var thumbnailIndex = self.thumbnailSwiper.clickedIndex;
+    function focusGalleryPhoto(swiper) {
+        var thumbnailIndex = swiper.clickedIndex;
 
         self.mainSwiper.slideTo(thumbnailIndex);
-        focusThumbnail();
+        focusThumbnail(swiper);
+    };
+
+    function focusColorGalleryPhoto(swiper) {
+        var thumbnailIndex = swiper.clickedIndex;
+
+        self.mainColorSwiper.slideTo(thumbnailIndex);
+        focusColorThumbnail(swiper);
     };
 
     // focus thumbnail to main photo index
-    function focusThumbnail() {
-        var activeIndex = self.activePhotoIndex() -1, // decrement by 1, since it was incremented by 1
-            thumbnailIndex = self.thumbnailSwiper.slides[activeIndex];
+    function focusThumbnail(swiper) {
+        var activeIndex = self.activePhotoIndex() - 1, // decrement by 1, since it was incremented by 1
+            thumbnailIndex = swiper.slides[activeIndex];
 
-        $(self.thumbnailSwiper.slides).removeClass('swiper-slide-active');
+        $(swiper.slides).removeClass('swiper-slide-active');
         $(thumbnailIndex).addClass('swiper-slide-active');
-        self.thumbnailSwiper.slideTo(activeIndex);
+        swiper.slideTo(activeIndex);
+    };
+
+    function focusColorThumbnail(swiper) {
+        var activeIndex = self.activeColorIndex() - 1, // decrement by 1, since it was incremented by 1
+            thumbnailIndex = swiper.slides[activeIndex];
+
+        $(swiper.slides).removeClass('swiper-slide-active');
+        $(thumbnailIndex).addClass('swiper-slide-active');
+        swiper.slideTo(activeIndex);
     };
 
     function deactivateAllScreens() {
