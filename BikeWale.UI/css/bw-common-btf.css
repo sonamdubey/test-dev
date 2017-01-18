@@ -96,7 +96,8 @@ footer ul li a:hover { text-decoration: underline; }
 .navUL li .nestedUL li a:hover, .navUL li .nestedUL li a.open { border-left:4px solid red; font-weight:bold; background:#fff; }
 .navUL li a span.nav-drop { position: absolute; right: 15px; top: 20px; }
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
-.blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.changecity-blackout-window { z-index: 4; }
 .blackOut-window-dark { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 div#globalPopupBlackOut {z-index: 9; }
 /*logged in classes*/
@@ -195,7 +196,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .back-circle-icon { background-position: -107px -291px; }
 .jcarousel li:hover .back-circle-icon { background-position: -150px -291px; }
 
-.login-no-photo-icon { background-position:-151px -121px; width: 27px; height: 29px; }
 .login-edit-icon, .login-garage-icon, .login-password-icon, .login-logout-icon { width: 24px; height: 22px; position: relative; top: -2px; margin-right: 10px; }
 .login-edit-icon { background-position:-150px -160px; }
 .login-garage-icon { background-position:-150px -190px; }
