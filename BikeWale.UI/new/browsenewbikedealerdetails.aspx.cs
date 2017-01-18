@@ -27,6 +27,8 @@ namespace Bikewale.New
     /// Class to show the bike dealers details
     /// Modified By : Aditi Srivasatva on 30 Nov 2016
     /// Description : Added control to change brand and city for dealers list
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class BrowseNewBikeDealerDetails : Page
     {
@@ -91,6 +93,8 @@ namespace Bikewale.New
         /// Description : Set request type according to page for brand city pop up
         /// Modified by : Sajal Gupta on 20-12-2016
         /// Desc : Binded dealer count widget
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindUserControls()
         {

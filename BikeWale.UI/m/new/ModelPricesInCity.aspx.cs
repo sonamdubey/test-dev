@@ -29,6 +29,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
+    /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
@@ -69,6 +73,8 @@ namespace Bikewale.Mobile.New
         /// Summary :- Added heading to dealer widget
         /// Modified By :-Aditi Srivastava on 13 Jan 2017
         /// Summary :- Added generic bike listing slug
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Moved function related to widgets binding and getdealercount
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
@@ -91,7 +97,8 @@ namespace Bikewale.Mobile.New
         }
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Bind page related widgets and location change prompt
         /// </summary>
         private void BindPageWidgets()
         {
@@ -159,7 +166,8 @@ namespace Bikewale.Mobile.New
         }
 
         /// <summary>
-        /// 
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Get dealer count by make and city
         /// </summary>
         private void GetDealerCount()
         {

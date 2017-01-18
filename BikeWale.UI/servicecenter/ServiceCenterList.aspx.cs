@@ -30,6 +30,8 @@ namespace Bikewale.Service
     /// Class to show the bike service center listing for particular make and city.
     /// Modified By : Aditi Srivasatva on 30 Nov 2016
     /// Description : Added control to change brand and city for service centers
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class ServiceCenterList : Page
     {
@@ -93,6 +95,8 @@ namespace Bikewale.Service
         /// Summary :- Added widget heading
         /// Modified By : Aditi Srivasatva on 19 dec 2016
         /// Description : Added widget for service centers in nearby cities
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         /// <returns></returns>
         private void BindUserControls()
