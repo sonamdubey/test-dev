@@ -46,10 +46,9 @@
                         <div class="usedbikes-search-container">
                             <div id="search-form-city" class="form-control-box">
                                  <select class="form-control chosen-select" id="drpCities">
-                                     
                                     <option >Select a city</option>
                                     <% foreach(var city in viewModel.Cities){ %> 
-                                    <option id="selectedCity" data-item-id="<%=city.CityId%>" data-citymaskingname="<%=city.CityMaskingName%>"><%=city.CityName %></option>
+                                    <option id="selectedCity" value="<%=city.CityId%>" data-item-id="<%=city.CityId%>" data-citymaskingname="<%=city.CityMaskingName%>"><%=city.CityName %></option>
                                  <%} %>
                                 </select>
                             </div>

@@ -1063,6 +1063,20 @@ function GetGlobalCityArea() {
     return cityArea;
 }
 
+function GetGlobalLocationObject() {
+    var locationObj = {};
+    if (isCookieExists("location")) {
+        var locationCookie = getCookie("location");
+        var cData = locationCookie.split('_');
+        if (cData.length > 0) {
+            locationObj.CityId = parseInt(cData[0]);
+            locationObj.CityName = cData[1];
+            locationObj.AreaId = cData[2] == null ? 0 : parseInt(cData[2]);
+            locationObj.AreaName = cData[3] == null ? '' : cData[3];
+        }
+    }
+    return locationObj;
+}
 function lockPopup() {
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window").show();

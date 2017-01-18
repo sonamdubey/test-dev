@@ -275,6 +275,10 @@
         if (modelId != undefined) {
             $('#hdn_ddlModel').val(modelId);
             FillCities(modelId);
+            var obj = GetGlobalLocationObject();
+            if (obj != null) {
+                $('#ddlCity').val(obj.CityId).trigger('chosen:updated');
+            }
         }
         else {
             viewModel.cities([]);
@@ -308,11 +312,9 @@
                     viewModel.cities([]);
                     viewModel.areas([]);
                 }
-
             }
         });
     }
-
 
     function UpdateArea() {
         var cityId = viewModel.selectedCity();

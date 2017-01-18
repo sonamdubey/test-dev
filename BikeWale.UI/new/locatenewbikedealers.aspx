@@ -286,6 +286,10 @@
                     $.each(optList, function (i, value) {
                         $ddlCities.append($('<option>').text(value.cityName).attr({ 'value': value.cityId, 'maskingName': value.cityMaskingName }));
                     });
+                    var obj = GetGlobalLocationObject();
+                    if (obj != null) {
+                        $ddlCities.val(obj.CityId);
+                    }
                 }
 
                 $ddlCities.trigger('chosen:updated');
