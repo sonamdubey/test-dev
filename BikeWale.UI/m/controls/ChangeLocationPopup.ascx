@@ -81,7 +81,7 @@
             var init = function () {
                 try {
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
-                    if (options.urlCityId > 0 && (options.urlCityId != options.cookieCityId)) {
+                    if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
                         if (!bwcache.get(options.sessionKey, true))   //surpress location chnage prompt for the session
                         {
                             options.blackoutEle.style.display = "block";
@@ -91,7 +91,7 @@
                             window.history.pushState('locationChange', '', '');
                         }
                     }
-                    else if (cookieCityId == 0)  //in case global city is not selected 
+                    else if (options.cookieCityId == 0)  //in case global city is not selected 
                     {
                         acceptCityChange();
                     }
