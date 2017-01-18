@@ -319,9 +319,10 @@
 		            "modelId": "<%= modelId %>",
 		            "cityId": onCookieObj.PQCitySelectedId,
 		            "areaId": onCookieObj.PQAreaSelectedId,
-		            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
-		            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+		            "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName.replace(/-/g, ' ') } : null,
+		            "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName.replace(/-/g, ' ') } : null,
 		        };
+		        vmquotation.IsOnRoadPriceClicked(false);
 		        vmquotation.setOptions(options);
 		    });
 			$('.model-versions-tabs-wrapper a').on('click', function () {

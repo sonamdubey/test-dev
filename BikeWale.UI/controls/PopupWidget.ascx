@@ -160,19 +160,15 @@
         self.LoadingText = ko.observable("Loading...");
         self.validate = ko.observable(false);
         self.IsLoading = ko.observable(false);
-
+        self.IsOnRoadPriceClicked = ko.observable(true);
         var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
 
         self.setOptions = function (options, event) {
             if (options != null) {
-
                 self.IsLoading(true);
-
                 self.SelectedModelId(options.modelId || 0);
                 self.SelectedCityId(options.cityId || 0);
-
                 if (self.SelectedCityId() == 0)  self.LoadingText('Fetching Cities...');
-                
                 self.SelectedAreaId(options.areaId || 0);
                 self.SelectedCity(options.city || null);
                 self.SelectedArea(options.area || null);
@@ -182,14 +178,14 @@
                 self.PageSourceId = options.pagesrcid || "";
                 self.IsPersistance(options.ispersistent || false);
                 self.IsReload(options.isreload || false);
-
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
                     self.InitializePQ();
                 }
-
-                gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+                if(self.IsOnRoadPriceClicked()){
+                    gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+                }
             }
         };
 
