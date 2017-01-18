@@ -34,8 +34,8 @@ namespace Bikewale.New
     /// Modified By : Sushil Kumar on 2nd June 2016
     /// Description :  Added and Linked LeadCapture Widget
     ///                Added  PQSourceId for DealerCard Widget
-    /// Modified By : Sushil Kumar on 8th June 2016
-    /// Description :              
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget        
     /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
@@ -105,6 +105,8 @@ namespace Bikewale.New
         /// <summary>
         /// Created by:-Subodh Jain 26 Dec 2016
         /// Summary:- Bind Controls
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindControl()
         {

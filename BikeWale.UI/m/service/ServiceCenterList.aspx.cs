@@ -31,6 +31,8 @@ namespace Bikewale.Mobile.Service
     /// Class to show the bike dealers details
     ///  Modified by : Aditi Srivastava on 5 Dec 2016
     /// Description : Added widget for to change brand and city for service center list
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class ServiceCenterList : PageBase
     {
@@ -99,6 +101,8 @@ namespace Bikewale.Mobile.Service
         /// Summary :- Added heading to dealer widget
         ///  Modified By : Aditi Srivasatva on 19 dec 2016
         /// Description : Added widget for service centers in nearby cities
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindWidgets()
         {

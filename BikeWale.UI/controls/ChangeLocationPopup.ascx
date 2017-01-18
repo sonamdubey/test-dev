@@ -88,7 +88,6 @@
                         acceptCityChange();
                     }
 
-
                     options.ignoreEle.addEventListener("click", ignoreCityChange, false);
                     options.acceptEle.addEventListener("click", acceptCityChange, false);
                     document.addEventListener("keydown", closeOnEsc, false);
