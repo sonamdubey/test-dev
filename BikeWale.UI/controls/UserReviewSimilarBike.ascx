@@ -4,7 +4,7 @@
                 <ul class="sidebar-bike-list">
                     <%foreach(var BikeDetails in userReviewList){ %>
                     <li>
-                        <a href="<%=string.Format("/{0}-bikes/{1}/",BikeDetails.MakeMaksingName,BikeDetails.ModelMaskingName)%>" title="<%=string.Format("{0} {1}",BikeDetails.MakeName,BikeDetails.ModelName) %>" class="bike-target-link text-default">
+                        <a href="<%=string.Format("/{0}-bikes/{1}/user-reviews/",BikeDetails.MakeMaksingName,BikeDetails.ModelMaskingName)%>" title="<%=string.Format("{0} {1}",BikeDetails.MakeName,BikeDetails.ModelName) %>" class="bike-target-link text-default">
                             <div class="bike-target-image inline-block">
                                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(BikeDetails.OriginalImagePath,BikeDetails.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("{0} {1}",BikeDetails.MakeName,BikeDetails.ModelName) %>">
                             </div>

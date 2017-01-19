@@ -51,7 +51,7 @@
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= objReview.BikeEntity.MakeEntity.MaskingName%>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName%>/" itemprop="url">
-                                    <span itemprop="title"><%=BikeName %></span>
+                                    <span itemprop="title"><%= objReview.BikeEntity.MakeEntity.MakeName%> <%= objReview.BikeEntity.ModelEntity.ModelName%> </span>
                                 </a>
                             </li>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -82,7 +82,7 @@
                                 <h1 class="margin-bottom5"><%= objReview.ReviewEntity.ReviewTitle  %></h1>
                                 <div>
                                     <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content margin-right20"><%=  objReview.ReviewEntity.ReviewDate %></span>
+                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy hh:mm tt")  %></span>
                                     <span class="bwsprite author-grey-sm-icon"></span>
                                     <span class="article-stats-content text-capitalize">
                                         <%if (handleName != "")
@@ -117,11 +117,19 @@
                                    <%if(objReview.ModelSpecs.KerbWeight>0){ %>  <li><%=objReview.ModelSpecs.KerbWeight %> kgs</li>                       <%}%>
                                 </ul>
                                 <%} %>
+                                <%if (!objReview.New) {%>
+                          
                                 <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div class="margin-top5">  
                                     <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(objReview.ModelBasePrice) %></span>
                                 </div>
                             </div>
+                            <%}else{ %>
+                                       <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price in, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName%></p>
+                            <div class="margin-top5">  
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(objReview.ModelBasePrice) %></span>
+                            </div>
+                            <%} %>
                             <div class="clear"></div>
 
                             <div class="border-solid ratings margin-top15 display-table">
@@ -228,7 +236,7 @@
                                         <span class="bwsprite like-icon"></span>
                                         <span id="spnLiked" class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Liked%></span>
                                         <span class="bwsprite dislike-icon"></span>
-                                        <span id="spnDisliked" class="article-stats-content"><%= objReview.ReviewEntity.Liked+objReview.ReviewEntity.Disliked %></span>
+                                        <span id="spnDisliked" class="article-stats-content"><%=objReview.ReviewEntity.Disliked %></span>
                                     </div>
                                     <div class="grid-6 omega readmore text-right">
                                         <p id="divAbuse">Inappropriate Review? <a onclick='javascript:abuseClick(<%= reviewId %>)' class="cur-pointer">Report Abuse</a> </p>
@@ -244,13 +252,13 @@
                         <BikeWale:DiscussIt ID="ucDiscuss" runat="server" />
                         <div class="clear"></div>
                     </div>
+                             <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                         <div class="content-box-shadow bg-white padding-18-20 margin-bottom20">
-                                 <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                             <!-- user reviews -->
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                             <!-- user reviews ends -->
-                            <% } %>
                         </div>
+                         <% } %>
                     </div>
                     <div class="grid-4 omega">
                         <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
@@ -259,11 +267,14 @@
                              <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
                         </div>
                         <%} %>
-                         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
+                            <div class="margin-bottom20">
                         <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                                </div>
                         <%if (ctrlPopularBikes.FetchedRecordsCount>0)
                           { %>
-                          <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" /> 
+                    
+                            <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+                      
                         <%} %>         
                        
                     </div>
@@ -314,8 +325,9 @@
                             if (helpful == "1") {
                                 document.getElementById("spnLiked").innerHTML = likedOrig + 1;
                             }
-
-                            document.getElementById("spnDisliked").innerHTML = disliked + 1;
+                            else {
+                                document.getElementById("spnDisliked").innerHTML = disliked + 1;
+                            }
                             document.getElementById("divHelpful").innerHTML = "Thank you for the feedback!";
                         } else {
                             document.getElementById("divHelpful").innerHTML = "You have already voted for this review.";
@@ -341,9 +353,9 @@
                             var url = "reviewcomments.aspx";
                             var applyIframe = false;
 
-                            GB_show(caption, url, 180, 350, applyIframe, $("#report-abuse").html());
+                           
                         } else {
-                            location.href = "/users/login.aspx?returnUrl=/content/userreviews/reviewdetails.aspx?rid=" + reviewId;
+                            location.href = "/users/login.aspx?returnUrl=/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "&hash=report-abuse-popup";
                         }
                     }
                 });
@@ -371,7 +383,7 @@
                         success: function (response) {
                             var responseObj = eval('(' + response + ')');
                             if (responseObj.value == true) {
-                                GB_hide();
+                                reportAbusePopup.close();
                                 document.getElementById("divAbuse").innerHTML = "Your request has been sent to the administrator.";
                             }
                         }
@@ -391,8 +403,14 @@
                         history.back();
                     }
                 }
-            });
 
+            });
+            $(function () {
+
+                if (window.location.hash == "#report-abuse-popup") {
+                    abuseClick("<%=reviewerId%>")
+                }
+            });
             var reportAbusePopup = {
                 open: function () {
                     $('#report-abuse').show();

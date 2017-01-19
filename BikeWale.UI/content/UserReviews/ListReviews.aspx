@@ -20,7 +20,7 @@
     AdPath = "/1017752/BikeWale_New_";
     alternate = pageMetas.AlternateUrl;
     canonical = pageMetas.CanonicalUrl;
-    isAd300x250Shown = true;
+    isAd300x250Shown = false;
     %>
     
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -90,19 +90,33 @@
                         </div>
                         <div class="grid-9 omega">
                             <h2 class="font14 text-default"><a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/" title="<%= BikeName %>" class="text-default"><%= BikeName %></a></h2>
+                            <%if (displacement > 0 || fuelEfficency > 0 || maxPower > 0 || kerbWeight > 0)
+                              { %>
                             <ul class="bike-review-features margin-top5">
-                                <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(displacement,2))) %> cc</li>
-                                <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(fuelEfficency,2))) %> kmpl</li>
-                                <li><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(maxPower,2)))%> bhp</li>
-                                <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(kerbWeight,2)) )%> kgs</li>
+                                     <%if (displacement>0)
+                                 {%> <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(displacement,2))) %> cc</li><%} %>
+                               <%if(fuelEfficency>0){%> <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(fuelEfficency,2))) %> kmpl</li><%} %>
+                               <%if(maxPower>0){%> <li><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(maxPower,2)))%> bhp</li><%} %>
+                               <%if(kerbWeight>0){%> <li><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Math.Round(kerbWeight,2)) )%> kgs</li><%} %>
+                          
                             </ul>
-                            <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName%></p>
+                            <%} %>
+                        
+                            <%if(IsNew){ %>
+                           
+                             <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName%></p>
                             <div class="margin-top5">  
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
                             </div>
+                            <%}else{ %>
+                              <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price in, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName%></p>
+                            <div class="margin-top5">  
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
+                            </div>
+                            <%} %>
                         </div>
                         <div class="clear"></div>
-
+<%if(RatingOverall>0) {%>
                         <div class="border-solid ratings margin-top15 display-table">
                             <div class="rating-box overall text-center content-inner-block-15">
                                 <p class="text-bold font14 margin-bottom10">Overall Rating</p>
@@ -161,15 +175,16 @@
                                 <div class="clear"></div>
                             </div>
                         
-                        </div>
+                        </div><%} %>
                         <div class="clear"></div>
                     </div>
                 </div>
 
-                <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
+               <%if (ModelReviewCount>0) {%> <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
                     <h2 class="font18 margin-bottom10"><%= totalReviewCount %> <%= BikeName %> User reviews</h2>
                  <div>
-                         <%if(totalReviewCount>1){ %>  <div class="leftfloat review-dropdown margin-right20">
+                         <%if (ModelReviewCount > 1)
+                           { %>  <div class="leftfloat review-dropdown margin-right20">
                             <div class="select-box select-box-no-input done size-small">
                                 <p class="select-label">Show reviews for </p>
                                 <asp:dropdownlist id="drpVersions" runat="server" autopostback="true"  CssClass="chosen-select" data-title="Show reviews for"></asp:dropdownlist>
@@ -221,7 +236,11 @@
 			            </asp:repeater>
                     </BW:RepeaterPagerReviews>         
                     </ul>    
-                </div>
+                </div><%}else{ %>
+                <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
+                    <h2 class="font18 margin-bottom10">No reviews available! Be the first one to write a review for this bike.</h2>
+                    </div>
+                <%} %>
             </div>
             <div class="grid-4 omega">
                  <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
@@ -240,8 +259,6 @@
                   <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
                 <%} %>
                 <div>
-                    <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                    <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                 </div>
             </div>
             <div class="clear"></div>

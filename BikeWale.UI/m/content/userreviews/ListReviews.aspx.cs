@@ -30,7 +30,7 @@ namespace Bikewale.Mobile.Content
     public class ListReviews : System.Web.UI.Page
     {
         private IUserReviews objUserReviews = null;
-        protected List<ReviewEntity> objReviewList = null;
+        protected List<ReviewEntity> objReviewList;
         protected BikeModelEntity objModelEntity = null;
         protected Repeater rptUserReviews;
         protected uint totalReviews = 0;
@@ -38,10 +38,11 @@ namespace Bikewale.Mobile.Content
         protected ReviewRatingEntity objRating = null;
         private IBikeModels<BikeModelEntity, int> objModel = null;
         private IPager objPager = null;
-        int startIndex = 0, endIndex = 0, pageSize = 10, curPageNo = 1;
-        protected ListPagerControl listPager;
+        protected int startIndex = 0, endIndex = 0, pageSize = 10, curPageNo = 1;
+        public LinkPagerControl ctrlPager;
+        protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-
+    
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -79,6 +80,16 @@ namespace Bikewale.Mobile.Content
                     this.Page.Visible = false;
                 }
             }
+            BindControl();
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 2017
+        /// Created By :- Bind User Control
+        /// </summary>
+        private void BindControl()
+        {
+            ctrlUserReviewSimilarBike.ModelId = Convert.ToUInt16(modelId);
+            ctrlUserReviewSimilarBike.TopCount = 6;
         }
 
         /// <summary>
@@ -203,11 +214,7 @@ namespace Bikewale.Mobile.Content
                 //if current page number exceeded the total pages count i.e. the page is not available 
                 if (curPageNo > 0 && curPageNo <= totalPages)
                 {
-                    if (objReviewList.Count > 0)
-                    {
-                        rptUserReviews.DataSource = objReviewList;
-                        rptUserReviews.DataBind();
-                    }
+
 
                     PagerEntity pagerEntity = new PagerEntity();
                     pagerEntity.BaseUrl = "/m/" + objModelEntity.MakeBase.MaskingName + "-bikes/" + objModelEntity.MaskingName + "/user-reviews-";
@@ -220,10 +227,10 @@ namespace Bikewale.Mobile.Content
                     PagerOutputEntity pagerOutput = objPager.GetPager<PagerOutputEntity>(pagerEntity);
 
                     //get next and prev page links for SEO 
-                    listPager.PagerOutput = pagerOutput;
-                    listPager.TotalPages = totalPages;
-                    listPager.CurrentPageNo = curPageNo;
-                    listPager.BindPageNumbers();
+                    ctrlPager.PagerOutput = pagerOutput;
+                    ctrlPager.TotalPages = totalPages;
+                    ctrlPager.CurrentPageNo = curPageNo;
+                    ctrlPager.BindPagerList();
 
                     //get next and prev page links for SEO
                     prevPageUrl = pagerOutput.PreviousPageUrl;
