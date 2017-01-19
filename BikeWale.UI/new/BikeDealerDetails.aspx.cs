@@ -7,6 +7,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -29,9 +30,9 @@ namespace Bikewale.New
     {
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty,
         address = string.Empty, maskingNumber = string.Empty, eMail = string.Empty, workingHours = string.Empty, modelImage = string.Empty, dealerName = string.Empty, dealerMaskingName = string.Empty, pincode = string.Empty,
-        clientIP = string.Empty, pageUrl = string.Empty, ctaSmallText = string.Empty;
+        clientIP = string.Empty, pageUrl = string.Empty, ctaSmallText = string.Empty, customerAreaName = string.Empty, pqAreaName = string.Empty;
         protected int makeId;
-        protected uint cityId, dealerId;
+        protected uint cityId, dealerId, customerCityId, customerAreaId, areaId, pqAreaId, pqCityId;
         protected ushort totalDealers;
         protected Repeater rptMakes, rptCities, rptDealers;
         protected bool areDealersPremium = false;
@@ -68,6 +69,7 @@ namespace Bikewale.New
                 if (dealerId > 0)
                 {
                     GetDealerDetails(dealerId);
+                    ProcessGlobalLocationCookie();
                     ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
                     ctrlDealerCard.makeName = makeName;
                     ctrlDealerCard.makeMaskingName = makeMaskingName;
@@ -80,6 +82,7 @@ namespace Bikewale.New
                     ctrlDealerCard.widgetHeading = string.Format("Other {0} showrooms in {1}", makeName, cityName);
                     ctrlLeadCapture.CityId = cityId;
                     ctrlLeadCapture.AreaId = 0;
+                    BindUserControl();
                 }
                 else
                 {
@@ -88,8 +91,31 @@ namespace Bikewale.New
                     this.Page.Visible = false;
                 }
             }
-            BindUserControl();
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 19 Jan 2017
+        /// Description :   Process Global Cookie
+        /// </summary>
+        private void ProcessGlobalLocationCookie()
+        {
+            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+            customerCityId = location.CityId;
+            customerAreaId = location.AreaId;
+            if (customerCityId == cityId && customerAreaId > 0)
+            {
+                pqCityId = cityId;
+                pqAreaId = customerAreaId;
+                customerAreaName = location.Area.Replace('-', ' ');
+                pqAreaName = customerAreaName;
+            }
+            else
+            {
+                pqCityId = cityId;
+                pqAreaId = areaId;
+                pqAreaName = areaName;
+            }
         }
         /// <summary>
         /// Created By:-Subodh Jain 2 Dec 2016
@@ -135,6 +161,8 @@ namespace Bikewale.New
         /// Summary:- Added pincode data
         /// Modified by : Sajal Gupta on 29-12-2016
         /// Description : Added ctaSmallText
+        /// Modified by :   Sumit Kate on 19 Jan 2017
+        /// Description :   Set Dealers AreaId
         /// </summary>
         /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
@@ -157,7 +185,10 @@ namespace Bikewale.New
                         dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
                         cityName = dealerObj.City;
                         if (dealerObj.Area != null)
+                        {
                             areaName = dealerObj.Area.AreaName;
+                            areaId = dealerObj.Area.AreaId;
+                        }
                         address = dealerObj.Address;
                         maskingNumber = dealerObj.MaskingNumber;
                         eMail = dealerObj.EMail;

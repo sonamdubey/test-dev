@@ -161,6 +161,8 @@
         self.validate = ko.observable(false);
         self.IsLoading = ko.observable(false);
         self.IsOnRoadPriceClicked = ko.observable(true);
+        self.DealerId = ko.observable();
+        self.VersionId = ko.observable();
         var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
 
         self.setOptions = function (options, event) {
@@ -178,6 +180,8 @@
                 self.PageSourceId = options.pagesrcid || "";
                 self.IsPersistance(options.ispersistent || false);
                 self.IsReload(options.isreload || false);
+                self.DealerId(options.dealerid || 0);
+                self.VersionId(options.versionid || 0);
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
@@ -186,6 +190,12 @@
                 if(self.IsOnRoadPriceClicked()){
                     gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
                 }
+            }
+        };
+
+        self.createMPQ = function (pqId) {
+            if (self.SelectedCityId() && self.SelectedModelId() && self.VersionId() && pqId) {
+                return btoa("CityId=" + self.SelectedCityId() + "&AreaId=" + +self.SelectedAreaId() +"&PQId=" + pqId +"&VersionId=" + self.VersionId() + "&DealerId=" + self.DealerId());
             }
         };
 
@@ -199,7 +209,7 @@
                     "ModelId": self.SelectedModelId(),
                     "ClientIP": "<%= ClientIP %>",
                     "SourceType": "1",
-                    "VersionId": 0,
+                    "VersionId": self.VersionId(),
                     "pQLeadId": self.PageSourceId,
                     'deviceId': getCookie('BWC'),
                     'isPersistance': self.IsPersistance(),
@@ -273,7 +283,9 @@
                                 gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                             else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
 
-
+                            if (self.DealerId() > 0 && _responseData.qStr.length) {
+                                _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
+                            }
                             if (!self.IsReload() && _responseData.qStr != '') {
                                 window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
                             }
