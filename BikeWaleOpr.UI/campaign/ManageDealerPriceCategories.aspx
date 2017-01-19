@@ -11,12 +11,14 @@
                 <td>Price Category</td>
             </tr>
             <tbody>
+                <%if(priceCatList!=null){ %>
                 <%foreach (var category in priceCatList)
                   { %>
                 <tr class="text-align-center">
                     <td><%=category.PriceCategoryId %></td>
                     <td><%=category.PriceCategoryName %></td>
                 </tr>
+                <%} %>
                 <%} %>
             </tbody>
         </table>
@@ -29,20 +31,20 @@
         <legend>
             <h3>Enter a new category</h3>
         </legend>
-        <div class="margin-top20">
-            Category Name :
-            <asp:textbox runat="server" id="txtPriceCat" maxlength="100" runat="server" />
+        <div class="margin-top10 font13">Category Name : </div>
+        <div class="margin-top10 form-control-box">
+            <asp:textbox runat="server" class="font13" id="txtPriceCat" maxlength="100" height="20px" runat="server" />
+            <span class="bwsprite error-icon hide"></span>
+            <div class="bw-blackbg-tooltip hide">Please enter a category</div>
         </div>
-        <div class="margin-top20 text-align-center">
+        <div class="margin-top20 margin-bottom10 ">
             <asp:button id="btnAddCat" text="Add Category" runat="server" />
         </div>
-            <div class="margin-top20 margin-bottom10 errorMessage text-align-center">
-            <asp:label id="errAddCat" runat="server"></asp:label>
-        </div>
-    </fieldset>
+        </fieldset>
 </div>
 <script>
     var txt;
+    var txtPriceCat=$("#txtPriceCat");
    $(document).ready(function () {
         $('#txtPriceCat').val("");
         var msg = '<%= msg %>';       
@@ -51,9 +53,12 @@
     $('#btnAddCat').click(function (e) {
         txt = $('#txtPriceCat').val().trim();
         if (txt == null || txt.length < 1) {
-            $('#errAddCat').html("Please add a category");
+            showHideMatchError(txtPriceCat,true);
             return false;
         }
+    });
+    txtPriceCat.focus(function () {
+      showHideMatchError(txtPriceCat, false);
     });
     </script>
     <!-- #Include file="/includes/footerNew.aspx" -->

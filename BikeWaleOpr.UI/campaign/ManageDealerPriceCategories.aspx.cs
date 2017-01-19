@@ -50,10 +50,7 @@ namespace BikewaleOpr.Campaign
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            errAddCat.Text = "";
-            msg = "";
-
-            if(!IsPostBack)
+              if(!IsPostBack)
                 GetPriceCategories();
         }
 
@@ -97,9 +94,9 @@ namespace BikewaleOpr.Campaign
                 string priceCat = txtPriceCat.Text.Trim();
                      isSuccess = _objDealerPriceRepo.SaveBikeCategory(priceCat);
                     if (!isSuccess)
-                        errAddCat.Text = "Could not add category!";
+                        msg = "Could not add category!";
                     else
-                        msg = "Category \"" + priceCat + "\" added successfully";
+                        msg = string.Format("Category \"{0}\" added successfully",priceCat);
 
                     GetPriceCategories();
                                   
