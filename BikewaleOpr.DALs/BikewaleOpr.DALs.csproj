@@ -49,6 +49,7 @@
     <Compile Include="Bikedata\BikeModelsRepository.cs" />
     <Compile Include="Bikedata\BikeVersionsRepository.cs" />
     <Compile Include="BikePricing\BikeShowroomPrices.cs" />
+    <Compile Include="BikePricing\DealerPriceRepository.cs" />
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
