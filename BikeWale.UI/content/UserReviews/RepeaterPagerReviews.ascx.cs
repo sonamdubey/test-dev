@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
+using MySql.CoreDAL;
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
-using Bikewale.Controls;
-using MySql.CoreDAL;
 
 namespace Bikewale.Content
 {
@@ -226,7 +224,7 @@ namespace Bikewale.Content
             {
                 Trace.Warn(ex.Message);
                 throw new Exception("Extended Repeater Control: Only Repeaters can be placed inside this 'Extended Repeater Control'.");
-            }		
+            }
         }
 
         private void Page_Load(object sender, EventArgs e)
@@ -241,7 +239,7 @@ namespace Bikewale.Content
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-            }	
+            }
         } //pageload
 
         // This function will initialize grid properties.
@@ -439,8 +437,8 @@ namespace Bikewale.Content
                     
                                 ", SelectClause, FromClause, !String.IsNullOrEmpty(WhereClause) ? " where  " + WhereClause : string.Empty, OrderByClause, startIndex, endIndex);
 
-                                        
-            
+
+
 
             Trace.Warn("Fetch the desired rows : " + sql);
             try
@@ -480,12 +478,12 @@ namespace Bikewale.Content
 
                     Trace.Warn("RecordCountQuery: " + RecordCountQuery);
                     using (IDataReader dr = MySqlDatabase.SelectQuery(RecordCountQuery, param, ConnectionType.ReadOnly))
-                    { 
+                    {
                         if (dr != null && dr.Read())
                         {
                             count = Convert.ToInt32(dr[0]);
                             dr.Close();
-                        } 
+                        }
                     }
                 }
 
@@ -508,7 +506,7 @@ namespace Bikewale.Content
 
                 if (totalRecords > PageSize && totalRecords > (CurrentPageIndex * PageSize))
                 {
-                    lblRecords.Text = "Showing <span>" + (showingFrom == "0" ? (Convert.ToInt32(showingFrom) + 1).ToString() : showingFrom) + "-" + (CurrentPageIndex * PageSize).ToString() + "</span> of " + totalRecords;
+                    lblRecords.Text = "Showing <span>" + (showingFrom == "0" ? (Convert.ToInt32(showingFrom) + 1).ToString() : showingFrom) + "-" + (CurrentPageIndex * PageSize).ToString() + "</span> of " + totalRecords + " reviews";
                     lblRecordsFooter.Text = lblRecords.Text;
                 }
                 else if (totalRecords == 0)
@@ -517,17 +515,12 @@ namespace Bikewale.Content
                     lblRecords.Text = "";
                     lblRecordsFooter.Text = "";
                 }
-                else if (totalRecords < (CurrentPageIndex * PageSize))
-                {
-                    lblRecords.Text = "Showing <span>" + (showingFrom == "0" ? (Convert.ToInt32(showingFrom) + 1).ToString() : showingFrom) + "-" + totalRecords;
-                    lblRecordsFooter.Text = lblRecords.Text;
-                    Trace.Warn("CurrentPageIndex *: " + (CurrentPageIndex * PageSize).ToString() + ":totalRecords:" + totalRecords);
-                }
                 else
                 {
-                    lblRecords.Text = "Showing <span> 0-" + totalRecords + "</span>";
+                    lblRecords.Text = "Showing <span>" + (showingFrom == "0" ? (Convert.ToInt32(showingFrom) + 1).ToString() : showingFrom) + "-" + totalRecords + "</span> of " + totalRecords + " reviews";
                     lblRecordsFooter.Text = lblRecords.Text;
                 }
+
             }
             else
             {

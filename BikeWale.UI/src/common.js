@@ -731,15 +731,11 @@ var getHost = function () {
 
     if (host.match("bikewale.com$"))
         host = ".bikewale.com";
-    else if (host.match("webserver$"))
-        host = "webserver";
-    else
-        host = "localhost";
-
     return host;
 }
 
 function SetCookie(cookieName, cookieValue) {
+    debugger;
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
         document.cookie = cookieName + "=" + cookieValue + '; path =/';
     else

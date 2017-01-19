@@ -340,8 +340,6 @@ else
             }
 
             function abuseClick(reviewId) {
-                reportAbusePopup.open();
-                appendState('reportPopup');
 
                 $.ajax({
                     type: "POST",
@@ -352,6 +350,8 @@ else
                         var userId = eval('(' + response + ')');
                         //alert(userId.value);
                         if (userId.value != "-1") {
+                            reportAbusePopup.open();
+                            appendState('reportPopup');
                             var caption = "Why do you want to report it abuse?";
                             var url = "reviewcomments.aspx";
                             var applyIframe = false;

@@ -6,12 +6,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%  title = "User Reviews: " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName;
-        description = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " User Reviews - Read first-hand reviews of actual " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " owners. Find out what buyers of " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " have to say about the bike.";
-        keywords = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " reviews, " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Users Reviews, " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " customer reviews, " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " customer feedback, " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " owner feedback, user bike reviews, owner feedback, consumer feedback, buyer reviews";
-        canonical = "https://www.bikewale.com/" + objModelEntity.MakeBase.MaskingName + "-bikes/" + objModelEntity.MaskingName + "/user-reviews";
-        relPrevPageUrl = String.IsNullOrEmpty(prevPageUrl) ? "" : "https://www.bikewale.com" + prevPageUrl;
-        relNextPageUrl = String.IsNullOrEmpty(nextPageUrl) ? "" : "https://www.bikewale.com" + nextPageUrl;
+    <%    title = pageMetas.Title;
+          description = pageMetas.Description;
+          keywords = pageMetas.Keywords;        
+          canonical = pageMetas.CanonicalUrl;
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1398837216327";
         //menu = "9";
@@ -28,11 +26,11 @@
 
         <section>
             <div class="container box-shadow bg-white section-bottom-margin">
-                <h1 class="box-shadow padding-15-20"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%>  User reviews</h1>
+                <h1 class="box-shadow padding-15-20"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%>  User Reviews</h1>
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">
-                            <a href="" title="">
+                            <a href="/m/<%=  objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>">
                                 <img alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
                             </a>
                         </div>
@@ -61,7 +59,7 @@
                                       </div>
                                   </div>
                             <%} %>
-                            <p class="font14 text-light-grey"><%= totalReviews %> Reviews</p>
+                            <p class="font14 text-light-grey"><%= totalReviews + (totalReviews >1?  " Reviews":" Review") %></p>
                         </div>
                         <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                             <ul class="rating-category-list">
@@ -128,7 +126,7 @@
           { %>
         <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-top15 padding-right20 padding-left20">
-                <h2><%= totalReviews + " " + objModelEntity.ModelName %> User reviews</h2>
+                <h2><%= totalReviews + " " + objModelEntity.ModelName %> User <%=(totalReviews >1?" reviews":" review") %></h2>
                 <ul class="model-user-review-list">
                     <%foreach (var UserReviews in objReviewList)
                       {%>
@@ -141,11 +139,11 @@
                         </div>
                         <div class="model-user-review-title-container">
                             <h3>
-                                <a class="target-link margin-bottom7" href="/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/user-reviews/<%=UserReviews.ReviewId %>.html" title="<%=UserReviews.ReviewTitle %>"><%=UserReviews.ReviewTitle %></a>
+                                <a class="target-link margin-bottom7" href="/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/user-reviews/<%=UserReviews.ReviewId %>.html" title="<%=UserReviews.ReviewTitle %>"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.ReviewTitle,50) %></a>
                             </h3>
                             <div class="grid-7 alpha padding-right5">
                                 <span class="bwmsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content"><%=UserReviews.ReviewDate %></span>
+                                <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(UserReviews.ReviewDate), "MMM dd, yyyy") %></span>
                             </div>
                             <div class="grid-5 alpha omega">
                                 <span class="bwmsprite author-grey-sm-icon"></span>
@@ -153,7 +151,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <p class="font14 margin-top10"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.Comments,180) %></p>
+                        <p class="font14 margin-top10"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.Comments,140) %></p>
                     </li>
                     <%} %>
                 </ul>
@@ -166,7 +164,11 @@
                 </div>
             </div>
         </section>
-        <% } %>
+        <% } else{%>
+          <div class="container box-shadow bg-white section-bottom-margin padding-bottom15 padding-top15 padding-right20 padding-left20">
+         <h2>No reviews available!.</h2>
+              </div>
+        <%} %>
         <%if (ctrlUserReviewSimilarBike.FetchCount > 0)
           { %>
         <section>
