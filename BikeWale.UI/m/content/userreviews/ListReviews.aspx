@@ -26,7 +26,7 @@
 
         <section>
             <div class="container box-shadow bg-white section-bottom-margin">
-                <h1 class="box-shadow padding-15-20"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%>  User reviews</h1>
+                <h1 class="box-shadow padding-15-20"><%= objModelEntity.MakeBase.MakeName  + " " + objModelEntity.ModelName%>  User Reviews</h1>
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">

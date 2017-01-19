@@ -75,7 +75,7 @@
                 <div class="content-box-shadow bg-white margin-bottom20">
                     <div class="content-box-shadow padding-14-20">
                         <div class="grid-9 alpha inline-block float-none">
-                            <h1><%= BikeName %> User reviews</h1>
+                            <h1><%= BikeName %> User Reviews</h1>
                         </div><div class="grid-3 text-right alpha omega inline-block float-none">
                             <a href="/content/userreviews/writereviews.aspx?bikem=<%= modelId %>" class="btn btn-teal btn-size-150">Write a review</a>
                         </div>
