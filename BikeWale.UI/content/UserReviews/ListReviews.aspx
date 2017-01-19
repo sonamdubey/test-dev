@@ -127,7 +127,7 @@
                                         <span class="padding-left2 font12 text-light-grey">/ 5</span>
                                     </div>
                                 </div>
-                                <p class="font14 text-light-grey"><%=ModelReviewCount%> Reviews</p>
+                                <p class="font14 text-light-grey"><%=ModelReviewCount +(ModelReviewCount>1?"Reviews":"Review")%> </p>
                             </div>
                             <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                                 <ul class="rating-category-list">
@@ -181,7 +181,7 @@
                 </div>
 
                <%if (ModelReviewCount>0) {%> <div class="bg-white padding-18-20 content-box-shadow margin-bottom20">
-                    <h2 class="font18 margin-bottom10"><%= totalReviewCount %> <%= BikeName %> User reviews</h2>
+                    <h2 class="font18 margin-bottom10"><%= totalReviewCount %> <%= BikeName %> User <%=(totalReviewCount >1?" reviews":" review") %></h2>
                  <div>
                          <%if (ModelReviewCount > 1)
                            { %>  <div class="leftfloat review-dropdown margin-right20">
@@ -220,7 +220,7 @@
                                 <h3><a class="article-target-link line-height" title="<%#DataBinder.Eval(Container.DataItem, "Title") %>" href="/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html"><%# DataBinder.Eval(Container.DataItem, "Title").ToString() %></a></h3>
                                 <div class="article-stats-left-grid">
                                     <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content"><%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "EntryDateTime")).ToString("dd-MMM-yyyy") %></span>
+                                    <span class="article-stats-content"><%#Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString((DataBinder.Eval(Container.DataItem, "EntryDateTime"))), "MMM dd, yyyy") %></span>
                                 </div>
                                 <div class="article-stats-right-grid">
                                     <span class="bwsprite author-grey-sm-icon"></span>
