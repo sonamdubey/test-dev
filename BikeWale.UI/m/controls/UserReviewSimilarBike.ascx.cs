@@ -7,6 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By :- Subodh Jain 17 Jan 2017
+    /// Summary :- Get User Review Similar Bike 
+    /// </summary>
+
     public class UserReviewSimilarBike : System.Web.UI.UserControl
     {
         public uint ModelId { get; set; }

@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UserReviewSimilarBike" EnableViewState="false" %>
+<%if (userReviewList!=null){ %>
 <div class="swiper-container padding-top5 padding-bottom5 user-reviews-type-carousel">
     <div class="swiper-wrapper">
         <%foreach (var UserDetails in userReviewList)
@@ -26,3 +27,4 @@
         <%} %>
     </div>
 </div>
+<%} %>

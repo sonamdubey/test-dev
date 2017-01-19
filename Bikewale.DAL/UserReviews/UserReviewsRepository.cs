@@ -555,10 +555,7 @@ namespace Bikewale.DAL.UserReviews
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcustomerreviewinfo_16012017"))
                 {
-                    //cmd.CommandText = "getcustomerreviewdetails_new";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    //cmd.Parameters.Add("@ReviewId", SqlDbType.Int).Value = reviewId;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -612,7 +609,7 @@ namespace Bikewale.DAL.UserReviews
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" UserReviewsRepository.GetReviewDetails_ReviewId_{0}", reviewId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" UserReviewsRepository.GetReviewDetails() --> ReviewId: {0}", reviewId));
 
             }
 
