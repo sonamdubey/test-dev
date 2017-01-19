@@ -637,7 +637,7 @@ namespace Bikewale.DAL.UserReviews
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reportedby", DbType.Int32, userId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, userId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_comments", DbType.String, 500, comment));
 
 
                     success = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);

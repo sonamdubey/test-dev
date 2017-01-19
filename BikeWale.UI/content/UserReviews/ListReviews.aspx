@@ -251,8 +251,7 @@
                 </div>
                   <%} %>
                 <div>
-                    <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                    <!-- #include file="/ads/Ad300x250.aspx" -->
+               <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                 </div>
                   <%if (ctrlPopularBikes.FetchedRecordsCount>0)
                           { %>
