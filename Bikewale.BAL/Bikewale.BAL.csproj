@@ -134,7 +134,6 @@
     <Compile Include="Dealer\Dealer.cs" />
     <Compile Include="EditCMS\Articles.cs" />
     <Compile Include="Feedback\Feedback.cs" />
-    <Compile Include="GenericBikes\BestBikesBL.cs" />
     <Compile Include="GrpcFiles\CustomGRPCLoadBalancer.cs" />
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />

@@ -198,10 +198,16 @@ $(document).ready(function () {
     });
 
 	//global city popup
-	$("#header div.gl-default-stage").click( function(){
-		$(".blackOut-window").show();
-		$(".globalcity-popup").removeClass("hide").addClass("show");
-		CheckGlobalCookie();
+	$("#header div.gl-default-stage").click(function (event) {
+	    var changeCityPopup = $('#globalchangecity-popup');
+	    if (typeof changeCityPopup !== 'undefined' && $(changeCityPopup).is(':visible')) { // ie lt 10 fix
+	        event.preventDefault();
+	    }
+	    else {
+	        $(".blackOut-window").show();
+	        CheckGlobalCookie();
+	        $(".globalcity-popup").removeClass("hide").addClass("show");
+	    }
 	});
 	
 	$(".blackOut-window").mouseup(function(e){
@@ -209,6 +215,11 @@ $(document).ready(function () {
         if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
         {
             CloseCityPopUp();
+        }
+        globalLocation = $("#globalchangecity-popup");
+        if (globalLocation && e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
+            globalLocation.hide();
+            unlockPopup();
         }
 	});
 
@@ -369,6 +380,22 @@ function GetGlobalCityArea() {
         cityArea = cityArea.replace(/[0-9](_)*/g, '').replace(/-+/g, ' ');        
     }
     return cityArea;
+}
+
+function GetGlobalLocationObject() {
+    var locationObj = {};
+    if (isCookieExists("location")) {
+        var locationCookie = getCookie("location");
+        var cData = locationCookie.split('_');
+        if (cData.length > 0) {
+            locationObj.CityId = parseInt(cData[0]);
+            locationObj.CityName = cData[1];
+
+            locationObj.AreaId = cData[2] == null ? 0 : parseInt(cData[2]);
+            locationObj.AreaName = cData[3] == null ? '' : cData[3];
+        }
+    }
+    return locationObj;
 }
 
 $('#newBikeList').on('keypress', function (e) {
@@ -712,8 +739,11 @@ var getHost = function () {
     return host;
 }
 
-function SetCookie(cookieName, cookieValue) {    
-    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+function SetCookie(cookieName, cookieValue) {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -721,7 +751,10 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {

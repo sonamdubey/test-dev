@@ -328,7 +328,7 @@ $(document).ready(function () {
             if(city.cityId!=globalCityId)
                 SetCookieInDays("location", city.cityId + "_" + cityName , 365);
             CloseCityPopUp();
-            showGlobalCity(ui.item.label);            
+            showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
             if (city.cityId) {
                 location.reload();
@@ -998,7 +998,10 @@ var getHost = function () {
 }
 
 function SetCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -1006,7 +1009,10 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {
@@ -1063,6 +1069,20 @@ function GetGlobalCityArea() {
     return cityArea;
 }
 
+function GetGlobalLocationObject() {
+    var locationObj = {};
+    if (isCookieExists("location")) {
+        var locationCookie = getCookie("location");
+        var cData = locationCookie.split('_');
+        if (cData.length > 0) {
+            locationObj.CityId = parseInt(cData[0]);
+            locationObj.CityName = cData[1];
+            locationObj.AreaId = cData[2] == null ? 0 : parseInt(cData[2]);
+            locationObj.AreaName = cData[3] == null ? '' : cData[3];
+        }
+    }
+    return locationObj;
+}
 function lockPopup() {
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window").show();
@@ -1188,7 +1208,7 @@ $(window).on('hashchange', function (e) {
 var hashChange = function (e) {
     var oldUrl, oldHash;
     oldUrl = e.originalEvent.oldURL;
-    if (oldUrl.indexOf('#') > 0) {
+    if (oldUrl && (oldUrl.indexOf('#') > 0)) {
         oldHash = oldUrl.split('#')[1];
         closePopUp(oldHash);
     };

@@ -31,6 +31,8 @@ namespace Bikewale.Mobile.Service
     /// Class to show the bike dealers details
     ///  Modified by : Aditi Srivastava on 5 Dec 2016
     /// Description : Added widget for to change brand and city for service center list
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class ServiceCenterList : PageBase
     {
@@ -46,6 +48,8 @@ namespace Bikewale.Mobile.Service
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
+        protected ChangeLocationPopup ctrlChangeLocation;
+
         protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
@@ -97,6 +101,8 @@ namespace Bikewale.Mobile.Service
         /// Summary :- Added heading to dealer widget
         ///  Modified By : Aditi Srivasatva on 19 dec 2016
         /// Description : Added widget for service centers in nearby cities
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         private void BindWidgets()
         {
@@ -136,6 +142,12 @@ namespace Bikewale.Mobile.Service
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
             }
             catch (Exception ex)
             {

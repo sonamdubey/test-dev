@@ -316,7 +316,7 @@
                                         <div id="filter-type-city" class="filter-block">
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
-                                            <select class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
+                                            <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
                                                  <option data-cityid="0" >All India</option>
                                                  <% if (citiesList != null)
                                                     { %>

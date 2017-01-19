@@ -13,6 +13,6 @@ namespace Bikewale.Interfaces.GenericBikes
     {
         GenericBikeInfo GetGenericBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
-         //  IEnumerable<BestBikeEntityBase> GetBestBikeByCategory(EnumBikeBodyStyles categoryId);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities;
-
+using BikewaleOpr.Entity.ContractCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using MySql.CoreDAL;
 using System;
@@ -202,6 +202,152 @@ namespace BikewaleOpr.DALs.ContractCampaign
             }
 
             return newCampaignId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 Jan 2017
+        /// Description :   Calls opr_getmakesbydealercity
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<BikeMakeEntityBase> MakesByDealerCity(uint cityId)
+        {
+            ICollection<BikeMakeEntityBase> callToActions = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getmakesbydealercity"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            callToActions = new List<BikeMakeEntityBase>();
+                            while (dr.Read())
+                            {
+                                callToActions.Add(
+                                    new BikeMakeEntityBase()
+                                    {
+                                        MakeId = SqlReaderConvertor.ToUInt16(dr["id"]),
+                                        MakeName = Convert.ToString(dr["Name"])
+                                    }
+                                    );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.MakesByDealerCity({0})", cityId));
+            }
+            return callToActions;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 jan 2017
+        /// Description :   Calls opr_getdealerbymakecity
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="makeId"></param>
+        /// <param name="activecontract"></param>
+        /// <returns></returns>
+        public ICollection<DealerEntityBase> DealersByMakeCity(uint cityId, uint makeId, bool activecontract)
+        {
+            ICollection<DealerEntityBase> callToActions = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealerbymakecity"))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_activecontract", DbType.Int16, activecontract ? 1 : 0));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            callToActions = new List<DealerEntityBase>();
+                            while (dr.Read())
+                            {
+                                callToActions.Add(
+                                    new DealerEntityBase()
+                                    {
+                                        Id = SqlReaderConvertor.ToUInt16(dr["dealerId"]),
+                                        Name = Convert.ToString(dr["Organization"])
+                                    }
+                                    );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.DealersByMakeCity({0},{1},{2})", cityId, makeId, activecontract));
+            }
+            return callToActions;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 18 jan 2017
+        /// Description :   Call opr_getdealercampaigns
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="activecontract"></param>
+        /// <returns></returns>
+        public ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract)
+        {
+            ICollection<DealerCampaignDetailsEntity> callToActions = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_getdealercampaigns"))
+                {
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_activecontract", DbType.Int16, activecontract ? 1 : 0));
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            callToActions = new List<DealerCampaignDetailsEntity>();
+                            while (dr.Read())
+                            {
+                                callToActions.Add(
+                                    new DealerCampaignDetailsEntity()
+                                    {
+                                        CampaignId = SqlReaderConvertor.ToUInt16(dr["campaignid"]),
+                                        CampaignName = Convert.ToString(dr["campaignname"]),
+                                        MaskingNumber = Convert.ToString(dr["maskingnumber"]),
+                                        EmailId = Convert.ToString(dr["campaignemailid"]),
+                                        ServingRadius = SqlReaderConvertor.ToInt32(dr["CampaignLeadServingRadius"]),
+                                        ContractID = SqlReaderConvertor.ToUInt32(dr["ContractId"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        PackageName = Convert.ToString(dr["packagename"]),
+                                        ContractStartDate = SqlReaderConvertor.ToDateTime(dr["startdate"]),
+                                        ContractEndDate = SqlReaderConvertor.ToDateTime(dr["enddate"]),
+                                        ContractStatus = SqlReaderConvertor.ToUInt32(dr["contractstatus"]),
+                                        ContractStatusText = Convert.ToString(dr["status"]),
+                                        DailyLeadLimit = SqlReaderConvertor.ToUInt32(dr["dailyleadlimit"]),
+                                        DailyLeads = SqlReaderConvertor.ToUInt32(dr["dailyleads"]),
+                                        RulesCount = SqlReaderConvertor.ToUInt32(dr["NoOfRules"])
+                                    }
+                                    );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("DealerCampaignRepository.DealerCampaigns({0},{1})", dealerId, activecontract));
+            }
+            return callToActions;
         }
     }
 }

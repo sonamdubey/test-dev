@@ -59,12 +59,15 @@
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikePricing\BikePrice.cs" />
+    <Compile Include="BikePricing\PriceCategoryEntity.cs" />
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
     <Compile Include="ColorCodeBase.cs" />
     <Compile Include="ContractCampaign\ContractCampaignInputEntity.cs" />
+    <Compile Include="ContractCampaign\DealerCampaignDetailsEntity.cs" />
+    <Compile Include="ContractCampaign\DealerEntityBase.cs" />
     <Compile Include="ContractCampaign\ManufactureDealerCampaign.cs" />
     <Compile Include="ContractCampaign\MaskingNumber.cs" />
     <Compile Include="DealerAreaDetails.cs" />

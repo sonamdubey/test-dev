@@ -30,7 +30,7 @@
                var objImages = vmModelPhotos.objImageList; %>
         <section>
             <div class="container box-shadow section-bottom-margin">
-                <h1 class="section-header"><%= vmModelPhotos.bikeName %> Photos</h1>
+                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Photos</h1>
                  <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                    { %>
                 <ul class="photos-grid-list">

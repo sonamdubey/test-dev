@@ -139,11 +139,12 @@
                             <div class="border-solid ratings margin-top15 display-table">
                                 <div class="rating-box overall text-center content-inner-block-15">
                                     <p class="text-bold font14 margin-bottom10">
+                                        <span class="text-truncate inline-block">
                                         <%if (handleName != "")
                                             { %>
                                             <%=handleName%>
                                         <% }
-                                            else
+else
                                             { %>
                                             <%=objReview.ReviewEntity.WrittenBy%><%}%>'s Rating</p>
                                     <%if (objReview.ReviewRatingEntity.OverAllRating>0)
@@ -156,7 +157,7 @@
                                         </div>
                                     </div><%} %>
                                 </div>
-                                <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
+                                <div class="rating-category-list-container padding-top10 padding-bottom10 star-icon-sm">
                                     <ul class="rating-category-list">
                                     <%if (objReview.ReviewRatingEntity.ModelRatingLooks > 0)
                                     { %><li>

@@ -194,7 +194,6 @@ var usedBikes = function()
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
-
         var ele = $(e.target);
         if (!ele.hasClass("active")) {
             ele.addClass("active").siblings().removeClass("active");
@@ -575,7 +574,21 @@ $(document).ready(function () {
             sortFilter.show();
         }
     });
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        selectCityObject(obj.CityId);
+        vwUsedBikes.ApplyFilters();
+    }
 });
+
+function selectCityObject(cityId) {
+    $("#filter-city-list > li").each(function () {
+        if ($(this).attr('data-cityid') == cityId) {
+            $(this).trigger('click');
+            return false;
+        }
+    });
+}
 
 var filterContainer = $("#filter-container"),
     effect = 'slide',

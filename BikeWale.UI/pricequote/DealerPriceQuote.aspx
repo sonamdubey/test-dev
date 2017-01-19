@@ -592,16 +592,27 @@
                             </div>
                             <% } %>
                         </div>
-                        <%  if (dealerId == 0 && detailedDealer != null && detailedDealer.SecondaryDealerCount == 0 && objQuotation != null && string.IsNullOrEmpty(objQuotation.ManufacturerAd))
-                            { %>
-                        <div class="margin-left10 margin-right10 border-solid-bottom"></div>
-                        <BW:Dealers ID="ctrlDealers" runat="server" />
-                        <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
+
+
+        <%  if (dealerId == 0 && detailedDealer != null && detailedDealer.SecondaryDealerCount == 0 && objQuotation != null && string.IsNullOrEmpty(objQuotation.ManufacturerAd))
+            { %>
+        <section>
+            <div class="container">
+                <div class="grid-12 margin-bottom20">
+                    <div class="content-box-shadow">
+                        <div class="margin-left10 margin-right10"></div>
+                        <BW:Dealers ID="ctrlDealers" runat="server" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
 
         <% if (objQuotation != null && !string.IsNullOrEmpty(objQuotation.ManufacturerAd) && detailedDealer.PrimaryDealer.DealerDetails == null && detailedDealer.SecondaryDealerCount == 0)
            {
@@ -616,7 +627,7 @@
         <!-- Secondary dealer section -->
         <section>
             <div class="container margin-bottom20 bg-white">
-                <div class="grid-12"> 
+                <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
                         <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more partner dealers":"more partner dealer" %></h2>
                         <div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
@@ -671,11 +682,11 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </section> 
+        </section>
         <!-- Secondary dealer section ends -->
         <% } %>
 
