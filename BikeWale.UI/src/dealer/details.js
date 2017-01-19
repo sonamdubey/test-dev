@@ -89,8 +89,31 @@ function savePosition(position) {
 
 }
 
-
-
+$(".dealerDetails").click(function () {
+    var btnDpq = $(this);
+    var pqSourceId = btnDpq.data("pqsourceid");
+    var modelId = btnDpq.data("modelid");
+    var versionId = btnDpq.data("versionid");
+    var areaId = btnDpq.data("areaid");
+    var cityId = btnDpq.data("cityid");
+    var cityName = btnDpq.data("cityname");
+    var areaName = btnDpq.data("areaname");
+    vmquotation.CheckCookies();
+    vmquotation.IsLoading(true);
+    $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+    var options = {
+        "modelId": modelId,
+        "versionid" : versionId,
+        "cityId": cityId,
+        "areaId": areaId,
+        "city": cityName,
+        "area": areaName,
+        "pagesrcid": pqSourceId,
+        "dealerid": dealerid
+    };
+    vmquotation.IsOnRoadPriceClicked(false);
+    vmquotation.setOptions(options);
+});
 
 var dealerDetails = function (dealerDetailsBind) {
     var self = this;
