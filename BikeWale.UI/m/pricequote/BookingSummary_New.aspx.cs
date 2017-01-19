@@ -356,10 +356,10 @@ namespace Bikewale.Mobile.PriceQuote
                     CustEmail = objCustomer.objCustomerBase.CustomerEmail,
                     CustMobile = objCustomer.objCustomerBase.CustomerMobile,
                     CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
-                    PlatformId = 1,  //Desktop
+                    PlatformId = 2,  //Mobile
                     ApplicationId = 2, //Carwale
                     RequestToPGUrl = String.Format("{0}/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrlForJs),
-                    ReturnUrl = String.Format("{0}/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={0}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                    ReturnUrl = String.Format("{0}/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
