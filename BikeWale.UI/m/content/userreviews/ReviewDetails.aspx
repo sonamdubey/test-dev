@@ -42,7 +42,7 @@
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">
-                            <a href="" title="">
+                            <a href="/m/<%=  objReview.BikeEntity.MakeEntity.MakeName%>-bikes/<%= objReview.BikeEntity.ModelEntity.ModelName %>/" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %>">
                                 <img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, objReview.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
                             </a>
                         </div>
