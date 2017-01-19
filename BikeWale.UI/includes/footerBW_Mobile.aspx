@@ -34,6 +34,7 @@
     <div class="clear"></div>
 </div>
 
+<script type="text/javascript" src="/src/bwcache.js"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
 
 <!-- global-search-popup code starts here -->
@@ -52,6 +53,7 @@
                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
             </li>
         </ul>
+       <ul id="global-recent-searches" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
     </div>
 </div> <!-- global-search-popup code ends here -->
 

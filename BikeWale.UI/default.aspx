@@ -63,6 +63,7 @@
                                     <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                                 </li>
                             </ul>
+                              <ul id="new-global-recent-searches" style="position: relative; width: 470px;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
                         </div>
                     </div>
                 </div>
