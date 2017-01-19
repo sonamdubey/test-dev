@@ -30,7 +30,7 @@
                 <div class="content-inner-block-10">
                     <div class="content-inner-block-10 margin-bottom5">
                         <div class="model-review-image inline-block">
-                            <a href="" title="">
+                            <a href="/m/<%=  objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>">
                                 <img alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>">
                             </a>
                         </div>
@@ -139,11 +139,11 @@
                         </div>
                         <div class="model-user-review-title-container">
                             <h3>
-                                <a class="target-link margin-bottom7" href="/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/user-reviews/<%=UserReviews.ReviewId %>.html" title="<%=UserReviews.ReviewTitle %>"><%=UserReviews.ReviewTitle %></a>
+                                <a class="target-link margin-bottom7" href="/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/user-reviews/<%=UserReviews.ReviewId %>.html" title="<%=UserReviews.ReviewTitle %>"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.ReviewTitle,50) %></a>
                             </h3>
                             <div class="grid-7 alpha padding-right5">
                                 <span class="bwmsprite calender-grey-sm-icon"></span>
-                                <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(UserReviews.ReviewDate), "MMMM dd, yyyy hh:mm tt") %></span>
+                                <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(UserReviews.ReviewDate), "MMM dd, yyyy") %></span>
                             </div>
                             <div class="grid-5 alpha omega">
                                 <span class="bwmsprite author-grey-sm-icon"></span>
@@ -151,7 +151,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <p class="font14 margin-top10"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.Comments,180) %></p>
+                        <p class="font14 margin-top10"><%=Bikewale.Utility.FormatDescription.TruncateDescription(UserReviews.Comments,140) %></p>
                     </li>
                     <%} %>
                 </ul>
@@ -166,7 +166,7 @@
         </section>
         <% } else{%>
           <div class="container box-shadow bg-white section-bottom-margin padding-bottom15 padding-top15 padding-right20 padding-left20">
-         <h2>No reviews available! Be the first one to write a review for this bike.</h2>
+         <h2>No reviews available!.</h2>
               </div>
         <%} %>
         <%if (ctrlUserReviewSimilarBike.FetchCount > 0)

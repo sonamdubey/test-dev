@@ -200,6 +200,13 @@ namespace Bikewale.Mobile.Content
         {
             //Get Model details
             objModelEntity = objModel.GetById(modelId);
+            if (objModelEntity.Futuristic)
+            {
+                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+
+            }
             GetModelRatings();
 
         }

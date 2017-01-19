@@ -6,7 +6,7 @@
           { %>
         <div class="swiper-slide">
             <div class="swiper-card">
-                <a href="<%=string.Format("/m/{0}-bikes/{1}/user-reviews/",UserDetails.MakeMaksingName,UserDetails.ModelMaskingName)%>" title="<%=string.Format("{0} {1}",UserDetails.MakeName,UserDetails.ModelName) %>">
+                <a href="<%=string.Format("/m/{0}-bikes/{1}/user-reviews/",UserDetails.MakeMaksingName,UserDetails.ModelMaskingName)%>" title="<%=string.Format("{0} {1} user reviews",UserDetails.MakeName,UserDetails.ModelName) %>">
                     <div class="swiper-image-preview">
                         <img class="swiper-lazy" data-src="<%=Bikewale.Utility.Image.GetPathToShowImages(UserDetails.OriginalImagePath,UserDetails.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("{0} {1}",UserDetails.MakeName,UserDetails.ModelName) %>" src="" />
                         <span class="swiper-lazy-preloader"></span>
