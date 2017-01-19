@@ -986,14 +986,8 @@ function slideChangeStart() {
 
 var getHost = function () {
     var host = document.domain;
-
     if (host.match("bikewale.com$"))
         host = ".bikewale.com";
-    else if (host.match("webserver$"))
-        host = "webserver";
-    else
-        host = "localhost";
-
     return host;
 }
 

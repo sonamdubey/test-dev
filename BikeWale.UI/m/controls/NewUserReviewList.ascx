@@ -2,7 +2,7 @@
 <%if(string.IsNullOrEmpty(WidgetHeading)){ %>
 <h3 class="margin-top20 model-section-subtitle">User reviews</h3>
 <%}else{%>
- <h2 ><%=WidgetHeading %></h2>
+ <h2 class="margin-bottom20 model-section-subtitle"><%=WidgetHeading %></h2>
 <%} %>
 <div class="model-user-review-container padding20">
   <asp:Repeater ID="rptUserReview" runat="server">

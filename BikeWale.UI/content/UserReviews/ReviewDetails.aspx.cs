@@ -297,6 +297,8 @@ namespace Bikewale.Content
                 objReview = new ReviewDetailsEntity();
                 bool IsAlreadyViewed = AlreadyViewed(reviewId);
                 objReview = objBike.GetDetails(reviewId, IsAlreadyViewed);
+                MakeMaskingName = objReview.BikeEntity.MakeEntity.MaskingName;
+                ModelMaskingName = objReview.BikeEntity.ModelEntity.MaskingName;
                 BikeName = string.Format("{0} {1} {2}", objReview.BikeEntity.MakeEntity.MakeName, objReview.BikeEntity.ModelEntity.ModelName, objReview.BikeEntity.VersionEntity.VersionName);
                 URV += reviewId + ",";
                 if (reviewerId == CurrentUser.Id)
@@ -326,7 +328,7 @@ namespace Bikewale.Content
         private void CreatMetas()
         {
             pageMetas = new PageMetaTags();
-            pageMetas.Title = string.Format("{0} - A Review on {1} by {2}, {1}", _title, BikeName, objReview.ReviewEntity.WrittenBy);
+            pageMetas.Title = string.Format("{0} - A Review on {1} by {2}, {1}", objReview.ReviewEntity.ReviewTitle, BikeName, objReview.ReviewEntity.WrittenBy);
             pageMetas.Description = string.Format("{0} User Review - A review/feedback on {1} by {2}. Find out what {2} has to say about {1}.", BikeMake, BikeName, objReview.ReviewEntity.WrittenBy);
             pageMetas.Keywords = string.Format("{0} review, {0} user review, car review, owner feedback, consumer review", BikeName);
             pageMetas.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);

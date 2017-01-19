@@ -5,10 +5,10 @@
 <html>
 <head>
     <%
-        title = objReview.ReviewEntity.ReviewTitle + " - A Review on " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " by " + objReview.ReviewEntity.WrittenBy;
-        description = objReview.BikeEntity.MakeEntity.MakeName + " User Review - " + "A review/feedback on " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " by " + objReview.ReviewEntity.WrittenBy + ". Find out what " + objReview.ReviewEntity.WrittenBy + " has to say about " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + ".";
-        keywords = objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " review, " + objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName + " user review, car review, owner feedback, consumer review";
-        canonical = "https://www.bikewale.com/" + objReview.BikeEntity.MakeEntity.MaskingName + "-bikes/" + objReview.BikeEntity.MakeEntity.MaskingName + objReview.BikeEntity.ModelEntity.MaskingName + "/user-reviews/" + objReview.ReviewEntity.ReviewId + ".html";
+        title = pageMetas.Title;
+        description = pageMetas.Description;
+        keywords = pageMetas.Keywords;
+        canonical = pageMetas.CanonicalUrl;
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1398837216327";
         //menu = "9";
@@ -30,7 +30,7 @@
                     <h1 class="margin-bottom10"><%= objReview.ReviewEntity.ReviewTitle %></h1>
                     <div class="grid-6 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%= Bikewale.Common.CommonOpn.GetDisplayDate(objReview.ReviewEntity.ReviewDate.ToString()) %></span>
+                        <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy hh:mm tt")  %></span>
                     </div>
                     <div class="grid-6 alpha omega">
                         <span class="bwmsprite author-grey-sm-icon"></span>
@@ -68,7 +68,6 @@
                                     <span class="padding-left2 font12 text-light-grey">/ 5</span>
                                 </div>
                             </div>
-                            <5}
                         </div><div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                             <ul class="rating-category-list">
                                  <%if (objReview.ReviewRatingEntity.ModelRatingLooks > 0)
@@ -160,7 +159,7 @@
 
                     <p id="divAbuse" class="font14 text-light-grey margin-top10 margin-bottom10">Inappropriate Review? <a onclick='javascript:abuseClick(<%= reviewId %>)' id="report-abuse-target">Report Abuse</a></p>
 
-                    <div id="divHelpful" class="border-solid-top padding-top10 text-light-grey"><span class="margin-right10 feedback-label">Was this review helpful to you?</span><a onclick='javascript:helpfulClick(<%= reviewId %>, "1")' class="btn-transparent-sm margin-right5">Yes</a> <a onclick='javascript:helpfulClick(<%= reviewId %>, "1")' class="btn-transparent-sm">No</a></div>
+                    <div id="divHelpful" class="border-solid-top padding-top10 text-light-grey"><span class="margin-right10 feedback-label">Was this review helpful to you?</span><a onclick='javascript:helpfulClick(<%= reviewId %>, "1")' class="btn-transparent-sm margin-right5">Yes</a> <a onclick='javascript:helpfulClick(<%= reviewId %>, "0")' class="btn-transparent-sm">No</a></div>
                 </div>   <%} %>             
             </div>
         </section><%} %>
@@ -173,14 +172,15 @@
                     <% } %>
             </div>
         </section>
-
+          <%if (ctrlUserReviewSimilarBike.FetchCount > 0)
+          { %>
         <section>
             <div class="container bg-white box-shadow padding-top15 padding-bottom15 section-bottom-margin">
                 <h2 class="padding-right20 padding-bottom15 padding-left20">User reviews of similar bikes</h2>
                  <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
             </div>
         </section>
-
+<%} %>
         <div id="report-abuse-popup">
             <p class="font14 text-bold text-center margin-bottom10">Why do you want to report it abuse?</p>
             <div class="report-abuse-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
