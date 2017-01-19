@@ -328,7 +328,7 @@ $(document).ready(function () {
             if(city.cityId!=globalCityId)
                 SetCookieInDays("location", city.cityId + "_" + cityName , 365);
             CloseCityPopUp();
-            showGlobalCity(ui.item.label);            
+            showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
             if (city.cityId) {
                 location.reload();
@@ -998,7 +998,10 @@ var getHost = function () {
 }
 
 function SetCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
 }
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
@@ -1006,7 +1009,10 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     var expire = new Date();
     expire.setTime(today.getTime() + 3600000 * 24 * nDays);
     cookieValue = cookieValue.replace(/\s+/g, '-');
-    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
 }
 
 function getCookie(key) {
@@ -1202,7 +1208,7 @@ $(window).on('hashchange', function (e) {
 var hashChange = function (e) {
     var oldUrl, oldHash;
     oldUrl = e.originalEvent.oldURL;
-    if (oldUrl.indexOf('#') > 0) {
+    if (oldUrl && (oldUrl.indexOf('#') > 0)) {
         oldHash = oldUrl.split('#')[1];
         closePopUp(oldHash);
     };

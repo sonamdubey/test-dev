@@ -13,6 +13,7 @@
 .icon-outer-circle, .icon-inner-circle { -moz-border-radius: 50%; -webkit-border-radius: 50%; -o-border-radius: 50%; -ms-border-radius: 50%; border-radius: 50%;}
 #changecity-ignore.btn { padding: 5px 12px; }
 #changecity-accept.btn { padding: 5px 15px; }
+#changecity-ignore.btn:hover{text-decoration:none;}
 </style>
 
  <!-- global Change city pop up code starts here -->
@@ -53,8 +54,7 @@
             };
             var ignoreCityChange = function () {
                 bwcache.set(options.sessionKey, "1", true);
-                options.blackoutEle.style.display = "none";
-                options.popupEle.style.display = "none";
+                hideChangeCityPopup();
             };
             var acceptCityChange = function () {
                 var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
@@ -62,32 +62,40 @@
                 cookieValue = cookieValue.replace(/\s+/g, '-');
                 document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
                 document.getElementById("globalCityPopUp").value = options.urlCityName;
-                options.blackoutEle.style.display = "none";
-                options.popupEle.style.display = "none";
+                hideChangeCityPopup();
             };
 
             var closeChangeCityPopup = function () {
                 ignoreCityChange();
-                options.blackoutEle.style.display = "none";
-                options.blackoutEle.style.display = "none";
-                options.navGlobalLocation.style.pointerEvents = "auto";
-                options.bodyEle.style.overflow = "";
+                hideChangeCityPopup();
             };
 
             var closeOnEsc = function (e) {
                 if (e.keyCode === 27)
                     closeChangeCityPopup();
             };
+
+            var showChangeCityPopup = function () {
+                options.blackoutEle.style.display = "block";
+                options.popupEle.style.display = "block";
+                options.navGlobalLocation.style.pointerEvents = "none";
+                options.bodyEle.style.overflow = "hidden";
+            };
+
+            var hideChangeCityPopup = function () {
+                options.blackoutEle.style.display = "none";
+                options.popupEle.style.display = "none";
+                options.navGlobalLocation.style.pointerEvents = "auto";
+                options.bodyEle.style.overflow = "";
+            };
+
             var init = function () {
                 try {
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
                     if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
                         if (!bwcache.get(options.sessionKey, true))   //surpress location chnage prompt for the session
                         {
-                            options.blackoutEle.style.display = "block";
-                            options.popupEle.style.display = "block";
-                            options.navGlobalLocation.style.pointerEvents = "none";
-                            options.bodyEle.style.overflow = "hidden";
+                            showChangeCityPopup();
                             window.history.pushState('locationChange', '', '');
                         }
                     }

@@ -52,8 +52,7 @@
             var ignoreCityChange = function()
             {
                 bwcache.set(options.sessionKey, "1", true);
-                options.blackoutEle.style.display = "none";
-                options.popupEle.style.display = "none";
+                hideChangeCityPopup();
             }; 
             var acceptCityChange = function()
             {
@@ -62,33 +61,41 @@
                 cookieValue = cookieValue.replace(/\s+/g, '-');
                 document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
                 document.getElementById("cityName").innerText = options.urlCityName;
-                options.blackoutEle.style.display = "none";
-                options.popupEle.style.display = "none";
+                hideChangeCityPopup();
             };
 
             var closeChangeCityPopup = function()
             {
                 ignoreCityChange();
-                options.blackoutEle.style.display = "none";
-                options.blackoutEle.style.display = "none";
-                options.navGlobalLocation.style.pointerEvents = "auto";
-                options.bodyEle.style.overflow = "";
+                hideChangeCityPopup();
             };
 
             var closeOnEsc = function (e) {
                 if (e.keyCode === 27)
                     closeChangeCityPopup();
             };
-            var init = function (){
+
+            var showChangeCityPopup = function () {
+                options.blackoutEle.style.display = "block";
+                options.popupEle.style.display = "block";
+                options.navGlobalLocation.style.pointerEvents = "none";
+                options.bodyEle.style.overflow = "hidden";
+            };
+
+            var hideChangeCityPopup = function () {
+                options.blackoutEle.style.display = "none";
+                options.popupEle.style.display = "none";
+                options.navGlobalLocation.style.pointerEvents = "auto";
+                options.bodyEle.style.overflow = "";
+            };
+
+            var init = function () {
                 try {
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
                     if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
                         if (!bwcache.get(options.sessionKey, true))   //surpress location chnage prompt for the session
                         {
-                            options.blackoutEle.style.display = "block";
-                            options.popupEle.style.display = "block";
-                            options.navGlobalLocation.style.pointerEvents = "none";
-                            options.bodyEle.style.overflow = "hidden";
+                            showChangeCityPopup();
                         }
                     }
                     else if (options.cookieCityId == 0)  //in case global city is not selected 
