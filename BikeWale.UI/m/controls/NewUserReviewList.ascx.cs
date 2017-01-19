@@ -19,6 +19,8 @@ namespace Bikewale.Mobile.Controls
         public string ModelMaskingName { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
+        public string WidgetHeading { get; set; }
+        public int ReviewId { get; set; }
         protected string linkTitle = string.Empty;
 
         private int _reviewCount = 4;
@@ -50,6 +52,7 @@ namespace Bikewale.Mobile.Controls
         private void BindUserReviews()
         {
             BindUserReviewControl objUserReview = new BindUserReviewControl();
+            objUserReview.ReviewId = ReviewId;
             objUserReview.ModelId = ModelId;
             objUserReview.PageNo = PageNo;
             objUserReview.PageSize = PageSize;

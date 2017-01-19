@@ -11,5 +11,6 @@ namespace Bikewale.Entities.UserReviews
         public List<ReviewEntity> ReviewList { get; set; }
         [DataMember]
         public uint TotalReviews { get; set; }
+
     }
 }

@@ -1135,6 +1135,10 @@
       <DependentUpon>UserReviewList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UserReviewSimilarBike.ascx.cs">
+      <DependentUpon>UserReviewSimilarBike.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UsersTestimonials.ascx.cs">
       <DependentUpon>UsersTestimonials.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2665,6 +2669,7 @@
     <Content Include="m\controls\UsedBikes.ascx" />
     <Content Include="m\controls\UsedRecentBikes.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
+    <Content Include="m\controls\UserReviewSimilarBike.ascx" />
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosByCategory.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
@@ -2720,6 +2725,7 @@
     <Content Include="m\css\used-details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
+    <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />

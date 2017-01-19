@@ -1446,7 +1446,6 @@ namespace Bikewale.DAL.BikeData
                             objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
                             objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
                             objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
-
                             dr.Close();
                         }
                     }
@@ -1634,7 +1633,7 @@ namespace Bikewale.DAL.BikeData
                                 objReview.BikeEntity.ModelEntity.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
                                 objReview.BikeEntity.ModelEntity.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["makemaskingname"]);
-                                objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
+
                                 objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
                                 objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
                                 objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
