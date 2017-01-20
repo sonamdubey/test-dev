@@ -32,7 +32,6 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="/src/bwcache.js"></script>
 <script type="text/javascript">  
     var locationChangePopup = (function () {
         try {
