@@ -1001,7 +1001,7 @@ function slideChangeStart() {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')                           
                         } else {
                             if (item.payload.isNew == 'True') {
-                                ulItem.append('<a data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                                ulItem.append('<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                             }
                             else {
                                 ulItem.append('<span class="upcoming-link">discontinued</span>')
@@ -1509,6 +1509,8 @@ var Base64 = {
 
 }
 function setPriceQuoteFlag() {
+    $('#global-search-popup').hide();
+    unlockPopup();
     IsPriceQuoteLinkClicked = true;
 }
 function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }

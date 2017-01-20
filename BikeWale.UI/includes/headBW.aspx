@@ -18,7 +18,8 @@
                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
                 </ul>
-                <ul id="global-recent-searches" style="width:420px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+                <ul id="global-recent-searches" style="width:420px;position:absolute;top:30px;left:3px"></ul>
+                <%--<ul id="global-recent-searches" style="width:420px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>--%>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">

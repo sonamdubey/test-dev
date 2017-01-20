@@ -676,7 +676,7 @@ function pushNavMenuAnalytics(menuItem) {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
                         } else {
                             if (item.payload.isNew == 'True') {
-                                ulItem.append('<a data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                                ulItem.append('<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
                             } else {
                                 ulItem.append('<span class="upcoming-link">discontinued</span>')
                             }
@@ -1336,13 +1336,13 @@ var recentSearches =
                     item = objSearches.searches[item];
                     bikename = item.name || '';
                     if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
-                        html += '<li data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><a href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                        html += '<li data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><a href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                         if (item.modelId > 0) {
                             if (item.futuristic == 'True') {
                                 html += '<span class="upcoming-link">coming soon</span>';
                             } else {
                                 if (item.isNew == 'True') {
-                                    html += '<a data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
+                                    html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
                                 } else {
                                     html += '<span class="upcoming-link">discontinued</span>';
                                 }
@@ -1355,7 +1355,7 @@ var recentSearches =
                 if (html != "") {
                     this.options.recentSearchesEle.append(html);
                     this.options.recentSearchesLoaded = true;
-                    this.options.recentSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                    //this.options.recentSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
                 }
 
             }
@@ -1367,10 +1367,10 @@ var recentSearches =
             this.options.recentSearchesEle.show();
             var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
             if (event.keyCode == 40) {
-                rsele.next().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                //rsele.next().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
                 return false;
             } else if (event.keyCode == 38) {
-                rsele.prev().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                //rsele.prev().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
                 return false;
             }
             else if (event.keyCode == 27) {
@@ -1379,7 +1379,7 @@ var recentSearches =
         }
     },
     hideRecentSearches: function () {
-        this.options.recentSearchesEle.hide().find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+        //this.options.recentSearchesEle.hide().find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
 
     },
     handleKeyEvents: function () {
