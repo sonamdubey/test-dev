@@ -53,7 +53,7 @@
                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
             </li>
         </ul>
-       <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
+       <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
     </div>
 </div> <!-- global-search-popup code ends here -->
 

@@ -931,7 +931,12 @@ $("#newBikeList").bw_autocomplete({
         }
         else {
             $('#errNewBikeSearch').hide();
-            recentSearches.hideRecentSearches();
+            var container = $('#new-global-recent-searches');
+            if (container.is(':visible')) {
+                if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                    recentSearches.hideRecentSearches();
+                }
+            }
         }
     },
     afterfetch: function (result, searchtext) {
@@ -950,7 +955,7 @@ $("#newBikeList").bw_autocomplete({
         }
     },
     keyup: function () {
-        if ($('li.ui-state-focus a:visible').text() != "" && $('#newBikeList').val().trim() != '') {
+        if ($('#newBikeList').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
             $('#errNewBikeSearch').hide();
@@ -963,18 +968,19 @@ $("#newBikeList").bw_autocomplete({
         }
 
         if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-            if (focusedMakeModel == null || focusedMakeModel == undefined)
-                if ($('#newBikeList').val().trim() != '')
-                {
-                    $('#errNewBikeSearch').show(); recentSearches.hideRecentSearches();
+            if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                if ($('#newBikeList').val().trim() != '') {
+                    $('#errNewBikeSearch').show();
                 }
-                   
-                else {
-                    $('#errNewBikeSearch').hide();
-                    recentSearches.hideRecentSearches();
-                }
+            }
+            else {
+                $('#errNewBikeSearch').hide();
+                recentSearches.showRecentSearches();
+            }
 
         }
+
+        
     }
 });
 
@@ -1018,7 +1024,12 @@ $("#globalSearch").bw_autocomplete({
         }
         else {
             $('#errGlobalSearch').hide();
-            recentSearches.hideRecentSearches();
+            var container = $('#global-recent-searches');
+            if (container.is(':visible')) {
+                if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                    recentSearches.hideRecentSearches();
+                }
+            }
         }
     },
     afterfetch: function (result, searchtext) {
@@ -1312,7 +1323,7 @@ var recentSearches =
     },
     saveRecentSearches: function (opt) {
         if (opt && opt.payload && opt.payload.makeId > 0) {
-            var objSearches = bwcache.get(this.searchKey, true) || {};
+            var objSearches = bwcache.get(this.searchKey) || {};
             opt.payload["name"] = opt.label;
             objSearches.searches = objSearches.searches || [];
             eleIndex = this.objectIndexOf(objSearches.searches, opt.payload);
@@ -1323,12 +1334,12 @@ var recentSearches =
             if (objSearches.searches.length > 5)
                 objSearches.searches.pop();
             objSearches["noOfSearches"] = objSearches.searches.length;
-            bwcache.set(this.searchKey, objSearches, true);
+            bwcache.set(this.searchKey, objSearches);
         }
     },
     showRecentSearches: function () {
         if (!this.options.recentSearchesLoaded) {
-            var objSearches = bwcache.get(this.searchKey, true);
+            var objSearches = bwcache.get(this.searchKey);
             if (objSearches && objSearches.searches) {
                 var html = "", bikename, url;
                 var i = 0;
@@ -1355,7 +1366,7 @@ var recentSearches =
                 if (html != "") {
                     this.options.recentSearchesEle.append(html);
                     this.options.recentSearchesLoaded = true;
-                    //this.options.recentSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                    this.options.recentSearchesEle.find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
                 }
 
             }
@@ -1365,21 +1376,24 @@ var recentSearches =
         if (rsele.length > 0)
         {
             this.options.recentSearchesEle.show();
-            var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
+            var rsele = this.options.recentSearchesEle.find("li.focus-state");
             if (event.keyCode == 40) {
-                //rsele.next().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
                 return false;
             } else if (event.keyCode == 38) {
-                //rsele.prev().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+                rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
                 return false;
             }
             else if (event.keyCode == 27) {
                 this.hideRecentSearches();
             }
+            else if (event.keyCode == 13) {
+                rsele.trigger('click');
+            }
         }
     },
     hideRecentSearches: function () {
-        //this.options.recentSearchesEle.hide().find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
+        this.options.recentSearchesEle.hide().find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
 
     },
     handleKeyEvents: function () {
@@ -1392,3 +1406,21 @@ var recentSearches =
         return -1;
     }
 };
+
+recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+    if (!$(event.target).hasClass('getquotation')) {
+        window.location.href = $(this).find('a').first().attr('href');
+    }
+    else {
+        recentSearches.hideRecentSearches();
+    }
+});
+
+
+var elements = recentSearches.options.recentSearchesEle.find("li");
+$(document).on('mouseenter', '.recent-searches-dropdown li', function () {
+    $(this).addClass("focus-state");
+});
+$(document).on('mouseleave', '.recent-searches-dropdown li', function () {
+    $(this).removeClass("focus-state");
+});
