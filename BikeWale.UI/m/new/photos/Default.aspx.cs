@@ -18,15 +18,27 @@ namespace Bikewale.Mobile.New.Photos
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
         protected bool isUpcoming = false, isDiscontinued = false;
-
+        protected bool isModelPage;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 20 jan 2017
+        /// Summary :- model page photo bind condition added in query string
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+
             BindPhotosPage();
+
+            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            {
+                isModelPage = true;
+            }
+
         }
 
         /// <summary>

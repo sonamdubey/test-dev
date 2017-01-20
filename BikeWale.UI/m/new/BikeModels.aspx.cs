@@ -85,7 +85,7 @@ namespace Bikewale.Mobile.New
         protected ModelGallery ctrlModelGallery;
         protected int colorCount;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
 
         GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
