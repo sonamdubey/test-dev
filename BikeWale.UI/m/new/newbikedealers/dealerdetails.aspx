@@ -210,7 +210,12 @@
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
              var pageUrl = window.location.href;
-
+            <% if (Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId == 0 && pqCityId > 0 && !String.IsNullOrEmpty(cityName))
+               { %>
+            $(document).ready(function () {
+                SetCookieInDays("location", "<%= String.Format("{0}_{1}",pqCityId,cityName) %>", 365);
+            });
+            <%}%>
             $(window).scroll(function () {
                 bodHt = $('body').height();
                 footerHt = $('footer').height();

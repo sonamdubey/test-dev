@@ -295,6 +295,12 @@
         <script type="text/javascript">
             var versionId = "";
             var dealerid = <%= dealerId %>;
+            <% if (Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().CityId == 0 && pqCityId > 0 && !String.IsNullOrEmpty(cityName))
+               { %>                   
+            $(document).ready(function () {
+                SetCookieInDays("location","<%= String.Format("{0}_{1}",pqCityId,cityName) %>",365);
+            });
+            <%}%>
             $("#getLeadBike").change(function () {
                 var val = $(this).val();
                 if (val && val != "" && val != "0") {
