@@ -151,7 +151,7 @@
                                         </div>
                                         <% if(pqAreaId > 0){ %>    
                                         <div class="text-default">
-                                            <a rel="nofollow" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-versionid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objVersion.VersionId")) %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail_AvailableModels %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelId")) %>">View dealer details</a>
+                                            <a rel="nofollow" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-versionid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objVersion.VersionId")) %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail_AvailableModels %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelId")) %>">Show detailed price</a>
                                         </div>              
                                         <%} %>                  
                                     </div>                                
