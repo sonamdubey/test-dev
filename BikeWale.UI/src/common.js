@@ -1360,8 +1360,11 @@ var recentSearches =
 
             }
         }
-        this.options.recentSearchesEle.show();
-        if (this.options.recentSearchesEle.is(":visible")) {
+
+        var rsele = this.options.recentSearchesEle.find("li");
+        if (rsele.length > 0)
+        {
+            this.options.recentSearchesEle.show();
             var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
             if (event.keyCode == 40) {
                 rsele.next().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
@@ -1374,8 +1377,6 @@ var recentSearches =
                 this.hideRecentSearches();
             }
         }
-        return false;
-
     },
     hideRecentSearches: function () {
         this.options.recentSearchesEle.hide().find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");

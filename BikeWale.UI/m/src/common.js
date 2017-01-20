@@ -689,7 +689,7 @@ $(document).ready(function () {
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
                 focusedMakeModel = new Object();
-                focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
             }
             else {
                 $('#errGlobalSearch').hide();
@@ -901,6 +901,10 @@ function slideChangeStart() {
             if ($(this).attr('placeholder') != undefined)
                 $(this).hint();
             var result;
+            $(this).focus(function () {
+                if (options.focus != undefined)
+                    options.focus();
+            })
             $(this).focusout(function () {
                 if (options.focusout != undefined)
                     options.focusout();
