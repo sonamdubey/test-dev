@@ -749,6 +749,11 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
     else
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+
+    if ($(event.currentTarget).hasClass("globalCity-auto-desktop"))
+        bwcache.set("userchangedlocation", "1", true);
+    else
+        bwcache.remove("userchangedlocation", true);
 }
 
 function getCookie(key) {

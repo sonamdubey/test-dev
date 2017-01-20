@@ -44,6 +44,7 @@
                 urlCityId: parseInt('<%: UrlCityId %>', 10),
                 cookieCityId: parseInt('<%: CookieCityId %>', 10),
                 sessionKey: "bwchangecity",
+                locationChangeKey: "userchangedlocation",
                 ignoreEle: document.getElementById("changecity-ignore"),
                 acceptEle: document.getElementById("changecity-accept"),
                 popupEle: document.getElementById("globalchangecity-popup"),
@@ -59,6 +60,7 @@
                 var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
                 expire.setTime(today.getTime() + 3600000 * 24 * 365);
                 cookieValue = cookieValue.replace(/\s+/g, '-');
+                bwcache.remove("userchangedlocation", true);
                 document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
                 document.getElementById("globalCityPopUp").value = options.urlCityName;
                 hideChangeCityPopup();
@@ -92,7 +94,7 @@
                 try {
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
                     if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
-                        if (!bwcache.get(options.sessionKey, true))   //surpress location chnage prompt for the session
+                        if (!bwcache.get(options.sessionKey, true) && !bwcache.get(options.locationChangeKey, true))   //surpress location chnage prompt for the session
                         {
                             showChangeCityPopup();
                             window.history.pushState('locationChange', '', '');
