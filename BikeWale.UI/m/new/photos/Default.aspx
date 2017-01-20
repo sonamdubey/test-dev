@@ -26,6 +26,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
+         <% if (isModelPage)
+                       { %>
+         <div class="blackOut-window" style="display: block; opacity:1;"></div>
+                    <%}%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <% if (vmModelPhotos != null)
            {
@@ -88,7 +92,7 @@
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- model-gallery-container ends here -->
-
+           
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

@@ -44,6 +44,8 @@ namespace Bikewale.Mobile.New.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2017
         /// Description : Bind photos page with metas,photos and widgets
+        /// Modified By :- Subodh jain 20 jan 2017
+        /// Summary :- Added ismodel page flag for gallery binding
         /// </summary>
         private void BindPhotosPage()
         {
@@ -52,6 +54,7 @@ namespace Bikewale.Mobile.New.Photos
                 vmModelPhotos = new BindModelPhotos();
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
+                    vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
                     isDiscontinued = vmModelPhotos.IsDiscontinued;
                     isUpcoming = vmModelPhotos.IsUpcoming;
