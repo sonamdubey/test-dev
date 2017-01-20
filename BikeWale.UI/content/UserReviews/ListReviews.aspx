@@ -109,7 +109,7 @@
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
                             </div>
                             <%}else{ %>
-                              <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price in, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName%></p>
+                              <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price</p>
                             <div class="margin-top5">  
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
                             </div>
@@ -127,7 +127,7 @@
                                         <span class="padding-left2 font12 text-light-grey">/ 5</span>
                                     </div>
                                 </div>
-                                <p class="font14 text-light-grey"><%=ModelReviewCount +(ModelReviewCount>1?"Reviews":"Review")%> </p>
+                                <p class="font14 text-light-grey"><%=ModelReviewCount +(ModelReviewCount>1?" Reviews":" Review")%> </p>
                             </div>
                             <div class="rating-category-list-container content-inner-block-10 star-icon-sm">
                                 <ul class="rating-category-list">
@@ -250,7 +250,7 @@
     
                 </div>
                   <%} %>
-                <div>
+                <div class=" margin-bottom20">
                <!-- #include file="/ads/Ad300x250BTF.aspx" -->
                 </div>
                   <%if (ctrlPopularBikes.FetchedRecordsCount>0)
