@@ -643,7 +643,7 @@
                         <a href="#modelSummaryContent" rel="nofollow">Summary</a>
                         <%} %>
                         <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
-                        <a href="#modelPricesContent" rel="nofollow">Prices</a>
+                        <a href="#modelPricesContent" rel="nofollow">Price</a>
                         <% } %>
                         <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
@@ -696,7 +696,7 @@
                             <a class="active" href="#modelSummaryContent" rel="nofollow">Summary</a>
                             <%} %>
                             <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
-                            <a href="#modelPricesContent" rel="nofollow">Prices</a>
+                            <a href="#modelPricesContent" rel="nofollow">Price</a>
                             <% } %>
                             <% if(modelPageEntity.ModelVersionSpecs != null ){ %>
                             <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
@@ -843,13 +843,13 @@
 
                         <% if(modelPageEntity.ModelVersions!= null && modelPageEntity.ModelVersions.Count > 0) { %>
                         <div id="modelPricesContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom15 padding-left10 border-solid-bottom">
-                            <h2><%=bikeName %> Prices</h2>
+                            <h2><%=bikeName %> Price List</h2>
                             <div id="prices-by-version-content" class="grid-6 alpha padding-right20">
-                                <h3 class="margin-bottom20">Prices by versions</h3>
+                                <h3 class="margin-bottom20">Price by versions</h3>
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <thead>
                                         <tr>
-                                            <th align="left" width="65%" class="font12 text-unbold text-xt-light-grey padding-bottom5 border-solid-bottom">Version</th>
+                                            <th align="left" width="65%" class="font12 text-unbold text-xt-light-grey padding-bottom5 border-solid-bottom"><%= modelPageEntity.ModelDetails.ModelName %> Version</th>
                                             <th align="left" width="35%" class="font12 text-unbold text-xt-light-grey padding-bottom5 border-solid-bottom">Price</th>
                                         </tr>
                                     </thead>

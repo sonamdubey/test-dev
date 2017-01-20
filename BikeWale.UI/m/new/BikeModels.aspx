@@ -365,7 +365,7 @@
                             <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
-                            <li data-tabs="#modelPricesContent">Prices</li>
+                            <li data-tabs="#modelPricesContent">Price</li>
                             <%} %>
                             <% if(modelPage.ModelVersionSpecs!= null){ %>
                             <li data-tabs="#modelSpecsFeaturesContent">Specs & Features</li>
@@ -537,14 +537,14 @@
                 <div id="modelPricesContent" class="bw-model-tabs-data">
                     <% if (modelPage !=null && modelPage.ModelVersions != null && modelPage.ModelVersions.Count() > 0)
                        { %>
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Price List</h2>
                     <!-- varient code starts here -->
-                    <h3 class="padding-right20 padding-left20">Prices by versions</h3>
+                    <h3 class="padding-right20 padding-left20">Price by versions</h3>
 
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 margin-bottom5">
                         <thead>
                             <tr>
-                                <th align="left" width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</th>
+                                <th align="left" width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom"><%= modelPage.ModelDetails.ModelName %> Version</th>
                                 <th align="left" width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Price</th>
                             </tr>
                         </thead>

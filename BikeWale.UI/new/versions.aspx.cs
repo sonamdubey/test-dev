@@ -212,14 +212,16 @@ namespace Bikewale.New
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- To bind Description on model page
+        /// Modified by :   Sumit Kate on 20 Jan 2017
+        /// Description :   Model Page SEO changes
         /// </summary>
         private void BindDescription()
         {
             try
             {
-                string versionDescirption = modelPageEntity.ModelVersions.Count > 1 ? string.Format(" and is available in {0} versions", modelPageEntity.ModelVersions.Count) : string.Format(" and is available in {0} version", modelPageEntity.ModelVersions.Count);
+                string versionDescirption = modelPageEntity.ModelVersions.Count > 1 ? string.Format(" It is available in {0} versions", modelPageEntity.ModelVersions.Count) : string.Format(" It is available in {0} version", modelPageEntity.ModelVersions.Count);
                 string specsDescirption = string.Empty;
-                string priceDescription = modelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+                string priceDescription = modelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - Rs. {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
                 if (modelPageEntity != null && modelPageEntity.ModelVersionSpecs != null && (modelPageEntity.ModelVersionSpecs.TopSpeed > 0 || modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
                     if ((modelPageEntity.ModelVersionSpecs.TopSpeed > 0 && modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
@@ -233,7 +235,7 @@ namespace Bikewale.New
                         specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPageEntity.ModelVersionSpecs.TopSpeed);
                     }
                 }
-                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+                summaryDescription = string.Format("{0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
             }
             catch (Exception ex)
             {
