@@ -203,12 +203,14 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- To bind Description on model page
+        /// Modified by :   Sumit Kate on 20 Jan 2017
+        /// Description :   Model Page SEO changes
         /// </summary>
         private void BindDescription()
         {
             try
             {
-                string versionDescirption = versionCount > 1 ? string.Format(" It is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
+                string versionDescirption = versionCount > 1 ? string.Format(" It is available in {0} versions", versionCount) : string.Format(" It is available in {0} version", versionCount);
                 string specsDescirption = string.Empty;
                 string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("Price - Rs. {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
 
