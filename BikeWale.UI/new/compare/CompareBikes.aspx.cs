@@ -1,5 +1,4 @@
-﻿using Bikewale.common;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Memcache;
@@ -26,7 +25,7 @@ namespace Bikewale.New
     /// </summary>
     public class comparebikes : System.Web.UI.Page
     {
-        protected Repeater rptCommon, rptSpecs, rptFeatures, rptColors;
+        protected Repeater rptCommon, rptUsedBikes, rptSpecs, rptFeatures, rptColors;
         protected HtmlAnchor delComp;
         protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
@@ -35,7 +34,7 @@ namespace Bikewale.New
             estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
-        protected bool isFeatured = false, isSponsored = false;
+        protected bool isFeatured = false, isSponsored = false, isUsedBikePresent;
         protected Int16 trSize = 45, sponsoredModelId = 0;
         public SimilarCompareBikes ctrlSimilarBikes;
         protected override void OnInit(EventArgs e)
@@ -106,6 +105,9 @@ namespace Bikewale.New
                 {
                     rptCommon.DataSource = ds.Tables[0];
                     rptCommon.DataBind();
+
+                    rptUsedBikes.DataSource = ds.Tables[0];
+                    rptUsedBikes.DataBind();
 
                     rptSpecs.DataSource = ds.Tables[1];
                     rptSpecs.DataBind();
@@ -276,7 +278,22 @@ namespace Bikewale.New
                 return value;
             }
         }
-
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 20 Jan 2017
+        /// Summary: Create used bike links with bikeCount
+        /// </summary>
+        /// <returns></returns>
+        protected string CreateUsedBikeLink(uint bikeCount, string make, string makeMaskingName, string model, string modelMaskingName, string minPrice)
+        {
+            if (bikeCount == 0)
+                return "--";
+            else
+            {
+                isUsedBikePresent = true;
+                return string.Format("<a href='/used/{1}-{2}-bikes-in-india/' title='Used {3}'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
+                    bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice);
+            }
+        }
         public string ShowFeature(string featureValue)
         {
             string adString = "";
