@@ -1404,20 +1404,7 @@ var recentSearches =
         if (rsele.length > 0)
         {
             this.options.recentSearchesEle.show();
-            var rsele = this.options.recentSearchesEle.find("li.focus-state");
-            if (event.keyCode == 40) {
-                rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
-                return false;
-            } else if (event.keyCode == 38) {
-                rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
-                return false;
-            }
-            else if (event.keyCode == 27) {
-                this.hideRecentSearches();
-            }
-            else if (event.keyCode == 13) {
-                rsele.trigger('click');
-            }
+            this.handleKeyEvents();
         }
     },
     hideRecentSearches: function () {
@@ -1425,7 +1412,22 @@ var recentSearches =
 
     },
     handleKeyEvents: function () {
-        
+        var rsele = this.options.recentSearchesEle.find("li.focus-state");
+        if (event.keyCode == 40) {
+            rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
+            curElement = rsele.next();
+            return false;
+        } else if (event.keyCode == 38) {
+            rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
+            curElement = rsele.prev();
+            return false;
+        }
+        else if (event.keyCode == 27) {
+            this.hideRecentSearches();
+        }
+        else if (event.keyCode == 13) {
+            rsele.trigger('click');
+        }
     },
     objectIndexOf: function (arr, opt) {
         var makeId = opt.makeId, modelId = opt.modelId;
@@ -1446,9 +1448,15 @@ recentSearches.options.recentSearchesEle.on('click', 'li', function () {
 
 
 var elements = recentSearches.options.recentSearchesEle.find("li");
+var curElement = recentSearches.options.recentSearchesEle.find("li").first();
 $(document).on('mouseenter', '.recent-searches-dropdown li', function () {
     $(this).addClass("focus-state");
+    curElement = $(this);
 });
 $(document).on('mouseleave', '.recent-searches-dropdown li', function () {
     $(this).removeClass("focus-state");
+});
+
+$(document).on('mouseleave', '.recent-searches-dropdown', function () {
+    curElement.addClass("focus-state");
 });
