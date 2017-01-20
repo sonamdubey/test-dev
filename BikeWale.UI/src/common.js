@@ -735,7 +735,6 @@ var getHost = function () {
 }
 
 function SetCookie(cookieName, cookieValue) {
-    debugger;
     if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || navigator.userAgent.indexOf("Trident/"))
         document.cookie = cookieName + "=" + cookieValue + '; path =/';
     else

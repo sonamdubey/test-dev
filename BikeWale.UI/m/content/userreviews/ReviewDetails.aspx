@@ -30,7 +30,7 @@
                     <h1 class="margin-bottom10"><%= objReview.ReviewEntity.ReviewTitle %></h1>
                     <div class="grid-6 alpha padding-right5">
                         <span class="bwmsprite calender-grey-sm-icon"></span>
-                        <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy hh:mm tt")  %></span>
+                        <span class="article-stats-content"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy ")  %></span>
                     </div>
                     <div class="grid-6 alpha omega">
                         <span class="bwmsprite author-grey-sm-icon"></span>
@@ -51,7 +51,7 @@
                            <%if(objReview.New) {%> 
                            <p class="font11 text-light-grey">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                            <%}else{ %>
-                            <p class="font11 text-light-grey">Last known price in, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                            <p class="font11 text-light-grey">Last known Ex-showroom price,</p>
                            <%} %>
                             <span class="bwmsprite inr-xsm-icon"></span>
                             <span class="font16 text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(objReview.ModelBasePrice)) %></span>

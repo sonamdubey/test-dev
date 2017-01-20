@@ -91,7 +91,7 @@ namespace Bikewale.Mobile.Content
         private void CreatMetas()
         {
             pageMetas = new PageMetaTags();
-            pageMetas.Title = string.Format("User Reviews: {0} {1} ", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
+            pageMetas.Title = string.Format("User Reviews: {0} {1} | Bikes Reviews.", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
             pageMetas.Description = string.Format("{0} {1} User Reviews - Read first-hand reviews of actual {0} {1} owners. Find out what buyers of {0} {1} have to say about the bike.", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
             pageMetas.Keywords = string.Format("{0} {1} reviews, {0} {1} Users Reviews, {0} {1} customer reviews, {0} {1} customer feedback, {0} {1} owner feedback, user bike reviews, owner feedback, consumer feedback, buyer reviews", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
             pageMetas.AlternateUrl = (curPageNo > 1) ? string.Format("{0}/m/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName, curPageNo) : string.Format("{0}/m/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
