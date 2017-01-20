@@ -1770,7 +1770,7 @@ var recentSearches =
     },
     saveRecentSearches: function (opt) {
         if (opt && opt.payload && opt.payload.makeId > 0) {
-            var objSearches = bwcache.get(this.searchKey, true) || {};
+            var objSearches = bwcache.get(this.searchKey) || {};
             opt.payload["name"] = opt.label;
             objSearches.searches = objSearches.searches || [];
             eleIndex = this.objectIndexOf(objSearches.searches, opt.payload);
@@ -1781,12 +1781,12 @@ var recentSearches =
             if (objSearches.searches.length > 5)
                 objSearches.searches.pop();
             objSearches["noOfSearches"] = objSearches.searches.length;
-            bwcache.set(this.searchKey, objSearches, true);
+            bwcache.set(this.searchKey, objSearches);
         }
     },
     showRecentSearches: function () {
         if (!this.options.recentSearchesLoaded) {
-            var objSearches = bwcache.get(this.searchKey, true);
+            var objSearches = bwcache.get(this.searchKey);
             if (objSearches && objSearches.searches) {
                 var html = "", bikename, url;
                 var i = 0;
