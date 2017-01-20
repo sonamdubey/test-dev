@@ -12,6 +12,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Photos
 {
@@ -35,7 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public PageMetaTags pageMetas = null;
         public uint gridSize = 30;  //show more photos available after grid size more than 30
         public bool IsUpcoming = false, IsDiscontinued = false;
-
+        public bool isModelpage;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -102,6 +103,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
         /// Description: To get model images .Calculate grid and non grid images count based on total count
+        /// Modified By :- Subodh Jain 20 jan 2017
+        /// Summary :- take only 1 element if model page gallery is binding
         /// </summary>
         public void GetModelImages()
         {
@@ -112,6 +115,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     totalPhotosCount = objImageList.Count;
+                    objImageList = (isModelpage) ? objImageList.Take(1).ToList() : objImageList;
+
                     nongridPhotosCount = (int)(totalPhotosCount % _noOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
                     modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);

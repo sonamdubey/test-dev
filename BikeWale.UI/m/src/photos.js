@@ -15,6 +15,10 @@
 });
 
 $('.photos-grid-list').on('click', 'li', function () {
+    bindGallery();
+});
+var bindGallery = function ()
+{
     var clickedImg = $(this),
         imgIndex = clickedImg.index(),
         parentGridType = clickedImg.closest('.photos-grid-list');
@@ -35,8 +39,7 @@ $('.photos-grid-list').on('click', 'li', function () {
     $(clickedSlide).addClass('swiper-slide-active');
     galleryThumbs.slideTo(imgIndex, 500);
     galleryTop.slideTo(imgIndex, 500);
-});
-
+}
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
     $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
@@ -89,10 +92,6 @@ var galleryTop = new Swiper('.carousel-stage-photos', {
     onSlideChangeEnd: slidegalleryThumbs
 });
 
-$(".gallery-close-btn").on('click', function () {
-    gallery.close();
-    history.back();
-});
 
 var currentStagePhoto, currentStageActiveImage;
 function showImgTitle(swiper) {
