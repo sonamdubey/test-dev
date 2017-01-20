@@ -98,17 +98,17 @@
                 <!-- gallery header -->
                 <div class="gallery-header" data-bind="visible: galleryTabsActive()">
                     <h2 class="text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
-                    <span id="gallery-close-btn" class="position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></span>
+                    <span id="gallery-close-btn" class="position-abt pos-top10 pos-right10 bwmsprite cross-md-white cur-pointer"></span>
                     <ul class="horizontal-tabs-wrapper">
-                        <li data-bind="click: ACTIVATE_PHOTO_TAB, css: photosTabActive() ? 'active': ''">Photos</li>
-                        <li data-bind="click: DEACTIVATE_PHOTO_TAB, css: !photosTabActive() ? 'active': ''">Videos</li>
+                        <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Photos</li>
+                        <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li>
                     </ul>
                 </div>
 
                 <!-- gallery body -->
                 <div class="gallery-body">
                     <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && photoSwiperActive()">
-                        <div class="swiper-heading-details padding-bottom10 padding-right5 padding-left5" data-bind="visible: photoHeadingActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
                                 <span data-bind="text: activePhotoIndex()"></span> / <span data-bind="text: photoList().length"></span>
@@ -117,13 +117,14 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
                     </div>
 
                     <div id="main-color-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && !photoSwiperActive()">
-                        <div class="swiper-heading-details padding-bottom10 padding-right5 padding-left5" data-bind="visible: photoHeadingActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeColorTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
                                 <span data-bind="text: activeColorIndex()"></span> of <span data-bind="text: colorPhotoList().length"></span> <span data-bind="text: colorPhotoList().length > 1 ? 'colors' : 'color'"></span>
@@ -132,54 +133,50 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide">
-                                <img class="gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
                     </div>
 
-                    <%--<div id="main-video-swiper" class="swiper-container gallery-swiper gallery-video-swiper" data-bind="visible: !photosTabActive()">
-                        <div class="swiper-heading-details padding-bottom10 padding-right5 padding-left5">
-                            <p class="grid-9 text-truncate font14 text-white text-left">Honda Navi : First Impression : PowerDrift</p>
+                    <div id="main-video-content" data-bind="visible: !photosTabActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
+                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span>1</span> / <span>5</span>
+                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: videoList().length"></span>
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="swiper-wrapper" data-bind="foreach: videoList">
-                            <div class="swiper-slide">
-                                <div class="video-image-content" data-bind="click: $parent.PLAY_VIDEO, attr: { 'data-source': videoPath }">
-                                    <img data-bind="attr: { alt: videoTitle, title: videoTitle, src: imagePathLarge }" src="" alt="" title="" border="0" />
-                                    <span class="black-overlay">
-                                        <span class="bwmsprite play-icon-lg"></span>
-                                    </span>
-                                </div>
+                        <div class="main-video-wrapper">
+                            <div class="main-video-iframe-content">
+                                <iframe width="320" height="180" data-bind="attr: { src: 'http://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div>--%>
+                    </div>
                 </div>
 
                 <!-- gallery footer -->
                 <div class="gallery-footer" data-bind="visible: galleryFooterActive(), css: photosTabActive() ? '' : 'grid-2-tab'">
                     <div class="footer-tabs-wrapper">
-                        <div data-bind="click: TOGGLE_PHOTO_THUMBNAIL_SCREEN, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                        <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All photos</span>
                         </div>
-                        <div data-bind="visible: !photosTabActive()" class="footer-tab all-option-tab position-rel tab-separator">
+                        <div data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All videos</span>
                         </div>
 
-                        <div data-bind="click: TOGGLE_COLORS_THUMBNAIL_SCREEN, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite color-palette"></span>
                         </div>
 
-                        <div data-bind="click: TOGGLE_MODEL_INFO_SCREEN, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                        <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite info-icon"></span>
                         </div>
 
-                        <div class="footer-tab grid-3-tab">
-                            <span class="bwmsprite rotate-icon"></span>
+                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite fullscreen-icon"></span>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -198,7 +195,7 @@
                         <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                                 <div class="swiper-slide">
-                                    <div class="color-box inline-block color-count-two" data-bind="foreach: colors">
+                                    <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
                                         <span data-bind="style: { 'background-color': '#' + $data }"></span>
                                     </div>
                                     <p class="color-box-label inline-block" data-bind="text: imageTitle"></p>
@@ -208,8 +205,8 @@
                     </div>
                     
                     <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
-                        <div class="model-more-info-section padding-15-20"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
-                            <%--<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>--%>
+                        <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
+                            <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
                             <%--<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>--%>
                             <div class="margin-bottom10">
                                 <a href="" class="item-image-content vertical-top" title="Bajaj Pulsar AS200">
@@ -251,11 +248,25 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div>                    
+                    </div>           
+                
+                    <div id="video-tab-screen" class="footer-tab-card font14" data-bind="visible: videoListScreen()">
+                        <ul class="video-tab-list" data-bind="foreach: videoList">
+                            <li data-bind="click: $parent.videoSelection, attr: { 'data-video-id': videoId }">
+                                <div class="video-image-block inline-block">
+                                    <img data-bind="attr: { alt: videoTitle, src: imagePathThumbnail }" border="0" />
+                                    <span class="play-icon-wrapper">
+                                        <span class="bwmsprite video-play-icon"></span>
+                                    </span>
+                                </div>
+                                <p class="video-title-block padding-left15 inline-block" data-bind="text: videoTitle"></p>
+                            </li>
+                        </ul>
+                    </div>         
                 </div>
             </script>
         </div>
-
+        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

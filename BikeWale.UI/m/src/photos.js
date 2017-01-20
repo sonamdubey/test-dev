@@ -22,9 +22,12 @@ $('.photos-grid-list').on('click', 'li', function () {
     }
 
     vmPhotosPage.imageIndex(imgIndex);
-    vmPhotosPage.activateGallery(true);
-    appendState('modelGallery');
-    $('body').addClass('lock-browser-scroll');
+    showGallery();
+});
+
+$(document).on('click', '#gallery-close-btn', function () {
+    hideGallery();
+    history.back();
 });
 
 var modelImages = [
@@ -73,8 +76,7 @@ var modelColorImages = [
         'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
         'imageTitle': 'Dual Tone Green',
         'colors': [
-            'b3ca20',
-            '040004'
+            'b3ca20'
         ]
     },
     {
@@ -93,41 +95,37 @@ var modelColorImages = [
         'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
         'imageTitle': 'Dual Tone White',
         'colors': [
-            'cdcac3',
-            '040004'
+            '040004',
+            'b83419',
+            'cdcac3'
         ]
     }
 ];
 
 var modelVideos = [
     {
-        'imagePathLarge': 'https://img.youtube.com/vi/HhOik7KWJwc/sddefault.jpg',
         'imagePathThumbnail': 'https://img.youtube.com/vi/HhOik7KWJwc/default.jpg',
-        'videoPath': 'https://www.youtube.com/embed/HhOik7KWJwc?rel=0&showinfo=0',
-        'videoTitle': 'Dominar 400 or the Classic 350, CBR 250R, Mahindra Mojo, KTM Duke 390, Pulsar RS 200'
+        'videoId': 'HhOik7KWJwc',
+        'videoTitle': 'Dominar 400 or the Classic 350, CBR 250R'
     },
     {
-        'imagePathLarge': 'https://img.youtube.com/vi/WubzCZFId1o/sddefault.jpg',
         'imagePathThumbnail': 'https://img.youtube.com/vi/WubzCZFId1o/default.jpg',
-        'videoPath': 'https://www.youtube.com/embed/WubzCZFId1o?rel=0&showinfo=0',
+        'videoId': 'WubzCZFId1o',
         'videoTitle': 'All you need to know about the Bajaj Dominar 400 : PowerDrift'
     },
     {
-        'imagePathLarge': 'https://img.youtube.com/vi/h399XRm-OcA/sddefault.jpg',
         'imagePathThumbnail': 'https://img.youtube.com/vi/h399XRm-OcA/default.jpg',
-        'videoPath': 'https://www.youtube.com/embed/h399XRm-OcA?rel=0&showinfo=0',
+        'videoId': 'h399XRm-OcA',
         'videoTitle': 'Honda Navi : First Impression : PowerDrift'
     },
     {
-        'imagePathLarge': 'https://img.youtube.com/vi/jOdAplDI2FI/sddefault.jpg',
         'imagePathThumbnail': 'https://img.youtube.com/vi/jOdAplDI2FI/default.jpg',
-        'videoPath': 'https://www.youtube.com/embed/jOdAplDI2FI?rel=0&showinfo=0',
+        'videoId': 'jOdAplDI2FI',
         'videoTitle': 'Launch Alert : Bajaj Dominar 400 : PowerDrift'
     },
     {
-        'imagePathLarge': 'https://img.youtube.com/vi/W1KOvK9_gAc/sddefault.jpg',
         'imagePathThumbnail': 'https://img.youtube.com/vi/W1KOvK9_gAc/default.jpg',
-        'videoPath': 'https://www.youtube.com/embed/W1KOvK9_gAc?rel=0&showinfo=0',
+        'videoId': 'W1KOvK9_gAc',
         'videoTitle': 'Indian Scout Sixty : Launch Alert : PowerDrift'
     }
 ];
@@ -147,19 +145,25 @@ function toggleFullScreen(goFullScreen) {
     }
 }
 
-function hideGallery() {
-    vmPhotosPage.activateGallery(false);
-    toggleFullScreen(false);
-    $('body').removeClass('lock-browser-scroll');
+function showGallery() {
     // remove the binding and then re-apply
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
+
+    vmPhotosPage.activateGallery(true);
+    $('body').addClass('lock-browser-scroll');
+    appendState('modelGallery');
+};
+
+function hideGallery() {
+    vmPhotosPage.activateGallery(false);
+    $('body').removeClass('lock-browser-scroll');
 };
 
 var photosPage = function () {
     var self = this;
 
-    self.activateGallery = ko.observable(true);
+    self.activateGallery = ko.observable(false);
     self.imageIndex = ko.observable(0);
 };
 
@@ -172,40 +176,51 @@ var modelGallery = function () {
 
     self.galleryTabsActive = ko.observable(true);
     self.galleryFooterActive = ko.observable(true);
-
     self.photoSwiperActive = ko.observable(true);
+    self.fullScreenModeActive = ko.observable(false);
 
     // footer screens
     self.screenActive = ko.observable(false);
     self.photoThumbnailScreen = ko.observable(false);
     self.colorsThumbnailScreen = ko.observable(false);
     self.modelInfoScreen = ko.observable(false);
+    self.isScreenRotated = ko.observable(false);
 
     // swiper
     self.photoHeadingActive = ko.observable(true);
 
     self.activePhotoTitle = ko.observable('');
-    self.activePhotoIndex = ko.observable(0);
+    self.activePhotoIndex = ko.observable(vmPhotosPage.imageIndex());
 
     self.activeColorTitle = ko.observable('');
     self.activeColorIndex = ko.observable(0);
 
+    // video
+    self.activeVideoTitle = ko.observable('');
+    self.activeVideoIndex = ko.observable(0);
+
+    self.activeVideoId = ko.observable();
+
+    self.videoListScreen = ko.observable(false);
+
     self.photoList = ko.observableArray(modelImages);
     self.colorPhotoList = ko.observableArray(modelColorImages);
+    self.videoList = ko.observable(modelVideos);
 
     self.afterRender = function(){
         if (!self.mainSwiper) {
             self.mainSwiper = $('#main-photo-swiper').swiper({
                 spaceBetween: 0,
-                pagination: '.swiper-pagination',
-                paginationType: 'fraction',
+                preloadImages: false,
+                lazyLoading: true,
                 onInit: function (swiper) {
+                    swiper.slideTo(self.activePhotoIndex());
                     setPhotoDetails(swiper);
                 },
                 onClick: function () {
                     if (window.innerWidth > window.innerHeight) {
-                        self.TOGGLE_FOOTER_TABS();
-                        self.TOGGLE_PHOTO_HEADING();
+                        self.toggleFooterTabs();
+                        self.togglePhotoHeading();
                     }
                     if (self.screenActive()) {
                         deactivateAllScreens();
@@ -225,15 +240,15 @@ var modelGallery = function () {
         if (!self.mainColorSwiper) {
             self.mainColorSwiper = $('#main-color-swiper').swiper({
                 spaceBetween: 0,
-                pagination: '.swiper-pagination',
-                paginationType: 'fraction',
+                preloadImages: false,
+                lazyLoading: true,
                 onInit: function (swiper) {
                     setColorPhotoDetails(swiper);
                 },
                 onClick: function () {
                     if (window.innerWidth > window.innerHeight) {
-                        self.TOGGLE_FOOTER_TABS();
-                        self.TOGGLE_PHOTO_HEADING();
+                        self.toggleFooterTabs();
+                        self.togglePhotoHeading();
                     }
                     if (self.modelInfoScreen()) {
                         self.modelInfoScreen(false);
@@ -251,25 +266,31 @@ var modelGallery = function () {
         };
     };
 
-    self.ACTIVATE_PHOTO_TAB = function () {
-        self.photosTabActive(true);
-    };
-
-    self.DEACTIVATE_PHOTO_TAB = function () {
-        self.photosTabActive(false);
+    self.togglePhotoTab = function () {
+        if (!self.photosTabActive()) {
+            self.photosTabActive(true);
+            self.activeVideoId('');
+        }
+        else {
+            self.photosTabActive(false);
+            toggleFullScreen(false);
+            setVideoDetails(self.activeVideoIndex());
+        }
         if (self.screenActive()) {
             deactivateAllScreens();
         }
     };
 
     // all photos tab
-    self.TOGGLE_PHOTO_THUMBNAIL_SCREEN = function () {
+    self.togglePhotoThumbnailScreen = function () {
         if (!self.photoThumbnailScreen()) {
             // deactivate all other screens
             deactivateAllScreens();
+            // activate clicked tab screen
             self.photoThumbnailScreen(true);
             self.photoSwiperActive(true);
-            self.INITIATE_PHOTO_THUMBNAIL_SWIPER();
+            self.mainSwiper.update(true);
+            self.initiatePhotoThumbnailSwiper();
         }
         else {
             self.photoThumbnailScreen(false);
@@ -278,13 +299,13 @@ var modelGallery = function () {
         self.screenActive(self.photoThumbnailScreen());
     };
 
-    self.TOGGLE_COLORS_THUMBNAIL_SCREEN = function () {
+    self.toggleColorThumbnailScreen = function () {
         if (!self.colorsThumbnailScreen()) {
             deactivateAllScreens();
             self.colorsThumbnailScreen(true);
             self.photoSwiperActive(false);
             self.mainColorSwiper.update(true);
-            self.INITIATE_COLOR_THUMBNAIL_SWIPER();
+            self.initiateColorThumbnailSwiper();
         }
         else {
             self.colorsThumbnailScreen(false);
@@ -294,7 +315,7 @@ var modelGallery = function () {
 
     };
 
-    self.TOGGLE_MODEL_INFO_SCREEN = function () {
+    self.toggleModelInfoScreen = function () {
         if (!self.modelInfoScreen()) {
             deactivateAllScreens();
             self.modelInfoScreen(true);
@@ -306,7 +327,7 @@ var modelGallery = function () {
         self.screenActive(self.modelInfoScreen());
     };
 
-    self.INITIATE_PHOTO_THUMBNAIL_SWIPER = function () {
+    self.initiatePhotoThumbnailSwiper = function () {
         self.thumbnailSwiper = $('#thumbnail-photo-swiper').swiper({
             slidesPerView: 'auto',
             spaceBetween: 0,
@@ -320,7 +341,7 @@ var modelGallery = function () {
         focusThumbnail(self.thumbnailSwiper);
     };
 
-    self.INITIATE_COLOR_THUMBNAIL_SWIPER = function () {
+    self.initiateColorThumbnailSwiper = function () {
         self.colorThumbnailSwiper = $('#thumbnail-colors-swiper').swiper({
             slidesPerView: 'auto',
             spaceBetween: 0,
@@ -334,50 +355,99 @@ var modelGallery = function () {
         focusColorThumbnail(self.colorThumbnailSwiper);
     };
 
-    self.HIDE_GALLERY_TABS = function () {
+    self.hideGalleryTabs = function () {
         self.galleryTabsActive(false);
     };
 
-    self.SHOW_GALLERY_TABS = function () {
+    self.showGalleryTabs = function () {
         self.galleryTabsActive(true);
     };
 
-    self.HIDE_FOOTER_TABS = function () {
+    self.hideFooterTabs = function () {
         self.galleryFooterActive(false);
     };
 
-    self.SHOW_FOOTER_TABS = function () {
+    self.showFooterTabs = function () {
         self.galleryFooterActive(true);
     };
 
-    self.TOGGLE_FOOTER_TABS = function () {
-        self.galleryFooterActive() ? self.HIDE_FOOTER_TABS() : self.SHOW_FOOTER_TABS();
+    self.toggleFooterTabs = function () {
+        self.galleryFooterActive() ? self.hideFooterTabs() : self.showFooterTabs();
     };
 
-    self.HIDE_PHOTO_HEADING = function () {
+    self.hidePhotoHeading = function () {
         self.photoHeadingActive(false);
     };
 
-    self.SHOW_PHOTO_HEADING = function () {
+    self.showPhotoHeading = function () {
         self.photoHeadingActive(true);
     };
 
-    self.TOGGLE_PHOTO_HEADING = function () {
-        self.photoHeadingActive() ? self.HIDE_PHOTO_HEADING() : self.SHOW_PHOTO_HEADING();
+    self.togglePhotoHeading = function () {
+        self.photoHeadingActive() ? self.hidePhotoHeading() : self.showPhotoHeading();
+    };
+
+    self.toggleFullScreen = function () {
+        if (!self.fullScreenModeActive()) {
+            toggleFullScreen(true);
+            self.fullScreenModeActive(true);
+        }
+        else {
+            toggleFullScreen(false);
+            self.fullScreenModeActive(false);
+        }
+    };
+
+    // video
+    self.toggleVideoListScreen = function () {
+        if (!self.videoListScreen()) {
+            deactivateAllScreens();
+            self.videoListScreen(true);
+        }
+        else {
+            self.videoListScreen(false);
+        }
+
+        self.screenActive(self.videoListScreen());
+    };
+
+    self.videoSelection = function (data, event) {
+        var element = $(event.currentTarget);
+
+        if (!element.hasClass('active')) {
+            var elementIndex = element.index();
+
+            setVideoDetails(elementIndex);
+        }       
+    };
+
+    function setVideoDetails(elementIndex) {
+        var element = $('.video-tab-list li')[elementIndex],
+            elementId = self.videoList()[elementIndex].videoId,
+            elementTitle = self.videoList()[elementIndex].videoTitle;
+
+        self.activeVideoId(elementId);
+        self.activeVideoIndex(elementIndex);
+        self.activeVideoTitle(elementTitle);
+
+        $(element).siblings().removeClass('active');
+        $(element).addClass('active');
+
     };
 
     window.addEventListener('resize', resizeHandler, true);
+    resizeHandler();
 
     function resizeHandler() {
         if (window.innerWidth > window.innerHeight) {
-            self.HIDE_GALLERY_TABS();
-            self.HIDE_FOOTER_TABS();
-            self.HIDE_PHOTO_HEADING();
+            self.hideGalleryTabs();
+            self.hideFooterTabs();
+            self.hidePhotoHeading();
         }
         else {
-            self.SHOW_GALLERY_TABS();
-            self.SHOW_FOOTER_TABS();
-            self.SHOW_PHOTO_HEADING();
+            self.showGalleryTabs();
+            self.showFooterTabs();
+            self.showPhotoHeading();
         }
     };
 
@@ -422,24 +492,25 @@ var modelGallery = function () {
         var activeIndex = self.activePhotoIndex() - 1, // decrement by 1, since it was incremented by 1
             thumbnailIndex = swiper.slides[activeIndex];
 
+        swiper.slideTo(activeIndex);
         $(swiper.slides).removeClass('swiper-slide-active');
         $(thumbnailIndex).addClass('swiper-slide-active');
-        swiper.slideTo(activeIndex);
     };
 
     function focusColorThumbnail(swiper) {
-        var activeIndex = self.activeColorIndex() - 1, // decrement by 1, since it was incremented by 1
+        var activeIndex = self.activeColorIndex() - 1,
             thumbnailIndex = swiper.slides[activeIndex];
 
+        swiper.slideTo(activeIndex);
         $(swiper.slides).removeClass('swiper-slide-active');
         $(thumbnailIndex).addClass('swiper-slide-active');
-        swiper.slideTo(activeIndex);
     };
 
     function deactivateAllScreens() {
         self.photoThumbnailScreen(false);
         self.colorsThumbnailScreen(false);
         self.modelInfoScreen(false);
+        self.videoListScreen(false);
     };
 }
 
