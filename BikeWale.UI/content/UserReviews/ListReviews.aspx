@@ -109,7 +109,7 @@
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
                             </div>
                             <%}else{ %>
-                              <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price,</p>
+                              <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price</p>
                             <div class="margin-top5">  
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(ModelStartPrice) %></span>
                             </div>
