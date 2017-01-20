@@ -1458,5 +1458,5 @@ $(document).on('mouseleave', '.recent-searches-dropdown li', function () {
 });
 
 $(document).on('mouseleave', '.recent-searches-dropdown', function () {
-    curElement.addClass("focus-state");
+    curElement.addClass("focus-state").siblings().removeClass("focus-state");
 });
