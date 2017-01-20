@@ -51,7 +51,7 @@
                            <%if(objReview.New) {%> 
                            <p class="font11 text-light-grey">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                            <%}else{ %>
-                            <p class="font11 text-light-grey">Last known Ex-showroom price,</p>
+                            <p class="font11 text-light-grey">Last known Ex-showroom price</p>
                            <%} %>
                             <span class="bwmsprite inr-xsm-icon"></span>
                             <span class="font16 text-bold"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(objReview.ModelBasePrice)) %></span>
