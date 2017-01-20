@@ -83,7 +83,7 @@
                                         <h1 class="font24 text-x-black"><%= heading %></h1>
                                     </div>
                                     <div class="grid-3">
-                                        <a class="btn btn-teal assistance-submit-btn rightfloat" href="/used/sell/" title="Sell your bike">Sell your bike</a>
+                                        <a target="_blank" class="btn btn-teal assistance-submit-btn rightfloat" href="/used/sell/" title="Sell your bike">Sell your bike</a>
                                     </div>
                                 </div>
                                 <div class="clear"></div>

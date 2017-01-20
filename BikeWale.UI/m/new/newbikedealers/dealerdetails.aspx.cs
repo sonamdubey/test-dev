@@ -6,12 +6,14 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Mobile.Controls;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -31,20 +33,15 @@ namespace Bikewale.Mobile
     public class DealerDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
-        protected uint dealerId, campaignId = 0, cityId;
-        protected int dealerBikesCount = 0;
+        protected uint dealerId, campaignId, cityId, customerCityId, customerAreaId, areaId, pqAreaId, pqCityId;
+        protected int dealerBikesCount = 0, makeId;
         protected DealerDetailEntity dealerDetails;
         protected bool isDealerDetail;
-        protected string cityName = string.Empty;
-        protected string makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, ctaSmallText = string.Empty;
         protected double dealerLat, dealerLong;
         protected DealersCard ctrlDealerCard;
         protected LeadCaptureControl ctrlLeadCapture;
-        protected String clientIP = CommonOpn.GetClientIP();
-        protected string maskingNumber;
-        protected string makeMaskingName;
-        protected int makeId;
-        protected string cityMaskingName = String.Empty;
+        protected string maskingNumber, makeMaskingName, customerAreaName = string.Empty, pqAreaName = string.Empty, cityMaskingName = string.Empty, clientIP = CommonOpn.GetClientIP(), areaName = string.Empty,
+            cityName = string.Empty, makeName = string.Empty, dealerName = string.Empty, dealerArea = string.Empty, dealerCity = string.Empty, ctaSmallText = string.Empty;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected override void OnInit(EventArgs e)
@@ -58,8 +55,10 @@ namespace Bikewale.Mobile
             if (ProcessQueryString() && dealerId > 0)
             {
                 GetDealerDetails();
+                ProcessGlobalLocationCookie();
+                BindUserControl();
             }
-            BindUserControl();
+
         }
         /// <summary>
         /// Created By:-Subodh Jain 2 Dec 2016
@@ -94,6 +93,30 @@ namespace Bikewale.Mobile
                 objErr.SendMail();
             }
 
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 19 Jan 2017
+        /// Description :   Process Global Cookie
+        /// </summary>
+        private void ProcessGlobalLocationCookie()
+        {
+            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+            customerCityId = location.CityId;
+            customerAreaId = location.AreaId;
+            if (customerCityId == cityId && customerAreaId > 0)
+            {
+                pqCityId = cityId;
+                pqAreaId = customerAreaId;
+                customerAreaName = location.Area.Replace('-', ' ');
+                pqAreaName = customerAreaName;
+            }
+            else
+            {
+                pqCityId = cityId;
+                pqAreaId = areaId;
+                pqAreaName = areaName;
+            }
         }
 
         #region Get Dealer Details
@@ -135,18 +158,20 @@ namespace Bikewale.Mobile
                         dealerName = dealerDetails.Name;
                         dealerArea = dealerDetails.Area.AreaName;
                         dealerCity = dealerDetails.City;
+
                         ctaSmallText = dealerDetails.DisplayTextSmall;
 
                         if (dealerDetails.Area != null)
                         {
+                            areaId = dealerDetails.Area.AreaId;
                             dealerLat = dealerDetails.Area.Latitude;
                             dealerLong = dealerDetails.Area.Longitude;
                         }
                         ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
                         ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
                         ctrlDealerCard.makeName = dealerDetails.MakeName;
-                        ctrlDealerCard.CityId = (uint)dealerDetails.CityId;
-                        ctrlDealerCard.cityName = dealerCity;
+                        ctrlDealerCard.CityId = cityId = (uint)dealerDetails.CityId;
+                        ctrlDealerCard.cityName = cityName = dealerCity;
                         ctrlDealerCard.PageName = "Dealer_Details";
                         ctrlDealerCard.TopCount = 6;
                         ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;

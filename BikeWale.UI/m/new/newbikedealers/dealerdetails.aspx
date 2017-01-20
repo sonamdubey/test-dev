@@ -26,7 +26,11 @@
         
         <section class="container bg-white margin-bottom10">
             <div class="bg-white box-shadow">
+                <% if(dealerArea.Length > 0) { %>
+                <h1 class="font20 box-shadow padding-15-20"><%=string.Format("{0},{1}, {2}",dealerDetails.Name,dealerArea, dealerCity)%></h1>
+                <% } else { %>
                 <h1 class="font20 box-shadow padding-15-20"><%=string.Format("{0},{1}",dealerDetails.Name,dealerCity)%></h1>
+                <% } %>
                 <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
                     <%if (dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
                     { %>
@@ -119,7 +123,7 @@
           { %>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
-                <h2 class="font18 margin-bottom15">Models available at <%= dealerName %></h2>
+                <h2 class="font18 margin-bottom15">Bikes available at <%= dealerName %></h2>
                 <ul id="model-available-list">
                     <asp:Repeater ID="rptModels" runat="server">
                         <ItemTemplate>
@@ -135,14 +139,21 @@
 
                                     <div class="details-block">
                                         <h3 class="font16 margin-bottom10 text-black text-truncate"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
-                                        <div class="font14 text-x-light margin-bottom10">
+                                        <div class="font14 text-x-light margin-bottom5">
                                             <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                         </div>
                                         <div class="text-default">
+                                            <span class="font14 text-light-grey"> On-road Price, <%= cityName %></span>
+                                            </div>
+                                        <div class="text-default">
                                             <span class="bwmsprite inr-sm-icon"></span>
                                             <span class="font18 text-bold"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %></span>
-                                            <span class="font14 text-light-grey"> onwards</span>
-                                        </div>                                    
+                                        </div>
+                                        <% if(pqAreaId > 0){ %>    
+                                        <div class="text-default">
+                                            <a rel="nofollow" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-versionid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objVersion.VersionId")) %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail_AvailableModels %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelId")) %>">View dealer details</a>
+                                        </div>              
+                                        <%} %>                  
                                     </div>                                
                                 </a>
                             </li>
@@ -194,12 +205,11 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
-            var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
+             var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
              var bodHt, footerHt, scrollPosition, leadSourceId;                         
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
-            var cityArea = "<%= dealerCity + "_" + dealerArea%>";
-            var pageUrl = window.location.href;
+             var pageUrl = window.location.href;
 
             $(window).scroll(function () {
                 bodHt = $('body').height();
@@ -212,12 +222,9 @@
                 if (scrollPosition + $(window).height() < (bodHt - footerHt))
                     $('.float-button').addClass('float-fixed').show();
             });
-           
-
-            
+                     
            $(".leadcapturebtn").click(function(e){
                ele = $(this);
-               
                var leadOptions = {
                    "dealerid" : dealerId,                    
                    "leadsourceid" : ele.attr('data-leadsourceid'),
@@ -227,13 +234,29 @@
                    "isregisterpq": true,
                    "isdealerbikes": true,
                    "campid": campaignId
-                    
                };
-
                dleadvm.setOptions(leadOptions);
-
            });
           
+           $(".dealerDetails").click(function (e) {
+               ele = $(this);
+               checkCookies();
+               $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
+               $('#popupWrapper').addClass('loader-active');
+               $('#popupWrapper,#popupContent').show();
+               var options = {
+                   "modelId": ele.data('modelid'),
+                   "versionid" :ele.data('versionid') ,
+                   "cityId": "<%= pqCityId %>",
+                   "areaId": "<%= pqAreaId %>",
+                   "city": "<%= cityName %>",
+                   "area": "<%= pqAreaName %>",
+                   "pqsourceid": ele.data('pqsourceid'),
+                   "pagesrcid": ele.data('pqsourceid'),
+                   "dealerid": dealerId
+               };
+               vmquotation.setOptions(options);
+           });
 
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
