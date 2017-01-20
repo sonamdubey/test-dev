@@ -455,9 +455,9 @@
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
                 onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
-                onCookieObj.PQCitySelectedName = cData[1].replace(/-/g, ' ') || "";
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
-                onCookieObj.PQAreaSelectedName = cData[3].replace(/-/g, ' ') || "";
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
             }
         }
     }
