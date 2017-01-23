@@ -18,20 +18,7 @@
 
 
 <!-- #include file="/includes/headermobile.aspx" -->
-<style>
-    table td { text-align:center; height:25px;}
-    div.color-box { margin:auto;width:40px; height:40px;margin-top:10px; background:#ccc; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-    .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
-    .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
-    .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
-    .related-comparison-container.container { border-bottom:0; padding:0;}
-    .related-comparison-carousel-content { width:260px; min-height:118px; height: auto; border:1px solid #ccc; background:#fff; padding:20px 20px 10px; }
-    .related-comparison-carousel-content a {color:#0288d1;font-size:14px;font-weight:400; margin-bottom:10px;display:block;}
-    .related-comparison-carousel-content a:hover {color:#0288d1;}
-    .compare-tick { width: 18px; height: 16px; background-position: -88px -458px; }
-    .compare-cross { width: 14px; height: 16px; background-position: -116px -458px; }
-    .related-comparison-container .swiper-wrapper{ height: auto; }
-</style>
+<style> table td{text-align:center;height:25px}div.color-box{margin:10px auto auto;width:40px;height:40px;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#e34f4f}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.related-comparison-container.container{border-bottom:0;padding:0}.related-comparison-carousel-content,.usedBikes{border:1px solid #ccc;padding:20px 20px 10px}.related-comparison-carousel-content{width:260px;height:auto;background:#fff}.related-comparison-carousel-content a{color:#0288d1;font-size:14px;font-weight:400;margin-bottom:10px;display:block}.related-comparison-carousel-content a:hover{color:#0288d1}.compare-tick{width:18px;height:16px;background-position:-88px -458px}.compare-cross{width:14px;height:16px;background-position:-116px -458px}.related-comparison-container .swiper-wrapper,.usedBikes{margin:10px;height:auto}.usedBikes{background:#fff}.usedBikes a {color: #0288d1;font-size: 16px;font-weight: 400;margin-bottom: 10px;</style>
     <div>
         <div class="padding10">
             <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -836,6 +823,16 @@
     </div>
         </div>
     <% } %>
+        <% if(isUsedBikePresent){ %>
+        <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Used bikes</h2>
+            <div class="usedBikes">
+                <table width="100%">
+                    <tr><td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[0]["bikeCount"]),Convert.ToString(bikeDetails.Rows[0]["make"]), Convert.ToString(bikeDetails.Rows[0]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[0]["model"]), Convert.ToString(bikeDetails.Rows[0]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[0]["minPrice"]))) %></td>
+                        <td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[1]["bikeCount"]),Convert.ToString(bikeDetails.Rows[1]["make"]), Convert.ToString(bikeDetails.Rows[1]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[1]["model"]), Convert.ToString(bikeDetails.Rows[1]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[1]["minPrice"]))) %></td>
+                    </tr>
+                </table>
+            </div>
+        <% } %>
             <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
         <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
         <div class="swiper-container">

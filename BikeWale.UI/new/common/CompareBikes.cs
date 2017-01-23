@@ -146,7 +146,7 @@ namespace Bikewale.New
             DataSet ds = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_26022016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcomparisondetails_20012017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
