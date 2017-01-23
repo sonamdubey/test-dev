@@ -346,8 +346,11 @@ $(document).ready(function () {
             city.cityId = ui.item.payload.cityId;
             city.maskingName = ui.item.payload.cityMaskingName;
             var cityName = ui.item.label.split(',')[0];
-            if(city.cityId!=globalCityId)
-                SetCookieInDays("location", city.cityId + "_" + cityName , 365);
+            if (city.cityId != globalCityId)
+            {
+                SetCookieInDays("location", city.cityId + "_" + cityName, 365);
+                bwcache.set("userchangedlocation", "1", true);
+            }               
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
@@ -1052,10 +1055,7 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
     else
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
     
-    	if($(event.currentTarget).hasClass("globalCity-auto-desktop"))
-    	    bwcache.set("userchangedlocation", "1", true);
-        else
-    	    bwcache.remove("userchangedlocation",true);
+    bwcache.remove("userchangedlocation",true);
 }
 
 function getCookie(key) {

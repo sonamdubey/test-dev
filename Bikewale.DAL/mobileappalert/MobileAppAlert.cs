@@ -68,7 +68,7 @@ namespace Bikewale.DAL.MobileAppAlert
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_alertid", DbType.Int32, payload.AlertId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_alerttypeid", DbType.Int32, payload.AlertTypeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_articletitle", DbType.String, payload.Title));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int32, (result != null && string.IsNullOrEmpty(result.Error)) ? "Success" : result.Error));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.String, (result != null && string.IsNullOrEmpty(result.Error)) ? "Success" : result.Error));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_messageid", DbType.String, (result != null) ? result.MessageId : ""));
                         MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
                         isNotificationComplete = true;
