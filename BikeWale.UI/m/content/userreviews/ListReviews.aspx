@@ -159,8 +159,7 @@
                     <div class="grid-5 alpha omega text-light-grey font13">
                         <span class="text-bold text-default"><%=startIndex %>-<%=Math.Min(endIndex,totalReviews) %></span> of <span class="text-bold text-default"><%=totalReviews %></span> reviews
                     </div>
-                    <div class="clear"></div>
-                       <BikeWale:Pager ID="ctrlPager" runat="server" />
+                    <BikeWale:Pager ID="ctrlPager" runat="server" />
                 </div>
             </div>
         </section>

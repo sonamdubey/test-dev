@@ -165,11 +165,11 @@
         </section><%} %>
 
         <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-top15 padding-right20 padding-left20 padding-bottom15">
+            <div class="container box-shadow bg-white section-bottom-margin padding-15-20 font14">
                 <%if (ctrlUserReviews.FetchedRecordsCount > 0)
-                       { %>
-                    <BW:UserReviews runat="server" ID="ctrlUserReviews" />
-                    <% } %>
+                    { %>
+                <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                <% } %>
             </div>
         </section>
           <%if (ctrlUserReviewSimilarBike.FetchCount > 0)

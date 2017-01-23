@@ -133,8 +133,9 @@
                                 <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(objReview.ModelBasePrice) %></span>
                             </div>
                             <%} %>
-                            <div class="clear"></div>
+                            
                         </div>
+                            <div class="clear"></div>
 
                             <div class="border-solid ratings margin-top15 display-table">
                                 <div class="rating-box overall text-center content-inner-block-15">
@@ -218,7 +219,7 @@ else
                                 </div>
                             </div>
                             <div class="padding-bottom20 font14">
-                                <div class="padding-top20 border-solid-top padding-bottom20">
+                                <div class="padding-top20 padding-bottom20">
                                     <h2 class="font18 margin-bottom10">Good about this bike</h2>
                                     <p><%= objReview.ReviewEntity.Pros %></p>
                                 </div>
@@ -231,7 +232,7 @@ else
                                     <div class="format-content"><%= objReview.ReviewEntity.Comments %></div>
 
                                     <div class="margin-bottom15 text-light-grey">
-                                        <div class="grid-6 alpha">
+                                        <div class="grid-5 alpha">
                                             <span class="bwsprite review-sm-lgt-grey"></span>
                                             <span class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Viewed%></span>
                                             <span class="bwsprite like-icon"></span>
@@ -239,7 +240,7 @@ else
                                             <span class="bwsprite dislike-icon"></span>
                                             <span id="spnDisliked" class="article-stats-content"><%=objReview.ReviewEntity.Disliked %></span>
                                         </div>
-                                        <div class="grid-6 omega readmore text-right">
+                                        <div class="grid-7 omega readmore text-right">
                                             <p id="divAbuse">Inappropriate Review? <a onclick='javascript:abuseClick(<%= reviewId %>)' class="cur-pointer">Report Abuse</a> </p>
                                         </div>
                                         <div class="clear"></div>

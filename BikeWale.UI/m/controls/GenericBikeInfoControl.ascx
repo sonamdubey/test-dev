@@ -2,6 +2,8 @@
 <% if (bikeInfo != null)
    { %>
 
+<%--<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>--%>
 <div class="model-more-info-section">
     <div class="margin-bottom10">
         <a href="<%= bikeUrl%>" class="item-image-content inline-block" title="<%= bikeName %>">
