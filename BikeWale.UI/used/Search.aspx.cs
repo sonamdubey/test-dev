@@ -4,6 +4,7 @@ using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
+using Bikewale.Utility;
 using Bikewale.Utility.UsedCookie;
 using System;
 using System.Collections.Generic;
@@ -75,6 +76,8 @@ namespace Bikewale.Used
         /// Desc : Bind brand india widget if makeid is not null and city id is null;
         /// Created by : Sajal Gupta on 3-01-2017
         /// Desc : Bind brand india widget if makeid is not null and modelid is not null and city id is null;
+        /// Modified By : Sajal Gupta on 23-01-2017
+        /// Desc : Handel Condition for pre selected global city.
         /// </summary>
         private void BindWigets()
         {
@@ -103,7 +106,7 @@ namespace Bikewale.Used
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
                     }
                 }
-                else if (makeId != 0 && cityId == 0)
+                else if (makeId != 0 && cityId == 0 && GlobalCityArea.GetGlobalCityArea() != null && GlobalCityArea.GetGlobalCityArea().CityId == 0)
                 {
                     if (modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
                     {
