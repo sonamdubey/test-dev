@@ -827,8 +827,8 @@
         <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Used bikes</h2>
             <div class="usedBikes">
                 <table width="100%">
-                    <tr><td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[0]["bikeCount"]),Convert.ToString(bikeDetails.Rows[0]["make"]), Convert.ToString(bikeDetails.Rows[0]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[0]["model"]), Convert.ToString(bikeDetails.Rows[0]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[0]["minPrice"]))) %></td>
-                        <td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[1]["bikeCount"]),Convert.ToString(bikeDetails.Rows[1]["make"]), Convert.ToString(bikeDetails.Rows[1]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[1]["model"]), Convert.ToString(bikeDetails.Rows[1]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[1]["minPrice"]))) %></td>
+                    <tr><td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[0]["bikeCount"]),Convert.ToString(bikeDetails.Rows[0]["make"]), Convert.ToString(bikeDetails.Rows[0]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[0]["model"]), Convert.ToString(bikeDetails.Rows[0]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[0]["minPrice"])),Convert.ToString(bikeDetails.Rows[0]["citymaskingname"])) %></td>
+                        <td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[1]["bikeCount"]),Convert.ToString(bikeDetails.Rows[1]["make"]), Convert.ToString(bikeDetails.Rows[1]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[1]["model"]), Convert.ToString(bikeDetails.Rows[1]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[1]["minPrice"])),Convert.ToString(bikeDetails.Rows[0]["citymaskingname"])) %></td>
                     </tr>
                 </table>
             </div>
