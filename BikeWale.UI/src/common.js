@@ -1375,7 +1375,7 @@ var recentSearches =
                     item = objSearches.searches[item];
                     bikename = item.name || '';
                     if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
-                        html += '<li data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><a href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                        html += '<li data-makeid="'+ item.makeId +'" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                         if (item.modelId > 0) {
                             if (item.futuristic == 'True') {
                                 html += '<span class="upcoming-link">coming soon</span>';
@@ -1438,11 +1438,22 @@ var recentSearches =
 };
 
 recentSearches.options.recentSearchesEle.on('click', 'li', function () {
-    if (!$(event.target).hasClass('getquotation')) {
-        window.location.href = $(this).find('a').first().attr('href');
-    }
-    else {
-        recentSearches.hideRecentSearches();
+    try {
+        if (!$(event.target).hasClass('getquotation')) {
+
+            var objSearches = bwcache.get(recentSearches.searchKey) || {}, mkId = this.getAttribute("data-makeid"), moId = this.getAttribute("data-modelid"),
+                eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
+                obj = objSearches.searches[eleIndex];
+            if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
+            objSearches.searches.unshift(obj);
+            bwcache.set(recentSearches.searchKey, objSearches);
+            window.location.href = $(this).find('a').first().attr('data-href');
+        }
+        else {
+            recentSearches.hideRecentSearches();
+        }
+    } catch (e) {
+        console.log(e.message);
     }
 });
 

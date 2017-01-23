@@ -46,13 +46,17 @@
                 hideChangeCityPopup();
             };
             var acceptCityChange = function () {
-                var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
-                expire.setTime(today.getTime() + 3600000 * 24 * 365);
-                cookieValue = cookieValue.replace(/\s+/g, '-');
-                bwcache.remove("userchangedlocation", true);
-                document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
-                document.getElementById("globalCityPopUp").value = options.urlCityName;
-                hideChangeCityPopup();
+                try {
+                    var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
+                    expire.setTime(today.getTime() + 3600000 * 24 * 365);
+                    cookieValue = cookieValue.replace(/\s+/g, '-');
+                    bwcache.remove("userchangedlocation", true);
+                    document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
+                    document.getElementById("globalCityPopUp").value = options.urlCityName;
+                    hideChangeCityPopup();
+                } catch (e) {
+                    console.log(e.message);
+                }
             };
 
             var closeChangeCityPopup = function () {
@@ -66,17 +70,28 @@
             };
 
             var showChangeCityPopup = function () {
-                options.blackoutEle.style.display = "block";
-                options.popupEle.style.display = "block";
-                options.navGlobalLocation.style.pointerEvents = "none";
-                options.bodyEle.style.overflow = "hidden";
+                try {
+
+                    options.blackoutEle.style.display = "block";
+                    options.popupEle.style.display = "block";
+                    options.navGlobalLocation.style.pointerEvents = "none";
+                    options.bodyEle.style.overflow = "hidden";
+                    var child = document.getElementById("appBanner");   // remove app banner as already a prompt is shown
+                    child.parentNode.removeChild(child);
+                } catch (e) {
+                    console.log(e.message);
+                }
             };
 
             var hideChangeCityPopup = function () {
-                options.blackoutEle.style.display = "none";
-                options.popupEle.style.display = "none";
-                options.navGlobalLocation.style.pointerEvents = "auto";
-                options.bodyEle.style.overflow = "";
+                try {
+                    options.blackoutEle.style.display = "none";
+                    options.popupEle.style.display = "none";
+                    options.navGlobalLocation.style.pointerEvents = "auto";
+                    options.bodyEle.style.overflow = "";
+                } catch (e) {
+                    console.log(e.message);
+                }
             };
 
             var init = function () {
@@ -106,7 +121,7 @@
         }
         catch (e) {
             console.log("Something went wrong with location change popup : " + e.message);
-        }
+        };
 
         window.onpopstate = function (event) {
             if (event.state == 'locationChange') {

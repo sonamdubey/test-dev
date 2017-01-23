@@ -1792,9 +1792,9 @@ var recentSearches =
                 var i = 0;
                 for (var item in objSearches.searches) {
                     item = objSearches.searches[item];
-                    bikename = item.name || '';
+                    bikename = item.name || '';                        
                     if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0 && i<3) {
-                        html += '<li data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><a href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                        html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><a href="javascript:void(0)" data-href="/m/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                         if (item.modelId > 0) {
                             if (item.futuristic == 'True') {
                                 html += '<span class="upcoming-link">coming soon</span>';
@@ -1821,14 +1821,7 @@ var recentSearches =
         this.options.recentSearchesEle.show();
         if (this.options.recentSearchesEle.is(":visible")) {
             var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
-            if (event.keyCode == 40) {
-                rsele.next().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
-                return false;
-            } else if (event.keyCode == 38) {
-                rsele.prev().addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
-                return false;
-            }
-            else if (event.keyCode == 27) {
+            if (event.keyCode == 27) {
                 this.hideRecentSearches();
             }
         }
@@ -1839,9 +1832,6 @@ var recentSearches =
         this.options.recentSearchesEle.hide().find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
 
     },
-    handleKeyEvents: function () {
-
-    },
     objectIndexOf: function (arr, opt) {
         var makeId = opt.makeId, modelId = opt.modelId;
         for (var i = 0, len = arr.length; i < len; i++)
@@ -1849,3 +1839,23 @@ var recentSearches =
         return -1;
     }
 };
+
+recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+    try {
+        if (!$(event.target).hasClass('getquotation')) {
+
+            var objSearches = bwcache.get(recentSearches.searchKey) || {}, mkId = this.getAttribute("data-makeid"), moId = this.getAttribute("data-modelid"),
+                eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
+                obj = objSearches.searches[eleIndex];
+            if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
+            objSearches.searches.unshift(obj);
+            bwcache.set(recentSearches.searchKey, objSearches);
+            window.location.href = $(this).find('a').first().attr('data-href');
+        }
+        else {
+            recentSearches.hideRecentSearches();
+        }
+    } catch (e) {
+        console.log(e.message);
+    }
+});
