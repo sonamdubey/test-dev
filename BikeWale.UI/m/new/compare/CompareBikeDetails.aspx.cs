@@ -3,11 +3,13 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.New;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,7 @@ namespace Bikewale.Mobile.New
         protected DataTable bikeDetails = null, bikeSpecs = null, bikeFeatures = null;
         public SimilarCompareBikes ctrlSimilarBikes;
         protected bool isUsedBikePresent;
+        protected GlobalCityAreaEntity cityArea;
 
         protected override void OnInit(EventArgs e)
         {
@@ -42,6 +45,7 @@ namespace Bikewale.Mobile.New
 
             if (!IsPostBack)
             {
+                cityArea = GlobalCityArea.GetGlobalCityArea();
                 getVersionIdList();
                 GetCompareBikeDetails();
                 Trace.Warn("version List", versions);
@@ -51,8 +55,6 @@ namespace Bikewale.Mobile.New
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-
                 BindSimilarCompareBikes(versions);
 
             }
@@ -159,7 +161,7 @@ namespace Bikewale.Mobile.New
             try
             {
                 CompareBikes cb = new CompareBikes();
-                ds = cb.GetComparisonBikeListByVersion(versions);
+                ds = cb.GetComparisonBikeListByVersion(versions, cityArea.CityId);
                 if (ds != null)
                 {
                     bikeDetails = ds.Tables[0];
@@ -269,15 +271,23 @@ namespace Bikewale.Mobile.New
         /// Summary: Create used bike links with bikeCount
         /// </summary>
         /// <returns></returns>
-        protected string CreateUsedBikeLink(uint bikeCount, string make, string makeMaskingName, string model, string modelMaskingName, string minPrice)
+        protected string CreateUsedBikeLink(uint bikeCount, string make, string makeMaskingName, string model, string modelMaskingName, string minPrice, string cityMasking)
         {
             if (bikeCount == 0)
                 return "--";
             else
             {
                 isUsedBikePresent = true;
-                return string.Format("<a href='/m/used/{1}-{2}-bikes-in-india/' title='Used {3}'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
-                    bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice);
+                if (cityArea.CityId == 0)
+                {
+                    return string.Format("<a href='/m/used/{1}-{2}-bikes-in-india/' title='Used {5} bikes'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
+                        bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice, model);
+                }
+                else
+                {
+                    return string.Format("<a href='/m/used/{1}-{2}-bikes-in-{5}/' title='Used {6} bikes'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
+                        bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice, cityMasking, model);
+                }
             }
         }
     }   //End of Class

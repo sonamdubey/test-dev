@@ -138,10 +138,12 @@ namespace Bikewale.New
         /// Modified By : Lucky Rathore
         /// Modified On : 26 Feb 2016
         /// Summary : SP name Changed.
+        /// Modified On : 23 Jan 2017 by Sangram Nandkhile
+        /// Summary : New parameter added - cityId
         /// </summary>
         /// <param name="versionList"></param>
         /// <returns></returns>
-        public DataSet GetComparisonBikeListByVersion(string versionList)
+        public DataSet GetComparisonBikeListByVersion(string versionList, uint cityId)
         {
             DataSet ds = null;
             try
@@ -151,6 +153,7 @@ namespace Bikewale.New
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.Parameters.Add("@bikeversions", SqlDbType.VarChar, 50).Value = versionList;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversions", DbType.String, 50, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt16, cityId));
 
                     ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }

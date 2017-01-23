@@ -1,7 +1,9 @@
 ﻿using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Memcache;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ namespace Bikewale.New
         protected Literal ltrTitle;
         protected AddBikeToCompare addBike;
         DataSet ds = null;
+        protected GlobalCityAreaEntity cityArea;
         protected string versions = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
             estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
@@ -58,7 +61,7 @@ namespace Bikewale.New
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
+            cityArea = GlobalCityArea.GetGlobalCityArea();
             if (!IsPostBack)
             {
                 getVersionIdList();
@@ -86,8 +89,7 @@ namespace Bikewale.New
             {
 
                 CompareBikes cb = new CompareBikes();
-
-                ds = cb.GetComparisonBikeListByVersion(versions);
+                ds = cb.GetComparisonBikeListByVersion(versions, cityArea.CityId);
                 count = ds.Tables[0].Rows.Count;
 
                 //to truncate data
@@ -283,15 +285,23 @@ namespace Bikewale.New
         /// Summary: Create used bike links with bikeCount
         /// </summary>
         /// <returns></returns>
-        protected string CreateUsedBikeLink(uint bikeCount, string make, string makeMaskingName, string model, string modelMaskingName, string minPrice)
+        protected string CreateUsedBikeLink(uint bikeCount, string make, string makeMaskingName, string model, string modelMaskingName, string minPrice, string cityMasking)
         {
             if (bikeCount == 0)
                 return "--";
             else
             {
                 isUsedBikePresent = true;
-                return string.Format("<a href='/used/{1}-{2}-bikes-in-india/' title='Used {3}'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
-                    bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice);
+                if (cityArea.CityId == 0)
+                {
+                    return string.Format("<a href='/used/{1}-{2}-bikes-in-india/' title='Used {5} bikes'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
+                        bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice, model);
+                }
+                else
+                {
+                    return string.Format("<a href='/used/{1}-{2}-bikes-in-{5}/' title='Used {6} bikes'>{0} Used {3}</a><p>Starting at Rs. {4} </p>",
+                        bikeCount, makeMaskingName, modelMaskingName, string.Format("{0} {1}", make, model), minPrice, cityMasking, model);
+                }
             }
         }
         public string ShowFeature(string featureValue)
