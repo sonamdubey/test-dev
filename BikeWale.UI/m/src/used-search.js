@@ -1,7 +1,7 @@
 ﻿var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-city-list li");
-
+var isCityFilterFilled = false;
 
 var getQueryString = function () {
     var qsColl = new Object();
@@ -257,7 +257,9 @@ var usedBikes = function()
         self.Filters()["st"] = sellerList.substr(1);
     };
     self.ApplyFilters = function () {
-        $("#city-model-used-carousel").hide();
+        if (isCityFilterFilled) {
+            $("#city-model-used-carousel").hide();
+        }
         try {
             self.ResetFilters();
             self.ApplyBikeFilter();
@@ -578,6 +580,7 @@ $(document).ready(function () {
     if (obj != null) {
         selectCityObject(obj.CityId);
         vwUsedBikes.ApplyFilters();
+        isCityFilterFilled = true;
     }
 });
 
