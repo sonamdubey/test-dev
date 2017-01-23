@@ -1793,7 +1793,7 @@ var recentSearches =
                 for (var item in objSearches.searches) {
                     item = objSearches.searches[item];
                     bikename = item.name || '';
-                    if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
+                    if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0 && i<3) {
                         html += '<li data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><a href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                         if (item.modelId > 0) {
                             if (item.futuristic == 'True') {
