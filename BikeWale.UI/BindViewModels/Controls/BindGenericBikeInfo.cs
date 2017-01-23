@@ -23,10 +23,13 @@ namespace Bikewale.BindViewModels.Controls
     public class BindGenericBikeInfo
     {
         public uint ModelId { get; set; }
-
+        public bool IsUpcoming { get; set; }
+        public bool IsDiscontinued { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 2nd Jan 2016
         /// Summary :  To get generic bike info by modelid
+        /// Modified By : Aditi Srivastava on 23 Jan 2017
+        /// Summary     : Added properties for checking upcoming and discontinued bikemodels
         /// </summary>
         public GenericBikeInfo GetGenericBikeInfo()
         {
@@ -46,6 +49,17 @@ namespace Bikewale.BindViewModels.Controls
                     var _objGenericBike = container.Resolve<IBestBikesCacheRepository>();
 
                     genericBikeInfo = _objGenericBike.GetGenericBikeInfo(ModelId);
+                    if (genericBikeInfo != null)
+                    {
+                        if (genericBikeInfo.IsFuturistic)
+                        {
+                            IsUpcoming = true;
+                        }
+                        else if (genericBikeInfo.IsUsed && !genericBikeInfo.IsNew)
+                        {
+                            IsDiscontinued = true;
+                        }
+                    }
                 }
 
             }
