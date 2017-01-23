@@ -768,6 +768,8 @@ a.action-btn:hover{text-decoration:none;}
     .inner-content-carousel li { width: 282px !important; margin-right: 25px !important; }
     .overall-floating-tabs { width: 940px !important; }
     .model-jcarousel-image-preview img { height: 155px; }
+
+    .bw-horizontal-cards .card { width: 280px; }
 }
 
 /* offers popup */
