@@ -86,7 +86,6 @@ namespace Bikewale.BAL.MobileAppAlert
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMUser : IMEI : {1}, GCMId : {2},subsmasterId : {3} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId, appInput.SubsMasterId));
-                objErr.SendMail();
 
             }
 
@@ -132,7 +131,6 @@ namespace Bikewale.BAL.MobileAppAlert
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.UnSubscribeFCMUser : IMEI : {1}, GCMId : {2} ", HttpContext.Current.Request.ServerVariables["URL"], appInput.Imei, appInput.GcmId));
-                objErr.SendMail();
             }
 
             return isSuccess;
@@ -194,7 +192,6 @@ namespace Bikewale.BAL.MobileAppAlert
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
-                objErr.SendMail();
             }
 
             return subsResponse;
@@ -203,6 +200,8 @@ namespace Bikewale.BAL.MobileAppAlert
         /// <summary>
         /// Created By : Sushil Kumar on 12nd Dec 2016
         /// Description : To send fcm notification
+        /// Modified By : Sushil Kumar on 23rd Jan 2016
+        /// Description : Added functionality to log mobile notifications and send notifications based on alertType id
         /// </summary>
         /// <param name="payload"></param>
         /// <returns></returns>
@@ -211,7 +210,7 @@ namespace Bikewale.BAL.MobileAppAlert
             bool isSuccess = false;
             try
             {
-                string subscriptionTopic = SubscriptionTypes.GetSubscriptionType(2);  //for news we use default value 0 or 2
+                string subscriptionTopic = SubscriptionTypes.GetSubscriptionType(2); //Convert.ToUInt16(payload.AlertTypeId)
                 NotificationBase androidPayload = new NotificationBase() { To = subscriptionTopic, Data = payload, TimeToLive = _oneWeek };
 
                 WebRequest tRequest = WebRequest.Create(Bikewale.Utility.BWConfiguration.Instance.FCMSendURL);
@@ -242,8 +241,8 @@ namespace Bikewale.BAL.MobileAppAlert
                                     if (result != null && string.IsNullOrEmpty(result.Error))
                                     {
                                         isSuccess = true;
-                                        _appAlertRepo.CompleteNotificationProcess(payload.AlertTypeId);
                                     }
+                                    _appAlertRepo.CompleteNotificationProcess(payload, result);
                                 }
                             }
                         }
@@ -253,7 +252,6 @@ namespace Bikewale.BAL.MobileAppAlert
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {2}", HttpContext.Current.Request.ServerVariables["URL"], payload));
-                objErr.SendMail();
             }
 
             return isSuccess;
