@@ -288,7 +288,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 /* sprite classes */
-.bwsprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?12Jan2016) no-repeat; display: inline-block; }
+.bwsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?23Jan2016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
@@ -759,7 +759,6 @@ a.action-btn:hover{text-decoration:none;}
  #globalSearch::-ms-clear {width:0;height:0;display:none;}
 @media only screen and (max-width:1024px) {
     .container{width:100%; max-width:960px;}
-    .home-top-banner {background-position:63%}
     .home-getFinalPrice-banner{background-position:54%}
     .jcarousel-wrapper, #modelAlternateBikeContent .inner-content-carousel{width:100% !important;}
     .jcarousel li{width:300px;}
