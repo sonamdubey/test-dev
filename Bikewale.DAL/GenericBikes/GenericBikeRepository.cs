@@ -28,6 +28,8 @@ namespace Bikewale.DAL.GenericBikes
         /// Summary :  To get generic bike info by modelid
         /// Modified By : Sushil Kumar on 5th Jan 2016
         /// Description : To get generic bike info with min specs
+        /// Modified by : Aditi Srivastava on 23 Jan 2017
+        /// Summary     : Added new,ued and futuristic flags and Estimated min and max price(for upcoming)
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetGenericBikeInfo(uint modelId)
@@ -39,7 +41,7 @@ namespace Bikewale.DAL.GenericBikes
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikeinfo";
+                    cmd.CommandText = "getgenericbikeinfo_23012017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -60,6 +62,8 @@ namespace Bikewale.DAL.GenericBikes
                                 genericBikeInfo.FeaturesCount = SqlReaderConvertor.ToUInt32(dr["featurescount"]);
                                 genericBikeInfo.IsSpecsAvailable = SqlReaderConvertor.ToBoolean(dr["isspecsavailable"]);
                                 genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
+                                genericBikeInfo.EstimatedPriceMin = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMin"]);
+                                genericBikeInfo.EstimatedPriceMax = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMax"]);
                                 genericBikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                                 genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                                 genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
@@ -69,8 +73,9 @@ namespace Bikewale.DAL.GenericBikes
                                 genericBikeInfo.MinSpecs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
                                 genericBikeInfo.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maxpowerrpm"]);
                                 genericBikeInfo.MinSpecs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
-
-
+                                genericBikeInfo.IsUsed = SqlReaderConvertor.ToBoolean(dr["Used"]);
+                                genericBikeInfo.IsNew = SqlReaderConvertor.ToBoolean(dr["New"]);
+                                genericBikeInfo.IsFuturistic = SqlReaderConvertor.ToBoolean(dr["Futuristic"]);
                             }
                             dr.Close();
                         }
@@ -109,7 +114,7 @@ namespace Bikewale.DAL.GenericBikes
                             {
                                 bikeRankObj = new BikeRankingEntity();
                                 bikeRankObj.Rank = SqlReaderConvertor.ToInt32(dr["Rank"]);
-                                Enum.TryParse(Convert.ToString(dr["CategoryId"]),out bodyStyle);
+                                Enum.TryParse(Convert.ToString(dr["CategoryId"]), out bodyStyle);
                                 bikeRankObj.BodyStyle = bodyStyle;
                             }
                             dr.Close();
@@ -120,7 +125,7 @@ namespace Bikewale.DAL.GenericBikes
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}",modelId));
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
             }
             return bikeRankObj;
         }
@@ -144,8 +149,8 @@ namespace Bikewale.DAL.GenericBikes
                     {
                         if (dr != null)
                         {
-                            bestBikesList=new Collection<BestBikeEntityBase>();
-                            while(dr.Read())
+                            bestBikesList = new Collection<BestBikeEntityBase>();
+                            while (dr.Read())
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
@@ -191,6 +196,6 @@ namespace Bikewale.DAL.GenericBikes
             }
             return bestBikesList;
         }
-        
+
     }
 }

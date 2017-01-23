@@ -1,7 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.GenericBikeInfoControl" EnableViewState="false" %>
 <% if (bikeInfo != null)
    { %>
-
+<%if(IsUpcoming){ %>
+<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+<%}else if(IsDiscontinued){ %>
+<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+<%} %>
 <div class="model-more-info-section">
     <div class="margin-bottom10">
         <a href="<%= bikeUrl%>" class="item-image-content inline-block" title="<%= bikeName %>">
@@ -13,19 +17,19 @@
                 <%if (bikeInfo.MinSpecs.Displacement != 0)
                   { %>
                 <li>
-                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.Displacement.ToString(),"cc") %></span>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.Displacement),"cc") %></span>
                 </li>
                 <% } %>
                 <%if (bikeInfo.MinSpecs.FuelEfficiencyOverall != 0)
                   { %>
                 <li>
-                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") %></span>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.FuelEfficiencyOverall),"kmpl") %></span>
                 </li>
                 <% } %>
                 <%if (bikeInfo.MinSpecs.MaxPower != 0)
                   { %>
                 <li>
-                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeInfo.MinSpecs.MaxPower.ToString(),"bhp") %></span>
+                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.MaxPower),"bhp") %></span>
                 </li>
                 <% } %>
             </ul>
@@ -71,10 +75,26 @@
     </ul>
     <div class="clear"></div>
     <div class="margin-top5 margin-bottom5">
-        <p class="font13 text-grey">Ex-showroom, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+        <% if(IsDiscontinued) {%>
+        <p class="font13 text-grey">Last known price</p>
         <div class="margin-bottom10">
             <span class="bwmsprite inr-xsm-icon"></span>
-            <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bikeInfo.BikePrice.ToString()) %></span>
+            <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+        </div>
+        <%} else if(IsUpcoming){%>
+        <p class="font13 text-grey">Expected price</p>
+        <div class="margin-bottom10">
+            <span class="bwmsprite inr-xsm-icon"></span>
+            <span class="font16 text-bold">
+                <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax)) %>
+            </span>
+        </div>
+        <%} %>
+        <%else{ %>
+        <p class="font13 text-grey"><%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
+        <div class="margin-bottom10">
+            <span class="bwmsprite inr-xsm-icon"></span>
+            <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
         </div>
         <%if (bikeInfo.BikePrice > 0)
           { %>
@@ -84,6 +104,7 @@
             class="btn btn-white font14 btn-size-180 getquotation">
             Check on-road price</button>
         <% } %>
+         <%} %>
     </div>
 </div>
 <% }  %>
