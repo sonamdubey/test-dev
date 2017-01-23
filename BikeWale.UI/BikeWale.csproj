@@ -437,6 +437,8 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\m\Content\ExpertReviewsController.cs" />
+    <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
@@ -3174,6 +3176,8 @@
     </Content>
     <Content Include="Views\m\Content\News\details_amp.cshtml" />
     <Content Include="Views\Shared\_Layout_Mobile_AMP.cshtml" />
+    <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
+    <Content Include="Views\m\Content\Features\details_amp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3196,6 +3200,8 @@
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\Content\News\Amp\" />
+    <Folder Include="Views\ExpertReviews\" />
+    <Folder Include="Views\Features\" />
     <Folder Include="Views\m\Shared\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />

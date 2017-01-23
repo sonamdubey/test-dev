@@ -14,7 +14,7 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using Bikewale.Utility;
 
-namespace Bikewale.Controllers.Mobile.Content.News
+namespace Bikewale.Controllers.Mobile.Content
 {    
     /// <summary>
     /// Created By : Ashish G. Kamble on 2 Jan 2017
@@ -60,7 +60,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="pageId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [Route("m/news/page/{pageId}/make/{makeId}/")]
+        [Route("m/news/make/{makeId}/page/{pageId}/")]
         public ActionResult NewsListByMake(int pageId, int makeId)
         {
             return View();
@@ -72,7 +72,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="pageId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [Route("m/news/page/{pageId}/model/{modelId}/")]
+        [Route("m/news/model/{modelId}/page/{pageId}/")]
         public ActionResult NewsListByModel(int pageId, int modelId)
         {
             return View();
@@ -104,6 +104,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
                 if (objNews != null && objNews.Content != null)
                 {
                     ViewBag.Title = objNews.Title;
+                    ViewBag.ArticleSectionTitle = "- BikeWale News";
                     ViewBag.Author = objNews.AuthorName;
                     ViewBag.PublishedDate = objNews.DisplayDate.ToString();
                     ViewBag.LastModified = objNews.DisplayDate.ToString();
@@ -154,7 +155,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="makeId">make id for which news are required</param>
         /// <param name="count">no of news required</param>
         /// <returns></returns>
-        [Route("m/news/latest/{count}/make/{makeId}/")]
+        [Route("m/news/make/{makeId}/latest/{count}/")]
         public ActionResult LatestNewsByMake(int makeId, int count)
         {
             return PartialView();
@@ -166,7 +167,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="modelId">model id for which news are required</param>
         /// <param name="count"></param>
         /// <returns></returns>
-        [Route("m/news/latest/{count}/model/{modelId}/")]
+        [Route("m/news/model/{modelId}/latest/{count}/")]
         public ActionResult LatestnewsByModel(int modelId, int count)
         {
             return PartialView();

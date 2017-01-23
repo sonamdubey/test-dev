@@ -197,7 +197,7 @@ namespace Bikewale.Content
                         IEnumerable<int> ids = objRoadtest.VehiclTagsList
                                .Select(e => e.ModelBase.ModelId)
                                .Distinct();
-
+                                
                         foreach (var i in ids)
                         {
                             VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
