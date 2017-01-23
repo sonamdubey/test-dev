@@ -106,7 +106,7 @@ namespace Bikewale.Used
                         PageIdentifier = Convert.ToUInt16(UsedBikePage.UsedCity);
                     }
                 }
-                else if (makeId != 0 && cityId == 0 && GlobalCityArea.GetGlobalCityArea() != null && GlobalCityArea.GetGlobalCityArea().CityId == 0)
+                else if (makeId != 0 && cityId == 0 && GlobalCityArea.GetGlobalCityArea().CityId == 0)
                 {
                     if (modelId == 0 && Bikewale.Utility.UsedCookie.UsedCookie.BrandIndia)
                     {
