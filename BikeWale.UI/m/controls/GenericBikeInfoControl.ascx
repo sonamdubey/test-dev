@@ -76,7 +76,7 @@
     <div class="clear"></div>
     <div class="margin-top5 margin-bottom5">
         <% if(IsDiscontinued) {%>
-        <p class="font13 text-grey">Last known price</p>
+        <p class="font13 text-grey"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
         <div class="margin-bottom10">
             <span class="bwmsprite inr-xsm-icon"></span>
             <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
