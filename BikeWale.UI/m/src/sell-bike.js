@@ -389,6 +389,12 @@ var sellBike = function () {
             self.verificationDetails().status(false);
         };
     };
+    self.photoUploadValidUrl = ko.pureComputed(function () {
+        if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
+            var photoValidUrl = "/api/used/" + self.profileId() + "/image/validate/?isMain=false&extension=";
+        }
+        return photoValidUrl;
+    });
 
     self.photoUploadUrl = ko.pureComputed(function () {
         if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
@@ -407,7 +413,7 @@ var sellBike = function () {
                     maxFiles: 10,
                     addRemoveLinks: true,
                     acceptedFiles: ".png, .jpg, .jpeg",
-                    url: self.photoUploadUrl(),
+                    url: self.photoUploadValidUrl(),
                     headers: { "customerId": self.customerId() },
                     init: function () {
                         var myDropzone = this;

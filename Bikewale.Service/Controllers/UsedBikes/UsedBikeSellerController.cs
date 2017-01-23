@@ -109,12 +109,12 @@ namespace Bikewale.Service.Controllers.UsedBikes
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Oct 2016
-        /// Description :   Sell Bike image upload API
+        /// Description :   Validates the Sell Bike Image Upload Request
         /// </summary>
         /// <param name="profileId"></param>
         /// <param name="isMain"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/used/{profileId}/image/upload/")]
+        [HttpPost, Route("api/used/{profileId}/image/validate/")]
         public IHttpActionResult Post(string profileId, string extension, bool? isMain)
         {
             try
@@ -124,7 +124,46 @@ namespace Bikewale.Service.Controllers.UsedBikes
                 if (!string.IsNullOrEmpty(strCustomerId)
                     && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
                     && UInt64.TryParse(strCustomerId, out customerId)
-                    && customerId > 0)
+                    && customerId > 0
+                    && !String.IsNullOrEmpty(extension))
+                {
+
+                    return Ok(true);
+
+                }
+                else
+                {
+                    return BadRequest("Invalid image");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("api/used/{0}/image/validate/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Oct 2016
+        /// Description :   Sell Bike image upload API
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="isMain"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/used/{profileId}/image/upload/")]
+        public IHttpActionResult Upload(string profileId, string extension, bool? isMain)
+        {
+            try
+            {
+                string strCustomerId = Request.Headers.Contains("customerId") ? Request.Headers.GetValues("customerId").FirstOrDefault() : "";
+                UInt64 customerId = 0;
+                if (!string.IsNullOrEmpty(strCustomerId)
+                    && Utility.UsedBikeProfileId.IsValidProfileId(profileId)
+                    && UInt64.TryParse(strCustomerId, out customerId)
+                    && customerId > 0
+                    && !String.IsNullOrEmpty(extension))
                 {
                     SellBikeImageUploadResultEntity uploadResult = _usedBikesRepo.UploadBikeImage(
                     isMain.HasValue ? isMain.Value : false,

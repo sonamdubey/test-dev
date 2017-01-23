@@ -310,10 +310,10 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 200, description));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_directorypath", DbType.String, 200, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isreplicated", DbType.Boolean, Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, originalImageName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_originalimagepath", DbType.String, 300, ""));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isdealer", DbType.Boolean, isDealer));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ismain", DbType.Boolean, isMain));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, Utility.BWConfiguration.Instance.ImgHostURL));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_hosturl", DbType.String, 100, ""));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_photoid", DbType.Int64, ParameterDirection.Output));
 
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
