@@ -9,6 +9,8 @@ namespace Bikewale.Utility
     {
         /// <summary>
         /// Function will return the description with truncated content.
+        /// Modified By :- Subodh Jain 23 jan 2017
+        /// Summary :- Added white space reqex check
         /// </summary>
         /// <param name="_desc">description which needs to be truncated.</param>
         /// <param name="maxLength">Content lenth is optional. Default value is 170 chars</param>
@@ -18,6 +20,8 @@ namespace Bikewale.Utility
             int descLength = 170;
             _desc = Regex.Replace(_desc, @"<[^>]+>", string.Empty);
 
+            Regex regex = new Regex(@"\W+");
+            _desc = regex.Replace(_desc, " ");
             if (maxLength.HasValue) { descLength = maxLength.Value; }
 
             if (_desc.Length < descLength)
