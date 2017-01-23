@@ -31,7 +31,8 @@ var bindGallery = function ()
 
     gallery.open();
     window.dispatchEvent(new Event('resize'));
-    appendState('gallery');
+
+        appendState('gallery');
 
     $("#photos-tab").trigger('click');
     var clickedSlide = $('.carousel-navigation-photos .swiper-slide')[imgIndex];
@@ -136,7 +137,11 @@ var appendState = function (state) {
 
 $(window).on('popstate', function (event) {
     if ($('.model-gallery-container').is(':visible')) {
-        gallery.close();
+        if (isModelPage) {
+            window.location.href = window.location.pathname.split("photos/")[0];
+        }
+        else
+            gallery.close();
     }
 });
 

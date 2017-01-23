@@ -106,23 +106,23 @@
     </form>
     <script>
 
+        var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+
 
         $(".gallery-close-btn").on('click', function () {
-                    <% if (isModelPage)
-                       { %>
-            window.location.href = document.referrer;
-                    <%}
-                       else
-                       { %>
-        
+            if(isModelPage)
+            {
+                window.location.href = window.location.pathname.split("photos/")[0];
+            }
+            else
             gallery.close(); 
-            <% } %>
+
         });
 
         $(document).ready(function () {
-            <%if(isModelPage){%>
+            if(isModelPage)
             bindGallery();
-            <%}%>
+           
         });
        
     </script>
