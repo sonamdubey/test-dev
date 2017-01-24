@@ -10,6 +10,7 @@
 	self.itemId = null;
 	self.photoIdUrl = "";
 	self.customerId = 0;
+	self.profileId = "";
 	//function to get token from server 
 	self.getToken = function (request) {
 		return $.ajax({
@@ -32,7 +33,7 @@
 				var awsURI = response.uri;
 				var objData = new FormData();
 
-				objData.append('key', self.response.key);
+				objData.append('key', self.response.originalImagePath);
 				objData.append('acl', 'public-read');
 				objData.append('success_action_status', '201');
 				objData.append('Content-Type', file.type);
@@ -87,8 +88,8 @@
 		if (response) {
 			var xmlResponse = response.getElementsByTagName("PostResponse");;
 			if (xmlResponse) {
-				var key = xmlResponse[0].getElementsByTagName("Key")[0].textContent;
-				var requestObject = { key: key, id: self.response.id, uri: self.response.uri, accessKeyId: self.response.accessKeyId, policy: self.response.policy, signature: self.response.signature, photoId: self.photoId };
+			    var originalImagePath = xmlResponse[0].getElementsByTagName("Key")[0].textContent;
+				var requestObject = { key: self.response.key, originalImagePath: originalImagePath , id: self.response.id, uri: self.response.uri, accessKeyId: self.response.accessKeyId, policy: self.response.policy, signature: self.response.signature, photoId: self.photoId };
 
 				//call api that processes image through Rabbit MQ and saves its details in database
 				$.ajax({
