@@ -73,7 +73,7 @@
                     <div class="clear"></div>
                     <%if (objImg!=null){ %>
                     <div class="border-solid-top padding-top10">
-                        <h3 class="margin-bottom10">Photos</h3>
+                        <h3 class="margin-bottom10">Images</h3>
                         <div class="swiper-container article-photos-swiper">
                                 <div class="swiper-wrapper">
                                 <asp:Repeater id="rptPhotos" runat="server">

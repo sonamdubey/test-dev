@@ -138,7 +138,7 @@ var appendState = function (state) {
 $(window).on('popstate', function (event) {
     if ($('.model-gallery-container').is(':visible')) {
         if (isModelPage) {
-            window.location.href = window.location.pathname.split("photos/")[0];
+            window.location.href = window.location.pathname.split("images/")[0];
         }
         else
             gallery.close();

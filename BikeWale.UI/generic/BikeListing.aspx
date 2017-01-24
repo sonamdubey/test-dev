@@ -186,9 +186,9 @@
                                                 <%} %>
                                                 <% if(bike.PhotosCount > 0) { %>
                                                 <li>
-                                                    <a href="<%= UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Photos">
+                                                    <a href="<%= UrlFormatter.FormatPhotoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Images">
                                                         <span class="bwsprite photos-sm"></span>
-                                                        <span class="icon-label">Photos</span>
+                                                        <span class="icon-label">Images</span>
                                                     </a>
                                                 </li>
                                                 <% } %>

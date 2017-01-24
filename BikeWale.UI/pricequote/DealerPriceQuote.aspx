@@ -140,7 +140,7 @@
                                 <% if (detailedDealer != null)
                                    { %>
                                 <div id="model-image">
-                                    <img alt="<%= bikeVersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Photo" alt="<%= bikeVersionName %> Photo" width="100%" />
+                                    <img alt="<%= bikeVersionName %> Images" src="<%= Bikewale.Utility.Image.GetPathToShowImages(detailedDealer.OriginalImagePath,detailedDealer.HostUrl,Bikewale.Utility.ImageSize._360x202) %>" title="<%= bikeVersionName %> Images" alt="<%= bikeVersionName %> Images" width="100%" />
                                 </div>
                                 <% } %>
                                 <%= minspecs %>

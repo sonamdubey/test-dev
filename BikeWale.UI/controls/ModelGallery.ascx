@@ -9,7 +9,7 @@
         <div class="text-center photos-videos-tabs margin-bottom20">
             <div class="bw-tabs home-tabs">
                 <ul>
-                    <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
+                    <li class="active" data-tabs="Photos" id="photos-tab">Images</li>
                     <li data-tabs="Videos" id="videos-tab">Videos</li>
                 </ul>
             </div>

@@ -46,15 +46,15 @@ namespace Bikewale.Utility
             string url = string.Empty;
             if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
             {
-                url = "/photos/";
+                url = "/images/";
             }
             else if (String.IsNullOrEmpty(modelMaskingName))
             {
-                url = String.Format("/{0}-bikes/photos/", makeMaskingName);
+                url = String.Format("/{0}-bikes/images/", makeMaskingName);
             }
             else
             {
-                url = String.Format("/{0}-bikes/{1}/photos/", makeMaskingName, modelMaskingName);
+                url = String.Format("/{0}-bikes/{1}/images/", makeMaskingName, modelMaskingName);
             }
             return url;
         }
@@ -375,7 +375,7 @@ namespace Bikewale.Utility
         public static string FormatGenericPageUrl(EnumBikeBodyStyles bodyStyle)
         {
             string url = String.Empty;
-            switch(bodyStyle)
+            switch (bodyStyle)
             {
                 case EnumBikeBodyStyles.Mileage:
                     url = "/best-mileage-bikes-in-india/";
@@ -384,7 +384,7 @@ namespace Bikewale.Utility
                     url = "/best-sports-bikes-in-india/";
                     break;
                 case EnumBikeBodyStyles.Cruiser:
-                    url =  "/best-cruiser-bikes-in-india/";
+                    url = "/best-cruiser-bikes-in-india/";
                     break;
                 case EnumBikeBodyStyles.Scooter:
                     url = "/best-scooters-in-india/";
