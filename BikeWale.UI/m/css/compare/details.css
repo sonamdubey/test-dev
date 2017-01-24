@@ -47,4 +47,171 @@
     margin-bottom: 2px;
 }
 
+/* dropdown */
+.dropdown-select {
+	display: none;
+}
+
+.dropdown-menu {
+	width: 100%;
+    height: 20px;
+    min-width: 100px;
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	color: #4d5057;
+}
+
+.single-version-label {
+	padding: 5px 30px 5px 9px;
+	font-weight: bold;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
+	width: 100%;
+	font-weight: bold;
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dropdown-menu .dropdown-selected-item {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 5px 30px 5px 9px;
+}
+
+.dropdown-menu .dropdown-label {
+	cursor: pointer;
+	display: inline-block;
+	z-index: 0;
+    padding-right: 20px;
+}
+
+.dropdown-menu .dropdown-list-wrapper {
+	display: none;
+	min-width: 170px;
+	overflow:hidden;
+	position: absolute;
+	top: 3px;
+	left: 0;
+	background: #fff;
+	z-index: 1;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+	-ms-border-radius: 2px;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2\9;
+	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
+	-moz-box-shadow: -3px 3px 15px 1px #ddd;
+	-ms-box-shadow: -3px 3px 15px 1px #ddd;
+	-o-box-shadow: -3px 3px 15px 1px #ddd;
+	box-shadow: -3px 3px 15px 1px #ddd;
+}
+
+.dropdown-menu.dropdown-active .dropdown-list-wrapper {
+	display: inline-block;
+}
+
+.dropdown-menu .dropdown-menu-list {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.dropdown-menu .dropdown-menu-list li {
+	padding: 5px 10px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.dropdown-menu .dropdown-with-select li:hover {
+	background: #eee;
+}
+
+.dropdown-menu .fullwidth {
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/* floating-tabs-content */
+.overall-specs-tabs-container {
+    width: 100%;
+    display: block;
+    background: #fff;
+    overflow-x: scroll;
+    z-index: 2;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.overall-specs-tabs-wrapper {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.overall-specs-tabs-wrapper li {
+    font-size: 14px;
+    padding: 10px 15px;
+    float: left;
+    text-align: center;
+    white-space: nowrap;
+    color: #82888b;
+    cursor: pointer;
+}
+
+.overall-specs-tabs-wrapper li.active {
+    border-bottom: 3px solid #ef3f30;
+    color: #4d5057;
+    font-weight: 700;
+}
+
+/* table */
+.table-content td {
+    padding-left: 15px;
+}
+
+.row-type-heading td {
+    font-size: 14px;
+    color: #82888b;
+    padding: 10px 0 10px 15px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.table-content .row-type-heading:nth-child(1) td {
+    border-top: 0;
+}
+
+.row-type-data td {
+    width: 50%;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.row-type-data td:nth-child(2) {
+    padding-right: 15px;
+}
+
+/* table column-count-3 */
+.column-count-3 .row-type-data td {
+    width: 33.33%;
+}
+
+.column-count-3 .row-type-data td:nth-child(2) {
+    padding-right: 0;
+}
+
+.column-count-3 .row-type-data td:nth-child(3) {
+    padding-right: 15px;
+}
+
+/*
 table td{text-align:center;height:25px}div.color-box{margin:10px auto auto;width:40px;height:40px;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#e34f4f}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.related-comparison-container.container{border-bottom:0;padding:0}.related-comparison-carousel-content,.usedBikes{border:1px solid #ccc;padding:20px 20px 10px}.related-comparison-carousel-content{width:260px;height:auto;background:#fff}.related-comparison-carousel-content a{color:#0288d1;font-size:14px;font-weight:400;margin-bottom:10px;display:block}.related-comparison-carousel-content a:hover{color:#0288d1}.compare-tick{width:18px;height:16px;background-position:-88px -458px}.compare-cross{width:14px;height:16px;background-position:-116px -458px}.related-comparison-container .swiper-wrapper,.usedBikes{margin:10px;height:auto}.usedBikes{background:#fff}.usedBikes a {color: #0288d1;font-size: 16px;font-weight: 400;margin-bottom: 10px;}
+*/
