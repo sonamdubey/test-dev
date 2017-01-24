@@ -872,7 +872,7 @@
                                  <FooterTemplate>
                                      <% if(count <4) {%>
                                      <td>
-                                         <table class="threecolum" cellpadding="0" border="0" cellspacing="0">
+                                         <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : "")) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : ""))%>" cellpadding="0" border="0" cellspacing="0">
                                              <tbody>
                                                  <tr>
                                                      <td>
