@@ -92,7 +92,7 @@
                 try {
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
                     if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
-                        if (!bwcache.get(options.sessionKey, true) && !bwcache.get(options.locationChangeKey, true))   //surpress location chnage prompt for the session
+                        if (!bwcache.get(options.sessionKey, true) && bwcache.get(options.locationChangeKey, true) != window.location.href)   //surpress location chnage prompt for the session
                         {
                             showChangeCityPopup();
                         }

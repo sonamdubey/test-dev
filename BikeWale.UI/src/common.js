@@ -84,7 +84,7 @@ $(document).ready(function () {
             var cityName = ui.item.label.split(',')[0];
             if (city.cityId != globalCityId) {
                 SetCookieInDays("location", city.cityId + "_" + cityName, 365);
-                bwcache.set("userchangedlocation", "1", true);
+                bwcache.set("userchangedlocation", window.location.href, true);
             }
             globalCityId = city.cityId;
             CloseCityPopUp();
