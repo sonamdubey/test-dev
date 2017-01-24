@@ -151,6 +151,7 @@ var sellBike = function () {
                 myDropzone.itemId = self.inquiryId();
                 myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
                 myDropzone.customerId = self.customerId();
+                myDropzone.profileId = self.profileId();
                 $(self.serverImg()).each(function (i) {
                     var uF = { name: this.id, size: 12345 };
                     myDropzone.files.push(uF)

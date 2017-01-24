@@ -586,6 +586,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
+            var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
         </script>
         
         <!-- #include file="/includes/footerBW.aspx" -->

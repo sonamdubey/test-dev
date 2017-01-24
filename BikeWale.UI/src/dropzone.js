@@ -420,6 +420,7 @@
             this.itemId;
             this.photoIdGenerateUrl;
             this.customerId;
+            this.profileId;
             if (typeof this.element === "string") {
                 this.element = document.querySelector(this.element);
             }
@@ -1366,8 +1367,10 @@
                 };
             })(this);
 
-            imageUploadToAWS = function (file, itemId) {
-                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase() };                
+            imageUploadToAWS = function (file, itemId, profileId) {
+                var ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+                var path = "n/bw/" + imgEnv + "used/" + profileId + "/" + itemId + "_" + Date.now() + "." + ext;
+                imgUpldUtil.request = { "categoryId": 1, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext, "originalPath": path.toLowerCase() };
                 imgUpldUtil.upload(file);
                 if(imgUpldUtil.status)
                     $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
@@ -1473,7 +1476,7 @@
 
             for (_i = 0, _len = files.length; _i < _len; _i++) {
                 file = files[_i];
-                if (imageUploadToAWS(file, this.itemId)) {
+                if (imageUploadToAWS(file, this.itemId, this.profileId)) {
                     file.status = Dropzone.SUCCESS;
                     this.emit("success", file, responseText, e);
                     this.emit("complete", file);

@@ -34,12 +34,12 @@ namespace Bikewale.Mobile.New.Photos
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            BindPhotosPage();
-
             if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
                 isModelPage = true;
             }
+            BindPhotosPage();
+
 
         }
 
@@ -112,7 +112,7 @@ namespace Bikewale.Mobile.New.Photos
                 }
 
                 ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
-               
+
 
             }
 

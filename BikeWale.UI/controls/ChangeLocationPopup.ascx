@@ -3,18 +3,7 @@
 <% if (IsLocationChange)
    {%>
 
-  <style type="text/css">
-.globalchangecity-popup { display: none; width:360px; min-height:230px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 51px; right: 72px; z-index: 10; }
-.globalchangecity-popup:before { content: ''; position: fixed; border-right: 8px solid transparent; border-bottom: 8px solid #fff; border-left: 8px solid transparent; position: fixed; top: 43px; right: 128px; }
-.globalchangecity-popup-data { padding: 20px 10px }
-.globalchangecity-popup-data .cityPopup-icon{ -webkit-transform: scale(0.6); -moz-transform: scale(0.6); -o-transform: scale(0.6); -ms-transform: scale(0.6); transform: scale(0.6);position: relative;left: -3px;top: -2px;background-color: #fff;}
-.globalchangecity-popup-data .icon-outer-circle { width:60px; height:60px; margin:0 auto; background:#fff; border:1px solid #ccc; }
-.globalchangecity-popup-data .icon-inner-circle { width:54px; height:54px; margin:2px auto; background:#fff; border:1px solid #666; }
-.icon-outer-circle, .icon-inner-circle { -moz-border-radius: 50%; -webkit-border-radius: 50%; -o-border-radius: 50%; -ms-border-radius: 50%; border-radius: 50%;}
-#changecity-accept{ width: 200px; text-align: center; padding: 8px 10px; }
-</style>
-
- <!-- global Change city pop up code starts here -->
+<!-- global Change city pop up code starts here -->
 <div class="globalchangecity-popup rounded-corner2" id="globalchangecity-popup">
     <div class="globalchangecity-popup-data text-center font14">
         <div class="icon-outer-circle">

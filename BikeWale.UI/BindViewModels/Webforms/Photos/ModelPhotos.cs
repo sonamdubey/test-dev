@@ -12,7 +12,6 @@ using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Photos
 {
@@ -85,6 +84,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     objModel = new BikeModelEntityBase();
                     objModel.ModelId = bikemodelEnt.ModelId;
                     objModel.ModelName = bikemodelEnt.ModelName;
+                    objModel.MaskingName = bikemodelEnt.MaskingName;
                     bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
                     IsUpcoming = bikemodelEnt.Futuristic;
                     IsDiscontinued = !bikemodelEnt.Futuristic && !bikemodelEnt.New;
@@ -115,7 +115,6 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     totalPhotosCount = objImageList.Count;
-                    objImageList = (isModelpage) ? objImageList.Take(1).ToList() : objImageList;
 
                     nongridPhotosCount = (int)(totalPhotosCount % _noOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
