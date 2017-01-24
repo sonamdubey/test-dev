@@ -22,7 +22,9 @@
 %>
 
 <!-- #include file="/includes/headNew.aspx" -->
-<style>.Features .repeater-1 td.info-td,.Specs .repeater-1 td.info-td,.blue{cursor:pointer}.container-border{border-top:1px solid #F3F2F2}.tab_inner_container .container-border th.mainth{border-right:1px solid #F3F2F2}.tab_inner_container .container-1{border-left:1px solid #F3F2F2;border-right:1px solid #F3F2F2}.tab_inner_container .container-1 .repeater-1{border-right:1px solid #F3F2F2;vertical-align:top}.tab_inner_container .container-1 .specs-title th{border-right:0 solid #F3F2F2}.tab_inner_container .container-1 .repeater-2{border-right:1px solid #F3F2F2}.container-1 table table th,.container-border td.maintd td div,.tab_inner_container .maintd{border-right:0}.tab_inner_container .mainth{background:0 0}.tab_inner_container th{width:170px;border-right:0}.tbl-compare td.headerSpecs{border-bottom:1px solid #FFF}.tab_inner_container .tbl-compare td{height:60px;text-align:center;vertical-align:middle;padding:0}.tab_inner_container .tbl-compare th{height:30px;text-align:center;vertical-align:middle;padding:0}.tab_inner_container .tbl-compare .maintd td{vertical-align:top}.container-border td.maintd td{border-bottom:0}.container-border th.mainth{border-right:1px solid #F3F2F2;padding:5px;margin:0 0 5px}.container-border td.maintd{border-right:1px solid #F3F2F2;border-bottom:0 solid #F3F2F2;vertical-align:top}.container-border td.maintd:last-child{border-right:0 solid #F3F2F2}.container-border td.maintd table{padding:5px;margin:0 0 5px}.tab_inner_container .container-1 .repeater-1 .tblColor td{vertical-align:top;border-bottom:0}.tab_inner_container .container-1 .Colors td:last-child.repeater-1,.tab_inner_container .container-1 .repeater-1 .tblColor th{border-right:0}.tab_inner_container .tbl-compare .specs-title td,.tab_inner_container .tbl-compare .specs-title th{text-align:left;padding-left:5px}.maintd .bikemain{border:0 solid red;overflow:hidden}.maintd .bikename{margin-bottom:10px;text-align:center;font-size:12px;min-height:34px}.maintd .bikeclose{overflow:hidden;display:inline-block;text-align:right;float:right;font-size:10.5px}.sixcolum{width:123px}.fivecolum{width:149px}.fourcolum{width:186px}.threecolum{width:248px}.sixcolum img.second-img{width:103px;height:auto}.fivecolum img.second-img{width:128px;height:auto}.fourcolum img.second-img{width:166px;height:auto}.threecolum img.second-img{width:228px;height:auto}.featuredBike{background-color:#fffae8!important}.blue{color:#0056cc;text-decoration:none}.info-td{position:relative}.info-popup{display:none;background-color:#fff;position:absolute;top:45px;left:100px;box-shadow:0 0 15px #ccc;width:225px;min-height:40px;border:1px solid #e0e0e0;padding:10px;z-index:2}.Features .repeater-1 td.info-td:hover .info-popup,.Specs .repeater-1 td.info-td:hover .info-popup{display:block}div.color-box{width:50px;height:50px;margin:10px auto auto;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#eee}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.similarbikes{background-color:#efeeee!important;margin-top:15px;padding:10px}.related-comparison-wrapper{display:inline-block;vertical-align:top;width:220px}.bikeclose .cross-md-dark-grey{background-position:-62px -223px}.bikeclose .cross-md-dark-grey:hover{background-position:-62px -246px}.compare-tick{width:18px;height:14px;background-position:-153px -515px}.compare-cross{width:14px;height:14px;background-position:-181px -515px}.position-abt{font-size:8px;}.pos-right35 { right: 35px; }.fivecolum .pos-right35 { right: 20px }.btn-secondary-small { padding: 6px 0; width: 180px; font-size: 14px; } .tab_inner_container .tbl-compare .similarbikes .mainth { text-align: left; padding-left: 5px; }
+<style>.Features .repeater-1 td.info-td,.Specs .repeater-1 td.info-td,.blue{cursor:pointer}.container-border{border-top:1px solid #F3F2F2}.tab_inner_container .container-border th.mainth{border-right:1px solid #F3F2F2}.tab_inner_container .container-1{border-left:1px solid #F3F2F2;border-right:1px solid #F3F2F2}.tab_inner_container .container-1 .repeater-1{border-right:1px solid #F3F2F2;vertical-align:top}.tab_inner_container .container-1 .specs-title th{border-right:0 solid #F3F2F2}.tab_inner_container .container-1 .repeater-2{border-right:1px solid #F3F2F2}.container-1 table table th,.container-border td.maintd td div,.tab_inner_container .maintd{border-right:0}.tab_inner_container .mainth{background:0 0}.tab_inner_container th{width:170px;border-right:0}.tbl-compare td.headerSpecs{border-bottom:1px solid #FFF}.tab_inner_container .tbl-compare td{height:60px;text-align:center;vertical-align:middle;padding:0}.tab_inner_container .tbl-compare th{height:30px;text-align:center;vertical-align:middle;padding:0}.tab_inner_container .tbl-compare .maintd td{vertical-align:top}.container-border td.maintd td{border-bottom:0}.container-border th.mainth{border-right:1px solid #F3F2F2;padding:5px;margin:0 0 5px}.container-border td.maintd{border-right:1px solid #F3F2F2;border-bottom:0 solid #F3F2F2;vertical-align:top}.container-border td.maintd:last-child{border-right:0 solid #F3F2F2}.container-border td.maintd table{padding:5px;margin:0 0 5px}.tab_inner_container .container-1 .repeater-1 .tblColor td{vertical-align:top;border-bottom:0}.tab_inner_container .container-1 .Colors td:last-child.repeater-1,.tab_inner_container .container-1 .repeater-1 .tblColor th{border-right:0}.tab_inner_container .tbl-compare .specs-title td,.tab_inner_container .tbl-compare .specs-title th{text-align:left;padding-left:5px}.maintd .bikemain{border:0 solid red;overflow:hidden}.maintd .bikename{margin-bottom:10px;text-align:center;font-size:12px;min-height:34px}.maintd .bikeclose{overflow:hidden;display:inline-block;text-align:right;float:right;font-size:10.5px}.sixcolum{width:123px}.fivecolum{width:149px}.fourcolum{width:186px}.threecolum{width:248px}.sixcolum img.second-img{width:103px;height:auto}.fivecolum img.second-img{width:128px;height:auto}.fourcolum img.second-img{width:166px;height:auto}.threecolum img.second-img{width:228px;height:auto}.featuredBike{background-color:#fffae8!important}.blue{color:#0056cc;text-decoration:none}.info-td{position:relative}.info-popup{display:none;background-color:#fff;position:absolute;top:45px;left:100px;box-shadow:0 0 15px #ccc;width:225px;min-height:40px;border:1px solid #e0e0e0;padding:10px;z-index:2}.Features .repeater-1 td.info-td:hover .info-popup,.Specs .repeater-1 td.info-td:hover .info-popup{display:block}div.color-box{width:50px;height:50px;margin:10px auto auto;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#eee}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.similarbikes{background-color:#efeeee!important;margin-top:15px;padding:10px}.usedbikes{background-color:#efeeee!important;margin-top:30px;padding:10px}.related-comparison-wrapper{display:inline-block;vertical-align:top;width:220px}.bikeclose .cross-md-dark-grey{background-position:-62px -223px}.bikeclose .cross-md-dark-grey:hover{background-position:-62px -246px}.compare-tick{width:18px;height:14px;background-position:-153px -515px}.compare-cross{width:14px;height:14px;background-position:-181px -515px}.position-abt{font-size:8px;}.pos-right35 { right: 35px; }.fivecolum .pos-right35 { right: 20px }.btn-secondary-small { padding: 6px 0; width: 180px; font-size: 14px; } .tab_inner_container .tbl-compare .similarbikes .mainth { text-align: left; padding-left: 5px; }
+    .tab_inner_container .tbl-compare .usedbikes .mainth{ text-align: left; padding-left: 5px}
+    .usedbikes .threecolum, .usedbikes .fourcolum, .usedbikes .fivecolum {border-left: 1px solid #fff;}
 </style>
 
 <div class="container_12">
@@ -56,9 +58,8 @@
             </ul>
         </div>
         <div class="tab_inner_container">
-            <table width="100%" class="tbl-compare" cellpadding="0" border="0" cellspacing="0">
+            <table width="100%" class="tbl-compare margin-bottom15" cellpadding="0" border="0" cellspacing="0">
                 <tr>
-                    <td>&nbsp;</td>
                     <td class="container-1">
                         <table width="100%" class="container-border" cellpadding="0" border="0" cellspacing="0">
                             <tr>
@@ -845,42 +846,52 @@
                                 </td>
                                 <% } %>
                             </tr>
-                            <% if(isUsedBikePresent){ %>
-                            <tr class="usedBikeCard similarbikes">
-                                <td class="mainth">You may also like</td>
-                                    <asp:repeater runat="server" id="rptUsedBikes">
-                                           <ItemTemplate>
-                                             <td class="maintd <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
-                                               <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
-                                                   <tr>
-                                                       <td>
-                                                           <p class="margin-top30"><%# CreateUsedBikeLink(Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"bikeCount")),Convert.ToString(DataBinder.Eval(Container.DataItem,"make")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"model")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelMaskingName")),Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"minPrice"))),Convert.ToString(DataBinder.Eval(Container.DataItem,"citymaskingname"))) %></p>
-                                                       </td>
-                                                   </tr>
-                                               </table>
-                                           </td>                                       
-                                           </ItemTemplate>
-                                            <FooterTemplate>
-                                                <% if(count <4) {%>
-                                                <td class="maintd ">
-                                                       <table class="fourcolum" cellpadding="0" border="0" cellspacing="0">
-                                                           <tbody><tr>
-                                                               <td>
-                                                                   <p class="margin-top30"></p>
-                                                               </td>
-                                                           </tr>
-                                                       </tbody></table>
-                                                   </td>
-                                                <% } %>
-                                            </FooterTemplate>
-                                    </asp:repeater>
-                           </tr>
-                            <% } %>
+                        
+                     
                         </table>
                     </td>
+                   
+                       
+                      <% if(isUsedBikePresent){ %>
+                    
+                     <table width="100%" class="tbl-compare" cellpadding="0" border="0" cellspacing="0">
+                         <tr class="usedbikes">
+                             <td width="165" align="left" class="mainth">You may also like</td>
+                             <asp:repeater runat="server" id="rptUsedBikes">
+                                 <ItemTemplate>
+                                     <td class="<%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
+                                         <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
+                                             <tr>
+                                                 <td>
+                                                     <p><%# CreateUsedBikeLink(Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"bikeCount")),Convert.ToString(DataBinder.Eval(Container.DataItem,"make")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeMaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"model")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ModelMaskingName")),Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"minPrice"))),Convert.ToString(DataBinder.Eval(Container.DataItem,"citymaskingname"))) %></p>
+                                                 </td>
+                                             </tr>
+                                         </table>
+                                     </td>
+                                 </ItemTemplate>
+                                 <FooterTemplate>
+                                     <% if(count <4) {%>
+                                     <td>
+                                         <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : "")) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : ""))%>" cellpadding="0" border="0" cellspacing="0">
+                                             <tbody>
+                                                 <tr>
+                                                     <td>
+                                                         <p></p>
+                                                     </td>
+                                                 </tr>
+                                             </tbody>
+                                         </table>
+                                     </td>
+                                     <% } %>
+                                 </FooterTemplate>
+                             </asp:repeater>
+                         </tr>
+                     </table>
+                    <% } %>
                 </tr>
             </table>
-            <div class="margin-bottom30  similarbikes <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
+            
+            <div class="margin-bottom30 similarbikes <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
                 <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
             <div class="clear"></div>
             </div>
