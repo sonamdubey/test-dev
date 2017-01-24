@@ -2,18 +2,7 @@
 
 <% if (IsLocationChange)
    {%>
-
- <style type="text/css">
-.globalchangecity-popup { display: none; width:100%; min-height:125px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 50px; right: 0; z-index: 10; }
-.globalchangecity-popup:before { content: ''; position: fixed; border-right: 8px solid transparent; border-bottom: 8px solid #fff; border-left: 8px solid transparent; position: fixed; top: 43px; right: 18px; }
-.globalchangecity-popup-data { padding: 20px 15px 25px; }
-#changecity-ignore.btn { padding: 5px 12px; text-align: center; }
-#changecity-accept.btn { width: 180px; padding: 5px 10px; text-align: center; }
-#changecity-ignore.btn:hover{text-decoration:none;}
-.margin-bottom15{ margin-bottom: 15px; }
-</style>
-
- <!-- global Change city pop up code starts here -->
+<!-- global Change city pop up code starts here -->
 <div class="globalchangecity-popup" id="globalchangecity-popup">
     <div class="globalchangecity-popup-data text-center font14">
         <p>You had chosen your location as <%= CookieCityName %>.</p>

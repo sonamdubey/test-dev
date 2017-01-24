@@ -645,6 +645,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .star-zero-icon { width:20px; height:20px; display:inline-block; vertical-align:top; background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAASFBMVEUAAADMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMwqgb9tAAAAF3RSTlMAER/258y9oHxxQSIX7ezCY1dHCDQzKCqVHdMAAAB6SURBVBjTfcxXEsIwDEVRucQ9HXj73ykCD8gZJ7lf8hlZdF9+nWCMJ+hcb8oY1eEKrB16wMtLZ/VpBMbvkDVjsjhkE3HFteYK1YJYkLvJylcpyJ40VBxa0wzTBEA3GHkpa16PDc7wO9HuMYsVs9RhMeWP2+M3PTe66g1paAjabbO70gAAAABJRU5ErkJggg=='); }
 
 .globalCity-autocomplete.ui-menu .ui-menu-item a { width:99%; }
+.globalCity-autocomplete.ui-menu .ui-search-icon { display: none }
 #modelAlternateBikeContent .btn-xs { padding:6px 0 }
 .calender-grey-sm-icon, .author-grey-sm-icon {width:10px;height:10px;margin-right:2px;vertical-align:middle;}
 .views-grey-sm-icon {width:14px;height:10px;vertical-align:middle;}
@@ -821,4 +822,29 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     border-bottom: 10px solid transparent;
     right: 0;
     top: 0;
+}
+
+/* recent search dropdown */
+.history-icon,
+.ui-search-icon {
+    width: 16px;
+    position: relative;
+    margin-right: 10px;
+    float: left;
+}
+
+.history-icon {
+    height: 13px;
+    background-position: -126px -265px;
+    top: 3px;
+}
+
+.ui-search-icon {
+    height: 16px;
+    background-position: -126px -249px;
+    top: 2px;
+    -webkit-transform: scale(0.85);
+    -moz-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    transform: scale(0.85);
 }
