@@ -692,7 +692,7 @@ function pushNavMenuAnalytics(menuItem) {
             function createAutoSuggestLinkText(ul, item, reqTerm) {
                 var ulItem = $("<li>")
                               .data("ui-autocomplete-item", item)
-                              .append('<a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
+                              .append('<span class="bwsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
 
                 if (options.source == '1') {
                     if (item.payload.modelId > 0) {
@@ -931,7 +931,7 @@ $('#btnGlobalSearch').on('click', function () {
     with campaign banner width is 415
 */
 $("#newBikeList").bw_autocomplete({
-    width: 470,
+    width: 469,
     source: 1,
     recordCount: 10,
     onClear: function () {
@@ -1374,7 +1374,7 @@ var recentSearches =
                     item = objSearches.searches[item];
                     bikename = item.name || '';
                     if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
-                        html += '<li data-makeid="'+ item.makeId +'" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                        html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><span class="bwsprite history-icon"></span><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                         if (item.modelId > 0) {
                             if (item.futuristic == 'True') {
                                 html += '<span class="upcoming-link">coming soon</span>';
