@@ -176,7 +176,7 @@ namespace Bikewale.Content
             try
             {
                 baseUrl = string.Format("/m/expert-reviews/{0}-{1}/", objRoadtest.ArticleUrl, BasicId);
-                canonicalUrl = string.Format("https://www.bikewale.com/expert-reviews/{0}-{1}", objRoadtest.ArticleUrl, BasicId);
+                canonicalUrl = string.Format("https://www.bikewale.com/expert-reviews/{0}-{1}.html", objRoadtest.ArticleUrl, BasicId);
                 data = objRoadtest.Description;
                 author = objRoadtest.AuthorName;
                 pageTitle = objRoadtest.Title;
