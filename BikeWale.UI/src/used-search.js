@@ -1366,11 +1366,13 @@ function SetUsedCookie() {
     SetCookie("Used", newKeyValuePair);
 }
 $(document).ready(function () {
-    var obj = GetGlobalLocationObject();
-    if (obj != null) {
-        selectCityObject(obj.CityId);
-        $("#ddlCity").val(obj.CityId).trigger('chosen:updated');
-        isCityFilterFilled = true;
+    if (pageQS.search("city") < 0) {
+        var obj = GetGlobalLocationObject();
+        if (obj != null) {
+            selectCityObject(obj.CityId);
+            $("#ddlCity").val(obj.CityId).trigger('chosen:updated');
+            isCityFilterFilled = true;
+        }
     }
 });
 

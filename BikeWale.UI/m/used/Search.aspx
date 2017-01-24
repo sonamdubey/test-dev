@@ -455,6 +455,7 @@
             var pageQS = "<%= currentQueryString %>";
             var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
             var usedPageIdentifier="<%=PageIdentifier%>";
+            var selectedCityId = "<%=cityId%>";
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : ""%>/m/src/used-search.js?<%= staticFileVersion%>"></script>        
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
