@@ -113,7 +113,7 @@
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
 							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/?modelpage=true" title="<%= bikeName + " Photos"%>">
 							<% } %>
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image %>" class="cursor-pointer" />
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image " class="cursor-pointer" />
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
 							</a>
 							<% } %>

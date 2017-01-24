@@ -34,6 +34,7 @@
     <div class="clear"></div>
 </div>
 
+<script type="text/javascript" src=<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
 
 <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->

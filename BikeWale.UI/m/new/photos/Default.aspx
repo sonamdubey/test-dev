@@ -27,9 +27,24 @@
 <body>
     <form id="form1" runat="server">
          <% if (isModelPage)
-                       { %>
-         <div class="blackOut-window" style="display: block; opacity:1;"></div>
-                    <%}%>
+                       { var objImages = vmModelPhotos.objImageList;%>
+        <div class="blackOut-window" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;"></div>
+                  <section>
+            <div class="container box-shadow section-bottom-margin">
+                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Photos</h1>
+         
+                <ul class="photos-grid-list">
+                
+                    <li>
+                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[0].ImageCategory %> Image" title="<%= objImages[0].ImageCategory %>" />
+                    </li>
+                
+                </ul>
+             
+                <div class="clear"></div>
+            </div>
+        </section>
+          <%}else {%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <% if (vmModelPhotos != null)
            {
@@ -68,16 +83,14 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <% if (!isUpcoming)
-           { %>
+        
         <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
                 <h2 class="margin-bottom15">Know more about this bike</h2>
                 <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
             </div>
         </section>
-        <% } %>
-        <% } %>
+         <% } %>
 
         <%if (ctrlVideos.FetchedRecordsCount > 0)
           { %>
@@ -90,6 +103,7 @@
         <% } %>
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
+        <%} %>
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- model-gallery-container ends here -->
            
@@ -106,23 +120,23 @@
     </form>
     <script>
 
+        var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+
 
         $(".gallery-close-btn").on('click', function () {
-                    <% if (isModelPage)
-                       { %>
-            window.location.href = document.referrer;
-                    <%}
-                       else
-                       { %>
-        
+            if(isModelPage)
+            {
+                window.location.href = window.location.pathname.split("photos/")[0];
+            }
+            else
             gallery.close(); 
-            <% } %>
+
         });
 
         $(document).ready(function () {
-            <%if(isModelPage){%>
+            if(isModelPage)
             bindGallery();
-            <%}%>
+           
         });
        
     </script>

@@ -63,6 +63,7 @@
                                     <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                                 </li>
                             </ul>
+                              <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
                         </div>
                     </div>
                 </div>

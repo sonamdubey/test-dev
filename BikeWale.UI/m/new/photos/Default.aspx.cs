@@ -8,6 +8,8 @@ namespace Bikewale.Mobile.New.Photos
     /// <summary>
     /// Created By : Sushil Kumar on 6th Jan 2017
     /// Description : Added new page for photos page and bind modelgallery,videos and generic bike info widgets
+    /// Modified by : Aditi Srivastava on 23 Jan 2017
+    /// summary     : Removed Isupcoming flag(added in common viewmodel) 
     /// </summary>
     public class Default : System.Web.UI.Page
     {
@@ -17,7 +19,7 @@ namespace Bikewale.Mobile.New.Photos
         protected BindModelPhotos vmModelPhotos = null;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
-        protected bool isUpcoming = false, isDiscontinued = false;
+        protected bool isDiscontinued = false;
         protected bool isModelPage;
         protected override void OnInit(EventArgs e)
         {
@@ -32,12 +34,12 @@ namespace Bikewale.Mobile.New.Photos
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            BindPhotosPage();
-
             if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
                 isModelPage = true;
             }
+            BindPhotosPage();
+
 
         }
 
@@ -57,7 +59,6 @@ namespace Bikewale.Mobile.New.Photos
                     vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
                     isDiscontinued = vmModelPhotos.IsDiscontinued;
-                    isUpcoming = vmModelPhotos.IsUpcoming;
                     BindModelPhotosPageWidgets();
                 }
             }
@@ -110,10 +111,8 @@ namespace Bikewale.Mobile.New.Photos
                     ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                 }
 
-                if (!isUpcoming)
-                {
-                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
-                }
+                ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+
 
             }
 

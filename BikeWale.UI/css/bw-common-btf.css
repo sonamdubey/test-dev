@@ -445,7 +445,6 @@ a.action-btn:hover{text-decoration:none;}
  #globalSearch::-ms-clear {width:0;height:0;display:none;}
 @media only screen and (max-width:1024px) {
     .container{width:100%; max-width:960px;}
-    .home-top-banner {background-position:63%}
     .home-getFinalPrice-banner{background-position:54%}
     .jcarousel-wrapper, #modelAlternateBikeContent .inner-content-carousel{width:100% !important;}
     .jcarousel li{width:300px;}
@@ -971,6 +970,25 @@ input[type="number"]:focus {
 #divCitiesLoader .chosen-drop {
     height: 190px;
     overflow: hidden;
+}
+
+/* recent search dropdown */
+.history-icon,
+.ui-search-icon {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-right: 10px;
+}
+
+.history-icon {
+    background-position: -205px -370px;
+    top: 2px;
+}
+
+.ui-search-icon {
+    background-position: -205px -351px;
+    top: 3px;
 }
 
 /* lead capture control */

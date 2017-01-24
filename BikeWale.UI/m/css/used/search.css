@@ -425,7 +425,7 @@
     right: 0;
     bottom: 0;
     background: #fff;
-    z-index:2;
+    z-index: 5;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -487,7 +487,7 @@
 }
 
 /* slider */
-.ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; }
+.filter-popup-container .ui-widget-content { background: #bababa; height: 3px; margin: 18px 0 3px; width: 96%; border-radius: 0px; }
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #ef3030; height: 3px; }
 .ui-slider { position: relative; text-align: left; }

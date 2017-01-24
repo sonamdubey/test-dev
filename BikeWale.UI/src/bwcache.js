@@ -135,7 +135,7 @@
         };
 
         _bwcache.remove = function (key, isSession) {
-            key = indexOf(options.StoragePrefix) > -1 ? key : createKey(key);
+            key = key.indexOf(options.StoragePrefix) > -1 ? key : createKey(key);
             if (webStorageSupported) {
 
                 if (typeCheck(key, 'string')) {

@@ -1,15 +1,28 @@
 ﻿/* Sticky-kit v1.1.2 */
-(function(){var b,f;b=this.jQuery||window.jQuery;f=b(window);b.fn.stick_in_parent=function(d){var A,w,J,n,B,K,p,q,k,E,t;null==d&&(d={});t=d.sticky_class;B=d.inner_scrolling;E=d.recalc_every;k=d.parent;q=d.offset_top;p=d.spacer;w=d.bottoming;null==q&&(q=0);null==k&&(k=void 0);null==B&&(B=!0);null==t&&(t="is_stuck");A=b(document);null==w&&(w=!0);J=function(a,d,n,C,F,u,r,G){var v,H,m,D,I,c,g,x,y,z,h,l;if(!a.data("sticky_kit")){a.data("sticky_kit",!0);I=A.height();g=a.parent();null!=k&&(g=g.closest(k));
-if(!g.length)throw"failed to find stick parent";v=m=!1;(h=null!=p?p&&a.closest(p):b("<div />"))&&h.css("position",a.css("position"));x=function(){var c,f,e;if(!G&&(I=A.height(),c=parseInt(g.css("border-top-width"),10),f=parseInt(g.css("padding-top"),10),d=parseInt(g.css("padding-bottom"),10),n=g.offset().top+c+f,C=g.height(),m&&(v=m=!1,null==p&&(a.insertAfter(h),h.detach()),a.css({position:"",top:"",width:"",bottom:""}).removeClass(t),e=!0),F=a.offset().top-(parseInt(a.css("margin-top"),10)||0)-q,
-u=a.outerHeight(!0),r=a.css("float"),h&&h.css({width:a.outerWidth(!0),height:u,display:a.css("display"),"vertical-align":a.css("vertical-align"),"float":r}),e))return l()};x();if(u!==C)return D=void 0,c=q,z=E,l=function(){var b,l,e,k;if(!G&&(e=!1,null!=z&&(--z,0>=z&&(z=E,x(),e=!0)),e||A.height()===I||x(),e=f.scrollTop(),null!=D&&(l=e-D),D=e,m?(w&&(k=e+u+c>C+n,v&&!k&&(v=!1,a.css({position:"fixed",bottom:"",top:c}).trigger("sticky_kit:unbottom"))),e<F&&(m=!1,c=q,null==p&&("left"!==r&&"right"!==r||a.insertAfter(h),
-h.detach()),b={position:"",width:"",top:""},a.css(b).removeClass(t).trigger("sticky_kit:unstick")),B&&(b=f.height(),u+q>b&&!v&&(c-=l,c=Math.max(b-u,c),c=Math.min(q,c),m&&a.css({top:c+"px"})))):e>F&&(m=!0,b={position:"fixed",top:c},b.width="border-box"===a.css("box-sizing")?a.outerWidth()+"px":a.width()+"px",a.css(b).addClass(t),null==p&&(a.after(h),"left"!==r&&"right"!==r||h.append(a)),a.trigger("sticky_kit:stick")),m&&w&&(null==k&&(k=e+u+c>C+n),!v&&k)))return v=!0,"static"===g.css("position")&&g.css({position:"relative"}),
-a.css({position:"absolute",bottom:d,top:"auto"}).trigger("sticky_kit:bottom")},y=function(){x();return l()},H=function(){G=!0;f.off("touchmove",l);f.off("scroll",l);f.off("resize",y);b(document.body).off("sticky_kit:recalc",y);a.off("sticky_kit:detach",H);a.removeData("sticky_kit");a.css({position:"",bottom:"",top:"",width:""});g.position("position","");if(m)return null==p&&("left"!==r&&"right"!==r||a.insertAfter(h),h.remove()),a.removeClass(t)},f.on("touchmove",l),f.on("scroll",l),f.on("resize",
-y),b(document.body).on("sticky_kit:recalc",y),a.on("sticky_kit:detach",H),setTimeout(l,0)}};n=0;for(K=this.length;n<K;n++)d=this[n],J(b(d));return this}}).call(this);
+(function () {
+    var b, f; b = this.jQuery || window.jQuery; f = b(window); b.fn.stick_in_parent = function (d) {
+        var A, w, J, n, B, K, p, q, k, E, t; null == d && (d = {}); t = d.sticky_class; B = d.inner_scrolling; E = d.recalc_every; k = d.parent; q = d.offset_top; p = d.spacer; w = d.bottoming; null == q && (q = 0); null == k && (k = void 0); null == B && (B = !0); null == t && (t = "is_stuck"); A = b(document); null == w && (w = !0); J = function (a, d, n, C, F, u, r, G) {
+            var v, H, m, D, I, c, g, x, y, z, h, l; if (!a.data("sticky_kit")) {
+                a.data("sticky_kit", !0); I = A.height(); g = a.parent(); null != k && (g = g.closest(k));
+                if (!g.length) throw "failed to find stick parent"; v = m = !1; (h = null != p ? p && a.closest(p) : b("<div />")) && h.css("position", a.css("position")); x = function () {
+                    var c, f, e; if (!G && (I = A.height(), c = parseInt(g.css("border-top-width"), 10), f = parseInt(g.css("padding-top"), 10), d = parseInt(g.css("padding-bottom"), 10), n = g.offset().top + c + f, C = g.height(), m && (v = m = !1, null == p && (a.insertAfter(h), h.detach()), a.css({ position: "", top: "", width: "", bottom: "" }).removeClass(t), e = !0), F = a.offset().top - (parseInt(a.css("margin-top"), 10) || 0) - q,
+                    u = a.outerHeight(!0), r = a.css("float"), h && h.css({ width: a.outerWidth(!0), height: u, display: a.css("display"), "vertical-align": a.css("vertical-align"), "float": r }), e)) return l()
+                }; x(); if (u !== C) return D = void 0, c = q, z = E, l = function () {
+                    var b, l, e, k; if (!G && (e = !1, null != z && (--z, 0 >= z && (z = E, x(), e = !0)), e || A.height() === I || x(), e = f.scrollTop(), null != D && (l = e - D), D = e, m ? (w && (k = e + u + c > C + n, v && !k && (v = !1, a.css({ position: "fixed", bottom: "", top: c }).trigger("sticky_kit:unbottom"))), e < F && (m = !1, c = q, null == p && ("left" !== r && "right" !== r || a.insertAfter(h),
+                    h.detach()), b = { position: "", width: "", top: "" }, a.css(b).removeClass(t).trigger("sticky_kit:unstick")), B && (b = f.height(), u + q > b && !v && (c -= l, c = Math.max(b - u, c), c = Math.min(q, c), m && a.css({ top: c + "px" })))) : e > F && (m = !0, b = { position: "fixed", top: c }, b.width = "border-box" === a.css("box-sizing") ? a.outerWidth() + "px" : a.width() + "px", a.css(b).addClass(t), null == p && (a.after(h), "left" !== r && "right" !== r || h.append(a)), a.trigger("sticky_kit:stick")), m && w && (null == k && (k = e + u + c > C + n), !v && k))) return v = !0, "static" === g.css("position") && g.css({ position: "relative" }),
+                    a.css({ position: "absolute", bottom: d, top: "auto" }).trigger("sticky_kit:bottom")
+                }, y = function () { x(); return l() }, H = function () { G = !0; f.off("touchmove", l); f.off("scroll", l); f.off("resize", y); b(document.body).off("sticky_kit:recalc", y); a.off("sticky_kit:detach", H); a.removeData("sticky_kit"); a.css({ position: "", bottom: "", top: "", width: "" }); g.position("position", ""); if (m) return null == p && ("left" !== r && "right" !== r || a.insertAfter(h), h.remove()), a.removeClass(t) }, f.on("touchmove", l), f.on("scroll", l), f.on("resize",
+                y), b(document.body).on("sticky_kit:recalc", y), a.on("sticky_kit:detach", H), setTimeout(l, 0)
+            }
+        }; n = 0; for (K = this.length; n < K; n++) d = this[n], J(b(d)); return this
+    }
+}).call(this);
 //---------------------------------------------------------------------------------
 
 
 $('#listing-left-column').stick_in_parent();
 
+var isCityFilterFilled = false;
 var budgetValue = [0, 10000, 20000, 35000, 50000, 80000, 125000, 200000];
 var bikesList = $("#filter-bike-list");
 var citiesList = $("#filter-type-city select option");
@@ -59,13 +72,13 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
             return pgSlot;
         } else {
             return self.totalPages();
-        }               
+        }
     });
     self.hasPrevious = ko.computed(function () {
         return self.pageNumber() != 1;
     });
     self.hasNext = ko.computed(function () {
-        return self.pageNumber() != self.totalPages();       
+        return self.pageNumber() != self.totalPages();
     });
     self.next = function () {
         if (self.pageNumber() < self.totalPages())
@@ -142,8 +155,8 @@ ko.bindingHandlers.KOSlider = {
         var observable = valueAccessor();
 
         options.slide = function (e, ui) {
-            if (ui.values && ui.values.length > 0 ) {
-                if(ui.values[0] != ui.values[1])
+            if (ui.values && ui.values.length > 0) {
+                if (ui.values[0] != ui.values[1])
                     observable(ui.values);
             }
             else observable(ui.value);
@@ -152,7 +165,7 @@ ko.bindingHandlers.KOSlider = {
         ko.utils.registerEventHandler(element, "slide", function (event, ui) {
             if (ui.values && ui.values.length > 0 && ui.values[0] == ui.values[1]) {
                 return false;
-            } 
+            }
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -168,9 +181,9 @@ ko.bindingHandlers.KOSlider = {
     update: function (element, valueAccessor) {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (value) {
-                $(element).slider(value.length ? "values" : "value", value);
-                $(element).change();
-           
+            $(element).slider(value.length ? "values" : "value", value);
+            $(element).change();
+
         }
 
     }
@@ -210,7 +223,10 @@ var usedBikes = function () {
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
-        $("#city-model-used-carousel").hide();
+
+        if (isCityFilterFilled) {
+            $("#city-model-used-carousel").hide();
+        }
 
         var ele = $(e.target).find("option:selected");
         if (ele) {
@@ -254,7 +270,7 @@ var usedBikes = function () {
         self.ApplyBikeFilter();
     };
 
-    self.ApplyMakeFilter = function (d,e) {
+    self.ApplyMakeFilter = function (d, e) {
         var tab = $(e.currentTarget).closest('.accordion-tab');
 
         if (!tab.hasClass('tab-checked')) {
@@ -272,7 +288,7 @@ var usedBikes = function () {
         self.ApplyBikeFilter(d, e);
     };
 
-    self.ApplyModelFilter = function (d,e) {
+    self.ApplyModelFilter = function (d, e) {
         var item = $(e.currentTarget);
 
         if (!item.hasClass('active')) {
@@ -323,7 +339,7 @@ var usedBikes = function () {
         } else {
             self.Filters()["age"] = "";
         }
-        
+
     });
 
     self.KmsDriven.subscribe(function (value) {
@@ -338,14 +354,14 @@ var usedBikes = function () {
     self.BudgetValues.subscribe(function (value) {
         var minBuget = self.BudgetValues()[0], maxBuget = self.BudgetValues()[1];
         self.Filters()["budget"] = budgetValue[minBuget];
-        if (minBuget!=0 || maxBuget != 7) {
+        if (minBuget != 0 || maxBuget != 7) {
             self.Filters()["budget"] += "+" + budgetValue[maxBuget];
             filters.budgetAmount(self.BudgetValues());
             filters.selection.set.slider('budget-amount');
-        } 
+        }
     });
 
-    self.FilterOwners = function (d,e) {
+    self.FilterOwners = function (d, e) {
 
         var item = $(e.currentTarget);
 
@@ -366,7 +382,7 @@ var usedBikes = function () {
         self.Filters()["owner"] = ownerList.substr(1);
         self.GetUsedBikes();
     };
-    self.FilterSellers = function (d,e) {
+    self.FilterSellers = function (d, e) {
         var item = $(e.currentTarget);
 
         if (!item.hasClass('checked')) {
@@ -415,7 +431,7 @@ var usedBikes = function () {
             $("#sort-listing li").first().addClass("selected").siblings().removeClass("selected");
             $('#sort-by-container .sort-select-btn').text($("#sort-listing li.selected").text());
 
-            
+
             var checkedTabs = $('#filter-type-bike').find('.accordion-tab');
             checkedTabs.each(function () {
                 $(this).find('.accordion-count').text('');
@@ -446,14 +462,14 @@ var usedBikes = function () {
             sortBy.close();
         }
 
-        
+
     };
 
     self.PagesListHtml = ko.observable("");
     self.PrevPageHtml = ko.observable("");
     self.NextPageHtml = ko.observable("");
 
-    self.ApplyPagination = function (d,e) {
+    self.ApplyPagination = function (d, e) {
         try {
             var pag = new vmPagination(self.CurPageNo(), 20, self.TotalBikes());
             self.Pagination(pag);
@@ -461,11 +477,11 @@ var usedBikes = function () {
                 var n = self.Pagination().paginated(), pages = '', prevpg = '', nextpg = '';
                 var qs = window.location.pathname + window.location.hash;
                 var rstr = qs.match(/page-[0-9]+/i);
-                var startIndex = (self.Pagination().pageNumber() - 2 > 0) ? (self.Pagination().pageNumber() - 2) : 1;                
+                var startIndex = (self.Pagination().pageNumber() - 2 > 0) ? (self.Pagination().pageNumber() - 2) : 1;
                 for (var i = startIndex ; i <= n; i++) {
                     var pageUrl = qs.replace(rstr, "page-" + i);
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : ChangePageNumber" data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
-                }                
+                }
                 self.PagesListHtml(pages);
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwsprite prev-page-icon'/>";
@@ -473,7 +489,7 @@ var usedBikes = function () {
                     prevpg = "<a href='javascript:void(0)' class='bwsprite prev-page-icon'/>";
                 }
                 self.PrevPageHtml(prevpg);
-                if (self.Pagination().hasNext()) {                    
+                if (self.Pagination().hasNext()) {
                     nextpg = "<a  data-bind='click : ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwsprite next-page-icon'/>";
                 } else {
                     nextpg = "<a href='javascript:void(0)' class='bwsprite next-page-icon'/>";
@@ -490,7 +506,7 @@ var usedBikes = function () {
     self.GetUsedBikes = function (e) {
         try {
 
-            if (self.Filters()["pn"] && e==null) {
+            if (self.Filters()["pn"] && e == null) {
                 self.Filters()["pn"] = "";
             }
 
@@ -519,8 +535,7 @@ var usedBikes = function () {
                             self.TotalBikes(0);
                             self.CurPageNo(1);
                         }
-                        if (cityModelCarousel && cityModelCarousel.offset())
-                        {
+                        if (cityModelCarousel && cityModelCarousel.offset()) {
                             if (!$('body').hasClass('city-model-carousel-inactive')) {
                                 $('html, body').scrollTop(cityModelCarousel.offset().top - 50);
                             }
@@ -531,7 +546,7 @@ var usedBikes = function () {
                         else {
                             $('html, body').scrollTop(listingStartPoint.offset().top - 50);
                         }
-                        
+
                         if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
                         self.OnInit(false);
                         self.IsReset(false);
@@ -539,9 +554,9 @@ var usedBikes = function () {
                         $('body').removeClass('loader-active');
                         spinnerBackground.hide();
                         loaderColumn.hide();
-                        bwSpinner.hide();                        
+                        bwSpinner.hide();
                     }
-                });  
+                });
             }
 
             if (loaderColumn.next().text().trim() == "") loaderColumn.next().hide();
@@ -550,7 +565,7 @@ var usedBikes = function () {
             console.warn("Unable to set fetch used bike records : " + e.message);
         }
 
-       
+
     };
 
     self.ChangePageNumber = function (e) {
@@ -575,7 +590,7 @@ var usedBikes = function () {
         return false;
     };
 
-    self.SetPageFilters = function (d,e) {
+    self.SetPageFilters = function (d, e) {
 
         try {
 
@@ -629,17 +644,17 @@ var usedBikes = function () {
                 }
 
             }
-            
+
             if (self.Filters()["model"]) {
                 var arr = self.Filters()["model"].split("+");
                 $.each(arr, function (i, val) {
                     var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + val + "]"),
                         tab = ele.closest("li"),
                         selectedBikeFilters = $('#bike');
-                    ele.closest("li").addClass("active");                    
+                    ele.closest("li").addClass("active");
                     accordion.setCount(ele);
                     selectedBikeFilters.append('<p data-id="md-' + ele.attr("data-modelid") + '" data-type="model">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
-                });                
+                });
             }
 
             if (self.Filters()["make"]) {
@@ -651,18 +666,18 @@ var usedBikes = function () {
                         tab = ele.closest(".accordion-tab"),
                         selectedBikeFilters = $('#bike'),
                         selectedMakeLength = selectedBikeFilters.find("p[data-id='mk-" + selectedMakeId + "'").length;
-                    
+
                     tab.addClass("tab-checked").find(".accordion-count").text('(All models)');
                     tab.closest("li").find(".bike-model-list li").addClass("active");
 
                     if (selectedMakeLength == 0) {
-                        selectedBikeFilters.append('<p data-id="mk-'+ ele.attr("data-makeid") +'" data-type="make">' + tab.find('.category-label').text() +'<span class="bwsprite cross-icon"></span></p>');
+                        selectedBikeFilters.append('<p data-id="mk-' + ele.attr("data-makeid") + '" data-type="make">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
                     }
                 });
             }
 
-            self.GetUsedBikes(self.Filters()["pn"]!=""?e:null);
-            
+            self.GetUsedBikes(self.Filters()["pn"] != "" ? e : null);
+
         } catch (e) {
             console.warn("Unable to set page filters : " + e.message);
         }
@@ -689,11 +704,10 @@ $(function () {
         var ele = bikesList.find("ul.bike-model-list span[data-modelid=" + selectedModelId + "]");
         ele.closest("ul.bike-model-list li").addClass("active");
         var moIds = (vwUsedBikes.Filters()["model"]) ? vwUsedBikes.Filters()["model"].split("+") : null;
-        if (moIds != null && moIds.length > 0)
-        {
+        if (moIds != null && moIds.length > 0) {
             if ($.inArray(selectedModelId, moIds) == -1)
                 vwUsedBikes.Filters()["model"] += "+" + selectedModelId;
-        }            
+        }
         else vwUsedBikes.Filters()["model"] = selectedModelId;
     }
     else if (selectedMakeId && selectedMakeId != "0") {
@@ -702,9 +716,9 @@ $(function () {
             tab = ele.closest(".accordion-tab"),
             selectedMakeLength = selectedBikeFilters.find("p[data-id='mk-" + selectedMakeId + "'").length;
 
-            tab.addClass("tab-checked").find(".accordion-count").text('(All models)');
-            tab.closest("li").find(".bike-model-list li").addClass("active");
-        
+        tab.addClass("tab-checked").find(".accordion-count").text('(All models)');
+        tab.closest("li").find(".bike-model-list li").addClass("active");
+
         if (selectedMakeLength == 0) {
             selectedBikeFilters.append('<p data-id="mk-' + ele.attr("data-makeid") + '" data-type="make">' + tab.find('.category-label').text() + '<span class="bwsprite cross-icon"></span></p>');
         }
@@ -756,7 +770,7 @@ $('#reset-bikes-filter').on('click', function () {
 
 /* bike filters */
 
-var bikeFilterList =  $('#filter-bike-list');
+var bikeFilterList = $('#filter-bike-list');
 
 bikeFilterList.on('click', '.accordion-label-tab', function () {
     var tab = $(this).closest('.accordion-tab');
@@ -818,7 +832,7 @@ $('#selected-filters').on('click', '#seller p', function () {
 
 /* set slider default values */
 var filters = {
-   
+
     budgetAmount: function (units) {
         var budgetminValue = budgetValue[units[0]],
             budgetmaxValue = budgetValue[units[1]];
@@ -955,9 +969,9 @@ var filters = {
             },
 
             slider: function (content) {
-                var amount = $('#'+ content).html(),
+                var amount = $('#' + content).html(),
                     sliderItem = filters.selection.list.find('li[data-id="' + content + '"]');
-               
+
                 sliderItem.empty().append('<p>' + amount + '<span class="bwsprite cross-icon"></span></p>');
             },
 
@@ -1027,10 +1041,10 @@ var filters = {
                         itemLabel = $(item).find('.category-label').text();
 
                     filters.selection.bikeList.append('<p data-id="' + itemID + '" data-type="model">' + itemLabel + '<span class="bwsprite cross-icon"></span></p>');
-                }                
+                }
 
             },
-            
+
             owner: function (item) {
                 var itemID = item.attr('id');
 
@@ -1042,7 +1056,7 @@ var filters = {
 
                 filters.selection.sellerList.find('p[data-id="' + itemID + '"]').remove();
             }
-            
+
         },
 
         cancel: {
@@ -1073,7 +1087,7 @@ var filters = {
 
             seller: function (item) {
                 var itemID = item.attr('data-id');
-                    
+
                 $('#seller-type-list').find('li[data-sellerid="' + itemID + '"]').trigger("click");
                 filters.selection.reset.seller(item);
             }
@@ -1082,64 +1096,64 @@ var filters = {
 };
 
 /* fastLiveFilter jQuery plugin 1.0.3 */
-jQuery.fn.fastLiveFilter = function(list, options) {
-	// Options: input, list, timeout, callback
-	options = options || {};
-	list = jQuery(list);
-	var input = this;
-	var lastFilter = '', noResultLen = 0;
-	var timeout = options.timeout || 0;
-	var callback = options.callback || function (total) {
-	    noResultLen = list.siblings('.no-result').length;
+jQuery.fn.fastLiveFilter = function (list, options) {
+    // Options: input, list, timeout, callback
+    options = options || {};
+    list = jQuery(list);
+    var input = this;
+    var lastFilter = '', noResultLen = 0;
+    var timeout = options.timeout || 0;
+    var callback = options.callback || function (total) {
+        noResultLen = list.siblings('.no-result').length;
 
-	    if (total == 0 && noResultLen < 1)
-	        list.after(noResultDiv).show();
-	    else if (total > 0 && noResultLen > 0)
-	        $('.no-result').remove();
-	};
+        if (total == 0 && noResultLen < 1)
+            list.after(noResultDiv).show();
+        else if (total > 0 && noResultLen > 0)
+            $('.no-result').remove();
+    };
 
-	var keyTimeout;
+    var keyTimeout;
 
-	var noResultDiv = '<div class="no-result content-inner-block-10 text-light-grey">No search found!</div>';
+    var noResultDiv = '<div class="no-result content-inner-block-10 text-light-grey">No search found!</div>';
 
-	var lis = list.children();
-	var len = lis.length;
-	var oldDisplay = len > 0 ? lis[0].style.display : "block";
-	callback(len); // do a one-time callback on initialization to make sure everything's in sync
+    var lis = list.children();
+    var len = lis.length;
+    var oldDisplay = len > 0 ? lis[0].style.display : "block";
+    callback(len); // do a one-time callback on initialization to make sure everything's in sync
 
-	input.change(function() {
-		var filter = input.val().toLowerCase();
-		var li, innerText;
-		var numShown = 0;
-		for (var i = 0; i < len; i++) {
-			li = lis[i];
-			innerText = !options.selector ?
+    input.change(function () {
+        var filter = input.val().toLowerCase();
+        var li, innerText;
+        var numShown = 0;
+        for (var i = 0; i < len; i++) {
+            li = lis[i];
+            innerText = !options.selector ?
 				(li.textContent || li.innerText || "") :
 				$(li).find(options.selector).text();
 
-			if (innerText.toLowerCase().indexOf(filter) >= 0) {
-				if (li.style.display == "none") {
-					li.style.display = oldDisplay;
-				}
-				numShown++;
-			} else {
-				if (li.style.display != "none") {
-					li.style.display = "none";
-				}
-			}
-		}
+            if (innerText.toLowerCase().indexOf(filter) >= 0) {
+                if (li.style.display == "none") {
+                    li.style.display = oldDisplay;
+                }
+                numShown++;
+            } else {
+                if (li.style.display != "none") {
+                    li.style.display = "none";
+                }
+            }
+        }
 
-		callback(numShown);
-		return false;
-	}).keydown(function() {
-		clearTimeout(keyTimeout);
-		keyTimeout = setTimeout(function() {
-			if( input.val() === lastFilter ) return;
-			lastFilter = input.val();
-			input.change();
-		}, timeout);
-	});
-	return this; // maintain jQuery chainability
+        callback(numShown);
+        return false;
+    }).keydown(function () {
+        clearTimeout(keyTimeout);
+        keyTimeout = setTimeout(function () {
+            if (input.val() === lastFilter) return;
+            lastFilter = input.val();
+            input.change();
+        }, timeout);
+    });
+    return this; // maintain jQuery chainability
 }
 
 /* accordion */
@@ -1249,7 +1263,7 @@ var sortBy = {
 /* close sortby */
 $(document).mouseup(function (e) {
     var container = $('#sort-by-content');
-    if (container.find('.sort-div').hasClass('open') && $('.sort-selection-div').is(':visible')) { 
+    if (container.find('.sort-div').hasClass('open') && $('.sort-selection-div').is(':visible')) {
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             sortByDiv.trigger('click');
         }
@@ -1330,11 +1344,9 @@ $('#close-city-model-carousel').on('click', function () {
     SetUsedCookie();
 });
 
-function SetUsedCookie()
-{
+function SetUsedCookie() {
     var arr = getCookie("Used").split('&');
-    switch (usedPageIdentifier)
-    {
+    switch (usedPageIdentifier) {
         case "0":
             arr[0] = "BrandIndia=0";
             break;
@@ -1354,10 +1366,13 @@ function SetUsedCookie()
     SetCookie("Used", newKeyValuePair);
 }
 $(document).ready(function () {
-    var obj = GetGlobalLocationObject();
-    if (obj != null) {
-        selectCityObject(obj.CityId);
-        $("#ddlCity").val(obj.CityId).trigger('chosen:updated');
+    if (pageQS.search("city") < 0) {
+        var obj = GetGlobalLocationObject();
+        if (obj != null) {
+            selectCityObject(obj.CityId);
+            $("#ddlCity").val(obj.CityId).trigger('chosen:updated');
+            isCityFilterFilled = true;
+        }
     }
 });
 
