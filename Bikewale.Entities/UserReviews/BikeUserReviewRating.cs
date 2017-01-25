@@ -1,10 +1,12 @@
 ﻿
+using System;
 namespace Bikewale.Entities.UserReviews
 {
     /// <summary>
     /// Created By :-Subodh Jain 17 Jan 2017
     /// Summary :- Bike user review rating entity
     /// </summary>
+    [Serializable]
     public class BikeUserReviewRating
     {
         public string OriginalImagePath { get; set; }
