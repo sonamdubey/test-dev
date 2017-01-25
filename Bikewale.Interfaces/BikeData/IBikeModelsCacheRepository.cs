@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
@@ -35,5 +36,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
+        EnumBikeBodyStyles GetBikeBodyType(uint modelId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
     }
 }

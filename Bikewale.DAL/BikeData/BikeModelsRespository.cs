@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -8,6 +9,7 @@ using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -1668,7 +1670,94 @@ namespace Bikewale.DAL.BikeData
             } // catch Exception
             return objReview;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Jan 2017
+        /// summary    : Get details bodystype of a bike model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public EnumBikeBodyStyles GetBikeBodyType(uint modelId)
+        {
+            EnumBikeBodyStyles out_param,bodyStyle=EnumBikeBodyStyles.AllBikes;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getbikerankingbymodel";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                Enum.TryParse(Convert.ToString(dr["CategoryId"]), out out_param);
+                                bodyStyle = out_param;
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetBikeBodyType_ModelId: {0}", modelId));
+            }
+            return bodyStyle;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 25 Jan 2017
+        /// summary    : Get details of top bikes by bodystyle and pricing by city
+        /// </summary>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount,uint cityId)
+        {
+            ICollection<MostPopularBikesBase> popularBikesList=null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmostpopularbikesbybodystyle";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid",DbType.Int32,bodyStyleId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            popularBikesList = new Collection<MostPopularBikesBase>();
+                            while (dr.Read())
+                            {
+                                MostPopularBikesBase popularObj = new MostPopularBikesBase();
+                                popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                popularObj.MakeName = Convert.ToString(dr["MakeName"]);
+                                popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                popularObj.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                popularObj.objModel.ModelName = Convert.ToString(dr["ModelName"]);
+                                popularObj.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                popularObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                popularObj.HostURL = Convert.ToString(dr["HostURL"]);
+                                popularObj.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                popularObj.CityName = Convert.ToString(dr["CityName"]);
+                                popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                popularObj.BikePopularityIndex=SqlReaderConvertor.ToUInt16(dr["Rank"]);
 
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_BodyStyleId: {0}, topCount: {1}", bodyStyleId,topCount));
+            }
+            return popularBikesList;
+        }
 
     }   // class
 }   // namespace
