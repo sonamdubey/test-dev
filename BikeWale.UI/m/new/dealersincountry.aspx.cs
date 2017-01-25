@@ -163,7 +163,7 @@ namespace Bikewale.Mobile.New
             }
             else
             {
-                Response.Redirect("/m/new/", false);
+                Response.Redirect("/m/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
                 isSuccess = false;

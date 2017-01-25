@@ -94,7 +94,7 @@ namespace Bikewale.Mobile.New
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
                 objErr.SendMail();
-                Response.Redirect("/m/new/", true);
+                Response.Redirect("/m/new-bikes-in-india/", true);
             }
             finally
             {

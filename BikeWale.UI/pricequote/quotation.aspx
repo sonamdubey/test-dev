@@ -96,7 +96,7 @@
                         </li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/new/" itemprop="url">
+                            <a href="/new-bikes-in-india/" itemprop="url">
                                 <span itemprop="title">New</span>
                             </a>
                         </li>

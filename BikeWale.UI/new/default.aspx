@@ -18,10 +18,10 @@
         title = "New Bikes - Bikes Reviews, Photos, Specs, Features, Tips & Advices - BikeWale";
         keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
-        alternate = "https://www.bikewale.com/m/new/";
+        alternate = "https://www.bikewale.com/m/new-bikes-in-india/";
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_NewBikesHome_";
-        canonical = "https://www.bikewale.com/new/";
+        canonical = "https://www.bikewale.com/new-bikes-in-india/";
     %>
     <%
         isTransparentHeader = true;
@@ -44,8 +44,8 @@
         <header class="new-bikes-top-banner">
             <div class="container">
                 <div class="welcome-box">
-                    <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
-                    <h2 class="font20 text-unbold text-white">View all bikes under one roof</h2>
+                    <h1 class="text-uppercase margin-bottom10">New Bikes in India</h1>
+                    <h2 class="font20 text-unbold text-white">All new bikes under one roof</h2>
                 </div>
             </div>
         </header>
@@ -376,7 +376,7 @@
         <section class="container">
             <!--  Tools you may need section code starts here -->
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Tools you may need</h2>
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">New bike buying tools</h2>
                 <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="tools-may-need-UL">
@@ -442,7 +442,7 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates about bikes in India</h2>
                     <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
