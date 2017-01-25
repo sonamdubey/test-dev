@@ -626,7 +626,7 @@
           { %>
         <!-- Secondary dealer section -->
         <section>
-            <div class="container margin-bottom20 bg-white">
+            <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
                         <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more partner dealers":"more partner dealer" %></h2>
