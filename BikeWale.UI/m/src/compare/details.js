@@ -1,17 +1,23 @@
-﻿$(document).ready(function () {
+﻿var floatingCard = $('#comparison-floating-card'),
+    floatingCardHeight = floatingCard.height() - 44,
+    overallSpecsTabs = $('#overall-specs-tabs'),
+    $window = $(window);
+
+$(document).ready(function () {
     dropdown.setDropdown();
-});
 
-$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
-    dropdown.activate($(this));
-});
+    $window.on('scroll', function () {
+        var windowScrollTop = $window.scrollTop(),
+            overallSpecsOffset = overallSpecsTabs.offset().top;
 
-$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
-    var element = $(this);
-    if (!element.hasClass('active')) {
-        dropdown.selectItem($(this));
-        dropdown.selectOption($(this));
-    }
+        if (windowScrollTop > overallSpecsOffset - floatingCardHeight) {
+            floatingCard.addClass('fixed-card');
+        }
+        else if (windowScrollTop < overallSpecsOffset - floatingCardHeight) {
+            floatingCard.removeClass('fixed-card');
+        }
+    });
+
 });
 
 /* accordion tab */
@@ -22,50 +28,88 @@ $('.model-accordion-tab').on('click', function () {
     if (!tab.hasClass('active')) {
         allTabs.removeClass('active');
         tab.addClass('active');
-        $('html, body').animate({ scrollTop: tab.offset().top - 44 }, 500);
+        $('html, body').animate({ scrollTop: tab.offset().top - floatingCardHeight - 47 }, 500); // accordion tab height 47px
     }
     else {
         tab.removeClass('active');
     }
 });
 
+$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
+    dropdownInteraction.activate($(this));
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
+    var element = $(this);
+    if (!element.hasClass('active')) {
+        dropdownInteraction.selectItem($(this));
+        dropdownInteraction.selectOption($(this));
+    }
+});
+
 var dropdown = {
     setDropdown: function () {
-        var selectDropdown = $('.dropdown-select');
+        var selectDropdown = document.getElementsByClassName('dropdown-select'),
+            selectDropdownLength = selectDropdown.length;
 
-        selectDropdown.each(function () {
-            dropdown.setMenu($(this));
-        });
+        for (var i = 0; i < selectDropdownLength; i++) {
+            dropdown.setMenu(selectDropdown[i]);
+        }
     },
 
     setMenu: function (element) {
-        $('<div class="dropdown-menu"></div>').insertAfter(element);
+        var menuElement = document.createElement("div");
+
+        menuElement.className = "dropdown-menu";
+
+        element.parentNode.insertBefore(menuElement, element.nextSibling);
         dropdown.setStructure(element);
     },
 
     setStructure: function (element) {
-        var elementValue = element.find('option:selected').text(),
-			menu = element.next('.dropdown-menu'),
-            labelValue = element.attr('data-title');
+        var elementText = element.options[element.selectedIndex].text,
+            optionLength = element.options.length,
+            selectLabel = element.getAttribute("data-title"),
+            dropdownMenu = element.nextSibling;
 
-        menu.append('<p class="dropdown-selected-item">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-label">' + labelValue + '</p><ul class="dropdown-menu-list"></ul></div>');
-        dropdown.setOption(element);
-    },
+        var selectedItem = document.createElement("p");
+        selectedItem.className = "dropdown-selected-item";
+        selectedItem.innerHTML = elementText;
 
-    setOption: function (element) {
-        var selectedIndex = element.find('option:selected').index(),
-			menuList = element.next('.dropdown-menu').find('ul');
+        dropdownMenu.appendChild(selectedItem);
 
-        element.find('option').each(function (index) {
-            if (selectedIndex == index) {
-                menuList.append('<li class="option-active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+        var dropdownListWrapper = document.createElement("div");
+        dropdownListWrapper.className = "dropdown-list-wrapper";
+
+        var dropdownLabel = document.createElement("p");
+        dropdownLabel.className = "dropdown-label";
+        dropdownLabel.innerHTML = selectLabel;
+
+        var dropdownList = document.createElement("ul");
+        dropdownList.className = "dropdown-menu-list";
+
+        for (var i = 0; i < optionLength; i++) {
+            var optionItem = element.options[i],
+                listOption = document.createElement("li");
+
+            listOption.setAttribute("data-option-value", optionItem.value);
+            listOption.innerHTML = optionItem.text;
+
+            if (optionItem.selected) {
+                listOption.className = "option-active";
             }
-            else {
-                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
-            }
-        });
-    },
 
+            dropdownList.appendChild(listOption);
+        }
+
+        dropdownListWrapper.appendChild(dropdownLabel);
+        dropdownListWrapper.appendChild(dropdownList);
+
+        dropdownMenu.appendChild(dropdownListWrapper);
+    }
+};
+
+var dropdownInteraction = {
     activate: function (label) {
         $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
         label.closest('.dropdown-menu').addClass('dropdown-active');
@@ -77,8 +121,8 @@ var dropdown = {
 
     selectItem: function (element) {
         var elementText = element.text(),
-			menu = element.closest('.dropdown-menu'),
-			selectedItem = menu.find('.dropdown-selected-item');
+            menu = element.closest('.dropdown-menu'),
+            selectedItem = menu.find('.dropdown-selected-item');
 
         element.siblings('li').removeClass('option-active');
         element.addClass('option-active');
@@ -87,8 +131,8 @@ var dropdown = {
 
     selectOption: function (element) {
         var elementValue = element.attr('data-option-value'),
-			wrapper = element.closest('.dropdown-select-wrapper'),
-			selectDropdown = wrapper.find('.dropdown-select');
+            wrapper = element.closest('.dropdown-select-wrapper'),
+            selectDropdown = wrapper.find('.dropdown-select');
 
         selectDropdown.val(elementValue).trigger('change');
 
@@ -112,7 +156,7 @@ var dropdown = {
     resizeWidth: function (newWidth) {
         $('.dropdown-select-wrapper').find('.dropdown-list-wrapper').css('width', newWidth / 2);
     }
-};
+}
 
 $(document).on('click', function (event) {
     if ($('.dropdown-list-wrapper').is(':visible')) {
@@ -123,7 +167,7 @@ $(document).on('click', function (event) {
 		    noSelectLabel = bodyElement.find('.dropdown-selected-item');
 
         if (!$(event.target).is(dropdownLabel) && !$(event.target).is(dropdownList) && !$(event.target).is(noSelectLabel)) {
-            dropdown.deactivate();
+            dropdownInteraction.deactivate();
         }
     }
 });

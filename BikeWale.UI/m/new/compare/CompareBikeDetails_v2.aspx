@@ -28,11 +28,11 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <section class="container bg-white margin-bottom10">
-            <div class="bg-white box-shadow">
-                <h1 class="box-shadow padding-15-20">Bajaj Avenger 150 Street vs Benelli TNT 25</h1>
-                <div class="comparison-main-card column-count-3">
+            <div id="comparison-body" class="bg-white box-shadow sponsored-column-active"> <%-- sponsored-column-active--%>
+                <h1 class="box-shadow padding-15-20 margin-bottom3">Bajaj Avenger 150 Street vs Benelli TNT 25</h1>
+                <div class="comparison-main-card">
                     <div class="bike-details-block">
-                        <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <span class="position-abt pos-top5 pos-right5 bwmsprite cross-sm-dark-grey"></span>
                         <a href="" title="Bajaj Avenger 150 Street" class="block">
                             <h2 class="font14">Bajaj Avenger 150 Street</h2>
                             <img class="bike-image-block" src="https://imgd3.aeplcdn.com//110x61//bw/models/bajaj-avenger-150-street.jpg" alt="Bajaj Avenger 150 Street" />
@@ -42,55 +42,99 @@
                         <div class="dropdown-select-wrapper">
                             <select class="dropdown-select" data-title="Version">
                                 <option value="1">Kick/Drum/Spokes</option>
-                                <option value="2">Electric Start/Drum/Alloy</option>
+                                <option value="2" selected>Electric Start/Drum/Alloy</option>
                                 <option value="3">Electric Start/Disc/Alloy</option>
                                 <option value="4">CBS</option>
                             </select>
                         </div>
-                        <%--<p><%= bikeDetails.Rows[0]["Version"]%></p>--%>
 
                         <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
                         <p class="margin-bottom10">
                             <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">99,999</span>
                         </p>
                         <div>
-                            <a href="" class="btn btn-white">On-road price</a>
+                            <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
                         </div>
                     </div>
                     <div class="bike-details-block">
-                        <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <span class="position-abt pos-top5 pos-right5 bwmsprite cross-sm-dark-grey"></span>
                         <a href="" title="Benelli TNT 25" class="block">
                             <h2 class="font14">Benelli TNT 25</h2>
                             <img class="bike-image-block" src="https://imgd4.aeplcdn.com//110x61//bw/models/benelli-tnt25.jpg" alt="Benelli TNT 25" />
                         </a>
                         <p class="label-text">Version:</p>
-                        <p>Standard</p>
+                        <div class="dropdown-select-wrapper">
+                            <select class="dropdown-select" data-title="Version">
+                                <option value="1">Standard</option>
+                                <option value="2" selected>Deluxe</option>
+                            </select>
+                        </div>
+
                         <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
                         <p class="margin-bottom10">
                             <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">9,99,999</span>
                         </p>
                         <div>
-                            <a href="" class="btn btn-white">On-road price</a>
+                            <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
                         </div>
                     </div>
                     <div class="bike-details-block">
-                        <span class="position-abt pos-top5 pos-left10 label-text">Sponsored</span>
-                        <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer"></span>
+                        <span class="position-abt pos-top5 label-text">Sponsored</span>
+                        <span class="position-abt pos-top5 pos-right5 bwmsprite cross-sm-dark-grey"></span>
                         <a href="" title="Bajaj Pulsar RS200" class="block">
                             <h2 class="font14">Bajaj Pulsar RS200</h2>
                             <img class="bike-image-block" src="https://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="Bajaj Pulsar RS200" />
                         </a>
                         <p class="label-text">Version:</p>
-                        <p>Standard</p>
+                        <div class="dropdown-select-wrapper">
+                            <select class="dropdown-select" data-title="Version">
+                                <option value="1" selected>Drum/Kick</option>
+                                <option value="2">Drum/Electric start</option>
+                                <option value="3">Disc/Electric start</option>
+                            </select>
+                        </div>
+
                         <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
-                        <p class="margin-bottom15">
+                        <p class="margin-bottom10">
                             <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">1,26,980</span>
                         </p>
-                        <a href="" class="font14">Know more</a>
+                        <div class="padding-top5 padding-bottom5">
+                            <a href="" class="font14">Know more</a>
+                        </div>
+                        <!--<div>
+                            <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                        </div>-->
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div class="overall-specs-tabs-container">
+                <div id="comparison-floating-card" class="box-shadow">
+                    <div class="bike-details-block">
+                        <a href="" class="bike-title-target">Bajaj Avenger 150 Street</a>
+                        <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                    </div>
+                    <div class="bike-details-block">
+                        <a href="" class="bike-title-target">Benelli TNT 25</a>
+                        <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                    </div>
+                    <div class="bike-details-block">
+                        <span class="position-abt pos-top5 label-text">Sponsored</span>
+                        <a href="" class="bike-title-target">Bajaj Pulsar RS200</a>
+                        <div class="padding-top5 padding-bottom5">
+                            <a href="" class="font14">Know more</a>
+                        </div>
+                        <!--<a href="" class="btn btn-white" rel="nofollow">On-road price</a>-->
+                    </div>
+                    <div class="clear"></div>
+                    <div class="overall-specs-tabs-container">
+                        <ul class="overall-specs-tabs-wrapper">
+                            <li data-tabs="#specsTabContent" class="active">Specifications</li>
+                            <li data-tabs="#featuresTabContent">Features</li>
+                            <li data-tabs="#coloursTabContent">Colours</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div id="overall-specs-tabs" class="overall-specs-tabs-container">
                     <ul class="overall-specs-tabs-wrapper">
                         <li data-tabs="#specsTabContent" class="active">Specifications</li>
                         <li data-tabs="#featuresTabContent">Features</li>
@@ -101,94 +145,585 @@
                 <div id="specsTabContent" class="bw-model-tabs-data active">
                     <div class="model-accordion-tab active">
                         <span class="offers-sprite engine-sm-icon"></span>
-                        <span class="accordion-tab-label">Engine &amp; transmission</span>
+                        <span class="accordion-tab-label">Engine</span>
                         <span class="bwmsprite fa-angle-down"></span>
                     </div>
                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                             <tr class="row-type-heading">
-                                <td colspan="3">Displacement (cc)</td>
+                                <td colspan="2">Displacement (cc)</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>150</td>
                                 <td>249</td>
+                                <td>249</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Cylinders</td>
+                                <td colspan="2">Cylinders</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>1</td>
                                 <td>1</td>
+                                <td>1</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Max Power</td>
+                                <td colspan="2">Max Power</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>14.3</td>
                                 <td>28.16</td>
+                                <td>14.3</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Maximum Torque</td>
+                                <td colspan="2">Maximum Torque</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>12.5</td>
                                 <td>21.61</td>
+                                <td>12.5</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Bore (mm)</td>
+                                <td colspan="2">Bore (mm)</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>--</td>
                                 <td>61</td>
+                                <td>--</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Stroke (mm)</td>
+                                <td colspan="2">Stroke (mm)</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>--</td>
                                 <td>72</td>
+                                <td>--</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Valves Per Cylinder</td>
+                                <td colspan="2">Valves Per Cylinder</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>2</td>
                                 <td>4</td>
+                                <td>2</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Fuel Delivery System</td>
+                                <td colspan="2">Fuel Delivery System</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>Carburetor</td>
                                 <td>Electronic Fuel Injection</td>
+                                <td>Carburetor</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Fuel Type</td>
+                                <td colspan="2">Fuel Type</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>Petrol</td>
                                 <td>Petrol</td>
+                                <td>Petrol</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Ignition</td>
+                                <td colspan="2">Ignition</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>Digital Twin Spark Ignition</td>
                                 <td>--</td>
+                                <td>--</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Spark Plugs (Per Cylinder)</td>
+                                <td colspan="2">Spark Plugs (Per Cylinder)</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>2</td>
                                 <td>1</td>
+                                <td>2</td>
                             </tr>
                             <tr class="row-type-heading">
-                                <td colspan="3">Cooling System</td>
+                                <td colspan="2">Cooling System</td>
+                                <td></td>
                             </tr>
                             <tr class="row-type-data">
                                 <td>Air Cooled</td>
                                 <td>Liquid Cooled</td>
+                                <td>Air Cooled</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite engine-sm-icon"></span>
+                        <span class="accordion-tab-label">Transmission</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Gearbox Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Manual</td>
+                                <td>Manual</td>
+                                <td>Manual</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">No. of Gears</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>5</td>
+                                <td>6</td>
+                                <td>5</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Transmission Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Chain Drive</td>
+                                <td>Chain Drive</td>
+                                <td>Chain Drive</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Clutch</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Wet Multiplate</td>
+                                <td>Wet Multiplate</td>
+                                <td>Wet Multiplate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite fuel-sm-icon"></span>
+                        <span class="accordion-tab-label">Performance</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">0 to 60 kmph (Seconds)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">0 to 80 kmph (Seconds)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">0 to 40 m (Seconds)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Top Speed (Kmph)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>110</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">60 to 0 Kmph (Seconds, metres)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">80 to 0 Kmph (Seconds, metres)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite dimension-sm-icon"></span>
+                        <span class="accordion-tab-label">Dimensions & Weight</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Kerb Weight (Kg)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>123</td>
+                                <td>125</td>
+                                <td>123</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Overall Length (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>344</td>
+                                <td>345</td>
+                                <td>234</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Overall Width (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>234</td>
+                                <td>236</td>
+                                <td>234</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Overall Height (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>1070</td>
+                                <td>1125</td>
+                                <td>1070</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Wheelbase (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>1480</td>
+                                <td>1400</td>
+                                <td>1400</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Ground Clearance (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>169</td>
+                                <td>160</td>
+                                <td>160</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Seat Height (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>725</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite fuel-sm-icon"></span>
+                        <span class="accordion-tab-label">Fuel Efficiency & Range</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Fuel Tank Capacity (Litres)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>14</td>
+                                <td>15</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Reserve Fuel Capacity (Litres)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>3.4</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Fuel Efficiency Overall (Kmpl)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>50</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Fuel Efficiency Range (Km)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>910</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite dimension-sm-icon"></span>
+                        <span class="accordion-tab-label">Chassis & Suspension</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Chassis Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Tubular Double Cradle</td>
+                                <td>Steel trellis frame</td>
+                                <td>Tubular Double Cradle</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Front Suspension</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Telescopic with Anti Friction Bush</td>
+                                <td>Inverted front telescopic forks</td>
+                                <td>Telescopic with Anti Friction Bush</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Rear Suspension</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Twin Shock Absorber</td>
+                                <td>Hydraulic Monoshock absorber</td>
+                                <td>Twin Shock Absorber</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite brakes-sm-icon"></span>
+                        <span class="accordion-tab-label">Braking</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Brake Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Disc</td>
+                                <td>Disc</td>
+                                <td>Disc</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Front Disc</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Front Disc/Drum Size (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>240</td>
+                                <td>280</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Rear Disc</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite cross-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Rear Disc/Drum Size (mm)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>130</td>
+                                <td>240</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Calliper Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite brakes-sm-icon"></span>
+                        <span class="accordion-tab-label">Wheels & Tyres</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Wheel Size (inches)</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>17</td>
+                                <td>17</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Front Tyre</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>90/90 - 17" 49P</td>
+                                <td>110/70 - R17, 54H (MET)</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Rear Tyre</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>110/70 - R17, 54H (MET)</td>
+                                <td>90/90 - 17" 49P</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Tubeless Tyres</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite cross-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Radial Tyres</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite cross-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Alloy Wheels</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="model-accordion-tab">
+                        <span class="offers-sprite engine-sm-icon"></span>
+                        <span class="accordion-tab-label">Electricals</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
+                    <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Electric System</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>12V</td>
+                                <td>12V DC</td>
+                                <td>12V DC</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Battery</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>12 V, 4Ah, VRLA</td>
+                                <td>Maintenance Free</td>
+                                <td>Maintenance Free</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Headlight Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Projector Head Lamp</td>
+                                <td>Multi-Reflector Type</td>
+                                <td>Multi-Reflector Type</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="2">Headlight Bulb Type</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>55/60W</td>
+                                <td>--</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Brake/Tail Light</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>--</td>
+                                <td>LED Tail Lamp</td>
+                                <td>LED Tail Lamp</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Turn Signal</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                            </tr>                            
+                            <tr class="row-type-heading">
+                                <td colspan="3">Pass Light</td>
+                                <td></td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
+                                <td><span class="bwmsprite tick-grey"></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -204,493 +739,8 @@
             
             
             <% if(count == 2) { %>
-
-            <div style="position: fixed; right: 9px; top: -5px; left: 9px; z-index: 10; display: block;" id="divFloat">
-                <div style="padding:0px 0px;position:static;" class="box2 new-line5">
-                 <div id="divFloatBikeHeader" type="divBikeImage" style="border-bottom:1px solid #b3b4c6;">
-                    <div style="position:relative;" class="compareBikeContainer">
-                        <div class="compareBikeBox compareBikeBorder-Rt">
-                             <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="getquotation" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" data-modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
-                        </div>
-                    <div style="width:23px;height:24px;position:absolute;top:17px;z-index:1;right:-10px;background: url('https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div></div>
             
-                    <div style="position:relative;" class="compareBikeContainer">
-                        <div class="compareBikeBox compareBikeBorder-Rt">
-                            <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
-                            <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="getquotation" data-modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
-                        </div>
-                    </div>
-            
-                    <div style="clear:both;"></div>
-                </div>
-                <div style="text-align:center;" class="new-line10">
-                    Prices are Ex-showroom, <%= System.Configuration.ConfigurationManager.AppSettings["defaultName"] %>
-                </div>
-                <div id="divCompareBikeFloatMenu" class="new-line10 divCompareBikeMenu">
-                <ul>
-                    <li contenttype="CD0" style="width:33%;" class="listActive"><div style="padding:10px 0px;">Specs</div></li>
-                    <li contenttype="CD2" style="width:33%;" class="list"><div class="compareBikeBorder-Rt compareBikeBorder-Lt" style="padding:10px 0px;">Features</div></li>
-                    <li style="width:34%;" contenttype="CD1" class="list"><div style="padding:10px 0px;">Colors</div></li>
-                    <li style="clear:both;"></li>
-                </li></ul>
-            </div>
-            </div>
-        </div>
-
             <div class="box2">
-        
-        <div id="CD0" style="padding: 0px 5px;">
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Engine</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                
-                                
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Transmission</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Gearbox Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["GearboxType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["GearboxType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">No. of Gears</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["NoOfGears"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["NoOfGears"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Transmission Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["TransmissionType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["TransmissionType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Clutch</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Clutch"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Clutch"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Performance</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">0 to 60 kmph (Seconds)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Performance_0_60_kmph"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Performance_0_60_kmph"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">0 to 80 kmph (Seconds)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Performance_0_80_kmph"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Performance_0_80_kmph"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">0 to 40 m (Seconds)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Performance_0_40_m"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Performance_0_40_m"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Top Speed (Kmph)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["TopSpeed"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["TopSpeed"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">60 to 0 Kmph (Seconds, metres)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Performance_60_0_kmph"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Performance_60_0_kmph"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">80 to 0 kmph (Seconds, metres)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Performance_80_0_kmph"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Performance_80_0_kmph"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Dimensions & Weight</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Kerb Weight (Kg)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["KerbWeight"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["KerbWeight"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Overall Length (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["OverallLength"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["OverallLength"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Overall Width (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["OverallWidth"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["OverallWidth"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Overall Height (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["OverallHeight"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["OverallHeight"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Wheelbase (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Wheelbase"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Wheelbase"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Ground Clearance (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["GroundClearance"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["GroundClearance"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Seat Height (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["SeatHeight"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["SeatHeight"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Fuel Efficiency & Range</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Tank Capacity (Litres)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FuelTankCapacity"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FuelTankCapacity"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Reserve Fuel Capacity (Litres)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["ReserveFuelCapacity"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["ReserveFuelCapacity"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Efficiency Overall (Kmpl)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FuelEfficiencyOverall"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FuelEfficiencyOverall"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Efficiency Range (Km)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FuelEfficiencyRange"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FuelEfficiencyRange"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Chassis & Suspension</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Chassis Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["ChassisType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["ChassisType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Front Suspension</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FrontSuspension"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FrontSuspension"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Rear Suspension</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["RearSuspension"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["RearSuspension"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Braking</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Brake Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["BrakeType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["BrakeType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Front Disc</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["FrontDisc"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["FrontDisc"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Front Disc/Drum Size (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FrontDisc_DrumSize"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FrontDisc_DrumSize"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Rear Disc</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["RearDisc"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["RearDisc"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Rear Disc/Drum Size (mm)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["RearDisc_DrumSize"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["RearDisc_DrumSize"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Calliper Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["CalliperType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["CalliperType"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Wheels & Tyres</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Wheel Size (inches)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["WheelSize"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["WheelSize"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Front Tyre</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FrontTyre"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FrontTyre"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Rear Tyre</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["RearTyre"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["RearTyre"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Tubeless Tyres</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["TubelessTyres"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["TubelessTyres"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Radial Tyres</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["RadialTyres"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["RadialTyres"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Alloy Wheels</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["AlloyWheels"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["AlloyWheels"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Electricals</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Electric System</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["ElectricSystem"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["ElectricSystem"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Battery</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Battery"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Battery"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Headlight Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["HeadlightType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["HeadlightType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Headlight Bulb Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["HeadlightBulbType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["HeadlightBulbType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Brake/Tail Light</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Brake_Tail_Light"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Brake_Tail_Light"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Turn Signal</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["TurnSignal"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["TurnSignal"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Pass Light</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[0]["PassLight"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeSpecs.Rows[1]["PassLight"].ToString())%></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div id="CD2" class="hide" style="padding: 0px 5px;">
             <table cellspacing="0" cellpadding="0" class="table">
                 <tbody>
