@@ -29,44 +29,48 @@
 
         <section class="container bg-white margin-bottom10">
             <div class="bg-white box-shadow">
-                <h1 class="box-shadow padding-15-20"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] %> vs <%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] %></h1>
+                <h1 class="box-shadow padding-15-20">Bajaj Avenger 150 Street vs Benelli TNT 25</h1>
                 <div class="comparison-main-card column-count-3">
                     <div class="bike-details-block">
                         <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer"></span>
-                        <a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>/" title="<%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%>" class="block">
-                            <h2 class="font14"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"]%></h2>
-                            <img class="bike-image-block" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.Rows[0]["OriginalImagePath"].ToString(),bikeDetails.Rows[0]["HostURL"].ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%>" />
+                        <a href="" title="Bajaj Avenger 150 Street" class="block">
+                            <h2 class="font14">Bajaj Avenger 150 Street</h2>
+                            <img class="bike-image-block" src="https://imgd3.aeplcdn.com//110x61//bw/models/bajaj-avenger-150-street.jpg" alt="Bajaj Avenger 150 Street" />
                         </a>
 
                         <p class="label-text">Version:</p>
                         <div class="dropdown-select-wrapper">
-                            <select class="dropdown-select">
-                                <option value="1">Standard 1</option>
-                                <option value="2">Standard 2</option>
-                                <option value="3">Standard 3</option>
+                            <select class="dropdown-select" data-title="Version">
+                                <option value="1">Kick/Drum/Spokes</option>
+                                <option value="2">Electric Start/Drum/Alloy</option>
+                                <option value="3">Electric Start/Disc/Alloy</option>
+                                <option value="4">CBS</option>
                             </select>
                         </div>
                         <%--<p><%= bikeDetails.Rows[0]["Version"]%></p>--%>
 
-                        <p class="text-truncate label-text">Ex-showroom, <%=System.Configuration.ConfigurationManager.AppSettings["defaultName"] %><input type="text" style="display:none;" data-role="none" id="txtTest" name="txtTest">
+                        <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
+                        <p class="margin-bottom10">
+                            <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">99,999</span>
                         </p>
-                        <p class="<%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "margin-bottom10" %>"><span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></span></p>
-                        <div class="<%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">
-                            <a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" class="btn btn-white getquotation" data-modelId="<%=bikeDetails.Rows[0]["Model"]%>" >On-road price</a>
+                        <div>
+                            <a href="" class="btn btn-white">On-road price</a>
                         </div>
                     </div>
                     <div class="bike-details-block">
                         <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer"></span>
-                        <a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>/" title="<%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%>" class="block">
-                            <h2 class="font14"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"]%></h2>
-                            <img class="bike-image-block" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.Rows[1]["OriginalImagePath"].ToString() ,bikeDetails.Rows[1]["HostURL"].ToString(),Bikewale.Utility.ImageSize._110x61) %>" alt="<%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%>" />
+                        <a href="" title="Benelli TNT 25" class="block">
+                            <h2 class="font14">Benelli TNT 25</h2>
+                            <img class="bike-image-block" src="https://imgd4.aeplcdn.com//110x61//bw/models/benelli-tnt25.jpg" alt="Benelli TNT 25" />
                         </a>
                         <p class="label-text">Version:</p>
-                        <p><%= bikeDetails.Rows[1]["Version"]%></p>
-                        <p class="text-truncate label-text">Ex-showroom, <%=System.Configuration.ConfigurationManager.AppSettings["defaultName"] %></p>
-                        <p class="<%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "margin-bottom10" %>"><span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold"><%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></span></p>
-                        <div class="<%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">
-                            <a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="btn btn-white getquotation" data-modelId="<%=bikeDetails.Rows[1]["Model"]%>" >On-road price</a>
+                        <p>Standard</p>
+                        <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
+                        <p class="margin-bottom10">
+                            <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">9,99,999</span>
+                        </p>
+                        <div>
+                            <a href="" class="btn btn-white">On-road price</a>
                         </div>
                     </div>
                     <div class="bike-details-block">
@@ -78,8 +82,10 @@
                         </a>
                         <p class="label-text">Version:</p>
                         <p>Standard</p>
-                        <p class="text-truncate label-text">Ex-showroom, <%=System.Configuration.ConfigurationManager.AppSettings["defaultName"] %></p>
-                        <p class="margin-bottom15"><span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">1,26,980</span></p>
+                        <p class="text-truncate label-text">Ex-showroom, Mumbai</p>
+                        <p class="margin-bottom15">
+                            <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">1,26,980</span>
+                        </p>
                         <a href="" class="font14">Know more</a>
                     </div>
                     <div class="clear"></div>
@@ -93,49 +99,96 @@
                     <div class="clear"></div>
                 </div>
                 <div id="specsTabContent" class="bw-model-tabs-data active">
+                    <div class="model-accordion-tab active">
+                        <span class="offers-sprite engine-sm-icon"></span>
+                        <span class="accordion-tab-label">Engine &amp; transmission</span>
+                        <span class="bwmsprite fa-angle-down"></span>
+                    </div>
                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                             <tr class="row-type-heading">
                                 <td colspan="3">Displacement (cc)</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["Displacement"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["Displacement"].ToString())%></td>
+                                <td>150</td>
+                                <td>249</td>
                             </tr>
                             <tr class="row-type-heading">
                                 <td colspan="3">Cylinders</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["Cylinders"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["Cylinders"].ToString())%></td>
+                                <td>1</td>
+                                <td>1</td>
                             </tr>
                             <tr class="row-type-heading">
                                 <td colspan="3">Max Power</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["MaxPower"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["MaxPower"].ToString())%></td>
+                                <td>14.3</td>
+                                <td>28.16</td>
                             </tr>
                             <tr class="row-type-heading">
                                 <td colspan="3">Maximum Torque</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["MaximumTorque"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["MaximumTorque"].ToString())%></td>
+                                <td>12.5</td>
+                                <td>21.61</td>
                             </tr>
                             <tr class="row-type-heading">
                                 <td colspan="3">Bore (mm)</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["Bore"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["Bore"].ToString())%></td>
+                                <td>--</td>
+                                <td>61</td>
                             </tr>
                             <tr class="row-type-heading">
                                 <td colspan="3">Stroke (mm)</td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[0]["Stroke"].ToString())%></td>
-                                <td><%= ShowFormatedData(bikeSpecs.Rows[1]["Stroke"].ToString())%></td>
+                                <td>--</td>
+                                <td>72</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Valves Per Cylinder</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>2</td>
+                                <td>4</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Fuel Delivery System</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Carburetor</td>
+                                <td>Electronic Fuel Injection</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Fuel Type</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Petrol</td>
+                                <td>Petrol</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Ignition</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Digital Twin Spark Ignition</td>
+                                <td>--</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Spark Plugs (Per Cylinder)</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>2</td>
+                                <td>1</td>
+                            </tr>
+                            <tr class="row-type-heading">
+                                <td colspan="3">Cooling System</td>
+                            </tr>
+                            <tr class="row-type-data">
+                                <td>Air Cooled</td>
+                                <td>Liquid Cooled</td>
                             </tr>
                         </tbody>
                     </table>
@@ -201,48 +254,7 @@
                         <table cellspacing="0" cellpadding="0" class="table tblItem">
                             <tbody>
                                 
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Valves Per Cylinder</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["ValvesPerCylinder"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["ValvesPerCylinder"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Delivery System</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FuelDeliverySystem"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FuelDeliverySystem"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["FuelType"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["FuelType"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Ignition</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["Ignition"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["Ignition"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Spark Plugs (Per Cylinder)</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[0]["SparkPlugsPerCylinder"].ToString())%></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeSpecs.Rows[1]["SparkPlugsPerCylinder"].ToString())%></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Cooling System</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%=ShowFormatedData(bikeSpecs.Rows[0]["CoolingSystem"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%=ShowFormatedData(bikeSpecs.Rows[1]["CoolingSystem"].ToString()) %></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                         </td>
@@ -901,6 +913,7 @@
                 $("#divFloat").hide();
                 var relatedComparisonContainer = $('.related-comparison-container');
                 $(".swiper-slide:first").css("margin-left", "10px");
+                /*
                 $(window).bind("scroll", function () {
                     var offset = $(this).scrollTop(),
                         relatedComparisonContainerOffset = relatedComparisonContainer.offset();
@@ -915,6 +928,7 @@
                         $("#divFloat").hide();
                     }
                 });
+                */
             });
 
             function BoxClicked(div) {

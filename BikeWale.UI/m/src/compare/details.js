@@ -2,15 +2,30 @@
     dropdown.setDropdown();
 });
 
-$('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
-    dropdown.active($(this));
+$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
+    dropdown.activate($(this));
 });
 
-$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
     var element = $(this);
     if (!element.hasClass('active')) {
         dropdown.selectItem($(this));
         dropdown.selectOption($(this));
+    }
+});
+
+/* accordion tab */
+$('.model-accordion-tab').on('click', function () {
+    var tab = $(this),
+        allTabs = $('.model-accordion-tab');
+
+    if (!tab.hasClass('active')) {
+        allTabs.removeClass('active');
+        tab.addClass('active');
+        $('html, body').animate({ scrollTop: tab.offset().top - 44 }, 500);
+    }
+    else {
+        tab.removeClass('active');
     }
 });
 
@@ -30,45 +45,44 @@ var dropdown = {
 
     setStructure: function (element) {
         var elementValue = element.find('option:selected').text(),
-			menu = element.next('.dropdown-menu');
-        menu.append('<p id="defaultVariant" class="dropdown-label">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-selected-item">' + elementValue + '</p><ul id="templist" class="dropdown-menu-list dropdown-with-select"></ul></div>');
+			menu = element.next('.dropdown-menu'),
+            labelValue = element.attr('data-title');
+
+        menu.append('<p class="dropdown-selected-item">' + elementValue + '</p><div class="dropdown-list-wrapper"><p class="dropdown-label">' + labelValue + '</p><ul class="dropdown-menu-list"></ul></div>');
         dropdown.setOption(element);
     },
 
     setOption: function (element) {
         var selectedIndex = element.find('option:selected').index(),
-			menu = element.next('.dropdown-menu'),
-			menuList = menu.find('ul');
+			menuList = element.next('.dropdown-menu').find('ul');
 
         element.find('option').each(function (index) {
             if (selectedIndex == index) {
-                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="active fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+                menuList.append('<li class="option-active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
             }
             else {
-                menuList.append('<li><input value="' + $(this).text() + '" type="submit" runat="server" class="fullwidth" id="temp_' + index + '" data-option-value="' + $(this).val() + '" title="' + $(this).text() + '"></li>');
+                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
             }
         });
     },
 
-    active: function (label) {
+    activate: function (label) {
         $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
         label.closest('.dropdown-menu').addClass('dropdown-active');
     },
 
-    inactive: function () {
+    deactivate: function () {
         $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
     },
 
     selectItem: function (element) {
-        var elementText = element.find('input[type="submit"]').val(),
+        var elementText = element.text(),
 			menu = element.closest('.dropdown-menu'),
-			dropdownLabel = menu.find('.dropdown-label'),
 			selectedItem = menu.find('.dropdown-selected-item');
 
-        element.siblings('li').removeClass('active');
-        element.addClass('active');
+        element.siblings('li').removeClass('option-active');
+        element.addClass('option-active');
         selectedItem.text(elementText);
-        dropdownLabel.text(elementText);
     },
 
     selectOption: function (element) {
@@ -109,7 +123,7 @@ $(document).on('click', function (event) {
 		    noSelectLabel = bodyElement.find('.dropdown-selected-item');
 
         if (!$(event.target).is(dropdownLabel) && !$(event.target).is(dropdownList) && !$(event.target).is(noSelectLabel)) {
-            dropdown.inactive();
+            dropdown.deactivate();
         }
     }
 });

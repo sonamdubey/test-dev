@@ -54,43 +54,40 @@
 
 .dropdown-menu {
 	width: 100%;
-    height: 20px;
+    height: 30px;
     min-width: 100px;
 	font-size: 14px;
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
 	color: #4d5057;
+    margin-bottom: 5px;
 }
 
-.single-version-label {
-	padding: 5px 30px 5px 9px;
-	font-weight: bold;
+.dropdown-menu .dropdown-label,
+.dropdown-menu .dropdown-selected-item {
 	width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
-	width: 100%;
-	font-weight: bold;
-	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
 .dropdown-menu .dropdown-selected-item {
-    border-bottom: 1px solid #e2e2e2;
-    padding: 5px 30px 5px 9px;
-}
-
-.dropdown-menu .dropdown-label {
 	cursor: pointer;
 	display: inline-block;
 	z-index: 0;
-    padding-right: 20px;
+    font-weight: bold;
+    padding-bottom: 3px;
+    padding-right: 12px;
+    background-position: 100%;
+    border-bottom: 1px solid #4d5057;
+}
+
+.dropdown-menu .dropdown-label {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 9px 30px 9px 10px;
+    background-position: 94%;
 }
 
 .dropdown-menu .dropdown-list-wrapper {
@@ -98,7 +95,7 @@
 	min-width: 170px;
 	overflow:hidden;
 	position: absolute;
-	top: 3px;
+	top: -15px;
 	left: 0;
 	background: #fff;
 	z-index: 1;
@@ -119,19 +116,28 @@
 	display: inline-block;
 }
 
-.dropdown-menu .dropdown-menu-list {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
 .dropdown-menu .dropdown-menu-list li {
+    color: #444;
 	padding: 5px 10px;
 	cursor: pointer;
 	white-space: nowrap;
 }
 
-.dropdown-menu .dropdown-with-select li:hover {
-	background: #eee;
+.dropdown-menu li:hover {
+	background: #f5f5f5;
+}
+
+.dropdown-menu li.option-active {
+    font-weight: bold;
+}
+
+.single-version-label {
+	padding: 5px 30px 5px 9px;
+	font-weight: bold;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .dropdown-menu .fullwidth {
@@ -172,6 +178,10 @@
 }
 
 /* table */
+.table-content {
+    display: none;
+}
+
 .table-content td {
     padding-left: 15px;
 }
@@ -179,7 +189,7 @@
 .row-type-heading td {
     font-size: 14px;
     color: #82888b;
-    padding: 10px 0 10px 15px;
+    padding: 10px 15px;
     border-top: 1px solid #e2e2e2;
 }
 
@@ -193,6 +203,7 @@
     font-weight: bold;
     padding-bottom: 10px;
     padding-top: 5px;
+    vertical-align: top;
 }
 
 .row-type-data td:nth-child(2) {
@@ -211,6 +222,65 @@
 .column-count-3 .row-type-data td:nth-child(3) {
     padding-right: 15px;
 }
+
+/* accordion */
+.model-accordion-tab {
+    padding: 12px 15px;
+    position: relative;
+    border-bottom: 1px solid #e2e2e2;
+    cursor: pointer;
+}
+
+.accordion-tab-label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.model-accordion-tab .fa-angle-down {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    -moz-transition: transform .3s;
+    -webkit-transition: transform .3s;
+    -o-transition: transform .3s;
+    -ms-transition: transform .3s;
+    transition: transform .3s;
+}
+
+.model-accordion-tab.active {
+    box-shadow: 0 2px 3px #e2e2e2;
+}
+
+.model-accordion-tab.active .fa-angle-down {
+    -moz-transform: rotateZ(180deg);
+    -webkit-transform: rotateZ(180deg);
+    -o-transform: rotateZ(180deg);
+    -ms-transform: rotateZ(180deg);
+    transform: rotateZ(180deg);
+}
+
+.model-accordion-tab.brakes-accordion-tab {
+    padding-top: 7px;
+    padding-bottom: 8px;
+}
+
+.model-accordion-tab.active + .table-content,
+.model-accordion-tab.active:nth-child(1) + .table-content {
+    display: block
+}
+ 
+/* icons */
+.offers-sprite {
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat;
+    display: inline-block;
+}
+
+.engine-sm-icon, .brakes-sm-icon, .dimension-sm-icon, .fuel-sm-icon { width:20px; margin-right: 5px; }
+.engine-sm-icon { height: 13px; background-position: -46px -274px;}
+.brakes-sm-icon { height: 20px; background-position: -46px -294px; position:relative; top:3px;}
+.dimension-sm-icon { height: 14px; background-position: -46px -323px;}
+.fuel-sm-icon { height: 16px; background-position: -46px -344px;}
+
 
 /*
 table td{text-align:center;height:25px}div.color-box{margin:10px auto auto;width:40px;height:40px;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#e34f4f}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.related-comparison-container.container{border-bottom:0;padding:0}.related-comparison-carousel-content,.usedBikes{border:1px solid #ccc;padding:20px 20px 10px}.related-comparison-carousel-content{width:260px;height:auto;background:#fff}.related-comparison-carousel-content a{color:#0288d1;font-size:14px;font-weight:400;margin-bottom:10px;display:block}.related-comparison-carousel-content a:hover{color:#0288d1}.compare-tick{width:18px;height:16px;background-position:-88px -458px}.compare-cross{width:14px;height:16px;background-position:-116px -458px}.related-comparison-container .swiper-wrapper,.usedBikes{margin:10px;height:auto}.usedBikes{background:#fff}.usedBikes a {color: #0288d1;font-size: 16px;font-weight: 400;margin-bottom: 10px;}
