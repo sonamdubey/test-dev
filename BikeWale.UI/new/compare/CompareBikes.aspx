@@ -870,9 +870,10 @@
                                      </td>
                                  </ItemTemplate>
                                  <FooterTemplate>
-                                     <% if(count <4) {%>
+                                     <% if (isFeatured ? (count < 5) : (count < 4))
+                                        {%>
                                      <td>
-                                         <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : "")) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : ""))%>" cellpadding="0" border="0" cellspacing="0">
+                                         <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
                                              <tbody>
                                                  <tr>
                                                      <td>
