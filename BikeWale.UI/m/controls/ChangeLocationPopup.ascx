@@ -28,7 +28,8 @@
                 popupEle: document.getElementById("globalchangecity-popup"),
                 blackoutEle: document.getElementsByClassName("changecity-blackout-window")[0],
                 navGlobalLocation: document.getElementsByClassName("global-location")[0],
-                bodyEle: document.getElementsByTagName("body")[0]
+                bodyEle: document.getElementsByTagName("body")[0],
+                htmlEle: document.getElementsByTagName("html")[0]
             };
             var ignoreCityChange = function () {
                 bwcache.set(options.sessionKey, "1", true);
@@ -65,6 +66,9 @@
                     options.popupEle.style.display = "block";
                     options.navGlobalLocation.style.pointerEvents = "none";
                     options.bodyEle.style.overflow = "hidden";
+                    options.htmlEle.style.overflow = "hidden";
+                    options.bodyEle.style.width = "100%";
+                    options.bodyEle.style.height = "100%";
                     var child = document.getElementById("appBanner");   // remove app banner as already a prompt is shown
                     child.parentNode.removeChild(child);
                 } catch (e) {
@@ -78,6 +82,9 @@
                     options.popupEle.style.display = "none";
                     options.navGlobalLocation.style.pointerEvents = "auto";
                     options.bodyEle.style.overflow = "";
+                    options.htmlEle.style.overflow = "";
+                    options.bodyEle.style.width = "";
+                    options.bodyEle.style.height = "";
                 } catch (e) {
                     console.log(e.message);
                 }
