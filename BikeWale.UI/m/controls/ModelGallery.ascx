@@ -3,16 +3,16 @@
 <section>
     <div class="model-gallery-container relative-gallery-container">
         <%if(isModelPage){ %>
-        <h1 class="font16 text-white"><%=bikeName %> Photos</h1>
+        <h1 class="font16 text-white"><%=bikeName %> Images</h1>
         <%} else{ %>
-        <h3 class="font16 text-white"><%=articleName %> Photos</h3>
+        <h3 class="font16 text-white"><%=articleName %> Images</h3>
         <%} %>
         <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
         <div class="bw-tabs-panel">
             <% if(videoCount > 0) { %>
             <ul class="bw-tabs horizontal-tabs-wrapper">
-                <li class="active" data-tabs="photos" id="photos-tab">Photos</li>
+                <li class="active" data-tabs="photos" id="photos-tab">Images</li>
                 <li data-tabs="videos" id="videos-tab">Videos</li>
             </ul>
             <% } %>

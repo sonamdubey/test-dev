@@ -48,9 +48,9 @@
         <% if (bikeInfo.PhotosCount > 0)
            { %>
         <li>
-            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Photos">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Images">
                 <span class="bwmsprite photos-sm"></span>
-                <span class="icon-label">Photos</span>
+                <span class="icon-label">Images</span>
             </a>
         </li>
         <% } %>

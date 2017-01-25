@@ -2,11 +2,11 @@
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
-    title = String.Format("{0} Photos - BikeWale", bikeName);
+    title = String.Format("{0} {1} Images | {1} Photos - BikeWale", makename, modelName);
     keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", modelName, makename);
-    description = String.Format("View pictures of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
-    canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
-    alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/photos/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
+    description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
+    canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
+    alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
     ShowTargeting = "1";
@@ -52,7 +52,7 @@
             <li class="fwd-arrow">&rsaquo;</li>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName%>/"><%=objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %></a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong>Photos</strong></li>
+            <li class="current"><strong>Images</strong></li>
         </ul>
         <div class="clear"></div>
     </div>
