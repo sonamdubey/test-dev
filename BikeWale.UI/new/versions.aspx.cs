@@ -76,8 +76,8 @@ namespace Bikewale.New
         protected ModelPageVM viewModel = null;
         public DropDownList ddlVersion;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
-        
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
+
         #endregion Global Variables
 
         #region Events
@@ -364,7 +364,7 @@ namespace Bikewale.New
         {
             BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
             bikeRankingSlug.ModelId = modelId;
-            bikeRankObj=bikeRankingSlug.GetBikeRankingByModel();
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
             if (bikeRankObj != null)
             {
                 styleName = bikeRankingSlug.StyleName;
@@ -505,7 +505,7 @@ namespace Bikewale.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
