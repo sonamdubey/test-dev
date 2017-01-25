@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.CMS;
+using Bikewale.Entities.GenericBikes;
 using System;
 using System.Text.RegularExpressions;
 
@@ -363,6 +364,35 @@ namespace Bikewale.Utility
             else
             {
                 url = String.Format("/{0}-bikes/{1}/news/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 13 Jan 2017
+        /// Summary    : To format url for generic pages
+        /// </summary>
+        /// <returns></returns>
+        public static string FormatGenericPageUrl(EnumBikeBodyStyles bodyStyle)
+        {
+            string url = String.Empty;
+            switch(bodyStyle)
+            {
+                case EnumBikeBodyStyles.Mileage:
+                    url = "/best-mileage-bikes-in-india/";
+                    break;
+                case EnumBikeBodyStyles.Sports:
+                    url = "/best-sports-bikes-in-india/";
+                    break;
+                case EnumBikeBodyStyles.Cruiser:
+                    url =  "/best-cruiser-bikes-in-india/";
+                    break;
+                case EnumBikeBodyStyles.Scooter:
+                    url = "/best-scooters-in-india/";
+                    break;
+                case EnumBikeBodyStyles.AllBikes:
+                default:
+                    url = "/best-bikes-in-india/";
+                    break;
             }
             return url;
         }

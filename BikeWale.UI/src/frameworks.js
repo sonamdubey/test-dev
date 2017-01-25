@@ -145,5 +145,5 @@ if (typeof Array.prototype.forEach != 'function') {
             callback.apply(this, [this[i], i, this]);
         }
     };
-}
-document.cookie = "location=; expires=Thu, 18 Dec 0001 12:00:00 UTC; path=/";
+}if (document.domain.match("www.bikewale.com"))
+    document.cookie = "location=; expires=Thu, 18 Dec 0001 12:00:00 UTC; path=/";

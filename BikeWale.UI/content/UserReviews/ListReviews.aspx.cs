@@ -1,10 +1,16 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BindViewModels.Webforms.UserReviews;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.SEO;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
@@ -27,12 +33,16 @@ namespace Bikewale.Content
 
         public int totalReviewCount = 0;
 
+        protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected DropDownList drpSort, drpVersions;
         protected MakeModelVersion objBike;
         protected HtmlGenericControl spnComments;
-
+        protected MostPopularBikesMin ctrlPopularBikes;
         protected HtmlForm frmMain;
-
+        protected ReviewDetailsEntity objReview;
+        protected uint MakeId;
+        public uint cityid;
+        public PageMetaTags pageMetas;
         public string SortingCriteria
         {
             get
@@ -78,6 +88,12 @@ namespace Bikewale.Content
             drpSort.SelectedIndexChanged += new EventHandler(drpSort_Change);
             drpVersions.SelectedIndexChanged += new EventHandler(drpVersions_Change);
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain 16 Jain 2017
+        /// Summary :- Created layerd architecture for data retrival
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -125,13 +141,6 @@ namespace Bikewale.Content
                         }
                     }
                 }
-
-
-                //ModelMapping mm = new ModelMapping();
-                //modelId = mm.GetModelId(Request.QueryString["bikem"]);
-                //Trace.Warn( "Model Name : ",Request.QueryString["bikem"]);
-                //Trace.Warn("model name id :", modelId);
-                //verify the id as passed in the url
                 if (CommonOpn.CheckId(modelId) == false)
                 {
                     //redirect to the error page
@@ -160,7 +169,7 @@ namespace Bikewale.Content
             if (Request["version"] != null && Request.QueryString["version"] != "")
             {
                 versionId = Request.QueryString["version"];
-                Trace.Warn("modelId " + versionId);
+
 
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(versionId) == false)
@@ -172,88 +181,130 @@ namespace Bikewale.Content
                     this.Page.Visible = false;
                 }
             }
-            Trace.Warn("start post back ");
+
 
             if (objResponse != null && objResponse.StatusCode != 404)
             {
+
                 if (!IsPostBack)
                 {
-                    //objBike = new MakeModelVersion();
+                    cityid = Convert.ToUInt32(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
 
-                    //  ModelStartPrice = objBike.GetModelStartingPrice(modelId);
-                    ModelVersionDescription objBike;
+                    BindUserReviews objBike = new BindUserReviews();
+                    objReview = new ReviewDetailsEntity();
                     if (modelId != "")
                     {
-                        objBike = new ModelVersionDescription();
-                        objBike.GetDetailsByModel(modelId);
-                        ModelStartPrice = objBike.ModelBasePrice;
 
-                        BikeName = objBike.BikeName;
-                        LargePic = objBike.LargePic;
+                        objReview = objBike.GetDetailsByModel(Convert.ToInt32(modelId), cityid);
 
-                        RatingOverall = objBike.ModelRatingOverall;
-                        RatingLooks = objBike.ModelRatingLooks;
-                        RatingPerformance = objBike.ModelRatingPerformance;
-                        RatingComfort = objBike.ModelRatingComfort;
-                        RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
-                        RatingValueForMoney = objBike.ModelRatingValueForMoney;
-
-                        MakeName = objBike.MakeName;
-                        ModelName = objBike.ModelName;
-                        ModelMaskingName = objBike.ModelMaskingName;
-                        MakeMaskingName = objBike.MakeMaskingName;
-                        HostUrl = objBike.HostUrl;
-                        IsNew = objBike.IsNew;
-                        IsUsed = objBike.IsUsed;
-                        OriginalImagePath = objBike.OriginalImagePath;
-                        Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
                     }
                     else
                     {
-                        objBike = new ModelVersionDescription();
-                        objBike.GetDetailsByVersion(versionId);
-                        ModelStartPrice = objBike.ModelBasePrice;
-                        BikeName = objBike.BikeName;
-                        LargePic = objBike.LargePic;
-                        RatingOverall = objBike.ModelRatingOverall;
-                        RatingLooks = objBike.ModelRatingLooks;
-                        RatingPerformance = objBike.ModelRatingPerformance;
-                        RatingComfort = objBike.ModelRatingComfort;
-                        RatingFuelEconomy = objBike.ModelRatingFuelEconomy;
-                        RatingValueForMoney = objBike.ModelRatingValueForMoney;
-
-                        MakeName = objBike.MakeName;
-                        ModelName = objBike.ModelName;
-                        ModelMaskingName = objBike.ModelMaskingName;
-                        MakeMaskingName = objBike.MakeMaskingName;
-                        HostUrl = objBike.HostUrl;
-                        IsNew = objBike.IsNew;
-                        IsUsed = objBike.IsUsed;
-                        OriginalImagePath = objBike.OriginalImagePath;
-                        Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
+                        objReview = objBike.GetDetailsByVersion(Convert.ToInt32(versionId), cityid);
                     }
 
-                    Trace.Warn("RatingOverall : " + RatingOverall);
+                    if (objReview != null)
+                    {
+                        ModelStartPrice = objReview.ModelBasePrice;
 
-                    // This static function bind all versions having reviews count greter then zero
-                    // for selected model.
+
+                        LargePic = objReview.LargePicUrl;
+
+                        if (objReview.ReviewRatingEntity != null)
+                        {
+                            RatingOverall = objReview.ReviewRatingEntity.OverAllRating;
+                            RatingLooks = objReview.ReviewRatingEntity.ModelRatingLooks;
+                            RatingPerformance = objReview.ReviewRatingEntity.PerformanceRating;
+                            RatingComfort = objReview.ReviewRatingEntity.ComfortRating;
+                            RatingFuelEconomy = objReview.ReviewRatingEntity.FuelEconomyRating;
+                            RatingValueForMoney = objReview.ReviewRatingEntity.ValueRating;
+                        }
+                        if (objReview.BikeEntity != null && objReview.BikeEntity.MakeEntity != null)
+                        {
+                            MakeId = Convert.ToUInt32(objReview.BikeEntity.MakeEntity.MakeId);
+                            MakeName = objReview.BikeEntity.MakeEntity.MakeName;
+                            MakeMaskingName = objReview.BikeEntity.MakeEntity.MaskingName;
+                        }
+                        if (objReview.BikeEntity != null && objReview.BikeEntity.ModelEntity != null)
+                        {
+                            ModelName = objReview.BikeEntity.ModelEntity.ModelName;
+                            ModelMaskingName = objReview.BikeEntity.ModelEntity.MaskingName;
+                            ModelReviewCount = Convert.ToInt32(objReview.BikeEntity.ReviewsCount);
+                        }
+                        BikeName = string.Format("{0} {1}", MakeName, ModelName);
+                        HostUrl = objReview.HostUrl;
+                        IsNew = objReview.New;
+                        IsUsed = objReview.Used;
+                        OriginalImagePath = objReview.OriginalImagePath;
+                        Futuristic = objReview.IsFuturistic;
+                        if (objReview.ModelSpecs != null)
+                        {
+
+                            displacement = Convert.ToDouble(objReview.ModelSpecs.Displacement);
+                            maxPower = Convert.ToDouble(objReview.ModelSpecs.MaxPower);
+                            fuelEfficency = Convert.ToDouble(objReview.ModelSpecs.FuelEfficiencyOverall);
+                            kerbWeight = Convert.ToDouble(objReview.ModelSpecs.KerbWeight);
+
+                        }
+
+                    }
+                    if (Futuristic)
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                     FillControls.FillReviewedVersions(drpVersions, modelId);
 
                     FillRepeaters();
-
-                    // Rewrite form action property with the rewritten url 
-                    // just to make url consistent
-                    // onpostback select first page
-
-
-                    //  frmMain.Action = "/content/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/userreviews-p1/";
                 }
 
                 GoogleKeywords();
+                BindControls();
+                CreatMetas();
             }
         }//pageload
+        /// <summary>
+        /// Created By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Bind metas
+        /// </summary>
+        private void CreatMetas()
+        {
+            pageMetas = new PageMetaTags();
+            pageMetas.Title = string.Format("User Reviews: {0} | Bikes Reviews.", BikeName);
+            pageMetas.Description = string.Format("{0} User Reviews - Read first-hand reviews of actual {0} owners. Find out what buyers of {0} have to say about the bike.", BikeName);
+            pageMetas.Keywords = string.Format("{0} reviews, {0} Users Reviews, {0} customer reviews, {0} customer feedback, {0} owner feedback, user bike reviews, owner feedback, consumer feedback, buyer reviews", BikeName);
+            pageMetas.AlternateUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/m/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/m/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
+            pageMetas.CanonicalUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
+
+        }
+        /// <summary>
+        /// Created By :-Subodh Jain 17 Jan 2017
+        /// Summary :- To bind wigets
+        /// </summary>
+        private void BindControls()
+        {
+            try
+            {
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+                ctrlPopularBikes.MakeId = Convert.ToInt32(MakeId);
+                ctrlPopularBikes.makeMasking = MakeMaskingName;
+                ctrlPopularBikes.makeName = MakeName;
+
+                ctrlUserReviewSimilarBike.ModelId = Convert.ToUInt16(modelId);
+                ctrlUserReviewSimilarBike.TopCount = 4;
 
 
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, "ListReviews.BindControls");
+            }
+        }
         void drpSort_Change(object sender, EventArgs e)
         {
             pageNumber = "1";
@@ -281,7 +332,7 @@ namespace Bikewale.Content
                 {
                     selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
                                                              cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
-                                                             cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                             cr.cons,striphtml(cr.comments) as subcomments, 
                                                              cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
                     fromClause = @" customers as cu inner join customerreviews as cr on cu.id = cr.customerid ";
@@ -302,7 +353,7 @@ namespace Bikewale.Content
 
                     selectClause = @" cr.id as reviewid, cu.name as customername, cu.id as customerid, '' as handlename, cr.styler, 
                                                               cr.comfortr, cr.performancer, cr.valuer, cr.fueleconomyr, cr.overallr, cr.pros, 
-                                                              cr.cons, substring(cr.comments,0,cast(floor(length(cr.comments)*0.15) as  unsigned int)) as subcomments, 
+                                                              cr.cons,  striphtml(cr.comments) as subcomments, 
                                                               cr.title, cr.entrydatetime, cr.liked, cr.disliked, cr.viewed, '' comments, 0 as threadid ";
 
                     fromClause = @" customers as cu   
@@ -322,11 +373,9 @@ namespace Bikewale.Content
                                                         };
 
 
-                Trace.Warn("pageNumber :  : : " + pageNumber);
+
                 if (pageNumber != "")
                     rpgReviews.CurrentPageIndex = Convert.ToInt32(pageNumber);
-
-                Trace.Warn("Testing");
                 //rpgReviews.BaseUrl = "/" + UrlRewrite.FormatSpecial(MakeName) + "-bikes/" + UrlRewrite.FormatSpecial(ModelName) + "/user-reviews/";
                 rpgReviews.BaseUrl = "/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/";
                 rpgReviews.SelectClause = selectClause;
@@ -341,12 +390,13 @@ namespace Bikewale.Content
 
                 totalReviewCount = rpgReviews.RecordCount;
 
+
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
+
                 ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             } // catch Exception
         }
 
@@ -451,7 +501,72 @@ namespace Bikewale.Content
             }
             set { ViewState["MakeName"] = value; }
         }
-
+        public double displacement
+        {
+            get
+            {
+                if (ViewState["displacement"] != null)
+                    return Convert.ToDouble(ViewState["displacement"]);
+                else
+                    return -1;
+            }
+            set { ViewState["displacement"] = value; }
+        }
+        public double maxPower
+        {
+            get
+            {
+                if (ViewState["maxPower"] != null)
+                    return Convert.ToDouble(ViewState["maxPower"]);
+                else
+                    return -1;
+            }
+            set { ViewState["maxPower"] = value; }
+        }
+        public double fuelEfficency
+        {
+            get
+            {
+                if (ViewState["fuelEfficency"] != null)
+                    return Convert.ToDouble(ViewState["fuelEfficency"]);
+                else
+                    return -1;
+            }
+            set { ViewState["fuelEfficency"] = value; }
+        }
+        public double kerbWeight
+        {
+            get
+            {
+                if (ViewState["kerbWeight"] != null)
+                    return Convert.ToDouble(ViewState["kerbWeight"]);
+                else
+                    return -1;
+            }
+            set { ViewState["kerbWeight"] = value; }
+        }
+        public bool IsDiscountinous
+        {
+            get
+            {
+                if (ViewState["IsDiscountinous"] != null)
+                    return Convert.ToBoolean(ViewState["IsDiscountinous"]);
+                else
+                    return false;
+            }
+            set { ViewState["IsDiscountinous"] = value; }
+        }
+        public bool Futuristic
+        {
+            get
+            {
+                if (ViewState["Futuristic"] != null)
+                    return Convert.ToBoolean(ViewState["Futuristic"]);
+                else
+                    return false;
+            }
+            set { ViewState["Futuristic"] = value; }
+        }
         public string ModelName
         {
             get
@@ -657,6 +772,18 @@ namespace Bikewale.Content
             }
             set { ViewState["IsUsed"] = value; }
         }
+        public int ModelReviewCount
+        {
+            get
+            {
+                if (ViewState["ModelReviewCount"] != null)
+                    return Convert.ToInt32(ViewState["ModelReviewCount"]);
+                else
+                    return -1;
+            }
+            set { ViewState["ModelReviewCount"] = value; }
+        }
+
 
         public string ShortCriteria
         {

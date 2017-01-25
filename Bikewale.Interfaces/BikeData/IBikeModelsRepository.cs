@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.UserReviews;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,6 +17,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description by : Added GetMostPopularBikesbyMakeCity method
     /// Modified By : Sushil Kumar on 5th Jan 2016
     /// Description : To get similar bikes with photos count
+    /// Modified By :- Subodh Jain 17 Jan 2017
+    /// Description :- Added GetUserReviewSimilarBike,GetDetailsByModel,GetDetailsByVersion,GetDetails
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -33,6 +36,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
+        IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         /// <summary>
         /// To Get Overall Most Popular Bikes
         /// </summary>
@@ -56,5 +60,8 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelContent GetRecentModelArticles(U modelId);
         ModelPhotos GetModelPhotoInfo(U modelId);
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
+        ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
+        ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
+        ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
     }
 }

@@ -8,6 +8,8 @@ namespace Bikewale.Mobile.New.Photos
     /// <summary>
     /// Created By : Sushil Kumar on 6th Jan 2017
     /// Description : Added new page for photos page and bind modelgallery,videos and generic bike info widgets
+    /// Modified by : Aditi Srivastava on 23 Jan 2017
+    /// summary     : Removed Isupcoming flag(added in common viewmodel) 
     /// </summary>
     public class Default : System.Web.UI.Page
     {
@@ -17,21 +19,35 @@ namespace Bikewale.Mobile.New.Photos
         protected BindModelPhotos vmModelPhotos = null;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
-        protected bool isUpcoming = false, isDiscontinued = false;
-
+        protected bool isDiscontinued = false;
+        protected bool isModelPage;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 20 jan 2017
+        /// Summary :- model page photo bind condition added in query string
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            {
+                isModelPage = true;
+            }
             BindPhotosPage();
+
+
         }
 
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2017
         /// Description : Bind photos page with metas,photos and widgets
+        /// Modified By :- Subodh jain 20 jan 2017
+        /// Summary :- Added ismodel page flag for gallery binding
         /// </summary>
         private void BindPhotosPage()
         {
@@ -40,9 +56,9 @@ namespace Bikewale.Mobile.New.Photos
                 vmModelPhotos = new BindModelPhotos();
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
+                    vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
                     isDiscontinued = vmModelPhotos.IsDiscontinued;
-                    isUpcoming = vmModelPhotos.IsUpcoming;
                     BindModelPhotosPageWidgets();
                 }
             }
@@ -95,10 +111,8 @@ namespace Bikewale.Mobile.New.Photos
                     ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                 }
 
-                if (!isUpcoming)
-                {
-                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
-                }
+                ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+
 
             }
 

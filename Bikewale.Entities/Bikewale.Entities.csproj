@@ -211,6 +211,7 @@
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
+    <Compile Include="GenericBikes\BikeRankingEntity.cs" />
     <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="GenericBikes\GenericBikeInfo.cs" />
     <Compile Include="HomePage\HomePageBannerEntity.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="UserReviews\BikeUserReviewRating.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />

@@ -184,9 +184,7 @@ $(document).ready(function () {
                 vmSellBike.bikeDetails().cityId(cookieCityId);
                 vmSellBike.bikeDetails().city(cookieCityName);
             }
-
         }
-
         ko.applyBindings(vmSellBike, document.getElementById('sell-bike-content'));
         sellLoader.close();
         $("section").show();
@@ -194,7 +192,11 @@ $(document).ready(function () {
         console.warn(e);
     }
     sellLoader.close();
-
+    var obj = GetGlobalLocationObject();
+    if (obj != null) {
+        vmSellBike.bikeDetails().cityId(obj.CityId);
+        vmSellBike.bikeDetails().city(obj.CityName);
+    }
 });
 
 
@@ -387,6 +389,12 @@ var sellBike = function () {
             self.verificationDetails().status(false);
         };
     };
+    self.photoUploadValidUrl = ko.pureComputed(function () {
+        if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
+            var photoValidUrl = "/api/used/" + self.profileId() + "/image/validate/?isMain=false&extension=";
+        }
+        return photoValidUrl;
+    });
 
     self.photoUploadUrl = ko.pureComputed(function () {
         if (self.inquiryId() > 0 && self.personalDetails() && self.personalDetails().sellerTypeVal()) {
@@ -405,13 +413,14 @@ var sellBike = function () {
                     maxFiles: 10,
                     addRemoveLinks: true,
                     acceptedFiles: ".png, .jpg, .jpeg",
-                    url: self.photoUploadUrl(),
+                    url: self.photoUploadValidUrl(),
                     headers: { "customerId": self.customerId() },
                     init: function () {
                         var myDropzone = this;
                         myDropzone.itemId = self.inquiryId();
                         myDropzone.photoIdGenerateUrl = self.photoUploadUrl();
                         myDropzone.customerId = self.customerId();
+                        myDropzone.profileId = self.profileId();
                         $(self.serverImg()).each(function (i) {
                             var uF = { name: this.id, size: 12345 };
                             myDropzone.files.push(uF)
@@ -1450,6 +1459,7 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
+    alert('222');
     try {
         if (isEdit != "True") {
             $('#city-search-box').val("");

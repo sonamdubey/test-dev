@@ -143,7 +143,8 @@
         self.areaFilter = ko.observable("");
         self.hasAreas = ko.observable();
         self.LoadingText = ko.observable("Loading...");
-
+        self.DealerId = ko.observable();
+        self.VersionId = ko.observable();
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -183,7 +184,8 @@
                 self.PageSourceId = options.pagesrcid || "";
                 self.IsPersistance(options.ispersistent || false);
                 self.IsReload(options.isreload || false);
-
+                self.DealerId(options.dealerid || 0);
+                self.VersionId(options.versionid || 0);
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
@@ -192,6 +194,12 @@
 
 
                 gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+            }
+        };
+
+        self.createMPQ = function (pqId) {
+            if (self.SelectedCityId() && self.SelectedModelId() && self.VersionId() && pqId) {
+                return btoa("CityId=" + self.SelectedCityId() + "&AreaId=" + +self.SelectedAreaId() +"&PQId=" + pqId +"&VersionId=" + self.VersionId() + "&DealerId=" + self.DealerId());
             }
         };
 
@@ -207,7 +215,7 @@
                     "ModelId":self.SelectedModelId(),
                     "ClientIP":"<%= ClientIP %>",
                     "SourceType":"2",
-                    "VersionId":0,
+                    "VersionId": self.VersionId(),
                     "pQLeadId":self.PageSourceId,
                     'deviceId': getCookie('BWC'),
                     'isPersistance' : self.IsPersistance()  ,
@@ -288,7 +296,9 @@
                                 gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                             else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel); 
                                     
-
+                            if (self.DealerId() > 0 && _responseData.qStr.length) {
+                                    _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
+                                }
                             if(!self.IsReload() && _responseData.qStr!='')
                             {                                          
                                 window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
@@ -445,9 +455,9 @@
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
                 onCookieObj.PQCitySelectedId = parseInt(cData[0]) || 0;
-                onCookieObj.PQCitySelectedName = cData[1] || "";
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]) || 0;
-                onCookieObj.PQAreaSelectedName = cData[3] || "";
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
             }
         }
     }

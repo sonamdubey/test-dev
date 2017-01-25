@@ -33,22 +33,25 @@ namespace Bikewale.BikeBooking
     /// Modified By : Sangram Nandkhile
     /// Modified On : 15 Dec 2016
     /// Description : Better designed dealer property, removed unnecessary code
+    /// Modified By  : Sushil Kumar on 11th Jan 2016
+    /// Description : Added dealerscard to page  and related variables
     /// </summary>
     public class DealerPriceQuote : System.Web.UI.Page
     {
         #region Variables
 
-        protected GlobalCityAreaEntity CityArea { get; set; }
+        protected GlobalCityAreaEntity CityArea = null;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ;
         protected PQ_QuotationEntity objPrice = null;
+        protected DealerCard ctrlDealers;
         protected List<VersionColor> objColors = null;
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected NewAlternativeBikes ctrlAlternativeBikes;
         protected EMI _objEMI;
         protected string bikeName = string.Empty, bikeVersionName = string.Empty, minspecs = string.Empty, pageUrl = string.Empty, clientIP = CommonOpn.GetClientIP(),
-            location = string.Empty, leadBtnLargeText = "Get offers from dealer", dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58";
+            location = string.Empty, leadBtnLargeText = "Get offers from dealer", dealerName, dealerArea, dealerAddress, makeName, modelName, versionName, mpqQueryString, pq_leadsource = "34", pq_sourcepage = "58", currentCity = string.Empty, currentArea = string.Empty;
 
         protected uint totalPrice = 0, offerCount = 0, bookingAmount, dealerId = 0, cityId = 0, versionId = 0, pqId = 0, areaId = 0, insuranceAmount = 0, totalDiscount = 0, modelId = 0;
         protected bool isBWPriceQuote, isPrimaryDealer, IsInsuranceFree, isUSPBenfits, isoffer, isEMIAvailable, IsDiscount, isSecondaryDealerAvailable = false, isPremium, isStandard, isDeluxe;
@@ -62,8 +65,13 @@ namespace Bikewale.BikeBooking
         private IPriceQuote objPriceQuote = null;
         protected BikeQuotationEntity objQuotation = null;
         protected IEnumerable<PQ_Price> primaryPriceList = null;
-
+        private readonly ModelHelper modelHelper = null;
         #endregion Variables
+
+        public DealerPriceQuote()
+        {
+            modelHelper = new ModelHelper();
+        }
 
         #region events
 
@@ -88,9 +96,10 @@ namespace Bikewale.BikeBooking
                 BindVersion();
                 hdnVariant.Value = versionId.ToString();
                 SetDealerPriceQuoteDetail(cityId, versionId, dealerId);
+                CityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
                 location = GetLocationCookie();
-                BindAlternativeBikeControl(versionId.ToString());
                 mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), Convert.ToString(areaId), Convert.ToString(versionId), Convert.ToString(dealerId)));
+                BindPageWidgets();
             }
             else
             {
@@ -98,6 +107,48 @@ namespace Bikewale.BikeBooking
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Bind page related widgets
+        /// </summary>
+        private void BindPageWidgets()
+        {
+
+            try
+            {
+                if (objVersionDetails != null)
+                {
+                    ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
+                    ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
+                    ctrlAlternativeBikes.cityId = cityId;
+
+                    if (objVersionDetails.ModelBase != null)
+                    {
+                        ctrlAlternativeBikes.model = objVersionDetails.ModelBase.ModelName;
+
+                        if (ctrlDealers != null && objVersionDetails.MakeBase != null)
+                        {
+                            ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
+                            ctrlDealers.CityId = cityId;
+                            ctrlDealers.IsDiscontinued = false;
+                            ctrlDealers.TopCount = 3;
+                            ctrlDealers.ModelId = modelId;
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_Dealerpricequote_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, CityArea != null ? "in " + CityArea.City : string.Empty);
+                            ctrlDealers.pageName = "DealerPriceQuote_Page";
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BikeBooking.Dealerpricequote.BindPageWidgets");
+            }
+
         }
 
         #endregion
@@ -315,23 +366,6 @@ namespace Bikewale.BikeBooking
         }
 
         /// <summary>
-        /// Description : To bind alternative bikes controle.
-        /// </summary>
-        /// <param name="versionId"></param>
-        private void BindAlternativeBikeControl(String versionId)
-        {
-            ctrlAlternativeBikes.TopCount = 9;
-
-            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
-            {
-                ctrlAlternativeBikes.VersionId = Convert.ToUInt32(versionId);
-                ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
-                ctrlAlternativeBikes.cityId = cityId;
-                ctrlAlternativeBikes.model = modelName;
-            }
-        }
-
-        /// <summary>
         /// Modified By : Sushil Kumar on 18th March 2016
         /// Description : Changed finally section from code as no check was made for objPQOutput == null
         /// Modified By : Vivek Gupta on 29-04-2016
@@ -394,27 +428,55 @@ namespace Bikewale.BikeBooking
         /// Description : To set user location
         /// Modified By : Aditi srivastava on 17 Nov 2016
         /// Description : get city area name from global city
+        /// Modified By :Sushil Kumar on 12th Jan 2017
+        /// Description : To set city area from bikewale common utility function
         /// </summary>
         /// <returns></returns>
-
         private string GetLocationCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+
+            try
             {
-                location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
-                string[] arr = location.Split('_');
-                if (arr.Length > 0)
+                IEnumerable<Entities.Location.CityEntityBase> cities = modelHelper.GetCitiesByModelId(modelId);
+
+                if (cities != null)
                 {
-                    if (arr.Length > 2)
+                    Entities.Location.CityEntityBase city = cities.FirstOrDefault(m => m.CityId == cityId);
+                    currentCity = city != null ? city.CityName : String.Empty;
+
+                    IEnumerable<Entities.Location.AreaEntityBase> areas = modelHelper.GetAreaForModelAndCity(modelId, cityId);
+                    if (areas != null)
                     {
-                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                        Entities.Location.AreaEntityBase area = areas.FirstOrDefault(m => m.AreaId == areaId);
+                        if (area != null)
+                        {
+                            currentArea = area != null ? area.AreaName : String.Empty;
+                        }
                     }
-                    return String.Format("<span>{0}</span>", arr[1]);
+
+                }
+                if (!string.IsNullOrEmpty(currentCity))
+                {
+                    if (!string.IsNullOrEmpty(currentArea))
+                    {
+                        location = String.Format("<span>{0}</span>, <span>{1}</span>", currentArea, currentCity);
+                    }
+                    else
+                    {
+                        location = String.Format("<span>{0}</span>", currentCity);
+                    }
                 }
             }
-            return string.Empty;
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BikeBooking.Dealerpricequote.GetLocationCookie");
+            }
+
+            return location;
         }
+
+
 
         /// <summary>
         /// Created By : Sushil Kumar

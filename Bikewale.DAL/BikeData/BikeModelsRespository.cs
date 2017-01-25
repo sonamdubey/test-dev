@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -1394,5 +1395,280 @@ namespace Bikewale.DAL.BikeData
             }
             return SimilarBikeInfoList;
         }
+
+
+        /// <summary>
+        /// Modified By : Suresh Prajapati on 22 Aug 2014
+        /// Summary : to retrieve isnew and isused flag
+        /// Modified By :- Subodh Jain 17 Jan 2017
+        /// Summary :- shift function to dal layer
+        /// </summary>
+        /// <param name="modelId"></param>
+        public ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId)
+        {
+            ReviewDetailsEntity objReview = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription_12012017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objReview = new ReviewDetailsEntity();
+                            objReview.ModelSpecs = new MinSpecsEntity();
+                            objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                            objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["MakeName"]);
+                            objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["ModelName"]);
+                            objReview.BikeEntity.ModelEntity.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                            objReview.HostUrl = Convert.ToString(dr["HostURL"]);
+                            objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                            objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                            objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                            objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                            objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                            objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                            objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
+                            objReview.BikeEntity.ReviewsCount = Convert.ToUInt32(dr["ReviewCount"]);
+
+                            objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
+                            objReview.New = Convert.ToBoolean(dr["New"]);
+                            objReview.Used = Convert.ToBoolean(dr["Used"]);
+                            objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
+                            objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
+                            objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                            objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
+                            objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
+                            objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
+                            objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", modelId));
+            }
+            return objReview;
+        }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- shifted function to dal layer
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId)
+        {
+            ReviewDetailsEntity objReview = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversiondescription_13012017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objReview = new ReviewDetailsEntity();
+                            objReview.ModelSpecs = new MinSpecsEntity();
+                            objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                            objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["MakeName"]);
+                            objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["ModelName"]);
+                            objReview.BikeEntity.ModelEntity.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                            objReview.HostUrl = Convert.ToString(dr["HostURL"]);
+                            objReview.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                            objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                            objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                            objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                            objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                            objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                            objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
+                            objReview.BikeEntity.ReviewsCount = Convert.ToUInt32(dr["ReviewCount"]);
+
+                            objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
+                            objReview.New = Convert.ToBoolean(dr["New"]);
+                            objReview.Used = Convert.ToBoolean(dr["Used"]);
+                            objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
+                            objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
+                            objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                            objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
+                            objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
+                            objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
+                            objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
+
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("ModelVersionDescription.GetDetailsByModel_modelid_{0}", versionId));
+            }
+            return objReview;
+        }
+        /// <summary>
+        /// Created by Subodh Jain 17 jan 2017
+        /// Desc Get User Review Similar Bike
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount)
+        {
+            IList<BikeUserReviewRating> objUserreview = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("similarbikebyuserreviews"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            objUserreview = new List<BikeUserReviewRating>();
+
+                            while (dr.Read())
+                            {
+                                objUserreview.Add(new BikeUserReviewRating()
+                                {
+                                    OverAllRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]),
+                                    ModelMaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                    MakeMaksingName = Convert.ToString(dr["makemaskingname"]),
+                                    OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    ReviewCounting = SqlReaderConvertor.ParseToDouble(dr["ReviewCount"]),
+                                    ModelName = Convert.ToString(dr["modelname"]),
+                                    MakeName = Convert.ToString(dr["makename"])
+                                });
+
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetUserReviewSimilarBike_modelid_{0}_topcount_{1}", modelId, topCount));
+
+            }
+            return objUserreview;
+        }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- shifted function to dal layer
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        /// <returns></returns>
+        public ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed)
+        {
+            string sql = "";
+            ReviewDetailsEntity objReview = null;
+            try
+            {
+                if (!string.IsNullOrEmpty(reviewId))
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        DbCommand cmd1 = cmd;
+                        if (isAlreadyViewed)
+                        {
+                            //update the viewd count by 1
+                            sql = " update customerreviews set viewed = ifnull(viewed, 0) + 1 where id = @v_reviewid";
+                            cmd.CommandText = sql;
+
+
+                            cmd.Parameters.Add(DbFactory.GetDbParam("@v_reviewid", DbType.Int64, reviewId));
+
+                            MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+
+                        }
+
+                        cmd1.CommandType = CommandType.StoredProcedure;
+                        cmd1.CommandText = "getcustomerreviewinfo_16012017";
+                        cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
+
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd1, ConnectionType.ReadOnly))
+                        {
+                            if (dr != null && dr.Read())
+                            {
+                                objReview = new ReviewDetailsEntity();
+
+                                objReview.BikeEntity.VersionEntity.VersionName = Convert.ToString(dr["Version"]);
+                                objReview.BikeEntity.VersionEntity.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
+                                objReview.ReviewEntity.Comments = Convert.ToString(dr["Comments"]);
+                                objReview.ReviewEntity.Cons = Convert.ToString(dr["Cons"]);
+                                objReview.ReviewEntity.Disliked = SqlReaderConvertor.ToUInt16(dr["Disliked"]);
+                                objReview.ReviewEntity.Liked = SqlReaderConvertor.ToUInt16(dr["Liked"]);
+                                objReview.ReviewEntity.Pros = Convert.ToString(dr["Pros"]);
+                                objReview.ReviewEntity.ReviewDate = Convert.ToDateTime(dr["EntryDateTime"]);
+                                objReview.ReviewEntity.ReviewTitle = Convert.ToString(dr["Title"]);
+                                objReview.ReviewEntity.WrittenBy = Convert.ToString(dr["CustomerName"]);
+                                objReview.ReviewEntity.Viewed = Convert.ToUInt32(dr["viewed"]);
+                                objReview.ModelSpecs = new MinSpecsEntity();
+                                objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["Make"]);
+                                objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["Model"]);
+                                objReview.BikeEntity.ModelEntity.ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]);
+                                objReview.BikeEntity.ModelEntity.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                objReview.BikeEntity.MakeEntity.MaskingName = Convert.ToString(dr["makemaskingname"]);
+
+                                objReview.ReviewRatingEntity.ModelRatingLooks = SqlReaderConvertor.ToFloat(dr["Looks"]);
+                                objReview.ReviewRatingEntity.PerformanceRating = SqlReaderConvertor.ToFloat(dr["Performance"]);
+                                objReview.ReviewRatingEntity.ComfortRating = SqlReaderConvertor.ToFloat(dr["Comfort"]);
+                                objReview.ReviewRatingEntity.ValueRating = SqlReaderConvertor.ToFloat(dr["ValueForMoney"]);
+                                objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
+                                objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
+                                objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
+                                objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
+                                objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
+                                objReview.New = Convert.ToBoolean(dr["new"]);
+                                objReview.Used = Convert.ToBoolean(dr["used"]);
+                                objReview.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
+                                objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
+                                objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
+                                objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
+                                dr.Close();
+                            }
+                        }
+
+
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, string.Format(" ModelVersionDescription.GetDetails_ReviewId_{0}", reviewId));
+
+            } // catch Exception
+            return objReview;
+        }
+
+
     }   // class
 }   // namespace

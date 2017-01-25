@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
@@ -10,6 +11,7 @@ using Bikewale.DAL.Location;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -18,6 +20,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,6 +30,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
+    /// <summary>
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
+    /// </summary>
     public class ModelPricesInCity : System.Web.UI.Page
     {
         protected ModelPriceInNearestCities ctrlTopCityPrices;
@@ -41,7 +48,7 @@ namespace Bikewale.Mobile.New
         protected string areaName = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area;
         string redirectUrl = string.Empty;
         private bool redirectToPageNotFound = false, redirectPermanent = false;
-        protected bool isAreaAvailable, isDiscontinued;
+        protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
         protected UsedBikes ctrlRecentUsedBikes;
         protected DealersEntity _dealers = null;
@@ -49,6 +56,9 @@ namespace Bikewale.Mobile.New
         protected int colourCount = 0;
         protected string pageDescription;
         protected ServiceCenterCard ctrlServiceCenterCard;
+        protected BikeRankingEntity bikeRankObj;
+        protected ChangeLocationPopup ctrlChangeLocation;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -62,11 +72,16 @@ namespace Bikewale.Mobile.New
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified By :-Aditi Srivastava on 13 Jan 2017
+        /// Summary :- Added generic bike listing slug
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Moved function related to widgets binding and getdealercount
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
+            CheckLocationCookie();
             if (redirectToPageNotFound || redirectPermanent)
             {
                 DoPageNotFounRedirection();
@@ -74,6 +89,23 @@ namespace Bikewale.Mobile.New
             else
             {
                 FetchVersionPrices();
+                GetDealerCount();
+                ColorCount();
+                BindDescription();
+                GetBikeRankingCategory(modelId);
+                BindPageWidgets();
+
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Bind page related widgets and location change prompt
+        /// </summary>
+        private void BindPageWidgets()
+        {
+            try
+            {
                 ctrlTopCityPrices.ModelId = modelId;
                 ctrlTopCityPrices.CityId = cityId;
                 ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
@@ -94,7 +126,16 @@ namespace Bikewale.Mobile.New
                 ctrlLeadCapture.ModelId = modelId;
                 ctrlLeadCapture.AreaId = 0;
 
-                BindAlternativeBikeControl();
+                ctrlAlternateBikes.TopCount = 9;
+                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
+                ctrlAlternateBikes.WidgetTitle = bikeName;
+                ctrlAlternateBikes.modelName = modelName;
+                ctrlAlternateBikes.IsPriceInCity = true;
+                ctrlAlternateBikes.CityName = cityName;
+                ctrlAlternateBikes.CityId = cityId;
+
+                if (firstVersion != null)
+                    ctrlAlternateBikes.VersionId = firstVersion.VersionId;
 
                 ctrlRecentUsedBikes.MakeId = makeId;
                 ctrlRecentUsedBikes.ModelId = modelId;
@@ -112,6 +153,28 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
 
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.ModelPricesInCity-BindPageWidgets");
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Get dealer count by make and city
+        /// </summary>
+        private void GetDealerCount()
+        {
+            try
+            {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
@@ -123,10 +186,30 @@ namespace Bikewale.Mobile.New
 
                     dealerCount = _dealers.TotalCount;
                 }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.ModelPricesInCity-GetDealerCount");
+            }
+        }
 
-                ColorCount();
-                BindDescription();
 
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 13 Jan 2017
+        /// Description: To get model ranking details
+        /// </summary>
+        /// <param name="modelId"></param>
+        private void GetBikeRankingCategory(uint modelId)
+        {
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            bikeRankingSlug.ModelId = modelId;
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
+            if (bikeRankObj != null)
+            {
+                styleName = bikeRankingSlug.StyleName;
+                rankText = bikeRankingSlug.RankText;
+                bikeType = bikeRankingSlug.BikeType;
             }
         }
         /// <summary>
@@ -386,20 +469,6 @@ namespace Bikewale.Mobile.New
             return _cityId;
         }
 
-        private void BindAlternativeBikeControl()
-        {
-            ctrlAlternateBikes.TopCount = 9;
-            ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PriceInCity_AlternateBikes;
-            ctrlAlternateBikes.WidgetTitle = bikeName;
-            ctrlAlternateBikes.modelName = modelName;
-            ctrlAlternateBikes.IsPriceInCity = true;
-            ctrlAlternateBikes.CityName = cityName;
-            ctrlAlternateBikes.CityId = cityId;
-
-            if (firstVersion != null)
-                ctrlAlternateBikes.VersionId = firstVersion.VersionId;
-        }
-
         public void BindDescription()
         {
             char multiVersion = '\0', multiDealer = '\0';
@@ -434,6 +503,18 @@ namespace Bikewale.Mobile.New
                     pageDescription = discontinuedDescription;
             }
         }
-
+        /// <summary>
+        /// Created By : Sangram Nandkhile 
+        /// Created On : 16th Jan 2016
+        /// Read location cookie values and set flag
+        /// </summary>
+        private void CheckLocationCookie()
+        {
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            if (currentCityArea.CityId > 0 && currentCityArea.CityId == cityId && currentCityArea.AreaId > 0)
+            {
+                isAreaSelected = true;
+            }
+        }
     }   // class
 }

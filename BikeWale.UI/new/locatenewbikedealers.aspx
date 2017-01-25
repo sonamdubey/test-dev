@@ -217,7 +217,7 @@
                     if (!isNaN(ddlmakeId) && ddlmakeId != "0") {
                         if (!isNaN(ddlcityId) && ddlcityId != "0") {
                             ddlcityMasking = $("#ddlCities option:selected").attr("maskingName");
-                            //window.location.href = "/new/" + ddlmakemasking + "-dealers/" + ddlcityId + "-" + ddlcityMasking + ".html";
+                            bwcache.remove("userchangedlocation", true);
                             window.location.href = "/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking+ "/";
                         }
                         else {
@@ -286,6 +286,10 @@
                     $.each(optList, function (i, value) {
                         $ddlCities.append($('<option>').text(value.cityName).attr({ 'value': value.cityId, 'maskingName': value.cityMaskingName }));
                     });
+                    var obj = GetGlobalLocationObject();
+                    if (obj != null) {
+                        $ddlCities.val(obj.CityId);
+                    }
                 }
 
                 $ddlCities.trigger('chosen:updated');

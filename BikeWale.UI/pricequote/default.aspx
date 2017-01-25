@@ -275,6 +275,10 @@
         if (modelId != undefined) {
             $('#hdn_ddlModel').val(modelId);
             FillCities(modelId);
+            var obj = GetGlobalLocationObject();
+            if (obj != null) {
+                $('#ddlCity').val(obj.CityId).trigger('chosen:updated');
+            }
         }
         else {
             viewModel.cities([]);
@@ -308,11 +312,9 @@
                     viewModel.cities([]);
                     viewModel.areas([]);
                 }
-
             }
         });
     }
-
 
     function UpdateArea() {
         var cityId = viewModel.selectedCity();
@@ -364,9 +366,9 @@
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
                 onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-                onCookieObj.PQAreaSelectedName = cData[3];
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
 
             }
         }

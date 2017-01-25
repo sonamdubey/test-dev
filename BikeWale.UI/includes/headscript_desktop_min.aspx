@@ -49,3 +49,7 @@
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+
+<!--[if lt IE 9]>
+    <script src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/html5.js?<%= staticFileVersion %>"></script>
+<![endif]-->

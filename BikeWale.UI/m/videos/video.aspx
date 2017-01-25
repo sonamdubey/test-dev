@@ -56,9 +56,6 @@
                         <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
                             <span class="social-icons-sprite gplus-icon"></span>
                         </li>
-                        <%--<li class="mail-container rounded-corner2 text-center share-btn" data-attr="ml">
-                            <span class="social-icons-sprite mail-icon"></span>
-                        </li>--%>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -84,7 +81,7 @@
                         url = 'https://plus.google.com/share?url=';
                         break;
                     case 'wp':
-                        var text = document.getElementsByTagName("title")[0].innerHTML;//$(this).attr("data-text");
+                        var text = document.getElementsByTagName("title")[0].innerHTML;
                         var message = encodeURIComponent(text) + " - " + encodeURIComponent(cururl);
                         var whatsapp_url = "whatsapp://send?text=" + message;
                         url = whatsapp_url;

@@ -223,7 +223,10 @@
                 selMakeId = $(this).attr("makeId");
                 getCities(selMakeId);
                 $(".user-input-box").animate({ 'left': '100%' }, 500);
-
+                var obj = GetGlobalLocationObject();
+                if (obj != null) {
+                   selectCityObject(obj.CityId);
+                }
             });
 
             $ddlCities.on("click", "li", function () {
@@ -294,7 +297,6 @@
                         data = lscache.get(key + mId);
                         setOptions(data);
                     }
-
                 }
             }
 
@@ -304,6 +306,7 @@
                 if (!isNaN(selMakeId) && selMakeId != "0") {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         ddlcityMasking = $ddlCities.find("li.activeCity").attr("cityMaskingName");
+                        bwcache.remove("userchangedlocation", true);
                         window.location.href = "/m/" + ddlmakemasking + "-dealer-showrooms-in-" + ddlcityMasking + "/";
                     }
                     else {
@@ -402,6 +405,16 @@
                 return this; // maintain jQuery chainability
             }
 
+            function selectCityObject(cityId) {
+                var cityObj = {};
+                $("#sliderCityList > li").each(function () {
+                    if ($(this).attr('cityid') == cityId) {
+                        $(this).trigger('click');
+                        return false;
+                    }
+                });
+                return cityObj;
+            }
         </script>
     </form>
 </body>

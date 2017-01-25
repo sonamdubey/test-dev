@@ -29,6 +29,8 @@ namespace Bikewale.Mobile.New
     /// Class to show the bike dealers details
     /// Modified by : Aditi Srivastava on 5 Dec 2016
     /// Description : Added widget for to change brand and city for dealers list
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class NewBikeDealerList : PageBase
     {
@@ -43,6 +45,7 @@ namespace Bikewale.Mobile.New
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected DealersInNearByCities ctrlDealerCount;
+        protected ChangeLocationPopup ctrlChangeLocation;
 
         protected override void OnInit(EventArgs e)
         {
@@ -81,10 +84,15 @@ namespace Bikewale.Mobile.New
                 }
             }
         }
+
+        /// <summary>
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
         /// Modified by : Sajal Gupta on 20-12-2016
         /// Desc : Binded Dealercount widget
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
+        /// </summary>
         private void BindUserControls()
         {
             try
@@ -120,6 +128,14 @@ namespace Bikewale.Mobile.New
                 ctrlServiceCenterCard.TopCount = 9;
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
+
+
             }
             catch (Exception ex)
             {

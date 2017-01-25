@@ -2555,6 +2555,15 @@
         <member name="M:Bikewale.Service.Controllers.UsedBikes.UsedBikeSellerController.Post(System.String,System.String,System.Nullable{System.Boolean})">
             <summary>
             Created by  :   Sumit Kate on 28 Oct 2016
+            Description :   Validates the Sell Bike Image Upload Request
+            </summary>
+            <param name="profileId"></param>
+            <param name="isMain"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UsedBikes.UsedBikeSellerController.Upload(System.String,System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Created by  :   Sumit Kate on 28 Oct 2016
             Description :   Sell Bike image upload API
             </summary>
             <param name="profileId"></param>

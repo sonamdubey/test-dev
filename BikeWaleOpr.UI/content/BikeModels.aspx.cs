@@ -113,6 +113,12 @@ namespace BikeWaleOpr.Content
              }*/
         } // Page_Load
 
+        /// <summary>
+        /// modified by : Sajal Gupta on 9-1-2017
+        /// Description : Refreshed memcache popular bike makes key
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Page.Validate();
@@ -148,6 +154,14 @@ namespace BikeWaleOpr.Content
                         nvc.Add("modelName", txtModel.Text.Trim().Replace("'", "''"));
                         nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
+
+                        //CLear popularBikes key                       
+                        UInt32 makeId;
+                        UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+                        BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
                     }
 
                     if (_mc != null)
@@ -296,16 +310,16 @@ namespace BikeWaleOpr.Content
                     }
                 }
 
-                
-                    //Refresh memcache object for discontinuedbikes
-                    MemCachedUtil.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
 
-                    //Refresh memcache object for bikeModelDetails
-                    MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                //Refresh memcache object for discontinuedbikes
+                MemCachedUtil.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
 
-                    //Refresh memcache object for popularBikes change
-                    MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
-               
+                //Refresh memcache object for bikeModelDetails
+                MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+
+                //Refresh memcache object for popularBikes change
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+
 
             }
             catch (SqlException ex)
@@ -331,10 +345,21 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = true;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 9-1-2017
+        /// Desc : Refresh popular bikes memcache keys.
+        /// </summary>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
             MakeModelVersion mmv = new MakeModelVersion();
             mmv.DeleteModelVersions(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), BikeWaleAuthentication.GetOprUserId());
+            //CLear popularBikes key
+            UInt32 makeId;
+            UInt32.TryParse(cmbMakes.SelectedValue, out makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
+            BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
             BindGrid();
         }
 

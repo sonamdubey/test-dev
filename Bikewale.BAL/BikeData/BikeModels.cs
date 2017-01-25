@@ -1773,6 +1773,17 @@ namespace Bikewale.BAL.BikeData
         {
             return (modelRepository.GetModelColor(modelId));
         }
+        /// <summary>
+        /// Created by Subodh Jain 17 jan 2017
+        /// Desc Get User Review Similar Bike
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount)
+        {
+            return modelRepository.GetUserReviewSimilarBike(modelId, topCount);
+        }
 
         private List<ModelImage> GetBikeModelPhotoGalleryOldWay(U modelId)
         {

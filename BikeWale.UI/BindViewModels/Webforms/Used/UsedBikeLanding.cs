@@ -13,6 +13,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Utility;
 using Carwale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
@@ -70,6 +71,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
         }
 
+
         /// <summary>
         /// Created By: Sangram Nandkhile 06 Oct, 2016
         /// Description: get top 6 makes and remaining makes
@@ -80,6 +82,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             try
             {
                 var totalList = objUsedBikes.GetUsedBikeMakesWithCount();
+                ChangeCityLinks(totalList);
                 if (totalList != null && totalList.Count() > 0)
                 {
                     TopMakeList = totalList.Take(topcount);
@@ -91,6 +94,40 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 ErrorClass objErr = new ErrorClass(ex, "Exception : UsedBikeLandingPage.GetAllMakes");
                 objErr.SendMail();
             }
+        }
+        /// <summary>
+        /// Created By: Sangram Nandkhile on 23 Jan, 2017
+        /// Description: Create links depending on city cookie exist or not
+        /// </summary>
+        private void ChangeCityLinks(IEnumerable<UsedBikeMakeEntity> totalList)
+        {
+            GlobalCityAreaEntity cityArea = GlobalCityArea.GetGlobalCityArea();
+            if (cityArea.CityId > 0)
+            {
+                BindUsedBikesByMakeCity objBikeCity = new BindUsedBikesByMakeCity();
+                foreach (var make in totalList)
+                {
+                    IEnumerable<UsedBikeCities> UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount((uint)make.MakeId);
+                    var cityCount = UsedBikeCityCountList.FirstOrDefault(p => p.CityId == cityArea.CityId);
+                    if (cityCount != null && cityCount.BikesCount > 0)
+                    {
+                        make.Link = string.Format("/used/{0}-bikes-in-{1}/", make.MaskingName, cityCount.CityMaskingName);
+                    }
+                    else
+                    {
+                        make.Link = string.Format("/used/browse-{0}-bikes-in-cities/", make.MaskingName);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var make in totalList)
+                {
+                    make.Link = string.Format("/used/browse-{0}-bikes-in-cities/", make.MaskingName);
+                }
+
+            }
+
         }
 
         /// <summary>

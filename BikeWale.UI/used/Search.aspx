@@ -78,25 +78,12 @@
                     <div class="grid-12">
                         <div class="content-box-shadow">
                             <div class="content-box-shadow padding-14-20">
-                                <div class="grid-9 alpha">
-                                    <h1 class="font24 text-x-black"><%= heading %></h1>
-                                </div>
-                                <div id="sort-by-content" class="grid-3 omega">
-                                    <div class="sort-div rounded-corner2">
-                                        <div class="sort-by-title" id="sort-by-container">
-                                            <span class="leftfloat sort-select-btn text-truncate">Sort by</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                <div class="alpha">
+                                    <div class="grid-9">
+                                        <h1 class="font24 text-x-black"><%= heading %></h1>
                                     </div>
-                                    <div class="sort-selection-div sort-list-items hide">
-                                        <ul id="sort-listing">
-                                            <li data-sortorder="1" data-bind="click : ApplySort">Most recent</li>
-                                            <li data-sortorder="2" data-bind="click : ApplySort">Price - Low to High</li>
-                                            <li data-sortorder="3" data-bind="click : ApplySort">Price - High to Low</li>
-                                            <li data-sortorder="4" data-bind="click : ApplySort">Kms - Low to High</li>
-                                            <li data-sortorder="5" data-bind="click : ApplySort">Kms - High to Low</li>
-                                        </ul>
+                                    <div class="grid-3">
+                                        <a target="_blank" class="btn btn-teal assistance-submit-btn rightfloat" href="/used/sell/" title="Sell your bike">Sell your bike</a>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -139,11 +126,32 @@
                                     </div>
                                     <div id="listing-start-point"></div>
                                     <div class="padding-top15 padding-bottom15 text-light-grey font14 border-solid-bottom" data-bind="visible: TotalBikes() > 0">
-                                        <p style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-default text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""><%=_endIndex %></span></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+                                        <p class="grid-7 padding-top5" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-default text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""><%=_endIndex %></span></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
                                         <% if (totalListing > 0)
                                            { %>
-                                            <p data-bind="visible: OnInit()">Showing <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+                                            <p class="grid-7 padding-top5" data-bind="visible: OnInit()">Showing <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+
                                         <% } %>
+
+                                         <div id="sort-by-content" class="grid-5 omega rightfloat">
+                                        <div class="sort-div rounded-corner2">
+                                            <div class="sort-by-title" id="sort-by-container">
+                                                <span class="leftfloat sort-select-btn text-truncate">Sort by</span>
+                                                <span class="clear"></span>
+                                            </div>
+                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                        </div>
+                                        <div class="sort-selection-div sort-list-items hide">
+                                            <ul id="sort-listing">
+                                                <li data-sortorder="1" data-bind="click : ApplySort">Most recent</li>
+                                                <li data-sortorder="2" data-bind="click : ApplySort">Price - Low to High</li>
+                                                <li data-sortorder="3" data-bind="click : ApplySort">Price - High to Low</li>
+                                                <li data-sortorder="4" data-bind="click : ApplySort">Kms - Low to High</li>
+                                                <li data-sortorder="5" data-bind="click : ApplySort">Kms - High to Low</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
                                     </div>
                                     <%--<div data-bind="controlsDescendantBindings: true">--%>
                                         <% if (usedBikesList != null && totalListing > 0)
@@ -316,7 +324,7 @@
                                         <div id="filter-type-city" class="filter-block">
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
-                                            <select class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
+                                            <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
                                                  <option data-cityid="0" >All India</option>
                                                  <% if (citiesList != null)
                                                     { %>

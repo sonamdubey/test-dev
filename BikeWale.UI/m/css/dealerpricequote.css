@@ -514,3 +514,5 @@
 .model-swiper-image-preview a { width:180px; height:103px; display:block; position:relative; }
 .model-swiper-details { padding:10px 18px 20px; }
 .btn-x-sm { padding:8px 14px; color:#4d5057; }
+
+.border-divider {border-top: 1px solid #e2e2e2;}

@@ -15,6 +15,10 @@
 });
 
 $('.photos-grid-list').on('click', 'li', function () {
+    bindGallery();
+});
+var bindGallery = function ()
+{
     var clickedImg = $(this),
         imgIndex = clickedImg.index(),
         parentGridType = clickedImg.closest('.photos-grid-list');
@@ -27,7 +31,8 @@ $('.photos-grid-list').on('click', 'li', function () {
 
     gallery.open();
     window.dispatchEvent(new Event('resize'));
-    appendState('gallery');
+
+        appendState('gallery');
 
     $("#photos-tab").trigger('click');
     var clickedSlide = $('.carousel-navigation-photos .swiper-slide')[imgIndex];
@@ -35,8 +40,7 @@ $('.photos-grid-list').on('click', 'li', function () {
     $(clickedSlide).addClass('swiper-slide-active');
     galleryThumbs.slideTo(imgIndex, 500);
     galleryTop.slideTo(imgIndex, 500);
-});
-
+}
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
     $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
@@ -89,10 +93,6 @@ var galleryTop = new Swiper('.carousel-stage-photos', {
     onSlideChangeEnd: slidegalleryThumbs
 });
 
-$(".gallery-close-btn").on('click', function () {
-    gallery.close();
-    history.back();
-});
 
 var currentStagePhoto, currentStageActiveImage;
 function showImgTitle(swiper) {
@@ -137,7 +137,11 @@ var appendState = function (state) {
 
 $(window).on('popstate', function (event) {
     if ($('.model-gallery-container').is(':visible')) {
-        gallery.close();
+        if (isModelPage) {
+            window.location.href = window.location.pathname.split("photos/")[0];
+        }
+        else
+            gallery.close();
     }
 });
 

@@ -78,6 +78,35 @@
    white-space: nowrap;
    overflow: hidden;
 }
+
+/* full-width slug */
+.item-rank {
+    min-width: 30px;
+    display: block;
+    padding: 5px 2px;
+    background: #ef3f30;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+.icon-red-bg {
+    width: 30px;
+    height: 30px;
+    background: #ef3f30;
+    text-align: center;
+    padding-top: 5px;
+}
+.rank-graph {
+    width: 20px;
+    height: 20px;
+    background-position: -210px -555px;
+}
+.checkout-list-slug-label {
+    width: 90%;
+    padding-left: 15px;
+}
+
 @media only screen and (max-width:1024px) {
     #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:105px; }

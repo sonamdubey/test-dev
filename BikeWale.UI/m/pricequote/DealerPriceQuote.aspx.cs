@@ -2,18 +2,14 @@
 using Bikewale.BAL.PriceQuote;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.Location;
 using Bikewale.Common;
-using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -30,14 +26,17 @@ namespace Bikewale.Mobile.BikeBooking
     /// <summary>
     /// Modified By : Lucky Rathore
     /// Modified On : 31 March 2016
-    /// Description : Removed rptColors and GetVersionColor function.
+    /// Description : Removed rptColors and GetVersionColor function. 
+    /// Modified By  : Sushil Kumar on 11th Jan 2016
+    /// Description : Added dealerscard to page  and related variables
     /// </summary>  
     public class DealerPriceQuote : PageBase
     {
         protected Repeater rptPriceList, rptDisclaimer, rptOffers, rptDiscount, rptSecondaryDealers, rptBenefits;
         protected DropDownList ddlVersion;
+        protected DealersCard ctrlDealers;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty,leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
+        protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty, leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0, areaId = 0, modelId = 0;
         protected bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
@@ -65,6 +64,13 @@ namespace Bikewale.Mobile.BikeBooking
         protected string pq_leadsource = "35";
         protected string pq_sourcepage = "56";
         protected string hide = "";
+        private readonly ModelHelper modelHelper = null;
+
+        public DealerPriceQuote()
+        {
+            modelHelper = new ModelHelper();
+        }
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -73,6 +79,10 @@ namespace Bikewale.Mobile.BikeBooking
         /// <summary>
         /// Modified by :   Sumit Kate on 13 Oct 2016
         /// Description :   Call GetMPQCityName(), GetMPQAreaName()
+        /// Modified By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Moved binding of page related widgets to common function
+        /// Modified By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Removed unnecessary dal call to get location city and area
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -93,19 +103,17 @@ namespace Bikewale.Mobile.BikeBooking
                     BindVersion();
 
                     GetDealerPriceQuote(cityId, versionId, dealerId);
-                    BindAlternativeBikeControl(versionId);
                     mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(Convert.ToString(cityId), Convert.ToString(pqId), areaId.ToString(), Convert.ToString(versionId), Convert.ToString(dealerId)));
+                    cityArea = GetLocationCookie();
+                    BindPageWidgets();
 
-                    ctrlLeadCapture.CityId = cityId;
-                    ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
-                    ctrlLeadCapture.AreaId = 0;
                 }
                 else
                     SavePriceQuote();
 
-                cityArea = GetLocationCookie();
-                GetMPQCityName();
-                GetMPQAreaName();
+
+
+
             }
             else
             {
@@ -115,6 +123,64 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Bind page related widgets
+        /// </summary>
+        private void BindPageWidgets()
+        {
+
+            try
+            {
+                if (objVersionDetails != null)
+                {
+                    ctrlAlternateBikes.TopCount = 9;
+                    ctrlAlternateBikes.VersionId = versionId;
+                    ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
+                    ctrlAlternateBikes.CityId = cityId;
+
+                    ctrlLeadCapture.CityId = cityId;
+                    ctrlLeadCapture.AreaId = areaId;
+
+
+                    if (objVersionDetails.ModelBase != null)
+                    {
+                        ctrlAlternateBikes.modelName = objVersionDetails.ModelBase.ModelName;
+
+                        ctrlLeadCapture.ModelId = Convert.ToUInt32(objVersionDetails.ModelBase.ModelId);
+
+                        if (ctrlDealers != null && objVersionDetails.MakeBase != null)
+                        {
+                            ctrlDealers.MakeId = (uint)objVersionDetails.MakeBase.MakeId;
+                            ctrlDealers.CityId = cityId;
+                            ctrlDealers.IsDiscontinued = false;
+                            ctrlDealers.TopCount = 3;
+                            ctrlDealers.ModelId = modelId;
+                            ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_Dealerpricequote_DealersCard_GetOfferButton;
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, currentCity);
+                            ctrlDealers.PageName = "DealerPriceQuote_Page";
+                            ctrlLeadCapture.CityId = cityId;
+                            ctrlLeadCapture.ModelId = modelId;
+                            ctrlLeadCapture.AreaId = areaId;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.BikeBooking.Dealerpricequote.BindPageWidgets");
+            }
+
+        }
+
+        /// <summary>
+        /// Created By  : Sushil Kumar on 11th Jan 2016
+        /// Description : Removed binding of leadcapture control as it was used multiple times
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
         protected void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
@@ -128,9 +194,6 @@ namespace Bikewale.Mobile.BikeBooking
                     if (objPriceQuote != null)
                     {
                         BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
-                        ctrlLeadCapture.AreaId = Convert.ToUInt32(areaId);
-                        ctrlLeadCapture.CityId = cityId;
-                        ctrlLeadCapture.ModelId = Convert.ToUInt32(objPriceQuote.objModel.ModelId);
                         modelId = (objPriceQuote != null && objPriceQuote.objModel != null) ? Convert.ToUInt32(objPriceQuote.objModel.ModelId) : 0;
                         if (objPriceQuote.PrimaryDealer.DealerDetails != null)
                         {
@@ -272,9 +335,7 @@ namespace Bikewale.Mobile.BikeBooking
             }
             catch (Exception ex)
             {
-                Trace.Warn("GetDealerPriceQuote Ex: ", ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Mobile.BikeBooking.Dealerpricequote.GetDealerPriceQuote_city_{0}_versionid_{0}_modelid_{2}", cityId, versionId, modelId));
             }
         }
 
@@ -383,7 +444,6 @@ namespace Bikewale.Mobile.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             finally
             {
@@ -400,115 +460,54 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Jan 2017
+        /// Description : Modified Get location logic to form location string using global class
+        /// </summary>
+        /// <returns></returns>
         private string GetLocationCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
-            {
-                location = this.Context.Request.Cookies["location"].Value.Replace('-', ' ');
-                string[] arr = location.Split('_');
 
-                if (arr.Length > 0)
+            try
+            {
+                IEnumerable<Entities.Location.CityEntityBase> cities = modelHelper.GetCitiesByModelId(modelId);
+
+                if (cities != null)
                 {
-                    if (arr.Length > 2)
+                    Entities.Location.CityEntityBase city = cities.FirstOrDefault(m => m.CityId == cityId);
+                    currentCity = city != null ? city.CityName : String.Empty;
+
+                    IEnumerable<Entities.Location.AreaEntityBase> areas = modelHelper.GetAreaForModelAndCity(modelId, cityId);
+                    if (areas != null)
                     {
-                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
-                    }
-                    return String.Format("<span>{0}</span>", arr[1]);
-                }
-            }
-            return string.Empty;
-        }
-
-        private void BindAlternativeBikeControl(uint versionId)
-        {
-            ctrlAlternateBikes.TopCount = 9;
-
-            if (versionId > 0)
-            {
-                ctrlAlternateBikes.VersionId = versionId;
-                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
-                ctrlAlternateBikes.CityId = cityId;
-                ctrlAlternateBikes.modelName = (objPriceQuote != null && objPriceQuote.objModel != null) ? objPriceQuote.objModel.ModelName : string.Empty;
-
-            }
-        }
-
-        /// <summary>
-        /// Author          :   Sumit Kate
-        /// Created Date    :   13 Oct 2016
-        /// Description     :   Gets MPQ City Name
-        /// </summary>
-        /// <param name="modelId">Model Id</param>
-        private void GetMPQCityName()
-        {
-            if (modelId > 0 && cityId > 0)
-            {
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<ICity, CityRepository>()
-                                     .RegisterType<ICacheManager, MemcacheManager>()
-                                     .RegisterType<ICityCacheRepository, CityCacheRepository>();
-                        ICityCacheRepository objcity = container.Resolve<ICityCacheRepository>();
-                        IEnumerable<CityEntityBase> cityList = objcity.GetPriceQuoteCities(modelId);
-                        if (cityList != null)
+                        Entities.Location.AreaEntityBase area = areas.FirstOrDefault(m => m.AreaId == areaId);
+                        if (area != null)
                         {
-                            CityEntityBase selectedCity = cityList.FirstOrDefault(m => m.CityId == cityId);
-                            if (selectedCity != null)
-                            {
-                                currentCity = selectedCity.CityName;
-                            }
+                            currentArea = area != null ? area.AreaName : String.Empty;
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMPQCityName{0}", cityId));
-                    objErr.SendMail();
-                }
-            }
-        }
 
-        /// <summary>
-        /// Author          :   Sumit Kate
-        /// Created Date    :   13 Oct 2016
-        /// Description     :   Get MPQ Area name
-        /// </summary>
-        private void GetMPQAreaName()
-        {
-            if (modelId > 0 && cityId > 0 && areaId > 0)
-            {
-                try
+                }
+
+                if (!string.IsNullOrEmpty(currentCity))
                 {
-                    using (IUnityContainer container = new UnityContainer())
+                    if (!string.IsNullOrEmpty(currentArea))
                     {
-                        container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>()
-                            .RegisterType<ICacheManager, MemcacheManager>()
-                            .RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-
-                        IAreaCacheRepository objArea = container.Resolve<IAreaCacheRepository>();
-
-                        IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = objArea.GetAreaList(modelId, cityId);
-
-                        if (areaList != null)
-                        {
-                            Bikewale.Entities.Location.AreaEntityBase area = areaList.FirstOrDefault(m => m.AreaId == areaId);
-
-                            if (area != null)
-                            {
-                                currentArea = area.AreaName;
-                            }
-                        }
+                        location = String.Format("<span>{0}</span>, <span>{1}</span>", currentArea, currentCity);
+                    }
+                    else
+                    {
+                        location = String.Format("<span>{0}</span>", currentCity);
                     }
                 }
-                catch (Exception ex)
-                {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMPQAreaName{0}", areaId));
-                    objErr.SendMail();
-                }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.BikeBooking.Dealerpricequote.GetLocationCookie");
+            }
+
+            return location;
         }
 
     }   //End of class

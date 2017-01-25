@@ -30,6 +30,8 @@ namespace Bikewale.Service
     /// Class to show the bike service center listing for particular make and city.
     /// Modified By : Aditi Srivasatva on 30 Nov 2016
     /// Description : Added control to change brand and city for service centers
+    /// Modified By : Sushil Kumar on 17th Jan 2016
+    /// Description : Added chnage location prompt widget
     /// </summary>
     public class ServiceCenterList : Page
     {
@@ -44,6 +46,7 @@ namespace Bikewale.Service
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected ChangeLocationPopup ctrlChangeLocation;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -92,6 +95,8 @@ namespace Bikewale.Service
         /// Summary :- Added widget heading
         /// Modified By : Aditi Srivasatva on 19 dec 2016
         /// Description : Added widget for service centers in nearby cities
+        /// Modified By : Sushil Kumar on 17th Jan 2016
+        /// Description : Added chnage location prompt widget
         /// </summary>
         /// <returns></returns>
         private void BindUserControls()
@@ -109,7 +114,7 @@ namespace Bikewale.Service
                 ctrlBrandCity.requestType = EnumBikeType.ServiceCenter;
                 ctrlBrandCity.makeId = makeId;
                 ctrlBrandCity.cityId = cityId;
-                
+
                 ctrlNearbyServiceCenters.cityId = (int)cityId;
                 ctrlNearbyServiceCenters.cityName = cityName;
                 ctrlNearbyServiceCenters.makeId = (int)makeId;
@@ -132,11 +137,16 @@ namespace Bikewale.Service
                 ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
                 ctrlRecentUsedBikes.AdId = "1395986297721";
                 ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
+
+                if (ctrlChangeLocation != null)
+                {
+                    ctrlChangeLocation.UrlCityId = cityId;
+                    ctrlChangeLocation.UrlCityName = cityName;
+                }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.GetCityNameByCityMaskingName");
-                objErr.SendMail();
             }
         }
 
@@ -166,7 +176,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
-                objErr.SendMail();
             }
         }
 
@@ -195,7 +204,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
-                objErr.SendMail();
             }
         }
 
@@ -230,7 +238,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
-                objErr.SendMail();
             }
         }
 
@@ -264,7 +271,6 @@ namespace Bikewale.Service
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
-                    objErr.SendMail();
                     isValidMake = false;
                 }
                 finally
@@ -337,7 +343,6 @@ namespace Bikewale.Service
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ProcessQueryString for {0} makeMaskingName", makeMaskingName));
-                objErr.SendMail();
             }
             return isValidQueryString;
         }

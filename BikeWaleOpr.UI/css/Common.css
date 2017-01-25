@@ -125,7 +125,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .margin-right10 { margin-right:10px; }
 .margin-right20 { margin-right:20px; }
 .margin-top10 { margin-top:10px; }
+.margin-top20 { margin-top:20px; }
 .margin-bottom10 { margin-bottom:10px; }
+.margin-bottom20 { margin-bottom:20px; }
 .min-height600 { min-height:600px; }
 
 /* font */
@@ -248,4 +250,4 @@ a.selected:link,a.selected:visited,a.selected:hover,a.selected:focus,a.selected:
 
 /* select */
 select { border: 1px solid #888; padding:10px; border-radius: 2px; -moz-appearance: none; -webkit-appearance:none; background:#fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0;}
-
+.toast{height:17px;position:fixed;right:5%;margin-left:-100px;bottom:10px;background-color:#383838;color:#F0F0F0;padding:10px;text-align:center;border-radius:2px;font-size:13px;font-family:Segoe UI,sans-serif;-webkit-box-shadow:0 0 24px -1px rgba(56,56,56,1);-moz-box-shadow:0 0 24px -1px rgba(56,56,56,1);box-shadow:0 0 24px -1px rgba(56,56,56,1)}
