@@ -3,7 +3,7 @@
 <section>
     <div class="model-gallery-container relative-gallery-container">
         <%if(isModelPage){ %>
-        <h1 class="font16 text-white"><%=bikeName %> Photos</h1>
+        <h1 class="font16 text-white padding-top10 padding-left10"><%=bikeName %> Photos</h1>
         <%} else{ %>
         <h3 class="font16 text-white"><%=articleName %> Photos</h3>
         <%} %>
