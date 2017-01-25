@@ -41,7 +41,6 @@ namespace Bikewale.Content
         protected MostPopularBikesMin ctrlPopularBikes;
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected NewUserReviewsList ctrlUserReviews;
-        public Repeater rptMoreUserReviews;
         public PageMetaTags pageMetas;
         protected uint cityId;
         public string BikeName
@@ -304,8 +303,6 @@ namespace Bikewale.Content
                 if (reviewerId == CurrentUser.Id)
                     userLoggedIn = true;
                 ucDiscuss.Type = "review";
-
-                GetMoreReviews();
                 GoogleKeywords();
             }
 
@@ -573,34 +570,7 @@ namespace Bikewale.Content
             return returnVal;
         }
 
-        void GetMoreReviews()
-        {
-            string sql = "";
-            CommonOpn op = new CommonOpn();
 
-            try
-            {
-                sql = @" select cr.id as reviewid, cu.name as customername, cu.id as customerid,
-                        cr.title, cr.entrydatetime, liked, overallr 
-                        from  customers as cu , customerreviews as cr  
-                        where cu.id = cr.customerid and cr.isactive=1 and 
-                        cr.isverified=1 and cr.modelid = @v_modelid and cr.id <> @v_reviewid
-                        order by liked desc 
-                        limit 5";
-
-                DbParameter[] param = new[] { DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
-                    DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
-
-
-                op.BindRepeaterReader(sql, rptMoreUserReviews, param);
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
-        }
 
         string _modelStartPrice = "";
         public string ModelStartPrice
