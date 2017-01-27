@@ -223,24 +223,17 @@ var usedBikes = function () {
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
+        try {
 
-        if (isCityFilterFilled) {
-            $("#city-model-used-carousel").hide();
+            var ele = $(e.target).find("option:selected");
+            var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("-");
+            arrLocation[arrLocation.length - 1] = cityMaskingName;
+            var redirectUrl = arrLocation.join("-");
+            window.location.hash = window.location.hash.replace("city=" + ele.data("cityid"));
+            window.location.pathname = redirectUrl;
+        } catch (e) {
+            console.log("Error in city change : " + e);
         }
-
-        var ele = $(e.target).find("option:selected");
-        //if (ele) {
-        //    self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
-        //};
-        //if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
-        //else self.Filters()["city"] = "";
-
-        var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("-");
-        arrLocation[arrLocation.length - 1] = cityMaskingName;
-        var redirectUrl = arrLocation.join("-");
-
-        window.location.pathname = redirectUrl;
-        //self.GetUsedBikes();
     };
     self.ApplyBikeFilter = function (d, e) {
         $("#city-model-used-carousel").hide();
@@ -526,7 +519,7 @@ var usedBikes = function () {
                 self.PreviousQS(qs);
                 $.ajax({
                     type: 'GET',
-                    url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B"),
+                    url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B") + ((selectedCityId > 0) ? "&city=" + selectedCityId : ""),
                     dataType: 'json',
                     success: function (response) {
 
@@ -604,13 +597,6 @@ var usedBikes = function () {
                 var item = $("#sort-listing li[data-sortorder=" + self.Filters()["so"] + "]");
                 item.addClass("selected").siblings().removeClass("selected");
                 sortBy.selection(item);
-            }
-
-            if (self.Filters()["city"]) {
-                var ele = $("#filter-type-city select  option[data-cityid=" + self.Filters()["city"] + "]");
-                ele.addClass("active").siblings().removeClass("active");
-                self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
-                $('#filter-type-city .chosen-single span').text(ele.text());
             }
             if (self.Filters()["kms"]) {
                 self.KmsDriven(parseInt(self.Filters()["kms"], 10));
@@ -739,11 +725,13 @@ $(function () {
     }
 
     if (selectedCityId && selectedCityId != "0") {
+
         var ele = $("#filter-type-city select  option[data-cityid=" + selectedCityId + "]");
         ele.addClass("active").siblings().removeClass("active");
         vwUsedBikes.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
         $('#filter-type-city .chosen-single span').text(ele.text());
-        vwUsedBikes.Filters()["city"] = selectedCityId;
+        $('#ddlCity option[value="' + selectedCityId + '"]').prop('selected', true);
+        $("#ddlCity").trigger("chosen:updated");
     }
 
 
@@ -1351,42 +1339,26 @@ $('#close-city-model-carousel').on('click', function () {
 });
 
 function SetUsedCookie() {
-    var arr = getCookie("Used").split('&');
-    switch (usedPageIdentifier) {
-        case "0":
-            arr[0] = "BrandIndia=0";
-            break;
-        case "1":
-            arr[1] = "BrandCity=0";
-            break;
-        case "2":
-            arr[2] = "ModelIndia=0";
-            break;
-        case "3":
-            arr[3] = "UsedCity=0";
-            break;
+    try {
+        var arr = getCookie("Used").split('&');
+        switch (usedPageIdentifier) {
+            case "0":
+                arr[0] = "BrandIndia=0";
+                break;
+            case "1":
+                arr[1] = "BrandCity=0";
+                break;
+            case "2":
+                arr[2] = "ModelIndia=0";
+                break;
+            case "3":
+                arr[3] = "UsedCity=0";
+                break;
 
-
-    }
-    var newKeyValuePair = arr.join('&');
-    SetCookie("Used", newKeyValuePair);
-}
-$(document).ready(function () {
-    if (pageQS.search("city") < 0) {
-        var obj = GetGlobalLocationObject();
-        if (obj != null) {
-            selectCityObject(obj.CityId);
-            $("#ddlCity").val(obj.CityId).trigger('chosen:updated');
-            isCityFilterFilled = true;
         }
+        var newKeyValuePair = arr.join('&');
+        SetCookie("Used", newKeyValuePair);
+    } catch (e) {
+        console.log(e);
     }
-});
-
-function selectCityObject(cityId) {
-    $("#ddlCity > option").each(function () {
-        if ($(this).attr('data-cityid') == cityId) {
-            $(this).parent().val(cityId).trigger('change');
-            return false;
-        }
-    });
 }

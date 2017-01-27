@@ -327,7 +327,7 @@
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
                                             <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
-                                                 <option data-cityid="0" >All India</option>
+                                                 <option data-cityid="0" data-citymasking="india" value="0">All India</option>
                                                  <% if (citiesList != null)
                                                     { %>
                                                 <% foreach (var city in citiesList)
@@ -442,7 +442,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
-             var pageQS = "<%= currentQueryString %>";
+             var pageQS = "<%= currentQueryString %>" ;
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
         </script>

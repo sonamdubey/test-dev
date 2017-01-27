@@ -196,7 +196,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 if (CityId > 0)
                 {
                     objFilters.City = CityId;
-                    CurrentQS = string.Format("{0}&city={1}", CurrentQS, CityId);
                 }
 
                 if (!string.IsNullOrEmpty(CurrentQS)) CurrentQS = CurrentQS.Substring(1);
