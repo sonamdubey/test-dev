@@ -44,6 +44,7 @@ namespace Bikewale.Content
         protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
         protected int makeId;
+        protected uint taggedModelId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -205,6 +206,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : To get tagged bike along with article
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Description : Saved taggedModelId  to the variable
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -215,10 +218,16 @@ namespace Bikewale.Content
                 if (taggedMakeObj != null)
                 {
                     _taggedMakeObj = taggedMakeObj.MakeBase;
+                    var modelBase = taggedMakeObj.ModelBase;
+                    if(modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                 }
                 else
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if(modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                     FetchMakeDetails();
                 }
             }
