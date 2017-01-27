@@ -366,12 +366,12 @@
                         </div>
                     
                         <ul id="filter-city-list" >
-                             <li data-cityid="0" data-bind="click: FilterCity">All India</li>
+                             <li data-cityid="0" data-bind="click: FilterCity" data-citymasking="india">All India</li>
                             <% if (citiesList != null)
                                { %>
                             <%foreach (var city in citiesList)
                               {%>
-                            <li data-cityid="<%= city.CityId %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
+                            <li data-cityid="<%= city.CityId %>" data-citymasking="<%= city.CityMaskingName %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
                             <%}
                                } %>
                           
