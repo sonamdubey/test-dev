@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Bikewale.Common;
+using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Bikewale.Common;
 
 namespace Bikewale.Content
 {
@@ -31,7 +27,7 @@ namespace Bikewale.Content
         //void InitializeComponent()
         //{
         //    base.Load += new EventHandler(Page_Load);
-           
+
         //}
 
         void Page_Load(object Sender, EventArgs e)
@@ -254,7 +250,7 @@ namespace Bikewale.Content
             //    column.DataType = System.Type.GetType("System.String");
             //    column.ColumnName = "PageName";
             //    column.ReadOnly = true;
-                
+
             //    dt.Columns.Add(column);
 
             //    column = new DataColumn();
@@ -385,7 +381,7 @@ namespace Bikewale.Content
             DataTable dt = new DataTable();
 
             try
-            {                
+            {
                 ds = LoadSqlDataToCache();
                 dt = ds.Tables[0];
 
@@ -460,7 +456,7 @@ namespace Bikewale.Content
                 BikeComparePageKeywords = modelNames + ", bike tips, bike advices, bike how to, do it yourself, DIY, bike DIY";
 
                 Trace.Warn("Here:");
-               
+
                 lblAuthor.Text = authorName;
                 lblDate.Text = displayDate;
                 Trace.Warn("Here2");
@@ -485,13 +481,13 @@ namespace Bikewale.Content
                     {
                         Trace.Warn("pageId: " + PageId);
                         Trace.Warn("str: " + Str);
-                        ArticleTitle = "Photos: " + title;
+                        ArticleTitle = "Images: " + title;
                     }
                 }
                 Trace.Warn("Here3");
                 BikeComparePageDesc = description;
                 BikeComparePageTitle = ArticleTitle;
-                Trace.Warn("Here4");               
+                Trace.Warn("Here4");
             }
             catch (Exception err)
             {
@@ -500,7 +496,7 @@ namespace Bikewale.Content
                 objErr.SendMail();
             }
         }
-        
+
 
         protected string GetImagePath(string articleId, string photoId, string imgSize, string hostUrl)
         {

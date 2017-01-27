@@ -9,8 +9,8 @@
                     <span class="bwsprite bwmsprite request-media-icon margin-top15"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-bottom10">Request photos</p>
-            <p class="font14 text-light-grey margin-bottom25">Request the seller to upload photos of this bike</p>
+            <p class="font18 text-bold margin-bottom10">Request Images</p>
+            <p class="font14 text-light-grey margin-bottom25">Request the seller to upload images of this bike</p>
 
             <div class="input-box form-control-box margin-bottom10">
                 <input type="text" id="requesterName" />
@@ -42,7 +42,7 @@
             </div>
             <p class="font18 text-bold margin-bottom10">Request sent!</p>
             <p class="font14 text-light-grey margin-bottom25">
-                We have requested seller to upload photos.<br />
+                We have requested seller to upload images.<br />
                 We will let you know as soon as the seller uploads it.
             </p>
 

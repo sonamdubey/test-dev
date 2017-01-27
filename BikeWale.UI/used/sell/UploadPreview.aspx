@@ -13,7 +13,7 @@
 </script>
 <div class="sell_container">
 	<div class="sell_block moz-round">
-		<h2 class="hd2-red"><span><a title="Add photos to your listing" href="uploadphotos.aspx">Add <%= objPhotos.ClassifiedImageCount != 0 ? "More" : "" %> Photos</a></span> Bike Photos Preview <span class="price2">+</span></h2>		
+		<h2 class="hd2-red"><span><a title="Add images to your listing" href="uploadphotos.aspx">Add <%= objPhotos.ClassifiedImageCount != 0 ? "More" : "" %> Photos</a></span> Bike Photos Preview <span class="price2">+</span></h2>		
 		<div class="mid-box"><h2 class="hd2"><%= objPhotos.ClassifiedImageCount %> Photos available with this listing</h2></div>
 		<asp:Repeater ID="rptImageList" runat="server">
 			<itemtemplate>

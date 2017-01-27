@@ -364,14 +364,14 @@
 
                     <div class="form-step-body" data-bind="visible: formStep() == 3, with: moreDetails">
                         <h2 class="margin-bottom15">More details</h2>
-                        <p class="font16 text-black margin-bottom5">Add Photos</p>
-                        <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get 50% more responses! You can upload upto 10 photos with first photo being the profile photo for the ad. Supported formats: .jpg, .png; Image Size < 4 MB</p>
+                        <p class="font16 text-black margin-bottom5">Add Images</p>
+                        <p class="font14 text-light-grey margin-bottom20">Ads with Images are likely to get 50% more responses! You can upload upto 10 Images with first photo being the profile photo for the ad. Supported formats: .jpg, .png; Image Size < 4 MB</p>
 
                         <div id="add-photos-dropzone" class="dropzone dz-clickable">
                             <div class="dz-message">
                                 <div id="dz-custom-message">
                                     <span class="sell-bike-sprite add-photo-icon"></span><br />
-                                    <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add photos</button>
+                                    <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add Images</button>
                                 </div>
                                 <ul id="dz-image-placeholder" class="margin-top10">
                                     <li></li>
@@ -512,7 +512,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                            <p>You should provide comprehensive and correct details of your bike and upload multiple photos of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
+                            <p>You should provide comprehensive and correct details of your bike and upload multiple Images of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
                         </div>
                     </li>
                     <li>

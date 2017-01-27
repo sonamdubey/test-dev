@@ -17,7 +17,7 @@
 <head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
         description = pgDescription;
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
@@ -27,7 +27,7 @@
         alternate = "https://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
         TargetedCity = cityName;
-        keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
         isHeaderFix = false;

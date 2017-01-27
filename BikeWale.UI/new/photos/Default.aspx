@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
 <%
     title = String.Format("{0} {1} Images | {1} Photos - BikeWale", makename, modelName);
-    keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", modelName, makename);
+    keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} images", modelName, makename);
     description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
     canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
     alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);

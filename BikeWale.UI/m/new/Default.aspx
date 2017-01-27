@@ -12,8 +12,8 @@
 <html>
 <head>
     <%
-        title = "New Bikes - Bikes Reviews, Photos, Specs, Features, Tips & Advices - BikeWale";
-        keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
+        title = "New Bikes - Bikes Reviews, Images, Specs, Features, Tips & Advices - BikeWale";
+        keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike Images, specs, features, tips & advices";
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
         canonical = "https://www.bikewale.com/new-bikes-in-india/";
         AdPath = "/1017752/Bikewale_Mobile_NewHome";

@@ -69,7 +69,7 @@
                             <div class="grid-5 alpha omega">
                                 <div class="model-card-image-content inline-block-top margin-right20">
                                     <img src="<%= modelImage %>" 
-                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos" alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
+                                        title="<%= String.Format("{0} {1}",bikeName, versionName) %> Images" alt="<%= String.Format("{0} {1}",bikeName, versionName) %> Photos"  />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
                                     <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
