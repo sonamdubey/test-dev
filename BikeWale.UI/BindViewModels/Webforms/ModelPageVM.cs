@@ -18,6 +18,7 @@ namespace Bikewale.BindViewModels.Webforms
     public class ModelPageVM
     {
         public bool IsPremiumDealer { get; set; }
+        public bool IsDSA { get; set; }
         public string Organization { get; set; }
         public string AreaName { get; set; }
         public string LeadBtnTextLarge { get; set; }
@@ -48,6 +49,7 @@ namespace Bikewale.BindViewModels.Webforms
                         {
                             if (dealeDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                             {
+                                IsDSA = dealeDetails.IsDSA;
                                 IsPremiumDealer = true;
                                 Organization = dealeDetails.Organization;
                                 if (dealeDetails.objArea != null)

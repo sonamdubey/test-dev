@@ -62,5 +62,8 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("displayTextSmall")]
         public string DisplayTextSmall { get; set; }
 
+        [JsonProperty("isDSA")]
+        public bool IsDSA { get; set; }
+
     }   //End of Class
 }   //End of namespace

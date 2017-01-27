@@ -19,8 +19,7 @@
         
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        position-abt{font-size:8px;}.pos-right35 { right: -15px; }
+    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />    
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
 
@@ -150,7 +149,11 @@
                                                 <td>
                                                     <% if (isPrimaryDealer)
                                                        { %>
+                                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
                                                     <p class="font12 text-light-grey text-truncate position-rel top-minus5"> powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
+                                                    <%} else { %>
+                                                    <p class="font12 text-light-grey text-truncate position-rel top-minus5">*actual pricing may vary</p>
+                                                    <%} %>
                                                     <% } %>
                                                 </td>
                                                 <td align="right">
@@ -250,10 +253,11 @@
                                             <span class="pq-sprite partner-dealer"></span>
                                         </div>
                                         <div class="inline-block dealer-name-content">
-                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></h3>
-                                            <p class="font12 text-light-grey">BikeWale partner dealer</p>
+                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %></h3>
+                                            <p class="font12 text-light-grey"><%= (!primarydealer.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                         </div>
                                     </div>
+                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
                                     <div id="dealer-offers-label" class="inline-block">
                                         <p class="font14">Get in touch with this dealer for:</p>
                                         <ul id="offers-label-list">
@@ -262,19 +266,22 @@
                                             <li>EMI options</li>
                                         </ul>
                                     </div>
-                                    <div id="get-offers-btn-content" class="inline-block">
+                                    <%} %>
+                                    <div id="get-offers-btn-content" class="inline-block <%= primarydealer.DealerDetails.IsDSA ? "rightfloat" :"" %>">
                                         <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
+                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
+                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                <%}else{ %>
 
                                     <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
                                         <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands. Above price is not final and may vary at the dealership.</p>
                                         <span class="position-abt pos-top15 pos-right15 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
                                     </div>
+                                    <%} %>
 
-                                </div>
-
-                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                </div>                              
                                 <div id="dealer-contact-details" class="content-inner-block-20 <%= isPremium ? "" : "map-absent" %>">
                                     <!-- if no map, add 'map-absent' class -->
                                     <div class="alpha font14 <%= isPremium ? "grid-6" : "grid-12 omega" %>">

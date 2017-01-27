@@ -50,5 +50,8 @@ namespace Bikewale.Entities.PriceQuote.v2
 
         [JsonProperty("displayTextSmall")]
         public string DisplayTextSmall { get; set; }
+
+        [JsonProperty("isDSA")]
+        public bool IsDSA { get; set; }
     }
 }

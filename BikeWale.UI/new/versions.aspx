@@ -366,19 +366,22 @@
                                     </div>
                                     <div class="inline-block position-rel">
                                         <div class="vertical-top">
-                                            <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %>, <%=viewModel.AreaName %></h3>
-                                            <p class="font12 text-x-light">BikeWale partner dealer</p>
+                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %></h3>
+                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
                                         </div>
                                         <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
                                         <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
-                                            <span class="bwsprite phone-md margin-right5"></span><span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
-                                        </div>
-                                        <% } %>
+                                        <span class="bwsprite phone-md margin-right5"></span>
+                                        <span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
+                                    </div>
+                                    <% } %>
+                                    <% if(viewModel.IsDSA){ %>
                                         <div class="bw-tooltip multi-brand-tooltip tooltip-left">
                                             <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
                                             <span class="position-abt pos-top10 pos-right10 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
                                         </div>
                                     </div>
+                                    <%} %>
                                 </div>
 
                                 <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
