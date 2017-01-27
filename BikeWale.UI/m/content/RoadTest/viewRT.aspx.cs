@@ -37,7 +37,7 @@ namespace Bikewale.Content
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected uint BasicId = 0, pageId = 1;
-        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
+        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, ampUrl = string.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
@@ -175,8 +175,9 @@ namespace Bikewale.Content
         {
             try
             {
-                baseUrl = string.Format("/m/expert-reviews/{0}-{1}/", objRoadtest.ArticleUrl, BasicId);
-                canonicalUrl = string.Format("https://www.bikewale.com/expert-reviews/{0}-{1}", objRoadtest.ArticleUrl, BasicId);
+                baseUrl = string.Format("/m/expert-reviews/{0}-{1}.html", objRoadtest.ArticleUrl, BasicId);
+                canonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objRoadtest.ArticleUrl, BasicId);
+                ampUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objRoadtest.ArticleUrl, BasicId);
                 data = objRoadtest.Description;
                 author = objRoadtest.AuthorName;
                 pageTitle = objRoadtest.Title;

@@ -27,7 +27,7 @@
             }
             @Html.Raw(ViewBag.NewsContent)
         </div>
-
+        @if (@ViewBag.TaggedModelId > 0) { Html.RenderAction("Index", "BikeInfo", new { modelId = @ViewBag.TaggedModelId }); }
         <p class="share-story-title margin-bottom10">Share this story</p>
         <div class="margin-bottom10">
             <amp-social-share type="whatsapp" width="38" height="24" data-share-endpoint="whatsapp://send" data-param-text="@ViewBag.Title - Bikewale News CANONICAL_URL"></amp-social-share>
@@ -62,7 +62,8 @@
         <div class="clear"></div>
 
     </div>
-</article>
+</article>    
+
 }
 else
 {

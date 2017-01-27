@@ -99,6 +99,8 @@ namespace Bikewale.Controllers.Mobile.Content
         {
             try
             {
+                ViewBag.TaggedModelId = 0;
+
                 ArticleDetails objNews = cache.GetNewsDetails(Convert.ToUInt32(basicid));
 
                 if (objNews != null && objNews.Content != null)
@@ -127,6 +129,15 @@ namespace Bikewale.Controllers.Mobile.Content
                     {
                         ViewBag.PrevPageTitle = objNews.PrevArticle.Title;
                         ViewBag.PrevPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.PrevArticle.BasicId, objNews.PrevArticle.ArticleUrl);
+                    }
+
+                    if (objNews.VehiclTagsList != null && objNews.VehiclTagsList.Count > 0)
+                    {
+
+                        VehicleTag objTag = objNews.VehiclTagsList.FirstOrDefault(m => m.ModelBase != null && m.ModelBase.ModelId > 0);
+
+                        if (objTag != null)
+                            ViewBag.TaggedModelId = objTag.ModelBase.ModelId;
                     }
                 }                                    
             }

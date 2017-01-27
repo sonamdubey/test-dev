@@ -15,6 +15,7 @@
           %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -108,19 +109,8 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var pageId = 1;
-                var pageUrl = '<%= baseUrl%>';
-                $("#ddlPages").change(function () {
-                    pageId = $(this).val();
-                    window.location.href = pageUrl + 'p' + pageId + '/';
-
-                });
-            });
-        
+        <script type="text/javascript">       
             ga_pg_id = "13";
-
         </script>
     </form>
 </body>

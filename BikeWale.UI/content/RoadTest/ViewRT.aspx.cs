@@ -42,7 +42,7 @@ namespace Bikewale.Content
         private BikeMakeEntityBase _taggedMakeObj;
         private bool _isContentFound = true;
         protected string upcomingBikesLink;
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
+        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty, ampUrl = string.Empty;
         protected int makeId;
         protected override void OnInit(EventArgs e)
         {
@@ -306,6 +306,7 @@ namespace Bikewale.Content
             displayDate = objRoadtest.DisplayDate.ToString();
             articleUrl = objRoadtest.ArticleUrl;
             basicId = objRoadtest.BasicId.ToString();
+            ampUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objRoadtest.ArticleUrl, basicId);
         }
 
     }

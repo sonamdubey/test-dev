@@ -10,18 +10,18 @@
         title = articleTitle;
         description 	= "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
         //keywords		= RoadTestPageKeywords;
-        canonical = "https://www.bikewale.com/expert-reviews/" + articleUrl + "-" + basicId + ".html";
+        canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/expert-reviews/" + articleUrl + "-" + basicId + ".html";
         //prevPageUrl     = prevUrl;
         //nextPageUrl     = nextUrl;
         fbTitle = articleTitle;
         //fbImage			= fbLogoUrl;
-        alternate = "https://www.bikewale.com/m/expert-reviews/" + articleUrl + "-" + basicId + ".html";
+        alternate = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m/expert-reviews/" + articleUrl + "-" + basicId + ".html";
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>

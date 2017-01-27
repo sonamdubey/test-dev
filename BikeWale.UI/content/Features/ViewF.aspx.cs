@@ -47,7 +47,7 @@ namespace Bikewale.Content
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
         private GlobalCityAreaEntity currentCityArea;
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
+        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty, ampUrl = string.Empty;
 
         protected ArticlePageDetails objFeature = null;
 
@@ -198,7 +198,8 @@ namespace Bikewale.Content
             authorName = objFeature.AuthorName;
             displayDate = objFeature.DisplayDate.ToString();
             articleUrl = objFeature.ArticleUrl;
-            canonicalUrl = "/features/" + articleUrl + "-" + _basicId + "/";
+            canonicalUrl = string.Format("/features/{0}-{1}/", objFeature.ArticleUrl, _basicId);
+            ampUrl = string.Format("{0}/m/features/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeature.ArticleUrl, _basicId);
         }
 
         private void BindPages()

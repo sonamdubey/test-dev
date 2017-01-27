@@ -104,7 +104,7 @@ namespace Bikewale.Controllers.Mobile.Content
                     ViewBag.Canonical = String.Format("{0}/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
                     ViewBag.MobilePageUrl = String.Format("{0}/m/features/{1}-{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeatures.ArticleUrl, basicid);
                     ViewBag.ArticleSectionTitle = " - BikeWale Features";
-                    ViewBag.ArticleType = "NewsArticle";
+                    ViewBag.ArticleType = "Article";
                     ViewBag.Title = objFeatures.Title;
                     ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objFeatures.OriginalImgUrl, objFeatures.HostUrl, Bikewale.Utility.ImageSize._640x348);
                     ViewBag.PublishedDate = objFeatures.DisplayDate.ToString();

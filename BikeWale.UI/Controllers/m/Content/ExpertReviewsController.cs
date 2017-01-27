@@ -104,7 +104,7 @@ namespace Bikewale.Controllers.Mobile.Content
                     ViewBag.Canonical = String.Format("{0}/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,objExpertReviews.ArticleUrl, basicid);
                     ViewBag.MobilePageUrl = String.Format("{0}/m/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objExpertReviews.ArticleUrl, basicid);
                     ViewBag.ArticleSectionTitle = " - BikeWale Expert Reviews";
-                    ViewBag.ArticleType = "NewsArticle";
+                    ViewBag.ArticleType = "Article";
                     ViewBag.Title = objExpertReviews.Title;
                     ViewBag.MainImageUrl = Bikewale.Utility.Image.GetPathToShowImages(objExpertReviews.OriginalImgUrl, objExpertReviews.HostUrl, Bikewale.Utility.ImageSize._640x348);
                     ViewBag.PublishedDate = objExpertReviews.DisplayDate.ToString();
