@@ -1,4 +1,5 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
@@ -10,10 +11,9 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Bikewale.BindViewModels.Controls
-{   
+{
     /// <summary>
     /// Created By : Aditi Srivastava on 25 Jan 2017
     /// Summary    : Bind list of top popular bikes by category
@@ -29,12 +29,12 @@ namespace Bikewale.BindViewModels.Controls
         public ICollection<MostPopularBikesBase> GetPopularBikesByCategory()
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-           
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
@@ -50,7 +50,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}",ModelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}", ModelId));
             }
             return popularBikesList;
         }

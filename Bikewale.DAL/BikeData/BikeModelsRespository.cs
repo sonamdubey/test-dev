@@ -1678,7 +1678,7 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public EnumBikeBodyStyles GetBikeBodyType(uint modelId)
         {
-            EnumBikeBodyStyles out_param,bodyStyle=EnumBikeBodyStyles.AllBikes;
+            EnumBikeBodyStyles out_param, bodyStyle = EnumBikeBodyStyles.AllBikes;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
@@ -1700,7 +1700,7 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format(" GetBikeBodyType_ModelId: {0}", modelId));
             }
@@ -1713,19 +1713,19 @@ namespace Bikewale.DAL.BikeData
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount,uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
         {
-            ICollection<MostPopularBikesBase> popularBikesList=null;
+            ICollection<MostPopularBikesBase> popularBikesList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "getmostpopularbikesbybodystyle";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid",DbType.Int32,bodyStyleId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyleId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
@@ -1733,6 +1733,7 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
+                                popularObj.objModel = new BikeModelEntityBase();
                                 popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 popularObj.MakeName = Convert.ToString(dr["MakeName"]);
                                 popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
@@ -1744,8 +1745,9 @@ namespace Bikewale.DAL.BikeData
                                 popularObj.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
                                 popularObj.CityName = Convert.ToString(dr["CityName"]);
                                 popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
-                                popularObj.BikePopularityIndex=SqlReaderConvertor.ToUInt16(dr["Rank"]);
-
+                                popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
+                                popularObj.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                popularBikesList.Add(popularObj);
                             }
                             dr.Close();
                         }
@@ -1754,7 +1756,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_BodyStyleId: {0}, topCount: {1}", bodyStyleId,topCount));
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_BodyStyleId: {0}, topCount: {1}", bodyStyleId, topCount));
             }
             return popularBikesList;
         }

@@ -5,14 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bikewale.Controls
+namespace Bikewale.Mobile.Controls
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 25 Jan 2017
-    /// Summary    : Bind list of top popular bikes by category
+    /// Created By : Aditi Srivastava on 16 Nov 2016
+    /// Summary    : To inject upcoming bikes widget for cms pages
     /// </summary>
     public class PopularBikesByBodyStyle : System.Web.UI.UserControl
     {
+
         public int topCount { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
@@ -47,6 +48,5 @@ namespace Bikewale.Controls
                     BodyStyleHeading = popularBikes.FirstOrDefault().CategoryName;
             }
         }
-
     }
 }
