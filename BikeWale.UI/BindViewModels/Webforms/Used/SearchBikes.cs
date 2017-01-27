@@ -125,7 +125,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllCities");
-                objErr.SendMail();
+
             }
         }
 
@@ -163,12 +163,14 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllMakeModels");
-                objErr.SendMail();
             }
         }
 
         /// <summary>
-        /// Function to bind the search result to the repeater
+        /// Created By : Sushil Kumar on 23rd Sep 2016
+        /// Description : Bind search page related info for city and modela nd its filter
+        /// Modified By : Sushil Kumar on 27th Jan 2016
+        /// Description : Remove maintainance od city form the query string
         /// </summary>
         public bool BindSearchPageData()
         {
@@ -213,7 +215,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : BindSearchPageData");
-                objErr.SendMail();
+
             }
             return true;
         } // End of BindSearchPageData
@@ -255,7 +257,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : CreateMetas");
-                objErr.SendMail();
+
             }
         }
 
@@ -330,7 +332,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
         }
         #endregion
@@ -378,7 +380,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, page.Request.ServerVariables["URL"] + "ParseQueryString");
-                objErr.SendMail();
+
             }
             finally
             {
