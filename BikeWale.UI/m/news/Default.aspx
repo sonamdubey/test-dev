@@ -1,5 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.News.Default"  Trace="false" Async="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.News.Default" Trace="false" Async="true" %>
+
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
+<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
+<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +18,7 @@
 	    Ad_320x50 = true;
 	    Ad_Bot_320x50 = true;
     %>
-   
+
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
 
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/listing.css?<%= staticFileVersion %>" />
@@ -32,47 +35,50 @@
                 <h1 class="box-shadow padding-15-20"><%= objNews.PageH1 %></h1>
 
                 <div id="divListing" class="article-list">
-			        <% foreach (var news in newsArticles)
+                    <% foreach (var news in newsArticles)
 	{ %>
-					        <a href="<%= string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString( news.BasicId),news.ArticleUrl,Convert.ToString(news.CategoryId))) %>" title="<%=  news.Title %>">
-                                <div class="article-item-content <%= news.AuthorName.ToLower().Contains("sponsored") ? "sponsored-content" : ""%>">
+                    <a href="<%= string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString( news.BasicId),news.ArticleUrl,Convert.ToString(news.CategoryId))) %>" title="<%=  news.Title %>">
+                        <div class="article-item-content <%= news.AuthorName.ToLower().Contains("sponsored") ? "sponsored-content" : ""%>">
 
-                                    <%= Regex.Match(news.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
-                                    
-                                    <div class="article-wrapper">
-								        <div class="article-image-wrapper">
-									        <img class="lazy" alt='<%= news.Title %>' title="<%= news.Title %>" data-original='<%= Bikewale.Utility.Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl,Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
-								        </div>
-								        <div class="padding-left10 article-desc-wrapper">
-									        <div class="article-category">
-										        <span class="text-uppercase font12 text-bold"><%= GetContentCategory(Convert.ToString(news.CategoryId)) %></span>
-									        </div>
-									        <h2 class="font14"><%= news.Title %></h2>
-								        </div>
-							        </div>
+                            <%= Regex.Match(news.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 
-							        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-								        <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(news.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
-							        </div>
-
-							        <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-								        <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%= news.AuthorName %></span>
-							        </div>
-							        <div class="clear"></div>
+                            <div class="article-wrapper">
+                                <div class="article-image-wrapper">
+                                    <img class="lazy" alt='<%= news.Title %>' title="<%= news.Title %>" data-original='<%= Bikewale.Utility.Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl,Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
                                 </div>
-                            </a> 
-                                 <%} %>
-		        </div>
-        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
-                    <div class="grid-5 omega text-light-grey font13">
-                        <span class="text-bold text-default"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold text-default"><%=totalrecords %></span> articles</div>
-	         <BikeWale:newPager ID="ctrlPager" runat="server" />
-            <div class="clear"></div>
+                                <div class="padding-left10 article-desc-wrapper">
+                                    <div class="article-category">
+                                        <span class="text-uppercase font12 text-bold"><%= GetContentCategory(Convert.ToString(news.CategoryId)) %></span>
+                                    </div>
+                                    <h2 class="font14"><%= news.Title %></h2>
+                                </div>
+                            </div>
+
+                            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                                <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(news.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
+                            </div>
+
+                            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
+                                <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%= news.AuthorName %></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </a>
+                    <%} %>
                 </div>
-                     <div class="clear"></div>
-             </div>
+                <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
+                    <div class="grid-5 omega text-light-grey font13">
+                        <span class="text-bold text-default"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold text-default"><%=totalrecords %></span> articles
+                    </div>
+                    <BikeWale:newPager ID="ctrlPager" runat="server" />
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
         </section>
-          <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />        
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 

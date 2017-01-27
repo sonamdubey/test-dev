@@ -111,7 +111,7 @@
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
-							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true" title="<%= bikeName + " images"%>">
+							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true#modelGallery" title="<%= bikeName + " images"%>">
 							<% } %>
                             <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image " class="cursor-pointer" />
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>

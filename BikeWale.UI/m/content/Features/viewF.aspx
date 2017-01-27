@@ -93,7 +93,9 @@
         </section>
 
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <% if(string.IsNullOrEmpty(modelName)) { %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <% } %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>

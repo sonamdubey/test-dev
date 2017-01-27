@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewF" %>
+
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
@@ -21,7 +22,7 @@
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
-    
+
     <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
 </head>
@@ -38,8 +39,8 @@
                                 <span itemprop="title">Home</span>
                             </a>
                         </li>
-						<li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-							<span class="bwsprite fa-angle-right margin-right10"></span>
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <span class="bwsprite fa-angle-right margin-right10"></span>
                             <a href="/features/" itemprop="url">
                                 <span itemprop="title">Features</span>
                             </a>
@@ -60,73 +61,75 @@
                             <div class="section-header">
                                 <h1><%= articleTitle%></h1>
                                 <div>
-									<span class="bwsprite calender-grey-sm-icon"></span>
-									<span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
-									<span class="bwsprite author-grey-sm-icon"></span>
-									<span class="article-stats-content"><%= authorName%></span>
-								</div>
+                                    <span class="bwsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %></span>
+                                    <span class="bwsprite author-grey-sm-icon"></span>
+                                    <span class="article-stats-content"><%= authorName%></span>
+                                </div>
                             </div>
                             <div class="section-inner-padding">
                                 <div id="topNav" runat="server" class="margin-bottom10">
-                                    <asp:repeater id="rptPages" runat="server">
-                                        <headertemplate>
-                                        <ul>
-                                        </headertemplate>
-					                    <itemtemplate>
+                                    <asp:Repeater ID="rptPages" runat="server">
+                                        <HeaderTemplate>
+                                            <ul>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
                                             <li>
                                                 <a href="#<%#Eval("pageId") %>"><%#Eval("PageName") %></a>
                                             </li>
-					                    </itemtemplate>
-                                        <footertemplate>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
                                             <li>
                                                 <a href="#divPhotos">Photos</a>
                                             </li>
-                                        </ul>
-                                        </footertemplate>
-				                    </asp:repeater>
+                                            </ul>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
                                 </div>
                                 <div class="clear"></div>
-                                <asp:repeater id="rptPageContent" runat="server">
-					                <itemtemplate>
+                                <asp:Repeater ID="rptPageContent" runat="server">
+                                    <ItemTemplate>
                                         <div class="margin-top10 margin-bottom10">
                                             <h3 class="article-content-title"><%#Eval("PageName") %></h3>
                                             <div id='<%#Eval("pageId") %>' class="margin-top10 article-content">
                                                 <%#Eval("content") %>
                                             </div>
                                         </div>
-					                </itemtemplate>             
-				                </asp:repeater>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                                                    
-                    <div class="grid-4 omega">
-                    <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-						<div class="margin-bottom20">
-                        
-                                 <!-- #include file="/ads/ad300x250.aspx" -->
-                        </div>
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
 
-                        
+                    <div class="grid-4 omega">
+                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+                        <div class="margin-bottom20">
+
+                            <!-- #include file="/ads/ad300x250.aspx" -->
+                        </div>
+                        <% if (taggedModelId < 1)
+                           { %>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <% 
+                           } %>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-        <div id="back-to-top" class="back-to-top"><a><span></span></a></div>        
-         <!-- #include file="/includes/footerBW.aspx" -->
-          <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
+        <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-		<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
         <!-- #include file="/includes/footerscript.aspx" -->
-		<script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/content/details.js?<%= staticFileVersion %>"></script>
-         <script type="text/javascript">
+        <script type="text/javascript">
             $(document).ready(function () {
                 $("body").floatingSocialShare();
             });

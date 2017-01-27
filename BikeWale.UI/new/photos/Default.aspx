@@ -46,7 +46,7 @@
             <li>You are here: </li>
             <li><a href="/">Home</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/">New Bikes</a></li>
+            <li><a href="/new-bikes-in-india/">New Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/"><%=objModelEntity.MakeBase.MakeName %> Bikes</a></li>
             <li class="fwd-arrow">&rsaquo;</li>

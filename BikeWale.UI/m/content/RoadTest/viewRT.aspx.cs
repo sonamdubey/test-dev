@@ -45,6 +45,7 @@ namespace Bikewale.Content
         protected IEnumerable<ModelImage> objImg = null;
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected uint taggedModelId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -170,6 +171,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Aditi Srivastava on 22 Nov 2016
         /// Description : To get masking name of tagged make for url if it is null
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Description : Saved taggedModelId  in the variable.
         /// </summary>
         private void GetRoadTestData()
         {
@@ -185,6 +188,11 @@ namespace Bikewale.Content
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+
+                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
+
                     if (_taggedMakeObj.MaskingName == null)
                         FetchMakeDetails();
 

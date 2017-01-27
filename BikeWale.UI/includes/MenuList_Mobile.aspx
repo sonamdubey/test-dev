@@ -1,7 +1,7 @@
 ﻿<div data-role="panel" id="nav-panel" data-position="left" data-display="overlay" data-theme="a">
     <ul id="menuList">
         <li><a menu="1" href="/m/">Home</a></li>
-        <li><a menu="2" href="/m/new/">New Bikes</a></li>
+        <li><a menu="2" href="/m/new-bikes-in-india/">New Bikes</a></li>
         <li><a menu="11" href="/m/comparebikes/">Compare Bikes</a></li>
         <!--<li><a href="#">Used BIkes</a></li>
         <li><a href="#">Compare Bikes</a></li>-->

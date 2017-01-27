@@ -70,7 +70,7 @@ namespace Bikewale.Mobile.New.Photos
             {
                 if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
                 {
-                    Response.Redirect("/m/new/", true);
+                    Response.Redirect("/m/new-bikes-in-india/", true);
                 }
                 else if (vmModelPhotos.isPermanentRedirection) //301 redirection
                 {

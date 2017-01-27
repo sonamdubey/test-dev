@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.RoadTest"  Async="true" Trace="false"%>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
+<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
+<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +97,8 @@
                     <div class="clear"></div>
              </div>
         </section>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />         
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 

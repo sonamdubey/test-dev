@@ -22,7 +22,7 @@
     <div>
         <div class="padding10">
             <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
+                <a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
                 <a href="/m/comparebikes/" class="normal" itemprop="url"><span itemprop="title">Compare Bike</span></a> &rsaquo; 
                 <span class="lightgray">Compare Bikes</span>
             </div>

@@ -16,7 +16,7 @@
 </style>
     <div class="padding5">
         <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
+            <a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
             <a href="/m/new/locate-dealers/" class="normal" itemprop="url"><span itemprop="title">Locate Dealers</span></a> &rsaquo; 
             <span class="lightgray"><%=make %> Dealers in <%=city %> </span>
         </div>

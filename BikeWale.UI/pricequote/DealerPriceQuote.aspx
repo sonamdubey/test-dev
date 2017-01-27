@@ -75,6 +75,7 @@
         .campaign-offer-4 {
             background-position: 0 -463px;
         }
+        position-abt{font-size:8px;}.pos-right35 { right: -15px; }
     </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -107,7 +108,7 @@
                             </li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
-                                <a href="/new/" itemprop="url">
+                                <a href="/new-bikes-in-india/" itemprop="url">
                                     <span itemprop="title">New</span>
                                 </a>
                             </li>
@@ -182,7 +183,7 @@
                                                 <td width="300" class="font14">
                                                     <%=item.CategoryName %> 
                                                 </td>
-                                                <td width="160" align="right">
+                                                <td width="170" align="right">
                                                     <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold"><%= CommonOpn.FormatPrice(item.Price.ToString()) %></span>
                                                 </td>
                                             </tr>
@@ -205,7 +206,7 @@
                                                 <td>
                                                     <% if (isPrimaryDealer)
                                                        { %>
-                                                    <p class="font12 text-light-grey text-truncate position-rel top-minus5">powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
+                                                    <p class="font12 text-light-grey text-truncate position-rel top-minus5"> powered by <%= primarydealer.DealerDetails.Organization %>, <%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                                     <% } %>
                                                 </td>
                                                 <td align="right">
@@ -230,7 +231,7 @@
                                             <tr class="row-with-padding">
                                                 <td width="300" class="font14">Ex-Showroom (<%= objQuotation.City %>)
                                                 </td>
-                                                <td width="160" align="right">
+                                                <td width="170" align="right">
                                                     <span class="bwsprite inr-md"></span>&nbsp;<span id="exShowroomPrice" class="font16 text-bold"><%= CommonOpn.FormatNumeric( objQuotation.ExShowroomPrice.ToString() ) %></span>
                                                 </td>
                                             </tr>
@@ -262,6 +263,9 @@
                                                 <td align="right">
                                                     <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22 text-bold"><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right" colspan="2"><p class='position-rel'><span class='position-abt pos-right35 pos-top0 font9'>Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -953,12 +957,15 @@
             <% } %>
             <% } %>
 
-            $( document ).ready(function() {
+            $(document).ready(function() {
                 bikeVerLocation = GetBikeVerLoc();
                 <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0)
                   {%>               
-                triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);
-                 <%}%>
+                    triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);
+                <%}%>
+                <% if (objQuotation != null && objQuotation.ExShowroomPrice > 0) {%>
+                triggerGA('Dealer_PQ', 'Get_personal_loan_offers_shown', GetBikeVerLoc());
+                <% }%>
             });
 
             $("#dealer-assist-msg .assistance-response-close").on("click", function(){

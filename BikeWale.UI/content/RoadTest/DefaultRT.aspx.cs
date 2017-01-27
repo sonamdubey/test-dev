@@ -21,7 +21,6 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
@@ -321,6 +320,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Descriuption  : Added footer lnk to the widget when makeid not present.
         /// </summary>
         private void BindPageWidgets()
         {
@@ -337,7 +338,10 @@ namespace Bikewale.Content
                 ctrlUpcoming.pageSize = 9;
                 ctrlUpcoming.topCount = 4;
 
-                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
+                int _makeId;
+                int.TryParse(makeId, out _makeId);
+
+                if (_makeId > 0)
                 {
                     ctrlPopularBikes.MakeId = Convert.ToInt32(makeId);
                     ctrlPopularBikes.makeMasking = makeMaskingName;
@@ -346,6 +350,10 @@ namespace Bikewale.Content
                     ctrlUpcoming.makeName = makeName;
                     ctrlUpcoming.makeMaskingName = makeMaskingName;
                     ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
+                }
+                else
+                {
+                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 }
             }
             catch (Exception ex)
