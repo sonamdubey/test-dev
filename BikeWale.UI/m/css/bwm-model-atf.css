@@ -235,12 +235,6 @@
     font-size: 14px;
 }
 
-.btn-teal {
-    background: #41b4c4;
-    color: #fff;
-    border: 1px solid #41b4c4;
-}
-
 .float-button .btn { padding: 8px 0; font-size: 18px;}
 .btn-green {background: #1b9618;color: #fff;border: 1px solid #1b9618;}
 .btn-green:focus {background: #008b08;border: 1px solid #008b08;}

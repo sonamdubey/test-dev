@@ -1658,7 +1658,7 @@ function LoadTerms(offerId) {
     $('#termspinner').hide();
 }
 
-$('.btn-white, .btn-inv-green').on('touchstart', function () {
+$('.btn-white, .btn-inv-green, .btn-inv-teal').on('touchstart', function () {
     $(this).addClass('active');
 }).on('touchend', function () {
     $(this).removeClass('active');

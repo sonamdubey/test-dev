@@ -73,6 +73,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn-white { background:#fff; color:#e42029; border:1px solid #e42029; }
 .btn-white.active { background: #f44336; color: #fff; text-decoration: none; border:1px solid #f44336; }
 .btn-disable { cursor: not-allowed; opacity: .3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; filter: alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity: 0.3; }
+.btn-teal { background: #41b4c4; color: #fff; border: 1px solid #41b4c4; }
+.btn-teal:hover { background: #58bdcb; border: 1px solid #58bdcb; text-decoration: none; }
+.btn-inv-teal { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.btn-inv-teal.active { background: #3799a7; color: #fff; }
+.btn-white:hover, .btn-inv-teal:hover { text-decoration: none }
 
 .btn-xs { padding: 8px; }
 .btn-sm { padding: 8px 25px; }
