@@ -29,8 +29,10 @@ namespace Bikewale.Mobile.Controls
             BindModelGalleryWidget();
         }
         /// <summary>
-        /// Modified By :Subodh Jain 6 Jan 2017
+        /// Modified By : Subodh Jain 6 Jan 2017
         /// Summary:- Added Check for count and removed repeater for photo binding
+        /// Modified By : Sushil Kumar on 27th Jan 2017
+        /// Description : Handle null check for photos 
         /// </summary>
         private void BindModelGalleryWidget()
         {
@@ -39,12 +41,10 @@ namespace Bikewale.Mobile.Controls
                 BindModelGallery ObjBindModelGallery = new BindModelGallery();
                 if (ObjBindModelGallery != null)
                 {
-
                     ObjBindModelGallery.ModelId = modelId;
                     ObjBindModelGallery.BindVideos(rptVideoNav);
                     videoCount = ObjBindModelGallery.FetchedVideoCount;
-                    if (videoCount > 1 || Photos.Count > 1)
-                        ShowWidget = true;
+                    ShowWidget = (Photos != null && Photos.Count > 1) || videoCount > 1;
                 }
             }
             catch (Exception ex)

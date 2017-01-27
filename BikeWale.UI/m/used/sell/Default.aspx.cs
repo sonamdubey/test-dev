@@ -88,7 +88,7 @@ namespace Bikewale.Mobile.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
-                objErr.SendMail();
+
             }
         }
 
@@ -113,7 +113,7 @@ namespace Bikewale.Mobile.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.m.used.sell.default.BindMakes()");
-                objErr.SendMail();
+
             }
         }
 
@@ -137,33 +137,43 @@ namespace Bikewale.Mobile.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.BindCities()");
-                objErr.SendMail();
             }
         }
 
         /// <summary>
         /// Created By : Sajal Gupta on 22/10/2016
         /// Description : Function to check if it is edit request.
+        /// Modified By : Sushil Kumar on 27th Jan 2017
+        /// Description : User redirection based on customerId - remove thread abort exception
         /// </summary>
         protected void CheckIsEdit()
         {
+            uint customerId = 0;
             try
             {
+                customerId = Bikewale.Common.CurrentUser.UserId;
+
                 string inquiry = Request.QueryString["id"];
                 if (!String.IsNullOrEmpty(inquiry) && Int32.TryParse(inquiry, out inquiryId) && inquiryId > 0)
                 {
-                    if (Bikewale.Common.CurrentUser.UserId < 1) //user not logged-in
-                    {
-                        Response.Redirect(String.Format("/m/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
-                    }
+                    if (customerId > 0)
+                        GetInquiryDetails();
                     isEdit = true;
-                    GetInquiryDetails();
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
-                objErr.SendMail();
+
+            }
+            finally
+            {
+                if (customerId < 1) //user not logged-in
+                {
+                    Response.Redirect(String.Format("/m/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
+                }
+
             }
         }
 
@@ -175,8 +185,6 @@ namespace Bikewale.Mobile.Used.Sell
         {
             try
             {
-                ISellBikes obj;
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
@@ -187,7 +195,7 @@ namespace Bikewale.Mobile.Used.Sell
                     container.RegisterType<ISellBikesRepository<SellBikeAd, int>, SellBikesRepository<SellBikeAd, int>>();
                     container.RegisterType<IUsedBikeSellerRepository, UsedBikeSellerRepository>();
                     container.RegisterType<ISellBikes, SellBikes>();
-                    obj = container.Resolve<ISellBikes>();
+                    ISellBikes obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
                         SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Bikewale.Common.CurrentUser.UserId);
@@ -204,7 +212,7 @@ namespace Bikewale.Mobile.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.used.m.sell.default.GetInquiryDetails()");
-                objErr.SendMail();
+
             }
 
         }
