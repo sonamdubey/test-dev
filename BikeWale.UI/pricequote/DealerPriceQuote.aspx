@@ -20,63 +20,7 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/dealerpricequote.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        #campaign-container .campaign-left-col {
-            width: 78%;
-            padding-right: 10px;
-        }
-
-        #campaign-container .campaign-right-col {
-            width: 21%;
-        }
-
-        .campaign-offer-label {
-            width: 75%;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .btn-large {
-            padding: 8px 56px;
-        }
-
-        #campaign-offer-list li {
-            width: 175px;
-            display: inline-block;
-            vertical-align: middle;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            padding-right: 5px;
-        }
-
-            #campaign-offer-list li span {
-                display: inline-block;
-                vertical-align: middle;
-            }
-
-        .campaign-offer-1, .campaign-offer-2, .campaign-offer-3, .campaign-offer-4 {
-            width: 34px;
-            height: 28px;
-            margin-right: 5px;
-        }
-
-        .campaign-offer-1 {
-            background-position: 0 -356px;
-        }
-
-        .campaign-offer-2 {
-            background-position: 0 -390px;
-        }
-
-        .campaign-offer-3 {
-            background-position: 0 -425px;
-        }
-
-        .campaign-offer-4 {
-            background-position: 0 -463px;
-        }
         position-abt{font-size:8px;}.pos-right35 { right: -15px; }
-    </style>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
 
@@ -300,7 +244,7 @@
                             <%if (primarydealer.DealerDetails != null && primarydealer.DealerDetails.objArea != null)
                               { %>
                             <div class="inner-card-shadow margin-top20">
-                                <div class="content-inner-block-20">
+                                <div class="content-inner-block-20 position-rel">
                                     <div id="pq-dealer-name" class="inline-block">
                                         <div class="inline-block margin-right10">
                                             <span class="pq-sprite partner-dealer"></span>
@@ -322,6 +266,12 @@
                                         <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
+
+                                    <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                                        <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands. Above price is not final and may vary at the dealership.</p>
+                                        <span class="position-abt pos-top15 pos-right15 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                                    </div>
+
                                 </div>
 
                                 <div class="margin-right20 margin-left20 border-solid-bottom"></div>

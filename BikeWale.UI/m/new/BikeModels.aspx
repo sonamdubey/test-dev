@@ -257,6 +257,10 @@
                             <h2 id="dealername" class="text-default"><%=viewModel.Organization %></h2>
                             <p class="font14 text-light-grey"><%=viewModel.AreaName %></p>
                         </div>
+                        <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                            <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                            <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                        </div>
                     </div>
                     <% } %>
                     <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
