@@ -139,6 +139,7 @@
                         <BW:PopularBikesByBodyStyle ID="ctrlPopularByCategory" runat="server"/>
                         <% if (taggedModelId < 1)
                            { %>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
                         <% } %>
                     </div>
                     <div class="clear"></div>

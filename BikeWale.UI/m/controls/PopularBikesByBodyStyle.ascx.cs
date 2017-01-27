@@ -34,18 +34,26 @@ namespace Bikewale.Mobile.Controls
 
         private void PopularBikesByType()
         {
-            BindPopularBikesByBodyStyle objPopular = new BindPopularBikesByBodyStyle();
-            objPopular.TopCount = topCount;
-            objPopular.ModelId = ModelId;
-            objPopular.CityId = CityId;
-            objPopular.BodyStyle = BodyStyle;
-            if (objPopular.ModelId > 0)
+            try
             {
-                popularBikes = objPopular.GetPopularBikesByCategory();
-                BodyStyle = objPopular.BodyStyle;
-                FetchedRecordsCount = objPopular.FetchedRecordsCount;
-                if (FetchedRecordsCount > 0)
-                    BodyStyleHeading = popularBikes.FirstOrDefault().CategoryName;
+                BindPopularBikesByBodyStyle objPopular = new BindPopularBikesByBodyStyle();
+                objPopular.TopCount = topCount;
+                objPopular.ModelId = ModelId;
+                objPopular.CityId = CityId;
+                objPopular.BodyStyle = BodyStyle;
+                if (objPopular.ModelId > 0)
+                {
+                    popularBikes = objPopular.GetPopularBikesByCategory();
+                    BodyStyle = objPopular.BodyStyle;
+                    FetchedRecordsCount = objPopular.FetchedRecordsCount;
+                    if (FetchedRecordsCount > 0)
+                        BodyStyleHeading = popularBikes.FirstOrDefault().CategoryName;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PopularBikesByType()");
+                objErr.SendMail();
             }
         }
     }
