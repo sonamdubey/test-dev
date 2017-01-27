@@ -338,7 +338,10 @@ namespace Bikewale.Content
                 ctrlUpcoming.pageSize = 9;
                 ctrlUpcoming.topCount = 4;
 
-                if (!string.IsNullOrEmpty(makeId) && makeId != "0")
+                int _makeId;
+                int.TryParse(makeId, out _makeId);
+
+                if (_makeId > 0)
                 {
                     ctrlPopularBikes.MakeId = Convert.ToInt32(makeId);
                     ctrlPopularBikes.makeMasking = makeMaskingName;

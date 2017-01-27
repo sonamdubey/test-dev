@@ -60,9 +60,8 @@ namespace Bikewale.Mobile.Content
                     Int32.TryParse(Request.QueryString["pn"], out curPageNo);
 
                 GetFeaturesList();
+                BindWidgets();
             }
-
-            BindWidgets();
         }
 
         /// <summary>

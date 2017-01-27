@@ -226,12 +226,16 @@ namespace Bikewale.Content
                 if (taggedMakeObj != null)
                 {
                     _taggedMakeObj = taggedMakeObj.MakeBase;
-                    taggedModelId = (uint)taggedMakeObj.ModelBase.ModelId;
+                    var modelBase = taggedMakeObj.ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                 }
                 else
                 {
                     _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
-                    taggedModelId = (uint)objFeature.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
+                    var modelBase = objFeature.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                     FetchMakeDetails();
                 }
             }

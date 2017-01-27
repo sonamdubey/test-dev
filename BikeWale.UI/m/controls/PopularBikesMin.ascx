@@ -42,7 +42,7 @@
             <a href="/m/<%= makeMasking %>-bikes/" title="View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes">View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
         </div>
         <%} %>
-        <% if (IsMakeAgnosticFooterNeeded)
+        <% else if (IsMakeAgnosticFooterNeeded)
            { %>
         <div class="margin-top15 margin-left20 font14">
             <a href="/m/best-bikes-in-india/" title="Best Bikes in India">View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>

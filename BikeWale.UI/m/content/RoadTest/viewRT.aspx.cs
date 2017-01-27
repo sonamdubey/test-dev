@@ -189,8 +189,9 @@ namespace Bikewale.Content
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
 
-                    if (objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase != null)
-                        taggedModelId = (uint)objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
+                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
 
                     if (_taggedMakeObj.MaskingName == null)
                         FetchMakeDetails();

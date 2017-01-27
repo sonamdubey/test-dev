@@ -56,13 +56,13 @@ namespace Bikewale.Mobile.Content
         {
             if (!IsPostBack)
             {
-                ProcessQueryString();
+                if(ProcessQueryString())
+                    BindWidgets();
+
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
-            }
-
-            BindWidgets();
+            }           
         }
 
         /// <summary>
@@ -219,8 +219,15 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        private void ProcessQueryString()
+        /// <summary>
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Return page found status    
+        /// </summary>
+        /// <returns></returns>
+
+        private bool ProcessQueryString()
         {
+            bool pageFoundStatus = true;
             modelMaskingName = Request.QueryString["model"];
             if (!String.IsNullOrEmpty(modelMaskingName))
             {
@@ -255,6 +262,7 @@ namespace Bikewale.Mobile.Content
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            pageFoundStatus = false;
                         }
                     }
                 }
@@ -288,6 +296,7 @@ namespace Bikewale.Mobile.Content
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    pageFoundStatus = false;
                 }
                 finally
                 {
@@ -306,6 +315,7 @@ namespace Bikewale.Mobile.Content
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            pageFoundStatus = false;
                         }
                     }
                     else
@@ -313,6 +323,7 @@ namespace Bikewale.Mobile.Content
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
+                        pageFoundStatus = false;
                     }
                 }
 
@@ -330,6 +341,7 @@ namespace Bikewale.Mobile.Content
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    pageFoundStatus = false;
                 }
             }
 
@@ -340,6 +352,8 @@ namespace Bikewale.Mobile.Content
                 else
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
+
+            return pageFoundStatus;
         }
 
         /// <summary>
