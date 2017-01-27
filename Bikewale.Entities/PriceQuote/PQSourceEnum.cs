@@ -17,6 +17,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Added pqsources for Service Center on Default desktop and mobile 
     /// Modified by :   Sumit Kate on 19 Jan 2017
     /// Description :   Added Desktop_DealerLocator_Detail_AvailableModels
+    /// Modified by : Sajal Gupta on 24-01-217
+    /// Description : Added Mobile_News_Listing_page
     /// </summary>
     public enum PQSourceEnum
     {
@@ -102,7 +104,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_PriceInCity_Dealer_Detail_Click = 80,
         Mobile_PriceInCity_Dealer_Detail_Click = 81,
         Desktop_DealerLocator_Detail_AvailableModels = 82,
-        Mobile_DealerLocator_Detail_AvailableModels = 83
-        
+        Mobile_DealerLocator_Detail_AvailableModels = 83,
+        Mobile_News_Listing_page = 84
+
     }
 }

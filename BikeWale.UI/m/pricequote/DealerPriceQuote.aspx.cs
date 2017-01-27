@@ -157,7 +157,7 @@ namespace Bikewale.Mobile.BikeBooking
                             ctrlDealers.TopCount = 3;
                             ctrlDealers.ModelId = modelId;
                             ctrlDealers.PQSourceId = (int)PQSourceEnum.Mobile_Dealerpricequote_DealersCard_GetOfferButton;
-                            ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, currentCity);
+                            ctrlDealers.widgetHeading = string.Format("{0} showrooms in {1}", objVersionDetails.MakeBase.MakeName, currentCity);
                             ctrlDealers.PageName = "DealerPriceQuote_Page";
                             ctrlLeadCapture.CityId = cityId;
                             ctrlLeadCapture.ModelId = modelId;

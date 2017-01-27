@@ -44,6 +44,8 @@ namespace Bikewale.Mobile.Content
         private bool _isContentFound = true;
         int _curPageNo = 1;
         HttpRequest page = HttpContext.Current.Request;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -58,6 +60,23 @@ namespace Bikewale.Mobile.Content
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
+            }
+
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlPopularBikes.totalCount = 9;
+            if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
+            {
+                ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                ctrlPopularBikes.makeName = makeName;
+                ctrlPopularBikes.makeMasking = makeMaskingName;
+                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ctrlUpcomingBikes.makeName = makeName;
+                ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+            }
+            else
+            {
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
             }
         }
         /// <summary>

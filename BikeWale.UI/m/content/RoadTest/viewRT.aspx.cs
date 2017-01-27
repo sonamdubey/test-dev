@@ -45,6 +45,7 @@ namespace Bikewale.Content
         protected IEnumerable<ModelImage> objImg = null;
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected uint taggedModelId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -185,6 +186,8 @@ namespace Bikewale.Content
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    taggedModelId = (uint)objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
+
                     if (_taggedMakeObj.MaskingName == null)
                         FetchMakeDetails();
 

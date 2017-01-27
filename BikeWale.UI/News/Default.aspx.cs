@@ -130,6 +130,14 @@ namespace Bikewale.News
             ctrlPopularBikes.CityId = (int)currentCityArea.CityId;
             ctrlPopularBikes.cityName = currentCityArea.City;
             ctrlPopularBikes.MakeId = (int)objNews.MakeId;
+            if (objNews != null && objNews.MakeId > 0)
+            {
+                ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
+            }
+            else
+            {
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
             ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
         }
 

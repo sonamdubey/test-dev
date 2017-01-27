@@ -41,6 +41,7 @@ namespace Bikewale.Mobile.Content
         static bool _useGrpc = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
+        protected uint taggedModelId;
 
         protected override void OnInit(EventArgs e)
         {
@@ -171,6 +172,8 @@ namespace Bikewale.Mobile.Content
                 _taggedMakeObj = objNews.VehiclTagsList.FirstOrDefault().MakeBase;
                 _taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)_taggedMakeObj.MakeId);
                 _taggedModelObj = objNews.VehiclTagsList.FirstOrDefault().ModelBase;
+                if (_taggedModelObj != null)
+                    taggedModelId = (uint)_taggedModelObj.ModelId;
                 _taggedModelObj = new Bikewale.Common.ModelHelper().GetModelDataById((uint)_taggedModelObj.ModelId);
 
             }

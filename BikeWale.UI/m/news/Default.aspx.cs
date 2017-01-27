@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Mobile.Controls;
@@ -27,6 +28,10 @@ namespace Bikewale.Mobile.News
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
         protected NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
+        protected string makeName = string.Empty, makeMaskingName = string.Empty;
+        protected uint makeId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -44,6 +49,23 @@ namespace Bikewale.Mobile.News
             {
                 GetNewsList();
             }
+
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlPopularBikes.totalCount = 9;
+            if (Convert.ToInt32(makeId) > 0)
+            {
+                ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                ctrlPopularBikes.makeName = makeName;
+                ctrlPopularBikes.makeMasking = makeMaskingName;
+                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                ctrlUpcomingBikes.makeName = makeName;
+                ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+            }
+            else
+            {
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
         }
 
         private void GetNewsList()
@@ -52,6 +74,12 @@ namespace Bikewale.Mobile.News
             try
             {
                 objNews = new NewsListing();
+                if (objNews.objMake != null)
+                {
+                    makeId = (uint)objNews.objMake.MakeId;
+                    makeName = objNews.objMake.MakeName;
+                    makeMaskingName = objNews.objMake.MaskingName;
+                }
                 objNews.FetchNewsList(ctrlPager, true);
                 newsArticles = objNews.objNewsList;
                 startIndex = objNews.StartIndex;

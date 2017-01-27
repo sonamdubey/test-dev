@@ -27,7 +27,7 @@ namespace Bikewale.News
         private BikeModelEntityBase _taggedModelObj;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
-
+        protected uint taggedModelId;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected int makeId;
         protected override void OnInit(EventArgs e)
@@ -75,6 +75,8 @@ namespace Bikewale.News
                         objArticle = objNews.ArticleDetails;
                         _taggedMakeObj = objNews.TaggedMake;
                         _taggedModelObj = objNews.TaggedModel;
+                        if (_taggedModelObj != null)
+                            taggedModelId = (uint)_taggedModelObj.ModelId;
                         currentCityArea = objNews.CityArea;
                         metas = objNews.PageMetas;
                         BindPageWidgets();

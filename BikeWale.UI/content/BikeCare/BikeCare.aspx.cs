@@ -90,6 +90,7 @@ namespace Bikewale.Content
                 ctrlPopularBikes.totalCount = 4;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
 
                 ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcoming.pageSize = 9;

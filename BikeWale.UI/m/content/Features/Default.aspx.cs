@@ -3,6 +3,7 @@ using Bikewale.BAL.Pager;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
@@ -43,6 +44,9 @@ namespace Bikewale.Mobile.Content
         protected uint totalArticles;
         HttpRequest page = HttpContext.Current.Request;
         protected int totalrecords;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -57,6 +61,11 @@ namespace Bikewale.Mobile.Content
 
                 GetFeaturesList();
             }
+
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 9;
+            ctrlPopularBikes.totalCount = 9;
+            ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
         }
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014

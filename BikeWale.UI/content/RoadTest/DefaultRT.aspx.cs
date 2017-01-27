@@ -21,7 +21,6 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
@@ -346,6 +345,10 @@ namespace Bikewale.Content
                     ctrlUpcoming.makeName = makeName;
                     ctrlUpcoming.makeMaskingName = makeMaskingName;
                     ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
+                }
+                else
+                {
+                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 }
             }
             catch (Exception ex)

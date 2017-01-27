@@ -44,6 +44,7 @@ namespace Bikewale.Content
         protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
         protected int makeId;
+        protected uint taggedModelId;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -215,10 +216,12 @@ namespace Bikewale.Content
                 if (taggedMakeObj != null)
                 {
                     _taggedMakeObj = taggedMakeObj.MakeBase;
+                    taggedModelId = (uint)taggedMakeObj.ModelBase.ModelId;
                 }
                 else
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    taggedModelId = (uint)objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
                     FetchMakeDetails();
                 }
             }

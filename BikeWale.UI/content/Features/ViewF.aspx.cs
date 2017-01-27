@@ -44,6 +44,7 @@ namespace Bikewale.Content
         protected MostPopularBikesMin ctrlPopularBikes;
         protected string upcomingBikeslink;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected uint taggedModelId;
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
         private GlobalCityAreaEntity currentCityArea;
@@ -223,10 +224,12 @@ namespace Bikewale.Content
                 if (taggedMakeObj != null)
                 {
                     _taggedMakeObj = taggedMakeObj.MakeBase;
+                    taggedModelId = (uint)taggedMakeObj.ModelBase.ModelId;
                 }
                 else
                 {
                     _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
+                    taggedModelId = (uint)objFeature.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
                     FetchMakeDetails();
                 }
             }
