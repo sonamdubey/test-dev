@@ -62,11 +62,28 @@ namespace Bikewale.Mobile.Content
                 GetFeaturesList();
             }
 
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlPopularBikes.totalCount = 9;
-            ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            BindWidgets();
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.Features.BindWidgets");
+            }
+        }
+
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
         /// Summary    : PopulateWhere to get features list from web api asynchronously

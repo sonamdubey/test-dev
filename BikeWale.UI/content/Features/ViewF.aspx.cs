@@ -214,6 +214,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : To get tagged bike along with article
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Saved tagged model id to the variable
         /// </summary>
         private void GetTaggedBikeList()
         {

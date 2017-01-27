@@ -154,6 +154,8 @@ namespace Bikewale.Mobile.Content
         /// PopulateWhere to set news details
         /// Modified By : Sushil Kumar on 2nd Jan 2016
         /// Description : Get tagged model for article 
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Saved taggedModelId in the variable.  
         /// </summary>
         private void GetNewsData()
         {

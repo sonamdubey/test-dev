@@ -62,6 +62,8 @@ namespace Bikewale.News
         /// Description : Handle page redirection 
         /// Modified By : Sushil Kumar on 2nd Jan 2016
         /// Description : Get tagged model for article 
+        /// Modified By : Sajal Gupta on 27 jan 2017
+        /// Description : Save tagged model id.
         /// </summary>
         private void BindNewsDetails()
         {

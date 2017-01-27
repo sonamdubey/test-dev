@@ -31,12 +31,28 @@ namespace Bikewale.Mobile.Content
         protected void Page_Load(object sender, EventArgs e)
         {
             BikeCareTips();
-
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlPopularBikes.totalCount = 9;
-            ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            BindWidgets();
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.BikeCare.BindWidgets");
+            }
+        }
+
         /// <summary>
         /// Created By:- Subodh jain 11 Nov 2016
         /// Summary :- Bike Care Landing page Binding

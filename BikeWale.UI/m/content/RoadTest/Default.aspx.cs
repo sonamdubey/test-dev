@@ -62,23 +62,40 @@ namespace Bikewale.Mobile.Content
                 AutoFill();
             }
 
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlPopularBikes.totalCount = 9;
-            if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
+            BindWidgets();
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
             {
-                ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
-                ctrlPopularBikes.makeName = makeName;
-                ctrlPopularBikes.makeMasking = makeMaskingName;
-                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-                ctrlUpcomingBikes.makeName = makeName;
-                ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
+                {
+                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.makeName = makeName;
+                    ctrlPopularBikes.makeMasking = makeMaskingName;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                    ctrlUpcomingBikes.makeName = makeName;
+                    ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                }
+                else
+                {
+                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.RoadTest.BindWidgets");
             }
         }
+
         /// <summary>
         /// Created By : Aditi Srivastava on 16 Nov 2016
         /// Summary    : To inject pagination widget

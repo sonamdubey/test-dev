@@ -320,6 +320,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Descriuption  : Added footer lnk to the widget when makeid not present.
         /// </summary>
         private void BindPageWidgets()
         {

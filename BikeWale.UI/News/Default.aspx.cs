@@ -123,6 +123,8 @@ namespace Bikewale.News
         /// <summary>
         /// Created by  :   Sumit Kate on 02 jan 2017
         /// Description :   Bind Popular Bikes Widget
+        /// Modified by :   Sajal Gupta on 27 jan 2017
+        /// Description :   Added footer link to the popular bikes widget.
         /// </summary>
         private void BindPopularBikes()
         {

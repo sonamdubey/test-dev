@@ -171,6 +171,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Aditi Srivastava on 22 Nov 2016
         /// Description : To get masking name of tagged make for url if it is null
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Description : Saved taggedModelId  in the variable.
         /// </summary>
         private void GetRoadTestData()
         {
@@ -186,7 +188,9 @@ namespace Bikewale.Content
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
-                    taggedModelId = (uint)objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
+
+                    if (objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase != null)
+                        taggedModelId = (uint)objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase.ModelId;
 
                     if (_taggedMakeObj.MaskingName == null)
                         FetchMakeDetails();
