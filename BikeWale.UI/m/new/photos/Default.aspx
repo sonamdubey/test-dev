@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
 
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -114,31 +115,27 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>;
+            var isModelPage = <%= isModelPage.ToString().ToLower() %>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript">
+            $(".gallery-close-btn").on('click', function () {
+                if(isModelPage)
+                {
+                window.location.href = window.location.pathname.split("photos/")[0];
+                }
+                else if(!isModelPage) {
+                    gallery.close();
+                }
+            });
+            $(document).ready(function () {
+                if(isModelPage)
+                {   
+                    bindGallery();
+                }
+            });
+        </script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
-    <script>
-
-        var isModelPage = <%= isModelPage.ToString().ToLower() %>;
-
-
-        $(".gallery-close-btn").on('click', function () {
-            if(isModelPage)
-            {
-                window.location.href = window.location.pathname.split("photos/")[0];
-            }
-            else
-            gallery.close(); 
-
-        });
-
-        $(document).ready(function () {
-            if(isModelPage)
-            bindGallery();
-           
-        });
-       
-    </script>
 </body>
 </html>
