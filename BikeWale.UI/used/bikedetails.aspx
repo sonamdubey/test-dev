@@ -140,10 +140,10 @@
                             <div id="bike-no-image">
                                 <div class=" no-image-content ">
                                     <span class="bwsprite no-image-icon"></span>
-                                    <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
+                                    <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any images</p>
                                     <% if (!isPhotoRequestDone)
                                        { %>
-                                    <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                                    <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request images</a>
                                     <% } %>
                                 </div>
                             </div>
@@ -415,7 +415,7 @@
             <div class="bike-gallery-popup" id="bike-gallery-popup">
                 <div class="modelgallery-close-btn bwsprite cross-lg-white cur-pointer"></div>
                 <div class="bike-gallery-heading">
-                    <p class="font18 text-bold margin-left30 text-white margin-bottom20"><%=modelYear %>, <%= bikeName %> Photos</p>
+                    <p class="font18 text-bold margin-left30 text-white margin-bottom20"><%=modelYear %>, <%= bikeName %> Images</p>
 
                     <div class="connected-carousels">
                         <div class="stage">

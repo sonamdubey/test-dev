@@ -16,7 +16,7 @@
 <head>
     <%
         description = pgDescription;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -25,7 +25,7 @@
         Ad_300x250 = true;
         TargetedModel = bikeModelName;
         TargetedCity = cityName;
-        keywords = string.Format("{0}, {0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0}, {0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", bikeName);
         EnableOG = true;
         OGImage = modelImage;
     %>

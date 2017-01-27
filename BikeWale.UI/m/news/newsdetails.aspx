@@ -8,7 +8,7 @@
 <head>
     <% 
         title = newsTitle + " - BikeWale News";
-        description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and photos for " + newsTitle + " on BikeWale coverage.";
+        description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and images for " + newsTitle + " on BikeWale coverage.";
         canonical = "https://www.bikewale.com/news/" + pageUrl;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";

@@ -84,7 +84,7 @@
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <li>
-                                                <a href="#divPhotos">Photos</a>
+                                                <a href="#divPhotos">Images</a>
                                             </li>
                                             </ul>
                                         </FooterTemplate>

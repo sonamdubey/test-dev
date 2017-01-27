@@ -13,8 +13,8 @@
 <html>
 <head>
     <%
-        title = _make.MakeName + " Bikes Prices, Reviews, Mileage & Photos - BikeWale";
-        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
+        title = _make.MakeName + " Bikes Prices, Reviews, Mileage & Images - BikeWale";
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, versions, news & images at Bikewale.";
         alternate = "https://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
         canonical = "https://www.bikewale.com/" + _make.MaskingName + "-bikes/";
         TargetedMake = _make.MakeName;
@@ -23,7 +23,7 @@
         isAd970x90Shown = true;
         isAd300x250BTFShown = false;
 
-        keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, new {0} Bikes", _make.MakeName);
+        keywords = string.Format("{0}, {0} Bikes , {0} Bikes prices, {0} Bikes reviews, {0} Images, new {0} Bikes", _make.MakeName);
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
