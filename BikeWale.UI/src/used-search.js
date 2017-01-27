@@ -229,12 +229,18 @@ var usedBikes = function () {
         }
 
         var ele = $(e.target).find("option:selected");
-        if (ele) {
-            self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
-        };
-        if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
-        else self.Filters()["city"] = "";
-        self.GetUsedBikes();
+        //if (ele) {
+        //    self.SelectedCity({ "id": ele.attr("data-cityid"), "name": ele.text() });
+        //};
+        //if (self.SelectedCity() && self.SelectedCity().id > 0) self.Filters()["city"] = self.SelectedCity().id;
+        //else self.Filters()["city"] = "";
+
+        var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("-");
+        arrLocation[arrLocation.length - 1] = cityMaskingName;
+        var redirectUrl = arrLocation.join("-");
+
+        window.location.pathname = redirectUrl;
+        //self.GetUsedBikes();
     };
     self.ApplyBikeFilter = function (d, e) {
         $("#city-model-used-carousel").hide();
