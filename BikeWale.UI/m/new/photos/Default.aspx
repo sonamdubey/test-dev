@@ -48,8 +48,8 @@
           <%}else {%>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <% if (vmModelPhotos != null)
-           {
-               var objImages = vmModelPhotos.objImageList; %>
+        {
+            var objImages = vmModelPhotos.objImageList; %>
         <section>
             <div class="container box-shadow section-bottom-margin">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
@@ -84,7 +84,9 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <%} } %>
         
+        <% if(!IsUpcoming) { %>
         <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
                 <h2 class="margin-bottom15">Know more about this bike</h2>
@@ -104,11 +106,219 @@
         <% } %>
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
-        <%} %>
+        
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- model-gallery-container ends here -->
            
+        <div id="gallery-root">
+            <!-- ko component: "gallery-component" -->
+            <!-- /ko -->
+            <script type="text/html" id="gallery-template-wrapper">
+                <!-- ko if: vmPhotosPage.activateGallery() -->
+                    <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
+                <!-- /ko -->
+            </script>
 
+            <script type="text/html" id="gallery-template">
+                <!-- gallery header -->
+                <div class="gallery-header" data-bind="visible: galleryTabsActive()">
+                    <h2 class="text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
+                    <span id="gallery-close-btn" class="position-abt pos-top10 pos-right10 bwmsprite cross-md-white cur-pointer"></span>
+                    <ul class="horizontal-tabs-wrapper">
+                        <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Photos</li>
+                        <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li>
+                    </ul>
+                </div>
+
+                <!-- gallery body -->
+                <div class="gallery-body">
+                    <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && photoSwiperActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
+                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
+                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
+                                <span data-bind="text: activePhotoIndex()"></span> / <span data-bind="text: photoList().length"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="swiper-wrapper" data-bind="foreach: photoList">
+                            <div class="swiper-slide">
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="main-color-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && !photoSwiperActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
+                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeColorTitle()"></p>
+                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
+                                <span data-bind="text: activeColorIndex()"></span> of <span data-bind="text: colorPhotoList().length"></span> <span data-bind="text: colorPhotoList().length > 1 ? 'colors' : 'color'"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
+                            <div class="swiper-slide">
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="main-video-content" data-bind="visible: !photosTabActive()">
+                        <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
+                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
+                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
+                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: videoList().length"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="main-video-wrapper">
+                            <div class="main-video-iframe-content">
+                                <iframe width="320" height="180" data-bind="attr: { src: 'http://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- gallery footer -->
+                <div class="gallery-footer" data-bind="visible: galleryFooterActive(), css: photosTabActive() ? '' : 'grid-2-tab'">
+                    <div class="footer-tabs-wrapper">
+                        <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                            <span class="inline-block font14">All photos</span>
+                        </div>
+                        <div data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                            <span class="inline-block font14">All videos</span>
+                        </div>
+
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite color-palette"></span>
+                        </div>
+
+                        <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite info-icon"></span>
+                        </div>
+
+                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite fullscreen-icon"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: photoThumbnailScreen()">
+                        <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                                <div class="swiper-slide">
+                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathThumbnail }" src="" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: colorsThumbnailScreen()">
+                        <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
+                                <div class="swiper-slide">
+                                    <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
+                                        <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block" data-bind="text: imageTitle"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
+                        <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
+                           <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
+                            <%if(IsDiscontinued){ %>
+                            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                            <%} %>
+                            <div class="margin-bottom10">
+                                <a href="<%=bikeUrl %>" class="item-image-content vertical-top" title="<%=bikeName %>">
+                                    <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%=bikeName %>">
+                                </a>
+                                <div class="bike-details-block vertical-top">
+                                    <h3 class="margin-bottom5"><a href="<%=bikeUrl %>" class="block text-bold text-default text-truncate" title="<%=bikeName %>"><%=bikeName%></a></h3>
+                                    <ul class="item-more-details-list">
+                                        <%if(bikeInfo.ExpertReviewsCount>0) {%>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Reviews">
+                                                <span class="bwmsprite reviews-sm"></span>
+                                                <span class="icon-label">Reviews</span>
+                                            </a>
+                                        </li>        
+                                        <%} %>
+                                        <%if(bikeInfo.NewsCount>0){ %>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> News">
+                                                <span class="bwmsprite news-sm"></span>
+                                                <span class="icon-label">News</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                        <%if(bikeInfo.IsSpecsAvailable) {%>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Specification">
+                                                <span class="bwmsprite specs-sm"></span>
+                                                <span class="icon-label">Specs</span>
+                                            </a>
+                                        </li>         
+                                        <%} %>
+                                    </ul>
+                                </div>
+                            </div>
+                            <%if(!IsUpcoming&&!IsDiscontinued){ %>
+                            
+                            <div class="grid-5 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                </div>
+                            </div>
+                            <%}else if (IsUpcoming){ %>
+                               <div class="grid-5 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Expected price</p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax)) %></span>
+                                </div>
+                            </div>
+                            <%}else if (IsDiscontinued){ %>
+                             <div class="grid-5 alpha omega">
+                                <p class="font11 text-light-grey text-truncate"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                </div>
+                            </div>
+                            <%} %>
+                            <div class="grid-7 omega">
+                                <a href="<%=bikeUrl %>" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>           
+                
+                    <div id="video-tab-screen" class="footer-tab-card font14" data-bind="visible: videoListScreen()">
+                        <ul class="video-tab-list" data-bind="foreach: videoList">
+                            <li data-bind="click: $parent.videoSelection, attr: { 'data-video-id': videoId }">
+                                <div class="video-image-block inline-block">
+                                    <img data-bind="attr: { alt: videoTitle, src: imagePathThumbnail }" border="0" />
+                                    <span class="play-icon-wrapper">
+                                        <span class="bwmsprite video-play-icon"></span>
+                                    </span>
+                                </div>
+                                <p class="video-title-block padding-left15 inline-block" data-bind="text: videoTitle"></p>
+                            </li>
+                        </ul>
+                    </div>         
+                </div>
+            </script>
+        </div>
+        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -131,7 +341,7 @@
             $(document).ready(function () {
                 if(isModelPage)
                 {   
-                    bindGallery();
+                    bindGallery($(this));
                 }
             });
         </script>
