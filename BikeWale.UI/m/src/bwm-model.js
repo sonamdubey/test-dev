@@ -671,3 +671,10 @@ var gallery = {
         $('body').removeClass('gallery-popup-active');
     }
 };
+
+// tooltip
+$('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
+    var tooltipParent = $(this).closest('.bw-tooltip');
+
+    tooltipParent.slideUp();
+});

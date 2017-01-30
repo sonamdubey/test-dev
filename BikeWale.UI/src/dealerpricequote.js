@@ -641,3 +641,15 @@ function LoadTerms(offerId) {
     }
     $('#termspinner').hide();
 }
+
+// tooltip
+$('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
+    var tooltipParent = $(this).closest('.bw-tooltip');
+
+    if (!tooltipParent.hasClass('slideUp-tooltip')) {
+        tooltipParent.fadeOut();
+    }
+    else {
+        tooltipParent.slideUp();
+    }
+});

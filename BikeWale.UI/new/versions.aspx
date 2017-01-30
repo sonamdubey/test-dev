@@ -240,12 +240,14 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
-                                <div class="leftfloat margin-top15">
-                                    <span class="font12 text-light-grey">Powered by</span><br />
-                                    <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
+                                <div class="margin-top15">
+                                    <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
+                                    <div class="grid-6 alpha omega">
+                                        <span class="font12 text-light-grey">Powered by</span>
+                                        <p class="font14 text-truncate" title="<%= viewModel.Organization %>, <%=viewModel.AreaName %>"><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="clear"></div>
                                 <%  }
                                     } %>
                                 <% if(viewModel != null && viewModel.DealerCampaignV2.PrimaryDealer.DealerDetails!=null && !viewModel.IsPremiumDealer) { %>
@@ -362,16 +364,24 @@
                                     <div class="inline-block margin-right10">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
-                                    <div class="inline-block">
-                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %>, <%=viewModel.AreaName %></h3>
-                                        <p class="font12 text-x-light">BikeWale partner dealer</p>
-                                    </div>
-                                    <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
-                                    <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
+                                    <div class="inline-block position-rel">
+                                        <div class="vertical-top">
+                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %></h3>
+                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
+                                        </div>
+                                        <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
+                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
                                         <span class="bwsprite phone-md margin-right5"></span>
                                         <span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
                                     </div>
                                     <% } %>
+                                    <% if(viewModel.IsDSA){ %>
+                                        <div class="bw-tooltip multi-brand-tooltip tooltip-left">
+                                            <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                                            <span class="position-abt pos-top10 pos-right10 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                                        </div>
+                                    </div>
+                                    <%} %>
                                 </div>
 
                                 <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
@@ -629,10 +639,10 @@
                             <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" ><%= viewModel.LeadBtnTextLarge %></a>
                             <%} %>
 
-                            <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
+                            <%-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button --%>
                             <%if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                               { %>
-                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
+                            <p class="model-powered-by-text font12 margin-top10 text-truncate" title="<%= viewModel.Organization %>, <%=viewModel.AreaName %>"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
                             <%} %>
                         </div>
                         <div class="clear"></div>

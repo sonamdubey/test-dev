@@ -171,3 +171,10 @@ var swiper = new Swiper('.pq-secondary-dealer-swiper', {
     slidesPerView: 'auto',
     spaceBetween: 0
 });
+
+// tooltip
+$('.bw-tooltip').on('click', '.close-bw-tooltip', function () {
+    var tooltipParent = $(this).closest('.bw-tooltip');
+
+    tooltipParent.slideUp();
+});

@@ -267,9 +267,14 @@
 			<div id="pq-dealer-details" class="font14">
 				<div class="dealer-title-card margin-bottom15">
 					<h2 class="font18 text-white"><%= dealerName %></h2>
-					<p><%= dealerArea %></p>
+					<p><%=(!primarydealer.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= dealerArea %></p>
 				</div>
-
+                <% if( primarydealer.DealerDetails.IsDSA){ %>
+                <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                    <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                    <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                </div>
+                <%} %>
 				<div class="padding-left15 padding-right15 margin-bottom15">
 					<p class="text-light-grey">On-road price</p>
 					<p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
