@@ -23,9 +23,13 @@
     min-height: 250px;
 }
 
+.comparison-main-card .bike-details-block a.block {
+    width: 88%;
+}
+
 .bike-details-block .btn-white {
     width: 134px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     padding: 6px 4px;
     overflow: hidden;
@@ -69,11 +73,11 @@
 }
 
 .slideIn-transition {
-    -webkit-transition: all 0.2s ease 0s;
-    -moz-transition: all 0.2s ease 0s;
-    -o-transition: all 0.2s ease 0s;
-    -ms-transition: all 0.2s ease 0s;
-    transition: all 0.2s ease 0s;
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
 }
 
 #comparison-floating-card .bike-details-block {
@@ -112,7 +116,7 @@
 
 .dropdown-select-wrapper,
 .dropdown-menu {
-    height: 30px;
+    height: 34px;
 }
 
 .dropdown-menu {
@@ -122,7 +126,6 @@
 	display: inline-block;
 	vertical-align: middle;
 	color: #4d5057;
-    margin-bottom: 5px;
 }
 
 .dropdown-menu .dropdown-label,
@@ -190,11 +193,13 @@
 
 /* single version */
 .option-count-one {
+    width: 150px;
     pointer-events: none;
     font-size: 14px;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
     border-bottom: 1px solid #e6e7e8;
     position: relative;
+    display: block;
 }
 
 .option-count-one:after {
@@ -243,7 +248,6 @@
     display: table-cell;
     text-align: center;
     white-space: nowrap;
-    color: #82888b;
     cursor: pointer;
 }
 
@@ -251,10 +255,21 @@
     float: left;
 }
 
-.overall-specs-tabs-wrapper li.active {
+.overall-specs-tabs-wrapper .active {
     border-bottom: 3px solid #ef3f30;
-    color: #4d5057;
+    pointer-events: none;
+}
+
+.overall-specs-tabs-wrapper li,
+.overall-specs-tabs-wrapper h3 {
+    font-weight: 400;
+    color: #82888b;
+}
+
+.overall-specs-tabs-wrapper .active,
+.overall-specs-tabs-wrapper .active h3 {
     font-weight: 700;
+    color: #4d5057;
 }
 
 /* floating button */
@@ -273,6 +288,7 @@
     padding-right: 15px;
     padding-left: 15px;
     background: rgba(255,255,255,0.8);
+    z-index: 2;
 }
 
 #toggle-float-button.float-button.fixed-floater {
@@ -288,8 +304,17 @@
     display: table-row;
 }
 
+/* tabs */
+.bw-tabs-data {
+    display: none;
+}
+
+.bw-tabs-data.active {
+    display: block;
+}
+
 /* table */
-.table-content {
+.model-accordion-tab + .table-content {
     display: none;
 }
 
@@ -340,8 +365,7 @@
 }
 
 #sponsored-column-active .bike-details-block .btn-white {
-    width: 99px;
-    font-size: 12px;
+    width: 100px;
 }
 
 #sponsored-column-active .row-type-data td {
@@ -373,7 +397,7 @@
 /* compare-box-placeholder */
 .compare-box-placeholder {
     width: 100%;
-    min-height: 230px;
+    height: 230px;
     background: #f5f5f5;
     display: table;
     text-align: center;
@@ -386,7 +410,7 @@
 }
 
 #comparison-floating-card .compare-box-placeholder {
-    min-height: 95px;
+    height: 84px;
 }
 
 #comparison-floating-card .grey-bike {
@@ -413,24 +437,13 @@
 .model-accordion-tab .fa-angle-down {
     position: absolute;
     right: 20px;
-    top: 20px;
-    -moz-transition: transform .3s;
-    -webkit-transition: transform .3s;
-    -o-transition: transform .3s;
-    -ms-transition: transform .3s;
-    transition: transform .3s;
+    top: 44%;
 }
 
 .model-accordion-tab.active {
+    -webkit-box-shadow: 0 2px 3px #e2e2e2;
+    -moz-box-shadow: 0 2px 3px #e2e2e2;
     box-shadow: 0 2px 3px #e2e2e2;
-}
-
-.model-accordion-tab.active .fa-angle-down {
-    -moz-transform: rotateZ(180deg);
-    -webkit-transform: rotateZ(180deg);
-    -o-transform: rotateZ(180deg);
-    -ms-transform: rotateZ(180deg);
-    transform: rotateZ(180deg);
 }
 
 .model-accordion-tab.brakes-accordion-tab {
@@ -448,12 +461,45 @@
     border-top: 0;
 }
 
-/* used-bikes-container */
-#used-bikes-container .table-content {
-    display: table;
+/* colors */
+#coloursTabContent .row-type-data td {
+    padding-top: 0;
+    text-align: center;
 }
 
-#used-bikes-container .row-type-heading {
+#coloursTabContent .row-type-data .color-box:nth-of-type(1) {
+    margin-top: 15px;
+}
+
+.color-box {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 5px;
+    margin-top: 20px;
+    background: #f1f1f1;
+    border: 1px solid #e2e2e2;
+}
+.color-box.color-count-one span {
+    width: 100%;
+    height: 100%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-two span {
+    width: 100%;
+    height: 50%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-three span {
+    width: 100%;
+    height: 33.33%;
+    display: block !important;
+}
+
+/* used-bikes-container */
+#used-bikes-container .row-type-heading,
+#coloursTabContent .row-type-heading {
     display: none;
 }
 
@@ -461,6 +507,56 @@
     padding-top: 0;
     padding-bottom: 15px;
     font-size: 14px;
+}
+
+/* similar comparisons */
+.comparison-swiper .swiper-slide,
+.comparison-swiper .swiper-card {
+    width: 310px;
+    min-height: 220px;
+}
+.comparison-swiper .swiper-card {
+    border: 1px solid #e2e2e2\9;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.comparison-swiper .swiper-slide a {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.comparison-swiper .swiper-slide a:hover {
+    text-decoration: none;
+}
+
+.model-img-content {
+    width: 126px;
+    height: 71px;
+    margin-bottom: 5px;
+}
+
+.model-comparison-list h3 + .grid-6 {
+    position: relative;
+    border-right: 1px solid #f5f5f5;
+}
+
+.model-comparison-list h3 + .grid-6:after {
+    content: '';
+    position: absolute;
+    right: -11px;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block;
+}
+
+.btn-size-1 {
+    font-size: 14px;
+    padding: 6px 42px;
 }
  
 /* icons */
@@ -495,6 +591,101 @@
     margin-bottom: 12px;
 }
 
+.know-more-icon {
+    width: 14px;
+    height: 12px;
+    background-position: -196px -460px;
+    position: relative;
+    top: 2px;
+}
+
+/* bike popup */
+.cover-window-popup {
+    display: none;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background: #fff;
+}
+.cover-window-popup .cover-popup-back,
+.cover-window-popup .body-popup-back {
+    padding: 15px 15px 12px;
+}
+.cover-window-popup .cover-popup-header {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+.cover-window-popup .cover-popup-list {
+    overflow: hidden;
+}
+.cover-window-popup .cover-popup-list li {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.cover-window-popup .cover-popup-list li span {
+    font-size: 16px;
+    padding: 10px 20px 10px 0;
+    display: block;
+    position: relative;
+    border-top: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+.cover-window-popup .cover-popup-list li:hover {
+    background-color: #f5f5f5;
+}
+.cover-window-popup .cover-popup-list li:first-child span {
+    border-top: 0;
+}
+.cover-window-popup .with-arrow li {
+    background: url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%;
+}
+.cover-window-popup .cover-popup-loader-body {
+    display: none;
+}
+.bike-banner {
+    width: 100%;
+    height: 110px;
+    background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom;
+}
+.cover-popup-body-head .head-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+.cover-popup-body-head .body-popup-back {
+    padding-left: 20px;
+}
+.cover-popup-body-head .no-back-btn-label {
+    padding-top: 13px;
+    padding-left: 20px;
+    padding-bottom: 12px;
+}
+#select-model-wrapper,
+#select-version-wrapper {
+    display: none;
+}
+.extra-padding .cover-popup-body {
+    padding-bottom: 40px;
+}
+
+@media only screen and (min-width: 479px) {
+    #sponsored-column-active .dropdown-width {
+        width: 135px
+    }
+
+    #sponsored-column-active .bike-details-block .btn-white,
+    .bike-details-block .btn-white {
+        width: 134px;
+    }
+}
+
 @media only screen and (max-width: 320px) {
     #sponsored-column-active .bike-details-block,
     .bike-details-block,
@@ -521,6 +712,11 @@
         width: 120px;
     }
 
+    #sponsored-column-active .bike-details-block .btn-white,
+    .bike-details-block .btn-white {
+        width: 134px;
+    }
+
     #sponsored-column-active .bike-details-block:nth-child(2) .dropdown-list-wrapper,
     .bike-details-block:nth-child(2) .dropdown-list-wrapper {
         right: 0;
@@ -531,9 +727,9 @@
     .bike-details-block {
         padding-top: 10px;
     }
+
+    .comparison-swiper .swiper-slide,
+    .comparison-swiper .swiper-card {
+        width: 280px;
+    }
 }
-
-
-/*
-table td{text-align:center;height:25px}div.color-box{margin:10px auto auto;width:40px;height:40px;background:#ccc;border:1px solid #e2e2e2;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.color-box.color-count-one span{width:100%;height:100%;display:block!important;background:#eee}.color-box.color-count-two span{width:100%;height:50%;display:block!important;background:#e34f4f}.color-box.color-count-three span{width:100%;height:33.33%;display:block!important}.related-comparison-container.container{border-bottom:0;padding:0}.related-comparison-carousel-content,.usedBikes{border:1px solid #ccc;padding:20px 20px 10px}.related-comparison-carousel-content{width:260px;height:auto;background:#fff}.related-comparison-carousel-content a{color:#0288d1;font-size:14px;font-weight:400;margin-bottom:10px;display:block}.related-comparison-carousel-content a:hover{color:#0288d1}.compare-tick{width:18px;height:16px;background-position:-88px -458px}.compare-cross{width:14px;height:16px;background-position:-116px -458px}.related-comparison-container .swiper-wrapper,.usedBikes{margin:10px;height:auto}.usedBikes{background:#fff}.usedBikes a {color: #0288d1;font-size: 16px;font-weight: 400;margin-bottom: 10px;}
-*/

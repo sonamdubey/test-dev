@@ -29,12 +29,12 @@
 
         <section>
             <div id="sponsored-column-active"> <%-- add sponsored-column-active for sponsored bike--%>
-                <div class="container box-shadow bg-white card-bottom-margin">
+                <div class="container box-shadow bg-white card-bottom-margin bw-tabs-panel">
                     <h1 class="box-shadow padding-15-20 margin-bottom3 text-bold">Bajaj Avenger 150 Street vs Benelli TNT 25</h1>
                     <div class="comparison-main-card">
                         <div class="bike-details-block">
                             <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
-                            <a href="" title="Bajaj Avenger 150 Street" class="block padding-top10">
+                            <a href="" title="Bajaj Avenger 150 Street" class="block margin-top10">
                                 <h2 class="font14">Bajaj Avenger 150 Street</h2>
                                 <img class="bike-image-block" src="https://imgd3.aeplcdn.com//110x61//bw/models/bajaj-avenger-150-street.jpg" alt="Bajaj Avenger 150 Street" />
                             </a>
@@ -46,12 +46,12 @@
                                 <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">99,999</span>
                             </p>
                             <div>
-                                <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                                <a href="" class="btn btn-white bike-orp-btn" rel="nofollow">On-road price</a>
                             </div>
                         </div>
                         <div class="bike-details-block">
                             <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
-                            <a href="" title="Benelli TNT 25" class="block padding-top10">
+                            <a href="" title="Benelli TNT 25" class="block margin-top10">
                                 <h2 class="font14">Benelli TNT 25</h2>
                                 <img class="bike-image-block" src="https://imgd4.aeplcdn.com//110x61//bw/models/benelli-tnt25.jpg" alt="Benelli TNT 25" />
                             </a>
@@ -68,13 +68,13 @@
                                 <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">9,99,999</span>
                             </p>
                             <div>
-                                <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                                <a href="" class="btn btn-white bike-orp-btn" rel="nofollow">On-road price</a>
                             </div>
                         </div>
                         <div class="bike-details-block sponsored-bike-details-block">
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <span id="close-sponsored-bike" class="position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
-                            <a href="" title="Bajaj Pulsar RS200" class="block padding-top10">
+                            <a href="" title="Bajaj Pulsar RS200" class="block margin-top10">
                                 <h2 class="font14">Bajaj Pulsar RS200</h2>
                                 <img class="bike-image-block" src="https://imgd1.aeplcdn.com//110x61//bw/models/bajaj-pulsar-rs200.jpg" alt="Bajaj Pulsar RS200" />
                             </a>
@@ -92,35 +92,35 @@
                                 <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold">1,26,980</span>
                             </p>
                             <div class="padding-top5 padding-bottom5">
-                                <a href="" class="font14">Know more</a>
+                                <a href="" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
-                            <!--<a href="" class="btn btn-white" rel="nofollow">On-road price</a>-->
+                            <!--<a href="" class="btn btn-white bike-orp-btn" rel="nofollow">On-road price</a>-->
                         </div>
                         <div class="clear"></div>
                     </div>
                     <div id="comparison-floating-card" class="box-shadow slideIn-transition">
                         <div class="bike-details-block">
                             <a href="" class="bike-title-target">Bajaj Avenger 150 Street</a>
-                            <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                            <a href="" class="btn btn-white bike-orp-btn" rel="nofollow">On-road price</a>
                         </div>
                         <div class="bike-details-block">
                             <a href="" class="bike-title-target">Benelli TNT 25</a>
-                            <a href="" class="btn btn-white" rel="nofollow">On-road price</a>
+                            <a href="" class="btn btn-white bike-orp-btn" rel="nofollow">On-road price</a>
                         </div>
                         <div class="bike-details-block sponsored-bike-details-block">
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <a href="" class="bike-title-target">Bajaj Pulsar RS200</a>
                             <div class="padding-top5 padding-bottom5">
-                                <a href="" class="font14">Know more</a>
+                                <a href="" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <!--<a href="" class="btn btn-white" rel="nofollow">On-road price</a>-->
                         </div>
                         <div class="clear"></div>
                         <div class="overall-specs-tabs-container">
                             <ul class="overall-specs-tabs-wrapper">
-                                <li data-tabs="#specsTabContent" class="active">Specifications</li>
-                                <li data-tabs="#featuresTabContent">Features</li>
-                                <li data-tabs="#coloursTabContent">Colours</li>
+                                <li data-tabs="specsTabContent" class="active">Specifications</li>
+                                <li data-tabs="featuresTabContent">Features</li>
+                                <li data-tabs="coloursTabContent">Colours</li>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -128,13 +128,13 @@
 
                     <div id="overall-specs-tabs" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <li data-tabs="#specsTabContent" class="active">Specifications</li>
-                            <li data-tabs="#featuresTabContent">Features</li>
-                            <li data-tabs="#coloursTabContent">Colours</li>
+                            <li data-tabs="specsTabContent" class="active"><h3>Specifications</h3></li>
+                            <li data-tabs="featuresTabContent"><h3>Features</h3></li>
+                            <li data-tabs="coloursTabContent"><h3>Colours</h3></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <div id="specsTabContent" class="bw-model-tabs-data active">
+                    <div id="specsTabContent" class="bw-tabs-data active">
                         <div class="model-accordion-tab active">
                             <span class="offers-sprite engine-sm-icon"></span>
                             <span class="accordion-tab-label">Engine & transmission</span>
@@ -356,7 +356,7 @@
 
                         <div class="model-accordion-tab">
                             <span class="offers-sprite fuel-sm-icon"></span>
-                            <span class="accordion-tab-label">Fuel Efficiency & performance</span>
+                            <span class="accordion-tab-label">Fuel efficiency & performance</span>
                             <span class="bwmsprite fa-angle-down"></span>
                         </div>
                         <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -401,8 +401,121 @@
                         </table>
 
                     </div>
-                    <div id="featuresTabContent" class="bw-model-tabs-data"></div>
-                    <div id="coloursTabContent" class="bw-model-tabs-data"></div>
+                    <div id="featuresTabContent" class="bw-tabs-data">
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Speedometer</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>Analogue</td>
+                                    <td>Digital</td>
+                                    <td>Analogue</td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Tachometer</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td><span class="bwmsprite tick-grey"></span></td>
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Shift Light</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Tripmeter Type</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>Digital</td>
+                                    <td>Digital</td>
+                                    <td>Digital</td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Fuel Gauge</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Pillion Seat</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td><span class="bwmsprite tick-grey"></span></td>
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                </tr>
+                                
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Stand Alarm</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr class="row-type-heading">
+                                    <td colspan="2">Stepped Seat</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                    <td><span class="bwmsprite tick-grey"></span></td>
+                                    <td><span class="bwmsprite cross-grey"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="coloursTabContent" class="bw-tabs-data">
+                        <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr class="row-type-heading">
+                                    <td colspan="2"></td>
+                                    <td></td>
+                                </tr>
+                                <tr class="row-type-data">
+                                    <td>
+                                        <div class="color-box color-count-two">
+                                            <span style="background-color: #00A8DD"></span>
+                                            <span style="background-color: #040004"></span>
+                                        </div>
+                                        <p>Dual Tone Blue</p>
+                                        <div class="color-box color-count-two">
+                                            <span style="background-color: #DA251F"></span>
+                                            <span style="background-color: #040004"></span>
+                                        </div>
+                                        <p>Dual Tone Red</p>
+                                    </td>
+                                    <td>
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: #848483"></span>
+                                        </div>
+                                        <p>Mercury Grey</p>
+                                    </td>
+                                    <td>
+                                        <div class="color-box color-count-one">
+                                            <span style="background-color: #00AEE8"></span>
+                                        </div>
+                                        <p>Deep Sky Blue</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                                 
                     <div id="toggle-float-button" class="grid-12 float-button float-fixed clearfix slideIn-transition">
                         <button type="button" id="toggle-features-btn" class="btn btn-teal btn-full-width">Hide common features</button>
@@ -412,7 +525,7 @@
                 </div>
 
                 <div id="used-bikes-container" class="container box-shadow bg-white card-bottom-margin">
-                    <h2 class="content-inner-block-15">Used bikes you may also like</h2>
+                    <h2 class="content-inner-block-15">Used bikes you may like</h2>
                     <table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                             <tr class="row-type-heading">
@@ -420,222 +533,168 @@
                                 <td></td>
                             </tr>
                             <tr class="row-type-data">
-                                <td><a href="" class="block">23 Used Bajaj Avenger</a><p class="text-light-grey text-unbold">starting at <span class="bwmsprite inr-grey-xxsm-icon"></span>98,000</p></td>
-                                <td><a href="" class="block">45 Used Benelli TNT</a><p class="text-light-grey text-unbold">starting at <span class="bwmsprite inr-grey-xxsm-icon"></span>76,000</p></td>
-                                <td><a href="" class="block">67 Used Bajaj Pulsar</a><p class="text-light-grey text-unbold">starting at <span class="bwmsprite inr-grey-xxsm-icon"></span>54,000</p></td>
+                                <td><a href="" class="block">23 Used Bajaj Avenger</a><p class="text-light-grey text-unbold">starting at<br /><span class="bwmsprite inr-grey-xxsm-icon"></span>98,000</p></td>
+                                <td><a href="" class="block">45 Used Benelli TNT</a><p class="text-light-grey text-unbold">starting at<br /><span class="bwmsprite inr-grey-xxsm-icon"></span>76,000</p></td>
+                                <td><a href="" class="block">67 Used Bajaj Pulsar</a><p class="text-light-grey text-unbold">starting at<br /><span class="bwmsprite inr-grey-xxsm-icon"></span>54,000</p></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
+
+        <section>
+            <div class="container box-shadow bg-white padding-bottom10 card-bottom-margin">
+                <h2 class="content-inner-block-15">Similar comparisons</h2>
+                <div id="comparisonSwiper" class="swiper-container padding-top5 padding-bottom5 comparison-swiper card-container">
+                    <div class="swiper-wrapper model-comparison-list">
+                        <div class="swiper-slide">
+                            <div class="swiper-card rounded-corner2">
+                                <a href="" title="" class="block">
+                                    <h3 class="font12 text-black text-center margin-bottom10">Wego vs Jupiter</h3>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-wego-drum-165.jpg?20151209224944" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,985</span>
+                                    </div>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-jupiter-standard-505.jpg?20151209224723" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,817</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="margin-top15 text-center">
+                                        <span class="btn btn-white btn-size-1">Compare now</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card rounded-corner2">
+                                <a href="" title="" class="block">
+                                    <h3 class="font12 text-black text-center margin-bottom10">Wego vs Jupiter</h3>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-wego-drum-165.jpg?20151209224944" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,985</span>
+                                    </div>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-jupiter-standard-505.jpg?20151209224723" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,817</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="margin-top15 text-center">
+                                        <span class="btn btn-white btn-size-1">Compare now</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card rounded-corner2">
+                                <a href="" title="" class="block">
+                                    <h3 class="font12 text-black text-center margin-bottom10">Wego vs Jupiter</h3>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-wego-drum-165.jpg?20151209224944" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,985</span>
+                                    </div>
+                                    <div class="grid-6">
+                                        <div class="model-img-content">
+                                            <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/tvs-jupiter-standard-505.jpg?20151209224723" src="" alt="" title="" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">51,817</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="margin-top15 text-center">
+                                        <span class="btn btn-white btn-size-1">Compare now</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
         
+        <!-- select bike starts here -->
+        <div id="select-bike-cover-popup" class="cover-window-popup">
+            <div class="ui-corner-top">
+                <div id="close-bike-popup" class="cover-popup-back cur-pointer leftfloat" data-bind="click: closeBikePopup">
+                    <span class="bwmsprite fa-angle-left"></span>
+                </div>
+                <div class="cover-popup-header leftfloat">Select bikes</div>
+                <div class="clear"></div>
+            </div>
+            <div class="bike-banner"></div>
+            <div id="select-make-wrapper" class="cover-popup-body">
+                <div class="cover-popup-body-head">
+                    <p class="no-back-btn-label head-label inline-block">Select Make</p>
+                </div>
+                <ul class="cover-popup-list with-arrow">
+                    <li data-bind="click: makeChanged" data-id="2"><span>Aprilla</span></li>
+                    <li data-bind="click: makeChanged" data-id="1"><span>Bajaj</span></li>
+                    <li data-bind="click: makeChanged" data-id="40"><span>Benelli</span></li>
+                    <li data-bind="click: makeChanged" data-id="3"><span>BMW1</span></li>
+                    <li data-bind="click: makeChanged" data-id="4"><span>Ducati</span></li>
+                </ul>                                
+            </div>
+
+            <div id="select-model-wrapper" class="cover-popup-body">
+                <div class="cover-popup-body-head">
+                    <div data-bind="click: modelBackBtn" class="body-popup-back cur-pointer inline-block">
+                        <span class="bwmsprite back-long-arrow-left"></span>
+                    </div><p class="head-label inline-block">Select Model</p>
+                </div>
+                <ul class="cover-popup-list with-arrow" data-bind="foreach: modelArray">
+                    <li data-bind="click: $parent.modelChanged">
+                        <span data-bind="text: modelName, attr: { 'data-id': modelId }" ></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="select-version-wrapper" class="cover-popup-body">
+                <div class="cover-popup-body-head">
+                    <div data-bind="click: versionBackBtn" class="body-popup-back cur-pointer inline-block">
+                        <span id="arrow-version-back" class="bwmsprite back-long-arrow-left" ></span>
+                    </div><p class="head-label inline-block">Select Version</p>
+                </div>
+                <ul class="cover-popup-list" data-bind="foreach: versionArray">
+                    <li data-bind="click: $parent.versionChanged">
+                        <span data-bind="text: versionName, attr: { 'data-id': versionId }" ></span>
+                    </li>                                    
+                </ul>
+            </div>
+
+            <div class="cover-popup-loader-body">
+                <div class="cover-popup-loader"></div>
+                <div class="cover-popup-loader-text font14">Loading...</div>
+            </div>
+        </div>
+        <!-- select bike ends here -->
 
     <div>
-        <div class="padding10">
-            
-            
-            <% if(count == 2) { %>
-            
-            <div class="box2">
-        <div id="CD2" class="hide" style="padding: 0px 5px;">
-            <table cellspacing="0" cellpadding="0" class="table">
-                <tbody>
-                    <tr style="font-weight:bold;">
-                        <td class="subCategoryBorder" style="text-align:left;font-size:14px;">Features</td>
-                        <td class="subCategoryBorder"><div onclick="BoxClicked(this);" class="rightMinus"></div></td>
-                    </tr>
-                    <tr style="display: table-row;">
-                        <td colspan="2">
-                        <table cellspacing="0" cellpadding="0" class="table tblItem">
-                            <tbody>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Speedometer</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[0]["Speedometer"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[1]["Speedometer"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Tachometer</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["Tachometer"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["Tachometer"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Tachometer Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[0]["TachometerType"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[1]["TachometerType"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Shift Light</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["ShiftLight"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["ShiftLight"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Electric Start</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["ElectricStart"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["ElectricStart"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Tripmeter</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["Tripmeter"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["Tripmeter"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">No. of Tripmeters</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[0]["NoOfTripmeters"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[1]["NoOfTripmeters"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Tripmeter Type</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[0]["TripmeterType"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFormatedData(bikeFeatures.Rows[1]["TripmeterType"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Low Fuel Indicator</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["LowFuelIndicator"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["LowFuelIndicator"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Low Oil Indicator</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["LowOilIndicator"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["LowOilIndicator"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Low Battery Indicator</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["LowBatteryIndicator"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["LowBatteryIndicator"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Fuel Gauge</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["FuelGauge"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["FuelGauge"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Digital Fuel Gauges</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["DigitalFuelGauge"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["DigitalFuelGauge"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Pillion Seat</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["PillionSeat"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["PillionSeat"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Pillion Footrest</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["PillionFootrest"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["PillionFootrest"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Pillion Backrest</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["PillionBackrest"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["PillionBackrest"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Pillion Grabrail</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["PillionGrabrail"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["PillionGrabrail"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Stand Alarm</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["StandAlarm"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["StandAlarm"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Stepped Seat</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["SteppedSeat"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["SteppedSeat"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Antilock Braking System</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["AntilockBrakingSystem"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["AntilockBrakingSystem"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Killswitch</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["Killswitch"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["Killswitch"].ToString()) %></td>
-                                </tr>
-                                <tr class="compareBikeItemContainer">
-                                    <td colspan="2">Clock</td>
-                                </tr>
-                                <tr>
-                                    <td class="compareBikeItemBorder-Rt" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[0]["Clock"].ToString()) %></td>
-                                    <td class="" style="width:50%;"><%= ShowFeature(bikeFeatures.Rows[1]["Clock"].ToString()) %></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="CD1" class="hide" style="padding: 0px 5px;">
-            <table cellspacing="0" cellpadding="0" width="100%" border="0">
-	            <tbody>
-		            <tr class="compareBikeItemContainer">
-			            <td colspan="2">Colors</td>
-		            </tr>
-		            <tr class="colorDiv">
-			            <td class="compareBikeItemBorder-Rt" style="width:50%;padding-top:5px;"><%= GetModelColors(bikeDetails.Rows[0]["BikeVersionId"].ToString())%></td>
-			            <td class="" style="width:50%;padding-top:5px;"><%= GetModelColors(bikeDetails.Rows[1]["BikeVersionId"].ToString())%></td>
-		            </tr>
-	            </tbody>
-            </table>
-        </div>
-    </div>
-        </div>
-    <% } %>
-        <% if(isUsedBikePresent){ %>
-        <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Used bikes</h2>
-            <div class="usedBikes">
-                <table width="100%">
-                    <tr><td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[0]["bikeCount"]),Convert.ToString(bikeDetails.Rows[0]["make"]), Convert.ToString(bikeDetails.Rows[0]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[0]["model"]), Convert.ToString(bikeDetails.Rows[0]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[0]["minPrice"]))) %></td>
-                        <td width="50%"><%= CreateUsedBikeLink(Convert.ToUInt32(bikeDetails.Rows[1]["bikeCount"]),Convert.ToString(bikeDetails.Rows[1]["make"]), Convert.ToString(bikeDetails.Rows[1]["MakeMaskingName"]), Convert.ToString(bikeDetails.Rows[1]["model"]), Convert.ToString(bikeDetails.Rows[1]["ModelMaskingName"]), Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(bikeDetails.Rows[1]["minPrice"]))) %></td>
-                    </tr>
-                </table>
-            </div>
-        <% } %>
+        
             <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
         <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
         <div class="swiper-container">
@@ -655,61 +714,6 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#divFloat").hide();
-                var relatedComparisonContainer = $('.related-comparison-container');
-                $(".swiper-slide:first").css("margin-left", "10px");
-                /*
-                $(window).bind("scroll", function () {
-                    var offset = $(this).scrollTop(),
-                        relatedComparisonContainerOffset = relatedComparisonContainer.offset();
-
-                    if (offset > parseInt($("#divBikeName").position().top) + 180) {
-                        $("#divFloat").show();
-                    }
-                    else {
-                        $("#divFloat").hide();
-                    }
-                    if (offset > relatedComparisonContainerOffset.top - $('#divFloat').height()) {
-                        $("#divFloat").hide();
-                    }
-                });
-                */
-            });
-
-            function BoxClicked(div) {
-                if ($(div).attr("class") == "rightMinus") {
-                    $(div).removeClass("rightMinus").addClass("rightPlus");
-                    $(div).parent("td").parent("tr").next().hide();
-                }
-                else if ($(div).attr("class") == "rightPlus") {
-                    $(div).removeClass("rightPlus").addClass("rightMinus");
-                    $(div).parent("td").parent("tr").next().show();
-                }
-            }
-
-
-            $(".divCompareBikeMenu li").click(function () {
-                $('html, body').animate({ scrollTop: 270 });
-                var contentType = $(this).attr("contentType");
-                $(".divCompareBikeMenu li").each(function () {
-                    if ($(this).attr("contentType") == contentType) {
-                        if ($(this).hasClass("list")) {
-                            $(this).removeClass("list").addClass("listActive");
-                            $("#" + contentType).show();
-                            //window.scrollTo(0,1);
-                        }
-                    }
-                    else {
-                        if ($(this).hasClass("listActive")) {
-                            $(this).removeClass("listActive").addClass("list");
-                            $("#" + $(this).attr("contentType")).hide();
-                        }
-                    }
-                });
-            });
-        </script>
     </form>
 </body>
 </html>
