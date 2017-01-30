@@ -272,7 +272,7 @@
                                     </div>
                                     <div class="clear"></div>
                                     <% if(!primarydealer.DealerDetails.IsDSA){ %>
-                                <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+                                <div class="margin-right20 margin-left20 margin-top20 border-solid-bottom"></div>
                                 <%}else{ %>
 
                                     <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
