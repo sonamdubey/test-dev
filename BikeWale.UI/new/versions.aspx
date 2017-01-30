@@ -361,20 +361,20 @@
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
                                 <div class="padding-top20 padding-bottom20">
-                                    <div class="inline-block margin-right10">
+                                    <div class="inline-block margin-right10 vertical-top">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
-                                    <div class="inline-block position-rel">
+                                    <div class="inline-block position-rel margin-bottom10">
                                         <div class="vertical-top">
-                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %></h3>
-                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
-                                        </div>
-                                        <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
-                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
+                                        <h3 class="font18 text-black inline-block"><%= viewModel.Organization %></h3>
+                                         <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
+                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top margin-left10 inline-block padding-right10">
                                         <span class="bwsprite phone-md margin-right5"></span>
                                         <span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
                                     </div>
                                     <% } %>
+                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
+                                        </div>
                                     <% if(viewModel.IsDSA){ %>
                                         <div class="bw-tooltip multi-brand-tooltip tooltip-left">
                                             <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>

@@ -253,11 +253,17 @@
                                             <span class="pq-sprite partner-dealer"></span>
                                         </div>
                                         <div class="inline-block dealer-name-content">
-                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %></h3>
+                                            <h3 class="font18 text-black margin-bottom5 inline-block"><%= primarydealer.DealerDetails.Organization %></h3>
+                                        <% if (!string.IsNullOrEmpty(primarydealer.DealerDetails.MaskingNumber))
+                                           { %>
+                                        <div class="margin-left10 inline-block">
+                                            <span class="bwsprite phone-black-icon vertical-top"></span>
+                                            <span class="font15 vertical-top text-bold "><%= primarydealer.DealerDetails.MaskingNumber %></span>
+                                        </div>
+                                        <%} %>
                                             <p class="font12 text-light-grey"><%= (!primarydealer.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                         </div>
                                     </div>
-                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
                                     <div id="dealer-offers-label" class="inline-block">
                                         <p class="font14">Get in touch with this dealer for:</p>
                                         <ul id="offers-label-list">
@@ -266,7 +272,6 @@
                                             <li>EMI options</li>
                                         </ul>
                                     </div>
-                                    <%} %>
                                     <div id="get-offers-btn-content" class="inline-block <%= primarydealer.DealerDetails.IsDSA ? "rightfloat" :"" %>">
                                         <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
