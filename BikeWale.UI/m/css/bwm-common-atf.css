@@ -131,7 +131,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .bw-tabs::-webkit-scrollbar {width: 0;}
 
 /* sprite classes */
-.bwmsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v24Jan2017) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v30Jan2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -336,3 +336,5 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .swiper-btn-block {
     padding: 10px 15px;
 }
+
+.swiper-wrapper { position: relative; width: 100%; height: 100%; z-index: 1; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-transition-property: -webkit-transform; -moz-transition-property: -moz-transform; -o-transition-property: -o-transform; -ms-transition-property: -ms-transform; transition-property: transform; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; }
