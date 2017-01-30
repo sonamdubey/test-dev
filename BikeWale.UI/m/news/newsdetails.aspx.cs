@@ -1,10 +1,15 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -42,6 +47,9 @@ namespace Bikewale.Mobile.Content
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static readonly ILog _logger = LogManager.GetLogger(typeof(newsdetails));
         protected uint taggedModelId;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected bool showBodyStyleWidget;
+        protected EnumBikeBodyStyles bodyStyle;
 
         protected override void OnInit(EventArgs e)
         {
@@ -228,6 +236,27 @@ namespace Bikewale.Mobile.Content
                         ctrlGenericBikeInfo.ModelId = (uint)_taggedModelObj.ModelId;
                     }
 
+                }
+                if (taggedModelId > 0)
+                {
+                    ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+                        IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        bodyStyle = modelCache.GetBikeBodyType(taggedModelId);
+
+                    }
+
+                    if (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
+                        showBodyStyleWidget = true;
                 }
             }
             catch (Exception ex)

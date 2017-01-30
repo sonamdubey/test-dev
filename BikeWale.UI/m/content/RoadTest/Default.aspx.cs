@@ -9,6 +9,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
@@ -49,6 +50,9 @@ namespace Bikewale.Mobile.Content
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         private GlobalCityAreaEntity currentCityArea;
+        protected bool showBodyStyleWidget;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected EnumBikeBodyStyles bodyStyle;
 
         protected override void OnInit(EventArgs e)
         {
@@ -95,6 +99,34 @@ namespace Bikewale.Mobile.Content
                 {
                     ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 }
+
+                uint intModelId;
+                uint.TryParse(modelId, out intModelId);
+
+                if (intModelId > 0)
+                {
+                    ctrlBikesByBodyStyle.ModelId = intModelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                }
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                    if (intModelId > 0)
+                    {
+                        bodyStyle = modelCache.GetBikeBodyType(intModelId);
+                    }
+                }
+
+                if (intModelId > 0 && (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports))
+                    showBodyStyleWidget = true;
+
             }
             catch (Exception ex)
             {

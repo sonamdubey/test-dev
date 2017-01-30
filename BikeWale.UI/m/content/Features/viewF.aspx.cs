@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -6,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -21,7 +24,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Mobile.Content
 {
     /// <summary>
@@ -44,8 +46,12 @@ namespace Bikewale.Mobile.Content
         protected ArticlePageDetails objFeature = null;
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected uint modelId;
+        protected bool showBodyStyleWidget;
         private bool _isContentFount = true;
         protected IEnumerable<ModelImage> objImg = null;
+        protected EnumBikeBodyStyles bodyStyle;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -185,7 +191,9 @@ namespace Bikewale.Mobile.Content
             {
                 if (objFeature.VehiclTagsList != null && objFeature.VehiclTagsList.Count > 0)
                 {
-                    modelName = objFeature.VehiclTagsList[0].ModelBase.ModelName;
+                    var modelBase = objFeature.VehiclTagsList[0].ModelBase;
+                    modelName = modelBase.ModelName;
+                    modelId = (uint)modelBase.ModelId;
                     modelUrl = "/m/" + UrlRewrite.FormatSpecial(objFeature.VehiclTagsList[0].MakeBase.MakeName) + "-bikes/" + objFeature.VehiclTagsList[0].ModelBase.MaskingName + "/";
                 }
             }
@@ -225,7 +233,7 @@ namespace Bikewale.Mobile.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.totalCount = 9;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -238,6 +246,28 @@ namespace Bikewale.Mobile.Content
                     ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
                     ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                }
+
+                if (modelId > 0)
+                {
+                    ctrlBikesByBodyStyle.ModelId = modelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+                        IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        bodyStyle = modelCache.GetBikeBodyType(modelId);
+
+                    }
+
+                    if (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
+                        showBodyStyleWidget = true;
                 }
             }
             catch (Exception ex)
@@ -294,6 +324,6 @@ namespace Bikewale.Mobile.Content
                 objErr.SendMail();
             }
         }
-       
+
     }
 }
