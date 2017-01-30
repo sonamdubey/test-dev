@@ -166,17 +166,9 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetModelDescription sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return modelPage;
@@ -246,9 +238,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetModelColor ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objMultiToneColor;
@@ -1822,7 +1812,8 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, "GenericBikeRepository.GetGenericBikeInfo");
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetGenericBikeInfo: ModelId:{0}", modelId));
+
             }
             return genericBikeInfo;
         }

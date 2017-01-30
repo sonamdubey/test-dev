@@ -24,6 +24,8 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
     /// Modified by : Aditi srivastava on 17 Jan 2017
     /// Description : Removed BL function call and 
     ///      added cache function for top bikes listing
+    ///Modified By :- Subodh Jain 30 jan 2017
+    ///Summary:- Shifted generic to bikemodel repository
     /// </summary>
     public class BestBikesListing
     {

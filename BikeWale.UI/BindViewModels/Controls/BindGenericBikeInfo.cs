@@ -26,6 +26,8 @@ namespace Bikewale.BindViewModels.Controls
         /// Summary :  To get generic bike info by modelid
         /// Modified By : Aditi Srivastava on 23 Jan 2017
         /// Summary     : Added properties for checking upcoming and discontinued bikemodels
+        ///Modified By :- Subodh Jain 30 jan 2017
+        ///Summary:- Shifted generic to bikemodel repository
         /// </summary>
         public GenericBikeInfo GetGenericBikeInfo()
         {

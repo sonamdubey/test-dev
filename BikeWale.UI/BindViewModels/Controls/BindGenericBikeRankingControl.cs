@@ -15,6 +15,8 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created by : Aditi Srivastava on 12 Jan 2017
     /// Description: To get bike ranking in a category by model id
+    ///Modified By :- Subodh Jain 30 jan 2017
+    ///Summary:- Shifted generic to bikemodel repository
     /// </summary>
     public class BindGenericBikeRankingControl
     {

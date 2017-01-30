@@ -55,6 +55,8 @@ namespace Bikewale.Mobile.New.Photos
         /// Description : Bind photos page with metas,photos and widgets
         /// Modified By :- Subodh jain 20 jan 2017
         /// Summary :- Added ismodel page flag for gallery binding
+        /// modified by :- Subodh Jain 30 jan 2017
+        /// Summary:- Added model gallery info values
         /// </summary>
         private void BindPhotosPage()
         {
@@ -68,11 +70,15 @@ namespace Bikewale.Mobile.New.Photos
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindModelPhotosPageWidgets();
                     BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
-                    genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+
+                    if (vmModelPhotos.objModel != null)
+                    {
+                        genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                    }
                     bikeInfo = genericBikeInfo.GetGenericBikeInfo();
                     if (bikeInfo != null)
                     {
-                        if (bikeInfo.Make != null)
+                        if (bikeInfo.Make != null && bikeInfo.Model != null)
                             bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
                         if (bikeInfo.Model != null)
                             bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
