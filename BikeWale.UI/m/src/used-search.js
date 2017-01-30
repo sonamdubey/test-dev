@@ -574,7 +574,6 @@ function formatPrice(price) {
 $(document).ready(function () {
 
     var sortFilter = $('#sort-filter-wrapper'),
-        bodyHeight = $('body').height(),
         footerHeight = $('footer').height();
 
     $(window).scroll(function () {
