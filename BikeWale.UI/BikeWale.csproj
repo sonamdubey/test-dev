@@ -318,8 +318,14 @@
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
