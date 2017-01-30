@@ -44,7 +44,7 @@
                         <span class="boundary"></span>
                     <span class="error-text" data-bind="validationMessage: SelectedCity"></span>
                 </div> 
-                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 1 ">
+                <div id="area-dropdown-field" class="select-box margin-top10" data-bind="visible: SelectedCityId() > 0 && BookingAreas().length > 0">
                    <p class="select-label">Area</p>
                     <select class="chosen-select" data-placeholder="Select area" id="ddlAreaPopup" tabindex="3"
                          data-bind="options: BookingAreas(), value: SelectedAreaId, optionsText: 'name', optionsValue: 'id',chosen: { width: '100%',search_contains: true }, event: { change:selectArea }">

@@ -23,6 +23,7 @@ namespace Bikewale.Mobile.New
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
+        protected BestBikes ctrlBestBikes;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;

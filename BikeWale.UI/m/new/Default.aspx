@@ -7,6 +7,7 @@
 <%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -131,8 +132,18 @@
             </div>
         </section>
 
+        <% if(ctrlBestBikes!= null) { %>
         <section>
+            <div class="container">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
+                <div class="box-shadow bg-white padding-top10 padding-bottom10">
+                    <BW:BestBikes runat="server" ID="ctrlBestBikes" />
+                </div>
+            </div>
+        </section>
+          <% } %>
 
+        <section>
             <!--  Compare section code starts here -->
             <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
 
