@@ -111,7 +111,7 @@
                                <%}%>                                  
                             </div>
                             <% } %>  
-                    <div id="search-listing-content" class="position-rel bg-white">
+                        <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">
                                     <div id="loader-right-column"></div>
                                     <div class="margin-top15 font12 padding-bottom5 border-solid-bottom" data-bind="visible: PreviousQS() != ''">
