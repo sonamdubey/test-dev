@@ -103,7 +103,7 @@ namespace Bikewale.Mobile.Content
                 else
                 {
                     _taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().MakeBase;
-                     FetchMakeDetails();
+                    FetchMakeDetails();
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Bikewale.Mobile.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             if (ctrlPopularBikes != null)
             {
-                ctrlPopularBikes.totalCount = 4;
+                ctrlPopularBikes.totalCount = 9;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
                 if (_taggedMakeObj != null)

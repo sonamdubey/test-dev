@@ -9,6 +9,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -16,6 +17,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -46,6 +48,7 @@ namespace Bikewale.Mobile.Content
         HttpRequest page = HttpContext.Current.Request;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
+        private GlobalCityAreaEntity currentCityArea;
 
         protected override void OnInit(EventArgs e)
         {
@@ -56,13 +59,13 @@ namespace Bikewale.Mobile.Content
         {
             if (!IsPostBack)
             {
-                if(ProcessQueryString())
+                if (ProcessQueryString())
                     BindWidgets();
 
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
-            }           
+            }
         }
 
         /// <summary>
@@ -76,6 +79,9 @@ namespace Bikewale.Mobile.Content
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
                 if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
                 {
                     ctrlPopularBikes.makeId = Convert.ToInt32(makeId);

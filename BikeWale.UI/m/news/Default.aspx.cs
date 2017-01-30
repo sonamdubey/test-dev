@@ -3,7 +3,9 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,6 +34,8 @@ namespace Bikewale.Mobile.News
         protected PopularBikesMin ctrlPopularBikes;
         protected string makeName = string.Empty, makeMaskingName = string.Empty;
         protected uint makeId;
+        private GlobalCityAreaEntity currentCityArea;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -48,9 +52,10 @@ namespace Bikewale.Mobile.News
             if (!IsPostBack)
             {
                 GetNewsList();
+                BindWidgets();
             }
 
-            BindWidgets();
+
         }
 
         /// <summary>
@@ -64,6 +69,9 @@ namespace Bikewale.Mobile.News
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
                 if (Convert.ToInt32(makeId) > 0)
                 {
                     ctrlPopularBikes.makeId = Convert.ToInt32(makeId);

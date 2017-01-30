@@ -6,6 +6,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -46,6 +47,7 @@ namespace Bikewale.Mobile.Content
         protected int totalrecords;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
+        private GlobalCityAreaEntity currentCityArea;
 
         protected override void OnInit(EventArgs e)
         {
@@ -76,6 +78,9 @@ namespace Bikewale.Mobile.Content
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
                 ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
             }
             catch (Exception ex)
             {

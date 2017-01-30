@@ -77,7 +77,7 @@
             </div>
         </section>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

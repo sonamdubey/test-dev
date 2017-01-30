@@ -245,6 +245,10 @@ namespace Bikewale.Content
                         ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
 
                     }
+                    else
+                    {
+                        ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                    }
                 }
                 if (ctrlUpcomingBikes != null)
                 {
