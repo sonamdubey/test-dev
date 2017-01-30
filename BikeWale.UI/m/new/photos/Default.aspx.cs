@@ -1,4 +1,7 @@
-﻿using Bikewale.BindViewModels.Webforms.Photos;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Photos;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using System;
 using System.Web;
@@ -15,12 +18,16 @@ namespace Bikewale.Mobile.New.Photos
     {
 
         protected ModelGallery ctrlModelGallery;
+        protected GenericBikeInfo bikeInfo;
         protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
-        protected bool isDiscontinued = false;
+        protected bool IsUpcoming { get; set; }
+        protected bool IsDiscontinued { get; set; }
         protected bool isModelPage;
+        protected PQSourceEnum pqSource;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -48,6 +55,8 @@ namespace Bikewale.Mobile.New.Photos
         /// Description : Bind photos page with metas,photos and widgets
         /// Modified By :- Subodh jain 20 jan 2017
         /// Summary :- Added ismodel page flag for gallery binding
+        /// modified by :- Subodh Jain 30 jan 2017
+        /// Summary:- Added model gallery info values
         /// </summary>
         private void BindPhotosPage()
         {
@@ -58,8 +67,28 @@ namespace Bikewale.Mobile.New.Photos
                 {
                     vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
-                    isDiscontinued = vmModelPhotos.IsDiscontinued;
+                    IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindModelPhotosPageWidgets();
+                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+
+                    if (vmModelPhotos.objModel != null)
+                    {
+                        genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                    }
+                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+                    if (bikeInfo != null)
+                    {
+                        if (bikeInfo.Make != null && bikeInfo.Model != null)
+                        {
+                            bikeUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                        }
+                        pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                        // for photos page
+                        bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0;
+                        IsUpcoming = genericBikeInfo.IsUpcoming;
+                        IsDiscontinued = genericBikeInfo.IsDiscontinued;
+                    }
                 }
             }
             catch (Exception ex)
@@ -105,7 +134,7 @@ namespace Bikewale.Mobile.New.Photos
                 ctrlModelGallery.modelId = vmModelPhotos.objModel.ModelId;
                 ctrlModelGallery.Photos = vmModelPhotos.objImageList;
 
-                if (!isDiscontinued)
+                if (!IsDiscontinued)
                 {
                     ctrlSimilarBikesWithPhotos.TotalRecords = 6;
                     ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;

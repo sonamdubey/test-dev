@@ -34,13 +34,14 @@ namespace Bikewale.Mobile.Controls
                 bikeInfo = genericBikeInfo.GetGenericBikeInfo();
                 if (bikeInfo != null)
                 {
-                    if (bikeInfo.Make != null)
-                        bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
-                    if (bikeInfo.Model != null)
+                    if (bikeInfo.Make != null && bikeInfo.Model != null)
+                    {
+                        bikeUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                         bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                    }
                     pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
                     // for photos page
-                    bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0; 
+                    bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0;
                     IsUpcoming = genericBikeInfo.IsUpcoming;
                     IsDiscontinued = genericBikeInfo.IsDiscontinued;
                 };
