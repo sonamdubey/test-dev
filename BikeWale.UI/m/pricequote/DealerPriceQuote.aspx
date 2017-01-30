@@ -241,18 +241,12 @@
 				<section>
 					<%=String.Format(objExQuotation.ManufacturerAd) %>
 				</section>
-			<%}
-         else if (dealerId == 0 && objPriceQuote.SecondaryDealerCount == 0 && string.IsNullOrEmpty(objExQuotation.ManufacturerAd) && ctrlDealers.showWidget)
-       { %>
-                <div class="margin-right20 margin-left20 border-divider"></div> 
-                    <BW:Dealers runat="server" ID="ctrlDealers" />
-                <% }  %>
+			<%} %>
+
 			
 		<style type="text/css">
 			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
 		</style>
-
-			<!--Price Breakup ends here-->
 
 			<!-- Dealer Widget starts here -->
 			<%if (isPrimaryDealer)
@@ -459,6 +453,17 @@
 			</div>
 		</div>
 		<%} %>
+
+       <% if (dealerId == 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && objExQuotation != null && string.IsNullOrEmpty(objExQuotation.ManufacturerAd) && ctrlDealers.showWidget)
+       { %>
+            
+            <section class="container bg-white margin-bottom10">
+                <div class="box-shadow">
+                    <BW:Dealers runat="server" ID="ctrlDealers" />
+                </div>
+            </section>
+
+       <% }  %>
 
 		<section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
 			<div class="bg-white bottom-shadow margin-top20 margin-bottom20 padding-bottom10">
