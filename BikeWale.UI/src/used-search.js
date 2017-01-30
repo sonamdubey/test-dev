@@ -206,7 +206,7 @@ var usedBikes = function () {
 
 
     self.OnInit = ko.observable(true);
-    self.noBikes = ko.observable(false);
+    self.noBikes = ko.observable(OnInitTotalBikes<=0);
     self.TotalBikes = ko.observable(OnInitTotalBikes);
     self.BikeDetails = ko.observableArray();
     self.PageUrl = ko.observable();
@@ -226,9 +226,9 @@ var usedBikes = function () {
         try {
 
             var ele = $(e.target).find("option:selected");
-            var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("-");
+            var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("bikes-in-");
             arrLocation[arrLocation.length - 1] = cityMaskingName;
-            var redirectUrl = arrLocation.join("-");
+            var redirectUrl = arrLocation.join("bikes-in-");
             window.location.hash = window.location.hash.replace("city=" + ele.data("cityid"));
             window.location.pathname = redirectUrl;
         } catch (e) {
@@ -546,7 +546,7 @@ var usedBikes = function () {
                             $('html, body').scrollTop(listingStartPoint.offset().top - 50);
                         }
 
-                        if (self.TotalBikes() > 0) self.noBikes(false); else self.noBikes(true);
+                        self.noBikes(self.TotalBikes() <= 0);
                         self.OnInit(false);
                         self.IsReset(false);
                         self.ApplyPagination();
@@ -689,7 +689,6 @@ var objFilters = vwUsedBikes.Filters();
 
 $(function () {
     vwUsedBikes.SetDefaultFilters();
-    vwUsedBikes.TotalBikes() > 0 ? vwUsedBikes.OnInit(true) : vwUsedBikes.OnInit(false);
 
     vwUsedBikes.PreviousQS(pageQS);
     if (selectedModelId && selectedModelId != "" && selectedModelId != "0") {
@@ -736,7 +735,6 @@ $(function () {
 
 
     filters.set.bike();
-
     vwUsedBikes.SetPageFilters(null, event);
 
 });

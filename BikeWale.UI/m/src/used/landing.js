@@ -312,7 +312,7 @@ function searchModel() {
             self.baseUrl("bikes-in-india/");
              } 
         else {
-            self.baseUrl("bikes-in-" + self.cityMaskingName()+"/#city="+self.cityId());
+            self.baseUrl("bikes-in-" + self.cityMaskingName()+"/");
         }
         return self.createUrl();        
     })
