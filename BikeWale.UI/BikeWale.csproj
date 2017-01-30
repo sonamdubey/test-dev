@@ -1164,6 +1164,10 @@
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\compare\CompareBikeDetails_v2.aspx.cs">
+      <DependentUpon>CompareBikeDetails_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2699,6 +2703,7 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\compare\details.css" />
     <Content Include="m\css\compare\landing.css" />
     <Content Include="m\css\components\article-next-prev.css" />
     <Content Include="m\css\components\article.css" />
@@ -2742,6 +2747,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\new\compare\CompareBikeDetails_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -2824,6 +2830,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
+    <Content Include="m\src\compare\details.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\photos.js" />
