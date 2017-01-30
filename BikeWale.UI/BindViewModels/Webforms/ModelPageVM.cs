@@ -14,6 +14,8 @@ namespace Bikewale.BindViewModels.Webforms
     /// Summary     : A ViewModel to bind data with Model page view
     /// Modified by  : Sangram Nandkhile on 16 mar 2016
     /// Summary: Addded fields LeadBtnTextLarge and LeadBtnTextSmall
+    /// Modified by :   Sumit Kate on 30 Jan 2017
+    /// Description :   Added property for DSA dealer IsDSA
     /// </summary>
     public class ModelPageVM
     {
