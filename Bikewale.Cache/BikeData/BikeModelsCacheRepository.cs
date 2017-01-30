@@ -387,7 +387,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public EnumBikeBodyStyles GetBikeBodyType(uint modelId)
         {
-            EnumBikeBodyStyles bodystyle=EnumBikeBodyStyles.AllBikes;
+            EnumBikeBodyStyles bodystyle = EnumBikeBodyStyles.AllBikes;
             string key = string.Format("BW_BikeBodyType_MO_{0}", modelId);
             try
             {
@@ -395,8 +395,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}",modelId));
-             }
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}", modelId));
+            }
             return bodystyle;
         }
         /// <summary>
@@ -410,7 +410,7 @@ namespace Bikewale.Cache.BikeData
         public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_CAT_{0}_city_{1}", bodyStyleId,cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_CAT_{0}_city_{1}", bodyStyleId, cityId);
             try
             {
                 popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
@@ -418,9 +418,74 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetPopularBikesByBodyStyle");
-                
+
             }
             return popularBikesList;
+        }
+        /// <summary>
+        /// Created by  :   Sushil Kumar on 2nd Jan 2016
+        /// Description :   Calls DAL via Cache layer for generic bike info
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public GenericBikeInfo GetGenericBikeInfo(uint modelId)
+        {
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+            GenericBikeInfo objSearchList = null;
+            try
+            {
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetGenericBikeInfo(modelId));
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetGenericBikeInfo_{0}", modelId));
+            }
+            return objSearchList;
+        }
+
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2017
+        /// Description : To get bike rankings by category
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeRankingEntity GetBikeRankingByCategory(uint modelId)
+        {
+            string key = string.Format("BW_BikeRankingByModel_MO_{0}", modelId);
+            BikeRankingEntity bikeRankObj = null;
+            try
+            {
+                bikeRankObj = _cache.GetFromCache<BikeRankingEntity>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeRankingByCategory(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
+
+            }
+            return bikeRankObj;
+        }
+
+        /// <summary>
+        /// Created By : Aditi Srivastava on 17 Jan 2017
+        /// Description : To get top 10 bikes of a given body style
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        {
+            string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+
+            }
+            return bestBikesList;
         }
     }
 }

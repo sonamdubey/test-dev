@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Entities.GenericBikes;
-using Microsoft.Practices.Unity;
-using Bikewale.Cache.GenericBikes;
-using Bikewale.Interfaces.GenericBikes;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.DAL.GenericBikes;
 using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
+using System;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -23,25 +22,28 @@ namespace Bikewale.BindViewModels.Controls
         public string StyleName { get; set; }
         public string BikeType { get; set; }
         public string RankText { get; set; }
-   
+
         public BikeRankingEntity GetBikeRankingByModel()
         {
-            BikeRankingEntity bikeRankObj=null;
+            BikeRankingEntity bikeRankObj = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
-                            .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                    var _objGenericBike = container.Resolve<IGenericBikeRepository>();
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                    ;
+                    var _objGenericBike = container.Resolve<IBikeModelsCacheRepository<int>>();
+
 
                     bikeRankObj = _objGenericBike.GetBikeRankingByCategory(ModelId);
                     if (bikeRankObj != null)
                     {
                         switch (bikeRankObj.BodyStyle)
                         {
-                            
+
                             case EnumBikeBodyStyles.Mileage:
                                 StyleName = "Mileage Bikes";
                                 BikeType = "Mileage Bike";
@@ -58,19 +60,19 @@ namespace Bikewale.BindViewModels.Controls
                                 StyleName = "Scooters";
                                 BikeType = "Scooter";
                                 break;
-                            case EnumBikeBodyStyles.AllBikes :
+                            case EnumBikeBodyStyles.AllBikes:
                             default:
                                 StyleName = "Bikes";
                                 BikeType = "Bike";
                                 break;
-                           
+
                         }
                         int rank = bikeRankObj.Rank;
                         RankText = Bikewale.Utility.Format.FormatRank(rank);
                     }
                 }
 
-                
+
             }
             catch (Exception ex)
             {

@@ -1,16 +1,12 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.CMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.GenericBikes;
-using Bikewale.DAL.GenericBikes;
-using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.GenericBikes;
-using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Utility.GenericBikes;
 using Microsoft.Practices.Unity;
@@ -31,7 +27,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
     /// </summary>
     public class BestBikesListing
     {
-        private readonly IBestBikesCacheRepository _objBestBikes = null;
+        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         public IEnumerable<BestBikeEntityBase> objBestBikesList = null;
 
         public int FetchedRecordCount = 0;
@@ -52,14 +48,12 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
-                    .RegisterType<ISearchResult, SearchResult>()
-                    .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IArticles, Articles>()
-                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                    .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
-                    .RegisterType<IProcessFilter, ProcessFilter>();
-                _objBestBikes = container.Resolve<IBestBikesCacheRepository>();
+                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                         .RegisterType<ICacheManager, MemcacheManager>()
+                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                _objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
+
             }
 
             ParseQueryString();
@@ -145,7 +139,7 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
             {
                 if (_objBestBikes != null)
                 {
-                     objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
+                    objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
                     if (objBestBikesList != null && objBestBikesList.Count() > 0)
                     {
                         FetchedRecordCount = objBestBikesList.Count();

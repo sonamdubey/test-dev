@@ -1,15 +1,11 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.CMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.GenericBikes;
-using Bikewale.DAL.GenericBikes;
-using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.GenericBikes;
-using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
@@ -38,15 +34,14 @@ namespace Bikewale.BindViewModels.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
-                            .RegisterType<ISearchResult, SearchResult>()
-                            .RegisterType<ICacheManager, MemcacheManager>()
-                            .RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<IProcessFilter, ProcessFilter>()
-                            .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                    var _objGenericBike = container.Resolve<IBestBikesCacheRepository>();
+
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                    ;
+                    var _objGenericBike = container.Resolve<IBikeModelsCacheRepository<int>>();
+
 
                     genericBikeInfo = _objGenericBike.GetGenericBikeInfo(ModelId);
                     if (genericBikeInfo != null)
