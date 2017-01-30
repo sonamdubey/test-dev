@@ -295,6 +295,7 @@
     <Compile Include="BindViewModels\Controls\BindNewsWidget.cs" />
     <Compile Include="BindViewModels\Controls\BindOtherBrandsServiceCenters.cs" />
     <Compile Include="BindViewModels\Controls\BindOtherUsedBikesForCity.cs" />
+    <Compile Include="BindViewModels\Controls\BindPopularBikesByBodyStyle.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceCenter.cs" />
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
@@ -484,6 +485,10 @@
     </Compile>
     <Compile Include="controls\OtherUsedBikeByCity.ascx.cs">
       <DependentUpon>OtherUsedBikeByCity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PopularBikesByBodyStyle.ascx.cs">
+      <DependentUpon>PopularBikesByBodyStyle.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PopularModelCompare.ascx.cs">
@@ -985,6 +990,10 @@
     </Compile>
     <Compile Include="m\controls\MPriceInTopCities.ascx.cs">
       <DependentUpon>MPriceInTopCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\PopularBikesByBodyStyle.ascx.cs">
+      <DependentUpon>PopularBikesByBodyStyle.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\PopularBikesMin.ascx.cs">
@@ -2041,6 +2050,7 @@
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
+    <Content Include="controls\PopularBikesByBodyStyle.ascx" />
     <Content Include="controls\PopularModelCompare.ascx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
     <Content Include="controls\AlternativeBikes.ascx" />
@@ -2632,6 +2642,7 @@
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\MPriceInTopCities.ascx" />
+    <Content Include="m\controls\PopularBikesByBodyStyle.ascx" />
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
