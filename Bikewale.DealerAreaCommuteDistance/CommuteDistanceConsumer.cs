@@ -42,13 +42,20 @@ namespace Bikewale.DealerAreaCommuteDistance
                     {
                         // Your Business Logic comes here
                         Logs.WriteInfoLog("RabbitMQ Execution: Waiting for job");
+                        RabbitMQ.Client.Events.BasicDeliverEventArgs e = (RabbitMQ.Client.Events.BasicDeliverEventArgs)consumer.Queue.Dequeue();
+                        NameValueCollection nvc = null;
                         try
                         {
-                            RabbitMQ.Client.Events.BasicDeliverEventArgs e = (RabbitMQ.Client.Events.BasicDeliverEventArgs)consumer.Queue.Dequeue();
                             // Convert the Byte Array to NVC object
-                            NameValueCollection nvc = ByteArrayToObject(e.Body);
-                            if (nvc != null && nvc.HasKeys())
+                            nvc = ByteArrayToObject(e.Body);
+                            if (nvc != null && nvc.HasKeys() && !String.IsNullOrEmpty(nvc["operationType"]))
                             {
+                                if (nvc["iteration"] == "5")
+                                {
+                                    Model.BasicReject(e.DeliveryTag, false);
+                                    Logs.WriteInfoLog("Message Rejected because iteration count is" + nvc["iteration"]);
+                                    continue;
+                                }
                                 operationType = nvc["operationType"].ToUpper();
                                 var watch = System.Diagnostics.Stopwatch.StartNew();
                                 Logs.WriteInfoLog("Started at : " + DateTime.Now);
@@ -82,6 +89,7 @@ namespace Bikewale.DealerAreaCommuteDistance
                                         Model.BasicAck(e.DeliveryTag, false);
                                         break;
                                     default:
+                                        Model.BasicReject(e.DeliveryTag, false);
                                         break;
                                 }
 
@@ -90,12 +98,17 @@ namespace Bikewale.DealerAreaCommuteDistance
 
                                 Logs.WriteInfoLog(elapsedMs);
                             }
+                            else
+                            {
+                                Model.BasicReject(e.DeliveryTag, false);
+                                Logs.WriteInfoLog("Invalid operation type : " + Newtonsoft.Json.JsonConvert.SerializeObject(nvc));
+                            }
 
                         }
                         catch (Exception ex)
                         {
-                            Logs.WriteErrorLog("RabbitMQExecution: Consumer was Closed: " + ex.Message);
-                            SendMail.HandleException(ex, "Bikewale.CommuteDistanceConsumer/RabbitMQExecution:-Consumer Closed");
+                            Logs.WriteErrorLog(String.Format("Exception occured : {0}, Data : {1}", ex.Message, Newtonsoft.Json.JsonConvert.SerializeObject(nvc)));
+                            Model.BasicReject(e.DeliveryTag, false);
                             continue;
                         }
                     }
