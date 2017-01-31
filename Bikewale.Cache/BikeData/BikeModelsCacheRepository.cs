@@ -159,17 +159,17 @@ namespace Bikewale.Cache.BikeData
                             {
                                 HostUrl = objModelPage.ModelDetails.HostUrl,
                                 OriginalImgPath = objModelPage.ModelDetails.HostUrl,
-                                ImageType = ImageBaseType.ModelImage
-
+                                ImageType = ImageBaseType.ModelImage,
+                                ImageTitle = objModelPage.ModelDetails != null ? string.Format("{0} Model Image", objModelPage.ModelDetails.ModelName) : string.Empty
                             });
                     }
                     if (objModelPage.Photos != null)
                     {
-                        allPhotos.AddRange(objModelPage.Photos.Select(x => new ImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageType = ImageBaseType.ModelGallaryImage }));
+                        allPhotos.AddRange(objModelPage.Photos.Select(x => new ImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageDescription, ImageType = ImageBaseType.ModelGallaryImage }));
                     }
                     if (objModelPage.colorPhotos != null)
                     {
-                        allPhotos.AddRange(objModelPage.colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageType = ImageBaseType.ModelColorImage, Colors = x.ColorCodes.Select(y=>y.HexCode) }));
+                        allPhotos.AddRange(objModelPage.colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageType = ImageBaseType.ModelColorImage, Colors = x.ColorCodes.Select(y => y.HexCode) }));
                     }
                 }
             }
