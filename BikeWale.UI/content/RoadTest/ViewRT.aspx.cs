@@ -97,7 +97,6 @@ namespace Bikewale.Content
                 objArticle = new RoadTestDetails(url);
                 if(!objArticle.IsPermanentRedirect)
                 {
-                    //BasicId = objArticle.BasicId;
                     objRoadtest = objArticle.objRoadtest;
                     if (objRoadtest != null)
                     {
