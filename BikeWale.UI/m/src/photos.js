@@ -503,34 +503,39 @@ var modelGallery = function () {
     function bindVideos() {
       
         var KeyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
-        if (!checkCacheCityAreas(KeyVideo)) {
-            $.ajax({
-                type: 'GET',
-                url: '/api/videos/pn/' + pageNo + '/ps/4/model/' + ModelId + '/',
-                dataType: 'json',
-                success: function (response) {
-                    isNextPage = true;
-                    ko.utils.arrayPushAll(self.videoList(), ko.toJS(response.videos));
-                    lscache.set(KeyVideo, self.videoList(), 10);
-                    self.videoList.notifySubscribers();
-                },
-                complete: function (xhr) {
-                    if (xhr.status == 404 || xhr.status == 204) {
-                        isNextPage = false;
-                        lscache.set(KeyVideo, null, 10);
+        try {
+            if (!checkCacheCityAreas(KeyVideo)) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/videos/pn/' + pageNo + '/ps/4/model/' + ModelId + '/',
+                    dataType: 'json',
+                    success: function (response) {
+                        isNextPage = true;
+                        ko.utils.arrayPushAll(self.videoList(), ko.toJS(response.videos));
+                        lscache.set(KeyVideo, self.videoList(), 10);
+                        self.videoList.notifySubscribers();
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status == 404 || xhr.status == 204) {
+                            isNextPage = false;
+                            lscache.set(KeyVideo, null, 10);
+                        }
+                        setVideoDetails(self.activeVideoIndex());
                     }
-                    setVideoDetails(self.activeVideoIndex());
-                }
 
-            });
-        }
-        else {
-            
-            response = lscache.get(KeyVideo);
-            ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
-            setVideoDetails(self.activeVideoIndex());
-            self.videoList.notifySubscribers();
-            isNextPage = true;
+                });
+            }
+            else {
+
+                response = lscache.get(KeyVideo);
+                ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
+                setVideoDetails(self.activeVideoIndex());
+                self.videoList.notifySubscribers();
+                isNextPage = true;
+
+            }
+        } catch (e) {
+            console.warn("Unable to fetch Videos model gallery " + e.message);
 
         }
     }
