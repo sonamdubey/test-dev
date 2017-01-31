@@ -158,11 +158,6 @@ namespace Bikewale.New
                     ds = MySqlDatabase.SelectAdapterQuery(cmd, ConnectionType.ReadOnly);
                 }
             }
-            catch (SqlException exSql)
-            {
-                ErrorClass objErr = new ErrorClass(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);

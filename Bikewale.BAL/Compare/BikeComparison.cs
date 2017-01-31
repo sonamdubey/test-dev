@@ -939,5 +939,16 @@ namespace Bikewale.BAL.Compare
         {
             return _objCompare.GetSimilarCompareBikeSponsored(versionList, topCount, cityid, sponsoredVersionId);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versions"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public BikeCompareEntity DoCompare(string versions, uint cityId)
+        {
+            return _objCompare.DoCompare(versions, cityId);
+        }
     }
 }

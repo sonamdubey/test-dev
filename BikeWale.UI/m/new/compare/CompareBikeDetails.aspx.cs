@@ -8,14 +8,10 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
-using Bikewale.New;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.Mobile.New
@@ -47,7 +43,7 @@ namespace Bikewale.Mobile.New
             {
                 cityArea = GlobalCityArea.GetGlobalCityArea();
                 getVersionIdList();
-                GetCompareBikeDetails();
+                //GetCompareBikeDetails();
                 Trace.Warn("version List", versions);
                 if (count < 2)
                 {
@@ -150,80 +146,6 @@ namespace Bikewale.Mobile.New
             }
 
             return objResponse;
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 24 Sept 2014
-        /// Summary : Get compare Bike detail by version id
-        /// </summary>
-        protected void GetCompareBikeDetails()
-        {
-            try
-            {
-                CompareBikes cb = new CompareBikes();
-                ds = cb.GetComparisonBikeListByVersion(versions, cityArea.CityId);
-                if (ds != null)
-                {
-                    bikeDetails = ds.Tables[0];
-                    bikeSpecs = ds.Tables[1];
-                    bikeFeatures = ds.Tables[2];
-                }
-                count = bikeDetails.Rows.Count;
-
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
-                }
-                if (targetedModels.Length > 2)
-                {
-                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
-                }
-
-                if (count > 1)
-                {
-                    if (Convert.ToUInt32(bikeDetails.Rows[0]["bikeCount"]) > 0 || Convert.ToUInt32(bikeDetails.Rows[1]["bikeCount"]) > 0)
-                    {
-                        isUsedBikePresent = true;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }   //End of GetCompareBikeDetails
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 24 Sept 2014
-        /// Summary : to get model color by versionId
-        /// Modified By : Aditi Srivastava on 15 Dec 2016
-        /// Description : FIxed html formatting for colors displayed
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
-        protected string GetModelColors(string versionId)
-        {
-            StringBuilder cs = new StringBuilder();
-
-            var colorData = from r in (ds.Tables[3]).AsEnumerable()
-                            where r.Field<int>("BikeVersionId") == Convert.ToInt32(versionId)
-                            group r by r.Field<int>("ColorId") into g
-                            select g;
-
-
-            foreach (var color in colorData)
-            {
-                cs.AppendFormat("<div style='text-align:center;' class='color-box {0}'>", ((color.Count() >= 3) ? "color-count-three" : (color.Count() == 2) ? "color-count-two" : "color-count-one"));
-                IList<string> HexCodeList = new List<string>();
-                foreach (var colorList in color)
-                {
-                    cs.AppendFormat("<span style='background-color:#{0}'></span>", colorList.ItemArray[5]);   //5 is for hexcode
-                }
-                cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div>", color.FirstOrDefault().ItemArray[3]);    //3 is for colorName
-            }
-
-            return cs.ToString();
         }
 
         private void BindSimilarCompareBikes(string verList)

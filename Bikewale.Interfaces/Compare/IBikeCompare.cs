@@ -16,6 +16,7 @@ namespace Bikewale.Interfaces.Compare
     public interface IBikeCompare
     {
         BikeCompareEntity DoCompare(string versions);
+        BikeCompareEntity DoCompare(string versions, uint cityId);
         IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
