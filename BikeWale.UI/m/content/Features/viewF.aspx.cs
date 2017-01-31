@@ -36,7 +36,7 @@ namespace Bikewale.Mobile.Content
         protected ModelGallery photoGallery;
         protected HtmlSelect ddlPages;
         protected int BasicId = 0, pageId = 1;
-        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
+        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, ampUrl = string.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = string.Empty, url = string.Empty;
         //private CMSPageDetailsEntity pageDetails = null;
         protected Repeater rptPhotos;
@@ -171,11 +171,11 @@ namespace Bikewale.Mobile.Content
         private void GetFeatureData()
         {
 
-            baseUrl = "/m/features/" + objFeature.ArticleUrl + '-' + BasicId.ToString() + "/";
+            baseUrl = string.Format("/m/features/{0}-{1}/", objFeature.ArticleUrl, BasicId.ToString());
 
             //  desktop url for facebook
-            url = "/features/" + objFeature.ArticleUrl + '-' + BasicId.ToString() + "/";
-
+            url = string.Format("/features/{0}-{1}/", objFeature.ArticleUrl, BasicId);
+            ampUrl = string.Format("{0}/m/features/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeature.ArticleUrl, BasicId);
             //data = objFeature.Description;
             author = objFeature.AuthorName;
             pageTitle = objFeature.Title;
