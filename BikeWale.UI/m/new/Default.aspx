@@ -7,15 +7,16 @@
 <%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
 <head>
     <%
-        title = "New Bikes - Bikes Reviews, Photos, Specs, Features, Tips & Advices - BikeWale";
-        keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
+        title = "New Bikes - Bikes Reviews, Images, Specs, Features, Tips & Advices - BikeWale";
+        keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike Images, specs, features, tips & advices";
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
-        canonical = "https://www.bikewale.com/new/";
+        canonical = "https://www.bikewale.com/new-bikes-in-india/";
         AdPath = "/1017752/Bikewale_Mobile_NewHome";
         AdId = "1450262524302";
         Ad320x150_I = true;
@@ -31,8 +32,8 @@
             <div class="container">
                 <div class="newbikes-banner-div">
                     <!-- Top banner code starts here -->
-                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
-                    <p class=" font16 text-white text-center">View all bikes under one roof</p>
+                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">New Bikes in India</h1>
+                    <p class=" font16 text-white text-center">All new bikes under one roof</p>
                 </div>
                 <!-- Top banner code ends here -->
             </div>
@@ -131,8 +132,18 @@
             </div>
         </section>
 
+        <% if(ctrlBestBikes!= null) { %>
         <section>
+            <div class="container">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
+                <div class="box-shadow bg-white padding-top10 padding-bottom10">
+                    <BW:BestBikes runat="server" ID="ctrlBestBikes" />
+                </div>
+            </div>
+        </section>
+          <% } %>
 
+        <section>
             <!--  Compare section code starts here -->
             <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
 
@@ -148,7 +159,7 @@
         <section class="container">
             <!-- Tools you may need code starts here -->
             <div class="grid-12">
-                <h2 class="font18 text-center margin-top20 margin-bottom10">Tools you may need</h2>
+                <h2 class="font18 text-center margin-top20 margin-bottom10">New bike buying tools</h2>
                 <div class="tools-need-container margin-bottom10 text-center">
                     <ul>
                         <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
@@ -223,7 +234,7 @@
             <!--  News, reviews and videos code starts here -->
             <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12 alpha omega margin-bottom20">
-                    <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates</h2>
+                    <h2 class="font18 text-center margin-top20 margin-bottom10">Latest updates about bikes in India</h2>
                     <div class="content-box-shadow">
                         <div class="bw-tabs-panel article-control padding-bottom20">
                             <div class="bw-tabs">

@@ -27,8 +27,9 @@ namespace Bikewale.News
         private BikeModelEntityBase _taggedModelObj;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
-
+        protected uint taggedModelId;
         protected MostPopularBikesMin ctrlPopularBikes;
+        protected PopularBikesByBodyStyle ctrlPopularByCategory;
         protected int makeId;
         protected override void OnInit(EventArgs e)
         {
@@ -62,6 +63,8 @@ namespace Bikewale.News
         /// Description : Handle page redirection 
         /// Modified By : Sushil Kumar on 2nd Jan 2016
         /// Description : Get tagged model for article 
+        /// Modified By : Sajal Gupta on 27 jan 2017
+        /// Description : Save tagged model id.
         /// </summary>
         private void BindNewsDetails()
         {
@@ -75,6 +78,8 @@ namespace Bikewale.News
                         objArticle = objNews.ArticleDetails;
                         _taggedMakeObj = objNews.TaggedMake;
                         _taggedModelObj = objNews.TaggedModel;
+                        if (_taggedModelObj != null)
+                            taggedModelId = (uint)_taggedModelObj.ModelId;
                         currentCityArea = objNews.CityArea;
                         metas = objNews.PageMetas;
                         BindPageWidgets();
@@ -123,24 +128,29 @@ namespace Bikewale.News
             ctrlPopularBikes.totalCount = 3;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
+            ctrlPopularByCategory.CityId = Convert.ToUInt32(currentCityArea.CityId); 
 
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlUpcomingBikes.topCount = 3;
+            //ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            //ctrlUpcomingBikes.pageSize = 9;
+            //ctrlUpcomingBikes.topCount = 3;
 
             if (_taggedMakeObj != null)
             {
                 ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
                 ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                 ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                ////ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                ////ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                ////ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                
 
             }
             if (_taggedModelObj != null)
             {
                 ctrlGenericBikeInfo.ModelId = (uint)_taggedModelObj.ModelId;
+                ctrlPopularByCategory.ModelId=(uint)_taggedModelObj.ModelId;
+                ctrlPopularByCategory.topCount = 3;
+                
             }
 
         }

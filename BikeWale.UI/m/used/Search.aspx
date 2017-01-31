@@ -366,12 +366,12 @@
                         </div>
                     
                         <ul id="filter-city-list" >
-                             <li data-cityid="0" data-bind="click: FilterCity">All India</li>
+                             <li data-cityid="0" data-bind="click: FilterCity" data-citymasking="india">All India</li>
                             <% if (citiesList != null)
                                { %>
                             <%foreach (var city in citiesList)
                               {%>
-                            <li data-cityid="<%= city.CityId %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
+                            <li data-cityid="<%= city.CityId %>" data-citymasking="<%= city.CityMaskingName %>" data-bind="click : $root.FilterCity"><%=city.CityName %></li>
                             <%}
                                } %>
                           
@@ -447,6 +447,9 @@
         <div class="back-to-top" id="back-to-top"></div>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
+        <script type="text/javascript">
+            var bodyHeight = $('body').height();
+        </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->        
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->

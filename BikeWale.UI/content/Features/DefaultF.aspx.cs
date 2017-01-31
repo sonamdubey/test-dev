@@ -198,6 +198,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
         /// Summary  : Bind upcoming bikes list
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Added footer link to the popular bikes widget
         /// </summary>
         private void BindPageWidgets()
         {
@@ -207,6 +209,7 @@ namespace Bikewale.Content
                 ctrlPopularBikes.totalCount = 4;
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
 
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;

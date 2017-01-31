@@ -222,7 +222,7 @@ namespace Bikewale.New
             MakeMaskingResponse objResponse = null;
             if (String.IsNullOrEmpty(makeMaskingName))
             {
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
                 isSuccess = false;

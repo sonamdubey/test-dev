@@ -15,7 +15,7 @@
                 </li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="/new/" itemprop="url">
+                    <a href="/new-bikes-in-india/" itemprop="url">
                         <span itemprop="title">New</span>
                     </a>
                 </li>

@@ -1,17 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PhotoGallaryMin" %>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
-<h1 style="padding-bottom:10px;"><%=BikeName %> Photos</h1>
+<h1 style="padding-bottom:10px;"><%=BikeName %> Images</h1>
 <div id="imageContent">            
     <div class="clear"></div>
     <div id="gallery" class="ad-gallery" style="float:left; padding-top:10px;">  
         <div id="galleryHolder" >              
             <div class="ad-image-wrapper" >
                 <div class="ad-image" >
-                    <img border="0" title="<%= BikeName + selectedImageCategoryName %> Photos" src="<%=selectedImagePath %>" itemprop="contentURL" />
+                    <img border="0" title="<%= BikeName + selectedImageCategoryName %> Images" src="<%=selectedImagePath %>" itemprop="contentURL" />
                     <p class="ad-image-description" style="width: 600px;">
                         <strong class="ad-description-title" itemprop="description">
-                            <%= BikeName + selectedImageCategory %> Photos
+                            <%= BikeName + selectedImageCategory %> Images
                         </strong></p>
                     <meta itemprop="representativeOfPage" content="true">
                 </div>

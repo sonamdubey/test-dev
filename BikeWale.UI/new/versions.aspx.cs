@@ -76,8 +76,8 @@ namespace Bikewale.New
         protected ModelPageVM viewModel = null;
         public DropDownList ddlVersion;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
-        
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
+
         #endregion Global Variables
 
         #region Events
@@ -364,7 +364,7 @@ namespace Bikewale.New
         {
             BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
             bikeRankingSlug.ModelId = modelId;
-            bikeRankObj=bikeRankingSlug.GetBikeRankingByModel();
+            bikeRankObj = bikeRankingSlug.GetBikeRankingByModel();
             if (bikeRankObj != null)
             {
                 styleName = bikeRankingSlug.StyleName;
@@ -385,11 +385,11 @@ namespace Bikewale.New
                 totalUsedBikes = TotalUsedBikes(modelId, cityId);
                 if (modelPageEntity.ModelDetails.Futuristic)
                 {
-                    pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
+                    pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & images at BikeWale.com. Launch date of {1} is around {4}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)), modelPageEntity.UpcomingBike.ExpectedLaunchDate);
                 }
                 else if (!modelPageEntity.ModelDetails.New)
                 {
-                    pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & photos at BikeWale.com", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
+                    pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
                 }
                 else
                 {
@@ -505,7 +505,7 @@ namespace Bikewale.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }

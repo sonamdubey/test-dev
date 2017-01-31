@@ -100,17 +100,18 @@
                                   else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
                                   { %>
                                 <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCountByMake"></BW:UBCCountByMake>        
-                            <% } 
-                               else if(ctrlUsedBikesCityCountByModel.FetchedCount > 0)
-                               { %>    
+                            <% }
+                                  else if (ctrlUsedBikesCityCountByModel.FetchedCount > 0)
+                                  { %>    
                                     <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
                                 <%} %>
-                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0)
+                                  {%>
                                         <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
                                <%}%>                                  
                             </div>
                             <% } %>  
-                    <div id="search-listing-content" class="position-rel bg-white">
+                        <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">
                                     <div id="loader-right-column"></div>
                                     <div class="margin-top15 font12 padding-bottom5 border-solid-bottom" data-bind="visible: PreviousQS() != ''">
@@ -153,7 +154,6 @@
                                     </div>
                                     <div class="clear"></div>
                                     </div>
-                                    <%--<div data-bind="controlsDescendantBindings: true">--%>
                                         <% if (usedBikesList != null && totalListing > 0)
                                            { %>
                                         <ul id="used-bikes-list" data-bind="visible: OnInit() && !noBikes()">
@@ -168,7 +168,9 @@
                                                         <% if (!(String.IsNullOrEmpty(bike.Photo.OriginalImagePath) || String.IsNullOrEmpty(bike.Photo.HostUrl)))
                                                            { %>
                                                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= curBikeName %>" title="<%= curBikeName %>" src="" />
-                                                        <%}else{ %>
+                                                        <%}
+                                                           else
+                                                           { %>
                                                         <div class="bg-light-grey">
                                                             <span class="bwsprite no-image-icon margin-bottom15"></span>
                                                             <p class="font12 text-bold text-light-grey">Image not available</p>
@@ -325,12 +327,12 @@
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
                                             <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
-                                                 <option data-cityid="0" >All India</option>
+                                                 <option data-cityid="0" data-citymasking="india" value="0">All India</option>
                                                  <% if (citiesList != null)
                                                     { %>
                                                 <% foreach (var city in citiesList)
                                                    { %>
-                                                      <option data-cityid="<%= city.CityId %>" value="<%= city.CityId %>" ><%=city.CityName %></option>
+                                                      <option data-cityid="<%= city.CityId %>" data-citymasking="<%= city.CityMaskingName %>" value="<%= city.CityId %>" ><%=city.CityName %></option>
                                                 <% } %>
                                                 <%} %>
                                             </select>
@@ -440,7 +442,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
-             var pageQS = "<%= currentQueryString %>";
+             var pageQS = "<%= currentQueryString %>" ;
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
         </script>

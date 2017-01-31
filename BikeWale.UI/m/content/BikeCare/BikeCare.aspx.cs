@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Mobile.Controls;
 using System;
@@ -19,6 +20,9 @@ namespace Bikewale.Mobile.Content
         public string pgPrevUrl = string.Empty, pgNextUrl = string.Empty, pgTitle = string.Empty, pgDescription = string.Empty, pgKeywords = string.Empty;
         protected CMSContent objArticleList;
         public int startIndex = 0, endIndex = 0;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -27,7 +31,28 @@ namespace Bikewale.Mobile.Content
         protected void Page_Load(object sender, EventArgs e)
         {
             BikeCareTips();
+            BindWidgets();
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.BikeCare.BindWidgets");
+            }
+        }
+
         /// <summary>
         /// Created By:- Subodh jain 11 Nov 2016
         /// Summary :- Bike Care Landing page Binding

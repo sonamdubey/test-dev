@@ -3,7 +3,9 @@
 .container img {max-width:100%;}
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
-.line-Ht18 {line-height:18px;} 
+.line-Ht18 {line-height:18px;}
+h1 {font-weight: 700;}
+.text-bold{ font-weight: 600; }
 
 .btn-grey { background: #fff; color: #f04031; border:1px solid #f04031; }
 .btn-grey:hover { background: #f04031; color:#fff; text-decoration: none; border:1px solid #f04031; }
@@ -80,7 +82,7 @@
 
 .single-version-label {
 	padding: 5px 30px 5px 9px;
-	font-weight: bold;
+	font-weight: 600;
 	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -89,7 +91,7 @@
 
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
 	width: 100%;
-	font-weight: bold;
+	font-weight: 600;
 	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -400,4 +402,43 @@ a.btn:hover {
     left: 0;
     z-index: 10;
     overflow-y: scroll;
+}
+
+/* tooltip */
+.bw-tooltip {
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    border: 1px solid #e2e2e2;
+    background: #f5f5f5;
+    z-index: 1;
+}
+
+.multi-brand-tooltip {
+    width: 99.5%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.tooltip-bottom .bw-tooltip-text:before,
+.tooltip-bottom .bw-tooltip-text:after {
+    content: '';
+    width: 9px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    left: 50px;
+}
+
+.tooltip-bottom .bw-tooltip-text:before {
+    top: -29px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #e2e2e2;
+    border-left: 10px solid transparent;
+}
+
+.tooltip-bottom .bw-tooltip-text:after {
+    top: -28px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f5f5f5;
+    border-left: 10px solid transparent;
 }

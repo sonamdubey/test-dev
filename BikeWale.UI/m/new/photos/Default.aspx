@@ -32,7 +32,7 @@
         <div class="blackOut-window" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;"></div>
                   <section>
             <div class="container box-shadow section-bottom-margin">
-                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Photos</h1>
+                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
          
                 <ul class="photos-grid-list">
                 
@@ -52,7 +52,7 @@
                var objImages = vmModelPhotos.objImageList; %>
         <section>
             <div class="container box-shadow section-bottom-margin">
-                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Photos</h1>
+                <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
                 <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                    { %>
                 <ul class="photos-grid-list">
@@ -122,7 +122,7 @@
             $(".gallery-close-btn").on('click', function () {
                 if(isModelPage)
                 {
-                window.location.href = window.location.pathname.split("photos/")[0];
+                window.location.href = window.location.pathname.split("images/")[0];
                 }
                 else if(!isModelPage) {
                     gallery.close();

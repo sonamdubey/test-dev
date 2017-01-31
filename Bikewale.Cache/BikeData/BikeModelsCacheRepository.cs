@@ -1,11 +1,13 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Bikewale.Cache.BikeData
@@ -376,6 +378,49 @@ namespace Bikewale.Cache.BikeData
             }
 
             return objPhotos;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 25 Jan 2017
+        /// Summary    : Get body type of a bike model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public EnumBikeBodyStyles GetBikeBodyType(uint modelId)
+        {
+            EnumBikeBodyStyles bodystyle=EnumBikeBodyStyles.AllBikes;
+            string key = string.Format("BW_BikeBodyType_MO_{0}", modelId);
+            try
+            {
+                bodystyle = _cache.GetFromCache<EnumBikeBodyStyles>(key, new TimeSpan(1, 0, 0), () => (EnumBikeBodyStyles)_modelRepository.GetBikeBodyType(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}",modelId));
+             }
+            return bodystyle;
+        }
+        /// <summary>
+        /// Created By : Aditi Srivastava on 25 Jan 2017
+        /// Summary    : Get list of top popular bikes by category
+        /// </summary>
+        /// <param name="bodyStyleId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
+        {
+            ICollection<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_PopularBikesListByBodyType_CAT_{0}_city_{1}", bodyStyleId,cityId);
+            try
+            {
+                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetPopularBikesByBodyStyle");
+                
+            }
+            return popularBikesList;
         }
     }
 }

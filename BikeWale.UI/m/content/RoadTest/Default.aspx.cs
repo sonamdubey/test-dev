@@ -44,6 +44,8 @@ namespace Bikewale.Mobile.Content
         private bool _isContentFound = true;
         int _curPageNo = 1;
         HttpRequest page = HttpContext.Current.Request;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -54,12 +56,46 @@ namespace Bikewale.Mobile.Content
         {
             if (!IsPostBack)
             {
-                ProcessQueryString();
+                if(ProcessQueryString())
+                    BindWidgets();
+
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
+            }           
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
+                {
+                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.makeName = makeName;
+                    ctrlPopularBikes.makeMasking = makeMaskingName;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                    ctrlUpcomingBikes.makeName = makeName;
+                    ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                }
+                else
+                {
+                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.RoadTest.BindWidgets");
             }
         }
+
         /// <summary>
         /// Created By : Aditi Srivastava on 16 Nov 2016
         /// Summary    : To inject pagination widget
@@ -183,8 +219,15 @@ namespace Bikewale.Mobile.Content
             }
         }
 
-        private void ProcessQueryString()
+        /// <summary>
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Return page found status    
+        /// </summary>
+        /// <returns></returns>
+
+        private bool ProcessQueryString()
         {
+            bool pageFoundStatus = true;
             modelMaskingName = Request.QueryString["model"];
             if (!String.IsNullOrEmpty(modelMaskingName))
             {
@@ -219,6 +262,7 @@ namespace Bikewale.Mobile.Content
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            pageFoundStatus = false;
                         }
                     }
                 }
@@ -252,6 +296,7 @@ namespace Bikewale.Mobile.Content
                     Response.Redirect("pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    pageFoundStatus = false;
                 }
                 finally
                 {
@@ -270,6 +315,7 @@ namespace Bikewale.Mobile.Content
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
+                            pageFoundStatus = false;
                         }
                     }
                     else
@@ -277,6 +323,7 @@ namespace Bikewale.Mobile.Content
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
+                        pageFoundStatus = false;
                     }
                 }
 
@@ -294,6 +341,7 @@ namespace Bikewale.Mobile.Content
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    pageFoundStatus = false;
                 }
             }
 
@@ -304,6 +352,8 @@ namespace Bikewale.Mobile.Content
                 else
                     _curPageNo = Convert.ToInt32(Request.QueryString["pn"]);
             }
+
+            return pageFoundStatus;
         }
 
         /// <summary>

@@ -75,7 +75,7 @@
                                             <li><a href="#<%=page.pageId %>"><%=page.PageName %></a></li>				                
                                             
                                     <%} %>
-                                        <li><a href="#divPhotos">Photos</a></li>
+                                        <li><a href="#divPhotos">Images</a></li>
                                         </ul>
                                 </div>
                                 <div class="clear"></div>

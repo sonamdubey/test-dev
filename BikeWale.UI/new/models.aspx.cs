@@ -222,8 +222,8 @@ namespace Bikewale.New
                     {
                         isSucess = false;
                         Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                        objErr.SendMail();
-                        Response.Redirect("/new/", false);
+
+                        Response.Redirect("/new-bikes-in-india/", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -267,7 +267,7 @@ namespace Bikewale.New
             else
             {
                 //invalid make id, hence redirect to the new default page
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
                 isSucess = false;

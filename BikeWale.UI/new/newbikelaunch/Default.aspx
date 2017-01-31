@@ -28,7 +28,7 @@
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a itemprop="url" href="/new/"><span itemprop="title">New</span></a>
+                <a itemprop="url" href="/new-bikes-in-india/"><span itemprop="title">New</span></a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>New Bike Launches in <%= year %></strong></li>
@@ -60,7 +60,7 @@
                                     Not rated yet,  <a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>">Be the first one to write a review</a>
                                 </div>
                                 <div class="margin-top15 margin-bottom10">
-                                    <a title="View <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> Photos" href="/<%# DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/photos/">Photos</a>
+                                    <a title="View <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> Images" href="/<%# DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/images/">Images</a>
                                 </div>
                             </div>
                             <div class="right-float grid_3 alpha omega">

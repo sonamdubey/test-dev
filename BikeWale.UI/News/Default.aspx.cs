@@ -123,6 +123,8 @@ namespace Bikewale.News
         /// <summary>
         /// Created by  :   Sumit Kate on 02 jan 2017
         /// Description :   Bind Popular Bikes Widget
+        /// Modified by :   Sajal Gupta on 27 jan 2017
+        /// Description :   Added footer link to the popular bikes widget.
         /// </summary>
         private void BindPopularBikes()
         {
@@ -130,6 +132,14 @@ namespace Bikewale.News
             ctrlPopularBikes.CityId = (int)currentCityArea.CityId;
             ctrlPopularBikes.cityName = currentCityArea.City;
             ctrlPopularBikes.MakeId = (int)objNews.MakeId;
+            if (objNews != null && objNews.MakeId > 0)
+            {
+                ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
+            }
+            else
+            {
+                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+            }
             ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
         }
 

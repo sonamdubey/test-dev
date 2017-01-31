@@ -1,5 +1,4 @@
-﻿using Bikewale.common;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using System;
@@ -81,7 +80,7 @@ namespace Bikewale.New.PhotoGallery
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
                 objErr.SendMail();
 
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }

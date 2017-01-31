@@ -14,7 +14,7 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using Bikewale.Utility;
 
-namespace Bikewale.Controllers.Mobile.Content.News
+namespace Bikewale.Controllers.Mobile.Content
 {    
     /// <summary>
     /// Created By : Ashish G. Kamble on 2 Jan 2017
@@ -60,7 +60,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="pageId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [Route("m/news/page/{pageId}/make/{makeId}/")]
+        [Route("m/news/make/{makeId}/page/{pageId}/")]
         public ActionResult NewsListByMake(int pageId, int makeId)
         {
             return View();
@@ -72,7 +72,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="pageId"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        [Route("m/news/page/{pageId}/model/{modelId}/")]
+        [Route("m/news/model/{modelId}/page/{pageId}/")]
         public ActionResult NewsListByModel(int pageId, int modelId)
         {
             return View();
@@ -99,11 +99,14 @@ namespace Bikewale.Controllers.Mobile.Content.News
         {
             try
             {
+                ViewBag.TaggedModelId = 0;
+
                 ArticleDetails objNews = cache.GetNewsDetails(Convert.ToUInt32(basicid));
 
                 if (objNews != null && objNews.Content != null)
                 {
                     ViewBag.Title = objNews.Title;
+                    ViewBag.ArticleSectionTitle = "- BikeWale News";
                     ViewBag.Author = objNews.AuthorName;
                     ViewBag.PublishedDate = objNews.DisplayDate.ToString();
                     ViewBag.LastModified = objNews.DisplayDate.ToString();
@@ -126,6 +129,15 @@ namespace Bikewale.Controllers.Mobile.Content.News
                     {
                         ViewBag.PrevPageTitle = objNews.PrevArticle.Title;
                         ViewBag.PrevPageUrl = String.Format("{0}/m/news/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objNews.PrevArticle.BasicId, objNews.PrevArticle.ArticleUrl);
+                    }
+
+                    if (objNews.VehiclTagsList != null && objNews.VehiclTagsList.Count > 0)
+                    {
+
+                        VehicleTag objTag = objNews.VehiclTagsList.FirstOrDefault(m => m.ModelBase != null && m.ModelBase.ModelId > 0);
+
+                        if (objTag != null)
+                            ViewBag.TaggedModelId = objTag.ModelBase.ModelId;
                     }
                 }                                    
             }
@@ -154,7 +166,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="makeId">make id for which news are required</param>
         /// <param name="count">no of news required</param>
         /// <returns></returns>
-        [Route("m/news/latest/{count}/make/{makeId}/")]
+        [Route("m/news/make/{makeId}/latest/{count}/")]
         public ActionResult LatestNewsByMake(int makeId, int count)
         {
             return PartialView();
@@ -166,7 +178,7 @@ namespace Bikewale.Controllers.Mobile.Content.News
         /// <param name="modelId">model id for which news are required</param>
         /// <param name="count"></param>
         /// <returns></returns>
-        [Route("m/news/latest/{count}/model/{modelId}/")]
+        [Route("m/news/model/{modelId}/latest/{count}/")]
         public ActionResult LatestnewsByModel(int modelId, int count)
         {
             return PartialView();

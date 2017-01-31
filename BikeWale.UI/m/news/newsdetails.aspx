@@ -1,17 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
-<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
-<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.newsdetails" Trace="false" Async="true" %>
+
+<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
+<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/MinGenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
     <% 
         title = newsTitle + " - BikeWale News";
-        description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and photos for " + newsTitle + " on BikeWale coverage.";
+        description = "BikeWale coverage on " + newsTitle + ". Get the latest reviews and images for " + newsTitle + " on BikeWale coverage.";
         canonical = "https://www.bikewale.com/news/" + pageUrl;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
-          %>
+    %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="amphtml" href="<%= ampUrl %>" />
@@ -20,7 +21,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
     <style>
-        .next-page-title { height: 3em;overflow: hidden;}
+        .next-page-title { height: 3em; overflow: hidden; }
     </style>
 </head>
 <body class="bg-light-grey">
@@ -43,11 +44,11 @@
                 </div>
                 <div class="article-content-padding">
                     <div id="divDesc" class="article-content">
-                        <%if(!String.IsNullOrEmpty(GetMainImagePath())) %>
-                            <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
+                        <%if (!String.IsNullOrEmpty(GetMainImagePath())) %>
+                        <img alt='<%= newsTitle%>' title='<%= newsTitle%>' src='<%= GetMainImagePath() %>'>
                         <%= String.IsNullOrEmpty(newsContent) ? "" : newsContent %>
                     </div>
-                 <BW:GenericBikeInfo  ID="ctrlGenericBikeInfo" runat="server" />
+                    <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
 
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
@@ -66,39 +67,43 @@
                     </ul>
                     <div class="clear"></div>
 
-                    <div class="border-solid-top padding-top10">				
-					    <div class="grid-6 alpha border-solid-right">
-                            <%if( !String.IsNullOrEmpty(prevPageUrl)) {%>
-                                <a href="/m/news/<%= prevPageUrl%>" title="<%=prevPageTitle %>" class="text-default next-prev-article-target">
-                                    <span class="bwmsprite prev-arrow"></span>
-                                    <div class="next-prev-article-box inline-block padding-left5">
-                                        <span class="font12 text-light">Previous</span><br>
-                                        <span class="next-prev-article-title next-page-title"><%=prevPageTitle %></span>
-                                    </div>
-                                </a>
-                            <%} %>						
-					    </div>
-									
-					    <div class="grid-6 omega rightfloat">
-                            <%if( !String.IsNullOrEmpty(nextPageUrl)) {%>
-						        <a href="/m/news/<%= nextPageUrl %>" title="<%=nextPageTitle %>" class="text-default next-prev-article-target">
-							        <div class="next-prev-article-box inline-block padding-right5">
-								        <span class="font12 text-light">Next</span>
-								        <span class="next-prev-article-title next-page-title"><%=nextPageTitle %></span>
-							        </div>
-							        <span class="bwmsprite next-arrow"></span>
-						        </a>
+                    <div class="border-solid-top padding-top10">
+                        <div class="grid-6 alpha border-solid-right">
+                            <%if (!String.IsNullOrEmpty(prevPageUrl))
+                              {%>
+                            <a href="/m/news/<%= prevPageUrl%>" title="<%=prevPageTitle %>" class="text-default next-prev-article-target">
+                                <span class="bwmsprite prev-arrow"></span>
+                                <div class="next-prev-article-box inline-block padding-left5">
+                                    <span class="font12 text-light">Previous</span><br>
+                                    <span class="next-prev-article-title next-page-title"><%=prevPageTitle %></span>
+                                </div>
+                            </a>
                             <%} %>
-					    </div>
-									
-				        <div class="clear"></div>
-			        </div>
+                        </div>
+
+                        <div class="grid-6 omega rightfloat">
+                            <%if (!String.IsNullOrEmpty(nextPageUrl))
+                              {%>
+                            <a href="/m/news/<%= nextPageUrl %>" title="<%=nextPageTitle %>" class="text-default next-prev-article-target">
+                                <div class="next-prev-article-box inline-block padding-right5">
+                                    <span class="font12 text-light">Next</span>
+                                    <span class="next-prev-article-title next-page-title"><%=nextPageTitle %></span>
+                                </div>
+                                <span class="bwmsprite next-arrow"></span>
+                            </a>
+                            <%} %>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </div>
         </section>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />              
-            
+        <% if (taggedModelId < 1)
+           { %>
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
         <div class="back-to-top" id="back-to-top"></div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

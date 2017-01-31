@@ -43,7 +43,7 @@
                         <tr>
                             <td style="width:40%;vertical-align:central;border-right:1px solid #E5E5E5">
                                  <div>
-                                    <img alt="<%= BikeName %> Photos" src="<%= ImgPath %>" title="<%=BikeName %> Photos">
+                                    <img alt="<%= BikeName %> Images" src="<%= ImgPath %>" title="<%=BikeName %> Images">
                                  </div>
                             </td>
                             

@@ -17,7 +17,7 @@
 <head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
         description = pgDescription;
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
@@ -27,7 +27,7 @@
         alternate = "https://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
         TargetedCity = cityName;
-        keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0},{0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", bikeName);
         ogImage = modelImage; 
         isAd970x90BTFShown = false;
         isHeaderFix = false;
@@ -240,12 +240,14 @@
 
                                 <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
                                    { %>
-                                <a href="javascript:void(0)" class="btn btn-orange margin-top15 margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
-                                <div class="leftfloat margin-top15">
-                                    <span class="font12 text-light-grey">Powered by</span><br />
-                                    <span class="font14"><%= viewModel.Organization %>, <%=viewModel.AreaName %></span>
+                                <div class="margin-top15">
+                                    <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
+                                    <div class="grid-6 alpha omega">
+                                        <span class="font12 text-light-grey">Powered by</span>
+                                        <p class="font14 text-truncate" title="<%= viewModel.Organization %>, <%=viewModel.AreaName %>"><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
+                                    </div>
+                                    <div class="clear"></div>
                                 </div>
-                                <div class="clear"></div>
                                 <%  }
                                     } %>
                                 <% if(viewModel != null && viewModel.DealerCampaignV2.PrimaryDealer.DealerDetails!=null && !viewModel.IsPremiumDealer) { %>
@@ -344,7 +346,7 @@
                                                 </asp:Repeater>
                                                 <%if(modelPageEntity!=null && modelPageEntity.Photos!=null && modelPageEntity.Photos.Count>4){ %>
                                                 <li class="all-photos-target">
-                                                    <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/photos/" title="<%= bikeName %> Photos">All Photos</a>
+                                                    <a href="/<%= modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/" title="<%= bikeName %> Images">All Images</a>
                                                 </li>
                                                 <%} %>
                                             </ul>
@@ -359,19 +361,27 @@
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
                                 <div class="padding-top20 padding-bottom20">
-                                    <div class="inline-block margin-right10">
+                                    <div class="inline-block margin-right10 vertical-top">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
-                                    <div class="inline-block">
-                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %>, <%=viewModel.AreaName %></h3>
-                                        <p class="font12 text-x-light">BikeWale partner dealer</p>
-                                    </div>
-                                    <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
-                                    <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
+                                    <div class="inline-block position-rel margin-bottom10">
+                                        <div class="vertical-top">
+                                        <h3 class="font18 text-black inline-block"><%= viewModel.Organization %></h3>
+                                         <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
+                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top margin-left10 inline-block padding-right10">
                                         <span class="bwsprite phone-md margin-right5"></span>
                                         <span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
                                     </div>
                                     <% } %>
+                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
+                                        </div>
+                                    <% if(viewModel.IsDSA){ %>
+                                        <div class="bw-tooltip multi-brand-tooltip tooltip-left">
+                                            <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                                            <span class="position-abt pos-top10 pos-right10 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                                        </div>
+                                    </div>
+                                    <%} %>
                                 </div>
 
                                 <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
@@ -543,7 +553,7 @@
         <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && isOnRoadPrice  && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             {
         %>
-
+        <style type="text/css">.offer-benefit-sprite {background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;display: inline-block;}#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}#campaign-container .phone-black-icon{top:0;}</style>
         <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
 
         <%} %>
@@ -629,10 +639,10 @@
                             <a href="javascript:void(0)" data-leadsourceid="24" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %> " class="btn btn-orange leadcapturebtn font14 bw-ga <%=(viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ) ? "margin-top5" : "margin-top20" %>" rel="nofollow" c="Model_Page" a="Floating_Card_Get_Offers_Clicked" v="bikeVersionLocation"" ><%= viewModel.LeadBtnTextLarge %></a>
                             <%} %>
 
-                            <!-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button -->
+                            <%-- if no 'powered by' text is present remove margin-top5 add margin-top20 in offers button --%>
                             <%if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ)
                               { %>
-                            <p class="model-powered-by-text font12 margin-top10 text-truncate"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
+                            <p class="model-powered-by-text font12 margin-top10 text-truncate" title="<%= viewModel.Organization %>, <%=viewModel.AreaName %>"><span class="text-light-grey">Powered by </span><%= viewModel.Organization %>, <%=viewModel.AreaName %></p>
                             <%} %>
                         </div>
                         <div class="clear"></div>

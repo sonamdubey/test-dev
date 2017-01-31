@@ -154,6 +154,6 @@ var gallery = {
     },
 
     gotoModelPage: function () {
-        window.location.href = window.location.pathname.split("photos/")[0];
+        window.location.href = window.location.pathname.split("images/")[0];
     }
 };

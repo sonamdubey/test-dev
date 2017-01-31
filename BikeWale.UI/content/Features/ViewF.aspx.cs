@@ -44,10 +44,11 @@ namespace Bikewale.Content
         protected MostPopularBikesMin ctrlPopularBikes;
         protected string upcomingBikeslink;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected uint taggedModelId;
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
         private GlobalCityAreaEntity currentCityArea;
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
+        protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty, ampUrl = string.Empty;
 
         protected ArticlePageDetails objFeature = null;
 
@@ -198,7 +199,8 @@ namespace Bikewale.Content
             authorName = objFeature.AuthorName;
             displayDate = objFeature.DisplayDate.ToString();
             articleUrl = objFeature.ArticleUrl;
-            canonicalUrl = "/features/" + articleUrl + "-" + _basicId + "/";
+            canonicalUrl = string.Format("/features/{0}-{1}/", objFeature.ArticleUrl, _basicId);
+            ampUrl = string.Format("{0}/m/features/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeature.ArticleUrl, _basicId);
         }
 
         private void BindPages()
@@ -213,6 +215,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : To get tagged bike along with article
+        /// Modified By : Sajal Gupta on 27-01-2017
+        /// Description : Saved tagged model id to the variable
         /// </summary>
         private void GetTaggedBikeList()
         {
@@ -223,10 +227,16 @@ namespace Bikewale.Content
                 if (taggedMakeObj != null)
                 {
                     _taggedMakeObj = taggedMakeObj.MakeBase;
+                    var modelBase = taggedMakeObj.ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                 }
                 else
                 {
                     _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
+                    var modelBase = objFeature.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
                     FetchMakeDetails();
                 }
             }

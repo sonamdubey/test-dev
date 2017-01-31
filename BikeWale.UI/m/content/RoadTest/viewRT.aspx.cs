@@ -37,7 +37,7 @@ namespace Bikewale.Content
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected uint BasicId = 0, pageId = 1;
-        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
+        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, ampUrl = string.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
         protected StringBuilder _bikeTested;
         protected Repeater rptPhotos;
@@ -45,6 +45,7 @@ namespace Bikewale.Content
         protected IEnumerable<ModelImage> objImg = null;
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
+        protected uint taggedModelId;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -170,13 +171,16 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Aditi Srivastava on 22 Nov 2016
         /// Description : To get masking name of tagged make for url if it is null
+        /// Modified by : Sajal Gupta on 27-01-2017
+        /// Description : Saved taggedModelId  in the variable.
         /// </summary>
         private void GetRoadTestData()
         {
             try
             {
-                baseUrl = string.Format("/m/expert-reviews/{0}-{1}/", objRoadtest.ArticleUrl, BasicId);
-                canonicalUrl = string.Format("https://www.bikewale.com/expert-reviews/{0}-{1}.html", objRoadtest.ArticleUrl, BasicId);
+                baseUrl = string.Format("/m/expert-reviews/{0}-{1}.html", objRoadtest.ArticleUrl, BasicId);
+                canonicalUrl = string.Format("{0}/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objRoadtest.ArticleUrl, BasicId);
+                ampUrl = string.Format("{0}/m/expert-reviews/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objRoadtest.ArticleUrl, BasicId);
                 data = objRoadtest.Description;
                 author = objRoadtest.AuthorName;
                 pageTitle = objRoadtest.Title;
@@ -185,6 +189,11 @@ namespace Bikewale.Content
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
                     _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+
+                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        taggedModelId = (uint)modelBase.ModelId;
+
                     if (_taggedMakeObj.MaskingName == null)
                         FetchMakeDetails();
 
@@ -197,13 +206,15 @@ namespace Bikewale.Content
                         IEnumerable<int> ids = objRoadtest.VehiclTagsList
                                .Select(e => e.ModelBase.ModelId)
                                .Distinct();
-
+                        int iTemp = 1;        
                         foreach (var i in ids)
                         {
                             VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
                             if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
                             {
                                 _bikeTested.Append(string.Format("<a title={0} {1} Bikes href=/m/{2}-bikes/{3}/>{4}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, item.MakeBase.MaskingName, item.ModelBase.MaskingName, item.ModelBase.ModelName));
+                                if (iTemp < ids.Count()) { _bikeTested.Append(", "); }
+                                iTemp++;
                             }
                         }
                     }

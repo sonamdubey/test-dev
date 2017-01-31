@@ -516,3 +516,42 @@
 .btn-x-sm { padding:8px 14px; color:#4d5057; }
 
 .border-divider {border-top: 1px solid #e2e2e2;}
+
+/* tooltip */
+.bw-tooltip {
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    border: 1px solid #e2e2e2;
+    background: #f5f5f5;
+    z-index: 1;
+}
+
+.multi-brand-tooltip {
+    width: 99.5%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.tooltip-bottom .bw-tooltip-text:before,
+.tooltip-bottom .bw-tooltip-text:after {
+    content: '';
+    width: 9px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    left: 50px;
+}
+
+.tooltip-bottom .bw-tooltip-text:before {
+    top: -29px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #e2e2e2;
+    border-left: 10px solid transparent;
+}
+
+.tooltip-bottom .bw-tooltip-text:after {
+    top: -28px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f5f5f5;
+    border-left: 10px solid transparent;
+}

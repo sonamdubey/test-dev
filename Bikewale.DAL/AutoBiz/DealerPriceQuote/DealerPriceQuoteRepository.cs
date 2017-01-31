@@ -5,6 +5,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikeWale.Entities.AutoBiz;
 using MySql.CoreDAL;
 using System;
@@ -199,164 +200,6 @@ namespace Bikewale.DAL.AutoBiz
         }
 
         /// <summary>
-        /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Method to get all versions and dealer prices in a city
-        /// 
-        /// Modified By : Suresh Prajapati on 29th Jan, 2015
-        /// Description : To Get dealer prices on make specific.
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <param name="modelId"></param>
-        /// <param name="dealerId"></param>
-        /// <returns></returns>
-        public DataSet GetDealerPrices(uint cityId, uint makeId, uint dealerId)
-        {
-            throw new NotImplementedException();
-            //DataSet ds = null;
-
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_GetDealerPrices"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_MakeId", DbType.Int64, makeId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-
-            //        ds = MySqlDatabase.SelectAdapterQuery(cmd);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetBikeCategoryItems ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //return ds;
-        }
-
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Method to save or update dealer bike price
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="versionId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="itemId"></param>
-        /// <param name="itemValue"></param>
-        /// <returns></returns>
-        public bool SaveDealerPrice(uint dealerId, uint versionId, uint cityId, ushort itemId, uint itemValue)
-        {
-            throw new NotImplementedException();
-            //bool isSuccess = false;
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerPrices"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.Int32, versionId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_PItemId", DbType.Int16, itemId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_Itemvalue", DbType.Int32, itemValue));
-
-            //        //run the command
-            //        isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
-            //return isSuccess;
-        }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Method to get all versions and dealer prices in a city
-        /// </summary>
-        /// <param name="dt">DataTable</param>
-        /// <returns></returns>
-        public bool SaveDealerPrice(DataTable dt)
-        {
-            throw new NotImplementedException();
-            //bool isPriceSaved = false;
-
-            //try
-            //{
-
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_SaveDealerPrices"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        cmd.UpdatedRowSource = UpdateRowSource.None;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_DealerId", DbType.Int32, 8, dt.Columns[0].ColumnName));
-            //        cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_BikeVersionId", DbType.Int32, 4, dt.Columns[1].ColumnName));
-            //        cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_CityId", DbType.Int32, 4, dt.Columns[2].ColumnName));
-            //        cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_ItemId", DbType.Int16, 4, dt.Columns[3].ColumnName));
-            //        cmd.Parameters.Add(DbFactory.GetDbParamWithColumnName("par_Itemvalue", DbType.Int32, 8, dt.Columns[4].ColumnName));
-
-            //        //run the command
-            //        int recordsInserted = MySqlDatabase.InsertQueryViaAdaptor(cmd, dt, ConnectionType.MasterDatabase);
-            //        if (recordsInserted > 0)
-            //            isPriceSaved = true;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("SaveDealerPrice ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
-            //return isPriceSaved;
-        }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 8 Nov 2014
-        /// Method to remove versions dealer prices in a city
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="cityId"></param>
-        /// <param name="versionIdList">success status</param>
-        /// <returns></returns>
-        public bool DeleteVersionPrices(uint dealerId, uint cityId, string versionIdList)
-        {
-
-            throw new NotImplementedException();
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_RemoveDealerPrices"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_CityId", DbType.Int32, cityId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_BikeVersionId", DbType.String, versionIdList));
-
-            //        //run the command
-
-            //        return MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly) > 0;
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("DeleteVersionPrices ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
-            //return false;
-        }
-
-        /// <summary>
         /// Created By : Sadhana Upadhyay on 3 Nov 2014
         /// Summary : To check Dealer exists or not w.r.t. versionId and areaId 
         /// </summary>
@@ -445,125 +288,6 @@ namespace Bikewale.DAL.AutoBiz
             return objMapping;
         }
 
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 7 Nov 2014
-        /// Summary : Map Dealer with area list
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="areaIdList"></param>
-        /// <returns></returns>
-        public bool MapDealerWithArea(uint dealerId, string areaIdList)
-        {
-            throw new NotImplementedException();
-            //bool isSuccess = false;
-
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_MapDealers"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaIdList", DbType.String, -1, areaIdList));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
-            //        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-
-            //        isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("MapDealerWithArea ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //return isSuccess;
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 7 Nov 2014
-        /// Summary : unmap Dealer with area list
-        /// </summary>
-        /// <param name="dealerId"></param>
-        /// <param name="areaIdList"></param>
-        /// <returns></returns>
-        public bool UnmapDealer(uint dealerId, string areaIdList)
-        {
-            throw new NotImplementedException();
-            //bool isSuccess = false;
-
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("BW_UnmapDealers"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_DealerId", DbType.Int32, dealerId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_AreaIdList", DbType.String, -1, areaIdList));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_result", DbType.Byte, ParameterDirection.Output));
-            //        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-            //        isSuccess = Convert.ToBoolean(cmd.Parameters["par_result"].Value);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("UnmapDealer ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //return isSuccess;
-        }
-
-
-        /// <summary>
-        /// Written BY : Ashish G. Kamble on 12 Jan 2014
-        /// Summary : function to get the dealers for the given version with lattitude and longitude.
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
-        public List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId)
-        {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "DealerPriceQuoteRepository.GetDealersLatLong");
-            objErr.SendMail();
-            return null;
-
-            //List<DealerLatLong> objDealersList = null;
-
-            //try
-            //{
-            //    using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
-            //        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, areaId));
-
-            //        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
-            //        {
-            //            objDealersList = new List<DealerLatLong>();
-
-            //            while (dr.Read())
-            //            {
-            //                objDealersList.Add(new DealerLatLong
-            //                {
-            //                    DealerId = Convert.ToUInt32(dr["DealerId"]),
-            //                    Lattitude = Convert.ToDouble(dr["Lattitude"]),
-            //                    Longitude = Convert.ToDouble(dr["Longitude"]),
-            //                    ServingDistance = Convert.ToUInt16(dr["LeadServingDistance"])
-            //                });
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetDealersLatLong ex : " + ex.Message + ex.Source);
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-
-            //return objDealersList;
-        }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 12 Jan 2015
@@ -751,6 +475,8 @@ namespace Bikewale.DAL.AutoBiz
         /// Description :   Get Dealer's Price Quotes
         /// Modified by :   Sumit Kate on 22 Mar 2016
         /// Description :   Removed redundant DataReader checks and added DbNull checks
+        /// Modified by :   Sumit Kate on 30 Jan 2017
+        /// Description :   Replaced Convert methods with SqlReaderConvertor and Set IsDSA flag
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -788,22 +514,22 @@ namespace Bikewale.DAL.AutoBiz
                             if (dr.Read())
                             {
                                 BikeMakeEntityBase objMake = new BikeMakeEntityBase();
-                                objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToInt32(dr["MakeId"]) : default(int);
-                                objMake.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
-                                objMake.MaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                                objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objMake.MakeName = Convert.ToString(dr["MakeName"]);
+                                objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objDetailedDealerQuotationEntity.objMake = objMake;
                                 BikeModelEntityBase objModel = new BikeModelEntityBase();
-                                objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToInt32(dr["ModelId"]) : default(int);
-                                objModel.ModelName = !Convert.IsDBNull(dr["ModelName"]) ? Convert.ToString(dr["ModelName"]) : default(string);
-                                objModel.MaskingName = !Convert.IsDBNull(dr["ModelMaskingName"]) ? Convert.ToString(dr["ModelMaskingName"]) : default(string);
+                                objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objModel.ModelName = Convert.ToString(dr["ModelName"]);
+                                objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objDetailedDealerQuotationEntity.objModel = objModel;
                                 BikeVersionEntityBase objVersion = new BikeVersionEntityBase();
-                                objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToInt32(dr["VersionId"]) : default(int);
-                                objVersion.VersionName = !Convert.IsDBNull(dr["VersionName"]) ? Convert.ToString(dr["VersionName"]) : default(string);
+                                objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objVersion.VersionName = Convert.ToString(dr["VersionName"]);
                                 objDetailedDealerQuotationEntity.objVersion = objVersion;
 
-                                objDetailedDealerQuotationEntity.HostUrl = !Convert.IsDBNull(dr["HostURL"]) ? Convert.ToString(dr["HostURL"]) : default(string);
-                                objDetailedDealerQuotationEntity.OriginalImagePath = !Convert.IsDBNull(dr["OriginalImagePath"]) ? Convert.ToString(dr["OriginalImagePath"]) : default(string);
+                                objDetailedDealerQuotationEntity.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objDetailedDealerQuotationEntity.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                             }
                             #endregion
 
@@ -815,10 +541,10 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     PriceList.Add(new PQ_Price()
                                     {
-                                        CategoryId = !Convert.IsDBNull(dr["ItemId"]) ? Convert.ToUInt32(dr["ItemId"]) : default(UInt32),
-                                        CategoryName = !Convert.IsDBNull(dr["ItemName"]) ? Convert.ToString(dr["ItemName"]) : default(string),
-                                        Price = !Convert.IsDBNull(dr["Price"]) ? Convert.ToUInt32(dr["Price"]) : default(UInt32),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32)
+                                        CategoryId = SqlReaderConvertor.ToUInt32(dr["ItemId"]),
+                                        CategoryName = Convert.ToString(dr["ItemName"]),
+                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"])
                                     });
                                 }
                                 dealerQuotation.PriceList = PriceList;
@@ -831,29 +557,31 @@ namespace Bikewale.DAL.AutoBiz
                                 if (dr.Read())
                                 {
                                     primaryDealer = new NewBikeDealers();
-                                    primaryDealer.DealerId = !Convert.IsDBNull(dr["ID"]) ? Convert.ToUInt32(dr["ID"]) : default(UInt32);
-                                    primaryDealer.Organization = !Convert.IsDBNull(dr["Organization"]) ? Convert.ToString(dr["Organization"]) : default(string);
-                                    primaryDealer.Name = String.Format("{0} {1}", (!Convert.IsDBNull(dr["FirstName"]) ? Convert.ToString(dr["FirstName"]) : default(string)), (!Convert.IsDBNull(dr["LastName"]) ? Convert.ToString(dr["LastName"]) : default(string)));
-                                    primaryDealer.Address = !Convert.IsDBNull(dr["Address"]) ? Convert.ToString(dr["Address"]) : default(string);
-                                    primaryDealer.PhoneNo = !Convert.IsDBNull(dr["PhoneNo"]) ? Convert.ToString(dr["PhoneNo"]) : default(string);
-                                    primaryDealer.MobileNo = !Convert.IsDBNull(dr["MobileNo"]) ? Convert.ToString(dr["MobileNo"]) : default(string);
-                                    primaryDealer.MaskingNumber = !Convert.IsDBNull(dr["PhoneNo"]) ? Convert.ToString(dr["PhoneNo"]) : default(string);
-                                    primaryDealer.WorkingTime = !Convert.IsDBNull(dr["ContactHours"]) ? Convert.ToString(dr["ContactHours"]) : default(string);
+                                    primaryDealer.DealerId = SqlReaderConvertor.ToUInt32(dr["ID"]);
+                                    primaryDealer.Organization = Convert.ToString(dr["Organization"]);
+                                    primaryDealer.Name = String.Format("{0} {1}", Convert.ToString(dr["FirstName"]), Convert.ToString(dr["LastName"]));
+                                    primaryDealer.Address = Convert.ToString(dr["Address"]);
+                                    primaryDealer.PhoneNo = Convert.ToString(dr["PhoneNo"]);
+                                    primaryDealer.MobileNo = Convert.ToString(dr["MobileNo"]);
+                                    primaryDealer.MaskingNumber = Convert.ToString(dr["PhoneNo"]);
+                                    primaryDealer.WorkingTime = Convert.ToString(dr["ContactHours"]);
                                     primaryDealer.objArea = new Bikewale.Entities.BikeBooking.AreaEntityBase()
                                     {
-                                        AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32),
-                                        AreaName = !Convert.IsDBNull(dr["AreaName"]) ? Convert.ToString(dr["AreaName"]) : default(string),
-                                        Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(double),
-                                        Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(double),
-                                        PinCode = !Convert.IsDBNull(dr["Pincode"]) ? Convert.ToString(dr["Pincode"]) : default(string)
+                                        AreaId = SqlReaderConvertor.ToUInt32(dr["AreaId"]),
+                                        AreaName = Convert.ToString(dr["AreaName"]),
+                                        Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
+                                        Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                        PinCode = Convert.ToString(dr["Pincode"])
                                     };
-                                    primaryDealer.objCity = new CityEntityBase() { CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string) };
-                                    primaryDealer.objState = new StateEntityBase() { StateName = !Convert.IsDBNull(dr["StateName"]) ? Convert.ToString(dr["StateName"]) : default(string) };
-                                    primaryDealer.Website = !Convert.IsDBNull(dr["WebsiteUrl"]) ? Convert.ToString(dr["WebsiteUrl"]) : default(string);
-                                    primaryDealer.EmailId = !Convert.IsDBNull(dr["EmailId"]) ? Convert.ToString(dr["EmailId"]) : default(string);
+                                    primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
+                                    primaryDealer.objState = new StateEntityBase() { StateName = Convert.ToString(dr["StateName"]) };
+                                    primaryDealer.Website = Convert.ToString(dr["WebsiteUrl"]);
+                                    primaryDealer.EmailId = Convert.ToString(dr["EmailId"]);
                                     DealerPackageTypes s;
-                                    if (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s))
+                                    if (Enum.TryParse(Convert.ToString(dr["DealerPackageType"]), out s))
                                         primaryDealer.DealerPackageType = s;
+
+                                    primaryDealer.IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"]);
                                 }
                                 dealerQuotation.DealerDetails = primaryDealer;
                             }
@@ -863,7 +591,7 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 if (dr.Read())
                                 {
-                                    dealerQuotation.BookingAmount = !Convert.IsDBNull(dr["Amount"]) ? Convert.ToUInt32(dr["Amount"]) : default(UInt32);
+                                    dealerQuotation.BookingAmount = Convert.ToUInt32(dr["Amount"]);
                                 }
                             }
 
@@ -872,7 +600,7 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 if (dr.Read())
                                 {
-                                    dealerQuotation.BikeAvailability = !Convert.IsDBNull(dr["NumOfDays"]) ? Convert.ToUInt32(dr["NumOfDays"]) : default(UInt32);
+                                    dealerQuotation.BikeAvailability = Convert.ToUInt32(dr["NumOfDays"]);
                                 }
                             }
 
@@ -884,12 +612,12 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     ColorwiseAvailabilty.Add(new BikeColorAvailability()
                                     {
-                                        ColorId = !Convert.IsDBNull(dr["ColorId"]) ? Convert.ToUInt32(dr["ColorId"]) : default(UInt32),
-                                        NoOfDays = !Convert.IsDBNull(dr["NumOfDays"]) ? Convert.ToInt16(dr["NumOfDays"]) : default(Int16),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
-                                        ColorName = !Convert.IsDBNull(dr["ColorName"]) ? Convert.ToString(dr["ColorName"]) : default(string),
-                                        HexCode = !Convert.IsDBNull(dr["HexCode"]) ? Convert.ToString(dr["HexCode"]) : default(string),
-                                        VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32)
+                                        ColorId = SqlReaderConvertor.ToUInt32(dr["ColorId"]),
+                                        NoOfDays = SqlReaderConvertor.ToInt16(dr["NumOfDays"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        ColorName = Convert.ToString(dr["ColorName"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"])
                                     });
                                 }
                                 dealerQuotation.AvailabilityByColor = ColorwiseAvailabilty;
@@ -901,18 +629,18 @@ namespace Bikewale.DAL.AutoBiz
                                 if (dr.Read())
                                 {
                                     objEMI = new EMI();
-                                    objEMI.Id = !Convert.IsDBNull(dr["Id"]) ? Convert.ToUInt32(dr["Id"]) : default(UInt32);
-                                    objEMI.LoanProvider = !Convert.IsDBNull(dr["LoanProvider"]) ? Convert.ToString(dr["LoanProvider"]) : default(string);
-                                    objEMI.LoanToValue = !Convert.IsDBNull(dr["LTV"]) ? Convert.ToUInt16(dr["LTV"]) : default(UInt16);
-                                    objEMI.MaxDownPayment = !Convert.IsDBNull(dr["MaxDownPayment"]) ? Convert.ToUInt32(dr["MaxDownPayment"]) : default(float);
-                                    objEMI.MaxRateOfInterest = !Convert.IsDBNull(dr["MaxRateOfInterest"]) ? Convert.ToUInt32(dr["MaxRateOfInterest"]) : default(float);
-                                    objEMI.MaxTenure = !Convert.IsDBNull(dr["MaxTenure"]) ? Convert.ToUInt16(dr["MaxTenure"]) : default(UInt16);
-                                    objEMI.MinDownPayment = !Convert.IsDBNull(dr["MinDownPayment"]) ? Convert.ToUInt32(dr["MinDownPayment"]) : default(float);
-                                    objEMI.MinRateOfInterest = !Convert.IsDBNull(dr["MinRateOfInterest"]) ? Convert.ToUInt32(dr["MinRateOfInterest"]) : default(float);
-                                    objEMI.MinTenure = !Convert.IsDBNull(dr["MinTenure"]) ? Convert.ToUInt16(dr["MinTenure"]) : default(UInt16);
-                                    objEMI.ProcessingFee = !Convert.IsDBNull(dr["ProcessingFee"]) ? Convert.ToUInt32(dr["ProcessingFee"]) : default(float);
-                                    objEMI.RateOfInterest = !Convert.IsDBNull(dr["RateOfInterest"]) ? Convert.ToSingle(dr["RateOfInterest"]) : default(float);
-                                    objEMI.Tenure = !Convert.IsDBNull(dr["Tenure"]) ? Convert.ToUInt16(dr["Tenure"]) : default(UInt16);
+                                    objEMI.Id = SqlReaderConvertor.ToUInt32(dr["Id"]);
+                                    objEMI.LoanProvider = Convert.ToString(dr["LoanProvider"]);
+                                    objEMI.LoanToValue = SqlReaderConvertor.ToUInt16(dr["LTV"]);
+                                    objEMI.MaxDownPayment = SqlReaderConvertor.ToUInt32(dr["MaxDownPayment"]);
+                                    objEMI.MaxRateOfInterest = SqlReaderConvertor.ToUInt32(dr["MaxRateOfInterest"]);
+                                    objEMI.MaxTenure = SqlReaderConvertor.ToUInt16(dr["MaxTenure"]);
+                                    objEMI.MinDownPayment = SqlReaderConvertor.ToUInt32(dr["MinDownPayment"]);
+                                    objEMI.MinRateOfInterest = SqlReaderConvertor.ToUInt32(dr["MinRateOfInterest"]);
+                                    objEMI.MinTenure = SqlReaderConvertor.ToUInt16(dr["MinTenure"]);
+                                    objEMI.ProcessingFee = SqlReaderConvertor.ToUInt32(dr["ProcessingFee"]);
+                                    objEMI.RateOfInterest = SqlReaderConvertor.ToFloat(dr["RateOfInterest"]);
+                                    objEMI.Tenure = SqlReaderConvertor.ToUInt16(dr["Tenure"]);
                                 }
                                 dealerQuotation.EMIDetails = objEMI;
                             }
@@ -925,14 +653,14 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     OfferList.Add(new OfferEntityBase()
                                     {
-                                        OfferId = !Convert.IsDBNull(dr["OfferId"]) ? Convert.ToUInt32(dr["OfferId"]) : default(UInt32),
-                                        OfferCategoryId = !Convert.IsDBNull(dr["OfferCategoryId"]) ? Convert.ToUInt32(dr["OfferCategoryId"]) : default(UInt32),
-                                        OfferType = !Convert.IsDBNull(dr["OfferType"]) ? Convert.ToString(dr["OfferType"]) : default(string),
-                                        OfferText = !Convert.IsDBNull(dr["OfferText"]) ? Convert.ToString(dr["OfferText"]) : default(string),
-                                        OfferValue = !Convert.IsDBNull(dr["OfferValue"]) ? Convert.ToUInt32(dr["OfferValue"]) : default(UInt32),
-                                        OffervalidTill = !Convert.IsDBNull(dr["OfferValidTill"]) ? Convert.ToDateTime(dr["OfferValidTill"]) : default(DateTime),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
-                                        IsOfferTerms = !Convert.IsDBNull(dr["IsOfferTerms"]) ? Convert.ToBoolean(dr["IsOfferTerms"]) : default(Boolean),
+                                        OfferId = SqlReaderConvertor.ToUInt32(dr["OfferId"]),
+                                        OfferCategoryId = SqlReaderConvertor.ToUInt32(dr["OfferCategoryId"]),
+                                        OfferType = Convert.ToString(dr["OfferType"]),
+                                        OfferText = Convert.ToString(dr["OfferText"]),
+                                        OfferValue = SqlReaderConvertor.ToUInt32(dr["OfferValue"]),
+                                        OffervalidTill = SqlReaderConvertor.ToDateTime(dr["OfferValidTill"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        IsOfferTerms = SqlReaderConvertor.ToBoolean(dr["IsOfferTerms"]),
                                     });
                                 }
                                 dealerQuotation.OfferList = OfferList;
@@ -945,12 +673,12 @@ namespace Bikewale.DAL.AutoBiz
                                 while (dr.Read())
                                 {
                                     DealerBenefitEntity objDealerBenefitEntity = new DealerBenefitEntity();
-                                    objDealerBenefitEntity.BenefitId = !Convert.IsDBNull(dr["BenefitId"]) ? Convert.ToInt32(dr["BenefitId"]) : default(int);
-                                    objDealerBenefitEntity.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToInt32(dr["DealerId"]) : default(int);
-                                    objDealerBenefitEntity.CatId = !Convert.IsDBNull(dr["CatId"]) ? Convert.ToInt32(dr["CatId"]) : default(int);
-                                    objDealerBenefitEntity.CategoryText = !Convert.IsDBNull(dr["CategoryText"]) ? Convert.ToString(dr["CategoryText"]) : default(string);
-                                    objDealerBenefitEntity.BenefitText = !Convert.IsDBNull(dr["BenefitText"]) ? Convert.ToString(dr["BenefitText"]) : default(string);
-                                    objDealerBenefitEntity.City = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string);
+                                    objDealerBenefitEntity.BenefitId = SqlReaderConvertor.ToInt32(dr["BenefitId"]);
+                                    objDealerBenefitEntity.DealerId = SqlReaderConvertor.ToInt32(dr["DealerId"]);
+                                    objDealerBenefitEntity.CatId = SqlReaderConvertor.ToInt32(dr["CatId"]);
+                                    objDealerBenefitEntity.CategoryText = Convert.ToString(dr["CategoryText"]);
+                                    objDealerBenefitEntity.BenefitText = Convert.ToString(dr["BenefitText"]);
+                                    objDealerBenefitEntity.City = Convert.ToString(dr["City"]);
                                     benefits.Add(objDealerBenefitEntity);
                                 }
                                 dealerQuotation.Benefits = benefits;
@@ -962,7 +690,7 @@ namespace Bikewale.DAL.AutoBiz
                                 disclaimer = new List<string>();
                                 while (dr.Read())
                                 {
-                                    disclaimer.Add(!Convert.IsDBNull(dr["Disclaimer"]) ? Convert.ToString(dr["Disclaimer"]) : default(string));
+                                    disclaimer.Add(Convert.ToString(dr["Disclaimer"]));
                                 }
                                 dealerQuotation.Disclaimer = disclaimer;
                             }
@@ -977,11 +705,11 @@ namespace Bikewale.DAL.AutoBiz
                                     secondaryDealers.Add(
                                         new NewBikeDealerBase()
                                         {
-                                            Area = !Convert.IsDBNull(dr["AreaName"]) ? Convert.ToString(dr["AreaName"]) : default(string),
-                                            DealerId = !Convert.IsDBNull(dr["ID"]) ? Convert.ToUInt32(dr["ID"]) : default(UInt32),
-                                            Name = !Convert.IsDBNull(dr["Organization"]) ? Convert.ToString(dr["Organization"]) : default(string),
-                                            MaskingNumber = !Convert.IsDBNull(dr["MaskingNumber"]) ? Convert.ToString(dr["MaskingNumber"]) : default(string),
-                                            DealerPackageType = (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s)) ? s : DealerPackageTypes.Invalid
+                                            Area = Convert.ToString(dr["AreaName"]),
+                                            DealerId = SqlReaderConvertor.ToUInt32(dr["ID"]),
+                                            Name = Convert.ToString(dr["Organization"]),
+                                            MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
+                                            DealerPackageType = (Enum.TryParse(Convert.ToString(dr["DealerPackageType"]), out s)) ? s : DealerPackageTypes.Invalid
                                         }
                                         );
                                 }
@@ -1010,6 +738,8 @@ namespace Bikewale.DAL.AutoBiz
         /// Description :   Set the Selected version price for secondary dealers for easy binding
         /// Modified By : Sangram Nandkhile on 29 Dec 2016
         /// Description : Added DisplayTextLarge, DisplayTextSmall
+        /// Modified by :   Sumit Kate on 30 Jan 2017
+        /// Description :   Replaced Convert methods with SqlReaderConvertor and Set IsDSA flag
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -1028,7 +758,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_27012017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -1047,22 +777,22 @@ namespace Bikewale.DAL.AutoBiz
                             if (dr.Read())
                             {
                                 BikeMakeEntityBase objMake = new BikeMakeEntityBase();
-                                objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToInt32(dr["MakeId"]) : default(int);
-                                objMake.MakeName = !Convert.IsDBNull(dr["MakeName"]) ? Convert.ToString(dr["MakeName"]) : default(string);
-                                objMake.MaskingName = !Convert.IsDBNull(dr["MakeMaskingName"]) ? Convert.ToString(dr["MakeMaskingName"]) : default(string);
+                                objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objMake.MakeName = Convert.ToString(dr["MakeName"]);
+                                objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objDetailedDealerQuotationEntity.objMake = objMake;
                                 BikeModelEntityBase objModel = new BikeModelEntityBase();
-                                objModel.ModelId = !Convert.IsDBNull(dr["ModelId"]) ? Convert.ToInt32(dr["ModelId"]) : default(int);
-                                objModel.ModelName = !Convert.IsDBNull(dr["ModelName"]) ? Convert.ToString(dr["ModelName"]) : default(string);
-                                objModel.MaskingName = !Convert.IsDBNull(dr["ModelMaskingName"]) ? Convert.ToString(dr["ModelMaskingName"]) : default(string);
+                                objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objModel.ModelName = Convert.ToString(dr["ModelName"]);
+                                objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objDetailedDealerQuotationEntity.objModel = objModel;
                                 BikeVersionEntityBase objVersion = new BikeVersionEntityBase();
-                                objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToInt32(dr["VersionId"]) : default(int);
-                                objVersion.VersionName = !Convert.IsDBNull(dr["VersionName"]) ? Convert.ToString(dr["VersionName"]) : default(string);
+                                objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objVersion.VersionName = Convert.ToString(dr["VersionName"]);
                                 objDetailedDealerQuotationEntity.objVersion = objVersion;
 
-                                objDetailedDealerQuotationEntity.HostUrl = !Convert.IsDBNull(dr["HostURL"]) ? Convert.ToString(dr["HostURL"]) : default(string);
-                                objDetailedDealerQuotationEntity.OriginalImagePath = !Convert.IsDBNull(dr["OriginalImagePath"]) ? Convert.ToString(dr["OriginalImagePath"]) : default(string);
+                                objDetailedDealerQuotationEntity.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objDetailedDealerQuotationEntity.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                             }
                             #endregion
 
@@ -1074,10 +804,10 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     PriceList.Add(new PQ_Price()
                                     {
-                                        CategoryId = !Convert.IsDBNull(dr["ItemId"]) ? Convert.ToUInt32(dr["ItemId"]) : default(UInt32),
-                                        CategoryName = !Convert.IsDBNull(dr["ItemName"]) ? Convert.ToString(dr["ItemName"]) : default(string),
-                                        Price = !Convert.IsDBNull(dr["Price"]) ? Convert.ToUInt32(dr["Price"]) : default(UInt32),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32)
+                                        CategoryId = SqlReaderConvertor.ToUInt32(dr["ItemId"]),
+                                        CategoryName = Convert.ToString(dr["ItemName"]),
+                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"])
                                     });
                                 }
                                 dealerQuotation.PriceList = PriceList;
@@ -1090,32 +820,33 @@ namespace Bikewale.DAL.AutoBiz
                                 if (dr.Read())
                                 {
                                     primaryDealer = new NewBikeDealers();
-                                    primaryDealer.DealerId = !Convert.IsDBNull(dr["ID"]) ? Convert.ToUInt32(dr["ID"]) : default(UInt32);
-                                    primaryDealer.Organization = !Convert.IsDBNull(dr["Organization"]) ? Convert.ToString(dr["Organization"]) : default(string);
-                                    primaryDealer.Name = String.Format("{0} {1}", (!Convert.IsDBNull(dr["FirstName"]) ? Convert.ToString(dr["FirstName"]) : default(string)), (!Convert.IsDBNull(dr["LastName"]) ? Convert.ToString(dr["LastName"]) : default(string)));
-                                    primaryDealer.Address = !Convert.IsDBNull(dr["Address"]) ? Convert.ToString(dr["Address"]) : default(string);
-                                    primaryDealer.PhoneNo = !Convert.IsDBNull(dr["PhoneNo"]) ? Convert.ToString(dr["PhoneNo"]) : default(string);
-                                    primaryDealer.MobileNo = !Convert.IsDBNull(dr["MobileNo"]) ? Convert.ToString(dr["MobileNo"]) : default(string);
-                                    primaryDealer.MaskingNumber = !Convert.IsDBNull(dr["PhoneNo"]) ? Convert.ToString(dr["PhoneNo"]) : default(string);
-                                    primaryDealer.WorkingTime = !Convert.IsDBNull(dr["ContactHours"]) ? Convert.ToString(dr["ContactHours"]) : default(string);
+                                    primaryDealer.DealerId = SqlReaderConvertor.ToUInt32(dr["ID"]);
+                                    primaryDealer.Organization = Convert.ToString(dr["Organization"]);
+                                    primaryDealer.Name = String.Format("{0} {1}", Convert.ToString(dr["FirstName"]), (Convert.ToString(dr["LastName"])));
+                                    primaryDealer.Address = Convert.ToString(dr["Address"]);
+                                    primaryDealer.PhoneNo = Convert.ToString(dr["PhoneNo"]);
+                                    primaryDealer.MobileNo = Convert.ToString(dr["MobileNo"]);
+                                    primaryDealer.MaskingNumber = Convert.ToString(dr["PhoneNo"]);
+                                    primaryDealer.WorkingTime = Convert.ToString(dr["ContactHours"]);
                                     primaryDealer.objArea = new Bikewale.Entities.BikeBooking.AreaEntityBase()
                                     {
-                                        AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32),
-                                        AreaName = !Convert.IsDBNull(dr["AreaName"]) ? Convert.ToString(dr["AreaName"]) : default(string),
-                                        Latitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(double),
-                                        Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(double),
-                                        PinCode = !Convert.IsDBNull(dr["Pincode"]) ? Convert.ToString(dr["Pincode"]) : default(string)
+                                        AreaId = SqlReaderConvertor.ToUInt32(dr["AreaId"]),
+                                        AreaName = Convert.ToString(dr["AreaName"]),
+                                        Latitude = SqlReaderConvertor.ParseToDouble(dr["Lattitude"]),
+                                        Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
+                                        PinCode = Convert.ToString(dr["Pincode"])
                                     };
-                                    primaryDealer.objCity = new CityEntityBase() { CityName = !Convert.IsDBNull(dr["CityName"]) ? Convert.ToString(dr["CityName"]) : default(string) };
-                                    primaryDealer.objState = new StateEntityBase() { StateName = !Convert.IsDBNull(dr["StateName"]) ? Convert.ToString(dr["StateName"]) : default(string) };
-                                    primaryDealer.Website = !Convert.IsDBNull(dr["WebsiteUrl"]) ? Convert.ToString(dr["WebsiteUrl"]) : default(string);
-                                    primaryDealer.Distance = !Convert.IsDBNull(dr["Distance"]) ? Convert.ToString(dr["Distance"]) : default(string);
-                                    primaryDealer.EmailId = !Convert.IsDBNull(dr["EmailId"]) ? Convert.ToString(dr["EmailId"]) : default(string);
+                                    primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
+                                    primaryDealer.objState = new StateEntityBase() { StateName = Convert.ToString(dr["StateName"]) };
+                                    primaryDealer.Website = Convert.ToString(dr["WebsiteUrl"]);
+                                    primaryDealer.Distance = Convert.ToString(dr["Distance"]);
+                                    primaryDealer.EmailId = Convert.ToString(dr["EmailId"]);
                                     DealerPackageTypes s;
-                                    if (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s))
+                                    if (Enum.TryParse((Convert.ToString(dr["DealerPackageType"])), out s))
                                         primaryDealer.DealerPackageType = s;
                                     primaryDealer.DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]);
                                     primaryDealer.DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]);
+                                    primaryDealer.IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"]);
 
                                 }
                                 dealerQuotation.DealerDetails = primaryDealer;
@@ -1126,7 +857,7 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 if (dr.Read())
                                 {
-                                    dealerQuotation.BookingAmount = !Convert.IsDBNull(dr["Amount"]) ? Convert.ToUInt32(dr["Amount"]) : default(UInt32);
+                                    dealerQuotation.BookingAmount = SqlReaderConvertor.ToUInt32(dr["Amount"]);
                                 }
                             }
 
@@ -1135,7 +866,7 @@ namespace Bikewale.DAL.AutoBiz
                             {
                                 if (dr.Read())
                                 {
-                                    dealerQuotation.BikeAvailability = !Convert.IsDBNull(dr["NumOfDays"]) ? Convert.ToUInt32(dr["NumOfDays"]) : default(UInt32);
+                                    dealerQuotation.BikeAvailability = SqlReaderConvertor.ToUInt32(dr["NumOfDays"]);
                                 }
                             }
 
@@ -1147,12 +878,12 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     ColorwiseAvailabilty.Add(new BikeColorAvailability()
                                     {
-                                        ColorId = !Convert.IsDBNull(dr["ColorId"]) ? Convert.ToUInt32(dr["ColorId"]) : default(UInt32),
-                                        NoOfDays = !Convert.IsDBNull(dr["NumOfDays"]) ? Convert.ToInt16(dr["NumOfDays"]) : default(Int16),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
-                                        ColorName = !Convert.IsDBNull(dr["ColorName"]) ? Convert.ToString(dr["ColorName"]) : default(string),
-                                        HexCode = !Convert.IsDBNull(dr["HexCode"]) ? Convert.ToString(dr["HexCode"]) : default(string),
-                                        VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32)
+                                        ColorId = SqlReaderConvertor.ToUInt32(dr["ColorId"]),
+                                        NoOfDays = SqlReaderConvertor.ToInt16(dr["NumOfDays"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        ColorName = Convert.ToString(dr["ColorName"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"])
                                     });
                                 }
                                 dealerQuotation.AvailabilityByColor = ColorwiseAvailabilty;
@@ -1164,18 +895,18 @@ namespace Bikewale.DAL.AutoBiz
                                 if (dr.Read())
                                 {
                                     objEMI = new EMI();
-                                    objEMI.Id = !Convert.IsDBNull(dr["Id"]) ? Convert.ToUInt32(dr["Id"]) : default(UInt32);
-                                    objEMI.LoanProvider = !Convert.IsDBNull(dr["LoanProvider"]) ? Convert.ToString(dr["LoanProvider"]) : default(string);
-                                    objEMI.LoanToValue = !Convert.IsDBNull(dr["LTV"]) ? Convert.ToUInt16(dr["LTV"]) : default(UInt16);
-                                    objEMI.MaxDownPayment = !Convert.IsDBNull(dr["MaxDownPayment"]) ? Convert.ToUInt32(dr["MaxDownPayment"]) : default(float);
-                                    objEMI.MaxRateOfInterest = !Convert.IsDBNull(dr["MaxRateOfInterest"]) ? Convert.ToUInt32(dr["MaxRateOfInterest"]) : default(float);
-                                    objEMI.MaxTenure = !Convert.IsDBNull(dr["MaxTenure"]) ? Convert.ToUInt16(dr["MaxTenure"]) : default(UInt16);
-                                    objEMI.MinDownPayment = !Convert.IsDBNull(dr["MinDownPayment"]) ? Convert.ToUInt32(dr["MinDownPayment"]) : default(float);
-                                    objEMI.MinRateOfInterest = !Convert.IsDBNull(dr["MinRateOfInterest"]) ? Convert.ToUInt32(dr["MinRateOfInterest"]) : default(float);
-                                    objEMI.MinTenure = !Convert.IsDBNull(dr["MinTenure"]) ? Convert.ToUInt16(dr["MinTenure"]) : default(UInt16);
-                                    objEMI.ProcessingFee = !Convert.IsDBNull(dr["ProcessingFee"]) ? Convert.ToUInt32(dr["ProcessingFee"]) : default(float);
-                                    objEMI.RateOfInterest = !Convert.IsDBNull(dr["RateOfInterest"]) ? Convert.ToSingle(dr["RateOfInterest"]) : default(float);
-                                    objEMI.Tenure = !Convert.IsDBNull(dr["Tenure"]) ? Convert.ToUInt16(dr["Tenure"]) : default(UInt16);
+                                    objEMI.Id = SqlReaderConvertor.ToUInt32(dr["Id"]);
+                                    objEMI.LoanProvider = Convert.ToString(dr["LoanProvider"]);
+                                    objEMI.LoanToValue = SqlReaderConvertor.ToUInt16(dr["LTV"]);
+                                    objEMI.MaxDownPayment = SqlReaderConvertor.ToUInt32(dr["MaxDownPayment"]);
+                                    objEMI.MaxRateOfInterest = SqlReaderConvertor.ToUInt32(dr["MaxRateOfInterest"]);
+                                    objEMI.MaxTenure = SqlReaderConvertor.ToUInt16(dr["MaxTenure"]);
+                                    objEMI.MinDownPayment = SqlReaderConvertor.ToUInt32(dr["MinDownPayment"]);
+                                    objEMI.MinRateOfInterest = SqlReaderConvertor.ToUInt32(dr["MinRateOfInterest"]);
+                                    objEMI.MinTenure = SqlReaderConvertor.ToUInt16(dr["MinTenure"]);
+                                    objEMI.ProcessingFee = SqlReaderConvertor.ToUInt32(dr["ProcessingFee"]);
+                                    objEMI.RateOfInterest = SqlReaderConvertor.ToFloat(dr["RateOfInterest"]);
+                                    objEMI.Tenure = SqlReaderConvertor.ToUInt16(dr["Tenure"]);
                                 }
                                 dealerQuotation.EMIDetails = objEMI;
                             }
@@ -1188,14 +919,14 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     OfferList.Add(new OfferEntityBase()
                                     {
-                                        OfferId = !Convert.IsDBNull(dr["OfferId"]) ? Convert.ToUInt32(dr["OfferId"]) : default(UInt32),
-                                        OfferCategoryId = !Convert.IsDBNull(dr["OfferCategoryId"]) ? Convert.ToUInt32(dr["OfferCategoryId"]) : default(UInt32),
-                                        OfferType = !Convert.IsDBNull(dr["OfferType"]) ? Convert.ToString(dr["OfferType"]) : default(string),
-                                        OfferText = !Convert.IsDBNull(dr["OfferText"]) ? Convert.ToString(dr["OfferText"]) : default(string),
-                                        OfferValue = !Convert.IsDBNull(dr["OfferValue"]) ? Convert.ToUInt32(dr["OfferValue"]) : default(UInt32),
-                                        OffervalidTill = !Convert.IsDBNull(dr["OfferValidTill"]) ? Convert.ToDateTime(dr["OfferValidTill"]) : default(DateTime),
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32),
-                                        IsOfferTerms = !Convert.IsDBNull(dr["IsOfferTerms"]) ? Convert.ToBoolean(dr["IsOfferTerms"]) : default(Boolean)
+                                        OfferId = SqlReaderConvertor.ToUInt32(dr["OfferId"]),
+                                        OfferCategoryId = SqlReaderConvertor.ToUInt32(dr["OfferCategoryId"]),
+                                        OfferType = Convert.ToString(dr["OfferType"]),
+                                        OfferText = Convert.ToString(dr["OfferText"]),
+                                        OfferValue = SqlReaderConvertor.ToUInt32(dr["OfferValue"]),
+                                        OffervalidTill = SqlReaderConvertor.ToDateTime(dr["OfferValidTill"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        IsOfferTerms = SqlReaderConvertor.ToBoolean(dr["IsOfferTerms"])
                                     });
                                 }
                                 dealerQuotation.OfferList = OfferList;
@@ -1208,12 +939,12 @@ namespace Bikewale.DAL.AutoBiz
                                 while (dr.Read())
                                 {
                                     DealerBenefitEntity objDealerBenefitEntity = new DealerBenefitEntity();
-                                    objDealerBenefitEntity.BenefitId = !Convert.IsDBNull(dr["BenefitId"]) ? Convert.ToInt32(dr["BenefitId"]) : default(int);
-                                    objDealerBenefitEntity.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToInt32(dr["DealerId"]) : default(int);
-                                    objDealerBenefitEntity.CatId = !Convert.IsDBNull(dr["CatId"]) ? Convert.ToInt32(dr["CatId"]) : default(int);
-                                    objDealerBenefitEntity.CategoryText = !Convert.IsDBNull(dr["CategoryText"]) ? Convert.ToString(dr["CategoryText"]) : default(string);
-                                    objDealerBenefitEntity.BenefitText = !Convert.IsDBNull(dr["BenefitText"]) ? Convert.ToString(dr["BenefitText"]) : default(string);
-                                    objDealerBenefitEntity.City = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string);
+                                    objDealerBenefitEntity.BenefitId = SqlReaderConvertor.ToInt32(dr["BenefitId"]);
+                                    objDealerBenefitEntity.DealerId = SqlReaderConvertor.ToInt32(dr["DealerId"]);
+                                    objDealerBenefitEntity.CatId = SqlReaderConvertor.ToInt32(dr["CatId"]);
+                                    objDealerBenefitEntity.CategoryText = Convert.ToString(dr["CategoryText"]);
+                                    objDealerBenefitEntity.BenefitText = Convert.ToString(dr["BenefitText"]);
+                                    objDealerBenefitEntity.City = Convert.ToString(dr["City"]);
                                     benefits.Add(objDealerBenefitEntity);
                                 }
                                 dealerQuotation.Benefits = benefits;
@@ -1225,7 +956,7 @@ namespace Bikewale.DAL.AutoBiz
                                 disclaimer = new List<string>();
                                 while (dr.Read())
                                 {
-                                    disclaimer.Add(!Convert.IsDBNull(dr["Disclaimer"]) ? Convert.ToString(dr["Disclaimer"]) : default(string));
+                                    disclaimer.Add(Convert.ToString(dr["Disclaimer"]));
                                 }
                                 dealerQuotation.Disclaimer = disclaimer;
                             }
@@ -1241,15 +972,16 @@ namespace Bikewale.DAL.AutoBiz
                                     secondaryDealers.Add(
                                         new Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase()
                                         {
-                                            Area = !Convert.IsDBNull(dr["AreaName"]) ? Convert.ToString(dr["AreaName"]) : default(string),
-                                            DealerId = !Convert.IsDBNull(dr["ID"]) ? Convert.ToUInt32(dr["ID"]) : default(UInt32),
-                                            Name = !Convert.IsDBNull(dr["Organization"]) ? Convert.ToString(dr["Organization"]) : default(string),
-                                            MaskingNumber = !Convert.IsDBNull(dr["MaskingNumber"]) ? Convert.ToString(dr["MaskingNumber"]) : default(string),
-                                            DealerPackageType = (Enum.TryParse((!Convert.IsDBNull(dr["DealerPackageType"]) ? Convert.ToString(dr["DealerPackageType"]) : default(string)), out s)) ? s : DealerPackageTypes.Invalid,
-                                            Distance = !Convert.IsDBNull(dr["distance"]) ? Convert.ToDouble(dr["distance"]) : default(double),
-                                            OfferCount = !Convert.IsDBNull(dr["offerCount"]) ? Convert.ToUInt16(dr["offerCount"]) : default(UInt16),
+                                            Area = Convert.ToString(dr["AreaName"]),
+                                            DealerId = SqlReaderConvertor.ToUInt32(dr["ID"]),
+                                            Name = Convert.ToString(dr["Organization"]),
+                                            MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
+                                            DealerPackageType = (Enum.TryParse((Convert.ToString(dr["DealerPackageType"])), out s)) ? s : DealerPackageTypes.Invalid,
+                                            Distance = SqlReaderConvertor.ParseToDouble(dr["distance"]),
+                                            OfferCount = SqlReaderConvertor.ToUInt16(dr["offerCount"]),
                                             DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]),
-                                            DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"])
+                                            DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]),
+                                            IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"])
                                         }
                                         );
                                 }
@@ -1266,9 +998,9 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     versionprices.Add(new VersionPriceEntity()
                                     {
-                                        DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(uint),
-                                        VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(uint),
-                                        VersionPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(uint)
+                                        DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]),
+                                        VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"]),
+                                        VersionPrice = SqlReaderConvertor.ToUInt32(dr["OnRoadPrice"])
                                     });
                                 }
 
@@ -1320,56 +1052,6 @@ namespace Bikewale.DAL.AutoBiz
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 21 Mar 2016
-        /// Description :   To get the Dealers Lattitude and Longitude based on subscription model
-        /// SP Called : BW_GetDealersLatLong_21032016
-        /// Modified By : Vivek Gupta on 12-04-2016, new sp BW_GetDealersLatLong_12042016
-        /// Description : changed return type from Inumerable<DealerLatLong> to DealerLatLong coz we are fetching nearest dealer from database itself. 
-        ///               we have commute distance availbele in database.
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public DealerLatLong GetCampaignDealersLatLong(uint versionId, uint areaId)
-        {
-
-            throw new NotImplementedException();
-            //DealerLatLong objDealersList = null;
-
-            //try
-            //{
-            //    if (versionId > 0 && areaId > 0)
-            //    {
-            //        using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerslatlong_12042016"))
-            //        {
-            //            cmd.CommandType = CommandType.StoredProcedure;
-
-            //            cmd.Parameters.Add(DbFactory.GetDbParam("par_versionId", DbType.Int32, versionId));
-            //            cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
-
-            //            using (IDataReader dr = MySqlDatabase.SelectQuery(cmd,ConnectionType.ReadOnly))
-            //            {
-            //                objDealersList = new DealerLatLong();
-
-            //                while (dr.Read())
-            //                {
-            //                    objDealersList.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-            //                    objDealersList.Lattitude = !Convert.IsDBNull(dr["Lattitude"]) ? Convert.ToDouble(dr["Lattitude"]) : default(UInt32);
-            //                    objDealersList.Longitude = !Convert.IsDBNull(dr["Longitude"]) ? Convert.ToDouble(dr["Longitude"]) : default(UInt32);
-            //                    objDealersList.ServingDistance = !Convert.IsDBNull(dr["LeadServingDistance"]) ? Convert.ToUInt16(dr["LeadServingDistance"]) : default(UInt16);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorClass objErr = new ErrorClass(ex, "GetCampaignDealersLatLong");
-            //    objErr.SendMail();
-            //}
-            //return objDealersList;
-        }
-        /// <summary>
         /// Author : Vivek Gupta
         /// Date : 28-04-2016
         /// Desc : to check dealer exists for areaId and version id and isSecondaryDealers availble
@@ -1412,6 +1094,5 @@ namespace Bikewale.DAL.AutoBiz
             }
             return objDealersList;
         }
-
     } // class
 } // namespace

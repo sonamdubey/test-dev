@@ -30,12 +30,12 @@
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li class="current"><strong>Upload Photos</strong></li>
+            <li class="current"><strong>Upload Images</strong></li>
         </ul><div class="clear"></div>
     </div>
     <div class="grid_8 margin-top10">
-        <h1>Upload Bike Photos</h1>
-	    <p class="desc-para">BikeWale stats show that listings with photos are more likely to fetch more number of genuine buyers. So, go ahead and upload your bike photos!</p>
+        <h1>Upload Bike Images</h1>
+	    <p class="desc-para">BikeWale stats show that listings with images are more likely to fetch more number of genuine buyers. So, go ahead and upload your bike images!</p>
         <div id="div_NotAuthorised" runat="server" class="min-height margin-top15"></div>
         <div id="div_Photos" runat="server">
             <p class="desc-para">We accept <strong>jpeg</strong>, <strong>png</strong>, <strong>gif</strong> formats only. Image size up to <strong>4MB</strong> permissible. By uploading images you agree to BikeWale photos <a href="#">Terms & Conditions</a></p>				
@@ -44,10 +44,10 @@
 	        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="buttons text_white"></asp:Button>				
 	    
             <%--<p class="desc-para">No, I don't want to upload photos now. <a href="/used/bikedetails.aspx?bike=S<%= inquiryId %>">Take me to my listing</a></p>--%>
-            <p class="desc-para">No, I don't want to upload photos now. <a href="/mybikewale/mylisting.aspx">Take me to my listing</a></p>
+            <p class="desc-para">No, I don't want to upload images now. <a href="/mybikewale/mylisting.aspx">Take me to my listing</a></p>
 
             <div class="<%= objPhotos.ClassifiedImageCount == 0 ? " hide" : " show" %>">						
-		        <div class="mid-box"><h2 class="hd2"><span id="spnPhotoCount"><%= objPhotos.ClassifiedImageCount %></span> Photos available with this listing</h2></div>
+		        <div class="mid-box"><h2 class="hd2"><span id="spnPhotoCount"><%= objPhotos.ClassifiedImageCount %></span> Images available with this listing</h2></div>
            
 		        <asp:Repeater ID="rptImageList" runat="server">
 			        <itemtemplate>														
