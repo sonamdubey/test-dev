@@ -8,7 +8,6 @@ using Grpc.CMS;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -77,7 +76,7 @@ namespace Bikewale.Service.Videos.Controllers
                     int startIndex, endIndex;
                     Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId,(uint)startIndex,(uint)endIndex);
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId, (uint)startIndex, (uint)endIndex);
 
                     if (_objVideoList != null)
                     {
@@ -85,18 +84,18 @@ namespace Bikewale.Service.Videos.Controllers
                     }
                     else
                     {
-                        videoDTOList = GetVideosByCategoryIdOldWay(categoryId,pageNo, pageSize);
+                        videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
                     }
                 }
                 else
                 {
-                    videoDTOList = GetVideosByCategoryIdOldWay(categoryId,pageNo, pageSize);
+                    videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
                 }
             }
             catch (Exception err)
             {
                 _logger.Error(err.Message, err);
-                videoDTOList = GetVideosByCategoryIdOldWay(categoryId,pageNo, pageSize);
+                videoDTOList = GetVideosByCategoryIdOldWay(categoryId, pageNo, pageSize);
             }
 
             return videoDTOList;
@@ -138,7 +137,7 @@ namespace Bikewale.Service.Videos.Controllers
                 return new VideosList();
             }
 
-        } 
+        }
 
         #endregion
 
@@ -160,10 +159,10 @@ namespace Bikewale.Service.Videos.Controllers
 
                 if (makeId > 0)
                 {
-                        //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
-                    var objVideosList = GetVideosByMakeIdViaGrpc(pageNo,pageSize,makeId);
-                    
-                    if (objVideosList != null && objVideosList.Videos !=null)
+                    //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                    var objVideosList = GetVideosByMakeIdViaGrpc(pageNo, pageSize, makeId);
+
+                    if (objVideosList != null && objVideosList.Videos != null)
                     {
                         return Ok(objVideosList);
                     }
@@ -192,9 +191,9 @@ namespace Bikewale.Service.Videos.Controllers
                 if (_useGrpc)
                 {
                     int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);  
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId,(uint)startIndex,(uint)endIndex);
+                    var _objVideoList = GrpcMethods.GetVideosByMakeId(makeId, (uint)startIndex, (uint)endIndex);
 
                     if (_objVideoList != null)
                     {
@@ -257,7 +256,7 @@ namespace Bikewale.Service.Videos.Controllers
                 return new VideosList();
             }
 
-        } 
+        }
         #endregion
 
 
@@ -291,7 +290,6 @@ namespace Bikewale.Service.Videos.Controllers
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
                 return InternalServerError();
             }
         }
@@ -308,9 +306,9 @@ namespace Bikewale.Service.Videos.Controllers
                 if (_useGrpc)
                 {
                     int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex); 
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId,(uint)startIndex,(uint)endIndex);
+                    var _objVideoList = GrpcMethods.GetVideosByModelId(modelId, (uint)startIndex, (uint)endIndex);
 
                     if (_objVideoList != null)
                     {
@@ -318,7 +316,7 @@ namespace Bikewale.Service.Videos.Controllers
                     }
                     else
                     {
-                        videoDTOList = GetVideosByModelIdOldWay(pageNo,pageSize,modelId);
+                        videoDTOList = GetVideosByModelIdOldWay(pageNo, pageSize, modelId);
                     }
                 }
                 else
@@ -348,7 +346,7 @@ namespace Bikewale.Service.Videos.Controllers
                     List<BikeVideoEntity> objVideosList = null;
 
                     using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
-                    {                        
+                    {
                         objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
                     }
 
@@ -369,7 +367,6 @@ namespace Bikewale.Service.Videos.Controllers
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
-                objErr.SendMail();
                 return null;
             }
         }

@@ -26,6 +26,7 @@ namespace Bikewale.Mobile.New.Photos
         protected bool IsUpcoming { get; set; }
         protected bool IsDiscontinued { get; set; }
         protected bool isModelPage;
+        protected uint VideoCount;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected override void OnInit(EventArgs e)
@@ -76,18 +77,18 @@ namespace Bikewale.Mobile.New.Photos
                         genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
                     }
                     bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+
                     if (bikeInfo != null)
                     {
                         if (bikeInfo.Make != null && bikeInfo.Model != null)
                         {
-                            bikeUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                             bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                         }
                         pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
-                        // for photos page
-                        bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0;
                         IsUpcoming = genericBikeInfo.IsUpcoming;
                         IsDiscontinued = genericBikeInfo.IsDiscontinued;
+                        VideoCount = bikeInfo.VideosCount;
                     }
                 }
             }

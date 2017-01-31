@@ -122,11 +122,12 @@
             <script type="text/html" id="gallery-template">
                 <!-- gallery header -->
                 <div class="gallery-header" data-bind="visible: galleryTabsActive()">
-                    <h2 class="text-white gallery-title">Bajaj Pulsar AS200 Photos</h2>
+                    <h2 class="text-white gallery-title"><%=bikeName %> Images</h2>
                     <span id="gallery-close-btn" class="position-abt pos-top10 pos-right10 bwmsprite cross-md-white cur-pointer"></span>
                     <ul class="horizontal-tabs-wrapper">
-                        <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Photos</li>
-                        <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li>
+                       <%if(vmModelPhotos!=null && vmModelPhotos.totalPhotosCount>0) {%> <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Images</li><%} %>
+                        <%if (VideoCount > 0)
+                          { %> <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li><%} %>
                     </ul>
                 </div>
 
@@ -168,7 +169,7 @@
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: videoList().length"></span>
+                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: <%=VideoCount%>"></span>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -187,11 +188,12 @@
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All photos</span>
                         </div>
+                         <%if(VideoCount>1){ %>
                         <div data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
-                            <span class="inline-block font14">All videos</span>
+                           <span class="inline-block font14">All videos</span>
                         </div>
-
+                        <%} %>
                         <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite color-palette"></span>
                         </div>
@@ -296,7 +298,7 @@
                             </div>
                             <%} %>
                             <div class="grid-7 omega">
-                                <a href="<%=bikeUrl %>" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -304,14 +306,14 @@
                 
                     <div id="video-tab-screen" class="footer-tab-card font14" data-bind="visible: videoListScreen()">
                         <ul class="video-tab-list" data-bind="foreach: videoList">
-                            <li data-bind="click: $parent.videoSelection, attr: { 'data-video-id': videoId }">
+                            <li data-bind="click: $parent.videoSelection, attr: { 'data-video-id': VideoId }">
                                 <div class="video-image-block inline-block">
-                                    <img data-bind="attr: { alt: videoTitle, src: imagePathThumbnail }" border="0" />
+                                    <img data-bind="attr: { alt: VideoTitle, src: 'https://img.youtube.com/vi/'+VideoId+'/sddefault.jpg' }" border="0" />
                                     <span class="play-icon-wrapper">
                                         <span class="bwmsprite video-play-icon"></span>
                                     </span>
                                 </div>
-                                <p class="video-title-block padding-left15 inline-block" data-bind="text: videoTitle"></p>
+                                <p class="video-title-block padding-left15 inline-block" data-bind="text: VideoTitle"></p>
                             </li>
                         </ul>
                     </div>         
@@ -326,6 +328,8 @@
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>;
             var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+            var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
+            var videoCount = <%=VideoCount%>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
