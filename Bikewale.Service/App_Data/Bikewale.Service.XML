@@ -2451,6 +2451,14 @@
             <param name="modelId"></param>        
             <returns>List of User Reviews - News- Expert Reviews- Videos of the model</returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.GetModelColorPhotos(System.Int32)">
+            <summary>
+            Created By: Sangram Nandkhile on 31 Jan 2017
+            Summary: To return Model Images, Other model Images and color wise images
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Model.ModelListController">
             <summary>
             To Get List of Models

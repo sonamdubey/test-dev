@@ -4,11 +4,15 @@
     // add 'more photos count' if photo grid contains 30 images
     if (photosLength == 30) {
         var lastPhoto = $('.photos-grid-list li').eq(29),
-            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+'+ (photoCount - 29) +'<br />photos</span></span>');
+            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - 29) + '<br />photos</span></span>');
 
         lastPhoto.append(morePhotoCount);
     }
 });
+
+var keyPhoto = "modelPhotos_";
+var modelImages = [];
+var modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
     var clickedImg = $(this),
@@ -30,77 +34,81 @@ $(document).on('click', '#gallery-close-btn', function () {
     history.back();
 });
 
-var modelImages = [
-    {
-        'hostUrl': 'https://imgd1.aeplcdn.com/',
-        'imagePathLarge': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-        'imagePathThumbnail': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-        'imageTitle': 'Model image 1'
-    },
-    {
-        'hostUrl': 'https://imgd2.aeplcdn.com/',
-        'imagePathLarge': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-        'imagePathThumbnail': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-        'imageTitle': 'Rear three-quarter 2'
-    },
-    {
-        'hostUrl': 'https://imgd3.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-        'imageTitle': 'Side 3'
-    },
-    {
-        'hostUrl': 'https://imgd4.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-        'imageTitle': 'Rear three-quarter 4'
-    },
-    {
-        'hostUrl': 'https://imgd5.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-        'imageTitle': 'Front 5'
-    },
-    {
-        'hostUrl': 'https://imgd6.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-        'imageTitle': 'Rear three-quarter 6'
-    }
-];
 
-var modelColorImages = [
-    {
-        'hostUrl': 'https://imgd6.aeplcdn.com/',
-        'imagePathLarge': '/bw/models/honda-cb-hornet-160r.jpg',
-        'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
-        'imageTitle': 'Dual Tone Green',
-        'colors': [
-            'b3ca20'
-        ]
-    },
-    {
-        'hostUrl': 'https://imgd7.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-        'imageTitle': 'Dual Tone Orange',
-        'colors': [
-            'b83419',
-            '040004'
-        ]
-    },
-    {
-        'hostUrl': 'https://imgd8.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-        'imageTitle': 'Dual Tone White',
-        'colors': [
-            '040004',
-            'b83419',
-            'cdcac3'
-        ]
-    }
-];
+
+//var modelImages = [
+//    {
+//        'hostUrl': 'https://imgd1.aeplcdn.com/',
+//        'imagePathLarge': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
+//        'imagePathThumbnail': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
+//        'imageTitle': 'Model image 1'
+//    },
+//    {
+//        'hostUrl': 'https://imgd2.aeplcdn.com/',
+//        'imagePathLarge': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
+//        'imagePathThumbnail': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
+//        'imageTitle': 'Rear three-quarter 2'
+//    },
+//    {
+//        'hostUrl': 'https://imgd3.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
+//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
+//        'imageTitle': 'Side 3'
+//    },
+//    {
+//        'hostUrl': 'https://imgd4.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
+//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
+//        'imageTitle': 'Rear three-quarter 4'
+//    },
+//    {
+//        'hostUrl': 'https://imgd5.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
+//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
+//        'imageTitle': 'Front 5'
+//    },
+//    {
+//        'hostUrl': 'https://imgd6.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
+//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
+//        'imageTitle': 'Rear three-quarter 6'
+//    }
+//];
+
+
+
+//var modelColorImages = [
+//    {
+//        'hostUrl': 'https://imgd6.aeplcdn.com/',
+//        'imagePathLarge': '/bw/models/honda-cb-hornet-160r.jpg',
+//        'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
+//        'imageTitle': 'Dual Tone Green',
+//        'colors': [
+//            'b3ca20'
+//        ]
+//    },
+//    {
+//        'hostUrl': 'https://imgd7.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
+//        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
+//        'imageTitle': 'Dual Tone Orange',
+//        'colors': [
+//            'b83419',
+//            '040004'
+//        ]
+//    },
+//    {
+//        'hostUrl': 'https://imgd8.aeplcdn.com/',
+//        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
+//        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
+//        'imageTitle': 'Dual Tone White',
+//        'colors': [
+//            '040004',
+//            'b83419',
+//            'cdcac3'
+//        ]
+//    }
+//];
 
 var modelVideos = [
     {
@@ -145,7 +153,52 @@ function toggleFullScreen(goFullScreen) {
     }
 }
 
+function checkCacheModelPhotos(modelId) {
+    bKey = keyPhoto + modelId;
+    if (lscache.get(bKey)) return true;
+    else return false;
+}
+var cacheData;
+
 function showGallery() {
+    try {        
+        $.ajax({
+            type: "Get",            
+            url: "/api/model/" + modelId + "/photos/",
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (response) {
+                if(response != null)
+                {
+                    for(var i=0, t=0; i<response.length; i++)
+                    {
+                        modelImages[i] = response[i];
+
+                        if( modelImages[i].imageType == 3)
+                        {
+                            modelColorImages[t] = response[i];
+                            t++;
+                        }
+                    }
+
+                    cacheData = Object.assign(modelImages, modelColorImages);
+                    //lscache.set(keyPhoto + modelId, cacheData, 15);
+                }                
+            },
+            complete: function (xhr) {
+            if (xhr.status == 404 || xhr.status == 204) {
+                lscache.set(key + selMakeId, null, 30);
+                setOptions(null);
+            }                       
+        }                                      
+        });
+
+
+    }
+    catch (e) {
+
+    }
+
     // remove the binding and then re-apply
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
@@ -207,7 +260,7 @@ var modelGallery = function () {
     self.colorPhotoList = ko.observableArray(modelColorImages);
     self.videoList = ko.observable(modelVideos);
 
-    self.afterRender = function(){
+    self.afterRender = function () {
         if (!self.mainSwiper) {
             self.mainSwiper = $('#main-photo-swiper').swiper({
                 spaceBetween: 0,
@@ -418,7 +471,7 @@ var modelGallery = function () {
             var elementIndex = element.index();
 
             setVideoDetails(elementIndex);
-        }       
+        }
     };
 
     function setVideoDetails(elementIndex) {
@@ -466,7 +519,7 @@ var modelGallery = function () {
 
         self.activeColorIndex(swiper.activeIndex + 1);
         self.activeColorTitle(activeSlideTitle);
-        
+
         if (self.colorThumbnailSwiper) {
             focusColorThumbnail(self.colorThumbnailSwiper);
         }
