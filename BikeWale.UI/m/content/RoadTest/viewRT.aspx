@@ -16,6 +16,7 @@
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -38,8 +39,7 @@
                         <span class="bwmsprite author-grey-sm-icon"></span>
                         <span class="article-stats-content"><%=author %></span>
                     </div>
-                    <div class="clear"></div>
-                    <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top5'>{0}</div>",_bikeTested) : "" %>
+                    <div class="clear"></div>                    
                 </div>
 
                 <div class="article-content-padding">
@@ -55,7 +55,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
-
+                    <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",_bikeTested) : "" %>
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
                         <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
@@ -113,19 +113,8 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var pageId = 1;
-                var pageUrl = '<%= baseUrl%>';
-                $("#ddlPages").change(function () {
-                    pageId = $(this).val();
-                    window.location.href = pageUrl + 'p' + pageId + '/';
-
-                });
-            });
-
+        <script type="text/javascript">       
             ga_pg_id = "13";
-
         </script>
     </form>
 </body>

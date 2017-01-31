@@ -11,14 +11,14 @@
         title = articleTitle + " - Bikewale ";
         keywords = "features, stories, travelogues, specials, drives";
         description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", articleTitle);
-        canonical = "https://www.bikewale.com" + canonicalUrl;
+        canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + canonicalUrl;
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
-        alternate = "https://www.bikewale.com/m" + canonicalUrl;
+        alternate = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m" + canonicalUrl;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>

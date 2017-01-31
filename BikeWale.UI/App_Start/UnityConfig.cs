@@ -1,10 +1,14 @@
 using System.Web.Mvc;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.DAL.GenericBikes;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.GenericBikes;
 using Microsoft.Practices.Unity;
 using Unity.Mvc5;
 
@@ -25,6 +29,8 @@ namespace Bikewale
             container.RegisterType<IArticles, Articles>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<ICacheManager, MemcacheManager>();
+            container.RegisterType<IGenericBikeRepository, GenericBikeRepository>();
+            container.RegisterType<IBikeInfo, BikeInfo>();            
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

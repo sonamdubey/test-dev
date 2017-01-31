@@ -1,0 +1,118 @@
+﻿@model Bikewale.Entities.CMS.Articles.ArticlePageDetails
+@using Bikewale.Utility;
+@using System.Linq;
+@using System.Collections.Generic;
+@{    
+    Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";    
+}
+@if (Model != null && Model.PageList != null)
+{
+    <article class="article">
+        <div class="article-head">
+            <h1 class="margin-bottom10">@Model.Title</h1>
+            <ul class="article-stats-list">
+                <li>
+                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                    <span class="article-stats-content">@Bikewale.Utility.FormatDate.GetFormatDate(Model.DisplayDate.ToString(), "MMM dd, yyyy hh:mm tt")</span>
+                </li>
+                <li>
+                    <span class="bwmsprite author-grey-sm-icon"></span>
+                    <span class="article-stats-content">@Model.AuthorName</span>
+                </li>
+            </ul>
+            <div class="clear"></div>            
+        </div>
+        <div class="article-body">
+            <div class="article-content">
+                @foreach (var page in Model.PageList)
+                {
+                    <h3 class="margin-bottom10">@Html.Raw(page.PageName)</h3>
+                    <div>@Html.Raw(page.Content.ConvertToAmpContent())</div>
+                }
+            </div>
+            @if (ViewBag.VehicleTagsList != null && ViewBag.VehicleTagsCnt > 0)
+            {
+                <div class="margin-top10 margin-bottom10">
+                    @{int iTags = 1;}
+                    Bike Tags : @foreach (var bike in ViewBag.VehicleTagsList)
+                    {
+                        <a href="@String.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @bike.MakeBase.MaskingName, @bike.ModelBase.MaskingName)">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</a>
+                        @*<span>,</span>*@
+                        if (iTags < ViewBag.VehicleTagsCnt)
+                        {<span>,</span>}
+                        iTags++;
+                    }
+                </div>
+            }
+            <p class="share-story-title margin-bottom10">Share this story</p>
+            <div class="margin-bottom10">
+                <amp-social-share type="whatsapp" width="38" height="24" data-share-endpoint="whatsapp://send" data-param-text="@Model.Title - Bikewale Expert Review CANONICAL_URL"></amp-social-share>
+                <amp-social-share type="facebook" width="38" height="24" data-param-text="@Model.Title - Bikewale Expert Review" data-param-app_id="1208823352520180"></amp-social-share>
+                <amp-social-share type="twitter" width="38" height="24" data-param-text="@Model.Title - Bikewale Expert Review"></amp-social-share>
+                <amp-social-share type="gplus" width="38" height="24" data-param-text="@Model.Title - Bikewale Expert Review"></amp-social-share>
+            </div>
+            @if (Model.PrevArticle != null || Model.NextArticle != null)
+            { 
+            <ul class="next-prev-article-list">
+                <li>
+                    @if (Model.PrevArticle != null && !String.IsNullOrEmpty(Model.PrevArticle.Title))
+                    {
+                        <a href="@String.Format("{0}/m/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.PrevArticle.BasicId, Model.PrevArticle.ArticleUrl)" target="_top" title="@Model.PrevArticle.Title">
+                            <span class="bwmsprite prev-arrow"></span>
+                            <div class="article-item-box vertical-middle">
+                                <span class="next-prev-arrow-label">Previous</span><br>
+                                <span class="next-prev-article-title">@Model.PrevArticle.Title</span>
+                            </div>
+                        </a>
+                    }
+                </li>
+                <li>
+                    @if (Model.NextArticle != null && !String.IsNullOrEmpty(Model.NextArticle.Title))
+                    {
+                        <a href="@String.Format("{0}/m/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.NextArticle.BasicId, Model.NextArticle.ArticleUrl)" target="_top" title="@Model.NextArticle.Title">
+                            <div class="article-item-box vertical-middle">
+                                <span class="next-prev-arrow-label">Next</span>
+                                <span class="next-prev-article-title">@Model.NextArticle.Title</span>
+                            </div>
+                            <span class="bwmsprite next-arrow"></span>
+                        </a>
+                    }
+                </li>
+            </ul>
+            }
+            <div class="clear"></div>
+            @if (@ViewBag.PhotosCnt > 0)
+            { 
+            <h2 class="margin-bottom10">Image Gallery</h2>
+            <amp-carousel width="360" height="203" controls layout="responsive" type="slides">
+                @foreach (var photo in @ViewBag.Photos)
+                {
+                    <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(@photo.OriginalImgPath, photo.HostUrl, Bikewale.Utility.ImageSize._468x263)" width="360" height="203" layout="responsive" alt="photo.ImageTitle"></amp-img>
+                }
+            </amp-carousel>
+            }
+        </div>
+
+    </article>
+    
+}
+else
+{
+    ViewBag.Title = "Oops! We failed to serve the content on this page";
+
+    <article class="article no-content">
+        <div class="not-found">
+            <h3>Oops! We failed to serve the content on this page.</h3>
+            <div class="margin-top15">
+                Possible causes for this inconvenience are:
+                <ul class="margin-left20 margin-top5">
+                    <li>The requested page might have been removed from the server.</li>
+                    <li>The URL might be mis-typed by you.</li>
+                    <li>Some maintenance process is going on the server.</li>
+                </ul>
+            </div>
+            <p class="margin-top15">Please visit <a href="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/news/">www.bikewale.com</a> to continue reading news of your favourite bike.</p>
+        </div>
+    </article>
+}
+

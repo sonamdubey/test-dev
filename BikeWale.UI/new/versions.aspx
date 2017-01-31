@@ -553,7 +553,7 @@
         <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && isOnRoadPrice  && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             {
         %>
-
+        <style type="text/css">.offer-benefit-sprite {background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;display: inline-block;}#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}#campaign-container .phone-black-icon{top:0;}</style>
         <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
 
         <%} %>
