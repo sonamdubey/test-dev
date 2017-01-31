@@ -1,10 +1,15 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -38,6 +43,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
         public string MappedCWId { get; set; }
+        public EnumBikeBodyStyles BodyStyle { get; set; }
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list
@@ -75,6 +81,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         GetTaggedBikeListByModel();
                         CreateMetaTags();
                     }
+                    else
+                    {
+                        IsContentFound = false;
+                    }
 
                 }
 
@@ -84,7 +94,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
             }
         }
-
+       
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Common logic to bind meta tags
@@ -169,7 +179,32 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Jan 2017
+        /// Summary    : Get body style of tagged model
+        /// </summary>
+        private void GetTaggedBikeBodyStyle()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
+                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                    if (TaggedModel != null)
+                        BodyStyle = modelCache.GetBikeBodyType((uint)TaggedModel.ModelId);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.NewsDetails.GetTaggedBikeBodyStyle");
+            }
+        }
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Process query string for article id

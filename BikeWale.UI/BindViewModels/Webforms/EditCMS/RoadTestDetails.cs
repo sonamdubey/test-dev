@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -6,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
@@ -35,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public IEnumerable<ModelImage> objImg;
         public BikeMakeEntityBase taggedMakeObj;
         public BikeModelEntityBase taggedModelObj;
-
+        public EnumBikeBodyStyles BodyStyle { get; set; }
 
         public RoadTestDetails(string url)
         {
@@ -103,6 +106,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         IsContentFound = true;
                         GetTaggedBikeListByMake();
                         GetTaggedBikeListByModel();
+                        GetTaggedBikeBodyStyle();
                     }
                     else
                     {
@@ -110,8 +114,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     }
 
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -119,12 +121,36 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetRoadTestDetails");
             }
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 31 Jan 2017
+        /// Summary    : Get body style of tagged model
+        /// </summary>
+        private void GetTaggedBikeBodyStyle()
+        {
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
+                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                    if(taggedModelObj!=null)
+                    BodyStyle = modelCache.GetBikeBodyType((uint)taggedModelObj.ModelId);
+                }
 
+            }
+            catch(Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetTaggedBikeBodyStyle");
+            }
+        }
 
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
-        /// Summary    : Get tagged make in feature
+        /// Summary    : Get tagged make in expert reviews
         /// </summary>
         private void GetTaggedBikeListByMake()
         {

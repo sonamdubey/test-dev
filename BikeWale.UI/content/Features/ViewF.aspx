@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
@@ -105,16 +106,31 @@
                     </div>
 
                     <div class="grid-4 omega">
-                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <div class="margin-bottom20">
-
+                         <%if (isModelTagged)
+                          { %>
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularMakeBikes" />
+                         <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <% if (taggedModelId < 1)
+                       
+                        <% if (showBodyStyleWidget)
                            { %>
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <% 
-                           } %>
+                        <BW:PopularBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+                        <% }
+                           else
+                           { %>
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikesModelTagged" />
+                        <% } %>
+                        <%} %>
+                        <% else
+                          { %>
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                       <div class="margin-bottom20">
+                            <!-- #include file="/ads/ad300x250.aspx" -->
+                        </div>
+                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                        <%} %>
+                       
                     </div>
                     <div class="clear"></div>
                 </div>

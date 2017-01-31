@@ -95,15 +95,18 @@
                 </div>
             </div>
         </section>
+        <%if(isModelTagged){ %>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularMakeBikes" />
         <% if(showBodyStyleWidget) { %>
         <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
         <% } else { %>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <% } %>              
-        <% if (taggedModelId < 1)
-           { %>
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikesModelTagged" />
+        <% } %> 
         <%} %>
+        <% else{ %>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+         <%} %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>

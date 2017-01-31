@@ -31,6 +31,8 @@ namespace Bikewale.Content
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 22 May 2014
+    /// Modified By: Aditi Srivastava on 31 Jan 2017
+    /// Summary    : Added common view model for fetching data and modified popular widgets
     /// </summary>
     public class viewRT : System.Web.UI.Page
     {
@@ -39,7 +41,7 @@ namespace Bikewale.Content
         protected ModelGallery photoGallery;
         protected GlobalCityAreaEntity currentCityArea;
         protected UpcomingBikesMin ctrlUpcomingBikes;
-        protected PopularBikesMin ctrlPopularBikes;
+        protected PopularBikesMin ctrlPopularBikes, ctrlPopularMakeBikes, ctrlPopularBikesModelTagged;
         protected uint BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = String.Empty, canonicalUrl = String.Empty;
@@ -51,7 +53,7 @@ namespace Bikewale.Content
         private BikeMakeEntityBase _taggedMakeObj;
         protected uint taggedModelId;
         protected EnumBikeBodyStyles bodyStyle;
-        protected bool showBodyStyleWidget;
+        protected bool showBodyStyleWidget, isModelTagged;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected RoadTestDetails objArticle;
         protected string url = "/m/expert-reviews/";
@@ -64,20 +66,9 @@ namespace Bikewale.Content
         protected void Page_Load(object sender, EventArgs e)
         {
             Form.Action = Request.RawUrl;
-            
+
             if (!IsPostBack)
             {
-                //if (ProcessQueryString())
-                //{
-                //    GetRoadTestDetails();
-                //    BindPageWidgets();
-                //}
-                //else
-                //{
-                //    Response.Redirect("/m/expert-reviews/", false);
-                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //    this.Page.Visible = false;
-                //}
                 BindExpertReviewdetails();
             }
         }
@@ -95,6 +86,9 @@ namespace Bikewale.Content
                     if (!objArticle.IsPageNotFound)
                     {
                         BasicId = objArticle.BasicId;
+                        _taggedMakeObj = objArticle.taggedMakeObj;
+                        if (objArticle.taggedModelObj != null)
+                            taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
                         objRoadtest = objArticle.objRoadtest;
                         if (objRoadtest != null)
                         {
@@ -113,10 +107,11 @@ namespace Bikewale.Content
                                 rptPhotos.DataSource = objImg;
                                 rptPhotos.DataBind();
                             }
-                    
+
                         }
+                        bodyStyle = objArticle.BodyStyle;
                         BindPageWidgets();
-                      }
+                    }
                 }
                 else if (!objArticle.IsContentFound)
                 {
@@ -130,116 +125,18 @@ namespace Bikewale.Content
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
-               
+
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-  
+
             }
         }
 
-        //private bool ProcessQueryString()
-        //{
-        //    bool isSuccess = true;
-        //    // Modified By :Lucky Rathore on 12 July 2016.
-        //    Form.Action = Request.RawUrl;
-        //    if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
-        //    {
-        //        /** Modified By : Ashwini Todkar on 19 Aug 2014 , add when consuming carwale api
-        //         Check if basic id exists in mapped carwale basic id log **/
-
-        //        string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
-
-        //        if (!basicId.Equals(Request.QueryString["id"]))
-        //        {
-        //            string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-
-        //            var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
-        //            var _titleEndIndex = _newUrl.LastIndexOf('-');
-        //            string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-        //            _newUrl = "/m/expert-reviews/" + _newUrlTitle + basicId + ".html";
-        //            CommonOpn.RedirectPermanent(_newUrl);
-        //        }
-
-        //        BasicId = Convert.ToUInt32(Request.QueryString["id"]);
-        //    }
-        //    else
-        //    {
-        //        isSuccess = false;
-        //    }
-
-        //    return isSuccess;
-        //}
-        /// <summary>
-        /// Modified By : Aditi Srivastava on 17 Nov 2016
-        /// Summary     : Added photo gallery control
-        /// </summary>
-        //private void GetRoadTestDetails()
-        //{
-        //    try
-        //    {
-
-        //        using (IUnityContainer container = new UnityContainer())
-        //        {
-        //            container.RegisterType<IArticles, Articles>()
-        //               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-        //               .RegisterType<ICacheManager, MemcacheManager>();
-        //            ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-        //            objRoadtest = _cache.GetArticlesDetails(BasicId);
-
-        //            if (objRoadtest != null)
-        //            {
-        //                GetRoadTestData();
-
-        //                if (objRoadtest.PageList != null)
-        //                {
-        //                    rptPageContent.DataSource = objRoadtest.PageList;
-        //                    rptPageContent.DataBind();
-        //                }
-
-
-        //                objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
-
-        //                if (objImg != null && objImg.Count() > 0)
-        //                {
-        //                    photoGallery.Photos = objImg.ToList();
-        //                    photoGallery.isModelPage = false;
-        //                    photoGallery.articleName = pageTitle;
-        //                    rptPhotos.DataSource = objImg;
-        //                    rptPhotos.DataBind();
-        //                }
-
-        //            }
-        //            else
-        //            {
-        //                _isContentFound = false;
-        //            }
-
-        //        }
-
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Trace.Warn("ex.Message: " + ex.Message);
-        //        ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    finally
-        //    {
-        //        if (!_isContentFound)
-        //        {
-        //            Response.Redirect("/pagenotfound.aspx", false);
-        //            HttpContext.Current.ApplicationInstance.CompleteRequest();
-        //            this.Page.Visible = false;
-        //        }
-        //    }
-        //}
+       
         /// <summary>
         /// Modified by : Aditi Srivastava on 22 Nov 2016
         /// Description : To get masking name of tagged make for url if it is null
@@ -261,17 +158,7 @@ namespace Bikewale.Content
 
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
-                   // _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
-                    _taggedMakeObj = objArticle.taggedMakeObj;
-                    //var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
-                    
-                    if (objArticle.taggedModelObj != null)
-                        taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
-
-                    //if (_taggedMakeObj.MaskingName == null)
-                    //    FetchMakeDetails();
-
-                    if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
+                   if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
                     {
                         _bikeTested = new StringBuilder();
 
@@ -301,93 +188,82 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: Bind upcoming and popular bikes
+        /// Modified By : Sajal Gupta on 31-01-2017
+        /// Description : Binded popular bikes widget
+        /// Modified By: Aditi Srivastava on 31 Jan 2017
+        /// Summary    : Modified logic for widgets for tagged models
         /// </summary>
         protected void BindPageWidgets()
         {
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                if (ctrlPopularBikes != null)
+                if (taggedModelId > 0)
                 {
-                    ctrlPopularBikes.totalCount = 4;
-                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                    ctrlPopularBikes.cityName = currentCityArea.City;
-                    if (_taggedMakeObj != null)
+                    isModelTagged = true;
+                    if (ctrlPopularMakeBikes != null)
                     {
-                        ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-
+                        ctrlPopularMakeBikes.totalCount = 9;
+                        ctrlPopularMakeBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                        ctrlPopularMakeBikes.cityName = currentCityArea.City;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlPopularMakeBikes.makeId = _taggedMakeObj.MakeId;
+                            ctrlPopularMakeBikes.makeName = _taggedMakeObj.MakeName;
+                            ctrlPopularMakeBikes.makeMasking = _taggedMakeObj.MaskingName;
+                        }
+                    }
+                    showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
+                    if (showBodyStyleWidget && ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                        ctrlBikesByBodyStyle.topCount = 9;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                     }
                     else
                     {
-                        ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
+                        if (ctrlPopularBikesModelTagged != null)
+                        {
+                            ctrlPopularBikesModelTagged.totalCount = 9;
+                            ctrlPopularBikesModelTagged.CityId = Convert.ToInt32(currentCityArea.CityId);
+                            ctrlPopularBikesModelTagged.cityName = currentCityArea.City;
+                        }
                     }
                 }
-                if (ctrlUpcomingBikes != null)
+                else
                 {
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 4;
-                    if (_taggedMakeObj != null)
+                    isModelTagged = false;
+                    if (ctrlPopularBikes != null)
                     {
-                        ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                        ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                        ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.totalCount = 9;
+                        ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                        ctrlPopularBikes.cityName = currentCityArea.City;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                            ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                            ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+
+                        }
                     }
-                }
-                if (taggedModelId > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
+                    if (ctrlUpcomingBikes != null)
                     {
-                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                            .RegisterType<ICacheManager, MemcacheManager>()
-                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-
-                        IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        bodyStyle = modelCache.GetBikeBodyType(taggedModelId);
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                            ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        }
                     }
-
-                    if (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
-                        showBodyStyleWidget = true;
-
-                    ctrlBikesByBodyStyle.ModelId = taggedModelId;
-                    ctrlBikesByBodyStyle.topCount = 9;
-                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "viewRT.BindPageWidgets");
-               
+
             }
         }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 22 Nov 2016
-        /// Description: fetch make details from tagged list
-        /// </summary>
-        //private void FetchMakeDetails()
-        //{
-        //    try
-        //    {
-        //        if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
-        //        {
-
-        //            using (IUnityContainer container = new UnityContainer())
-        //            {
-        //                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-        //                var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-        //                _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
-
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewRT.FetchMakeDetails");
-        //        objErr.SendMail();
-        //    }
-        //}
-
-    }
+     }
 }

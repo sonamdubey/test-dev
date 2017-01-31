@@ -8,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -42,12 +43,13 @@ namespace Bikewale.Content
         protected string PageId = "1", Str = string.Empty, canonicalUrl = String.Empty;
         protected bool ShowGallery = false, IsPhotoGalleryPage = false;
         protected int StrCount = 0;
-        protected MostPopularBikesMin ctrlPopularBikes;
+        protected MostPopularBikesMin ctrlPopularBikes, ctrlPopularMakeBikes, ctrlPopularBikesModelTagged;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected string upcomingBikeslink;
         IEnumerable<ModelImage> objImg=null;
         private BikeMakeEntityBase _taggedMakeObj;
         private BikeModelEntityBase _taggedModelObj;
-        protected int taggedModelId;
+        protected uint taggedModelId;
         protected int makeId;
         protected ModelGallery ctrlModelGallery;
         private GlobalCityAreaEntity currentCityArea;
@@ -56,6 +58,8 @@ namespace Bikewale.Content
         protected ArticlePageDetails objFeature = null;
         private bool _isContentFount = true;
         private string _basicId = string.Empty;
+        protected bool showBodyStyleWidget, isModelTagged;
+        protected EnumBikeBodyStyles bodyStyle;
 
         protected override void OnInit(EventArgs e)
         {
@@ -65,6 +69,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Sushil Kumar on 16th Nov 2016
         /// Description : Handle page redirection 
+        /// Modified By:  Aditi Srivastava on 30 Jan 2017
+        /// Summary    :  Added common view model for fetching data and modified popular widgets
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -82,57 +88,9 @@ namespace Bikewale.Content
             dd.DetectDevice();
 
             BindFeaturesDetails();
-            //if (ProcessQS())
-            //{
-            //    if (!String.IsNullOrEmpty(_basicId))
-            //    {
-            //        GetFeatureDetails();
-            //        BindPageWidgets();
-            //    }
-            //}
+             }
 
-
-        }
-
-        ///// <summary>
-        ///// Modified by : Sushil Kumar on 16th Nov 2016
-        ///// Description : Handle page redirection 
-        ///// </summary>
-        //private bool ProcessQS()
-        //{
-        //    _basicId = Request.QueryString["id"];
-        //    if (!string.IsNullOrEmpty(_basicId) && CommonOpn.CheckId(_basicId))
-        //    {
-
-        //        /** Modified By : Ashwini Todkar on 12 Aug 2014 , add when consuming carwale api
-        //       //Check if basic id exists in mapped carwale basic id log **/
-        //        string _mappedBasicId = BasicIdMapping.GetCWBasicId(_basicId);
-
-        //        //if id exists then redirect url to new basic id url
-        //        if (!_basicId.Equals(_mappedBasicId))
-        //        {
-        //            // Modified By :Lucky Rathore on 12 July 2016.
-        //            Form.Action = Request.RawUrl;
-        //            string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-        //            var _titleStartIndex = _newUrl.IndexOf('/');
-        //            var _titleEndIndex = _newUrl.LastIndexOf('-');
-        //            string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-        //            _newUrl = _newUrlTitle + _mappedBasicId + "/";
-        //            CommonOpn.RedirectPermanent(_newUrl);
-        //            return false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        Response.Redirect("/pagenotfound.aspx", false);
-        //        HttpContext.Current.ApplicationInstance.CompleteRequest();
-        //        this.Page.Visible = false;
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
-
+     
 
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
@@ -151,10 +109,11 @@ namespace Bikewale.Content
                         _taggedMakeObj = objArticle.taggedMakeObj;
                         _taggedModelObj = objArticle.taggedModelObj;
                         if(_taggedModelObj!=null)
-                            taggedModelId=_taggedModelObj.ModelId;
+                            taggedModelId=(uint)_taggedModelObj.ModelId;
 
                         _basicId = Convert.ToString(objArticle.BasicId);
                         GetFeatureData();
+                        bodyStyle = objArticle.BodyStyle;
                         BindPages();
                         BindPageWidgets();
                         objImg = objArticle.objImg;
@@ -191,67 +150,6 @@ namespace Bikewale.Content
         }
 
 
-        ///// <summary>
-        ///// Written By : Ashwini Todkar on 24 Sept 2014
-        ///// PopulateWhere to fetch feature details from api asynchronously
-        ///// Modified By : Sushil Kumar on 10th Nov 2016
-        ///// Description : Bind most popular bikes widget for edit cms
-        ///// </summary>
-        //private void GetFeatureDetails()
-        //{
-        //    try
-        //    {
-
-        //        using (IUnityContainer container = new UnityContainer())
-        //        {
-        //            container.RegisterType<IArticles, Articles>()
-        //                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-        //                    .RegisterType<ICacheManager, MemcacheManager>();
-        //            ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-        //            objFeature = _cache.GetArticlesDetails(Convert.ToUInt32(_basicId));
-
-        //            if (objFeature != null)
-        //            {
-        //                GetFeatureData();
-        //                BindPages();
-        //                GetTaggedBikeList();
-        //                IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(_basicId));
-
-        //                if (objImg != null && objImg.Count() > 0)
-        //                {
-        //                    ctrPhotoGallery.BasicId = (int)objArticle.BasicId;
-        //                    ctrPhotoGallery.ModelImageList = objImg;
-        //                    ctrPhotoGallery.BindPhotos();
-
-        //                    ctrlModelGallery.bikeName = objFeature.Title;
-        //                    ctrlModelGallery.Photos = objImg.ToList();
-        //                }
-        //                GetTaggedBikeList();
-        //            }
-        //            else
-        //            {
-        //                _isContentFount = false;
-        //            }
-        //        }
-
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //    finally
-        //    {
-        //        if (!_isContentFount)
-        //        {
-        //            Response.Redirect("/pagenotfound.aspx", false);
-        //            HttpContext.Current.ApplicationInstance.CompleteRequest();
-        //            this.Page.Visible = false;
-        //        }
-        //    }
-        //}
 
         private void GetFeatureData()
         {
@@ -271,63 +169,7 @@ namespace Bikewale.Content
             rptPageContent.DataBind();
         }
 
-        /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : To get tagged bike along with article
-        /// Modified By : Sajal Gupta on 27-01-2017
-        /// Description : Saved tagged model id to the variable
-        /// </summary>
-        //private void GetTaggedBikeList()
-        //{
-        //    if (objFeature != null && objFeature.VehiclTagsList.Count > 0)
-        //    {
-
-        //        var taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
-        //        if (taggedMakeObj != null)
-        //        {
-        //            _taggedMakeObj = taggedMakeObj.MakeBase;
-        //            var modelBase = taggedMakeObj.ModelBase;
-        //            if (modelBase != null)
-        //                taggedModelId = modelBase.ModelId;
-        //        }
-        //        else
-        //        {
-        //            _taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
-        //            var modelBase = objFeature.VehiclTagsList.FirstOrDefault().ModelBase;
-        //            if (modelBase != null)
-        //                taggedModelId = modelBase.ModelId;
-        //            FetchMakeDetails();
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : To get make details by id
-        /// </summary>
-        //private void FetchMakeDetails()
-        //{
-
-        //    try
-        //    {
-        //        if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
-        //        {
-
-        //            using (IUnityContainer container = new UnityContainer())
-        //            {
-        //                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-        //                var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-        //                _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
-
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.FetchMakeDetails");
-        //        objErr.SendMail();
-        //    }
-        //}
+        
 
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
@@ -337,31 +179,75 @@ namespace Bikewale.Content
         private void BindPageWidgets()
         {
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
-
-            if (ctrlPopularBikes != null)
+            try
             {
-
-
-                ctrlPopularBikes.totalCount = 3;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 9;
-                ctrlUpcomingBikes.topCount = 3;
-
-
-                if (_taggedMakeObj != null)
+                if (taggedModelId > 0)
                 {
-                    ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                    isModelTagged = true;
+                    if (ctrlPopularMakeBikes != null)
+                    {
+                        ctrlPopularMakeBikes.totalCount = 3;
+                        ctrlPopularMakeBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                        ctrlPopularMakeBikes.cityName = currentCityArea.City;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlPopularMakeBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlPopularMakeBikes.makeName = _taggedMakeObj.MakeName;
+                            ctrlPopularMakeBikes.makeMasking = _taggedMakeObj.MaskingName;
+                        }
+                    }
+                    showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
+                    if (showBodyStyleWidget && ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                    else
+                    {
+                        if (ctrlPopularBikesModelTagged != null)
+                        {
+                            ctrlPopularBikesModelTagged.totalCount = 3;
+                            ctrlPopularBikesModelTagged.CityId = Convert.ToInt32(currentCityArea.CityId);
+                            ctrlPopularBikesModelTagged.cityName = currentCityArea.City;
+                        }
+                    }
+                }
+                else
+                {
+                    isModelTagged = false;
+                    if (ctrlPopularBikes != null)
+                    {
+                        ctrlPopularBikes.totalCount = 3;
+                        ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                        ctrlPopularBikes.cityName = currentCityArea.City;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                            ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+
+                        }
+                    }
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        ctrlUpcomingBikes.topCount = 3;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                            ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "viewRT.BindPageWidgets");
 
-        }
+            }
+         }
     }
 }

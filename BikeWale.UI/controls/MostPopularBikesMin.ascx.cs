@@ -17,7 +17,6 @@ namespace Bikewale.Controls
         public int PQSourceId { get; set; }
         public int CityId { get; set; }
         public string cityName = string.Empty;
-        public bool IsMakeAgnosticFooterNeeded { get; set; }
 
         public int MakeId { get; set; }
         public string makeName = string.Empty;
