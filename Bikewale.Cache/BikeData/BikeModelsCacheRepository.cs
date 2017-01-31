@@ -145,6 +145,7 @@ namespace Bikewale.Cache.BikeData
 
         private IEnumerable<ImageBaseEntity> CreateAllPhotoList(BikeModelPageEntity objModelPage)
         {
+            int modelId = 0;
             List<ImageBaseEntity> allPhotos = null;
             try
             {
@@ -154,6 +155,7 @@ namespace Bikewale.Cache.BikeData
 
                     if (objModelPage.ModelDetails != null && objModelPage.ModelDetails.MakeBase != null)
                     {
+                        modelId = objModelPage.ModelDetails.ModelId;
                         allPhotos.Add(
                             new ImageBaseEntity()
                             {
@@ -165,17 +167,17 @@ namespace Bikewale.Cache.BikeData
                     }
                     if (objModelPage.Photos != null)
                     {
-                        allPhotos.AddRange(objModelPage.Photos.Select(x => new ImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageDescription, ImageType = ImageBaseType.ModelGallaryImage }));
+                        allPhotos.AddRange(objModelPage.Photos.Select(x => new ImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage }));
                     }
                     if (objModelPage.colorPhotos != null)
                     {
-                        allPhotos.AddRange(objModelPage.colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageType = ImageBaseType.ModelColorImage, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                        allPhotos.AddRange(objModelPage.colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, Colors = x.ColorCodes.Select(y => y.HexCode) }));
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetAllPhotos()");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetAllPhotos() : ModelId => {0}", modelId));
             }
 
             return allPhotos;
