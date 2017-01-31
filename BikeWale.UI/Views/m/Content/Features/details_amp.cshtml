@@ -33,11 +33,12 @@
             @if (ViewBag.VehicleTagsList != null && ViewBag.VehicleTagsCnt > 0)
             {
                 <div class="margin-top10 margin-bottom10">
-                    Tags : @foreach (var bike in ViewBag.VehicleTagsList)
+                    @{int iTags = 1;}
+                    Bike Tags : @foreach (var bike in ViewBag.VehicleTagsList)
                     {
-                        <a href="@String.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @bike.MakeBase.MaskingName, @bike.ModelBase.MaskingName)">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</a>
-                        <span>,</span>
-
+                        <a href="@String.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @bike.MakeBase.MaskingName, @bike.ModelBase.MaskingName)">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</a>                        
+                        if (iTags < ViewBag.VehicleTagsCnt) {<span>,</span>}
+                        iTags++;
                     }
                 </div>
             }
@@ -80,7 +81,7 @@
             <div class="clear"></div>
             @if (@ViewBag.PhotosCnt > 0)
             {
-            <h2 class="margin-bottom10">Photos</h2>
+            <h2 class="margin-bottom10">Image Gallery</h2>
             <amp-carousel width="360" height="203" controls layout="responsive" type="slides">
                 @foreach (var photo in @ViewBag.Photos)
                 {

@@ -39,8 +39,7 @@
                         <span class="bwmsprite author-grey-sm-icon"></span>
                         <span class="article-stats-content"><%=author %></span>
                     </div>
-                    <div class="clear"></div>
-                    <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top5'>{0}</div>",_bikeTested) : "" %>
+                    <div class="clear"></div>                    
                 </div>
 
                 <div class="article-content-padding">
@@ -56,7 +55,7 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
-
+                    <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",_bikeTested) : "" %>
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
                         <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">

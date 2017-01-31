@@ -206,13 +206,15 @@ namespace Bikewale.Content
                         IEnumerable<int> ids = objRoadtest.VehiclTagsList
                                .Select(e => e.ModelBase.ModelId)
                                .Distinct();
-                                
+                        int iTemp = 1;        
                         foreach (var i in ids)
                         {
                             VehicleTag item = objRoadtest.VehiclTagsList.Where(e => e.ModelBase.ModelId == i).First();
                             if (!String.IsNullOrEmpty(item.MakeBase.MaskingName))
                             {
                                 _bikeTested.Append(string.Format("<a title={0} {1} Bikes href=/m/{2}-bikes/{3}/>{4}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, item.MakeBase.MaskingName, item.ModelBase.MaskingName, item.ModelBase.ModelName));
+                                if (iTemp < ids.Count()) { _bikeTested.Append(", "); }
+                                iTemp++;
                             }
                         }
                     }
