@@ -160,7 +160,7 @@ namespace Bikewale.Cache.BikeData
                             new ImageBaseEntity()
                             {
                                 HostUrl = objModelPage.ModelDetails.HostUrl,
-                                OriginalImgPath = objModelPage.ModelDetails.HostUrl,
+                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
                                 ImageType = ImageBaseType.ModelImage,
                                 ImageTitle = objModelPage.ModelDetails != null ? string.Format("{0} Model Image", objModelPage.ModelDetails.ModelName) : string.Empty
                             });
