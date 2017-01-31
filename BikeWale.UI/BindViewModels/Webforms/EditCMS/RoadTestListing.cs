@@ -22,8 +22,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
@@ -31,11 +29,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// Modified By : Sajal Gupta on 30-01-2017
     /// Description : Common logic to bind expert-reviews listing page 
     /// </summary>
-    public class RoadTestListing 
+    public class RoadTestListing
     {
         private IPager objPager = null;
-        protected DropDownList ddlMakes;
-        protected HtmlSelect ddlModels;
         public int startIndex = 0, endIndex = 0, totalrecords;
         protected int totalPages = 0;
         private const int _pageSize = 10, _pagerSlotSize = 5;
@@ -45,13 +41,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         HttpRequest page = HttpContext.Current.Request;
         public bool pageNotFound;
         public IList<ArticleSummary> articlesList;
+        public bool isRedirection;
+        public string redirectUrl;
 
         public RoadTestListing()
         {
             ProcessQueryString();
             GetRoadTestList();
-            BindMakes();
-            AutoFill();
         }
 
         /// <summary>
@@ -112,52 +108,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             return _objPager;
         }
 
-        private void BindMakes()
-        {
-            try
-            {
-                MakeModelVersion mmv = new MakeModelVersion();
-                mmv.GetMakes(EnumBikeType.RoadTest, ref ddlMakes);
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.BindMakes");
-            }
-        }
-
-        void AutoFill()
-        {
-            MakeModelVersion mmv = new MakeModelVersion();
-            try
-            {
-                HttpContext.Current.Trace.Warn("AUTO FILL");
-                if (makeId != "" && makeId != "-1" && ddlModels != null)
-                {
-                    if (ddlMakes != null)
-                    {
-                        ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + HttpContext.Current.Request.QueryString["make"].ToString()));
-                    }
-                    ddlModels.Disabled = false;
-                    ddlModels.DataSource = mmv.GetModelsWithMappingName(makeId, "ROADTEST");
-                    ddlModels.DataTextField = "Text";
-                    ddlModels.DataValueField = "Value";
-                    ddlModels.DataBind();
-                    ListItem item = new ListItem("--Select Model--", "0");
-                    ddlModels.Items.Insert(0, item);
-
-                    if (modelId != "" && modelId != "-1")
-                    {
-                        ddlModels.SelectedIndex = ddlModels.Items.IndexOf(ddlModels.Items.FindByValue(modelId + '_' + HttpContext.Current.Request.QueryString["model"].ToString()));
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.AutoFill");
-            }
-        }
-
         /// <summary>
         /// Modified By : Sajal Gupta on 27-01-2017
         /// Description : Return page found status    
@@ -195,7 +145,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         {
                             if (objResponse.StatusCode == 301)
                             {
-                                CommonOpn.RedirectPermanent(HttpContext.Current.Request.RawUrl.Replace(HttpContext.Current.Request.QueryString["model"], objResponse.MaskingName));
+                                isRedirection = true;
+                                redirectUrl = HttpContext.Current.Request.RawUrl.Replace(HttpContext.Current.Request.QueryString["model"], objResponse.MaskingName);
                             }
                             else
                             {
@@ -246,7 +197,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         }
                         else if (objResponse.StatusCode == 301)
                         {
-                            CommonOpn.RedirectPermanent(HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            isRedirection = true;
+                            redirectUrl = HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName);
                         }
                         else
                         {

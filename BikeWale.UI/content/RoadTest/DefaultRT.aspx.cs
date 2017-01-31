@@ -30,6 +30,7 @@ namespace Bikewale.Content
         protected RoadTestListing objRoadTests;
         private bool pageNotFound;
         protected IList<ArticleSummary> articlesList;
+        private bool _isRedirection;
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,29 +67,38 @@ namespace Bikewale.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                objRoadTests.BindLinkPager(ctrlPager);
                 pageNotFound = objRoadTests.pageNotFound;
-                makeId = objRoadTests.makeId;
-                makeName = objRoadTests.makeName;
-                makeMaskingName = objRoadTests.makeMaskingName;
-                modelId = objRoadTests.modelId;
                 _isContentFound = objRoadTests.isContentFound;
-                modelName = objRoadTests.modelName;
-                articlesList = objRoadTests.articlesList;
-                startIndex = objRoadTests.startIndex;
-                endIndex = objRoadTests.endIndex;
-                totalArticles = objRoadTests.totalrecords;
-                prevUrl = objRoadTests.prevPageUrl;
-                nextUrl = objRoadTests.nextPageUrl;
+                _isRedirection = objRoadTests.isRedirection;
 
-                if (!_isContentFound || pageNotFound)
+                if (_isRedirection)
+                {
+                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                }
+                else if (_isContentFound)
+                {
+
+                    objRoadTests.BindLinkPager(ctrlPager);
+                    makeId = objRoadTests.makeId;
+                    makeName = objRoadTests.makeName;
+                    makeMaskingName = objRoadTests.makeMaskingName;
+                    modelId = objRoadTests.modelId;
+
+                    modelName = objRoadTests.modelName;
+                    articlesList = objRoadTests.articlesList;
+                    startIndex = objRoadTests.startIndex;
+                    endIndex = objRoadTests.endIndex;
+                    totalArticles = objRoadTests.totalrecords;
+                    prevUrl = objRoadTests.prevPageUrl;
+                    nextUrl = objRoadTests.nextPageUrl;
+                    BindPageWidgets();
+                }
+                else
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-                BindPageWidgets();
             }
             catch (Exception err)
             {

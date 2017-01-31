@@ -34,9 +34,21 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public int startIndex = 0, endIndex = 0;
         public int totalrecords;
         public IList<ArticleSummary> articlesList;
+        private ICMSCacheContent _cache;
+        private IPager _objPager = null;
 
         public FeaturesListing()
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IArticles, Articles>()
+                        .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                        .RegisterType<ICacheManager, MemcacheManager>()
+                        .RegisterType<IPager, Pager>();
+                _cache = container.Resolve<ICMSCacheContent>();
+                _objPager = container.Resolve<IPager>();
+            }
+
             ProcessQueryString();
             GetFeaturesList();
         }
@@ -60,7 +72,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             try
             {
                 // get pager instance
-                IPager objPager = GetPager();
+                IPager objPager = _objPager;
 
                 int _startIndex = 0, _endIndex = 0;
 
@@ -71,27 +83,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 categorList.Add(EnumCMSContentType.SpecialFeature);
                 string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
 
-                using (IUnityContainer container = new UnityContainer())
+                var _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
+
+                if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    var _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
-
-                    if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
-                    {
-
-                        int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
-                        articlesList = _objFeaturesList.Articles;
-                        totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
-                    }
-                    else
-                    {
-                        isContentFound = false;
-                    }
+                    int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
+                    articlesList = _objFeaturesList.Articles;
+                    totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
                 }
+                else
+                {
+                    isContentFound = false;
+                }
+
             }
             catch (Exception err)
             {
@@ -100,28 +105,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 17 Nov 2016
-        /// Summary    : Get pager instance
-        /// </summary>
-        /// <returns></returns>
-        private IPager GetPager()
-        {
-            IPager _objPager = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IPager, Pager>();
-                _objPager = container.Resolve<IPager>();
-            }
-            return _objPager;
-        }
-        /// <summary>
         ///  Created by : Aditi Srivastava on 17 Nov 2016
         /// Summary     : Create pagination
         /// </summary>
         /// <param name="_ctrlPager"></param>
         public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
-            objPager = GetPager();
+            objPager = _objPager;
             objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
