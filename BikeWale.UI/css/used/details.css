@@ -360,13 +360,6 @@
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
 }
-.btn-truncate {
-   max-width: 230px;
-   text-align: center;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden;
-}
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 .vertical-top { display:inline-block;vertical-align:top; }

@@ -646,13 +646,6 @@ a.text-darker-black:hover { text-decoration:none; }
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
 }
-.btn-truncate {
-   max-width: 230px;
-   text-align: center;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden;
-}
 
 /* campaign */
 #campaign-container .campaign-left-col {

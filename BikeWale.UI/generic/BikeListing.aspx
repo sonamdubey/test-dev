@@ -105,25 +105,25 @@
                                     </div>
                                     <div class="grid-6 bike-details-block border-grey-right padding-right20">
                                         <h3><a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="bikeTitle"><%= bike.BikeName %></a></h3>
-                                        <ul class="key-specs-list text-light-grey margin-bottom15">
+                                        <ul class="key-specs-list text-light-grey padding-bottom15 margin-bottom15 border-solid-bottom">
                                              <%if (bike.MinSpecs.Displacement != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite capacity-sm"></span>
+                                                <span class="bwsprite capacity-sm"></span>
                                                  <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(),"cc") %></span>
                                             </li>
                                              <% } %>
                                             <%if (bike.MinSpecs.FuelEfficiencyOverall != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite mileage-sm"></span>
+                                                <span class="bwsprite mileage-sm"></span>
                                                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") %></span>
                                             </li>
                                             <% } %>
                                     <%if (bike.MinSpecs.MaxPower != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite power-sm"></span>
+                                                <span class="bwsprite power-sm"></span>
                                                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(),"bhp") %></span>
                                             </li>                                            
                                     <% } %>

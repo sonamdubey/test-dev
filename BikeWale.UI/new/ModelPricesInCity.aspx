@@ -69,7 +69,7 @@
 		</section>
 
 		<section>
-            <div id="versionPriceInCityWrapper" class="container margin-bottom25">
+            <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
 			    <div class="grid-12 font14">
 				<div class="content-box-shadow">
 					<p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">
@@ -198,8 +198,83 @@
             </div>
 		</section>
 
+        <section>
+            <div class="container section-bottom-margin">
+                <div class="grid-12">
+                    <div class="content-box-shadow padding-top20 padding-right20 padding-bottom15 padding-left20 model-grid-12-slug">
+                        <a href="" title="Bajaj Pulsar RS200" class="leftfloat margin-bottom15 text-default"><h2>Bajaj Pulsar RS200</h2></a>
+                        <div class="clear"></div>
+                        <div class="grid-8 alpha padding-right20 border-solid-right">
+                            <a href="" title="Bajaj Pulsar RS200" class="model-image-target vertical-top">
+                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg" src="" alt="Bajaj Pulsar RS200" />
+                            </a>
+                            <div class="model-details-block vertical-top">
+                                <ul class="key-specs-list margin-bottom15 text-light-grey">
+                                    <li>
+                                        <span class="bwsprite capacity-sm"></span>
+                                        <span>125 cc</span>
+                                    </li>
+                                    <li>
+                                        <span class="bwsprite mileage-sm"></span>
+                                        <span>65 kmpl</span>
+                                    </li>
+                                    <li>
+                                        <span class="bwsprite power-sm"></span>
+                                        <span>10 bhp</span>
+                                    </li>
+                                </ul>
+                                <ul class="item-more-details-list margin-bottom5 inline-block">
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar RS200 Reviews">
+                                            <span class="generic-sprite reviews-sm"></span>
+                                            <span class="icon-label">Reviews</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar RS200 Images">
+                                            <span class="bwsprite photos-sm"></span>
+                                            <span class="icon-label">Images</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar RS200 Videos">
+                                            <span class="generic-sprite videos-sm"></span>
+                                            <span class="icon-label">Videos</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="" title="Bajaj Pulsar RS200 Specs">
+                                            <span class="generic-sprite specs-sm"></span>
+                                            <span class="icon-label">Specs</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="border-solid-bottom margin-bottom10"></div>
+                                <a href="" title="" class="block text-default hover-no-underline">
+                                    <span class="used-target-label inline-block">
+                                        <span class="font14 text-bold">53 Used Royal Enfield Thunderbird 350 bikes</span>
+                                        <span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey"></span> 1,20,000</span>
+                                    </span>
+                                    <span class="bwsprite next-grey-icon"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="grid-4 omega padding-left20">
+                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom price, Mumbai</p>
+                            <div class="margin-bottom10">
+                                <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">12,489</span>
+                            </div>
+                            <a href="javascript:void(0)" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
 		<section>
-            <div class="container margin-bottom20">
+            <div class="container section-bottom-margin">
 			<div class="grid-12">
 				<div class="content-box-shadow">
                      
@@ -257,13 +332,14 @@
 					    </div>
 				    </div>
                 </div>
+                </div>
 			    <div class="clear"></div>
             </div>
 		</section>
 
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <section>
-			<div class="container margin-top10 margin-bottom30">
+			<div class="container margin-top10 section-bottom-margin">
 				<div class="grid-12 font12">
 					<span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> price in <%=cityName %>.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
                     </div>

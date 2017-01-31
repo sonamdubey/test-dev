@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 
 <!Doctype html>
@@ -94,7 +93,49 @@
                                     </div>
                                 </div>
 
-                                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+                                <div class="model-grid-8-slug">
+                                    <div class="grid-8 alpha border-solid-right">
+                                        <a href="" title="Bajaj Pulsar RS200" class="model-image-target vertical-top">
+                                            <img class="lazy" data-original="https://imgd1.aeplcdn.com//160x89//bw/models/bajaj-pulsar-rs200.jpg" src="" alt="Bajaj Pulsar RS200" />
+                                        </a>
+                                        <div class="model-details-block vertical-top">
+                                            <a href="" title="Bajaj Pulsar RS200" class="block text-default"><h3>Bajaj Pulsar RS200</h3></a>
+                                            <ul class="item-more-details-list inline-block">
+                                                <li>
+                                                    <a href="" title="Bajaj Pulsar RS200 Images">
+                                                        <span class="bwsprite photos-sm"></span>
+                                                        <span class="icon-label">Images</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="" title="Bajaj Pulsar RS200 Videos">
+                                                        <span class="generic-sprite videos-sm"></span>
+                                                        <span class="icon-label">Videos</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="" title="Bajaj Pulsar RS200 Specs">
+                                                        <span class="generic-sprite specs-sm"></span>
+                                                        <span class="icon-label">Specs</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="grid-4 omega">
+                                        <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Ex-showroom, Mumbai">Ex-showroom, Mumbai</p>
+                                        <span class="bwsprite inr-md"></span> <span class="font16 text-bold">12,489</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="border-solid-bottom margin-top15 margin-bottom10"></div>
+                                    <a href="" title="" class="block text-default hover-no-underline">
+                                        <span class="used-target-label inline-block">
+                                            <span class="font14 text-bold">53 Used Royal Enfield Thunderbird 350 bikes</span>
+                                            <span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey"></span> 1,20,000</span>
+                                        </span>
+                                        <span class="bwsprite next-grey-icon"></span>
+                                    </a>
+                                </div>
 
                                 <div class="border-solid-top padding-top10">
                                     <% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))

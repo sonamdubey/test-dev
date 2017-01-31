@@ -22,7 +22,6 @@
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
-.vertical-top { display:inline-block;vertical-align:top; }
 .inr-sm, .inr-sm-grey, .inr-sm-dark { width:8px; height:12px; }
 .inr-sm {background-position:-110px -468px; }
 .inr-sm-grey{background-position: -92px -468px;}
@@ -71,13 +70,6 @@
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
 }
-.btn-truncate {
-   max-width: 230px;
-   text-align: center;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden;
-}
 
 /* full-width slug */
 .item-rank {
@@ -105,6 +97,97 @@
 .checkout-list-slug-label {
     width: 90%;
     padding-left: 15px;
+}
+
+/* generic model slug */
+.model-grid-12-slug .grid-8 {
+    width: 68.7%;
+}
+
+.model-grid-12-slug .grid-4 {
+    width: 31.3%;
+}
+
+.model-grid-12-slug .model-image-target {
+    width: 157px;
+    height: 88px;
+}
+
+.model-image-target img {
+    width: 100%;
+}
+
+.model-grid-12-slug .model-details-block {
+    width: 74%;
+    padding-left: 10px;
+}
+
+.model-grid-12-slug .used-target-label {
+    width: 97%;
+}
+
+.btn-180-34 {
+    width: 180px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* item-more-details-list */
+.item-more-details-list li {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.item-more-details-list a {
+    display: block;
+    padding: 2px 10px 4px;
+    color: #787878;
+    background: rgba(245, 245, 245, 0.9);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+.item-more-details-list a:hover {
+    color: #fff;
+    background: #54bbca;
+    text-decoration: none;
+}
+.item-more-details-list .icon-label {
+    font-size: 13px;
+}
+
+/* icons */
+.generic-sprite {
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
+    display: inline-block;
+}
+.reviews-sm,
+.news-sm,
+.videos-sm,
+.specs-sm,
+.photos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    position: relative;
+    top: 1px;
+}
+.reviews-sm {
+    background-position: -84px -3px;
+}
+.news-sm {
+    background-position: -102px -3px;
+}
+.videos-sm {
+    background-position: -121px -3px;
+}
+.specs-sm {
+    background-position: -140px -3px;
+}
+.photos-sm {
+    width: 16px;
+    background-position: -213px -207px;
 }
 
 @media only screen and (max-width:1024px) {

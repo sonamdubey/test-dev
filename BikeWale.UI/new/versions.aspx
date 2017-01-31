@@ -135,28 +135,28 @@
                                     <%if (modelPageEntity.ModelVersionSpecs.Displacement != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite capacity-sm"></span>
+                                            <span class="bwsprite capacity-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Displacement) %> cc</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite mileage-sm"></span>
+                                            <span class="bwsprite mileage-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) %> kmpl</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.MaxPower != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite power-sm"></span>
+                                            <span class="bwsprite power-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %> bhp</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.KerbWeight != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite weight-sm"></span>
+                                            <span class="bwsprite weight-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.KerbWeight) %> kgs</span>
                                         </li>
                                     <% } %>

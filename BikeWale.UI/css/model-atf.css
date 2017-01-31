@@ -338,24 +338,6 @@
 .model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-205px -35px; }
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
-    width: 16px;
-    height: 18px;
-    margin-right: 5px;
-}
-.capacity-sm {
-    background-position: -40px -78px;
-}
-.mileage-sm {
-    background-position: -61px -78px;
-}
-.power-sm {
-    background-position: -82px -78px;
-    margin-right: 2px;
-}
-.weight-sm {
-    background-position: -101px -78px;
-}
 .partner-dealer {
     width: 32px;
     height: 34px;
