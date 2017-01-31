@@ -30,10 +30,15 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public List<ModelImage> Photos { get; set; }
         [DataMember]
+        public IEnumerable<ModelColorImage> colorPhotos { get; set; }
+        //[DataMember]
+        //public IEnumerable<ImageBaseEntity> AllPhotos { get; set; }
+        [DataMember]
         public Overview objOverview { get; set; }
         [DataMember]
         public Features objFeatures { get; set; }
         [DataMember]
         public Specifications objSpecs { get; set; }
+
     }
 }

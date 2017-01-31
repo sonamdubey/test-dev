@@ -63,5 +63,6 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
+        IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
     }
 }

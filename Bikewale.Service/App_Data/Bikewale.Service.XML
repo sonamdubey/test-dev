@@ -2420,7 +2420,7 @@
             Description :   Extend from CompressionApiController instead of ApiController 
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModels{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModels{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
             
             </summary>

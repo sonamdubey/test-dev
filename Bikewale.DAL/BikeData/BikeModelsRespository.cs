@@ -1343,7 +1343,6 @@ namespace Bikewale.DAL.BikeData
             return objMinspecs;
         }
 
-
         /// <summary>
         /// Modified By : Sushil Kumar on 5th Jan 2016
         /// Description : To get similar bikes with photos count
@@ -1669,7 +1668,74 @@ namespace Bikewale.DAL.BikeData
             } // catch Exception
             return objReview;
         }
+        /// <summary>
+        /// Retrieves the Model Colors and Images
+        /// Created by: Sangram Nandkhile on 30th Jan 2017
+        /// </summary>
+        /// <param name="modelId">Bike Model Id</param>
+        /// <returns>Model colorwise Image List</returns>
+        public IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId)
+        {
+            List<ModelColorImage> modelColors = null;
+
+            IList<ColorCodeBase> colorCodes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikemodelcolor_09012017"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
 
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            modelColors = new List<ModelColorImage>();
+                            while (reader.Read())
+                            {
+                                modelColors.Add(new ModelColorImage()
+                                {
+                                    Id = SqlReaderConvertor.ToUInt32(reader["modelColorId"]),
+                                    Name = Convert.ToString(reader["ColorName"]),
+                                    Host = Convert.ToString(reader["host"]),
+                                    OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                    IsImageExists = SqlReaderConvertor.ToBoolean(reader["IsImageExists"]),
+                                    BikeModelColorId = SqlReaderConvertor.ParseToUInt32(reader["BikeModelColorId"]),
+                                });
+                            }
+                            if (reader.NextResult())
+                            {
+                                colorCodes = new List<ColorCodeBase>();
+                                while (reader.Read())
+                                {
+                                    colorCodes.Add(
+                                        new ColorCodeBase()
+                                        {
+                                            HexCode = Convert.ToString(reader["HexCode"]),
+                                            Id = SqlReaderConvertor.ToUInt32(reader["ColorId"]),
+                                            ModelColorId = SqlReaderConvertor.ToUInt32(reader["modelColorId"]),
+                                            IsActive = SqlReaderConvertor.ToBoolean(reader["IsActive"])
+                                        });
+                                }
+                                modelColors.ForEach(
+                                    modelColor => modelColor.ColorCodes =
+                                        (from colorCode in colorCodes
+                                        where colorCode.ModelColorId == modelColor.Id
+                                        select colorCode).ToList()
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchModelImagesByColors");
+                objErr.SendMail();
+            }
+
+            return modelColors;
+        }
     }   // class
 }   // namespace

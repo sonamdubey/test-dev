@@ -192,7 +192,6 @@ namespace Bikewale.Cache.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetDetails_ReviewId_{0}", reviewId));
             }
-
             return objReview;
         }
     }
