@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeData;
 using Bikewale.BAL.EditCMS;
+using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
@@ -52,6 +53,8 @@ namespace Bikewale.Content
         protected EnumBikeBodyStyles bodyStyle;
         protected bool showBodyStyleWidget;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected RoadTestDetails objArticle;
+        protected string url = "/m/expert-reviews/";
 
         protected override void OnInit(EventArgs e)
         {
@@ -60,126 +63,190 @@ namespace Bikewale.Content
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Form.Action = Request.RawUrl;
+            
             if (!IsPostBack)
             {
-                if (ProcessQueryString())
+                //if (ProcessQueryString())
+                //{
+                //    GetRoadTestDetails();
+                //    BindPageWidgets();
+                //}
+                //else
+                //{
+                //    Response.Redirect("/m/expert-reviews/", false);
+                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                //    this.Page.Visible = false;
+                //}
+                BindExpertReviewdetails();
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 30 Jan 2017
+        /// Summary    : Bind road test details on page
+        /// </summary>
+        private void BindExpertReviewdetails()
+        {
+            try
+            {
+                objArticle = new RoadTestDetails(url);
+                if (!objArticle.IsPermanentRedirect)
                 {
-                    GetRoadTestDetails();
-                    BindPageWidgets();
+                    if (!objArticle.IsPageNotFound)
+                    {
+                        BasicId = objArticle.BasicId;
+                        objRoadtest = objArticle.objRoadtest;
+                        if (objRoadtest != null)
+                        {
+                            GetRoadTestData();
+                            if (objRoadtest.PageList != null)
+                            {
+                                rptPageContent.DataSource = objRoadtest.PageList;
+                                rptPageContent.DataBind();
+                            }
+                            objImg = objArticle.objImg;
+                            if (objImg != null && objImg.Count() > 0)
+                            {
+                                photoGallery.Photos = objImg.ToList();
+                                photoGallery.isModelPage = false;
+                                photoGallery.articleName = pageTitle;
+                                rptPhotos.DataSource = objImg;
+                                rptPhotos.DataBind();
+                            }
+                    
+                        }
+                        BindPageWidgets();
+                      }
+                }
+                else if (!objArticle.IsContentFound)
+                {
+                    Response.Redirect("/m/expert-reviews/", false);
+                    if (HttpContext.Current != null)
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else
                 {
-                    Response.Redirect("/m/expert-reviews/", false);
+                    Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+               
                 }
+
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+  
             }
         }
 
-        private bool ProcessQueryString()
-        {
-            bool isSuccess = true;
-            // Modified By :Lucky Rathore on 12 July 2016.
-            Form.Action = Request.RawUrl;
-            if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
-            {
-                /** Modified By : Ashwini Todkar on 19 Aug 2014 , add when consuming carwale api
-                 Check if basic id exists in mapped carwale basic id log **/
+        //private bool ProcessQueryString()
+        //{
+        //    bool isSuccess = true;
+        //    // Modified By :Lucky Rathore on 12 July 2016.
+        //    Form.Action = Request.RawUrl;
+        //    if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
+        //    {
+        //        /** Modified By : Ashwini Todkar on 19 Aug 2014 , add when consuming carwale api
+        //         Check if basic id exists in mapped carwale basic id log **/
 
-                string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
+        //        string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
 
-                if (!basicId.Equals(Request.QueryString["id"]))
-                {
-                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+        //        if (!basicId.Equals(Request.QueryString["id"]))
+        //        {
+        //            string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
 
-                    var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
-                    var _titleEndIndex = _newUrl.LastIndexOf('-');
-                    string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = "/m/expert-reviews/" + _newUrlTitle + basicId + ".html";
-                    CommonOpn.RedirectPermanent(_newUrl);
-                }
+        //            var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
+        //            var _titleEndIndex = _newUrl.LastIndexOf('-');
+        //            string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
+        //            _newUrl = "/m/expert-reviews/" + _newUrlTitle + basicId + ".html";
+        //            CommonOpn.RedirectPermanent(_newUrl);
+        //        }
 
-                BasicId = Convert.ToUInt32(Request.QueryString["id"]);
-            }
-            else
-            {
-                isSuccess = false;
-            }
+        //        BasicId = Convert.ToUInt32(Request.QueryString["id"]);
+        //    }
+        //    else
+        //    {
+        //        isSuccess = false;
+        //    }
 
-            return isSuccess;
-        }
+        //    return isSuccess;
+        //}
         /// <summary>
         /// Modified By : Aditi Srivastava on 17 Nov 2016
         /// Summary     : Added photo gallery control
         /// </summary>
-        private void GetRoadTestDetails()
-        {
-            try
-            {
+        //private void GetRoadTestDetails()
+        //{
+        //    try
+        //    {
 
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IArticles, Articles>()
-                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                       .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+        //        using (IUnityContainer container = new UnityContainer())
+        //        {
+        //            container.RegisterType<IArticles, Articles>()
+        //               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+        //               .RegisterType<ICacheManager, MemcacheManager>();
+        //            ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
 
-                    objRoadtest = _cache.GetArticlesDetails(BasicId);
+        //            objRoadtest = _cache.GetArticlesDetails(BasicId);
 
-                    if (objRoadtest != null)
-                    {
-                        GetRoadTestData();
+        //            if (objRoadtest != null)
+        //            {
+        //                GetRoadTestData();
 
-                        if (objRoadtest.PageList != null)
-                        {
-                            rptPageContent.DataSource = objRoadtest.PageList;
-                            rptPageContent.DataBind();
-                        }
-
-
-                        objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
-
-                        if (objImg != null && objImg.Count() > 0)
-                        {
-                            photoGallery.Photos = objImg.ToList();
-                            photoGallery.isModelPage = false;
-                            photoGallery.articleName = pageTitle;
-                            rptPhotos.DataSource = objImg;
-                            rptPhotos.DataBind();
-                        }
-
-                    }
-                    else
-                    {
-                        _isContentFound = false;
-                    }
-
-                }
+        //                if (objRoadtest.PageList != null)
+        //                {
+        //                    rptPageContent.DataSource = objRoadtest.PageList;
+        //                    rptPageContent.DataBind();
+        //                }
 
 
+        //                objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
 
-            }
-            catch (Exception ex)
-            {
-                Trace.Warn("ex.Message: " + ex.Message);
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (!_isContentFound)
-                {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-            }
-        }
+        //                if (objImg != null && objImg.Count() > 0)
+        //                {
+        //                    photoGallery.Photos = objImg.ToList();
+        //                    photoGallery.isModelPage = false;
+        //                    photoGallery.articleName = pageTitle;
+        //                    rptPhotos.DataSource = objImg;
+        //                    rptPhotos.DataBind();
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                _isContentFound = false;
+        //            }
+
+        //        }
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Trace.Warn("ex.Message: " + ex.Message);
+        //        ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+        //        objErr.SendMail();
+        //    }
+        //    finally
+        //    {
+        //        if (!_isContentFound)
+        //        {
+        //            Response.Redirect("/pagenotfound.aspx", false);
+        //            HttpContext.Current.ApplicationInstance.CompleteRequest();
+        //            this.Page.Visible = false;
+        //        }
+        //    }
+        //}
         /// <summary>
         /// Modified by : Aditi Srivastava on 22 Nov 2016
         /// Description : To get masking name of tagged make for url if it is null
         /// Modified by : Sajal Gupta on 27-01-2017
         /// Description : Saved taggedModelId  in the variable.
+        /// Modified by : Aditi Srivastava on 30 Jan 2017
+        /// Summary     : Used tagged list from common view model
         /// </summary>
         private void GetRoadTestData()
         {
@@ -194,14 +261,15 @@ namespace Bikewale.Content
 
                 if (objRoadtest.VehiclTagsList != null && objRoadtest.VehiclTagsList.Count > 0)
                 {
-                    _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                   // _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
+                    _taggedMakeObj = objArticle.taggedMakeObj;
+                    //var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
+                    
+                    if (objArticle.taggedModelObj != null)
+                        taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
 
-                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
-                    if (modelBase != null)
-                        taggedModelId = (uint)modelBase.ModelId;
-
-                    if (_taggedMakeObj.MaskingName == null)
-                        FetchMakeDetails();
+                    //if (_taggedMakeObj.MaskingName == null)
+                    //    FetchMakeDetails();
 
                     if (objRoadtest.VehiclTagsList.Any(m => (m.MakeBase != null && !String.IsNullOrEmpty(m.MakeBase.MaskingName))))
                     {
@@ -228,7 +296,6 @@ namespace Bikewale.Content
             {
 
                 ErrorClass objErr = new ErrorClass(ex, "viewRT.GetRoadTestData");
-                objErr.SendMail();
             }
         }
         /// <summary>
@@ -292,35 +359,35 @@ namespace Bikewale.Content
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "viewRT.BindPageWidgets");
-                objErr.SendMail();
+               
             }
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 22 Nov 2016
         /// Description: fetch make details from tagged list
         /// </summary>
-        private void FetchMakeDetails()
-        {
-            try
-            {
-                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
-                {
+        //private void FetchMakeDetails()
+        //{
+        //    try
+        //    {
+        //        if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+        //        {
 
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
+        //            using (IUnityContainer container = new UnityContainer())
+        //            {
+        //                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+        //                var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+        //                _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewRT.FetchMakeDetails");
-                objErr.SendMail();
-            }
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewRT.FetchMakeDetails");
+        //        objErr.SendMail();
+        //    }
+        //}
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -34,6 +35,8 @@ namespace Bikewale.Content
         protected Repeater rptPages, rptPageContent;
         protected string basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
+        protected RoadTestDetails objArticle;
+        protected IEnumerable<ModelImage> objImg = null;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         protected ModelGallery ctrlModelGallery;
@@ -45,6 +48,7 @@ namespace Bikewale.Content
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
         protected int makeId;
         protected uint taggedModelId;
+        protected string url = "/expert-reviews/";
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -54,6 +58,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Sushil Kumar on 16th Nov 2016
         /// Description : Handle page redirection 
+        /// Modified by : Aditi Srivastava on 30 Jan 2017
+        /// Summary     : Moved code to common view model. Added baseUrl
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,56 +75,105 @@ namespace Bikewale.Content
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
+           
 
+            //if (ProcessQS())
+            //{
+            //    if (!string.IsNullOrEmpty(basicId))
+            //        GetRoadtestDetails();
+            //    BindPageWidgets();
+            //}
 
-            if (ProcessQS())
-            {
-                if (!string.IsNullOrEmpty(basicId))
-                    GetRoadtestDetails();
-                BindPageWidgets();
-            }
-
-
+            BindRoadTestDetails();
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 30 Jan 2017
+        /// Summary    : Bind road test details on page
+        /// </summary>
+        private void BindRoadTestDetails()
+        {
+            try
+            {
+                objArticle = new RoadTestDetails(url);
+                if(!objArticle.IsPermanentRedirect)
+                {
+                    //BasicId = objArticle.BasicId;
+                    objRoadtest = objArticle.objRoadtest;
+                    if (objRoadtest != null)
+                    {
+                        BindPages();
+                        GetRoadtestData();
+                        if(objArticle.taggedModelObj!=null)
+                        taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
+                        objImg = objArticle.objImg;
+                        if (objImg != null && objImg.Count() > 0)
+                        {
+                            ctrPhotoGallery.BasicId = (int)objArticle.BasicId;
+                            ctrPhotoGallery.ModelImageList = objImg;
+                            ctrPhotoGallery.BindPhotos();
 
+                            ctrlModelGallery.bikeName = articleTitle;
+                            ctrlModelGallery.Photos = objImg.ToList();
+                        }
 
+                    }
+                }
+                else if(!objArticle.IsContentFound)
+                {
+                    Response.Redirect("/expert-reviews/", false);
+                    if (HttpContext.Current != null)
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                else
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+            }
+        }
 
         /// <summary>
         /// Modified by : Sushil Kumar on 16th Nov 2016
         /// Description : Handle page redirection  
         /// </summary>
-        private bool ProcessQS()
-        {
-            basicId = Request.QueryString["id"];
+        //private bool ProcessQS()
+        //{
+        //    basicId = Request.QueryString["id"];
 
-            if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
-            {
+        //    if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
+        //    {
 
-                string _basicId = BasicIdMapping.GetCWBasicId(basicId);
+        //        string _basicId = BasicIdMapping.GetCWBasicId(basicId);
 
-                if (!basicId.Equals(_basicId))
-                {
-                    // Modified By :Lucky Rathore on 12 July 2016.
-                    Form.Action = Request.RawUrl;
-                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                    var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
-                    var _titleEndIndex = _newUrl.LastIndexOf('-');
-                    string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = string.Format("/expert-reviews/{0}-{1}.html", _newUrlTitle, _basicId);
-                    CommonOpn.RedirectPermanent(_newUrl);
-                    return false;
-                }
-            }
-            else
-            {
-                Response.Redirect("/expert-reviews/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-                return false;
-            }
+        //        if (!basicId.Equals(_basicId))
+        //        {
+        //            // Modified By :Lucky Rathore on 12 July 2016.
+        //            Form.Action = Request.RawUrl;
+        //            string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+        //            var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
+        //            var _titleEndIndex = _newUrl.LastIndexOf('-');
+        //            string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
+        //            _newUrl = string.Format("/expert-reviews/{0}-{1}.html", _newUrlTitle, _basicId);
+        //            CommonOpn.RedirectPermanent(_newUrl);
+        //            return false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("/expert-reviews/", false);
+        //        HttpContext.Current.ApplicationInstance.CompleteRequest();
+        //        this.Page.Visible = false;
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private void GetRoadtestDetails()
         {
