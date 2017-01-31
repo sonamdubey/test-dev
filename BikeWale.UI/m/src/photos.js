@@ -10,7 +10,6 @@
     }
 });
 
-var keyPhoto = "modelPhotos_";
 var modelImages = [];
 var modelColorImages = [];
 
@@ -153,52 +152,19 @@ function toggleFullScreen(goFullScreen) {
     }
 }
 
-function checkCacheModelPhotos(modelId) {
-    bKey = keyPhoto + modelId;
+function checkCacheModelPhotos(bKey) {    
     if (lscache.get(bKey)) return true;
     else return false;
 }
 var cacheData;
 
-function showGallery() {
-    try {        
-        $.ajax({
-            type: "Get",            
-            url: "/api/model/" + modelId + "/photos/",
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (response) {
-                if(response != null)
-                {
-                    for(var i=0, t=0; i<response.length; i++)
-                    {
-                        modelImages[i] = response[i];
+function filterImagesArray(responseArray){
+    return ko.utils.arrayFilter(responseArray, function (response) {
+        return response.imageType == 3;
+    });
+}
 
-                        if( modelImages[i].imageType == 3)
-                        {
-                            modelColorImages[t] = response[i];
-                            t++;
-                        }
-                    }
-
-                    cacheData = Object.assign(modelImages, modelColorImages);
-                    //lscache.set(keyPhoto + modelId, cacheData, 15);
-                }                
-            },
-            complete: function (xhr) {
-            if (xhr.status == 404 || xhr.status == 204) {
-                lscache.set(key + selMakeId, null, 30);
-                setOptions(null);
-            }                       
-        }                                      
-        });
-
-
-    }
-    catch (e) {
-
-    }
-
+function bindPhotoGallery() {
     // remove the binding and then re-apply
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
@@ -206,6 +172,46 @@ function showGallery() {
     vmPhotosPage.activateGallery(true);
     $('body').addClass('lock-browser-scroll');
     appendState('modelGallery');
+}
+
+function showGallery() {      
+    try {        
+        var keyPhoto = "modelPhotos_" + modelId.toString();
+
+        if (!checkCacheModelPhotos(keyPhoto)) {
+            $.ajax({
+                type: "Get",
+                url: "/api/model/" + modelId + "/photos/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        modelImages = response;
+                        modelColorImages = filterImagesArray(response);
+                    }                    
+
+                    bindPhotoGallery();
+
+                    var cacheData = {
+                        modelImages: modelImages,
+                        modelColorImages: modelColorImages
+                    }
+
+                    lscache.set(keyPhoto, cacheData, 10);
+                }
+            });
+        }
+        else {            
+            var cacheData = lscache.get(keyPhoto);
+            modelImages = cacheData.modelImages;
+            modelColorImages = cacheData.modelColorImages;
+            bindPhotoGallery();            
+        }
+
+    }
+    catch (e) {
+        console.warn(e);
+    }
 };
 
 function hideGallery() {

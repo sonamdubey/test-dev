@@ -185,7 +185,7 @@
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
-                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathThumbnail }" src="" alt="" title="" border="0" />
+                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathLarge }" src="" alt="" title="" border="0" />
                                 </div>
                             </div>
                         </div>
@@ -265,8 +265,7 @@
                     </div>         
                 </div>
             </script>
-        </div>
-        
+        </div>        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
