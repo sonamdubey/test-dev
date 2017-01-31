@@ -48,7 +48,6 @@ namespace Bikewale.Mobile.Content
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
-                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;

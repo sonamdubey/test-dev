@@ -136,10 +136,6 @@ namespace Bikewale.News
             {
                 ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
             }
-            else
-            {
-                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
-            }
             ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
         }
 

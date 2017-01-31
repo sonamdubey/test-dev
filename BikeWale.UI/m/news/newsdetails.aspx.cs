@@ -206,6 +206,8 @@ namespace Bikewale.Mobile.Content
         /// Description: bind upcoming and popular bikes
         /// Modified By : Sushil Kumar on 2nd Jan 2016
         /// Description : Bind ctrlGenericBikeInfo control 
+        /// Modified by : Sajal Gupta on 31-01-2017
+        /// Description : Binded popular bikes widget.
         /// </summary>
         protected void BindPageWidgets()
         {

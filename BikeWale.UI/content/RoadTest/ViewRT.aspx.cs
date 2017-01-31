@@ -294,10 +294,6 @@ namespace Bikewale.Content
                     ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
 
                 }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
-                }
             }
 
 

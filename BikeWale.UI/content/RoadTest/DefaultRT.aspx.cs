@@ -131,10 +131,6 @@ namespace Bikewale.Content
                     ctrlUpcoming.makeMaskingName = makeMaskingName;
                     ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
                 }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
-                }
             }
             catch (Exception ex)
             {

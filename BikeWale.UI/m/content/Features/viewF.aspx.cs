@@ -233,22 +233,7 @@ namespace Bikewale.Mobile.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                ctrlPopularBikes.totalCount = 9;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 4;
-                if (_taggedMakeObj != null)
-                {
-                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-                }
-
-                if (modelId > 0)
+                if (modelId > 0 && ctrlBikesByBodyStyle != null)
                 {
                     ctrlBikesByBodyStyle.ModelId = modelId;
                     ctrlBikesByBodyStyle.topCount = 9;
@@ -263,11 +248,31 @@ namespace Bikewale.Mobile.Content
 
                         IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         bodyStyle = modelCache.GetBikeBodyType(modelId);
-
                     }
 
-                    if (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
-                        showBodyStyleWidget = true;
+                    showBodyStyleWidget = (bodyStyle != EnumBikeBodyStyles.AllBikes && bodyStyle != EnumBikeBodyStyles.Mileage && bodyStyle != EnumBikeBodyStyles.Street);
+                }
+                else if (ctrlPopularBikes != null)
+                {
+                    ctrlPopularBikes.totalCount = 9;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                }
+
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 4;
+
+                if (_taggedMakeObj != null)
+                {
+                    if (modelId < 0 && ctrlPopularBikes != null)
+                    {
+                        ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
+                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
                 }
             }
             catch (Exception ex)

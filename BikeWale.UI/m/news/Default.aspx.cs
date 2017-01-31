@@ -81,10 +81,6 @@ namespace Bikewale.Mobile.News
                     ctrlUpcomingBikes.makeName = makeName;
                     ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
                 }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
-                }
             }
             catch (Exception ex)
             {

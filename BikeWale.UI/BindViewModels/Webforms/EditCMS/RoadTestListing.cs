@@ -31,7 +31,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// Modified By : Sajal Gupta on 30-01-2017
     /// Description : Common logic to bind expert-reviews listing page 
     /// </summary>
-    public class RoadTestListing : System.Web.UI.Page
+    public class RoadTestListing 
     {
         private IPager objPager = null;
         protected DropDownList ddlMakes;
@@ -96,7 +96,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.GetRoadTestList");
             }
         }
 
@@ -122,7 +122,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, Request.ServerVariables["URL"]);
+                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.BindMakes");
             }
         }
 
@@ -136,7 +136,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 {
                     if (ddlMakes != null)
                     {
-                        ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + Request.QueryString["make"].ToString()));
+                        ddlMakes.SelectedIndex = ddlMakes.Items.IndexOf(ddlMakes.Items.FindByValue(makeId + '_' + HttpContext.Current.Request.QueryString["make"].ToString()));
                     }
                     ddlModels.Disabled = false;
                     ddlModels.DataSource = mmv.GetModelsWithMappingName(makeId, "ROADTEST");
@@ -148,13 +148,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
 
                     if (modelId != "" && modelId != "-1")
                     {
-                        ddlModels.SelectedIndex = ddlModels.Items.IndexOf(ddlModels.Items.FindByValue(modelId + '_' + Request.QueryString["model"].ToString()));
+                        ddlModels.SelectedIndex = ddlModels.Items.IndexOf(ddlModels.Items.FindByValue(modelId + '_' + HttpContext.Current.Request.QueryString["model"].ToString()));
                     }
                 }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.AutoFill");
             }
         }
 
@@ -195,7 +195,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         {
                             if (objResponse.StatusCode == 301)
                             {
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(HttpContext.Current.Request.QueryString["model"], objResponse.MaskingName));
+                                CommonOpn.RedirectPermanent(HttpContext.Current.Request.RawUrl.Replace(HttpContext.Current.Request.QueryString["model"], objResponse.MaskingName));
                             }
                             else
                             {
@@ -207,7 +207,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ProcessQueryString");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ProcessQueryString");
                 pageNotFound = true;
             }
 
@@ -233,7 +233,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.ParseQueryString");
                     pageNotFound = true;
                 }
                 finally
@@ -246,7 +246,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         }
                         else if (objResponse.StatusCode == 301)
                         {
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                            CommonOpn.RedirectPermanent(HttpContext.Current.Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
                         }
                         else
                         {
@@ -325,7 +325,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestListing.BindLinkPager");
             }
         }
         /// <summary>

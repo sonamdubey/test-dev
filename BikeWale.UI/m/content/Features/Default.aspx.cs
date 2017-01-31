@@ -59,7 +59,6 @@ namespace Bikewale.Mobile.Content
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
-                ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
                 ctrlPopularBikes.cityName = currentCityArea.City;
@@ -79,16 +78,19 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objFeatures = new FeaturesListing();
-                objFeatures.BindLinkPager(ctrlPager);
-                prevPageUrl = objFeatures.prevPageUrl;
-                nextPageUrl = objFeatures.nextPageUrl;
-                articlesList = objFeatures.articlesList;
-                startIndex = objFeatures.startIndex;
-                endIndex = objFeatures.endIndex;
-                totalrecords = objFeatures.totalrecords;
                 _isContentFound = objFeatures.isContentFound;
 
-                if (!_isContentFound)
+                if (_isContentFound)
+                {
+                    objFeatures.BindLinkPager(ctrlPager);
+                    prevPageUrl = objFeatures.prevPageUrl;
+                    nextPageUrl = objFeatures.nextPageUrl;
+                    articlesList = objFeatures.articlesList;
+                    startIndex = objFeatures.startIndex;
+                    endIndex = objFeatures.endIndex;
+                    totalrecords = objFeatures.totalrecords;
+                }
+                else
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();

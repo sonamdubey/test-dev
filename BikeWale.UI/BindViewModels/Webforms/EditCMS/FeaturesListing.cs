@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.BindViewModels.Webforms.EditCMS
 {
@@ -25,17 +24,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// Modified By : Sajal Gupta on 30-01-2017
     /// Description : Common logic to bind features listing page 
     /// </summary>
-    public class FeaturesListing : System.Web.UI.Page
+    public class FeaturesListing
     {
         private IPager objPager = null;
-        protected Repeater rptFeatures;
         protected int curPageNo = 1;
         public string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         public bool isContentFound = true;
         public int startIndex = 0, endIndex = 0;
-        protected uint totalArticles;
-        HttpRequest page = HttpContext.Current.Request;
         public int totalrecords;
         public IList<ArticleSummary> articlesList;
 
@@ -48,15 +44,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         protected void ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
-            var queryString = request != null ? request.QueryString : null;
 
-            if (queryString != null)
+            if (!string.IsNullOrEmpty(request.QueryString["pn"]))
             {
-                if (!string.IsNullOrEmpty(queryString["pn"]))
-                {
-                    string pageNo = queryString["pn"];
-                    Int32.TryParse(pageNo, out curPageNo);
-                }
+                Int32.TryParse(request.QueryString["pn"], out curPageNo);
             }
         }
 
@@ -95,7 +86,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
                         articlesList = _objFeaturesList.Articles;
                         totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
-                        // BindLinkPager(ctrlPager);
                     }
                     else
                     {
@@ -105,7 +95,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.GetFeaturesList");
             }
         }
 
@@ -136,7 +126,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
             int recordCount = totalrecords;
-            string _baseUrl = RemoveTrailingPage(page.RawUrl.ToLower());
+            string _baseUrl = RemoveTrailingPage(HttpContext.Current.Request.RawUrl.ToLower());
 
             try
             {
@@ -165,8 +155,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikeCareModels.BindLinkPager");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.BindLinkPager");
             }
         }
         /// <summary>

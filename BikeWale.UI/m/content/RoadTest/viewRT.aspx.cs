@@ -234,6 +234,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: Bind upcoming and popular bikes
+        /// Modified By : Sajal Gupta on 31-01-2017
+        /// Description : Binded popular bikes widget
         /// </summary>
         protected void BindPageWidgets()
         {
@@ -251,10 +253,6 @@ namespace Bikewale.Content
                         ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                         ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
 
-                    }
-                    else
-                    {
-                        ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                     }
                 }
                 if (ctrlUpcomingBikes != null)
@@ -280,9 +278,8 @@ namespace Bikewale.Content
                         IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                         bodyStyle = modelCache.GetBikeBodyType(taggedModelId);
                     }
-
-                    if (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
-                        showBodyStyleWidget = true;
+                    
+                        showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
 
                     ctrlBikesByBodyStyle.ModelId = taggedModelId;
                     ctrlBikesByBodyStyle.topCount = 9;

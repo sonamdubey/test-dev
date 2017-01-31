@@ -74,10 +74,6 @@ namespace Bikewale.Mobile.Content
                     ctrlUpcomingBikes.makeName = makeName;
                     ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
                 }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
-                }
 
                 uint intModelId;
                 uint.TryParse(modelId, out intModelId);
