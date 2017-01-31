@@ -212,7 +212,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="right" colspan="2"><p class='position-rel'><span class='position-abt pos-right35 pos-top0 font9'>Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
+                                                <td align="right" colspan="2"><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -276,18 +276,15 @@
                                         <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
-                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
-                                <div class="margin-right20 margin-left20 margin-top20 border-solid-bottom"></div>
-                                <%}else{ %>
-
+                                    <% if(primarydealer.DealerDetails.IsDSA){ %>
                                     <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
                                         <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands. Above price is not final and may vary at the dealership.</p>
                                         <span class="position-abt pos-top15 pos-right15 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
                                     </div>
                                     <%} %>
-
-                                </div>                              
-                                <div id="dealer-contact-details" class="content-inner-block-20 <%= isPremium ? "" : "map-absent" %>">
+                                    <div class="margin-top20 border-solid-bottom"></div>
+                                </div>
+                                <div id="dealer-contact-details" class="padding-right20 padding-bottom20 padding-left20 <%= isPremium ? "" : "map-absent" %>">
                                     <!-- if no map, add 'map-absent' class -->
                                     <div class="alpha font14 <%= isPremium ? "grid-6" : "grid-12 omega" %>">
                                         <!-- if no map, replace grid-6 with grid-12 -->
