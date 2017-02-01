@@ -183,6 +183,14 @@
                                  <% } %>
                             </ul>
                             <div class="clear"></div>
+
+                            <div class="border-light-bottom margin-top10 margin-bottom15"></div>
+                            <a href="" title="" class="block text-light-grey margin-bottom5">
+                                <span class="used-target-label inline-block">
+                                    <span class="font14 text-bold">00 Used <%= bike.BikeName %> bikes</span><br>
+                                </span>
+                                <span class="bwmsprite next-grey-icon"></span>
+                            </a>
                         </li>
                         <%} %>
                     </ul>
