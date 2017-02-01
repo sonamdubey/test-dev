@@ -4,7 +4,7 @@
  <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
                 <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
-                    Popular <%= !string.IsNullOrEmpty(Convert.ToString(BodyStyle))? BodyStyleHeading : string.Empty %> bikes
+                    Popular <%=Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle)%>
                 </h2>
                 <div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
@@ -37,7 +37,7 @@
                        </div>
                 </div>
                 <div class="margin-top15 margin-left20 font14">
-                    <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleHeading %> bikes" >View all popular<%= BodyStyle %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle)%> in India" >View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
             </div>
         </section>

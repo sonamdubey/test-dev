@@ -1,27 +1,13 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.EditCMS;
-using Bikewale.BAL.Pager;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Pager;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
 {
@@ -35,16 +21,13 @@ namespace Bikewale.Content
     public class DefaultRT : System.Web.UI.Page
     {
         protected UpcomingBikesMinNew ctrlUpcoming;
-        protected Repeater rptRoadTest;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        private const int _pageSize = 10;
-        private int _pageNo = 1;
-        private const int _pagerSlotSize = 5;
-        private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
         string makeId = string.Empty, modelId = string.Empty;
-        protected string startIndex, endIndex, totalArticles;
+        protected int startIndex, endIndex, totalArticles;
+        protected RoadTestListing objRoadTests;
+        protected IList<ArticleSummary> articlesList;
 
         protected override void OnInit(EventArgs e)
         {
@@ -69,250 +52,57 @@ namespace Bikewale.Content
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            CommonOpn op = new CommonOpn();
-
-            if (!IsPostBack)
-            {
-
-                ProcessQS();
-                GetRoadTestList(makeId, modelId, makeName, modelName);
-            }
-
-        }
-
-        private void ProcessQS()
-        {
-            if (Request["pn"] != null && Request.QueryString["pn"] != "")
-            {
-                string _pageNumber = Request.QueryString["pn"];
-                if (CommonOpn.CheckId(_pageNumber) == true)
-                    _pageNo = Convert.ToInt32(_pageNumber);
-            }
-
-            makeName = Request.QueryString["make"];
-            makeMaskingName = makeName;
-            if (!String.IsNullOrEmpty(makeName))
-            {
-                MakeMaskingResponse objResponse = null;
-
-                try
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                              .RegisterType<ICacheManager, MemcacheManager>()
-                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                             ;
-                        var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                        objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                    objErr.SendMail();
-                    Response.Redirect("pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                finally
-                {
-                    if (objResponse != null)
-                    {
-                        if (objResponse.StatusCode == 200)
-                        {
-                            makeId = Convert.ToString(objResponse.MakeId);
-                        }
-                        else if (objResponse.StatusCode == 301)
-                        {
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
-                        }
-                        else
-                        {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
-                    }
-                    else
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
-                }
-
-
-                using (IUnityContainer container1 = new UnityContainer())
-                {
-                    container1.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    var _objMakeCache = container1.Resolve<IBikeMakesCacheRepository<int>>();
-                    BikeMakeEntityBase objMMV = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
-                    makeName = objMMV.MakeName;
-                }
-
-
-            }
-
-            if (!String.IsNullOrEmpty(makeId))
-            {
-                modelMaskingName = Request.QueryString["model"];
-                if (!String.IsNullOrEmpty(modelMaskingName))
-                {
-                    ModelMaskingResponse objResponse = null;
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                ;
-                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                        objResponse = objCache.GetModelMaskingResponse(modelMaskingName);
-                        if (objResponse != null && objResponse.StatusCode == 200)
-                        {
-                            modelId = objResponse.ModelId.ToString();
-                            modelName = Request.QueryString["model"];
-                            using (IUnityContainer modelContainer = new UnityContainer())
-                            {
-                                modelContainer.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                                IBikeModels<BikeModelEntity, int> objClient = modelContainer.Resolve<IBikeModels<BikeModelEntity, int>>();
-                                BikeModelEntity bikemodelEnt = objClient.GetById(Convert.ToInt32(modelId));
-                                modelName = bikemodelEnt.ModelName;
-
-                            }
-                        }
-                        else
-                        {
-                            if (objResponse.StatusCode == 301)
-                            {
-                                //redirect permanent to new page 
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
-                            }
-                            else
-                            {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
-                            }
-                        }
-                    }
-                }
-            }
+            GetRoadTestList();
         }
 
         /// <summary>
-        /// Written By : Ashwini Todkar on 26 Sept 2014
-        /// Summary    : method to get roadtest list and total roadtest count from carwale api
+        /// Created By : Sajal Gupta on 30-01-2017
+        /// Description : Binded page through common view model.
         /// </summary>
-        private void GetRoadTestList(string makeId, string modelId, string makeName, string modelName)
+        private void GetRoadTestList()
         {
             try
             {
-                // get pager instance
-                IPager objPager = GetPager();
-                int _startIndex = 0, _endIndex = 0;
-                objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
-                CMSContent _objRoadTestList = null;
-                using (IUnityContainer container = new UnityContainer())
+                objRoadTests = new RoadTestListing();
+
+                if (!objRoadTests.isRedirection && !objRoadTests.pageNotFound)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+                    objRoadTests.GetRoadTestList();
 
-                    _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId), string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId));
-
-                    if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
+                    if (objRoadTests.isContentFound)
                     {
-
-                        rptRoadTest.DataSource = _objRoadTestList.Articles;
-                        rptRoadTest.DataBind();
-
-                        BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
+                        objRoadTests.BindLinkPager(ctrlPager);
+                        makeId = objRoadTests.makeId;
+                        makeName = objRoadTests.makeName;
+                        makeMaskingName = objRoadTests.makeMaskingName;
+                        modelId = objRoadTests.modelId;
+                        modelName = objRoadTests.modelName;
+                        articlesList = objRoadTests.articlesList;
+                        startIndex = objRoadTests.startIndex;
+                        endIndex = objRoadTests.endIndex;
+                        totalArticles = objRoadTests.totalrecords;
+                        prevUrl = objRoadTests.prevPageUrl;
+                        nextUrl = objRoadTests.nextPageUrl;
                         BindPageWidgets();
-                        totalArticles = Format.FormatPrice(_objRoadTestList.RecordCount.ToString());
-                        startIndex = Format.FormatPrice(_startIndex.ToString());
-                        endIndex = Format.FormatPrice(_endIndex > _objRoadTestList.RecordCount ? _objRoadTestList.RecordCount.ToString() : _endIndex.ToString());
                     }
                 }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"] + "GetRoadTestList");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.RoadTest.GetRoadTestList");
             }
             finally
             {
-                if (!_isContentFound)
+                if (objRoadTests.isRedirection)
                 {
-                    Response.Redirect("/pagenotfound.aspx", true);
+                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                }
+                else if (objRoadTests.pageNotFound || !objRoadTests.isContentFound)
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-            }
-        }
-
-        //PopulateWhere to create Pager instance
-        private IPager GetPager()
-        {
-            IPager _objPager = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IPager, Pager>();
-                _objPager = container.Resolve<IPager>();
-            }
-            return _objPager;
-        }
-
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to bind link pager control 
-        /// </summary>
-        /// <param name="objPager"> Pager instance </param>
-        /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount, string makeName, string modelName)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-            string _baseUrl = "/expert-reviews/";
-
-            try
-            {
-                if (!String.IsNullOrEmpty(modelName))
-                    _baseUrl = string.Format("/{0}-bikes/{1}/expert-reviews/", makeName, modelName);
-                else if (!String.IsNullOrEmpty(makeName))
-                    _baseUrl = string.Format("/{0}-bikes/expert-reviews/", makeName);
-
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = _baseUrl;
-                _pagerEntity.PageNo = _pageNo; //Current page number
-                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                ctrlPager.PagerOutput = _pagerOutput;
-                ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                ctrlPager.BindPagerList();
-
-                //For SEO
-                //CreatePrevNextUrl(linkPager.TotalPages,_baseUrl);
-                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindLinkPager");
-                objErr.SendMail();
             }
         }
 
@@ -350,10 +140,6 @@ namespace Bikewale.Content
                     ctrlUpcoming.makeName = makeName;
                     ctrlUpcoming.makeMaskingName = makeMaskingName;
                     ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
-                }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 }
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.viewF" Async="true" Trace="false" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
@@ -92,8 +93,11 @@
                 </div>
             </div>
         </section>
-
+        <% if(showBodyStyleWidget) { %>
+        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+        <% } else { %>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <% } %>                
         <% if(string.IsNullOrEmpty(modelName)) { %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
         <% } %>

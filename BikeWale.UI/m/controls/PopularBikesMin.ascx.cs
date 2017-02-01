@@ -17,7 +17,6 @@ namespace Bikewale.Mobile.Controls
         public int pageSize { get; set; }
         public int makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
-        public bool IsMakeAgnosticFooterNeeded { get; set; }
 
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;
