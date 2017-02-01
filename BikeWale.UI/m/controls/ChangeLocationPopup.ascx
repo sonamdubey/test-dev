@@ -37,16 +37,34 @@
             };
             var acceptCityChange = function () {
                 try {
-                    var today = new Date(), expire = today, cookieValue = options.urlCityId + '_' + options.urlCityName;
-                    expire.setTime(today.getTime() + 3600000 * 24 * 365);
+                    var cookieValue = options.urlCityId + '_' + options.urlCityName;
                     cookieValue = cookieValue.replace(/\s+/g, '-');
                     bwcache.remove("userchangedlocation", true);
-                    document.cookie = "location=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + document.domain + '; path =/';
+                    setCookieInDays("location", cookieValue, 365);
                     document.getElementById("globalCityPopUp").value = options.urlCityName;
                     hideChangeCityPopup();
                 } catch (e) {
                     console.log(e.message);
                 }
+            };
+
+            var getHost = function () {
+                var host = document.domain;
+
+                if (host.match("bikewale.com$"))
+                    host = ".bikewale.com";
+                return host;
+            };
+
+            var setCookieInDays = function (cookieName, cookieValue, nDays) {
+                var today = new Date();
+                var expire = new Date();
+                expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+                cookieValue = cookieValue.replace(/\s+/g, '-');
+                if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
+                    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+                else
+                    document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
             };
 
             var closeChangeCityPopup = function () {
