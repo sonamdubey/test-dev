@@ -52,6 +52,7 @@
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
+    <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
