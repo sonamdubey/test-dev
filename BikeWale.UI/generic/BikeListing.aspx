@@ -212,7 +212,7 @@
                                         </div>
 
                                         <div class="used-bike-target-link leftfloat">
-                                            <span class="text-light-grey">Checkout:</span>
+                                            <span class="text-light-grey">Check out:</span>
                                             <a href="" title="">00 Used <%= bike.Model.ModelName %> bikes</a>
                                         </div>
                                         <div class="clear"></div>
