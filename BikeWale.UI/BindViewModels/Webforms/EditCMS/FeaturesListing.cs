@@ -45,6 +45,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         .RegisterType<ICMSCacheContent, CMSCacheRepository>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IPager, Pager>();
+
                 _cache = container.Resolve<ICMSCacheContent>();
                 _objPager = container.Resolve<IPager>();
             }

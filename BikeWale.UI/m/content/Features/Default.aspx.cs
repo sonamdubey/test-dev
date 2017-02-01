@@ -36,6 +36,8 @@ namespace Bikewale.Mobile.Content
         private GlobalCityAreaEntity currentCityArea;
         protected FeaturesListing objFeatures;
         protected IList<ArticleSummary> articlesList;
+        private bool _isPageNotFound;
+        private bool _isContentFound;
 
         protected override void OnInit(EventArgs e)
         {
@@ -70,24 +72,6 @@ namespace Bikewale.Mobile.Content
 
         /// <summary>
         /// Created By : Sajal Gupta on 30-01-2017
-        /// Description : For page redirection to not found.
-        /// </summary>
-        private void PageNotFoundRedirection()
-        {
-            try
-            {
-                Response.Redirect("/m/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.Features.PageNotFoundRedirection");
-            }
-        }
-
-        /// <summary>
-        /// Created By : Sajal Gupta on 30-01-2017
         /// Description : Binded page through common view model.
         /// </summary>
         private void GetFeaturesList()
@@ -95,11 +79,14 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objFeatures = new FeaturesListing();
+                _isPageNotFound = objFeatures.IsPageNotFound;
 
-                if (!objFeatures.IsPageNotFound)
+                if (!_isPageNotFound)
                 {
                     objFeatures.GetFeaturesList();
-                    if (objFeatures.isContentFound)
+                    _isContentFound = objFeatures.isContentFound;
+
+                    if (_isContentFound)
                     {
                         objFeatures.BindLinkPager(ctrlPager);
                         prevPageUrl = objFeatures.prevPageUrl;
@@ -110,19 +97,20 @@ namespace Bikewale.Mobile.Content
                         totalrecords = objFeatures.totalrecords;
                         BindWidgets();
                     }
-                    else
-                    {
-                        PageNotFoundRedirection();
-                    }
-                }
-                else
-                {
-                    PageNotFoundRedirection();
                 }
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.Features.GetFeaturesList");
+            }
+            finally
+            {
+                if (_isPageNotFound || !_isContentFound)
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

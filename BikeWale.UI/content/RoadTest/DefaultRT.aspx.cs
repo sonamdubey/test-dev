@@ -30,6 +30,8 @@ namespace Bikewale.Content
         protected RoadTestListing objRoadTests;
         protected IList<ArticleSummary> articlesList;
         private bool _isRedirection;
+        private bool _isPageNotFound;
+        private string _redirectUrl;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,24 +61,6 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Created By : Sajal Gupta on 30-01-2017
-        /// Description : For page redirection to not found.
-        /// </summary>
-        private void PageNotFoundRedirection()
-        {
-            try
-            {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.roadtest.default.PageNotFoundRedirection");
-            }
-        }
-
-        /// <summary>
-        /// Created By : Sajal Gupta on 30-01-2017
         /// Description : Binded page through common view model.
         /// </summary>
         private void GetRoadTestList()
@@ -84,21 +68,18 @@ namespace Bikewale.Content
             try
             {
                 objRoadTests = new RoadTestListing();
+                _isPageNotFound = objRoadTests.pageNotFound;
 
-                if (!objRoadTests.pageNotFound)
+                if (!_isPageNotFound)
                 {
                     objRoadTests.GetRoadTestList();
 
                     _isContentFound = objRoadTests.isContentFound;
                     _isRedirection = objRoadTests.isRedirection;
+                    _redirectUrl = objRoadTests.redirectUrl;
 
-                    if (_isRedirection)
+                    if (_isContentFound)
                     {
-                        CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
-                    }
-                    else if (_isContentFound)
-                    {
-
                         objRoadTests.BindLinkPager(ctrlPager);
                         makeId = objRoadTests.makeId;
                         makeName = objRoadTests.makeName;
@@ -114,19 +95,24 @@ namespace Bikewale.Content
                         nextUrl = objRoadTests.nextPageUrl;
                         BindPageWidgets();
                     }
-                    else
-                    {
-                        PageNotFoundRedirection();
-                    }
-                }
-                else
-                {
-                    PageNotFoundRedirection();
                 }
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.RoadTest.GetRoadTestList");
+            }
+            finally
+            {
+                if (_isRedirection)
+                {
+                    CommonOpn.RedirectPermanent(_redirectUrl);
+                }
+                else if (_isPageNotFound || !_isContentFound)
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

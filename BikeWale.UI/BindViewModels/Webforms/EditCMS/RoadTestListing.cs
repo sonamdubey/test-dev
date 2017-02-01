@@ -30,12 +30,12 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// Description : Common logic to bind expert-reviews listing page 
     /// </summary>
     public class RoadTestListing
-    {        
+    {
         public int startIndex = 0, endIndex = 0, totalrecords;
         private int totalPages = 0;
         private const int _pageSize = 10, _pagerSlotSize = 5;
         public string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        public bool isContentFound = true;
+        public bool isContentFound = false;
         int _curPageNo = 1;
         HttpRequest page = HttpContext.Current.Request;
         public bool pageNotFound, isRedirection;
@@ -53,23 +53,18 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             {
                 container.RegisterType<IArticles, Articles>()
                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                _cache = container.Resolve<ICMSCacheContent>();
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<IPager, Pager>();
 
-                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>()
-                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                _bikeMaskingObjCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                              .RegisterType<ICacheManager, MemcacheManager>()
-                              .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                _bikeMakesObjCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
                 _objClient = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-                container.RegisterType<IPager, Pager>();
+                _bikeMakesObjCache = container.Resolve<IBikeMakesCacheRepository<int>>();
+                _bikeMaskingObjCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                _cache = container.Resolve<ICMSCacheContent>();
                 _objPager = container.Resolve<IPager>();
             }
 
@@ -98,13 +93,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         articlesList = _objRoadTestList.Articles;
                     }
                     totalrecords = Convert.ToInt32(_objRoadTestList.RecordCount);
-
+                    isContentFound = true;
                 }
-                else
-                {
-                    isContentFound = false;
-                }
-
             }
             catch (Exception err)
             {
@@ -221,7 +211,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// </summary>
         /// <param name="_ctrlPager"></param>
         public void BindLinkPager(LinkPagerControl _ctrlPager)
-        {            
+        {
             _objPager.GetStartEndIndex(_pageSize, _curPageNo, out startIndex, out endIndex);
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
