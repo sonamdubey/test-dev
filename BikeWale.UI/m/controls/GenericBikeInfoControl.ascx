@@ -6,34 +6,38 @@
 <%}else if(IsDiscontinued){ %>
 <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
 <%} %>
-<div class="model-more-info-section">
-    <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom15" title="<%= bikeName %>"><h2 class="text-truncate"><%= bikeName %></h2></a>
+<div class="model-more-info-section"> <%-- add class "model-slug-type-news" for news page slug --%>
+    <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom15" title="<%= bikeName %>"><h2><%= bikeName %></h2></a>
     <div class="clear"></div>
+
     <div class="margin-bottom10">
         <a href="<%= bikeUrl%>" class="item-image-content vertical-top" title="<%= bikeName %>">
             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
         </a>
         <div class="bike-details-block vertical-top">
+            <%-- news page slug title --%>
+            <%--<a href="<%= bikeUrl%>" class="block text-default margin-bottom5" title="<%= bikeName %>"><h3 class="text-truncate"><%= bikeName %></h3></a>--%>
+
             <% if(IsDiscontinued) {%>
-                <p class="font12 text-light-grey"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
+                <p class="price-label-size-12 text-truncate"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                    <span class="price-value-size-18"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                 </div>
                 <%} else if(IsUpcoming){%>
-                <p class="font12 text-light-grey">Expected price</p>
+                <p class="price-label-size-12">Expected price</p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="font18 text-bold">
+                    <span class="price-value-size-18">
                         <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax)) %>
                     </span>
                 </div>
                 <%} %>
             <%else{ %>
-                <p class="font12 text-light-grey"><%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
+                <p class="price-label-size-12 text-truncate"><%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
                 <div>
                     <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                    <span class="price-value-size-18"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                 </div>
             <%} %>
         </div>

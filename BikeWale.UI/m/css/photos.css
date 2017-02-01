@@ -111,7 +111,17 @@
 }
 
 .model-more-info-section .used-target-label {
-    width: 93%;
+    width: 96%;
+}
+
+.price-label-size-12 {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.price-value-size-18 {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .inr-12-grey {
@@ -705,17 +715,15 @@
 }
 
 .next-grey-icon {
-    width: 18px;
-    height: 18px;
-    background-position: -178px -391px;
+    width: 8px;
+    height: 13px;
+    background-position: -182px -393px;
     vertical-align: middle;
 }
 
 /* generic icons */
 .reviews-sm,
 .news-sm,
-.photos-sm,
-.videos-sm,
 .specs-sm {
     width: 14px;
     height: 14px;
@@ -773,7 +781,7 @@
     text-decoration: none;
 }
 
-* { 
+body { 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -847,7 +855,7 @@
     }
 
     .model-more-info-section .used-target-label {
-        width: 91%;
+        width: 94%;
     }
 
 }
