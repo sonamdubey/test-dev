@@ -26,7 +26,6 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected int curPageNo = 1;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-        private const int _pageSize = 10, _pagerSlotSize = 5;
         protected int startIndex = 0, endIndex = 0;
         protected uint totalArticles;
         HttpRequest page = HttpContext.Current.Request;
@@ -36,8 +35,6 @@ namespace Bikewale.Mobile.Content
         private GlobalCityAreaEntity currentCityArea;
         protected FeaturesListing objFeatures;
         protected IList<ArticleSummary> articlesList;
-        private bool _isPageNotFound;
-        private bool _isContentFound;
 
         protected override void OnInit(EventArgs e)
         {
@@ -79,14 +76,12 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objFeatures = new FeaturesListing();
-                _isPageNotFound = objFeatures.IsPageNotFound;
 
-                if (!_isPageNotFound)
+                if (!objFeatures.IsPageNotFound)
                 {
                     objFeatures.GetFeaturesList();
-                    _isContentFound = objFeatures.isContentFound;
 
-                    if (_isContentFound)
+                    if (objFeatures.isContentFound)
                     {
                         objFeatures.BindLinkPager(ctrlPager);
                         prevPageUrl = objFeatures.prevPageUrl;
@@ -105,7 +100,7 @@ namespace Bikewale.Mobile.Content
             }
             finally
             {
-                if (_isPageNotFound || !_isContentFound)
+                if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();

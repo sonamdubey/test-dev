@@ -27,12 +27,9 @@ namespace Bikewale.Content
         protected string prevPageUrl = string.Empty, nextPageUrl = string.Empty;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
-        private const int _pageSize = 10, _pagerSlotSize = 5;
         protected int startIndex, endIndex, totalArticles;
         protected FeaturesListing objFeatures;
         protected IList<ArticleSummary> articlesList;
-        private bool _isPageNotFound;
-        private bool _isContentFound;
 
         protected override void OnInit(EventArgs e)
         {
@@ -72,14 +69,12 @@ namespace Bikewale.Content
             try
             {
                 objFeatures = new FeaturesListing();
-                _isPageNotFound = objFeatures.IsPageNotFound;
 
-                if (!_isPageNotFound)
+                if (!objFeatures.IsPageNotFound)
                 {
                     objFeatures.GetFeaturesList();
-                    _isContentFound = objFeatures.isContentFound;
 
-                    if (_isContentFound)
+                    if (objFeatures.isContentFound)
                     {
                         objFeatures.BindLinkPager(ctrlPager);
                         prevPageUrl = objFeatures.prevPageUrl;
@@ -98,7 +93,7 @@ namespace Bikewale.Content
             }
             finally
             {
-                if (_isPageNotFound || !_isContentFound)
+                if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();

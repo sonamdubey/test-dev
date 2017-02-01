@@ -29,7 +29,6 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected int startIndex = 0, endIndex = 0, totalrecords;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        private bool _isContentFound = true;
         HttpRequest page = HttpContext.Current.Request;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
@@ -38,11 +37,7 @@ namespace Bikewale.Mobile.Content
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
         protected RoadTestListing objRoadTests;
-        private bool pageNotFound;
         protected IList<ArticleSummary> articlesList;
-        private bool _isRedirection;
-        private bool _isPageNotFound;
-        private string _redirectUrl;
 
         protected override void OnInit(EventArgs e)
         {
@@ -121,25 +116,18 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                _isPageNotFound = objRoadTests.pageNotFound;
 
-                if (!_isPageNotFound)
+                if (!objRoadTests.isRedirection && !objRoadTests.pageNotFound)
                 {
                     objRoadTests.GetRoadTestList();
 
-                    _isContentFound = objRoadTests.isContentFound;
-                    _isRedirection = objRoadTests.isRedirection;
-                    _redirectUrl = objRoadTests.redirectUrl;
-
-                    if (_isContentFound)
+                    if (objRoadTests.isContentFound)
                     {
                         objRoadTests.BindLinkPager(ctrlPager);
-                        pageNotFound = objRoadTests.pageNotFound;
                         makeId = objRoadTests.makeId;
                         makeName = objRoadTests.makeName;
                         makeMaskingName = objRoadTests.makeMaskingName;
                         modelId = objRoadTests.modelId;
-
                         modelName = objRoadTests.modelName;
                         articlesList = objRoadTests.articlesList;
                         startIndex = objRoadTests.startIndex;
@@ -157,11 +145,11 @@ namespace Bikewale.Mobile.Content
             }
             finally
             {
-                if (_isRedirection)
+                if (objRoadTests.isRedirection)
                 {
-                    CommonOpn.RedirectPermanent(_redirectUrl);
+                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
                 }
-                else if (_isPageNotFound || !_isContentFound)
+                else if (objRoadTests.pageNotFound || !objRoadTests.isContentFound)
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
