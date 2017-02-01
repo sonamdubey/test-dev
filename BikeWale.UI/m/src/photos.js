@@ -33,82 +33,6 @@ $(document).on('click', '#gallery-close-btn', function () {
     history.back();
 });
 
-
-
-//var modelImages = [
-//    {
-//        'hostUrl': 'https://imgd1.aeplcdn.com/',
-//        'imagePathLarge': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-//        'imagePathThumbnail': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-//        'imageTitle': 'Model image 1'
-//    },
-//    {
-//        'hostUrl': 'https://imgd2.aeplcdn.com/',
-//        'imagePathLarge': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-//        'imagePathThumbnail': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-//        'imageTitle': 'Rear three-quarter 2'
-//    },
-//    {
-//        'hostUrl': 'https://imgd3.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-//        'imageTitle': 'Side 3'
-//    },
-//    {
-//        'hostUrl': 'https://imgd4.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-//        'imageTitle': 'Rear three-quarter 4'
-//    },
-//    {
-//        'hostUrl': 'https://imgd5.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-//        'imageTitle': 'Front 5'
-//    },
-//    {
-//        'hostUrl': 'https://imgd6.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-//        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-//        'imageTitle': 'Rear three-quarter 6'
-//    }
-//];
-
-
-
-//var modelColorImages = [
-//    {
-//        'hostUrl': 'https://imgd6.aeplcdn.com/',
-//        'imagePathLarge': '/bw/models/honda-cb-hornet-160r.jpg',
-//        'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
-//        'imageTitle': 'Dual Tone Green',
-//        'colors': [
-//            'b3ca20'
-//        ]
-//    },
-//    {
-//        'hostUrl': 'https://imgd7.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-//        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-//        'imageTitle': 'Dual Tone Orange',
-//        'colors': [
-//            'b83419',
-//            '040004'
-//        ]
-//    },
-//    {
-//        'hostUrl': 'https://imgd8.aeplcdn.com/',
-//        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-//        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-//        'imageTitle': 'Dual Tone White',
-//        'colors': [
-//            '040004',
-//            'b83419',
-//            'cdcac3'
-//        ]
-//    }
-//];
-
 var modelVideos = [
     {
         'imagePathThumbnail': 'https://img.youtube.com/vi/HhOik7KWJwc/default.jpg',
@@ -196,16 +120,14 @@ function showGallery() {
                         modelImages: modelImages,
                         modelColorImages: modelColorImages
                     });                   
-                    var cachedEncodedData = Base64.encode(cacheData);
-                    debugger;
+                    var cachedEncodedData = Base64.encode(cacheData)
                     bwcache.set(keyPhoto, cachedEncodedData, true);
                 }
             });
         }
-        else {
-            var cacheData = JSON.parse(bwcache.get(keyPhoto, true));
-            var cacheDecodedData = Base64.decode(cacheData);
-            debugger;
+        else {           
+            var cacheData = Base64.decode(bwcache.get(keyPhoto, true));
+            var cacheDecodedData = JSON.parse(cacheData);
             modelImages = cacheDecodedData.modelImages;
             modelColorImages = cacheDecodedData.modelColorImages;
             bindPhotoGallery();            

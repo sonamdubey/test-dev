@@ -273,7 +273,8 @@
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>;
             var modelId = "<%= modelId%>";
-        </script>        
+        </script> 
+        <script type="text/javascript" src="/src/bwcache.js"></script>       
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
