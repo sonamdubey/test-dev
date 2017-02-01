@@ -164,14 +164,12 @@
 /* item-more-details-list */
 .item-more-details-list li {
   float: left;
-  margin-right: 10px;
-  margin-bottom: 10px; }
-  .item-more-details-list li:last-child {
-    margin-right: 0; }
+  margin-right: 8px;
+  margin-bottom: 8px; }
 
 .item-more-details-list a {
   display: block;
-  padding: 0 7px 2px;
+  padding: 1px 10px 5px;
   color: #787878;
   background: rgba(245, 245, 245, 0.9);
   -webkit-border-radius: 2px;
@@ -179,13 +177,15 @@
   -ms-border-radius: 2px;
   border-radius: 2px; }
   .item-more-details-list a:hover {
-    text-decoration: none; }
+    color: #fff;
+    text-decoration: none;
+    background: #54bbca; }
 
 .item-more-details-list .icon-label {
-  font-size: 12px;
+  font-size: 13px;
   display: inline-block;
   vertical-align: middle;
-  line-height: 12px; }
+  line-height: 13px; }
 
 .best-bikes-swiper .swiper-card,
 .best-bikes-swiper .swiper-card-target {
@@ -201,36 +201,45 @@
   padding-top: 10px;
   padding-bottom: 20px; }
 
-/* icons */
-.generic-sprite {
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.png) no-repeat;
-  display: inline-block; }
-
-.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm {
+.reviews-sm,
+.news-sm,
+.specs-sm,
+.photos-sm,
+.videos-sm {
   width: 14px;
   height: 14px;
   vertical-align: middle;
-  position: relative;
-  top: 1px;
-  opacity: 0.6;
-  -moz-opacity: 0.6;
-  -khtml-opacity: 0.6; }
+  margin-right: 3px; }
 
 .reviews-sm {
-  background-position: -84px -3px; }
+  background-position: -77px -555px; }
 
 .news-sm {
-  background-position: -102px -3px; }
-
-.videos-sm {
-  background-position: -121px -3px; }
+  background-position: -109px -555px; }
 
 .specs-sm {
-  background-position: -140px -3px; }
+  background-position: -141px -555px; }
 
 .photos-sm {
-  width: 16px;
-  background-position: 0 -486px; }
+  background-position: 0 -477px; }
+
+.videos-sm {
+  background-position: -16px -476px; }
+
+.item-more-details-list a:hover .reviews-sm {
+  background-position: -93px -555px; }
+
+.item-more-details-list a:hover .news-sm {
+  background-position: -125px -555px; }
+
+.item-more-details-list a:hover .specs-sm {
+  background-position: -157px -555px; }
+
+.item-more-details-list a:hover .photos-sm {
+  background-position: 0 -493px; }
+
+.item-more-details-list a:hover .videos-sm {
+  background-position: -16px -492px; }
 
 @media only screen and (max-width: 320px) {
   .generic-banner h1 {

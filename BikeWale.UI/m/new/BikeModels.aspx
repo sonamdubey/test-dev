@@ -111,7 +111,7 @@
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
-							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true#modelGallery" title="<%= bikeName + " images"%>">
+							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true#modelGallery" title="<%= bikeName + " images"%>" class="block">
 							<% } %>
                             <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image " class="cursor-pointer" />
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
@@ -121,14 +121,14 @@
                                 <% if (modelPage.ModelDetails.PhotosCount>0)
                                 { %>
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/" class="model-media-item">
-                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                    <span class="bwmsprite photos-sm"></span>
                                     <span class="model-media-count"><%= modelPage.ModelDetails.PhotosCount %></span>
                                 </a>
                                 <% } %>
                                <% if (modelPage.ModelDetails.VideosCount>0)
                                 { %>
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/videos/" class="model-media-item">
-                                    <span class="bwmsprite gallery-video-icon"></span>
+                                    <span class="bwmsprite videos-sm"></span>
                                     <span class="model-media-count"><%=modelPage.ModelDetails.VideosCount%></span>
                                 </a>                              
                                <% } %>

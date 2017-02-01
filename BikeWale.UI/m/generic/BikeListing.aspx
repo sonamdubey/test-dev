@@ -144,7 +144,7 @@
                                 <% if(bike.NewsCount > 0) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
-                                        <span class="generic-sprite news-sm"></span>
+                                        <span class="bwmsprite news-sm"></span>
                                         <span class="icon-label">News</span>
                                     </a>
                                 </li>
@@ -152,7 +152,7 @@
                                   <% if(bike.ExpertReviewsCount > 0) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
-                                        <span class="generic-sprite reviews-sm"></span>
+                                        <span class="bwmsprite reviews-sm"></span>
                                         <span class="icon-label">Reviews</span>
                                     </a>
                                 </li>
@@ -168,7 +168,7 @@
                             <% if(bike.VideosCount > 0) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
-                                        <span class="generic-sprite videos-sm"></span>
+                                        <span class="bwmsprite videos-sm"></span>
                                         <span class="icon-label">Videos</span>
                                     </a>
                                 </li>
@@ -176,7 +176,7 @@
                             <% if(bike.MinSpecs !=null) { %>
                                 <li>
                                     <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
-                                        <span class="generic-sprite specs-sm"></span>
+                                        <span class="bwmsprite specs-sm"></span>
                                         <span class="icon-label">Specs</span>
                                     </a>
                                 </li>

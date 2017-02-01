@@ -89,7 +89,6 @@
         <% if(!IsUpcoming) { %>
         <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-                <h2 class="margin-bottom15">Know more about this bike</h2>
                 <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
             </div>
         </section>

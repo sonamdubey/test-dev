@@ -51,7 +51,6 @@
 #makeDealersContent .swiper-slide:first-child { margin-left:10px; }
 .swiper-slide.bike-carousel-swiper.dealer-by-city { width:184px; min-height:210px;padding:17px 10px; }
 .swiper-slide.bike-carousel-swiper.dealer-no-city { width:184px; min-height:210px; }
-.vertical-top {display: inline-block;vertical-align: top;}
 .dealership-loc-icon {width: 10px;height: 15px;background-position: -40px -435px;position: relative;top: 4px;}
 .dealership-address, .dealership-email {width: 87%;}
 .tel-sm-grey-icon { width: 15px; height: 15px;background-position: 0 -435px; position: relative;top: 2px;}

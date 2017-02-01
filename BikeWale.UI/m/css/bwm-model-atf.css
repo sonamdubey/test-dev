@@ -19,13 +19,17 @@ h1 {font-weight: 700;}
 .border-light-top { border-top:1px solid #f1f1f1; }
 .tel-grey-icon { position:relative;top:2px; }
 #model-image-wrapper .model-main-image { background-color: #fff; max-width: 476px; margin: 0 auto; min-height: 180px; max-height: 268px; position: relative; text-align: center; }
-#model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; font-size: 12px; }
-.model-media-item { display:inline-block; vertical-align: middle; padding: 5px 5px 3px; color: #82888b; background: rgba(240, 240, 240, 0.8); border-radius: 2px; }
-.model-media-item:hover { text-decoration:none; }
-.model-media-count { position: relative; top: -1px; }
-.gallery-photo-icon, .gallery-video-icon { height: 12px; }
-.gallery-photo-icon { width: 16px; background-position: 0 -486px; }
-.gallery-video-icon { width: 12px; background-position: -26px -486px; }
+#model-image-wrapper .model-media-details { position: absolute; right: 15px; bottom: 10px; }
+.model-media-item { display:inline-block; vertical-align: middle; padding: 1px 10px 5px; color: #787878; background: rgba(245, 245, 245, 0.9); border-radius: 2px; }
+.model-media-item:hover { text-decoration:none; color: #fff; background: #54bbca; }
+.model-media-count { font-size: 13px; line-height: 13px; display: inline-block; vertical-align: middle; }
+.model-media-item:hover .photos-sm {
+    background-position: 0 -493px;
+}
+
+.model-media-item:hover .videos-sm {
+    background-position: -16px -492px;
+}
 
 .text-xt-light-grey {color :#a8afb3; }
 .block { display:block; width:100%; }
@@ -219,11 +223,6 @@ h1 {font-weight: 700;}
 
 #dealer-offers-list .more-offers-card {
     background-color: #f9f9f9;
-}
-
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
 }
 
 .inr-grey-xxxsm-icon {

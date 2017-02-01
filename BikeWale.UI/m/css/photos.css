@@ -16,11 +16,6 @@
     padding: 15px 20px;
 }
 
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
 /* photos-grid-list */
 .bg-grid {
     background: #f0f0f0;
@@ -100,9 +95,8 @@
 
 /* model-more-info-section */
 .model-more-info-section .item-image-content {
-    width: 68px;
-    height: 38px;
-    margin-right: 5px;
+    width: 100px;
+    height: 56px;
     display: inline-block;
     background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
 }
@@ -112,8 +106,20 @@
 }
 
 .model-more-info-section .bike-details-block {
-    font-size: 14px;
-    width: 70%;
+    width: 66%;
+    padding-left: 10px;
+}
+
+.model-more-info-section .used-target-label {
+    width: 93%;
+}
+
+.inr-12-grey {
+    width: 8px;
+    height: 10px;
+    background-position: -102px -137px;
+    position: relative;
+    top: 1px;
 }
 
 /* ribbon */
@@ -164,7 +170,7 @@
 
 .item-more-details-list a {
     display: block;
-    padding: 1px 7px;
+    padding: 1px 10px 5px;
     color: #787878;
     background: rgba(245, 245, 245, 0.9);
     -webkit-border-radius: 2px;
@@ -178,10 +184,10 @@
 }
 
 .item-more-details-list .icon-label {
-    font-size: 12px;
+    font-size: 13px;
     display: inline-block;
     vertical-align: middle;
-    line-height: 12px;
+    line-height: 13px;
 }
 
 .text-grey {
@@ -210,10 +216,10 @@
     border-left: 0;
 }
 
-.btn-size-180 {
+.btn-180-34 {
     font-size: 14px;
     width: 180px;
-    padding: 5px 0;
+    padding: 6px;
 }
 
 /* videos */
@@ -698,6 +704,13 @@
     display: inline-block;
 }
 
+.next-grey-icon {
+    width: 18px;
+    height: 18px;
+    background-position: -178px -391px;
+    vertical-align: middle;
+}
+
 /* generic icons */
 .reviews-sm,
 .news-sm,
@@ -707,28 +720,19 @@
     width: 14px;
     height: 14px;
     vertical-align: middle;
-    position: relative;
-    top: 1px;
+    margin-right: 3px;
 }
 
 .reviews-sm {
-    background-position: -78px -555px;
+    background-position: -77px -555px;
 }
 
 .news-sm {
-    background-position: -108px -555px;
-}
-
-.videos-sm {
-    background-position: -138px -555px;
+    background-position: -109px -555px;
 }
 
 .specs-sm {
-    background-position: -168px -555px;
-}
-
-.photos-sm {
-    background-position: 0 -486px;
+    background-position: -141px -555px;
 }
 
 .item-more-details-list a:hover .reviews-sm {
@@ -736,19 +740,19 @@
 }
 
 .item-more-details-list a:hover .news-sm {
-    background-position: -123px -555px;
-}
-
-.item-more-details-list a:hover .videos-sm {
-    background-position: -153px -555px;
+    background-position: -125px -555px;
 }
 
 .item-more-details-list a:hover .specs-sm {
-    background-position: -183px -555px;
+    background-position: -157px -555px;
 }
 
 .item-more-details-list a:hover .photos-sm {
-    background-position: -198px -555px;
+    background-position: 0 -493px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -16px -492px;
 }
 
 /* button arrows */
@@ -761,8 +765,7 @@
     top: 1px;
 }
 
-.btn-white.active .btn-red-arrow,
-.btn-white:hover .btn-red-arrow {
+.btn-white.active .btn-red-arrow {
     background-position: -204px -49px;
 }
 
@@ -820,7 +823,7 @@
         width: 70%;
     }
 
-    .footer-tab-card .btn-size-180 {
+    .footer-tab-card .btn-180-34 {
         width: 150px;
     }
 
@@ -837,6 +840,14 @@
     .video-image-block,
     .video-image-block img {
         width: 90px;
+    }
+
+    .model-more-info-section .bike-details-block {
+        width: 62%;
+    }
+
+    .model-more-info-section .used-target-label {
+        width: 91%;
     }
 
 }
