@@ -93,6 +93,7 @@
                                     </div>
                                 </div>
 
+                                <%-- model slug --%>
                                 <div class="model-grid-8-slug">
                                     <div class="grid-8 alpha border-solid-right">
                                         <a href="" title="Bajaj Pulsar RS200" class="model-image-target vertical-top">
@@ -109,13 +110,13 @@
                                                 </li>
                                                 <li>
                                                     <a href="" title="Bajaj Pulsar RS200 Videos">
-                                                        <span class="generic-sprite videos-sm"></span>
+                                                        <span class="bwsprite videos-sm"></span>
                                                         <span class="icon-label">Videos</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="" title="Bajaj Pulsar RS200 Specs">
-                                                        <span class="generic-sprite specs-sm"></span>
+                                                        <span class="bwsprite specs-sm"></span>
                                                         <span class="icon-label">Specs</span>
                                                     </a>
                                                 </li>
@@ -123,8 +124,8 @@
                                         </div>
                                     </div>
                                     <div class="grid-4 omega">
-                                        <p class="font12 text-light-grey margin-bottom5 text-truncate" title="Ex-showroom, Mumbai">Ex-showroom, Mumbai</p>
-                                        <span class="bwsprite inr-md"></span> <span class="font16 text-bold">12,489</span>
+                                        <p class="price-label-size-12 margin-bottom5 text-truncate" title="Ex-showroom, Mumbai">Ex-showroom, Mumbai</p>
+                                        <span class="bwsprite inr-md"></span> <span class="price-value-size-16">12,489</span>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="border-solid-bottom margin-top15 margin-bottom10"></div>

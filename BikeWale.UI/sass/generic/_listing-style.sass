@@ -101,6 +101,30 @@
 		z-index: 1
 
 .key-specs-list
+	padding-bottom: 15px
+	overflow: hidden
+	border-bottom: 1px solid #ecedee
+	
+	li
+		padding-left: 12px
+		padding-right: 12px
+		position: relative
+
+		&:before
+			content: ""
+			width: 1px
+			height: 15px
+			position: absolute
+			top: 3px
+			left: 0
+			border-left: 1px solid #ecedee
+
+		&:first-child
+			padding-left: 0
+
+			&:before
+				border-left: 0
+
 	li,
 	span
 		display: inline-block
@@ -123,49 +147,75 @@
 
 	a
 		display: block
-		padding: 0 7px 2px
+		padding: 1px 10px 5px
 		color: #787878
 		background: rgba(245,245,245,.9)
 		@include border-radius(2px)
 
 		&:hover
+			color: #fff
+			background: #54bbca
 			text-decoration: none
 
 	.icon-label
-		font-size: $font-size-small
+		font-size: 13px
 		display: inline-block
 		vertical-align: middle
-		line-height: 12px
+		line-height: 13px
 
-/* generic carousel */
-.generic-carousel
-	.text-truncate
-		width: 100%
+/* key specs */
+.capacity-sm,
+.mileage-sm,
+.power-sm,
+.weight-sm
+	width: 16px
+	height: 14px
+	margin-right: 5px
 
-/* icons */
-.generic-sprite
-	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat
-	display: inline-block
+.capacity-sm
+	background-position: -136px -153px
 
-.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm
+.mileage-sm
+	background-position: -154px -153px
+
+.power-sm
+	background-position: -136px -169px
+	margin-right: 2px
+
+.weight-sm
+	background-position: -154px -169px
+
+.reviews-sm,
+.news-sm,
+.specs-sm
 	width: 14px
 	height: 14px
 	vertical-align: middle
-	position: relative
-	top: 1px
+	margin-right: 3px
 
 .reviews-sm
-	background-position: -84px -3px
+	background-position: -136px -187px
 
 .news-sm
-	background-position: -102px -3px
-
-.videos-sm
-	background-position: -121px -3px
+	background-position: -136px -203px
 
 .specs-sm
-	background-position: -140px -3px
+	background-position: -136px -219px
 
-.photos-sm
-	width: 16px
-	background-position: -213px -207px
+.item-more-details-list
+	a
+		&:hover
+			.reviews-sm
+				background-position: -152px -187px
+				
+			.news-sm
+				background-position: -152px -203px
+				
+			.specs-sm
+				background-position: -152px -219px
+				
+			.photos-sm
+				background-position: -152px -235px
+				
+			.videos-sm
+				background-position: -152px -251px

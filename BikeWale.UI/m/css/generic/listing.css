@@ -203,9 +203,7 @@
 
 .reviews-sm,
 .news-sm,
-.specs-sm,
-.photos-sm,
-.videos-sm {
+.specs-sm {
   width: 14px;
   height: 14px;
   vertical-align: middle;
@@ -219,12 +217,6 @@
 
 .specs-sm {
   background-position: -141px -555px; }
-
-.photos-sm {
-  background-position: 0 -477px; }
-
-.videos-sm {
-  background-position: -16px -476px; }
 
 .item-more-details-list a:hover .reviews-sm {
   background-position: -93px -555px; }

@@ -202,32 +202,27 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
 
-/* key specs */
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
-    width: 16px;
-    height: 14px;
-    margin-right: 5px;
-}
-.capacity-sm {
-    background-position: -136px -153px;
-}
-.mileage-sm {
-    background-position: -154px -153px;
-}
-.power-sm {
-    background-position: -136px -169px;
-    margin-right: 2px;
-}
-.weight-sm {
-    background-position: -154px -169px;
-}
-
 .next-grey-icon {
     width: 8px;
     height: 12px;
     position: relative;
     background-position: -222px -187px;
     vertical-align: middle;
+}
+
+.photos-sm,
+.videos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.photos-sm {
+    background-position: -136px -235px;
+}
+.videos-sm {
+    background-position: -136px -251px;
 }
 
 /* btn arrows */
@@ -279,33 +274,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 a.action-btn:hover{text-decoration:none;}
 
 .booking-how-it-works { background-color: #cbcbcb; width: 976px; height: 1291px; }
-
-/* key specs */
-.key-specs-list li {
-    padding-left: 12px;
-    padding-right: 12px;
-    position: relative;
-}
-.key-specs-list li:before {
-    content: "";
-    width: 1px;
-    height: 15px;
-    position: absolute;
-    top: 3px;
-    left: 0;
-    border-left: 1px solid #ecedee;
-}
-.key-specs-list li:first-child {
-    padding-left: 0;
-}
-.key-specs-list li:first-child:before {
-    border-left: 0;
-}
-.key-specs-list li,
-.key-specs-list span {
-    display: inline-block;
-    vertical-align: middle;
-}
 
 /* new common classes */
 .hover-no-underline:hover {

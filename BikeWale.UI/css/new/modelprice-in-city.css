@@ -126,6 +126,16 @@
     width: 97%;
 }
 
+.price-label-size-14 {
+    font-size: 14px;
+    color: #82888b;
+}
+
+.price-value-size-18 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .btn-180-34 {
     width: 180px;
     padding: 6px 10px;
@@ -140,7 +150,7 @@
 }
 .item-more-details-list a {
     display: block;
-    padding: 2px 10px 4px;
+    padding: 1px 10px 5px;
     color: #787878;
     background: rgba(245, 245, 245, 0.9);
     -webkit-border-radius: 2px;
@@ -155,43 +165,103 @@
 }
 .item-more-details-list .icon-label {
     font-size: 13px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 13px;
 }
 
-/* icons */
-.generic-sprite {
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
-    display: inline-block;
+/* key specs */
+.key-specs-list li {
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative;
 }
+.key-specs-list li:before {
+    content: "";
+    width: 1px;
+    height: 15px;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    border-left: 1px solid #ecedee;
+}
+.key-specs-list li:first-child {
+    padding-left: 0;
+}
+.key-specs-list li:first-child:before {
+    border-left: 0;
+}
+.key-specs-list li,
+.key-specs-list span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* key specs */
+.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
+    width: 16px;
+    height: 14px;
+    margin-right: 5px;
+}
+.capacity-sm {
+    background-position: -136px -153px;
+}
+.mileage-sm {
+    background-position: -154px -153px;
+}
+.power-sm {
+    background-position: -136px -169px;
+    margin-right: 2px;
+}
+.weight-sm {
+    background-position: -154px -169px;
+}
+
+/* generic icons */
 .reviews-sm,
 .news-sm,
-.videos-sm,
-.specs-sm,
-.photos-sm {
+.specs-sm {
     width: 14px;
     height: 14px;
     vertical-align: middle;
-    position: relative;
-    top: 1px;
+    margin-right: 3px;
 }
 .reviews-sm {
-    background-position: -84px -3px;
+    background-position: -136px -187px;
 }
 .news-sm {
-    background-position: -102px -3px;
-}
-.videos-sm {
-    background-position: -121px -3px;
+    background-position: -136px -203px;
 }
 .specs-sm {
-    background-position: -140px -3px;
+    background-position: -136px -219px;
 }
-.photos-sm {
-    width: 16px;
-    background-position: -213px -207px;
+
+.item-more-details-list a:hover .reviews-sm {
+    background-position: -152px -187px;
+}
+
+.item-more-details-list a:hover .news-sm {
+    background-position: -152px -203px;
+}
+
+.item-more-details-list a:hover .specs-sm {
+    background-position: -152px -219px;
+}
+
+.item-more-details-list a:hover .photos-sm {
+    background-position: -152px -236px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -152px -251px;
 }
 
 @media only screen and (max-width:1024px) {
     #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:105px; }
     #city-dealer-list li { width: 280px; }
+
+    .model-grid-12-slug .model-details-block {
+        width: 72%;
+    }
 }

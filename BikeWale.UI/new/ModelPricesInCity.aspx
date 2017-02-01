@@ -226,7 +226,7 @@
                                 <ul class="item-more-details-list margin-bottom5 inline-block">
                                     <li>
                                         <a href="" title="Bajaj Pulsar RS200 Reviews">
-                                            <span class="generic-sprite reviews-sm"></span>
+                                            <span class="bwsprite reviews-sm"></span>
                                             <span class="icon-label">Reviews</span>
                                         </a>
                                     </li>
@@ -238,13 +238,13 @@
                                     </li>
                                     <li>
                                         <a href="" title="Bajaj Pulsar RS200 Videos">
-                                            <span class="generic-sprite videos-sm"></span>
+                                            <span class="bwsprite videos-sm"></span>
                                             <span class="icon-label">Videos</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="" title="Bajaj Pulsar RS200 Specs">
-                                            <span class="generic-sprite specs-sm"></span>
+                                            <span class="bwsprite specs-sm"></span>
                                             <span class="icon-label">Specs</span>
                                         </a>
                                     </li>
@@ -260,11 +260,11 @@
                             </div>
                         </div>
                         <div class="grid-4 omega padding-left20">
-                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom price, Mumbai</p>
+                            <p class="price-label-size-14 margin-bottom5">Ex-showroom price, Mumbai</p>
                             <div class="margin-bottom10">
-                                <span class="bwsprite inr-lg"></span> <span class="font18 text-bold">12,489</span>
+                                <span class="bwsprite inr-lg"></span> <span class="price-value-size-18">12,489</span>
                             </div>
-                            <a href="javascript:void(0)" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
+                            <a href="" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
                         </div>
                         <div class="clear"></div>
                     </div>

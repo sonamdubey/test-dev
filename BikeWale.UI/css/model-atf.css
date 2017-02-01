@@ -418,6 +418,26 @@
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-2010 { padding:20px 10px; }
 
+/* key specs */
+.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
+    width: 16px;
+    height: 14px;
+    margin-right: 5px;
+}
+.capacity-sm {
+    background-position: -136px -153px;
+}
+.mileage-sm {
+    background-position: -154px -153px;
+}
+.power-sm {
+    background-position: -136px -169px;
+    margin-right: 2px;
+}
+.weight-sm {
+    background-position: -154px -169px;
+}
+
 /* tooltip */
 .bw-tooltip {
     padding: 10px 20px 10px 15px;
