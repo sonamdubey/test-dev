@@ -153,7 +153,7 @@ function toggleFullScreen(goFullScreen) {
 }
 
 function checkCacheModelPhotos(bKey) {    
-    if (lscache.get(bKey)) return true;
+    if (bwcache.get(bKey, true)) return true;
     else return false;
 }
 var cacheData;
@@ -192,19 +192,22 @@ function showGallery() {
 
                     bindPhotoGallery();
 
-                    var cacheData = {
+                    var cacheData = JSON.stringify({
                         modelImages: modelImages,
                         modelColorImages: modelColorImages
-                    }
-
-                    lscache.set(keyPhoto, cacheData, 10);
+                    });                   
+                    var cachedEncodedData = Base64.encode(cacheData);
+                    debugger;
+                    bwcache.set(keyPhoto, cachedEncodedData, true);
                 }
             });
         }
-        else {            
-            var cacheData = lscache.get(keyPhoto);
-            modelImages = cacheData.modelImages;
-            modelColorImages = cacheData.modelColorImages;
+        else {
+            var cacheData = JSON.parse(bwcache.get(keyPhoto, true));
+            var cacheDecodedData = Base64.decode(cacheData);
+            debugger;
+            modelImages = cacheDecodedData.modelImages;
+            modelColorImages = cacheDecodedData.modelColorImages;
             bindPhotoGallery();            
         }
 
