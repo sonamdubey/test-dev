@@ -112,6 +112,24 @@ namespace Bikewale.Mobile.Content
 
         /// <summary>
         /// Created By : Sajal Gupta on 30-01-2017
+        /// Description : For page redirection to not found.
+        /// </summary>
+        private void PageNotFoundRedirection()
+        {
+            try
+            {
+                Response.Redirect("/m/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.roadtest.default.PageNotFoundRedirection");
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 30-01-2017
         /// Description : Binded page through common view model.
         /// </summary>
         private void GetRoadTestList()
@@ -119,36 +137,44 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                _isContentFound = objRoadTests.isContentFound;
-                _isRedirection = objRoadTests.isRedirection;
 
-                if (_isRedirection)
+                if (!objRoadTests.pageNotFound)
                 {
-                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
-                }
-                else if (_isContentFound)
-                {
-                    objRoadTests.BindLinkPager(ctrlPager);
-                    pageNotFound = objRoadTests.pageNotFound;
-                    makeId = objRoadTests.makeId;
-                    makeName = objRoadTests.makeName;
-                    makeMaskingName = objRoadTests.makeMaskingName;
-                    modelId = objRoadTests.modelId;
+                    objRoadTests.GetRoadTestList();
 
-                    modelName = objRoadTests.modelName;
-                    articlesList = objRoadTests.articlesList;
-                    startIndex = objRoadTests.startIndex;
-                    endIndex = objRoadTests.endIndex;
-                    totalrecords = objRoadTests.totalrecords;
-                    prevPageUrl = objRoadTests.prevPageUrl;
-                    nextPageUrl = objRoadTests.nextPageUrl;
-                    BindWidgets();
+                    _isContentFound = objRoadTests.isContentFound;
+                    _isRedirection = objRoadTests.isRedirection;
+
+                    if (_isRedirection)
+                    {
+                        CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                    }
+                    else if (_isContentFound)
+                    {
+                        objRoadTests.BindLinkPager(ctrlPager);
+                        pageNotFound = objRoadTests.pageNotFound;
+                        makeId = objRoadTests.makeId;
+                        makeName = objRoadTests.makeName;
+                        makeMaskingName = objRoadTests.makeMaskingName;
+                        modelId = objRoadTests.modelId;
+
+                        modelName = objRoadTests.modelName;
+                        articlesList = objRoadTests.articlesList;
+                        startIndex = objRoadTests.startIndex;
+                        endIndex = objRoadTests.endIndex;
+                        totalrecords = objRoadTests.totalrecords;
+                        prevPageUrl = objRoadTests.prevPageUrl;
+                        nextPageUrl = objRoadTests.nextPageUrl;
+                        BindWidgets();
+                    }
+                    else
+                    {
+                        PageNotFoundRedirection();
+                    }
                 }
                 else
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    PageNotFoundRedirection();
                 }
             }
             catch (Exception err)

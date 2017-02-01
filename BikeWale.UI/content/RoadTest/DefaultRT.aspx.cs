@@ -28,7 +28,6 @@ namespace Bikewale.Content
         string makeId = string.Empty, modelId = string.Empty;
         protected int startIndex, endIndex, totalArticles;
         protected RoadTestListing objRoadTests;
-        private bool pageNotFound;
         protected IList<ArticleSummary> articlesList;
         private bool _isRedirection;
 
@@ -60,6 +59,24 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Created By : Sajal Gupta on 30-01-2017
+        /// Description : For page redirection to not found.
+        /// </summary>
+        private void PageNotFoundRedirection()
+        {
+            try
+            {
+                Response.Redirect("/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.roadtest.default.PageNotFoundRedirection");
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 30-01-2017
         /// Description : Binded page through common view model.
         /// </summary>
         private void GetRoadTestList()
@@ -67,37 +84,44 @@ namespace Bikewale.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                pageNotFound = objRoadTests.pageNotFound;
-                _isContentFound = objRoadTests.isContentFound;
-                _isRedirection = objRoadTests.isRedirection;
 
-                if (_isRedirection)
+                if (!objRoadTests.pageNotFound)
                 {
-                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
-                }
-                else if (_isContentFound)
-                {
+                    objRoadTests.GetRoadTestList();
 
-                    objRoadTests.BindLinkPager(ctrlPager);
-                    makeId = objRoadTests.makeId;
-                    makeName = objRoadTests.makeName;
-                    makeMaskingName = objRoadTests.makeMaskingName;
-                    modelId = objRoadTests.modelId;
+                    _isContentFound = objRoadTests.isContentFound;
+                    _isRedirection = objRoadTests.isRedirection;
 
-                    modelName = objRoadTests.modelName;
-                    articlesList = objRoadTests.articlesList;
-                    startIndex = objRoadTests.startIndex;
-                    endIndex = objRoadTests.endIndex;
-                    totalArticles = objRoadTests.totalrecords;
-                    prevUrl = objRoadTests.prevPageUrl;
-                    nextUrl = objRoadTests.nextPageUrl;
-                    BindPageWidgets();
+                    if (_isRedirection)
+                    {
+                        CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                    }
+                    else if (_isContentFound)
+                    {
+
+                        objRoadTests.BindLinkPager(ctrlPager);
+                        makeId = objRoadTests.makeId;
+                        makeName = objRoadTests.makeName;
+                        makeMaskingName = objRoadTests.makeMaskingName;
+                        modelId = objRoadTests.modelId;
+
+                        modelName = objRoadTests.modelName;
+                        articlesList = objRoadTests.articlesList;
+                        startIndex = objRoadTests.startIndex;
+                        endIndex = objRoadTests.endIndex;
+                        totalArticles = objRoadTests.totalrecords;
+                        prevUrl = objRoadTests.prevPageUrl;
+                        nextUrl = objRoadTests.nextPageUrl;
+                        BindPageWidgets();
+                    }
+                    else
+                    {
+                        PageNotFoundRedirection();
+                    }
                 }
                 else
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    PageNotFoundRedirection();
                 }
             }
             catch (Exception err)

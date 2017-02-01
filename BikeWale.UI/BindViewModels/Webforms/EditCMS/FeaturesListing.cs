@@ -26,16 +26,16 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// </summary>
     public class FeaturesListing
     {
-        private IPager objPager = null;
         protected int curPageNo = 1;
         public string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
         private const int _pageSize = 10, _pagerSlotSize = 5;
-        public bool isContentFound = true;
+        public bool isContentFound = false;
         public int startIndex = 0, endIndex = 0;
         public int totalrecords;
         public IList<ArticleSummary> articlesList;
         private ICMSCacheContent _cache;
         private IPager _objPager = null;
+        public bool IsPageNotFound = true;
 
         public FeaturesListing()
         {
@@ -50,16 +50,24 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
 
             ProcessQueryString();
-            GetFeaturesList();
+
         }
 
-        protected void ProcessQueryString()
+        private void ProcessQueryString()
         {
-            var request = HttpContext.Current.Request;
-
-            if (!string.IsNullOrEmpty(request.QueryString["pn"]))
+            try
             {
-                Int32.TryParse(request.QueryString["pn"], out curPageNo);
+                var request = HttpContext.Current.Request;
+
+                if (!string.IsNullOrEmpty(request.QueryString["pn"]))
+                {
+                    Int32.TryParse(request.QueryString["pn"], out curPageNo);
+                }
+                IsPageNotFound = false;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesListing.ProcessQueryString");
             }
         }
 
@@ -67,16 +75,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// Written By : Ashwini Todkar on 30 Sept 2014
         /// Summary    : PopulateWhere to get features list from web api asynchronously
         /// </summary>
-        private void GetFeaturesList()
+        public void GetFeaturesList()
         {
             try
             {
-                // get pager instance
-                IPager objPager = _objPager;
-
                 int _startIndex = 0, _endIndex = 0;
 
-                objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
+                _objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
 
                 List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
                 categorList.Add(EnumCMSContentType.Features);
@@ -88,13 +93,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
                 {
 
-                    int _totalPages = objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
+                    int _totalPages = _objPager.GetTotalPages(Convert.ToInt32(_objFeaturesList.RecordCount), _pageSize);
                     articlesList = _objFeaturesList.Articles;
                     totalrecords = Convert.ToInt32(_objFeaturesList.RecordCount);
-                }
-                else
-                {
-                    isContentFound = false;
+                    isContentFound = true;
                 }
 
             }
@@ -111,8 +113,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// <param name="_ctrlPager"></param>
         public void BindLinkPager(LinkPagerControl _ctrlPager)
         {
-            objPager = _objPager;
-            objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
+            _objPager.GetStartEndIndex(_pageSize, curPageNo, out startIndex, out endIndex);
             PagerOutputEntity _pagerOutput = null;
             PagerEntity _pagerEntity = null;
             int recordCount = totalrecords;
@@ -129,13 +130,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 _pagerEntity.PageUrlType = "page/";
                 _pagerEntity.TotalResults = (int)recordCount; //total News count
                 _pagerEntity.PageSize = _pageSize;  //No. of news to be displayed on a page
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
+                _pagerOutput = _objPager.GetPager<PagerOutputEntity>(_pagerEntity);
 
                 // for RepeaterPager
 
                 _ctrlPager.PagerOutput = _pagerOutput;
                 _ctrlPager.CurrentPageNo = curPageNo;
-                _ctrlPager.TotalPages = objPager.GetTotalPages((int)recordCount, _pageSize);
+                _ctrlPager.TotalPages = _objPager.GetTotalPages((int)recordCount, _pageSize);
                 _ctrlPager.BindPagerList();
 
                 //For SEO
