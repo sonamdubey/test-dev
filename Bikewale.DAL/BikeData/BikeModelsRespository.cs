@@ -1659,7 +1659,7 @@ namespace Bikewale.DAL.BikeData
             } // catch Exception
             return objReview;
         }
-        
+
         /// <summary>
         /// Created by : Aditi Srivastava on 25 Jan 2017
         /// summary    : Get details bodystype of a bike model
@@ -1696,9 +1696,9 @@ namespace Bikewale.DAL.BikeData
             }
             return bodyStyle;
         }
-		
-		
-	/// <summary>
+
+
+        /// <summary>
         /// Retrieves the Model Colors and Images
         /// Created by: Sangram Nandkhile on 30th Jan 2017
         /// </summary>
@@ -1751,8 +1751,8 @@ namespace Bikewale.DAL.BikeData
                                 modelColors.ForEach(
                                     modelColor => modelColor.ColorCodes =
                                         (from colorCode in colorCodes
-                                        where colorCode.ModelColorId == modelColor.Id
-                                        select colorCode).ToList()
+                                         where colorCode.ModelColorId == modelColor.Id
+                                         select colorCode).ToList()
                                     );
                             }
                         }
@@ -1761,7 +1761,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.FetchModelImagesByColors");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ManageModelColor.GetModelColorPhotos ==> ModelId {0}", modelId));
                 objErr.SendMail();
             }
 

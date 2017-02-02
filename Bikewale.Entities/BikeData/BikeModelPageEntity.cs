@@ -31,8 +31,6 @@ namespace Bikewale.Entities.BikeData
         public List<ModelImage> Photos { get; set; }
         [DataMember]
         public IEnumerable<ModelColorImage> colorPhotos { get; set; }
-        //[DataMember]
-        //public IEnumerable<ImageBaseEntity> AllPhotos { get; set; }
         [DataMember]
         public Overview objOverview { get; set; }
         [DataMember]

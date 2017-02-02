@@ -39,6 +39,10 @@ namespace Bikewale.Entities.CMS.Photos
         public string OriginalImgPath { get; set; }
     }
 
+    /// <summary>
+    /// Created by:Sangram Nandkhile on 02 Feb 2017
+    /// To hold model images, color images and mainimage
+    /// </summary>
     [Serializable, DataContract]
     public class ImageBaseEntity
     {

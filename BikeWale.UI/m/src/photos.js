@@ -94,7 +94,7 @@ function checkCacheModelPhotos(bKey) {
 }
 var cacheData;
 
-function filterImagesArray(responseArray){
+function filterColorImagesArray(responseArray){
     return ko.utils.arrayFilter(responseArray, function (response) {
         return response.imageType == 3;
     });
@@ -123,7 +123,7 @@ function showGallery() {
                 success: function (response) {
                     if (response) {
                         modelImages = response;
-                        modelColorImages = filterImagesArray(response);
+                        modelColorImages = filterColorImagesArray(response);
                     }                    
 
                     bindPhotoGallery();
