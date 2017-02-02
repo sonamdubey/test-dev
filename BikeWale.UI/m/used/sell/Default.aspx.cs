@@ -169,7 +169,7 @@ namespace Bikewale.Mobile.Used.Sell
             }
             finally
             {
-                if (customerId < 1) //user not logged-in
+                if (isEdit && customerId < 1) //user not logged-in
                 {
                     Response.Redirect(String.Format("/m/users/login.aspx?ReturnUrl={0}/used/sell/?id={1}", Utility.BWConfiguration.Instance.BwHostUrl, inquiryId));
                 }
