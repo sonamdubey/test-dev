@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Bikewale.Utility;
+using System;
 using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 using System.Web.Http;
-using Bikewale.Utility;
+using System.Web.Mvc;
 using System.Web.Routing;
-using WURFL.Config;
 using WURFL;
+using WURFL.Config;
 
 namespace Bikewale
 {
@@ -19,6 +16,7 @@ namespace Bikewale
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            ViewEngines.Engines.Add(new RazorViewEngine());
             log4net.Config.XmlConfigurator.Configure();
             UnityConfig.RegisterComponents();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -30,7 +28,7 @@ namespace Bikewale
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
-        {            
+        {
             CurrentUser.GenerateUniqueCookie();
         }
 
