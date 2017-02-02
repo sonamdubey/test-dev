@@ -128,7 +128,10 @@ namespace Bikewale.News
             ctrlPopularBikes.totalCount = 3;
             ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
             ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularByCategory.CityId = Convert.ToUInt32(currentCityArea.CityId); 
+            if (ctrlPopularByCategory != null)
+            {
+                ctrlPopularByCategory.CityId = Convert.ToUInt32(currentCityArea.CityId);
+            }
 
             //ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             //ctrlUpcomingBikes.pageSize = 9;
@@ -142,15 +145,18 @@ namespace Bikewale.News
                 ////ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                 ////ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
                 ////ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-                
+
 
             }
             if (_taggedModelObj != null)
             {
                 ctrlGenericBikeInfo.ModelId = (uint)_taggedModelObj.ModelId;
-                ctrlPopularByCategory.ModelId=(uint)_taggedModelObj.ModelId;
-                ctrlPopularByCategory.topCount = 3;
-                
+                if (ctrlPopularByCategory != null)
+                {
+                    ctrlPopularByCategory.ModelId = (uint)_taggedModelObj.ModelId;
+                    ctrlPopularByCategory.topCount = 3;
+                }
+
             }
 
         }

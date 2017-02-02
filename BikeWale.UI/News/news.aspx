@@ -4,7 +4,7 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
+<%--<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>--%>
 
 <!Doctype html>
 <html>
@@ -136,7 +136,7 @@
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
                         
-                        <BW:PopularBikesByBodyStyle ID="ctrlPopularByCategory" runat="server"/>
+                        <%--<BW:PopularBikesByBodyStyle ID="ctrlPopularByCategory" runat="server"/>--%>
                         <% if (taggedModelId < 1)
                            { %>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />

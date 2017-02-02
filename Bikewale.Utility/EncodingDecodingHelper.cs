@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -23,7 +19,7 @@ namespace Bikewale.Utility
             try
             {
                 byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
-                string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);                
+                string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
                 return returnValue;
             }
             catch (Exception)
