@@ -260,7 +260,7 @@ var modelGallery = function () {
         else {
             self.photosTabActive(false);
             toggleFullScreen(false);
-            bindVideos();
+            self.getVideos();
            
         }
         if (self.screenActive()) {
@@ -500,21 +500,21 @@ var modelGallery = function () {
         self.modelInfoScreen(false);
         self.videoListScreen(false);
     };
-    function bindVideos() {
+    self.getVideos=  function () {
       
-        var KeyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
+        var keyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
         try {
-            if (!checkCacheCityAreas(KeyVideo)) {
+            if (!checkCacheCityAreas(keyVideo)) {
                 $.ajax({
                     type: 'GET',
                     url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
                     dataType: 'json',
                     success: function (response) {
-                        isNextPage = true;
-                        pushVideoList(response.videos, KeyVideo);
-                        response = JSON.stringify(response);
-                        response = Base64.encode(response);
-                        lscache.set(KeyVideo, response, 10);
+                        if (response) {
+                            isNextPage = true;
+                            pushVideoList(response.videos);
+                            bwcache.set(keyVideo, Base64.encode(JSON.stringify(response)), 10);
+                        }
                     },
                     complete: function (xhr) {
                         if (xhr.status !=200) {
@@ -525,26 +525,20 @@ var modelGallery = function () {
             }
             else {
 
-                response = lscache.get(KeyVideo);
-                response = JSON.parse(Base64.decode(response));
-                pushVideoList(response.videos, KeyVideo);
+                pushVideoList(JSON.parse(Base64.decode(bwcache.get(keyVideo))).videos);
                 isNextPage = true;
             }
         } catch (e) {
             console.warn("Unable to fetch Videos model gallery " + e.message);
         }
     }
-    function pushVideoList(response, KeyVideo) {
-
+    function pushVideoList(response) {
         ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
-        
         self.videoList.notifySubscribers();
-
     }
     function checkCacheCityAreas(key) {
         
-        if (lscache.get(key)) return true;
-        else return false;
+        return (bwcache.get(key) != null);
     }
     function videoScroll() {
         var winScroll = $('#video-tab-screen').scrollTop(),
@@ -554,7 +548,7 @@ var modelGallery = function () {
         if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
             isNextPage = false;
             pageNo = pageNo + 1;
-            bindVideos();
+            self.getVideos();
         }
     }
 }
