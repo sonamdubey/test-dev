@@ -64,8 +64,8 @@ namespace Bikewale.Mobile.New.Photos
         {
             try
             {
-                vmModelPhotos = new BindModelPhotos();                
-                    
+                vmModelPhotos = new BindModelPhotos();
+
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
                     vmModelPhotos.isModelpage = isModelPage;
@@ -136,14 +136,15 @@ namespace Bikewale.Mobile.New.Photos
                     ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
                     ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
                     ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
-              
-                if (!IsDiscontinued)
-                {
-                    ctrlSimilarBikesWithPhotos.TotalRecords = 6;
-                    ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
-                }
-                ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
 
+                    if (!IsDiscontinued)
+                    {
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
+                    }
+                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+
+                }
             }
         }
     }
