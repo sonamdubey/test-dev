@@ -164,9 +164,6 @@
                     <div id="main-video-content" data-bind="visible: !photosTabActive()">
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
-                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: <%=VideoCount%>"></span>
-                            </div>
                             <div class="clear"></div>
                         </div>
                         <div class="main-video-wrapper">
@@ -281,12 +278,12 @@
                                 <p class="font11 text-light-grey text-truncate">Expected price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax)) %></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> Onwards</span>
                                 </div>
                             </div>
                             <%}else if (IsDiscontinued){ %>
                              <div class="grid-5 alpha omega">
-                                <p class="font11 text-light-grey text-truncate"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
+                                <p class="font11 text-light-grey text-truncate">Last know price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
                                     <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
@@ -294,7 +291,7 @@
                             </div>
                             <%} %>
                             <div class="grid-7 omega">
-                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-180">View details<span class="bwmsprite btn-red-arrow"></span></a>
                             </div>
                             <div class="clear"></div>
                         </div>
