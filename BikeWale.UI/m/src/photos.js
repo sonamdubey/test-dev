@@ -382,6 +382,7 @@ var modelGallery = function () {
         if (!self.videoListScreen()) {
             deactivateAllScreens();
             self.videoListScreen(true);
+            self.getVideos();
         }
         else {
             self.videoListScreen(false);
@@ -526,7 +527,10 @@ var modelGallery = function () {
     }
     function pushVideoList(response) {
         ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
-        self.videoList.notifySubscribers();
+        if (!self.activeVideoId()) {
+            setVideoDetails(0);
+            self.videoList.notifySubscribers();
+        }
     }
     function checkCacheCityAreas(key) {
         
