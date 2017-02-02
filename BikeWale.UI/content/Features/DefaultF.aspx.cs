@@ -27,10 +27,8 @@ namespace Bikewale.Content
         protected string prevPageUrl = string.Empty, nextPageUrl = string.Empty;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
-        private const int _pageSize = 10, _pagerSlotSize = 5;
         protected int startIndex, endIndex, totalArticles;
         protected FeaturesListing objFeatures;
-        private bool _isContentFound;
         protected IList<ArticleSummary> articlesList;
 
         protected override void OnInit(EventArgs e)
@@ -71,29 +69,36 @@ namespace Bikewale.Content
             try
             {
                 objFeatures = new FeaturesListing();
-                _isContentFound = objFeatures.isContentFound;
-                if (_isContentFound)
+
+                if (!objFeatures.IsPageNotFound)
                 {
-                    objFeatures.BindLinkPager(ctrlPager);
-                    prevPageUrl = objFeatures.prevPageUrl;
-                    nextPageUrl = objFeatures.nextPageUrl;
-                    articlesList = objFeatures.articlesList;
-                    startIndex = objFeatures.startIndex;
-                    endIndex = objFeatures.endIndex;
-                    totalArticles = objFeatures.totalrecords;
+                    objFeatures.GetFeaturesList();
+
+                    if (objFeatures.isContentFound)
+                    {
+                        objFeatures.BindLinkPager(ctrlPager);
+                        prevPageUrl = objFeatures.prevPageUrl;
+                        nextPageUrl = objFeatures.nextPageUrl;
+                        articlesList = objFeatures.articlesList;
+                        startIndex = objFeatures.startIndex;
+                        endIndex = objFeatures.endIndex;
+                        totalArticles = objFeatures.totalrecords;
+                        BindPageWidgets();
+                    }
                 }
-                else
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Content.Features.GetFeaturesList");
+            }
+            finally
+            {
+                if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-                BindPageWidgets();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Content.Features.GetFeaturesList");
             }
         }
 
@@ -118,7 +123,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.Features.BindPageWidgets");
                 objErr.SendMail();
             }
         }

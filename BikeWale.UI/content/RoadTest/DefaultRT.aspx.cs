@@ -23,12 +23,10 @@ namespace Bikewale.Content
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        private bool _isContentFound = true;
         protected MostPopularBikesMin ctrlPopularBikes;
         string makeId = string.Empty, modelId = string.Empty;
         protected int startIndex, endIndex, totalArticles;
         protected RoadTestListing objRoadTests;
-        private bool pageNotFound;
         protected IList<ArticleSummary> articlesList;
 
         protected override void OnInit(EventArgs e)
@@ -66,33 +64,45 @@ namespace Bikewale.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                objRoadTests.BindLinkPager(ctrlPager);
-                pageNotFound = objRoadTests.pageNotFound;
-                makeId = objRoadTests.makeId;
-                makeName = objRoadTests.makeName;
-                makeMaskingName = objRoadTests.makeMaskingName;
-                modelId = objRoadTests.modelId;
-                _isContentFound = objRoadTests.isContentFound;
-                modelName = objRoadTests.modelName;
-                articlesList = objRoadTests.articlesList;
-                startIndex = objRoadTests.startIndex;
-                endIndex = objRoadTests.endIndex;
-                totalArticles = objRoadTests.totalrecords;
-                prevUrl = objRoadTests.prevPageUrl;
-                nextUrl = objRoadTests.nextPageUrl;
 
-                if (!_isContentFound || pageNotFound)
+                if (!objRoadTests.isRedirection && !objRoadTests.pageNotFound)
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
+                    objRoadTests.GetRoadTestList();
 
-                BindPageWidgets();
+                    if (objRoadTests.isContentFound)
+                    {
+                        objRoadTests.BindLinkPager(ctrlPager);
+                        makeId = objRoadTests.makeId;
+                        makeName = objRoadTests.makeName;
+                        makeMaskingName = objRoadTests.makeMaskingName;
+                        modelId = objRoadTests.modelId;
+                        modelName = objRoadTests.modelName;
+                        articlesList = objRoadTests.articlesList;
+                        startIndex = objRoadTests.startIndex;
+                        endIndex = objRoadTests.endIndex;
+                        totalArticles = objRoadTests.totalrecords;
+                        prevUrl = objRoadTests.prevPageUrl;
+                        nextUrl = objRoadTests.nextPageUrl;
+                        BindPageWidgets();
+                    }
+                }
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.RoadTest.GetRoadTestList");
+            }
+            finally
+            {
+                if (objRoadTests.isRedirection)
+                {
+                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                }
+                else if (objRoadTests.pageNotFound || !objRoadTests.isContentFound)
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

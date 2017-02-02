@@ -26,8 +26,6 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected int curPageNo = 1;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty;
-        private const int _pageSize = 10, _pagerSlotSize = 5;
-        private bool _isContentFound;
         protected int startIndex = 0, endIndex = 0;
         protected uint totalArticles;
         HttpRequest page = HttpContext.Current.Request;
@@ -78,30 +76,36 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objFeatures = new FeaturesListing();
-                _isContentFound = objFeatures.isContentFound;
 
-                if (_isContentFound)
+                if (!objFeatures.IsPageNotFound)
                 {
-                    objFeatures.BindLinkPager(ctrlPager);
-                    prevPageUrl = objFeatures.prevPageUrl;
-                    nextPageUrl = objFeatures.nextPageUrl;
-                    articlesList = objFeatures.articlesList;
-                    startIndex = objFeatures.startIndex;
-                    endIndex = objFeatures.endIndex;
-                    totalrecords = objFeatures.totalrecords;
+                    objFeatures.GetFeaturesList();
+
+                    if (objFeatures.isContentFound)
+                    {
+                        objFeatures.BindLinkPager(ctrlPager);
+                        prevPageUrl = objFeatures.prevPageUrl;
+                        nextPageUrl = objFeatures.nextPageUrl;
+                        articlesList = objFeatures.articlesList;
+                        startIndex = objFeatures.startIndex;
+                        endIndex = objFeatures.endIndex;
+                        totalrecords = objFeatures.totalrecords;
+                        BindWidgets();
+                    }
                 }
-                else
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.Features.GetFeaturesList");
+            }
+            finally
+            {
+                if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-                BindWidgets();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.Features.GetFeaturesList");
             }
         }
 

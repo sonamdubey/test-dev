@@ -29,7 +29,6 @@ namespace Bikewale.Mobile.Content
         protected LinkPagerControl ctrlPager;
         protected int startIndex = 0, endIndex = 0, totalrecords;
         protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
-        private bool _isContentFound = true;
         HttpRequest page = HttpContext.Current.Request;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
@@ -38,7 +37,6 @@ namespace Bikewale.Mobile.Content
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected EnumBikeBodyStyles bodyStyle;
         protected RoadTestListing objRoadTests;
-        private bool pageNotFound;
         protected IList<ArticleSummary> articlesList;
 
         protected override void OnInit(EventArgs e)
@@ -118,33 +116,45 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objRoadTests = new RoadTestListing();
-                objRoadTests.BindLinkPager(ctrlPager);
-                pageNotFound = objRoadTests.pageNotFound;
-                makeId = objRoadTests.makeId;
-                makeName = objRoadTests.makeName;
-                makeMaskingName = objRoadTests.makeMaskingName;
-                modelId = objRoadTests.modelId;
-                _isContentFound = objRoadTests.isContentFound;
-                modelName = objRoadTests.modelName;
-                articlesList = objRoadTests.articlesList;
-                startIndex = objRoadTests.startIndex;
-                endIndex = objRoadTests.endIndex;
-                totalrecords = objRoadTests.totalrecords;
-                prevPageUrl = objRoadTests.prevPageUrl;
-                nextPageUrl = objRoadTests.nextPageUrl;
 
-                if (!_isContentFound || pageNotFound)
+                if (!objRoadTests.isRedirection && !objRoadTests.pageNotFound)
+                {
+                    objRoadTests.GetRoadTestList();
+
+                    if (objRoadTests.isContentFound)
+                    {
+                        objRoadTests.BindLinkPager(ctrlPager);
+                        makeId = objRoadTests.makeId;
+                        makeName = objRoadTests.makeName;
+                        makeMaskingName = objRoadTests.makeMaskingName;
+                        modelId = objRoadTests.modelId;
+                        modelName = objRoadTests.modelName;
+                        articlesList = objRoadTests.articlesList;
+                        startIndex = objRoadTests.startIndex;
+                        endIndex = objRoadTests.endIndex;
+                        totalrecords = objRoadTests.totalrecords;
+                        prevPageUrl = objRoadTests.prevPageUrl;
+                        nextPageUrl = objRoadTests.nextPageUrl;
+                        BindWidgets();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.RoadTest.GetRoadTestList");
+            }
+            finally
+            {
+                if (objRoadTests.isRedirection)
+                {
+                    CommonOpn.RedirectPermanent(objRoadTests.redirectUrl);
+                }
+                else if (objRoadTests.pageNotFound || !objRoadTests.isContentFound)
                 {
                     Response.Redirect("/m/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-
-                BindWidgets();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "Bikewale.Mobile.Content.RoadTest.GetRoadTestList");
             }
         }
 
