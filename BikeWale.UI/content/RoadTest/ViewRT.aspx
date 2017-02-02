@@ -115,8 +115,13 @@
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
                         <%if(isModelTagged){ %>
+                        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                       <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
                         <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
-                        <%} else{%>
+                        </div>
+                        <%} %>
+                            <%} else{%>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
                         <%} %>
                         </div>

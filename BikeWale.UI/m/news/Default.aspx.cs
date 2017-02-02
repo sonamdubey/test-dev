@@ -32,8 +32,9 @@ namespace Bikewale.Mobile.News
         protected IEnumerable<ArticleSummary> newsArticles = null;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected string makeName = string.Empty, makeMaskingName = string.Empty;
-        protected uint makeId;
+        protected uint makeId,modelId;
         private GlobalCityAreaEntity currentCityArea;
 
         protected override void OnInit(EventArgs e)
@@ -54,32 +55,53 @@ namespace Bikewale.Mobile.News
                 GetNewsList();
                 BindWidgets();
             }
-
-
         }
 
         /// <summary>
         /// Created by : Sajal Gupta on 27-01-2017
         /// Description : Binded upcoming and popular bikes widget.
+        /// Modified By : Aditi Srivastava on 2 Feb 2017
+        /// Summary     : Modified entire widget binding logic
         /// </summary>
         protected void BindWidgets()
         {
             try
             {
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 9;
-                ctrlPopularBikes.totalCount = 9;
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-                if (Convert.ToInt32(makeId) > 0)
+                if (ctrlPopularBikes != null)
                 {
-                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
-                    ctrlPopularBikes.makeName = makeName;
-                    ctrlPopularBikes.makeMasking = makeMaskingName;
-                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-                    ctrlUpcomingBikes.makeName = makeName;
-                    ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                    ctrlPopularBikes.totalCount = 9;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (makeId > 0)
+                    {
+                        ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                        ctrlPopularBikes.makeName = makeName;
+                        ctrlPopularBikes.makeMasking = makeMaskingName;
+                    }
+                }
+                if (modelId > 0)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = modelId;
+                        ctrlBikesByBodyStyle.topCount = 9;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        if (makeId > 0)
+                        {
+                            ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                            ctrlUpcomingBikes.makeName = makeName;
+                            ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -99,6 +121,10 @@ namespace Bikewale.Mobile.News
                     makeId = (uint)objNews.objMake.MakeId;
                     makeName = objNews.objMake.MakeName;
                     makeMaskingName = objNews.objMake.MaskingName;
+                }
+                if (objNews.objModel != null)
+                {
+                    modelId = (uint)objNews.objModel.ModelId;
                 }
                 objNews.FetchNewsList(ctrlPager, true);
                 newsArticles = objNews.objNewsList;

@@ -219,7 +219,7 @@ namespace Bikewale.Content
                     if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
-                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.topCount = 9;
                         ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                     }
                 }

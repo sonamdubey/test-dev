@@ -34,7 +34,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public int startIndex = 0, endIndex = 0, totalrecords;
         private int totalPages = 0;
         private const int _pageSize = 10, _pagerSlotSize = 5;
-        public string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        public string prevPageUrl = String.Empty, nextPageUrl = String.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        public uint MakeId, ModelId;
         public bool isContentFound = false;
         int _curPageNo = 1;
         HttpRequest page = HttpContext.Current.Request;
@@ -83,7 +84,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 _objPager.GetStartEndIndex(_pageSize, _curPageNo, out _startIndex, out _endIndex);
                 CMSContent _objRoadTestList = null;
 
-                _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, string.IsNullOrEmpty(makeId) ? 0 : Convert.ToInt32(makeId), string.IsNullOrEmpty(modelId) ? 0 : Convert.ToInt32(modelId));
+                _objRoadTestList = _cache.GetArticlesByCategoryList(Convert.ToString((int)EnumCMSContentType.RoadTest), _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
                 if (_objRoadTestList != null && _objRoadTestList.Articles.Count > 0)
                 {
@@ -121,9 +122,9 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     objResponse = _bikeMaskingObjCache.GetModelMaskingResponse(modelMaskingName);
                     if (objResponse != null && objResponse.StatusCode == 200)
                     {
-                        modelId = objResponse.ModelId.ToString();
+                        ModelId = objResponse.ModelId;
 
-                        BikeModelEntity bikemodelEnt = _objClient.GetById(Convert.ToInt32(modelId));
+                        BikeModelEntity bikemodelEnt = _objClient.GetById((int)ModelId);
                         modelName = bikemodelEnt.ModelName;
                     }
                     else
@@ -167,7 +168,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     {
                         if (objResponse.StatusCode == 200)
                         {
-                            makeId = Convert.ToString(objResponse.MakeId);
+                            MakeId = objResponse.MakeId;
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -186,10 +187,10 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 }
 
 
-                BikeMakeEntityBase objMMV = _bikeMakesObjCache.GetMakeDetails(Convert.ToUInt32(makeId));
+                BikeMakeEntityBase objMMV = _bikeMakesObjCache.GetMakeDetails(MakeId);
                 makeName = objMMV.MakeName;
 
-                if (String.IsNullOrEmpty(makeId))
+                if (MakeId<=0)
                 {
                     pageNotFound = true;
                 }

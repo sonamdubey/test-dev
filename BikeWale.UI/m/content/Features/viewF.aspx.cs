@@ -83,10 +83,14 @@ namespace Bikewale.Mobile.Content
                     if (objArticle.IsContentFound)
                     {
                         objFeature = objArticle.objFeature;
+                        if(objArticle.taggedMakeObj!=null)
                         _taggedMakeObj = objArticle.taggedMakeObj;
-                        _taggedModelObj = objArticle.taggedModelObj;
-                        taggedModelId = (uint)_taggedModelObj.ModelId;
-                        GetFeatureData();
+                        if (objArticle.taggedModelObj != null)
+                        {
+                            _taggedModelObj = objArticle.taggedModelObj;
+                            taggedModelId = (uint)_taggedModelObj.ModelId;
+                        }
+                         GetFeatureData();
                         BindPages();
                         BindPageWidgets();
                         objImg = objArticle.objImg;
@@ -203,7 +207,7 @@ namespace Bikewale.Mobile.Content
                     if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
-                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.topCount = 9;
                         ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                     }
                 }

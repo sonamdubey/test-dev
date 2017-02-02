@@ -18,7 +18,7 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public int FetchedRecordsCount { get; set; }
-        protected string BodyStyleText { get; set; }
+        public string BodyStyleText { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public ICollection<MostPopularBikesBase> popularBikes = null;
 

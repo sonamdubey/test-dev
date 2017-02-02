@@ -20,15 +20,17 @@ namespace Bikewale.Content
     /// </summary>
     public class DefaultRT : System.Web.UI.Page
     {
-        protected UpcomingBikesMinNew ctrlUpcoming;
+        protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
         protected string nextUrl = string.Empty, prevUrl = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
         protected MostPopularBikesMin ctrlPopularBikes;
-        string makeId = string.Empty, modelId = string.Empty;
+        private uint makeId, modelId;
         protected int startIndex, endIndex, totalArticles;
         protected RoadTestListing objRoadTests;
         protected IList<ArticleSummary> articlesList;
-
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected bool isModelTagged;
+        
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -72,10 +74,10 @@ namespace Bikewale.Content
                     if (objRoadTests.isContentFound)
                     {
                         objRoadTests.BindLinkPager(ctrlPager);
-                        makeId = objRoadTests.makeId;
+                        makeId = objRoadTests.MakeId;
                         makeName = objRoadTests.makeName;
                         makeMaskingName = objRoadTests.makeMaskingName;
-                        modelId = objRoadTests.modelId;
+                        modelId = objRoadTests.ModelId;
                         modelName = objRoadTests.modelName;
                         articlesList = objRoadTests.articlesList;
                         startIndex = objRoadTests.startIndex;
@@ -119,29 +121,45 @@ namespace Bikewale.Content
             try
             {
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-
-                ctrlPopularBikes.totalCount = 4;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-
-                ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcoming.pageSize = 9;
-                ctrlUpcoming.topCount = 4;
-
-                int _makeId;
-                int.TryParse(makeId, out _makeId);
-
-                if (_makeId > 0)
+                isModelTagged = (modelId > 0);
+                if (ctrlPopularBikes!=null)
                 {
-                    ctrlPopularBikes.MakeId = Convert.ToInt32(makeId);
-                    ctrlPopularBikes.makeMasking = makeMaskingName;
-                    ctrlPopularBikes.makeName = makeName;
-
-                    ctrlUpcoming.makeName = makeName;
-                    ctrlUpcoming.makeMaskingName = makeMaskingName;
-                    ctrlUpcoming.MakeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.totalCount = 4;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (makeId > 0)
+                    {
+                        ctrlPopularBikes.MakeId = (int)makeId;
+                        ctrlPopularBikes.makeMasking = objRoadTests.makeMaskingName;
+                        ctrlPopularBikes.makeName = objRoadTests.makeName;
+                    }
                 }
-            }
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = modelId;
+                        ctrlBikesByBodyStyle.topCount = 4;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        ctrlUpcomingBikes.topCount = 4;
+                        if (makeId > 0)
+                        {
+                            ctrlUpcomingBikes.MakeId = (int)makeId;
+                            ctrlUpcomingBikes.makeMaskingName = objRoadTests.makeMaskingName;
+                            ctrlUpcomingBikes.makeName = objRoadTests.makeName;
+
+                        }
+                    }
+                }
+              }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindPageWidgets");

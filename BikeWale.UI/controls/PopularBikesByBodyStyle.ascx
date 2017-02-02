@@ -1,8 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularBikesByBodyStyle" %>
-<%if (FetchedRecordsCount > 0)
-  { %>
-<div class="content-box-shadow padding-15-20-10 margin-bottom20">
-    <h2>Popular <%=BodyStyleText%></h2>
     <ul class="sidebar-bike-list">
         <%foreach (var bike in popularBikes) { 
             string bikeName = string.Format("{0} {1}",bike.MakeName,bike.objModel.ModelName);  
@@ -28,5 +24,3 @@
     <div class="margin-top10 margin-bottom10">
         <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleText%> in India" class="font14">View all popular <%=BodyStyleText%><span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
-</div>
-<%} %>

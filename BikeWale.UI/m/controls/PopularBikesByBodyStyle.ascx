@@ -1,12 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.PopularBikesByBodyStyle" %>
-<%if (FetchedRecordsCount > 0)
-  {%>     
- <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
-                    Popular <%=BodyStyleText%>
-                </h2>
-                <div class="swiper-container card-container swiper-small">
+              <div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
 
                         <%foreach (var bike in popularBikes)
@@ -39,7 +32,4 @@
                 <div class="margin-top15 margin-left20 font14">
                     <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleText%> in India" >View all popular <%=BodyStyleText%><span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
-            </div>
-        </section>
-<%} %>
-
+         
