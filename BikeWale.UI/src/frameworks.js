@@ -146,4 +146,4 @@ if (typeof Array.prototype.forEach != 'function') {
         }
     };
 }if (document.domain.match("www.bikewale.com"))
-    document.cookie = "location=; expires=Thu, 18 Dec 0001 12:00:00 UTC; path=/";
+    document.cookie = "location=; domain=" + document.domain + "; expires=Thu, 18 Dec 0001 12:00:00 UTC; path=/";
