@@ -77,8 +77,7 @@ function toggleFullScreen(goFullScreen) {
 }
 
 function checkCacheModelPhotos(bKey) {    
-    if (bwcache.get(bKey, true)) return true;
-    else return false;
+    return (bwcache.get(bKey, true));
 }
 var cacheData;
 
