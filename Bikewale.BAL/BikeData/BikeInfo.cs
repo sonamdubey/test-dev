@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.GenericBikes;
 using Bikewale.Notifications;
+using System;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -17,18 +11,15 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     public class BikeInfo : IBikeInfo
     {
-        private readonly ICacheManager cache = null;
-        private readonly IGenericBikeRepository genericBike = null;
-
+        private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
         /// <param name="_genericBike"></param>
-        public BikeInfo(ICacheManager _cache, IGenericBikeRepository _genericBike)
+        public BikeInfo(IBikeModelsCacheRepository<int> modelCache)
         {
-            cache = _cache;
-            genericBike = _genericBike;
+            _modelCache = modelCache;
         }
 
         /// <summary>
@@ -43,7 +34,7 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-                GenericBikeInfo objBikes = genericBike.GetGenericBikeInfo(modelId);
+                GenericBikeInfo objBikes = _modelCache.GetGenericBikeInfo(modelId);
 
                 if (objBikes != null)
                 {

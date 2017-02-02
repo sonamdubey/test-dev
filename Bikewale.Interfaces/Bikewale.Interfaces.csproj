@@ -88,7 +88,6 @@
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="GenericBikes\IBestBikesCacheRepository.cs" />
-    <Compile Include="GenericBikes\IGenericBikeRepository.cs" />
     <Compile Include="HomePage\IHomePageBannerCacheRepository.cs" />
     <Compile Include="HomePage\IHomePageBannerRepository.cs" />
     <Compile Include="Images\IImage.cs" />
