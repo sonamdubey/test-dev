@@ -39,7 +39,8 @@ namespace Bikewale.Content
         protected HtmlGenericControl spnComments;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected HtmlForm frmMain;
-        protected uint MakeId, ModelReviewCount;
+        protected ReviewDetailsEntity objReview;
+        protected uint MakeId;
         public uint cityid;
         public PageMetaTags pageMetas;
         public string SortingCriteria
@@ -190,7 +191,7 @@ namespace Bikewale.Content
                     cityid = Convert.ToUInt32(Bikewale.Utility.BWConfiguration.Instance.DefaultCity);
 
                     BindUserReviews objBike = new BindUserReviews();
-                    ReviewDetailsEntity objReview = new ReviewDetailsEntity();
+                    objReview = new ReviewDetailsEntity();
                     if (modelId != "")
                     {
 
@@ -228,15 +229,14 @@ namespace Bikewale.Content
                         {
                             ModelName = objReview.BikeEntity.ModelEntity.ModelName;
                             ModelMaskingName = objReview.BikeEntity.ModelEntity.MaskingName;
-                            ModelReviewCount = objReview.BikeEntity.ReviewsCount;
+                            ModelReviewCount = Convert.ToInt32(objReview.BikeEntity.ReviewsCount);
                         }
                         BikeName = string.Format("{0} {1}", MakeName, ModelName);
                         HostUrl = objReview.HostUrl;
                         IsNew = objReview.New;
                         IsUsed = objReview.Used;
                         OriginalImagePath = objReview.OriginalImagePath;
-
-
+                        Futuristic = objReview.IsFuturistic;
                         if (objReview.ModelSpecs != null)
                         {
 
@@ -247,6 +247,12 @@ namespace Bikewale.Content
 
                         }
 
+                    }
+                    if (Futuristic)
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                     FillControls.FillReviewedVersions(drpVersions, modelId);
 
@@ -265,7 +271,7 @@ namespace Bikewale.Content
         private void CreatMetas()
         {
             pageMetas = new PageMetaTags();
-            pageMetas.Title = string.Format("User Reviews: {0} ", BikeName);
+            pageMetas.Title = string.Format("User Reviews: {0} | Bikes Reviews.", BikeName);
             pageMetas.Description = string.Format("{0} User Reviews - Read first-hand reviews of actual {0} owners. Find out what buyers of {0} have to say about the bike.", BikeName);
             pageMetas.Keywords = string.Format("{0} reviews, {0} Users Reviews, {0} customer reviews, {0} customer feedback, {0} owner feedback, user bike reviews, owner feedback, consumer feedback, buyer reviews", BikeName);
             pageMetas.AlternateUrl = !string.IsNullOrEmpty(pageNumber) ? string.Format("{0}/m/{1}-bikes/{2}/user-reviews-p{3}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, pageNumber) : string.Format("{0}/m/{1}-bikes/{2}/user-reviews/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName);
@@ -383,6 +389,7 @@ namespace Bikewale.Content
                 rpgReviews.InitializeGrid();//initialize the grid, and this will also bind the repeater
 
                 totalReviewCount = rpgReviews.RecordCount;
+
 
             }
             catch (Exception err)
@@ -537,6 +544,28 @@ namespace Bikewale.Content
                     return -1;
             }
             set { ViewState["kerbWeight"] = value; }
+        }
+        public bool IsDiscountinous
+        {
+            get
+            {
+                if (ViewState["IsDiscountinous"] != null)
+                    return Convert.ToBoolean(ViewState["IsDiscountinous"]);
+                else
+                    return false;
+            }
+            set { ViewState["IsDiscountinous"] = value; }
+        }
+        public bool Futuristic
+        {
+            get
+            {
+                if (ViewState["Futuristic"] != null)
+                    return Convert.ToBoolean(ViewState["Futuristic"]);
+                else
+                    return false;
+            }
+            set { ViewState["Futuristic"] = value; }
         }
         public string ModelName
         {
@@ -743,6 +772,18 @@ namespace Bikewale.Content
             }
             set { ViewState["IsUsed"] = value; }
         }
+        public int ModelReviewCount
+        {
+            get
+            {
+                if (ViewState["ModelReviewCount"] != null)
+                    return Convert.ToInt32(ViewState["ModelReviewCount"]);
+                else
+                    return -1;
+            }
+            set { ViewState["ModelReviewCount"] = value; }
+        }
+
 
         public string ShortCriteria
         {

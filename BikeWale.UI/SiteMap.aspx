@@ -17,7 +17,7 @@
     <div class="grid_12 margin-top10">
         <h1 class="black-text">BikeWale Site Map</h1>
         <div class="grid_4 alpha margin-top15">
-            <h3><a class="black-text" href="https://www.bikewale.com/new/">New Bikes</a></h3>
+            <h3><a class="black-text" href="https://www.bikewale.com/new-bikes-in-india/">New Bikes</a></h3>
             <ul class="ul-normal">
                 <li><a href="https://www.bikewale.com/pricequote/">Check On-Road Price in Your City</a></li>
                 <li><a href="https://www.bikewale.com/upcoming-bikes/">Upcoming Bikes</a></li>
@@ -25,7 +25,7 @@
                 <li><a href="https://www.bikewale.com/expert-reviews/">Expert Reviews</a></li>
                 <li><a href="https://www.bikewale.com/new/search.aspx">Find New Bikes</a></li>
                 <li>
-                    <a class="grid_4 alpha black-text" href="https://www.bikewale.com/new/"><b>Bikes by Make</b></a>
+                    <a class="grid_4 alpha black-text" href="https://www.bikewale.com/new-bikes-in-india/"><b>Bikes by Make</b></a>
                     <ul class="grid_2 alpha">
                         <li><a href="https://www.bikewale.com/aprilia-bikes/">Aprilia</a></li>
                         <li><a href="https://www.bikewale.com/bajaj-bikes/">Bajaj</a></li>

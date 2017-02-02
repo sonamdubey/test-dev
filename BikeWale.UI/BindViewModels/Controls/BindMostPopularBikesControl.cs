@@ -66,7 +66,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                
             }
         }
         /// <summary>
@@ -93,7 +93,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    popularBikes = modelCache.GetMostPopularBikesbyMakeCity(TotalWidgetItems, (uint)makeId, (uint)cityId);
+                    popularBikes = modelCache.GetMostPopularBikesbyMakeCity(TotalWidgetItems, Convert.ToUInt32(makeId), Convert.ToUInt32(cityId));
                 }
                 if (popularBikes != null && popularBikes.Count() > 0)
                 {
@@ -110,7 +110,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BindMostPopularBikesControl.BindMostPopularBikesMakeCity");
-                objErr.SendMail();
+                
             }
         }
     }

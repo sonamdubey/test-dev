@@ -27,7 +27,7 @@
     <div class="grid_8 margin-top10">        
         <h1><%=bike %> Specifications</h1>        
         <div class="grid_3 alpha margin-top15">
-            <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/photos/"><img src="<%=imagePath %>" class="padding-5 border-light" title="<%= bike%>" alt="<%= bike%>" /></a>
+            <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName%>/images/"><img src="<%=imagePath %>" class="padding-5 border-light" title="<%= bike%>" alt="<%= bike%>" /></a>
         </div>
         <div class="grid_5 omega margin-top15" runat="server">
             <BikeWale:BikeRatings runat="server" ID="ctrl_BikeRatings" />

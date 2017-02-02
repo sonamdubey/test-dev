@@ -28,7 +28,7 @@
     <asp:TextBox id="txtArea" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:HiddenField ID="hdnmodel" runat="Server" Value="" />
     <div class="padding5" id="pq_car">
-        <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
+        <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
         <h1><%=(modelName == "" ? "New Bike" : makeName + " " + modelName) %> On-Road Price</h1>
         <div class="box1 new-line5">  
           <%--  <%if(errMsg!=""){%>
@@ -216,9 +216,9 @@
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
                 onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-                onCookieObj.PQAreaSelectedName = cData[3];
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
 
             }
         }

@@ -96,7 +96,7 @@
                         </li>
                         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                             <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="/new/" itemprop="url">
+                            <a href="/new-bikes-in-india/" itemprop="url">
                                 <span itemprop="title">New</span>
                             </a>
                         </li>
@@ -124,7 +124,7 @@
             <div class="content-box-shadow padding-top20 padding-bottom20 rounded-corner2">
                 <div class="grid-4 padding-right10 padding-left20" id="PQImageVariantContainer">
                     <div class="pqBikeImage margin-bottom15">
-                        <img alt=" <%= mmv.BikeName %> Photos" src="<%=imgPath%>" title="<%= mmv.BikeName %> Photos">
+                        <img alt=" <%= mmv.BikeName %> Images" src="<%=imgPath%>" title="<%= mmv.BikeName %> Images">
                     </div>
                     <div class="pqVariants <%=(versionList.Count > 1)?"":"hide" %>">
                         <p class="margin-left10 font16 text-light-grey leftfloat margin-top7">Version:</p>

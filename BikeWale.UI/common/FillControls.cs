@@ -1,7 +1,4 @@
-﻿using Bikewale.Notifications;
-using MySql.CoreDAL;
-using System;
-using System.Collections.Generic;
+﻿using MySql.CoreDAL;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -38,7 +35,7 @@ namespace Bikewale.Common
 
                 op.FillDropDown(sql, drpVersions, "VersionName", "VersionId", param);
 
-                ListItem item = new ListItem("--All Versions--", "0");
+                ListItem item = new ListItem("All Versions", "0");
                 drpVersions.Items.Insert(0, item);
             }
             catch (SqlException err)

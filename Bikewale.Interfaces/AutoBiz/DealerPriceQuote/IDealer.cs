@@ -10,10 +10,8 @@ namespace Bikewale.Interfaces.AutoBiz
     /// </summary>
     public interface IDealer
     {
-        uint IsDealerExists(uint versionId, uint areaId);
         uint IsSubscribedDealerExists(uint versionId, uint areaId);
-        //Added By : Sadhana Upadhyay on 26 Oct 2015 To get all dealer dealer price quote details
-        IEnumerable<uint> GetAllAvailableDealer(uint versionId, uint areaId);
+        //Added By : Sadhana Upadhyay on 26 Oct 2015 To get all dealer dealer price quote details        
         IEnumerable<DealerPriceQuoteDetailed> GetDealerPriceQuoteDetail(uint versionId, uint cityId, string dealerIds);
         DealerInfo IsSubscribedDealerExistsV3(uint versionId, uint areaId);
     }

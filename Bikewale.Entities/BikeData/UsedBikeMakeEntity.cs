@@ -13,5 +13,6 @@ namespace Bikewale.Entities.BikeData
         // doesn't expect to show count of bikes for makes in india
 
         // public uint Count { get; set; }
+        public string Link { get; set; }
     }
 }

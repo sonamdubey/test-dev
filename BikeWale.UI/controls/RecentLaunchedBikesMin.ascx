@@ -44,7 +44,7 @@
                                     </td>
                                     <td>
                                         <span class="leftfloat ">
-                                            &#62;&nbsp;<a href="/<%#DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/photos/" >Photos</a>
+                                            &#62;&nbsp;<a href="/<%#DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName") %>-bikes/<%#DataBinder.Eval(Container.DataItem,"MaskingName") %>/images/" >Images</a>
                                         </span>
                                     </td>                                                                                        
                                 </tr>

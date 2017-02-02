@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.Interface</RootNamespace>
     <AssemblyName>BikewaleOpr.Interface</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -44,6 +44,7 @@
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
+    <Compile Include="BikePricing\IDealerPriceRepository.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />

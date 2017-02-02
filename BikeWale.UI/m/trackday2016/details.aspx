@@ -59,7 +59,7 @@
 
                 <% if (objImages != null)
                    { %>
-                <p class="margin-left20 photography-heading">Photos</p>
+                <p class="margin-left20 photography-heading">Images</p>
                 <div class="connected-carousels-photos">
                     <div class="stage-photos">
                         <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">

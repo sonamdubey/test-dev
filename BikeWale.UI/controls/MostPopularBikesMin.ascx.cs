@@ -18,7 +18,6 @@ namespace Bikewale.Controls
         public int CityId { get; set; }
         public string cityName = string.Empty;
 
-
         public int MakeId { get; set; }
         public string makeName = string.Empty;
         public string makeMasking = string.Empty;

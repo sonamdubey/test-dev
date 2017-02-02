@@ -79,6 +79,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By:- Subodh jain 15 Nov 2016
         /// Summary :- Bike Care Landing page Binding for widgets
+        /// Modified BY : Sajal Gupta
+        /// Description : Added footer to the widget.
         /// </summary>
         private void BindPageWidgets()
         {

@@ -41,7 +41,6 @@ namespace Bikewale.Content
         protected MostPopularBikesMin ctrlPopularBikes;
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected NewUserReviewsList ctrlUserReviews;
-        public Repeater rptMoreUserReviews;
         public PageMetaTags pageMetas;
         protected uint cityId;
         public string BikeName
@@ -297,13 +296,13 @@ namespace Bikewale.Content
                 objReview = new ReviewDetailsEntity();
                 bool IsAlreadyViewed = AlreadyViewed(reviewId);
                 objReview = objBike.GetDetails(reviewId, IsAlreadyViewed);
+                MakeMaskingName = objReview.BikeEntity.MakeEntity.MaskingName;
+                ModelMaskingName = objReview.BikeEntity.ModelEntity.MaskingName;
                 BikeName = string.Format("{0} {1} {2}", objReview.BikeEntity.MakeEntity.MakeName, objReview.BikeEntity.ModelEntity.ModelName, objReview.BikeEntity.VersionEntity.VersionName);
                 URV += reviewId + ",";
                 if (reviewerId == CurrentUser.Id)
                     userLoggedIn = true;
                 ucDiscuss.Type = "review";
-
-                GetMoreReviews();
                 GoogleKeywords();
             }
 
@@ -326,7 +325,7 @@ namespace Bikewale.Content
         private void CreatMetas()
         {
             pageMetas = new PageMetaTags();
-            pageMetas.Title = string.Format("{0} - A Review on {1} by {2}, {1}", _title, BikeName, objReview.ReviewEntity.WrittenBy);
+            pageMetas.Title = string.Format("{0} - A Review on {1} by {2}, {1}", objReview.ReviewEntity.ReviewTitle, BikeName, objReview.ReviewEntity.WrittenBy);
             pageMetas.Description = string.Format("{0} User Review - A review/feedback on {1} by {2}. Find out what {2} has to say about {1}.", BikeMake, BikeName, objReview.ReviewEntity.WrittenBy);
             pageMetas.Keywords = string.Format("{0} review, {0} user review, car review, owner feedback, consumer review", BikeName);
             pageMetas.AlternateUrl = string.Format("{0}/m/{1}-bikes/{2}/user-reviews/{3}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, MakeMaskingName, ModelMaskingName, reviewId);
@@ -571,34 +570,7 @@ namespace Bikewale.Content
             return returnVal;
         }
 
-        void GetMoreReviews()
-        {
-            string sql = "";
-            CommonOpn op = new CommonOpn();
 
-            try
-            {
-                sql = @" select cr.id as reviewid, cu.name as customername, cu.id as customerid,
-                        cr.title, cr.entrydatetime, liked, overallr 
-                        from  customers as cu , customerreviews as cr  
-                        where cu.id = cr.customerid and cr.isactive=1 and 
-                        cr.isverified=1 and cr.modelid = @v_modelid and cr.id <> @v_reviewid
-                        order by liked desc 
-                        limit 5";
-
-                DbParameter[] param = new[] { DbFactory.GetDbParam("par_modelid", DbType.Int32,ModelId ),
-                    DbFactory.GetDbParam("par_reviewid", DbType.Int32,reviewId )};
-
-
-                op.BindRepeaterReader(sql, rptMoreUserReviews, param);
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            } // catch Exception
-        }
 
         string _modelStartPrice = "";
         public string ModelStartPrice

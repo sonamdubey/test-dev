@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -6,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -21,7 +24,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
 namespace Bikewale.Mobile.Content
 {
     /// <summary>
@@ -36,7 +38,7 @@ namespace Bikewale.Mobile.Content
         protected ModelGallery photoGallery;
         protected HtmlSelect ddlPages;
         protected int BasicId = 0, pageId = 1;
-        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty;
+        protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty, modelUrl = String.Empty, ampUrl = string.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = string.Empty, url = string.Empty;
         //private CMSPageDetailsEntity pageDetails = null;
         protected Repeater rptPhotos;
@@ -44,8 +46,12 @@ namespace Bikewale.Mobile.Content
         protected ArticlePageDetails objFeature = null;
         private BikeMakeEntityBase _taggedMakeObj;
         protected GlobalCityAreaEntity currentCityArea;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected uint modelId;
+        protected bool showBodyStyleWidget;
         private bool _isContentFount = true;
         protected IEnumerable<ModelImage> objImg = null;
+        protected EnumBikeBodyStyles bodyStyle;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -171,11 +177,11 @@ namespace Bikewale.Mobile.Content
         private void GetFeatureData()
         {
 
-            baseUrl = "/m/features/" + objFeature.ArticleUrl + '-' + BasicId.ToString() + "/";
+            baseUrl = string.Format("/m/features/{0}-{1}/", objFeature.ArticleUrl, BasicId.ToString());
 
             //  desktop url for facebook
-            url = "/features/" + objFeature.ArticleUrl + '-' + BasicId.ToString() + "/";
-
+            url = string.Format("/features/{0}-{1}/", objFeature.ArticleUrl, BasicId);
+            ampUrl = string.Format("{0}/m/features/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objFeature.ArticleUrl, BasicId);
             //data = objFeature.Description;
             author = objFeature.AuthorName;
             pageTitle = objFeature.Title;
@@ -185,7 +191,9 @@ namespace Bikewale.Mobile.Content
             {
                 if (objFeature.VehiclTagsList != null && objFeature.VehiclTagsList.Count > 0)
                 {
-                    modelName = objFeature.VehiclTagsList[0].ModelBase.ModelName;
+                    var modelBase = objFeature.VehiclTagsList[0].ModelBase;
+                    modelName = modelBase.ModelName;
+                    modelId = (uint)modelBase.ModelId;
                     modelUrl = "/m/" + UrlRewrite.FormatSpecial(objFeature.VehiclTagsList[0].MakeBase.MakeName) + "-bikes/" + objFeature.VehiclTagsList[0].ModelBase.MaskingName + "/";
                 }
             }
@@ -225,16 +233,43 @@ namespace Bikewale.Mobile.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                ctrlPopularBikes.totalCount = 4;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
+                if (modelId > 0 && ctrlBikesByBodyStyle != null)
+                {
+                    ctrlBikesByBodyStyle.ModelId = modelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+                        IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        bodyStyle = modelCache.GetBikeBodyType(modelId);
+                    }
+
+                    showBodyStyleWidget = (bodyStyle != EnumBikeBodyStyles.AllBikes && bodyStyle != EnumBikeBodyStyles.Mileage && bodyStyle != EnumBikeBodyStyles.Street);
+                }
+                else if (ctrlPopularBikes != null)
+                {
+                    ctrlPopularBikes.totalCount = 9;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                }
+
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 4;
+
                 if (_taggedMakeObj != null)
                 {
-                    ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    if (modelId < 0 && ctrlPopularBikes != null)
+                    {
+                        ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
                     ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
                     ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                     ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
@@ -294,6 +329,6 @@ namespace Bikewale.Mobile.Content
                 objErr.SendMail();
             }
         }
-       
+
     }
 }

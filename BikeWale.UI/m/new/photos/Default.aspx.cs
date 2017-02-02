@@ -1,4 +1,7 @@
-﻿using Bikewale.BindViewModels.Webforms.Photos;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Photos;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using System;
 using System.Web;
@@ -8,31 +11,53 @@ namespace Bikewale.Mobile.New.Photos
     /// <summary>
     /// Created By : Sushil Kumar on 6th Jan 2017
     /// Description : Added new page for photos page and bind modelgallery,videos and generic bike info widgets
+    /// Modified by : Aditi Srivastava on 23 Jan 2017
+    /// summary     : Removed Isupcoming flag(added in common viewmodel) 
     /// </summary>
     public class Default : System.Web.UI.Page
     {
 
         protected ModelGallery ctrlModelGallery;
+        protected GenericBikeInfo bikeInfo;
         protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
-        protected bool isUpcoming = false, isDiscontinued = false;
+        protected bool IsUpcoming { get; set; }
         protected uint modelId;
-
+        protected bool IsDiscontinued { get; set; }
+        protected bool isModelPage;
+        protected PQSourceEnum pqSource;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 20 jan 2017
+        /// Summary :- model page photo bind condition added in query string
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            {
+                isModelPage = true;
+            }
             BindPhotosPage();
+
+
         }
 
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2017
         /// Description : Bind photos page with metas,photos and widgets        
+        /// Modified By :- Subodh jain 20 jan 2017
+        /// Summary :- Added ismodel page flag for gallery binding
+        /// modified by :- Subodh Jain 30 jan 2017
+        /// Summary:- Added model gallery info values
         /// </summary>
         private void BindPhotosPage()
         {
@@ -42,10 +67,30 @@ namespace Bikewale.Mobile.New.Photos
                     
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
+                    vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
-                    isDiscontinued = vmModelPhotos.IsDiscontinued;
-                    isUpcoming = vmModelPhotos.IsUpcoming;
+                    IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindModelPhotosPageWidgets();
+                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+
+                    if (vmModelPhotos.objModel != null)
+                    {
+                        genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                    }
+                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+                    if (bikeInfo != null)
+                    {
+                        if (bikeInfo.Make != null && bikeInfo.Model != null)
+                        {
+                            bikeUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                        }
+                        pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                        // for photos page
+                        bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0;
+                        IsUpcoming = genericBikeInfo.IsUpcoming;
+                        IsDiscontinued = genericBikeInfo.IsDiscontinued;
+                    }
                 }
             }
             catch (Exception ex)
@@ -56,7 +101,7 @@ namespace Bikewale.Mobile.New.Photos
             {
                 if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
                 {
-                    Response.Redirect("/m/new/", true);
+                    Response.Redirect("/m/new-bikes-in-india/", true);
                 }
                 else if (vmModelPhotos.isPermanentRedirection) //301 redirection
                 {
@@ -98,15 +143,13 @@ namespace Bikewale.Mobile.New.Photos
                     ctrlModelGallery.modelId = vmModelPhotos.objModel.ModelId;
                     ctrlModelGallery.Photos = vmModelPhotos.objImageList;
                 }
-                if (!isDiscontinued)
+                if (!IsDiscontinued)
                 {
                     ctrlSimilarBikesWithPhotos.TotalRecords = 6;
                     ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                 }
-                if (!isUpcoming)
-                {
-                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
-                }
+                ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+
             }
         }
     }

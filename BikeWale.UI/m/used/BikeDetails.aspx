@@ -59,10 +59,10 @@
                       { %>
                     <div class=" no-image-content ">
                         <span class="bwmsprite no-image-icon"></span>
-                        <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any photos</p>
+                        <p class="font12 text-bold text-light-grey margin-top5 margin-bottom15">Seller has not uploaded any images</p>
                         <% if (!isPhotoRequestDone)
                            { %>
-                        <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request photos</a>
+                        <a href="javascript:void(0)" id="request-media-btn" class="btn btn-inv-teal btn-sm font14 text-bold" rel="nofollow">Request images</a>
                         <% } %>
                     </div>
                     <% } %>
@@ -286,7 +286,7 @@
            { %>
         <!-- gallery start -->
         <div id="model-gallery-container">
-            <p class="font16 text-white gallery-header"><%=modelYear %>, <%= bikeName %> Photos</p>
+            <p class="font16 text-white gallery-header"><%=modelYear %>, <%= bikeName %> Images</p>
             <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
 
             <div id="bike-gallery-popup">

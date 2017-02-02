@@ -16,7 +16,7 @@
 <head>
     <%
         description = pgDescription;
-        title = String.Format("{0} Price, Reviews, Spec, Photos, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -25,7 +25,7 @@
         Ad_300x250 = true;
         TargetedModel = bikeModelName;
         TargetedCity = cityName;
-        keywords = string.Format("{0}, {0} Bike, bike, {0} Price, {0} Reviews, {0} Photos, {0} Mileage", bikeName);
+        keywords = string.Format("{0}, {0} Bike, bike, {0} Price, {0} Reviews, {0} Images, {0} Mileage", bikeName);
         EnableOG = true;
         OGImage = modelImage;
     %>
@@ -110,18 +110,17 @@
                     <% } %>
                     <div id="model-image-wrapper">
                         <div class="model-main-image">
-                            <%--<img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image":"") %>" class="cursor-pointer" />--%>
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
-							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" title="<%= bikeName + " Photos"%>">
+							<a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true#modelGallery" title="<%= bikeName + " images"%>">
 							<% } %>
-                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image" id="<%=(ctrlModelGallery.ShowWidget?"model-main-image-1":"") %>" class="cursor-pointer" />
+                            <img src="<%=modelImage %>" alt="<%= bikeName %> images" title="<%= bikeName %> model image " class="cursor-pointer" />
 							<% if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath)) { %>
 							</a>
 							<% } %>
                             <div class="model-media-details">
                                 <% if (modelPage.ModelDetails.PhotosCount>0)
                                 { %>
-                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/photos/" class="model-media-item">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/" class="model-media-item">
                                     <span class="bwmsprite gallery-photo-icon"></span>
                                     <span class="model-media-count"><%= modelPage.ModelDetails.PhotosCount %></span>
                                 </a>
@@ -256,8 +255,14 @@
                         </div>
                         <div class="inline-block">
                             <h2 id="dealername" class="text-default"><%=viewModel.Organization %></h2>
-                            <p class="font14 text-light-grey"><%=viewModel.AreaName %></p>
+                            <p class="font14 text-light-grey"><%=(!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%=viewModel.AreaName %></p>
                         </div>
+                        <%if(viewModel.IsDSA){ %>
+                        <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                            <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                            <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                        </div>
+                        <%} %>
                     </div>
                     <% } %>
                     <% if (viewModel.Offers != null && viewModel.OfferCount > 0)
@@ -366,7 +371,7 @@
                             <% } %>
                             <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                             { %>
-                            <li data-tabs="#modelPricesContent">Prices</li>
+                            <li data-tabs="#modelPricesContent">Price</li>
                             <%} %>
                             <% if(modelPage.ModelVersionSpecs!= null){ %>
                             <li data-tabs="#modelSpecsFeaturesContent">Specs & Features</li>
@@ -538,14 +543,14 @@
                 <div id="modelPricesContent" class="bw-model-tabs-data">
                     <% if (modelPage !=null && modelPage.ModelVersions != null && modelPage.ModelVersions.Count() > 0)
                        { %>
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Prices</h2>
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%= bikeName %> Price List</h2>
                     <!-- varient code starts here -->
-                    <h3 class="padding-right20 padding-left20">Prices by versions</h3>
+                    <h3 class="padding-right20 padding-left20">Price by versions</h3>
 
                     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="padding-right20 padding-left20 margin-bottom5">
                         <thead>
                             <tr>
-                                <th align="left" width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Version</th>
+                                <th align="left" width="65%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom"><%= modelPage.ModelDetails.ModelName %> Version</th>
                                 <th align="left" width="35%" class="font12 text-unbold text-x-light padding-bottom5 border-solid-bottom">Price</th>
                             </tr>
                         </thead>
@@ -1053,7 +1058,7 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
         <script type="text/javascript">
             var leadSourceId;
             vmModelId = '<%= modelId%>';

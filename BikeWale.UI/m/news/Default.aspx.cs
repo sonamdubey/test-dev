@@ -1,8 +1,11 @@
 ﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,6 +30,12 @@ namespace Bikewale.Mobile.News
         static bool _useGrpc = Convert.ToBoolean(ConfigurationManager.AppSettings["UseGrpc"]);
         protected NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
+        protected UpcomingBikesMin ctrlUpcomingBikes;
+        protected PopularBikesMin ctrlPopularBikes;
+        protected string makeName = string.Empty, makeMaskingName = string.Empty;
+        protected uint makeId;
+        private GlobalCityAreaEntity currentCityArea;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -43,6 +52,39 @@ namespace Bikewale.Mobile.News
             if (!IsPostBack)
             {
                 GetNewsList();
+                BindWidgets();
+            }
+
+
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 27-01-2017
+        /// Description : Binded upcoming and popular bikes widget.
+        /// </summary>
+        protected void BindWidgets()
+        {
+            try
+            {
+                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                ctrlUpcomingBikes.pageSize = 9;
+                ctrlPopularBikes.totalCount = 9;
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
+                if (Convert.ToInt32(makeId) > 0)
+                {
+                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                    ctrlPopularBikes.makeName = makeName;
+                    ctrlPopularBikes.makeMasking = makeMaskingName;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                    ctrlUpcomingBikes.makeName = makeName;
+                    ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.News.default.BindWidgets");
             }
         }
 
@@ -52,6 +94,12 @@ namespace Bikewale.Mobile.News
             try
             {
                 objNews = new NewsListing();
+                if (objNews.objMake != null)
+                {
+                    makeId = (uint)objNews.objMake.MakeId;
+                    makeName = objNews.objMake.MakeName;
+                    makeMaskingName = objNews.objMake.MaskingName;
+                }
                 objNews.FetchNewsList(ctrlPager, true);
                 newsArticles = objNews.objNewsList;
                 startIndex = objNews.StartIndex;
@@ -62,7 +110,6 @@ namespace Bikewale.Mobile.News
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.News.Default.GetNewsList");
-                objErr.SendMail();
             }
             finally
             {
@@ -115,7 +162,6 @@ namespace Bikewale.Mobile.News
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
-                objErr.SendMail();
             }
             return _category;
         }

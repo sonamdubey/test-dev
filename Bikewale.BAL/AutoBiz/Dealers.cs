@@ -16,39 +16,6 @@ namespace Bikewale.BAL.AutoBiz
             _dealerPQRepository = dealerPQRepository;
         }
 
-        public uint IsDealerExists(uint versionId, uint areaId)
-        {
-            uint dealerId = 0;
-
-            double areaLattitude = 0, areaLongitude = 0;
-
-            _dealerPQRepository.GetAreaLatLong(areaId, out areaLattitude, out areaLongitude);
-
-            List<DealerLatLong> objDealersList = _dealerPQRepository.GetDealersLatLong(versionId, areaId);
-
-            if (objDealersList != null && objDealersList.Count > 0)
-            {
-                var dealerDistList = new List<DealerCustDistanceMapping>();
-
-                foreach (var dealer in objDealersList)
-                {
-                    dealerDistList.Add(new DealerCustDistanceMapping
-                    {
-                        dealer = dealer,
-                        distance = GetDistanceBetweenTwoLocations(areaLattitude, areaLongitude, dealer.Lattitude, dealer.Longitude)
-                    });
-                }
-
-                //list those dealers whose max serving distance = 0 (entire city) and user distance within dealers serving distance range.
-                DealerCustDistanceMapping objNearestDealer = dealerDistList.FindAll(s => (s.dealer.ServingDistance == 0 || s.dealer.ServingDistance >= s.distance)).OrderBy(s => s.distance).FirstOrDefault();
-
-                if (objNearestDealer != null)
-                    dealerId = objNearestDealer.dealer.DealerId;
-            }
-
-            return dealerId;
-        }
-
         /// <summary>
         /// Written By : Ashish G. Kamble on 8 Dec 2014
         /// Summary : Function to get the distance between two co-ordinates.
@@ -116,51 +83,6 @@ namespace Bikewale.BAL.AutoBiz
         {
             return Math.Round(value * 1000) / 1000;
         }
-
-        #region GetAllAvailableDealer Method
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 23 Oct 2015
-        /// Summary : To get All Dealer who can serve for perticulur area
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public IEnumerable<uint> GetAllAvailableDealer(uint versionId, uint areaId)
-        {
-            IEnumerable<uint> objDealerList = null;
-
-            double areaLattitude = 0, areaLongitude = 0;
-
-            try
-            {
-                _dealerPQRepository.GetAreaLatLong(areaId, out areaLattitude, out areaLongitude);
-
-                List<DealerLatLong> objDealersList = _dealerPQRepository.GetDealersLatLong(versionId, areaId);
-
-                if (objDealersList != null && objDealersList.Count > 0)
-                {
-                    var dealerDistList = new List<DealerCustDistanceMapping>();
-
-                    foreach (var dealer in objDealersList)
-                    {
-                        dealerDistList.Add(new DealerCustDistanceMapping
-                        {
-                            dealer = dealer,
-                            distance = GetDistanceBetweenTwoLocations(areaLattitude, areaLongitude, dealer.Lattitude, dealer.Longitude)
-                        });
-                    }
-
-                    objDealerList = dealerDistList.FindAll(s => (s.dealer.ServingDistance == 0 || s.dealer.ServingDistance >= s.distance)).OrderBy(s => s.distance).Select(s => s.dealer.DealerId);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DealerPriceQuote.GetAllAvailableDealer");
-                objErr.SendMail();
-            }
-            return objDealerList;
-        }   //End of GetAllAvailableDealer
-        #endregion
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 26 Oct 2015

@@ -209,8 +209,8 @@
 				  {%>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
 					<tr>
-						<td class="text-light-grey padding-bottom15" width="65%" align="left">Ex-Showroom Price</td>
-						<td class="padding-bottom15" width="35%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
+						<td class="text-light-grey padding-bottom15" width="60%" align="left">Ex-Showroom Price</td>
+						<td class="padding-bottom15" width="40%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
 					</tr>
 					<tr>
 						<td class="text-light-grey padding-bottom15" align="left">RTO</td>
@@ -225,8 +225,15 @@
 						<td height="1" colspan="2" class="break-line padding-bottom10"></td>
 					</tr>
 					<tr>
-						<td class="font16 padding-bottom15" align="left">On-road price</td>
-						<td class="font18 text-bold padding-bottom15" align="right"><span class="bwmsprite inr-sm-icon"></span>&nbsp;<%=CommonOpn.FormatPrice(objExQuotation.OnRoadPrice.ToString()) %></td>
+						<td class="font16" align="left">On-road price</td>
+						<td class="font18 text-bold" align="right">
+                            <span class="bwmsprite inr-sm-icon"></span>&nbsp;<%=CommonOpn.FormatPrice(objExQuotation.OnRoadPrice.ToString()) %>
+						</td>
+					</tr>
+                    <tr class="padding-bottom10">
+						<td colspan="2" align="right" class="text-bold padding-bottom10">
+							<p class='position-rel'><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a><span class='position-abt pos-right35 pos-top0'>Ad</span></p>
+						</td>
 					</tr>
 				</table>
 				<%}
@@ -235,34 +242,20 @@
 				<div class="margin-top10 padding5" style="background: #fef5e6;">Price for this bike is not available in this city.</div>
 				<%} %>
 			</div>
-
-			 <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote != null && dealerId==0 && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
-				{ %>
-				<section>
-					<%=String.Format(objExQuotation.ManufacturerAd) %>
-				</section>
-			<%}
-         else if (dealerId == 0 && objPriceQuote.SecondaryDealerCount == 0 && string.IsNullOrEmpty(objExQuotation.ManufacturerAd) && ctrlDealers.showWidget)
-       { %>
-                <div class="margin-right20 margin-left20 border-divider"></div> 
-                    <BW:Dealers runat="server" ID="ctrlDealers" />
-                <% }  %>
-			
-		<style type="text/css">
-			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
-		</style>
-
-			<!--Price Breakup ends here-->
-
 			<!-- Dealer Widget starts here -->
 			<%if (isPrimaryDealer)
 			  { %>
 			<div id="pq-dealer-details" class="font14">
 				<div class="dealer-title-card margin-bottom15">
 					<h2 class="font18 text-white"><%= dealerName %></h2>
-					<p><%= dealerArea %></p>
+					<p><%=(!primarydealer.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= dealerArea %></p>
 				</div>
-
+                <% if( primarydealer.DealerDetails.IsDSA){ %>
+                <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                    <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                    <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                </div>
+                <%} %>
 				<div class="padding-left15 padding-right15 margin-bottom15">
 					<p class="text-light-grey">On-road price</p>
 					<p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
@@ -460,6 +453,29 @@
 		</div>
 		<%} %>
 
+       <% if (dealerId == 0 && objPriceQuote!=null && objPriceQuote.SecondaryDealerCount == 0 && objExQuotation != null && string.IsNullOrEmpty(objExQuotation.ManufacturerAd) && ctrlDealers.showWidget)
+       { %>
+            
+            <section class="container bg-white margin-bottom10">
+                <div class="box-shadow">
+                    <BW:Dealers runat="server" ID="ctrlDealers" />
+                </div>
+            </section>
+
+       <% }  %>
+
+        <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote != null && dealerId==0 && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
+				{ %>
+				<section>
+					<%=String.Format(objExQuotation.ManufacturerAd) %>
+				</section>
+			<%} %>
+
+			
+		<style type="text/css">
+			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}.position-abt{font-size:8px;}.bottomlink{ margin:5px}.pos-right35 { right: -15px; }
+		</style>
+
 		<section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
 			<div class="bg-white bottom-shadow margin-top20 margin-bottom20 padding-bottom10">
 				<BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
@@ -639,6 +655,9 @@
                 <%if (objPriceQuote.SecondaryDealers != null && objPriceQuote.SecondaryDealers.Count() > 0){%>
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', '<%= string.Format("{0}_{1}_{2}_{3}", objPriceQuote.objMake.MakeName,objPriceQuote.objModel.ModelName,currentCity,currentArea)%>');
 			    <%}%>
+			    <% if (objExQuotation != null && objExQuotation.ExShowroomPrice > 0) { %>
+			    triggerGA('Dealer_PQ', 'Get_personal_loan_offers_shown', GetBikeVerLoc());
+                <% } %>
 			});
 
 			$('.tnc').on('click', function (e) {

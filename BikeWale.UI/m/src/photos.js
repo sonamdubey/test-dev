@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var photosLength = $('.photos-grid-list').first().find('li').length;
-
+    
     // add 'more photos count' if photo grid contains 30 images
     if (photosLength == 30) {
         var lastPhoto = $('.photos-grid-list li').eq(29),
@@ -8,14 +8,19 @@
 
         lastPhoto.append(morePhotoCount);
     }
+    
 });
 
 var modelImages = [];
 var modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
-    var clickedImg = $(this),
-        imgIndex = clickedImg.index(),
+    bindGallery($(this));
+
+});
+var bindGallery = function (clickedImg)
+{
+    var imgIndex = clickedImg.index(),
         parentGridType = clickedImg.closest('.photos-grid-list');
 
     if (parentGridType.hasClass('remainder-grid-list')) {
@@ -26,13 +31,21 @@ $('.photos-grid-list').on('click', 'li', function () {
 
     vmPhotosPage.imageIndex(imgIndex);
     showGallery();
-});
 
-$(document).on('click', '#gallery-close-btn', function () {
-    hideGallery();
-    history.back();
-});
+};
+    if (!isModelPage) {
+        window.location.hash = 'photosGallery';
+    }
+    //appendState('gallery');
 
+    $(document).on('click', '#gallery-close-btn', function () {
+       
+        if (isModelPage) {
+            window.location.href = window.location.pathname.split("images/")[0];
+        }
+        else
+            hideGallery();
+    });
 var modelVideos = [
     {
         'imagePathThumbnail': 'https://img.youtube.com/vi/HhOik7KWJwc/default.jpg',
@@ -151,7 +164,6 @@ var photosPage = function () {
 };
 
 var vmPhotosPage = new photosPage();
-
 var modelGallery = function () {
     var self = this;
 
@@ -504,8 +516,14 @@ ko.components.register("gallery-component", {
 
 ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'));
 
+
 $(window).on('popstate', function (event) {
     if ($('#gallery-container').is(':visible')) {
-        hideGallery();
+        if (isModelPage) {
+            window.location.href = window.location.pathname.split("images/")[0];
+        }
+        else
+            hideGallery();
+       
     }
 });

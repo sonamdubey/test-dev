@@ -14,7 +14,7 @@
                 <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
-                <li><a href="/new/">Find New Bikes</a></li>
+                <li><a href="/new-bikes-in-india/">Find New Bikes</a></li>
                 <li><a href="/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/dealer-showroom-locator/">Locate Dealer</a></li>

@@ -352,14 +352,14 @@
                                         </div>
                                         <div class="panel-body panel-body-3" data-bind="visible: formStep() == 3">
                                             <div class="panel-row margin-bottom40">
-                                                <p class="font16 margin-bottom5 text-black">Add Photos</p>
-                                                <p class="font14 text-light-grey margin-bottom20">Ads with photos are likely to get 50% more responses! You can upload upto 10 photos with first photo being the profile photo for the ad.<br />Supported formats: .jpg, .png; Image Size < 4 MB
+                                                <p class="font16 margin-bottom5 text-black">Add Images</p>
+                                                <p class="font14 text-light-grey margin-bottom20">Ads with images are likely to get 50% more responses! You can upload upto 10 photos with first photo being the profile photo for the ad.<br />Supported formats: .jpg, .png; Image Size < 4 MB
                                                 </p>
                                                 <div id="add-photos-dropzone" class="dropzone dz-clickable">
                                                     <div class="dz-message">
                                                         <div id="dz-custom-message">
                                                             <span class="sell-bike-sprite add-photo-icon"></span><br />
-                                                            <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add photos</button>
+                                                            <button type="button" class="btn btn-primary-big btn-orange margin-top20 margin-bottom15">Add images</button>
                                                             <p class="font14 text-light-grey">Select images to upload. You can also drag and drop images</p>
                                                         </div>
                                                         <ul id="dz-image-placeholder" class="margin-top10">
@@ -557,7 +557,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
 		                            <span class="bwsprite arrow-sm-down"></span>
 	                            </div>                        
 	                            <div class="accordion-body">
-		                            <p>You should provide comprehensive and correct details of your bike and upload multiple photos of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
+		                            <p>You should provide comprehensive and correct details of your bike and upload multiple images of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
 	                            </div>
                             </li>
 							<li>
@@ -586,17 +586,18 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var inquiryDetailsJSON = '<%= Newtonsoft.Json.JsonConvert.SerializeObject(inquiryDTO) %>';
             var userName = '<%= userName%>';
             var userEmail = '<%= userEmail%>';
+            var imgEnv = "<%= Bikewale.Utility.BWConfiguration.Instance.AWSEnvironment %>";
         </script>
         
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? ("https://st2.aeplcdn.com" + staticUrl) : "" %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
         <%} %>
         <!-- #include file="/includes/fontBW.aspx" -->
         <script type="text/javascript">

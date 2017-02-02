@@ -85,7 +85,7 @@ namespace Bikewale.Mobile.New
         protected ModelGallery ctrlModelGallery;
         protected int colorCount;
         protected BikeRankingEntity bikeRankObj;
-        protected string styleName = string.Empty, rankText = string.Empty, bikeType=string.Empty;
+        protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
 
         GlobalCityAreaEntity currentCityArea = null;
         private StringBuilder colorStr = new StringBuilder();
@@ -203,14 +203,16 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Created By :-Subodh Jain 07 oct 2016
         /// Desc:- To bind Description on model page
+        /// Modified by :   Sumit Kate on 20 Jan 2017
+        /// Description :   Model Page SEO changes
         /// </summary>
         private void BindDescription()
         {
             try
             {
-                string versionDescirption = versionCount > 1 ? string.Format(" and is available in {0} versions", versionCount) : string.Format(" and is available in {0} version", versionCount);
+                string versionDescirption = versionCount > 1 ? string.Format(" It is available in {0} versions", versionCount) : string.Format(" It is available in {0} version", versionCount);
                 string specsDescirption = string.Empty;
-                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("is Rs. {0} onwards (Ex-showroom, {1})", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
+                string priceDescription = modelPage.ModelDetails.MinPrice > 0 ? string.Format("Price - Rs. {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
 
                 if (modelPage != null && modelPage.ModelVersionSpecs != null && (modelPage.ModelVersionSpecs.TopSpeed > 0 || modelPage.ModelVersionSpecs.FuelEfficiencyOverall > 0))
                 {
@@ -225,7 +227,7 @@ namespace Bikewale.Mobile.New
                         specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, modelPage.ModelVersionSpecs.TopSpeed);
                     }
                 }
-                summaryDescription = string.Format("The price of {0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
+                summaryDescription = string.Format("{0} {1}{2}.{3}{4}", bikeName, priceDescription, versionDescirption, specsDescirption, colorStr);
             }
             catch (Exception ex)
             {
@@ -341,11 +343,11 @@ namespace Bikewale.Mobile.New
             totalUsedBikes = TotalUsedBikes(modelId, cityId);
             if (modelPage.ModelDetails.Futuristic)
             {
-                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & photos at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)), modelPage.UpcomingBike.ExpectedLaunchDate);
+                pgDescription = string.Format("{0} {1} Price in India is expected between Rs. {2} and Rs. {3}. Check out {0} {1}  specifications, reviews, mileage, versions, news & images at BikeWale.com. Launch date of {1} is around {4}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)), Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)), modelPage.UpcomingBike.ExpectedLaunchDate);
             }
             else if (!modelPage.ModelDetails.New)
             {
-                pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & photos at BikeWale.com", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
+                pgDescription = string.Format("{0} {1} Price in India - Rs. {2}. It has been discontinued in India. There are {3} used {1} bikes for sale. Check out {1} specifications, reviews, mileage, versions, news & images at BikeWale.com", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName, Bikewale.Utility.Format.FormatNumeric(price.ToString()), totalUsedBikes);
             }
             else
             {
@@ -537,7 +539,7 @@ namespace Bikewale.Mobile.New
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
                 objErr.SendMail();
 
-                Response.Redirect("/m/new/", true);
+                Response.Redirect("/m/new-bikes-in-india/", true);
             }
             finally
             {

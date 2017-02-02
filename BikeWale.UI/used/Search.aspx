@@ -78,25 +78,12 @@
                     <div class="grid-12">
                         <div class="content-box-shadow">
                             <div class="content-box-shadow padding-14-20">
-                                <div class="grid-9 alpha">
-                                    <h1 class="font24 text-x-black"><%= heading %></h1>
-                                </div>
-                                <div id="sort-by-content" class="grid-3 omega">
-                                    <div class="sort-div rounded-corner2">
-                                        <div class="sort-by-title" id="sort-by-container">
-                                            <span class="leftfloat sort-select-btn text-truncate">Sort by</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                <div class="alpha">
+                                    <div class="grid-9">
+                                        <h1 class="font24 text-x-black"><%= heading %></h1>
                                     </div>
-                                    <div class="sort-selection-div sort-list-items hide">
-                                        <ul id="sort-listing">
-                                            <li data-sortorder="1" data-bind="click : ApplySort">Most recent</li>
-                                            <li data-sortorder="2" data-bind="click : ApplySort">Price - Low to High</li>
-                                            <li data-sortorder="3" data-bind="click : ApplySort">Price - High to Low</li>
-                                            <li data-sortorder="4" data-bind="click : ApplySort">Kms - Low to High</li>
-                                            <li data-sortorder="5" data-bind="click : ApplySort">Kms - High to Low</li>
-                                        </ul>
+                                    <div class="grid-3">
+                                        <a target="_blank" class="btn btn-teal assistance-submit-btn rightfloat" href="/used/sell/" title="Sell your bike">Sell your bike</a>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
@@ -113,17 +100,18 @@
                                   else if (ctrlUsedBikesCityCountByMake.FetchedCount > 0)
                                   { %>
                                 <BW:UBCCountByMake runat="server" ID="ctrlUsedBikesCityCountByMake"></BW:UBCCountByMake>        
-                            <% } 
-                               else if(ctrlUsedBikesCityCountByModel.FetchedCount > 0)
-                               { %>    
+                            <% }
+                                  else if (ctrlUsedBikesCityCountByModel.FetchedCount > 0)
+                                  { %>    
                                     <BW:UBCCountByModel runat="server" ID="ctrlUsedBikesCityCountByModel"></BW:UBCCountByModel> 
                                 <%} %>
-                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0){%>
+                                <%else if (ctrlUsedBikeModelByCity.FetchCount > 0)
+                                  {%>
                                         <BW:UsedBikeModelByCity ID="ctrlUsedBikeModelByCity" runat="server" />
                                <%}%>                                  
                             </div>
                             <% } %>  
-                    <div id="search-listing-content" class="position-rel bg-white">
+                        <div id="search-listing-content" class="position-rel bg-white">
                                 <div id="listing-right-column" class="grid-8 padding-right20 rightfloat">
                                     <div id="loader-right-column"></div>
                                     <div class="margin-top15 font12 padding-bottom5 border-solid-bottom" data-bind="visible: PreviousQS() != ''">
@@ -139,13 +127,33 @@
                                     </div>
                                     <div id="listing-start-point"></div>
                                     <div class="padding-top15 padding-bottom15 text-light-grey font14 border-solid-bottom" data-bind="visible: TotalBikes() > 0">
-                                        <p style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-default text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""><%=_endIndex %></span></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+                                        <p class="grid-7 padding-top5" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0">Showing <span class="text-default text-bold"><span data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"><%=_startIndex %></span>-<span data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())""><%=_endIndex %></span></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
                                         <% if (totalListing > 0)
                                            { %>
-                                            <p data-bind="visible: OnInit()">Showing <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+                                            <p class="grid-7 padding-top5" data-bind="visible: OnInit()">Showing <span class="text-default text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-default text-bold" data-bind="    CurrencyText: TotalBikes()"><%= Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span> bikes</p>
+
                                         <% } %>
+
+                                         <div id="sort-by-content" class="grid-5 omega rightfloat">
+                                        <div class="sort-div rounded-corner2">
+                                            <div class="sort-by-title" id="sort-by-container">
+                                                <span class="leftfloat sort-select-btn text-truncate">Sort by</span>
+                                                <span class="clear"></span>
+                                            </div>
+                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                        </div>
+                                        <div class="sort-selection-div sort-list-items hide">
+                                            <ul id="sort-listing">
+                                                <li data-sortorder="1" data-bind="click : ApplySort">Most recent</li>
+                                                <li data-sortorder="2" data-bind="click : ApplySort">Price - Low to High</li>
+                                                <li data-sortorder="3" data-bind="click : ApplySort">Price - High to Low</li>
+                                                <li data-sortorder="4" data-bind="click : ApplySort">Kms - Low to High</li>
+                                                <li data-sortorder="5" data-bind="click : ApplySort">Kms - High to Low</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <%--<div data-bind="controlsDescendantBindings: true">--%>
+                                    <div class="clear"></div>
+                                    </div>
                                         <% if (usedBikesList != null && totalListing > 0)
                                            { %>
                                         <ul id="used-bikes-list" data-bind="visible: OnInit() && !noBikes()">
@@ -160,7 +168,9 @@
                                                         <% if (!(String.IsNullOrEmpty(bike.Photo.OriginalImagePath) || String.IsNullOrEmpty(bike.Photo.HostUrl)))
                                                            { %>
                                                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= curBikeName %>" title="<%= curBikeName %>" src="" />
-                                                        <%}else{ %>
+                                                        <%}
+                                                           else
+                                                           { %>
                                                         <div class="bg-light-grey">
                                                             <span class="bwsprite no-image-icon margin-bottom15"></span>
                                                             <p class="font12 text-bold text-light-grey">Image not available</p>
@@ -317,12 +327,12 @@
                                             <p class="filter-label margin-bottom5">City</p>
                                             <div class="clear"></div>
                                             <select id="ddlCity" class="city-chosen-select hide" data-bind="chosen:{width: '100%'},event: { change: FilterCity }">
-                                                 <option data-cityid="0" >All India</option>
+                                                 <option data-cityid="0" data-citymasking="india" value="0">All India</option>
                                                  <% if (citiesList != null)
                                                     { %>
                                                 <% foreach (var city in citiesList)
                                                    { %>
-                                                      <option data-cityid="<%= city.CityId %>" value="<%= city.CityId %>" ><%=city.CityName %></option>
+                                                      <option data-cityid="<%= city.CityId %>" data-citymasking="<%= city.CityMaskingName %>" value="<%= city.CityId %>" ><%=city.CityName %></option>
                                                 <% } %>
                                                 <%} %>
                                             </select>
@@ -432,7 +442,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
-             var pageQS = "<%= currentQueryString %>";
+             var pageQS = "<%= currentQueryString %>" ;
              var selectedCityId = <%= cityId %>;selectedMakeId = "<%= makeId %>",selectedModelId = "<%= modelId %>";
              var usedPageIdentifier="<%=PageIdentifier%>";
         </script>

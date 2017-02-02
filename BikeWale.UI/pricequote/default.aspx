@@ -30,7 +30,7 @@
                 </li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a class="blue" href="/new/" itemprop="url">
+                    <a class="blue" href="/new-bikes-in-india/" itemprop="url">
                         <span itemprop="title">New</span>
                     </a>
                 </li>
@@ -366,9 +366,9 @@
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
                 onCookieObj.PQCitySelectedId = parseInt(cData[0]);
-                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQCitySelectedName = cData[1] ? cData[1].replace(/-/g, ' ') : "";
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
-                onCookieObj.PQAreaSelectedName = cData[3];
+                onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
 
             }
         }

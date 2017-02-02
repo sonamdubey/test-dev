@@ -2,6 +2,7 @@
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DALs.BikeColorImages;
+using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.ContractCampaign;
@@ -17,6 +18,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Created By : Sangram Nandkhile  05 July 2016
     /// modified By :- Subodh Jain 09 Jan 2017
     /// Summary : Added color bike repository
+    /// Modified by :   Sumit Kate on 18 jan 2017
+    /// Description :   Register IDealerCampaignRepository
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -32,6 +35,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISellerRepository, SellerRepository>();
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
+            container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
             return container;
         }
     }

@@ -99,6 +99,7 @@
                         <td style="width: 20%"><strong>Campaign Name :</strong> </td>
                         <td>
                             <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300" enabled="true" />
+                            <span style="color:red">Please do not add area names in the campaign name.</span>
                         </td>
                     </tr>
                     <tr>
@@ -141,6 +142,8 @@
                             <asp:checkbox runat="server" id="chkUseDefaultCallToAction" text="Use Default" autopostback="false" ></asp:checkbox>
                             <asp:dropdownlist id="ddlCallToAction" autopostback="false" runat="server">                                
                             </asp:dropdownlist>
+                            <br />
+                            <span style="color:red">Call to action should be changed only when dealer has specifically asked for it. Inform the product team when a change in CTA is made.</span>
                         </td>
                     </tr>
                     <tr>

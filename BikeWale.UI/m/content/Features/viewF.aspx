@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.viewF" Async="true" Trace="false" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
@@ -8,12 +9,13 @@
     <%	
         title = pageTitle + " - Bikewale ";
         keywords = "features, stories, travelogues, specials, drives";
-    description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
-        canonical = "https://www.bikewale.com" + url;
+        description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
+        canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + url;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -71,7 +73,7 @@
                     <%if (objImg!=null)
                       { %>
                     <div class="border-solid-top padding-top10">
-                        <h3 class="margin-bottom10">Photos</h3>
+                        <h3 class="margin-bottom10">Images</h3>
                         <div class="swiper-container article-photos-swiper">
                             <div class="swiper-wrapper">
                                 <asp:Repeater id="rptPhotos" runat="server">
@@ -91,9 +93,14 @@
                 </div>
             </div>
         </section>
-
+        <% if(showBodyStyleWidget) { %>
+        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+        <% } else { %>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <% } %>                
+        <% if(string.IsNullOrEmpty(modelName)) { %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <% } %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>

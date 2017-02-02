@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public PageMetaTags pageMetas = null;
         public uint gridSize = 30;  //show more photos available after grid size more than 30
         public bool IsUpcoming = false, IsDiscontinued = false;
-
+        public bool isModelpage;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -84,6 +84,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     objModel = new BikeModelEntityBase();
                     objModel.ModelId = bikemodelEnt.ModelId;
                     objModel.ModelName = bikemodelEnt.ModelName;
+                    objModel.MaskingName = bikemodelEnt.MaskingName;
                     bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
                     IsUpcoming = bikemodelEnt.Futuristic;
                     IsDiscontinued = !bikemodelEnt.Futuristic && !bikemodelEnt.New;
@@ -102,6 +103,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
         /// Description: To get model images .Calculate grid and non grid images count based on total count
+        /// Modified By :- Subodh Jain 20 jan 2017
+        /// Summary :- take only 1 element if model page gallery is binding
         /// </summary>
         public void GetModelImages()
         {
@@ -112,6 +115,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     totalPhotosCount = objImageList.Count;
+
                     nongridPhotosCount = (int)(totalPhotosCount % _noOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
                     modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
@@ -134,11 +138,11 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 if (objMake != null && objModel != null)
                 {
                     pageMetas = new PageMetaTags();
-                    pageMetas.Title = String.Format("{0} Photos | {1} Images - BikeWale", bikeName, objModel.ModelName);
+                    pageMetas.Title = String.Format("{0} Images | {1} Photos - BikeWale", bikeName, objModel.ModelName);
                     pageMetas.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", objModel.ModelName, objMake.MakeName);
-                    pageMetas.Description = String.Format("View pictures of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
-                    pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/photos/", objMake.MaskingName, objModel.MaskingName);
-                    pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/photos/", objMake.MaskingName, objModel.MaskingName);
+                    pageMetas.Description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
+                    pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
+                    pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                 }
             }
             catch (Exception ex)

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
@@ -20,7 +21,12 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : added GetUserReviewSimilarBike method
     /// Modified by :   Sangram Nandkhile on 30 Jan 2017
     /// Description :   Removed GetModelPhotos method
-    /// </summary>
+    /// Modified By : Sushil Kumar on 2nd Jan 2016
+    /// Description : Addded new interface input parameter for generic bike info
+    /// Modified By : Sushil Kumar on 12 Jan 2017
+    /// Description : Addded new method for get bike ranking by model id
+    /// Modified By : Aditi Srivastava on 17 Jan 2017
+    /// Description : Added function to get top 10 bikes by bodystyle
     /// <typeparam name="U"></typeparam>
     public interface IBikeModelsCacheRepository<U>
     {
@@ -39,5 +45,10 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         IEnumerable<ImageBaseEntity> GetAllPhotos(BikeModelPageEntity objModelPage);
         IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId);
+        EnumBikeBodyStyles GetBikeBodyType(uint modelId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
+        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        BikeRankingEntity GetBikeRankingByCategory(uint modelId);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
     }
 }

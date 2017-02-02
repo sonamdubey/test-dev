@@ -55,7 +55,7 @@
                 </li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a class="blue" href="/new/" itemprop="url">
+                    <a class="blue" href="/new-bikes-in-india/" itemprop="url">
                         <span itemprop="title">New</span>
                     </a>
                 </li>
@@ -81,7 +81,7 @@
                         <tr>
                             <td style="width: 100px; vertical-align: central; border-right: 1px solid #E5E5E5; padding: 5px;">
                                 <div class="show-pq-pic">
-                                    <img alt="<%= BikeName%>  Photos" src="<% =ImgPath%>" title="<%=BikeName %> Photos">
+                                    <img alt="<%= BikeName%>  Images" src="<% =ImgPath%>" title="<%=BikeName %> Images">
                                 </div>
                                 <div class="margin-top5 dotted-hr <%= objColors.Count == 0 ? "hide" : "" %>" style="padding-right: 10px;"></div>
                                 <div class="<%= objColors.Count == 0 ? "hide" : "" %>" style="float: left; margin-right: 3px; padding-top: 3px;">Color: </div>

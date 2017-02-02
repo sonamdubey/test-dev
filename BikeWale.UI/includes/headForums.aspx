@@ -78,7 +78,7 @@
                 	<ul>
                     	<li><a href="/">Home</a></li>
                         <li class="pri-nav-sept"></li>
-                        <li><a href="/new/">New Bikes</a></li>
+                        <li><a href="/new-bikes-in-india/">New Bikes</a></li>
                         <li class="pri-nav-sept"></li>
                         <li><a href="/used/">Used Bikes</a></li>
                         <li class="pri-nav-sept"></li>

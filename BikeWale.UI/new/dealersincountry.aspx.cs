@@ -168,7 +168,7 @@ namespace Bikewale.New
             else
             {
                 Trace.Warn("make id : ", Request.QueryString["make"]);
-                Response.Redirect("/new/", false);
+                Response.Redirect("/new-bikes-in-india/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
                 isSuccess = false;

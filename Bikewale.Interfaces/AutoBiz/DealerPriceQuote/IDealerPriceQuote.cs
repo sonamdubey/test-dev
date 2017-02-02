@@ -3,9 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using BikeWale.Entities.AutoBiz;
-using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace Bikewale.Interfaces.AutoBiz
 {
@@ -19,16 +17,8 @@ namespace Bikewale.Interfaces.AutoBiz
     {
         PQ_QuotationEntity GetDealerPriceQuote(PQParameterEntity objParams);
         List<PQ_Price> GetBikeCategoryItems(string catgoryList);
-        DataSet GetDealerPrices(uint cityId, uint makelId, uint dealerId);
-        bool SaveDealerPrice(uint dealerId, uint versionId, uint cityId, UInt16 itemId, UInt32 itemValue);
-        bool SaveDealerPrice(DataTable dt);
-        bool DeleteVersionPrices(uint dealerId, uint cityId, string versionIdList);
         uint IsDealerExists(uint versionId, uint areaId);
         List<DealerAreaDetails> GetDealerAreaDetails(uint cityId);
-        bool MapDealerWithArea(uint dealerId, string areaIdList);
-        bool UnmapDealer(uint dealerId, string areaIdList);
-        List<DealerLatLong> GetDealersLatLong(uint versionId, uint areaId);
-        DealerLatLong GetCampaignDealersLatLong(uint versionId, uint areaId);
         void GetAreaLatLong(uint areaId, out double lattitude, out double longitude);
         List<CityEntityBase> GetBikeBookingCities(uint? modelId);
         List<BikeMakeEntityBase> GetBikeMakesInCity(uint cityId);

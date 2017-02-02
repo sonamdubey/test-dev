@@ -8,6 +8,8 @@ namespace Bikewale.Mobile.Controls
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
     /// Description : To bind mobile generic bike info control 
+    /// Modified By : Aditi Srivastava on 23 Jan 2017
+    /// Summary     : Added flags for upcoming and discontinued bikes
     /// </summary>
     public class GenericBikeInfoControl : System.Web.UI.UserControl
     {
@@ -15,6 +17,8 @@ namespace Bikewale.Mobile.Controls
         protected GenericBikeInfo bikeInfo { get; set; }
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected PQSourceEnum pqSource;
+        protected bool IsUpcoming { get; set; }
+        protected bool IsDiscontinued { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -30,12 +34,16 @@ namespace Bikewale.Mobile.Controls
                 bikeInfo = genericBikeInfo.GetGenericBikeInfo();
                 if (bikeInfo != null)
                 {
-                    if (bikeInfo.Make != null)
-                        bikeUrl = string.Format("/m/{0}-bikes/{1}/", bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName);
-                    if (bikeInfo.Model != null)
+                    if (bikeInfo.Make != null && bikeInfo.Model != null)
+                    {
+                        bikeUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                         bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
-                    bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0; // for photos page
+                    }
                     pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                    // for photos page
+                    bikeInfo.PhotosCount = 0; bikeInfo.VideosCount = 0;
+                    IsUpcoming = genericBikeInfo.IsUpcoming;
+                    IsDiscontinued = genericBikeInfo.IsDiscontinued;
                 };
             }
 

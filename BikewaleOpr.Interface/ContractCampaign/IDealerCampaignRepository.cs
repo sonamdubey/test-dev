@@ -1,11 +1,14 @@
 ﻿
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
 using System.Collections.Generic;
 namespace BikewaleOpr.Interface.ContractCampaign
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Dec 2016
     /// Description :   DealerCampaign Repository Interface
+    /// Modified by :   Sumit Kate on 18 Jan 2017
+    /// Description :   Added methods MakesByDealerCity, DealersByMakeCity and DealerCampaigns
     /// </summary>
     public interface IDealerCampaignRepository
     {
@@ -13,5 +16,8 @@ namespace BikewaleOpr.Interface.ContractCampaign
         ICollection<CallToActionEntityBase> FetchDealerCallToActions();
         bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false);
         int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, int dealerLeadServingRadius, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false);
+        ICollection<BikeMakeEntityBase> MakesByDealerCity(uint cityId);
+        ICollection<DealerEntityBase> DealersByMakeCity(uint cityId, uint makeId, bool activecontract);
+        ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, bool activecontract);
     }
 }

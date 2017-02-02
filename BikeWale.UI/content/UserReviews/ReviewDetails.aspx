@@ -31,13 +31,13 @@
 <body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <%if(objReview!=null){ %>
-        <section class="bg-light-grey padding-top10" id="breadcrumb">
+    
+         <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
                 <div class="grid-12">
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
-                        <%if(objReview.ReviewEntity!=null&&objReview.BikeEntity!=null&&objReview.BikeEntity.ModelEntity!=null&&objReview.BikeEntity.MakeEntity!=null) {%>
+                           <%if(objReview!=null&& objReview.ReviewEntity!=null&&objReview.BikeEntity!=null&&objReview.BikeEntity.ModelEntity!=null&&objReview.BikeEntity.MakeEntity!=null) {%>
                         <ul>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
                                 <span itemprop="title">Home</span></a>
@@ -51,7 +51,7 @@
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= objReview.BikeEntity.MakeEntity.MaskingName%>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName%>/" itemprop="url">
-                                    <span itemprop="title"><%=BikeName %></span>
+                                    <span itemprop="title"><%= objReview.BikeEntity.MakeEntity.MakeName%> <%= objReview.BikeEntity.ModelEntity.ModelName%> </span>
                                 </a>
                             </li>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -66,6 +66,7 @@
                         </ul>
                        
                         <div class="clear"></div>
+                           <%} %>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -78,26 +79,27 @@
                     <div class="grid-8 alpha">
                         <div class="content-box-shadow bg-white margin-bottom20">
                             <div class="content-box-shadow padding-14-20">
-                            <div class="grid-9 alpha inline-block float-none">
-                                <h1 class="margin-bottom5"><%= objReview.ReviewEntity.ReviewTitle  %></h1>
-                                <div>
-                                    <span class="bwsprite calender-grey-sm-icon"></span>
-                                    <span class="article-stats-content margin-right20"><%=  objReview.ReviewEntity.ReviewDate %></span>
-                                    <span class="bwsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content text-capitalize">
-                                        <%if (handleName != "")
-                                          { %>
-                                            <%=handleName%>
-                                        <% }
-                                          else
-                                          { %>
-                                            <%= objReview.ReviewEntity.WrittenBy %>
-                                        <%} %>
-                                    </span>
+                                <div class="grid-9 alpha inline-block">
+                                    <h1 class="margin-bottom5"><%= objReview.ReviewEntity.ReviewTitle  %></h1>
+                                    <div>
+                                        <span class="bwsprite calender-grey-sm-icon"></span>
+                                        <span class="article-stats-content margin-right20"><%= Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(objReview.ReviewEntity.ReviewDate), "MMMM dd, yyyy hh:mm tt")  %></span>
+                                        <span class="bwsprite author-grey-sm-icon"></span>
+                                        <span class="article-stats-content text-capitalize">
+                                            <%if (handleName != "")
+                                              { %>
+                                                <%=handleName%>
+                                            <% }
+                                              else
+                                              { %>
+                                                <%= objReview.ReviewEntity.WrittenBy %>
+                                            <%} %>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div><div class="grid-3 text-right alpha omega inline-block float-none">
-                                <a href="/content/userreviews/writereviews.aspx?bikem=<%= objReview.BikeEntity.ModelEntity.ModelId %>" class="btn btn-teal btn-size-150">Write a review</a>
-                            </div>
+                                <div class="grid-3 text-right alpha omega inline-block">
+                                    <a href="/content/userreviews/writereviews.aspx?bikem=<%= objReview.BikeEntity.ModelEntity.ModelId %>" class="btn btn-teal btn-size-150">Write a review</a>
+                                </div>
                             <div class="clear"></div>
                         </div>
 
@@ -117,11 +119,22 @@
                                    <%if(objReview.ModelSpecs.KerbWeight>0){ %>  <li><%=objReview.ModelSpecs.KerbWeight %> kgs</li>                       <%}%>
                                 </ul>
                                 <%} %>
+                                <%if (!objReview.New) {%>
+                          
                                 <p class="margin-top10 text-light-grey font14">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div class="margin-top5">  
                                     <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(objReview.ModelBasePrice) %></span>
                                 </div>
+                                <%}
+                            
+                            else{ %>
+                                       <p class="margin-top10 text-light-grey font14">Last known Ex-showroom price</p>
+                            <div class="margin-top5">  
+                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%=Bikewale.Utility.Format.FormatPrice(objReview.ModelBasePrice) %></span>
                             </div>
+                            <%} %>
+                            
+                        </div>
                             <div class="clear"></div>
 
                             <div class="border-solid ratings margin-top15 display-table">
@@ -129,14 +142,15 @@
                                     <p class="text-bold font14 margin-bottom10">
                                         <span class="text-truncate inline-block">
                                         <%if (handleName != "")
-                                          { %>
+                                            { %>
                                             <%=handleName%>
                                         <% }
-                                          else
-                                          { %>
-                                            <%=objReview.ReviewEntity.WrittenBy%><%}%></span>'s <span class="inline-block">Rating</span></p>
-                                  <%if (objReview.ReviewRatingEntity.OverAllRating>0)
-                                    { %>  <div>
+else
+                                            { %>
+                                            <%=objReview.ReviewEntity.WrittenBy%><%}%>'s Rating</p>
+                                    <%if (objReview.ReviewRatingEntity.OverAllRating>0)
+                                    { %>
+                                    <div>
                                         <span class="star-one-icon"></span>
                                         <div class="inline-block">
                                             <span class="font20 text-bold"><%=Math.Round(objReview.ReviewRatingEntity.OverAllRating,1) %></span>
@@ -189,7 +203,7 @@
                                         </span>
                                     </li>
                                         <%} %>
-                                       <%if (objReview.ReviewRatingEntity.StyleRating > 0)
+                                        <%if (objReview.ReviewRatingEntity.StyleRating > 0)
                                     { %>
                                     <li>
                                         <span class="rating-category-label">Style/Comfort</span>
@@ -204,75 +218,76 @@
                                     <div class="clear"></div>
                                 </div>
                             </div>
-                            <div class="clear"></div>
-                        </div>
-
-                        
-
-                        <div class="padding-right20 padding-left20 padding-bottom20 font14">
-                            <div class="padding-top20 border-solid-top padding-bottom20">
-                                <h2 class="font18 margin-bottom10">Good about this bike</h2>
-                                <p><%= objReview.ReviewEntity.Pros %></p>
-                            </div>
-                            <div class="padding-top20 border-solid-top padding-bottom20">
-                                <h2 class="font18 margin-bottom10">Not so good about this bike</h2>
-                                <p><%= objReview.ReviewEntity.Cons %></p>
-                            </div>
-                            <div class="padding-top20 border-solid-top">
-                                <h2 class="font18 margin-bottom10">Full Review</h2>
-                                <div class="format-content"><%= objReview.ReviewEntity.Comments %></div>
-
-                                <div class="margin-bottom15 text-light-grey">
-                                    <div class="grid-6 alpha">
-                                        <span class="bwsprite review-sm-lgt-grey"></span>
-                                        <span class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Viewed%></span>
-                                        <span class="bwsprite like-icon"></span>
-                                        <span id="spnLiked" class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Liked%></span>
-                                        <span class="bwsprite dislike-icon"></span>
-                                        <span id="spnDisliked" class="article-stats-content"><%= objReview.ReviewEntity.Liked+objReview.ReviewEntity.Disliked %></span>
-                                    </div>
-                                    <div class="grid-6 omega readmore text-right">
-                                        <p id="divAbuse">Inappropriate Review? <a onclick='javascript:abuseClick(<%= reviewId %>)' class="cur-pointer">Report Abuse</a> </p>
-                                    </div>
-                                    <div class="clear"></div>
+                            <div class="padding-bottom20 font14">
+                                <div class="padding-top20 padding-bottom20">
+                                    <h2 class="font18 margin-bottom10">Good about this bike</h2>
+                                    <p><%= objReview.ReviewEntity.Pros %></p>
                                 </div>
-                                <div class="padding-top20 border-solid-top helpful text-light-grey">
-                                    <div id="divHelpful" class="readmore black-text">Was this review helpful to you? <a onclick='javascript:helpfulClick(<%= reviewId %>, "1")' class="btn-transparent-sm">Yes</a>  <a onclick='javascript:helpfulClick(<%= reviewId %>, "0")' class="btn-transparent-sm">No</a>
+                                <div class="padding-top20 border-solid-top padding-bottom20">
+                                    <h2 class="font18 margin-bottom10">Not so good about this bike</h2>
+                                    <p><%= objReview.ReviewEntity.Cons %></p>
+                                </div>
+                                <div class="padding-top20 border-solid-top">
+                                    <h2 class="font18 margin-bottom10">Full Review</h2>
+                                    <div class="format-content"><%= objReview.ReviewEntity.Comments %></div>
+
+                                    <div class="margin-bottom15 text-light-grey">
+                                        <div class="grid-5 alpha">
+                                            <span class="bwsprite review-sm-lgt-grey"></span>
+                                            <span class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Viewed%></span>
+                                            <span class="bwsprite like-icon"></span>
+                                            <span id="spnLiked" class="article-stats-content margin-right15"><%=objReview.ReviewEntity.Liked%></span>
+                                            <span class="bwsprite dislike-icon"></span>
+                                            <span id="spnDisliked" class="article-stats-content"><%=objReview.ReviewEntity.Disliked %></span>
+                                        </div>
+                                        <div class="grid-7 omega readmore text-right">
+                                            <p id="divAbuse">Inappropriate Review? <a onclick='javascript:abuseClick(<%= reviewId %>)' class="cur-pointer">Report Abuse</a> </p>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="padding-top20 border-solid-top helpful text-light-grey">
+                                        <div id="divHelpful" class="readmore black-text">Was this review helpful to you? <a onclick='javascript:helpfulClick(<%= reviewId %>, "1")' class="btn-transparent-sm">Yes</a>  <a onclick='javascript:helpfulClick(<%= reviewId %>, "0")' class="btn-transparent-sm">No</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <BikeWale:DiscussIt ID="ucDiscuss" runat="server" />
+                            <BikeWale:DiscussIt ID="ucDiscuss" runat="server" />
                         <div class="clear"></div>
                     </div>
+                    </div>
+                        <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                         <div class="content-box-shadow bg-white padding-18-20 margin-bottom20">
-                                 <% if (ctrlUserReviews.FetchedRecordsCount > 0){ %>
                             <!-- user reviews -->
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                             <!-- user reviews ends -->
-                            <% } %>
                         </div>
+                         <% } %>
                     </div>
                     <div class="grid-4 omega">
                         <%if(ctrlUserReviewSimilarBike.FetchCount>0){ %>
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>User reviews of similar bikes</h2>
-                             <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
+                                <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
                         </div>
                         <%} %>
-                         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
+                            <div class="margin-bottom20">
                         <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                                </div>
                         <%if (ctrlPopularBikes.FetchedRecordsCount>0)
-                          { %>
-                          <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" /> 
+                            { %>
+                    
+                            <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
+                      
                         <%} %>         
                        
                     </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-        <%} %>
+       
+      
         <div id="report-abuse">
             <p class="font20 text-bold text-center margin-bottom20">Why do you want to report it abuse?</p>
             <div class="report-abuse-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -295,7 +310,6 @@
             <br />
             <a id="btnReportReviewAbuse2" class="buttons" onclick="javascript:reportAbuse()">Report</a>
         </div>
-        <%} %>
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -315,8 +329,9 @@
                             if (helpful == "1") {
                                 document.getElementById("spnLiked").innerHTML = likedOrig + 1;
                             }
-
-                            document.getElementById("spnDisliked").innerHTML = disliked + 1;
+                            else {
+                                document.getElementById("spnDisliked").innerHTML = disliked + 1;
+                            }
                             document.getElementById("divHelpful").innerHTML = "Thank you for the feedback!";
                         } else {
                             document.getElementById("divHelpful").innerHTML = "You have already voted for this review.";
@@ -326,8 +341,6 @@
             }
 
             function abuseClick(reviewId) {
-                reportAbusePopup.open();
-                appendState('reportPopup');
 
                 $.ajax({
                     type: "POST",
@@ -338,13 +351,15 @@
                         var userId = eval('(' + response + ')');
                         //alert(userId.value);
                         if (userId.value != "-1") {
+                            reportAbusePopup.open();
+                            appendState('reportPopup');
                             var caption = "Why do you want to report it abuse?";
                             var url = "reviewcomments.aspx";
                             var applyIframe = false;
 
-                            GB_show(caption, url, 180, 350, applyIframe, $("#report-abuse").html());
+                           
                         } else {
-                            location.href = "/users/login.aspx?returnUrl=/content/userreviews/reviewdetails.aspx?rid=" + reviewId;
+                            location.href = "/users/login.aspx?returnUrl=/content/userreviews/reviewdetails.aspx?rid=" + reviewId + "&hash=report-abuse-popup";
                         }
                     }
                 });
@@ -372,7 +387,7 @@
                         success: function (response) {
                             var responseObj = eval('(' + response + ')');
                             if (responseObj.value == true) {
-                                GB_hide();
+                                reportAbusePopup.close();
                                 document.getElementById("divAbuse").innerHTML = "Your request has been sent to the administrator.";
                             }
                         }
@@ -392,8 +407,14 @@
                         history.back();
                     }
                 }
-            });
 
+            });
+            $(function () {
+
+                if (window.location.hash == "#report-abuse-popup") {
+                    abuseClick("<%=reviewerId%>")
+                }
+            });
             var reportAbusePopup = {
                 open: function () {
                     $('#report-abuse').show();

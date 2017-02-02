@@ -14,10 +14,13 @@ namespace Bikewale.BindViewModels.Webforms
     /// Summary     : A ViewModel to bind data with Model page view
     /// Modified by  : Sangram Nandkhile on 16 mar 2016
     /// Summary: Addded fields LeadBtnTextLarge and LeadBtnTextSmall
+    /// Modified by :   Sumit Kate on 30 Jan 2017
+    /// Description :   Added property for DSA dealer IsDSA
     /// </summary>
     public class ModelPageVM
     {
         public bool IsPremiumDealer { get; set; }
+        public bool IsDSA { get; set; }
         public string Organization { get; set; }
         public string AreaName { get; set; }
         public string LeadBtnTextLarge { get; set; }
@@ -48,6 +51,7 @@ namespace Bikewale.BindViewModels.Webforms
                         {
                             if (dealeDetails.DealerPackageType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
                             {
+                                IsDSA = dealeDetails.IsDSA;
                                 IsPremiumDealer = true;
                                 Organization = dealeDetails.Organization;
                                 if (dealeDetails.objArea != null)
