@@ -529,8 +529,8 @@ var modelGallery = function () {
         ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
         if (!self.activeVideoId()) {
             setVideoDetails(0);
-            self.videoList.notifySubscribers();
         }
+        self.videoList.notifySubscribers();
     }
     function checkCacheCityAreas(key) {
         
