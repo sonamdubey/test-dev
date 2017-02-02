@@ -1,15 +1,10 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -32,18 +27,15 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// </summary>
     public class NewsDetails
     {
-
         public BikeMakeEntityBase TaggedMake;
         public BikeModelEntityBase TaggedModel;
         public ArticleDetails ArticleDetails { get; set; }
         public uint BasicId;
-        public bool IsContentFound { get; set; }
-        public bool IsPageNotFound { get; set; }
-        public bool IsPermanentRedirect { get; set; }
+        public bool IsContentFound, IsPageNotFound, IsPermanentRedirect;
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
         public string MappedCWId { get; set; }
-        public EnumBikeBodyStyles BodyStyle { get; set; }
+        private ICMSCacheContent _cache = null;
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list
@@ -54,25 +46,25 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         {
             CityArea = GlobalCityArea.GetGlobalCityArea();
             if (ProcessQueryString() && BasicId > 0)
-                GetNewsArticleDetails();
-        }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to fetch news details from api asynchronously
-        /// </summary>
-        private void GetNewsArticleDetails()
-        {
-            try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    ArticleDetails = _cache.GetNewsDetails(BasicId);
+                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
+                    _cache = container.Resolve<ICMSCacheContent>();
+                }
+            }
+        }
+        /// <summary>
+        /// Written By : Ashwini Todkar on 24 Sept 2014
+        /// PopulateWhere to fetch news details from api asynchronously
+        /// </summary>
+        public void GetNewsArticleDetails()
+        {
+            try
+            {
+                ArticleDetails = _cache.GetNewsDetails(BasicId);
 
                     if (ArticleDetails != null)
                     {
@@ -81,20 +73,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                         GetTaggedBikeListByModel();
                         CreateMetaTags();
                     }
-                    else
-                    {
-                        IsContentFound = false;
-                    }
-
-                }
-
             }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
             }
         }
-       
+
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Common logic to bind meta tags
@@ -179,32 +164,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 31 Jan 2017
-        /// Summary    : Get body style of tagged model
-        /// </summary>
-        private void GetTaggedBikeBodyStyle()
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-
-                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    if (TaggedModel != null)
-                        BodyStyle = modelCache.GetBikeBodyType((uint)TaggedModel.ModelId);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.NewsDetails.GetTaggedBikeBodyStyle");
-            }
-        }
+        
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Process query string for article id
@@ -217,7 +177,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             string _basicId = request.QueryString["id"];
             try
             {
-
                 if (!string.IsNullOrEmpty(_basicId))
                 {
                     //Check if basic id exists in mapped carwale basic id log **/

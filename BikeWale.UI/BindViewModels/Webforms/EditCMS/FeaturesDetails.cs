@@ -3,7 +3,7 @@ using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.Common;
+using Bikewale.Notifications;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
@@ -27,25 +27,30 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// Created by : Aditi Srivastava on 30 Jan 2017
     /// Summary    : Common viewmodel for features detail page
     /// </summary>
-    [System.Runtime.InteropServices.GuidAttribute("0144D8A4-43A8-4F62-8718-EC64CCE02660")]
     public class FeaturesDetails
     {
         public uint BasicId;
-        public string qsBasicId = string.Empty;
-        protected int basicId = 0, pageId = 1;
-        public bool IsContentFound { get; set; }
-        public bool IsPageNotFound { get; set; }
-        public bool IsPermanentRedirect { get; set; }
+        protected int pageId = 1;
+        public bool IsContentFound, IsPageNotFound, IsPermanentRedirect;
         public IEnumerable<ModelImage> objImg;
         public ArticlePageDetails objFeature { get; set; }
         public BikeMakeEntityBase taggedMakeObj;
         public BikeModelEntityBase taggedModelObj;
         public EnumBikeBodyStyles BodyStyle { get; set; }
+        public string MappedCWId { get; set; }
+        private ICMSCacheContent _cache = null;
+
         public FeaturesDetails()
         {
-            if (ProcessQueryString() && BasicId>0)
+            if (ProcessQueryString() && BasicId > 0)
             {
-                GetFeatureDetails();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                            .RegisterType<ICacheManager, MemcacheManager>();
+                    _cache = container.Resolve<ICMSCacheContent>();
+                }
             }
         }
 
@@ -56,105 +61,65 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// <returns></returns>
         private bool ProcessQueryString()
         {
-            bool isSucess = true;
-            var Request = HttpContext.Current.Request;
-            qsBasicId = Request.QueryString["id"];
-            if (qsBasicId!= null && !String.IsNullOrEmpty(qsBasicId) && CommonOpn.CheckId(qsBasicId))
+
+            var request = HttpContext.Current.Request;
+            string qsBasicId = request.QueryString["id"];
+            try
             {
-                string _basicId = BasicIdMapping.GetCWBasicId(qsBasicId);
-
-                if (!_basicId.Equals(qsBasicId))
+                if (!String.IsNullOrEmpty(qsBasicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                    var _titleStartIndex = _newUrl.IndexOf('/');
-                    var _titleEndIndex = _newUrl.LastIndexOf('-');
-                    string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = _newUrlTitle + _basicId + "/";
-                    CommonOpn.RedirectPermanent(_newUrl);
-                    IsPermanentRedirect = true;
+                    string _basicId = BasicIdMapping.GetCWBasicId(qsBasicId);
 
-                }
-                uint.TryParse(_basicId, out BasicId);
-
-                if (Request.QueryString["pn"] != null && !String.IsNullOrEmpty(Request.QueryString["pn"]) && CommonOpn.CheckId(Request.QueryString["pn"]))
-                {
-                    if (!Int32.TryParse(Request.QueryString["pn"], out pageId))
+                    if (!_basicId.Equals(qsBasicId))
                     {
-                        isSucess = false;
-                        IsPageNotFound = true;
+                        IsPermanentRedirect = true;
+                        MappedCWId = _basicId;
+                        return false;
+                    }
+                    uint.TryParse(_basicId, out BasicId);
+
+                    if (!String.IsNullOrEmpty(request.QueryString["pn"]))
+                    {
+                        if (!Int32.TryParse(request.QueryString["pn"], out pageId))
+                        {
+                            IsPageNotFound = true;
+                            return false;
+                        }
                     }
                 }
+                else
+                {
+                    IsPageNotFound = true;
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                IsPageNotFound = true;
-                isSucess = false;
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.ProcessQueryString");
             }
 
-            return isSucess;
+            return true;
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
         /// Summary    : Get all feature details
         /// </summary>
-        private void GetFeatureDetails()
+        public void GetFeatureDetails()
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objFeature = _cache.GetArticlesDetails(BasicId);
+                if (objFeature != null)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    objFeature = _cache.GetArticlesDetails(BasicId);
+                    IsContentFound = true;
                     objImg = _cache.GetArticlePhotos((int)BasicId);
-                    if (objFeature != null)
-                    {
-                        IsContentFound = true;
-                       
-                        GetTaggedBikeListByMake();
-                        GetTaggedBikeListByModel();
-                        GetTaggedBikeBodyStyle();
-                    }
-                    else
-                    {
-                        IsContentFound = false;
-                    }
+                    GetTaggedBikeListByMake();
+                    GetTaggedBikeListByModel();
                 }
-
             }
             catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetFeatureDetails");
-            }
-        }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 31 Jan 2017
-        /// Summary    : Get body style of tagged model
-        /// </summary>
-        private void GetTaggedBikeBodyStyle()
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-
-                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    if (taggedModelObj != null)
-                        BodyStyle = modelCache.GetBikeBodyType((uint)taggedModelObj.ModelId);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeatureDetails.GetTaggedBikeBodyStyle");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetFeatureDetails");
             }
         }
 
@@ -177,42 +142,20 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         taggedMakeObj = objFeature.VehiclTagsList.FirstOrDefault().MakeBase;
-                        FetchMakeDetails();
+                        if (taggedMakeObj != null && taggedMakeObj.MakeId > 0)
+                        {
+                            taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)taggedMakeObj.MakeId);
+                        }
                     }
                 }
             }
-            catch(Exception err)
+            catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByMake");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByMake");
 
             }
         }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 30 Jan 2017
-        /// Summary    : Get details of tagged make if not available with the article
-        /// </summary>
-        private void FetchMakeDetails()
-        {
-            try
-            {
-                if (taggedMakeObj != null && taggedMakeObj.MakeId > 0)
-                {
 
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        taggedMakeObj = makesRepository.GetMakeDetails(taggedMakeObj.MakeId.ToString());
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.viewF.FetchMakeDetails");
-                objErr.SendMail();
-            }
-        }
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
         /// Summary    : Get model details if model is tagged
@@ -233,16 +176,15 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     {
                         taggedModelObj = objFeature.VehiclTagsList.FirstOrDefault().ModelBase;
                         taggedModelObj = new Bikewale.Common.ModelHelper().GetModelDataById((uint)taggedModelObj.ModelId);
-
                     }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeListByModel");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByModel");
             }
         }
 
-      
+
     }
 }

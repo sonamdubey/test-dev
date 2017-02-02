@@ -131,40 +131,16 @@
                     <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
-                        <%--<BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <div class="margin-bottom20">
-                            <!-- #include file="/ads/ad300x250.aspx" -->
-                        </div>
-                        
-                        <BW:PopularBikesByBodyStyle ID="ctrlPopularByCategory" runat="server"/>
-                        <% if (taggedModelId < 1)
-                           { %>
-                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <% } %>--%>
-
-                         <%if (isModelTagged)
-                          { %>
-                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularMakeBikes" />
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
                        <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                         <% if (showBodyStyleWidget)
-                           { %>
-                        <BW:PopularBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
-                        <% }
-                           else
-                           { %>
-                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikesModelTagged" />
-                        <% } %>
+                        <%if(isModelTagged){ %>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                        <%} else{%>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
                         <%} %>
-                        <% else
-                          { %>
-                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-                        <div class="margin-bottom20">
-                            <!-- #include file="/ads/ad300x250.aspx" -->
-                        </div>
-                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                        <%} %>
+                       
                     </div>
                     <div class="clear"></div>
                 </div>

@@ -41,18 +41,16 @@ namespace Bikewale.Content
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         protected ModelGallery ctrlModelGallery;
-        protected MostPopularBikesMin ctrlPopularBikes, ctrlPopularMakeBikes, ctrlPopularBikesModelTagged;
+        protected MostPopularBikesMin ctrlPopularBikes;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         private GlobalCityAreaEntity currentCityArea;
         private BikeMakeEntityBase _taggedMakeObj;
-        private bool _isContentFound = true;
         protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty;
         protected int makeId;
         protected uint taggedModelId;
-        protected EnumBikeBodyStyles bodyStyle;
-        protected bool showBodyStyleWidget, isModelTagged;
-        protected string url = "/expert-reviews/";
+        protected bool isModelTagged;
+        
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -89,12 +87,13 @@ namespace Bikewale.Content
         {
             try
             {
-                objArticle = new RoadTestDetails(url);
-                if(!objArticle.IsPermanentRedirect)
+                objArticle = new RoadTestDetails();
+                if(!objArticle.IsPermanentRedirect || !objArticle.IsPageNotFound)
                 {
-                    objRoadtest = objArticle.objRoadtest;
-                    if (objRoadtest != null)
+                    objArticle.GetRoadTestDetails();
+                    if (objArticle.IsContentFound)
                     {
+                        objRoadtest = objArticle.objRoadtest;
                         BindPages();
                         GetRoadtestData();
                         _taggedMakeObj = objArticle.taggedMakeObj;
@@ -110,18 +109,17 @@ namespace Bikewale.Content
                             ctrlModelGallery.bikeName = articleTitle;
                             ctrlModelGallery.Photos = objImg.ToList();
                         }
-                        bodyStyle = objArticle.BodyStyle;
                         BindPageWidgets();
                     }
+                    else 
+                    {
+                        Response.Redirect("/expert-reviews/", false);
+                        if (HttpContext.Current != null)
+                          HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
-                else if(!objArticle.IsContentFound)
-                {
-                    Response.Redirect("/expert-reviews/", false);
-                    if (HttpContext.Current != null)
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
-                }
-                else
+                 else if(objArticle.IsPageNotFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
@@ -130,7 +128,15 @@ namespace Bikewale.Content
             }
             catch(Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.ViewRT.BindRoadTestDetails");
+            }
+            finally
+            {
+                if (objArticle.IsPermanentRedirect)
+                {
+                    string newUrl = string.Format("/expert-reviews/{0}-{1}.html", objArticle.MappedCWId, Request["t"]);
+                    Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
+                }
             }
         }
         
@@ -164,7 +170,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.BindGallery");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.ViewRT.BindGallery");
                 objErr.SendMail();
             }
         }
@@ -181,54 +187,30 @@ namespace Bikewale.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                if (taggedModelId > 0)
+                isModelTagged = (taggedModelId > 0);
+                if (ctrlPopularBikes != null)
                 {
-                    isModelTagged = true;
-                    if (ctrlPopularMakeBikes != null)
+                    ctrlPopularBikes.totalCount = 3;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (_taggedMakeObj != null)
                     {
-                        ctrlPopularMakeBikes.totalCount = 3;
-                        ctrlPopularMakeBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                        ctrlPopularMakeBikes.cityName = currentCityArea.City;
-                        if (_taggedMakeObj != null)
-                        {
-                            ctrlPopularMakeBikes.MakeId = _taggedMakeObj.MakeId;
-                            ctrlPopularMakeBikes.makeName = _taggedMakeObj.MakeName;
-                            ctrlPopularMakeBikes.makeMasking = _taggedMakeObj.MaskingName;
-                        }
+                        ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     }
-                    showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
-                    if (showBodyStyleWidget && ctrlBikesByBodyStyle != null)
+                }
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
                         ctrlBikesByBodyStyle.topCount = 3;
                         ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                     }
-                    else
-                    {
-                        if (ctrlPopularBikesModelTagged != null)
-                        {
-                            ctrlPopularBikesModelTagged.totalCount = 3;
-                            ctrlPopularBikesModelTagged.CityId = Convert.ToInt32(currentCityArea.CityId);
-                            ctrlPopularBikesModelTagged.cityName = currentCityArea.City;
-                        }
-                    }
                 }
                 else
                 {
-                    isModelTagged = false;
-                    if (ctrlPopularBikes != null)
-                    {
-                        ctrlPopularBikes.totalCount = 3;
-                        ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                        ctrlPopularBikes.cityName = currentCityArea.City;
-                        if (_taggedMakeObj != null)
-                        {
-                            ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
-                            ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                            ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-
-                        }
-                    }
                     if (ctrlUpcomingBikes != null)
                     {
                         ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -245,7 +227,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "viewRT.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.ViewRT.BindPageWidgets");
 
             }
         }

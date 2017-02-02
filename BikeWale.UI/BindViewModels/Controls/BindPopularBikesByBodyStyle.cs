@@ -21,7 +21,6 @@ namespace Bikewale.BindViewModels.Controls
     public class BindPopularBikesByBodyStyle
     {
         public int TopCount { get; set; }
-        public EnumBikeBodyStyles BodyStyle { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public int FetchedRecordsCount { get; set; }
@@ -41,8 +40,7 @@ namespace Bikewale.BindViewModels.Controls
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     if (ModelId > 0)
                     {
-                        BodyStyle = modelCache.GetBikeBodyType(ModelId);
-                        popularBikesList = modelCache.GetPopularBikesByBodyStyle((int)BodyStyle, TopCount, CityId);
+                        popularBikesList = modelCache.GetPopularBikesByBodyStyle((int)ModelId, TopCount, CityId);
                         if (popularBikesList != null && popularBikesList.Count() > 0)
                             FetchedRecordsCount = popularBikesList.Count();
                     }
@@ -50,7 +48,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}", ModelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BindViewModels.Controls.BindPopularBikesByBodyStyle.GetPopularBikesByCategory ModelId: {0}", ModelId));
             }
             return popularBikesList;
         }

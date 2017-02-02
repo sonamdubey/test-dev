@@ -94,21 +94,14 @@
                     <%} %>
                 </div>
             </div>
-        </section>
-        <%if(isModelTagged){ %>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularMakeBikes" />
-        <% if(showBodyStyleWidget) { %>
-        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
-        <% } else { %>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikesModelTagged" />
-        <% } %> 
-        <%} %>
-        <% else{ %>
+        </section>        
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
-         <%} %>
+         <%if(isModelTagged){ %>
+         <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+          <%} else{%>
+         <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
+          <%} %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
-
         <div class="back-to-top" id="back-to-top"></div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

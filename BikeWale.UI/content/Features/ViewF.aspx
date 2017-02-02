@@ -106,31 +106,15 @@
                     </div>
 
                     <div class="grid-4 omega">
-                         <%if (isModelTagged)
-                          { %>
-                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularMakeBikes" />
-                         <div class="margin-bottom20">
-                            <!-- #include file="/ads/ad300x250.aspx" -->
-                        </div>
-                       
-                        <% if (showBodyStyleWidget)
-                           { %>
-                        <BW:PopularBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
-                        <% }
-                           else
-                           { %>
-                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikesModelTagged" />
-                        <% } %>
-                        <%} %>
-                        <% else
-                          { %>
                         <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
                        <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                        <%} %>
-                       
+                        <%if(isModelTagged){ %>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                        <%} else{%>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <%} %>                       
                     </div>
                     <div class="clear"></div>
                 </div>

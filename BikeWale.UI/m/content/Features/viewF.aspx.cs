@@ -36,7 +36,7 @@ namespace Bikewale.Mobile.Content
     {
         protected Repeater rptPageContent;
         protected UpcomingBikesMin ctrlUpcomingBikes;
-        protected PopularBikesMin ctrlPopularBikes, ctrlPopularMakeBikes, ctrlPopularBikesModelTagged;
+        protected PopularBikesMin ctrlPopularBikes;
         protected ModelGallery photoGallery;
         protected HtmlSelect ddlPages;
         protected int BasicId = 0, pageId = 1;
@@ -50,9 +50,7 @@ namespace Bikewale.Mobile.Content
         protected GlobalCityAreaEntity currentCityArea;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected uint taggedModelId;
-        protected EnumBikeBodyStyles bodyStyle;
-        protected bool showBodyStyleWidget, isModelTagged;
-        private bool _isContentFount = true;
+        protected bool isModelTagged;
         protected IEnumerable<ModelImage> objImg = null;
         protected override void OnInit(EventArgs e)
         {
@@ -77,9 +75,12 @@ namespace Bikewale.Mobile.Content
             try
             {
                 objArticle = new FeaturesDetails();
-                if (!objArticle.IsPermanentRedirect)
+
+                if (!objArticle.IsPermanentRedirect || !objArticle.IsPageNotFound)
                 {
-                    if (!objArticle.IsPageNotFound)
+                    objArticle.GetFeatureDetails();
+
+                    if (objArticle.IsContentFound)
                     {
                         objFeature = objArticle.objFeature;
                         _taggedMakeObj = objArticle.taggedMakeObj;
@@ -87,7 +88,6 @@ namespace Bikewale.Mobile.Content
                         taggedModelId = (uint)_taggedModelObj.ModelId;
                         GetFeatureData();
                         BindPages();
-                        bodyStyle = objArticle.BodyStyle;
                         BindPageWidgets();
                         objImg = objArticle.objImg;
 
@@ -100,24 +100,33 @@ namespace Bikewale.Mobile.Content
                             rptPhotos.DataBind();
                         }
                     }
-                    else if (!objArticle.IsContentFound)
+                    else 
                     {
                         Response.Redirect("/m/features/", false);
                         if (HttpContext.Current != null)
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-                    else
-                    {
-                        Response.Redirect("/m/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
+                    
+                }
+                else if(objArticle.IsPageNotFound)
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Mobile.Content.viewF.BindFeaturesDetails");
+            }
+            finally
+            {
+                if (objArticle.IsPermanentRedirect)
+                {
+                    string newUrl = string.Format("/m/features/{0}-{1}/", objArticle.MappedCWId, Request["t"]);
+                    Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
+                }
             }
         }
         private void GetFeatureData()
@@ -175,54 +184,31 @@ namespace Bikewale.Mobile.Content
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             try
             {
-                if (taggedModelId > 0)
+                isModelTagged = (taggedModelId > 0);
+                if (ctrlPopularBikes != null)
                 {
-                    isModelTagged = true;
-                    if (ctrlPopularMakeBikes != null)
+                    ctrlPopularBikes.totalCount = 9;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (_taggedMakeObj != null)
                     {
-                        ctrlPopularMakeBikes.totalCount = 9;
-                        ctrlPopularMakeBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                        ctrlPopularMakeBikes.cityName = currentCityArea.City;
-                        if (_taggedMakeObj != null)
-                        {
-                            ctrlPopularMakeBikes.makeId = _taggedMakeObj.MakeId;
-                            ctrlPopularMakeBikes.makeName = _taggedMakeObj.MakeName;
-                            ctrlPopularMakeBikes.makeMasking = _taggedMakeObj.MaskingName;
-                        }
+                        ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
                     }
-                    showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
-                    if (showBodyStyleWidget && ctrlBikesByBodyStyle != null)
+                }
+
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
-                        ctrlBikesByBodyStyle.topCount = 9;
+                        ctrlBikesByBodyStyle.topCount = 3;
                         ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
-                    }
-                    else
-                    {
-                        if (ctrlPopularBikesModelTagged != null)
-                        {
-                            ctrlPopularBikesModelTagged.totalCount = 9;
-                            ctrlPopularBikesModelTagged.CityId = Convert.ToInt32(currentCityArea.CityId);
-                            ctrlPopularBikesModelTagged.cityName = currentCityArea.City;
-                        }
                     }
                 }
                 else
                 {
-                    isModelTagged = false;
-                    if (ctrlPopularBikes != null)
-                    {
-                        ctrlPopularBikes.totalCount = 9;
-                        ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                        ctrlPopularBikes.cityName = currentCityArea.City;
-                        if (_taggedMakeObj != null)
-                        {
-                            ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
-                            ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                            ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-
-                        }
-                    }
                     if (ctrlUpcomingBikes != null)
                     {
                         ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -238,7 +224,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "viewRT.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Mobile.Content.viewF.BindPageWidgets");
 
             }
         }

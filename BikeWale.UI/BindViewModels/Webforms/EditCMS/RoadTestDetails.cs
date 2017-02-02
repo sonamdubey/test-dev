@@ -1,15 +1,10 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
-using Bikewale.Common;
-using Bikewale.DAL.BikeData;
+using Bikewale.Notifications;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using Bikewale.Entities.GenericBikes;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
@@ -29,125 +24,82 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     public class RoadTestDetails
     {
         public uint BasicId;
-        public bool IsContentFound { get; set; }
-        public bool IsPageNotFound { get; set; }
-        public bool IsPermanentRedirect { get; set; }
-        public string baseUrl { get; set; }
-        public string qsBasicId=string.Empty;
+        public bool IsContentFound, IsPageNotFound, IsPermanentRedirect;
         public ArticlePageDetails objRoadtest;
         public IEnumerable<ModelImage> objImg;
         public BikeMakeEntityBase taggedMakeObj;
         public BikeModelEntityBase taggedModelObj;
-        public EnumBikeBodyStyles BodyStyle { get; set; }
+        public string MappedCWId { get; set; }
+        private ICMSCacheContent _cache = null;
 
-        public RoadTestDetails(string url)
+        public RoadTestDetails()
         {
-            this.baseUrl = url;
             if (ProcessQueryString() && BasicId > 0)
             {
-                GetRoadTestDetails();
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IArticles, Articles>()
+                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                       .RegisterType<ICacheManager, MemcacheManager>();
+                    _cache = container.Resolve<ICMSCacheContent>();
+                   
+                }
             }
         }
 
         private bool ProcessQueryString()
         {
-            bool isSuccess = true;
-
-            var Request = HttpContext.Current.Request;
-            qsBasicId = Request.QueryString["id"];
-            if (!String.IsNullOrEmpty(qsBasicId) && CommonOpn.CheckId(qsBasicId))
+            var request = HttpContext.Current.Request;
+            string qsBasicId = request.QueryString["id"];
+            try
             {
-                string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
-
-                if (!basicId.Equals(qsBasicId))
+                if (!String.IsNullOrEmpty(qsBasicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+                    string _basicId = BasicIdMapping.GetCWBasicId(qsBasicId);
 
-                    var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
-                    var _titleEndIndex = _newUrl.LastIndexOf('-');
-                    string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = String.Format("{0}{1}{2}.html", baseUrl, _newUrlTitle, basicId);
-                    CommonOpn.RedirectPermanent(_newUrl);
+                    if (!_basicId.Equals(qsBasicId))
+                    {
+                        IsPermanentRedirect = true;
+                        MappedCWId = _basicId;
+                        return false;
+                    }
+                    uint.TryParse(_basicId, out BasicId);
                 }
-
-                 BasicId = Convert.ToUInt32(qsBasicId);
-                
+                else
+                {
+                    IsPageNotFound = true;
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                isSuccess = false;
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.ProcessQueryString");
             }
-
-            return isSuccess;
+            return true;
         }
 
         /// <summary>
         /// Created By : Aditi Srivastava on 30 Jan 2017
         /// Summary    : Get details of road test article
         /// </summary>
-        private void GetRoadTestDetails()
+        public void GetRoadTestDetails()
         {
             try
             {
-
-                using (IUnityContainer container = new UnityContainer())
+                objRoadtest = _cache.GetArticlesDetails(BasicId);
+                if (objRoadtest != null)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                       .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    objRoadtest = _cache.GetArticlesDetails(BasicId);
+                    IsContentFound = true;
                     objImg = _cache.GetArticlePhotos(Convert.ToInt32(BasicId));
-
-
-                    if (objRoadtest != null)
-                    {
-                        IsContentFound = true;
-                        GetTaggedBikeListByMake();
-                        GetTaggedBikeListByModel();
-                        GetTaggedBikeBodyStyle();
-                    }
-                    else
-                    {
-                        IsContentFound = false;
-                    }
-
+                    GetTaggedBikeListByMake();
+                    GetTaggedBikeListByModel();
                 }
             }
             catch (Exception ex)
             {
-
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetRoadTestDetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetRoadTestDetails");
             }
         }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 31 Jan 2017
-        /// Summary    : Get body style of tagged model
-        /// </summary>
-        private void GetTaggedBikeBodyStyle()
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-
-                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    if(taggedModelObj!=null)
-                    BodyStyle = modelCache.GetBikeBodyType((uint)taggedModelObj.ModelId);
-                }
-
-            }
-            catch(Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetTaggedBikeBodyStyle");
-            }
-        }
-
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
         /// Summary    : Get tagged make in expert reviews
@@ -167,41 +119,19 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
-                        FetchMakeDetails();
-                    }
-                    }
-            }
-            catch (Exception err)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.GetTaggedBikeListByMake");
-
-            }
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 30 Jan 2017
-        /// Summary    : Get details of tagged make if not available with the article
-        /// </summary>
-        private void FetchMakeDetails()
-        {
-            try
-            {
-                if (taggedMakeObj != null && taggedMakeObj.MakeId > 0)
-                {
-
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        taggedMakeObj = makesRepository.GetMakeDetails(taggedMakeObj.MakeId.ToString());
-
+                        if (taggedMakeObj != null && taggedMakeObj.MakeId > 0)
+                        {
+                            taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)taggedMakeObj.MakeId);
+                        }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.FeaturesDetails.FetchMakeDetails");
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetTaggedBikeListByMake");
             }
         }
+
         /// <summary>
         /// Created by : Aditi Srivastava on 30 Jan 2017
         /// Summary    : Get model details if model is tagged
@@ -228,7 +158,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeListByModel");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.RoadTestDetails.GetTaggedBikeListByModel");
             }
         }
     }
