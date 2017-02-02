@@ -10,8 +10,9 @@
     }
     
 });
-
+var pageNo = 1;
 var modelImages = [];
+var pageSize = 4;
 var modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
@@ -32,7 +33,7 @@ var bindGallery = function (clickedImg)
 
         imgIndex = gridOneLength + imgIndex; // (grid type 1's length + grid type remainder's index)
     }
-
+   
     vmPhotosPage.imageIndex(imgIndex);
     showGallery();
 
@@ -50,34 +51,6 @@ var bindGallery = function (clickedImg)
         else
             hideGallery();
     });
-var modelVideos = [
-    {
-        'imagePathThumbnail': 'https://img.youtube.com/vi/HhOik7KWJwc/default.jpg',
-        'videoId': 'HhOik7KWJwc',
-        'videoTitle': 'Dominar 400 or the Classic 350, CBR 250R'
-    },
-    {
-        'imagePathThumbnail': 'https://img.youtube.com/vi/WubzCZFId1o/default.jpg',
-        'videoId': 'WubzCZFId1o',
-        'videoTitle': 'All you need to know about the Bajaj Dominar 400 : PowerDrift'
-    },
-    {
-        'imagePathThumbnail': 'https://img.youtube.com/vi/h399XRm-OcA/default.jpg',
-        'videoId': 'h399XRm-OcA',
-        'videoTitle': 'Honda Navi : First Impression : PowerDrift'
-    },
-    {
-        'imagePathThumbnail': 'https://img.youtube.com/vi/jOdAplDI2FI/default.jpg',
-        'videoId': 'jOdAplDI2FI',
-        'videoTitle': 'Launch Alert : Bajaj Dominar 400 : PowerDrift'
-    },
-    {
-        'imagePathThumbnail': 'https://img.youtube.com/vi/W1KOvK9_gAc/default.jpg',
-        'videoId': 'W1KOvK9_gAc',
-        'videoTitle': 'Indian Scout Sixty : Launch Alert : PowerDrift'
-    }
-];
-
 function toggleFullScreen(goFullScreen) {
     var doc = window.document;
     var docElement = doc.documentElement;
@@ -209,7 +182,8 @@ var modelGallery = function () {
 
     self.photoList = ko.observableArray(modelImages);
     self.colorPhotoList = ko.observableArray(modelColorImages);
-    self.videoList = ko.observable(modelVideos);
+   
+    self.videoList = ko.observableArray([]);
 
     self.afterRender = function () {
         if (!self.mainSwiper) {
@@ -278,7 +252,8 @@ var modelGallery = function () {
         else {
             self.photosTabActive(false);
             toggleFullScreen(false);
-            setVideoDetails(self.activeVideoIndex());
+            self.getVideos();
+           
         }
         if (self.screenActive()) {
             deactivateAllScreens();
@@ -411,7 +386,6 @@ var modelGallery = function () {
         else {
             self.videoListScreen(false);
         }
-
         self.screenActive(self.videoListScreen());
     };
 
@@ -427,8 +401,8 @@ var modelGallery = function () {
 
     function setVideoDetails(elementIndex) {
         var element = $('.video-tab-list li')[elementIndex],
-            elementId = self.videoList()[elementIndex].videoId,
-            elementTitle = self.videoList()[elementIndex].videoTitle;
+            elementId = self.videoList()[elementIndex].VideoId,
+            elementTitle = self.videoList()[elementIndex].VideoTitle;
 
         self.activeVideoId(elementId);
         self.activeVideoIndex(elementIndex);
@@ -440,7 +414,9 @@ var modelGallery = function () {
     };
 
     window.addEventListener('resize', resizeHandler, true);
+    
     resizeHandler();
+    window.addEventListener('scroll', videoScroll, true);
 
     function resizeHandler() {
         if (window.innerWidth > window.innerHeight) {
@@ -516,6 +492,57 @@ var modelGallery = function () {
         self.modelInfoScreen(false);
         self.videoListScreen(false);
     };
+    self.getVideos=  function () {
+      
+        var keyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
+        try {
+            if (!checkCacheCityAreas(keyVideo)) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response) {
+                            isNextPage = true;
+                            pushVideoList(response.videos);
+                            bwcache.set(keyVideo, Base64.encode(JSON.stringify(response)), 10);
+                        }
+                    },
+                    complete: function (xhr) {
+                        if (xhr.status !=200) {
+                            isNextPage = false;  
+                        }
+                    }
+                });
+            }
+            else {
+
+                pushVideoList(JSON.parse(Base64.decode(bwcache.get(keyVideo))).videos);
+                isNextPage = true;
+            }
+        } catch (e) {
+            console.warn("Unable to fetch Videos model gallery " + e.message);
+        }
+    }
+    function pushVideoList(response) {
+        ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
+        self.videoList.notifySubscribers();
+    }
+    function checkCacheCityAreas(key) {
+        
+        return (bwcache.get(key) != null);
+    }
+    function videoScroll() {
+        var winScroll = $('#video-tab-screen').scrollTop(),
+            pageHeight = $('#video-tab-screen').height(),
+            windowHeight = $('#video-tab-screen').height();
+        var position = pageHeight - (windowHeight);
+        if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
+            isNextPage = false;
+            pageNo = pageNo + 1;
+            self.getVideos();
+        }
+    }
 }
 
 ko.components.register("gallery-component", {
@@ -536,3 +563,5 @@ $(window).on('popstate', function (event) {
        
     }
 });
+
+
