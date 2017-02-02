@@ -21,7 +21,7 @@ namespace Bikewale.DAL.CoreDAL
         /// <returns></returns>
         public static IDbConnection GetReadonlyConnection()
         {
-            IDbConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["BikewaleReadonly"].ConnectionString);
+            IDbConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["ReadOnlyConnectionString"]);
 
             return conn;
         }
@@ -32,7 +32,7 @@ namespace Bikewale.DAL.CoreDAL
         /// <returns></returns>
         public static IDbConnection GetMasterConnection()
         {
-            IDbConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["BikewaleMaster"].ConnectionString);
+            IDbConnection conn = new MySqlConnection(ConfigurationManager.AppSettings["MasterConnectionString"]);
 
             return conn;
         }

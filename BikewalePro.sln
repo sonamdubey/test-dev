@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikeWaleOpr.MVC.UI", "BikeW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.Models", "Bikewale.Models\Bikewale.Models.csproj", "{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BikewaleOpr.Models", "BikewaleOpr.Models\BikewaleOpr.Models.csproj", "{D41DA250-C329-4956-ABAC-17B9B1E53880}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -207,6 +209,10 @@ Global
 		{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA7198A6-5347-4F8F-A25E-92B1E1CEB086}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41DA250-C329-4956-ABAC-17B9B1E53880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41DA250-C329-4956-ABAC-17B9B1E53880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41DA250-C329-4956-ABAC-17B9B1E53880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41DA250-C329-4956-ABAC-17B9B1E53880}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -242,5 +248,6 @@ Global
 		{23D53F9A-3B4E-4C7E-8843-5279D74542AF} = {E68522E8-0DD4-4E00-A60F-CAEBAB2236F6}
 		{B8EC1212-1293-450F-BE62-E33344E104D7} = {595F5764-E4E2-4088-BBC2-224213D92FE4}
 		{EA7198A6-5347-4F8F-A25E-92B1E1CEB086} = {7056EFC6-5A25-483F-85CF-686413A705D4}
+		{D41DA250-C329-4956-ABAC-17B9B1E53880} = {7056EFC6-5A25-483F-85CF-686413A705D4}
 	EndGlobalSection
 EndGlobal

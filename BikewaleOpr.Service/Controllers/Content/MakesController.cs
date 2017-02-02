@@ -13,8 +13,13 @@ namespace BikewaleOpr.Service.Controllers.Content
 {    
     public class MakesController : ApiController
     {
-        [Route("api/makes/{makeid}/synopsis/"), HttpGet]
-        //[HttpGet]
+        /// <summary>
+        /// Written By : Ashish G. Kamble
+        /// Summary : API to get the synopsis for the given make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        [Route("api/makes/{makeid}/synopsis/"), HttpGet]        
         public IHttpActionResult GetSynopsis(int makeId)
         {
             if (makeId > 0)
@@ -34,7 +39,6 @@ namespace BikewaleOpr.Service.Controllers.Content
                 catch (Exception ex)
                 {                    
                     ErrorClass objErr = new ErrorClass(ex, "GetSynopsis");
-                    objErr.SendMail();
                 }
 
                 if (!String.IsNullOrEmpty(synopsis))

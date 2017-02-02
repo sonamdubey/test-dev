@@ -54,8 +54,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);                
             }
             return _objBikeMakes;
         }
@@ -65,20 +64,28 @@ namespace BikewaleOpr.DALs.Bikedata
         /// Function to get the bike makes list along with other details for all makes
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BikeMakeEntity> GetMakesList()
-        
+        public IEnumerable<BikeMakeEntity> GetMakesList()        
         {
-            using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+            IEnumerable<BikeMakeEntity> objMakes = null;
+
+            try
             {
-                connection.Open();
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                {
+                    connection.Open();
 
-                IEnumerable<BikeMakeEntity> objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure).ToList();
+                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure).ToList();
 
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-
-                return objMakes;
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();                    
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakesList");
+            }
+
+            return objMakes;
         }
 
 
@@ -90,25 +97,32 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <param name="makeId"></param>
         public void AddMake(BikeMakeEntity make,  ref short isMakeExist, ref int makeId)
         {
-            using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            try
             {
-                connection.Open();
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
 
-                var param = new DynamicParameters();
+                    var param = new DynamicParameters();
 
-                param.Add("par_make", make.MakeName);
-                param.Add("par_makemaskingname", make.MaskingName);
-                param.Add("par_userid", make.UpdatedBy);
-                param.Add("par_ismakeexist", dbType: DbType.Int16, direction: ParameterDirection.Output);
-                param.Add("par_makeid", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                    param.Add("par_make", make.MakeName);
+                    param.Add("par_makemaskingname", make.MaskingName);
+                    param.Add("par_userid", make.UpdatedBy);
+                    param.Add("par_ismakeexist", dbType: DbType.Int16, direction: ParameterDirection.Output);
+                    param.Add("par_makeid", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                connection.Query<dynamic>("insertbikemake", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query<dynamic>("insertbikemake", param: param, commandType: CommandType.StoredProcedure);
 
-                isMakeExist = param.Get<short>("par_ismakeexist");
-                makeId = param.Get<int>("par_makeid");
+                    isMakeExist = param.Get<short>("par_ismakeexist");
+                    makeId = param.Get<int>("par_makeid");
 
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
             }            
         }
 
@@ -119,24 +133,31 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <param name="make"></param>
         public void UpdateMake(BikeMakeEntity make)
         {
-            using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            try
             {
-                connection.Open();
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
 
-                var param = new DynamicParameters();
+                    var param = new DynamicParameters();
 
-                param.Add("par_make", make.MakeName);
-                param.Add("par_makeid", make.MakeId);
-                param.Add("par_makemaskingname", make.MaskingName);
-                param.Add("par_isfuturistic", make.Futuristic);
-                param.Add("par_isnew", make.New);
-                param.Add("par_isused", make.Used);
-                param.Add("par_userid", make.UpdatedBy);                
+                    param.Add("par_make", make.MakeName);
+                    param.Add("par_makeid", make.MakeId);
+                    param.Add("par_makemaskingname", make.MaskingName);
+                    param.Add("par_isfuturistic", make.Futuristic);
+                    param.Add("par_isnew", make.New);
+                    param.Add("par_isused", make.Used);
+                    param.Add("par_userid", make.UpdatedBy);
 
-                connection.Query("updatebikemake", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query("updatebikemake", param: param, commandType: CommandType.StoredProcedure);
 
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateMake");
             }
         }
 
@@ -148,42 +169,60 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <param name="updatedBy"></param>
         public void DeleteMake(int makeId, int updatedBy)
         {
-            using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            try
             {
-                connection.Open();
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
 
-                var param = new DynamicParameters();
+                    var param = new DynamicParameters();
 
-                param.Add("par_makeid", makeId);
-                param.Add("par_updatedby", updatedBy);
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_updatedby", updatedBy);
 
-                connection.Query("updatemodelversionisdeleted", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query("updatemodelversionisdeleted", param: param, commandType: CommandType.StoredProcedure);
 
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.DeleteMake");
             }
         }
 
 
-
+        /// <summary>
+        /// Function to get the make synopsis from database
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
         public string Getsynopsis(int makeId)
         {
             string synopsis = string.Empty;
 
-            using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+            try
             {
-                connection.Open();
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
 
-                var param = new DynamicParameters();
+                    var param = new DynamicParameters();
 
-                param.Add("par_makeid", makeId);
+                    param.Add("par_makeid", makeId);
 
-                dynamic temp = connection.Query<dynamic>("getmakesynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    dynamic temp = connection.Query<dynamic>("getmakesynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
-                synopsis = temp.Description;
-                
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
+                    synopsis = ReferenceEquals(null, temp) ? string.Empty : temp.description;
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
             }
 
             return synopsis;
