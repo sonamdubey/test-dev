@@ -17,7 +17,7 @@ namespace Bikewale.Mobile.New.Photos
     public class Default : System.Web.UI.Page
     {
 
-        protected ModelGallery ctrlModelGallery;
+
         protected GenericBikeInfo bikeInfo;
         protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.New.Photos
         /// Modified By :- Subodh jain 20 jan 2017
         /// Summary :- Added ismodel page flag for gallery binding
         /// modified by :- Subodh Jain 30 jan 2017
-        /// Summary:- Added model gallery info values
+        /// Summary:- Added model gallery info values and added URL formatter
         /// </summary>
         private void BindPhotosPage()
         {
@@ -129,11 +129,6 @@ namespace Bikewale.Mobile.New.Photos
                 ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
                 ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
                 ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
-
-                ctrlModelGallery.bikeName = vmModelPhotos.bikeName;
-                ctrlModelGallery.modelName = vmModelPhotos.objModel.ModelName;
-                ctrlModelGallery.modelId = vmModelPhotos.objModel.ModelId;
-                ctrlModelGallery.Photos = vmModelPhotos.objImageList;
 
                 if (!IsDiscontinued)
                 {

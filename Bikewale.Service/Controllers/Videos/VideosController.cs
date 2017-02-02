@@ -56,7 +56,6 @@ namespace Bikewale.Service.Videos.Controllers
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
                 return InternalServerError();
             }
 
@@ -111,7 +110,6 @@ namespace Bikewale.Service.Videos.Controllers
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
-                    //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
                     objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
                 }
 
@@ -133,7 +131,6 @@ namespace Bikewale.Service.Videos.Controllers
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.CMS.CMSController");
-                objErr.SendMail();
                 return new VideosList();
             }
 

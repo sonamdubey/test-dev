@@ -11,6 +11,7 @@
     
 });
 var pageNo = 1;
+var pageSize = 4;
 $('.photos-grid-list').on('click', 'li', function () {
     bindGallery($(this));
 
@@ -393,7 +394,6 @@ var modelGallery = function () {
         else {
             self.videoListScreen(false);
         }
-
         self.screenActive(self.videoListScreen());
     };
 
@@ -507,37 +507,39 @@ var modelGallery = function () {
             if (!checkCacheCityAreas(KeyVideo)) {
                 $.ajax({
                     type: 'GET',
-                    url: '/api/videos/pn/' + pageNo + '/ps/4/model/' + ModelId + '/',
+                    url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
                     dataType: 'json',
                     success: function (response) {
                         isNextPage = true;
-                        ko.utils.arrayPushAll(self.videoList(), ko.toJS(response.videos));
-                        lscache.set(KeyVideo, self.videoList(), 10);
-                        self.videoList.notifySubscribers();
+                        pushVideoList(response.videos, KeyVideo);
+                        response = JSON.stringify(response);
+                        response = Base64.encode(response);
+                        lscache.set(KeyVideo, response, 10);
                     },
                     complete: function (xhr) {
-                        if (xhr.status == 404 || xhr.status == 204) {
-                            isNextPage = false;
-                            lscache.set(KeyVideo, null, 10);
+                        if (xhr.status !=200) {
+                            isNextPage = false;  
                         }
-                        setVideoDetails(self.activeVideoIndex());
                     }
-
                 });
             }
             else {
 
                 response = lscache.get(KeyVideo);
-                ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
-                setVideoDetails(self.activeVideoIndex());
-                self.videoList.notifySubscribers();
+                response = JSON.parse(Base64.decode(response));
+                pushVideoList(response.videos, KeyVideo);
                 isNextPage = true;
-
             }
         } catch (e) {
             console.warn("Unable to fetch Videos model gallery " + e.message);
-
         }
+    }
+    function pushVideoList(response, KeyVideo) {
+
+        ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
+        
+        self.videoList.notifySubscribers();
+
     }
     function checkCacheCityAreas(key) {
         
@@ -549,7 +551,7 @@ var modelGallery = function () {
             pageHeight = $('#video-tab-screen').height(),
             windowHeight = $('#video-tab-screen').height();
         var position = pageHeight - (windowHeight);
-        if (winScroll >= position && videoCount>pageNo*4 && isNextPage) {
+        if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
             isNextPage = false;
             pageNo = pageNo + 1;
             bindVideos();
