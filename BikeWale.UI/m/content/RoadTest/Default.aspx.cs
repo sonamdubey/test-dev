@@ -56,13 +56,13 @@ namespace Bikewale.Mobile.Content
         {
             if (!IsPostBack)
             {
-                if(ProcessQueryString())
+                if (ProcessQueryString())
                     BindWidgets();
 
                 GetRoadTestList();
                 BindMakes();
                 AutoFill();
-            }           
+            }
         }
 
         /// <summary>
@@ -84,10 +84,6 @@ namespace Bikewale.Mobile.Content
                     ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
                     ctrlUpcomingBikes.makeName = makeName;
                     ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
-                }
-                else
-                {
-                    ctrlPopularBikes.IsMakeAgnosticFooterNeeded = true;
                 }
             }
             catch (Exception ex)

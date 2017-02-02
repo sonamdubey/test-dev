@@ -263,7 +263,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, String.Format("LeadNotificationBL.PushLeadToGaadi({0})", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
+                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushLeadToGaadi()");
             }
             return isSuccess;
         }
