@@ -19,6 +19,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : added GetMostPopularBikesbyMakeCity method
     /// Modeified by : Subodh Jain on 22 sep 2016
     /// Description : added GetUserReviewSimilarBike method
+    /// Modified by :   Sangram Nandkhile on 30 Jan 2017
+    /// Description :   Removed GetModelPhotos method
     /// Modified By : Sushil Kumar on 2nd Jan 2016
     /// Description : Addded new interface input parameter for generic bike info
     /// Modified By : Sushil Kumar on 12 Jan 2017
@@ -41,6 +43,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
+        IEnumerable<ImageBaseEntity> GetAllPhotos(BikeModelPageEntity objModelPage);
+        IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);

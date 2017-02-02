@@ -1,5 +1,7 @@
 ﻿
 <%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
+
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/m/controls/SimilarBikeWithPhotos.ascx" %>
@@ -190,7 +192,7 @@
                            <span class="inline-block font14">All videos</span>
                         </div>
                         <%} %>
-                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite color-palette"></span>
                         </div>
 
@@ -208,7 +210,7 @@
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
-                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathThumbnail }" src="" alt="" title="" border="0" />
+                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathLarge }" src="" alt="" title="" border="0" />
                                 </div>
                             </div>
                         </div>
@@ -315,18 +317,19 @@
                     </div>         
                 </div>
             </script>
-        </div>
-        
+        </div>        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>;
+            var modelId = "<%= modelId%>";
             var isModelPage = <%= isModelPage.ToString().ToLower() %>;
             var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
             var videoCount = <%=VideoCount%>;
-        </script>
+        </script> 
+        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(".gallery-close-btn").on('click', function () {

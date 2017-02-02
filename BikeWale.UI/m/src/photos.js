@@ -4,16 +4,23 @@
     // add 'more photos count' if photo grid contains 30 images
     if (photosLength == 30) {
         var lastPhoto = $('.photos-grid-list li').eq(29),
-            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+'+ (photoCount - 29) +'<br />photos</span></span>');
+            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - 29) + '<br />photos</span></span>');
 
         lastPhoto.append(morePhotoCount);
     }
     
 });
 var pageNo = 1;
+var modelImages = [];
 var pageSize = 4;
+var modelColorImages = [];
+
 $('.photos-grid-list').on('click', 'li', function () {
-    bindGallery($(this));
+    var photoCount = $('.photos-grid-list li').length;
+
+    if (photoCount > 1) {
+        bindGallery($(this));
+    }
 
 });
 var bindGallery = function (clickedImg)
@@ -44,78 +51,6 @@ var bindGallery = function (clickedImg)
         else
             hideGallery();
     });
-var modelImages = [
-    {
-        'hostUrl': 'https://imgd1.aeplcdn.com/',
-        'imagePathLarge': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-        'imagePathThumbnail': '/bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg',
-        'imageTitle': 'Model image 1'
-    },
-    {
-        'hostUrl': 'https://imgd2.aeplcdn.com/',
-        'imagePathLarge': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-        'imagePathThumbnail': '/bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg',
-        'imageTitle': 'Rear three-quarter 2'
-    },
-    {
-        'hostUrl': 'https://imgd3.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Side-66793.jpg',
-        'imageTitle': 'Side 3'
-    },
-    {
-        'hostUrl': 'https://imgd4.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg',
-        'imageTitle': 'Rear three-quarter 4'
-    },
-    {
-        'hostUrl': 'https://imgd5.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Front-66796.jpg',
-        'imageTitle': 'Front 5'
-    },
-    {
-        'hostUrl': 'https://imgd6.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-        'imagePathThumbnail': '/bw/ec/22012/Honda-CB-Shine-Rear-threequarter-66799.jpg',
-        'imageTitle': 'Rear three-quarter 6'
-    }
-];
-
-var modelColorImages = [
-    {
-        'hostUrl': 'https://imgd6.aeplcdn.com/',
-        'imagePathLarge': '/bw/models/honda-cb-hornet-160r.jpg',
-        'imagePathThumbnail': '/bw/models/honda-cb-hornet-160r.jpg',
-        'imageTitle': 'Dual Tone Green',
-        'colors': [
-            'b3ca20'
-        ]
-    },
-    {
-        'hostUrl': 'https://imgd7.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61749.jpg',
-        'imageTitle': 'Dual Tone Orange',
-        'colors': [
-            'b83419',
-            '040004'
-        ]
-    },
-    {
-        'hostUrl': 'https://imgd8.aeplcdn.com/',
-        'imagePathLarge': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-        'imagePathThumbnail': '/bw/ec/21058/Honda-CB-Hornet-160R-Side-61758.jpg',
-        'imageTitle': 'Dual Tone White',
-        'colors': [
-            '040004',
-            'b83419',
-            'cdcac3'
-        ]
-    }
-];
-
 function toggleFullScreen(goFullScreen) {
     var doc = window.document;
     var docElement = doc.documentElement;
@@ -131,7 +66,19 @@ function toggleFullScreen(goFullScreen) {
     }
 }
 
-function showGallery() {
+function checkCacheModelPhotos(bKey) {    
+    return (bwcache.get(bKey, true));
+}
+var cacheData,
+    modelColorImageCount = 0;
+
+function filterColorImagesArray(responseArray){
+    return ko.utils.arrayFilter(responseArray, function (response) {
+        return response.imageType == 3;
+    });
+}
+
+function bindPhotoGallery() {
     // remove the binding and then re-apply
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
@@ -139,6 +86,49 @@ function showGallery() {
     vmPhotosPage.activateGallery(true);
     $('body').addClass('lock-browser-scroll');
     appendState('modelGallery');
+}
+
+function showGallery() {      
+    try {        
+        var keyPhoto = "modelPhotos_" + modelId;
+
+        if (!checkCacheModelPhotos(keyPhoto)) {
+            $.ajax({
+                type: "Get",
+                url: "/api/model/" + modelId + "/photos/",
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        modelImages = response;
+                        modelColorImages = filterColorImagesArray(response);
+                    }                    
+
+                    modelColorImageCount = modelColorImages.length;
+                    bindPhotoGallery();
+
+                    var cacheData = JSON.stringify({
+                        modelImages: modelImages,
+                        modelColorImages: modelColorImages
+                    });                   
+                    var cachedEncodedData = Base64.encode(cacheData)
+                    bwcache.set(keyPhoto, cachedEncodedData, true);
+                }
+            });
+        }
+        else {           
+            var cacheData = Base64.decode(bwcache.get(keyPhoto, true));
+            var cacheDecodedData = JSON.parse(cacheData);
+            modelImages = cacheDecodedData.modelImages;
+            modelColorImages = cacheDecodedData.modelColorImages;
+            modelColorImageCount = modelColorImages.length;
+            bindPhotoGallery();
+        }
+
+    }
+    catch (e) {
+        console.warn(e);
+    }
 };
 
 function hideGallery() {
@@ -163,6 +153,7 @@ var modelGallery = function () {
     self.galleryFooterActive = ko.observable(true);
     self.photoSwiperActive = ko.observable(true);
     self.fullScreenModeActive = ko.observable(false);
+    self.colorTabActive = ko.observable(true);
 
     // footer screens
     self.screenActive = ko.observable(false);
@@ -179,6 +170,7 @@ var modelGallery = function () {
 
     self.activeColorTitle = ko.observable('');
     self.activeColorIndex = ko.observable(0);
+    self.colorTabActive(modelColorImageCount == 0 ? false : true);
 
     // video
     self.activeVideoTitle = ko.observable('');

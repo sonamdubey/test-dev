@@ -24,6 +24,7 @@ namespace Bikewale.Mobile.New.Photos
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
         protected bool IsUpcoming { get; set; }
+        protected uint modelId;
         protected bool IsDiscontinued { get; set; }
         protected bool isModelPage;
         protected uint VideoCount;
@@ -53,7 +54,7 @@ namespace Bikewale.Mobile.New.Photos
 
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2017
-        /// Description : Bind photos page with metas,photos and widgets
+        /// Description : Bind photos page with metas,photos and widgets        
         /// Modified By :- Subodh jain 20 jan 2017
         /// Summary :- Added ismodel page flag for gallery binding
         /// modified by :- Subodh Jain 30 jan 2017
@@ -63,7 +64,8 @@ namespace Bikewale.Mobile.New.Photos
         {
             try
             {
-                vmModelPhotos = new BindModelPhotos();
+                vmModelPhotos = new BindModelPhotos();                
+                    
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
                     vmModelPhotos.isModelpage = isModelPage;
@@ -118,29 +120,31 @@ namespace Bikewale.Mobile.New.Photos
         /// <summary>
         /// Created By : Sushil Kumar on 6th Jan 2017
         /// Description : bind photos page widgets
+        /// Modified by  : Sajal Gupta on 31-01-2017
+        /// Description : Fetch modlId.
         /// </summary>
         private void BindModelPhotosPageWidgets()
         {
             if (vmModelPhotos.objMake != null && vmModelPhotos.objModel != null)
             {
-                ctrlVideos.TotalRecords = 3;
-                ctrlVideos.MakeMaskingName = vmModelPhotos.objMake.MaskingName;
-                ctrlVideos.ModelMaskingName = vmModelPhotos.objModel.MaskingName;
-                ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
-                ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
-                ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
-
+                modelId = (uint)vmModelPhotos.objModel.ModelId;
+                if (ctrlVideos != null)
+                {
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.MakeMaskingName = vmModelPhotos.objMake.MaskingName;
+                    ctrlVideos.ModelMaskingName = vmModelPhotos.objModel.MaskingName;
+                    ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
+                    ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
+                    ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
+              
                 if (!IsDiscontinued)
                 {
                     ctrlSimilarBikesWithPhotos.TotalRecords = 6;
                     ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                 }
-
                 ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
 
-
             }
-
         }
     }
 }
