@@ -192,7 +192,7 @@
                             <span class="inline-block font14">All videos</span>
                         </div>
 
-                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite color-palette"></span>
                         </div>
 
@@ -327,7 +327,7 @@
             var modelId = "<%= modelId%>";
             var isModelPage = <%= isModelPage.ToString().ToLower() %>;
         </script> 
-        <script type="text/javascript" src="/src/bwcache.js"></script>       
+        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(".gallery-close-btn").on('click', function () {

@@ -15,7 +15,11 @@ var modelImages = [];
 var modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
-    bindGallery($(this));
+    var photoCount = $('.photos-grid-list li').length;
+
+    if (photoCount > 1) {
+        bindGallery($(this));
+    }
 
 });
 var bindGallery = function (clickedImg)
@@ -92,7 +96,8 @@ function toggleFullScreen(goFullScreen) {
 function checkCacheModelPhotos(bKey) {    
     return (bwcache.get(bKey, true));
 }
-var cacheData;
+var cacheData,
+    modelColorImageCount = 0;
 
 function filterColorImagesArray(responseArray){
     return ko.utils.arrayFilter(responseArray, function (response) {
@@ -126,6 +131,7 @@ function showGallery() {
                         modelColorImages = filterColorImagesArray(response);
                     }                    
 
+                    modelColorImageCount = modelColorImages.length;
                     bindPhotoGallery();
 
                     var cacheData = JSON.stringify({
@@ -142,7 +148,8 @@ function showGallery() {
             var cacheDecodedData = JSON.parse(cacheData);
             modelImages = cacheDecodedData.modelImages;
             modelColorImages = cacheDecodedData.modelColorImages;
-            bindPhotoGallery();            
+            modelColorImageCount = modelColorImages.length;
+            bindPhotoGallery();
         }
 
     }
@@ -173,6 +180,7 @@ var modelGallery = function () {
     self.galleryFooterActive = ko.observable(true);
     self.photoSwiperActive = ko.observable(true);
     self.fullScreenModeActive = ko.observable(false);
+    self.colorTabActive = ko.observable(true);
 
     // footer screens
     self.screenActive = ko.observable(false);
@@ -189,6 +197,7 @@ var modelGallery = function () {
 
     self.activeColorTitle = ko.observable('');
     self.activeColorIndex = ko.observable(0);
+    self.colorTabActive(modelColorImageCount == 0 ? false : true);
 
     // video
     self.activeVideoTitle = ko.observable('');
