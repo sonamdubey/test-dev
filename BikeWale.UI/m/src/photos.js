@@ -99,7 +99,7 @@ function bindPhotoGallery() {
 
 function showGallery() {      
     try {        
-        var keyPhoto = "modelPhotos_" + modelId.toString();
+        var keyPhoto = "modelPhotos_" + modelId;
 
         if (!checkCacheModelPhotos(keyPhoto)) {
             $.ajax({
