@@ -164,9 +164,9 @@
                                     <div class="clear"></div>
 
                                     <div class="margin-top15 padding-right20 description-content padding-left20">
-                                         <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
-                                        <div>
-                                            <span class="text-light-grey inline-block">More info about <%= bike.Model.ModelName %>:</span>
+                                        <p class="font14 text-light-grey margin-bottom15"><%= bike.SmallModelDescription %></p>
+                                        <div class="leftfloat">
+                                            <span class="text-light-grey inline-block">More about <%= bike.Model.ModelName %>:</span>
                                             <ul class="item-more-details-list inline-block">
                                                 <% if(bike.NewsCount > 0) { %>
                                                 <li>
@@ -210,6 +210,12 @@
                                                 <% } %>
                                             </ul>
                                         </div>
+
+                                        <div class="used-bike-target-link leftfloat">
+                                            <span class="text-light-grey">Check out:</span>
+                                            <a href="" title="">00 Used <%= bike.Model.ModelName %> bikes</a>
+                                        </div>
+                                        <div class="clear"></div>
                                     </div>
                                 </div>
                             
