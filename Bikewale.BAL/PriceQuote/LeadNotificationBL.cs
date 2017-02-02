@@ -1,11 +1,13 @@
 ﻿using Bikewale.BAL.ABServiceRef;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -206,6 +208,8 @@ namespace Bikewale.BAL.PriceQuote
         /// <summary>
         /// Created By  :   Sumit Kate on 18 Aug 2016
         /// Description :   Push Lead To Gaadi.com external API
+        /// Modified by :   Sumit Kate on 02 Feb 2017
+        /// Description :   Send the all the parameters with a base64 encoded json pack in a params variable
         /// </summary>
         /// <param name="leadEntity"></param>
         /// <returns></returns>
@@ -222,7 +226,20 @@ namespace Bikewale.BAL.PriceQuote
                     RegisterType<IDealer, DealersRepository>();
                     IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
                     BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
-                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?name={0}&email={1}&mobile={2}&city={3}&state={4}&make={5}&model={6}&sub_source=bikewale", leadEntity.Name, leadEntity.Email, leadEntity.Mobile, quotation.City, quotation.State, quotation.MakeName, quotation.ModelName);
+
+                    GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
+                    {
+                        City = quotation.City,
+                        Email = leadEntity.Email,
+                        Make = quotation.MakeName,
+                        Mobile = leadEntity.Mobile,
+                        Model = quotation.ModelName,
+                        Name = leadEntity.Name,
+                        Source = "bikewale",
+                        State = quotation.State
+                    };
+
+                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead)));
 
                     using (HttpClient httpClient = new HttpClient())
                     {
@@ -246,8 +263,7 @@ namespace Bikewale.BAL.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushLeadToGaadi");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushLeadToGaadi()");
             }
             return isSuccess;
         }
