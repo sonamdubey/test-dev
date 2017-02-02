@@ -37,4 +37,28 @@ namespace Bikewale.Entities.Dealer
         [JsonProperty("leadSourceId")]
         public ushort LeadSourceId { get; set; }
     }
+
+    /// <summary>
+    /// Created by  :   Sumit Kate on 2 Feb 2017
+    /// Description :   Gaadi.com Lead Entity
+    /// </summary>
+    public class GaadiLeadEntity
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
+        [JsonProperty("mobile")]
+        public string Mobile { get; set; }
+        [JsonProperty("city")]
+        public string City { get; set; }
+        [JsonProperty("state")]
+        public string State { get; set; }
+        [JsonProperty("make")]
+        public string Make { get; set; }
+        [JsonProperty("model")]
+        public string Model { get; set; }
+        [JsonProperty("sub_source")]
+        public string Source { get; set; }
+    }
 }
