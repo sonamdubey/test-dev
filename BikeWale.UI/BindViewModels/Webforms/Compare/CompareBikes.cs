@@ -17,6 +17,8 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Compare
 {
@@ -36,6 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
         public Int64 SponsoredVersionId;
+        public ICollection<BikeCompareEntity> objBikes = null;
 
         /// <summary>
         /// 
@@ -58,6 +61,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                     _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     _objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
+                    _objCompare = container.Resolve<IBikeCompare>();
 
                 }
 
@@ -77,14 +82,17 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         ///               Bind compared bikes along with sponsored bike
         ///               Bind PageMetas for the comparisions pages
         /// </summary>
-        protected void BindComparedBikeDetails()
+        public void GetComparedBikeDetails()
         {
             try
             {
                 SponsoredVersionId = _objCompare.GetFeaturedBike(versionsList);
                 if (SponsoredVersionId > 0) versionsList = string.Format("{0},{1}", versionsList, SponsoredVersionId);
                 comparedBikes = _objCompareCache.DoCompare(versionsList, cityArea.CityId);
-                BindPageMetas();
+                if (comparedBikes != null && comparedBikes.BasicInfo != null)
+                {
+                    BindPageMetas(comparedBikes.BasicInfo.ElementAt(0), comparedBikes.BasicInfo.ElementAt(1));
+                }
             }
             catch (Exception ex)
             {
@@ -96,24 +104,27 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Common logic to bind meta tags
         /// </summary>
-        private void BindPageMetas()
+        private void BindPageMetas(BikeEntityBase bike1, BikeEntityBase bike2)
         {
-            PageMetas = new PageMetaTags();
+            if (bike1 != null && bike2 != null)
+            {
+                PageMetas = new PageMetaTags();
 
-            try
-            {
-                //PageMetas.Title = string.Format("{0} - BikeWale News", ArticleDetails.Title);
-                //PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                //PageMetas.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", ArticleDetails.Title);
-                //PageMetas.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
-                //PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
-                //PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
-                //PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
-                //PageMetas.AmpUrl = String.Format("{0}/m/news/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, ArticleDetails.ArticleUrl, ArticleDetails.BasicId);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.BindPageMetas");
+                try
+                {
+                    string bike1Name = string.Format("{0} {1}", bike1.Make, bike1.Model), bike2Name = string.Format("{0} {1}", bike2.Make, bike2.Model);
+
+                    PageMetas.Title = string.Format("Compare {0} vs {1} - BikeWale", bike1Name, bike2Name);
+                    PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
+                    PageMetas.Description = string.Format("Compare {0} and {1} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colors and much more.", bike1Name, bike2Name);
+                    //PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                    PageMetas.CanonicalUrl = string.Format("{0}/{1}-{2}-vs-{3}-{4}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, bike1.MakeMaskingName, bike1.ModelMaskingName, bike2.MakeMaskingName, bike2.ModelMaskingName);
+                    PageMetas.AlternateUrl = string.Format("{0}/m/{1}-{2}-vs-{3}-{4}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, bike1.MakeMaskingName, bike1.ModelMaskingName, bike2.MakeMaskingName, bike2.ModelMaskingName);
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.BindPageMetas");
+                }
             }
         }
 

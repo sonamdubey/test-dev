@@ -34,5 +34,11 @@ namespace Bikewale.Entities.Compare
         public UInt16 VersionRating { get; set; }
         [DataMember]
         public UInt16 ModelRating { get; set; }
+        [DataMember]
+        public UInt32 EstimatedPriceMin { get; set; }
+        [DataMember]
+        public UInt32 EstimatedPriceMax { get; set; }
+        [DataMember]
+        public DateTime? ExpectedLaunch { get; set; }
     }
 }

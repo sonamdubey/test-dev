@@ -1,9 +1,12 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BindViewModels.Webforms.Compare;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Memcache;
@@ -11,20 +14,25 @@ using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
-using System.Data;
 using System.Web;
 
 namespace Bikewale.Mobile.New
 {
     public class CompareBikeDetails : System.Web.UI.Page
     {
+
+
+        protected PageMetaTags pageMetas = null;
+        protected GlobalCityAreaEntity cityArea;
+        protected BikeCompareEntity vmCompare = null;
+
+        /// ********************************************************************/
         protected int count = 0, totalComp = 3, version1 = 0, version2 = 0;
         protected string versions = string.Empty, targetedModels = string.Empty;
-        protected DataSet ds = null;
-        protected DataTable bikeDetails = null, bikeSpecs = null, bikeFeatures = null;
+
         public SimilarCompareBikes ctrlSimilarBikes;
         protected bool isUsedBikePresent;
-        protected GlobalCityAreaEntity cityArea;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -42,17 +50,50 @@ namespace Bikewale.Mobile.New
             if (!IsPostBack)
             {
                 cityArea = GlobalCityArea.GetGlobalCityArea();
-                getVersionIdList();
-                //GetCompareBikeDetails();
-                Trace.Warn("version List", versions);
-                if (count < 2)
+
+                BindCompareBikes();
+                //getVersionIdList();
+                ////GetCompareBikeDetails();
+                //Trace.Warn("version List", versions);
+                //if (count < 2)
+                //{
+                //    Response.Redirect("/m/comparebikes/", false);//return;	
+                //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                //    this.Page.Visible = false;
+                //}
+                //BindSimilarCompareBikes(versions);
+
+            }
+        }
+
+        private void BindCompareBikes()
+        {
+            var objCompare = new CompareBikes();
+            try
+            {
+                if (!objCompare.isPermanentRedirect && !objCompare.isPageNotFound)
                 {
-                    Response.Redirect("/m/comparebikes/", false);//return;	
+                    objCompare.GetComparedBikeDetails();
+                    vmCompare = objCompare.comparedBikes;
+                    pageMetas = objCompare.PageMetas;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.New.CompareBikeDetails.BindCompareBikes");
+            }
+            finally
+            {
+                if (objCompare.isPermanentRedirect)
+                {
+                    Bikewale.Common.CommonOpn.RedirectPermanent(objCompare.redirectionUrl);
+                }
+                else if (objCompare.isPageNotFound)
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                BindSimilarCompareBikes(versions);
-
             }
         }
 

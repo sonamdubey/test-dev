@@ -479,21 +479,26 @@
     background: #f1f1f1;
     border: 1px solid #e2e2e2;
 }
-.color-box.color-count-one span {
+.color-box.color-count-1 span {
     width: 100%;
     height: 100%;
     display: block !important;
     background: #f1f1f1;
 }
-.color-box.color-count-two span {
+.color-box.color-count-2 span {
     width: 100%;
     height: 50%;
     display: block !important;
     background: #f1f1f1;
 }
-.color-box.color-count-three span {
+.color-box.color-count-3 span {
     width: 100%;
     height: 33.33%;
+    display: block !important;
+}
+.color-box.color-count-4 span {
+    width: 100%;
+    height: 25%;
     display: block !important;
 }
 
