@@ -1,0 +1,35 @@
+﻿using Bikewale.Entities.GenericBikes;
+
+namespace Bikewale.Utility
+{
+    /// <summary>
+    /// Created By Sajal Gupta on 30-01-2017
+    /// Description : Class to hold functions for getting body style links
+    /// </summary>
+    public static class BodyStyleLinks
+    {
+        /// <summary>
+        /// Creted by : Sajal Gupta on 30-01-2017
+        /// Description : function to return footer link according to body style.
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
+        public static string BodyStyleFooterLink(EnumBikeBodyStyles bodyStyle)
+        {
+            switch (bodyStyle)
+            {
+                case EnumBikeBodyStyles.Mileage:
+                    return "Mileage Bikes";
+                case EnumBikeBodyStyles.Sports:
+                    return "Sports Bikes";
+                case EnumBikeBodyStyles.Cruiser:
+                    return "Cruisers";
+                case EnumBikeBodyStyles.Scooter:
+                    return "Scooters";
+                case EnumBikeBodyStyles.AllBikes:
+                default:
+                    return "Bikes";
+            }
+        }
+    }
+}

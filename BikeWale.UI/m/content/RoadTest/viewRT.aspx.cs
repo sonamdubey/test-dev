@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -6,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -46,6 +49,10 @@ namespace Bikewale.Content
         private bool _isContentFound = true;
         private BikeMakeEntityBase _taggedMakeObj;
         protected uint taggedModelId;
+        protected EnumBikeBodyStyles bodyStyle;
+        protected bool showBodyStyleWidget;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -230,6 +237,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: Bind upcoming and popular bikes
+        /// Modified By : Sajal Gupta on 31-01-2017
+        /// Description : Binded popular bikes widget
         /// </summary>
         protected void BindPageWidgets()
         {
@@ -259,6 +268,25 @@ namespace Bikewale.Content
                         ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
                         ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
                     }
+                }
+                if (taggedModelId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                            .RegisterType<ICacheManager, MemcacheManager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+
+                        IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        bodyStyle = modelCache.GetBikeBodyType(taggedModelId);
+                    }
+                    
+                        showBodyStyleWidget = (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports);
+
+                    ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                 }
             }
             catch (Exception ex)

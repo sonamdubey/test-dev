@@ -20,6 +20,12 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : To get similar bikes with photos count
     /// Modified By :- Subodh Jain 17 Jan 2017
     /// Description :- Added GetUserReviewSimilarBike,GetDetailsByModel,GetDetailsByVersion,GetDetails
+    /// Modified By : Sushil Kumar on 2nd Jan 2016
+    /// Description : Addded new interface input parameter for generic bike info
+    /// Modified By : Sushil Kumar on 12 Jan 2017
+    /// Description : Addded new method for get bike ranking by model id
+    /// Modified By : Aditi Srivastava on 17 Jan 2017
+    /// Description : Added function to get top 10 bikes by bodystyle
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -64,7 +70,11 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
+        IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
+        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        BikeRankingEntity GetBikeRankingByCategory(uint modelId);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
     }
 }

@@ -40,7 +40,7 @@ namespace Bikewale.Mobile.Controls
                 objPopular.TopCount = topCount;
                 objPopular.ModelId = ModelId;
                 objPopular.CityId = CityId;
-                objPopular.BodyStyle = BodyStyle;
+
                 if (objPopular.ModelId > 0)
                 {
                     popularBikes = objPopular.GetPopularBikesByCategory();
@@ -53,7 +53,6 @@ namespace Bikewale.Mobile.Controls
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PopularBikesByType()");
-                objErr.SendMail();
             }
         }
     }

@@ -1,16 +1,14 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.BikeData;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.CMS.Photos
 {
     [Serializable, DataContract]
     public class ModelImage
-    {                          
+    {
         [DataMember]
         public uint ImageId { get; set; }
         [DataMember]
@@ -38,7 +36,42 @@ namespace Bikewale.Entities.CMS.Photos
         [DataMember]
         public BikeModelEntityBase ModelBase { get; set; }
         [DataMember]
-        public string OriginalImgPath{ get; set; }
+        public string OriginalImgPath { get; set; }
     }
 
+    /// <summary>
+    /// Created by:Sangram Nandkhile on 02 Feb 2017
+    /// To hold model images, color images and mainimage
+    /// </summary>
+    [Serializable, DataContract]
+    public class ImageBaseEntity
+    {
+        [DataMember]
+        [JsonProperty("hostUrl")]
+        public string HostUrl { get; set; }
+        [DataMember]
+        [JsonProperty("imagePathLarge")]
+        public string OriginalImgPath { get; set; }
+        [DataMember]
+        [JsonProperty("imageType")]
+        public ImageBaseType ImageType { get; set; }
+        [JsonProperty("imageTitle")]
+        public string ImageTitle { get; set; }
+    }
+
+    public class ColorImageBaseEntity : ImageBaseEntity
+    {
+        [DataMember]
+        public uint ColorId { get; set; }
+
+        [DataMember]
+        [JsonProperty("colors")]
+        public IEnumerable<string> Colors { get; set; }
+    }
+    public enum ImageBaseType
+    {
+        ModelImage = 1,
+        ModelGallaryImage = 2,
+        ModelColorImage = 3
+    }
 }

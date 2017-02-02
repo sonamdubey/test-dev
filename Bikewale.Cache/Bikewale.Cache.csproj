@@ -55,7 +55,6 @@
     <Compile Include="CMS\CMSCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
-    <Compile Include="GenericBikes\BestBikesCacheRepository.cs" />
     <Compile Include="HomePage\HomePageBannerCacheRepository.cs" />
     <Compile Include="Location\AreaCacheRepository.cs" />
     <Compile Include="Location\CityCacheRepository.cs" />
@@ -104,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="GenericBikes\" />
     <Folder Include="News\" />
   </ItemGroup>
   <ItemGroup>

@@ -285,7 +285,6 @@ namespace Bikewale.BAL.BikeData
 
         }
 
-
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Oct 2015
         /// Summary : Function to get the model page details
@@ -1057,7 +1056,7 @@ namespace Bikewale.BAL.BikeData
                     //    objModelPage.Photos = null;               
                     //else
                     //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
+                    //objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
 
                     if (objModelPage.Photos != null)
                     {

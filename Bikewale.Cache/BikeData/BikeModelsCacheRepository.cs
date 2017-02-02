@@ -69,6 +69,31 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
+                if (objModelPage != null)
+                {
+                    objModelPage.Photos = GetModelPhotoGallery(modelId);
+                    #region Add first image
+                    if (objModelPage.ModelDetails != null && objModelPage.ModelDetails.MakeBase != null)
+                        objModelPage.Photos.Insert(0,
+                                new ModelImage()
+                                {
+                                    HostUrl = objModelPage.ModelDetails.HostUrl,
+                                    OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                                    ImageCategory = "Model Image",
+                                    MakeBase = new BikeMakeEntityBase()
+                                    {
+                                        MakeName = objModelPage.ModelDetails.MakeBase.MakeName,
+                                    },
+                                    ModelBase = new BikeModelEntityBase()
+                                    {
+                                        ModelName = objModelPage.ModelDetails.ModelName,
+                                    },
+                                    ImageName = objModelPage.ModelDetails.ModelName
+                                });
+                    #endregion
+                }
+                //objModelPage.colorPhotos = GetModelColorPhotos(modelId);
+                //_objModels.GetBikeModelPhotoGallery(modelId);
                 if (objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count() > 1)
                 {
                     // First page load where version id is Zero, fetch default version properties
@@ -95,6 +120,93 @@ namespace Bikewale.Cache.BikeData
             }
 
             return objModelPage;
+        }
+
+
+        /// <summary>
+        /// Created by Sangram Nandkhile 30 Jan 2017
+        /// Create List of modelimage,color wise models
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ImageBaseEntity> GetAllPhotos(BikeModelPageEntity objModelPage)
+        {
+            IEnumerable<ImageBaseEntity> allPhotos = null;
+            string key = "BW_Model_AllPhotos_{0}" + objModelPage.ModelDetails.ModelId;
+            try
+            {
+                allPhotos = _cache.GetFromCache<IEnumerable<ImageBaseEntity>>(key, new TimeSpan(1, 0, 0), () => CreateAllPhotoList(objModelPage));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetAllPhotos");
+            }
+
+            return allPhotos;
+        }
+
+        private IEnumerable<ImageBaseEntity> CreateAllPhotoList(BikeModelPageEntity objModelPage)
+        {
+            int modelId = 0;
+            List<ImageBaseEntity> allPhotos = null;
+            try
+            {
+                if (objModelPage != null)
+                {
+                    allPhotos = new List<ImageBaseEntity>();
+
+                    if (objModelPage.ModelDetails != null && objModelPage.ModelDetails.MakeBase != null)
+                    {
+                        modelId = objModelPage.ModelDetails.ModelId;
+                        allPhotos.Add(
+                            new ImageBaseEntity()
+                            {
+                                HostUrl = objModelPage.ModelDetails.HostUrl,
+                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                                ImageType = ImageBaseType.ModelImage,
+                                ImageTitle = objModelPage.ModelDetails != null ? string.Format("{0} Model Image", objModelPage.ModelDetails.ModelName) : string.Empty
+                            });
+                    }
+                    if (objModelPage.Photos != null)
+                    {
+                        allPhotos.AddRange(objModelPage.Photos.Select(x => new ImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage }));
+                    }
+                    if (objModelPage.colorPhotos != null)
+                    {
+                        allPhotos.AddRange(objModelPage.colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetAllPhotos() : ModelId => {0}", modelId));
+            }
+
+            return allPhotos;
+        }
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 31st Jan 2017
+        /// Summary: Combine all photo details
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId)
+        {
+            List<ImageBaseEntity> allPhotos = null;
+            BikeModelPageEntity objModelPage = null;
+            string key = string.Format("BW_ModelDetails_{0}", modelId);
+            try
+            {
+                objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId));
+                objModelPage.Photos = GetModelPhotoGallery(modelId);
+                objModelPage.colorPhotos = GetModelColorPhotos(modelId);
+                allPhotos = GetAllPhotos(objModelPage).ToList();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetAllPhotos");
+            }
+            return allPhotos;
         }
         /// <summary>
         /// Created by Subodh Jain 12 oct 2016
@@ -380,6 +492,26 @@ namespace Bikewale.Cache.BikeData
             return objPhotos;
         }
         /// <summary>
+        /// Created By :- Subodh Jain 17 Jan 2017
+        /// Summary :- Get details by version and city for review
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        public IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId)
+        {
+            IEnumerable<ModelColorImage> objColorImages = null;
+            string key = string.Format("BW_ModelPhotosColorWise_{0}", modelId);
+            try
+            {
+                objColorImages = _cache.GetFromCache<IEnumerable<ModelColorImage>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetModelColorPhotos(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.Getmodelcolorphotos ==> ModelId: {0}", modelId));
+            }
+            return objColorImages;
+        }
+        /// <summary>
         /// Created By : Aditi Srivastava on 25 Jan 2017
         /// Summary    : Get body type of a bike model
         /// </summary>
@@ -387,7 +519,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public EnumBikeBodyStyles GetBikeBodyType(uint modelId)
         {
-            EnumBikeBodyStyles bodystyle=EnumBikeBodyStyles.AllBikes;
+            EnumBikeBodyStyles bodystyle = EnumBikeBodyStyles.AllBikes;
             string key = string.Format("BW_BikeBodyType_MO_{0}", modelId);
             try
             {
@@ -395,8 +527,8 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}",modelId));
-             }
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetBikeBodyType_ModelId {0}", modelId));
+            }
             return bodystyle;
         }
         /// <summary>
@@ -410,17 +542,82 @@ namespace Bikewale.Cache.BikeData
         public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_CAT_{0}_city_{1}", bodyStyleId,cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_cat_{0}_city_{1}", bodyStyleId, cityId);
             try
             {
                 popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeModelsCacheRepository.GetPopularBikesByBodyStyle");
-                
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyle: {0},CityId {1}", bodyStyleId, cityId));
+
             }
             return popularBikesList;
+        }
+        /// <summary>
+        /// Created by  :   Sushil Kumar on 2nd Jan 2016
+        /// Description :   Calls DAL via Cache layer for generic bike info
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public GenericBikeInfo GetGenericBikeInfo(uint modelId)
+        {
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+            GenericBikeInfo objSearchList = null;
+            try
+            {
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetGenericBikeInfo(modelId));
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetGenericBikeInfo_{0}", modelId));
+            }
+            return objSearchList;
+        }
+
+        /// <summary>
+        /// Created By : Aditi Srivastava on 12 Jan 2017
+        /// Description : To get bike rankings by category
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeRankingEntity GetBikeRankingByCategory(uint modelId)
+        {
+            string key = string.Format("BW_BikeRankingByModel_MO_{0}", modelId);
+            BikeRankingEntity bikeRankObj = null;
+            try
+            {
+                bikeRankObj = _cache.GetFromCache<BikeRankingEntity>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeRankingByCategory(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeRankingByCategory: ModelId:{0}", modelId));
+
+            }
+            return bikeRankObj;
+        }
+
+        /// <summary>
+        /// Created By : Aditi Srivastava on 17 Jan 2017
+        /// Description : To get top 10 bikes of a given body style
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        {
+            string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+            ICollection<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+
+            }
+            return bestBikesList;
         }
     }
 }

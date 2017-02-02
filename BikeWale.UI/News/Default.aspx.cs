@@ -136,7 +136,6 @@ namespace Bikewale.News
             {
                 ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
             }
-
             ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
         }
 
