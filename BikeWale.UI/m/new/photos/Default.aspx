@@ -178,29 +178,32 @@
                 </div>
 
                 <!-- gallery footer -->
-                <div class="gallery-footer" data-bind="visible: galleryFooterActive(), css: photosTabActive() ? '' : 'grid-2-tab'">
+                <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
                     <div class="footer-tabs-wrapper">
                         <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All photos</span>
                         </div>
+
                          <%if(VideoCount>1){ %>
                         <div data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                            <span class="inline-block font14">All videos</span>
                         </div>
                         <%} %>
-                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
-                            <span class="bwmsprite color-palette"></span>
+
+                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite fullscreen-icon"></span>
                         </div>
 
                         <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite info-icon"></span>
                         </div>
 
-                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
-                            <span class="bwmsprite fullscreen-icon"></span>
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite color-palette"></span>
                         </div>
+
                         <div class="clear"></div>
                     </div>
 
@@ -331,9 +334,8 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(".gallery-close-btn").on('click', function () {
-                if(isModelPage)
-                {
-                window.location.href = window.location.pathname.split("images/")[0];
+                if(isModelPage) {
+                    gallery.gotoModelPage();
                 }
                 else if(!isModelPage) {
                     gallery.close();
