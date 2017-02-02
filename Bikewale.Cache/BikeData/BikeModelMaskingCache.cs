@@ -194,5 +194,20 @@ namespace Bikewale.Cache.BikeData
             }
             return objReview;
         }
+        public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
+        {
+            IEnumerable<BikeMakeEntityBase> objVideoMake = null;
+            string key = "BW_Details_GetMakeIfVideo";
+            try
+            {
+                objVideoMake = _cache.GetFromCache<IEnumerable<BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetMakeIfVideo());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.");
+            }
+            return objVideoMake;
+        }
+
     }
 }

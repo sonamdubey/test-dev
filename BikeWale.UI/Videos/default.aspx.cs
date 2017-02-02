@@ -1,7 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Videos;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using System;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
@@ -19,9 +22,11 @@ namespace Bikewale.Videos
         protected Repeater rptLandingVideos;
         protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlFirstLook, ctrlPDBlockbuster, ctrlPDSpecials, ctrlMiscellaneous, ctrlMotorSports, ctrlTopMusic, ctrlLaunchAlert;
         protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
+        protected IEnumerable<BikeMakeEntityBase> objTopMakeList;
+        protected IEnumerable<BikeMakeEntityBase> objOtherMakeList;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
-
+        protected BIndViewModelVideoDefault objVideo;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -39,7 +44,7 @@ namespace Bikewale.Videos
             dd.DetectDevice();
 
             BindLandingVideos();
-
+            BindMakewidget();
             ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
@@ -64,7 +69,7 @@ namespace Bikewale.Videos
 
             ctrlMotorSports.CategoryIdList = "51";
             ctrlMotorSports.TotalRecords = 6;
-            ctrlMotorSports.SectionTitle = "MotorSports";  
+            ctrlMotorSports.SectionTitle = "MotorSports";
 
             ctrlPDSpecials.CategoryIdList = "63";
             ctrlPDSpecials.TotalRecords = 6;
@@ -72,7 +77,7 @@ namespace Bikewale.Videos
 
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";   
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
 
             ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
@@ -92,7 +97,16 @@ namespace Bikewale.Videos
             ctrlVideosLandingCount = objVideo.FetchedRecordsCount;
             objVideo.BindVideos(rptLandingVideos);
         }
+        private void BindMakewidget()
+        {
+            objVideo = new BIndViewModelVideoDefault();
+            if (objVideo != null)
+            {
+                objVideo.TopCount = 10;
+                objVideo.GetMakeIfVideo();
+            }
 
+        }
         public override void Dispose()
         {
             rptLandingVideos.DataSource = null;

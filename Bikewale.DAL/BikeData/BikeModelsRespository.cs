@@ -1995,6 +1995,56 @@ namespace Bikewale.DAL.BikeData
             }
             return bestBikesList;
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="isAlreadyViewed"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
+        {
+            IList<BikeMakeEntityBase> objVideoMake = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakebyvideo";
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+
+                            objVideoMake = new List<BikeMakeEntityBase>();
+
+                            while (dr.Read())
+                            {
+                                objVideoMake.Add(new BikeMakeEntityBase()
+                                {
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    MakeName = Convert.ToString(dr["MakeName"])
+                                });
+
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, " ModelVersionDescription.GetMakeIfVideo");
+
+            } // catch Exception
+            return objVideoMake;
+        }
+
 
     }   // class
 }   // namespace

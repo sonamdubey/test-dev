@@ -41,8 +41,9 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span  itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if(isModel){ %>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=make %> <%=model %></span></a></li>
-                            <% } %>
+                            <% } else{%>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
+                            <%} %>
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
