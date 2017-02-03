@@ -269,7 +269,7 @@
                             </div>
                             <%if(!IsUpcoming&&!IsDiscontinued){ %>
                             
-                            <div class="grid-5 alpha omega">
+                            <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
@@ -277,15 +277,15 @@
                                 </div>
                             </div>
                             <%}else if (IsUpcoming){ %>
-                               <div class="grid-5 alpha omega">
+                               <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Expected price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> Onwards</span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> onwards</span>
                                 </div>
                             </div>
                             <%}else if (IsDiscontinued){ %>
-                             <div class="grid-5 alpha omega">
+                             <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Last know price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
@@ -293,8 +293,8 @@
                                 </div>
                             </div>
                             <%} %>
-                            <div class="grid-7 omega">
-                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-180">View details<span class="bwmsprite btn-red-arrow"></span></a>
+                            <div class="grid-5 omega">
+                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-120">View details<span class="bwmsprite btn-red-arrow"></span></a>
                             </div>
                             <div class="clear"></div>
                         </div>

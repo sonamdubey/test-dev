@@ -772,6 +772,14 @@ body {
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.btn-size-120 {
+    width: 120px;
+    font-size: 14px;
+    padding: 5px 0;
+    position: relative;
+    top: 2px;
+}
+
 @media only screen and (min-width: 768px) {
     .photos-grid-list li:nth-child(6n+3),
     .photos-grid-list li:nth-child(6n+4) {
@@ -834,6 +842,10 @@ body {
     .video-image-block,
     .video-image-block img {
         width: 90px;
+    }
+
+    .btn-size-120 {
+        width: 110px;
     }
 
 }
