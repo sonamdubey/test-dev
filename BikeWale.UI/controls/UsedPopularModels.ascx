@@ -5,14 +5,14 @@
     <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
-        <%if (CityId <= 0)
+        <%if (CityId > 0)
           {%>
         <%--<asp:Repeater runat="server" ID="rptUsedBikeNoCity">
             <ItemTemplate> --%>
         <% foreach (var bike in UsedBikeModelInCityList)
            { %>
                 <div class="grid-4 margin-bottom20">
-                    <a title="Used <%= bike.MakeName %> <%= bike.ModelName %> bikes In India" href="">Used <%=pageHeading%> bikes in India</a>
+                    <a title="Used <%= bike.MakeName %> <%= bike.ModelName %> bikes In India" href="/used/<%= bike.MakeMaskingName %>-<%= bike.ModelName %>-bikes-in-india/">Used <%= bike.MakeName %> <%= bike.ModelName %> bikes in India</a>
                     <p class="margin-top10"><%= bike.AvailableBikes %>bikes available</p>
                 </div>
         <% } %>

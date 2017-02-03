@@ -423,7 +423,7 @@ namespace Bikewale.DAL.Used
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesinpopularcitybymodel"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesinpopularcitybymodel_02022017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
@@ -445,6 +445,8 @@ namespace Bikewale.DAL.Used
                                     AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
 
                                 });
                             }
