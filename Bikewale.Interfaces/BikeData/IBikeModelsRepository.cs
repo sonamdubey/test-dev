@@ -81,7 +81,6 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
-        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
