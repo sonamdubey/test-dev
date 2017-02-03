@@ -51,8 +51,11 @@ namespace Bikewale.Videos
         /// </summary>
         private void BindControl()
         {
-            ctrlSimilarBikeVideos.ModelId = (uint)modelId;
-            ctrlSimilarBikeVideos.TotalCount = 9;
+            if (ctrlSimilarBikeVideos != null)
+            {
+                ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
+                ctrlSimilarBikeVideos.TotalCount = 9;
+            }
         }
         /// <summary>
         /// Function to create Title, meta tags and description
