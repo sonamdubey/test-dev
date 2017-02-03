@@ -23,6 +23,7 @@ $('.photos-grid-list').on('click', 'li', function () {
 });
 var bindGallery = function (clickedImg)
 {
+    vmPhotosPage.photoGalleryContainerActive(true);
     var imgIndex = clickedImg.index(),
         parentGridType = clickedImg.closest('.photos-grid-list');
 
@@ -33,7 +34,7 @@ var bindGallery = function (clickedImg)
     }
    
     vmPhotosPage.imageIndex(imgIndex);
-    vmPhotosPage.photoGalleryContainerActive(true);
+    
     showGallery();    
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
@@ -115,7 +116,8 @@ function showGallery() {
                 }
             });
         }
-        else {           
+        else {
+            vmPhotosPage.photoGalleryContainerActive(true);
             var cacheData = Base64.decode(bwcache.get(keyPhoto, true));
             var cacheDecodedData = JSON.parse(cacheData);
             modelImages = cacheDecodedData.modelImages;
