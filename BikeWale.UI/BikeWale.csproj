@@ -1019,6 +1019,10 @@
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\SimilarBikeVideos.ascx.cs">
+      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
       <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2658,6 +2662,7 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
+    <Content Include="m\controls\SimilarBikeVideos.ascx" />
     <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2749,6 +2754,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />

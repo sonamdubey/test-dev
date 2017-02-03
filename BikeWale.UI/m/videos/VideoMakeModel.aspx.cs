@@ -8,6 +8,7 @@ using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Bikewale.Mobile.Videos
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, metaDescription = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty, metaKeywords = string.Empty;
         protected ushort makeId = 0;
         protected uint? modelId;
-
+        protected SimilarBikeVideos ctrlSimilarBikeVideos;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -40,8 +41,17 @@ namespace Bikewale.Mobile.Videos
             ParseQueryString();
             BindVideos();
             CreateTitleMeta();
+            BindControl();
         }
-
+        /// <summary>
+        /// Created By:- Subodh Jain 3 feb 2017
+        /// Summary :- bind similar bike widget
+        /// </summary>
+        private void BindControl()
+        {
+            ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
+            ctrlSimilarBikeVideos.TotalCount = 9;
+        }
         /// <summary>
         /// Function to create Title, meta tags and description
         /// Written By : Sushil Kumar on 4th March 2016

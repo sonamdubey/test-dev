@@ -51,7 +51,7 @@ namespace Bikewale.Videos
         /// </summary>
         private void BindControl()
         {
-            ctrlSimilarBikeVideos.ModelId = (uint)modelId;
+            ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
             ctrlSimilarBikeVideos.TotalCount = 9;
         }
         /// <summary>
