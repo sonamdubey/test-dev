@@ -30,6 +30,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added Get make if video
     /// Modified By:-Subodh Jain 2 Feb 2017
     /// Summary :- Added GetSimilarBikesVideos method
+    /// Modified By : Aditi Srivastava on 17 Jan 2017
+    /// Description : Edited function to get top 10 bikes and their mopdelcount by bodystyle and cityid.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -82,5 +84,7 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+
     }
 }

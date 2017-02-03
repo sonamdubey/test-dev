@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -1931,10 +1932,12 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.       
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
@@ -1942,8 +1945,10 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting";
+                    cmd.CommandText = "getgenericbikelisting_02022017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -1981,6 +1986,12 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.TotalVersions = SqlReaderConvertor.ToUInt32(dr["VersionCount"]);
                                 bestBikeObj.TotalModelColors = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
                                 bestBikeObj.LastUpdatedModelSold = SqlReaderConvertor.ToDateTime(dr["UnitSoldDate"]);
+                                bestBikeObj.UsedBikesCount = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]);
+                                bestBikeObj.UsedCity = new CityEntityBase();
+                                bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikeObj.PriceInCity = Convert.ToString(dr["PriceInCity"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();

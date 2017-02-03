@@ -27,6 +27,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Addded new method for get bike ranking by model id
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Added function to get top 10 bikes by bodystyle
+    /// Mocified by : Sajal Gupta on 02-02-2017
+    /// Description : Modified function GetBestBikesByCategory
     /// <typeparam name="U"></typeparam>
     public interface IBikeModelsCacheRepository<U>
     {
@@ -49,6 +51,6 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
-        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
     }
 }

@@ -37,32 +37,34 @@ var bindGallery = function (clickedImg)
     vmPhotosPage.imageIndex(imgIndex);
     showGallery();
 
-};
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
-    //appendState('gallery');
 
-    $(document).on('click', '#gallery-close-btn', function () {
-       
-        if (isModelPage) {
-            window.location.href = window.location.pathname.split("images/")[0];
-        }
-        else
-            hideGallery();
-    });
+};    
+
+$(document).on('click', '#gallery-close-btn', function () {       
+    if (isModelPage) {
+        gallery.gotoModelPage();
+    }
+    else
+        gallery.close();
+});
+
 function toggleFullScreen(goFullScreen) {
     var doc = window.document;
     var docElement = doc.documentElement;
 
     var requestFullScreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
-    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+    var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen || doc.webkitCancelFullScreen;
 
     if (goFullScreen && requestFullScreen != undefined) {
         requestFullScreen.call(docElement);
+        docElement.style.backgroundColor = '#000';
     }
     else if (cancelFullScreen != undefined) {
         cancelFullScreen.call(doc);
+        docElement.style.backgroundColor = '';
     }
 }
 
@@ -85,7 +87,6 @@ function bindPhotoGallery() {
 
     vmPhotosPage.activateGallery(true);
     $('body').addClass('lock-browser-scroll');
-    appendState('modelGallery');
 }
 
 function showGallery() {      
@@ -134,6 +135,7 @@ function showGallery() {
 function hideGallery() {
     vmPhotosPage.activateGallery(false);
     $('body').removeClass('lock-browser-scroll');
+    toggleFullScreen(false);
 };
 
 var photosPage = function () {
@@ -367,6 +369,7 @@ var modelGallery = function () {
     };
 
     self.toggleFullScreen = function () {
+        fadeOutFooterTabs();
         if (!self.fullScreenModeActive()) {
             toggleFullScreen(true);
             self.fullScreenModeActive(true);
@@ -382,6 +385,7 @@ var modelGallery = function () {
         if (!self.videoListScreen()) {
             deactivateAllScreens();
             self.videoListScreen(true);
+            self.getVideos();
         }
         else {
             self.videoListScreen(false);
@@ -423,11 +427,19 @@ var modelGallery = function () {
             self.hideGalleryTabs();
             self.hideFooterTabs();
             self.hidePhotoHeading();
+
+            if (!self.photosTabActive()) {
+                $('.main-video-iframe-content').css({ 'padding-bottom': '44%' });
+            }
         }
         else {
             self.showGalleryTabs();
             self.showFooterTabs();
             self.showPhotoHeading();
+
+            if (self.photosTabActive()) {
+                $('.main-video-iframe-content').css({ 'padding-bottom': '56.25%' });
+            }
         }
     };
 
@@ -486,6 +498,13 @@ var modelGallery = function () {
         $(thumbnailIndex).addClass('swiper-slide-active');
     };
 
+    function fadeOutFooterTabs() {
+        $('.footer-tabs-wrapper').hide();
+        setTimeout(function () {
+            $('.footer-tabs-wrapper').show();
+        }, 500);
+    };
+
     function deactivateAllScreens() {
         self.photoThumbnailScreen(false);
         self.colorsThumbnailScreen(false);
@@ -526,6 +545,9 @@ var modelGallery = function () {
     }
     function pushVideoList(response) {
         ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
+        if (!self.activeVideoId()) {
+            setVideoDetails(0);
+        }
         self.videoList.notifySubscribers();
     }
     function checkCacheCityAreas(key) {
@@ -552,16 +574,12 @@ ko.components.register("gallery-component", {
 
 ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'));
 
+var gallery = {
+    close: function () {
+        hideGallery();
+    },
 
-$(window).on('popstate', function (event) {
-    if ($('#gallery-container').is(':visible')) {
-        if (isModelPage) {
-            window.location.href = window.location.pathname.split("images/")[0];
-        }
-        else
-            hideGallery();
-       
+    gotoModelPage: function () {
+        window.location.href = window.location.pathname.split("images/")[0];
     }
-});
-
-
+};
