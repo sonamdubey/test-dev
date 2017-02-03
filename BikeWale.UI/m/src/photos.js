@@ -39,15 +39,17 @@ var bindGallery = function (clickedImg)
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
-
+    pageNo = 1;
 };    
 
 $(document).on('click', '#gallery-close-btn', function () {       
     if (isModelPage) {
         gallery.gotoModelPage();
     }
-    else
+    else {
+       
         gallery.close();
+    }
 });
 
 function toggleFullScreen(goFullScreen) {
@@ -172,6 +174,7 @@ var modelGallery = function () {
     self.activePhotoIndex = ko.observable(vmPhotosPage.imageIndex());
 
     self.activeColorTitle = ko.observable('');
+   
     self.activeColorIndex = ko.observable(0);
     self.colorTabActive(modelColorImageCount == 0 ? false : true);
 
@@ -250,7 +253,7 @@ var modelGallery = function () {
     self.togglePhotoTab = function () {
         if (!self.photosTabActive()) {
             self.photosTabActive(true);
-            self.activeVideoId('');
+           
         }
         else {
             self.photosTabActive(false);
@@ -516,39 +519,50 @@ var modelGallery = function () {
       
         var keyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
         try {
-            if (!checkCacheCityAreas(keyVideo)) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            isNextPage = true;
-                            pushVideoList(response.videos);
-                            bwcache.set(keyVideo, Base64.encode(JSON.stringify(response)), 10);
+            if (videoCount > (pageNo-1) * pageSize) {
+                if (!checkCacheCityAreas(keyVideo)) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response) {
+                                isNextPage = true;
+                                pushVideoList(response.videos);
+                                bwcache.set(keyVideo, Base64.encode(JSON.stringify(response)), 10);
+                            }
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                isNextPage = false;
+                            }
                         }
-                    },
-                    complete: function (xhr) {
-                        if (xhr.status !=200) {
-                            isNextPage = false;  
-                        }
-                    }
-                });
+                    });
+                }
+                else {
+                    pushVideoList(JSON.parse(Base64.decode(bwcache.get(keyVideo))).videos);
+                    isNextPage = true;
+                }
             }
             else {
-
-                pushVideoList(JSON.parse(Base64.decode(bwcache.get(keyVideo))).videos);
-                isNextPage = true;
+                if (!self.activeVideoId()) {
+                    setVideoDetails(0);
+                }
+                else {
+                    setVideoDetails(self.activeVideoIndex())
+                }
             }
-        } catch (e) {
+        }catch (e) {
             console.warn("Unable to fetch Videos model gallery " + e.message);
         }
     }
+    
     function pushVideoList(response) {
         ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
         if (!self.activeVideoId()) {
             setVideoDetails(0);
         }
+        pageNo = pageNo + 1;
         self.videoList.notifySubscribers();
     }
     function checkCacheCityAreas(key) {
@@ -556,14 +570,16 @@ var modelGallery = function () {
         return (bwcache.get(key) != null);
     }
     function videoScroll() {
-        var winScroll = $('#video-tab-screen').scrollTop(),
-            pageHeight = $('#video-tab-screen').height(),
-            windowHeight = $('#video-tab-screen').height();
-        var position = pageHeight - (windowHeight);
-        if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
-            isNextPage = false;
-            pageNo = pageNo + 1;
-            self.getVideos();
+        if ($("#main-video-content").is(":visible")) {
+            var winScroll = $('#video-tab-screen').scrollTop(),
+                pageHeight = $('#video-tab-screen').height(),
+                windowHeight = $('#video-tab-screen').height();
+            var position = pageHeight - (windowHeight);
+            if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
+                isNextPage = false;
+                pageNo = pageNo + 1;
+                self.getVideos();
+            }
         }
     }
 }
@@ -578,6 +594,7 @@ ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'));
 var gallery = {
     close: function () {
         hideGallery();
+
     },
 
     gotoModelPage: function () {
