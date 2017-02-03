@@ -157,12 +157,12 @@
 
                         </ul>
 
-                        <%--<ul class="photos-grid-list photos-remainder-7 model-grid-images">
+                        <ul class="photos-grid-list photos-remainder-1 model-grid-images">
                             <li>
                                 <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50248.jpg?20151004165455&amp;t=165455297&amp;t=165455297" src="" alt="Exterior Image" title="Exterior">
                             </li>
                     
-                            <li>
+                            <%--<li>
                                 <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50249.jpg?20151004165518&amp;t=165518263&amp;t=165518263" src="" alt="Exhaust Image" title="Exhaust">
                             </li>
 
@@ -184,8 +184,8 @@
 
                             <li>
                                 <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50250.jpg?20151004165529&amp;t=165529280&amp;t=165529280" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-                        </ul>--%>
+                            </li>--%>
+                        </ul>
                     </div>
                 </div>
                 <div class="clear"></div>

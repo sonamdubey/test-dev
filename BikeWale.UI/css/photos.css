@@ -53,29 +53,51 @@
 
 .photos-grid-list li:nth-child(8n+1),
 .photos-grid-list li:nth-child(8n+2),
-.photos-grid-list li:nth-child(8n+3) {
+.photos-grid-list li:nth-child(8n+3),
+.photos-grid-list.photos-remainder-3 li,
+.photos-grid-list.photos-remainder-5 li:nth-child(5n+3),
+.photos-grid-list.photos-remainder-5 li:nth-child(5n+4),
+.photos-grid-list.photos-remainder-5 li:nth-child(5n+5) {
     width: 33.33%;
     padding-bottom: 18.81%;
 }
 
-.photos-grid-list li:nth-child(8n+2) {
+.photos-grid-list li:nth-child(8n+2),
+.photos-grid-list.photos-remainder-3 li:nth-child(3n+2) {
     width: 33.34%;
 }
 
 .photos-grid-list li:nth-child(8n+5),
 .photos-grid-list li:nth-child(8n+6),
 .photos-grid-list li:nth-child(8n+7),
-.photos-grid-list li:nth-child(8n+8) {
+.photos-grid-list li:nth-child(8n+8),
+.photos-grid-list.photos-remainder-4 li,
+.photos-grid-list.photos-remainder-4 li:nth-child(4n+4),
+.photos-grid-list.photos-remainder-6 li,
+.photos-grid-list.photos-remainder-6 li:nth-child(6n+4),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+4),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+5),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+6),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+7) {
     width: 25%;
     padding-bottom: 14.1%;
 }
 
-.photos-grid-list li:nth-child(8n+4) {
+.photos-grid-list li:nth-child(8n+4),
+.photos-grid-list.photos-remainder-2 li,
+.photos-grid-list.photos-remainder-5 li:nth-child(5n+1),
+.photos-grid-list.photos-remainder-5 li:nth-child(5n+2),
+.photos-grid-list.photos-remainder-6 li:nth-child(6n+5),
+.photos-grid-list.photos-remainder-6 li:nth-child(6n+6),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+1),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+2),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+3) {
     width: 50%;
     padding-bottom: 28.2%;
 }
 
-.photos-grid-list li:nth-child(16n+12) {
+.photos-grid-list li:nth-child(16n+12),
+.photos-grid-list.photos-remainder-7 li:nth-child(7n+3) {
     float: right;
 }
 
