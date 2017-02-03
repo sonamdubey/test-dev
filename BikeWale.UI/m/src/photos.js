@@ -40,7 +40,7 @@ var bindGallery = function (clickedImg)
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
-
+    pageNo = 1;
 };    
 
 $(document).on('click', '#gallery-close-btn', function () {       
@@ -48,7 +48,7 @@ $(document).on('click', '#gallery-close-btn', function () {
         gallery.gotoModelPage();
     }
     else {
-        pageNo = 1;
+       
         gallery.close();
     }
 });
@@ -569,14 +569,16 @@ var modelGallery = function () {
         return (bwcache.get(key) != null);
     }
     function videoScroll() {
-        var winScroll = $('#video-tab-screen').scrollTop(),
-            pageHeight = $('#video-tab-screen').height(),
-            windowHeight = $('#video-tab-screen').height();
-        var position = pageHeight - (windowHeight);
-        if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
-            isNextPage = false;
-            pageNo = pageNo + 1;
-            self.getVideos();
+        if ($("#main-video-content").is(":visible")) {
+            var winScroll = $('#video-tab-screen').scrollTop(),
+                pageHeight = $('#video-tab-screen').height(),
+                windowHeight = $('#video-tab-screen').height();
+            var position = pageHeight - (windowHeight);
+            if (winScroll >= position && videoCount > pageNo * pageSize && isNextPage) {
+                isNextPage = false;
+                pageNo = pageNo + 1;
+                self.getVideos();
+            }
         }
     }
 }
