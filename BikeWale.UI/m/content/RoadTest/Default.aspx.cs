@@ -28,14 +28,13 @@ namespace Bikewale.Mobile.Content
     {
         protected LinkPagerControl ctrlPager;
         protected int startIndex = 0, endIndex = 0, totalrecords;
-        protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, modelId = string.Empty, makeId = string.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        protected string prevPageUrl = String.Empty, nextPageUrl = String.Empty, makeName = string.Empty, modelName = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty;
+        protected uint modelId, makeId;
         HttpRequest page = HttpContext.Current.Request;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         private GlobalCityAreaEntity currentCityArea;
-        protected bool showBodyStyleWidget;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
-        protected EnumBikeBodyStyles bodyStyle;
         protected RoadTestListing objRoadTests;
         protected IList<ArticleSummary> articlesList;
 
@@ -52,58 +51,54 @@ namespace Bikewale.Mobile.Content
         /// <summary>
         /// Created by : Sajal Gupta on 27-01-2017
         /// Description : Binded upcoming and popular bikes widget.
+        /// Modified by : Aditi Srivastava on 2 Feb 2017
+        /// Summary     : Modified logic for different kinds of wodgets on model tagging
         /// </summary>
         protected void BindWidgets()
         {
             try
             {
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 9;
-                ctrlPopularBikes.totalCount = 9;
-                currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-                if (!string.IsNullOrEmpty(makeId) && Convert.ToInt32(makeId) > 0)
+                if (ctrlPopularBikes != null)
                 {
-                    ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
-                    ctrlPopularBikes.makeName = makeName;
-                    ctrlPopularBikes.makeMasking = makeMaskingName;
-                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-                    ctrlUpcomingBikes.makeName = makeName;
-                    ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
-                }
-
-                uint intModelId;
-                uint.TryParse(modelId, out intModelId);
-
-                if (intModelId > 0)
-                {
-                    ctrlBikesByBodyStyle.ModelId = intModelId;
-                    ctrlBikesByBodyStyle.topCount = 9;
-                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
-                }
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-
-                    IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    if (intModelId > 0)
+                    ctrlPopularBikes.totalCount = 9;
+                    currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (makeId > 0)
                     {
-                        bodyStyle = modelCache.GetBikeBodyType(intModelId);
+                        ctrlPopularBikes.makeId = Convert.ToInt32(makeId);
+                        ctrlPopularBikes.makeName = makeName;
+                        ctrlPopularBikes.makeMasking = makeMaskingName;
                     }
                 }
-
-                if (intModelId > 0 && (bodyStyle == EnumBikeBodyStyles.Scooter || bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports))
-                    showBodyStyleWidget = true;
+                if (modelId > 0)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = modelId;
+                        ctrlBikesByBodyStyle.topCount = 9;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        if (makeId > 0)
+                        {
+                            ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+                            ctrlUpcomingBikes.makeName = makeName;
+                            ctrlUpcomingBikes.makeMaskingName = makeMaskingName;
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.RoadTest.BindWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Content.RoadTest.BindWidgets");
             }
         }
 
@@ -124,11 +119,12 @@ namespace Bikewale.Mobile.Content
                     if (objRoadTests.isContentFound)
                     {
                         objRoadTests.BindLinkPager(ctrlPager);
-                        makeId = objRoadTests.makeId;
+                        makeId = objRoadTests.MakeId;
                         makeName = objRoadTests.makeName;
                         makeMaskingName = objRoadTests.makeMaskingName;
-                        modelId = objRoadTests.modelId;
+                        modelId = objRoadTests.ModelId;
                         modelName = objRoadTests.modelName;
+                        modelMaskingName = objRoadTests.modelMaskingName;
                         articlesList = objRoadTests.articlesList;
                         startIndex = objRoadTests.startIndex;
                         endIndex = objRoadTests.endIndex;

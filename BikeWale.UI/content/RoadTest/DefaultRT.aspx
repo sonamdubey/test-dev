@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -148,16 +149,20 @@
                     <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
-                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                      
-                       
-                          <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
-
-                         <div class="margin-bottom20">
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                        <%if(isModelTagged){ %>
+                        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                       <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                         </div>
+                        <%} %>
+                        <%} else{%>
+                        <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
+                        <%} %>
+                          <div class="margin-bottom20">
                            <!-- #include file="/ads/Ad300x250.aspx" -->
-                        </div>
-
-                        
+                        </div>                       
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
                                 <img src="https://imgd1.aeplcdn.com/0x0/bw/static/design15/on-road-price.png" alt="Rupee" border="0" />

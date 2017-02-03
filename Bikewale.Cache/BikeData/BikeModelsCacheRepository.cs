@@ -539,17 +539,17 @@ namespace Bikewale.Cache.BikeData
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_cat_{0}_city_{1}", bodyStyleId, cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}", modelId, cityId);
             try
             {
-                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(modelId, topCount, cityId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyle: {0},CityId {1}", bodyStyleId, cityId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: ModelId: {0},CityId {1}", modelId, cityId));
 
             }
             return popularBikesList;

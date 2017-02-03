@@ -78,7 +78,7 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
-        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();

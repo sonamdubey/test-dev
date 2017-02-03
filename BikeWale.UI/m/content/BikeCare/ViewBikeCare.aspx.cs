@@ -21,6 +21,8 @@ namespace Bikewale.Mobile.Content
     /// Summary :- Detaile Page for TipsAndAdvice
     /// Modified by : Aditi Srivasatava on 16 Nov 2016
     /// Summary     : Added functions for upcoming and popular bike widgets
+    /// Modified by : Aditi Srivastava on 3 feb 2017
+    /// Summary     : Changed widget logic for tagged bikes
     /// </summary>
     public class ViewBikeCare : System.Web.UI.Page
     {
@@ -35,8 +37,12 @@ namespace Bikewale.Mobile.Content
         public StringBuilder bikeTested;
         protected IEnumerable<ModelImage> objImg = null;
         protected BikeMakeEntityBase _taggedMakeObj = null;
+        protected uint taggedModelId;
+        protected bool isModelTagged;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         public uint basicId;
         HttpContext page = HttpContext.Current;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -45,7 +51,6 @@ namespace Bikewale.Mobile.Content
         protected void Page_Load(object sender, EventArgs e)
         {
             DetailBikeCare();
-            GetTaggedBikeList();
             BindPageWidgets();
         }
         /// <summary>
@@ -72,6 +77,13 @@ namespace Bikewale.Mobile.Content
                     bikeTested = objDetailBikeCare.bikeTested;
                     canonicalUrl = objDetailBikeCare.canonicalUrl;
                     basicId = objDetailBikeCare.BasicId;
+                    if (objDetailBikeCare.taggedMakeObj != null)
+                    {
+                        _taggedMakeObj = objDetailBikeCare.taggedMakeObj;
+                    }
+                    if (objDetailBikeCare.taggedModelObj != null)
+                        taggedModelId = (uint)objDetailBikeCare.taggedModelObj.ModelId;
+
                 }
                 catch (Exception ex)
                 {
@@ -88,32 +100,14 @@ namespace Bikewale.Mobile.Content
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Nov 2016
-        /// Description: Get details of tagged vehicles
-        /// </summary>
-        private void GetTaggedBikeList()
-        {
-            if (objTipsAndAdvice != null && objTipsAndAdvice.VehiclTagsList.Count > 0)
-            {
-
-                var taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
-                if (taggedMakeObj != null)
-                {
-                    _taggedMakeObj = taggedMakeObj.MakeBase;
-                }
-                else
-                {
-                    _taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().MakeBase;
-                    FetchMakeDetails();
-                }
-            }
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 16 Nov 2016
         /// Description: bind upcoming and popular bikes
+        /// Modified by : Aditi Srivastava on 3 feb 2017
+        /// Summary     : Changed widget logic for tagged bikes
         /// </summary>
         protected void BindPageWidgets()
         {
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            isModelTagged = (taggedModelId > 0);
             if (ctrlPopularBikes != null)
             {
                 ctrlPopularBikes.totalCount = 9;
@@ -124,49 +118,37 @@ namespace Bikewale.Mobile.Content
                     ctrlPopularBikes.makeId = _taggedMakeObj.MakeId;
                     ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
                     ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-
                 }
             }
-            if (ctrlUpcomingBikes != null)
+
+            if (isModelTagged)
             {
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 4;
-                if (_taggedMakeObj != null)
+                if (ctrlBikesByBodyStyle != null)
                 {
-                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                    ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
                 }
             }
-            if (objImg != null)
-                photoGallery.Photos = objImg.ToList();
-            photoGallery.isModelPage = false;
-            photoGallery.articleName = pageTitle;
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 22 Nov 2016
-        /// Description: fetch make details from tagged list
-        /// </summary>
-        private void FetchMakeDetails()
-        {
-            try
+            else
             {
-                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
+                if (ctrlUpcomingBikes != null)
                 {
-
-                    using (IUnityContainer container = new UnityContainer())
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 9;
+                    if (_taggedMakeObj != null)
                     {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
-
+                        ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                        ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
                     }
                 }
             }
-            catch (Exception ex)
+            if (objImg != null && objImg.Count() > 0)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.mobile.ViewBikeCare.FetchMakeDetails");
-                objErr.SendMail();
+                photoGallery.Photos = objImg.ToList();
+                photoGallery.isModelPage = false;
+                photoGallery.articleName = pageTitle;
             }
         }
 
