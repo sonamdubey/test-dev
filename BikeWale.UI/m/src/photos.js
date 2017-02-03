@@ -17,11 +17,9 @@ var modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
     var photoCount = $('.photos-grid-list li').length;
-
     if (photoCount > 1) {
         bindGallery($(this));
     }
-
 });
 var bindGallery = function (clickedImg)
 {
@@ -35,8 +33,8 @@ var bindGallery = function (clickedImg)
     }
    
     vmPhotosPage.imageIndex(imgIndex);
-    showGallery();
-
+    vmPhotosPage.photoGalleryContainerActive(true);
+    showGallery();    
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
@@ -84,8 +82,8 @@ function bindPhotoGallery() {
     // remove the binding and then re-apply
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
-
-    vmPhotosPage.activateGallery(true);
+    vmPhotosPage.photoGalleryContainerActive(false);
+    vmPhotosPage.activateGallery(true);    
     $('body').addClass('lock-browser-scroll');
 }
 
@@ -134,13 +132,14 @@ function showGallery() {
 
 function hideGallery() {
     vmPhotosPage.activateGallery(false);
+    vmPhotosPage.photoGalleryContainerActive(false);
     $('body').removeClass('lock-browser-scroll');
     toggleFullScreen(false);
 };
 
 var photosPage = function () {
     var self = this;
-
+    self.photoGalleryContainerActive = ko.observable(false);
     self.activateGallery = ko.observable(false);
     self.imageIndex = ko.observable(0);
 };
@@ -155,7 +154,7 @@ var modelGallery = function () {
     self.galleryFooterActive = ko.observable(true);
     self.photoSwiperActive = ko.observable(true);
     self.fullScreenModeActive = ko.observable(false);
-    self.colorTabActive = ko.observable(true);
+    self.colorTabActive = ko.observable(true);    
 
     // footer screens
     self.screenActive = ko.observable(false);
