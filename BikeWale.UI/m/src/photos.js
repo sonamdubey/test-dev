@@ -87,7 +87,6 @@ function bindPhotoGallery() {
 
     vmPhotosPage.activateGallery(true);
     $('body').addClass('lock-browser-scroll');
-    //appendState('modelGallery');
 }
 
 function showGallery() {      
