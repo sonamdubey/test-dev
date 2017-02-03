@@ -9,7 +9,6 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using System.Linq;
 
 namespace Bikewale.Generic
 {
@@ -25,7 +24,7 @@ namespace Bikewale.Generic
         protected string pageName = string.Empty;
         protected string pageContent = string.Empty;
         protected string bannerImageUrl = string.Empty, bannerImagePos = string.Empty;
-
+        protected GlobalCityAreaEntity currentCityArea;
         protected PQSourceEnum pqSource;
         void InitializeComponent()
         {
@@ -54,7 +53,7 @@ namespace Bikewale.Generic
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
             GetBestBikesList();
 
@@ -72,10 +71,13 @@ namespace Bikewale.Generic
                 var objBestBikesvm = new BestBikesListing();
                 if (!objBestBikesvm.IsPageNotFound)
                 {
-
-
                     objBestBikesvm.TotalCount = 10;
-                    objBestBikesvm.FetchBestBikesList(objBestBikesvm.TotalCount);
+
+                    if (currentCityArea.CityId > 0)
+                        objBestBikesvm.FetchBestBikesList(objBestBikesvm.TotalCount, currentCityArea.CityId);
+                    else
+                        objBestBikesvm.FetchBestBikesList(objBestBikesvm.TotalCount);
+
                     if (objBestBikesvm.FetchedRecordCount > 0)
                     {
                         objBestBikes = objBestBikesvm.objBestBikesList;

@@ -127,7 +127,7 @@
                                 </tbody>
                             </table>
                             <div class="padding-top10 margin-bottom10">
-                                <p class="font13 text-grey">Ex-showroom price, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <p class="font13 text-grey">Ex-showroom price, <%= bike.PriceInCity %></p>
                                 <div class="margin-bottom10">
                                     <span class="bwmsprite inr-xsm-icon"></span>
                                     <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
@@ -184,13 +184,16 @@
                             </ul>
                             <div class="clear"></div>
 
+                            <% if (bike.UsedBikesCount > 0 && bike.UsedCity != null && bike.Make != null && bike.Model != null)
+                                           { %>
                             <div class="border-light-bottom margin-top10 margin-bottom15"></div>
-                            <a href="" title="" class="block text-light-grey margin-bottom5">
+                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) %>" title="Used <%= bike.Model.ModelName %> bikes" class="block text-light-grey margin-bottom5">
                                 <span class="used-target-label inline-block">
-                                    <span class="font14 text-bold">00 Used <%= bike.BikeName %> bikes</span><br>
+                                    <span class="font14 text-bold"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bikes</span><br>
                                 </span>
                                 <span class="bwmsprite next-grey-icon"></span>
                             </a>
+                             <% } %>
                         </li>
                         <%} %>
                     </ul>

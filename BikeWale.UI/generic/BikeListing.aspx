@@ -149,7 +149,7 @@
                                         </table>
                                     </div>
                                     <div class="grid-3 padding-left20 padding-right20">
-                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                        <p class="font14 text-grey margin-bottom5">Ex-showroom price, <%= bike.PriceInCity %></p>
                                         <div class="margin-bottom10">
                                             <span class="bwsprite inr-lg"></span> <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                                         </div>
@@ -211,11 +211,14 @@
                                             </ul>
                                         </div>
 
+                                        <% if (bike.UsedBikesCount > 0 && bike.UsedCity != null && bike.Make != null && bike.Model != null)
+                                           { %>
                                         <div class="used-bike-target-link leftfloat">
                                             <span class="text-light-grey">Check out:</span>
-                                            <a href="" title="">00 Used <%= bike.Model.ModelName %> bikes</a>
-                                        </div>
-                                        <div class="clear"></div>
+                                            <a href="<%= UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) %>" title="Used <%= bike.Model.ModelName %> bikes"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bikes</a>
+                                        </div>                                       
+                                        <% } %>
+                                         <div class="clear"></div>
                                     </div>
                                 </div>
                             
