@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoMakeModel" EnableViewState="false" %>
+<%@ Register Src="~/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,8 @@
     
     <style type="text/css">
         .miscWrapper li { width:312px; height:312px; background:#fff; float:left; border: 1px solid #e2e2e2; padding:20px; margin-right:10px; margin-bottom:20px; margin-left:10px; }.video-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.video-image-wrapper a { width:100%; height:100%; display:block; background:url('https://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }.video-image-wrapper img { width:100%; height:100%; }.border-light-right { border-right:1px solid #e2e2e2; }
-    </style>
+.bwsprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite.png?v24Jan2017) no-repeat; display: inline-block; }  .play-icon-wrapper { width: 270px; height: 100%; display: block; position:absolute; top:0; left:10px; bottom:30px; margin: 0 auto; text-align:center; padding-top:20%; background: transparent; background: rgba(0,0,0,0.2) } 
+</style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -89,6 +91,15 @@
                 </div>
             </div>
         </section>
+        <% if (ctrlSimilarBikeVideos.FetchCount > 0)
+		   {%>
+        <div class="container content-box-shadow">
+           <div class="padding-top20 padding-bottom20 font14">
+               <h2 class="padding-left20 padding-right20 margin-bottom15">Videos for similar bikes</h2>
+		<BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
+              </div>
+            </div>
+		<% } %>
         <script type="text/html" id="templetVideos">
             <li>
                 <div class="video-image-wrapper rounded-corner2">

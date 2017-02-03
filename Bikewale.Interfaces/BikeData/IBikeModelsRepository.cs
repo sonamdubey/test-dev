@@ -28,6 +28,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added function to get top 10 bikes by bodystyle
     /// Modified By:-Subodh Jain 2 Feb 2017
     /// Summary :- Added Get make if video
+    /// Modified By:-Subodh Jain 2 Feb 2017
+    /// Summary :- Added GetSimilarBikesVideos method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -79,5 +81,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
+        IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
     }
 }

@@ -27,6 +27,7 @@ namespace Bikewale.Videos
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
         protected BIndViewModelVideoDefault objVideo;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -97,13 +98,26 @@ namespace Bikewale.Videos
             ctrlVideosLandingCount = objVideo.FetchedRecordsCount;
             objVideo.BindVideos(rptLandingVideos);
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
+
         private void BindMakewidget()
         {
-            objVideo = new BIndViewModelVideoDefault();
-            if (objVideo != null)
+            try
             {
-                objVideo.TopCount = 10;
-                objVideo.GetMakeIfVideo();
+                objVideo = new BIndViewModelVideoDefault();
+                if (objVideo != null)
+                {
+                    objVideo.TopCount = 10;
+                    objVideo.GetMakeIfVideo();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindMakewidget");
             }
 
         }

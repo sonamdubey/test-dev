@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.BindViewModels.Webforms.Videos
 {
+    /// <summary>
+    /// Created By :- Subodh Jain 3 feb 2017
+    /// Summary :- Bind view model for videos page
+    /// </summary>
     public class BIndViewModelVideoDefault
     {
         public IEnumerable<BikeMakeEntityBase> TopMakeList;
@@ -37,7 +41,10 @@ namespace Bikewale.BindViewModels.Webforms.Videos
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BIndViewModelVideoDefault");
             }
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
         public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
         {
             IEnumerable<BikeMakeEntityBase> objVideoMake = null;

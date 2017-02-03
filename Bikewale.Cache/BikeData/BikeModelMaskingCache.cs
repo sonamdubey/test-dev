@@ -194,6 +194,11 @@ namespace Bikewale.Cache.BikeData
             }
             return objReview;
         }
+        /// <summary>
+        /// Created by :- Subodh jain 3 feb 2017
+        /// Summary :- Get Make if video is present
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
         {
             IEnumerable<BikeMakeEntityBase> objVideoMake = null;
@@ -207,6 +212,28 @@ namespace Bikewale.Cache.BikeData
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.");
             }
             return objVideoMake;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 3 feb 2017
+        /// Summary :- Bind Video details for similar bikes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords)
+        {
+            IEnumerable<SimilarBikeWithVideo> similarBikes = null;
+            string key = string.Format("BW_SimilarBikes_VideoCnt_{0}", modelId);
+            try
+            {
+                similarBikes = _cache.GetFromCache<IEnumerable<SimilarBikeWithVideo>>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetSimilarBikesVideos(modelId, totalRecords));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.Cache.BikeData.GetSimilarBikesVideos_modelid: {0}", modelId));
+            }
+
+            return similarBikes;
         }
 
     }

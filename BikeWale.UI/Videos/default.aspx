@@ -380,6 +380,8 @@
 		 <% if (ctrlMiscellaneous.FetchedRecordsCount > 0) {%>
 		<BW:ByCategory runat="server" ID="ctrlMiscellaneous" />
 		<% } %> 
+        
+		
 
 		<script type="text/javascript">
 			$(document).ready(function () { $("img.lazy").lazyload(); });
