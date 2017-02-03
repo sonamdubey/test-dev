@@ -62,6 +62,8 @@ namespace Bikewale.Generic
         /// <summary>
         /// Created By : Sushil Kumar on 22nd Dec 2016
         /// Description : Get best bikes list and bind other page related components 
+        /// Modified by : Sajal Gupta on 03-02-2017
+        /// Description : Call differnet funvtion if cityid is available.
         /// </summary>
         private void GetBestBikesList()
         {
