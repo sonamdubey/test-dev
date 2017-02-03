@@ -77,6 +77,7 @@
                 <div class="clear"></div>
             </div>
         </section>
+         <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <%if(modelId>0){%>
         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>

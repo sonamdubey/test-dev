@@ -30,6 +30,6 @@
                        </div>
                 </div>
                 <div class="margin-top15 margin-left20 font14">
-                    <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleText%> in India" >View all popular <%=BodyStyleText%><span class="bwmsprite blue-right-arrow-icon"></span></a>
+                    <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" >View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
                 </div>
          
