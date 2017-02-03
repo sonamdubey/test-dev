@@ -5,7 +5,7 @@
     // add 'more photos count' if photo grid contains 24 images
     if (photosLength == photoLimitCount) {
         var lastPhoto = $('.model-grid-images li').eq(photoLimitCount - 1),
-            morePhotoCount = $('<span class="black-overlay"><span class="font18 text-bold">+' + (photoCount - photoLimitCount) + '</span><br /><span class="font16">photos</span></span>');
+            morePhotoCount = $('<span class="black-overlay"><span class="black-overlay-content"><span class="font18 text-bold">+' + (photoCount - photoLimitCount) + '</span><br /><span class="font16">photos</span></span></span>');
 
         lastPhoto.append(morePhotoCount);
     }
