@@ -134,14 +134,16 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         /// Desc: Fetch Bikes by body style and category
         /// Modified by : Aditi Srivastava on 17 Jan 2017
         /// Description : Used a different function for getting lust of top bikes
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.     
         /// </summary>
-        public void FetchBestBikesList(ushort topCount)
+        public void FetchBestBikesList(ushort topCount, uint? cityId = null)
         {
             try
             {
                 if (_objBestBikes != null)
                 {
-                    objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
+                    objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Take(topCount);
                     if (objBestBikesList != null && objBestBikesList.Count() > 0)
                     {
                         FetchedRecordCount = objBestBikesList.Count();
