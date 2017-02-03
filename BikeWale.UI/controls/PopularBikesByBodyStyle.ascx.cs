@@ -18,6 +18,7 @@ namespace Bikewale.Controls
         public uint CityId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string BodyStyleText { get; set; }
+        public string BodyStyleLinkTitle { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public ICollection<MostPopularBikesBase> popularBikes = null;
 
@@ -46,7 +47,8 @@ namespace Bikewale.Controls
                     if (FetchedRecordsCount > 0)
                     {
                        BodyStyle = popularBikes.FirstOrDefault().BodyStyle;
-                       BodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle);
+                       BodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(BodyStyle);
+                       BodyStyleLinkTitle = Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle);
                     }
                 }
             }

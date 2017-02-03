@@ -22,5 +22,5 @@
         <% } %>
     </ul>
     <div class="margin-top10 margin-bottom10">
-        <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleText%> in India" class="font14">View all popular <%=BodyStyleText%><span class="bwsprite blue-right-arrow-icon"></span></a>
+        <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" class="font14">View the complete list<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
