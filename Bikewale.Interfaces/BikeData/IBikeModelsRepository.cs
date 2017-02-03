@@ -26,6 +26,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Addded new method for get bike ranking by model id
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Added function to get top 10 bikes by bodystyle
+    /// Modified By:-Subodh Jain 2 Feb 2017
+    /// Summary :- Added Get make if video
+    /// Modified By:-Subodh Jain 2 Feb 2017
+    /// Summary :- Added GetSimilarBikesVideos method
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Edited function to get top 10 bikes and their mopdelcount by bodystyle and cityid.
     /// </summary>
@@ -77,6 +81,10 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
+        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
+        IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
+        IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+
     }
 }

@@ -2006,6 +2006,106 @@ namespace Bikewale.DAL.BikeData
             }
             return bestBikesList;
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
+
+        public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
+        {
+            IList<BikeMakeEntityBase> objVideoMake = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakebyvideo";
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+
+                            objVideoMake = new List<BikeMakeEntityBase>();
+
+                            while (dr.Read())
+                            {
+                                objVideoMake.Add(new BikeMakeEntityBase()
+                                {
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    MakeName = Convert.ToString(dr["MakeName"])
+                                });
+
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, " Bikewale.DAL.BikeData.GetMakeIfVideo");
+
+            } // catch Exception
+            return objVideoMake;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 3 feb 2017
+        /// Summary :- Bind Video details for similar bikes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords)
+        {
+            IList<SimilarBikeWithVideo> SimilarBikeInfoList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalternativebikeswithvideoscount";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            SimilarBikeInfoList = new List<SimilarBikeWithVideo>();
+
+                            while (dr.Read())
+                            {
+                                var bikeInfo = new SimilarBikeWithVideo();
+                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                bikeInfo.VideoCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]);
+                                bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                                bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                                bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                SimilarBikeInfoList.Add(bikeInfo);
+
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesVideos_Model: {0}", modelId));
+            }
+            return SimilarBikeInfoList;
+        }
+
 
     }   // class
 }   // namespace
