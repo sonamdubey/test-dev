@@ -1,10 +1,8 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Videos;
 using Bikewale.Common;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using System;
-using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
@@ -22,8 +20,6 @@ namespace Bikewale.Videos
         protected Repeater rptLandingVideos;
         protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlFirstLook, ctrlPDBlockbuster, ctrlPDSpecials, ctrlMiscellaneous, ctrlMotorSports, ctrlTopMusic, ctrlLaunchAlert;
         protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
-        protected IEnumerable<BikeMakeEntityBase> objTopMakeList;
-        protected IEnumerable<BikeMakeEntityBase> objOtherMakeList;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
         protected BIndViewModelVideoDefault objVideo;
