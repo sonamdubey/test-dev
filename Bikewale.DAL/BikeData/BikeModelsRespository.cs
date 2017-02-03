@@ -1774,7 +1774,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
             try
@@ -1782,8 +1782,8 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularbikesbybodystyle";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyleId));
+                    cmd.CommandText = "getmostpopularbikesbybodystyle_02022017";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
@@ -1791,6 +1791,7 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null)
                         {
                             popularBikesList = new Collection<MostPopularBikesBase>();
+                            EnumBikeBodyStyles bodyStyle;
                             while (dr.Read())
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
@@ -1807,7 +1808,8 @@ namespace Bikewale.DAL.BikeData
                                 popularObj.CityName = Convert.ToString(dr["CityName"]);
                                 popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
-                                popularObj.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                Enum.TryParse(Convert.ToString(dr["CategoryId"]), out bodyStyle);
+                                popularObj.BodyStyle = bodyStyle;
                                 popularBikesList.Add(popularObj);
                             }
                             dr.Close();
@@ -1817,7 +1819,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_BodyStyleId: {0}, topCount: {1}", bodyStyleId, topCount));
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_ModelId: {0}, topCount: {1}", modelId, topCount));
             }
             return popularBikesList;
         }

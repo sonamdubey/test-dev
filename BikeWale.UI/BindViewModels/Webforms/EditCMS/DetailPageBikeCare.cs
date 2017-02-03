@@ -1,8 +1,9 @@
-﻿
+﻿using System.Linq;
 using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.Cache.Core;
@@ -18,6 +19,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// <summary>
     /// Created By:-Subodh Jain 12 Nov 2016
     /// Summary :- Detaile Page for TipsAndAdvice
+    /// Modified by : Aditi Srivastava on 3 Feb 2017
+    /// Summary :  Added functions to get tagged makes and models
     /// </summary>
     public class DetailPageBikeCare
     {
@@ -30,6 +33,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public IEnumerable<ModelImage> objImg = null;
         public bool isContentFound = true, pageNotFound = false;
         private ICMSCacheContent _objDetailsBikeCarecache;
+        public BikeMakeEntityBase taggedMakeObj;
+        public BikeModelEntityBase taggedModelObj;
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
         /// Summary :- Detaile Page for TipsAndAdvice resolving interface
@@ -48,9 +53,6 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 GetTipsAndAdviceDetails();
                 CreateMetas();
             }
-
-
-
 
         }
         /// <summary>
@@ -88,19 +90,21 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
         /// Summary :- to Get TipsAndAdvice Details 
+        /// Modified by : Aditi Srivastava on 3 Feb 2017
+        /// Summary :  Added functions to get tagged makes and models
         /// </summary>
         private void GetTipsAndAdviceDetails()
         {
             try
             {
-
-
                 objTipsAndAdvice = _objDetailsBikeCarecache.GetArticlesDetails(BasicId);
 
                 if (objTipsAndAdvice != null)
                 {
                     GetTipsAndAdviceData();
                     objImg = _objDetailsBikeCarecache.GetArticlePhotos(Convert.ToInt32(BasicId));
+                    GetTaggedBikeListByMake();
+                    GetTaggedBikeListByModel();
                 }
                 else
                 {
@@ -121,6 +125,70 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     page.Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                 }
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 3 Feb 2017
+        /// Summary    : Get tagged make in expert reviews
+        /// </summary>
+        private void GetTaggedBikeListByMake()
+        {
+            try
+            {
+                if (objTipsAndAdvice != null && objTipsAndAdvice.VehiclTagsList != null && objTipsAndAdvice.VehiclTagsList.Count > 0)
+                {
+
+                    var _taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
+                    if (_taggedMakeObj != null)
+                    {
+                        taggedMakeObj = _taggedMakeObj.MakeBase;
+                    }
+                    else
+                    {
+                        taggedMakeObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().MakeBase;
+                        if (taggedMakeObj != null && taggedMakeObj.MakeId > 0)
+                        {
+                            taggedMakeObj = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)taggedMakeObj.MakeId);
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BindViewModels.Webforms.EditCMS.DetailPageBikeCare.GetTaggedBikeListByMake");
+            }
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 3 Feb 2017
+        /// Summary    : Get model details if model is tagged
+        /// </summary>
+        private void GetTaggedBikeListByModel()
+        {
+            try
+            {
+                if (objTipsAndAdvice != null && objTipsAndAdvice.VehiclTagsList != null && objTipsAndAdvice.VehiclTagsList.Count > 0)
+                {
+
+                    var _taggedModelObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
+                    if (_taggedModelObj != null)
+                    {
+                        taggedModelObj = _taggedModelObj.ModelBase;
+                    }
+                    else
+                    {
+                        taggedModelObj = objTipsAndAdvice.VehiclTagsList.FirstOrDefault().ModelBase;
+                        if (taggedModelObj != null)
+                        {
+                            taggedModelObj = new Bikewale.Common.ModelHelper().GetModelDataById((uint)taggedModelObj.ModelId);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.DetailPageBikeCare.GetTaggedBikeListByModel");
             }
         }
         /// <summary>
