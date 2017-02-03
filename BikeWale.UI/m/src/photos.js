@@ -116,7 +116,8 @@ function showGallery() {
                 }
             });
         }
-        else {           
+        else {
+            vmPhotosPage.photoGalleryContainerActive(true);
             var cacheData = Base64.decode(bwcache.get(keyPhoto, true));
             var cacheDecodedData = JSON.parse(cacheData);
             modelImages = cacheDecodedData.modelImages;
