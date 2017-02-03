@@ -53,16 +53,8 @@ namespace Bikewale.BindViewModels.Webforms.Videos
                 objVideoMake = _objModelCache.GetMakeIfVideo();
                 if (objVideoMake != null)
                 {
-                    if (objVideoMake.Count() > TopCount)
-                    {
-                        TopMakeList = objVideoMake.Where(m => m.PopularityIndex > 0).Take(TopCount);
-                        OtherMakeList = objVideoMake.Where(m => (m.PopularityIndex == 0 || m.PopularityIndex > TopCount));
-
-                    }
-                    else
-                    {
-                        TopMakeList = objVideoMake;
-                    }
+                    TopMakeList = objVideoMake.Take(TopCount);
+                    OtherMakeList = objVideoMake.Skip(TopCount);
                 }
 
             }

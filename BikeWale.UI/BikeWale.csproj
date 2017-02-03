@@ -335,7 +335,7 @@
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviews.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviewsDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\Videos\BIndViewModelVideoDefault.cs" />
+    <Compile Include="BindViewModels\Webforms\Videos\BindViewModelVideoDefault.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />

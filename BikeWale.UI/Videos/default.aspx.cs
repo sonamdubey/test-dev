@@ -22,7 +22,7 @@ namespace Bikewale.Videos
         protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
-        protected BIndViewModelVideoDefault objVideo;
+        protected BindViewModelVideoDefault objVideo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -103,7 +103,7 @@ namespace Bikewale.Videos
         {
             try
             {
-                objVideo = new BIndViewModelVideoDefault();
+                objVideo = new BindViewModelVideoDefault();
                 if (objVideo != null)
                 {
                     objVideo.TopCount = 10;
