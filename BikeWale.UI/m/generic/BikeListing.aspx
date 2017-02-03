@@ -189,7 +189,7 @@
                             <div class="border-light-bottom margin-top10 margin-bottom15"></div>
                             <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) %>" title="Used <%= bike.Model.ModelName %> bikes" class="block text-light-grey margin-bottom5">
                                 <span class="used-target-label inline-block">
-                                    <span class="font14 text-bold"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bikes</span><br>
+                                    <span class="font14 text-bold"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bike<%if(bike.UsedBikesCount > 1){%>s<%}%></span><br>
                                 </span>
                                 <span class="bwmsprite next-grey-icon"></span>
                             </a>
