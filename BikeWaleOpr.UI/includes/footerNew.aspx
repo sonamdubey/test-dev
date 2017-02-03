@@ -1,9 +1,11 @@
 	<footer class="page-footer teal no-padding">
         <div class="footer-copyright">
-            <div class="container">&copy; Bikewale India Confidential<a class="grey-text text-lighten-4 right" href="https://www.bikewale.com">BikeWale</a>
+            <div class="container">&copy; Bikewale India Confidential<a class="grey-text floatRight" href="https://www.bikewale.com">BikeWale</a>
             </div>
         </div>
     </footer>
+    <div id="black-overlay"></div>
+    <script type="text/javascript" src="/src/common/common.js?03102016"></script>
 	<script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-337359-17']);
