@@ -1459,7 +1459,6 @@ var bikePopup = {
 var cityListContainer = $('#city-slideIn-drawer');
 
 $('#city-select-element').on('click', '.city-box-default', function () {
-    alert('222');
     try {
         if (isEdit != "True") {
             $('#city-search-box').val("");

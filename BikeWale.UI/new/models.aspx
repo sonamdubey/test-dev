@@ -6,6 +6,7 @@
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedPopularModels.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
@@ -263,8 +264,10 @@
                        {%> 
                     <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
                      <%} %>
-                    
-
+                    <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
+                       { %>
+                    <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+                    <% } %>
                     <div id="overallMakeDetailsFooter"></div>
                 </div>
             </div>
