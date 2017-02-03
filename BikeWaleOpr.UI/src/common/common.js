@@ -1,4 +1,15 @@
-﻿function hasSpecialCharacters(strModel) {
+﻿// Initialize collapse button for side nav
+$(document).ready(function () {
+    $(".buttons").sideNav();
+    $('.modal').modal();
+    $('.collapsible').collapsible();
+})
+
+// Do not remove this code. Its written to get values from checkbox to controller
+$("input:checkbox").change(function () { $(this).val($(this).is(':checked')); });
+
+
+function hasSpecialCharacters(strModel) {
     var isValid = true;
     if (/^[0-9a-z\-\s]+$/.test(strModel)) {
         isValid = false;

@@ -1,12 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Content.BikeMakes" trace="false" debug="false" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script type="text/javascript" src="/src/common/common.js?V1.1"></script>
 <script src="/src/bt.js"></script>
-<div>
-	<!-- #Include file="contentsMenu.aspx" -->
-</div>
-<script type="text/javascript" language="javascript" src="/src/AjaxFunctions.js"></script>
-<div class="left">
+
+<div class="view-container">
 <h1>Bike Makes</h1>
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>

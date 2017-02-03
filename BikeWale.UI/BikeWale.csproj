@@ -3102,7 +3102,7 @@
     <Content Include="bin\Bikewale.DAL.dll" />
     <Content Include="bin\Bikewale.DTO.dll" />
     <Content Include="bin\Bikewale.Entities.dll" />
-    <Content Include="bin\Bikewale.instr.pdb" />
+    <!--<Content Include="bin\Bikewale.instr.pdb" />-->
     <Content Include="bin\Bikewale.Interfaces.dll" />
     <Content Include="bin\Bikewale.Notifications.dll" />
     <Content Include="bin\Bikewale.Service.dll" />
@@ -3117,7 +3117,7 @@
     <Content Include="bin\Carwale.Interfaces.dll" />
     <Content Include="bin\Carwale.Notifications.dll" />
     <Content Include="bin\Carwale.Utility.dll" />
-    <Content Include="bin\CommonUtility.dll" />
+    <!--<Content Include="bin\CommonUtility.dll" />-->
     <Content Include="bin\Dapper.dll" />
     <Content Include="bin\DapperWrapper.dll" />
     <Content Include="bin\Elasticsearch.Net.dll" />
