@@ -94,7 +94,7 @@
 		   {%>
         <div class="container content-box-shadow">
            <div class="padding-top20 padding-bottom20 font14">
-               <h2 class="padding-left20 padding-right20 margin-bottom15">Videos for similar bikes</h2>
+               <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of bikes similar to <%=model%></h2>
 		<BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
               </div>
             </div>
