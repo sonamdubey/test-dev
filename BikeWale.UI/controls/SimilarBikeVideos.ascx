@@ -1,10 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.SimilarBikeVideos" EnableViewState="false" %>
+<%if(SimilarBikeVideoList!=null){ %>
 <div class="jcarousel-wrapper inner-content-carousel">
     <div class="jcarousel">
         <ul>
             <%foreach (var BikeInfo in SimilarBikeVideoList)
               {
-                  string bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); %>
+                  string bikeName = string.Empty;
+                  if (BikeInfo.Make != null && BikeInfo.Model != null) { bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); } %>
             <li>
                 <a href="/<%=BikeInfo.Make.MaskingName%>-bikes/<%=BikeInfo.Model.MaskingName%>/videos/" title="<%=bikeName %>" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
@@ -30,3 +32,4 @@
     <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow" data-jcarouselcontrol="true"></a></span>
     <span class="jcarousel-control-right"> <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow" data-jcarouselcontrol="true"></a></span>
 </div>
+<%} %>

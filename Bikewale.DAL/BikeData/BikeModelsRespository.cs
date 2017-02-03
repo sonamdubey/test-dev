@@ -2037,7 +2037,7 @@ namespace Bikewale.DAL.BikeData
             catch (Exception err)
             {
 
-                ErrorClass objErr = new ErrorClass(err, " ModelVersionDescription.GetMakeIfVideo");
+                ErrorClass objErr = new ErrorClass(err, " Bikewale.DAL.BikeData.GetMakeIfVideo");
 
             } // catch Exception
             return objVideoMake;

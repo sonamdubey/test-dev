@@ -209,7 +209,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Cache.BikeData.GetMakeIfVideo");
             }
             return objVideoMake;
         }

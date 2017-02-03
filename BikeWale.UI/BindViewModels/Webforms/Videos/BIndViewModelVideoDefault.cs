@@ -16,14 +16,14 @@ namespace Bikewale.BindViewModels.Webforms.Videos
     /// Created By :- Subodh Jain 3 feb 2017
     /// Summary :- Bind view model for videos page
     /// </summary>
-    public class BIndViewModelVideoDefault
+    public class BindViewModelVideoDefault
     {
         public IEnumerable<BikeMakeEntityBase> TopMakeList;
         public IEnumerable<BikeMakeEntityBase> OtherMakeList;
         public int TopCount { get; set; }
 
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelCache = null;
-        public BIndViewModelVideoDefault()
+        public BindViewModelVideoDefault()
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.Videos
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BIndViewModelVideoDefault");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault");
             }
         }
         /// <summary>
@@ -62,7 +62,6 @@ namespace Bikewale.BindViewModels.Webforms.Videos
                     else
                     {
                         TopMakeList = objVideoMake;
-
                     }
                 }
 
@@ -70,7 +69,7 @@ namespace Bikewale.BindViewModels.Webforms.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BIndViewModelVideoDefault.GetMakeIfVideo");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Videos.BindViewModelVideoDefault.GetMakeIfVideo");
             }
             return objVideoMake;
         }
