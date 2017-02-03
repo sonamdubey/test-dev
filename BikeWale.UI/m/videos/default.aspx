@@ -15,7 +15,6 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
      <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/css/videos/bwm-videos-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
-    
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -88,7 +87,7 @@
                         <%foreach (var bikebrand in objVideo.TopMakeList)
                           {%>
                         <li>
-                            <a href="/m/<%=bikebrand.MaskingName %>-bikes/videos/" title="<%=bikebrand.MakeName %> bikes videos">
+                            <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikebrand.MaskingName,string.Empty) %>" title="<%=bikebrand.MakeName %> bikes videos">
                                 <span class="brand-type">
                                     <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                 </span>
@@ -103,7 +102,7 @@
                         <%foreach (var bikebrand in objVideo.OtherMakeList)
                           {%>
                         <li>
-                            <a href="/m/<%=bikebrand.MaskingName %>-bikes/videos/" title="<%=bikebrand.MakeName %> bikes videos">
+                            <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikebrand.MaskingName,string.Empty) %>" title="<%=bikebrand.MakeName %> bikes videos">
                                 <span class="brand-type">
                                     <span class="lazy brandlogosprite brand-<%=bikebrand.MakeId %>"></span>
                                 </span>
@@ -115,7 +114,7 @@
 
                 </div>
                 <div class="view-brandType text-center">
-                    <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font14">View more brands</a>
+                    <a href="javascript:void(0)" id="view-brandType" rel="nofollow" class="view-more-btn font14">View more brands</a>
                 </div>
                 <%} %>
             </div>
