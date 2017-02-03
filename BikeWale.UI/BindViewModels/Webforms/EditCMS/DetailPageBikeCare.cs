@@ -32,7 +32,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public ArticlePageDetails objTipsAndAdvice;
         public IEnumerable<ModelImage> objImg = null;
         public bool isContentFound = true, pageNotFound = false;
-        private ICMSCacheContent _objDetailsBikeCarecache;
+        private readonly ICMSCacheContent _objDetailsBikeCarecache;
         public BikeMakeEntityBase taggedMakeObj;
         public BikeModelEntityBase taggedModelObj;
         /// <summary>

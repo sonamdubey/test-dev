@@ -35,7 +35,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
         public string MappedCWId { get; set; }
-        private ICMSCacheContent _cache = null;
+        private readonly ICMSCacheContent _cache = null;
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list

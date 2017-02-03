@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public BikeModelEntityBase taggedModelObj;
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public string MappedCWId { get; set; }
-        private ICMSCacheContent _cache = null;
+        private readonly ICMSCacheContent _cache = null;
 
         public FeaturesDetails()
         {

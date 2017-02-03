@@ -30,7 +30,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public BikeMakeEntityBase taggedMakeObj;
         public BikeModelEntityBase taggedModelObj;
         public string MappedCWId { get; set; }
-        private ICMSCacheContent _cache = null;
+        private readonly ICMSCacheContent _cache = null;
 
         public RoadTestDetails()
         {
