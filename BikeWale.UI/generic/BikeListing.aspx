@@ -215,7 +215,7 @@
                                            { %>
                                         <div class="used-bike-target-link leftfloat">
                                             <span class="text-light-grey">Check out:</span>
-                                            <a href="<%= UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) %>" title="Used <%= bike.Model.ModelName %> bikes"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bikes</a>
+                                            <a href="<%= UrlFormatter.ViewMoreUsedBikes(bike.UsedCity.CityId, bike.UsedCity.CityMaskingName, bike.Make.MaskingName, bike.Model.MaskingName) %>" title="Used <%= bike.Model.ModelName %> bikes"><%= bike.UsedBikesCount %> Used <%= bike.Model.ModelName %> bike<%if(bike.UsedBikesCount > 1){%>s<%}%></a>
                                         </div>                                       
                                         <% } %>
                                          <div class="clear"></div>
