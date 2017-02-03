@@ -110,6 +110,10 @@
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
+                <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
+                <div class="gallery-container" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;">
+                </div>
+                <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
                 <!-- /ko -->

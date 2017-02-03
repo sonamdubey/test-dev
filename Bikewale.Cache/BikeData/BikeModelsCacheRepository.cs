@@ -601,16 +601,18 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.  
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
-                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle));
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle, cityId));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Videos;
 using Bikewale.Common;
 using Bikewale.Entities.Videos;
 using System;
@@ -21,6 +22,7 @@ namespace Bikewale.Videos
         protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
+        protected BindViewModelVideoDefault objVideo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -39,7 +41,7 @@ namespace Bikewale.Videos
             dd.DetectDevice();
 
             BindLandingVideos();
-
+            BindMakewidget();
             ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
@@ -64,7 +66,7 @@ namespace Bikewale.Videos
 
             ctrlMotorSports.CategoryIdList = "51";
             ctrlMotorSports.TotalRecords = 6;
-            ctrlMotorSports.SectionTitle = "MotorSports";  
+            ctrlMotorSports.SectionTitle = "MotorSports";
 
             ctrlPDSpecials.CategoryIdList = "63";
             ctrlPDSpecials.TotalRecords = 6;
@@ -72,7 +74,7 @@ namespace Bikewale.Videos
 
             ctrlTopMusic.CategoryIdList = "60";
             ctrlTopMusic.TotalRecords = 6;
-            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";   
+            ctrlTopMusic.SectionTitle = "PowerDrift Top Music";
 
             ctrlMiscellaneous.CategoryIdList = "58";
             ctrlMiscellaneous.TotalRecords = 6;
@@ -92,7 +94,29 @@ namespace Bikewale.Videos
             ctrlVideosLandingCount = objVideo.FetchedRecordsCount;
             objVideo.BindVideos(rptLandingVideos);
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
 
+        private void BindMakewidget()
+        {
+            try
+            {
+                objVideo = new BindViewModelVideoDefault();
+                if (objVideo != null)
+                {
+                    objVideo.TopCount = 10;
+                    objVideo.GetMakeIfVideo();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindMakewidget");
+            }
+
+        }
         public override void Dispose()
         {
             rptLandingVideos.DataSource = null;
