@@ -101,7 +101,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "m.RoadTest.BindWidgets");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.Content.RoadTest.BindWidgets");
             }
         }
 

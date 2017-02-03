@@ -106,7 +106,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.News.default.BindWidgets");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.News.Default.BindWidgets");
             }
         }
 
@@ -187,7 +187,7 @@ namespace Bikewale.Mobile.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Mobile.News.Default.GetContentCategory");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.News.Default.GetContentCategory");
             }
             return _category;
         }

@@ -126,7 +126,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.viewRT.BindExpertReviewdetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.BindExpertReviewdetails");
             }
             finally
             {
@@ -184,7 +184,7 @@ namespace Bikewale.Content
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.viewRT.GetRoadTestData");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.GetRoadTestData");
             }
         }
         /// <summary>
@@ -240,7 +240,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.viewRT.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.viewRT.BindPageWidgets");
 
             }
         }

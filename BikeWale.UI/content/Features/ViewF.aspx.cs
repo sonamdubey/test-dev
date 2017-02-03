@@ -143,7 +143,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.ViewF.BindFeaturesDetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.ViewF.BindFeaturesDetails");
             }
             finally
             {
@@ -222,7 +222,7 @@ namespace Bikewale.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Content.ViewF.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.ViewF.BindPageWidgets");
 
             }
          }

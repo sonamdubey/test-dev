@@ -55,10 +55,7 @@ namespace Bikewale.News
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-
             BindNewsDetails();
-
         }
 
         /// <summary>
@@ -111,7 +108,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.BindNewsDetails");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.BindNewsDetails");
                 objErr.SendMail();
             }
             finally
@@ -180,7 +177,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.BindPageWidgets");
 
             }
 

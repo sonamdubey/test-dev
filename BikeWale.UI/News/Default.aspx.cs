@@ -56,7 +56,6 @@ namespace Bikewale.News
             GetNewsList();
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
             BindPageWidgets();
-
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.GetNewsList");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.NewsListing.GetNewsList");
             }
             finally
             {
@@ -158,7 +157,7 @@ namespace Bikewale.News
             }
             catch(Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.BindPageWidgets");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.NewsListing.BindPageWidgets");
                 
             }
         }

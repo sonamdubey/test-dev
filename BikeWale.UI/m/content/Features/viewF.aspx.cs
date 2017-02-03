@@ -122,7 +122,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Mobile.Content.viewF.BindFeaturesDetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Content.viewF.BindFeaturesDetails");
             }
             finally
             {
@@ -228,7 +228,7 @@ namespace Bikewale.Mobile.Content
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.Mobile.Content.viewF.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Content.viewF.BindPageWidgets");
 
             }
         }
