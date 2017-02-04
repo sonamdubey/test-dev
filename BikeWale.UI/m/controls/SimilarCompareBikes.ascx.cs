@@ -18,10 +18,11 @@ namespace Bikewale.Mobile.Controls
 
     public class SimilarCompareBikes : System.Web.UI.UserControl
     {
-        public Repeater rptSimilarBikes, rptSimilarBikesInner;
         public string versionsList { get; set; }
         private ushort _topCount = 0;
         public uint fetchedCount { get; set; }
+        public Int64 SponsoredVersionId { get; set; }
+        public String FeaturedBikeLink { get; set; }
 
         public IEnumerable<SimilarCompareBikeEntity> objSimilarBikes = null;
 
@@ -60,9 +61,6 @@ namespace Bikewale.Mobile.Controls
                 {
                     var source = from bike in objSimilarBikes
                                  select new { VersionId = bike.VersionId1, BikeName = string.Format("{0} {1} {2}", bike.Make1, bike.Model1, bike.Version1) };
-
-                    rptSimilarBikes.DataSource = source.Distinct();
-                    rptSimilarBikes.DataBind();
                 }
             }
             catch (Exception ex)
@@ -94,13 +92,6 @@ namespace Bikewale.Mobile.Controls
                 objErr.SendMail();
             }
             return obj;
-        }
-
-        public override void Dispose()
-        {
-            rptSimilarBikes.DataSource = null;
-            rptSimilarBikes.Dispose();
-            base.Dispose();
         }
     }
 }

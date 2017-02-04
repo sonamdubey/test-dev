@@ -27,18 +27,22 @@ namespace Bikewale.BindViewModels.Webforms.Compare
     /// </summary>
     public class CompareBikes
     {
-        private IBikeModelsCacheRepository<int> _objModelCache = null;
+        private IBikeMakesCacheRepository<int> _objMakeCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private IBikeCompareCacheRepository _objCompareCache = null;
         private IBikeCompare _objCompare = null;
+
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect;
-        public string redirectionUrl = string.Empty, versionsList;
+        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty;
         public uint versionId1, versionId2;
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
         public Int64 SponsoredVersionId;
         public ICollection<BikeCompareEntity> objBikes = null;
+        public string ComparisionText = string.Empty;
+        public ICollection<BikeMakeEntityBase> makes = null;
+        public bool isUsedBikePresent;
 
         /// <summary>
         /// 
@@ -49,20 +53,21 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                         .RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>()
                         .RegisterType<IBikeCompare, BikeCompareRepository>()
+                        .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>()
+                        .RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeCompare, Bikewale.BAL.Compare.BikeComparison>();
 
 
-                    _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     _objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
                     _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
                     _objCompare = container.Resolve<IBikeCompare>();
+                    _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
 
                 }
 
@@ -92,11 +97,15 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 if (comparedBikes != null && comparedBikes.BasicInfo != null)
                 {
                     BindPageMetas(comparedBikes.BasicInfo.ElementAt(0), comparedBikes.BasicInfo.ElementAt(1));
+                    makes = _objMakeCache.GetMakesByType(EnumBikeType.New).ToList();
+                    GetComparisionText();
+                    isUsedBikePresent = comparedBikes.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetCompareBikeDetails");
+                isPageNotFound = false;
             }
         }
 
@@ -112,7 +121,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                 try
                 {
-                    string bike1Name = string.Format("{0} {1}", bike1.Make, bike1.Model), bike2Name = string.Format("{0} {1}", bike2.Make, bike2.Model);
+                    bike1Name = string.Format("{0} {1}", bike1.Make, bike1.Model);
+                    bike2Name = string.Format("{0} {1}", bike2.Make, bike2.Model);
 
                     PageMetas.Title = string.Format("Compare {0} vs {1} - BikeWale", bike1Name, bike2Name);
                     PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
@@ -125,6 +135,27 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 {
                     ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.BindPageMetas");
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetComparisionText()
+        {
+            try
+            {
+                IList<string> bikeList = new List<string>();
+                foreach (var bike in comparedBikes.BasicInfo)
+                {
+                    bikeList.Add(string.Format("{0} {1}", bike.Make, bike.Model));
+                }
+
+                ComparisionText = string.Join(" vs ", bikeList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetComparisionText");
             }
         }
 

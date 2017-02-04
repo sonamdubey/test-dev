@@ -24,6 +24,17 @@ function setButtonText() {
     }
 };
 
+(function () {
+    var dataRows = $('.table-content tr.row-type-data td');
+    var tickIcon = '<span class="bwmsprite tick-grey"></span>',crossIcon='<span class="bwmsprite cross-grey"></span>';
+    dataRows.each(function () {
+        var td = $(this), tdText = $.trim(td.text());
+        if (tdText == "Yes") td.html(tickIcon);
+        else if (tdText == "No") td.html(crossIcon);
+    });
+
+}());
+
 setButtonText();
 
 $(window).resize(function () {
@@ -75,6 +86,8 @@ $(document).ready(function () {
             $(element).addClass('inline-tabs');
         }
     }
+
+
 
 });
 
@@ -187,12 +200,15 @@ var compareColumns = {
 };
 
 /* close sponsored bike */
-document.getElementById("close-sponsored-bike").addEventListener("click", function () {
-    document.getElementById("sponsored-column-active").removeAttribute("id");
-    // reset common features found
-    equivalentDataFound = false;
-    setButtonText();
-});
+var closeSponsoredBikeBtn = document.getElementById("close-sponsored-bike");
+if (closeSponsoredBikeBtn) {
+    closeSponsoredBikeBtn.addEventListener("click", function () {
+        document.getElementById("sponsored-column-active").removeAttribute("id");
+        // reset common features found
+        equivalentDataFound = false;
+        setButtonText();
+    });
+}
 
 /* close selected model */
 var closedBikeCount = 0;
@@ -236,9 +252,8 @@ var compareBox = {
     },
 
     setBikePlaceholder: function (element, elementIndex) {
-        var placeholder;
-
         $(element).empty();
+        $(element).attr("data-changed", true);
         placeholderBlock = "<div class='compare-box-placeholder'><div class='bike-icon-wrapper'><span class='grey-bike'></span><p class='font14 text-light-grey'>Tap to select bike " + (elementIndex + 1) + "</p></div></div>";
         $(element).append(placeholderBlock);
 
@@ -250,16 +265,18 @@ $(document).on('click', '.compare-box-placeholder', function () {
     appendState('selectBike');
 });
 
-$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
-    dropdownInteraction.activate($(this));
-});
-
 $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
     var element = $(this);
     if (!element.hasClass('active')) {
+        preSel = $(this).siblings(".option-active").first();
         dropdownInteraction.selectItem($(this));
         dropdownInteraction.selectOption($(this));
+        window.location.search = window.location.search.replace(preSel.data("option-value"), $(this).data("option-value"));
     }
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
+    dropdownInteraction.activate($(this));
 });
 
 var dropdown = {
@@ -394,6 +411,31 @@ var bikeSelection = function() {
     self.makeId = ko.observable('');
     self.modelId = ko.observable('');
     self.versionId = ko.observable('');
+    self.compareSource = ko.observable(7);
+
+    self.redirectionUrl = ko.pureComputed(function()
+    {
+        var _link = "";
+        try {
+            if (self.makeId() > 0) {
+                makemasking = $("#select-make-wrapper ul li[data-id='" + self.makeId() + "']").data("masking");
+                if (self.modelId() > 0) {
+                    modelmasking = $("#select-model-wrapper ul li[data-id='" + self.modelId() + "']").data("masking");
+
+                    if (self.versionId() > 0) {
+                        var ele = $(".comparison-main-card .bike-details-block[data-changed='true']");
+
+                        _link = window.location.pathname.replace(ele.data("masking"), makemasking + "-" + modelmasking);
+                        _link = _link + window.location.search.replace(ele.data("versionid"), self.versionId())
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn(e);
+        }
+
+        return _link;
+    });
 
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
@@ -418,6 +460,13 @@ var bikeSelection = function() {
                     success: function (response) {
                         if (response) {
                             self.modelArray(response.modelList);
+                        }
+                    },
+                    complete : function(xhr)
+                    {
+                        if(xhr.status!= 200)
+                        {
+                            self.makeId();
                         }
                     }
                 });
@@ -454,7 +503,8 @@ var bikeSelection = function() {
     };
 
     self.versionChanged = function (data, event) {
-        
+        self.versionId(data.versionId);
+        window.location = self.redirectionUrl();
     };
 
     self.modelBackBtn = function () {

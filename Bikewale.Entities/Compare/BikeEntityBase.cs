@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Used;
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.Compare
@@ -40,5 +43,12 @@ namespace Bikewale.Entities.Compare
         public UInt32 EstimatedPriceMax { get; set; }
         [DataMember]
         public DateTime? ExpectedLaunch { get; set; }
+        [DataMember]
+        public uint ModelId { get; set; }
+        [DataMember]
+        public IEnumerable<BikeVersionEntityBase> Versions { get; set; }
+        [DataMember]
+        public UsedBikesCountInCity UsedBikeCount { get; set; }
+
     }
 }

@@ -529,7 +529,7 @@ input[type="number"]:focus {
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all;
 }
-.input-number-box input {
+.input-box.input-number-box input {
     padding-left: 30px;
 }
 .input-number-box .input-number-prefix {

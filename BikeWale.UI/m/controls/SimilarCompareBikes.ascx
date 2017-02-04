@@ -1,16 +1,55 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.SimilarCompareBikes" %>   
-    <asp:Repeater ID="rptSimilarBikes" runat="server">        
-        <ItemTemplate>   
-               <div class="swiper-slide related-comparison-carousel-content">
-                   <div class="font14 margin-top5 margin-bottom15"><%# DataBinder.Eval(Container.DataItem, "BikeName") %> : </div>
-                    <asp:Repeater ID="rptSimilarBikesInner" runat="server" DataSource='<%# getChildData(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId"))) %>'> 
-                        <ItemTemplate>                                                              
-                            <a href="/m/<%# Bikewale.Utility.UrlFormatter.CreateCompareUrl(DataBinder.Eval(Container.DataItem,"MakeMasking1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMasking2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMasking2").ToString(),DataBinder.Eval(Container.DataItem,"VersionId1").ToString(),DataBinder.Eval(Container.DataItem,"VersionId2").ToString(),Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Details_MoreBike_Widget) %>">
-                                <%# Bikewale.Utility.UrlFormatter.CreateCompareTitle(DataBinder.Eval(Container.DataItem, "Make1").ToString(), DataBinder.Eval(Container.DataItem, "Model1").ToString(), DataBinder.Eval(Container.DataItem, "Make2").ToString(),DataBinder.Eval(Container.DataItem, "Model2").ToString())  %>
-                            </a>
-                        </ItemTemplate>      
-                    </asp:Repeater>
-               </div>         
-        </ItemTemplate>      
-    </asp:Repeater>
+<% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
+<div id="ctrlCompareBikes">
+    <div id="comparisonSwiper" class="swiper-container padding-top5 padding-bottom5 comparison-swiper card-container">
+        <div class="swiper-wrapper model-comparison-list">
+            <% foreach(var bike in  objSimilarBikes) { %>
+                <div class="swiper-slide">
+                    <div class="swiper-card rounded-corner2">
+                        <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2,Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>" class="block">
+                        <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span class="text-default position-abt pos-top5 pos-right5 font12">Sponsored</span>   <% } %>
+                        <h3 class="font12 text-black text-center margin-bottom10"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath1,bike.HostUrl1,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model1 %>" title="<%= bike.Model1 %>" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, <%= bike.City1  %></p>
+                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price1.ToString())  %></span>
+                        </div>
+                        <div class="grid-6">
+                            <div class="model-img-content">
+                                <img class="swiper-lazy" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath2,bike.HostUrl2,Bikewale.Utility.ImageSize._144x81) %>" alt="<%= bike.Model2 %>" title="<%= bike.Model2 %>" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <p class="font11 text-light-grey text-truncate">Ex-showroom, <%= bike.City2  %></p>
+                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price2.ToString())  %></span>
+                            <% if (SponsoredVersionId == Convert.ToUInt32(bike.VersionId2) && !string.IsNullOrEmpty(FeaturedBikeLink) )
+                                { %> <br /> <span class="text-truncate font12 block" data-href="<%= FeaturedBikeLink %>" title="View <%= bike.Model2  %> details on <%=bike.Make2 %>'s site"  id="sponsored-comparebike-link">More info at <%=bike.Make2 %> auto</span>   <% } %>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top15 text-center">
+                            <span class="btn btn-white btn-size-1">Compare now</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <div class="margin-top15 margin-left20 margin-bottom20">
+        <a href="/comparebikes/">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
+    </div>
+</div>
+<div class="margin-right20 margin-left20 border-solid-bottom"></div>
+
+<% if (SponsoredVersionId > 0 && !string.IsNullOrEmpty(FeaturedBikeLink))
+    { %>
+<script type="text/javascript">
+    $("#sponsored-comparebike-link").click(function (e) {_sponsoredLink = $(this).attr("data-href"); window.open(_sponsoredLink, '_blank').focus();return false;})
+</script>
+<% } %>
+
+<% }  %>
+
   

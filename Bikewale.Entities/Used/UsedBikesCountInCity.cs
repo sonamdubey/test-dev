@@ -14,5 +14,6 @@ namespace Bikewale.Entities.Used
         public uint CityId { get; set; }
         public string CityName { get; set; }
         public string CityMaskingName { get; set; }
+        public uint StartingPrice { get; set; }
     }
 }
