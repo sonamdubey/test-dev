@@ -34,7 +34,7 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src=<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
 
 <!-- global-search-popup code starts here -->
