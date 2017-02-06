@@ -22,7 +22,7 @@
                         <% }
                            else
                            { %>
-                        <span class='font14'>Price not available</span>
+                        <span class="font16 text-bold text-default">Price not available</span>
                         <% } %>
                     </div>
                 </a>
