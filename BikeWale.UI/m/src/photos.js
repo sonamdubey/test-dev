@@ -183,7 +183,6 @@ var modelGallery = function () {
     // video
     self.activeVideoTitle = ko.observable('');
     self.activeVideoIndex = ko.observable(0);
-    self.activeVideoSource = ko.observable('');
     self.activeVideoId = ko.observable();
 
     self.videoListScreen = ko.observable(false);
