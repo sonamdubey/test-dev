@@ -90,102 +90,13 @@
                             <li>
                                 <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50247.jpg?20151004165445&amp;t=165444833&amp;t=165444833" src="" alt="Exterior Image" title="Exterior">
                             </li>
-                    
-                            <%--<li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50248.jpg?20151004165455&amp;t=165455297&amp;t=165455297" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50249.jpg?20151004165518&amp;t=165518263&amp;t=165518263" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50250.jpg?20151004165529&amp;t=165529280&amp;t=165529280" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50251.jpg?20151004165538&amp;t=165538107&amp;t=165538107" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Brakes-50252.jpg?20151004165545&amp;t=165545137&amp;t=165545137" src="" alt="Brakes Image" title="Brakes">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Brakes-50253.jpg?20151004165556&amp;t=165556337&amp;t=165556337" src="" alt="Brakes Image" title="Brakes">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50254.jpg?20151004165604&amp;t=165604017&amp;t=165604017" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg?20151004165611&amp;t=165611400&amp;t=165611400" src="" alt="Front three-quarter Image" title="Front three-quarter">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?20151004165620&amp;t=165620267&amp;t=165620267" src="" alt="Front three-quarter Image" title="Front three-quarter">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Seat-50257.jpg?20151004165630&amp;t=165629973&amp;t=165629973" src="" alt="Seat Image" title="Seat">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-50258.jpg?20151004165637&amp;t=165637680&amp;t=165637680" src="" alt="Front Image" title="Front">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Wheels-tyres-50259.jpg?20151004165645&amp;t=165645320&amp;t=165645320" src="" alt="Wheels/tyres Image" title="Wheels/tyres">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Wheels-tyres-50260.jpg?20151004165654&amp;t=165653873&amp;t=165653873" src="" alt="Wheels/tyres Image" title="Wheels/tyres">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50261.jpg?20151004165702&amp;t=165701920&amp;t=165701920" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50262.jpg?20151004165710&amp;t=165710100&amp;t=165710100" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Tank-50263.jpg?20151004165720&amp;t=165720520&amp;t=165720520" src="" alt="Tank Image" title="Tank">
-                            </li>--%>
 
                         </ul>
 
-                        <ul class="photos-grid-list photos-remainder-1 model-grid-images">
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50248.jpg?20151004165455&amp;t=165455297&amp;t=165455297" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <%--<li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50249.jpg?20151004165518&amp;t=165518263&amp;t=165518263" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50250.jpg?20151004165529&amp;t=165529280&amp;t=165529280" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50250.jpg?20151004165529&amp;t=165529280&amp;t=165529280" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>
-
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Brakes-50252.jpg?20151004165545&amp;t=165545137&amp;t=165545137" src="" alt="Brakes Image" title="Brakes">
-                            </li>
-
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50255.jpg?20151004165611&amp;t=165611400&amp;t=165611400" src="" alt="Front three-quarter Image" title="Front three-quarter">
-                            </li>
-
-                            <li>
-                                <img class="lazy" data-original="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exhaust-50250.jpg?20151004165529&amp;t=165529280&amp;t=165529280" src="" alt="Exhaust Image" title="Exhaust">
-                            </li>--%>
-                        </ul>
+                        <%--
+                            <ul class="photos-grid-list photos-remainder-7 model-grid-images"></ul>
+                            add remainder class for 2, 3, 4, 5, 6 and 7
+                        --%>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -395,7 +306,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
-            var photoCount = 100;
+            var photoCount = 10;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         
