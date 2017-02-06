@@ -12,10 +12,10 @@
     }
     
 });
-var pageNo = 1;
-var modelImages = [];
-var pageSize = 4;
-var modelColorImages = [];
+var pageNo = 1,
+    modelImages = [],
+    pageSize = 4,
+    modelColorImages = [];
 
 $('.photos-grid-list').on('click', 'li', function () {
     var photoCount = $('.photos-grid-list li').length;
@@ -36,11 +36,12 @@ var bindGallery = function (clickedImg)
     }
    
     vmPhotosPage.imageIndex(imgIndex);
-    
     showGallery();    
+
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
+   
     pageNo = 1;
 };    
 
@@ -85,11 +86,11 @@ function filterColorImagesArray(responseArray){
 
 function bindPhotoGallery() {
     // remove the binding and then re-apply
+    vmPhotosPage.photoGalleryContainerActive(false);
+    vmPhotosPage.activateGallery(true);
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
-    vmPhotosPage.photoGalleryContainerActive(false);
-    vmPhotosPage.activateGallery(true);    
-    $('body').addClass('lock-browser-scroll');
+    $('body').addClass('lock-browser-scroll');    
 }
 
 function showGallery() {      
@@ -102,6 +103,7 @@ function showGallery() {
                 url: "/api/model/" + modelId + "/photos/",
                 contentType: "application/json",
                 dataType: 'json',
+                async: false,
                 success: function (response) {
                     if (response) {
                         modelImages = response;
