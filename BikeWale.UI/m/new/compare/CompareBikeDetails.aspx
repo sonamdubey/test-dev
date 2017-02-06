@@ -1,10 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.CompareBikeDetails" Trace="false" %>
+
 <%@ Register Src="~/m/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
 <!DOCTYPE html>
 <html>
 <head>
     <%
-        if(pageMetas!=null)
+        if (pageMetas != null)
         {
             title = pageMetas.Title;
             keywords = pageMetas.Keywords;
@@ -12,7 +13,7 @@
             canonical = pageMetas.CanonicalUrl;
             AdPath = "/1017752/Bikewale_Mobile_NewBikes";
             AdId = "1398766302464";
-            TargetedModels = targetedModels;  
+            TargetedModels = targetedModels;
         }
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -25,7 +26,8 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <% if(vmCompare!=null) { %>
+        <% if (vmCompare != null)
+           { %>
         <section>
             <% if (vmCompare.BasicInfo != null)
                { %>
@@ -254,9 +256,12 @@
                                 <% foreach (var bike in vmCompare.BasicInfo)
                                    { %>
                                 <td>
-                                    <% if(bike.UsedBikeCount.BikeCount > 0) {  %>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,bike.UsedBikeCount.CityMaskingName) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">starting at<br />
-                                    <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %></p>
+                                    <% if (bike.UsedBikeCount.BikeCount > 0)
+                                       {  %>
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,bike.UsedBikeCount.CityMaskingName) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">
+                                        starting at<br />
+                                        <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %>
+                                    </p>
                                     <% } %>
                                 </td>
                                 <% } %>
@@ -267,7 +272,8 @@
             </div>
             <% } %>
 
-            <% if(objMakes!=null) { %>
+            <% if (objMakes != null)
+               { %>
             <!-- select bike starts here -->
             <div id="select-bike-cover-popup" class="cover-window-popup">
                 <div class="ui-corner-top">
@@ -324,17 +330,22 @@
                 </div>
             </div>
             <!-- select bike ends here -->
-             <% } %>
             <% } %>
+            <% } %>
+
+            <div class="same-version-toast">
+                <p>Please select different bike for comparision.</p>
+            </div>
+
         </section>
         <% } %>
 
-        <% if (ctrlSimilarBikes!=null && ctrlSimilarBikes.fetchedCount > 0)
+        <% if (ctrlSimilarBikes != null && ctrlSimilarBikes.fetchedCount > 0)
            { %>
-            <section class="container bg-white box-shadow margin-bottom15">
-                <h2 class="padding-15-20">Similar comparisons</h2>
-                    <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
-            </section>
+        <section class="container bg-white box-shadow margin-bottom15">
+            <h2 class="padding-15-20">Similar comparisons</h2>
+            <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
+        </section>
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
@@ -343,9 +354,9 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-         <script type="text/javascript">
-             compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
-         </script>
+        <script type="text/javascript">
+            compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
+        </script>
     </form>
 </body>
 </html>
