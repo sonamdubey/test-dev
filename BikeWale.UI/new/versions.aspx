@@ -360,7 +360,7 @@
                                { %>
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
-                                <div class="padding-top20 padding-bottom20">
+                                <div class="padding-top20">
                                     <div class="inline-block margin-right10 vertical-top">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>

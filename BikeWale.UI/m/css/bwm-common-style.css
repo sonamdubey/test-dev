@@ -1087,21 +1087,24 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     background-color: #ddd
 }
 .dealer-search-brand-form {
-    padding: 0 25px 5px 0;
+    padding: 10px 25px 10px 10px;
     cursor: pointer;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 99% 50% no-repeat #fff;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 16px;
-    color: #82888b;
-    border-bottom: 1px solid #82888b;
+    border-radius: 2px;
+    border: 1px solid #ccc;
 }
 .selection-done span {
     font-size: 14px;
     color: #4d5057;
     font-weight: bold;
+}
+
+.dealer-search-brand-form.selection-done span {
+    font-weight: 400;
 }
 
 .dealer-search-brand {

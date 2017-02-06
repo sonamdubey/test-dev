@@ -1,10 +1,12 @@
 ﻿$(document).ready(function () {
-    var photosLength = $('.photos-grid-list').first().find('li').length;
+    var photosLength = $('.photos-grid-list').first().find('li').length,
+        photosLimit = 30,
+        lastPhotoIndex = photosLimit - 1;
     
     // add 'more photos count' if photo grid contains 30 images
-    if (photosLength == 30) {
-        var lastPhoto = $('.photos-grid-list li').eq(29),
-            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - 29) + '<br />photos</span></span>');
+    if (photosLength == photosLimit) {
+        var lastPhoto = $('.photos-grid-list li').eq(lastPhotoIndex),
+            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - lastPhotoIndex) + '<br />photos</span></span>');
 
         lastPhoto.append(morePhotoCount);
     }
@@ -197,6 +199,8 @@ var modelGallery = function () {
                 spaceBetween: 0,
                 preloadImages: false,
                 lazyLoading: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
                 onInit: function (swiper) {
                     swiper.slideTo(self.activePhotoIndex());
                     setPhotoDetails(swiper);
@@ -226,6 +230,8 @@ var modelGallery = function () {
                 spaceBetween: 0,
                 preloadImages: false,
                 lazyLoading: true,
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
                 onInit: function (swiper) {
                     setColorPhotoDetails(swiper);
                 },
@@ -266,16 +272,22 @@ var modelGallery = function () {
         }
     };
 
+    self.isPhotoThumbnailInitialized = ko.observable(false);
+
     // all photos tab
     self.togglePhotoThumbnailScreen = function () {
         if (!self.photoThumbnailScreen()) {
             // deactivate all other screens
             deactivateAllScreens();
+            self.mainSwiper.update(true);
+            if (!self.isPhotoThumbnailInitialized()) {
+                self.initiatePhotoThumbnailSwiper();
+                self.isPhotoThumbnailInitialized(true);
+            }
             // activate clicked tab screen
             self.photoThumbnailScreen(true);
             self.photoSwiperActive(true);
-            self.mainSwiper.update(true);
-            self.initiatePhotoThumbnailSwiper();
+            
         }
         else {
             self.photoThumbnailScreen(false);

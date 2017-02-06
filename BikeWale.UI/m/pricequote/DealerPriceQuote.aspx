@@ -477,7 +477,7 @@
 		</style>
 
 		<section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-			<div class="bg-white bottom-shadow margin-top20 margin-bottom20 padding-bottom10">
+			<div class="bg-white bottom-shadow margin-top10 margin-bottom20 padding-bottom10">
 				<BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
 			</div>
 		</section>

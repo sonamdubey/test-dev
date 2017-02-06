@@ -17,7 +17,6 @@
 	    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
 	    AdId = "1398766302464";
 	    Ad_320x50 = true;
-	    Ad_Bot_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -77,7 +76,11 @@
                 <div class="clear"></div>
             </div>
         </section>
-         <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+
+        <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+        </div>
+
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <%if(modelId>0){%>
         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
