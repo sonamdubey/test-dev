@@ -24,7 +24,7 @@ namespace Bikewale.Mobile.New
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
         protected string comparisionText = string.Empty, targetedModels = string.Empty;
-        protected ICollection<BikeMakeEntityBase> objMakes = null;
+        protected IEnumerable<BikeMakeEntityBase> objMakes = null;
         public SimilarCompareBikes ctrlSimilarBikes;
 
         protected override void OnInit(EventArgs e)
@@ -53,10 +53,8 @@ namespace Bikewale.Mobile.New
             CompareBikes objCompare = new CompareBikes();
             try
             {
-                if (!objCompare.isPermanentRedirect && !objCompare.isPageNotFound)
+                if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound)
                 {
-                    cityArea = GlobalCityArea.GetGlobalCityArea();
-
                     objCompare.GetComparedBikeDetails();
                     vmCompare = objCompare.comparedBikes;
                     pageMetas = objCompare.PageMetas;

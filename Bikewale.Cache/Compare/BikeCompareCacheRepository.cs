@@ -92,7 +92,6 @@ namespace Bikewale.Cache.Compare
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
-
             }
             return compareEntity;
         }

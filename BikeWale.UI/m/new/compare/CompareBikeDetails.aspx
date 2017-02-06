@@ -253,8 +253,11 @@
                             <tr class="row-type-data">
                                 <% foreach (var bike in vmCompare.BasicInfo)
                                    { %>
-                                <td><a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,bike.UsedBikeCount.CityMaskingName) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">starting at<br />
+                                <td>
+                                    <% if(bike.UsedBikeCount.BikeCount > 0) {  %>
+                                    <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,bike.UsedBikeCount.CityMaskingName) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">starting at<br />
                                     <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %></p>
+                                    <% } %>
                                 </td>
                                 <% } %>
                             </tr>
@@ -328,16 +331,10 @@
 
         <% if (ctrlSimilarBikes!=null && ctrlSimilarBikes.fetchedCount > 0)
            { %>
-        <div>
-            <section class="container related-comparison-container margin-bottom20 ">
-                <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
-                    </div>
-                </div>
+            <section class="container bg-white box-shadow margin-bottom15">
+                <h2 class="padding-15-20">Similar comparisons</h2>
+                    <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
             </section>
-        </div>
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
@@ -346,7 +343,9 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-
+         <script type="text/javascript">
+             compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
+         </script>
     </form>
 </body>
 </html>

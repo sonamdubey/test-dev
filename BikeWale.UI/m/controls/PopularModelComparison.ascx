@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="margin-top15 margin-left20 margin-bottom20">
-        <a href="/comparebikes/">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
+        <a href="/m/comparebikes/">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
     </div>
 </div>
 <div class="margin-right20 margin-left20 border-solid-bottom"></div>

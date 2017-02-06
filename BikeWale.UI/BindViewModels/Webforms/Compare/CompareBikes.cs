@@ -28,10 +28,10 @@ namespace Bikewale.BindViewModels.Webforms.Compare
     /// </summary>
     public class CompareBikes
     {
-        private IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
-        private IBikeCompareCacheRepository _objCompareCache = null;
-        private IBikeCompare _objCompare = null;
+        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
+        private readonly IBikeCompareCacheRepository _objCompareCache = null;
+        private readonly IBikeCompare _objCompare = null;
 
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent;
@@ -41,7 +41,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public PageMetaTags PageMetas = null;
         public Int64 SponsoredVersionId;
         public ICollection<BikeCompareEntity> objBikes = null;
-        public ICollection<BikeMakeEntityBase> makes = null;
+        public IEnumerable<BikeMakeEntityBase> makes = null;
 
         /// <summary>
         /// Created By : Sushil kumar on 2nd Feb 2017 
@@ -70,8 +70,6 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     _objMakeCache = container.Resolve<IBikeMakesCacheRepository<int>>();
 
                 }
-
-                ParseQueryString();
             }
             catch (Exception ex)
             {
@@ -99,7 +97,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                 if (comparedBikes != null && comparedBikes.BasicInfo != null)
                 {
-                    makes = _objMakeCache.GetMakesByType(EnumBikeType.New).ToList();
+                    makes = _objMakeCache.GetMakesByType(EnumBikeType.New);
                     GetComparisionTextAndMetas();
                     isUsedBikePresent = comparedBikes.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
                 }
@@ -160,28 +158,29 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         /// Created By : Sushil Kumar on 30th Jan 2017
         /// Summary : To get version list from querystring and memcache
         /// </summary>
-        protected void ParseQueryString()
+        public bool ProcessQueryString()
         {
+            bool IsValidQS = false;
             try
             {
                 var request = HttpContext.Current.Request;
-                string QueryString = request.QueryString.ToString(), bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(QueryString).Get("mo");
-                uint.TryParse(bike1, out versionId1); uint.TryParse(bike2, out versionId2);
+                string bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
-                if (versionId1 > 0 && versionId2 > 0)
+                if (uint.TryParse(bike1, out versionId1) && versionId1 > 0 && uint.TryParse(bike2, out versionId2) && versionId2 > 0)
                 {
                     versionsList = string.Format("{0},{1}", versionId1, versionId2);
+                    IsValidQS = true;
                 }
                 else if (!string.IsNullOrEmpty(modelList))
                 {
-                    string[] models = HttpUtility.ParseQueryString(QueryString).Get("mo").Split(',');
+                    string[] models = modelList.Split(',');
                     ModelMaskingResponse objResponse = null;
                     ModelMapping objCache = new ModelMapping();
                     int totalModels = models.Length;
 
                     for (int iTmp = 0; iTmp < totalModels; iTmp++)
                     {
-                        string modelMaskingName = models[iTmp].ToLower();
+                        string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
                         {
                             objResponse = _objModelMaskingCache.GetModelMaskingResponse(modelMaskingName);
@@ -189,7 +188,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            versionsList += objCache.GetTopVersionId(models[iTmp].ToLower()) + (((iTmp + 1) < totalModels) ? "," : "");
+                            versionsList += objCache.GetTopVersionId(modelMaskingName + (((iTmp + 1) < totalModels) ? "," : ""));
+                            IsValidQS = true;
                         }
                         else if (objResponse != null && objResponse.StatusCode == 301)
                         {
@@ -211,6 +211,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.ParseQueryString");
             }
+
+            return IsValidQS;
         }
         //End of getVersionIdList
     }

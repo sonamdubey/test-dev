@@ -5,7 +5,7 @@
     floatingButton = $('#toggle-float-button'),
     $window = $(window),
     windowScrollTop = $window.scrollTop(),
-    onRoadPriceButtons = $('.bike-orp-btn'),closedBikeCount = 0;
+    onRoadPriceButtons = $('.bike-orp-btn'), closedBikeCount = 0, compareSource = 0;
 
 floatingButton.addClass('fixed-floater');
 
@@ -412,9 +412,9 @@ var bikeSelection = function() {
     self.makeId = ko.observable('');
     self.modelId = ko.observable('');
     self.versionId = ko.observable('');
-    self.compareSource = ko.observable(7);
+    self.compareSource = ko.observable(compareSource);
 
-    self.redirectionUrl = ko.pureComputed(function()
+    self.redirectionUrl = function()
     {
         var _link = "";
         try {
@@ -427,7 +427,8 @@ var bikeSelection = function() {
                         var ele = $(".comparison-main-card .bike-details-block[data-changed='true']");
 
                         _link = window.location.pathname.replace(ele.data("masking"), makemasking + "-" + modelmasking);
-                        _link = _link + window.location.search.replace(ele.data("versionid"), self.versionId())
+                        _link = _link + window.location.search.replace(ele.data("versionid"), self.versionId());
+                        debugger;
                     }
                 }
             }
@@ -436,7 +437,7 @@ var bikeSelection = function() {
         }
 
         return _link;
-    });
+    };
 
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
