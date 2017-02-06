@@ -156,7 +156,7 @@
                             <div class="clear"></div>
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
-                            <div class="swiper-slide">
+                            <div class="swiper-slide top10">
                                 <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
