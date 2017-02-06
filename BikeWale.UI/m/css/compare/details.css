@@ -50,6 +50,7 @@
 .bike-details-block h2 {
     height: 40px;
     margin-bottom: 5px;
+    overflow: hidden;
 }
 
 .bike-details-block .bike-image-block {
@@ -65,7 +66,7 @@
 #comparison-floating-card {
     display: block;
     position: fixed;
-    top: -200px;
+    top: -300px;
     left: 0;
     right: 0;
     background: #fff;
@@ -91,6 +92,7 @@
     display: block;
     margin-bottom: 10px;
     height: 40px;
+    overflow: hidden;
 }
 
 #comparison-floating-card .overall-specs-tabs-wrapper {
@@ -702,7 +704,9 @@ section .same-version-toast{
     }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 320px),
+    only screen and (max-width: 568px) and (orientation:landscape) {
+
     #sponsored-column-active .bike-details-block,
     .bike-details-block,
     .row-type-data td {

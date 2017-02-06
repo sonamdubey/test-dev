@@ -27,13 +27,7 @@
     <form id="form1" runat="server">
          <% if (isModelPage)
             { var objImages = vmModelPhotos.objImageList;%>
-            <div class="blackOut-window" style="display: block; opacity:1;">
-                <div class="bw-spinner-content">
-                    <svg class="bw-spinner" width="50px" height="50px">
-                        <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
-                    </svg>
-                </div>
-            </div>
+            <div class="blackOut-window" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center; display: block; opacity:1;"></div>
         <section>
             <div class="container box-shadow section-bottom-margin">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
@@ -114,13 +108,7 @@
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
                 <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
-                <div class="gallery-container">
-                    <div class="bw-spinner-content">
-                        <svg class="bw-spinner" width="50px" height="50px">
-                            <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
-                        </svg>
-                    </div>
-                </div>
+                <div class="gallery-container" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center;"></div>
                 <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
