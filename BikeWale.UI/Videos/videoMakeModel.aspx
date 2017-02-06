@@ -28,7 +28,9 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
 
+
     <style type="text/css">
+
        .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}.play-icon-wrapper { width: 94%; height: 100%; display: block; position:absolute; top:0; left:10px; margin: 0 auto; text-align:center; padding-top:20%; background: transparent; background: rgba(0,0,0,0.2) }        
     </style>
 </head>
@@ -40,13 +42,15 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
+     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/" title="><%=make %> bikes"><span itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if (isModel)
                                { %>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%=make %> <%=model %> bikes"><span itemprop="title"><%=make %> <%=model %></span></a></li>
                             <%}%>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
+
+                                                       <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
+
                            
                         </ul>
                     </div>
@@ -93,7 +97,7 @@
                 </div>
             </div>
         </section>
-        <% if (ctrlSimilarBikeVideos.FetchCount > 0)
+ <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
         <div class="container content-box-shadow margin-bottom20">
             <div class="padding-top20 padding-bottom20 font14">
