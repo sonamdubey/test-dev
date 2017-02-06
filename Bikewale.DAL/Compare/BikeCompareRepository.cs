@@ -17,6 +17,8 @@ namespace Bikewale.DAL.Compare
     /// <summary>
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Added methods for featured bike and sponsored bike comparisions
+    /// Modified By :   Sushil Kumar on 2nd Feb 2017
+    /// Description :   Implemented the newly added method of IBikeCompare : BikeCompareEntity DoCompare(string versions, uint cityId)
     /// </summary>
     public class BikeCompareRepository : IBikeCompare
     {
@@ -227,18 +229,11 @@ namespace Bikewale.DAL.Compare
 
 
         /// <summary>
-        /// Created By : Sadhana Upadhyay on 24 Sept 2014
-        /// Summary : To get compare bike details by version id list
-        /// Modified By : Lucky Rathore
-        /// Modified On : 15 Feb 2016
-        /// Summary : SP name Changed.
-        /// Modified By : Lucky Rathore
-        /// Modified On : 26 Feb 2016
-        /// Summary : SP name Changed.
-        /// Modified On : 23 Jan 2017 by Sangram Nandkhile
-        /// Summary : New parameter added - cityId
+        /// Modified By :   Sushil Kumar on 2nd Feb 2017
+        /// Description :   To fetch bike comparisiosn data along with its versions and colors
         /// </summary>
         /// <param name="versions"></param>
+        /// <param name="cityId"></param>
         /// <returns></returns>
         public BikeCompareEntity DoCompare(string versions, uint cityId)
         {
@@ -249,7 +244,6 @@ namespace Bikewale.DAL.Compare
             IList<BikeFeature> features = null;
             List<BikeColor> color = null;
             IList<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
-            // KeyValuePair<uint, BikeVersionEntityBase> modelVersio = new KeyValuePair<uint, BikeVersionEntityBase>();
 
             try
             {
@@ -458,7 +452,7 @@ namespace Bikewale.DAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.Compare.DoCompare : " + versions);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.Compare.DoCompare : {0} - {1}", versions, cityId));
             }
             return compare;
         }

@@ -13,6 +13,8 @@ namespace Bikewale.Cache.Compare
     /// Description : Use for caching Popular compare bike Widget.
     /// Modified By :   Sumit Kate on 22 Jan 2016
     /// Description :   Implemented the newly added method of IBikeCompareCacheRepository
+    /// Modified By :   Sushil Kumar on 2nd Feb 2017
+    /// Description :   Implemented the newly added method of BikeCompareEntity DoCompare(string versions, uint cityId)
     /// </summary>
     public class BikeCompareCacheRepository : IBikeCompareCacheRepository
     {
@@ -121,7 +123,13 @@ namespace Bikewale.Cache.Compare
             return compareEntity;
         }
 
-
+        /// <summary>
+        /// Created By :   Sushil Kumar on 2nd Feb 2017
+        /// Description :   To cache bikecomparision data
+        /// </summary>
+        /// <param name="versions"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public BikeCompareEntity DoCompare(string versions, uint cityId)
         {
             BikeCompareEntity compareEntity = null;
@@ -133,7 +141,7 @@ namespace Bikewale.Cache.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.DoCompare");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.DoCompare- {0} - {1}", versions, cityId));
 
             }
             return compareEntity;

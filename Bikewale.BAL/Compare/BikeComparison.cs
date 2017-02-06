@@ -16,6 +16,8 @@ namespace Bikewale.BAL.Compare
     /// <summary>
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Added methods for featured bike and sponsored bike comparisions
+    /// Modified By : Sushil Kumar on 2nd Feb 2017
+    /// Description : Added methods for comparisions bikes binding using transpose methodology
     /// </summary>
     public class BikeComparison : IBikeCompare
     {
@@ -122,6 +124,12 @@ namespace Bikewale.BAL.Compare
             return compareEntity;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Feb 2017
+        /// Description : Removed transpose logic from DoCompare and moved into common for both app and website
+        /// </summary>
+        /// <param name="compareEntity"></param>
+        /// <param name="versions"></param>
         private static void TransposeCompareBikeData(ref Entities.Compare.BikeCompareEntity compareEntity, string versions)
         {
             try
@@ -909,7 +917,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DoCompare");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.TransposeCompareBikeData - {0}", versions));
             }
         }
 
@@ -953,7 +961,8 @@ namespace Bikewale.BAL.Compare
         }
 
         /// <summary>
-        /// 
+        /// CReated By : Sushil Kumar on 2nd Feb 2017
+        /// Description : Added methods for comparisions bikes binding using transpose methodology
         /// </summary>
         /// <param name="versions"></param>
         /// <param name="cityId"></param>
@@ -974,7 +983,7 @@ namespace Bikewale.BAL.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "DoCompare");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.DoCompare - {0} - {1}", versions, cityId));
             }
             return compareEntity;
         }

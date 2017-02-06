@@ -8,6 +8,8 @@ namespace Bikewale.Entities.Compare
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 22 Jan 2016
+    /// Modified By :   Sushil Kumar on 2nd Feb 2017
+    /// Description :   Added EstimatedPriceMin,EstimatedPriceMax,ExpectedLaunch,UsedBikeCount,ModelId and Versiosn for other details related to comparisions
     /// Description :   
     /// </summary>
     [Serializable, DataContract]

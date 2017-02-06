@@ -5,7 +5,7 @@
     floatingButton = $('#toggle-float-button'),
     $window = $(window),
     windowScrollTop = $window.scrollTop(),
-    onRoadPriceButtons = $('.bike-orp-btn');
+    onRoadPriceButtons = $('.bike-orp-btn'),closedBikeCount = 0;
 
 floatingButton.addClass('fixed-floater');
 
@@ -89,6 +89,26 @@ $(document).ready(function () {
 
 
 
+});
+
+
+$(document).on('click', '.compare-box-placeholder', function () {
+    bikePopup.open();
+    appendState('selectBike');
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
+    var element = $(this);
+    if (!element.hasClass('active')) {
+        preSel = $(this).siblings(".option-active").first();
+        dropdownInteraction.selectItem($(this));
+        dropdownInteraction.selectOption($(this));
+        window.location.search = window.location.search.replace(preSel.data("option-value"), $(this).data("option-value"));
+    }
+});
+
+$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
+    dropdownInteraction.activate($(this));
 });
 
 /* accordion tab */
@@ -211,7 +231,7 @@ if (closeSponsoredBikeBtn) {
 }
 
 /* close selected model */
-var closedBikeCount = 0;
+
 $('.comparison-main-card').on('click', '.close-selected-bike', function () {
     closedBikeCount++;
 
@@ -259,25 +279,6 @@ var compareBox = {
 
     }
 };
-
-$(document).on('click', '.compare-box-placeholder', function () {
-    bikePopup.open();
-    appendState('selectBike');
-});
-
-$('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () {
-    var element = $(this);
-    if (!element.hasClass('active')) {
-        preSel = $(this).siblings(".option-active").first();
-        dropdownInteraction.selectItem($(this));
-        dropdownInteraction.selectOption($(this));
-        window.location.search = window.location.search.replace(preSel.data("option-value"), $(this).data("option-value"));
-    }
-});
-
-$('.dropdown-select-wrapper').on('click', '.dropdown-selected-item', function () {
-    dropdownInteraction.activate($(this));
-});
 
 var dropdown = {
     setDropdown: function () {

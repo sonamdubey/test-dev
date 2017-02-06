@@ -14,8 +14,6 @@
             AdId = "1398766302464";
             TargetedModels = targetedModels;  
         }
-       
-
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/m/css/compare/details.css" />
@@ -27,6 +25,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
+        <% if(vmCompare!=null) { %>
         <section>
             <% if (vmCompare.BasicInfo != null)
                { %>
@@ -325,10 +324,12 @@
              <% } %>
             <% } %>
         </section>
+        <% } %>
 
+        <% if (ctrlSimilarBikes!=null && ctrlSimilarBikes.fetchedCount > 0)
+           { %>
         <div>
-
-            <section class="container related-comparison-container margin-bottom20 <%= (ctrlSimilarBikes.fetchedCount > 0) ? string.Empty : "hide" %>">
+            <section class="container related-comparison-container margin-bottom20 ">
                 <h2 class="font14 padding-left10 margin-top5 margin-bottom15">Related comparisons</h2>
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
@@ -336,11 +337,10 @@
                     </div>
                 </div>
             </section>
-
         </div>
+        <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->

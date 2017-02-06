@@ -23,7 +23,8 @@ using System.Web;
 namespace Bikewale.BindViewModels.Webforms.Compare
 {
     /// <summary>
-    /// 
+    /// Created By :  Sushil kumar on 2nd Feb 2017 
+    /// Description : ViewModel for compare bikes for both desktop and mobile
     /// </summary>
     public class CompareBikes
     {
@@ -33,19 +34,18 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         private IBikeCompare _objCompare = null;
 
         public GlobalCityAreaEntity cityArea = null;
-        public bool isPageNotFound, isPermanentRedirect;
-        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty;
+        public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent;
+        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty;
         public uint versionId1, versionId2;
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
         public Int64 SponsoredVersionId;
         public ICollection<BikeCompareEntity> objBikes = null;
-        public string ComparisionText = string.Empty;
         public ICollection<BikeMakeEntityBase> makes = null;
-        public bool isUsedBikePresent;
 
         /// <summary>
-        /// 
+        /// Created By : Sushil kumar on 2nd Feb 2017 
+        /// Description : Constructor to resolve unity containers and initialize model
         /// </summary>
         public CompareBikes()
         {
@@ -77,8 +77,6 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.CompareBikes : CompareBikes");
             }
-
-            cityArea = GlobalCityArea.GetGlobalCityArea();
         }
 
         /// <summary>
@@ -91,71 +89,69 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         {
             try
             {
+                cityArea = GlobalCityArea.GetGlobalCityArea();
+
                 SponsoredVersionId = _objCompare.GetFeaturedBike(versionsList);
+
                 if (SponsoredVersionId > 0) versionsList = string.Format("{0},{1}", versionsList, SponsoredVersionId);
+
                 comparedBikes = _objCompareCache.DoCompare(versionsList, cityArea.CityId);
+
                 if (comparedBikes != null && comparedBikes.BasicInfo != null)
                 {
-                    BindPageMetas(comparedBikes.BasicInfo.ElementAt(0), comparedBikes.BasicInfo.ElementAt(1));
                     makes = _objMakeCache.GetMakesByType(EnumBikeType.New).ToList();
-                    GetComparisionText();
+                    GetComparisionTextAndMetas();
                     isUsedBikePresent = comparedBikes.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetCompareBikeDetails");
-                isPageNotFound = false;
+                isPageNotFound = true;
             }
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : Common logic to bind meta tags
+        /// Created By :  Sushil kumar on 2nd Feb 2017 
+        /// Description : To get bike comaprision text and create page metas for multiple bikes
         /// </summary>
-        private void BindPageMetas(BikeEntityBase bike1, BikeEntityBase bike2)
+        private void GetComparisionTextAndMetas()
         {
-            if (bike1 != null && bike2 != null)
-            {
-                PageMetas = new PageMetaTags();
-
-                try
-                {
-                    bike1Name = string.Format("{0} {1}", bike1.Make, bike1.Model);
-                    bike2Name = string.Format("{0} {1}", bike2.Make, bike2.Model);
-
-                    PageMetas.Title = string.Format("Compare {0} vs {1} - BikeWale", bike1Name, bike2Name);
-                    PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
-                    PageMetas.Description = string.Format("Compare {0} and {1} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colors and much more.", bike1Name, bike2Name);
-                    //PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                    PageMetas.CanonicalUrl = string.Format("{0}/{1}-{2}-vs-{3}-{4}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, bike1.MakeMaskingName, bike1.ModelMaskingName, bike2.MakeMaskingName, bike2.ModelMaskingName);
-                    PageMetas.AlternateUrl = string.Format("{0}/m/{1}-{2}-vs-{3}-{4}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, bike1.MakeMaskingName, bike1.ModelMaskingName, bike2.MakeMaskingName, bike2.ModelMaskingName);
-                }
-                catch (Exception ex)
-                {
-                    ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.BindPageMetas");
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void GetComparisionText()
-        {
+            IList<string> bikeList = null, bikeMaskingList = null, bikeModels = null;
+            string ComparisionUrls = string.Empty;
             try
             {
-                IList<string> bikeList = new List<string>();
-                foreach (var bike in comparedBikes.BasicInfo)
+                if (comparedBikes != null && comparedBikes.BasicInfo != null)
                 {
-                    bikeList.Add(string.Format("{0} {1}", bike.Make, bike.Model));
+                    bikeList = new List<string>(); bikeMaskingList = new List<string>(); bikeModels = new List<string>();
+                    PageMetas = new PageMetaTags();
+
+                    foreach (var bike in comparedBikes.BasicInfo)
+                    {
+                        if (bike.VersionId != SponsoredVersionId)
+                        {
+                            bikeList.Add(string.Format("{0} {1}", bike.Make, bike.Model));
+                            bikeMaskingList.Add(string.Format("{0}-{1}", bike.MakeMaskingName, bike.ModelMaskingName));
+                            bikeModels.Add(bike.Model);
+
+                        }
+                    }
+
+                    ComparisionText = string.Join(" vs ", bikeList);
+                    ComparisionUrls = string.Join("-vs-", bikeMaskingList);
+                    TargetedModels = string.Join(",", bikeModels);
+
+                    PageMetas.Title = string.Format("Compare {0} - BikeWale", ComparisionText);
+                    PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
+                    PageMetas.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colors and much more.", string.Join(" and ", bikeList));
+                    PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
+                    PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
                 }
 
-                ComparisionText = string.Join(" vs ", bikeList);
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetComparisionText");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetComparisionTextAndMetas");
             }
         }
 
@@ -169,10 +165,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             try
             {
                 var request = HttpContext.Current.Request;
-                string QueryString = request.QueryString.ToString();
-
-
-                string bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(QueryString).Get("mo");
+                string QueryString = request.QueryString.ToString(), bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(QueryString).Get("mo");
                 uint.TryParse(bike1, out versionId1); uint.TryParse(bike2, out versionId2);
 
                 if (versionId1 > 0 && versionId2 > 0)

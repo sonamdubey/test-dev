@@ -3,9 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Controls
 {
@@ -14,6 +11,8 @@ namespace Bikewale.Mobile.Controls
     /// Desc       : Created control to show similar Bike links below compare bikes
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Removed repeater logic and dind data using list object
+    /// Modified By : Sushil Kumar on 2nd Feb 2017
+    /// Description : Removed old logic related to repeaters
     /// </summary>
 
     public class SimilarCompareBikes : System.Web.UI.UserControl
@@ -47,51 +46,21 @@ namespace Bikewale.Mobile.Controls
         /// Desc       : To bind similar bikes
         /// Modified By : Sushil Kumar on 2nd Dec 2016
         /// Description : MOved value into object of similar bikes
+        /// Modified By : Sushil Kumar on 2nd Feb 2017
+        /// Description : Removed old logic related to repeaters
         /// </summary>
         private void BindSimilarCompareBikes()
         {
-
             try
             {
                 BindSimilarCompareBikesControl objAlt = new BindSimilarCompareBikesControl();
                 objSimilarBikes = objAlt.BindPopularCompareBikes(versionsList, TopCount);
                 fetchedCount = objAlt.FetchedRecordsCount;
-
-                if (fetchedCount > 0)
-                {
-                    var source = from bike in objSimilarBikes
-                                 select new { VersionId = bike.VersionId1, BikeName = string.Format("{0} {1} {2}", bike.Make1, bike.Model1, bike.Version1) };
-                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Controls.SimilarCompareBikes.BindSimilarCompareBikes" + (!string.IsNullOrEmpty(versionsList) ? versionsList : ""));
             }
-        }
-
-
-        /// <summary>
-        /// Added By Vivek on 13-05-2016
-        /// To bind child repeater
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <returns></returns>
-        public IEnumerable<SimilarCompareBikeEntity> getChildData(string versionId)
-        {
-
-            IEnumerable<SimilarCompareBikeEntity> obj = null;
-
-            try
-            {
-                obj = objSimilarBikes.Where(ss => ss.VersionId1 == versionId).Take(Convert.ToInt32(TopCount));
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            return obj;
         }
     }
 }

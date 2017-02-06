@@ -12,10 +12,12 @@ using System.Web;
 
 namespace Bikewale.Mobile.New
 {
+    /// <summary>
+    /// Created By :  Sushil kumar on 2nd Feb 2017 
+    /// Description : Bind compare bikes page with new logic and design
+    /// </summary>
     public class CompareBikeDetails : System.Web.UI.Page
     {
-
-
         protected PageMetaTags pageMetas = null;
         protected GlobalCityAreaEntity cityArea;
         protected BikeCompareEntity vmCompare = null;
@@ -41,6 +43,11 @@ namespace Bikewale.Mobile.New
             BindCompareBikes();
         }
 
+        /// <summary>
+        /// Created By :  Sushil kumar on 2nd Feb 2017 
+        /// Description : Bind viewmodel data to page level variables for compare bikes section
+        ///                 Handle Redirectiona and pagenot found issues related to the same
+        /// </summary>
         private void BindCompareBikes()
         {
             CompareBikes objCompare = new CompareBikes();
@@ -58,6 +65,7 @@ namespace Bikewale.Mobile.New
                     comparisionText = objCompare.ComparisionText;
                     objMakes = objCompare.makes;
                     isUsedBikePresent = objCompare.isUsedBikePresent;
+                    targetedModels = objCompare.TargetedModels;
                     BindPageWidgets(objCompare.versionsList);
                 }
             }
@@ -81,6 +89,11 @@ namespace Bikewale.Mobile.New
             }
         }
 
+        /// <summary>
+        /// Created By :  Sushil kumar on 2nd Feb 2017 
+        /// Description : Bind page related widgets
+        /// </summary>
+        /// <param name="versions"></param>
         private void BindPageWidgets(string versions)
         {
             if (ctrlSimilarBikes != null)

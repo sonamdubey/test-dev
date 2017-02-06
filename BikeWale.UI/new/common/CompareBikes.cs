@@ -140,6 +140,8 @@ namespace Bikewale.New
         /// Summary : SP name Changed.
         /// Modified On : 23 Jan 2017 by Sangram Nandkhile
         /// Summary : New parameter added - cityId
+        /// Modified By : Sushil Kumar on 2nd Feb 2017
+        /// Summary : Removed unnecessary catch block for sql exception
         /// </summary>
         /// <param name="versionList"></param>
         /// <returns></returns>
