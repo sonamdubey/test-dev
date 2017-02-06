@@ -146,6 +146,7 @@ namespace Bikewale.News
                     }
                 }
 
+
                 if (isModelTagged)
                 {
                     ctrlGenericBikeInfo.ModelId = taggedModelId;

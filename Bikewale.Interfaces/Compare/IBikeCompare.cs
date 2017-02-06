@@ -12,10 +12,13 @@ namespace Bikewale.Interfaces.Compare
     /// Desc : Added cityid as parameter
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Added methods for similar comapre bikes and sponsored comparision bikes 
+    /// Modified By : Sushil Kumar on 2nd Feb 2017
+    /// Description : Added methods for BikeCompareEntity DoCompare(string versions, uint cityId) 
     /// </summary>
     public interface IBikeCompare
     {
         BikeCompareEntity DoCompare(string versions);
+        BikeCompareEntity DoCompare(string versions, uint cityId);
         IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);

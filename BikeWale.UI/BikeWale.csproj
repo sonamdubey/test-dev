@@ -317,6 +317,7 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
+    <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
@@ -2723,6 +2724,7 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\compare\details.css" />
     <Content Include="m\css\compare\landing.css" />
     <Content Include="m\css\components\article-next-prev.css" />
     <Content Include="m\css\components\article.css" />
@@ -2849,6 +2851,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
+    <Content Include="m\src\compare\details.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\photos.js" />
