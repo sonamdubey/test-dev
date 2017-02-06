@@ -14,9 +14,9 @@
                     </div>
                     <div class="card-desc-block">
                         <h3 class="bikeTitle"><%=bikeName%></h3>
-                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom,<%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Common.Configuration.GetDefaultCityName %></p>
                         <% if (bike.VersionPrice > 0)
                            { %>
+                         <p class="font14 text-light-grey margin-bottom5">Ex-showroom,<%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Common.Configuration.GetDefaultCityName %></p>
                         <span class="bwsprite inr-md"></span><span class="font16 text-bold text-default">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
                         <% }
                            else
