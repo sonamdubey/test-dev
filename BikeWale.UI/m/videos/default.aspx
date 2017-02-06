@@ -96,7 +96,7 @@
                         </li>
                         <%} %>
                     </ul>
-                    <%if (objVideo.OtherMakeList != null)
+                    <%if (objVideo.OtherMakeList != null && objVideo.OtherMakeList.Count()>0)
                       { %>
                     <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
                         <%foreach (var bikebrand in objVideo.OtherMakeList)

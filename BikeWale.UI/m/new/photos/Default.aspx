@@ -26,18 +26,22 @@
 <body>
     <form id="form1" runat="server">
          <% if (isModelPage)
-                       { var objImages = vmModelPhotos.objImageList;%>
-        <div class="blackOut-window" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;"></div>
-                  <section>
+            { var objImages = vmModelPhotos.objImageList;%>
+            <div class="blackOut-window" style="display: block; opacity:1;">
+                <div class="bw-spinner-content">
+                    <svg class="bw-spinner" width="50px" height="50px">
+                        <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+                    </svg>
+                </div>
+            </div>
+        <section>
             <div class="container box-shadow section-bottom-margin">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
          
-                <ul class="photos-grid-list">
-                
+                <ul class="photos-grid-list">                
                     <li>
                         <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[0].ImageCategory %> Image" title="<%= objImages[0].ImageCategory %>" />
-                    </li>
-                
+                    </li>                
                 </ul>
              
                 <div class="clear"></div>
@@ -104,14 +108,18 @@
         <% } %>
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
-        
            
         <div id="gallery-root">
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
                 <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
-                <div class="gallery-container" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;">
+                <div class="gallery-container">
+                    <div class="bw-spinner-content">
+                        <svg class="bw-spinner" width="50px" height="50px">
+                            <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+                        </svg>
+                    </div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
@@ -147,6 +155,8 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
 
                     <div id="main-color-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && !photoSwiperActive()">
@@ -163,16 +173,18 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
 
                     <div id="main-video-content" data-bind="visible: !photosTabActive()">
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
-                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
+                            <p class="grid-12 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
                             <div class="clear"></div>
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="320" height="180" data-bind="attr: { src: 'http://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -208,7 +220,7 @@
                         <div class="clear"></div>
                     </div>
 
-                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: photoThumbnailScreen()">
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="css: photoThumbnailScreen() ? 'position-fixed' : ''">
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
@@ -218,7 +230,7 @@
                         </div>
                     </div>
 
-                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: colorsThumbnailScreen()">
+                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="css: colorsThumbnailScreen() ? 'position-fixed' : ''">
                         <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                                 <div class="swiper-slide">
@@ -231,7 +243,7 @@
                         </div>
                     </div>
                     
-                    <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
                            <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
                             <%if(IsDiscontinued){ %>
