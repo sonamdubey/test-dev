@@ -243,7 +243,7 @@
                         </div>
                     </div>
                     
-                    <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
                            <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
                             <%if(IsDiscontinued){ %>
