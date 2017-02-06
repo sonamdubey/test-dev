@@ -46,7 +46,8 @@
                             <% } %>
                             <span <%= (bike.VersionId != sponsoredVersionId ) ? "" : "id='close-sponsored-bike'" %> class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
                             <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" title="<%= bikeName %>" class="block margin-top10">
-                                <h2 class="font14"><%= bikeName  %></h2>
+                                <span class="font10 text-light-grey"><%= bike.Make  %></span>
+                                <h2 class="font12 text-truncate"><%= bike.Model  %></h2>
                                 <img class="bike-image-block" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" />
                             </a>
                             <p class="label-text">Version:</p>
@@ -97,8 +98,9 @@
                                {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <% } %>
-                            <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" class="bike-title-target"><%= string.Format("{0} {1}",bike.Make,bike.Model) %></a>
-                            <% if (bike.VersionId != sponsoredVersionId)
+                                <span class="font10 text-light-grey"><%= bike.Make  %></span>
+                            <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" class="font12 text-truncate bike-title-target"><%= bike.Model %></a>
+                            <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
                                { %>
                             <div>
                                 <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
@@ -106,8 +108,9 @@
                             <% }
                                else
                                { %>
+
                             <div class="padding-top5 padding-bottom5">
-                                <a href="" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" target="_blank" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <% } %>
                         </div>
