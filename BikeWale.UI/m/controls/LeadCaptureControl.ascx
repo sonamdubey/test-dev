@@ -51,6 +51,7 @@
                 </div>
                 <div class="clear"></div>
                 <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="https://www.bikewale.com/visitoragreement.aspx">visitor agreement</a> and <a title="Privacy policy" href="https://www.bikewale.com/privacypolicy.aspx">privacy policy</a>.</p>
             </div>
         </div>
 

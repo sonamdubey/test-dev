@@ -188,6 +188,7 @@
                             <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers %>"
                                 data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="<%= ctaSmallText %>" />
                         </div>
+                        <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="https://www.bikewale.com/visitoragreement.aspx">visitor agreement</a> and <a title="Privacy policy" href="https://www.bikewale.com/privacypolicy.aspx">privacy policy</a>.</p>
                     </div>
                     <div id="dealer-assist-msg" class="hide">
                         <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>
