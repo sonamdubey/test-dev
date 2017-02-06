@@ -42,8 +42,9 @@
                 <span class="error-text"></span>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-        </div>
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>   
+            <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>         
+        </div>        
     </div>
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">
