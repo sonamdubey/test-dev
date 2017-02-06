@@ -61,7 +61,6 @@ namespace Bikewale.Mobile.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BindPopularCompareBikes");
-                objErr.SendMail();
             }
 
         }

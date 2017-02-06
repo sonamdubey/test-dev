@@ -35,13 +35,14 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
         public GlobalCityAreaEntity cityArea = null;
         public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent;
-        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty;
+        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty, FeaturedBikeLink = string.Empty;
         public uint versionId1, versionId2;
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
         public Int64 SponsoredVersionId;
         public ICollection<BikeCompareEntity> objBikes = null;
         public IEnumerable<BikeMakeEntityBase> makes = null;
+        public ushort maxComparisions = 5;
 
         /// <summary>
         /// Created By : Sushil kumar on 2nd Feb 2017 
@@ -100,6 +101,13 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     makes = _objMakeCache.GetMakesByType(EnumBikeType.New);
                     GetComparisionTextAndMetas();
                     isUsedBikePresent = comparedBikes.BasicInfo.FirstOrDefault(x => x.UsedBikeCount.BikeCount > 0) != null;
+
+                    if (SponsoredVersionId > 0)
+                    {
+                        var objFeaturedComparision = comparedBikes.BasicInfo.FirstOrDefault(f => f.VersionId == SponsoredVersionId);
+                        if (objFeaturedComparision != null)
+                            FeaturedBikeLink = Bikewale.Utility.SponsoredComparision.FetchValue(objFeaturedComparision.ModelId.ToString());
+                    }
                 }
             }
             catch (Exception ex)
@@ -166,9 +174,17 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                 var request = HttpContext.Current.Request;
                 string bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
-                if (uint.TryParse(bike1, out versionId1) && versionId1 > 0 && uint.TryParse(bike2, out versionId2) && versionId2 > 0)
+                if (request.QueryString.ToString().Contains("bike"))
                 {
-                    versionsList = string.Format("{0},{1}", versionId1, versionId2);
+                    for (ushort i = 1; i <= maxComparisions; i++)
+                    {
+                        uint vId = 0;
+                        if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
+                        {
+                            versionsList += "," + vId;
+                        }
+                    }
+
                     IsValidQS = true;
                 }
                 else if (!string.IsNullOrEmpty(modelList))
@@ -178,7 +194,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                     ModelMapping objCache = new ModelMapping();
                     int totalModels = models.Length;
 
-                    for (int iTmp = 0; iTmp < totalModels; iTmp++)
+                    for (ushort iTmp = 0; iTmp < maxComparisions; iTmp++)
                     {
                         string modelMaskingName = models[iTmp];
                         if (!string.IsNullOrEmpty(modelMaskingName) && _objModelMaskingCache != null)
@@ -188,7 +204,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                         if (objResponse != null && objResponse.StatusCode == 200)
                         {
-                            versionsList += objCache.GetTopVersionId(modelMaskingName + (((iTmp + 1) < totalModels) ? "," : ""));
+                            versionsList += "," + objCache.GetTopVersionId(modelMaskingName);
                             IsValidQS = true;
                         }
                         else if (objResponse != null && objResponse.StatusCode == 301)
@@ -210,6 +226,10 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.ParseQueryString");
+            }
+            finally
+            {
+                versionsList = versionsList.Substring(1);
             }
 
             return IsValidQS;
