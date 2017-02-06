@@ -5,7 +5,6 @@ using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using Bikewale.Mobile.Controls;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -23,7 +22,7 @@ namespace Bikewale.Mobile.New
         protected BikeCompareEntity vmCompare = null;
         protected bool isSponsoredBike, isUsedBikePresent;
         protected Int64 sponsoredVersionId = 0;
-        protected string comparisionText = string.Empty, targetedModels = string.Empty;
+        protected string comparisionText = string.Empty, targetedModels = string.Empty, featuredBike = string.Empty;
         protected IEnumerable<BikeMakeEntityBase> objMakes = null;
         public SimilarCompareBikes ctrlSimilarBikes;
 
@@ -50,9 +49,12 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindCompareBikes()
         {
-            CompareBikes objCompare = new CompareBikes();
+            CompareBikes objCompare = null;
             try
             {
+                objCompare = new CompareBikes();
+                objCompare.maxComparisions = 2;
+
                 if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound)
                 {
                     objCompare.GetComparedBikeDetails();
@@ -64,6 +66,7 @@ namespace Bikewale.Mobile.New
                     objMakes = objCompare.makes;
                     isUsedBikePresent = objCompare.isUsedBikePresent;
                     targetedModels = objCompare.TargetedModels;
+                    featuredBike = objCompare.FeaturedBikeLink;
                     BindPageWidgets(objCompare.versionsList);
                 }
             }
