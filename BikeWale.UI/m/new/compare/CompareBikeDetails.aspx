@@ -83,7 +83,7 @@
                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" c="Comparison_Page" a="Sponsored_Comparison" l="<%= bikeName %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" c="Comparison_Page" a="Sponsored_Comparison" l="<%= bikeName %>" target="_blank" class="font14 bw-ga">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <% } %>
                         </div>
@@ -103,7 +103,7 @@
                             <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
                                { %>
                             <div>
-                                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
+                                <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike %>" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
                             </div>
                             <% }
                                else
@@ -352,16 +352,15 @@
             <BW:SimilarBikes ID="ctrlSimilarBikes" runat="server" />
         </section>
         <% } %>
-
+          <script type="text/javascript">
+              var compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
+        </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-        <script type="text/javascript">
-            compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
-        </script>
     </form>
 </body>
 </html>
