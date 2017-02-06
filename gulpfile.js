@@ -313,6 +313,11 @@ var pageArray = [
         folderName: 'm/new/',
         fileName: 'BikeModels.aspx',
         stylesheet: 'm/css/bwm-model-atf.css'
+    },
+    {
+        folderName: 'm/new/photos/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/photos.css'
     }
 ];
 

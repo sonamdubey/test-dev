@@ -176,7 +176,7 @@
   left: 0;
   right: 0;
   background: #fff;
-  z-index: 4;
+  z-index: 5;
   margin: 0 auto; }
   .modal-popup-container .popup-header {
     font-size: 16px;
@@ -233,7 +233,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 3;
+  z-index: 5;
   opacity: 0.6;
   -moz-opacity: 0.6;
   -khtml-opacity: 0.6; }

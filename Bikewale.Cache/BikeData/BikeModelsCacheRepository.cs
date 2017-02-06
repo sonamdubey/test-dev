@@ -539,17 +539,17 @@ namespace Bikewale.Cache.BikeData
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_cat_{0}_city_{1}", bodyStyleId, cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}", modelId, cityId);
             try
             {
-                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(bodyStyleId, topCount, cityId));
+                popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(modelId, topCount, cityId));
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyle: {0},CityId {1}", bodyStyleId, cityId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: ModelId: {0},CityId {1}", modelId, cityId));
 
             }
             return popularBikesList;
@@ -601,16 +601,18 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.  
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
-                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle));
+                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle, cityId));
             }
             catch (Exception ex)
             {

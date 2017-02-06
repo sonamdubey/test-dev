@@ -288,7 +288,7 @@
     left: 0;
     z-index: 10;
     background: #000;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 #gallery-close-btn {
@@ -361,7 +361,7 @@
     padding: 5px;
     position: absolute;
     left: 0;
-    top: 15%;
+    top: 12%;
     z-index: 2;
     background: rgba(0,0,0,0.1);
 }
@@ -390,6 +390,22 @@
 
 .pos-top2 {
     top: 2px;
+}
+
+.gallery-swiper .swiper-button-prev,
+.gallery-swiper .swiper-button-next {
+    top: 39%;
+    margin-top: 0;
+    border: none;
+    background-color: transparent !important;
+}
+
+.gallery-swiper .swiper-button-next {
+    right: 5px;
+}
+
+.gallery-swiper .swiper-button-prev {
+    left: 7px;
 }
 
 /* thumbnail swiper */
@@ -478,6 +494,10 @@
 }
 
 /* gallery-footer */
+.gallery-footer {
+    background: #000;
+}
+
 .footer-tabs-wrapper {
     width: 100%;
     position: fixed;
@@ -526,20 +546,20 @@
 
 .grid-3-tab {
     width: 19.33%;
-}
-
-.grid-2-tab .grid-3-tab {
     float: right;
 }
 
 /* tab cards */
 .footer-tab-card {
     width: 100%;
-    position: fixed;
     bottom: 50px;
     background: #fff;
     z-index: 1;
     box-shadow: 0 0 6px #999;
+}
+
+.position-fixed {
+    position: absolute;
 }
 
 #color-tab-screen {
@@ -557,6 +577,7 @@
 #video-tab-screen {
     height: 155px;
     overflow-y: scroll;
+    position: fixed;
 }
 
 .footer-tab-card .model-more-info-section .bike-details-block {
@@ -770,9 +791,17 @@
     text-decoration: none;
 }
 
-* { 
+body { 
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.btn-size-120 {
+    width: 120px;
+    font-size: 14px;
+    padding: 5px 0;
+    position: relative;
+    top: 2px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -839,6 +868,10 @@
         width: 90px;
     }
 
+    .btn-size-120 {
+        width: 110px;
+    }
+
 }
 
 @media screen and (orientation:landscape) {
@@ -881,5 +914,10 @@
 
     .main-video-iframe-content {
         top: 0;
+    }
+
+    .gallery-swiper .swiper-button-prev,
+    .gallery-swiper .swiper-button-next {
+        top: 45%;
     }
 }

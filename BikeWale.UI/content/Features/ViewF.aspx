@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
@@ -105,16 +106,20 @@
                     </div>
 
                     <div class="grid-4 omega">
-                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <div class="margin-bottom20">
-
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                       <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <% if (taggedModelId < 1)
-                           { %>
+                        <%if(isModelTagged){ %>
+                        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                       <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                        </div>
+                        <%} %>
+                            <%} else{%>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <% 
-                           } %>
+                        <%} %>                       
                     </div>
                     <div class="clear"></div>
                 </div>

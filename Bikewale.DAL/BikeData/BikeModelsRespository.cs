@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -1774,7 +1775,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId)
+        public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
             try
@@ -1782,15 +1783,16 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularbikesbybodystyle";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyleId));
+                    cmd.CommandText = "getmostpopularbikesbybodystyle_02022017";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : Convert.DBNull));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         if (dr != null)
                         {
                             popularBikesList = new Collection<MostPopularBikesBase>();
+                            EnumBikeBodyStyles bodyStyle;
                             while (dr.Read())
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
@@ -1807,7 +1809,8 @@ namespace Bikewale.DAL.BikeData
                                 popularObj.CityName = Convert.ToString(dr["CityName"]);
                                 popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
-                                popularObj.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                Enum.TryParse(Convert.ToString(dr["CategoryId"]), out bodyStyle);
+                                popularObj.BodyStyle = bodyStyle;
                                 popularBikesList.Add(popularObj);
                             }
                             dr.Close();
@@ -1817,7 +1820,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_BodyStyleId: {0}, topCount: {1}", bodyStyleId, topCount));
+                ErrorClass objErr = new ErrorClass(ex, string.Format(" GetPopularBikesByBodyStyle_ModelId: {0}, topCount: {1}", modelId, topCount));
             }
             return popularBikesList;
         }
@@ -1931,10 +1934,12 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 17 Jan 2017
         /// Description : To get top 10 bikes of a given body style
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.       
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle)
+        public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
@@ -1942,8 +1947,10 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting";
+                    cmd.CommandText = "getgenericbikelisting_02022017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
+
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -1981,6 +1988,12 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.TotalVersions = SqlReaderConvertor.ToUInt32(dr["VersionCount"]);
                                 bestBikeObj.TotalModelColors = SqlReaderConvertor.ToUInt32(dr["ColorCount"]);
                                 bestBikeObj.LastUpdatedModelSold = SqlReaderConvertor.ToDateTime(dr["UnitSoldDate"]);
+                                bestBikeObj.UsedBikesCount = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]);
+                                bestBikeObj.UsedCity = new CityEntityBase();
+                                bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
+                                bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
+                                bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikeObj.PriceInCity = Convert.ToString(dr["PriceInCity"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();
@@ -1995,6 +2008,106 @@ namespace Bikewale.DAL.BikeData
             }
             return bestBikesList;
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
+
+        public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
+        {
+            IList<BikeMakeEntityBase> objVideoMake = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmakebyvideo";
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+
+                            objVideoMake = new List<BikeMakeEntityBase>();
+
+                            while (dr.Read())
+                            {
+                                objVideoMake.Add(new BikeMakeEntityBase()
+                                {
+                                    PopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]),
+                                    MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]),
+                                    MaskingName = Convert.ToString(dr["MaskingName"]),
+                                    MakeName = Convert.ToString(dr["MakeName"])
+                                });
+
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+            catch (Exception err)
+            {
+
+                ErrorClass objErr = new ErrorClass(err, " Bikewale.DAL.BikeData.GetMakeIfVideo");
+
+            } // catch Exception
+            return objVideoMake;
+        }
+        /// <summary>
+        /// Created by :- Subodh Jain 3 feb 2017
+        /// Summary :- Bind Video details for similar bikes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords)
+        {
+            IList<SimilarBikeWithVideo> SimilarBikeInfoList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalternativebikeswithvideoscount";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, totalRecords));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            SimilarBikeInfoList = new List<SimilarBikeWithVideo>();
+
+                            while (dr.Read())
+                            {
+                                var bikeInfo = new SimilarBikeWithVideo();
+                                bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                                bikeInfo.VideoCount = SqlReaderConvertor.ToUInt32(dr["VideosCount"]);
+                                bikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                                bikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                                bikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                                bikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                                SimilarBikeInfoList.Add(bikeInfo);
+
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, string.Format("Bikewale.DAL.BikeData.GetSimilarBikesVideos_Model: {0}", modelId));
+            }
+            return SimilarBikeInfoList;
+        }
+
 
     }   // class
 }   // namespace

@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Used;
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.Compare
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 22 Jan 2016
+    /// Modified By :   Sushil Kumar on 2nd Feb 2017
+    /// Description :   Added EstimatedPriceMin,EstimatedPriceMax,ExpectedLaunch,UsedBikeCount,ModelId and Versiosn for other details related to comparisions
     /// Description :   
     /// </summary>
     [Serializable, DataContract]
@@ -34,5 +39,18 @@ namespace Bikewale.Entities.Compare
         public UInt16 VersionRating { get; set; }
         [DataMember]
         public UInt16 ModelRating { get; set; }
+        [DataMember]
+        public UInt32 EstimatedPriceMin { get; set; }
+        [DataMember]
+        public UInt32 EstimatedPriceMax { get; set; }
+        [DataMember]
+        public DateTime? ExpectedLaunch { get; set; }
+        [DataMember]
+        public uint ModelId { get; set; }
+        [DataMember]
+        public IEnumerable<BikeVersionEntityBase> Versions { get; set; }
+        [DataMember]
+        public UsedBikesCountInCity UsedBikeCount { get; set; }
+
     }
 }

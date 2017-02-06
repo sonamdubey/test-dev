@@ -9,7 +9,7 @@ namespace Bikewale.Controls
     /// Created by : Sangram Nandkhile on 12 May 2016
     /// Desc       : Created control to show similar Bike links below compare bikes
     /// Modified By : Sushil Kumar on 2nd Dec 2016
-    /// Description : Removed repeater logic and dind data using list object
+    /// Description : Removed repeater logic and bind data using list object
     /// </summary>
     public class SimilarCompareBikes : System.Web.UI.UserControl
     {

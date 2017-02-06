@@ -210,33 +210,6 @@ h2.section-heading {
     left: 0;
 }
 
-.btn-teal {
-    background: #41b4c4;
-    color: #fff;
-    border: 1px solid #41b4c4;
-}
-
-.btn-teal:hover {
-    background: #58bdcb;
-    border: 1px solid #58bdcb;
-    text-decoration: none;
-}
-
-.btn-inv-teal {
-    background: transparent;
-    color: #3799a7;
-    border: 1px solid #3799a7;
-}
-
-.btn-inv-teal.active {
-    background: #3799a7;
-    color: #fff;
-}
-
-.btn-inv-teal:hover {
-    text-decoration: none
-}
-
 .inv-teal-sm {
     font-size: 14px;
     padding: 6px 19px;

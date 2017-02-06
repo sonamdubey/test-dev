@@ -360,7 +360,7 @@
                                { %>
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
-                                <div class="padding-top20 padding-bottom20">
+                                <div class="padding-top20">
                                     <div class="inline-block margin-right10 vertical-top">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
@@ -451,7 +451,7 @@
                                             </div>
 
                                             <a class="btn btn-teal assistance-submit-btn" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
-
+                                            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                                         </div>
                                     </div>
                                     <div id="dealer-assist-msg" class="hide">

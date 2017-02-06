@@ -33,6 +33,7 @@
         }
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
+        Ad_Mid_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -98,12 +99,23 @@
                     <div class="clear"></div>
              </div>
         </section>
-        <% if(showBodyStyleWidget) { %>
+       <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Middle_mobile.aspx" -->
+        </div>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <%if(modelId>0){%>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
+                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
         <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
-        <% } else { %>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />     
-        <% } %>                            
+                </div>
+             </section>
+        <%} %>
+        <%}else{ %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 

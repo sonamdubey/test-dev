@@ -14,6 +14,8 @@ namespace Bikewale.Entities.Compare
         Desktop_CompareBike_Details_MoreBike_Widget = 5,
         Mobile_CompareBike_Details_MoreBike_Widget = 6,
         Desktop_CompareBike_UserSelection = 7,
-        Mobile_CompareBike_UserSelection = 8
+        Mobile_CompareBike_UserSelection = 8,
+        Mobile_CompareBike_Page = 9,
+        Mobile_Similar_MostPopular_Compare_Widget = 10
     }
 }

@@ -214,7 +214,7 @@ $(document).ready(function () {
         topNavBarHeight = overallSpecsTabsContainer.height();
 
     var tabsLength = $('.overall-specs-tabs-wrapper li').length - 1;
-    if (tabsLength < 3) {
+    if (tabsLength < 2) {
         $('.overall-specs-tabs-wrapper li').css({ 'display': 'inline-block', 'width': 'auto' });
     }
 

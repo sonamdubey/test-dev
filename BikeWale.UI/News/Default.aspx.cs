@@ -18,7 +18,7 @@ namespace Bikewale.News
     {
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
-
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected string prevUrl = string.Empty, nextUrl = string.Empty;
         protected NewsListing objNews = null;
         protected IEnumerable<ArticleSummary> newsArticles = null;
@@ -26,6 +26,7 @@ namespace Bikewale.News
         protected string startIndex, endIndex, totalArticles;
         private GlobalCityAreaEntity currentCityArea;
         private const int _pagerSlotSize = 10;
+        protected bool isModelTagged;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -53,9 +54,7 @@ namespace Bikewale.News
             dd.DetectDevice();
             GetNewsList();
             currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            BindUpcoming();
-            BindPopularBikes();
-
+            BindPageWidgets();
         }
 
         /// <summary>
@@ -76,8 +75,7 @@ namespace Bikewale.News
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.GetNewsList");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.NewsListing.GetNewsList");
             }
             finally
             {
@@ -89,7 +87,7 @@ namespace Bikewale.News
                 }
             }
         }
-
+        
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Get category name by id
@@ -98,46 +96,63 @@ namespace Bikewale.News
         /// <returns></returns>
         protected string GetContentCategory(string catId)
         {
-
             if (objNews != null)
             {
                 return objNews.GetContentCategory(catId);
             }
             else return string.Empty;
-
         }
 
         /// <summary>
-        /// Created by : Aditi Srivastava on 8 Nov 2016
-        /// Summary  : Bind upcoming bikes list
+        /// Created By : Aditi Srivastava on 2 Feb 2017
+        /// Summary    : Bind page widgets(popular/upcoming)
         /// </summary>
-        private void BindUpcoming()
+        private void BindPageWidgets()
         {
-            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            ctrlUpcomingBikes.pageSize = 9;
-            ctrlUpcomingBikes.topCount = 4;
-            ctrlUpcomingBikes.MakeId = (int?)objNews.MakeId;
-            ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 02 jan 2017
-        /// Description :   Bind Popular Bikes Widget
-        /// Modified by :   Sajal Gupta on 27 jan 2017
-        /// Description :   Added footer link to the popular bikes widget.
-        /// </summary>
-        private void BindPopularBikes()
-        {
-            ctrlPopularBikes.totalCount = 4;
-            ctrlPopularBikes.CityId = (int)currentCityArea.CityId;
-            ctrlPopularBikes.cityName = currentCityArea.City;
-            ctrlPopularBikes.MakeId = (int)objNews.MakeId;
-            if (objNews != null && objNews.MakeId > 0)
+            try
             {
-                ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
+                isModelTagged = (objNews != null && objNews.ModelId > 0);
+                if (ctrlPopularBikes != null)
+                {
+                    ctrlPopularBikes.totalCount = 4;
+                    ctrlPopularBikes.CityId = (int)currentCityArea.CityId;
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (objNews != null && objNews.objMake != null && objNews.MakeId > 0)
+                    {
+                        ctrlPopularBikes.MakeId = (int)objNews.MakeId;
+                        ctrlPopularBikes.makeMasking = objNews.objMake.MaskingName;
+                        ctrlPopularBikes.makeName = objNews.objMake.MakeName;
+                    }
+                }
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = objNews.ModelId;
+                        ctrlBikesByBodyStyle.topCount = 4;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        ctrlUpcomingBikes.topCount = 4;
+                        if (objNews != null && objNews.objMake != null && objNews.MakeId > 0)
+                        {
+                            ctrlUpcomingBikes.MakeId = (int?)objNews.MakeId;
+                            ctrlUpcomingBikes.makeMaskingName = objNews.objMake.MaskingName;
+                            ctrlUpcomingBikes.makeName = objNews.objMake.MakeName;
+                        }
+                    }
+                }
             }
-            ctrlUpcomingBikes.ModelId = (int?)objNews.ModelId;
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.NewsListing.BindPageWidgets");
+            }
         }
-
     }//End of Class
 }//End of NameSpace

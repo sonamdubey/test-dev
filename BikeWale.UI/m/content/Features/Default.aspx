@@ -16,7 +16,7 @@
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         Ad_320x50 = true;
-        Ad_Bot_320x50 = true;
+        Ad_Mid_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -75,6 +75,9 @@
                 <div class="clear"></div>
             </div>
         </section>
+       <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Middle_mobile.aspx" -->
+        </div>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

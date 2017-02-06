@@ -26,18 +26,16 @@
 <body>
     <form id="form1" runat="server">
          <% if (isModelPage)
-                       { var objImages = vmModelPhotos.objImageList;%>
-        <div class="blackOut-window" style="background: #fff url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center; display: block; opacity:1;"></div>
-                  <section>
+            { var objImages = vmModelPhotos.objImageList;%>
+            <div class="blackOut-window" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center; display: block; opacity:1;"></div>
+        <section>
             <div class="container box-shadow section-bottom-margin">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
          
-                <ul class="photos-grid-list">
-                
+                <ul class="photos-grid-list">                
                     <li>
                         <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[0].ImageCategory %> Image" title="<%= objImages[0].ImageCategory %>" />
-                    </li>
-                
+                    </li>                
                 </ul>
              
                 <div class="clear"></div>
@@ -104,12 +102,14 @@
         <% } %>
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
-        
            
         <div id="gallery-root">
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
+                <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
+                <div class="gallery-container" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center;"></div>
+                <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
                 <!-- /ko -->
@@ -143,6 +143,8 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
 
                     <div id="main-color-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && !photoSwiperActive()">
@@ -159,52 +161,54 @@
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
 
                     <div id="main-video-content" data-bind="visible: !photosTabActive()">
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
-                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
-                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activeVideoIndex() + 1"></span> / <span data-bind="text: <%=VideoCount%>"></span>
-                            </div>
+                            <p class="grid-12 text-truncate font14 text-white text-left" data-bind="text: activeVideoTitle()"></p>
                             <div class="clear"></div>
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="320" height="180" data-bind="attr: { src: 'http://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- gallery footer -->
-                <div class="gallery-footer" data-bind="visible: galleryFooterActive(), css: photosTabActive() ? '' : 'grid-2-tab'">
+                <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
                     <div class="footer-tabs-wrapper">
                         <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                             <span class="inline-block font14">All photos</span>
                         </div>
+
                          <%if(VideoCount>1){ %>
                         <div data-bind="click: toggleVideoListScreen, visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
                            <span class="inline-block font14">All videos</span>
                         </div>
                         <%} %>
-                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
-                            <span class="bwmsprite color-palette"></span>
+
+                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite fullscreen-icon"></span>
                         </div>
 
                         <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite info-icon"></span>
                         </div>
 
-                        <div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
-                            <span class="bwmsprite fullscreen-icon"></span>
+                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite color-palette"></span>
                         </div>
+
                         <div class="clear"></div>
                     </div>
 
-                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: photoThumbnailScreen()">
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="css: photoThumbnailScreen() ? 'position-fixed' : ''">
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
@@ -214,7 +218,7 @@
                         </div>
                     </div>
 
-                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="visible: colorsThumbnailScreen()">
+                    <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="css: colorsThumbnailScreen() ? 'position-fixed' : ''">
                         <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                                 <div class="swiper-slide">
@@ -227,7 +231,7 @@
                         </div>
                     </div>
                     
-                    <div id="info-tab-screen" class="footer-tab-card" data-bind="visible: modelInfoScreen()">
+                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
                            <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
                             <%if(IsDiscontinued){ %>
@@ -269,7 +273,7 @@
                             </div>
                             <%if(!IsUpcoming&&!IsDiscontinued){ %>
                             
-                            <div class="grid-5 alpha omega">
+                            <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
@@ -277,24 +281,24 @@
                                 </div>
                             </div>
                             <%}else if (IsUpcoming){ %>
-                               <div class="grid-5 alpha omega">
+                               <div class="grid-7 alpha omega">
                                 <p class="font11 text-light-grey text-truncate">Expected price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax)) %></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> onwards</span>
                                 </div>
                             </div>
                             <%}else if (IsDiscontinued){ %>
-                             <div class="grid-5 alpha omega">
-                                <p class="font11 text-light-grey text-truncate"><%= String.Format("Last known Ex-showroom price in {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName) %></p>
+                             <div class="grid-7 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Last know price</p>
                                 <div>
                                     <span class="bwmsprite inr-xsm-icon"></span>
                                     <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
                                 </div>
                             </div>
                             <%} %>
-                            <div class="grid-7 omega">
-                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-180">View model details<span class="bwmsprite btn-red-arrow"></span></a>
+                            <div class="grid-5 omega">
+                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-120">View details<span class="bwmsprite btn-red-arrow"></span></a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -331,9 +335,8 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(".gallery-close-btn").on('click', function () {
-                if(isModelPage)
-                {
-                window.location.href = window.location.pathname.split("images/")[0];
+                if(isModelPage) {
+                    gallery.gotoModelPage();
                 }
                 else if(!isModelPage) {
                     gallery.close();

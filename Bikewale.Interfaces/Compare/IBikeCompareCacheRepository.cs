@@ -11,11 +11,14 @@ namespace Bikewale.Interfaces.Compare
     /// Description :   Added new function
     /// Modified By : Sushil Kumar on 2nd Dec 2016
     /// Description : Added methods for comparision bikes comparisions
+    /// Modified By : Sushil Kumar on 2nd Feb 2017
+    /// Description : Added methods for BikeCompareEntity DoCompare(string versions, uint cityId) 
     /// </summary>
     public interface IBikeCompareCacheRepository
     {
         IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
-        Entities.Compare.BikeCompareEntity DoCompare(string versions);
+        BikeCompareEntity DoCompare(string versions);
+        BikeCompareEntity DoCompare(string versions, uint cityId);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikes(string versionList, ushort topCount, int cityid);
         ICollection<SimilarCompareBikeEntity> GetSimilarCompareBikeSponsored(string versionList, ushort topCount, int cityid, uint sponsoredVersionId);
 

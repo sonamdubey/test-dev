@@ -23,12 +23,35 @@ namespace Bikewale.Utility
                 case EnumBikeBodyStyles.Sports:
                     return "Sports Bikes";
                 case EnumBikeBodyStyles.Cruiser:
-                    return "Cruisers";
+                    return "Cruisers Bikes";
                 case EnumBikeBodyStyles.Scooter:
                     return "Scooters";
                 case EnumBikeBodyStyles.AllBikes:
                 default:
                     return "Bikes";
+            }
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 3 Feb 2017
+        /// Description : function to return widget heading according to body style.
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <returns></returns>
+        public static string BodyStyleHeadingText(EnumBikeBodyStyles bodyStyle)
+        {
+            switch (bodyStyle)
+            {
+                case EnumBikeBodyStyles.Mileage:
+                    return "Mileage bikes";
+                case EnumBikeBodyStyles.Sports:
+                    return "Sports bikes";
+                case EnumBikeBodyStyles.Cruiser:
+                    return "Cruiser bikes";
+                case EnumBikeBodyStyles.Scooter:
+                    return "Scooters";
+                case EnumBikeBodyStyles.AllBikes:
+                default:
+                    return "bikes";
             }
         }
     }
