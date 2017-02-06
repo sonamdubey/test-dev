@@ -30,8 +30,7 @@
 
 
     <style type="text/css">
-
-       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}.play-icon-wrapper { width: 94%; height: 100%; display: block; position:absolute; top:0; left:10px; margin: 0 auto; text-align:center; padding-top:20%; background: transparent; background: rgba(0,0,0,0.2) }        
+       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}.play-icon-wrapper{width:94%;height:100%;display:block;position:absolute;top:0;left:10px;margin:0 auto;text-align:center;padding-top:20%;background:0 0;background:rgba(0,0,0,.2)}#carousal-similar-bike{min-height:262px}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     </style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -99,7 +98,7 @@
         </section>
  <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
-        <div class="container content-box-shadow margin-bottom20">
+        <div class="container content-box-shadow margin-bottom20 padding-bottom20">
             <div class="padding-top20 font14">
                 <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of bikes similar to <%=model%></h2>
                 <BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
