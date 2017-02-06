@@ -139,7 +139,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
                                 <span class="swiper-lazy-preloader"></span>
                             </div>
                         </div>
