@@ -153,7 +153,7 @@ var photosPage = function () {
 var vmPhotosPage = new photosPage();
 var modelGallery = function () {
     var self = this;
-
+    var activeVideo = 0;
     self.photosTabActive = ko.observable(true);
 
     self.galleryTabsActive = ko.observable(true);
@@ -183,7 +183,6 @@ var modelGallery = function () {
     // video
     self.activeVideoTitle = ko.observable('');
     self.activeVideoIndex = ko.observable(0);
-
     self.activeVideoId = ko.observable();
 
     self.videoListScreen = ko.observable(false);
@@ -259,13 +258,14 @@ var modelGallery = function () {
     self.togglePhotoTab = function () {
         if (!self.photosTabActive()) {
             self.photosTabActive(true);
-           
+            activeVideo = self.activeVideoIndex();
+            self.activeVideoId('');
         }
         else {
             self.photosTabActive(false);
             toggleFullScreen(false);
             self.getVideos();
-           
+            setVideoDetails(activeVideo);
         }
         if (self.screenActive()) {
             deactivateAllScreens();
@@ -424,11 +424,11 @@ var modelGallery = function () {
         var element = $('.video-tab-list li')[elementIndex],
             elementId = self.videoList()[elementIndex].VideoId,
             elementTitle = self.videoList()[elementIndex].VideoTitle;
-
+       
         self.activeVideoId(elementId);
         self.activeVideoIndex(elementIndex);
         self.activeVideoTitle(elementTitle);
-
+       
         $(element).siblings().removeClass('active');
         $(element).addClass('active');
 
