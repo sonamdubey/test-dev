@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularBikeByBodyStyleCarousal" EnableViewState="false" %>
+<%if (popularBikes!=null) {%>
 <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
     <div class="jcarousel">
         <ul>
@@ -16,12 +17,12 @@
                         <h3 class="bikeTitle"><%=bikeName%></h3>
                         <% if (bike.VersionPrice > 0)
                            { %>
-                         <p class="font14 text-light-grey margin-bottom5">Ex-showroom,<%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Common.Configuration.GetDefaultCityName %></p>
+                         <p class="font14 text-light-grey margin-bottom5">Ex-showroom,<%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                         <span class="bwsprite inr-md"></span><span class="font16 text-bold text-default">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
                         <% }
                            else
                            { %>
-                        <span class='font14'>Price Unavailable</span>
+                        <span class='font14'>Price not available</span>
                         <% } %>
                     </div>
                 </a>
@@ -36,3 +37,4 @@
             <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" class="font14">View the complete list<span class="bwsprite blue-right-arrow-icon"></span></a>
         </div>
 </div>
+<%} %>

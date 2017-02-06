@@ -49,7 +49,8 @@ namespace Bikewale.Controls
                     FetchedRecordsCount = objPopular.FetchedRecordsCount;
                     if (FetchedRecordsCount > 0)
                     {
-                        BodyStyle = popularBikes.FirstOrDefault().BodyStyle;
+                        var bike = popularBikes.FirstOrDefault();
+                        BodyStyle = bike != null ? bike.BodyStyle : 0;
                         BodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(BodyStyle);
                         BodyStyleLinkTitle = Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle);
                     }

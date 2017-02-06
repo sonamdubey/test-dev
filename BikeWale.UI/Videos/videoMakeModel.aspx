@@ -41,11 +41,11 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span itemprop="title"><%=make %> Bikes</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/" title="><%=make %> bikes"><span itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if (isModel)
                                { %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=make %> <%=model %></span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%=make %> <%=model %> bikes"><span itemprop="title"><%=make %> <%=model %></span></a></li>
                             <% }
                                else
                                {%>
