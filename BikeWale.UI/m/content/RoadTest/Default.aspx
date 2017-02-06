@@ -33,6 +33,7 @@
         }
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
+        Ad_Mid_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -98,8 +99,8 @@
                     <div class="clear"></div>
              </div>
         </section>
-        <div class="margin-bottom15">
-            <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+       <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Middle_mobile.aspx" -->
         </div>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <%if(modelId>0){%>

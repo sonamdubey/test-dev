@@ -1727,6 +1727,7 @@
     <Content Include="ads\Ad320x150_First.aspx" />
     <Content Include="ads\Ad320x150_Second.aspx" />
     <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
+    <Content Include="ads\Ad320x50_Middle_mobile.aspx" />
     <Content Include="ads\Ad320x50_mobile.aspx" />
     <Content Include="ads\Ad970x90.aspx" />
     <Content Include="ads\Ad728x90.aspx" />
