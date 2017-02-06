@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-desc-block">
                         <h3 class="bikeTitle"><%=bikeName %></h3>
-                        <p><%=BikeInfo.VideoCount %> <%=BikeInfo.VideoCount>1?"Videos":"Video" %></p>
+                        <p class="text-light-grey"><%=BikeInfo.VideoCount %> <%=BikeInfo.VideoCount>1?"videos":"video" %></p>
                     </div>
                 </a>
             </li>

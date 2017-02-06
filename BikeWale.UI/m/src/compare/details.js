@@ -103,7 +103,20 @@ $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () 
         preSel = element.siblings(".option-active").first();
         dropdownInteraction.selectItem(element);
         dropdownInteraction.selectOption(element);
-        window.location.search = window.location.search.replace(preSel.data("option-value"), element.data("option-value"));
+        if (window.location.search.indexOf("bike") > -1)
+        {
+            window.location.search = window.location.search.replace(preSel.data("option-value"), element.data("option-value"));
+        }
+        else {
+            var searchQuery = "?";
+            $(".bike-details-block").each(function (i) {
+                if(!$(this).hasClass('sponsored-bike-details-block') && $(this).data("versionid"))
+                {
+                    searchQuery += "&bike=" + (i + 1) + $(this).data("versionid");
+                }
+            });
+            window.location.search = searchQuery + searchQuery != "" ? "&source=" + compareSource : "";
+        }       
     }
     else {
         bikePopup.showSameVersionToast();

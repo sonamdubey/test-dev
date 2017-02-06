@@ -55,7 +55,7 @@ namespace Bikewale.Mobile.New
                 objCompare = new CompareBikes();
                 objCompare.maxComparisions = 2;
 
-                if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound)
+                if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound && !objCompare.isCompareLandingRedirection)
                 {
                     objCompare.GetComparedBikeDetails();
                     vmCompare = objCompare.comparedBikes;
@@ -84,6 +84,12 @@ namespace Bikewale.Mobile.New
                 else if (objCompare.isPageNotFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+                else if (objCompare.isCompareLandingRedirection)
+                {
+                    Response.Redirect("/m/comparebikes/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
