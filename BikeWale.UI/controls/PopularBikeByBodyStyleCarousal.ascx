@@ -1,13 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularBikeByBodyStyleCarousal" EnableViewState="false" %>
 <%if (popularBikes!=null) {%>
-<div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
-    <div class="jcarousel">
+<div  class="jcarousel-wrapper inner-content-carousel padding-bottom20">
+    <div  class="jcarousel">
         <ul>
             <%foreach (var bike in popularBikes)
               {
                   string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);%>
             <li>
-                <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName) %>" title="<%= bikeName %>" class="jcarousel-card">
+                <a id="carousal-similar-bike" href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName) %>" title="<%= bikeName %>" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <span class="card-image-block">
                             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" src="" border="0">
@@ -22,7 +22,7 @@
                         <% }
                            else
                            { %>
-                        <span class="font16 text-bold text-default">Price not available</span>
+                        <span class="font16 text-default">Price not available</span>
                         <% } %>
                     </div>
                 </a>
