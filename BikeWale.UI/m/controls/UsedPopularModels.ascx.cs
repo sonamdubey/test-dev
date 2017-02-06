@@ -3,19 +3,15 @@ using Bikewale.Entities.UsedBikes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace Bikewale.Controls
+namespace Bikewale.Mobile.Controls
 {
     /// <summary>
-    /// Author : Sangram Nandkhile
-    /// Created Date : 02 Feb 2017
-    /// Desc : recently uploaded used bikes control
+    /// Created by Sangram Nandkhile on 03 Feb 2016
+    /// Dec:- Used bike widget to show popular models by Make
     /// </summary>
-    public class UsedPopularModels : UserControl
+    public class UsedPopularModels : System.Web.UI.UserControl
     {
-
         public IEnumerable<MostRecentBikes> UsedBikeModelInCityList;
 
         public uint MakeId { get; set; }

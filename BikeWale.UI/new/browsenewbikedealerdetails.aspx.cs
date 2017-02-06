@@ -35,10 +35,10 @@ namespace Bikewale.New
         protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
         protected uint cityId, makeId;
         protected ushort totalDealers;
-        protected Repeater rptDealers; //rptMakes, rptCities ;
+        protected Repeater rptDealers;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected bool areDealersPremium = false;
-        protected UsedBikeWidget ctrlRecentUsedBikes;
+        protected UsedPopularModelsInCity ctrlUsedModels;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
         protected ServiceCenterCard ctrlServiceCenterCard;
@@ -114,13 +114,18 @@ namespace Bikewale.New
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
 
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.MakeId = makeId;
-                ctrlRecentUsedBikes.TopCount = 4;
-                ctrlRecentUsedBikes.isAd = true;
-                ctrlRecentUsedBikes.cityName = cityName;
-                ctrlRecentUsedBikes.cityMaskingName = cityMaskingName;
-                ctrlRecentUsedBikes.AdId = "1395986297721";
+                if (ctrlUsedModels != null)
+                {
+                    ctrlUsedModels.CityId = cityId;
+                    ctrlUsedModels.MakeId = makeId;
+                    ctrlUsedModels.MakeName = makeName;
+                    ctrlUsedModels.MakeMaskingName = makeMaskingName;
+                    ctrlUsedModels.TopCount = 4;
+                    ctrlUsedModels.IsAd = true;
+                    ctrlUsedModels.CityName = cityName;
+                    ctrlUsedModels.CityMaskingName = cityMaskingName;
+                    ctrlUsedModels.AdId = "1395986297721";
+                }
 
                 ctrlLeadCapture.CityId = cityId;
                 ctrlBrandCity.requestType = EnumBikeType.Dealer;
@@ -136,7 +141,6 @@ namespace Bikewale.New
                 ctrlServiceCenterCard.TopCount = 3;
                 ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, cityName);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
-
 
                 if (ctrlChangeLocation != null)
                 {

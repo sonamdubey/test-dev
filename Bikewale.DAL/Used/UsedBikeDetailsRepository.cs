@@ -447,7 +447,7 @@ namespace Bikewale.DAL.Used
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     MakeName = Convert.ToString(dr["makename"]),
                                     MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
-
+                                    MinimumPrice = Convert.ToString(dr["price"])
                                 });
                             }
                             dr.Close();
@@ -461,6 +461,57 @@ namespace Bikewale.DAL.Used
             }
             return objUsedBikesList;
         }//end of GetUsedBikeByModelCountInCity
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 03 Feb 2017
+        /// Summary: Fetch popular models by Make with bike count
+        /// </summary>
+        /// <param name="makeid"></param>
+        /// <param name="topcount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostRecentBikes> GetPopularUsedModelsByMake(uint makeid, uint topcount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpopularusedbikesmodelsbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topcount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objUsedBikesList = new List<MostRecentBikes>();
+                            while (dr.Read())
+                            {
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    AvailableBikes = SqlReaderConvertor.ParseToUInt32(dr["AvailableBikes"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                    MinimumPrice = Convert.ToString(dr["price"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetPopularUsedModelsByMake: Make:{0}", makeid));
+            }
+            return objUsedBikesList;
+        }//end of GetUsedBikeByModelCountInCity
+
 
         /// <summary>
         ///Created By : Subodh Jain on 2 jan 2017 

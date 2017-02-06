@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedPopularModelsInCity.ascx" TagName="UsedMostPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
@@ -13,7 +14,7 @@
         keywords = String.Format("{0} servicing {1}, {0} service center in {1}, {0} Service centers, {0} service schedules, {0} bike repair, repairing, servicing ", makeName, cityName);
         description = String.Format("There are {0} {1} service centers in {2}. Get in touch with your nearest {1} service center for service repairing, schedule details, pricing, pick and drop facility. Check the Service schedule for {1} bikes now.",totalServiceCenters,  makeName, cityName);
         title = String.Format("{0} service centers in {1} | {0} bike servicing in {1} - BikeWale ", makeName, cityName);
-        canonical = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, urlCityMaskingName);
+        canonical = String.Format("https://www.bikewale.com/{0}-service-center-in-{1}/", makeMaskingName, cityMaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
         Ad_320x50 = true;
@@ -63,7 +64,7 @@
                     <% foreach (var serviceCenter in serviceCentersList)
                        { %>
                             <li>
-                                <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, urlCityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId) %> "  title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
+                                <a href="/m<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName, serviceCenter.Name, serviceCenter.ServiceCenterId) %> "  title="<%= serviceCenter.Name %> | <%= makeName %> | <%= cityName %>" class="center-list-item">
                                     <h3 class="text-truncate margin-bottom5 text-black">
                                         <%= serviceCenter.Name %>
                                     </h3>
@@ -141,28 +142,25 @@
         <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
          <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
         <%} %>
-           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
+           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlPopularModels.fetchedCount > 0)
+              {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                
              <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 <%} %>
-
                 <div class="padding-top10 text-center">
                     <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-
-                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+                 <% if (ctrlPopularModels.fetchedCount > 0)
                 {%> 
-                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                 <BW:UsedMostPopularModels runat="server" ID="ctrlPopularModels" />
                 <%} %>
             </div>
                 </div>
-            
         </section>
         <% } %>
 

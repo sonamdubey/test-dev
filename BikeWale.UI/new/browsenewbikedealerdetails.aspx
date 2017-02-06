@@ -1,5 +1,6 @@
 <%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedPopularModelsInCity.ascx" TagName="UsedPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
@@ -142,7 +143,7 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlUsedModels.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
            { %>
         <section>
             <div class="container">
@@ -159,12 +160,10 @@
                           <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                           <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <% } %>
-                        
-                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                        <% if (ctrlUsedModels.FetchedRecordsCount > 0)
                            { %>
-                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                        <BW:UsedPopularModels runat="server" ID="ctrlUsedModels" />
                         <%} %>
-
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -209,7 +208,6 @@
                 dleadvm.setOptions(leadOptions);
             });
          </script>
-
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>

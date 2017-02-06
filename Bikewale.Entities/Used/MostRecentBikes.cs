@@ -36,7 +36,6 @@ namespace Bikewale.Entities.UsedBikes
         public string CityMaskingName { get; set; }
         [DataMember]
         public uint CityId { get; set; }
-
         [DataMember]
         public uint Kilometer { get; set; }
         [DataMember]
@@ -47,5 +46,7 @@ namespace Bikewale.Entities.UsedBikes
         public string MaskingName { get; set; }
         [DataMember]
         public uint owner { get; set; }
+        [DataMember]
+        public string MinimumPrice { get; set; }
     }
 }

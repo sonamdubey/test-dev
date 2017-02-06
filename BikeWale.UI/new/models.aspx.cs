@@ -1,6 +1,7 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
@@ -51,9 +52,7 @@ namespace Bikewale.New
         private GlobalCityAreaEntity currentCityArea;
         protected uint cityId = 0;
         protected string cityName = string.Empty, cityMaskingName = string.Empty;
-
-
-        protected UsedBikes ctrlRecentUsedBikes;
+        private CityEntityBase cityDetails = null;
         protected LeadCaptureControl ctrlLeadCapture;
         protected String clientIP = CommonOpn.GetClientIP();
         protected override void OnInit(EventArgs e)
@@ -111,6 +110,12 @@ namespace Bikewale.New
         private void BindUserControls()
         {
             int _makeId = Convert.ToInt16(makeId);
+            if (cityId > 0)
+            {
+                cityDetails = new CityHelper().GetCityById(cityId);
+                if (cityDetails != null)
+                    cityMaskingName = cityDetails.CityMaskingName;
+            }
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcomingBikes.pageSize = 6;
             ctrlUpcomingBikes.MakeId = _makeId;
@@ -132,11 +137,6 @@ namespace Bikewale.New
             ctrlVideos.MakeName = _make.MakeName;
 
             ctrlExpertReviews.MakeMaskingName = makeMaskingName;
-
-            ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.TopCount = 6;
-            ctrlRecentUsedBikes.ModelId = 0;
 
             ctrlDealerCard.MakeId = makeId;
             ctrlDealerCard.makeName = _make.MakeName;
@@ -161,7 +161,14 @@ namespace Bikewale.New
             if (ctrlPopularUsedBikes != null)
             {
                 ctrlPopularUsedBikes.MakeId = makeId;
-                ctrlPopularUsedBikes.CityId = Convert.ToInt32(cityId);
+                if (cityId > 0)
+                {
+                    ctrlPopularUsedBikes.CityId = cityId;
+                    ctrlPopularUsedBikes.CityName = cityName;
+                    ctrlPopularUsedBikes.CityMaskingName = cityMaskingName;
+                }
+                ctrlPopularUsedBikes.MakeMaskingName = makeMaskingName;
+                ctrlPopularUsedBikes.MakeName = _make.MakeName;
                 ctrlPopularUsedBikes.TopCount = 6;
             }
         }

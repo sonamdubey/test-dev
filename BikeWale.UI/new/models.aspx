@@ -5,7 +5,6 @@
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedBikes.ascx" TagName="MostRecentBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedPopularModels.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
@@ -166,7 +165,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlRecentUsedBikes.FetchedRecordsCount > 0)){ %>
+        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlPopularUsedBikes.FetchedRecordsCount > 0)){ %>
         <section class="container">
             <div id="makeTabsContentWrapper" class="grid-12 margin-bottom20">
                 <div class="content-box-shadow">
@@ -196,7 +195,7 @@
                                 <a href="#dealerAndServiceContent" rel="nofollow"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></a>
                                 <%} %>
-                                <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                                <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
                                    {%> <a href="#makeUsedBikeContent" rel="nofollow">Used</a>
                                 <%} %>
                             </div>
@@ -259,11 +258,6 @@
                         <% } %>
                     </div>
                     <%} %>
-                    
-                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-                       {%> 
-                    <BW:MostRecentBikes runat="server" ID="ctrlRecentUsedBikes" />
-                     <%} %>
                     <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
                        { %>
                     <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />

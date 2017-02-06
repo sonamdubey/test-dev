@@ -90,6 +90,26 @@ namespace Bikewale.Cache.Used
             }
             return objUsedBikes;
         }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 2 Feb 2017 
+        /// Description : Get Used Bike models for India 
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetPopularUsedModelsByMake(uint makeid, uint topcount)
+        {
+            IEnumerable<MostRecentBikes> objUsedBikes = null;
+            string key = String.Format("BW_UsedPopularModels_makeid_{0}_topcount_{1}", makeid, topcount);
+            try
+            {
+                objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetPopularUsedModelsByMake(makeid, topcount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetPopularUsedModelsByMake");
+            }
+            return objUsedBikes;
+        }
+
         /// <summary>
         /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Get Used Bike By Model Count In City

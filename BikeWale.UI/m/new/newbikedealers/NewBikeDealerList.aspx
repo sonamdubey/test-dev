@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/UsedPopularModelsInCity.ascx" TagName="UsedMostPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
@@ -96,7 +96,7 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlPopularModels.fetchedCount > 0) {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
                 
@@ -115,10 +115,12 @@
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                 <% }  %>
-                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
+               
+                <% if (ctrlPopularModels.fetchedCount > 0)
                 {%> 
-                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                 <BW:UsedMostPopularModels runat="server" ID="ctrlPopularModels" />
                 <%} %>
+                 
             </div>
                 </div>
             

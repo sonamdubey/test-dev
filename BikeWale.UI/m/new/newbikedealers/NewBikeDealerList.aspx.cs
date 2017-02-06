@@ -39,7 +39,8 @@ namespace Bikewale.Mobile.New
         protected ushort totalDealers;
         protected Repeater rptDealers; //rptMakes, rptCities, ;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
-        protected UsedBikes ctrlRecentUsedBikes;
+        protected UsedPopularModelsInCity ctrlPopularModels;
+
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected LeadCaptureControl ctrlLeadCapture;
         protected BrandCityPopUp ctrlBrandCity;
@@ -104,10 +105,17 @@ namespace Bikewale.Mobile.New
                 ctrlDealerCount.CityName = cityName;
                 ctrlDealerCount.MakeName = makeName;
 
-                ctrlRecentUsedBikes.MakeId = makeId;
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.header = "Used " + makeName + " bikes in " + cityName;
-                ctrlRecentUsedBikes.TopCount = 4;
+                if (ctrlPopularModels != null)
+                {
+                    ctrlPopularModels.MakeId = makeId;
+                    ctrlPopularModels.CityId = cityId;
+                    ctrlPopularModels.header = "Used " + makeName + " bikes in " + cityName;
+                    ctrlPopularModels.TopCount = 4;
+                    ctrlPopularModels.MakeName = makeName;
+                    ctrlPopularModels.MakeMaskingName = makeMaskingName;
+                    ctrlPopularModels.CityName = cityName;
+                    ctrlPopularModels.CityMaskingName = cityMaskingName;
+                }
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
                 ctrlPopoularBikeMake.totalCount = 9;

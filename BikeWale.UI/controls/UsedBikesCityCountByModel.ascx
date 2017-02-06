@@ -1,9 +1,11 @@
 ﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikesCityCountByModel" %>
-<% if(viewModel != null && viewModel.bikesCountCityList != null) { %>
+<% if (viewModel != null && viewModel.BikesCountCityList != null)
+   { %>
 <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
     <div class="jcarousel">
         <ul>
-            <% foreach(var cityBikeCount in viewModel.bikesCountCityList) { %>
+            <% foreach (var cityBikeCount in viewModel.BikesCountCityList)
+               { %>
             <li>
                 <a href="<%= string.Format("/used/{0}-{1}-bikes-in-{2}/", MakeMaskingName, ModelMaskingName, cityBikeCount.CityMaskingName) %>" title="<%= string.Format("Used {0} bikes in {1}", ModelName, cityBikeCount.CityName) %>" class="card-target-block">
                     <div class="card-image-placeholder">

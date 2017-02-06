@@ -2,6 +2,7 @@
 
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/UsedPopularModelsInCity.ascx" TagName="UsedPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
@@ -192,7 +193,8 @@
         <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
        <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
         <%} %>
-           <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
+           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlUsedModels.FetchedRecordsCount > 0)
+              { %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -204,9 +206,9 @@
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
-                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
+                        <% if (ctrlUsedModels.FetchedRecordsCount > 0)
                            { %>
-                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
+                        <BW:UsedPopularModels runat="server" ID="ctrlUsedModels" />
                         <%} %>
 
                         <div class="clear"></div>
