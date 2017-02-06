@@ -660,6 +660,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\PopularBikeByBodyStyleCarousal.ascx.cs">
+      <DependentUpon>PopularBikeByBodyStyleCarousal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PopupWidget.ascx.cs">
       <DependentUpon>PopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2113,6 +2117,7 @@
     <Content Include="controls\NoFollowPagerControl.ascx" />
     <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
+    <Content Include="controls\PopularBikeByBodyStyleCarousal.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />

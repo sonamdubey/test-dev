@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 <%@ Register Src="~/m/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,6 +75,16 @@
             </div>
         </div>
         <% } %>
+                <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+             <div class="container content-box-shadow">
+            <div class="padding-top20 padding-bottom20 font14">
+                <h2 class="padding-left20 padding-right20 margin-bottom15">
+                   Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+         <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                </div>
+             </section>
+           <%} %>
         <!--template script-->
         <script type="text/html" id="templetVideos">
             <li>
