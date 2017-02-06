@@ -188,22 +188,6 @@
     width: 44%;
 }
 
-.btn-teal {
-    background: #41b4c4;
-    color: #fff;
-    border: 1px solid #41b4c4;
-}
-
-.btn-teal:hover {
-    background: #58bdcb;
-    text-decoration: none;
-}
-
-.btn-teal:focus {
-    background: #37939f;
-    border: 1px solid #37939f;
-}
-
 .btn-green {
     background: #1b9618;
     color: #fff;

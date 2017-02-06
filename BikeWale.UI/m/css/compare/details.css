@@ -1,0 +1,751 @@
+﻿/* common */
+.padding-15-20 {
+    padding: 15px 20px;
+}
+
+.card-bottom-margin {
+    margin-bottom: 10px;
+}
+
+.margin-bottom3 {
+    margin-bottom: 3px;
+}
+
+/* comparison main card */
+.bike-details-block {
+    width: 50%;
+    padding: 10px;
+    float: left;
+    position: relative;
+}
+
+.comparison-main-card .bike-details-block {
+    min-height: 250px;
+}
+
+.comparison-main-card .bike-details-block a.block {
+    width: 88%;
+}
+
+.bike-details-block .btn-white {
+    width: 134px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 4px;
+    overflow: hidden;
+}
+
+.bike-details-block .cross-sm-dark-grey {
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    background-position: -80px -236px;
+    cursor: pointer;
+}
+
+.bike-details-block a:hover {
+    text-decoration: none;
+}
+
+.bike-details-block h2 {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.bike-details-block .bike-image-block {
+    width: 80px;
+}
+
+.comparison-main-card .bike-details-block:nth-of-type(3),
+#comparison-floating-card .bike-details-block:nth-of-type(3) {
+    background: #f5fbfc;
+}
+
+/* comparison floating card */
+#comparison-floating-card {
+    display: block;
+    position: fixed;
+    top: -200px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 2;
+}
+
+.slideIn-transition {
+    -webkit-transition: all 0.4s ease 0s;
+    -moz-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    -ms-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+
+#comparison-floating-card .bike-details-block {
+    min-height: 95px;
+}
+
+.bike-details-block .bike-title-target {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a2a2a;
+    display: block;
+    margin-bottom: 10px;
+    height: 40px;
+}
+
+#comparison-floating-card .overall-specs-tabs-wrapper {
+    border-bottom: 0;
+}
+
+/* fixed-card */
+#comparison-floating-card.fixed-card {
+    top: 0;
+}
+
+/* version */
+.bike-details-block .label-text {
+    font-size: 11px;
+    color: #82888b;
+    margin-bottom: 2px;
+}
+
+/* dropdown */
+.dropdown-select {
+	display: none;
+}
+
+.dropdown-select-wrapper,
+.dropdown-menu {
+    height: 34px;
+}
+
+.dropdown-menu {
+	width: 150px;
+	font-size: 14px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	color: #4d5057;
+}
+
+.dropdown-menu .dropdown-label,
+.dropdown-selected-item {
+	width: 100%;
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.dropdown-selected-item {
+	cursor: pointer;
+	display: inline-block;
+	z-index: 0;
+    font-weight: 600;
+    padding-bottom: 3px;
+    padding-right: 12px;
+    background-position: 100%;
+    border-bottom: 1px solid #82888b;
+}
+
+.dropdown-menu .dropdown-label {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 9px 30px 9px 10px;
+    background-position: 94%;
+}
+
+.dropdown-menu .dropdown-list-wrapper {
+	display: none;
+	min-width: 170px;
+	overflow:hidden;
+	position: absolute;
+	top: -15px;
+	right: 0;
+	background: #fff;
+	z-index: 1;
+	border-radius: 2px;
+	border: 1px solid #e2e2e2\9;
+	-webkit-box-shadow: -3px 3px 15px 1px #ddd;
+	-moz-box-shadow: -3px 3px 15px 1px #ddd;
+	-ms-box-shadow: -3px 3px 15px 1px #ddd;
+	-o-box-shadow: -3px 3px 15px 1px #ddd;
+	box-shadow: -3px 3px 15px 1px #ddd;
+}
+
+.dropdown-menu.dropdown-active .dropdown-list-wrapper {
+	display: inline-block;
+}
+
+.dropdown-menu .dropdown-menu-list li {
+    color: #444;
+	padding: 5px 10px;
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.dropdown-menu li:hover {
+	background: #f5f5f5;
+}
+
+.dropdown-menu li.option-active {
+    font-weight: 600;
+}
+
+/* single version */
+.option-count-one {
+    width: 150px;
+    pointer-events: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e6e7e8;
+    position: relative;
+    display: block;
+}
+
+.option-count-one:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    background: rgba(255,255,255,0.7);
+}
+
+.dropdown-menu .fullwidth {
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.comparison-main-card .bike-details-block:nth-child(1) .dropdown-list-wrapper,
+#sponsored-column-active .bike-details-block:nth-child(2) .dropdown-list-wrapper {
+    left: 0;
+    right: auto;
+}
+
+/* floating-tabs-content */
+.overall-specs-tabs-container {
+    width: 100%;
+    display: block;
+    background: #fff;
+    overflow-x: scroll;
+    z-index: 2;
+}
+
+.overall-specs-tabs-wrapper {
+    width: 100%;
+    display: table;
+    border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.overall-specs-tabs-wrapper li {
+    font-size: 14px;
+    padding: 10px 15px;
+    display: table-cell;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.overall-specs-tabs-wrapper.inline-tabs li {
+    float: left;
+}
+
+.overall-specs-tabs-wrapper .active {
+    border-bottom: 3px solid #ef3f30;
+    pointer-events: none;
+}
+
+.overall-specs-tabs-wrapper li,
+.overall-specs-tabs-wrapper h3 {
+    font-weight: 400;
+    color: #82888b;
+}
+
+.overall-specs-tabs-wrapper .active,
+.overall-specs-tabs-wrapper .active h3 {
+    font-weight: 700;
+    color: #4d5057;
+}
+
+/* floating button */
+#toggle-features-btn.btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
+.btn-inv-teal{    
+    background: #fff;
+}
+
+#toggle-float-button.float-fixed {
+    bottom: -100px;
+    padding-right: 15px;
+    padding-left: 15px;
+    background: rgba(255,255,255,0.8);
+    z-index: 2;
+}
+
+#toggle-float-button.float-button.fixed-floater {
+    bottom: 0;
+}
+
+/* hide show features */
+.hide-equivalent-data .equivalent-data {
+    display: none;
+}
+
+.show-equivalent-data .equivalent-data {
+    display: table-row;
+}
+
+/* tabs */
+.bw-tabs-data {
+    display: none;
+}
+
+.bw-tabs-data.active {
+    display: block;
+}
+
+/* table */
+.model-accordion-tab + .table-content {
+    display: none;
+}
+
+.table-content td {
+    padding-left: 15px;
+}
+
+.row-type-heading td {
+    font-size: 14px;
+    color: #82888b;
+    padding: 10px 15px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.table-content .row-type-heading:nth-child(1) td {
+    border-top: 0;
+}
+
+.row-type-data td {
+    width: 50%;
+    font-size: 15px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    vertical-align: top;
+}
+
+.row-type-data td:nth-child(2) {
+    padding-right: 15px;
+}
+
+.row-type-heading td:nth-child(2),
+.row-type-data td:nth-child(3) {
+    display: none;
+}
+
+/* table sponsored-column-active */
+.sponsored-bike-details-block {
+    display: none;
+}
+
+#sponsored-column-active .sponsored-bike-details-block {
+    display: block;
+}
+
+#sponsored-column-active .bike-details-block {
+    width: 33.33%;
+}
+
+#sponsored-column-active .bike-details-block .btn-white {
+    width: 100px;
+}
+
+#sponsored-column-active .row-type-data td {
+    width: 33.33%;
+}
+
+#sponsored-column-active .row-type-data td:nth-child(2) {
+    padding-right: 0;
+}
+
+#sponsored-column-active .row-type-data td:nth-child(3) {
+    padding-right: 15px;
+}
+
+#sponsored-column-active .row-type-heading td:nth-child(2),
+#sponsored-column-active .row-type-data td:nth-child(3) {
+    display: table-cell;
+    background: #f5fbfc;
+}
+
+#sponsored-column-active .dropdown-width {
+    width: 100px;
+}
+
+#sponsored-column-active #comparison-floating-card .bike-details-block {
+    padding-top: 20px;
+}
+
+/* compare-box-placeholder */
+.compare-box-placeholder {
+    width: 100%;
+    height: 230px;
+    background: #f5f5f5;
+    display: table;
+    text-align: center;
+    cursor: pointer;
+}
+
+.bike-icon-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#comparison-floating-card .compare-box-placeholder {
+    height: 84px;
+}
+
+#comparison-floating-card .grey-bike {
+    margin-bottom: 5px;
+}
+
+/* accordion */
+.model-accordion-tab {
+    padding: 12px 15px;
+    position: relative;
+    border-top: 1px solid #e2e2e2;
+    cursor: pointer;
+}
+
+.bw-model-tabs-data .model-accordion-tab:first-of-type {
+    border-top: 0;
+}
+
+.accordion-tab-label {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.model-accordion-tab .fa-angle-down {
+    position: absolute;
+    right: 20px;
+    top: 44%;
+}
+
+.model-accordion-tab.active {
+    -webkit-box-shadow: 0 2px 3px #e2e2e2;
+    -moz-box-shadow: 0 2px 3px #e2e2e2;
+    box-shadow: 0 2px 3px #e2e2e2;
+}
+
+.model-accordion-tab.brakes-accordion-tab {
+    padding-top: 7px;
+    padding-bottom: 8px;
+}
+
+.model-accordion-tab.active + .table-content,
+.model-accordion-tab.active:nth-child(1) + .table-content {
+    display: table;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.model-accordion-tab.active + .table-content + .model-accordion-tab {
+    border-top: 0;
+}
+
+/* colors */
+#coloursTabContent .row-type-data td {
+    padding-top: 0;
+    text-align: center;
+}
+
+#coloursTabContent .row-type-data .color-box:nth-of-type(1) {
+    margin-top: 15px;
+}
+
+.color-box {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 5px;
+    margin-top: 20px;
+    background: #f1f1f1;
+    border: 1px solid #e2e2e2;
+}
+.color-box.color-count-1 span {
+    width: 100%;
+    height: 100%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-2 span {
+    width: 100%;
+    height: 50%;
+    display: block !important;
+    background: #f1f1f1;
+}
+.color-box.color-count-3 span {
+    width: 100%;
+    height: 33.33%;
+    display: block !important;
+}
+.color-box.color-count-4 span {
+    width: 100%;
+    height: 25%;
+    display: block !important;
+}
+
+/* used-bikes-container */
+#used-bikes-container .row-type-heading,
+#coloursTabContent .row-type-heading {
+    display: none;
+}
+
+#used-bikes-container .row-type-data td {
+    padding-top: 0;
+    padding-bottom: 15px;
+    font-size: 14px;
+}
+
+/* similar comparisons */
+.comparison-swiper .swiper-slide,
+.comparison-swiper .swiper-card {
+    width: 310px;
+    min-height: 220px;
+}
+.comparison-swiper .swiper-card {
+    border: 1px solid #e2e2e2\9;
+    background: #fff;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    -ms-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+.comparison-swiper .swiper-slide a {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.comparison-swiper .swiper-slide a:hover {
+    text-decoration: none;
+}
+
+.model-img-content {
+    width: 126px;
+    height: 71px;
+    margin-bottom: 5px;
+}
+
+.model-comparison-list h3 + .grid-6 {
+    position: relative;
+    border-right: 1px solid #f5f5f5;
+}
+
+.model-comparison-list h3 + .grid-6:after {
+    content: '';
+    position: absolute;
+    right: -11px;
+    top: 45px;
+    width: 22px;
+    height: 21px;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block;
+}
+
+.btn-size-1 {
+    font-size: 14px;
+    padding: 6px 42px;
+}
+ 
+/* icons */
+.offers-sprite {
+    background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v19Aug2016) no-repeat;
+    display: inline-block;
+}
+
+.engine-sm-icon, .brakes-sm-icon, .dimension-sm-icon, .fuel-sm-icon { width:20px; margin-right: 5px; }
+.engine-sm-icon { height: 13px; background-position: -46px -274px;}
+.brakes-sm-icon { height: 20px; background-position: -46px -294px; position:relative; top:3px;}
+.dimension-sm-icon { height: 14px; background-position: -46px -323px;}
+.fuel-sm-icon { height: 16px; background-position: -46px -344px;}
+
+.tick-grey {
+    width: 18px;
+    height: 16px;
+    background-position: -88px -458px
+}
+
+.cross-grey {
+    width: 14px;
+    height: 16px;
+    background-position: -116px -458px
+}
+
+.grey-bike {
+    width: 52px;
+    height: 31px;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/grey-bike.png) no-repeat;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.know-more-icon {
+    width: 14px;
+    height: 12px;
+    background-position: -196px -460px;
+    position: relative;
+    top: 2px;
+}
+
+/* bike popup */
+.cover-window-popup {
+    display: none;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background: #fff;
+}
+.cover-window-popup .cover-popup-back,
+.cover-window-popup .body-popup-back {
+    padding: 15px 15px 12px;
+}
+.cover-window-popup .cover-popup-header {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+.cover-window-popup .cover-popup-list {
+    overflow: hidden;
+}
+.cover-window-popup .cover-popup-list li {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.cover-window-popup .cover-popup-list li span {
+    font-size: 16px;
+    padding: 10px 20px 10px 0;
+    display: block;
+    position: relative;
+    border-top: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+.cover-window-popup .cover-popup-list li:hover {
+    background-color: #f5f5f5;
+}
+.cover-window-popup .cover-popup-list li:first-child span {
+    border-top: 0;
+}
+.cover-window-popup .with-arrow li {
+    background: url("https://imgd1.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png") no-repeat 94% 50%;
+}
+.cover-window-popup .cover-popup-loader-body {
+    display: none;
+}
+.bike-banner {
+    width: 100%;
+    height: 110px;
+    background: #fff url(https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/m/bike-popup-banner.png) repeat-x center bottom;
+}
+.cover-popup-body-head .head-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+.cover-popup-body-head .body-popup-back {
+    padding-left: 20px;
+}
+.cover-popup-body-head .no-back-btn-label {
+    padding-top: 13px;
+    padding-left: 20px;
+    padding-bottom: 12px;
+}
+section .same-version-toast{
+    padding: 20px;
+    background-color: #333;
+    font-size: 14px;
+    color: white;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    display:none;
+    z-index:25;
+}
+#select-model-wrapper,
+#select-version-wrapper {
+    display: none;
+}
+.extra-padding .cover-popup-body {
+    padding-bottom: 40px;
+}
+
+@media only screen and (min-width: 479px) {
+    #sponsored-column-active .dropdown-width {
+        width: 135px
+    }
+
+    #sponsored-column-active .bike-details-block .btn-white,
+    .bike-details-block .btn-white {
+        width: 134px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    #sponsored-column-active .bike-details-block,
+    .bike-details-block,
+    .row-type-data td {
+        width: 50%;
+    }
+
+    #sponsored-column-active .row-type-data td:nth-child(2),
+    .row-type-data td:nth-child(2) {
+        padding-right: 15px;
+    }
+
+    #sponsored-column-active .bike-details-block.sponsored-bike-details-block,
+    #sponsored-column-active .row-type-heading td:nth-child(2),
+    #sponsored-column-active .row-type-data td:nth-child(3),
+    .row-type-heading td:nth-child(2),
+    .row-type-data td:nth-child(3),
+    .comparison-main-card .bike-details-block:nth-of-type(3),
+    #comparison-floating-card .bike-details-block:nth-of-type(3) {
+        display: none;
+    }
+
+    .dropdown-width {
+        width: 120px;
+    }
+
+    #sponsored-column-active .bike-details-block .btn-white,
+    .bike-details-block .btn-white {
+        width: 134px;
+    }
+
+    #sponsored-column-active .bike-details-block:nth-child(2) .dropdown-list-wrapper,
+    .bike-details-block:nth-child(2) .dropdown-list-wrapper {
+        right: 0;
+        left: auto;
+    }
+
+    #sponsored-column-active .bike-details-block,
+    .bike-details-block {
+        padding-top: 10px;
+    }
+
+    .comparison-swiper .swiper-slide,
+    .comparison-swiper .swiper-card {
+        width: 280px;
+    }
+}
