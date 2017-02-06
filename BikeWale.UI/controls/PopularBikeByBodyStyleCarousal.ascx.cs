@@ -8,10 +8,10 @@ using System.Linq;
 namespace Bikewale.Controls
 {
     /// <summary>
-    /// Created By : Aditi Srivastava on 25 Jan 2017
-    /// Summary    : Bind list of top popular bikes by category
+    /// Created By :- Subodh jain 6 feb 2017
+    /// Summary :- Popular Bike by Type
     /// </summary>
-    public class PopularBikesByBodyStyle : System.Web.UI.UserControl
+    public class PopularBikeByBodyStyleCarousal : System.Web.UI.UserControl
     {
         public int topCount { get; set; }
         public uint ModelId { get; set; }
@@ -32,8 +32,8 @@ namespace Bikewale.Controls
             PopularBikesByType();
         }
         /// <summary>
-        /// Modified By :- Subodh jain 6 feb 2017
-        /// Added Null check
+        /// Created By :- Subodh jain 6 feb 2017
+        /// Summary :- Popular Bike by Type
         /// </summary>
         private void PopularBikesByType()
         {
@@ -59,7 +59,6 @@ namespace Bikewale.Controls
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Controls.PopularBikesByType");
-                objErr.SendMail();
             }
         }
 

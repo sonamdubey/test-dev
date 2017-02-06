@@ -134,7 +134,7 @@
 										</li>
 								  <%} %>
 							</ul>
-							<% if (objVideo.OtherMakeList!= null)
+							<% if (objVideo.OtherMakeList!=null&&objVideo.OtherMakeList.Count() >0)
                                { %>
 							<div class="brand-bottom-border border-solid-top hide"></div>
 							<ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
@@ -151,6 +151,7 @@
 							   <%} %>
 							</ul>
 						</div>
+                       
 						<div class="view-brandType text-center padding-bottom25">
 							<a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
 						</div>
