@@ -62,8 +62,8 @@ function toggleFullScreen(goFullScreen) {
     var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen || doc.webkitCancelFullScreen;
 
     if (goFullScreen && requestFullScreen != undefined) {
-        requestFullScreen.call(docElement);
         docElement.style.backgroundColor = '#000';
+        requestFullScreen.call(docElement);
     }
     else if (cancelFullScreen != undefined) {
         cancelFullScreen.call(doc);
@@ -386,6 +386,7 @@ var modelGallery = function () {
 
     self.toggleFullScreen = function () {
         fadeOutFooterTabs();
+        deactivateAllScreens();
         if (!self.fullScreenModeActive()) {
             toggleFullScreen(true);
             self.fullScreenModeActive(true);
@@ -515,9 +516,9 @@ var modelGallery = function () {
     };
 
     function fadeOutFooterTabs() {
-        $('.footer-tabs-wrapper').hide();
+        $('.gallery-footer').hide();
         setTimeout(function () {
-            $('.footer-tabs-wrapper').show();
+            $('.gallery-footer').show();
         }, 500);
     };
 
