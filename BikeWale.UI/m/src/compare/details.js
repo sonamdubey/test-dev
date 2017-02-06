@@ -5,7 +5,7 @@
     floatingButton = $('#toggle-float-button'),
     $window = $(window),
     windowScrollTop = $window.scrollTop(),
-    onRoadPriceButtons = $('.bike-orp-btn'), closedBikeCount = 0, compareSource = 0;
+    onRoadPriceButtons = $('.bike-orp-btn'), closedBikeCount = 0;
 
 floatingButton.addClass('fixed-floater');
 
@@ -112,10 +112,10 @@ $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list li', function () 
             $(".bike-details-block").each(function (i) {
                 if(!$(this).hasClass('sponsored-bike-details-block') && $(this).data("versionid"))
                 {
-                    searchQuery += "&bike=" + (i + 1) + $(this).data("versionid");
+                    searchQuery += ("&bike" + (i + 1) + "=" + $(this).data("versionid"));
                 }
             });
-            window.location.search = searchQuery + searchQuery != "" ? "&source=" + compareSource : "";
+            window.location.search = searchQuery + (searchQuery != "" ? "&source=" + compareSource : "");
         }       
     }
     else {
@@ -235,6 +235,21 @@ var compareColumns = {
     }
 };
 
+/* close selected model */  
+$('.comparison-main-card').on('click', '.close-selected-bike', function () {
+
+    if (!$(this).parent().hasClass("sponsored-bike-details-block")) {
+        closedBikeCount++;
+    }
+
+    if (closedBikeCount == 2) {
+        window.location.href = '/m/comparebikes/';
+    }
+    else {
+        compareBox.removeBike($(this));
+    }
+});
+
 /* close sponsored bike */
 var closeSponsoredBikeBtn = document.getElementById("close-sponsored-bike");
 if (closeSponsoredBikeBtn) {
@@ -245,19 +260,6 @@ if (closeSponsoredBikeBtn) {
         setButtonText();
     });
 }
-
-/* close selected model */
-
-$('.comparison-main-card').on('click', '.close-selected-bike', function () {
-    closedBikeCount++;
-
-    if (closedBikeCount == 2) {
-        window.location.href = '/m/comparebikes/';
-    }
-    else {
-        compareBox.removeBike($(this));
-    }
-});
 
 var compareBox = {
     removeBike: function (element) {
@@ -443,15 +445,23 @@ var bikeSelection = function() {
                         var ele = $(".comparison-main-card .bike-details-block[data-changed='true']"),loc = window.location;
 
                         _link = loc.pathname.replace(ele.data("masking"), makemasking + "-" + modelmasking);
-                        _link = _link + loc.search.replace(ele.data("versionid"), self.versionId());
 
-                        if (loc.search.indexOf("source") > -1)
+                        if (window.location.search.indexOf("bike") > -1)
                         {
+                            _link = _link + loc.search.replace(ele.data("versionid"), self.versionId());
                             _link.replace(/source=\d/, 'source=' + self.compareSource());
                         }
                         else {
-                            _link += ("&source=" + self.compareSource());
-                        }                        
+                            var searchQuery = "?";
+                            $(".bike-details-block").each(function (i) {
+                                var el = $(this);
+                                if (!el.hasClass('sponsored-bike-details-block') && el.data("versionid")) {
+                                    searchQuery += ("&bike" + (i + 1) + "=" + el.data("versionid"));
+                                }
+                            });
+                            searchQuery = searchQuery.replace(ele.data("versionid"), self.versionId());
+                            _link += (searchQuery + (searchQuery != "" ? "&source=" + self.compareSource() : ""));
+                        }                       
                     }
                 }
             }
@@ -626,8 +636,10 @@ var bikePopup = {
     {
         var isSameVersionSelected = false;
         $(".bike-details-block").each(function () {
-            if(!$(this).hasClass('sponsored-bike-details-block') && versionId == $(this).data("versionid"))
+            var ele = $(this);
+            if (!ele.hasClass('sponsored-bike-details-block') && ele.data("versionid")==versionId && ele.data("changed").toString() != 'true') {
                 isSameVersionSelected = true;
+            }
         });
 
         return isSameVersionSelected;
