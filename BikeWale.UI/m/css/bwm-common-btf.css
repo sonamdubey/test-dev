@@ -707,21 +707,14 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     font-weight: 700;
     background-color: #ddd
 }
-.dealer-search-brand-form {
-    padding: 0 25px 5px 0;
-    cursor: pointer;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 99% 50% no-repeat #fff;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 16px;
-    color: #82888b;
-}
 .selection-done span {
     font-size: 14px;
     color: #4d5057;
     font-weight: bold;
+}
+
+.dealer-search-brand-form.selection-done span {
+    font-weight: 400;
 }
 
 .border-red {

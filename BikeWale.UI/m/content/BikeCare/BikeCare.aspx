@@ -75,7 +75,9 @@
 
             </div>
         </section>
-         <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+        <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+        </div>
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
