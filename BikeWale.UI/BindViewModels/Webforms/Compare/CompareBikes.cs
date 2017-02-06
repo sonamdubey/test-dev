@@ -34,8 +34,8 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         private readonly IBikeCompare _objCompare = null;
 
         public GlobalCityAreaEntity cityArea = null;
-        public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent;
-        public string redirectionUrl = string.Empty, versionsList, bike1Name = string.Empty, bike2Name = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty, FeaturedBikeLink = string.Empty;
+        public bool isPageNotFound, isPermanentRedirect, isUsedBikePresent, isCompareLandingRedirection;
+        public string redirectionUrl = string.Empty, versionsList = string.Empty, bike1Name = string.Empty, bike2Name = string.Empty, ComparisionText = string.Empty, TargetedModels = string.Empty, FeaturedBikeLink = string.Empty;
         public uint versionId1, versionId2;
         public BikeCompareEntity comparedBikes = null;
         public PageMetaTags PageMetas = null;
@@ -169,10 +169,11 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public bool ProcessQueryString()
         {
             bool IsValidQS = false;
+            ushort bikeComparisions = 0;
             try
             {
                 var request = HttpContext.Current.Request;
-                string bike1 = request["bike1"], bike2 = request["bike2"], modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
+                string modelList = HttpUtility.ParseQueryString(request.QueryString.ToString()).Get("mo");
 
                 if (request.QueryString.ToString().Contains("bike"))
                 {
@@ -182,6 +183,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
                         {
                             versionsList += "," + vId;
+                            bikeComparisions = i;
                         }
                     }
 
@@ -206,6 +208,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
                         {
                             versionsList += "," + objCache.GetTopVersionId(modelMaskingName);
                             IsValidQS = true;
+                            bikeComparisions = (ushort)(iTmp + 1);
                         }
                         else if (objResponse != null && objResponse.StatusCode == 301)
                         {
@@ -229,7 +232,15 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             finally
             {
-                versionsList = versionsList.Substring(1);
+                if (!string.IsNullOrEmpty(versionsList) && bikeComparisions >= 2)
+                {
+                    versionsList = versionsList.Substring(1);
+                }
+                else
+                {
+                    isCompareLandingRedirection = true;
+                }
+
             }
 
             return IsValidQS;
