@@ -613,13 +613,15 @@ var bikePopup = {
     {
         var isSameVersionSelected = false;
         $(".bike-details-block").each(function () {
-            if (versionId == $(this).data("versionid")) isSameVersionSelected = true;
+            if(!$(this).hasClass('sponsored-bike-details-block') && versionId == $(this).data("versionid"))
+                isSameVersionSelected = true;
         });
 
         return isSameVersionSelected;
     },
     showSameVersionToast : function()
     {
+        window.clearTimeout();
         $('section .same-version-toast').slideDown();
         window.setTimeout(function () {
             $('section .same-version-toast').slideUp();

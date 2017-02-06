@@ -72,7 +72,7 @@
                             <p class="margin-bottom10">
                                 <span class="bwmsprite inr-xsm-icon"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                             </p>
-                            <% if (bike.VersionId != sponsoredVersionId)
+                            <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
                                { %>
                             <div>
                                 <a href="javascript:void(0)" class="btn btn-white bike-orp-btn getquotation" data-modelid="<%= bike.ModelId %>" rel="nofollow">On-road price</a>
@@ -82,7 +82,7 @@
                                { %>
 
                             <div class="padding-top5 padding-bottom5">
-                                <a href="" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
+                                <a href="<%= featuredBike  %>" title="View <%= bike.Model  %> details on <%=bike.Make %>'s site" target="_blank" class="font14">Know more <span class="bwmsprite know-more-icon"></span></a>
                             </div>
                             <% } %>
                         </div>
@@ -258,11 +258,13 @@
                                 <td>
                                     <% if (bike.UsedBikeCount.BikeCount > 0)
                                        {  %>
-                                    <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,bike.UsedBikeCount.CityMaskingName) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">
+                                    <a href="/m<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bike.MakeMaskingName,bike.ModelMaskingName,!string.IsNullOrEmpty(bike.UsedBikeCount.CityMaskingName)?bike.UsedBikeCount.CityMaskingName:"india" ) %>" class="block"><%= string.Format("{0} Used {1} {2}",bike.UsedBikeCount.BikeCount,bike.Make,bike.Model) %></a><p class="text-light-grey text-unbold">
                                         starting at<br />
                                         <span class="bwmsprite inr-grey-xxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bike.UsedBikeCount.StartingPrice.ToString()) %>
                                     </p>
-                                    <% } %>
+                                    <% } else { %>
+                                        <div class="font14 text-bold text-center">--</div>
+                                    <%} %>
                                 </td>
                                 <% } %>
                             </tr>
