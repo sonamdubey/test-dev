@@ -8,7 +8,7 @@
                   string bikeName = string.Empty;
                   if (BikeInfo.Make != null && BikeInfo.Model != null) { bikeName = string.Format("{0} {1}", BikeInfo.Make.MakeName, BikeInfo.Model.ModelName); } %>
             <li>
-                <a href="/<%=BikeInfo.Make.MaskingName%>-bikes/<%=BikeInfo.Model.MaskingName%>/videos/" title="<%=bikeName %>" class="jcarousel-card">
+                <a href="/<%=BikeInfo.Make.MaskingName%>-bikes/<%=BikeInfo.Model.MaskingName%>/videos/" title="<%=bikeName %> videos" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <div class="model-preview-image-container position-rel">
                             <div class="card-image-block">

@@ -43,9 +43,9 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span  itemprop="title"><%=make %> Bikes</span></a></li>
                             <% if(isModel){ %>
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=make %> <%=model %></span></a></li>
-                            <% } else{%>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
-                            <%} %>
+                            <% } %>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span  itemprop="title">Videos</span></li>
+                           
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
@@ -93,7 +93,7 @@
         </section>
         <% if (ctrlSimilarBikeVideos.FetchCount > 0)
 		   {%>
-        <div class="container content-box-shadow">
+        <div class="container content-box-shadow margin-bottom20">
            <div class="padding-top20 padding-bottom20 font14">
                <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of bikes similar to <%=model%></h2>
 		<BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
