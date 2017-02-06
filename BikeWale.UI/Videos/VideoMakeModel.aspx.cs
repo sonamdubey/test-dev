@@ -5,10 +5,12 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,8 @@ namespace Bikewale.Videos
         protected ushort makeId = 0;
         protected uint? modelId;
         protected SimilarBikeVideos ctrlSimilarBikeVideos;
+        protected PopularBikeByBodyStyleCarousal ctrlBikesByBodyStyle;
+        private GlobalCityAreaEntity _currentCityArea;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -48,13 +52,30 @@ namespace Bikewale.Videos
         /// <summary>
         /// Created By:- Subodh Jain 3 feb 2017
         /// Summary :- bind similar bike widget
+        /// Modified By :- Subodh Jain 6 feb 2017
+        /// Summary :- Added popular body style widget
         /// </summary>
         private void BindControl()
         {
-            if (ctrlSimilarBikeVideos != null)
+            try
             {
-                ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
-                ctrlSimilarBikeVideos.TotalCount = 9;
+                _currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (ctrlSimilarBikeVideos != null)
+                {
+                    ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
+                    ctrlSimilarBikeVideos.TotalCount = 9;
+                }
+                if (ctrlBikesByBodyStyle != null)
+                {
+                    ctrlBikesByBodyStyle.ModelId = (modelId ?? 0);
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = _currentCityArea.CityId;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindControl");
             }
         }
         /// <summary>
