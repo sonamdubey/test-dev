@@ -31,7 +31,10 @@ namespace Bikewale.Controls
         {
             PopularBikesByType();
         }
-
+        /// <summary>
+        /// Modified By :- Subodh jain 6 feb 2017
+        /// Added Null check
+        /// </summary>
         private void PopularBikesByType()
         {
             try
@@ -46,7 +49,8 @@ namespace Bikewale.Controls
                     FetchedRecordsCount = objPopular.FetchedRecordsCount;
                     if (FetchedRecordsCount > 0)
                     {
-                        BodyStyle = popularBikes.FirstOrDefault().BodyStyle;
+                        var bike = popularBikes.FirstOrDefault();
+                        BodyStyle = bike != null ? bike.BodyStyle : 0;
                         BodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(BodyStyle);
                         BodyStyleLinkTitle = Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle);
                     }
