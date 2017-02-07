@@ -609,6 +609,10 @@ namespace Bikewale.Cache.BikeData
         public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+
+            if (cityId != null)
+                key = string.Format("{0}_{1}", key, cityId.Value);
+
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
@@ -617,7 +621,6 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
-
             }
             return bestBikesList;
         }
