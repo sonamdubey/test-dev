@@ -74,6 +74,11 @@ namespace Bikewale.Cache.BikeData
                     objModelPage.Photos = GetModelPhotoGallery(modelId);
                     #region Add first image
                     if (objModelPage.ModelDetails != null && objModelPage.ModelDetails.MakeBase != null)
+                    {
+                        if (objModelPage.Photos == null)
+                        {
+                            objModelPage.Photos = new List<ModelImage>();
+                        }
                         objModelPage.Photos.Insert(0,
                                 new ModelImage()
                                 {
@@ -90,6 +95,7 @@ namespace Bikewale.Cache.BikeData
                                     },
                                     ImageName = objModelPage.ModelDetails.ModelName
                                 });
+                    }
                     #endregion
                 }
                 //objModelPage.colorPhotos = GetModelColorPhotos(modelId);
