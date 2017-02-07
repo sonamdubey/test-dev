@@ -234,7 +234,7 @@ input[type="number"]:focus {
     transition: 0.2s ease all; }
 
 .input-number-box input {
-  padding-left: 30px; }
+  padding-left: 30px !important; }
 
 .input-number-box .input-number-prefix {
   display: none;

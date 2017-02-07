@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" Inherits="Bikewale.Mobile.Controls.LinkPagerControl" %>
 <%if(TotalPages > 1 ) { %>
 
-    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat">
-    <ul id="pagination-list">
+    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat pagination-list-content">
+    <ul id="pagination-list" class="pagination-list">
         <asp:Repeater ID="rptPager" runat="server">
             <ItemTemplate>
                 <li  class="<%# Convert.ToInt16(DataBinder.Eval(Container.DataItem,"PageNo")) == CurrentPageNo ? "active" : "" %>">
