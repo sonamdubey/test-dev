@@ -17,7 +17,7 @@
                         <p class="font16 text-default text-bold margin-bottom15"><%# DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate") %></p>
                         <p class="font14 text-light-grey margin-bottom5">Expected price</p>
                         <span class="bwsprite inr-lg"></span>
-                        <span class="font18 text-default text-bold"><%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"EstimatedPriceMin").ToString()) %></span>
+                        <span class="font18 text-default text-bold"><%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"EstimatedPriceMin").ToString()) %> onwards</span>
                     </div>
                 </a>
             </li>

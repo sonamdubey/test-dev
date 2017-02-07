@@ -287,23 +287,12 @@ function searchModel() {
         if (self.minAmount() == "" && self.maxAmount() == "")
             return self.baseUrl();
         else {
-            if (self.cityMaskingName() == "") {
                 if (self.minAmount() == "")
                     return self.baseUrl() + "#budget=0+" + self.maxAmount()
                 else if (self.maxAmount() == "")
                     return self.baseUrl() + "#budget=" + self.minAmount() + "+200000";
                 else
                     return self.baseUrl() + "#budget=" + self.minAmount() + "+" + self.maxAmount();
-            }
-            else {
-                if (self.minAmount() == "")
-                    return self.baseUrl() + "&budget=0+" + self.maxAmount();
-                else if (self.maxAmount() == "")
-                    return self.baseUrl() + "&budget=" + self.minAmount() + "+200000";
-                else
-                    return self.baseUrl() + "&budget=" + self.minAmount() + "+" + self.maxAmount();
-            }
-
         }
         return '';
     },

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.viewF" Async="true" Trace="false" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
@@ -8,12 +9,13 @@
     <%	
         title = pageTitle + " - Bikewale ";
         keywords = "features, stories, travelogues, specials, drives";
-    description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
-        canonical = "https://www.bikewale.com" + url;
+        description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", pageTitle);
+        canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + url;
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
@@ -91,11 +93,20 @@
                 </div>
             </div>
         </section>
-
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <% if(string.IsNullOrEmpty(modelName)) { %>
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
-        <% } %>
+         <%if(isModelTagged){ %>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
+                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+         <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                </div>
+             </section>
+           <%} %>
+          <%} else{%>
+         <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
+          <%} %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
 
         <div class="back-to-top" id="back-to-top"></div>

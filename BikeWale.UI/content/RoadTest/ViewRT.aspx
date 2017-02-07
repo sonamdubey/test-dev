@@ -2,27 +2,24 @@
 
 <%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register TagPrefix="BW" TagName="ModelGallery" Src="~/controls/ModelGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 <!Doctype html>
 <html>
 <head>
     <%
         title = articleTitle;
-        description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";
-        //keywords		= RoadTestPageKeywords;
-        canonical = "https://www.bikewale.com/expert-reviews/" + articleUrl + "-" + basicId + ".html";
-        //prevPageUrl     = prevUrl;
-        //nextPageUrl     = nextUrl;
+        description = "Learn about the trending stories related to bike and bike products. Know more about features, do's and dont's of different bike products exclusively on BikeWale";        
+        canonical = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/expert-reviews/" + articleUrl + "-" + basicId + ".html";
         fbTitle = articleTitle;
-        //fbImage			= fbLogoUrl;
-        alternate = "https://www.bikewale.com/m/expert-reviews/" + articleUrl + "-" + basicId + ".html";
+        alternate = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m/expert-reviews/" + articleUrl + "-" + basicId + ".html";
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-
+    <link rel="amphtml" href="<%= ampUrl %>" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -109,15 +106,21 @@
                         </div>
                     </div>
                     <div class="grid-4 omega">
-                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <div class="margin-bottom20">
+                    <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                       <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        <% if (taggedModelId < 1)
-                           { %>
+                        <%if(isModelTagged){ %>
+                        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                       <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                        </div>
+                        <%} %>
+                            <%} else{%>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <% } %>
-                    </div>
+                        <%} %>
+                        </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>

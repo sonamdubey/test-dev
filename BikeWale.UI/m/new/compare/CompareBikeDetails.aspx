@@ -71,7 +71,7 @@
 
                             <p class="text-truncate label-text">Ex-showroom, <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                             <p class="margin-bottom10">
-                                <span class="bwmsprite inr-xsm-icon"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
+                                <span class="bwmsprite inr-xsm-icon"></span> <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(bike.Price.ToString()) %></span>
                             </p>
                             <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
                                { %>

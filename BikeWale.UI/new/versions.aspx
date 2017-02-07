@@ -195,7 +195,7 @@
                                     <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></span><a data-persistent="true"  data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
@@ -360,21 +360,21 @@
                                { %>
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
-                                <div class="padding-top20 padding-bottom20">
-                                    <div class="inline-block margin-right10">
+                                <div class="padding-top20">
+                                    <div class="inline-block margin-right10 vertical-top">
                                         <span class="model-sprite partner-dealer"></span>
                                     </div>
-                                    <div class="inline-block position-rel">
+                                    <div class="inline-block position-rel margin-bottom10">
                                         <div class="vertical-top">
-                                        <h3 class="font18 text-black margin-right10"><%= viewModel.Organization %></h3>
-                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
-                                        </div>
-                                        <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
-                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top">
+                                        <h3 class="font18 text-black inline-block"><%= viewModel.Organization %></h3>
+                                         <% if (!string.IsNullOrEmpty(viewModel.MaskingNumber)) { %>
+                                        <div class="partner-dealer-contact position-rel pos-top2 vertical-top margin-left10 inline-block padding-right10">
                                         <span class="bwsprite phone-md margin-right5"></span>
                                         <span class="font16 text-bold"><%=viewModel.MaskingNumber %></span>
                                     </div>
                                     <% } %>
+                                        <p class="font12 text-x-light"><%= (!viewModel.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= viewModel.AreaName %></p>
+                                        </div>
                                     <% if(viewModel.IsDSA){ %>
                                         <div class="bw-tooltip multi-brand-tooltip tooltip-left">
                                             <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
@@ -451,7 +451,7 @@
                                             </div>
 
                                             <a class="btn btn-teal assistance-submit-btn" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
-
+                                            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                                         </div>
                                     </div>
                                     <div id="dealer-assist-msg" class="hide">
@@ -553,7 +553,7 @@
         <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && isOnRoadPrice  && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
             {
         %>
-
+        <style type="text/css">.offer-benefit-sprite {background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;display: inline-block;}#campaign-offer-list li,#campaign-offer-list li span{display:inline-block;vertical-align:middle}#campaign-container .campaign-left-col{width:78%;padding-right:10px}#campaign-container .campaign-right-col{width:21%}.campaign-offer-label{width:75%;font-size:14px;font-weight:700}.btn-large{padding:8px 56px}#campaign-offer-list li{width:175px;margin-top:15px;margin-bottom:10px;padding-right:5px}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:34px;height:28px;margin-right:5px}.campaign-offer-1{background-position:0 -356px}.campaign-offer-2{background-position:0 -390px}.campaign-offer-3{background-position:0 -425px}.campaign-offer-4{background-position:0 -463px}#campaign-container .phone-black-icon{top:0;}</style>
         <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
 
         <%} %>

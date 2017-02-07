@@ -4,10 +4,13 @@ using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -29,7 +32,9 @@ namespace Bikewale.Mobile.Videos
         protected string make = string.Empty, model = string.Empty, titleName = string.Empty, canonTitle = string.Empty, pageHeading = string.Empty, metaDescription = string.Empty, makeMaskingName = string.Empty, modelMaskingName = string.Empty, canonicalUrl = string.Empty, metaKeywords = string.Empty;
         protected ushort makeId = 0;
         protected uint? modelId;
-
+        protected SimilarBikeVideos ctrlSimilarBikeVideos;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        private GlobalCityAreaEntity _currentCityArea;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -40,8 +45,37 @@ namespace Bikewale.Mobile.Videos
             ParseQueryString();
             BindVideos();
             CreateTitleMeta();
+            BindControl();
         }
+        /// <summary>
+        /// Created By:- Subodh Jain 3 feb 2017
+        /// Summary :- bind similar bike widget
+        /// Modified By :- Subodh Jain 6 feb 2017
+        /// Summary :- Added popular body style widget
+        /// </summary>
+        private void BindControl()
+        {
+            try
+            {
+                _currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if (ctrlSimilarBikeVideos != null)
+                {
+                    ctrlSimilarBikeVideos.ModelId = (uint)(modelId ?? 0);
+                    ctrlSimilarBikeVideos.TotalCount = 9;
+                }
+                if (ctrlBikesByBodyStyle != null)
+                {
+                    ctrlBikesByBodyStyle.ModelId = (modelId ?? 0);
+                    ctrlBikesByBodyStyle.topCount = 9;
+                    ctrlBikesByBodyStyle.CityId = _currentCityArea.CityId;
+                }
+            }
+            catch (Exception ex)
+            {
 
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Videos.BindControl");
+            }
+        }
         /// <summary>
         /// Function to create Title, meta tags and description
         /// Written By : Sushil Kumar on 4th March 2016

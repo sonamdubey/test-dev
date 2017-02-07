@@ -1,4 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoMakeModel" EnableViewState="false" %>
+
+<%@ Register Src="~/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikeByBodyStyleCarousal.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,8 +9,8 @@
         
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
-        isAd970x90BottomShown = false;    
-    
+        isAd970x90BottomShown = false;
+
         isAd970x90Shown = false;
         title = titleName;
         description = metaDescription;
@@ -22,11 +25,12 @@
             canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
             alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
         }
-         %>
+    %>
     <!-- #include file="/includes/headscript.aspx" -->
-    
+
+
     <style type="text/css">
-        .miscWrapper li { width:312px; height:312px; background:#fff; float:left; border: 1px solid #e2e2e2; padding:20px; margin-right:10px; margin-bottom:20px; margin-left:10px; }.video-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.video-image-wrapper a { width:100%; height:100%; display:block; background:url('https://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }.video-image-wrapper img { width:100%; height:100%; }.border-light-right { border-right:1px solid #e2e2e2; }
+       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}.play-icon-wrapper{width:94%;height:100%;display:block;position:absolute;top:0;left:10px;margin:0 auto;text-align:center;padding-top:20%;background:0 0;background:rgba(0,0,0,.2)}#carousal-similar-bike{min-height:262px}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     </style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
@@ -37,12 +41,16 @@
                 <div class="grid-12">
                     <div class="breadcrumb margin-top15 margin-bottom10">
                         <ul>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title">Home</span></a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/"><span  itemprop="title"><%=make %> Bikes</span></a></li>
-                            <% if(isModel){ %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/"><span itemprop="title"><%=make %> <%=model %></span></a></li>
-                            <% } %>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span  itemprop="title">Bike Videos</span></li>
+     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/"><span itemprop="title" title="BikeWale">Home</span></a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/" title="><%=make %> bikes"><span itemprop="title"><%=make %> Bikes</span></a></li>
+                            <% if (isModel)
+                               { %>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><a href="/<%=makeMaskingName %>-bikes/<%=modelMaskingName %>/" title="<%=make %> <%=model %> bikes"><span itemprop="title"><%=make %> <%=model %></span></a></li>
+                            <%}%>
+
+                                                       <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="bwsprite fa-angle-right margin-right10"></span><span itemprop="title">Videos</span></li>
+
+                           
                         </ul>
                     </div>
                     <h1 class="font26 margin-bottom5"><%= pageHeading %></h1>
@@ -84,10 +92,29 @@
         <section>
             <div class="text-center">
                 <div id="loading">
-                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif"   />
+                    <img src="https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                 </div>
             </div>
         </section>
+ <% if (ctrlSimilarBikeVideos.FetchCount > 0)
+           {%>
+        <div class="container content-box-shadow margin-bottom20 padding-bottom20">
+            <div class="padding-top20 font14">
+                <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of bikes similar to <%=model%></h2>
+                <BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
+            </div>
+        </div>
+        <% } %>
+
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
+          { %>
+        <div class="container content-box-shadow margin-bottom20">
+            <div class="padding-top20 font14">
+                <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
+            </div>
+        </div>
+        <%} %>
         <script type="text/html" id="templetVideos">
             <li>
                 <div class="video-image-wrapper rounded-corner2">

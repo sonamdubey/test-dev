@@ -1,6 +1,8 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Mobile.Controls;
+using Bikewale.Notifications;
 using System;
 using System.Web.UI.WebControls;
 
@@ -21,7 +23,7 @@ namespace Bikewale.Mobile.Videos
         protected ExpertReviewVideos ctrlExpertReview;
         protected int ctrlVideosLandingCount = 0;
         protected BikeVideoEntity ctrlVideosLandingFirst = null;
-
+        protected BindViewModelVideoDefault objVideo;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -30,7 +32,7 @@ namespace Bikewale.Mobile.Videos
         protected void Page_Load(object sender, EventArgs e)
         {
             BindLandingVideos();
-
+            BindMakewidget();
             ctrlExpertReview.CategoryIdList = "55";
             ctrlExpertReview.TotalRecords = 2;
             ctrlExpertReview.SectionTitle = "Expert Reviews";
@@ -80,7 +82,29 @@ namespace Bikewale.Mobile.Videos
             ctrlVideosLandingCount = objVideo.FetchedRecordsCount;
             objVideo.BindVideos(rptLandingVideos);
         }
+        /// <summary>
+        /// Modified By :- Subodh Jain on 17 Jan 2017
+        /// Summary :- get makedetails if videos is present
+        /// </summary>
 
+        private void BindMakewidget()
+        {
+            try
+            {
+                objVideo = new BindViewModelVideoDefault();
+                if (objVideo != null)
+                {
+                    objVideo.TopCount = 6;
+                    objVideo.GetMakeIfVideo();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Videos.BindMakewidget");
+            }
+
+        }
         public override void Dispose()
         {
             rptLandingVideos.DataSource = null;

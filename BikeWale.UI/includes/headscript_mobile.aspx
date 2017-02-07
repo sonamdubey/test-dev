@@ -6,13 +6,14 @@
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false,
-        EnableOG = true;    
+        EnableOG = true, Ad_Mid_320x50 = false;    
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
 <meta name="description" content="<%=description%>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+<meta name="theme-color" content="#2a2a2a" />
 <% if(!String.IsNullOrEmpty(keywords)) { %>
 <meta name="keywords" content="<%= keywords %>" /><% } %>
 <%if (!String.IsNullOrEmpty(canonical)) { %>

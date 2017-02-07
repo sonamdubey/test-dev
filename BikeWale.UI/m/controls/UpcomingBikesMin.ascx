@@ -17,14 +17,16 @@
                                     </div>
                                     <div class="swiper-details-block">
                                         <h3 class="target-link font12 text-truncate margin-bottom5"><%=bikeName %></h3>
-                                        <p class="text-truncate text-light-grey font11">Expected price</p>
-                                        <p class="text-default">
-                                            <% if(bike.EstimatedPriceMin > 0) { %>
-                                            <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(bike.EstimatedPriceMin.ToString()) %></span> 
-                                            <%}else { %>
+                                        <% if(bike.EstimatedPriceMin > 0) { %>
+                                         <p class="text-truncate text-light-grey font11">Expected price</p>
+                                        <p class="text-default">    
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(bike.EstimatedPriceMin.ToString()) %></span> 
+                                            </p>
+                                                 <%}else { %>
+                                            <p class="text-default">
                                             <span class="font14">Price Unavailable</span>
+                                             </p>
                                             <% } %> 
-                                        </p>
                                     </div>
                                 </a>
                             </div>

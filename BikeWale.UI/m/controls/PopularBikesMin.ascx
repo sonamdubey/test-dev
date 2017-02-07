@@ -18,18 +18,20 @@
                             </div>
                             <div class="swiper-details-block">
                                 <h3 class="target-link font12 text-truncate margin-bottom5"><%=bikeName%></h3>
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName : System.Configuration.ConfigurationManager.AppSettings["DefaultName"]  %></p>
-                                <p class="text-default">
                                     <% if (bike.VersionPrice > 0)
                                        { %>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
-                                    <%}
+                                    <p class="text-default text-truncate text-light-grey font11">Ex-showroom, <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName : System.Configuration.ConfigurationManager.AppSettings["DefaultName"]  %></p>
+                                   <p class="text-default">    
+                                   <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
+                                    </p>
+                                        <%}
                                        else
                                        { %>
+                                  <p class="text-default">
                                     <span class="font14">Price unavailable</span>
+                                  </p>
                                     <%} %>
-                                </p>
-                            </div>
+                                </div>
                         </a>
                     </div>
                 </div>
@@ -42,12 +44,12 @@
             <a href="/m/<%= makeMasking %>-bikes/" title="View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes">View all <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
         </div>
         <%} %>
-        <% else if (IsMakeAgnosticFooterNeeded)
+        <% else 
            { %>
         <div class="margin-top15 margin-left20 font14">
             <a href="/m/best-bikes-in-india/" title="Best Bikes in India">View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
         </div>
-        <% } %>        
+        <% } %>   
     </div>
 </section>
 <%} %>

@@ -23,7 +23,7 @@
     <title><%= title %></title>
     <%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %><link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
     <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %><link rel="next" href="<%= relNextPageUrl %>" /><% }%>
-
+    <meta name="theme-color" content="#2a2a2a" />
     <!-- #include file="/includes/gacode.aspx" --> 
     <script type="text/javascript">
         setTimeout(function () {

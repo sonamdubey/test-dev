@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.GenericBikes;
+using System;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -46,5 +47,7 @@ namespace Bikewale.Entities.BikeData
         public string CityMaskingName { get; set; }
         [DataMember]
         public string CategoryName { get; set; }
+        [DataMember]
+        public EnumBikeBodyStyles BodyStyle { get ; set ;}
     }
 }

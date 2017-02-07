@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,12 +13,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -177,10 +178,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -230,7 +230,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -240,6 +239,7 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Unity.Mvc5, Version=1.2.3.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Unity.Mvc5.dll</HintPath>
@@ -300,6 +300,7 @@
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesWithPhotos.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarBikeVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -319,8 +320,12 @@
     <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -333,6 +338,7 @@
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviews.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviewsDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\Videos\BindViewModelVideoDefault.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -439,7 +445,10 @@
       <DependentUpon>WriteReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\m\Content\ExpertReviewsController.cs" />
+    <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
+    <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -652,6 +661,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\PopularBikeByBodyStyleCarousal.ascx.cs">
+      <DependentUpon>PopularBikeByBodyStyleCarousal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PopupWidget.ascx.cs">
       <DependentUpon>PopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -706,6 +719,10 @@
     </Compile>
     <Compile Include="controls\SimilarBikes.ascx.cs">
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarBikeVideos.ascx.cs">
+      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarCompareBikes.ascx.cs">
@@ -1007,6 +1024,10 @@
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\SimilarBikeVideos.ascx.cs">
+      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
@@ -1707,6 +1728,7 @@
     <Content Include="ads\Ad320x150_First.aspx" />
     <Content Include="ads\Ad320x150_Second.aspx" />
     <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
+    <Content Include="ads\Ad320x50_Middle_mobile.aspx" />
     <Content Include="ads\Ad320x50_mobile.aspx" />
     <Content Include="ads\Ad970x90.aspx" />
     <Content Include="ads\Ad728x90.aspx" />
@@ -2097,6 +2119,7 @@
     <Content Include="controls\NoFollowPagerControl.ascx" />
     <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
+    <Content Include="controls\PopularBikeByBodyStyleCarousal.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />
@@ -2111,6 +2134,7 @@
     <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
+    <Content Include="controls\SimilarBikeVideos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2647,6 +2671,7 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
+    <Content Include="m\controls\SimilarBikeVideos.ascx" />
     <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2739,6 +2764,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
@@ -3194,6 +3220,9 @@
     </Content>
     <Content Include="Views\m\Content\News\details_amp.cshtml" />
     <Content Include="Views\Shared\_Layout_Mobile_AMP.cshtml" />
+    <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
+    <Content Include="Views\m\Content\Features\details_amp.cshtml" />
+    <Content Include="Views\m\Shared\BikeInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3215,8 +3244,10 @@
     <Folder Include="m\dealerlocator\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\m\Shared\" />
+    <Folder Include="Views\ExpertReviews\" />
+    <Folder Include="Views\Features\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
   </ItemGroup>
@@ -3255,6 +3286,10 @@
     <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Models\Bikewale.Models.csproj">
+      <Project>{ea7198a6-5347-4f8f-a25e-92b1e1ceb086}</Project>
+      <Name>Bikewale.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

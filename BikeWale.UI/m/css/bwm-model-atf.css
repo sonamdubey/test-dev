@@ -3,7 +3,9 @@
 .container img {max-width:100%;}
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
-.line-Ht18 {line-height:18px;} 
+.line-Ht18 {line-height:18px;}
+h1 {font-weight: 700;}
+.text-bold{ font-weight: 600; }
 
 .btn-grey { background: #fff; color: #f04031; border:1px solid #f04031; }
 .btn-grey:hover { background: #f04031; color:#fff; text-decoration: none; border:1px solid #f04031; }
@@ -80,7 +82,7 @@
 
 .single-version-label {
 	padding: 5px 30px 5px 9px;
-	font-weight: bold;
+	font-weight: 600;
 	width: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -89,7 +91,7 @@
 
 .dropdown-menu .dropdown-label, .dropdown-menu .dropdown-selected-item {
 	width: 100%;
-	font-weight: bold;
+	font-weight: 600;
 	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%;
 	white-space: nowrap;
 	overflow: hidden;

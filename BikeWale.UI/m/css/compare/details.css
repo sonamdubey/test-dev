@@ -1,4 +1,4 @@
-﻿/* common */
+/* common */
 .padding-15-20 {
     padding: 15px 20px;
 }
@@ -60,7 +60,7 @@
 #comparison-floating-card {
     display: block;
     position: fixed;
-    top: -200px;
+    top: -300px;
     left: 0;
     right: 0;
     background: #fff;
@@ -696,7 +696,9 @@ section .same-version-toast{
     }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 320px),
+    only screen and (max-width: 568px) and (orientation:landscape) {
+
     #sponsored-column-active .bike-details-block,
     .bike-details-block,
     .row-type-data td {

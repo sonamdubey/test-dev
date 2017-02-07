@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using System;
 
 namespace Bikewale.Entities.GenericBikes
@@ -10,6 +11,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added LastUpdatedModelSold
     /// Modified By  : SAJAL GUPTA on 05-01-2017
     /// Desc : Added NewsCount property
+    /// Modified by : Sajal Gupta on 02-02-2017
+    /// Description : Added UsedBikesCount, PriceInCity and city property
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase
@@ -33,5 +36,8 @@ namespace Bikewale.Entities.GenericBikes
         public string Description { get { return String.Concat(SmallModelDescription, FullModelDescription); } }
         public DateTime? LastUpdatedModelSold { get; set; }
         public uint NewsCount { get; set; }
+        public uint UsedBikesCount { get; set; }
+        public CityEntityBase UsedCity { get; set; }
+        public string PriceInCity { get; set; }
     }
 }

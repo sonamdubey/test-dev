@@ -358,7 +358,9 @@
   margin-bottom: 20px;
   font-size: 14px; }
   .accordion-list li {
-    border-bottom: 1px solid #e2e2e2; }
+    border-top: 1px solid #e2e2e2; }
+    .accordion-list li:first-child {
+      border-top: 0; }
   .accordion-list .accordion-head {
     position: relative;
     cursor: pointer;

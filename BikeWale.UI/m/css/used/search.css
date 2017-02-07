@@ -352,13 +352,13 @@
 .sort-popup-container {
     display: none;
     width: 80%;
-    min-height: 380px;
+    min-height: 350px;
     position: fixed;
     top: 14%;
     left: 0;
     right: 0;
     background: #fff;
-    z-index: 4;
+    z-index: 5;
     margin: 0 auto;
 }
 
@@ -398,7 +398,7 @@
     background-position: -179px -80px;
 }
 
-.modal-background { display: none; background:#000; position:fixed; top:0; left:0; right:0; bottom:0; z-index:3; opacity:.6; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; filter: alpha(opacity=60); -moz-opacity:0.6; -khtml-opacity: 0.6; }
+.modal-background { display: none; background:#000; position:fixed; top:0; left:0; right:0; bottom:0; z-index:5; opacity:.6; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=60)"; filter: alpha(opacity=60); -moz-opacity:0.6; -khtml-opacity: 0.6; }
 
 .back-to-top {
     z-index: 3;

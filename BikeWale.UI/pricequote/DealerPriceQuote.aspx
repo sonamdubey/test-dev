@@ -212,7 +212,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="right" colspan="2"><p class='position-rel'><span class='position-abt pos-right35 pos-top0 font9'>Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
+                                                <td align="right" colspan="2"><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -253,11 +253,17 @@
                                             <span class="pq-sprite partner-dealer"></span>
                                         </div>
                                         <div class="inline-block dealer-name-content">
-                                            <h3 class="font18 text-black margin-bottom5"><%= primarydealer.DealerDetails.Organization %></h3>
+                                            <h3 class="font18 text-black margin-bottom5 inline-block"><%= primarydealer.DealerDetails.Organization %></h3>
+                                        <% if (!string.IsNullOrEmpty(primarydealer.DealerDetails.MaskingNumber))
+                                           { %>
+                                        <div class="margin-left10 inline-block">
+                                            <span class="bwsprite phone-black-icon vertical-top"></span>
+                                            <span class="font15 vertical-top text-bold "><%= primarydealer.DealerDetails.MaskingNumber %></span>
+                                        </div>
+                                        <%} %>
                                             <p class="font12 text-light-grey"><%= (!primarydealer.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ") %><%= primarydealer.DealerDetails.objArea.AreaName %></p>
                                         </div>
                                     </div>
-                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
                                     <div id="dealer-offers-label" class="inline-block">
                                         <p class="font14">Get in touch with this dealer for:</p>
                                         <ul id="offers-label-list">
@@ -266,23 +272,19 @@
                                             <li>EMI options</li>
                                         </ul>
                                     </div>
-                                    <%} %>
                                     <div id="get-offers-btn-content" class="inline-block <%= primarydealer.DealerDetails.IsDSA ? "rightfloat" :"" %>">
                                         <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
-                                    <% if(!primarydealer.DealerDetails.IsDSA){ %>
-                                <div class="margin-right20 margin-left20 margin-top20 border-solid-bottom"></div>
-                                <%}else{ %>
-
+                                    <% if(primarydealer.DealerDetails.IsDSA){ %>
                                     <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
                                         <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands. Above price is not final and may vary at the dealership.</p>
                                         <span class="position-abt pos-top15 pos-right15 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
                                     </div>
                                     <%} %>
-
-                                </div>                              
-                                <div id="dealer-contact-details" class="content-inner-block-20 <%= isPremium ? "" : "map-absent" %>">
+                                    <div class="margin-top20 border-solid-bottom"></div>
+                                </div>
+                                <div id="dealer-contact-details" class="padding-right20 padding-bottom20 padding-left20 <%= isPremium ? "" : "map-absent" %>">
                                     <!-- if no map, add 'map-absent' class -->
                                     <div class="alpha font14 <%= isPremium ? "grid-6" : "grid-12 omega" %>">
                                         <!-- if no map, replace grid-6 with grid-12 -->
@@ -716,6 +718,7 @@
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                     </div>
                 </div>
                 <!-- contact details ends here -->

@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,7 @@
         }
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_Reviews_";
+        Ad_Mid_320x50 = true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -57,36 +59,36 @@
                 <h1 class="box-shadow padding-15-20">Expert Reviews</h1>
             <% } %>
 	        
+                <% if(articlesList != null && articlesList.Count > 0) { %>
     	        <div id="divListing" class="article-list">
-		            <asp:Repeater id="rptRoadTest" runat="server">
-			            <itemtemplate>
-				            <a href="<%# string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"BasicId")),Convert.ToString(DataBinder.Eval(Container.DataItem,"ArticleUrl")),(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest).ToString())) %>" title="Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>">
+		            <% foreach(var article in articlesList){ %>        
+				            <a href="<%= string.Format("/m{0}", Bikewale.Utility.UrlFormatter.GetArticleUrl(Convert.ToString(article.BasicId), article.ArticleUrl, (Bikewale.Entities.CMS.EnumCMSContentType.RoadTest).ToString())) %>" title="Expert Review: <%= article.Title %>">
 
 					            <div class="article-item-content">
-						            <%# Regex.Match(Convert.ToString(DataBinder.Eval(Container.DataItem,"AuthorName")), @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+						            <%= Regex.Match(article.AuthorName, @"\b(sponsored)\b",RegexOptions.IgnoreCase).Success ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 
 						            <div class="article-wrapper">
 							            <div class="article-image-wrapper">
-                                            <img class="lazy" alt='Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %>' title="Expert reviews: <%# DataBinder.Eval(Container.DataItem, "Title") %>" data-original='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
+                                            <img class="lazy" alt='Expert Review: <%= article.Title %>' title="Expert reviews: <%= article.Title %>" data-original='<%= Bikewale.Utility.Image.GetPathToShowImages( article.OriginalImgUrl, article.HostUrl, Bikewale.Utility.ImageSize._110x61) %>' width="100%" border="0" src="">
 							            </div>
 							            <div class="padding-left10 article-desc-wrapper">
-								            <h2 class="font14">Expert Review: <%# DataBinder.Eval(Container.DataItem, "Title") %></h2>
+								            <h2 class="font14">Expert Review: <%= article.Title %></h2>
 							            </div>
 						            </div>
 
 						            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-							            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMM dd, yyyy") %></span>
+							            <span class="bwmsprite calender-grey-icon inline-block"></span><span class="inline-block"><%= Bikewale.Utility.FormatDate.GetFormatDate(article.DisplayDate.ToString(),"MMM dd, yyyy") %></span>
 						            </div>
 						            <div class="article-stats-wrapper font12 leftfloat text-light-grey">
-							            <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%# DataBinder.Eval(Container.DataItem, "AuthorName") %></span>
+							            <span class="bwmsprite author-grey-icon inline-block"></span><span class="inline-block"><%= article.AuthorName %></span>
 						            </div>
 						            <div class="clear"></div>
 
 					            </div>
-				            </a>
-			            </itemtemplate>
-		            </asp:Repeater>                
+				            </a>	
+                    <% } %>		                        
 	            </div>  
+                <% } %>
                    <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                     <div class="grid-5 omega text-light-grey font13">
                         <span class="text-bold text-default"><%=startIndex %>-<%=endIndex %></span> of <span class="text-bold text-default"><%=totalrecords %></span> articles
@@ -97,8 +99,23 @@
                     <div class="clear"></div>
              </div>
         </section>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />         
+       <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Middle_mobile.aspx" -->
+        </div>
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <%if(modelId>0){%>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
+                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+                </div>
+             </section>
+        <%} %>
+        <%}else{ %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
