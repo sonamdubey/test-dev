@@ -47,11 +47,6 @@
     text-decoration: none;
 }
 
-.bike-details-block h2 {
-    height: 40px;
-    margin-bottom: 5px;
-}
-
 .bike-details-block .bike-image-block {
     width: 80px;
 }
@@ -90,7 +85,6 @@
     color: #2a2a2a;
     display: block;
     margin-bottom: 10px;
-    height: 40px;
 }
 
 #comparison-floating-card .overall-specs-tabs-wrapper {

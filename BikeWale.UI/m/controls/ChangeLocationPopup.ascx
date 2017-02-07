@@ -89,9 +89,25 @@
                     console.log(e.message);
                 }
             };
-
+            var CheckCookies = function () {
+                try {
+                    var c = document.cookie.split('; ');
+                    for (i = c.length - 1; i >= 0; i--) {
+                        var C = c[i].split('=');
+                        if (C[0] == "location") {
+                            var cData = (String(C[1])).split('_');
+                            options.cookieCityId = parseInt(cData[0]) || 0;
+                            options.cookieCityName = cData[1] || "";
+                            break;
+                        }
+                    }
+                } catch (e) {
+                    console.warn(e);
+                }
+            };
             var init = function () {
                 try {
+                    CheckCookies();
                     bwcache.setOptions({ StorageScope: "", FallBack: true });
                     if (options.urlCityId > 0 && options.cookieCityId > 0 && (options.urlCityId != options.cookieCityId)) {
                         if (!bwcache.get(options.sessionKey, true) && bwcache.get(options.locationChangeKey, true) != window.location.href)   //surpress location chnage prompt for the session
