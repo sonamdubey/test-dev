@@ -1,7 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
@@ -255,7 +254,7 @@ namespace Bikewale.New
                         {
                             if (objResponse.StatusCode == 200)
                             {
-                                makeId = objResponse.MakeId; // Convert.ToString(objResponse.MakeId);
+                                makeId = objResponse.MakeId;
                             }
                             else if (objResponse.StatusCode == 301)
                             {

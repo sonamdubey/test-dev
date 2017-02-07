@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -53,7 +52,7 @@ namespace Bikewale.Controls
             BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
             if (CityId > 0)
             {
-                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, (uint)CityId, TopCount);
+                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
             }
             else
             {

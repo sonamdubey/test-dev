@@ -1,5 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.Entities.UsedBikes;
+using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,13 +26,11 @@ namespace Bikewale.Controls
         public string MakeMaskingName { get; set; }
         public string AdId { get; set; }
 
-        public int FetchedRecordsCount;
+        public int FetchedRecordsCount { get; set; }
         public string modelMaskingName = string.Empty;
         public string CityMaskingName { get; set; }
         protected short masterGrid = 12;
         protected short childGrid = 4;
-
-        protected IEnumerable<MostRecentBikes> objUsedBikes = null;
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,27 +43,15 @@ namespace Bikewale.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (isValidData())
+            if (MakeId > 0)
+            {
                 BindUsedBikes();
-            if (IsAd)
-            {
-                masterGrid = 8;
-                childGrid = 6;
+                if (IsAd)
+                {
+                    masterGrid = 8;
+                    childGrid = 6;
+                }
             }
-        }
-
-        /// <summary>
-        /// Function to validate the data passed to the widget
-        /// </summary>
-        /// <returns></returns>
-        private bool isValidData()
-        {
-            bool isValid = true;
-            if (MakeId < 0 || ModelId < 0)
-            {
-                isValid = false;
-            }
-            return isValid;
         }
 
         /// <summary>
@@ -76,32 +63,20 @@ namespace Bikewale.Controls
         /// <returns></returns>
         protected void BindUsedBikes()
         {
-            BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
-            if (CityId > 0)
+            try
             {
-                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, (uint)CityId, TopCount);
+                BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
+                if (CityId > 0)
+                {
+                    UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
+                }
+                if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
+                    FetchedRecordsCount = UsedBikeModelInCityList.Count();
             }
-            if (UsedBikeModelInCityList != null && UsedBikeModelInCityList.Count() > 0)
-                FetchedRecordsCount = UsedBikeModelInCityList.Count();
-
-            //BindUsedBikesControl objUsed = new BindUsedBikesControl();
-            //objUsed.MakeId = MakeId;
-            //objUsed.ModelId = ModelId;
-            //objUsed.TopCount = TopCount;
-            //objUsed.CityId = CityId;
-            //objUsedBikes = objUsed.FetchUsedBikes(TopCount, MakeId, ModelId, CityId);
-            //if (objUsedBikes != null)
-            //{
-            //    MostRecentBikes firstBike = objUsedBikes.FirstOrDefault();
-            //    if (firstBike != null)
-            //    {
-            //        makeName = firstBike.MakeName;
-            //        makeMaskingName = firstBike.MakeMaskingName;
-            //    }
-            //    FetchedRecordsCount = Convert.ToUInt16(objUsedBikes.Count());
-            //}
-            //if (string.IsNullOrEmpty(pageHeading))
-            //    pageHeading = string.Format("Used {0} bikes in {1}", makeName, cityName);
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedPopularModelsInCity.BindUsedBikes_{0}_{1}_{2}", MakeId, CityId, TopCount));
+            }
         }
     }
 }

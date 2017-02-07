@@ -190,11 +190,10 @@ namespace Bikewale.Utility
         public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make, string model)
         {
             cityMasking = cityId > 0 ? cityMasking : "india";
-            if (!String.IsNullOrEmpty(model))
-                return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, cityMasking);
-            else
-                return String.Format("/used/{0}-bikes-in-{1}/", make, cityMasking);
+            return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, cityMasking);
+
         }
+
         /// <summary>
         /// 
         /// </summary>

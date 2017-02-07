@@ -135,7 +135,7 @@ namespace Bikewale.Mobile.Service
                 {
                     ctrlPopularModels.MakeId = makeId;
                     ctrlPopularModels.CityId = cityId;
-                    ctrlPopularModels.header = "Used " + makeName + " bikes in " + cityName;
+                    ctrlPopularModels.header = string.Format("Used {0} bikes in {1}", makeName, cityName);
                     ctrlPopularModels.TopCount = 4;
                     ctrlPopularModels.MakeName = makeName;
                     ctrlPopularModels.MakeMaskingName = makeMaskingName;

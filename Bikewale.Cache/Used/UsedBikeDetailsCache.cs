@@ -98,7 +98,7 @@ namespace Bikewale.Cache.Used
         public IEnumerable<MostRecentBikes> GetPopularUsedModelsByMake(uint makeid, uint topcount)
         {
             IEnumerable<MostRecentBikes> objUsedBikes = null;
-            string key = String.Format("BW_UsedPopularModels_makeid_{0}_topcount_{1}", makeid, topcount);
+            string key = String.Format("BW_UsedPopularModels_MK_{0}TC{1}", makeid, topcount);
             try
             {
                 objUsedBikes = _cache.GetFromCache<IEnumerable<MostRecentBikes>>(key, new TimeSpan(1, 0, 0), () => _objUsedBikes.GetPopularUsedModelsByMake(makeid, topcount));

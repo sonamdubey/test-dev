@@ -96,7 +96,8 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlPopularModels.fetchedCount > 0) {%>
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlUsedPopularModels.fetchedCount > 0)
+           {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
                 
@@ -116,9 +117,9 @@
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                 <% }  %>
                
-                <% if (ctrlPopularModels.fetchedCount > 0)
+                <% if (ctrlUsedPopularModels.fetchedCount > 0)
                 {%> 
-                 <BW:UsedMostPopularModels runat="server" ID="ctrlPopularModels" />
+                 <BW:UsedMostPopularModels runat="server" ID="ctrlUsedPopularModels" />
                 <%} %>
                  
             </div>

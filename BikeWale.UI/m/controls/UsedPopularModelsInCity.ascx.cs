@@ -17,7 +17,7 @@ namespace Bikewale.Mobile.Controls
         public uint TopCount { get; set; }
         public uint CityId { get; set; }
         public string header { get; set; }
-        public int fetchedCount;
+        public int fetchedCount { get; set; }
         public string MakeName { get; set; }
         public string CityName { get; set; }
         public string MakeMaskingName { get; set; }
@@ -34,18 +34,8 @@ namespace Bikewale.Mobile.Controls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (isValidData())
+            if (MakeId > 0)
                 BindUsedBikes();
-        }
-
-        /// <summary>
-        ///  Created by Subodh Jain on 15 sep 2016
-        /// Desc:-Function to validate the data passed to the widget
-        /// </summary>
-        /// <returns></returns>
-        private bool isValidData()
-        {
-            return MakeId > 0 ? true : false;
         }
 
         /// <summary>
@@ -57,7 +47,7 @@ namespace Bikewale.Mobile.Controls
             BindUsedBikeModelInCity objUsedBikeModelCity = new BindUsedBikeModelInCity();
             if (CityId > 0)
             {
-                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, (uint)CityId, TopCount);
+                UsedBikeModelInCityList = objUsedBikeModelCity.GetUsedBikeByModelCountInCity(MakeId, CityId, TopCount);
                 if (UsedBikeModelInCityList != null)
                 {
                     fetchedCount = UsedBikeModelInCityList.Count();

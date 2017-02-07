@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
-using Bikewale.Common;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
@@ -11,7 +10,7 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Bikewale.common
+namespace Bikewale.Common
 {
     /// <summary>
     /// Created by: Sangram Nandkhile on 03 Feb 2017
@@ -19,6 +18,18 @@ namespace Bikewale.common
     /// </summary>
     public class CityHelper
     {
+        ICityCacheRepository cityCacheRepository = null;
+        IUnityContainer container = null;
+        public CityHelper()
+        {
+            using (container = new UnityContainer())
+            {
+                container.RegisterType<ICity, CityRepository>();
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                cityCacheRepository = container.Resolve<ICityCacheRepository>();
+            }
+        }
         /// <summary>
         /// Created by: Sangram Nandkhile on 03 Feb 2017
         /// Summary: Common helper to fetch city details by Id
@@ -33,15 +44,9 @@ namespace Bikewale.common
             {
                 try
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<ICity, CityRepository>();
-                        container.RegisterType<ICacheManager, MemcacheManager>(); ;
-                        container.RegisterType<ICityCacheRepository, CityCacheRepository>();
-                        ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
-                        objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
-                        SelectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
-                    }
+                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
+                    objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
+                    SelectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
                 }
                 catch (Exception ex)
                 {

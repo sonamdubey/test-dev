@@ -2,7 +2,6 @@
 using Bikewale.BindViewModels.Controls;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.common;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
@@ -24,7 +23,7 @@ namespace Bikewale.Mobile
     {
         protected NewMUpcomingBikes ctrlUpcomingBikes;
         protected NewNewsWidget ctrlNews;
-        protected Bikewale.Mobile.Controls.UsedPopularModels ctrlPopularUsedBikes;
+        protected UsedPopularModels ctrlPopularUsedBikes;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;
         protected MMostPopularBikes ctrlMostPopularBikes;
