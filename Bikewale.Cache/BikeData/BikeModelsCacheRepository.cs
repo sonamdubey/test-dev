@@ -478,7 +478,7 @@ namespace Bikewale.Cache.BikeData
         {
             List<ModelImage> objPhotos = null;
 
-            string key = string.Format("BW_ModelPhotoGallery_MO_{0}", modelId);
+            string key = string.Format("BW_ModelPhotos_MO_{0}", modelId);
             try
             {
                 objPhotos = _cache.GetFromCache<List<ModelImage>>(key, new TimeSpan(1, 0, 0), () => (List<ModelImage>)_objModels.GetModelPhotos(modelId));
