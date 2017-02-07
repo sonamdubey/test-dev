@@ -542,7 +542,7 @@ namespace Bikewale.Cache.BikeData
         public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}", modelId, cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
             try
             {
                 popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(modelId, topCount, cityId));
