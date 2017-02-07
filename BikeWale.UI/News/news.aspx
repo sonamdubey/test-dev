@@ -4,7 +4,7 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
-<%--<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>--%>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 
 <!Doctype html>
 <html>
@@ -19,7 +19,6 @@
             fbImage = metas.ShareImage;
             alternate = metas.AlternateUrl;
         }
-
         AdId = "1395995626568";
         AdPath = "/1017752/BikeWale_News_";
         isAd300x250Shown = true;
@@ -131,16 +130,21 @@
                     <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
-                        <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
-                        <div class="margin-bottom20">
+                        <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+                       <div class="margin-bottom20">
                             <!-- #include file="/ads/ad300x250.aspx" -->
                         </div>
-                        
-                        <%--<BW:PopularBikesByBodyStyle ID="ctrlPopularByCategory" runat="server"/>--%>
-                        <% if (taggedModelId < 1)
-                           { %>
+                        <%if(isModelTagged){ %>
+                        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
+                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                       <h2>Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                        <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                        </div>
+                        <%} %>
+                            <%} else{%>
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
-                        <% } %>
+                        <%} %>
+                       
                     </div>
                     <div class="clear"></div>
                 </div>

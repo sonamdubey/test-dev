@@ -300,6 +300,7 @@
     <Compile Include="BindViewModels\Controls\BindServiceSchedule.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarBikesWithPhotos.cs" />
+    <Compile Include="BindViewModels\Controls\BindSimilarBikeVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarUsedBikes.cs" />
     <Compile Include="BindViewModels\Controls\BindSimilarVideos.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
@@ -316,10 +317,15 @@
     <Compile Include="BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
+    <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -332,6 +338,7 @@
     <Compile Include="BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviews.cs" />
     <Compile Include="BindViewModels\Webforms\UserReviews\BindUserReviewsDetails.cs" />
+    <Compile Include="BindViewModels\Webforms\Videos\BindViewModelVideoDefault.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -654,6 +661,10 @@
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\PopularBikeByBodyStyleCarousal.ascx.cs">
+      <DependentUpon>PopularBikeByBodyStyleCarousal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\PopupWidget.ascx.cs">
       <DependentUpon>PopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -708,6 +719,10 @@
     </Compile>
     <Compile Include="controls\SimilarBikes.ascx.cs">
       <DependentUpon>SimilarBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarBikeVideos.ascx.cs">
+      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarCompareBikes.ascx.cs">
@@ -1009,6 +1024,10 @@
     </Compile>
     <Compile Include="m\controls\ServiceCentersByBrand.ascx.cs">
       <DependentUpon>ServiceCentersByBrand.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\SimilarBikeVideos.ascx.cs">
+      <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\SimilarBikeWithPhotos.ascx.cs">
@@ -1709,6 +1728,7 @@
     <Content Include="ads\Ad320x150_First.aspx" />
     <Content Include="ads\Ad320x150_Second.aspx" />
     <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
+    <Content Include="ads\Ad320x50_Middle_mobile.aspx" />
     <Content Include="ads\Ad320x50_mobile.aspx" />
     <Content Include="ads\Ad970x90.aspx" />
     <Content Include="ads\Ad728x90.aspx" />
@@ -2099,6 +2119,7 @@
     <Content Include="controls\NoFollowPagerControl.ascx" />
     <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
+    <Content Include="controls\PopularBikeByBodyStyleCarousal.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />
@@ -2113,6 +2134,7 @@
     <Content Include="controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
+    <Content Include="controls\SimilarBikeVideos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2649,6 +2671,7 @@
     <Content Include="m\controls\PopularBikesMin.ascx" />
     <Content Include="m\controls\ServiceCentersInNearbyCities.ascx" />
     <Content Include="m\controls\ServiceCentersByBrand.ascx" />
+    <Content Include="m\controls\SimilarBikeVideos.ascx" />
     <Content Include="m\controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="m\controls\UpcomingBikesMin.ascx" />
     <Content Include="m\controls\servicecentercard.ascx" />
@@ -2702,6 +2725,7 @@
     <Content Include="m\css\bwm-model-btf.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\compare\details.css" />
     <Content Include="m\css\compare\landing.css" />
     <Content Include="m\css\components\article-next-prev.css" />
     <Content Include="m\css\components\article.css" />
@@ -2740,6 +2764,7 @@
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
+    <Content Include="m\css\videos\bwm-videos-landing.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
@@ -2827,6 +2852,7 @@
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
+    <Content Include="m\src\compare\details.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\photos.js" />

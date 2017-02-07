@@ -285,7 +285,6 @@ namespace Bikewale.BAL.BikeData
 
         }
 
-
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Oct 2015
         /// Summary : Function to get the model page details
@@ -1047,39 +1046,6 @@ namespace Bikewale.BAL.BikeData
                         objModelPage.objOverview = FetchOverViewList(objModelPage.ModelVersionSpecs);
                         objModelPage.objSpecs = FetchSpecList(objModelPage.ModelVersionSpecs);
                         objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
-                    }
-                }
-                if (objModelPage != null)
-                {
-                    // Added by : Ashish G. Kamble on 15 Dec 2015
-                    // Get model photo gallery
-                    //if (HttpContext.Current.Response.Cookies["IsMobileSite"].Value == "true")
-                    //    objModelPage.Photos = null;               
-                    //else
-                    //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
-
-                    if (objModelPage.Photos != null)
-                    {
-                        objModelPage.Photos.Insert(0,
-                            new ModelImage()
-                            {
-                                HostUrl = objModelPage.ModelDetails.HostUrl,
-                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                                Caption = objModelPage.ModelDetails.ModelName,
-                                ImageCategory = "Model Image"
-                            });
-                    }
-                    else
-                    {
-                        objModelPage.Photos = new List<ModelImage>();
-                        objModelPage.Photos.Add(new ModelImage()
-                        {
-                            HostUrl = objModelPage.ModelDetails.HostUrl,
-                            OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                            Caption = objModelPage.ModelDetails.ModelName,
-                            ImageCategory = "Model Image"
-                        });
                     }
                 }
             }

@@ -1,16 +1,12 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.CMS;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Cache.GenericBikes;
-using Bikewale.DAL.GenericBikes;
-using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.GenericBikes;
-using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
 using Bikewale.Utility.GenericBikes;
 using Microsoft.Practices.Unity;
@@ -28,10 +24,12 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
     /// Modified by : Aditi srivastava on 17 Jan 2017
     /// Description : Removed BL function call and 
     ///      added cache function for top bikes listing
+    ///Modified By :- Subodh Jain 30 jan 2017
+    ///Summary:- Shifted generic to bikemodel repository
     /// </summary>
     public class BestBikesListing
     {
-        private readonly IBestBikesCacheRepository _objBestBikes = null;
+        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         public IEnumerable<BestBikeEntityBase> objBestBikesList = null;
 
         public int FetchedRecordCount = 0;
@@ -52,14 +50,12 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBestBikesCacheRepository, BestBikesCacheRepository>()
-                    .RegisterType<ISearchResult, SearchResult>()
-                    .RegisterType<ICacheManager, MemcacheManager>()
-                    .RegisterType<IArticles, Articles>()
-                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                    .RegisterType<IGenericBikeRepository, GenericBikeRepository>()
-                    .RegisterType<IProcessFilter, ProcessFilter>();
-                _objBestBikes = container.Resolve<IBestBikesCacheRepository>();
+                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                         .RegisterType<ICacheManager, MemcacheManager>()
+                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                _objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
+
             }
 
             ParseQueryString();
@@ -138,14 +134,16 @@ namespace Bikewale.BindViewModels.Webforms.GenericBikes
         /// Desc: Fetch Bikes by body style and category
         /// Modified by : Aditi Srivastava on 17 Jan 2017
         /// Description : Used a different function for getting lust of top bikes
+        /// Modified by : Sajal Gupta on 02-02-2017
+        /// Description : Passed cityid to get used bikes count.     
         /// </summary>
-        public void FetchBestBikesList(ushort topCount)
+        public void FetchBestBikesList(ushort topCount, uint? cityId = null)
         {
             try
             {
                 if (_objBestBikes != null)
                 {
-                     objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType).Take(topCount);
+                    objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId).Take(topCount);
                     if (objBestBikesList != null && objBestBikesList.Count() > 0)
                     {
                         FetchedRecordCount = objBestBikesList.Count();

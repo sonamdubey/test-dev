@@ -92,7 +92,6 @@
     <Compile Include="Dealer\DealersRepository.cs" />
     <Compile Include="Dealer\OfferRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
-    <Compile Include="GenericBikes\GenericBikeRepository.cs" />
     <Compile Include="HomePage\HomePageBannerRepository.cs" />
     <Compile Include="Images\ImageRepository.cs" />
     <Compile Include="Insurance\InsuranceLeadRespositry.cs" />
@@ -139,6 +138,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GenericBikes\" />
     <Folder Include="PhotoGallery\" />
     <Folder Include="UsedBikes\" />
     <Folder Include="Videos\" />

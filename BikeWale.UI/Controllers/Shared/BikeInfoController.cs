@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Bikewale.BindViewModels.Controls;
-using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.GenericBikes;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Shared
 {
     public class BikeInfoController : Controller
     {
         private readonly ICacheManager cache = null;
-        private readonly IGenericBikeRepository genericBike = null;
         private readonly IBikeInfo info = null;
 
         //protected GenericBikeInfo bikeInfo { get; set; }

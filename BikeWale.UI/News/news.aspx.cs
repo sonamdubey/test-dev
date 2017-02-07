@@ -3,8 +3,10 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -15,22 +17,24 @@ namespace Bikewale.News
     /// Description : Bind news details page
     /// Modified By : Aditi Srivastava on 10 Nov 2016
     /// Description : Added control for upcoming bikes widget
+    /// Modified By: Aditi Srivastava on 31 Jan 2017
+    /// Summary    : Added common view model for fetching data and modified popular widgets
     /// </summary>
     public class news : System.Web.UI.Page
     {
-        private string _basicId = string.Empty;
         protected ArticleDetails objArticle = null;
         protected NewsDetails objNews;
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
-        private BikeMakeEntityBase _taggedMakeObj;
-        private BikeModelEntityBase _taggedModelObj;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
         protected uint taggedModelId;
         protected MostPopularBikesMin ctrlPopularBikes;
-        protected PopularBikesByBodyStyle ctrlPopularByCategory;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        protected bool isModelTagged;
         protected int makeId;
+        private BikeMakeEntityBase _taggedMakeObj;
+        
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -50,10 +54,7 @@ namespace Bikewale.News
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-
             BindNewsDetails();
-
         }
 
         /// <summary>
@@ -75,21 +76,24 @@ namespace Bikewale.News
                 {
                     if (!objNews.IsPageNotFound)
                     {
-                        objArticle = objNews.ArticleDetails;
-                        _taggedMakeObj = objNews.TaggedMake;
-                        _taggedModelObj = objNews.TaggedModel;
-                        if (_taggedModelObj != null)
-                            taggedModelId = (uint)_taggedModelObj.ModelId;
-                        currentCityArea = objNews.CityArea;
-                        metas = objNews.PageMetas;
-                        BindPageWidgets();
-                    }
-                    else if (!objNews.IsContentFound)
-                    {
-                        Response.Redirect("/news/", false);
-                        if (HttpContext.Current != null)
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        objNews.GetNewsArticleDetails();
+                        if (objNews.IsContentFound)
+                        {
+                            objArticle = objNews.ArticleDetails;
+                            _taggedMakeObj = objNews.TaggedMake;
+                            if (objNews.TaggedModel != null)
+                                taggedModelId = (uint)objNews.TaggedModel.ModelId;
+                            currentCityArea = objNews.CityArea;
+                            metas = objNews.PageMetas;
+                            BindPageWidgets();
+                        }
+                        else
+                        {
+                            Response.Redirect("/news/", false);
+                            if (HttpContext.Current != null)
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
                     }
                     else
                     {
@@ -98,12 +102,10 @@ namespace Bikewale.News
                         this.Page.Visible = false;
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : Bikewale.News.NewsListing.BindNewsDetails");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.News.BindNewsDetails");
                 objErr.SendMail();
             }
             finally
@@ -122,40 +124,58 @@ namespace Bikewale.News
         /// Description : Bind page level widgets
         /// Modified By : Sushil Kumar on 2nd Jan 2016
         /// Description : Bind ctrlGenericBikeInfo control 
+        /// Modified By : Aditi Srivastava on 31 Jan 2017
+        /// Summary     : Modified entire widget binding logic
         /// </summary>
         private void BindPageWidgets()
         {
-            ctrlPopularBikes.totalCount = 3;
-            ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-            ctrlPopularBikes.cityName = currentCityArea.City;
-            if (ctrlPopularByCategory != null)
+           try
             {
-                ctrlPopularByCategory.CityId = Convert.ToUInt32(currentCityArea.CityId);
-            }
-
-            //ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-            //ctrlUpcomingBikes.pageSize = 9;
-            //ctrlUpcomingBikes.topCount = 3;
-
-            if (_taggedMakeObj != null)
-            {
-                ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
-                ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                ////ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                ////ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                ////ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-
-
-            }
-            if (_taggedModelObj != null)
-            {
-                ctrlGenericBikeInfo.ModelId = (uint)_taggedModelObj.ModelId;
-                if (ctrlPopularByCategory != null)
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                isModelTagged = (taggedModelId > 0);
+                if (ctrlPopularBikes != null)
                 {
-                    ctrlPopularByCategory.ModelId = (uint)_taggedModelObj.ModelId;
-                    ctrlPopularByCategory.topCount = 3;
+                    ctrlPopularBikes.totalCount = 3;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (_taggedMakeObj != null)
+                    {
+                        ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
                 }
+
+
+                if (isModelTagged)
+                {
+                    ctrlGenericBikeInfo.ModelId = taggedModelId;
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {                  
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        ctrlUpcomingBikes.topCount = 3;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                            ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.News.BindPageWidgets");
 
             }
 

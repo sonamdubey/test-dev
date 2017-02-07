@@ -10,13 +10,13 @@
                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font20 margin-top15 margin-bottom10">Provide contact details</p>
+        <p class="font20 margin-top10 margin-bottom10">Provide contact details</p>
         <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
         <div class="personal-info-form-container">
             <!-- ko if : isDealerBikes() -->  
             <div data-bind="visible : isDealerBikes()" class="form-control-box personal-info-list position-rel">
                 <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
-                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue : function(i){ return i.model.modelId ;}, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select"></select>
+                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue : function(i){ return i.model.modelId ;}, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
                 <span class="bwsprite error-icon errorIcon"></span>
                 <div class="bw-blackbg-tooltip errorText"></div>
                 <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
@@ -42,8 +42,9 @@
                 <span class="error-text"></span>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-        </div>
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>   
+            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>         
+        </div>        
     </div>
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.viewRT" Async="true" Trace="false" %>
-
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
@@ -94,15 +94,22 @@
                     <%} %>
                 </div>
             </div>
-        </section>
-
+        </section>        
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-        <% if (taggedModelId < 1)
-           { %>
-        <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+         <%if(isModelTagged){ %>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
+                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+           <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
+                </div>
+             </section>
         <%} %>
+          <%} else{%>
+         <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
+          <%} %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
-
         <div class="back-to-top" id="back-to-top"></div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>

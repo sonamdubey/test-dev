@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
@@ -8,9 +9,9 @@ using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.Service.Utilities;
 namespace Bikewale.Service.Controllers.Model
 {
     /// <summary>
@@ -26,17 +27,18 @@ namespace Bikewale.Service.Controllers.Model
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModels<BikeModelEntity, int> _modelsContent = null;
+        public readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
         /// <param name="modelContent"></param>
-        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent)
+        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent, IBikeModelsCacheRepository<int> modelCacheRepository)
         {
             _modelRepository = modelRepository;
             _modelsContent = modelContent;
-
+            _modelCacheRepository = modelCacheRepository;
         }
 
         #region Model Details
@@ -145,7 +147,7 @@ namespace Bikewale.Service.Controllers.Model
                     bkContent = ModelMapper.Convert(bkModelContent);
                     bkModelContent = null;
                     bkContent.News = new CMSShareUrl().GetShareUrl(bkContent.News);
-                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);                   
+                    bkContent.ExpertReviews = new CMSShareUrl().GetShareUrl(bkContent.ExpertReviews);
 
                     bkModelContent = null;
 
@@ -159,12 +161,51 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelContent");
-                objErr.SendMail();
                 return InternalServerError();
             }
         }
         #endregion  Model Content Data
+        /// <summary>
+        /// Created By: Sangram Nandkhile on 31 Jan 2017
+        /// Summary: To return Model Images, Other model Images and color wise images
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(BikeModelContentDTO)), Route("api/model/{modelId}/photos/")]
+        public IHttpActionResult GetModelColorPhotos(int modelId)
+        {
+            IList<ImageBaseEntity> allPhotos = null;
 
+            try
+            {
+                if (modelId > 0)
+                {
+                    allPhotos = _modelCacheRepository.CreateAllPhotoList(modelId).ToList();
+                    if (allPhotos != null && allPhotos.Count() > 1)
+                    {
+                        allPhotos.RemoveAt(0);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+                if (allPhotos != null)
+                {
+                    return Ok(allPhotos);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController.GetModelColorPhotos");
+                return InternalServerError();
+            }
+        }
     }
 
 }

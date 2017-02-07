@@ -40,7 +40,7 @@
            { %>
         <li>
             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Expert Reviews">
-                <span class="generic-sprite reviews-sm"></span>
+                <span class="bwmsprite reviews-sm"></span>
                 <span class="icon-label">Reviews</span>
             </a>
         </li>
@@ -58,7 +58,7 @@
            { %>
         <li>
             <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Videos">
-                <span class="generic-sprite videos-sm"></span>
+                <span class="bwmsprite videos-sm"></span>
                 <span class="icon-label">Videos</span>
             </a>
         </li>
@@ -67,7 +67,7 @@
            { %>
         <li>
             <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%= bikeName %> Specification">
-                <span class="generic-sprite specs-sm"></span>
+                <span class="bwmsprite specs-sm"></span>
                 <span class="icon-label">Specs</span>
             </a>
         </li>

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <p class="font18 text-bold margin-top10 margin-bottom10">Get seller details</p>
-            <p class="font14 text-light-grey margin-bottom40">For privacy concerns, we hide owner details.<br />Please fill this form to get owner's details.</p>
+            <p class="font14 text-light-grey margin-bottom20">For privacy concerns, we hide owner details.<br />Please fill this form to get owner's details.</p>
 
             <div class="input-box form-control-box margin-bottom10">
                 <input type="text" id="getUserName" data-bind="textInput: buyer().userName" />
@@ -35,6 +35,7 @@
             <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
             <!-- /ko -->
             <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn" rel="nofollow">Get seller details</a>
+            <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>         
         </div>
 
         <div id="mobile-verification-section">

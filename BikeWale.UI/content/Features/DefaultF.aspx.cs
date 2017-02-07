@@ -1,22 +1,13 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.BAL.Pager;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.Pager;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Content
@@ -26,18 +17,19 @@ namespace Bikewale.Content
     /// Retrieved features from carwale web api
     /// Modified By : Sushil Kumar on 10th Nov 2016
     /// Description : Bind most popular bikes widget for edit cms
+    /// Modified By : Sajal Gupta on 30-01-2017
+    /// Description : Binded through commonm view model.
     /// </summary>
     public class DefaultF : System.Web.UI.Page
     {
         protected Repeater rptFeatures;
         protected Bikewale.Mobile.Controls.LinkPagerControl ctrlPager;
-        protected string prevUrl = string.Empty, nextUrl = string.Empty;
+        protected string prevPageUrl = string.Empty, nextPageUrl = string.Empty;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
-        private int _pageNo = 1;
-        private const int _pageSize = 10, _pagerSlotSize = 5;
-        private bool _isContentFound = true;
-        protected string startIndex, endIndex, totalArticles;
+        protected int startIndex, endIndex, totalArticles;
+        protected FeaturesListing objFeatures;
+        protected IList<ArticleSummary> articlesList;
 
         protected override void OnInit(EventArgs e)
         {
@@ -64,134 +56,49 @@ namespace Bikewale.Content
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-
-            if (Request["pn"] != null && !string.IsNullOrEmpty(Request.QueryString["pn"]))
-            {
-                int.TryParse(Request.QueryString["pn"], out _pageNo);
-                if (_pageNo < 1) _pageNo = 1;
-            }
-
             GetFeaturesList();
 
         }
 
         /// <summary>
-        /// Written By : Ashwini Todkar on 25 Sept 2014
-        /// Summary    : method to fetch features list and total features count from carwale api
-        /// Modified By: Aditi Srivastava on 8 Nov 2016
-        /// Summay     : Added function to bind upcoming bikes widget 
-        /// </summary>  
+        /// Created By : Sajal Gupta on 30-01-2017
+        /// Description : Binded page through common view model.
+        /// </summary>
         private void GetFeaturesList()
         {
             try
             {
-                // get pager instance
-                IPager objPager = GetPager();
+                objFeatures = new FeaturesListing();
 
-                int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
-
-                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
-                categorList.Add(EnumCMSContentType.Features);
-                categorList.Add(EnumCMSContentType.SpecialFeature);
-                string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
-
-                objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
-                CMSContent _objFeaturesList = null;
-
-                using (IUnityContainer container = new UnityContainer())
+                if (!objFeatures.IsPageNotFound)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
+                    objFeatures.GetFeaturesList();
 
-                    _objFeaturesList = _cache.GetArticlesByCategoryList(_featuresCategoryId, _startIndex, _endIndex, 0, 0);
-
-                    if (_objFeaturesList != null && _objFeaturesList.Articles.Count > 0)
+                    if (objFeatures.isContentFound)
                     {
-
-                        rptFeatures.DataSource = _objFeaturesList.Articles;
-                        rptFeatures.DataBind();
-                        BindLinkPager(objPager, Convert.ToInt32(_objFeaturesList.RecordCount));
+                        objFeatures.BindLinkPager(ctrlPager);
+                        prevPageUrl = objFeatures.prevPageUrl;
+                        nextPageUrl = objFeatures.nextPageUrl;
+                        articlesList = objFeatures.articlesList;
+                        startIndex = objFeatures.startIndex;
+                        endIndex = objFeatures.endIndex;
+                        totalArticles = objFeatures.totalrecords;
                         BindPageWidgets();
-                        totalArticles = Format.FormatPrice(_objFeaturesList.RecordCount.ToString());
-                        startIndex = Format.FormatPrice(_startIndex.ToString());
-                        endIndex = Format.FormatPrice(_endIndex > _objFeaturesList.RecordCount ? _objFeaturesList.RecordCount.ToString() : _endIndex.ToString());
-
-                    }
-                    else
-                    {
-                        _isContentFound = false;
                     }
                 }
-
-
             }
             catch (Exception err)
             {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Content.Features.GetFeaturesList");
             }
             finally
             {
-                if (!_isContentFound)
+                if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
+                {
                     Response.Redirect("/pagenotfound.aspx", false);
-            }
-        }
-
-        //PopulateWhere to create Pager instance
-        private IPager GetPager()
-        {
-            IPager _objPager = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IPager, Pager>();
-                _objPager = container.Resolve<IPager>();
-            }
-            return _objPager;
-        }
-
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to bind link pager control 
-        /// </summary>
-        /// <param name="objPager"> Pager instance </param>
-        /// <param name="recordCount"> total news available</param>
-        private void BindLinkPager(IPager objPager, int recordCount)
-        {
-            PagerOutputEntity _pagerOutput = null;
-            PagerEntity _pagerEntity = null;
-
-            try
-            {
-                _pagerEntity = new PagerEntity();
-                _pagerEntity.BaseUrl = "/features/";
-                _pagerEntity.PageNo = _pageNo; //Current page number
-                _pagerEntity.PagerSlotSize = _pagerSlotSize; // 5 links on a page
-                _pagerEntity.PageUrlType = "page/";
-                _pagerEntity.TotalResults = recordCount; //total News count
-                _pagerEntity.PageSize = _pageSize;        //No. of news to be displayed on a page
-
-                _pagerOutput = objPager.GetPager<PagerOutputEntity>(_pagerEntity);
-
-                // for RepeaterPager
-                ctrlPager.PagerOutput = _pagerOutput;
-                ctrlPager.CurrentPageNo = _pageNo;
-                ctrlPager.TotalPages = objPager.GetTotalPages(recordCount, _pageSize);
-                ctrlPager.BindPagerList();
-
-                //For SEO
-                //CreatePrevNextUrl(linkPager.TotalPages);
-                prevUrl = String.IsNullOrEmpty(_pagerOutput.PreviousPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.PreviousPageUrl;
-                nextUrl = String.IsNullOrEmpty(_pagerOutput.NextPageUrl) ? "" : "https://www.bikewale.com" + _pagerOutput.NextPageUrl;
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -213,10 +120,11 @@ namespace Bikewale.Content
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlUpcomingBikes.topCount = 4;
+               
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.Features.BindPageWidgets");
                 objErr.SendMail();
             }
         }

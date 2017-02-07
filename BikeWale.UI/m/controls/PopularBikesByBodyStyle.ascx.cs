@@ -18,7 +18,8 @@ namespace Bikewale.Mobile.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public int FetchedRecordsCount { get; set; }
-        protected string BodyStyleHeading { get; set; }
+        public string BodyStyleText { get; set; }
+        public string BodyStyleLinkTitle { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public ICollection<MostPopularBikesBase> popularBikes = null;
 
@@ -40,20 +41,20 @@ namespace Bikewale.Mobile.Controls
                 objPopular.TopCount = topCount;
                 objPopular.ModelId = ModelId;
                 objPopular.CityId = CityId;
-                objPopular.BodyStyle = BodyStyle;
+
                 if (objPopular.ModelId > 0)
                 {
                     popularBikes = objPopular.GetPopularBikesByCategory();
-                    BodyStyle = objPopular.BodyStyle;
                     FetchedRecordsCount = objPopular.FetchedRecordsCount;
                     if (FetchedRecordsCount > 0)
-                        BodyStyleHeading = popularBikes.FirstOrDefault().CategoryName;
+                        BodyStyle = popularBikes.FirstOrDefault().BodyStyle;
+                    BodyStyleText = Bikewale.Utility.BodyStyleLinks.BodyStyleHeadingText(BodyStyle);
+                    BodyStyleLinkTitle = Bikewale.Utility.BodyStyleLinks.BodyStyleFooterLink(BodyStyle);
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "PopularBikesByType()");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.Controls.PopularBikesByType");
             }
         }
     }

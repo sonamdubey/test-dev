@@ -105,6 +105,15 @@
     pointer-events: none;
 }
 
+/* swiper */
+.swiper-small .swiper-card {
+    min-height: 170px;
+}
+
+.swiper-small .swiper-details-block {
+    padding-bottom: 15px;
+}
+
 @media only screen and (max-width: 350px) {
     #pagination-list a {
         font-size: 12px;

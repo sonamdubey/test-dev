@@ -18,6 +18,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By:-Subodh Jain 12 Nov 2016
         /// Summary :- Detaile Page for TipsAndAdvice
+        /// Modified by : Aditi Srivastava on 3 Feb 2017
+        /// Summary     : Added widget for body style when model is tagged
         /// </summary>
         DetailPageBikeCare objDetailBikeCare;
 
@@ -29,6 +31,10 @@ namespace Bikewale.Content
         protected UpcomingBikesMinNew ctrlUpcoming;
         protected MostPopularBikesMin ctrlPopularBikes;
         protected ModelGallery ctrlModelGallery;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
+        private BikeMakeEntityBase _taggedMakeObj = null;
+        private uint taggedModelId;
+        protected bool isModelTagged;
         protected ArticlePhotoGallery ctrPhotoGallery;
         public uint basicId;
         HttpContext page = HttpContext.Current;
@@ -61,8 +67,6 @@ namespace Bikewale.Content
             objDetailBikeCare = new DetailPageBikeCare();
             if (objDetailBikeCare != null && !objDetailBikeCare.pageNotFound)
             {
-
-
                 try
                 {
                     objTipsAndAdvice = objDetailBikeCare.objTipsAndAdvice;
@@ -74,6 +78,12 @@ namespace Bikewale.Content
                     bikeTested = objDetailBikeCare.bikeTested;
                     canonicalUrl = objDetailBikeCare.canonicalUrl;
                     basicId = objDetailBikeCare.BasicId;
+                    if (objDetailBikeCare.taggedMakeObj != null)
+                    {
+                        _taggedMakeObj = objDetailBikeCare.taggedMakeObj;
+                    }
+                    if (objDetailBikeCare.taggedModelObj != null)
+                        taggedModelId = (uint)objDetailBikeCare.taggedModelObj.ModelId;
                 }
                 catch (Exception ex)
                 {
@@ -91,6 +101,8 @@ namespace Bikewale.Content
         }
         /// Created By:- Subodh jain 15 Nov 2016
         /// Summary :- Bike Care Landing page Binding for widgets
+        /// Modified by : Aditi Srivastava on 3 Feb 2017
+        /// Summary     : Added widget for body style when model is tagged
         /// </summary>
         private void BindPageWidgets()
         {
@@ -98,14 +110,6 @@ namespace Bikewale.Content
             try
             {
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-
-                ctrlPopularBikes.totalCount = 3;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-
-                ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcoming.pageSize = 9;
-                ctrlUpcoming.topCount = 3;
                 if (objImg != null && objImg.Count() > 0)
                 {
                     ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
@@ -115,11 +119,48 @@ namespace Bikewale.Content
                     ctrlModelGallery.bikeName = objTipsAndAdvice.Title;
                     ctrlModelGallery.Photos = objImg.ToList();
                 }
+                isModelTagged = (taggedModelId > 0);
+                if (ctrlPopularBikes != null)
+                {
+                    ctrlPopularBikes.totalCount = 3;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (_taggedMakeObj != null)
+                    {
+                        ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
+                }
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcoming != null)
+                    {
+                        ctrlUpcoming.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcoming.pageSize = 9;
+                        ctrlUpcoming.topCount = 3;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlUpcoming.MakeId = _taggedMakeObj.MakeId;
+                            ctrlUpcoming.makeMaskingName = _taggedMakeObj.MaskingName;
+                            ctrlUpcoming.makeName = _taggedMakeObj.MakeName;
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikeCare.BindPageWidgets");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.BikeCare.BindPageWidgets");
                 objErr.SendMail();
             }
         }

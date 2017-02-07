@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="newPager" Src="/m/controls/LinkPagerControl.ascx" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 	    AdPath = "/1017752/Bikewale_Mobile_NewBikes";
 	    AdId = "1398766302464";
 	    Ad_320x50 = true;
-	    Ad_Bot_320x50 = true;
+        Ad_Mid_320x50=true;
     %>
 
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
@@ -76,8 +77,25 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />        
+
+        <div class="margin-bottom15">
+            <!-- #include file="/ads/Ad320x50_Middle_mobile.aspx" -->
+        </div>
+
+        <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
+        <%if(modelId>0){%>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
+         <section>
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
+                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+        <BW:MBikesByBodyStyle runat="server" ID="ctrlBikesByBodyStyle" />
+                </div>
+             </section>
+        <%} %>
+        <%}else{ %>
         <BW:MUpcomingBikesMin runat="server" ID="ctrlUpcomingBikes" />
+        <%} %>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

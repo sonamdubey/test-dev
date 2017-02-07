@@ -27,17 +27,15 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
     /// </summary>
     public class NewsDetails
     {
-
         public BikeMakeEntityBase TaggedMake;
         public BikeModelEntityBase TaggedModel;
         public ArticleDetails ArticleDetails { get; set; }
         public uint BasicId;
-        public bool IsContentFound { get; set; }
-        public bool IsPageNotFound { get; set; }
-        public bool IsPermanentRedirect { get; set; }
+        public bool IsContentFound, IsPageNotFound, IsPermanentRedirect;
         public GlobalCityAreaEntity CityArea { get; set; }
         public PageMetaTags PageMetas { get; set; }
         public string MappedCWId { get; set; }
+        private readonly ICMSCacheContent _cache = null;
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Fetch required aticles list
@@ -47,41 +45,38 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         public NewsDetails()
         {
             CityArea = GlobalCityArea.GetGlobalCityArea();
-            if (ProcessQueryString() && BasicId > 0)
-                GetNewsArticleDetails();
-        }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// PopulateWhere to fetch news details from api asynchronously
-        /// </summary>
-        private void GetNewsArticleDetails()
-        {
-            try
+            if (ProcessQueryString())
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IArticles, Articles>()
-                            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                            .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    ArticleDetails = _cache.GetNewsDetails(BasicId);
-
-                    if (ArticleDetails != null)
-                    {
-                        IsContentFound = true;
-                        GetTaggedBikeListByMake();
-                        GetTaggedBikeListByModel();
-                        CreateMetaTags();
-                    }
-
+                             .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
+                    _cache = container.Resolve<ICMSCacheContent>();
                 }
+            }
+        }
+        /// <summary>
+        /// Written By : Ashwini Todkar on 24 Sept 2014
+        /// PopulateWhere to fetch news details from api asynchronously
+        /// </summary>
+        public void GetNewsArticleDetails()
+        {
+            try
+            {
+                ArticleDetails = _cache.GetNewsDetails(BasicId);
 
+                if (ArticleDetails != null)
+                {
+                    IsContentFound = true;
+                    GetTaggedBikeListByMake();
+                    GetTaggedBikeListByModel();
+                    CreateMetaTags();
+                }
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
+                ErrorClass objErr = new ErrorClass(err,"Bikewale.BindViewModels.Webforms.EditCMS.GetNewsArticleDetails");
             }
         }
 
@@ -99,8 +94,8 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                 PageMetas.ShareImage = Image.GetPathToShowImages(ArticleDetails.OriginalImgUrl, ArticleDetails.HostUrl, Bikewale.Utility.ImageSize._640x348);
                 PageMetas.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", ArticleDetails.Title);
                 PageMetas.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
-                PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
-                PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
+                PageMetas.NextPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.NextArticle.BasicId, ArticleDetails.NextArticle.ArticleUrl);
+                PageMetas.PreviousPageUrl = string.Format("/news/{0}-{1}.html", ArticleDetails.PrevArticle.BasicId, ArticleDetails.PrevArticle.ArticleUrl);
                 PageMetas.AlternateUrl = string.Format("https://www.bikewale.com/m/news/{0}-{1}.html", ArticleDetails.BasicId, ArticleDetails.ArticleUrl);
                 PageMetas.AmpUrl = String.Format("{0}/m/news/{1}-{2}/amp/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, ArticleDetails.ArticleUrl, ArticleDetails.BasicId);
             }
@@ -118,7 +113,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         {
             try
             {
-                if (ArticleDetails != null && ArticleDetails.VehiclTagsList.Count > 0)
+                if (ArticleDetails != null && ArticleDetails.VehiclTagsList != null && ArticleDetails.VehiclTagsList.Count > 0)
                 {
 
                     var taggedMakeObj = ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
@@ -129,13 +124,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         TaggedMake = ArticleDetails.VehiclTagsList.FirstOrDefault().MakeBase;
-                        TaggedMake = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)TaggedMake.MakeId);
+                        if (TaggedMake != null)
+                            TaggedMake = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)TaggedMake.MakeId);
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                ErrorClass objErr = new ErrorClass(ex,"Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
 
@@ -148,7 +144,7 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         {
             try
             {
-                if (ArticleDetails != null && ArticleDetails.VehiclTagsList.Count > 0)
+                if (ArticleDetails != null && ArticleDetails.VehiclTagsList != null && ArticleDetails.VehiclTagsList.Count > 0)
                 {
 
                     var taggedModelObj = ArticleDetails.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.ModelBase.MaskingName));
@@ -159,14 +155,14 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
                     else
                     {
                         TaggedModel = ArticleDetails.VehiclTagsList.FirstOrDefault().ModelBase;
-                        TaggedModel = new Bikewale.Common.ModelHelper().GetModelDataById((uint)TaggedModel.ModelId);
-
+                        if (TaggedModel != null)
+                            TaggedModel = new Bikewale.Common.ModelHelper().GetModelDataById((uint)TaggedModel.ModelId);
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.GetTaggedBikeList");
             }
         }
 
@@ -179,35 +175,24 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
         private bool ProcessQueryString()
         {
             var request = HttpContext.Current.Request;
-            string _basicId = request.QueryString["id"];
+            string qsBasicId = request.QueryString["id"];
             try
             {
-
-                if (!string.IsNullOrEmpty(_basicId))
+                qsBasicId = BasicIdMapping.GetCWBasicId(qsBasicId);
+                if (!qsBasicId.Equals(request.QueryString["id"]))
                 {
-                    //Check if basic id exists in mapped carwale basic id log **/
-                    _basicId = BasicIdMapping.GetCWBasicId(_basicId);
-
-                    //if id exists then redirect url to new basic id url
-                    if (!_basicId.Equals(request["id"]))
-                    {
-                        IsPermanentRedirect = true;
-                        MappedCWId = _basicId;
-                        return false;
-                    }
-                    uint.TryParse(_basicId, out BasicId);
-                }
-                else
-                {
-                    IsPageNotFound = true;
+                    IsPermanentRedirect = true;
+                    MappedCWId = qsBasicId;
                     return false;
                 }
+                IsPageNotFound = !(uint.TryParse(qsBasicId, out BasicId) && BasicId > 0);
+                return !IsPageNotFound;
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.EditCMS.ProcessQueryString");
+                return false;
             }
-            return true;
         }
 
 

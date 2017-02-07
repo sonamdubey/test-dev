@@ -2,7 +2,9 @@
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.Location;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -22,6 +24,7 @@ namespace Bikewale.Mobile.Content
         public int startIndex = 0, endIndex = 0;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
+        private GlobalCityAreaEntity currentCityArea;
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,6 +48,9 @@ namespace Bikewale.Mobile.Content
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 ctrlPopularBikes.totalCount = 9;
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                ctrlPopularBikes.cityName = currentCityArea.City;
             }
             catch (Exception ex)
             {

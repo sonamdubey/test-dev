@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.NewBikeSearch;
-using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.GenericBikes
 {
@@ -17,8 +16,5 @@ namespace Bikewale.Interfaces.GenericBikes
     public interface IBestBikesCacheRepository
     {
         SearchOutputEntity BestBikesByType(EnumBikeBodyStyles bodyStyle, FilterInput filterInputs, InputBaseEntity input);
-        GenericBikeInfo GetGenericBikeInfo(uint modelId);
-        BikeRankingEntity GetBikeRankingByCategory(uint modelId);
-        ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle);
     }
 }

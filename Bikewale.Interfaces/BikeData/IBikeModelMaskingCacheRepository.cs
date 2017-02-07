@@ -13,6 +13,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :- Added cache call
     ///modified By:-Subodh jain 17 jan 2017
     /// Description :- Added GetDetailsByModel,GetDetailsByVersion,GetDetails
+    /// Modified By :- Subodh Jain 2 Feb 2017
+    /// Summary :- Added get make if video is present
+    /// Modified By :- Subodh Jain 2 Feb 2017
+    /// Summary :- Added GetSimilarBikesVideos method
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -24,6 +28,8 @@ namespace Bikewale.Interfaces.BikeData
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
         ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed);
+        IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
+        IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalcount);
         T GetById(U id);
     }
 }

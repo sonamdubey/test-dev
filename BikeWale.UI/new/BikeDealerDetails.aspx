@@ -170,7 +170,7 @@
                             <span class="boundary"></span>
                             <span class="error-text"></span>
                         </div>
-                        <div class="type-dropdown margin-bottom5">
+                        <div class="type-dropdown">
                             <p class="font12 text-light-grey">Bike</p>
                             <div class="dropdown-select-wrapper">
                                 <select id="getLeadBike" class="dropdown-select form-control chosen-select">
@@ -188,6 +188,7 @@
                             <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="<%=dealerObj.Name %>" data-item-area="<%=dealerObj.Area%>" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers %>"
                                 data-item-id="<%= dealerId %>" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="<%= ctaSmallText %>" />
                         </div>
+                        <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                     </div>
                     <div id="dealer-assist-msg" class="hide">
                         <p class="leftfloat font14">Thank you for your interest. <span data-bind="text: dealerName()"></span>&nbsp;will get in touch shortly</p>

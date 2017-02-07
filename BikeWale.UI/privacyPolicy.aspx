@@ -26,7 +26,7 @@
 		<p>
 			This Privacy Policy describes the information, as part of the normal operation of our services, we collect from you and what may 
 			happen to that information. Although this policy may seem long, we have prepared a detailed policy because we believe you should 
-			know as much as possible about bikewale.com’s practices so that you can make informed decisions. By accepting the Privacy Policy and 
+			know as much as possible about BikeWale.com’s practices so that you can make informed decisions. By accepting the Privacy Policy and 
 			the User Agreement in registration, you expressly consent to (i) be bound by the terms and conditions of this Privacy Policy and User 
 			Agreement; and (ii) our use and disclosure of your personal information in accordance with this Privacy Policy. This Privacy Policy is 
 			incorporated into and subject to the terms of the User Agreement.  
@@ -36,17 +36,17 @@
 			1. Your Privacy - Our Commitment
 		</span>
 		<p>
-		At bikewale.com, we are extremely proud of our commitment to protect your privacy and the personal information you disclose on the Site. 
+		At BikeWale.com, we are extremely proud of our commitment to protect your privacy and the personal information you disclose on the Site. 
 		We value your trust in us. We will work hard to earn your confidence so that you can enthusiastically use our services and recommend us 
 		to friends and family. Please read the following policy to understand how your personal information will be treated as you make full use 
 		of our Site. 
 		</p>
 		<br />
 		<span style="font-weight: bold">
-			2. bikewale.com Privacy Guarantee
+			2. BikeWale.com Privacy Guarantee
 		</span>
 		<p>   
-		bikewale.com promises that we will not  disclose your personal information to third parties for their marketing purposes without your 
+		BikeWale.com promises that we will not  disclose your personal information to third parties for their marketing purposes without your 
 		explicit consent.  From time to time we may reveal general statistical information about our   Site and visitors, such as number of 
 		visitors, number and type of goods and services purchased, etc. Your trust and confidence are our highest priority. 
 		</p>
@@ -73,7 +73,7 @@
 		are automatically deleted from your hard drive at the end of a session. You are always free to decline our cookies if your browser permits, 
 		although in that case you may not be able to use certain features on the Site and you may be required to reenter your password more frequently 
 		during a session.<br> 
-        <p>bikeWale serves all its advertisements using Google's Doubeclick ad serving platform. You may opt-out of the advertising-related data collection <a href="https://www.networkadvertising.org/managing/opt_out.asp">here</a> (choose Google from the list).</p><br />
+        <p>BikeWale serves all its advertisements using Google's Doubeclick ad serving platform. You may opt-out of the advertising-related data collection <a href="https://www.networkadvertising.org/managing/opt_out.asp">here</a> (choose Google from the list).</p><br />
 		If you choose to buy or sell bikes using the Site then we collect information about your buying and selling behavior. We also collect other users' 
 		comments about you in our feedback area. If you choose to post messages on our forum or leave feedback for other users, we will collect that 
 		information. We retain this information as necessary to resolve disputes, provide customer support and troubleshoot problems as permitted by law. 
@@ -114,13 +114,15 @@
 		<p>1. Advertisements</p>
 		<blockquote>
 			<p>
-				a. Where a user enters information on any form of an advertiser, the information is simultaneously collected by bikewale.com and the advertiser. 
-				The information is used by bikewale.com in accordance with the terms of this  Privacy  Policy and is used by the advertiser as per the advertisers 
+				a. Where a user enters information on any form of an advertiser, the information is simultaneously collected by BikeWale.com and the advertiser. 
+				The information is used by BikeWale.com in accordance with the terms of this  Privacy  Policy and is used by the advertiser as per the advertisers 
 				prevalent privacy policies. Because we do not control the privacy practices of these advertisers, you should evaluate their practices before 
-				deciding to provide the said information.
+				deciding to provide the said information.Moreover, you are authorizing BikeWale.com, its parent, affiliates, subsidiaries, partners and joint 
+                ventures, who are accessing your information by virtue of their association with BikeWale.com to communicate with you through telephone/mobile, 
+                e-mail, SMS or other modes of communication even if your number(s) is/are registered in the National Do Not Call Registry (NDNC) or www.nccptrai.gov.in
 			</p>
 			<p>
-				b. bikewale.com may also aggregate (gather up data across all user accounts) personally identifiable information and disclose such information 
+				b. BikeWale.com may also aggregate (gather up data across all user accounts) personally identifiable information and disclose such information 
 				in a non-personally identifiable manner to advertisers and other third parties for other marketing and promotional purposes.
 			</p>
 		</blockquote>
@@ -140,7 +142,7 @@
 		<p>
 			3. Bikes and Services offered on the Site are by third parties<br>
 			There are certain bikes and services for which third parties request for information before the service is listed on the Site (example: application 
-			for bike loan). The information provided by the user for such purposes is simultaneously collected by bikewale.com and the respective third party. 
+			for bike loan). The information provided by the user for such purposes is simultaneously collected by BikeWale.com and the respective third party. 
 			This information is utilised by the third party in accordance with its privacy policy and the terms of the offer. Because we do not control the 
 			privacy practices of these third parties, you should evaluate their practices before deciding to use their services. 
 		</p>
@@ -164,10 +166,13 @@
 			are committed to serving your online trading needs and related services, throughout the world. To the extent that these entities have 
 			access to your information, they will treat it at least as protectively as they treat information they obtain from their other users. 
 			Our parent, affiliates, subsidiaries, and joint ventures follow privacy practices no less protective of all users than our practices 
-			described in this document, to the extent allowed by applicable law. bikewale.com, its parent, affiliates, subsidiaries, its joint ventures, 
+			described in this document, to the extent allowed by applicable law. BikeWale.com, its parent, affiliates, subsidiaries, its joint ventures, 
 			or any combination of such, will share some or all of your personal information with another business entity should we plan to, merge with, 
 			or be acquired by that business entity. Should such a combination occur, we will require that the new combined entity follow this  Privacy  
-			Policy with respect to your personal information.
+			Policy with respect to your personal information.Moreover, you are authorizing BikeWale.com, its parent, affiliates, subsidiaries, partners 
+            and joint ventures, who are accessing your information by virtue of their association with BikeWale.com to communicate with you through 
+            telephone/mobile, e-mail, SMS or other modes of communication even if your number(s) is/are registered in the National Do Not Call Registry 
+            (NDNC) or www.nccptrai.gov.in
 		</p>
 		<br />
 		<p>
@@ -238,16 +243,16 @@
 			6B. Your use of other users' information
 		</span>
 		<p> 
-			In order to facilitate interaction among all bikewale.com community members, our Site allows you to access other users' contact information. 
+			In order to facilitate interaction among all BikeWale.com community members, our Site allows you to access other users' contact information. 
 			Further, as a seller you will be sent via email the personal details like email, address and other information of the buyer(s), and as a 
 			buyer you will be sent via email the personal details like email, address and other information of the  seller(s). By entering into our 
 			User Agreement, you agree that, with respect to other user's personally identifiable information that you obtain through the Site or through 
-			a bikewale.com  related communication or bikewale.com facilitated transaction, bikewale.com hereby grants to you a license to use such information 
+			a BikeWale.com  related communication or BikeWale.com facilitated transaction, BikeWale.com hereby grants to you a license to use such information 
 			only for:
 		</p>
 		<blockquote>
-			<p>(a) bikewale.com related communications that are not unsolicited commercial messages,</p>
-			<p>(b) using co-branded services offered through bikewale.com, and</p>
+			<p>(a) BikeWale.com related communications that are not unsolicited commercial messages,</p>
+			<p>(b) using co-branded services offered through BikeWale.com, and</p>
 			<p>(c) any other purpose that such user expressly opts into after adequate disclosure of the purpose(s).In all cases, you must give users 
 			an opportunity to remove themselves from your database and a chance to review what information you have collected about them</p>
 		</blockquote>
@@ -256,7 +261,7 @@
 			to any third party without our consent and the consent of such other user after adequate disclosure.
 		</p>
 		<p>
-			bikewale.com and our users do not tolerate spam. Therefore, without limiting the foregoing, you are not licensed to add a bikewale.com user-even a 
+			BikeWale.com and our users do not tolerate spam. Therefore, without limiting the foregoing, you are not licensed to add a BikeWale.com user-even a 
 			user who has purchased a bike from you-to your mail list (email or physical mail) without their express consent after adequate disclosure. 
 		</p>
 		<br />
@@ -265,7 +270,7 @@
 		</span><br>
 		<p>
 			To protect your privacy and security, we will verify your identity before granting access or making changes to your personally-identifying 
-			information. If you have registered your profile on bikewale.com, your bikewale.com ID and Password are required in order to access your profile 
+			information. If you have registered your profile on BikeWale.com, your BikeWale.com ID and Password are required in order to access your profile 
 			information. 
 		</p>
 		<br />
@@ -273,11 +278,11 @@
 			8. Your  consent 
 		</span>
 		<p>
-			By using the Site, you consent to the collection and use of the information you disclose on the Site by bikewale.com. If we decide to change 
+			By using the Site, you consent to the collection and use of the information you disclose on the Site by BikeWale.com. If we decide to change 
 			our  Privacy  Policy, we will post those changes in this  document available on the Site so that you are always aware of what information we 
 			collect, how we use it, and under what circumstances we disclose it. Any changes to our  Privacy  Policy will be communicated through our   
 			Site at least 10 days in advance of implementation. You may also note that you may at anytime, in writing to us, withdraw your consent to use 
-			your information in which case bikewale.com will desist from using it anymore. However, please note that bikewale.com reserves the right to 
+			your information in which case BikeWale.com will desist from using it anymore. However, please note that BikeWale.com reserves the right to 
 			discontinue all services in the event you withdraw your consent.
 		</p>
 

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.EditCMS;
+using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -7,6 +8,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -34,17 +36,20 @@ namespace Bikewale.Content
         protected Repeater rptPages, rptPageContent;
         protected string basicId = string.Empty;
         protected ArticlePageDetails objRoadtest;
+        protected RoadTestDetails objArticle;
+        protected IEnumerable<ModelImage> objImg = null;
         protected StringBuilder _bikeTested;
         protected ArticlePhotoGallery ctrPhotoGallery;
         protected ModelGallery ctrlModelGallery;
         protected MostPopularBikesMin ctrlPopularBikes;
+        protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         private GlobalCityAreaEntity currentCityArea;
         private BikeMakeEntityBase _taggedMakeObj;
-        private bool _isContentFound = true;
-        protected string upcomingBikesLink;
         protected string articleUrl = string.Empty, articleTitle = string.Empty, authorName = string.Empty, displayDate = string.Empty, ampUrl = string.Empty;
         protected int makeId;
         protected uint taggedModelId;
+        protected bool isModelTagged;
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -54,6 +59,8 @@ namespace Bikewale.Content
         /// <summary>
         /// Modified by : Sushil Kumar on 16th Nov 2016
         /// Description : Handle page redirection 
+        /// Modified by : Aditi Srivastava on 30 Jan 2017
+        /// Summary     : Moved code to common view model. Added baseUrl
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,99 +76,58 @@ namespace Bikewale.Content
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-
-
-            if (ProcessQS())
-            {
-                if (!string.IsNullOrEmpty(basicId))
-                    GetRoadtestDetails();
-                BindPageWidgets();
-            }
-
-
+            BindRoadTestDetails();
         }
-
-
-
         /// <summary>
-        /// Modified by : Sushil Kumar on 16th Nov 2016
-        /// Description : Handle page redirection  
+        /// Created by : Aditi Srivastava on 30 Jan 2017
+        /// Summary    : Bind road test details on page
         /// </summary>
-        private bool ProcessQS()
-        {
-            basicId = Request.QueryString["id"];
-
-            if (!String.IsNullOrEmpty(Request.QueryString["id"]) && CommonOpn.CheckId(Request.QueryString["id"]))
-            {
-
-                string _basicId = BasicIdMapping.GetCWBasicId(basicId);
-
-                if (!basicId.Equals(_basicId))
-                {
-                    // Modified By :Lucky Rathore on 12 July 2016.
-                    Form.Action = Request.RawUrl;
-                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-                    var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
-                    var _titleEndIndex = _newUrl.LastIndexOf('-');
-                    string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
-                    _newUrl = string.Format("/expert-reviews/{0}-{1}.html", _newUrlTitle, _basicId);
-                    CommonOpn.RedirectPermanent(_newUrl);
-                    return false;
-                }
-            }
-            else
-            {
-                Response.Redirect("/expert-reviews/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-                return false;
-            }
-
-            return true;
-        }
-
-        private void GetRoadtestDetails()
+        private void BindRoadTestDetails()
         {
             try
             {
-
-                using (IUnityContainer container = new UnityContainer())
+                objArticle = new RoadTestDetails();
+                if (!objArticle.IsPermanentRedirect && !objArticle.IsPageNotFound)
                 {
-                    container.RegisterType<IArticles, Articles>()
-                           .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                           .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _objArticles = container.Resolve<ICMSCacheContent>();
-
-                    objRoadtest = _objArticles.GetArticlesDetails(Convert.ToUInt32(basicId));
-
-                    if (objRoadtest != null)
+                    objArticle.GetRoadTestDetails();
+                    if (objArticle.IsContentFound)
                     {
+                        objRoadtest = objArticle.objRoadtest;
                         BindPages();
                         GetRoadtestData();
-                        GetTaggedBikeList();
-                        BindGallery(objRoadtest.Title);
-
+                        _taggedMakeObj = objArticle.taggedMakeObj;
+                        if (objArticle.taggedModelObj != null)
+                            taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
+                        objImg = objArticle.objImg;
+                        if (objImg != null && objImg.Count() > 0)
+                            BindGallery();
+                        BindPageWidgets();
                     }
                     else
                     {
-                        _isContentFound = false;
+                        Response.Redirect("/expert-reviews/", false);
+                        if (HttpContext.Current != null)
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
-
-
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (!_isContentFound)
+                else if (objArticle.IsPageNotFound)
                 {
                     Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.ViewRT.BindRoadTestDetails");
+            }
+            finally
+            {
+                if (objArticle.IsPermanentRedirect)
+                {
+                    string newUrl = string.Format("/expert-reviews/{0}-{1}.html", Request["t"], objArticle.MappedCWId);
+                    Bikewale.Common.CommonOpn.RedirectPermanent(newUrl);
                 }
             }
         }
@@ -169,135 +135,75 @@ namespace Bikewale.Content
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : To bind model gallery
+        /// Modified by : Aditi Srivastava on 3 Feb 2017
+        /// Summary     : Removed unity resolution as it is already resolved in view model
         /// </summary>
-        private void BindGallery(string articleTitle)
+        private void BindGallery()
         {
-            try
-            {
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IArticles, Articles>()
-                               .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                               .RegisterType<ICacheManager, MemcacheManager>();
-                    ICMSCacheContent _cache = container.Resolve<ICMSCacheContent>();
-
-                    IEnumerable<ModelImage> objImg = _cache.GetArticlePhotos(Convert.ToInt32(basicId));
-
-                    if (objImg != null && objImg.Count() > 0)
-                    {
-                        ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
-                        ctrPhotoGallery.ModelImageList = objImg;
-                        ctrPhotoGallery.BindPhotos();
-
-                        ctrlModelGallery.bikeName = articleTitle;
-                        ctrlModelGallery.Photos = objImg.ToList();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.BindGallery");
-                objErr.SendMail();
-            }
-        }
-
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : To get tagged bike along with article
-        /// Modified by : Sajal Gupta on 27-01-2017
-        /// Description : Saved taggedModelId  to the variable
-        /// </summary>
-        private void GetTaggedBikeList()
-        {
-            if (objRoadtest != null && objRoadtest.VehiclTagsList.Count > 0)
-            {
-
-                var taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault(m => !string.IsNullOrEmpty(m.MakeBase.MaskingName));
-                if (taggedMakeObj != null)
-                {
-                    _taggedMakeObj = taggedMakeObj.MakeBase;
-                    var modelBase = taggedMakeObj.ModelBase;
-                    if(modelBase != null)
-                        taggedModelId = (uint)modelBase.ModelId;
-                }
-                else
-                {
-                    _taggedMakeObj = objRoadtest.VehiclTagsList.FirstOrDefault().MakeBase;
-                    var modelBase = objRoadtest.VehiclTagsList.FirstOrDefault().ModelBase;
-                    if(modelBase != null)
-                        taggedModelId = (uint)modelBase.ModelId;
-                    FetchMakeDetails();
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 10th Nov 2016
-        /// Description : To get make details by id
-        /// </summary>
-        private void FetchMakeDetails()
-        {
-
-            try
-            {
-                if (_taggedMakeObj != null && _taggedMakeObj.MakeId > 0)
-                {
-
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                        var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-                        _taggedMakeObj = makesRepository.GetMakeDetails(_taggedMakeObj.MakeId.ToString());
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "Bikewale.ViewRT.FetchMakeDetails");
-                objErr.SendMail();
-            }
+            ctrPhotoGallery.BasicId = Convert.ToInt32(basicId);
+            ctrPhotoGallery.ModelImageList = objImg;
+            ctrPhotoGallery.BindPhotos();
+            ctrlModelGallery.bikeName = articleTitle;
+            ctrlModelGallery.Photos = objImg.ToList();
         }
 
         /// <summary>
         /// Created by : Aditi Srivastava on 8 Nov 2016
-        /// Summary  : Bind upcoming bikes list
+        /// Summary  :   Bind upcoming bikes list
+        /// Modified By: Aditi Srivastava on 31 Jan 2017
+        /// Summary    : Modified widget logic for tagged bikes
         /// </summary>
         /// </summary>
         private void BindPageWidgets()
         {
-            currentCityArea = GlobalCityArea.GetGlobalCityArea();
-
-            if (ctrlPopularBikes != null)
+            try
             {
-
-
-                ctrlPopularBikes.totalCount = 3;
-                ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
-                ctrlPopularBikes.cityName = currentCityArea.City;
-
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 9;
-                ctrlUpcomingBikes.topCount = 3;
-
-
-                if (_taggedMakeObj != null)
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                isModelTagged = (taggedModelId > 0);
+                if (ctrlPopularBikes != null)
                 {
-                    ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
-                    ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
-                    ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
-                    ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
-
+                    ctrlPopularBikes.totalCount = 3;
+                    ctrlPopularBikes.CityId = Convert.ToInt32(currentCityArea.CityId);
+                    ctrlPopularBikes.cityName = currentCityArea.City;
+                    if (_taggedMakeObj != null)
+                    {
+                        ctrlPopularBikes.MakeId = _taggedMakeObj.MakeId;
+                        ctrlPopularBikes.makeName = _taggedMakeObj.MakeName;
+                        ctrlPopularBikes.makeMasking = _taggedMakeObj.MaskingName;
+                    }
+                }
+                if (isModelTagged)
+                {
+                    if (ctrlBikesByBodyStyle != null)
+                    {
+                        ctrlBikesByBodyStyle.ModelId = taggedModelId;
+                        ctrlBikesByBodyStyle.topCount = 3;
+                        ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                }
+                else
+                {
+                    if (ctrlUpcomingBikes != null)
+                    {
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 9;
+                        ctrlUpcomingBikes.topCount = 3;
+                        if (_taggedMakeObj != null)
+                        {
+                            ctrlUpcomingBikes.MakeId = _taggedMakeObj.MakeId;
+                            ctrlUpcomingBikes.makeMaskingName = _taggedMakeObj.MaskingName;
+                            ctrlUpcomingBikes.makeName = _taggedMakeObj.MakeName;
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Content.ViewRT.BindPageWidgets");
 
-
+            }
         }
+
         private void BindPages()
         {
             rptPages.DataSource = objRoadtest.PageList;
