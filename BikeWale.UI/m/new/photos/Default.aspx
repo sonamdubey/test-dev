@@ -225,7 +225,7 @@
                                     <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
                                         <span data-bind="style: { 'background-color': '#' + $data }"></span>
                                     </div>
-                                    <p class="color-box-label inline-block" data-bind="text: imageTitle"></p>
+                                    <p class="color-box-label inline-block" data-bind="text: (imageTitle.length > 17 ? imageTitle.substring(0, 17) + '...' : imageTitle)"></p>
                                 </div>
                             </div>
                         </div>
