@@ -46,8 +46,8 @@
                             <% } %>
                             <span <%= (bike.VersionId != sponsoredVersionId ) ? "" : "id='close-sponsored-bike'" %> class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey"></span>
                             <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" title="<%= bikeName %>" class="block margin-top10">
-                                <span class="font10 text-light-grey"><%= bike.Make  %></span>
-                                <h2 class="font12 text-truncate"><%= bike.Model  %></h2>
+                                <span class="font10 text-light-grey text-truncate"><%= bike.Make  %></span>
+                                <h2 class="font12 text-truncate margin-bottom10"><%= bike.Model  %></h2>
                                 <img class="bike-image-block" src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.ImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" alt="<%= bikeName %>" />
                             </a>
                             <p class="label-text">Version:</p>
@@ -98,7 +98,7 @@
                                {%>
                             <span class="position-abt pos-top5 label-text">Sponsored</span>
                             <% } %>
-                                <span class="font10 text-light-grey"><%= bike.Make  %></span>
+                                <span class="font10 text-light-grey text-truncate"><%= bike.Make  %></span>
                             <a href="<%= string.Format("/m/{0}-bikes/{1}/",bike.MakeMaskingName,bike.ModelMaskingName) %>" class="font12 text-truncate bike-title-target"><%= bike.Model %></a>
                             <% if ((bike.VersionId != sponsoredVersionId) || string.IsNullOrEmpty(featuredBike))
                                { %>
