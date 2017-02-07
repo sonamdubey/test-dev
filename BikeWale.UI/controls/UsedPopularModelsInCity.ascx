@@ -7,7 +7,7 @@
         <%foreach (var bike in UsedBikeModelInCityList)
           { %>
         <div class="grid-<%=childGrid %> alpha margin-bottom20">
-            <a title="Used <%= bike.MakeName %> <%= bike.ModelName %> bikes In <%= CityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId,CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName) %>"><%= bike.AvailableBikes %> Used <%= bike.MakeName %> <%= bike.ModelName %>  <%= bike.AvailableBikes > 1 ? "bikes":"bike" %></a>
+            <a title="Used <%= bike.MakeName %> <%= bike.ModelName %> bikes in <%= CityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId,CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName) %>"><%= bike.AvailableBikes %> Used <%= bike.MakeName %> <%= bike.ModelName %>  <%= bike.AvailableBikes > 1 ? "bikes":"bike" %></a>
             <p class="margin-top10">Starting at <span class="bwsprite inr-sm-dark"></span> <%= Bikewale.Utility.Format.FormatPrice(bike.MinimumPrice) %> </p>
          </div>
         <% } %>

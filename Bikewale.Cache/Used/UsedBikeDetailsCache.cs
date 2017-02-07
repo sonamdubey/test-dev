@@ -105,7 +105,7 @@ namespace Bikewale.Cache.Used
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "UsedBikeDetailsCache.GetPopularUsedModelsByMake");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikeDetailsCache.GetPopularUsedModelsByMake ==> makeId:{0}, TopCount {1}", makeid, topcount));
             }
             return objUsedBikes;
         }

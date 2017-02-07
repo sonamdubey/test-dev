@@ -409,8 +409,10 @@ namespace Bikewale.DAL.Used
             return photos;
         }
         /// <summary>
-        ///Created By : Subodh Jain on 2 jan 2017 
+        /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Get Used Bike By Model Count In City
+        /// Modified By : Sangram Nandkhile on 07 Feb 2017 
+        /// Description : Changed SP to fetch Minimum price for the model
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="totalCount"></param>

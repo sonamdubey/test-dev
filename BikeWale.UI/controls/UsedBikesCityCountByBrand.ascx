@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikesCityCountByBrand" %>
-<% if (viewModel != null && viewModel.BikesCountCityList != null)
+<% if (viewModel != null && viewModel.BikesCountCityList != null && viewModel.BikesCountCityList.Count() > 0)
    { %>
 <div class="jcarousel-wrapper inner-content-carousel city-model-carousel">
     <div class="jcarousel">

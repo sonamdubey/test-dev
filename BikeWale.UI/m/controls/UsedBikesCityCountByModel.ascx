@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikesCityCountByModel" %>
 
-<% if (viewModel != null && viewModel.BikesCountCityList != null)
+<% if (viewModel != null && viewModel.BikesCountCityList != null && viewModel.BikesCountCityList.Count() > 0)
    { %>
 <div id='UsedBikesCityCountByModel' class="swiper-container card-container city-model-carousel">
     <div class="swiper-wrapper">
