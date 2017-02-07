@@ -694,7 +694,7 @@
                             <span class="bwsprite user-contact-details-icon margin-top25"></span>
                         </div>
                     </div>
-                    <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+                    <p class="font20 margin-top15 margin-bottom10">Provide contact details</p>
                     <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                     <div class="personal-info-form-container">
                         <div class="form-control-box personal-info-list">
@@ -718,7 +718,7 @@
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                        <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                        <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                     </div>
                 </div>
                 <!-- contact details ends here -->
