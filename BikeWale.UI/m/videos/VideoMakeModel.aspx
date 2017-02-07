@@ -33,7 +33,7 @@
             </div>
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
-        <section class="bg-white padding-top50 bottom-shadow margin-bottom30">
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom10">
             <div class="miscWrapper container">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
@@ -68,7 +68,7 @@
         </section>
         <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
-        <div class="container content-box-shadow">
+        <div class="container content-box-shadow margin-bottom10 padding-bottom20">
             <div class="padding-top20 padding-bottom20 font14">
                 <h2 class="padding-left20 padding-right20 margin-bottom15">Videos of bikes similar to <%=model%></h2>
                 <BW:SimilarBikeVideos runat="server" ID="ctrlSimilarBikeVideos" />
@@ -77,7 +77,7 @@
         <% } %>
                 <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
          <section>
-             <div class="container content-box-shadow">
+             <div class="container content-box-shadow margin-bottom20">
             <div class="padding-top20 padding-bottom20 font14">
                 <h2 class="padding-left20 padding-right20 margin-bottom15">
                    Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
