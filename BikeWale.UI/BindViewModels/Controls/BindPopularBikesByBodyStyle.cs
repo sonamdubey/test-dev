@@ -24,6 +24,7 @@ namespace Bikewale.BindViewModels.Controls
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        private const int WidgetItemCount = 9;
 
         public ICollection<MostPopularBikesBase> GetPopularBikesByCategory()
         {
@@ -40,8 +41,9 @@ namespace Bikewale.BindViewModels.Controls
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     if (ModelId > 0)
                     {
-                        popularBikesList = modelCache.GetPopularBikesByBodyStyle((int)ModelId, TopCount, CityId);
+                        popularBikesList = modelCache.GetPopularBikesByBodyStyle((int)ModelId, WidgetItemCount, CityId);
                         if (popularBikesList != null && popularBikesList.Count() > 0)
+                            popularBikesList = popularBikesList.Take(TopCount).ToList();
                             FetchedRecordsCount = popularBikesList.Count();
                     }
                 }
