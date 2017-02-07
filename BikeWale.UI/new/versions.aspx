@@ -426,7 +426,7 @@
                                 <div id="dealerAssistance" class="border-light-top padding-top20">
                                     <div id="buyingAssistance">
                                         <p class="font14 text-bold margin-bottom15">Complete buying assistance from <%= viewModel.Organization %></p>
-                                        <p class="font14 text-light-grey margin-bottom30">Get in touch with <%= viewModel.Organization %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
+                                        <p class="font14 text-light-grey margin-bottom25">Get in touch with <%= viewModel.Organization %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
                                         <div>
                                             <div class="input-box assistance-input-box">
                                                 <input type="text" id="assistGetName" data-bind="textInput: fullName" />
@@ -451,7 +451,7 @@
                                             </div>
 
                                             <a class="btn btn-teal assistance-submit-btn" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
-                                            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                                            <p class="margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                                         </div>
                                     </div>
                                     <div id="dealer-assist-msg" class="hide">

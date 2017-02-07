@@ -108,7 +108,7 @@
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
                 <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
-                <div class="gallery-container" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center;"></div>
+                <div class="gallery-container" style="background: #2a2a2a url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center;"></div>
                 <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
@@ -172,7 +172,7 @@
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

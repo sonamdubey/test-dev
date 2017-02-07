@@ -478,3 +478,11 @@
     border-right: 10px solid #f5f5f5;
     border-bottom: 10px solid transparent;
 }
+
+#dealerAssistance .input-box {
+    height: 55px;
+}
+
+#dealerAssistance .error-text {
+    top: 0;
+}

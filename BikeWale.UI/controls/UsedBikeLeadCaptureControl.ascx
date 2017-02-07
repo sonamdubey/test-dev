@@ -10,7 +10,7 @@
                 </div>
             </div>
             <p class="font18 text-bold margin-top10 margin-bottom10">Get seller details</p>
-            <p class="font14 text-light-grey margin-bottom40">For privacy concerns, we hide owner details.<br />Please fill this form to get owner's details.</p>
+            <p class="font14 text-light-grey margin-bottom20">For privacy concerns, we hide owner details.<br />Please fill this form to get owner's details.</p>
 
             <div class="input-box form-control-box margin-bottom10">
                 <input type="text" id="getUserName" data-bind="textInput: buyer().userName" />
