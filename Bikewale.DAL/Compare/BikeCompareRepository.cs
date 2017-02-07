@@ -303,7 +303,7 @@ namespace Bikewale.DAL.Compare
                                             StartingPrice = SqlReaderConvertor.ToUInt32(reader["minPrice"]),
                                             CityMaskingName = Convert.ToString(reader["citymaskingname"])
                                         },
-                                        Versions = versionsList.Where(x => x.ModelId == modelId)
+                                        Versions = versionsList.Where(x => x.ModelId == modelId).ToList()
                                     });
 
 
