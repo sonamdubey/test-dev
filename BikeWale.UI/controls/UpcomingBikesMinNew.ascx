@@ -13,7 +13,7 @@
                                             <h3><%=String.Format("{0} {1}", bike.MakeBase.MakeName.ToString(), bike.ModelBase.ModelName.ToString())%></h3>
                                             <% if(bike.EstimatedPriceMin > 0) { %>
                                             <p class="font11 text-light-grey">Expected price</p>
-                                        <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) %> onwards</span>
+                                        <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) %> <span class="font14">onwards</span></span>
                                             <% } else { %> 
                                          <span class='font14 text-light-grey'>Price not available</span>
                                             <% } %>

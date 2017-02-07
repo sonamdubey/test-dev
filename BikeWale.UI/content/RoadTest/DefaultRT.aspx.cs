@@ -78,6 +78,7 @@ namespace Bikewale.Content
                         makeMaskingName = objRoadTests.makeMaskingName;
                         modelId = objRoadTests.ModelId;
                         modelName = objRoadTests.modelName;
+                        modelMaskingName = objRoadTests.modelMaskingName;
                         articlesList = objRoadTests.articlesList;
                         startIndex = objRoadTests.startIndex;
                         endIndex = objRoadTests.endIndex;
