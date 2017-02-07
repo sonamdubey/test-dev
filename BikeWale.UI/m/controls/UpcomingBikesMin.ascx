@@ -20,11 +20,11 @@
                                         <% if(bike.EstimatedPriceMin > 0) { %>
                                          <p class="text-truncate text-light-grey font11">Expected price</p>
                                         <p class="text-default">    
-                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(bike.EstimatedPriceMin.ToString()) %></span> 
+                                        <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="text-bold font16"><%= Bikewale.Utility.Format.FormatPrice(bike.EstimatedPriceMin.ToString()) %> onwards</span> 
                                             </p>
                                                  <%}else { %>
                                             <p class="text-default">
-                                            <span class="font14">Price Unavailable</span>
+                                            <span class="font14 text-light-grey">Price not available</span>
                                              </p>
                                             <% } %> 
                                     </div>

@@ -65,7 +65,7 @@ namespace Bikewale.Cache.BikeData
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetails_{0}", modelId);
+            string key = string.Format("BW_ModelDetail_{0}", modelId);
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
@@ -74,6 +74,11 @@ namespace Bikewale.Cache.BikeData
                     objModelPage.Photos = GetModelPhotoGallery(modelId);
                     #region Add first image
                     if (objModelPage.ModelDetails != null && objModelPage.ModelDetails.MakeBase != null)
+                    {
+                        if (objModelPage.Photos == null)
+                        {
+                            objModelPage.Photos = new List<ModelImage>();
+                        }
                         objModelPage.Photos.Insert(0,
                                 new ModelImage()
                                 {
@@ -90,6 +95,7 @@ namespace Bikewale.Cache.BikeData
                                     },
                                     ImageName = objModelPage.ModelDetails.ModelName
                                 });
+                    }
                     #endregion
                 }
                 //objModelPage.colorPhotos = GetModelColorPhotos(modelId);
@@ -478,7 +484,7 @@ namespace Bikewale.Cache.BikeData
         {
             List<ModelImage> objPhotos = null;
 
-            string key = string.Format("BW_ModelPhotoGallery_MO_{0}", modelId);
+            string key = string.Format("BW_ModelPhotos_MO_{0}", modelId);
             try
             {
                 objPhotos = _cache.GetFromCache<List<ModelImage>>(key, new TimeSpan(1, 0, 0), () => (List<ModelImage>)_objModels.GetModelPhotos(modelId));
@@ -542,7 +548,7 @@ namespace Bikewale.Cache.BikeData
         public ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId)
         {
             ICollection<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}", modelId, cityId);
+            string key = string.Format("BW_PopularBikesListByBodyType_MO_{0}_city_{1}_topcount_{2}", modelId, cityId, topCount);
             try
             {
                 popularBikesList = _cache.GetFromCache<Collection<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (Collection<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyle(modelId, topCount, cityId));
@@ -609,6 +615,10 @@ namespace Bikewale.Cache.BikeData
         public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
             string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+
+            if (cityId != null)
+                key = string.Format("{0}_{1}", key, cityId.Value);
+
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
@@ -617,7 +627,6 @@ namespace Bikewale.Cache.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
-
             }
             return bestBikesList;
         }

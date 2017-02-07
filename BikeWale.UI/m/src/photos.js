@@ -317,6 +317,11 @@ var modelGallery = function () {
     self.toggleModelInfoScreen = function () {
         if (!self.modelInfoScreen()) {
             deactivateAllScreens();
+            if (navigator.userAgent.indexOf('UCBrowser/') >= 0) {
+                if (!$('#gallery-root').hasClass('uc-iframe-position')) {
+                    $('#gallery-root').addClass('uc-iframe-position');
+                }
+            }
             self.modelInfoScreen(true);
         }
         else {

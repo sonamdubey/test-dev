@@ -590,6 +590,11 @@ namespace Bikewale.New
                                     bikeMakeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             }
+
+                            if (modelPg.Photos != null && modelPg.Photos.Count > 1)
+                            {
+                                modelPg.Photos.RemoveAt(0);
+                            }
                         }
                     }
                 }

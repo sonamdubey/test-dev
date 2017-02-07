@@ -81,25 +81,26 @@ namespace BikeWaleOpr.Content
 
                         if (lblId != null)
                             selId += lblId.Text + ",";
-                        UInt32 makeId,modelId;
+                        UInt32 makeId, modelId;
                         //Refresh memcache object for newbikelaunches
                         if (lblModelId != null)
                         {
                             selModelId += lblModelId.Text + ",";
                             MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", lblModelId.Text));
-                        
+                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_{0}", lblModelId.Text));
+
                         }
                         if (lblMakeId != null)
                         {
-                            UInt32.TryParse(lblMakeId.Text,out makeId);
+                            UInt32.TryParse(lblMakeId.Text, out makeId);
                             MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
                             //CLear popularBikes key
-                            
+
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-                                                     
+
                         }
                         if (lblMakeId != null && lblModelId != null)
                         {
@@ -112,10 +113,10 @@ namespace BikeWaleOpr.Content
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, null);
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, modelId);
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
-                                
+
                             }
-                            
-                                                      
+
+
                         }
                     }
                 }
@@ -129,7 +130,7 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for newbikelaunches
                 MemCachedUtil.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
                 MemCachedUtil.Remove("BW_NewBikeLaunches");
-                
+
             }
             catch (Exception err)
             {

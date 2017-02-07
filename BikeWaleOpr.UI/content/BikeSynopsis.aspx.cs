@@ -101,6 +101,7 @@ namespace BikeWaleOpr.Content
 
             //Refresh memcache object for ModelDescription change for desktop site
             MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", Request.QueryString["model"]));
+            MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", Request.QueryString["model"]));
         }
 
         void FillRatings(DropDownList drpName)
