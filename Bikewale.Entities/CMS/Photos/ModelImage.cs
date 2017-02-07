@@ -59,6 +59,7 @@ namespace Bikewale.Entities.CMS.Photos
         public string ImageTitle { get; set; }
     }
 
+    [Serializable, DataContract]
     public class ColorImageBaseEntity : ImageBaseEntity
     {
         [DataMember]
@@ -68,6 +69,7 @@ namespace Bikewale.Entities.CMS.Photos
         [JsonProperty("colors")]
         public IEnumerable<string> Colors { get; set; }
     }
+    [Serializable, DataContract]
     public enum ImageBaseType
     {
         ModelImage = 1,
