@@ -65,7 +65,7 @@ namespace Bikewale.Cache.BikeData
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetails_{0}", modelId);
+            string key = string.Format("BW_ModelDetail_{0}", modelId);
             try
             {
                 objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => _objModels.GetModelPageDetails(modelId, versionId));
