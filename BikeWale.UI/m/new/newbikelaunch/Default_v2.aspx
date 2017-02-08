@@ -38,6 +38,17 @@
         <section>
             <h2 class="section-heading">Newly launched bikes</h2>
             <div class="container bg-white box-shadow section-bottom-margin">
+                <div class="box-shadow padding-top10 padding-bottom10">
+                    <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                        <p class="font12 text-light-grey">Brand</p>
+                        <p id="brand-filter-selection" class="filter-selection-value text-truncate">All brands</p>
+                    </div>
+                    <div class="grid-6 padding-left15 padding-right15">
+                        <p class="font12 text-light-grey">Launch year</p>
+                        <p id="year-filter-selection" class="filter-selection-value text-truncate">All years</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 <ul class="new-launches-list">
                     <li class="list-item">
                         <a href="" title="Honda CB Shine" class="block">
@@ -191,7 +202,7 @@
         <section>
             <h2 class="section-heading">New launches by brands</h2>
             <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                <div class="brand-type-container">
+                <div id="brand-type-container" class="brand-type-container">
                     <ul>
                         <li>
                             <a href="" title="">
@@ -310,11 +321,269 @@
         </section>
 
         <section>
-            <h2 class="section-heading">Upcoming bikes</h2>
-            <div class="container bg-white box-shadow section-bottom-margin">
+            <h2 class="section-heading responsive-heading">Bike launches in the previous years</h2>
+            <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
+                <div class="swiper-container card-container year-type-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2017" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2017</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bike launched in 2017</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
 
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2016" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2016</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bike launched in 2016</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2015" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2015</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bike launched in 2015</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2014" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2014</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bike launched in 2014</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <section>
+            <h2 class="section-heading">Upcoming bikes</h2>
+            <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
+                <div class="swiper-container card-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="TVS XL 100">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/tvs-xl100-704.jpg?20162803121410" alt="TVS XL 100" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="target-link font12 text-truncate margin-bottom5">TVS XL 100</h3>
+                                        <div class="text-light-grey margin-bottom5">
+                                            <p class="font11 text-light-grey">Expected launch</p>
+                                            <p class="font16 text-bold text-default">Jan 2016</p>
+                                        </div>
+                                        <div>
+                                            <div class="font11 text-light-grey">Expected Price</div>
+                                            <div class="text-default">
+                                                <span class="bwmsprite inr-xsm-icon"></span>
+                                                <span class="text-bold font16">28,000</span>
+                                                <span class="font14 text-bold">onwards</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>                
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Kawasaki Ninja ZX-14R [2016]">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
+                                        <div class="text-light-grey margin-bottom5">
+                                            <p class="font11 text-light-grey">Expected launch</p>
+                                            <p class="font16 text-bold text-default">Feb 2016</p>
+                                        </div>
+                                        <div>
+                                            <div class="font11 text-light-grey">Expected Price</div>
+                                            <div class="text-default">
+                                                <span class="bwmsprite inr-xsm-icon"></span>
+                                                <span class="text-bold font16">17,50,000</span>
+                                                <span class="font14 text-bold">onwards</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>                
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Suzuki Hayate EP">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/suzuki-hayateep-705.jpg?20160104150238" alt="Suzuki Hayate EP" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="target-link font12 text-truncate margin-bottom5">Suzuki Hayate EP</h3>
+                                        <div class="text-light-grey margin-bottom5">
+                                            <p class="font11 text-light-grey">Expected launch</p>
+                                            <p class="font16 text-bold text-default">Apr 2016</p>
+                                        </div>
+                                        <div>
+                                            <div class="font11 text-light-grey">Expected Price</div>
+                                            <div class="text-default">
+                                                <span class="bwmsprite inr-xsm-icon"></span>
+                                                <span class="text-bold font16">28,000</span>
+                                                <span class="font14 text-bold">onwards</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>                
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="TVS XL 100">
+                                    <div class="swiper-image-preview position-rel">
+                                        <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/tvs-xl100-704.jpg?20162803121410" alt="TVS XL 100" src="" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="target-link font12 text-truncate margin-bottom5">TVS XL 100</h3>
+                                        <div class="text-light-grey margin-bottom5">
+                                            <p class="font11 text-light-grey">Expected launch</p>
+                                            <p class="font16 text-bold text-default">Jan 2016</p>
+                                        </div>
+                                        <div>
+                                            <div class="font11 text-light-grey">Expected Price</div>
+                                            <div class="text-default">
+                                                <span class="bwmsprite inr-xsm-icon"></span>
+                                                <span class="text-bold font16">28,000</span>
+                                                <span class="font14 text-bold">onwards</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="brand-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+            <div class="drawer-top-header">
+                <span id="close-brand-slideIn-drawer" class="back-arrow-box inline-block">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span><p class="head-label inline-block">Select brand</p>
+            </div>
+            <div class="drawer-body-content">
+                <div class="filter-input-box">
+                    <div class="form-control-box">
+                        <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
+                        <span class="bwmsprite search-icon-grey"></span>
+                    </div>
+                </div>
+                <ul class="filter-list">
+                    <li>
+                        <span>Bajaj</span>
+                    </li>
+                    <li>
+                        <span>Honda</span>
+                    </li>
+                    <li>
+                        <span>Hero</span>
+                    </li>
+                    <li>
+                        <span>Royal Enfield</span>
+                    </li>
+                    <li>
+                        <span>Yamaha</span>
+                    </li>
+                    <li>
+                        <span>Bajaj</span>
+                    </li>
+                    <li>
+                        <span>Honda</span>
+                    </li>
+                    <li>
+                        <span>Hero</span>
+                    </li>
+                    <li>
+                        <span>Royal Enfield</span>
+                    </li>
+                    <li>
+                        <span>Yamaha</span>
+                    </li>
+                    <li>
+                        <span>Bajaj</span>
+                    </li>
+                    <li>
+                        <span>Honda</span>
+                    </li>
+                    <li>
+                        <span>Hero</span>
+                    </li>
+                    <li>
+                        <span>Royal Enfield</span>
+                    </li>
+                    <li>
+                        <span>Yamaha</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+            <div class="drawer-top-header">
+                <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span><p class="head-label inline-block">Select year</p>
+            </div>
+            <div class="drawer-body-content">
+                <ul class="filter-list">
+                    <li>
+                        <span>2017</span>
+                    </li>
+                    <li>
+                        <span>2016</span>
+                    </li>
+                    <li>
+                        <span>2015</span>
+                    </li>
+                    <li>
+                        <span>2014</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 

@@ -2915,6 +2915,7 @@
     <Content Include="m\sass\modules\_button.sass" />
     <Content Include="m\sass\new-launch\_media-query.sass" />
     <Content Include="m\sass\modules\_pagination.sass" />
+    <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
