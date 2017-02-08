@@ -187,24 +187,22 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string city, string make, string model)
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make, string model)
         {
-            if (cityId > 0)
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
-                else
-                    return String.Format("/used/{0}-bikes-in-{1}/", make, city);
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-india/", make, model);
-                else
-                    return String.Format("/used/{0}-bikes-in-india/", make);
-            }
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, cityMasking);
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make)
+        {
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            return String.Format("/used/{0}-bikes-in-{1}/", make, cityMasking);
+        }
 
         /// <summary>
         ///  Created By : Sushil Kumar 

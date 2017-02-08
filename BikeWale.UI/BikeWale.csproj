@@ -320,12 +320,12 @@
     <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />    
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -354,6 +354,7 @@
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
+    <Compile Include="common\CityHelper.cs" />
     <Compile Include="common\Classified.cs" />
     <Compile Include="common\CommonOpn.cs">
       <SubType>Code</SubType>
@@ -797,6 +798,14 @@
       <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedPopularModels.ascx.cs">
+      <DependentUpon>UsedPopularModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UsedPopularModelsInCity.ascx.cs">
+      <DependentUpon>UsedPopularModelsInCity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedRecentBikes.ascx.cs">
       <DependentUpon>UsedRecentBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1156,6 +1165,14 @@
     </Compile>
     <Compile Include="m\controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedPopularModels.ascx.cs">
+      <DependentUpon>UsedPopularModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedPopularModelsInCity.ascx.cs">
+      <DependentUpon>UsedPopularModelsInCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedRecentBikes.ascx.cs">
@@ -2153,6 +2170,8 @@
     <Content Include="controls\UsedBikesCityCountByModel.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
+    <Content Include="controls\UsedPopularModels.ascx" />
+    <Content Include="controls\UsedPopularModelsInCity.ascx" />
     <Content Include="controls\UsedRecentBikes.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewSimilarBike.ascx" />
@@ -2704,6 +2723,8 @@
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UsedBikes.ascx" />
+    <Content Include="m\controls\UsedPopularModels.ascx" />
+    <Content Include="m\controls\UsedPopularModelsInCity.ascx" />
     <Content Include="m\controls\UsedRecentBikes.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UserReviewSimilarBike.ascx" />
