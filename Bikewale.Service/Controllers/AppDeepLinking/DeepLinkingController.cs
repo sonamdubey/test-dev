@@ -61,7 +61,6 @@ namespace Bikewale.Service.Controllers.AppDeepLinking
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.AndroidApp.Get");
-                objErr.SendMail();
                 return InternalServerError();
             }
         }
