@@ -1,13 +1,8 @@
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
-using Bikewale.DAL.BikeData;
-using Bikewale.Entities.AppDeepLinking;
+﻿using Bikewale.Entities.AppDeepLinking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -18,9 +13,18 @@ namespace Bikewale.BAL.AppDeepLinking
     /// Created By : Lucky Rathore
     /// Created On : 10 March 2016
     /// Description : Class Implement IDeepLinking. 
+    /// Modified by :   Sumit Kate on 09 Feb 2017
+    /// Description :   Added private member variables for IBikeMakesCacheRepository and IBikeMaskingCacheRepository
     /// </summary>
     public class DeepLinking : IDeepLinking
     {
+        private readonly IBikeMakesCacheRepository<int> _makeCache;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelCache;
+        public DeepLinking(IBikeMakesCacheRepository<int> makeCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelCache)
+        {
+            _makeCache = makeCache;
+            _modelCache = modelCache;
+        }
         /// <summary>
         /// Created By : Lucky Rathore
         /// Created On : 10 March 2016
@@ -31,6 +35,8 @@ namespace Bikewale.BAL.AppDeepLinking
         /// Description : New rules for series page URL is added with make page url responce.
         /// Modified by :   Sumit Kate on 20 Sep 2016
         /// Description :   Handle make and model rename for 301 scenarios
+        /// Modified by :   Sumit Kate on 09 Feb 2017
+        /// Description :   removed send mail and other opimization
         /// </summary>
         /// <param name="url">Bikewale.com's URL</param>
         /// <returns>DeepLinkingEntity</returns>
@@ -39,17 +45,18 @@ namespace Bikewale.BAL.AppDeepLinking
             if (string.IsNullOrEmpty(url)) return null;
             DeepLinkingEntity deepLinking = null;
             Match match = null;
+            uint makeId, modelId;
             try
             {
                 if (((match = Regex.Match(url, @"\/([A-Za-z0-9\-]+)-bikes\/upcoming\/?$")) != null) && match.Success) //for Upcoming Bikes Detail
                 {
-                    string makeId = GetMakeId(match.Groups[1].Value);
-                    if (!string.IsNullOrEmpty(makeId))
+                    makeId = GetMakeId(match.Groups[1].Value);
+                    if (makeId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
                         deepLinking.ScreenID = Bikewale.Entities.AppDeepLinking.ScreenIdEnum.UpcomingBikesDetail;
                         deepLinking.Params = new Dictionary<string, string>();
-                        deepLinking.Params.Add("makeId", makeId);
+                        deepLinking.Params.Add("makeId", Convert.ToString(makeId));
                     }
                 }
                 else if (((match = Regex.Match(url, @"\/upcoming-bikes\/?$")) != null) && match.Success) //for Upcoming Bikes Landing.
@@ -62,33 +69,32 @@ namespace Bikewale.BAL.AppDeepLinking
                 || (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/?$")) != null) && match.Success)
                 ) //for series page and make page url MakeScreenId.
                 {
-                    string makeId = GetMakeId(match.Groups[1].Value);
-                    if (!(string.IsNullOrEmpty(makeId)))
+                    makeId = GetMakeId(match.Groups[1].Value);
+                    if (makeId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
                         deepLinking.Params = new Dictionary<string, string>();
                         deepLinking.ScreenID = Bikewale.Entities.AppDeepLinking.ScreenIdEnum.BrandScreen;
-                        deepLinking.Params.Add("makeId", makeId);
+                        deepLinking.Params.Add("makeId", Convert.ToString(makeId));
                     }
                 }
                 else if (((match = Regex.Match(url, @"([A-Za-z0-9\-]+)-bikes\/([A-Za-z0-9\-]+)\/?$")) != null) && match.Success) //for  ModelScreenId.
                 {
-                    string makeId = GetMakeId(match.Groups[1].Value),
-                        modelId = GetModelId(match.Groups[2].Value);
-                    if (!(string.IsNullOrEmpty(makeId) || string.IsNullOrEmpty(modelId)))
+                    makeId = GetMakeId(match.Groups[1].Value);
+                    modelId = GetModelId(match.Groups[2].Value);
+                    if (makeId > 0 && modelId > 0)
                     {
                         deepLinking = new DeepLinkingEntity();
                         deepLinking.ScreenID = Bikewale.Entities.AppDeepLinking.ScreenIdEnum.ModelScreen;
                         deepLinking.Params = new Dictionary<string, string>();
-                        deepLinking.Params.Add("makeId", makeId);
-                        deepLinking.Params.Add("modelId", modelId);
+                        deepLinking.Params.Add("makeId", Convert.ToString(makeId));
+                        deepLinking.Params.Add("modelId", Convert.ToString(modelId));
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetParameters()");
-                objErr.SendMail();
             }
 
             return deepLinking;
@@ -98,73 +104,70 @@ namespace Bikewale.BAL.AppDeepLinking
         /// Created By : Lucky Rathore
         /// Created On : 10 March 2016
         /// Description : To get Model ID
+        /// Modified by :   Sumit Kate on 09 Feb 2017
+        /// Description :   removed unity container
         /// </summary>
         /// <param name="modelName">e.g. tvs</param>
         /// <returns>modelId e.g. 15</returns>
-        private string GetModelId(string modelName)
+        private uint GetModelId(string modelName)
         {
             ModelMaskingResponse objResponse = null;
-            string modelId = string.Empty;
+            uint modelId = 0;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                    objResponse = objCache.GetModelMaskingResponse(modelName);
-                }
+                objResponse = _modelCache.GetModelMaskingResponse(modelName);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.AndroidApp.GetModelId");
-                objErr.SendMail();
-            }
-            finally
-            {
-                if (objResponse != null && (objResponse.StatusCode == 200 || objResponse.StatusCode == 301))
-                {
-                    modelId = Convert.ToString(objResponse.ModelId);
-                }
-
-            }
-
-            return modelId;
-        }
-
-
-        private string GetMakeId(string makeMaskingName)
-        {
-            MakeMaskingResponse objResponse = null;
-            string makeId = string.Empty;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>()
-                          .RegisterType<ICacheManager, MemcacheManager>()
-                          .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                         ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository<int>>();
-
-                    objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMakeId({0})", makeMaskingName));
-                objErr.SendMail();
             }
             finally
             {
                 if (objResponse != null)
                 {
-                    if (objResponse.StatusCode == 200 || objResponse.StatusCode == 301)
+                    if (objResponse.StatusCode == 200)
                     {
-                        makeId = Convert.ToString(objResponse.MakeId);
+                        modelId = objResponse.ModelId;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        modelId = GetModelId(objResponse.MaskingName);
+                    }
+                }
+            }
+
+            return modelId;
+        }
+
+        /// <summary>
+        /// Modified by :   Sumit Kate on 09 Feb 2017
+        /// Description :   removed UnityContainer
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
+        private uint GetMakeId(string makeMaskingName)
+        {
+            MakeMaskingResponse objResponse = null;
+            uint makeId = 0;
+            try
+            {
+                objResponse = _makeCache.GetMakeMaskingResponse(makeMaskingName);
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("GetMakeId({0})", makeMaskingName));
+            }
+            finally
+            {
+                if (objResponse != null)
+                {
+                    if (objResponse.StatusCode == 200)
+                    {
+                        makeId = objResponse.MakeId;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        makeId = GetMakeId(objResponse.MaskingName);
                     }
                 }
             }

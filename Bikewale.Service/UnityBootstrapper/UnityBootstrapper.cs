@@ -94,6 +94,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Service Center
         /// Modified by :   Sumit Kate on 15 Nov 2016
         /// Description :   Register IImage, ISecurity and IImageRepository interfaces
+        /// Modified by :   Sumit Kate on 09 Feb 2017
+        /// Description :   Register IBikeMaskingCacheRepository<BikeModelEntity, int> interface
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -168,6 +170,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ISecurity, SecurityBL>();
             container.RegisterType<IUsedBikeSeller, UsedBikeSeller>();
             container.RegisterType<IMobileAppAlert, Bikewale.BAL.MobileAppAlert.MobileFCMNotifications>();
+            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
             return container;
         }
     }
