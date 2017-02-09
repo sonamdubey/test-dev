@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Version
             {
                 if (versionId > 0)
                 {
-                    objVersion = _versionRepository.GetById(versionId);
+                    objVersion = _objVersionColorCache.GetById(versionId);
 
                     if (objVersion != null)
                     {
@@ -93,7 +93,7 @@ namespace Bikewale.Service.Controllers.Version
             {
                 if (versionId > 0)
                 {
-                    objVersion = _versionRepository.GetById(versionId);
+                    objVersion = _objVersionColorCache.GetById(versionId);
 
                     if (objVersion != null)
                     {
