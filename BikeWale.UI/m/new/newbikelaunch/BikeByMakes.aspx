@@ -30,6 +30,7 @@
                 <h2 class="padding-15-20 border-solid-bottom">24 Newly launched Bajaj bikes</h2>
                 <div class="padding-top10 padding-right20 padding-bottom10 padding-left20 border-light-bottom">
                     <div class="inline-block margin-right10">
+                        <span class="bwmsprite filter-icon"></span>
                         <span class="font14 text-light-grey">Filter by:</span>
                     </div>
                     <p id="year-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width">All years</p>
