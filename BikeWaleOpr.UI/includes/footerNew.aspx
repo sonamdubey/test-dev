@@ -1,6 +1,7 @@
-	<footer class="page-footer teal no-padding">
+<div class="clear"></div>	
+<footer id="page-footer" class="page-footer teal no-padding text-align-center">
         <div class="footer-copyright">
-            <div class="container">&copy; Bikewale India Confidential<a class="grey-text floatRight" href="https://www.bikewale.com">BikeWale</a>
+            <div class="container">&copy; Bikewale India Confidential
             </div>
         </div>
     </footer>

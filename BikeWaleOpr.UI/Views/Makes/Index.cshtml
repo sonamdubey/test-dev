@@ -57,7 +57,7 @@
                                 <label for="txtMakeMaskingName" data-error="" data-bind="attr:{'data-error':makeMaskingMsg},css:makeMaskingMsg()!=''?'active':''">Make Masking Name</label>
                             </div>
                             <div class="input-field row s12">
-                                <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { validateMakeSubmit();}}">
+                                <button id="btnAddMake" class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : { click : function() { return validateMakeSubmit();}}">
                                     Add Make
                                 </button>
                             </div>
@@ -107,28 +107,25 @@
         }
     </div>
     <!-- Modal Structure -->
-    <div id="modal-make-synopsis" class="modal" data-bind="with : synopsis">
-        @using (Html.BeginForm("updateSynopsis", "Makes", FormMethod.Post))
-        {
-            <div class="modal-content">
-                <h4>Update Make Synopsis</h4>
-                <div>
-                    <div class="input-field row m12">
-                        <textarea id="txtSynopsis" name="synopsis" class="materialize-textarea" length="3000" maxlength="3000"></textarea>
-                        <label for="txtSynopsis">Make Synopsis</label>
-                    </div>
-                    <input type="hidden" id="hdnUpdateMakeId" name="makeId" />
+    <div id="modal-make-synopsis" class="modal" data-bind="with : synopsis">        
+        <div class="modal-content">
+            <h4>Update <span data-bind="text: selectedMake() ? selectedMake().makeName : 'Make'"></span> Synopsis</h4>
+            <div>
+                <div class="input-field row m12">
+                    <textarea id="txtSynopsis" name="synopsis" class="materialize-textarea" length="3000" maxlength="3000" data-bind="textInput: makeSynopsis"></textarea>
+                    <label for="txtSynopsis">Make Synopsis</label>
                 </div>
+                <input type="hidden" id="hdnUpdateMakeId" name="makeId" />
             </div>
-            <div class="modal-footer">
-                <a href="javascript:$('form').submit()" class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" style="margin-left:5px;" id="btnUpdateSynopsis">Update</a>
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
-        }
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" style="margin-left:5px;" id="btnUpdateSynopsis" data-bind="event : {click : function(d,e) { synopsis().updateSynopsis() }}">Update</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>        
     </div>
     <script type="text/javascript">
         msg = '@ViewBag.SuccessMsg';
     </script>
-    <script src="~/src/content/makes.js"></script>    
+    <script src="~/src/content/makes.js"></script>
 </div>
 

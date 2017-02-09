@@ -1,12 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.campaign.SearchDealerCampaigns" Async="true" AsyncTimeout="60" %>
-
 <!-- #Include file="/includes/headerNew.aspx" -->
-<%--<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-<script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
-<script src="/src/knockout.js" type="text/javascript"></script>
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<%--<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
 <style type="text/css">
     .greenMessage {
         color: #6B8E23;
@@ -49,14 +42,9 @@
         background-color: #ccc;
     } 
 </style>
-<div>
-    You are here &raquo; Search Dealer Campaigns
-</div>
-<div>
-    <!-- #Include file="/content/DealerMenu.aspx" -->
-</div>
-<div>
-    <div id="inputSection" class="position-rel" style="margin-left: 200px">
+<div class="left">
+    <h1>Manage Dealer Campaigns</h1>
+    <div id="inputSection" class="position-rel margin-top10">
         <div style="border: 1px solid #777;" class="padding10">
             <div class="margin-right10 verical-middle form-control-box" >Dealer's City : <span class="errMessage">* &nbsp</span>
                 <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
@@ -84,7 +72,7 @@
                 <label for="chkActiveCampaign" class="verical-middle">Show only active campaigns</label>
             </div>
             <div class="verical-middle">
-                <input id="btnGetCampaigns" type="button" style="padding: 8px" value="Get Campaigns" />
+                <input id="btnGetCampaigns" type="button" value="Get Campaigns" />
             </div>
         </div>
         <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; "></span>

@@ -15,6 +15,6 @@ namespace BikewaleOpr.Interface.BikeData
         void UpdateMake(BikeMakeEntity make);
         void DeleteMake(int makeId, int updatedBy);
         string Getsynopsis(int makeId);
-        void UpdateSynopsis(int makeId);
+        void UpdateSynopsis(int makeId, string synopsis, int updatedBy);
     }
 }

@@ -1,12 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="BikeWaleOpr.Content.AddDealers" AutoEventWireup="false" Trace="false" Debug="false" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div class="urh">
-		You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Dealers
-</div>
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
 <%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/AjaxFunctions.js"></script>--%>
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">

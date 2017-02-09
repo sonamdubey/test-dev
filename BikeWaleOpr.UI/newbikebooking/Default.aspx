@@ -1,18 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.BikeBooking.Default" Trace="false" Debug="false" Async="true" EnableEventValidation="false" EnableViewState="true" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 <style type="text/css">
-    input[type='text'] {
-        background-color: #fff;
-    }
+    input[type='text'] {background-color: #fff;}
 </style>
-    <div>
-        
-    <!-- #Include file="/content/DealerMenu.aspx" -->
-    </div>
     <div class="left">
         <h1>Manage New Bike Dealers</h1>
     <div>
@@ -31,12 +22,11 @@
 				</asp:dropdownlist>
             </tr>            
             <tr>
-                <td>
+                <td style="padding-top:10px;">
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
-                    <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
+                    <input type="submit" value="Manage Prices And Availability" id="btnManagePrice" runat="server"/>&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
-                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
-                    <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
+                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;                    
                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
                     <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
@@ -49,7 +39,7 @@
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 240px">
                         <legend>Add / Show Price</legend>
                         <div>
                             Select City of Pricing :
@@ -63,12 +53,12 @@
                             <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 134px; vertical-align: text-top;">
                                 <asp:ListItem Value="0" Text="--Select--" />
                             </asp:listbox>
-                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>                            
+                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server" class="margin-top10"></asp:button>                            
                         </div>                        
                     </fieldset>
                 </td>
                 <td width="33%"><%-- Start Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 240px">
                         <legend>Copy Price Sheet to Other cities</legend>
                         Select State :<span style="color:red">* </span>
                         <asp:dropdownlist id="ddlState" runat="server" />
@@ -81,7 +71,7 @@
                 </td>
                 <%-- Start Pivotal Tracker # : 104505670 Author : Sadhana Upadhyay --%>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 240px">
                         <legend>Copy Price Sheet to Other dealer</legend>
                         Select City :<span style="color:red">* </span>
                         <asp:dropdownlist id="ddlDealerCity" runat="server" />

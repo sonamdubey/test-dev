@@ -1,8 +1,6 @@
 ﻿//$('textarea#txtSynopsis').characterCounter();
 if (msg != "") { Materialize.toast(msg, 5000); }
 
-
-
 /* add make js*/
 var addMakeViewModel = function () {
     var self = this;
@@ -11,8 +9,7 @@ var addMakeViewModel = function () {
     self.makeMaskingMsg = ko.observable("");
     self.makeMaskingName = ko.computed(function () {
         var make = "";
-        if (self.makeName() && self.makeName() != "")
-        {
+        if (self.makeName() && self.makeName() != "") {
             make = self.makeName().trim().replace(/\s+/g, "").replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
             self.makeMaskingMsg("");
         }
@@ -20,8 +17,7 @@ var addMakeViewModel = function () {
         return make;
     });
 
-    self.validateMakeSubmit = function()
-    {        
+    self.validateMakeSubmit = function () {
         var isValid = true;
         self.makeMsg("");
         self.makeMaskingMsg("");
@@ -29,13 +25,13 @@ var addMakeViewModel = function () {
         if (self.makeName() == "") {
             isValid = false;
             self.makeMsg("Invalid make name");
-            
+
         }
 
         if (self.makeMaskingName() == "") {
-            isValid = false;            
+            isValid = false;
             self.makeMaskingMsg("Invalid make masking name");
-        }            
+        }
 
         return isValid;
     }
@@ -48,35 +44,52 @@ var vmaddMake = new addMakeViewModel;
 /* manage synopsis*/
 var addSynopsis = function () {
     var self = this;
-    self.makeSynopsis = ko.observable("");    
+    self.makeSynopsis = ko.observable("");
     self.selectedMake = ko.observable(null);
 
     self.getSynopsis = function () {
-        objMake = self.selectedMake();        
-        if (objMake != null)
-        {
-            var selMakeId = objMake.makeId;
-
+        if (self.selectedMake() != null && self.selectedMake().makeId > 0) {
             $.ajax({
                 type: "GET",
-                url: "/api/makes/" + objMake.makeId + "/synopsis/",
+                url: "/api/makes/" + self.selectedMake().makeId + "/synopsis/",
                 contentType: "application/json",
                 dataType: "json",
-                async: false,
                 success: function (response) {
-                    if (response != null)
-                    {
-                        alert(response);
+                    if (response != null) {
                         self.makeSynopsis(response);
-                    }                    
+                    }
+                },
+                complete: function (xhr) {
+                    if (xhr.status != 200) {
+                        self.makeSynopsis("");
+                    }
                 }
             });
         }
     }
 
     self.updateSynopsis = function () {
-
-
+        if (self.selectedMake() != null && self.selectedMake().makeId > 0 && self.makeSynopsis() != "") {
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: "/api/makes/" + self.selectedMake().makeId + "/synopsis/",
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: '=' + encodeURIComponent(self.makeSynopsis()),
+                complete: function (xhr) {
+                    if (xhr.status == 200) {
+                        Materialize.toast(self.selectedMake().makeName + " synopsis updated successfully", 5000);
+                    }
+                    else if (xhr.status == 400) {
+                        Materialize.toast("Please enter valid data", 5000);
+                    } else {
+                        Materialize.toast("Something went wrong while updating synopsis. Please try again.", 5000);
+                    }
+                }
+            });
+        } else {
+            Materialize.toast("Please enter valid data", 5000);
+        }
     }
 }
 var vmAddSynopsis = new addSynopsis;
@@ -90,8 +103,7 @@ var makeViewModel = function () {
     self.synopsis = ko.observable(vmAddSynopsis);
     self.addMake = ko.observable(vmaddMake);
 
-    self.setmakedata = function(e)
-    {
+    self.setmakedata = function (e) {
         ele = $(e.target).closest("tr");
 
         var objMake = {
@@ -107,8 +119,7 @@ var makeViewModel = function () {
     }
 
     self.selectedMake.subscribe(function () {
-        if(self.selectedMake)
-        {
+        if (self.selectedMake) {
             self.synopsis().selectedMake(self.selectedMake());
         }
     });

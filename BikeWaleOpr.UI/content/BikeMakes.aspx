@@ -2,7 +2,7 @@
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script src="/src/bt.js"></script>
 
-<div class="view-container">
+<div class="left">
 <h1>Bike Makes</h1>
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>

@@ -54,7 +54,7 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);                
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetMakes_" + RequestType);
             }
             return _objBikeMakes;
         }
@@ -64,7 +64,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// Function to get the bike makes list along with other details for all makes
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BikeMakeEntity> GetMakesList()        
+        public IEnumerable<BikeMakeEntity> GetMakesList()
         {
             IEnumerable<BikeMakeEntity> objMakes = null;
 
@@ -77,7 +77,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure).ToList();
 
                     if (connection.State == ConnectionState.Open)
-                        connection.Close();                    
+                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <param name="make"></param>
         /// <param name="isMakeExist"></param>
         /// <param name="makeId"></param>
-        public void AddMake(BikeMakeEntity make,  ref short isMakeExist, ref int makeId)
+        public void AddMake(BikeMakeEntity make, ref short isMakeExist, ref int makeId)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.AddMake");
-            }            
+            }
         }
 
 
@@ -228,9 +228,37 @@ namespace BikewaleOpr.DALs.Bikedata
             return synopsis;
         }
 
-        public void UpdateSynopsis(int makeId)
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 3 Feb 2017
+        /// Summary : Function to update the synopsis for the given make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="synopsis"></param>
+        /// <param name="updatedBy"></param>
+        public void UpdateSynopsis(int makeId, string synopsis, int updatedBy)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    connection.Open();
+
+                    var param = new DynamicParameters();
+
+                    param.Add("par_makeid", makeId);
+                    param.Add("par_discription", synopsis);
+                    param.Add("par_userid", updatedBy);
+
+                    connection.Query("managemakesynopsis", param: param, commandType: CommandType.StoredProcedure);
+
+                    if (connection.State == ConnectionState.Open)
+                        connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.UpdateSynopsis");
+            }
         }
     }   // class
 }   // namespace

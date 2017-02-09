@@ -14,7 +14,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
     /// <summary>
     /// Created By : Ashish G. kamble on 1 Feb 2017
     /// </summary>
-    [Authorize, RoutePrefix("content")]
+    [Authorize]
     public class MakesController : Controller
     {
         private readonly IBikeMakes makesRepo;
@@ -24,6 +24,10 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
             makesRepo = _makesRepo;
         }
 
+        /// <summary>
+        /// Action method to show the default view for the makes page
+        /// </summary>
+        /// <returns></returns>        
         public ActionResult Index()
         {
             IEnumerable<BikeMakeEntity> objMakes = null;
@@ -54,8 +58,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <summary>
         /// Function to add the new make to the database
         /// </summary>
-        /// <returns></returns>  
-        [HttpPost]
+        /// <returns></returns>
         public ActionResult Add(BikeMakeEntity make)
         {            
             try
@@ -82,16 +85,21 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <summary>
         /// Function to update the given make details
         /// </summary>
-        /// <returns></returns> 
-        [HttpPost]
+        /// <returns></returns>         
         public ActionResult Update(BikeMakeEntity make)
         {
             try
             {
-                make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
-                makesRepo.UpdateMake(make);
+                if (make != null && make.MakeId > 0)
+                {
+                    make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
+                    makesRepo.UpdateMake(make);
 
-                TempData["msg"] = make.MakeName + " Make Updated Successfully";
+                    TempData["msg"] = make.MakeName + " Make Updated Successfully";
+                }
+                else {
+                    TempData["msg"] = "Please provide valid inputs";
+                }
             }
             catch (Exception ex)
             {
@@ -104,15 +112,21 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// <summary>
         /// Function to delete the given make by using makeid
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>        
         public ActionResult Delete(int makeId)
         {
             try
             {
-                int updatedBy = Convert.ToInt32(BikeWaleOpr.Common.CurrentUser.Id);
-                makesRepo.DeleteMake(makeId, updatedBy);
+                if (makeId > 0)
+                {
+                    int updatedBy = Convert.ToInt32(BikeWaleOpr.Common.CurrentUser.Id);
+                    makesRepo.DeleteMake(makeId, updatedBy);
 
-                TempData["msg"] = "Make Deleted Successfully";
+                    TempData["msg"] = "Make Deleted Successfully";
+                }
+                else {
+                    TempData["msg"] = "Please provide valid make";
+                }
             }
             catch (Exception ex)
             {

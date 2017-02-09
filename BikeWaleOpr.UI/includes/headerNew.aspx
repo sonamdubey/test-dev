@@ -29,73 +29,34 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         <li class="collapsible-body-title">Bike Data</li>
-                                        <li>
-	                                        <a href="/content/bikemakes.aspx">Bike Makes</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/bikemodels.aspx">Bike Models</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/bikeversions.aspx">Bike Versions</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/NewBikeModelColors_New.aspx">New Bike Model Colors</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/ModelColorWiseImage.aspx">Update Model Images By Color</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/expectedlanuches.aspx">Expected Bike Launches</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/bikecomparisonlist.aspx">Bike Comparison List</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/bikeunitssold.aspx">Bulk Unit Sold Upload</a>
-                                        </li>
-
+                                        <li><a href="/content/makes/">Makes</a></li>
+                                        <li><a href="/content/bikemodels.aspx">Models</a></li>
+                                        <li><a href="/content/bikeversions.aspx">Versions</a></li>
+                                        <li><a href="/content/NewBikeModelColors_New.aspx">Model Colors</a></li>
+                                        <li><a href="/content/ModelColorWiseImage.aspx">Model Images By Color</a></li>
+                                        <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>
+                                        <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
+                                        <li><a href="/content/bikeunitssold.aspx">Bulk Units Sold</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
-                                        <li>
-	                                        <a href="/content/showroomprices.aspx">Showroom Prices</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/bulkpriceupload.aspx">Bulk Price Upload</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/content/pricemonitoring.aspx">Price Monitoring</a>
-                                        </li>
-
+                                        <li><a href="/content/showroomprices.aspx">Pricing</a></li>
+                                        <li><a href="/content/bulkpriceupload.aspx">Bulk Pricing</a></li>
+                                        <li><a href="/content/pricemonitoring.aspx">Price Monitoring</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Bikewale Dealers</li>
-                                        <li>
-                                            <a href="/content/adddealers.aspx">Add delears</a>
-                                        </li>
-                                        <li>
-                                            <a href="/content/editdealers.aspx">Edit delears</a>
-                                        </li>
-
+                                        <li><a href="/content/adddealers.aspx">Add delears</a></li>
+                                        <li><a href="/content/editdealers.aspx">Edit delears</a></li>
                                         <li class="collapsible-body-title teal lighten-4">User Reviews</li>
-                                        <li>
-                                            <a href="/content/manageuserreviews.aspx">Manage Reviews</a>
-                                        </li>
-
+                                        <li><a href="/content/manageuserreviews.aspx">Manage Reviews</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
-                                        <li>
-                                            <a href="/MobileApp/AppVersioning.aspx">Manage App Versions</a>
-                                        </li>
+                                        <li><a href="/MobileApp/AppVersioning.aspx">App Versions</a></li>
                                     </ul>
                                 </div>
-
                             </li>
                             <li>
                                 <div class="collapsible-header">Classified</div>
                                 <div class="collapsible-body teal-text">
                                     <ul>
-                                        <li>
-	                                        <a href="/classified/verifycustomerlisting.aspx">Manage Listings</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/classified/verifyeditedlisting.aspx">Verify Edited Listings</a>
-                                        </li>
+                                        <li><a href="/classified/verifycustomerlisting.aspx">Manage Listings</a></li>
+                                        <li><a href="/classified/verifyeditedlisting.aspx">Verify Edited Listings</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -103,18 +64,10 @@
                                 <div class="collapsible-header">Dealers</div>
                                 <div class="collapsible-body teal-text">
                                     <ul>
-                                        <li>
-	                                        <a href="/newbikebooking/default.aspx">Manage Dealers</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/campaign/SearchDealerCampaigns.aspx">Search Dealer Campaigns</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/manufacturecampaign/SearchManufacturerCampaign.aspx">Manufacturer's Campaigns</a>
-                                        </li>
-                                        <li>
-	                                        <a href="/campaign/ManageDealerPriceCategories.aspx">Add Price Categories</a>
-                                        </li>
+                                        <li><a href="/newbikebooking/default.aspx">Manage Dealers</a></li>
+                                        <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>
+                                        <li><a href="/manufacturecampaign/SearchManufacturerCampaign.aspx">Manufacturer Campaigns</a></li>
+                                        <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -125,9 +78,8 @@
                     <li><a href="javascript:void(0)" id="nav-btn" rel="nofollow"><span class="bwsprite nav-icon"></span></a></li>
                     <li class="nav-title">BikeWale Operations</li>
                 </ul>
-
                 <ul class="floatRight">
-                    <li class="nav-logged-in-user">Welcome <%= BikeWaleOpr.Common.CurrentUser.UserName %></li>
+                    <li class="nav-logged-in-user">Welcome <%= Bikewale.Utility.OprUser.UserName %></li>
                     <li><a class="white-text" href="/common/logout.aspx?logout=logout">Logout</a></li>
                 </ul>
 

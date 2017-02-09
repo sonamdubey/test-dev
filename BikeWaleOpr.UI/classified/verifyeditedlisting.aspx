@@ -2,13 +2,10 @@
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div>
-        <!-- #Include file="classifiedMenu.aspx" -->
-</div>
 <div class="left min-height600" id="divManagePrices">
     <h1>Verify Edited Used Bikes Listings</h1>
 
-    <div class="margin-top10 floatLeft" style="width: 850px; display: inline-block;">
+    <div class="margin-top10">
         <table class="table-bordered" cellspacing="0" cellpadding="5">
             <tbody>
                 <tr class="dtHeader">
@@ -20,7 +17,7 @@
                     <th style="font-size: 13px">Manufacturing Year</th>
                     <th>City</th>
                     <th style="font-size: 13px;">Photos</th>
-                    <th colspan="3" style="width:210px;font-size: 13px">Listing Status</th>
+                    <th colspan="3" style="font-size: 13px">Listing Status</th>
                 </tr>
                 <% foreach(var listing in sellListing) { %>
                 <tr class="dtItem text-align-center" id="detailed_edit_row">

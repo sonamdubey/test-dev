@@ -90,6 +90,7 @@
     <Compile Include="FormatMinSpecs.cs" />
     <Compile Include="GenericBikes\GenericBikesCategoriesMapping.cs" />
     <Compile Include="GlobalCityArea.cs" />
+    <Compile Include="OprUser.cs" />
     <Compile Include="SponsoredCampaigns.cs" />
     <Compile Include="StrinHtmlHelpers.cs" />
     <Compile Include="TermsHtmlFormatting.cs" />
