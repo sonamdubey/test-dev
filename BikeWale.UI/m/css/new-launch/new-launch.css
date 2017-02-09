@@ -83,6 +83,10 @@
   cursor: pointer;
   padding-right: 15px;
   background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%; }
+  .filter-selection-value.selection-auto-width {
+    width: auto;
+    max-width: 200px;
+    font-size: 14px; }
 
 .new-launches-list {
   padding-right: 20px;
@@ -143,6 +147,9 @@
   cursor: pointer;
   background-position: -34px -275px; }
 
+.padding-15-20 {
+  padding: 15px 20px; }
+
 .pagination-list-content {
   width: auto; }
   .pagination-list-content .pagination-list {
@@ -200,11 +207,6 @@
     font-size: 12px;
     min-width: 22px; } }
 
-.brandlogosprite {
-  background-image: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
-  background-repeat: no-repeat;
-  display: inline-block; }
-
 .brand-type-container li {
   display: inline-block;
   vertical-align: top;
@@ -223,6 +225,33 @@
 .brand-type-title {
   display: block;
   text-transform: capitalize; }
+
+.brand-type-carousel .swiper-slide,
+.brand-type-carousel .swiper-card {
+  width: 200px;
+  min-height: 110px; }
+
+.brand-type-carousel a {
+  display: block; }
+
+.brand-type-carousel .brand-logo-image {
+  width: 100%;
+  height: 50px;
+  line-height: 0;
+  display: table;
+  text-align: center; }
+
+.brand-type-carousel .brand-type {
+  display: table-cell;
+  vertical-align: middle; }
+
+.brand-type-carousel .swiper-details-block {
+  padding-bottom: 12px; }
+
+.brandlogosprite {
+  background-image: url(http://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?04Oct2016v1);
+  background-repeat: no-repeat;
+  display: inline-block; }
 
 .brand-2,
 .brand-1,
