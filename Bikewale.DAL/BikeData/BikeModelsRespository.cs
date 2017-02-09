@@ -1128,7 +1128,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            while (dr.Read())
+                            if (dr.Read())
                             {
                                 modelPhotos = new ModelPhotos();
                                 modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
@@ -1145,8 +1145,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelPhotoInfo", err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+             }
             return modelPhotos;
         }
         /// <summary>
