@@ -1446,6 +1446,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\photos\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="servicecenter\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2241,6 +2245,7 @@
     <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
+    <Content Include="css\photos.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
@@ -2925,6 +2930,7 @@
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="new\photos\Default_v2.aspx" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -2960,6 +2966,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\photos.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
