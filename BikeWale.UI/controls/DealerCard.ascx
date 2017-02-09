@@ -5,7 +5,7 @@
    { %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
     <% if(isHeading) { %>
-    <h2 class="font15 text-bold text-x-black padding-right20 padding-left20 margin-bottom15"><%=widgetHeading %></h2>
+    <h2 class="padding-right20 padding-left20 margin-bottom15"><%=widgetHeading %></h2>
     <% } %>
     <ul id="city-dealer-list" class="bw-horizontal-cards">
         <asp:Repeater ID="rptDealers" runat="server">
