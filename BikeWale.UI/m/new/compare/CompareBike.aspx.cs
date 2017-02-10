@@ -46,6 +46,7 @@ namespace Bikewale.Mobile.New
                 objCompare = new CompareBikes();
                 objCompare.GetCompareBikeMakes();
                 objMakes = objCompare.makes;
+                pageMetas = objCompare.PageMetas;
                 BindPageWidgets();
             }
             catch (Exception ex)
