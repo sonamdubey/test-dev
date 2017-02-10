@@ -2,7 +2,7 @@
 <% if (showWidget && ServiceCenteList!= null)
    { %>
 <div class="container card-bottom-margin padding-bottom20">
-    <h2 class="padding-right20 padding-left20 text-bold"><%=widgetHeading %></h2>
+    <h2 class="padding-right20 padding-left20 text-bold padding-top10"><%=widgetHeading %></h2>
     <%if(!string.IsNullOrEmpty(biLineText)) {%>
     <p class="margin-top5 margin-left20 margin-bottom15"><%=biLineText %></p>
     <%} %>
