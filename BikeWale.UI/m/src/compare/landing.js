@@ -1,8 +1,4 @@
 ﻿
-//var bikePopup = function () {
-
-//};
-
 var effect = 'slide',
     optionRight = { direction: 'right' },
     duration = 500;
@@ -18,18 +14,15 @@ var bikePopup = {
     open: function () {
         bikePopup.container.show(effect, optionRight, duration, function () {
             bikePopup.container.addClass('extra-padding');
+            $('html, head').addClass('lock-browser-scroll');
         });
-
-        $('html, head').addClass('lock-browser-scroll');
     },
 
     close: function () {
         bikePopup.container.hide(effect, optionRight, duration, function () {
-
+            bikePopup.container.removeClass('extra-padding');
+            $('html, head').removeClass('lock-browser-scroll');
         });
-
-        bikePopup.container.removeClass('extra-padding');
-        $('html, head').removeClass('lock-browser-scroll');
     },
     scrollToHead: function () {
         bikePopup.container.animate({ scrollTop: 0 });
@@ -60,7 +53,7 @@ var bikeSelection = function () {
     self.versionArray = ko.observableArray();
 
     self.makeChanged = function (data, event) {
-        self.currentStep(2);
+        self.currentStep(self.currentStep() + 1);
 
         self.LoadingText("Loading bike models...");
         var element = $(event.currentTarget).find("span");
@@ -77,24 +70,17 @@ var bikeSelection = function () {
             if (self.make() && self.make().id > 0) {
                 self.modelArray(null);
                 self.IsLoading(true);
-                $.ajax({
-                    type: "Get",
-                    async: false,
-                    url: "/api/modellist/?requestType=2&makeId=" + self.make().id,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            self.modelArray(response.modelList);
-                        }
-                    },
-                    complete: function (xhr) {
-                        if (xhr.status != 200) {
-                            self.make(null);
-                            self.modelArray(null) ;
-                        }
-                        self.IsLoading(false);
-                    }
+
+                $.getJSON("/api/modellist/?requestType=2&makeId=" + self.make().id)
+                .done(function (res) {
+                    self.modelArray(res.modelList);
+                })
+                .fail(function () {
+                    self.make(null);
+                    self.modelArray(null);
+                })
+                .always(function () {
+                    self.IsLoading(false);
                 });
             }
         } catch (e) {
@@ -107,29 +93,24 @@ var bikeSelection = function () {
 
         self.model(data);
         self.LoadingText("Loading bike versions...");
-        self.currentStep(3);
+        self.currentStep(self.currentStep()+1);
         bikePopup.scrollToHead();
 
         try {
             if (self.model() && self.model().modelId > 0) {
                 self.versionArray(null);
                 self.IsLoading(true);
-                $.ajax({
-                    type: "Get",
-                    url: "/api/versionList/?requestType=2&modelId=" + self.model().modelId,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        self.versionArray(response.Version);
-                    },
-                    complete : function(xhr)
-                    {
-                        if (xhr.status != 200) {
-                            self.model(null);
-                            self.versionArray(null);
-                        }
-                        self.IsLoading(false);
-                    }
+
+                $.getJSON("/api/versionList/?requestType=2&modelId=" + self.model().modelId)
+                .done(function (res) {
+                    self.versionArray(res.Version);
+                })
+                .fail(function () {
+                    self.model(null);
+                    self.versionArray(null);
+                })
+                .always(function () {
+                    self.IsLoading(false);
                 });
             }
         } catch (e) {
@@ -145,22 +126,18 @@ var bikeSelection = function () {
             if (self.version() && self.version().versionId > 0 && self.version().versionId != self.prevVersionId()) {
                 self.IsLoading(true);
                 self.prevVersionId(self.version().versionId);
-                $.ajax({
-                    type: "Get",
-                    url: "/api/version/?versionid=" + self.version().versionId,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    success: function (response) {
-                        self.bikeData(response);
-                        self.setCompareBikeHTML();
-                        self.currentStep(4);
-                    },
-                    complete: function (xhr) {
-                        if (xhr.status != 200) {
-                            self.bikeData(null);
-                        }
-                        self.IsLoading(false);
-                    }
+
+                $.getJSON("/api/version/?versionid=" + self.version().versionId)
+                .done(function (res) {
+                    self.bikeData(res);
+                    self.setCompareBikeHTML();
+                    self.currentStep(self.currentStep() + 1);
+                })
+                .fail(function () {
+                    self.bikeData(null);
+                })
+                .always(function () {
+                    self.IsLoading(false);
                 });
             }
             else if (self.version() && self.version().versionId > 0) {
@@ -228,9 +205,7 @@ var compareBike = function () {
     self.bikePopup = bikePopup;
     self.bike1 = ko.observable();
     self.bike2 = ko.observable();
-    self.bike1Changed = ko.observable(false);
-    self.bike2Changed = ko.observable(false);
-    self.compareSource = ko.observable(6);
+    self.compareSource = ko.observable(compareSource);
 
     self.openBikeSelection = function (bike) {
         try {
@@ -250,7 +225,7 @@ var compareBike = function () {
             _link += (self.bike1().make.masking + "-" + self.bike1().model.maskingName + "-vs-"
                   + self.bike2().make.masking + "-" + self.bike2().model.maskingName + "/"
                   + "?bike1=" + self.bike1().version.versionId + "&bike2=" + self.bike2().version.versionId
-                  + "&source=6");
+                  + "&source=" + self.compareSource());
         }
         return _link;
     });
