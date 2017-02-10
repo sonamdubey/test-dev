@@ -29,6 +29,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added function to get top 10 bikes by bodystyle
     /// Mocified by : Sajal Gupta on 02-02-2017
     /// Description : Modified function GetBestBikesByCategory
+    /// Mocified by : Sangram Nandkhile on 10 Feb 2017
+    /// Description : Modified GetAllPhotos and CreateAllPhotoList
     /// <typeparam name="U"></typeparam>
     public interface IBikeModelsCacheRepository<U>
     {
@@ -41,12 +43,11 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeId = null);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
         List<ModelImage> GetModelPhotoGallery(U modelId);
-        IEnumerable<ModelImage> GetModelPhotos(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
-        IEnumerable<ImageBaseEntity> GetAllPhotos(BikeModelPageEntity objModelPage);
-        IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId);
+        IEnumerable<ColorImageBaseEntity> GetAllPhotos(U modelId);
+        IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetGenericBikeInfo(uint modelId);

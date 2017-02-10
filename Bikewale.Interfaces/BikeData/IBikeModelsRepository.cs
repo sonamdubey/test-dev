@@ -71,7 +71,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
-        ModelPhotos GetModelPhotoInfo(U modelId);
+        ModelHostImagePath GetModelPhotoInfo(U modelId);
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);

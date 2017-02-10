@@ -684,10 +684,6 @@ namespace Bikewale.Mobile.New
                             bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                         }
-                        if (modelPage.Photos != null && modelPage.Photos.Count > 1)
-                        {
-                            modelPage.Photos.RemoveAt(0);
-                        }
                     }
                 }
             }
