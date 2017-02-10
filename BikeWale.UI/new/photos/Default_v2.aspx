@@ -1,319 +1,68 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default_v2.aspx.cs" Inherits="Bikewale.New.Photos.Default_v2" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.PhotoGallery.BikePhotos" Debug="false" EnableViewState="false" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <%
-        title = "Bajaj Pulsar RS200 Images";
-    %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/css/photos.css" />
-    <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
-    </script>
-</head>
-<body class="header-fixed-inner">
-    <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+<%@ Register TagPrefix="PG" TagName="PhotoGallary" Src="/controls/PhotoGallaryMin.ascx" %>
+<%
+    title = String.Format("{0} {1} Images | {1} Photos - BikeWale", makename, modelName);
+    keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} images", modelName, makename);
+    description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", modelName, bikeName, photoGallary.FetchedCount);
+    canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName); 
+    alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objModelEntity.MakeBase.MaskingName, objModelEntity.MaskingName);
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_";
+    ShowTargeting = "1";
+    TargetedModel = objModelEntity.ModelName;
+    isAd300x250_BTFShown = false;
+%>
+<!-- #include file="/includes/headNew.aspx" -->
 
-        <section class="container padding-top10">
-            <div class="grid-12">
-                <div class="breadcrumb margin-bottom15">
-                    <ul>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a href="" itemprop="url">
-                                <span itemprop="title">Home</span>
-                            </a>
-                        </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="" itemprop="url">
-                                <span itemprop="title">Bajaj Bikes</span>
-                            </a>
-                        </li>
-                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <span class="bwsprite fa-angle-right margin-right10"></span>
-                            <a href="" itemprop="url">
-                                <span itemprop="title">Bajaj Pulsar RS200</span>
-                            </a>
-                        </li>
-                        <li><span class="bwsprite fa-angle-right margin-right10"></span>Bajaj Pulsar RS200 Images</li>
-                    </ul>
-                    <div class="clear"></div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </section>
-
-        <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div class="content-box-shadow bg-listing">
-                        <h1 class="content-box-shadow padding-14-20">Bajaj Pulsar RS200 Images</h1>
-                        <ul class="photos-grid-list model-main-image">
-                            <li>
-                                <div class="main-image-container">
-                                    <img src="https://imgd1.aeplcdn.com//640x348//bw/models/bajaj-pulsar-rs200.jpg?20150710124439" alt="Model Image Image" title="Model Image">
-                                </div>
-                            </li>
-                        </ul>
-                        <ul class="photos-grid-list model-grid-images">
-
-                            <li>
-                                <img src="https://imgd1.aeplcdn.com//640x348//bw/models/honda-activa-3g-standard-806.jpg?20151209184243" alt="Side Image" title="Side">
-                            </li>
-                    
-                            <li>
-                                <img src="https://imgd1.aeplcdn.com//640x348//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?wm=2&t=124334100&t=124334100" alt="Side Image" title="Side">
-                            </li>
-                    
-                            <li>
-                                <img src="https://imgd1.aeplcdn.com//640x348//bw/ec/19963/Honda-Activa-3G-Front-64337.jpg?wm=2&t=124323660&t=124323660" alt="Indicator Image" title="Indicator">
-                            </li>
-                    
-                            <li>
-                                <img src="https://imgd6.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50242.jpg?20151004165351&amp;t=165351703&amp;t=165351703" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img src="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50243.jpg?20151004165357&amp;t=165357333&amp;t=165357333" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd8.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50244.jpg?20151004165403&amp;t=165403463&amp;t=165403463" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50245.jpg?20151004165410&amp;t=165410193&amp;t=165410193" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-                    
-                            <li>
-                                <img class="lazy" data-original="https://imgd7.aeplcdn.com//476x268//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50247.jpg?20151004165445&amp;t=165444833&amp;t=165444833" src="" alt="Exterior Image" title="Exterior">
-                            </li>
-
-                        </ul>
-
-                        <%--
-                            <ul class="photos-grid-list photos-remainder-7 model-grid-images"></ul>
-                            add remainder class for 2, 3, 4, 5, 6 and 7
-                        --%>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-
-        <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div id="modelVideosContent" class="content-box-shadow font14 padding-top20 padding-right10 padding-left10 padding-bottom20">
-                        <h2 class="font18 padding-right10 padding-left10 margin-bottom20">Bajaj Pulsar RS200 Videos</h2>
-                        <div class="model-updates-videos-container" id="ctrlVideos">
-                        <!-- Videos data code starts here-->
+<script runat="server">	
+    string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     
-                                <div class="margin-bottom20">
-                                    <div class="grid-4">
-                                        <div class="model-preview-image-container">
-                                            <a href="" title="RS200 video2">
-                                                <img class="lazy" data-original="https://img.youtube.com/vi/1Zl9K9WKGlI/mqdefault.jpg" title="RS200 video2" alt="" src="">
-                                                <span class="play-icon-wrapper">
-                                                    <span class="bwsprite video-play-icon"></span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="grid-8">
-                                        <a href="" class="article-target-link" title="RS200 video2">RS200 video2</a>
-                                        <div class="article-stats-left-grid">
-                                            <span class="bwsprite calender-grey-sm-icon"></span>
-                                            <span class="article-stats-content">Jan 10, 2017</span>
-                                        </div>
-                                        <div class="article-stats-right-grid">
-                                            <span class="bwsprite review-sm-lgt-grey"></span>
-                                            <span class="article-stats-content">2,41,724</span>
-                                        </div>
-                                        <p class="margin-top12 line-height17">The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market The RS200 is available in India in three solid colours namely yellow red and black with contrast graphic stickers It is still unsure if the Indian market will receive this dual tone...</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-        
-                                <div class="margin-bottom20">
-                                    <div class="grid-4">
-                                        <div class="model-preview-image-container">
-                                            <a href="" title="test review from bikewale">
-                                                <img class="lazy" data-original="https://img.youtube.com/vi/8HdCY6AA7Ew/mqdefault.jpg" title="test review from bikewale" alt="" src="">
-                                                <span class="play-icon-wrapper">
-                                                    <span class="bwsprite video-play-icon"></span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="grid-8">
-                                        <a href="" class="article-target-link" title="test review from bikewale">test review from bikewale</a>
-                                        <div class="article-stats-left-grid">
-                                            <span class="bwsprite calender-grey-sm-icon"></span>
-                                            <span class="article-stats-content">Aug 22, 2016</span>
-                                        </div>
-                                        <div class="article-stats-right-grid">
-                                            <span class="bwsprite review-sm-lgt-grey"></span>
-                                            <span class="article-stats-content">5,45,581</span>
-                                        </div>
-                                        <p class="margin-top12 line-height17">The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market The RS200 is available in India in three solid colours namely yellow red and black with contrast graphic stickers It is still unsure if the Indian market will receive this dual tone...</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-        
-                                <div class="margin-bottom20">
-                                    <div class="grid-4">
-                                        <div class="model-preview-image-container">
-                                            <a href="" title="test review from bikewale">
-                                                <img class="lazy" data-original="https://img.youtube.com/vi/8HdCY6AA7Ew/mqdefault.jpg" title="test review from bikewale" alt="" src="">
-                                                <span class="play-icon-wrapper">
-                                                    <span class="bwsprite video-play-icon"></span>
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="grid-8">
-                                        <a href="" class="article-target-link" title="test review from bikewale">test review from bikewale</a>
-                                        <div class="article-stats-left-grid">
-                                            <span class="bwsprite calender-grey-sm-icon"></span>
-                                            <span class="article-stats-content">Aug 22, 2016</span>
-                                        </div>
-                                        <div class="article-stats-right-grid">
-                                            <span class="bwsprite review-sm-lgt-grey"></span>
-                                            <span class="article-stats-content">5,45,581</span>
-                                        </div>
-                                        <p class="margin-top12 line-height17">The Bajaj Pulsar RS200 gets a new white and red colour scheme combo for the Columbian market The RS200 is available in India in three solid colours namely yellow red and black with contrast graphic stickers It is still unsure if the Indian market will receive this dual tone...</p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-        
-                        <div class="padding-left10 more-article-target">
-                            <a title="Bajaj Pulsar RS200 Videos" href="/bajaj-bikes/pulsarrs200/videos/" class="bw-ga" c="Model_Page" a="View_all_videos_link_cliked" v="myBikeName">View all videos<span class="bwsprite blue-right-arrow-icon"></span></a>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
+</script>
+<link rel="stylesheet" type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/jquery.ad-gallery.css" />
+<link type="text/css" href="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/css/css-research-photos.css?<%= staticFileVersion %>" rel="Stylesheet" />
+<style type="text/css">
+    .font26 {
+        font-size: 26px !important;
+        font-weight: normal !important;
+        color: #333 !important;
+    }
+</style>
 
-        <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
-                        <h2 class="font18 margin-left20 margin-bottom15">Images for alternate bikes</h2>
-                        <div class="jcarousel-wrapper inner-content-carousel alternate-photos-swiper">
-                            <div class="jcarousel">
-                                <ul>
-                                    <li>
-                                        <a href="" title="TVS Apache RTR 160 Images" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/tvs-apachertr160.jpg?20152412215051" alt="TVS Apache RTR 160" src="" border="0">
-                                                <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">TVS Apache RTR 160</p>
-                                                <p class="text-light-grey">132 images</p>
-                                            </div>
-                                        </a>
-                                    </li>
 
-                                    <li>
-                                        <a href="" title="Bajaj Discover 150S Images" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/bajaj-discover-150s-drum-768.jpg?20151209174336" alt="Bajaj Discover 150S" src="" border="0">
-                                                <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Bajaj Discover 150S</p>
-                                                <p class="text-light-grey">187 images</p>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Bajaj Discover 150F Images" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/bajaj-discover-150f.jpg?20152309104236" alt="Bajaj Discover 150F" src="" border="0">
-                                                <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Bajaj Discover 150F</p>
-                                                <p class="text-light-grey">342 images</p>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Bajaj Pulsar 135 LS Images" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/bajaj-pulsar-135-ls-standard-264.jpg?20151209174414" alt="Bajaj Pulsar 135 LS" src="" border="0">
-                                                <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Bajaj Pulsar 135 LS</p>
-                                                <p class="text-light-grey">78 images</p>
-                                            </div>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="" title="Hero Achiever Images" class="jcarousel-card">
-                                            <div class="model-jcarousel-image-preview">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/hero-achiever-disc-self-90.jpg?20151209181112" alt="Hero Achiever" src="" border="0">
-                                                <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
-                                                </span>
-                                            </div>
-                                            <div class="card-desc-block">
-                                                <p class="bikeTitle">Hero Achiever</p>
-                                                <p class="text-light-grey">56 images</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <script type="text/javascript">
-            var photoCount = 10;
-        </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
-        
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/fontBW.aspx" -->
-    
-    </form>
-</body>
-</html>
+<!--[if IE 7]><style type="text/css">#galleryHolder{width:600px;height:400px;*height:475px;margin-bottom:10px;}.ad-gallery{margin: 0;*margin: 10px 0 0 0;padding:0;}</style><![endif]-->
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/jquery.ad-gallery.js"></script>
+<script type="text/javascript">
+    var MakeId = '<%= objModelEntity.MakeBase.MakeId%>';
+    var ModelId = '<%= objModelEntity.ModelId%>';
+    var MakeName = '<%=objModelEntity.MakeBase.MakeName %>';
+    var ModelName = '<%=objModelEntity.ModelName %>';
+    var MainCategory = '0';
+</script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : "" %>/src/new/photogallery/image-gallery.js?<%= staticFileVersion %>"></script>
+<div class="container_12">
+    <div class="grid_12 margin-bottom15">
+        <ul class="breadcrumb">
+            <li>You are here: </li>
+            <li><a href="/">Home</a></li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li><a href="/new-bikes-in-india/">New Bikes</a></li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/"><%=objModelEntity.MakeBase.MakeName %> Bikes</a></li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li><a href="/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName%>/"><%=objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %></a></li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li class="current"><strong>Images</strong></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="grid_12">
+        <PG:PhotoGallary ID="photoGallary" runat="server"></PG:PhotoGallary>
+    </div>
+    <div class="grid_4">
+        <div class="top-spacing">&nbsp;</div>
+        <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
+        <!-- #include file="/ads/Ad300x250.aspx" -->
+    </div>
+</div>
+<!-- #include file="/includes/footerInner.aspx" -->

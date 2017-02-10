@@ -325,7 +325,7 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />    
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -724,6 +724,10 @@
     </Compile>
     <Compile Include="controls\SimilarBikeVideos.ascx.cs">
       <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarBikeWithPhotos.ascx.cs">
+      <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\SimilarCompareBikes.ascx.cs">
@@ -1446,8 +1450,8 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\Default_v2.aspx.cs">
-      <DependentUpon>Default_v2.aspx</DependentUpon>
+    <Compile Include="new\photos\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="servicecenter\Default.aspx.cs">
@@ -1538,8 +1542,8 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="new\photos\Default_V2.aspx.cs">
+      <DependentUpon>Default_V2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\Search.aspx.cs">
@@ -2156,6 +2160,7 @@
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarBikeVideos.ascx" />
+    <Content Include="controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2930,7 +2935,7 @@
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="new\photos\Default_v2.aspx" />
+    <Content Include="new\photos\Default.aspx" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -2990,7 +2995,7 @@
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
-    <Content Include="new\photos\Default.aspx" />
+    <Content Include="new\photos\Default_V2.aspx" />
     <Content Include="new\search_old.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />

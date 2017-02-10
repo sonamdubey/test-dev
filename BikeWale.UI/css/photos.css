@@ -335,6 +335,10 @@
     background-position: -152px -251px;
 }
 
+#modelVideosContent h2 {
+    margin-bottom: 20px;
+}
+
 @media only screen and (max-width:1024px) {
     .model-grid-12-slug .model-details-block {
         width: 72%;

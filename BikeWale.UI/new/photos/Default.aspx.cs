@@ -1,123 +1,143 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.BindViewModels.Webforms.Photos;
 using Bikewale.Controls;
-using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.PriceQuote;
 using System;
-using System.Threading;
 using System.Web;
-using System.Web.UI;
 
-namespace Bikewale.New.PhotoGallery
+namespace Bikewale.New.Photos
 {
-    /// <summary>
-    /// Created By : Sadhana Upadhyay on 2 July 2014
-    /// Summmary : class for model photo gallery
-    /// </summary>
-    public class BikePhotos : System.Web.UI.Page
+    public class Default : System.Web.UI.Page
     {
-        protected PhotoGallaryMin photoGallary;
-        protected string photoId = string.Empty, bikeName = string.Empty, modelName = string.Empty, makename = string.Empty, modelImage = string.Empty;
-        protected BikeModelEntity objModelEntity = null;
-        protected uint modelId = 0;
+        protected GenericBikeInfo bikeInfo;
+        protected BindModelPhotos vmModelPhotos = null;
+        protected SimilarBikeWithPhotos ctrlSimilarBikesWithPhotos;
+        protected bool IsUpcoming { get; set; }
+        protected bool IsDiscontinued { get; set; }
+        protected bool isModelPage;
+        protected uint VideoCount;
+        protected PQSourceEnum pqSource;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected NewVideosControl ctrlVideos;
+        protected uint gridSize = 25;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
-
+        /// <summary>       
+        /// Summary :- model page photo bind condition added in query string
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
-            if (String.IsNullOrEmpty(originalUrl))
-                originalUrl = Request.ServerVariables["URL"];
-
-            DeviceDetection dd = new DeviceDetection(originalUrl);
-            dd.DetectDevice();
-            if (!Page.IsPostBack)
+            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
-                if (ProcessQueryString())
+                isModelPage = true;
+            }
+            BindPhotosPage();
+            BindPageWidgets();
+        }
+
+        /// <summary>
+        /// Created By : Created By : Sajal Gupta on 09-02-2017
+        /// Description : Bind photos page with metas,photos and widgets        
+        /// </summary>
+        private void BindPhotosPage()
+        {
+            try
+            {
+                vmModelPhotos = new BindModelPhotos();
+
+                if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
-                    objModelEntity = new ModelHelper().GetModelDataById(modelId);
-                    if (objModelEntity != null)
+                    vmModelPhotos.isDesktop = true;
+                    vmModelPhotos.gridSize = 24;
+                    vmModelPhotos.noOfGrid = 8;
+                    vmModelPhotos.isModelpage = isModelPage;
+                    vmModelPhotos.GetModelDetails();
+                    IsDiscontinued = vmModelPhotos.IsDiscontinued;
+                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+
+                    if (vmModelPhotos.objModel != null)
                     {
-                        modelName = objModelEntity.ModelName;
-                        makename = objModelEntity.MakeBase.MakeName;
-                        if (objModelEntity.MakeBase != null)
-                            bikeName = string.Format("{0} {1}", objModelEntity.MakeBase.MakeName, objModelEntity.ModelName);
-                        photoGallary.modelId = objModelEntity.ModelId;
-                        photoGallary.BikeName = bikeName;
-                        modelImage = Utility.Image.GetPathToShowImages(objModelEntity.OriginalImagePath, objModelEntity.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                        genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                    }
+                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+
+                    if (bikeInfo != null)
+                    {
+                        if (bikeInfo.Make != null && bikeInfo.Model != null)
+                        {
+                            bikeUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                        }
+                        pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                        IsUpcoming = genericBikeInfo.IsUpcoming;
+                        IsDiscontinued = genericBikeInfo.IsDiscontinued;
+                        VideoCount = bikeInfo.VideosCount;
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Created By : Sadhana Upadhyay on 4 July 2014
-        /// Summary : Validation for query string
-        /// </summary>
-        /// <returns></returns>
-        private bool ProcessQueryString()
-        {
-            ModelMaskingResponse objResponse = null;
-            string modelQuerystring = Request.QueryString["model"];
-            bool success = false;
-            try
-            {
-                if (!string.IsNullOrEmpty(modelQuerystring))
-                {
-                    objResponse = new ModelHelper().GetModelDataByMasking((modelQuerystring));
-                    modelId = HandleModelRedirection(objResponse, modelQuerystring);
-                    if (objResponse.StatusCode == 200)
-                        success = true;
-                }
-            }
-            catch (ThreadAbortException)
-            {
-
-            }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                objErr.SendMail();
-
-                Response.Redirect("/new-bikes-in-india/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : BindPhotosPage");
             }
-            return success;
-        }
-
-        /// <summary>
-        /// Created by: Sangram Nandkhile on 25 Nov 2016
-        /// Summary: Private method to handle model masking redirections
-        /// </summary>
-        private uint HandleModelRedirection(ModelMaskingResponse objResponse, string modelMask)
-        {
-            uint modelID = 0;
-            if (objResponse != null)
+            finally
             {
-                if (objResponse.StatusCode == 200)
+                if (vmModelPhotos.isRedirectToModelPage)  ///new/ page for photos exception
                 {
-                    modelID = objResponse.ModelId;
+                    Response.Redirect("/m/new-bikes-in-india/", true);
                 }
-                else if (objResponse.StatusCode == 301)
+                else if (vmModelPhotos.isPermanentRedirection) //301 redirection
                 {
-                    CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMask, objResponse.MaskingName));
+                    Bikewale.Common.CommonOpn.RedirectPermanent(vmModelPhotos.pageRedirectUrl);
                 }
-                else
+                else if (vmModelPhotos.isPageNotFound)  //page not found
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
             }
-            else
+        }
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 09-02-2017
+        /// Description : bind photos page widgets
+        /// </summary>
+        private void BindPageWidgets()
+        {
+            try
             {
-                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                if (vmModelPhotos != null && vmModelPhotos.objModel != null && vmModelPhotos.objMake != null)
+                {
+                    if (ctrlSimilarBikesWithPhotos != null && !IsDiscontinued)
+                    {
+                        ctrlSimilarBikesWithPhotos.TotalRecords = 6;
+                        ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
+                        ctrlSimilarBikesWithPhotos.WidgetHeading = "Images of similar bikes";
+                    }
+
+                    if (ctrlVideos != null)
+                    {
+                        ctrlVideos.TotalRecords = 3;
+                        ctrlVideos.WidgetTitle = bikeName;
+                        ctrlVideos.ModelId = vmModelPhotos.objModel.ModelId;
+                        ctrlVideos.ModelName = vmModelPhotos.objModel.ModelName;
+                        ctrlVideos.ModelMaskingName = vmModelPhotos.objModel.MaskingName;
+                        ctrlVideos.MakeId = vmModelPhotos.objMake.MakeId;
+                        ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
+                        ctrlVideos.MakeMaskingName = vmModelPhotos.objMake.MaskingName;
+                    }
+                }
             }
-            return modelID;
-        }   //End of ProcessQueryString
-    }   //End of class
-}   //End of namespace
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : BindPageWidgets");
+            }
+        }
+    }
+}
