@@ -284,7 +284,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
+    <Compile Include="BindViewModels\Controls\BindBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindGenericBikeRankingControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
@@ -325,7 +325,7 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />    
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -930,6 +930,13 @@
     <Compile Include="m\controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\BikeInfo.ascx.cs">
+      <DependentUpon>BikeInfo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\BikeInfo.ascx.designer.cs">
+      <DependentUpon>BikeInfo.ascx</DependentUpon>
     </Compile>
     <Compile Include="m\controls\BrandCityPopUp.ascx.cs">
       <DependentUpon>BrandCityPopUp.ascx</DependentUpon>
@@ -2664,6 +2671,7 @@
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
     <Content Include="m\controls\BestBikes.ascx" />
+    <Content Include="m\controls\BikeInfo.ascx" />
     <Content Include="m\controls\BrandCityPopUp.ascx" />
     <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BikeCare.ascx" />
@@ -2781,7 +2789,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />

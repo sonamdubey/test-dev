@@ -1,11 +1,12 @@
-﻿using Bikewale.BindViewModels.Webforms;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
-using Bikewale.Mobile.Controls;
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -21,7 +22,7 @@ namespace Bikewale.Mobile.Videos
         protected string metaDesc = string.Empty;
         protected string metaKeywords = string.Empty;
         protected string metaTitle = string.Empty;
-
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -29,8 +30,9 @@ namespace Bikewale.Mobile.Videos
         protected void Page_Load(object sender, EventArgs e)
         {
             ParseQueryString();
-            BindSimilarVideoControl();
+
             BindVideoDetails();
+            BindSimilarVideoControl();
             CreateDescriptionTag();
         }
         /// <summary>
@@ -82,12 +84,34 @@ namespace Bikewale.Mobile.Videos
         }
         /// <summary>
         ///  Addition param for Similar Video controller
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindSimilarVideoControl()
         {
-            ctrlSimilarVideos.TopCount = 6;
-            ctrlSimilarVideos.VideoBasicId = videoId;
-            ctrlSimilarVideos.SectionTitle = "Related videos";
+            try
+            {
+                ctrlSimilarVideos.TopCount = 6;
+                ctrlSimilarVideos.VideoBasicId = videoId;
+                ctrlSimilarVideos.SectionTitle = "Related videos";
+                if (ctrlGenericBikeInfo != null)
+                {
+                    GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                    var objresponse = new ModelHelper().GetModelDataByMasking((videoModel.MaskingName));
+                    if (objresponse != null)
+                    {
+                        ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
+                        ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
+                        ctrlGenericBikeInfo.TabCount = 3;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "Video.BindSimilarVideoControl");
+            }
         }
         /// <summary>
         /// API call to fetch Video details

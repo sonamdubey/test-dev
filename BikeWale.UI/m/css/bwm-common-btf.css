@@ -396,6 +396,22 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     top: 4px;
 }
 
+.photos-sm,
+.videos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.photos-sm {
+    background-position: 0 -477px;
+}
+
+.videos-sm {
+    background-position: -16px -476px;
+}
+
 .text-justify { text-align: justify; }
 .text-wrap { white-space: normal; }
 .text-nowrap { white-space: nowrap; }

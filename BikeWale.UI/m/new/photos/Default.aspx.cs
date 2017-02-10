@@ -1,8 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Photos;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -30,6 +32,7 @@ namespace Bikewale.Mobile.New.Photos
         protected uint VideoCount;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        private GlobalCityAreaEntity _currentCityArea;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -72,13 +75,13 @@ namespace Bikewale.Mobile.New.Photos
                     vmModelPhotos.GetModelDetails();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindModelPhotosPageWidgets();
-                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+                    BindBikeInfo genericBikeInfo = new BindBikeInfo();
 
                     if (vmModelPhotos.objModel != null)
                     {
                         genericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
                     }
-                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+                    bikeInfo = genericBikeInfo.GetBikeInfo();
 
                     if (bikeInfo != null)
                     {
@@ -122,6 +125,8 @@ namespace Bikewale.Mobile.New.Photos
         /// Description : bind photos page widgets
         /// Modified by  : Sajal Gupta on 31-01-2017
         /// Description : Fetch modlId.
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindModelPhotosPageWidgets()
         {
@@ -142,7 +147,14 @@ namespace Bikewale.Mobile.New.Photos
                         ctrlSimilarBikesWithPhotos.TotalRecords = 6;
                         ctrlSimilarBikesWithPhotos.ModelId = vmModelPhotos.objModel.ModelId;
                     }
-                    ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                    if (ctrlGenericBikeInfo != null)
+                    {
+                        _currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                        ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
+                        ctrlGenericBikeInfo.CityId = _currentCityArea.CityId;
+                        ctrlGenericBikeInfo.PageId = BikeInfoTabType.Image;
+                        ctrlGenericBikeInfo.TabCount = 3;
+                    }
 
                 }
             }

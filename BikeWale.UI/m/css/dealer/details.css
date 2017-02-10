@@ -31,11 +31,6 @@
     width: 92%;
 }
 
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
 .location-details {
     display: none;
 }
