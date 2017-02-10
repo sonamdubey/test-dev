@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -2108,6 +2109,75 @@ namespace Bikewale.DAL.BikeData
             return SimilarBikeInfoList;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 10 Feb 2017
+        /// Description :   Returns New bikes launched
+        /// </summary>
+        /// <returns></returns>
+        public ICollection<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
+        {
+            ICollection<NewLaunchedBikeEntityBase> newLaunchedBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getnewlaunchedbikes_10022017";
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            newLaunchedBikes = new Collection<NewLaunchedBikeEntityBase>();
 
+                            while (dr.Read())
+                            {
+                                newLaunchedBikes.Add(
+                                    new NewLaunchedBikeEntityBase()
+                                    {
+                                        Make = new BikeMakeEntityBase()
+                                        {
+                                            MakeId = SqlReaderConvertor.ToInt32(dr["bikemakeid"]),
+                                            MakeName = Convert.ToString(dr["make"]),
+                                            MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            PopularityIndex = SqlReaderConvertor.ToUInt16(dr["makePopularityIndex"])
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                            ModelName = Convert.ToString(dr["model"]),
+                                            MaskingName = Convert.ToString(dr["modelmaskingname"])
+                                        },
+
+                                        MinSpecs = new MinSpecsEntity()
+                                        {
+                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
+                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
+                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
+                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
+                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
+                                        },
+
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                        ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                        ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
+                                        MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
+                                        MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
+                                        LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"])
+                                    }
+                                );
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+            }
+            return newLaunchedBikes;
+        }
     }   // class
 }   // namespace

@@ -127,6 +127,11 @@
     <Compile Include="BikeData\NewBikeModelColor.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\NewLaunchedBikesBase.cs" />
+    <Compile Include="BikeData\NewLaunched\BikesByMakeEntityBase.cs" />
+    <Compile Include="BikeData\NewLaunched\BikesByYearEntityBase.cs" />
+    <Compile Include="BikeData\NewLaunched\InputFilter.cs" />
+    <Compile Include="BikeData\NewLaunched\NewLaunchedBikeEntityBase.cs" />
+    <Compile Include="BikeData\NewLaunched\NewLaunchedBikeResult.cs" />
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />

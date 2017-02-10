@@ -62,6 +62,8 @@ namespace BikeWaleOpr.Content
         /// Desc : Refreshed popularbikekeys for new bike launch.
         /// Modified by : Aditi Srivastava on 12 Jan 2017
         /// Desc        : Refreshed upcoming bikes key on new bike launch
+        /// Modified by :   Sumit Kate on 10 Feb 2017
+        /// Description :   Clear BW_NewLaunchedBikes memcache object
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -130,6 +132,7 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for newbikelaunches
                 MemCachedUtil.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
                 MemCachedUtil.Remove("BW_NewBikeLaunches");
+                MemCachedUtil.Remove("BW_NewLaunchedBikes");
 
             }
             catch (Exception err)
