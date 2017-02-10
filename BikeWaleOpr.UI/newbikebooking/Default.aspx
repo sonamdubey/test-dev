@@ -296,14 +296,9 @@
             self.selectedDealer(ddlDealers.select().val());
             $('#hdnDealerId').val(self.selectedDealer());
         });
-        //self.completeDealer = function () {
-        //    ('#drpDealer').trigger("chosen:updated");
-        //    self.selectedDealer(ddlDealers.select().val());
-        //    $('#hdnDealerId').val(self.selectedDealer());
-        //}
-        self.cityChanged = function () {
 
-            try {
+        self.cityChanged = function () {
+              try {
                 if (self.selectedCity() != null && self.selectedCity() > 0) {
                     $("#hdnCityId").val(self.selectedCity());
                     $.ajax({
