@@ -36,7 +36,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public BikeModelEntityBase objModel = null;
         public List<ModelImage> objImageList = null;
         public PageMetaTags pageMetas = null;
-        public uint gridSize;  //show more photos available after grid size more than 30
+        public uint gridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
         public bool isModelpage;
         public bool isDesktop = false;
@@ -120,8 +120,6 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 {
                     modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
                     firstImage = objImageList[0];
-                    //firstImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._640x348);
-
                     if (isDesktop)
                     {
                         objImageList = objImageList.Skip(1).ToList();
