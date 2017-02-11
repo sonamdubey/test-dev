@@ -149,10 +149,16 @@ namespace BikeWaleOpr.Content
                     {
                         // Push Data to Carwale DB
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelId", _modelId.ToString());
-                        nvc.Add("makeId", cmbMakes.SelectedValue);
-                        nvc.Add("modelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
+                        nvc.Add("v_modelId", _modelId.ToString());
+                        nvc.Add("v_MakeId", cmbMakes.SelectedValue);
+                        nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
+                        nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
+                        nvc.Add("v_HostUrl", null);
+                        nvc.Add("v_OriginalImagePath ", null);
+                        nvc.Add("v_New ", "1");
+                        nvc.Add("v_Used ", "1");
+                        nvc.Add("v_Futuristic", "0");
+
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key                       
@@ -179,10 +185,9 @@ namespace BikeWaleOpr.Content
                 }
 
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             BindGrid();
         }
@@ -277,11 +282,17 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("modelname", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("isused", chkUsed1.Checked.ToString());
-                    nvc.Add("isnew", chkNew1.Checked.ToString());
-                    nvc.Add("isfuturistic", chkFuturistic1.Checked.ToString());
-                    nvc.Add("modelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("v_IsUsed", chkUsed1.Checked.ToString());
+                    nvc.Add("v_IsNew", chkNew1.Checked.ToString());
+                    nvc.Add("v_IsFuturistic", chkFuturistic1.Checked.ToString());
+                    nvc.Add("v_ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_MakeId", null);
+                    nvc.Add("v_ModelMaskingName", null);
+                    nvc.Add("v_HostUrl", null);
+                    nvc.Add("v_OriginalImagePath", null);
+                    nvc.Add("v_IsDeleted", null);
+
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
@@ -306,7 +317,6 @@ namespace BikeWaleOpr.Content
                     catch (Exception ex)
                     {
                         ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        errObj.SendMail();
                     }
                 }
 

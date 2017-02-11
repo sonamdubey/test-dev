@@ -146,12 +146,12 @@ namespace BikeWaleOpr.Content
                     if (currentId != "-1")
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("versionid", currentId);
-                        nvc.Add("modelId", Request["cmbmodels"].ToString());
-                        nvc.Add("versionName", txtVersion.Text.Trim());
-                        nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
-                        nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
-                        nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
+                        nvc.Add("v_versionId", currentId);
+                        nvc.Add("v_ModelId", Request["cmbmodels"].ToString());
+                        nvc.Add("v_VersionName", txtVersion.Text.Trim());
+                        nvc.Add("v_IsNew", Convert.ToInt16(chkNew.Checked).ToString());
+                        nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
+                        nvc.Add("v_Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
                     }
                 }
@@ -275,11 +275,14 @@ namespace BikeWaleOpr.Content
             {
                 MySqlDatabase.InsertQuery(sql, param, ConnectionType.MasterDatabase);
                 NameValueCollection nvc = new NameValueCollection();
-                nvc.Add("VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                nvc.Add("versionname", txt.Text.Trim().Replace("'", "''"));
-                nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
-                nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
-                nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                nvc.Add("v_VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                nvc.Add("v_VersionName", txt.Text.Trim().Replace("'", "''"));
+                nvc.Add("v_IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
+                nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
+                nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                nvc.Add("v_ModelId", null);
+                nvc.Add("v_IsDeleted", null);
+
                 SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
 
                 var makeId = Request.Form["cmbMakes"];
@@ -287,11 +290,9 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             dtgrdMembers.EditItemIndex = -1;
 
@@ -322,16 +323,19 @@ namespace BikeWaleOpr.Content
                 {
                     MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("VersionId", _versionId.ToString());
-                    nvc.Add("IsDeleted", "1");
+                    nvc.Add("v_VersionId", _versionId.ToString());
+                    nvc.Add("v_VersionName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_ModelId", null);
+                    nvc.Add("v_IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             BindGrid();
         }
