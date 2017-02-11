@@ -48,15 +48,15 @@ var bikeSelection = function () {
     self.LoadingText = ko.observable('Loading...');
     self.currentStep = ko.observable(0);
     self.lastStep = ko.observable(4);
-
     self.modelArray = ko.observableArray();
     self.versionArray = ko.observableArray();
+    self.currentCacheObj = ko.observable();
 
     self.makeChanged = function (data, event) {
         self.currentStep(self.currentStep() + 1);
 
         self.LoadingText("Loading bike models...");
-        var element = $(event.currentTarget).find("span");
+        var element = $(event.currentTarget).find("span"),_modelsCache;
 
         self.make({
             id: element.data("id"),
@@ -70,18 +70,26 @@ var bikeSelection = function () {
             if (self.make() && self.make().id > 0) {
                 self.modelArray(null);
                 self.IsLoading(true);
-
-                $.getJSON("/api/modellist/?requestType=2&makeId=" + self.make().id)
-                .done(function (res) {
-                    self.modelArray(res.modelList);
-                })
-                .fail(function () {
-                    self.make(null);
-                    self.modelArray(null);
-                })
-                .always(function () {
+                var _cmodelsKey = "models_" + self.make().id;
+                _modelsCache = bwcache.get(_cmodelsKey, true);
+                if (!_modelsCache) {
+                    $.getJSON("/api/modellist/?requestType=2&makeId=" + self.make().id)
+                    .done(function (res) {
+                        self.modelArray(res.modelList);
+                        bwcache.set(_cmodelsKey, res, true);
+                    })
+                    .fail(function () {
+                        self.make(null);
+                        self.modelArray(null);
+                    })
+                    .always(function () {
+                        self.IsLoading(false);
+                    });
+                }
+                else {
+                    self.modelArray(_modelsCache.modelList);
                     self.IsLoading(false);
-                });
+                }
             }
         } catch (e) {
             console.warn(e);
@@ -90,7 +98,7 @@ var bikeSelection = function () {
     };
 
     self.modelChanged = function (data, event) {
-
+        var _cversionsKey = "versions_",_versionsCache;
         self.model(data);
         self.LoadingText("Loading bike versions...");
         self.currentStep(self.currentStep()+1);
@@ -100,18 +108,26 @@ var bikeSelection = function () {
             if (self.model() && self.model().modelId > 0) {
                 self.versionArray(null);
                 self.IsLoading(true);
-
-                $.getJSON("/api/versionList/?requestType=2&modelId=" + self.model().modelId)
-                .done(function (res) {
-                    self.versionArray(res.Version);
-                })
-                .fail(function () {
-                    self.model(null);
-                    self.versionArray(null);
-                })
-                .always(function () {
+                _cversionsKey += self.model().modelId;
+                _versionsCache = bwcache.get(_cversionsKey, true);
+                if (!_versionsCache) {
+                    $.getJSON("/api/versionList/?requestType=2&modelId=" + self.model().modelId)
+                    .done(function (res) {
+                        self.versionArray(res.Version);
+                        bwcache.set(_cversionsKey, res, true);
+                    })
+                    .fail(function () {
+                        self.model(null);
+                        self.versionArray(null);
+                    })
+                    .always(function () {
+                        self.IsLoading(false);
+                    });
+                }
+                else {
+                    self.versionArray(_versionsCache.Version);
                     self.IsLoading(false);
-                });
+                }
             }
         } catch (e) {
             console.warn(e);
@@ -120,25 +136,36 @@ var bikeSelection = function () {
     };
 
     self.versionChanged = function (data, event) {
+        var _cversionKey = "version_", _versionCache;
         self.version(data);
         self.LoadingText("Loading bike version details...");
         try {
             if (self.version() && self.version().versionId > 0 && self.version().versionId != self.prevVersionId()) {
                 self.IsLoading(true);
                 self.prevVersionId(self.version().versionId);
-
-                $.getJSON("/api/version/?versionid=" + self.version().versionId)
-                .done(function (res) {
-                    self.bikeData(res);
+                _cversionKey += self.version().versionId;
+                _versionCache = bwcache.get(_cversionKey, true);
+                if (!_versionCache) {
+                    $.getJSON("/api/version/?versionid=" + self.version().versionId)
+                    .done(function (res) {
+                        self.bikeData(res);
+                        self.setCompareBikeHTML();
+                        self.currentStep(self.currentStep() + 1);
+                        bwcache.set(_cversionKey, res, true);
+                    })
+                    .fail(function () {
+                        self.bikeData(null);
+                    })
+                    .always(function () {
+                        self.IsLoading(false);
+                    });
+                }
+                else {
+                    self.bikeData(_versionCache);
                     self.setCompareBikeHTML();
                     self.currentStep(self.currentStep() + 1);
-                })
-                .fail(function () {
-                    self.bikeData(null);
-                })
-                .always(function () {
                     self.IsLoading(false);
-                });
+                }
             }
             else if (self.version() && self.version().versionId > 0) {
                 bikePopup.showSameVersionToast();
