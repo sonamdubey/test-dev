@@ -120,7 +120,7 @@
        
                  <% if (ctrlServiceCenterCard.showWidget)
                    { %>
-                <section class="padding-left5">
+                <section>
                     <div class="margin-right20 margin-left20 border-divider"></div>
                     <div class="bg-white padding-top20">
                         <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
