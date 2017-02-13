@@ -4,6 +4,7 @@ using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -35,6 +36,7 @@ namespace Bikewale.Mobile.Videos
         protected SimilarBikeVideos ctrlSimilarBikeVideos;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         private GlobalCityAreaEntity _currentCityArea;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -52,6 +54,8 @@ namespace Bikewale.Mobile.Videos
         /// Summary :- bind similar bike widget
         /// Modified By :- Subodh Jain 6 feb 2017
         /// Summary :- Added popular body style widget
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindControl()
         {
@@ -68,6 +72,13 @@ namespace Bikewale.Mobile.Videos
                     ctrlBikesByBodyStyle.ModelId = (modelId ?? 0);
                     ctrlBikesByBodyStyle.topCount = 9;
                     ctrlBikesByBodyStyle.CityId = _currentCityArea.CityId;
+                }
+                if (ctrlGenericBikeInfo != null)
+                {
+                    ctrlGenericBikeInfo.ModelId = (modelId ?? 0);
+                    ctrlGenericBikeInfo.CityId = _currentCityArea.CityId;
+                    ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
+                    ctrlGenericBikeInfo.TabCount = 3;
                 }
             }
             catch (Exception ex)

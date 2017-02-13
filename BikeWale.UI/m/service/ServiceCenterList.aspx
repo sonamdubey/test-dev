@@ -159,24 +159,17 @@
                 {%> 
                  <BW:UsedMostPopularModels runat="server" ID="ctrlPopularModels" />
                 <%} %>
+                 <% if (ctrlDealerCard.showWidget) { %>
+                    <div class="margin-right20 margin-left20 padding-top5">
+                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
+                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
+                    </div>
+                    <BW:DealerCard runat="server" ID="ctrlDealerCard" />
+                 <% }  %>
             </div>
                 </div>
         </section>
         <% } %>
-
-
-        <% if (ctrlDealerCard.showWidget) { %>
-        <section>
-            <div class="container bg-white box-shadow card-bottom-margin">
-                <div class="margin-right20 margin-left20 padding-top15">
-                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
-                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
-                </div>
-                <BW:DealerCard runat="server" ID="ctrlDealerCard" />
-            </div>            
-        </section>
-         <% }  %>
-
         <section>
             <div class="container margin-bottom20 font12 padding-top5 padding-right20 padding-left20">
                 <span class="font14"><strong>Disclaimer:</strong></span> The above-mentioned information about authorised <%=makeName %> service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised <%=makeName %> service center before scheduling an appointment.

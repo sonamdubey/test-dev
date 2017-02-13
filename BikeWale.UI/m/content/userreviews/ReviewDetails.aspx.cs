@@ -1,9 +1,11 @@
 ﻿using Bikewale.BAL.UserReviews;
 using Bikewale.Common;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.SEO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
@@ -23,6 +25,7 @@ namespace Bikewale.Mobile.Content
         protected ReviewDetailsEntity objReview = null;
         protected UserReviewSimilarBike ctrlUserReviewSimilarBike;
         protected NewUserReviewList ctrlUserReviews;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected uint reviewId = 0;
         protected PageMetaTags pageMetas;
         public static string URV
@@ -99,6 +102,8 @@ namespace Bikewale.Mobile.Content
         /// <summary>
         /// Created By :- Subodh Jain 2017
         /// Created By :- Bind User Control
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindControl()
         {
@@ -114,6 +119,15 @@ namespace Bikewale.Mobile.Content
             ctrlUserReviews.ModelName = objReview.BikeEntity.ModelEntity.ModelName;
             ctrlUserReviews.WidgetHeading = string.Format("More {0} {1} User reviews", objReview.BikeEntity.MakeEntity.MakeName, objReview.BikeEntity.ModelEntity.ModelName);
             ctrlUserReviews.ReviewId = Convert.ToInt32(reviewId);
+
+            if (ctrlGenericBikeInfo != null)
+            {
+                ctrlGenericBikeInfo.ModelId = (uint)objReview.BikeEntity.ModelEntity.ModelId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.News;
+                ctrlGenericBikeInfo.TabCount = 3;
+
+            }
 
         }
 
