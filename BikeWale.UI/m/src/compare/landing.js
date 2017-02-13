@@ -27,6 +27,16 @@ var bikePopup = {
     scrollToHead: function () {
         bikePopup.container.animate({ scrollTop: 0 });
     },
+    isSameVersion: function (versionId)
+    {
+        var isSameVersion = false;
+        $(".bike-details-block a").each(function () {
+            if ($(this).data("versionid") == versionId)
+                isSameVersion = true;
+        });
+
+        return isSameVersion;
+    },
     showSameVersionToast: function () {
         window.clearTimeout();
         $('section .same-version-toast').slideDown();
@@ -38,7 +48,6 @@ var bikePopup = {
 
 var bikeSelection = function () {
     var self = this;
-    self.prevVersionId = ko.observable(0);
     self.make = ko.observable();
     self.model = ko.observable();
     self.version = ko.observable();
@@ -73,7 +82,7 @@ var bikeSelection = function () {
                 var _cmodelsKey = "models_" + self.make().id;
                 _modelsCache = bwcache.get(_cmodelsKey, true);
                 if (!_modelsCache) {
-                    $.getJSON("/api/modellist/?requestType=11&makeId=" + self.make().id)
+                    $.getJSON("/api/modellist/?requestType=2&makeId=" + self.make().id)
                     .done(function (res) {
                         self.modelArray(res.modelList);
                         bwcache.set(_cmodelsKey, res, true);
@@ -111,7 +120,7 @@ var bikeSelection = function () {
                 _cversionsKey += self.model().modelId;
                 _versionsCache = bwcache.get(_cversionsKey, true);
                 if (!_versionsCache) {
-                    $.getJSON("/api/versionList/?requestType=11&modelId=" + self.model().modelId)
+                    $.getJSON("/api/versionList/?requestType=2&modelId=" + self.model().modelId)
                     .done(function (res) {
                         self.versionArray(res.Version);
                         bwcache.set(_cversionsKey, res, true);
@@ -140,18 +149,17 @@ var bikeSelection = function () {
         self.version(data);
         self.LoadingText("Loading bike version details...");
         try {
-            if (self.version() && self.version().versionId > 0 && self.version().versionId != self.prevVersionId()) {
+            if (self.version() && self.version().versionId > 0 && !bikePopup.isSameVersion(self.version().versionId)) {
                 self.IsLoading(true);
-                self.prevVersionId(self.version().versionId);
                 _cversionKey += self.version().versionId;
                 _versionCache = bwcache.get(_cversionKey, true);
                 if (!_versionCache) {
                     $.getJSON("/api/version/?versionid=" + self.version().versionId)
                     .done(function (res) {
                         self.bikeData(res);
-                        self.setCompareBikeHTML();
-                        self.currentStep(self.currentStep() + 1);
                         bwcache.set(_cversionKey, res, true);
+                        self.setCompareBikeHTML();
+                        self.currentStep(self.currentStep() + 1);                      
                     })
                     .fail(function () {
                         self.bikeData(null);

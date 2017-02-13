@@ -42,7 +42,7 @@
                         <!-- /ko -->
                         <!-- ko if : bike1() -->
                         <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey" data-bind="click: function () { bike1(null); }"></span>
-                        <a data-bind="attr: { 'title': bike1().bikeName, 'href': bike1().bikeUrl }" href="javscript:void(0)" title="" class="block margin-top10">
+                        <a data-bind="attr: { 'title': bike1().bikeName, 'href': bike1().bikeUrl,'data-versionid' : bike1().version.versionId  }" href="javscript:void(0)" title="" class="block margin-top10">
                             <span class="font12 text-light-grey text-truncate" data-bind="text: bike1().make.name"></span>
                             <h2 class="font14 text-truncate margin-bottom5" data-bind="text: bike1().model.modelName"></h2>
                             <img class="bike-image-block" data-bind="attr: { 'alt': bike1().bikeName, 'src': bike1().hostUrl + '/110x61/' + bike1().originalImagePath }" src="" alt="">
@@ -67,7 +67,7 @@
                         <!-- /ko -->
                         <!-- ko if : bike2() -->
                         <span class="close-selected-bike position-abt pos-right5 bwmsprite cross-sm-dark-grey" data-bind="click: function () { bike2(null); }"></span>
-                        <a data-bind="attr: { 'title': bike2().bikeName, 'href': bike2().bikeUrl }" href="javscript:void(0)" title="" class="block margin-top10">
+                        <a data-bind="attr: { 'title': bike2().bikeName, 'href': bike2().bikeUrl,'data-versionid' : bike2().version.versionId }" href="javscript:void(0)" title="" class="block margin-top10">
                             <span class="font12 text-light-grey text-truncate" data-bind="text: bike2().make.name"></span>
                             <h2 class="font14 text-truncate margin-bottom5" data-bind="text: bike2().model.modelName"></h2>
                             <img class="bike-image-block" data-bind="attr: { 'alt': bike2().bikeName, 'src': bike2().hostUrl + '/110x61/' + bike2().originalImagePath }" src="" alt="">
@@ -81,7 +81,7 @@
                         <!-- /ko -->
                     </div>
                     <div class="padding-bottom15 text-center" data-bind="visible: bike1() && bike2()">
-                        <a href="javascript:void(0)" data-bind="attr: { 'href': compareLink }" class="btn btn-white btn-size-1" rel="nofollow">Compare Now</a>
+                        <a href="javascript:void(0)" data-bind="attr: { 'href': compareLink }" class="btn btn-white btn-size-1 margin-top10" rel="nofollow">Compare Now</a>
                     </div>
 
                     <div class="clear"></div>
