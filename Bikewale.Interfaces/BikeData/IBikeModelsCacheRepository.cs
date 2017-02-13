@@ -30,7 +30,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Mocified by : Sajal Gupta on 02-02-2017
     /// Description : Modified function GetBestBikesByCategory
     /// Modified  By :- subodh Jain 10 Feb 2017
-    /// Summary :- BikeInfo Slug details
+    /// Summary :- BikeInfo Slug details GetBikeInfo
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
     {
