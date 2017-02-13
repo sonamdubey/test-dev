@@ -252,6 +252,8 @@ namespace BikeWaleOpr.Content
         /// Written By : Ashwini Todkar on 17 Feb 2014
         /// Summary    : method updates New ,Used and futuristic flags of bikemodels and bikeversion table
         ///              also update isLaunched flags in ExpectedBikeLaunch table
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="launchBikeIds"></param>
         /// <param name="launchBikeModelIds"></param>

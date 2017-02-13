@@ -66,6 +66,12 @@ namespace BikeWaleOpr.Content
             }
         } // Page_Load
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Page.Validate();
@@ -156,6 +162,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();

@@ -116,6 +116,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// modified by : Sajal Gupta on 9-1-2017
         /// Description : Refreshed memcache popular bike makes key
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -249,6 +251,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();

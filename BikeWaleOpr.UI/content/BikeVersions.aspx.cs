@@ -113,6 +113,12 @@ namespace BikeWaleOpr.Content
             BindGrid();
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         string SaveData(string id)
         {
             string currentId = "-1";
@@ -217,6 +223,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();
@@ -308,6 +320,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = true;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
             string sql = string.Empty;
