@@ -142,7 +142,7 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
-            var photoCount = '<%= vmModelPhotos.totalPhotosCount + 1%>';
+            var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
 

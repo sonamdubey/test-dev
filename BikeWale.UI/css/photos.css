@@ -339,6 +339,16 @@
     margin-bottom: 20px;
 }
 
+.photos-grid-list .black-overlay {
+    display: block;
+    padding-top: 18%;
+}
+
+.alternate-photos-swiper .black-overlay {
+    display: block;
+    padding-top: 25%;
+}
+
 @media only screen and (max-width:1024px) {
     .model-grid-12-slug .model-details-block {
         width: 72%;

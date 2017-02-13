@@ -15,9 +15,7 @@
                                             <div class="model-jcarousel-image-preview">
                                                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %> images" src="" border="0">
                                                 <span class="black-overlay">
-                                                    <span class="black-overlay-content">
-                                                        <span class="bwsprite photos-lg-white"></span>
-                                                    </span>
+                                                    <span class="bwsprite photos-lg-white"></span>
                                                 </span>
                                             </div>
                                             <div class="card-desc-block">
