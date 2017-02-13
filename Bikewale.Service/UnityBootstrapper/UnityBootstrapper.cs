@@ -2,6 +2,7 @@
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
@@ -45,6 +46,7 @@ using Bikewale.Interfaces.AppDeepLinking;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
@@ -96,6 +98,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register IImage, ISecurity and IImageRepository interfaces
         /// Modified by :   Sumit Kate on 09 Feb 2017
         /// Description :   Register IBikeMaskingCacheRepository<BikeModelEntity, int> interface
+        /// Modified by :   Sumit Kate on 13 Feb 2017
+        /// Description :   Register INewBikeLaunchesBL interface
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -171,6 +175,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUsedBikeSeller, UsedBikeSeller>();
             container.RegisterType<IMobileAppAlert, Bikewale.BAL.MobileAppAlert.MobileFCMNotifications>();
             container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
+            container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
             return container;
         }
     }
