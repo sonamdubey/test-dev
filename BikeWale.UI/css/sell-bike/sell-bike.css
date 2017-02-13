@@ -3,6 +3,28 @@
   .card-header h1 {
     font-size: 24px; }
 
+.section-header,
+.section-inner-padding {
+  padding: 15px 20px;
+  -webkit-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -moz-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -ms-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  -o-box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  box-shadow: 0 2px 2px #e2e2e2,0 1px 1px #f1f1f1;
+  border: 1px solid #e2e2e2 \9; }
+
+.section-bottom-margin {
+  margin-bottom: 20px; }
+
+.section-h2-title {
+  font-size: 18px; }
+
+.section-heading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 25px;
+  margin-bottom: 15px; }
+
 .select-box {
   height: 60px;
   position: relative; }
@@ -762,18 +784,15 @@ textarea {
   height: 24px;
   background-position: -237px -123px; }
 
-.section-heading {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 25px;
-  margin-bottom: 15px; }
 .accordion-list {
   padding-right: 20px;
   padding-left: 20px;
   margin-bottom: 20px;
   font-size: 14px; }
   .accordion-list li {
-    border-bottom: 1px solid #e2e2e2; }
+    border-top: 1px solid #e2e2e2; }
+    .accordion-list li:first-child {
+      border-top: 0; }
   .accordion-list .accordion-head {
     position: relative;
     cursor: pointer;
