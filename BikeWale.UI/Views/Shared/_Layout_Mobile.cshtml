@@ -3,54 +3,54 @@
 <head>
     <meta charset="utf-8">
     @{
-        ViewBag.Title = "";
-        ViewBag.relPrevPageUrl = string.Empty;
-        ViewBag.relNextPageUrl = string.Empty;
-        ViewBag.description = "";
-        ViewBag.keywords = "";
-        ViewBag.AdId = "";
-        ViewBag.AdPath = "";
-        ViewBag.canonical = "";
-        ViewBag.TargetedModel = "";
-        ViewBag.TargetedMakes = "";
-        ViewBag.TargetedModels = "";
-        ViewBag.TargetedCity = "";
-        ViewBag.OGImage = "";
-        ViewBag.feedbackTypeId = 0;
+        var Title = ViewBag.Title;
+        var relPrevPageUrl = ViewBag.relPrevPageUrl;
+        var relNextPageUrl = ViewBag.relNextPageUrl;
+        var description = ViewBag.description;
+        var keywords = ViewBag.keywords;
+        var AdId=ViewBag.AdId;
+        var AdPath =ViewBag.AdPath;
+        var canonical = ViewBag.canonical;
+        var TargetedModel = ViewBag.TargetedModel;
+        var TargetedMakes= ViewBag.TargetedMakes;
+        var TargetedModels= ViewBag.TargetedModels;
+        var TargetedCity =ViewBag.TargetedCity;
+        var OGImage= ViewBag.OGImage;
+        var feedbackTypeId = ViewBag.feedbackTypeId != null ? 0 : ViewBag.feedbackTypeId;
         ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
         ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-        ViewBag.Ad_320x50 = false;
-        ViewBag.Ad_Bot_320x50 = false;
-        ViewBag.Ad_300x250 = false;
-        ViewBag.Ad320x150_Top = false;
-        ViewBag.Ad320x150_Bottom = false;
-        ViewBag.EnableOG = true;
-        ViewBag.Ad_Mid_320x50 = false;
-        ViewBag.IsHomePage = false;
+        var Ad_320x50 = Convert.ToBoolean(ViewBag.Ad_320x50!=null? ViewBag.Ad_320x50 : false);
+        var Ad_Bot_320x50 = Convert.ToBoolean(ViewBag.Ad_Bot_320x50 !=null ? ViewBag.Ad_Bot_320x50 : false);
+        var Ad_300x250 =Convert.ToBoolean(ViewBag.Ad_300x250 !=null ? ViewBag.Ad_300x250 : false);
+        var Ad320x150_Top = Convert.ToBoolean(ViewBag.Ad320x150_Top !=null ? ViewBag.Ad320x150_Top : false);
+        var Ad320x150_Bottom =Convert.ToBoolean(ViewBag.Ad320x150_Bottom !=null ? ViewBag.Ad320x150_Bottom : false);
+        var EnableOG= Convert.ToBoolean(ViewBag.EnableOG !=null ? ViewBag.EnableOG : true);
+        var Ad_Mid_320x50 = Convert.ToBoolean(ViewBag.Ad_Mid_320x50 !=null ? ViewBag.Ad_Mid_320x50 : false);
+        var IsHomePage= Convert.ToBoolean(ViewBag.IsHomePage !=null ? ViewBag.IsHomePage : false);
     }
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@ViewBag.Title</title>
-    <meta name="description" content="@ViewBag.description" />
+    <title>@Title</title>
+    <meta name="description" content="@description" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <meta name="theme-color" content="#2a2a2a" />
-    @if(!String.IsNullOrEmpty(ViewBag.keywords)) {
-        <meta name="keywords" content="@ViewBag.keywords" />}
-    @if(ViewBag.EnableOG)
+    @if(!String.IsNullOrEmpty(keywords)) {
+        <meta name="keywords" content="@keywords" />}
+    @if(EnableOG)
     {
-        <meta property="og:title" content="@ViewBag.Title" />
+        <meta property="og:title" content="@Title" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="@ViewBag.description" />
-        <meta property="og:image" content="@string.IsNullOrEmpty(ViewBag.OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @ViewBag.OGImage" />
-        if (!String.IsNullOrEmpty(ViewBag.canonical)) {
-            <meta property="og:url" content="@ViewBag.canonical" /> }
+        <meta property="og:description" content="@description" />
+        <meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
+        if (!String.IsNullOrEmpty(canonical)) {
+            <meta property="og:url" content="@canonical" /> }
     }
-    @if(!String.IsNullOrEmpty(ViewBag.canonical)) {
-        <link rel="canonical" href="@ViewBag.canonical" />}
-    @if(!String.IsNullOrEmpty(ViewBag.relPrevPageUrl)){
-        <link rel="prev" href="@ViewBag.relPrevPageUrl" />}
-    @if(!String.IsNullOrEmpty(ViewBag.relNextPageUrl)){
-        <link rel="next" href="@ViewBag.relNextPageUrl" />}
+    @if(!String.IsNullOrEmpty(canonical)) {
+        <link rel="canonical" href="@canonical" />}
+    @if(!String.IsNullOrEmpty(relPrevPageUrl)){
+        <link rel="prev" href="@relPrevPageUrl" />}
+    @if(!String.IsNullOrEmpty(relNextPageUrl)){
+        <link rel="next" href="@relNextPageUrl" />}
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
     <link rel="stylesheet" type="text/css" href="/m/css/bwm-common-atf.css" />
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
@@ -88,17 +88,58 @@
         node.parentNode.insertBefore(gads, node);
     })();
 
+    @functions{
+            string GetAdSlot(int slotId,string adPath,string adId)
+            {
+                switch (slotId)
+                {
+                    case 1:
+                        return String.Format("googletag.defineSlot('{0}_Top_320x50', [320, 50], 'div-gpt-ad-{1}-0').addService(googletag.pubads());", adPath, adId);
+                    case 2:
+                        return String.Format("googletag.defineSlot('{0}_Bottom_320x50', [320, 50], 'div-gpt-ad-{1}-1').addService(googletag.pubads());", adPath, adId);
+                    case 3:
+                        return String.Format("googletag.defineSlot('{0}_300x250', [300, 250], 'div-gpt-ad-{1}-2').addService(googletag.pubads());",adPath,adId);
+                    case 4:
+                        return String.Format("googletag.defineSlot('{0}_FirstSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-3').addService(googletag.pubads());",adPath,adId);
+                    case 5:
+                        return String.Format("googletag.defineSlot('{0}_SecondSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-{1}-4').addService(googletag.pubads());",adPath,adId);
+                    case 6:
+                        return String.Format("googletag.defineSlot('{0}_Middle_320x50', [320, 50], 'div-gpt-ad-{1}-5').addService(googletag.pubads());",adPath,adId);
+                    default:
+                        return "";
+                }
+            }
+
+            string GetGTTargeting(int targetId,string target)
+            {
+                switch (targetId)
+                {
+                    case 1:
+                        return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
+                    case 2:
+                        return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
+                    case 3:
+                        return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target);
+                    case 4:
+                        return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
+                    default:
+                        return "";
+                }
+            }
+        }
+
     googletag.cmd.push(function () {
-        @ViewBag.Ad_320x50?googletag.defineSlot('@ViewBag.AdPath_Top_320x50', [320, 50], 'div-gpt-ad-@ViewBag.AdId-0').addService(googletag.pubads()); : "";
-        @ViewBag.Ad_Bot_320x50?googletag.defineSlot('@ViewBag.AdPath_Bottom_320x50', [320, 50], 'div-gpt-ad-@ViewBag.AdId%>-1').addService(googletag.pubads()); : "";
-        @ViewBag.Ad_300x250?googletag.defineSlot('@ViewBag.AdPath_300x250', [300, 250], 'div-gpt-ad-@ViewBag.AdId-2').addService(googletag.pubads()); : "";
-        @ViewBag.Ad320x150_top?googletag.defineSlot('@ViewBag.AdPath_FirstSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-@ViewBag.AdId-3').addService(googletag.pubads()); : "";
-        @ViewBag.Ad320x150_bottom?googletag.defineSlot('@ViewBag.AdPath_SecondSlot_320x150', [[320, 150], [320, 50], [320, 100], [320, 425]], 'div-gpt-ad-@ViewBag.AdId-4').addService(googletag.pubads());: "";
-        @ViewBag.Ad_Mid_320x50?googletag.defineSlot('@ViewBag.AdPath_Middle_320x50', [320, 50], 'div-gpt-ad-@ViewBag.AdId-5').addService(googletag.pubads());: "";
-        @(!String.IsNullOrEmpty(ViewBag.TargetedModel))?googletag.pubads().setTargeting("Model", "@ViewBag.TargetedModel"); : "";
-        @(!String.IsNullOrEmpty(ViewBag.TargetedMakes))?googletag.pubads().setTargeting("Make", "@ViewBag.TargetedMakes");: "";
-        @(!String.IsNullOrEmpty(ViewBag.TargetedModels))?googletag.pubads().setTargeting("CompareBike-M", "@ViewBag.TargetedModels");: "";
-        @(!String.IsNullOrEmpty(ViewBag.TargetedCity))?googletag.pubads().setTargeting("City", "@ViewBag.TargetedCity");: "";
+
+        @if(Ad_320x50){@Html.Raw(GetAdSlot(1,AdPath,AdId))}
+        @if(Ad_Bot_320x50){ @Html.Raw(GetAdSlot(2, AdPath, AdId))}
+        @if(Ad_300x250){@Html.Raw(GetAdSlot(3, AdPath, AdId))}
+        @if(Ad320x150_Top){ @Html.Raw(GetAdSlot(4, AdPath, AdId))}
+        @if(Ad320x150_Bottom){@Html.Raw(GetAdSlot(5, AdPath, AdId))}
+        @if(Ad_Mid_320x50){ @Html.Raw(GetAdSlot(6, AdPath, AdId))}
+        @if(!String.IsNullOrEmpty(TargetedModel)){@Html.Raw(GetGTTargeting(1, TargetedModel))}
+        @if(!String.IsNullOrEmpty(TargetedMakes)){@Html.Raw(GetGTTargeting(2, TargetedMakes))}
+        @if(!String.IsNullOrEmpty(TargetedModels)){@Html.Raw(GetGTTargeting(3, TargetedModels))}
+        @if(!String.IsNullOrEmpty(TargetedCity)){@Html.Raw(GetGTTargeting(4, TargetedCity))}
         googletag.pubads().enableSingleRequest();
         googletag.pubads().collapseEmptyDivs();
         googletag.enableServices();
@@ -152,24 +193,30 @@
                 <div class="clear"></div>
             </div>
         </header>
-        @if (ViewBag.IsHomePage)
+        @if (IsHomePage)
         {
             //Call Home Page Banner partial view
         }
-        @if(ViewBag.Ad_320x50)
+        @if (Ad_320x50)
         {
-            <section>
-                <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
-            </section>
+            <div id='div-gpt-ad-@AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@AdId-0'); });
+                </script>
+            </div>
         }
 
         @RenderBody()
 
-        @if(ViewBag.Ad_Bot_320x50){
+        @if(Ad_Bot_320x50){
             <section>
                 <div class="container">
                     <div>
-                        <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+                        <div id='div-gpt-ad-@AdId-1' style='width:320px; height:50px;text-align:center;margin:10px auto;'>
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-@AdId-1'); });
+                            </script>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -342,7 +389,7 @@
         <link href="@(ViewBag.staticUrl != "" ? "https://st2.aeplcdn.com" + @ViewBag.staticUrl : "")/m/css/bwm-common-btf.css?@ViewBag.staticFileVersion" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/m/src/Plugins.js?@ViewBag.staticFileVersion"></script>
         <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/m/src/common.js?@ViewBag.staticFileVersion"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
     <div class="back-to-top" id="back-to-top"></div>
 </body>
