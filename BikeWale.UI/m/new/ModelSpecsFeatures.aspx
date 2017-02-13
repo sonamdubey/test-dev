@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.ModelSpecsFeatures" EnableViewState="false" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,24 +13,27 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        .content-inner-block-1420{padding:14px 20px;}.content-inner-block-120{padding:10px 20px 0;}.text-dark-black{color:#1a1a1a;}.text-truncate{width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}.model-price-content{width:110px;}.model-area-content{width:60%;position:relative;top:6px;}.specs-features-wrapper{height:44px;}#specsFeaturesTabsWrapper{width:100%; background:#fff;z-index:3; display:block; border-bottom:1px solid #e2e2e2; overflow-x:auto;}.model-specs-features-tabs-wrapper{display:table; background:#fff;}.model-specs-features-tabs-wrapper li{padding:10px 20px; display:table-cell; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;}.model-specs-features-tabs-wrapper li.active{border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057;}.border-divider{ border-top:1px solid #e2e2e2;}.specs-features-list{overflow:hidden;}.specs-features-list li{margin-bottom:20px;}.specs-features-list p {width:50%;float:left; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}.specs-features-label{color:#82888b;}.specs-features-value {padding-left:20px;font-weight:bold;}.fixed-topNav{position:fixed;top:0;left:0;}.float-button{background-color:#fff;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:#f5f5f5;}
+        @charset "utf-8";.content-inner-block-1420{padding:14px 20px}.content-inner-block-120{padding:10px 20px 0}.text-dark-black{color:#1a1a1a}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.model-price-content{width:110px}.model-area-content{width:60%;position:relative;top:6px}.specs-features-wrapper{height:44px}#specsFeaturesTabsWrapper{width:100%;background:#fff;z-index:3;display:block;border-bottom:1px solid #e2e2e2;overflow-x:auto}.model-specs-features-tabs-wrapper{display:table;background:#fff}.model-specs-features-tabs-wrapper li{padding:10px 20px;display:table-cell;text-align:center;white-space:nowrap;font-size:14px;color:#82888b}.model-specs-features-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;font-weight:bold;color:#4d5057}.border-divider{border-top:1px solid #e2e2e2}.specs-features-list{overflow:hidden}.specs-features-list li{margin-bottom:20px}.specs-features-list p{width:50%;float:left;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.specs-features-label{color:#82888b}.specs-features-value{padding-left:20px;font-weight:bold}.fixed-topNav{position:fixed;top:0;left:0}.float-button{background-color:#fff;padding:10px}.float-button.float-fixed{position:fixed;bottom:0;z-index:8;left:0;right:0;background:#f5f5f5}
     </style>
-   
+
 </head>
 <body>
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <section class="bg-white box-shadow margin-bottom25">
+        <section class="bg-white box-shadow margin-bottom10">
             <div id="modelPriceDetails" class="content-inner-block-120">
                 <h1 class="margin-bottom5"><%= bikeName %> Specifications and Features</h1>
-                
-                    <% if (price > 0)
-                       { %>
-                    <p class="font20 text-bold model-price-content leftfloat">
-                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice(price.ToString())%> </p>
-                    <% } else{ %>
-                          <p>  Price not available</p>
-                    <% } %>
+
+                <% if (price > 0)
+                   { %>
+                <p class="font20 text-bold model-price-content leftfloat">
+                    <span class="bwmsprite inr-sm-icon"></span>&nbsp;<%= Bikewale.Utility.Format.FormatPrice(price.ToString())%>
+                </p>
+                <% }
+                   else
+                   { %>
+                <p>Price not available</p>
+                <% } %>
                 <% if (price > 0)
                    { %>
                 <%if (isDiscontinued)
@@ -74,14 +78,18 @@
                         </li>
                         <li>
                             <p class="specs-features-label">Max Power</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaxPower, "bhp", 
-                                                                    specs.MaxPowerRPM, "rpm") %></p>
+                            <p class="specs-features-value">
+                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaxPower, "bhp", 
+                                                                    specs.MaxPowerRPM, "rpm") %>
+                            </p>
                             <div class="clear"></div>
                         </li>
                         <li>
                             <p class="specs-features-label">Maximum Torque</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaximumTorque, "Nm",
-                                                                    specs.MaximumTorqueRPM, "rpm") %></p>
+                            <p class="specs-features-value">
+                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaximumTorque, "Nm",
+                                                                    specs.MaximumTorqueRPM, "rpm") %>
+                            </p>
                             <div class="clear"></div>
                         </li>
                         <li>
@@ -203,103 +211,107 @@
                 <div id="features" class="padding-top15 bw-model-tabs-data">
                     <h2 class="margin-bottom20">Features</h2>
                     <ul class="specs-features-list">
-                    <li>
-                        <p class="specs-features-label">Speedometer</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Speedometer) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Fuel Guage</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelGauge) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Tachometer Type</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Digital Fuel Guage</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.DigitalFuelGauge) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Tripmeter</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tripmeter) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Electric Start</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ElectricStart) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Tachometer</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Shift Light</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ShiftLight) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">No. of Tripmeters</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.NoOfTripmeters) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Tripmeter Type</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.TripmeterType) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Low Fuel Indicator</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowFuelIndicator) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Low Oil Indicator</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowOilIndicator) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Low Battery Indicator</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowBatteryIndicator) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Pillion Seat</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionSeat) %></p>
-                        <div class="clear"></div>
-                    </li>
-                    <li>
-                        <p class="specs-features-label">Pillion Footrest</p>
-                        <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionFootrest) %></p>
-                        <div class="clear"></div>
-                    </li>
-                </ul>
+                        <li>
+                            <p class="specs-features-label">Speedometer</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Speedometer) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Fuel Guage</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelGauge) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tachometer Type</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Digital Fuel Guage</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.DigitalFuelGauge) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tripmeter</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tripmeter) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Electric Start</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ElectricStart) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tachometer</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Shift Light</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ShiftLight) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">No. of Tripmeters</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.NoOfTripmeters) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Tripmeter Type</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.TripmeterType) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Low Fuel Indicator</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowFuelIndicator) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Low Oil Indicator</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowOilIndicator) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Low Battery Indicator</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowBatteryIndicator) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Pillion Seat</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionSeat) %></p>
+                            <div class="clear"></div>
+                        </li>
+                        <li>
+                            <p class="specs-features-label">Pillion Footrest</p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionFootrest) %></p>
+                            <div class="clear"></div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
 
             <div id="specsFeaturesFooter"></div>
         </section>
-
+           <section>
+            <div class="container bg-white box-shadow padding-15-20 section-bottom-margin margin-bottom10">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
+        </section>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->    
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = "15";
             $(document).ready(function () {
-                    var $window = $(window),
-                    topNavBarWrapper = $('.specs-features-wrapper'),
-                    topNavBar = $('#specsFeaturesTabsWrapper'),
-                    specsFeaturesFooter = $('#specsFeaturesFooter'),
-                    floatButton = $('.float-button'),
-                    footer = $('footer'),
-                    floating = false;
+                var $window = $(window),
+                topNavBarWrapper = $('.specs-features-wrapper'),
+                topNavBar = $('#specsFeaturesTabsWrapper'),
+                specsFeaturesFooter = $('#specsFeaturesFooter'),
+                floatButton = $('.float-button'),
+                footer = $('footer'),
+                floating = false;
 
-                if(floatButton.length != 0) {
+                if (floatButton.length != 0) {
                     floating = true;
                 }
 
@@ -322,7 +334,7 @@
                             topNavBar.removeClass('fixed-topNav');
                     }
 
-                    if(floating) {
+                    if (floating) {
                         if (floatButton.offset().top < footer.offset().top - 50)
                             floatButton.addClass('float-fixed');
                         if (floatButton.offset().top > footer.offset().top - 50)
@@ -346,7 +358,7 @@
 
                 $('.model-specs-features-tabs-wrapper li').click(function () {
                     var target = $(this).attr('data-tabs');
-                    $('html, body').animate({ scrollTop: $(target).offset().top - topNavBar.height()}, 1000);
+                    $('html, body').animate({ scrollTop: $(target).offset().top - topNavBar.height() }, 1000);
                     return false;
                 });
             });

@@ -49,10 +49,10 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void BindCompareBikes()
         {
-            CompareBikes objCompare = null;
+            CompareBikesDetails objCompare = null;
             try
             {
-                objCompare = new CompareBikes();
+                objCompare = new CompareBikesDetails();
                 objCompare.maxComparisions = 2;
 
                 if (objCompare.ProcessQueryString() && !objCompare.isPermanentRedirect && !objCompare.isPageNotFound && !objCompare.isCompareLandingRedirection)

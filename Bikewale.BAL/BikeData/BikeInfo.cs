@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
-
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -25,6 +24,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Written By : Ashish G. Kamble on 25 jan 2017
         /// Summary : Function will return the bike info model to bind with view.
+        /// Modified By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -34,7 +35,7 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-                GenericBikeInfo objBikes = _modelCache.GetGenericBikeInfo(modelId);
+                GenericBikeInfo objBikes = _modelCache.GetBikeInfo(modelId);
 
                 if (objBikes != null)
                 {
@@ -50,6 +51,7 @@ namespace Bikewale.BAL.BikeData
                         objBikeInfo.Bike = string.Format("{0} {1}", objBikes.Make.MakeName, objBikes.Model.ModelName);
 
                     objBikeInfo.PQSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+
                 };
             }
             catch (Exception ex)
@@ -58,7 +60,32 @@ namespace Bikewale.BAL.BikeData
             }
             return objBikeInfo;
         }   // End of GetBikeInfo
-
-
+        /// <summary>
+        /// Created By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
+        /// </summary>
+        public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
+        {
+            GenericBikeInfo genericBike = null;
+            try
+            {
+                if (modelId > 0)
+                {
+                    if (cityId > 0)
+                    {
+                        genericBike = _modelCache.GetBikeInfo(modelId, cityId);
+                    }
+                    else
+                    {
+                        genericBike = _modelCache.GetBikeInfo(modelId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
+            }
+            return genericBike;
+        }
     }   // class
 }   // namespace
