@@ -62,7 +62,7 @@
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px">
                         <legend>Add / Show Price</legend>
                         <div>
                             Select City of Pricing :
@@ -73,15 +73,15 @@
                         </div>
                         <div class="margin-top10">
                             Select Pricing Heads :
-                            <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 134px; vertical-align: text-top;">
+                            <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 100px; vertical-align: text-top; position: relative">
                                 <asp:ListItem Value="0" Text="--Select--" />
                             </asp:listbox>
-                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>
+                            <asp:button class="margin-top10" id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>
                         </div>
                     </fieldset>
                 </td>
                 <td width="33%"><%-- Start Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px;">
                         <legend>Copy Price Sheet to Other cities</legend>
                         Select State :<span style="color: red">* </span>
                         <asp:dropdownlist id="ddlState" runat="server" />
@@ -94,7 +94,7 @@
                 </td>
                 <%-- Start Pivotal Tracker # : 104505670 Author : Sadhana Upadhyay --%>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px">
                         <legend>Copy Price Sheet to Other dealer</legend>
                         Select City :<span style="color: red">* </span>
                         <asp:dropdownlist id="ddlDealerCity" runat="server" />
@@ -226,6 +226,7 @@
     <input type="hidden" id="hdnCities" runat="server">
     <input type="hidden" id="hdnDealerList" runat="server" />
     <input type="hidden" id="hdnDealerCity" runat="server" />
+    <input type="hidden" id="ispostback" value="<%=Page.IsPostBack.ToString()%>" />
 </div>
 
 
@@ -255,23 +256,26 @@
         }
     }
 
+    function isPostBack() {
+        return $('#ispostback').val() == 'True';
+    }
+
     function dealerModel() {
         var self = this;
-        self.listCities = ko.observableArray();
         self.listMakes = ko.observableArray();
         self.listDealers = ko.observableArray();
         self.selectedCity = ko.observable();
         self.selectedMake = ko.observable();
         self.selectedDealer = ko.observable();
         self.makeApiUrl = "/api/makes/city/";
-        
+
         self.ClearMakes = function () {
             self.listMakes([]);
             ddlMakes.trigger('chosen:updated');
         }
 
         self.ClearDealers = function () {
-             self.listDealers([]);
+            self.listDealers([]);
             ddlDealers.trigger('chosen:updated');
         }
 
@@ -298,7 +302,7 @@
         });
 
         self.cityChanged = function () {
-              try {
+            try {
                 if (self.selectedCity() != null && self.selectedCity() > 0) {
                     $("#hdnCityId").val(self.selectedCity());
                     $.ajax({
@@ -308,12 +312,14 @@
                         success: function (response) {
                             var makes = ko.toJS(response);
                             self.listMakes(makes);
-                            ddlMakes.trigger('chosen:updated');
-                            if (self.listMakes().length == 1) {
+                            if (isPostBack()) {
+                                self.selectedMake($('#hdnMakeId').val());
+                             }
+                            else if (self.listMakes().length == 1) {
                                 self.selectedMake(self.listMakes()[0].makeId);
-                                ddlMakes.trigger('chosen:updated');
-                                self.makeChanged();
                             }
+                            ddlMakes.trigger('chosen:updated');
+                            self.makeChanged();
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             showToast("AJAX request failed status : " + xhr.status + " and err : " + thrownError);
@@ -347,6 +353,10 @@
                             var dealers = ko.toJS(response);
                             self.listDealers(dealers);
                             ddlDealers.trigger('chosen:updated');
+                            if (isPostBack()) {
+                                self.selectedDealer($('#hdnDealerId').val());
+                                ddlDealers.trigger('chosen:updated');
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             showToast("AJAX request failed status : " + xhr.status + " and err : " + thrownError);
@@ -360,7 +370,7 @@
                     });
                 }
                 else {
-                    
+
                     self.ClearDealers();
                 }
             }
@@ -370,8 +380,8 @@
                 self.ClearDealers();
             }
         }
-        
-       
+
+
         self.validateInputs = function (cityid, makeid, dealerId) {
             var isValid = true;
             if (navigator.onLine) {
@@ -394,14 +404,16 @@
             }
             return isValid;
         }
+
+
     }
-    
 
     var dVm = new dealerModel();
     ko.applyBindings(dVm, document.getElementById("dealersmakecity"));
     ddlCities.chosen();
     ddlMakes.chosen().removeClass('.chosen-default');
     ddlDealers.chosen();
+
 
     function ConfirmDelete() {
         var exists = false;
@@ -595,12 +607,12 @@
         var BwOprHostUrl = '<%= BwOprHostUrl %>';
         var ddlDealer = $("#drpDealer");
         var selectString = "--Select Dealer--";
-        
+
         $('#drpPriceHead option:selected').click(function () {
 
             $(this).attr("selected", "selected");
         });
-       
+
         $('#ddlDealerCity').change(function () {
             var cityId = $(this).val();
             $('#hdnDealerCity').val(cityId);
@@ -643,7 +655,7 @@
             $("#selectCityPriceHead").addClass("hide");
             var dealerId = dVm.selectedDealer();
             var cityId = dVm.selectedCity();
-            if (dealerId > 0 && cityId>0) {
+            if (dealerId > 0 && cityId > 0) {
                 window.open('/newbikebooking/ManageDealerBenefits.aspx?dealerId=' + dealerId + '&cityId=' + cityId, 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
             else
@@ -658,13 +670,17 @@
                 $("#hdnDealerId").val(dVm.selectedDealer());
                 $("#hdnMakeId").val(dVm.selectedMake());
                 $("#selectCityPriceHead").removeClass("hide");
-                }
+            }
             else {
                 return false;
             }
 
         });
 
+        if (isPostBack()) {
+            dVm.selectedCity(ddlCities.select().val());
+            dVm.cityChanged();
+         }
 
         $("#btnManagefacilities").click(function () {
             $("#bindModels").addClass("hide");
@@ -680,7 +696,7 @@
         $("#btnMapDealer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-             var dealerId = dVm.selectedDealer();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerAreaMapping.aspx?dealerid=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -713,7 +729,7 @@
         $("#btnDisclaimer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-             var dealerId = dVm.selectedDealer();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerDisclaimer.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -724,7 +740,7 @@
         $("#btnBkgAmount").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-             var dealerId = dVm.selectedDealer();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageBookingAmount.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
