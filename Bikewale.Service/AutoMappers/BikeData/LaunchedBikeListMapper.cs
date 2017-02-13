@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.DTO.BikeData;
+using Bikewale.DTO.City;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Series;
@@ -50,6 +51,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<MinSpecsEntity, DTO.BikeData.v2.MinSpecs>();
+            Mapper.CreateMap<Entities.Location.CityEntityBase, CityBase>();
             return Mapper.Map<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>(entity);
         }
     }

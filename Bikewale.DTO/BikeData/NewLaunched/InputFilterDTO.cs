@@ -16,5 +16,7 @@ namespace Bikewale.DTO.BikeData.NewLaunched
         public uint? Make { get; set; }
         [JsonProperty("yearLaunch"), RegularExpression(@"\d{4}")]
         public uint? YearLaunch { get; set; }
+        [JsonProperty("cityId"), RegularExpression(@"^[1-9][0-9]*$")]
+        public uint? CityId { get; set; }
     }
 }

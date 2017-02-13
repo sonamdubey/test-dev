@@ -91,10 +91,14 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         public NewLaunchedBikeResult GetBikes(InputFilter filters)
         {
             NewLaunchedBikeResult result = null;
-
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
-                var bikes = _modelCache.GetNewLaunchedBikesList();
+                if (filters.CityId > 0)
+                    bikes = _modelCache.GetNewLaunchedBikesList(filters.CityId);
+                else
+                    bikes = _modelCache.GetNewLaunchedBikesList();
+
                 if (bikes != null && bikes.Count() > 0)
                 {
                     result = new NewLaunchedBikeResult();

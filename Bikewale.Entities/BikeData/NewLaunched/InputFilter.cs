@@ -7,5 +7,6 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public int PageSize { get; set; }
         public uint Make { get; set; }
         public uint YearLaunch { get; set; }
+        public uint CityId { get; set; }
     }
 }

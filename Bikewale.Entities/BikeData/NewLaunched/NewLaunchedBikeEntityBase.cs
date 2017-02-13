@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.Location;
 using System;
 namespace Bikewale.Entities.BikeData.NewLaunched
 {
@@ -19,5 +20,7 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public uint MaxPrice { get; set; }
         public MinSpecsEntity MinSpecs { get; set; }
         public DateTime LaunchedOn { get; set; }
+        public uint Price { get; set; }
+        public CityEntityBase City { get; set; }
     }
 }

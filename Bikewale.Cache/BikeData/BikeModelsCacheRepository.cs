@@ -651,5 +651,26 @@ namespace Bikewale.Cache.BikeData
             }
             return bikes;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Feb 2017
+        /// Description :   GetNewLaunchedBikesList by City
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId)
+        {
+            string key = String.Format("BW_NewLaunchedBikes_Cid_{0}", cityId);
+            IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
+            try
+            {
+                bikes = _cache.GetFromCache<IEnumerable<NewLaunchedBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetNewLaunchedBikesList(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+            }
+            return bikes;
+        }
     }
 }
