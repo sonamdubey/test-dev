@@ -92,17 +92,17 @@
                                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />
                             </li>
                             <% } %>
-                            <% while (i < vmModelPhotos.gridPhotosCount && i < vmModelPhotos.gridSize)
+                            <% while (i < vmModelPhotos.gridPhotosCount && i < vmModelPhotos.GridSize)
                                { %>
                             <li>
                                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />
                             </li>
                             <% }  %>
                         </ul>
-                        <% if (vmModelPhotos.totalPhotosCount < vmModelPhotos.gridSize && vmModelPhotos.nongridPhotosCount > 1)
+                        <% if (vmModelPhotos.totalPhotosCount < vmModelPhotos.GridSize && vmModelPhotos.nongridPhotosCount > 1)
                            { %>
                         <ul class="photos-grid-list photos-remainder-<%= vmModelPhotos.nongridPhotosCount %> remainder-grid-list model-grid-images">
-                            <% while (i < vmModelPhotos.totalPhotosCount && i < vmModelPhotos.gridSize)
+                            <% while (i < vmModelPhotos.totalPhotosCount && i < vmModelPhotos.GridSize)
                                { %>
                             <li>
                                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />

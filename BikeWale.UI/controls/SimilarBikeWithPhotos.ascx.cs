@@ -31,14 +31,21 @@ namespace Bikewale.Controls
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ModelId > 0)
+            try
             {
-                BindSimilarBikesWithPhotos vmSimilarBikes = new BindSimilarBikesWithPhotos();
-                vmSimilarBikes.TotalRecords = TotalRecords;
-                vmSimilarBikes.ModelId = ModelId;
-                objSimilarBikes = vmSimilarBikes.SimilarBikesWithPhotosCount();
-                if (objSimilarBikes != null)
-                    FetchedRecordsCount = objSimilarBikes.Count();
+                if (ModelId > 0)
+                {
+                    BindSimilarBikesWithPhotos vmSimilarBikes = new BindSimilarBikesWithPhotos();
+                    vmSimilarBikes.TotalRecords = TotalRecords;
+                    vmSimilarBikes.ModelId = ModelId;
+                    objSimilarBikes = vmSimilarBikes.SimilarBikesWithPhotosCount();
+                    if (objSimilarBikes != null)
+                        FetchedRecordsCount = objSimilarBikes.Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Controls : Page_Load");
             }
         }
     }

@@ -23,7 +23,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
     /// </summary>
     public class BindModelPhotos
     {
-        public uint _modelId = 0, noOfGrid;
+        private uint _modelId;
+        public uint NoOfGrid;
         private IBikeModelsCacheRepository<int> objModelCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache = null;
         public string bikeName = string.Empty, modelImage = string.Empty;
@@ -36,10 +37,10 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public BikeModelEntityBase objModel = null;
         public List<ModelImage> objImageList = null;
         public PageMetaTags pageMetas = null;
-        public uint gridSize;  //show more photos available after grid size more than gridSize
+        public uint GridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
         public bool isModelpage;
-        public bool isDesktop = false;
+        public bool isDesktop;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -127,7 +128,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
 
                     totalPhotosCount = objImageList.Count;
 
-                    nongridPhotosCount = (int)(totalPhotosCount % noOfGrid);
+                    nongridPhotosCount = (int)(totalPhotosCount % NoOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
 
                 }

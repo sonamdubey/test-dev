@@ -105,7 +105,8 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_PriceInCity_Dealer_Detail_Click = 81,
         Desktop_DealerLocator_Detail_AvailableModels = 82,
         Mobile_DealerLocator_Detail_AvailableModels = 83,
-        Mobile_News_Listing_page = 84
+        Mobile_News_Listing_page = 84,
+        Desktop_Photos_page = 85
 
     }
 }

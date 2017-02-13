@@ -1542,10 +1542,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\photos\Default_V2.aspx.cs">
-      <DependentUpon>Default_V2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2995,7 +2991,6 @@
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
-    <Content Include="new\photos\Default_V2.aspx" />
     <Content Include="new\search_old.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />

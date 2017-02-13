@@ -21,6 +21,7 @@ namespace Bikewale.New.Photos
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected NewVideosControl ctrlVideos;
         protected uint gridSize = 25;
+        private uint _modelId;
 
         protected override void OnInit(EventArgs e)
         {
@@ -54,8 +55,8 @@ namespace Bikewale.New.Photos
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
                     vmModelPhotos.isDesktop = true;
-                    vmModelPhotos.gridSize = 24;
-                    vmModelPhotos.noOfGrid = 8;
+                    vmModelPhotos.GridSize = 24;
+                    vmModelPhotos.NoOfGrid = 8;
                     vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
@@ -74,7 +75,7 @@ namespace Bikewale.New.Photos
                             bikeUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                             bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                         }
-                        pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                        pqSource = PQSourceEnum.Desktop_Photos_page;
                         IsUpcoming = genericBikeInfo.IsUpcoming;
                         IsDiscontinued = genericBikeInfo.IsDiscontinued;
                         VideoCount = bikeInfo.VideosCount;
@@ -132,11 +133,13 @@ namespace Bikewale.New.Photos
                         ctrlVideos.MakeName = vmModelPhotos.objMake.MakeName;
                         ctrlVideos.MakeMaskingName = vmModelPhotos.objMake.MaskingName;
                     }
+
+                    _modelId = (uint)vmModelPhotos.objModel.ModelId;
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : BindPageWidgets");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.New.Photos : BindPageWidgets for modelId {0}", _modelId));
             }
         }
     }
