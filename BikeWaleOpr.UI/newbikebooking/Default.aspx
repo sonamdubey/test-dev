@@ -49,8 +49,7 @@
                     <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
                     <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
-                    <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
-                    <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
+                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
                     <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
                 </td>
@@ -134,10 +133,6 @@
                 </HeaderTemplate>
                 <AlternatingItemTemplate>
                         <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>' style="background-color:#bfbfc6" >
-                        <%--<td>
-                            <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
-                            <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
-                        </td>--%>
                         <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>' id="chkUpdate" class="checkboxAll itsGrey" runat="server"/>
@@ -155,7 +150,6 @@
                                 </td>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <%--<td class="metAvailable"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></td>--%>
                         <td>
                             <span class="spnDays"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></span>
                             <asp:Textbox class="metAvailableBlack hide" id="lblAvailableDays" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
@@ -167,11 +161,7 @@
                 </AlternatingItemTemplate>
                 <ItemTemplate>
                     <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>'>
-                        <%--<td>i
-                            <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
-                            <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
-                        </td>--%>
-                        <td style="text-align: center;">
+                            <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>'  id="chkUpdate" class="checkboxAll" runat="server" />
                         </td>
@@ -217,10 +207,6 @@
         <footertemplate>
     </div>
 
-    <%--   <asp:HiddenField  ID="hdnCityId" runat="server" />
-        <asp:HiddenField  ID="hdnMakeId" runat="server" />
-        <asp:HiddenField  ID="hdnDealerId" runat="server" />--%>
-    <%--<input type="hidden"   ID="hdnCityId" runat="server">--%>
     <input type="hidden" id="hdnMakeId" runat="server">
     <input type="hidden" id="hdnDealerId" runat="server">
     <input type="hidden" id="hdnCities" runat="server">
@@ -432,7 +418,6 @@
         return acknowledge;
     }
     function ValidatePrice() {
-        //$('#btnUpdate').click(function () {
         $("#lblSaved").text("");
         var isError = true;
         $('#spnError').text("");
@@ -440,19 +425,14 @@
             if ((this).checked) {
                 var parentInputRow = $(this).parent().parent().find('input');
                 for (var i = 1; i < parentInputRow.length; i++) {
-                    //alert(isNaN(parentInputRow[i].value) || parentInputRow[i].value.trim() == "");
                     if (isNaN(parentInputRow[i].value) || parentInputRow[i].value.trim() == "") {
                         $('#spnError').text("Please Enter Numeric Values in Selected Text-Box Field(s)");
-                        // alert("inside as");
-                        //return false;
-
                         isError = false;
-                        //return false;
-                    }
+                        }
                 }
             }
-            return
-        }); isError;
+        });
+        return isError;
     }
     <%--Start Pivotal Tracker # : 95144444 & 96417936
     Author : Sumit Kate
@@ -759,7 +739,6 @@
                 alert("Please select dealer");
         });
         //ends here
-
     });
 
 </script>
