@@ -29,6 +29,14 @@ namespace Bikewale.Service.Controllers.BikeData
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
         private readonly INewBikeLaunchesBL _newBikeLaunchBL = null;
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 13 Feb 2017
+        /// Description :   Assign INewBikeLaunchesBL object
+        /// </summary>
+        /// <param name="modelRepository"></param>
+        /// <param name="objPager"></param>
+        /// <param name="modelCacheRepository"></param>
+        /// <param name="newBikeLaunchBL"></param>
         public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeModelsCacheRepository<int> modelCacheRepository, INewBikeLaunchesBL newBikeLaunchBL)
         {
             _modelRepository = modelRepository;
