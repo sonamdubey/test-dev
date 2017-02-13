@@ -721,33 +721,6 @@ namespace BikeWaleOpr.BikeBooking
             return dtPQDistinctItems;
         }
 
-        private void GetAllDealers(UInt32 cityId)
-        {
-            try
-            {
-                DataTable dt = null;
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealers, DealersRepository>();
-                    IDealers objAllDealer = container.Resolve<DealersRepository>();
-                    dt = objAllDealer.GetAllDealers(cityId);
-                }
-                if (dt != null)
-                {
-                    drpDealer.DataSource = dt;
-                    drpDealer.DataTextField = "Text";
-                    drpDealer.DataValueField = "Value";
-                    drpDealer.DataBind();
-                    drpDealer.Items.Insert(0, new ListItem("--Select Dealer--", "-1"));
-                }
-            }
-            catch (Exception err)
-            {
-                Trace.Warn(err.Message);
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
         private async void GetCategoryItemsList()
         {
             try
