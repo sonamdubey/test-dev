@@ -112,7 +112,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikesDetails.GetCompareBikeDetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikesDetails.GetComparedBikeDetails");
                 isPageNotFound = true;
             }
         }
