@@ -2,7 +2,6 @@
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -96,12 +95,11 @@ namespace Bikewale.Mobile.Videos
                 ctrlSimilarVideos.SectionTitle = "Related videos";
                 if (ctrlGenericBikeInfo != null)
                 {
-                    GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                     var objresponse = new ModelHelper().GetModelDataByMasking((videoModel.MaskingName));
                     if (objresponse != null)
                     {
                         ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
-                        ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                         ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
                         ctrlGenericBikeInfo.TabCount = 3;
                     }
@@ -110,7 +108,7 @@ namespace Bikewale.Mobile.Videos
             catch (Exception ex)
             {
 
-                ErrorClass objErr = new ErrorClass(ex, "Video.BindSimilarVideoControl");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.Videos.BindSimilarVideoControl");
             }
         }
         /// <summary>

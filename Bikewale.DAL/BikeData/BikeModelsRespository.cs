@@ -1849,7 +1849,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetGenericBikeInfo: ModelId:{0}", modelId));
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
 
             }
             return genericBikeInfo;
@@ -1941,7 +1941,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetGenericBikeInfo: ModelId:{0}", modelId));
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
 
             }
             return genericBikeInfo;

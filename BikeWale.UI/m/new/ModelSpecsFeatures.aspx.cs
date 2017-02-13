@@ -5,7 +5,6 @@ using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
@@ -62,9 +61,8 @@ namespace Bikewale.Mobile
         {
             if (ctrlGenericBikeInfo != null)
             {
-                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 ctrlGenericBikeInfo.ModelId = modelId;
-                ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                 ctrlGenericBikeInfo.TabCount = 3;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.Specs;
             }

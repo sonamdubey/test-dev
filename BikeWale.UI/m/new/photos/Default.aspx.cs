@@ -1,7 +1,6 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Photos;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
@@ -32,7 +31,6 @@ namespace Bikewale.Mobile.New.Photos
         protected uint VideoCount;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
-        private GlobalCityAreaEntity _currentCityArea;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -149,9 +147,8 @@ namespace Bikewale.Mobile.New.Photos
                     }
                     if (ctrlGenericBikeInfo != null)
                     {
-                        _currentCityArea = GlobalCityArea.GetGlobalCityArea();
                         ctrlGenericBikeInfo.ModelId = (uint)vmModelPhotos.objModel.ModelId;
-                        ctrlGenericBikeInfo.CityId = _currentCityArea.CityId;
+                        ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                         ctrlGenericBikeInfo.PageId = BikeInfoTabType.Image;
                         ctrlGenericBikeInfo.TabCount = 3;
                     }

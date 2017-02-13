@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.UserReviews;
 using Bikewale.Common;
 using Bikewale.Entities.GenericBikes;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.UserReviews;
@@ -123,9 +122,8 @@ namespace Bikewale.Mobile.Content
 
             if (ctrlGenericBikeInfo != null)
             {
-                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 ctrlGenericBikeInfo.ModelId = (uint)objReview.BikeEntity.ModelEntity.ModelId;
-                ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.News;
                 ctrlGenericBikeInfo.TabCount = 3;
 

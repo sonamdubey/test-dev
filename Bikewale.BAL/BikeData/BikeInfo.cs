@@ -67,16 +67,23 @@ namespace Bikewale.BAL.BikeData
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
             GenericBikeInfo genericBike = null;
-            if (modelId > 0)
+            try
             {
-                if (cityId > 0)
+                if (modelId > 0)
                 {
-                    genericBike = _modelCache.GetBikeInfo(modelId, cityId);
+                    if (cityId > 0)
+                    {
+                        genericBike = _modelCache.GetBikeInfo(modelId, cityId);
+                    }
+                    else
+                    {
+                        genericBike = _modelCache.GetBikeInfo(modelId);
+                    }
                 }
-                else
-                {
-                    genericBike = _modelCache.GetBikeInfo(modelId);
-                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
             }
             return genericBike;
         }

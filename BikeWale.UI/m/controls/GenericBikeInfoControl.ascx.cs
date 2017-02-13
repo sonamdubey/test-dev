@@ -23,7 +23,7 @@ namespace Bikewale.Mobile.Controls
         public uint CityId { get; set; }
         public BikeInfoTabType PageId { get; set; }
         protected CityEntityBase cityDetails;
-        public int TabCount { get; set; }
+        public uint TabCount { get; set; }
         public bool SmallSlug { get; set; }
         protected override void OnInit(EventArgs e)
         {

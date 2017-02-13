@@ -25,7 +25,7 @@ namespace Bikewale.BindViewModels.Controls
         public uint CityId { get; set; }
         public BikeInfoTabType PageId { get; set; }
         private readonly IBikeInfo _objGenericBike = null;
-        public int TabCount { get; set; }
+        public uint TabCount { get; set; }
         public CityEntityBase cityDetails { get; set; }
         private GenericBikeInfo _genericBikeInfo;
         public BindBikeInfo()
@@ -48,7 +48,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindGenericBikeInfo.BindGenericBikeInfo");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikeInfo.BindBikeInfo");
             }
 
         }
@@ -68,7 +68,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 _genericBikeInfo = _objGenericBike.GetBikeInfo(ModelId, CityId);
                 BindInfoWidgetDatas();
-                _genericBikeInfo.Tabs = _genericBikeInfo.Tabs.Where(m => (m.Count > 0 || m.IsVisible) && PageId != m.Tab).OrderBy(m => m.Tab).Take(TabCount).ToList();
+                _genericBikeInfo.Tabs = _genericBikeInfo.Tabs.Where(m => (m.Count > 0 || m.IsVisible) && PageId != m.Tab).OrderBy(m => m.Tab).Take((int)TabCount).ToList();
 
                 if (_genericBikeInfo != null)
                 {
@@ -79,7 +79,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindGenericBikeInfo.GetGenericBikeInfo");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikeInfo.GetBikeInfo");
             }
             return _genericBikeInfo;
         }
