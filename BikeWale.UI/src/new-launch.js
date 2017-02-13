@@ -24,13 +24,6 @@ $(".chosen-select").chosen().change(function () {
     }
 });
 
-$(window).on("scroll", function () {
-    if ($(window).scrollTop() > 40)
-        $('#header').removeClass("header-landing").addClass("header-fixed");
-    else
-        $('#header').removeClass("header-fixed").addClass("header-landing");
-});
-
 // more brand - collapse
 $('.view-brandType').click(function () {
     var element = $(this),
