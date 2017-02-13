@@ -325,7 +325,7 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />    
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -449,6 +449,7 @@
     <Compile Include="Controllers\m\Content\ExpertReviewsController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
+    <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
@@ -3244,6 +3245,8 @@
     <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
     <Content Include="Views\m\Content\Features\details_amp.cshtml" />
     <Content Include="Views\m\Shared\BikeInfo.cshtml" />
+    <Content Include="Views\NewLaunches\Index.cshtml" />
+    <Content Include="Views\m\Shared\HomePageBanner.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
