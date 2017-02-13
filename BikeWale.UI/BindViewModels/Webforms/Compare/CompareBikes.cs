@@ -13,6 +13,10 @@ using System.Linq;
 
 namespace Bikewale.BindViewModels.Webforms.Compare
 {
+    /// <summary>
+    /// Created By : Sushil kumar on 9th Feb 2017 
+    /// Description : View model to bind compare bikes landing page
+    /// </summary>
     public class CompareBikes
     {
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
@@ -22,7 +26,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         public IEnumerable<BikeMakeEntityBase> makes = null;
 
         /// <summary>
-        /// Created By : Sushil kumar on 9nd Feb 2017 
+        /// Created By : Sushil kumar on 9th Feb 2017 
         /// Description : Constructor to resolve unity containers and initialize model
         /// </summary>
         public CompareBikes()
@@ -46,7 +50,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 31st Jan 2017 
+        /// Created By : Sushil Kumar on 9th Feb 2017 
         /// Description : To get comparisions makes whose specifications are available
         /// </summary>
         public void GetCompareBikeMakes()
@@ -67,14 +71,25 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th Feb 2017 
+        /// Description : To set page meta tags 
+        /// </summary>
         private void SetPageMetas()
         {
-            PageMetas = new PageMetaTags();
-            PageMetas.Title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
-            PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
-            PageMetas.Description = "Comparing bikes in India was never this easy. BikeWale presents you the easiest way of comparing bikes. Compare 2 bikes on prices, specs, features, colours and more!";
-            PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
-            PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
+            try
+            {
+                PageMetas = new PageMetaTags();
+                PageMetas.Title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
+                PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
+                PageMetas.Description = "Comparing bikes in India was never this easy. BikeWale presents you the easiest way of comparing bikes. Compare 2 bikes on prices, specs, features, colours and more!";
+                PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
+                PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.SetPageMetas");
+            }
         }
 
 

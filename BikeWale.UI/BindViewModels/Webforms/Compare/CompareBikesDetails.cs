@@ -24,7 +24,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 {
     /// <summary>
     /// Created By :  Sushil kumar on 2nd Feb 2017 
-    /// Description : ViewModel for compare bikes for both desktop and mobile
+    /// Description : ViewModel for compare bike details  page
     /// </summary>
     public class CompareBikesDetails
     {
@@ -74,7 +74,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.CompareBikes : CompareBikes");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.CompareBikesDetails : CompareBikesDetails");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetCompareBikeDetails");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikesDetails.GetCompareBikeDetails");
                 isPageNotFound = true;
             }
         }
@@ -157,7 +157,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.GetComparisionTextAndMetas");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.GetComparisionTextAndMetas");
             }
         }
 
@@ -228,7 +228,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.CompareBikes.ParseQueryString");
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BindViewModels.Webforms.Compare.GetCompareBikeDetails.ParseQueryString");
             }
             finally
             {

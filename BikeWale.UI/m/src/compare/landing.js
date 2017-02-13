@@ -73,7 +73,7 @@ var bikeSelection = function () {
                 var _cmodelsKey = "models_" + self.make().id;
                 _modelsCache = bwcache.get(_cmodelsKey, true);
                 if (!_modelsCache) {
-                    $.getJSON("/api/modellist/?requestType=2&makeId=" + self.make().id)
+                    $.getJSON("/api/modellist/?requestType=11&makeId=" + self.make().id)
                     .done(function (res) {
                         self.modelArray(res.modelList);
                         bwcache.set(_cmodelsKey, res, true);
@@ -111,7 +111,7 @@ var bikeSelection = function () {
                 _cversionsKey += self.model().modelId;
                 _versionsCache = bwcache.get(_cversionsKey, true);
                 if (!_versionsCache) {
-                    $.getJSON("/api/versionList/?requestType=2&modelId=" + self.model().modelId)
+                    $.getJSON("/api/versionList/?requestType=11&modelId=" + self.model().modelId)
                     .done(function (res) {
                         self.versionArray(res.Version);
                         bwcache.set(_cversionsKey, res, true);

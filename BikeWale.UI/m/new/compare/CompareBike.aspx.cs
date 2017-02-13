@@ -35,7 +35,7 @@ namespace Bikewale.Mobile.New
         }
 
         /// <summary>
-        /// Created By :  Sushil kumar on 9nd Feb 2017 
+        /// Created By :  Sushil kumar on 9th Feb 2017 
         /// Description : Bind viewmodel data to page level variables for compare bikes section    
         /// </summary>
         private void BindCompareBikes()
@@ -67,7 +67,7 @@ namespace Bikewale.Mobile.New
         }
 
         /// <summary>
-        /// Created By :  Sushil kumar on 9nd Feb 2017 
+        /// Created By :  Sushil kumar on 9th Feb 2017 
         /// Description : Bind page related widgets
         /// </summary>
         private void BindPageWidgets()
