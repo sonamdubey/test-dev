@@ -95,12 +95,17 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             try
             {
                 var bikes = _modelCache.GetNewLaunchedBikesList();
-                if (bikes != null)
+                if (bikes != null && bikes.Count() > 0)
                 {
                     result = new NewLaunchedBikeResult();
-                    result.Bikes = bikes.Where(ProcessInputFilter(filters)).Page(filters.PageNo, filters.PageSize);
-                    result.TotalCount = (uint)bikes.Count();
-                    result.Filter = filters;
+
+                    var filteredBikes = bikes.Where(ProcessInputFilter(filters));
+                    if (filteredBikes != null && filteredBikes.Count() > 0)
+                    {
+                        result.Bikes = filteredBikes.Page(filters.PageNo, filters.PageSize);
+                        result.TotalCount = (uint)filteredBikes.Count();
+                        result.Filter = filters;
+                    }
                 }
             }
             catch (Exception ex)
@@ -147,7 +152,6 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             Expression<Func<NewLaunchedBikeEntityBase, bool>> filterExpression = PredicateBuilder.True<NewLaunchedBikeEntityBase>();
             if (filters != null)
             {
-                filterExpression = PredicateBuilder.False<NewLaunchedBikeEntityBase>();
                 if (filters.Make > 0)
                 {
                     filterExpression = filterExpression.And(PredicateMakeId(filters.Make));

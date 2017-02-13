@@ -1,6 +1,9 @@
 ﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.BikeData.NewLaunched;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
@@ -24,11 +27,14 @@ namespace Bikewale.Service.Controllers.BikeData
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IPager _objPager = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
-        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeModelsCacheRepository<int> modelCacheRepository)
+        private readonly INewBikeLaunchesBL _newBikeLaunchBL = null;
+
+        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeModelsCacheRepository<int> modelCacheRepository, INewBikeLaunchesBL newBikeLaunchBL)
         {
             _modelRepository = modelRepository;
             _objPager = objPager;
             _modelCacheRepository = modelCacheRepository;
+            _newBikeLaunchBL = newBikeLaunchBL;
         }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
@@ -61,6 +67,44 @@ namespace Bikewale.Service.Controllers.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetRecentlyLaunchedBikeList");
                 objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Feb 2017
+        /// Description :   API to return New Launched bikes
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        [HttpGet, ResponseType(typeof(NewLaunchedBikeResultDTO)), Route("api/v2/newlaunched/")]
+        public IHttpActionResult Get([FromUri]InputFilterDTO filter)
+        {
+            try
+            {
+                if (ModelState.IsValid && filter != null)
+                {
+                    InputFilter filterEntity = LaunchedBikeListMapper.Convert(filter);
+                    NewLaunchedBikeResult entity = _newBikeLaunchBL.GetBikes(filterEntity);
+                    if (entity.TotalCount > 0)
+                    {
+                        NewLaunchedBikeResultDTO dto = LaunchedBikeListMapper.Convert(entity);
+                        return Ok(dto);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass error = new ErrorClass(ex, String.Format("NewLaunchedBikeController.Get({0})", filter));
                 return InternalServerError();
             }
         }
