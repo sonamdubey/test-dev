@@ -6,6 +6,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -112,6 +113,11 @@
                 <div class="margin-right20 margin-left20 border-divider"></div>
                 <BW:Dealers runat="server" ID="ctrlDealers" />
                 <% }  %>
+            <div class="margin-right20 margin-left20 border-divider"></div>
+            <div class="padding-15-20 section-bottom-margin margin-bottom10">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
+       
                  <% if (ctrlServiceCenterCard.showWidget)
                    { %>
                 <section>

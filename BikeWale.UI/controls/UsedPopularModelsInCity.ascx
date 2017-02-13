@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedPopularModelsInCity" %>
 <% if (FetchedRecordsCount > 0)
    {        %>
-<div id="used-bikes-content" class="grid-12 padding-top20 padding-bottom20">
+<div id="used-bikes-content" class="grid-12 padding-top20 padding-bottom5">
     <div class="grid-<%=masterGrid %> font14">
         <h2 class="font18 margin-bottom15">Used <%= MakeName %> bikes in <%= CityName %></h2>
         <%foreach (var bike in UsedBikeModelInCityList)

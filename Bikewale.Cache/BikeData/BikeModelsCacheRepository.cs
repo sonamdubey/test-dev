@@ -563,25 +563,47 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :   Sushil Kumar on 2nd Jan 2016
         /// Description :   Calls DAL via Cache layer for generic bike info
+        /// Modified By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public GenericBikeInfo GetGenericBikeInfo(uint modelId)
+        public GenericBikeInfo GetBikeInfo(uint modelId)
         {
             string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetGenericBikeInfo(modelId));
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId));
 
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetGenericBikeInfo_{0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0}", modelId));
             }
             return objSearchList;
         }
+        /// <summary>
+        /// Created by  :   Subodh jain 9 Feb 2017
+        /// Description :   Calls DAL via Cache layer for generic bike info
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
+        {
+            string key = string.Format("BW_GenericBikeInfo_MO_{0}_cityId_{1}", modelId, cityId);
+            GenericBikeInfo objSearchList = null;
+            try
+            {
+                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
 
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BestBikesCacheRepository.GetBikeInfo ModelId:{0} CityId:{1}", modelId, cityId));
+            }
+            return objSearchList;
+        }
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2017
         /// Description : To get bike rankings by category

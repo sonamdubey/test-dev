@@ -32,6 +32,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added GetSimilarBikesVideos method
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Edited function to get top 10 bikes and their mopdelcount by bodystyle and cityid.
+    /// Modified  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -79,7 +81,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId);
-        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
+        GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);

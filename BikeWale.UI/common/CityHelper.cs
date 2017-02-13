@@ -39,21 +39,20 @@ namespace Bikewale.Common
         public CityEntityBase GetCityById(uint cityId)
         {
             IEnumerable<CityEntityBase> objCityList = null;
-            CityEntityBase SelectedCity = null;
+            CityEntityBase selectedCity = null;
             if (cityId > 0)
             {
                 try
                 {
-                    ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
                     objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
-                    SelectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
+                    selectedCity = objCityList.FirstOrDefault(c => c.CityId == cityId);
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, String.Format("CityHelper.GetCityById(): cityId: {0}", cityId));
                 }
             }
-            return SelectedCity;
+            return selectedCity;
         }
     }
 }
