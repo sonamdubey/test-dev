@@ -411,9 +411,8 @@
     var dVm = new dealerModel();
     ko.applyBindings(dVm, document.getElementById("dealersmakecity"));
     ddlCities.chosen();
-    ddlMakes.chosen().removeClass('.chosen-default');
+    ddlMakes.chosen()
     ddlDealers.chosen();
-
 
     function ConfirmDelete() {
         var exists = false;
