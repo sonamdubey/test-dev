@@ -141,27 +141,26 @@
 .item-more-details-list
 	li
 		float: left
-		margin-right: 10px
-		margin-bottom: 10px
-
-		&:last-child
-			margin-right: 0
+		margin-right: 8px
+		margin-bottom: 8px
 
 	a
 		display: block
-		padding: 0 7px 2px
+		padding: 1px 10px 5px
 		color: #787878
 		background: rgba(245,245,245,.9)
 		@include border-radius(2px)
 
 		&:hover
+			color: #fff
 			text-decoration: none
+			background: #54bbca
 
 	.icon-label
-		font-size: $font-size-small
+		font-size: 13px
 		display: inline-block
 		vertical-align: middle
-		line-height: 12px
+		line-height: 13px
 
 .best-bikes-swiper
 	.swiper-card,
@@ -197,22 +196,31 @@
 	width: 14px
 	height: 14px
 	vertical-align: middle
-	position: relative
-	top: 1px
-	@include opacity(0.6)
+	margin-right: 3px
 
 .reviews-sm
-	background-position: -84px -3px
+	background-position: -77px -555px
 
 .news-sm
-	background-position: -102px -3px
-
-.videos-sm
-	background-position: -121px -3px
+	background-position: -109px -555px
 
 .specs-sm
-	background-position: -140px -3px
+	background-position: -141px -555px
 
-.photos-sm
-	width: 16px
-	background-position: 0 -486px
+.item-more-details-list
+	a
+		&:hover
+			.reviews-sm
+				background-position: -93px -555px
+				
+			.news-sm
+				background-position: -125px -555px
+				
+			.specs-sm
+				background-position: -157px -555px
+				
+			.photos-sm
+				background-position: 0 -493px
+				
+			.videos-sm
+				background-position: -16px -492px

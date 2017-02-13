@@ -284,7 +284,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
+    <Compile Include="BindViewModels\Controls\BindBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindGenericBikeRankingControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
@@ -325,7 +325,7 @@
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />    
+    <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="BindViewModels\Webforms\FeedbackCancellationModel.cs" />
     <Compile Include="BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
     <Compile Include="BindViewModels\Webforms\ModelPageVM.cs" />
@@ -981,10 +981,6 @@
     </Compile>
     <Compile Include="m\controls\GenericBikeInfoControl.ascx.cs">
       <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\MinGenericBikeInfoControl.ascx.cs">
-      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
@@ -2677,7 +2673,6 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\GenericBikeInfoControl.ascx" />
-    <Content Include="m\controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2781,7 +2776,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />

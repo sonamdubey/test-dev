@@ -79,7 +79,6 @@ a.text-black:hover { text-decoration:none; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
 #dealersList .mail-grey-icon { position:relative; top:6px; }
-.vertical-top { display:inline-block;vertical-align:top; }
 .crosshair-icon { width:20px; height:20px; background:url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
 
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:10;padding:30px 40px}
