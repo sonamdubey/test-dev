@@ -702,6 +702,14 @@
         
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/new-launch.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript">
+            $(window).on("scroll", function () {
+                if ($(window).scrollTop() > 40)
+                    $('#header').removeClass("header-landing").addClass("header-fixed");
+                else
+                    $('#header').removeClass("header-fixed").addClass("header-landing");
+            });
+        </script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
 </body>
