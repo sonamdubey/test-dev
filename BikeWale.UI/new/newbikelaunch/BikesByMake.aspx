@@ -5,7 +5,7 @@
 <head>
     <title>New bike launches by make</title>
     <%
-        isHeaderFix = false;    
+        isHeaderFix = true;    
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/new-launch/new-launch.css" />
@@ -13,7 +13,7 @@
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
 </head>
-<body>
+<body class="header-fixed-inner">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
