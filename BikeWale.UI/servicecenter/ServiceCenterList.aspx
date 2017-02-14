@@ -205,12 +205,13 @@
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
+                         <div class="clear"></div>
                         <!-- Used bikes widget -->
                         <% if (ctrlUsedModels.FetchedRecordsCount > 0)
                            { %>
                         <BW:UsedPopularModels runat="server" ID="ctrlUsedModels" />
+                        <div class="margin-left10 margin-right10 border-solid-bottom">&nbsp;</div>
                         <%} %>
-
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -219,6 +220,7 @@
         </section>
           <% } %>
         <%if(ctrlDealerCard.showWidget) {%>
+       
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">

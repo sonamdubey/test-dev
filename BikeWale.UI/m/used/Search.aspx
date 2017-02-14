@@ -102,7 +102,7 @@
                                             { %>
                                             <div class="model-media-details ">
                                                 <div class="model-media-item">
-                                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                                    <span class="bwmsprite photos-sm"></span>
                                                     <span class="model-media-count" ><%= bike.TotalPhotos %></span>
                                                 </div>
                                             </div>

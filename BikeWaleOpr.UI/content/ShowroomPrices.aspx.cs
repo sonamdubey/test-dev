@@ -1,21 +1,18 @@
+using BikewaleOpr.Cache;
+using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.Entities.BikePricing;
+using BikewaleOpr.Interface.BikePricing;
 using BikeWaleOpr.Common;
-using MySql.CoreDAL;
+using Microsoft.Practices.Unity;
 /*******************************************************************************************************
 IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using BikewaleOpr.DALs.BikePricing;
-using BikewaleOpr.Interface.BikePricing;
 using System.Collections;
-using BikewaleOpr.Entities.BikePricing;
 using System.Collections.Generic;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -26,6 +23,7 @@ namespace BikeWaleOpr.Content
         protected HiddenField hdnSelectedCity, hdnSelectedCities;
         protected Repeater rptPrices;
         protected string qryStrVersion;
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -94,7 +92,7 @@ namespace BikeWaleOpr.Content
                     ddlPriceStates.DataValueField = "Value";
                     ddlPriceStates.DataBind();
 
-                    ddlPriceStates.Items.Insert(0, new ListItem("--Select State--", "0"));                    
+                    ddlPriceStates.Items.Insert(0, new ListItem("--Select State--", "0"));
                 }
             }
             catch (Exception ex)
@@ -126,7 +124,7 @@ namespace BikeWaleOpr.Content
                     ddlPriceCities.DataSource = ds.Tables[0];
                     ddlPriceCities.DataTextField = "Text";
                     ddlPriceCities.DataValueField = "Value";
-                    ddlPriceCities.DataBind();                    
+                    ddlPriceCities.DataBind();
                 }
             }
             catch (Exception ex)
@@ -135,7 +133,7 @@ namespace BikeWaleOpr.Content
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        }       
+        }
 
         /// <summary>
         /// Function to bind the make pricing for given cities with repeater
@@ -185,7 +183,7 @@ namespace BikeWaleOpr.Content
 
         private void SaveBikePrices(object sender, EventArgs e)
         {
-            SavePrices();        
+            SavePrices();
         }
 
 
@@ -203,9 +201,24 @@ namespace BikeWaleOpr.Content
                 IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
 
                 isUpdated = pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
+                ClearBWCache();
             }
-            
+
             ShowBikePrices();
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Feb 2017
+        /// Description :   ClearBWCache
+        /// </summary>
+        private void ClearBWCache()
+        {
+            string cities = hdnSelectedCities.Value;
+            string[] arrCity = cities.Split(',');
+            foreach (string cityId in arrCity)
+            {
+                BwMemCache.ClearNewLaunchesBikes(cityId);
+            }
         }
 
         /// <summary>

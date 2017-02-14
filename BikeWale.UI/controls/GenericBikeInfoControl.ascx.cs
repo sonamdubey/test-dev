@@ -8,6 +8,8 @@ namespace Bikewale.Controls
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
     /// Description : To bind desktop generic bike info control 
+    /// Modified By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details
     /// </summary>
     public class GenericBikeInfoControl : System.Web.UI.UserControl
     {
@@ -26,9 +28,9 @@ namespace Bikewale.Controls
             {
                 if (ModelId > 0)
                 {
-                    BindGenericBikeInfo genericBikeInfo = new BindGenericBikeInfo();
+                    BindBikeInfo genericBikeInfo = new BindBikeInfo();
                     genericBikeInfo.ModelId = ModelId;
-                    bikeInfo = genericBikeInfo.GetGenericBikeInfo();
+                    bikeInfo = genericBikeInfo.GetBikeInfo();
                     if (bikeInfo != null)
                     {
                         if (bikeInfo.Make != null)

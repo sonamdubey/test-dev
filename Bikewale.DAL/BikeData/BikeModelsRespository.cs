@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -1128,7 +1129,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            while (dr.Read())
+                            if (dr.Read())
                             {
                                 modelPhotos = new ModelPhotos();
                                 modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
@@ -1145,8 +1146,7 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelPhotoInfo", err.Message);
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+             }
             return modelPhotos;
         }
         /// <summary>
@@ -1833,7 +1833,7 @@ namespace Bikewale.DAL.BikeData
         /// Summary     : Added new,ued and futuristic flags and Estimated min and max price(for upcoming)
         /// </summary>
         /// <returns></returns>
-        public Entities.GenericBikes.GenericBikeInfo GetGenericBikeInfo(uint modelId)
+        public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId)
         {
             GenericBikeInfo genericBikeInfo = null;
             try
@@ -1842,51 +1842,106 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikeinfo_23012017";
+                    cmd.CommandText = "getbikeinfo";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            if (dr.Read())
-                            {
-                                genericBikeInfo = new GenericBikeInfo();
-                                genericBikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                                genericBikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
-                                genericBikeInfo.MinSpecs = new MinSpecsEntity();
-                                genericBikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
-                                genericBikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
-                                genericBikeInfo.VideosCount = SqlReaderConvertor.ToUInt32(dr["videoscount"]);
-                                genericBikeInfo.NewsCount = SqlReaderConvertor.ToUInt32(dr["newscount"]);
-                                genericBikeInfo.PhotosCount = SqlReaderConvertor.ToUInt32(dr["photoscount"]);
-                                genericBikeInfo.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["expertreviewscount"]);
-                                genericBikeInfo.FeaturesCount = SqlReaderConvertor.ToUInt32(dr["featurescount"]);
-                                genericBikeInfo.IsSpecsAvailable = SqlReaderConvertor.ToBoolean(dr["isspecsavailable"]);
-                                genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
-                                genericBikeInfo.EstimatedPriceMin = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMin"]);
-                                genericBikeInfo.EstimatedPriceMax = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMax"]);
-                                genericBikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
-                                genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
-                                genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
-                                genericBikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
-                                genericBikeInfo.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
-                                genericBikeInfo.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
-                                genericBikeInfo.MinSpecs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
-                                genericBikeInfo.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maxpowerrpm"]);
-                                genericBikeInfo.MinSpecs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
-                                genericBikeInfo.IsUsed = SqlReaderConvertor.ToBoolean(dr["Used"]);
-                                genericBikeInfo.IsNew = SqlReaderConvertor.ToBoolean(dr["New"]);
-                                genericBikeInfo.IsFuturistic = SqlReaderConvertor.ToBoolean(dr["Futuristic"]);
-                            }
-                            dr.Close();
-                        }
-
-                    }
+                    genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetGenericBikeInfo: ModelId:{0}", modelId));
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
+
+            }
+            return genericBikeInfo;
+        }
+        /// <summary>
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
+        /// </summary>
+        private GenericBikeInfo PopulateGenericBikeInfoEntity(GenericBikeInfo genericBikeInfo, DbCommand cmd)
+        {
+            try
+            {
+                using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                {
+                    if (dr != null)
+                    {
+                        if (dr.Read())
+                        {
+                            genericBikeInfo = new GenericBikeInfo();
+                            genericBikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
+                            genericBikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                            genericBikeInfo.MinSpecs = new MinSpecsEntity();
+                            genericBikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                            genericBikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
+                            genericBikeInfo.VideosCount = SqlReaderConvertor.ToUInt32(dr["videoscount"]);
+                            genericBikeInfo.NewsCount = SqlReaderConvertor.ToUInt32(dr["newscount"]);
+                            genericBikeInfo.PhotosCount = SqlReaderConvertor.ToUInt32(dr["photoscount"]);
+                            genericBikeInfo.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["expertreviewscount"]);
+                            genericBikeInfo.FeaturesCount = SqlReaderConvertor.ToUInt32(dr["featurescount"]);
+                            genericBikeInfo.IsSpecsAvailable = SqlReaderConvertor.ToBoolean(dr["isspecsavailable"]);
+                            genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
+                            genericBikeInfo.EstimatedPriceMin = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMin"]);
+                            genericBikeInfo.EstimatedPriceMax = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMax"]);
+                            genericBikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
+                            genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                            genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
+                            genericBikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
+                            genericBikeInfo.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
+                            genericBikeInfo.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
+                            genericBikeInfo.MinSpecs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
+                            genericBikeInfo.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maxpowerrpm"]);
+                            genericBikeInfo.MinSpecs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
+                            genericBikeInfo.IsUsed = SqlReaderConvertor.ToBoolean(dr["Used"]);
+                            genericBikeInfo.IsNew = SqlReaderConvertor.ToBoolean(dr["New"]);
+                            genericBikeInfo.IsFuturistic = SqlReaderConvertor.ToBoolean(dr["Futuristic"]);
+                            genericBikeInfo.UsedBikeCount = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]);
+                            genericBikeInfo.UsedBikeMinPrice = SqlReaderConvertor.ToUInt32(dr["UsedBikeMinPrice"]);
+                            genericBikeInfo.UserReview = SqlReaderConvertor.ToUInt32(dr["ReviewCount"]);
+                            genericBikeInfo.DealersCount = SqlReaderConvertor.ToUInt32(dr["dealeravailable"]);
+                        }
+                        dr.Close();
+                    }
+
+                }
+                return genericBikeInfo;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "GenericBikeRepository.PopulateGenericBikeInfoEntity: ModelId:{0}");
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 2nd Jan 2016
+        /// Summary :  To get generic bike info by modelid
+        /// Modified By : Sushil Kumar on 5th Jan 2016
+        /// Description : To get generic bike info with min specs
+        /// Modified by : Aditi Srivastava on 23 Jan 2017
+        /// Summary     : Added new,ued and futuristic flags and Estimated min and max price(for upcoming)
+        /// Modified By :- subodh jain 9 feb 2017 
+        /// summary :- added city id as parameter
+        /// </summary>
+        /// <returns></returns>
+        public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
+        {
+            GenericBikeInfo genericBikeInfo = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getbikeinfobycity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
 
             }
             return genericBikeInfo;
@@ -2108,6 +2163,155 @@ namespace Bikewale.DAL.BikeData
             return SimilarBikeInfoList;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 10 Feb 2017
+        /// Description :   Returns New bikes launched
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
+        {
+            ICollection<NewLaunchedBikeEntityBase> newLaunchedBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getnewlaunchedbikes_10022017";
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            newLaunchedBikes = new Collection<NewLaunchedBikeEntityBase>();
 
+                            while (dr.Read())
+                            {
+                                newLaunchedBikes.Add(
+                                    new NewLaunchedBikeEntityBase()
+                                    {
+                                        Make = new BikeMakeEntityBase()
+                                        {
+                                            MakeId = SqlReaderConvertor.ToInt32(dr["bikemakeid"]),
+                                            MakeName = Convert.ToString(dr["make"]),
+                                            MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            PopularityIndex = SqlReaderConvertor.ToUInt16(dr["makePopularityIndex"])
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                            ModelName = Convert.ToString(dr["model"]),
+                                            MaskingName = Convert.ToString(dr["modelmaskingname"])
+                                        },
+
+                                        MinSpecs = new MinSpecsEntity()
+                                        {
+                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
+                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
+                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
+                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
+                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
+                                        },
+
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                        ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                        ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
+                                        MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
+                                        MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
+                                        LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"])
+                                    }
+                                );
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+            }
+            return newLaunchedBikes;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Feb 2017
+        /// Description :   Returns New Bikes launched with Exshowroom of given city
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId)
+        {
+            ICollection<NewLaunchedBikeEntityBase> newLaunchedBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getnewlaunchedbikesbycity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            newLaunchedBikes = new Collection<NewLaunchedBikeEntityBase>();
+
+                            while (dr.Read())
+                            {
+                                newLaunchedBikes.Add(
+                                    new NewLaunchedBikeEntityBase()
+                                    {
+                                        Make = new BikeMakeEntityBase()
+                                        {
+                                            MakeId = SqlReaderConvertor.ToInt32(dr["bikemakeid"]),
+                                            MakeName = Convert.ToString(dr["make"]),
+                                            MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            PopularityIndex = SqlReaderConvertor.ToUInt16(dr["makePopularityIndex"])
+                                        },
+                                        Model = new BikeModelEntityBase()
+                                        {
+                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                            ModelName = Convert.ToString(dr["model"]),
+                                            MaskingName = Convert.ToString(dr["modelmaskingname"])
+                                        },
+
+                                        MinSpecs = new MinSpecsEntity()
+                                        {
+                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
+                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
+                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
+                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
+                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
+                                        },
+
+                                        HostUrl = Convert.ToString(dr["hosturl"]),
+                                        OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                        ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
+                                        ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
+                                        MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
+                                        MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
+                                        LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
+                                        City = (!String.IsNullOrEmpty(Convert.ToString(dr["cityname"])) ? new CityEntityBase()
+                                        {
+                                            CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                            CityName = Convert.ToString(dr["cityname"]),
+                                            CityMaskingName = Convert.ToString(dr["citymaskingname"])
+                                        } : null),
+                                        Price = SqlReaderConvertor.ToUInt32(dr["price"])
+                                    }
+                                );
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
+            }
+            return newLaunchedBikes;
+        }
     }   // class
 }   // namespace

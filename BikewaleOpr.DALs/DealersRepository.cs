@@ -5,9 +5,12 @@ using BikewaleOpr.Interface;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Web;
+using Bikewale.Utility;
+using BikewaleOpr.Entity.ContractCampaign;
 
 
 namespace BikewaleOpr.DAL
@@ -664,7 +667,7 @@ namespace BikewaleOpr.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferText", DbType.String, dealerOffers.OfferText));
                     if (dealerOffers.OfferValue == null)
                     {
-                        dealerOffers.OfferValue= 0;
+                        dealerOffers.OfferValue = 0;
                     }
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValue", DbType.Int32, dealerOffers.OfferValue));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_OfferValidTill", DbType.DateTime, dealerOffers.OfferValidTill));
@@ -1568,6 +1571,87 @@ namespace BikewaleOpr.DAL
                 objErr.SendMail();
             }
             return false;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 Feb 2017
+        /// Summary    : To get Makes having dealers in a city
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> GetDealerMakesByCity(int cityId)
+        {
+            ICollection<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakeList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealermakes"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMakeList = new Collection<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase>();
+
+                            BikewaleOpr.Entities.BikeData.BikeMakeEntityBase objMake = null;
+                            while (dr.Read())
+                            {
+                                objMake = new BikewaleOpr.Entities.BikeData.BikeMakeEntityBase();
+                                objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objMake.MakeName = Convert.ToString(dr["MakeName"]);
+                                objMakeList.Add(objMake);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealerMakesByCity:CityId :{0}",cityId));
+            }
+            return objMakeList;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 Feb 2017
+        /// Summary    : To get dealers of a make in a city
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DealerEntityBase> GetDealersByMake(uint makeId, uint cityId)
+        {
+            ICollection<DealerEntityBase> objDealerList = null; 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikedealersbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objDealerList = new Collection<DealerEntityBase>();
+
+                            DealerEntityBase objDealer = null;
+                            while (dr.Read())
+                            {
+                                objDealer = new DealerEntityBase();
+                                objDealer.Id = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objDealer.Name = Convert.ToString(dr["DealerName"]);
+                                objDealerList.Add(objDealer);
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("BikewaleOpr.DAL.DealerRepository.GetDealersByMake: MakeId:{0},CityId:{1}",makeId,cityId));
+            }
+            return objDealerList;
         }
     }
 }

@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bikewale.Entities.GenericBikes;
+using Bikewale.Models.Shared;
 
 namespace Bikewale.Interfaces.BikeData
 {
+    /// Created  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details
+    /// </summary>
     public interface IBikeInfo
     {
-       Bikewale.Models.Shared.BikeInfo GetBikeInfo(uint modelId);
+        BikeInfo GetBikeInfo(uint modelId);
+        GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
     }
 }
