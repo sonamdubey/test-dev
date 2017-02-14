@@ -1,7 +1,6 @@
 ﻿
 @{
     ViewBag.Title = "New Bikes Launches";
-    ViewBag.Ad_320x50 = true;
     ViewBag.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     ViewBag.AdId = "1398766302464";
     ViewBag.Ad_Bot_320x50 = true;
@@ -14,11 +13,11 @@
         PagerSlotSize=5,
         BaseUrl = "/m/new-bikes-launches/",
         PageUrlType = "page-",
-        TotalResults = 24        
+        TotalResults = 24
     };
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";    
 }
-<link rel="stylesheet" type="text/css" href="/m/css/new-launch/new-launch.css" />
 <section>
     <div class="container new-launch-banner text-center">
         <h1 class="font24 text-uppercase text-white">New bike launches</h1>
