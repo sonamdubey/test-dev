@@ -45,12 +45,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class=""></div>
-                    <section>
-                        <div class="padding-top10 margin-top10 margin-bottom5 font14 text-light-grey border-light-top"></div>
-                        <div class="section-bottom-margin margin-bottom10">
-                            <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
-                        </div>
-                    </section>
+                 
                     <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
                         <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
@@ -69,6 +64,11 @@
                     <div class="clear"></div>
                 </div>
             </div>
+              <section>
+                 <div class="padding-15-20 section-bottom-margin margin-bottom10">
+                     <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+                 </div>
+             </section>
         </section>
 
         <section class="margin-bottom30 <%= (ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
