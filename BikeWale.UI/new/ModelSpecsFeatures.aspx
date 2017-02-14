@@ -62,7 +62,7 @@
             <div class="clear"></div>
         </section>
         
-        <section id="modelCardAndDetailsWrapper" class="container margin-bottom30 font14">
+        <section id="modelCardAndDetailsWrapper" class="container margin-bottom20 font14">
             <div class="grid-12">
                 <div id="modelFloatingCardContent">
                     <div class="model-details-floating-card content-box-shadow">

@@ -4,14 +4,13 @@
 <div class="model-grid-8-slug">
     <%if (IsUpcoming)
   { %>
-<span class="upcoming-text-label position-abt text-white text-center">Upcoming</span>
-    <div class="padding-top20">
+<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
 <%}
   else if (IsDiscontinued)
   { %>
-<span class="discontinued-text-label position-abt text-white text-center">Discontinued</span>
-    <div class="padding-top20">
-<%} %>    
+<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+<%} %>
+    <div class="clear"></div>
     <div class="grid-8 alpha border-solid-right">
         <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="model-image-target vertical-top">
             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) %>" src="" alt="<%=bikeName%>" />
@@ -62,9 +61,6 @@
            } %>
     </div>
     <div class="clear"></div>
-    <% if(IsUpcoming || IsDiscontinued) { %>
-    </div>
-    <%} %>
     <%if (bikeInfo.UsedBikeCount > 0)
       { %>
     <div class="border-solid-bottom margin-top15 margin-bottom10"></div>
