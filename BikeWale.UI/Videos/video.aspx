@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.video" AutoEventWireup="false" EnableViewState="false" %>
 <!DOCTYPE html>
 <%@ Register Src="~/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <html>
 <head>
     <%   
@@ -68,6 +69,7 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
         <section class="margin-bottom30 <%= (ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
          <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />              
         </section>

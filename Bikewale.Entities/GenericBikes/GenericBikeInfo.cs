@@ -13,6 +13,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary     : Added estimated min and max price and used, new and futuristic flags
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details 
+    /// Modified by : Sajal Gupta on 14-02-2017
+    /// Description : Added PriceInCity
     /// </summary>
     [Serializable]
     public class GenericBikeInfo
@@ -39,6 +41,7 @@ namespace Bikewale.Entities.GenericBikes
         public uint UsedBikeMinPrice { get; set; }
         public uint DealersCount { get; set; }
         public ICollection<BikeInfoTab> Tabs { get; set; }
+        public uint PriceInCity { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
@@ -55,6 +58,8 @@ namespace Bikewale.Entities.GenericBikes
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
+    /// Modified by : Sajal Gupta on 13-02-2017
+    /// Added PriceInCity.
     public enum BikeInfoTabType
     {
         ExpertReview = 1,
@@ -63,7 +68,8 @@ namespace Bikewale.Entities.GenericBikes
         News = 4,
         Videos = 5,
         UserReview = 6,
-        Dealers = 7
+        Dealers = 7,
+        PriceInCity = 8
 
     }
 

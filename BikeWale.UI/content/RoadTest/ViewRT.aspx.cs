@@ -1,22 +1,12 @@
-﻿using Bikewale.BAL.EditCMS;
-using Bikewale.BindViewModels.Webforms.EditCMS;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Memcache;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +39,7 @@ namespace Bikewale.Content
         protected int makeId;
         protected uint taggedModelId;
         protected bool isModelTagged;
+        protected MinGenericBikeInfoControl ctrlMinGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -152,6 +143,8 @@ namespace Bikewale.Content
         /// Summary  :   Bind upcoming bikes list
         /// Modified By: Aditi Srivastava on 31 Jan 2017
         /// Summary    : Modified widget logic for tagged bikes
+        ///  Modified  By :- Sajal Gupta on 13 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         /// </summary>
         private void BindPageWidgets()
@@ -174,6 +167,14 @@ namespace Bikewale.Content
                 }
                 if (isModelTagged)
                 {
+                    if (ctrlMinGenericBikeInfo != null)
+                    {
+                        ctrlMinGenericBikeInfo.ModelId = taggedModelId;
+                        ctrlMinGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlMinGenericBikeInfo.PageId = BikeInfoTabType.ExpertReview;
+                        ctrlMinGenericBikeInfo.TabCount = 3;
+                    }
+
                     if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;

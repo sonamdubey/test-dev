@@ -258,6 +258,7 @@
     padding: 15px 10px 12px;
     border: 1px solid #a0d9e1;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .model-grid-8-slug .grid-8 {
@@ -289,6 +290,11 @@
 .model-grid-8-slug .item-more-details-list li {
     margin-top: 10px;
     margin-bottom: 0;
+}
+
+.model-grid-8-slug .discontinued-text-label { 
+    top: 5px;
+    left: 0;
 }
 
 .price-label-size-12 {
