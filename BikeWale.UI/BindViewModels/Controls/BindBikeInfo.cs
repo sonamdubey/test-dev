@@ -68,10 +68,11 @@ namespace Bikewale.BindViewModels.Controls
 
                 _genericBikeInfo = _objGenericBike.GetBikeInfo(ModelId, CityId);
                 BindInfoWidgetDatas();
-                _genericBikeInfo.Tabs = _genericBikeInfo.Tabs.Where(m => (m.Count > 0 || m.IsVisible) && PageId != m.Tab).OrderBy(m => m.Tab).Take((int)TabCount).ToList();
+
 
                 if (_genericBikeInfo != null)
                 {
+                    _genericBikeInfo.Tabs = _genericBikeInfo.Tabs.Where(m => (m.Count > 0 || m.IsVisible) && PageId != m.Tab).OrderBy(m => m.Tab).Take((int)TabCount).ToList();
                     IsUpcoming = _genericBikeInfo.IsFuturistic;
                     IsDiscontinued = _genericBikeInfo.IsUsed && !_genericBikeInfo.IsNew;
                 }
@@ -170,8 +171,8 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     _genericBikeInfo.Tabs.Add(new BikeInfoTab()
                     {
-                        URL = Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, !string.IsNullOrEmpty(cityDetails.CityMaskingName) ? cityDetails.CityMaskingName : "india"),
-                        Title = string.Format("Dealers in {0}", !string.IsNullOrEmpty(cityDetails.CityMaskingName) ? cityDetails.CityName : "India"),
+                        URL = Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, cityDetails != null ? cityDetails.CityMaskingName : "india"),
+                        Title = string.Format("Dealers in {0}", cityDetails != null ? cityDetails.CityName : "India"),
                         TabText = "Dealers",
                         IconText = "dealers",
                         Count = _genericBikeInfo.DealersCount,

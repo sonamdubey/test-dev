@@ -50,7 +50,7 @@
         { %>
     <a href="/m<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MakeName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
     <% } %>
-    <ul class="item-more-details-list">
+  <%if(bikeInfo!=null) {%>  <ul class="item-more-details-list">
        <%foreach(var Tabsdetails in bikeInfo.Tabs){ %>
            <li>
             <a href="/m<%= Tabsdetails.URL%>" title="<%= bikeName %> <%=Tabsdetails.Title%>">
@@ -59,7 +59,7 @@
             </a>
         </li>        
         <%} %>
-    </ul>
+    </ul><%} %>
     <div class="clear"></div>
     <%if(bikeInfo.UsedBikeCount>0){ %>
     <div class="border-solid-bottom margin-top5 margin-bottom10"></div>

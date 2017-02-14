@@ -94,12 +94,12 @@
         </section>
         <% } %>
            
-        <section>
+        <%if(bikeInfo!=null){ %><section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
                 <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
             </div>
         </section>
-       
+       <%} %>
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
            
         <div id="gallery-root">
@@ -230,7 +230,7 @@
                         </div>
                     </div>
                     
-                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
+                  <%if(bikeInfo!=null){ %>  <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
                            <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
                             <%if(IsDiscontinued){ %>
@@ -301,7 +301,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div>           
+                    </div>  <%} %>         
                 
                     <div id="video-tab-screen" class="footer-tab-card font14" data-bind="visible: videoListScreen()">
                         <ul class="video-tab-list" data-bind="foreach: videoList">
