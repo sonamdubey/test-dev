@@ -30,21 +30,21 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         /// <param name="pageNumber"></param>
         /// <returns></returns>
         [Route("m/newlaunches/models/")]
-        public ActionResult Models(uint makeId, string launchYear, ushort pageNumber)
+        public ActionResult Models()
         {
-            return View("~/views/m/newlaunches/index.cshtml");
+            return View("~/views/m/shared/_newlaunchedbymake.cshtml");
         }
 
         [Route("m/newlaunches/makes/")]
         public ActionResult Makes(bool showCount)
         {
-            return PartialView();
+            return PartialView("~/views/m/shared/_newlaunchedbymake.cshtml");
         }
 
         [Route("m/newlaunches/years/")]
         public ActionResult Years()
         {
-            return PartialView();
+            return PartialView("~/views/m/shared/_newlaunchedbyyear.cshtml");
         }
 
         [Route("m/newlaunches/yearwise/make/{makeId}/")]

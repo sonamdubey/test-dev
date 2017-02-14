@@ -12,7 +12,7 @@
         PageSize=10,
         PagerSlotSize=5,
         BaseUrl = "/m/new-bikes-launches/",
-        PageUrlType = "page-",
+        PageUrlType = "page/",
         TotalResults = 24
     };
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
@@ -41,193 +41,18 @@
 
 <section>
     <h2 class="section-heading">New bike launches in India</h2>
-    
+    @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml", null);
 </section>
 
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
-    <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-        <div id="brand-type-container" class="brand-type-container">
-            <ul>
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-7"></span>
-                        </span>
-                        <span class="brand-type-title">Honda</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-1"></span>
-                        </span>
-                        <span class="brand-type-title">Bajaj</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-6"></span>
-                        </span>
-                        <span class="brand-type-title">Hero</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-11"></span>
-                        </span>
-                        <span class="brand-type-title">Royal Enfield</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-13"></span>
-                        </span>
-                        <span class="brand-type-title">Yamaha</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-12"></span>
-                        </span>
-                        <span class="brand-type-title">Suzuki</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-7"></span>
-                        </span>
-                        <span class="brand-type-title">Honda</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-1"></span>
-                        </span>
-                        <span class="brand-type-title">Bajaj</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-6"></span>
-                        </span>
-                        <span class="brand-type-title">Hero</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-11"></span>
-                        </span>
-                        <span class="brand-type-title">Royal Enfield</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-13"></span>
-                        </span>
-                        <span class="brand-type-title">Yamaha</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="" title="">
-                        <span class="brand-type">
-                            <span class="lazy brandlogosprite brand-12"></span>
-                        </span>
-                        <span class="brand-type-title">Suzuki</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
-        </div>
-    </div>
+    @{ Html.RenderAction("Makes", "NewLaunches", new { showCount = false }); }     
 </section>
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
-        <div class="swiper-container card-container year-type-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Bike launched in 2017" class="block swiper-card-target">
-                            <div class="swiper-image-preview">
-                                <span>2017</span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="margin-bottom5">Bike launched in 2017</h3>
-                                <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Bike launched in 2016" class="block swiper-card-target">
-                            <div class="swiper-image-preview">
-                                <span>2016</span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="margin-bottom5">Bike launched in 2016</h3>
-                                <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Bike launched in 2015" class="block swiper-card-target">
-                            <div class="swiper-image-preview">
-                                <span>2015</span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="margin-bottom5">Bike launched in 2015</h3>
-                                <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Bike launched in 2014" class="block swiper-card-target">
-                            <div class="swiper-image-preview">
-                                <span>2014</span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="margin-bottom5">Bike launched in 2014</h3>
-                                <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @{ Html.RenderAction("Years", "NewLaunches"); }
+    
 </section>
 
 <section>

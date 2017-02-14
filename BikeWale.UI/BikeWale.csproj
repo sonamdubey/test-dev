@@ -3265,6 +3265,9 @@
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
     <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByMake.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
