@@ -187,24 +187,22 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string city, string make, string model)
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make, string model)
         {
-            if (cityId > 0)
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
-                else
-                    return String.Format("/used/{0}-bikes-in-{1}/", make, city);
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-india/", make, model);
-                else
-                    return String.Format("/used/{0}-bikes-in-india/", make);
-            }
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, cityMasking);
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make)
+        {
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            return String.Format("/used/{0}-bikes-in-{1}/", make, cityMasking);
+        }
 
         /// <summary>
         ///  Created By : Sushil Kumar 
@@ -339,6 +337,25 @@ namespace Bikewale.Utility
             else
             {
                 url = String.Format("/{0}-bikes/{1}/expert-reviews/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+        /// Created  By :- subodh Jain 10 Feb 2017
+        /// Summary :- FormatUserReviewUrl
+        public static string FormatUserReviewUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/user-reviews/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/user-reviews/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/user-reviews/", makeMaskingName, modelMaskingName);
             }
             return url;
         }

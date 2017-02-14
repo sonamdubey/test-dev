@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 
 <!DOCTYPE html>
 
@@ -337,6 +338,7 @@
             </div>
             <div class="clear"></div>
         </section>
+        <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 

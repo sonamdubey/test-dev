@@ -284,7 +284,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
+    <Compile Include="BindViewModels\Controls\BindBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindGenericBikeRankingControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
@@ -318,10 +318,11 @@
     <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
+    <Compile Include="BindViewModels\Webforms\Compare\CompareBikesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
-    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
+    <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\NewsListing.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
@@ -354,6 +355,7 @@
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
+    <Compile Include="common\CityHelper.cs" />
     <Compile Include="common\Classified.cs" />
     <Compile Include="common\CommonOpn.cs">
       <SubType>Code</SubType>
@@ -483,6 +485,10 @@
     </Compile>
     <Compile Include="controls\LeadCaptureControl.ascx.cs">
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MinGenericBikeInfoControl.ascx.cs">
+      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\MostPopularBikesMin.ascx.cs">
@@ -797,6 +803,14 @@
       <DependentUpon>UsedBikeWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsedPopularModels.ascx.cs">
+      <DependentUpon>UsedPopularModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UsedPopularModelsInCity.ascx.cs">
+      <DependentUpon>UsedPopularModelsInCity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedRecentBikes.ascx.cs">
       <DependentUpon>UsedRecentBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -972,10 +986,6 @@
     </Compile>
     <Compile Include="m\controls\GenericBikeInfoControl.ascx.cs">
       <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\MinGenericBikeInfoControl.ascx.cs">
-      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
@@ -1156,6 +1166,14 @@
     </Compile>
     <Compile Include="m\controls\UsedBikes.ascx.cs">
       <DependentUpon>UsedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedPopularModels.ascx.cs">
+      <DependentUpon>UsedPopularModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsedPopularModelsInCity.ascx.cs">
+      <DependentUpon>UsedPopularModelsInCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedRecentBikes.ascx.cs">
@@ -2066,6 +2084,7 @@
     <Content Include="controls\DealersInNearByCities.ascx" />
     <Content Include="controls\GenericBikeInfoControl.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
@@ -2149,6 +2168,8 @@
     <Content Include="controls\UsedBikesCityCountByModel.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UsedBikeWidget.ascx" />
+    <Content Include="controls\UsedPopularModels.ascx" />
+    <Content Include="controls\UsedPopularModelsInCity.ascx" />
     <Content Include="controls\UsedRecentBikes.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewSimilarBike.ascx" />
@@ -2654,7 +2675,6 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\GenericBikeInfoControl.ascx" />
-    <Content Include="m\controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2700,6 +2720,8 @@
     <Content Include="m\controls\SimilarVideos.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UsedBikes.ascx" />
+    <Content Include="m\controls\UsedPopularModels.ascx" />
+    <Content Include="m\controls\UsedPopularModelsInCity.ascx" />
     <Content Include="m\controls\UsedRecentBikes.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\UserReviewSimilarBike.ascx" />
@@ -2756,7 +2778,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
@@ -2848,6 +2870,7 @@
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\compare\details.js" />
+    <Content Include="m\src\compare\landing.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\photos.js" />

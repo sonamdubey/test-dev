@@ -56,6 +56,27 @@ namespace Bikewale.BindViewModels.Controls
             return objBikeCity;
 
         }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 03 Feb 2017
+        /// Summary: Fetch popular models by Make with bike count
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetPopularUsedModelsByMake(uint makeid, uint topcount)
+        {
+            IEnumerable<MostRecentBikes> objBikeCity = null;
+            try
+            {
+                objBikeCity = objCache.GetPopularUsedModelsByMake(makeid, topcount);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetPopularUsedModelsByMake_{0}_{1}_{2}", makeid, topcount));
+            }
+            return objBikeCity;
+
+        }
+
+
         /// <summary>
         /// Created By : Subodh Jain on 2 jan 2017 
         /// Description : Get Used Bike By Model Count In City

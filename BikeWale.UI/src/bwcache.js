@@ -19,7 +19,8 @@ Description : WebStorage Library with cookie as a fallback.
 			    //IsSafariBrowser: navigator.userAgent.toLowerCase().indexOf('safari') != -1,
 			    // handle for safari browser (/Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor))
 			    FallBack: false, // change to true to enable cookie fallback
-			    AllowNullSave : false //avoids saving null values to the web storage
+			    AllowNullSave: false, //avoids saving null values to the web storage
+			    EnableEncryption : false
 			},
 
 		/*
@@ -76,6 +77,8 @@ Description : WebStorage Library with cookie as a fallback.
 				_options.StorageScope = settings.StorageScope || '';
 				_options.StorageTime = settings.StorageTime || 30;
 				_options.FallBack = settings.FallBack || false;
+				_options.EnableEncryption = settings.EnableEncryption || false;
+				_options.AllowNullSave = settings.AllowNullSave || false;
 			}
 			else errorLog(2);
 		};
@@ -120,6 +123,28 @@ Description : WebStorage Library with cookie as a fallback.
 			}
 		};
 
+		var encode = function b64EncodeUnicode(str) {
+		    try {
+		        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+		            return String.fromCharCode('0x' + p1);
+		        }));
+		    } catch (e) {
+		        errorLog(0, e);
+		        return str;
+		    }
+		};
+
+		var decode = function b64DecodeUnicode(str) {
+		    try {
+		        return decodeURIComponent(Array.prototype.map.call(atob(str), function (c) {
+		            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		        }).join(''));
+		    } catch (e) {
+		        errorLog(0, e);
+		        return str;
+		    }
+		};
+
 		/*
 			Function : To create key based on web local storage support or session storage  
 			Parameters : key and scope are string inputs 
@@ -139,8 +164,11 @@ Description : WebStorage Library with cookie as a fallback.
 		*/
 		var getbyKey = function (key, storage) {
 			try {
-				if (typeCheck(key, 'string')) {
-					var _item_ = JSON.parse(storage.getItem(key)) || {};
+			    if (typeCheck(key, 'string')) {
+
+			        var data = storage.getItem(key);
+			        if (_options.EnableEncryption && data) data = decode(data);
+			        var _item_ = JSON.parse(data) || {};
 					if (Object.keys(_item_).length !== 0 && !_item_.expiryTime || _item_.expiryTime === 0 || ((new Date()).getTime() <= _item_.expiryTime))
 					    return _item_ ; //if exists returns value else return null
 				}
@@ -324,7 +352,9 @@ Description : WebStorage Library with cookie as a fallback.
 		                item.expiryTime = 0;
 		            }
 		            if (item.val != null || _options.AllowNullSave) {
-		                storage.setItem(item.key, JSON.stringify(item.val));
+		                var data = JSON.stringify(item.val);
+		                if (_options.EnableEncryption && data) data = encode(data);
+		                storage.setItem(item.key, data);
 		                return true;
 		            }
 

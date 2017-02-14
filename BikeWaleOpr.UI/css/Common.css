@@ -26,6 +26,10 @@ input.textbox { height:100px; width:300px; }
 
 .text-align-center {text-align:center;}
 .errorMessage{ font: bold 1em Arial, Sans-Serif; color:#FF0000 }
+.errMessage { color: #FF4A4A;}
+.position-rel { position: relative;}
+    
+
 .compulsary{ color:#FF0000 }
 .AddTable{ border:0px solid #eeeeee; border-collapse:collapse; padding:2px 2px 2px 2px ; text-align:center;font: normal 1em Arial, Sans-Serif; }
 .AddTable td{ padding:5px 0px 0px 2px }

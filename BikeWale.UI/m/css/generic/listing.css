@@ -61,10 +61,6 @@
 .banner-box-shadow {
   padding-top: 20px; }
 
-.vertical-top {
-  display: inline-block;
-  vertical-align: top; }
-
 .text-grey {
   color: #787878 !important; }
 
@@ -72,9 +68,6 @@
   font-size: 14px;
   width: 180px;
   padding: 5px 0; }
-
-.block {
-  display: block; }
 
 /* more-less desc */
 .desc-main-content {
@@ -114,8 +107,6 @@
   position: relative; }
   .item-image-content:hover {
     text-decoration: none; }
-  .item-image-content img {
-    width: 100%; }
   .item-image-content .item-rank {
     min-width: 40px;
     display: block;
@@ -133,22 +124,6 @@
 .bike-details-block {
   width: 65%; }
 
-.key-specs-list li {
-  margin-right: 4px;
-  padding-right: 8px;
-  position: relative;
-  display: inline-block; }
-  .key-specs-list li:before {
-    content: "";
-    width: 1px;
-    height: 11px;
-    position: absolute;
-    top: 3px;
-    right: 0;
-    border-left: 1px solid #b0b0b0; }
-  .key-specs-list li:last-child:before {
-    border-left: 0; }
-
 .item-table-content {
   padding-top: 12px;
   padding-bottom: 12px; }
@@ -160,32 +135,6 @@
   .item-table-content tr td {
     font-size: 14px;
     padding-right: 5px; }
-
-/* item-more-details-list */
-.item-more-details-list li {
-  float: left;
-  margin-right: 10px;
-  margin-bottom: 10px; }
-  .item-more-details-list li:last-child {
-    margin-right: 0; }
-
-.item-more-details-list a {
-  display: block;
-  padding: 0 7px 2px;
-  color: #787878;
-  background: rgba(245, 245, 245, 0.9);
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  border-radius: 2px; }
-  .item-more-details-list a:hover {
-    text-decoration: none; }
-
-.item-more-details-list .icon-label {
-  font-size: 12px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 12px; }
 
 .best-bikes-swiper .swiper-card,
 .best-bikes-swiper .swiper-card-target {
@@ -203,43 +152,6 @@
 
 .used-target-label {
   width: 96%; }
-
-.next-grey-icon {
-  width: 8px;
-  height: 13px;
-  background-position: -182px -393px;
-  vertical-align: middle; }
-
-/* icons */
-.generic-sprite {
-  background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.png) no-repeat;
-  display: inline-block; }
-
-.reviews-sm, .news-sm, .videos-sm, .specs-sm, .photos-sm {
-  width: 14px;
-  height: 14px;
-  vertical-align: middle;
-  position: relative;
-  top: 1px;
-  opacity: 0.6;
-  -moz-opacity: 0.6;
-  -khtml-opacity: 0.6; }
-
-.reviews-sm {
-  background-position: -84px -3px; }
-
-.news-sm {
-  background-position: -102px -3px; }
-
-.videos-sm {
-  background-position: -121px -3px; }
-
-.specs-sm {
-  background-position: -140px -3px; }
-
-.photos-sm {
-  width: 16px;
-  background-position: 0 -486px; }
 
 @media only screen and (max-width: 320px) {
   .generic-banner h1 {

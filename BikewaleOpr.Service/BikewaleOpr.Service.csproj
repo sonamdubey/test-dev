@@ -40,6 +40,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Bikewale.Service\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
@@ -115,6 +118,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
@@ -167,6 +171,10 @@
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.DTO\BikewaleOpr.DTO.csproj">
+      <Project>{d2e7fef3-ca0c-4739-b995-c226af7cc41d}</Project>
+      <Name>BikewaleOpr.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Entity\BikewaleOpr.Entity.csproj">
       <Project>{caf758ed-4954-4be3-be15-345dbc891970}</Project>

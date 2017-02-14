@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.ReviewDetails" %>
 <%@ Register TagPrefix="BW" TagName="UserReviewSimilarBike" Src="~/m/controls/UserReviewSimilarBike.ascx" %>
 <%@ Register Src="/m/controls/NewUserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -166,7 +167,11 @@
 
         <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-15-20 font14">
-                <%if (ctrlUserReviews.FetchedRecordsCount > 0)
+                  <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+       </div>
+            <div class="container box-shadow bg-white section-bottom-margin padding-15-20 font14">
+       
+                   <%if (ctrlUserReviews.FetchedRecordsCount > 0)
                     { %>
                 <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                 <% } %>

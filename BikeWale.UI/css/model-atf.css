@@ -4,10 +4,6 @@
 .text-x-light {
     color: #a2a2a2;
 }
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
 .margin-right25 {
     margin-right: 25px;
 }
@@ -338,24 +334,6 @@
 .model-sprite { background:url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/bw-offers-benefits.png?v=5Dec2016) no-repeat; display:inline-block;}
 .loc-change-blue-icon { width:12px; height:16px; background-position:-205px -9px; cursor:pointer; position:relative; top:2px; }
 .loc-change-blue-icon:hover { background-position:-205px -35px; }
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
-    width: 16px;
-    height: 18px;
-    margin-right: 5px;
-}
-.capacity-sm {
-    background-position: -40px -78px;
-}
-.mileage-sm {
-    background-position: -61px -78px;
-}
-.power-sm {
-    background-position: -82px -78px;
-    margin-right: 2px;
-}
-.weight-sm {
-    background-position: -101px -78px;
-}
 .partner-dealer {
     width: 32px;
     height: 34px;
@@ -439,6 +417,26 @@
 .overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
 #modelSpecsTabsContentWrapper .overall-specs-tabs-wrapper a:first-child, .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
 .content-inner-block-2010 { padding:20px 10px; }
+
+/* key specs */
+.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
+    width: 16px;
+    height: 14px;
+    margin-right: 5px;
+}
+.capacity-sm {
+    background-position: -136px -153px;
+}
+.mileage-sm {
+    background-position: -154px -153px;
+}
+.power-sm {
+    background-position: -136px -169px;
+    margin-right: 2px;
+}
+.weight-sm {
+    background-position: -154px -169px;
+}
 
 /* tooltip */
 .bw-tooltip {
