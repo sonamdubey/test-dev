@@ -47,7 +47,7 @@
                             <%} if (bikeInfo.MinSpecs.KerbWeight > 0)
                               { %>
                             <li>
-                                <span class="bwsprite power-sm"></span>
+                                <span class="bwsprite weight-sm"></span>
                                 <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.KerbWeight)) %> kgs</span>
                             </li>
                             <%} %>
