@@ -17,6 +17,8 @@ namespace Bikewale.Interfaces.BikeBooking
     ///               to pass autobiz leads only when dealer leads does not exceeds daily limit count
     /// Modified by :   Sumit Kate on 16 Dec 2016
     /// Description :   Added GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId)
+    /// Modified by : Sangram Nandkhile on 14 Feb
+    /// Summary : Added function ProcessPQV2
     /// </summary>
     public interface IDealerPriceQuote
     {
