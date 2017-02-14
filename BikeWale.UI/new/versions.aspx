@@ -189,18 +189,13 @@
                                        { %>
                                     <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                     <% } %>
-                                    <% else if (!isCitySelected)
-                                       {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
-                                    <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in<span><span class="city-area-name"><%= location %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
-                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
-
+                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= location %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <%  if (price == 0)
                                         { %>
@@ -238,7 +233,7 @@
                                     <% } %>
                                 </div>
 
-                                <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
+                                <% if (viewModel != null && viewModel.IsPremiumDealer )
                                    { %>
                                 <div class="margin-top15">
                                     <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
@@ -356,7 +351,7 @@
                             </div>
                             <div class="clear"></div>
 
-                            <% if (viewModel!= null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                            <% if (viewModel!= null && viewModel.IsPremiumDealer)
                                { %>
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 

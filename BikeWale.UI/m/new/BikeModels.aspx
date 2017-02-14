@@ -167,7 +167,7 @@
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     
-                    <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ )
+                    <% if (modelPage.ModelDetails.New && viewModel != null )
                         {   
                         %>
                         <% if (viewModel!=null && viewModel.IsPremiumDealer)
@@ -231,11 +231,12 @@
                  <% } 
                    if (!modelPage.ModelDetails.Futuristic)
                    { %>
-                        <div class="padding-10-20">
-                            <p class="font12 text-light-grey"><%=priceText %> price in <%=(isOnRoadPrice?location:Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
-                            <p>
+                        <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <p class="font12 text-light-grey"><%=priceText %> price in <%= location%></p>
+                            <p><span itemprop="priceCurrency" content="INR">
                                 <span class="bwmsprite inr-md-icon"></span>
-                                <span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>&nbsp;</span>
+                                </span>
+                                <span class="font22 text-bold padding-right5" itemprop="price" content="<%= price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%if (isOnRoadPrice && price > 0)
                                   {%>
                                 <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
@@ -244,7 +245,7 @@
                         </div>
                 <% } %>
                 <%
-                    if (viewModel != null && !isBikeWalePQ)
+                    if (viewModel != null)
                     { 
                 %>
                          <div id="model-dealer-card">

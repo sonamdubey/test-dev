@@ -37,6 +37,7 @@ namespace Bikewale.Interfaces.BikeBooking
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId);
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
+        PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
         DealerInfo IsDealerExists(uint versionId, uint areaId);
         bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);
