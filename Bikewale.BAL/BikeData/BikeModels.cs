@@ -1689,6 +1689,8 @@ namespace Bikewale.BAL.BikeData
         {
             ModelHostImagePath modelInfo = modelRepository.GetModelPhotoInfo(modelId);
             List<ModelImage> modelImages = GetBikeModelPhotoGallery(modelId);
+            if (modelImages == null)
+                modelImages = new List<ModelImage>();
             if (modelInfo != null)
             {
                 string desc = !string.IsNullOrEmpty(modelInfo.ModelName) ? string.Format("{0} Model Image", modelInfo.ModelName) : string.Empty;
