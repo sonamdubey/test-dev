@@ -13,6 +13,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary     : Added estimated min and max price and used, new and futuristic flags
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details 
+    /// Modified by : Sajal Gupta on 14-02-2017
+    /// Description : Added PriceInCity
     /// </summary>
     [Serializable]
     public class GenericBikeInfo

@@ -1,7 +1,17 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.MinGenericBikeInfoControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.MinGenericBikeInfoControl" EnableViewState="false" %>
 <% if (bikeInfo != null)
    { %>
 <div class="model-grid-8-slug">
+    <%if (IsUpcoming)
+  { %>
+<span class="upcoming-text-label position-abt text-white text-center">Upcoming</span>
+    <div class="padding-top20">
+<%}
+  else if (IsDiscontinued)
+  { %>
+<span class="discontinued-text-label position-abt text-white text-center">Discontinued</span>
+    <div class="padding-top20">
+<%} %>    
     <div class="grid-8 alpha border-solid-right">
         <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="model-image-target vertical-top">
             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) %>" src="" alt="<%=bikeName%>" />
@@ -11,15 +21,18 @@
                 <h3><%=bikeName%></h3>
             </a>
             <ul class="item-more-details-list inline-block">
-                <%foreach (var Tabsdetails in bikeInfo.Tabs)
-                  { %>
+                <% if (bikeInfo.Tabs != null)
+                   {
+                       foreach (var Tabsdetails in bikeInfo.Tabs)
+                       { %>
                 <li>
                     <a href="<%= Tabsdetails.URL%>" title="<%= bikeName %> <%=Tabsdetails.Title%>">
                         <span class="bwsprite <%=Tabsdetails.IconText%>-sm"></span>
                         <span class="icon-label"><%=Tabsdetails.TabText %></span>
                     </a>
                 </li>
-                <%} %>
+                <%}
+                   } %>
             </ul>
         </div>
     </div>
@@ -41,14 +54,17 @@
         <p class="font12 text-light-grey margin-bottom5 text-truncate" title="<%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%>"><%=String.Format("Ex-showroom, {0}",cityDetails.CityName)%></p>
         <span class="bwsprite inr-md"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) %></span>
         <% }
-                 else
-                 { %>
+               else
+               { %>
         <p class="font12 text-light-grey margin-bottom5 text-truncate" title="<%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%>"><%=String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)%></p>
         <span class="bwsprite inr-md"></span><span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
         <%}
            } %>
     </div>
     <div class="clear"></div>
+    <% if(IsUpcoming || IsDiscontinued) { %>
+    </div>
+    <%} %>
     <%if (bikeInfo.UsedBikeCount > 0)
       { %>
     <div class="border-solid-bottom margin-top15 margin-bottom10"></div>

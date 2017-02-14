@@ -2,9 +2,17 @@
 
 <% if (bikeInfo != null)
    { %>
-<section>    
+<section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
+            <%if (IsUpcoming)
+              { %>
+            <span class="upcoming-text-label text-white">Upcoming</span>
+            <%}
+              else if (IsDiscontinued)
+              { %>
+            <span class="discontinued-text-label text-white">Discontinued</span>
+            <%} %>
             <div class="content-box-shadow padding-top20 padding-right20 padding-bottom15 padding-left20 model-grid-12-slug">
                 <a href="<%= bikeUrl%>" title="<%=bikeName%>" class="leftfloat margin-bottom15 text-default">
                     <h2><%=bikeName%></h2>
@@ -15,30 +23,43 @@
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) %>" src="" alt="<%=bikeName%>" />
                     </a>
                     <div class="model-details-block vertical-top">
+                        <% if (bikeInfo.MinSpecs != null)
+                           { %>
                         <ul class="key-specs-list margin-bottom15 text-light-grey">
+                            <%if (bikeInfo.MinSpecs.Displacement > 0)
+                              { %>
                             <li>
                                 <span class="bwsprite capacity-sm"></span>
                                 <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.Displacement))%> cc</span>
                             </li>
+                            <%} if (bikeInfo.MinSpecs.FuelEfficiencyOverall > 0)
+                              { %>
                             <li>
                                 <span class="bwsprite mileage-sm"></span>
                                 <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.FuelEfficiencyOverall),"kmpl") %></span>
                             </li>
+                            <%} if (bikeInfo.MinSpecs.MaxPower > 0)
+                              { %>
                             <li>
                                 <span class="bwsprite power-sm"></span>
                                 <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.MaxPower)) %> bhp</span>
                             </li>
+                            <%} %>
                         </ul>
+                        <%} %>
                         <ul class="item-more-details-list margin-bottom5 inline-block">
-                            <%foreach (var Tabsdetails in bikeInfo.Tabs)
-                              { %>
+                            <%if (bikeInfo.Tabs != null)
+                              {
+                                  foreach (var Tabsdetails in bikeInfo.Tabs)
+                                  { %>
                             <li>
-                                <a href="<%= Tabsdetails.URL%>" title="<%= bikeName %> <%=Tabsdetails.Title%>">
+                                <a href="<%= Tabsdetails.URL%>" title="<%= bikeName%> <%=Tabsdetails.Title%>">
                                     <span class="bwsprite <%=Tabsdetails.IconText%>-sm"></span>
-                                    <span class="icon-label"><%=Tabsdetails.TabText %></span>
+                                    <span class="icon-label"><%=Tabsdetails.TabText%></span>
                                 </a>
                             </li>
-                            <%} %>
+                            <%}
+                              } %>
                         </ul>
                         <%if (bikeInfo.UsedBikeCount > 0)
                           { %>
@@ -85,10 +106,7 @@
                     </div>
                     <%}
                        } %>
-                    <%if (!IsDiscontinued && !IsUpcoming && bikeInfo.BikePrice > 0)
-                      { %>
                     <a href="<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MakeName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
-                    <%} %>
                 </div>
                 <div class="clear"></div>
             </div>
