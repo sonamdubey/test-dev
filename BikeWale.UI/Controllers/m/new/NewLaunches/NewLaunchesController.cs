@@ -4,17 +4,22 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
 {
     public class NewLaunchesController : Controller
     {
-        public ActionResult Index(ushort pageNumber)
+        [Route("m/newlaunches/")]
+        public ActionResult Index(ushort? pageNumber)
+        {
+            Bikewale.Models.Mobile.NewLaunches.NewLaunchedBikes objNewLaunchBike = null;
+
+            return View("~/views/m/newlaunches/index.cshtml", objNewLaunchBike);
+        }
+
+        [Route("m/newlaunches/make/{makeId}/")]
+        public ActionResult Index(uint makeId, ushort? pageNumber)
         {
             return View();
         }
 
-        public ActionResult Index(uint makeId, ushort pageNumber)
-        {
-            return View();
-        }
-
-        public ActionResult Index(string launchYear, ushort pageNumber)
+        [Route("m/newlaunches/year/{launchYear}/")]
+        public ActionResult Index(string launchYear, ushort? pageNumber)
         {
             return View();
         }
