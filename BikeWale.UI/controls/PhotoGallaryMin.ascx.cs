@@ -66,9 +66,13 @@ namespace Bikewale.Controls
                     FetchedCount = objImageList != null ? objImageList.Count() : 0;
                     if (FetchedCount > 0)
                     {
-                        selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(objImageList.First().OriginalImgPath, objImageList.First().HostUrl, Bikewale.Utility.ImageSize._640x348);
-                        selectedImageCategoryName = objImageList.First().ImageCategory;
-                        selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : string.Empty;
+                        var firstImage = objImageList.FirstOrDefault();
+                        if (firstImage != null)
+                        {
+                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImgPath, firstImage.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                            selectedImageCategoryName = firstImage.ImageCategory;
+                            selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : string.Empty;
+                        }
                     }
                     else
                     {
