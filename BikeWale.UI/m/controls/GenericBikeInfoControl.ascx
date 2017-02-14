@@ -1,18 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.GenericBikeInfoControl" EnableViewState="false" %>
 <% if (bikeInfo != null)
    { %>
-<%if (IsUpcoming)
-  { %>
-<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-<%}
-  else if (IsDiscontinued)
-  { %>
-<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-<%} %>
 <%if (!SmallSlug)
   { %>
 <div class="model-more-info-section">
-
+    <%if (IsUpcoming)
+      { %>
+    <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+    <%}
+      else if (IsDiscontinued)
+      { %>
+    <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+    <%} %>
+    <div class="clear"></div>
     <a href="<%= bikeUrl%>" class="leftfloat text-default margin-bottom15" title="<%= bikeName %>">
         <h2><%= bikeName %></h2>
     </a>
@@ -20,11 +20,19 @@
   else
   { %>
     <div class="model-more-info-section model-slug-type-news">
-        <%} %>
-
-        <div class="clear"></div>
-
+        <%} %>        
         <div class="margin-bottom10">
+            <%if (SmallSlug) {
+                if (IsUpcoming)
+                  { %>
+                    <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                <%}
+                else if (IsDiscontinued)
+                { %>
+                    <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                <%} %>
+            <%} %>
+            <div class="clear"></div>
             <a href="<%= bikeUrl%>" class="item-image-content vertical-top" title="<%= bikeName %>">
                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" src="" alt="<%= bikeName %>" />
             </a>

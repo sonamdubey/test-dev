@@ -298,13 +298,12 @@
 .connected-carousels .carousel li { float: left; width: 376px; height: 212px; }
 .connected-carousels .carousel .carousel-img-container { display:table; width: 100%; height: 212px; text-align:center; }
 .connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align:middle; width: 385px; height: 220px; background:url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }
-.connected-carousels .carousel .carousel-img-container img { width: 100%; height: 212px; }
+.connected-carousels .carousel .carousel-img-container img { width: auto; height: 212px; }
 .connected-carousels .carousel-stage { height: 212px; }
 .connected-carousels .carousel-navigation { height: 47px; width: 350px; background: #fff; margin-left:10px; }
-.navigation .carousel-navigation li { float:left; width:80px; height:45px; margin-right:10px; }
-.navigation .carousel-navigation li:hover { cursor:pointer; }
-.navigation .carousel-navigation li img { width:100%; height: 45px; border:1px solid #e2e2e2; }
-.connected-carousels .carousel-navigation li.active img { border-color: #555; }
+.navigation .carousel-navigation li { float:left; width:80px; height:45px; margin-right:10px; border:1px solid #e2e2e2; overflow: hidden; cursor:pointer; }
+.navigation .carousel-navigation li img { width:auto; height: 45px; }
+.connected-carousels .carousel-navigation li.active { border-color: #555; }
 .navigation .carousel-navigation .carousel-nav-img-container { display:table; width:80px; height:45px; text-align:center; }
 .navigation .carousel-navigation .carousel-nav-img-container span { display: table-cell; vertical-align: middle; width: 80px; }
 .connected-carousels .prev-stage, .connected-carousels .next-stage { display: block; position: absolute; top: 40%; color: #fff; z-index: 1;}
