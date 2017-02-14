@@ -44,6 +44,12 @@
                                 <span class="bwsprite power-sm"></span>
                                 <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.MaxPower)) %> bhp</span>
                             </li>
+                            <%} if (bikeInfo.MinSpecs.KerbWeight > 0)
+                              { %>
+                            <li>
+                                <span class="bwsprite weight-sm"></span>
+                                <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.KerbWeight)) %> kgs</span>
+                            </li>
                             <%} %>
                         </ul>
                         <%} %>
@@ -106,7 +112,7 @@
                     </div>
                     <%}
                        } %>
-                    <a href="<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MakeName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
+                    <a href="<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
                 </div>
                 <div class="clear"></div>
             </div>
