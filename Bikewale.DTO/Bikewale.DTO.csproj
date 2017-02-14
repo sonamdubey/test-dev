@@ -175,6 +175,7 @@
     <Compile Include="Model\BikeModelContentDTO.cs" />
     <Compile Include="Model\BikeSpecs.cs" />
     <Compile Include="Model\Features.cs" />
+    <Compile Include="Model\ImageBaseEntity.cs" />
     <Compile Include="Model\ModelColor.cs" />
     <Compile Include="Model\ModelDetail.cs" />
     <Compile Include="Model\NewModelColor.cs" />

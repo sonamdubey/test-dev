@@ -26,7 +26,8 @@
 <body>
     <form id="form1" runat="server">
          <% if (isModelPage)
-            { var objImages = vmModelPhotos.objImageList;%>
+            {
+                var objImages = vmModelPhotos.objImageList;%>
             <div class="blackOut-window" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center; display: block; opacity:1;"></div>
         <section>
             <div class="container box-shadow section-bottom-margin">

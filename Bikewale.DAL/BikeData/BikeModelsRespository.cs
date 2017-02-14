@@ -1115,9 +1115,9 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public ModelPhotos GetModelPhotoInfo(U modelId)
+        public ModelHostImagePath GetModelPhotoInfo(U modelId)
         {
-            ModelPhotos modelPhotos = null;
+            ModelHostImagePath modelPhotos = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getmodelphotos"))
@@ -1131,7 +1131,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             if (dr.Read())
                             {
-                                modelPhotos = new ModelPhotos();
+                                modelPhotos = new ModelHostImagePath();
                                 modelPhotos.HostURL = Convert.ToString(dr["HostUrl"]);
                                 modelPhotos.OriginalImgPath = Convert.ToString(dr["OriginalImagePath"]);
                                 modelPhotos.ModelName = Convert.ToString(dr["Name"]);

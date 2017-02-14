@@ -34,5 +34,6 @@ namespace Bikewale.Entities.BikeData
         public string OriginalImagePath { get; set; }
         public bool IsImageExists { get; set; }
         public uint BikeModelColorId { get; set; }
+        public string ImageCategory { get; set; }
     }
 }
