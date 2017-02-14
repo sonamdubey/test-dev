@@ -85,7 +85,7 @@ namespace Bikewale.Cache.ServiceCenter
         /// </summary>
         public ServiceCenterData GetServiceCentersByCity(uint cityId, int makeId)
         {
-            string key = String.Format("BW_ServiceCenterList_City_{0}_Make{1}", cityId, makeId);
+            string key = String.Format("BW_ServiceCenterList_City_{0}_Make_{1}", cityId, makeId);
             try
             {
                 return _cache.GetFromCache<ServiceCenterData>(key, new TimeSpan(1, 0, 0), () => _objServiceCenter.GetServiceCentersByCity(cityId, makeId));

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
@@ -32,6 +33,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added GetSimilarBikesVideos method
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Edited function to get top 10 bikes and their mopdelcount by bodystyle and cityid.
+    /// Modified by :   Sumit Kate on 10 Feb 2017
+    /// Description :   Added GetNewLaunchedBikesList 
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
     /// </summary>
@@ -87,6 +90,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
-
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
     }
 }
