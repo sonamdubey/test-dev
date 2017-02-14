@@ -11,10 +11,7 @@
                         {
                             <a data-hash="@string.Format("city={0}&make={1}&model={2}", @Model.CityId, @Model.MakeId,@Model.ModelId)" data-bind='click: function (d,e) { ChangePageNumber(e) }' href="@pg.PageUrl" data-pagenum="@pg.PageNo">@pg.PageNo</a>
                         }
-                        else
-                        {
-                             @pg.PageNo
-                        }
+                        else {  @pg.PageNo  }
 
                     </li>
                 }

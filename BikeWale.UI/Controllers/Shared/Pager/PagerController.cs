@@ -22,7 +22,7 @@ namespace Bikewale.Controllers.Shared.Pager
             return PartialView();
         }
 
-        [Route("shared/pager/")]
+        [Route("pager/")]
         public ActionResult Index(Bikewale.Entities.Pager.PagerEntity objPager)
         {
             Bikewale.Models.Shared.Pager objPagerModel = null;

@@ -34,7 +34,7 @@ namespace Bikewale.Controllers.Shared
                 bikeInfo = info.GetBikeInfo(modelId);
             }
 
-            return PartialView("~/views/m/shared/_bikeinfo.cshtml", bikeInfo);
+            return PartialView("~/views/m/shared/bikeinfo.cshtml", bikeInfo);
         }
     }
 }
