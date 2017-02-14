@@ -31,7 +31,7 @@ namespace Bikewale.Controls
             this.Load += new EventHandler(Page_Load);
         }
         /// <summary>
-        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Modified  By :- Sajal Gupta 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)

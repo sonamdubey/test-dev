@@ -9,10 +9,8 @@ namespace Bikewale.Controls
 {
 
     /// <summary>
-    /// Created By : Sushil Kumar on 2nd Jan 2016
+    /// Created By : Sajal Gupta on 10-02-2017
     /// Description : To bind mobile generic bike info control 
-    /// Modified By : Aditi Srivastava on 23 Jan 2017
-    /// Summary     : Added flags for upcoming and discontinued bikes
     /// </summary>
     public class MinGenericBikeInfoControl : System.Web.UI.UserControl
     {
@@ -31,7 +29,7 @@ namespace Bikewale.Controls
             this.Load += new EventHandler(Page_Load);
         }
         /// <summary>
-        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Created By :- Sajal Gupta 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)

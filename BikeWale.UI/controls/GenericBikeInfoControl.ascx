@@ -2,7 +2,7 @@
 
 <% if (bikeInfo != null)
    { %>
-<section>
+<section>    
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-right20 padding-bottom15 padding-left20 model-grid-12-slug">

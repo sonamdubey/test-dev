@@ -100,6 +100,8 @@ namespace Bikewale.Videos
         }
         /// <summary>
         ///  Addition param for Similar Video controller
+        ///  Modified By : Sajal Gupta on 14-02-2017
+        ///  Description : Binded ctrlGenericBikeInfo control
         /// </summary>
         private void BindPageWidgets()
         {
