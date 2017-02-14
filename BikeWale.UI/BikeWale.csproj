@@ -450,6 +450,7 @@
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
@@ -3279,6 +3280,14 @@
     <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Pager\PagerControl.cshtml" />
     <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Shared\_Layout_Desktop.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.cshtml" />
+    <Content Include="Views\Shared\_PopupWidget.cshtml" />
+    <Content Include="Views\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\NewLaunches\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginControl.cshtml" />
+    <Content Include="Views\m\Shared\_LoginControl.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
