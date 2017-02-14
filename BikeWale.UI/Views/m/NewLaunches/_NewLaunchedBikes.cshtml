@@ -1,145 +1,77 @@
-﻿<div class="container bg-white box-shadow section-bottom-margin">
-    <div class="box-shadow padding-top10 padding-bottom10">
-        <div class="grid-6 padding-left15 padding-right15 border-solid-right">
-            <p class="font12 text-light-grey">Brand</p>
-            <p id="brand-filter-selection" class="filter-selection-value text-truncate">All brands</p>
+﻿@{
+    Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
+}
+
+@if (objBikeList != null)
+{
+    <div class="container bg-white box-shadow section-bottom-margin">
+        <div class="box-shadow padding-top10 padding-bottom10">
+            <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                <p class="font12 text-light-grey">Brand</p>
+                <p id="brand-filter-selection" class="filter-selection-value text-truncate">All brands</p>
+            </div>
+            <div class="grid-6 padding-left15 padding-right15">
+                <p class="font12 text-light-grey">Launch year</p>
+                <p id="year-filter-selection" class="filter-selection-value text-truncate">All years</p>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="grid-6 padding-left15 padding-right15">
-            <p class="font12 text-light-grey">Launch year</p>
-            <p id="year-filter-selection" class="filter-selection-value text-truncate">All years</p>
+        <ul class="new-launches-list">
+            @foreach (var bike in objBikeList.Bikes)
+            {  string bikeName = string.Format("{0} {1}",bike.Make.MakeName,bike.Model.ModelName);
+                <li class="list-item">
+                    <a href="" title="@bikeName" class="block">
+                        <div class="item-image-content">
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                        </div>
+                        <h3>@bikeName</h3>
+                        <ul class="key-specs-list font12 margin-bottom5">
+                            @if (string.IsNullOrEmpty(bike.MinSpecs.Displacement.ToString()))
+                            {
+                                <li>
+                                    <span>@{ Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc"); }</span>
+                                </li>
+                            }
+                            @if (string.IsNullOrEmpty(bike.MinSpecs.FuelEfficiencyOverall.ToString()))
+                            {
+                                <li>
+                                    <span>@{ Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl"); }</span>
+                                </li>
+                            }
+                            @if (string.IsNullOrEmpty(bike.MinSpecs.MaximumTorque.ToString()))
+                            {
+                                <li>
+                                    <span>@{ Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp"); }</span>
+                                </li>
+                            }
+                           
+                            
+                           
+                        </ul>
+                        <div class="leftfloat exshowroom-price-content">
+                            <p class="key-size-13 text-truncate">Ex-showroom price, @( bike.City!=null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai" )</p>
+                            <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
+                        </div>
+                        <div class="leftfloat launched-date-content">
+                            <p class="key-size-13 text-truncate">Launched on</p>
+                            <span class="value-size-16">@Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy")</span>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                    <div class="margin-top10">
+                        <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
+                    </div>
+                </li>
+            }
+            
+        </ul>
+
+        <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top">
+            <div class="grid-5 omega text-light-grey font13">
+                <span class="text-bold text-default">@String.Format("{0}-{1}", ViewBag.pager.PageNo, Math.Min(ViewBag.pager.PageSize, ViewBag.pager.TotalResults))</span> of <span class="text-bold text-default">@ViewBag.pager.TotalResults</span> bikes
+            </div>
+            @{ Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
         </div>
-        <div class="clear"></div>
     </div>
-    <ul class="new-launches-list">
-        <li class="list-item">
-            <a href="" title="Honda CB Shine" class="block">
-                <div class="item-image-content">
-                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg" alt="Honda CB Shine" src="" />
-                </div>
-                <h3>Honda CB Shine</h3>
-                <ul class="key-specs-list font12 margin-bottom5">
-                    <li>
-                        <span>124.6 cc</span>
-                    </li>
-                    <li>
-                        <span>82 kmpl</span>
-                    </li>
-                    <li>
-                        <span>10.9 bhp</span>
-                    </li>
-                </ul>
-                <div class="leftfloat exshowroom-price-content">
-                    <p class="key-size-13 text-truncate">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18">12,489</span>
-                </div>
-                <div class="leftfloat launched-date-content">
-                    <p class="key-size-13 text-truncate">Launched on</p>
-                    <span class="value-size-16">10 Mar 2015</span>
-                </div>
-                <div class="clear"></div>
-            </a>
-            <div class="margin-top10">
-                <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-modelid="59" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
-            </div>
-        </li>
-        <li class="list-item">
-            <a href="" title="Bajaj Discover 125" class="block">
-                <div class="item-image-content">
-                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/bajaj-discover-125-drum-838.jpg" alt="Bajaj Discover 125" src="" />
-                </div>
-                <h3>Bajaj Discover 125</h3>
-                <ul class="key-specs-list font12 margin-bottom5">
-                    <li>
-                        <span>124.6 cc</span>
-                    </li>
-                    <li>
-                        <span>82 kmpl</span>
-                    </li>
-                    <li>
-                        <span>10.9 bhp</span>
-                    </li>
-                </ul>
-                <div class="leftfloat exshowroom-price-content">
-                    <p class="key-size-13 text-truncate">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18">54,001</span>
-                </div>
-                <div class="leftfloat launched-date-content">
-                    <p class="key-size-13 text-truncate">Launched on</p>
-                    <span class="value-size-16">10 Mar 2015</span>
-                </div>
-                <div class="clear"></div>
-            </a>
-            <div class="margin-top10">
-                <a href="" class="btn btn-white btn-180-32">Check on-road price</a>
-            </div>
-        </li>
-        <li class="list-item">
-            <a href="" title="Bajaj Pulsar 135 LS" class="block">
-                <div class="item-image-content">
-                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/bajaj-pulsar-135-ls-standard-264.jpg" alt="Bajaj Pulsar 135 LS" src="" />
-                </div>
-                <h3>Bajaj Pulsar 135 LS</h3>
-                <ul class="key-specs-list font12 margin-bottom5">
-                    <li>
-                        <span>124.6 cc</span>
-                    </li>
-                    <li>
-                        <span>82 kmpl</span>
-                    </li>
-                    <li>
-                        <span>10.9 bhp</span>
-                    </li>
-                </ul>
-                <div class="leftfloat exshowroom-price-content">
-                    <p class="key-size-13 text-truncate">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18">60,250</span>
-                </div>
-                <div class="leftfloat launched-date-content">
-                    <p class="key-size-13 text-truncate">Launched on</p>
-                    <span class="value-size-16">10 Mar 2015</span>
-                </div>
-                <div class="clear"></div>
-            </a>
-            <div class="margin-top10">
-                <a href="" class="btn btn-white btn-180-32">Check on-road price</a>
-            </div>
-        </li>
-        <li class="list-item">
-            <a href="" title="Hero Glamour FI" class="block">
-                <div class="item-image-content">
-                    <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/hero-glamour-fi-standard-480.jpg" alt="Hero Glamour FI" src="" />
-                </div>
-                <h3>Hero Glamour FI</h3>
-                <ul class="key-specs-list font12 margin-bottom5">
-                    <li>
-                        <span>124.6 cc</span>
-                    </li>
-                    <li>
-                        <span>82 kmpl</span>
-                    </li>
-                    <li>
-                        <span>10.9 bhp</span>
-                    </li>
-                </ul>
-                <div class="leftfloat exshowroom-price-content">
-                    <p class="key-size-13 text-truncate">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18">68,604</span>
-                </div>
-                <div class="leftfloat launched-date-content">
-                    <p class="key-size-13 text-truncate">Launched on</p>
-                    <span class="value-size-16">10 Mar 2015</span>
-                </div>
-                <div class="clear"></div>
-            </a>
-            <div class="margin-top10">
-                <a href="" class="btn btn-white btn-180-32">Check on-road price</a>
-            </div>
-        </li>
-    </ul>
-    <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top">
-        <div class="grid-5 omega text-light-grey font13">
-            <span class="text-bold text-default">@String.Format("{0}-{1}", ViewBag.pager.PageNo, Math.Min(ViewBag.pager.PageSize, ViewBag.pager.TotalResults))</span> of <span class="text-bold text-default">@ViewBag.pager.TotalResults</span> bikes
-        </div>
-        @{ Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
-    </div>
-</div>
+}
+

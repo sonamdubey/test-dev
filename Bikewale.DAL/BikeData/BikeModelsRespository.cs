@@ -2217,7 +2217,8 @@ namespace Bikewale.DAL.BikeData
                                         ReviewRate = SqlReaderConvertor.ParseToDouble(dr["reviewrate"]),
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
-                                        LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"])
+                                        LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
+                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"])
                                     }
                                 );
                             }

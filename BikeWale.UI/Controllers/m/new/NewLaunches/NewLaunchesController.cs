@@ -1,15 +1,33 @@
-﻿using System.Web.Mvc;
+﻿using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.NewLaunched;
+using System;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Mobile.NewLaunches
 {
     public class NewLaunchesController : Controller
     {
+        private readonly INewBikeLaunchesBL _newLaunches = null;
+
+        public NewLaunchesController(INewBikeLaunchesBL newLaunches)
+        {
+            _newLaunches = newLaunches;
+        }
+
         [Route("m/newlaunches/")]
         public ActionResult Index(ushort? pageNumber)
         {
-            Bikewale.Models.Mobile.NewLaunches.NewLaunchedBikes objNewLaunchBike = null;
+            var objFilters = new InputFilter()
+            {
+                PageNo = (int)(pageNumber.HasValue ? pageNumber : 1),
+                PageSize = 10
+            };
+            ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
+            ViewBag.Description = "Check out the latest bikes in India. Explore the recently launched bikes of Honda, Bajaj, Hero, Royal Enfield and other major brands.";
+            ViewBag.Title = "New Bike Launches| Latest Bikes in India- BikeWale";
+            ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
 
-            return View("~/views/m/newlaunches/index.cshtml", objNewLaunchBike);
+            return View("~/views/m/newlaunches/index.cshtml");
         }
 
         [Route("m/newlaunches/make/{makeId}/")]
