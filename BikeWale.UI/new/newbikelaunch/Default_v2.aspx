@@ -22,7 +22,7 @@
             <div id="new-launch-center-box" class="container">
                 <div class="welcome-box">
                     <h1 class="font30 text-uppercase margin-bottom30">New bike launches</h1>
-                    <h2 class="font20 text-unbold text-white margin-bottom50">New machines on the block</h2>
+                    <h2 class="font20 text-unbold text-white margin-bottom50">Latest bikes in India</h2>
                 </div>
             </div>
         </header>
@@ -45,7 +45,7 @@
                     <div class="content-box-shadow">
                         <div class="padding-right20 padding-left20">
                             <div class="padding-top15 padding-bottom15 border-solid-bottom">
-                                <h3 class="font18 text-black grid-4 alpha">200 bikes</h3>
+                                <h3 class="font18 text-black grid-4 alpha">lorem ipsum</h3>
                                 <div class="grid-8 omega text-right new-launch-filter">
                                     <p class="font14 text-light-grey inline-block margin-right15">Filter by:</p>
                                     <div class="select-box inline-block margin-right15">
