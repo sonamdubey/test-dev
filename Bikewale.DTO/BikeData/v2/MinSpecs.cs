@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.DTO.BikeData.v2
 {
@@ -11,6 +7,8 @@ namespace Bikewale.DTO.BikeData.v2
     /// Created By : Sushil Kumar
     /// Created On :20th March 2016
     /// Summary : Created second version to pass json data into proper format  and namingConventions
+    /// Modified by :   Sumit Kate on 13 Feb 2017
+    /// Description :   Added Kerb weight
     /// </summary>
     public class MinSpecs
     {
@@ -25,5 +23,8 @@ namespace Bikewale.DTO.BikeData.v2
 
         [JsonProperty("maxTorque")]
         public float MaximumTorque { get; set; }
+
+        [JsonProperty("kerbWeight")]
+        public UInt16 KerbWeight { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MinGenericBikeInfo" Src="~/controls/MinGenericBikeInfoControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
 
 <!Doctype html>
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
 
-                                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+                                <BW:MinGenericBikeInfo ID="ctrlMinGenericBikeInfo" runat="server" />
 
                                 <div class="border-solid-top padding-top10">
                                     <% if (!String.IsNullOrEmpty(objArticle.PrevArticle.ArticleUrl))
@@ -159,7 +159,7 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("body").floatingSocialShare();

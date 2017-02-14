@@ -58,6 +58,7 @@ namespace Bikewale.New
         protected BikeRankingEntity bikeRankObj;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
         protected ChangeLocationPopup ctrlChangeLocation;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -109,6 +110,8 @@ namespace Bikewale.New
         /// Summary:- Bind Controls
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Added chnage location prompt widget
+        ///  Modified  By :- Sajal Gupta on 13 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindControl()
         {
@@ -160,6 +163,14 @@ namespace Bikewale.New
             {
                 ctrlChangeLocation.UrlCityId = cityId;
                 ctrlChangeLocation.UrlCityName = cityName;
+            }
+
+            if (ctrlGenericBikeInfo != null)
+            {
+                ctrlGenericBikeInfo.ModelId = modelId;
+                ctrlGenericBikeInfo.CityId = cityId;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.PriceInCity;
+                ctrlGenericBikeInfo.TabCount = 4;
             }
 
         }
