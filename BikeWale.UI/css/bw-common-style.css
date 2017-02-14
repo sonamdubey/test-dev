@@ -343,7 +343,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .welcome-box h1 {
     font-size: 34px;
     color: #fff;
-    font-weight: 600;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
