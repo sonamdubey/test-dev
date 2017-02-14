@@ -498,6 +498,10 @@ a.action-btn:hover{text-decoration:none;}
     .model-jcarousel-image-preview img { height: 155px; }
 
     .bw-horizontal-cards .card { width: 280px; }
+
+    .model-grid-12-slug .model-details-block {
+        width: 72%;
+    }
 }
 
 /* offers popup */

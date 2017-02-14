@@ -5,6 +5,7 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -35,6 +36,8 @@ namespace Bikewale.Videos
         protected SimilarBikeVideos ctrlSimilarBikeVideos;
         protected PopularBikeByBodyStyleCarousal ctrlBikesByBodyStyle;
         private GlobalCityAreaEntity _currentCityArea;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -70,6 +73,13 @@ namespace Bikewale.Videos
                     ctrlBikesByBodyStyle.ModelId = (modelId ?? 0);
                     ctrlBikesByBodyStyle.topCount = 9;
                     ctrlBikesByBodyStyle.CityId = _currentCityArea.CityId;
+                }
+                if (ctrlGenericBikeInfo != null)
+                {
+                    ctrlGenericBikeInfo.ModelId = (modelId ?? 0);
+                    ctrlGenericBikeInfo.CityId = _currentCityArea.CityId;
+                    ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
+                    ctrlGenericBikeInfo.TabCount = 3;
                 }
             }
             catch (Exception ex)

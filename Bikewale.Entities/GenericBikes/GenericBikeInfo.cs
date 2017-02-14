@@ -63,7 +63,8 @@ namespace Bikewale.Entities.GenericBikes
         News = 4,
         Videos = 5,
         UserReview = 6,
-        Dealers = 7
+        Dealers = 7,
+        PriceInCity = 8
 
     }
 

@@ -7,13 +7,14 @@ using System;
 
 namespace Bikewale.Controls
 {
+
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
-    /// Description : To bind desktop generic bike info control 
-    /// Modified By :- subodh Jain 10 Feb 2017
-    /// Summary :- BikeInfo Slug details
+    /// Description : To bind mobile generic bike info control 
+    /// Modified By : Aditi Srivastava on 23 Jan 2017
+    /// Summary     : Added flags for upcoming and discontinued bikes
     /// </summary>
-    public class GenericBikeInfoControl : System.Web.UI.UserControl
+    public class MinGenericBikeInfoControl : System.Web.UI.UserControl
     {
         public uint ModelId { get; set; }
         protected GenericBikeInfo bikeInfo { get; set; }
@@ -25,7 +26,6 @@ namespace Bikewale.Controls
         public BikeInfoTabType PageId { get; set; }
         protected CityEntityBase cityDetails;
         public uint TabCount { get; set; }
-
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -51,7 +51,7 @@ namespace Bikewale.Controls
                 {
                     if (bikeInfo.Make != null && bikeInfo.Model != null)
                     {
-                        bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                        bikeUrl = string.Format(Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                         bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                     }
                     pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
@@ -62,5 +62,6 @@ namespace Bikewale.Controls
             }
 
         }
+
     }
 }

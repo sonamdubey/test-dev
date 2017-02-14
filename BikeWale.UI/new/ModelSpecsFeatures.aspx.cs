@@ -5,6 +5,7 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -34,11 +35,12 @@ namespace Bikewale.New
         protected DetailedDealerQuotationEntity dealerDetail;
         protected BikeModelPageEntity modelPg;
         protected LeadCaptureControl ctrlLeadPopUp;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
-            this.Load += new EventHandler(Page_Load);
-        }
+            this.Load += new EventHandler(Page_Load);            
+        }        
 
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
@@ -78,6 +80,7 @@ namespace Bikewale.New
             {
                 specs = modelPg.ModelVersionSpecs;
             }
+            BindWidget();
         }
 
         /// <summary>
@@ -229,6 +232,20 @@ namespace Bikewale.New
                     //redirect permanent to new page 
                     CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelMaskingName, objResponse.MaskingName));
                 }
+            }
+        }
+
+        /// Created  By :- Sajal Gupta on 13-02-2017
+        /// Summary :- BikeInfo Slug details
+        /// </summary>
+        private void BindWidget()
+        {
+            if (ctrlGenericBikeInfo != null)
+            {
+                ctrlGenericBikeInfo.ModelId = modelId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                ctrlGenericBikeInfo.TabCount = 3;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.Specs;
             }
         }
 

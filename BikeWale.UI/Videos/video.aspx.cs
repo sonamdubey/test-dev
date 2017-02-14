@@ -2,6 +2,7 @@
 using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -26,6 +27,7 @@ namespace Bikewale.Videos
         protected string metaDesc = string.Empty;
         protected string metaKeywords = string.Empty;
         protected string metaTitle = string.Empty;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -42,10 +44,10 @@ namespace Bikewale.Videos
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-            ParseQueryString();
-            BindSimilarVideoControl();
+            ParseQueryString();            
             BindVideoDetails();
             CreateDescriptionTag();
+            BindPageWidgets();
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace Bikewale.Videos
         {
             if (isMakeModelTag)
             {
-                string bikeName = String.Format("{0} {1}",videoModel.MakeName, videoModel.ModelName);
+                string bikeName = String.Format("{0} {1}", videoModel.MakeName, videoModel.ModelName);
                 metaKeywords = String.Format("{0},{1}, {2}", videoModel.MakeName, videoModel.ModelName, bikeName);
                 metaDesc = videoModel.Description;
 
@@ -99,11 +101,25 @@ namespace Bikewale.Videos
         /// <summary>
         ///  Addition param for Similar Video controller
         /// </summary>
-        private void BindSimilarVideoControl()
+        private void BindPageWidgets()
         {
-            ctrlSimilarVideos.TopCount = 6;
-            ctrlSimilarVideos.VideoBasicId = videoId;
-            ctrlSimilarVideos.SectionTitle = "Related videos";
+            if (ctrlSimilarVideos != null)
+            {
+                ctrlSimilarVideos.TopCount = 6;
+                ctrlSimilarVideos.VideoBasicId = videoId;
+                ctrlSimilarVideos.SectionTitle = "Related videos";
+            }
+
+            if (ctrlGenericBikeInfo != null && videoModel != null)
+            {
+                var objresponse = new ModelHelper().GetModelDataByMasking((videoModel.MaskingName));
+
+                ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
+                ctrlGenericBikeInfo.TabCount = 3;
+            }
+
         }
         /// <summary>
         /// API call to fetch Video details

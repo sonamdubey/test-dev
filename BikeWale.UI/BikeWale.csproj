@@ -486,6 +486,10 @@
       <DependentUpon>LeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\MinGenericBikeInfoControl.ascx.cs">
+      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\MostPopularBikesMin.ascx.cs">
       <DependentUpon>MostPopularBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2083,6 +2087,7 @@
     <Content Include="controls\DealersInNearByCities.ascx" />
     <Content Include="controls\GenericBikeInfoControl.ascx" />
     <Content Include="controls\LeadCaptureControl.ascx" />
+    <Content Include="controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="controls\MostPopularBikesMin.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\OtherUsedBikeByCity.ascx" />
