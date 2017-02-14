@@ -451,6 +451,7 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
+    <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1206,6 +1207,7 @@
     </Compile>
     <Compile Include="m\new\newbikelaunch\Default_v2.aspx.cs">
       <DependentUpon>Default_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -3257,9 +3259,12 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP.cshtml" />
     <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
     <Content Include="Views\m\Content\Features\details_amp.cshtml" />
-    <Content Include="Views\m\Shared\BikeInfo.cshtml" />
-    <Content Include="Views\NewLaunches\Index.cshtml" />
-    <Content Include="Views\m\Shared\HomePageBanner.cshtml" />
+    <Content Include="Views\m\Shared\_BikeInfo.cshtml" />
+    <Content Include="Views\m\NewLaunches\Index.cshtml" />
+    <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
+    <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
+    <Content Include="Views\Pager\PagerControl.cshtml" />
+    <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -26,7 +26,7 @@
         var Ad320x150_Bottom =Convert.ToBoolean(ViewBag.Ad320x150_Bottom !=null ? ViewBag.Ad320x150_Bottom : false);
         var EnableOG= Convert.ToBoolean(ViewBag.EnableOG !=null ? ViewBag.EnableOG : true);
         var Ad_Mid_320x50 = Convert.ToBoolean(ViewBag.Ad_Mid_320x50 !=null ? ViewBag.Ad_Mid_320x50 : false);
-        var IsHomePage= Convert.ToBoolean(ViewBag.IsHomePage !=null ? ViewBag.IsHomePage : false);
+        var IsHomePage= Convert.ToBoolean(ViewBag.IsHomePage !=null ? ViewBag.IsHomePage : false);        
     }
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@Title</title>
@@ -318,9 +318,9 @@
         </div>
 
         <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st2.aeplcdn.com" + ViewBag.staticUrl : "")/src/bwcache.js?@ViewBag.staticFileVersion"></script>
-        @*<BW:LocationWidget runat="server" id="ctrlChangeLocation" />*@
+        
         @* Render location widget  *@
-
+        @Html.Partial("~/Views/m/Shared/_ChangeLocation.cshtml");
         <!-- global-search-popup code starts here -->
         <div id="global-search-popup" class="global-search-popup" style="display:none">
             <div class="form-control-box">
@@ -340,6 +340,8 @@
                 <ul id="global-recent-searches" style="position: relative;margin:0;text-align: left;height:auto !important;background:#fff;" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
             </div>
         </div> <!-- global-search-popup code ends here -->
+
+        @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml");
 
         <footer class="bg-footer padding-top30 padding-bottom15">
             <!-- Footer section code starts here -->
