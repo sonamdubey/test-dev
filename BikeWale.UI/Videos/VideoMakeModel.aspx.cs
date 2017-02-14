@@ -79,7 +79,7 @@ namespace Bikewale.Videos
                     ctrlGenericBikeInfo.ModelId = (modelId ?? 0);
                     ctrlGenericBikeInfo.CityId = _currentCityArea.CityId;
                     ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
-                    ctrlGenericBikeInfo.TabCount = 3;
+                    ctrlGenericBikeInfo.TabCount = 4;
                 }
             }
             catch (Exception ex)

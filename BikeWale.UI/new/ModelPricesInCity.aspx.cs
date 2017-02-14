@@ -170,7 +170,7 @@ namespace Bikewale.New
                 ctrlGenericBikeInfo.ModelId = modelId;
                 ctrlGenericBikeInfo.CityId = cityId;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.PriceInCity;
-                ctrlGenericBikeInfo.TabCount = 3;
+                ctrlGenericBikeInfo.TabCount = 4;
             }
 
         }

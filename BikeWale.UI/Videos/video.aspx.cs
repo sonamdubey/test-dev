@@ -44,7 +44,7 @@ namespace Bikewale.Videos
 
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
-            ParseQueryString();            
+            ParseQueryString();
             BindVideoDetails();
             CreateDescriptionTag();
             BindPageWidgets();
@@ -117,7 +117,7 @@ namespace Bikewale.Videos
                 ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
                 ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.Videos;
-                ctrlGenericBikeInfo.TabCount = 3;
+                ctrlGenericBikeInfo.TabCount = 4;
             }
 
         }

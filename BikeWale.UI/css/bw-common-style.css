@@ -1451,7 +1451,7 @@ input[type="number"]:focus {
 }
 .item-more-details-list a {
     display: block;
-    padding: 1px 10px 5px;
+    padding: 1px 8px 5px;
     color: #787878;
     background: rgba(245, 245, 245, 0.9);
     -webkit-border-radius: 2px;

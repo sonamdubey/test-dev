@@ -39,8 +39,8 @@ namespace Bikewale.New
 
         protected override void OnInit(EventArgs e)
         {
-            this.Load += new EventHandler(Page_Load);            
-        }        
+            this.Load += new EventHandler(Page_Load);
+        }
 
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
@@ -244,7 +244,7 @@ namespace Bikewale.New
             {
                 ctrlGenericBikeInfo.ModelId = modelId;
                 ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                ctrlGenericBikeInfo.TabCount = 3;
+                ctrlGenericBikeInfo.TabCount = 4;
                 ctrlGenericBikeInfo.PageId = BikeInfoTabType.Specs;
             }
         }
