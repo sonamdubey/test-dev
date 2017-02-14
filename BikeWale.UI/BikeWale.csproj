@@ -1450,6 +1450,10 @@
       <DependentUpon>BikesByMake.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\newbikelaunch\BikesByYear.aspx.cs">
+      <DependentUpon>BikesByYear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\newbikelaunch\Default_v2.aspx.cs">
       <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2933,6 +2937,7 @@
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
     <Content Include="new\newbikelaunch\BikesByMake.aspx" />
+    <Content Include="new\newbikelaunch\BikesByYear.aspx" />
     <Content Include="sass\new-launch\new-launch.sass" />
     <Content Include="sass\new-launch\_new-launch-style.sass" />
     <Content Include="sass\modules\_collapsible-content.sass" />
