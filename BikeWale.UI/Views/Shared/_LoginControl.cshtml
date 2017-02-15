@@ -1,21 +1,21 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LoginControlNew" %>
-<% if(Bikewale.Common.CurrentUser.Id == "-1") { %>
+﻿@if(Bikewale.Common.CurrentUser.Id == "-1") { 
 
-<% } else { %>
-<div class="loggedinProfileWrapper" id="loggedinProfileWrapper"><!-- Logged in user profile code starts here -->
+ } else { 
+<div class="loggedinProfileWrapper" id="loggedinProfileWrapper">
+    <!-- Logged in user profile code starts here -->
     <div class="profileBoxContent">
         <div class="loginCloseBtn afterLoginCloseBtn position-abt pos-top10 pos-left10 infoBtn bwsprite cross-md-dark-grey cur-pointer"></div>
         <div class="user-profile-banner">
             <div class="user-profile-details padding-left10 padding-top70">
                 <div class="user-profile-image rounded-corner50">
-	            	<span class=""></span>
+                    <span class=""></span>
                 </div>
                 <div class="user-profile-name">
-	            	<p class="font16 text-white padding-left10"><%= System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Bikewale.Common.CurrentUser.Name.ToLower()) %></p>
+                    <p class="font16 text-white padding-left10">@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Bikewale.Common.CurrentUser.Name.ToLower())</p>
                 </div>
             </div>
         </div>
-            
+
         <div class="user-profile-option-list padding-top20 padding-left10">
             <ul class="profileUL">
                 <li>
@@ -29,7 +29,7 @@
                         <span class="bwsprite inquiry-icon"></span>
                         <span class="profile-option-title">My Inquiries</span>
                     </a>
-                </li>                
+                </li>
                 <li>
                     <a href="/users/newssubscription.aspx">
                         <span class="bwsprite newsletter-icon"></span>
@@ -43,14 +43,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%= Bikewale.Common.CommonOpn.AppPath + "users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl %>">
-                        <span class="bwsprite login-logout-icon"></span>
-                        <span class="profile-option-title">Log out</span>
+                    <a href="@(Bikewale.Common.CommonOpn.AppPath + "users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl)">
+                    <span class="bwsprite login-logout-icon"></span>
+                    <span class="profile-option-title">Log out</span>
                     </a>
                 </li>
             </ul>
         </div>
-            
+
     </div>
 </div>
-<% } %>
+}

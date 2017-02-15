@@ -51,7 +51,7 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/'],
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
     mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
 
 // convert desktop sass to css
@@ -174,6 +174,11 @@ var mvcPageArray =[
         folderName: 'Views/m/NewLaunches/',
         fileName: 'Index.cshtml',
         stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
     }
 ];
 
