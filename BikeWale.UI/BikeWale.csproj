@@ -1213,6 +1213,10 @@
       <DependentUpon>BikesByMake.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikelaunch\BikesByYear.aspx.cs">
+      <DependentUpon>BikesByYear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikelaunch\Default_v2.aspx.cs">
       <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2803,7 +2807,8 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
-    <Content Include="m\new\newbikelaunch\BikesByMake.aspx" />
+    <Content Include="m\new\newbikelaunch\BikeByMakes.aspx" />
+    <Content Include="m\new\newbikelaunch\BikesByYear.aspx" />
     <Content Include="m\new\newbikelaunch\Default_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
