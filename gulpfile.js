@@ -174,6 +174,11 @@ var mvcPageArray =[
         folderName: 'Views/m/NewLaunches/',
         fileName: 'Index.cshtml',
         stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
     }
 ];
 
