@@ -9,8 +9,6 @@
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-
-    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
 
 }
@@ -42,12 +40,12 @@
 
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
-    @{ Html.RenderAction("Makes", "NewLaunches", new { showCount = false }); }     
+    @Html.Partial("~/views/m/shared/_newlaunchedbymake.cshtml")  
 </section>
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml")
+    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml") 
 </section>
 
 <section>
