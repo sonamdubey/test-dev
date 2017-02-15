@@ -3,8 +3,8 @@ using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-
 namespace Bikewale.Controllers.Mobile.NewLaunches
 {
     public class NewLaunchesController : Controller
@@ -15,22 +15,33 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         {
             _newLaunches = newLaunches;
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 15 Feb 2017
+        /// Summary:- Added make widget changes for landing page
+        /// </summary>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         [Route("m/newlaunches/")]
         public ActionResult Index(ushort? pageNumber)
         {
             ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
             ViewBag.PageSize = 10;
+            int TopCount = 6;
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
-            ViewBag.Makes = _newLaunches.GetMakeList();
+            IEnumerable<BikesCountByMakeEntityBase> makes = _newLaunches.GetMakeList();
+            if (makes != null && makes.Count() > 0)
+            {
+                ViewBag.TopMakes = makes.Take(TopCount);
+                ViewBag.OtherMakes = makes.Count() > TopCount ? makes.Skip(TopCount).OrderBy(m => m.Make.MakeName) : null;
+            }
             ViewBag.Years = _newLaunches.YearList();
             ViewBag.Description = "Check out the latest bikes in India. Explore the recently launched bikes of Honda, Bajaj, Hero, Royal Enfield and other major brands.";
-            ViewBag.Title = "New Bike Launches| Latest Bikes in India- BikeWale";
+            ViewBag.Title = "New Bike Launches | Latest Bikes in India- BikeWale";
             ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
 
             ViewBag.pager = new PagerEntity()
@@ -72,7 +83,8 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         [Route("m/newlaunches/makes/")]
         public ActionResult Makes(bool showCount)
         {
-            return PartialView("~/views/m/shared/_newlaunchedbymake.cshtml");
+            return PartialView("~/views/m/shared/_newlaunchedbymake.cshtml"); ;
+
         }
 
         [Route("m/newlaunches/years/")]
