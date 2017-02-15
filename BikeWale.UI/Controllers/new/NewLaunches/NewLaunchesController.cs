@@ -1,6 +1,8 @@
-﻿using Bikewale.Interfaces.BikeData.NewLaunched;
+﻿using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.NewLaunched;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-
 namespace Bikewale.Controllers.Desktop.NewLaunches
 {
     public class NewLaunchesController : Controller
@@ -11,10 +13,21 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         {
             _newLaunches = newLaunches;
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 15 Feb 2017
+        /// Summary:- Added make widget changes for landing page
+        /// </summary>
+        /// <param name="pageNumber"></param>
         [Route("newlaunches/")]
         public ActionResult Index()
         {
+            int TopCount = 10;
+            IEnumerable<BikesCountByMakeEntityBase> makes = _newLaunches.GetMakeList();
+            if (makes != null && makes.Count() > 0)
+            {
+                ViewBag.TopMakes = makes.Take(TopCount);
+                ViewBag.OtherMakes = makes.Count() > TopCount ? makes.Skip(TopCount).OrderBy(m => m.Make.MakeName) : null;
+            }
             ViewBag.Years = _newLaunches.YearList();
             return View("~/views/newlaunches/index.cshtml");
         }

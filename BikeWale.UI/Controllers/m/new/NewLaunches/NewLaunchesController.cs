@@ -26,13 +26,14 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         {
             ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
             ViewBag.PageSize = 10;
-            int TopCount = 6;
+
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
+            int TopCount = 6;
             IEnumerable<BikesCountByMakeEntityBase> makes = _newLaunches.GetMakeList();
             if (makes != null && makes.Count() > 0)
             {
