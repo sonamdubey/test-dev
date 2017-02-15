@@ -1,12 +1,14 @@
 ﻿<%@ Control Language="C#" Inherits="Bikewale.Mobile.Controls.LinkPagerControl" %>
 <%if(TotalPages > 1 ) { %>
 
-    <div id="pagination-list-content" class="grid-7 alpha omega position-rel rightfloat">
-    <ul id="pagination-list">
+    <div id="pagination-list-content" class="pagination-list-content grid-7 alpha omega position-rel rightfloat">
+    <ul id="pagination-list" class="pagination-list">
         <asp:Repeater ID="rptPager" runat="server">
             <ItemTemplate>
                 <li  class="<%# Convert.ToInt16(DataBinder.Eval(Container.DataItem,"PageNo")) == CurrentPageNo ? "active" : "" %>">
-                    <%# Convert.ToInt16(DataBinder.Eval(Container.DataItem,"PageNo")) == CurrentPageNo ? DataBinder.Eval(Container.DataItem,"PageNo") : "<a data-hash="+ string.Format("city={0}&make={1}&model={2}", CityId, MakeId,ModelId) + " data-bind='click: function (d,e) { ChangePageNumber(e) }' href=" + DataBinder.Eval(Container.DataItem,"PageUrl").ToString() + " data-pagenum="+ DataBinder.Eval(Container.DataItem,"PageNo") + ">" + DataBinder.Eval(Container.DataItem,"PageNo").ToString() + "</a>" %></li>
+                    <%# Convert.ToInt16(DataBinder.Eval(Container.DataItem,"PageNo")) == CurrentPageNo ? 
+                    DataBinder.Eval(Container.DataItem,"PageNo") : 
+                    "<a data-hash="+ string.Format("city={0}&make={1}&model={2}", CityId, MakeId,ModelId) + " data-bind='click: function (d,e) { ChangePageNumber(e) }' href=" + DataBinder.Eval(Container.DataItem,"PageUrl").ToString() + " data-pagenum="+ DataBinder.Eval(Container.DataItem,"PageNo") + ">" + DataBinder.Eval(Container.DataItem,"PageNo").ToString() + "</a>" %></li>
             </ItemTemplate>
         </asp:Repeater>
     </ul>

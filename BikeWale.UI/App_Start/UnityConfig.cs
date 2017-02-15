@@ -1,14 +1,18 @@
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
@@ -34,6 +38,8 @@ namespace Bikewale
             container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
             container.RegisterType<IBikeInfo, BikeInfo>();
+            container.RegisterType<IPager, Pager>();
+            container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

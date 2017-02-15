@@ -30,7 +30,7 @@ namespace Bikewale.DTO.BikeData.NewLaunched
         [JsonIgnore]
         public DateTime LaunchedOn { get; set; }
         [JsonProperty("launchedOn")]
-        public String DisplayLaunchDate { get { return LaunchedOn.ToString("dd-MMM-yyyy"); } }
+        public String DisplayLaunchDate { get { return LaunchedOn.ToString("dd MMM yyyy"); } }
         [JsonProperty("city")]
         public City.CityBase City { get; set; }
         [JsonProperty("price")]

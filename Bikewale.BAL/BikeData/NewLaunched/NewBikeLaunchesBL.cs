@@ -29,6 +29,8 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Returns New Launched MakeList with Bike count
+        /// Modified by :   Sumit Kate on 15 Feb 2017
+        /// Description :   Replaced Linq query with Linq lambda syntax
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikesCountByMakeEntityBase> GetMakeList()
@@ -39,14 +41,19 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 var bikes = _modelCache.GetNewLaunchedBikesList();
                 if (bikes != null)
                 {
-                    makeList = from bike in bikes
-                               group bike by bike.Make.MakeId into grpMake
-                               select new BikesCountByMakeEntityBase()
-                               {
-                                   BikeCount = grpMake.Count(),
-                                   Make = grpMake.FirstOrDefault(m => m.Make.MakeId == grpMake.Key).Make
-                               };
-                    makeList = makeList.OrderBy(make => make.Make.PopularityIndex);
+                    var grpMakes = bikes
+                        .GroupBy(m => m.Make.MakeId, m => new { Make = m.Make });
+
+                    if (grpMakes != null)
+                    {
+                        makeList = grpMakes
+                                        .Select(m => new BikesCountByMakeEntityBase()
+                                        {
+                                            BikeCount = grpMakes.Count(),
+                                            Make = m.FirstOrDefault().Make
+                                        })
+                                        .OrderBy(make => make.Make.PopularityIndex);
+                    }
                 }
             }
             catch (Exception ex)
@@ -59,6 +66,8 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Returns New Launched Years list with count
+        /// Modified by :   Sumit Kate on 15 Feb 2017
+        /// Description :   Use group and iterate group to get final result
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikesCountByYearEntityBase> YearList()
@@ -69,10 +78,20 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 var bikes = _modelCache.GetNewLaunchedBikesList();
                 if (bikes != null)
                 {
-                    years = bikes
-                                .GroupBy(m => m.LaunchedOn.Year)
-                                .Select(g => new BikesCountByYearEntityBase { Year = g.Key, BikeCount = g.Count() })
+                    var grpYear = bikes
+                                .GroupBy(m => m.LaunchedOn.Year, m => new { bikeName = String.Format("{0} {1}", m.Make.MakeName, m.Model.ModelName) });
+                    if (grpYear != null)
+                    {
+                        years = grpYear
+                                .Select(
+                                m => new BikesCountByYearEntityBase()
+                                        {
+                                            Year = m.Key,
+                                            BikeCount = m.Count(),
+                                            Bikes = m.Select(b => (b.bikeName)).Take(3)
+                                        })
                                 .OrderByDescending(m => m.Year);
+                    }
                 }
             }
             catch (Exception ex)

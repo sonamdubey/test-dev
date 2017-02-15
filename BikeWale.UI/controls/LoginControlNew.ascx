@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<%= Bikewale.Common .CommonOpn.AppPath + "users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl %>">
+                    <a href="<%= Bikewale.Common.CommonOpn.AppPath + "users/login.aspx?logout=logout&ReturnUrl=" + HttpContext.Current.Request.RawUrl %>">
                         <span class="bwsprite login-logout-icon"></span>
                         <span class="profile-option-title">Log out</span>
                     </a>

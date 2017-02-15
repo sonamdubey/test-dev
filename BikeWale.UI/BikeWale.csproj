@@ -450,7 +450,12 @@
     <Compile Include="Controllers\m\Content\ExpertReviewsController.cs" />
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
+    <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
+    <Compile Include="Controllers\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
+    <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1204,6 +1209,10 @@
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikelaunch\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1441,6 +1450,10 @@
     </Compile>
     <Compile Include="BikeBooking\BookingListing.aspx.cs">
       <DependentUpon>BookingListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\newbikelaunch\Default_v2.aspx.cs">
+      <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="servicecenter\Default.aspx.cs">
@@ -2243,7 +2256,6 @@
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
-    <Content Include="css\sell-bike.css" />
     <Content Include="css\service\details.css" />
     <Content Include="css\service\landing.css" />
     <Content Include="css\service\listing.css" />
@@ -2765,7 +2777,6 @@
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\photos.css" />
-    <Content Include="m\css\sell-bike.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
     <Content Include="m\css\service\listing.css" />
@@ -2788,6 +2799,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\new\newbikelaunch\Default_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
     <Content Include="m\service\faq.aspx" />
@@ -2873,6 +2885,7 @@
     <Content Include="m\src\compare\landing.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
+    <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
@@ -2921,7 +2934,26 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
+    <Content Include="m\sass\new-launch\new-launch.sass" />
+    <Content Include="m\sass\new-launch\_new-launch-style.sass" />
+    <Content Include="m\sass\modules\_brand-logo.sass" />
+    <Content Include="m\sass\modules\_landing-card.sass" />
+    <Content Include="m\sass\modules\_collapsible-content.sass" />
+    <Content Include="m\sass\modules\_key-specs.sass" />
+    <Content Include="m\sass\modules\_button.sass" />
+    <Content Include="m\sass\new-launch\_media-query.sass" />
+    <Content Include="sass\new-launch\new-launch.sass" />
+    <Content Include="sass\new-launch\_new-launch-style.sass" />
+    <Content Include="sass\modules\_collapsible-content.sass" />
+    <Content Include="sass\modules\_key-specs.sass" />
+    <Content Include="sass\modules\_button.sass" />
+    <Content Include="sass\modules\_pagination.sass" />
+    <Content Include="sass\modules\_brand-collapsible.sass" />
+    <Content Include="sass\modules\_year-carousel.sass" />
+    <Content Include="m\sass\modules\_pagination.sass" />
+    <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -2957,6 +2989,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\new-launch.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
@@ -3227,7 +3260,7 @@
     <Content Include="sass\service\landing.sass" />
     <Content Include="sass\service\_landing-style.sass" />
     <Content Include="sass\modules\_brand-logo.sass" />
-    <Content Include="sass\service\_brand-carousel.sass" />
+    <Content Include="sass\modules\_brand-carousel.sass" />
     <Content Include="sass\service\_map-carousel.sass" />
     <Content Include="sass\generic\listing.sass" />
     <Content Include="sass\generic\_listing-style.sass" />
@@ -3240,7 +3273,23 @@
     <Content Include="Views\Shared\_Layout_Mobile_AMP.cshtml" />
     <Content Include="Views\m\Content\ExpertReviews\details_amp.cshtml" />
     <Content Include="Views\m\Content\Features\details_amp.cshtml" />
-    <Content Include="Views\m\Shared\BikeInfo.cshtml" />
+    <Content Include="Views\m\Shared\_BikeInfo.cshtml" />
+    <Content Include="Views\m\NewLaunches\Index.cshtml" />
+    <Content Include="Views\m\Shared\_HomePageBanner.cshtml" />
+    <Content Include="Views\m\Shared\_PopupWidget.cshtml" />
+    <Content Include="Views\Pager\PagerControl.cshtml" />
+    <Content Include="Views\m\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\Shared\_Layout_Desktop.cshtml" />
+    <Content Include="Views\Shared\_LoginStatus.cshtml" />
+    <Content Include="Views\Shared\_PopupWidget.cshtml" />
+    <Content Include="Views\Shared\_ChangeLocation.cshtml" />
+    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\NewLaunches\Index.cshtml" />
+    <Content Include="Views\Shared\_LoginControl.cshtml" />
+    <Content Include="Views\m\Shared\_LoginControl.cshtml" />
+    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByMake.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3268,6 +3317,7 @@
     <Folder Include="Views\Features\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
+    <Folder Include="Views\Upcoming\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

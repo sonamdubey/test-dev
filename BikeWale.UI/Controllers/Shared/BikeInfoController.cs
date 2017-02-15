@@ -1,12 +1,10 @@
 ﻿using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Shared
 {
     public class BikeInfoController : Controller
     {
-        private readonly ICacheManager cache = null;
         private readonly IBikeInfo info = null;
 
         //protected GenericBikeInfo bikeInfo { get; set; }

@@ -145,7 +145,6 @@ namespace Bikewale.Controllers.Mobile.Content
             {
                 ErrorClass objErr = new ErrorClass(err, "m/news/details/{basicid}/amp/" + basicid);                
             }
-
             return View("~/views/m/content/news/details_amp.cshtml");
         }
 

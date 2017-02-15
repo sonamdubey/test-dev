@@ -25,28 +25,6 @@ namespace Bikewale.Mobile.Controls
         public uint CityId { get; set; }
         public string ModelId { get; set; }
 
-        //protected override void OnInit(EventArgs e)
-        //{
-        //    InitializeComponent();
-        //}
-
-        //void InitializeComponent()
-        //{
-        //    base.Load += new EventHandler(Page_Load);
-        //}
-        //protected void Page_Load(object sender, EventArgs e)
-        //{
-
-        //    if (TotalPages > 1)
-        //    {
-        //        firstPageUrl = PagerOutput.FirstPageUrl;
-        //        prevPageUrl = PagerOutput.PreviousPageUrl;
-        //        nextPageUrl = PagerOutput.NextPageUrl;
-        //        lastPageUrl = PagerOutput.LastPageUrl;
-        //        BindPagerList();
-        //    }
-        //}
-
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5 June 2014
         /// Summary : To bind repeater for pager

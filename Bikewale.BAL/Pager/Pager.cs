@@ -240,5 +240,34 @@ namespace Bikewale.BAL.Pager
 
             return pageCount;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objPage"></param>
+        /// <returns></returns>
+        public Bikewale.Models.Shared.Pager GetPagerControl(PagerEntity objPage)
+        {
+            Bikewale.Models.Shared.Pager objPager = null;
+            int _startIndex = 0, _endIndex = 0;
+            try
+            {
+                GetStartEndIndex(objPage.PageSize, objPage.PageNo, out _startIndex, out _endIndex);
+
+                objPager = new Models.Shared.Pager();
+                objPager.PagerOutput = GetPager<PagerOutputEntity>(objPage);
+                objPager.CurrentPageNo = objPage.PageNo;
+                objPager.TotalPages = GetTotalPages(objPage.TotalResults, objPage.PageSize);
+                objPager.StartIndex = _startIndex;
+                objPager.EndIndex = _endIndex;
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BAL.Pager.Pager.GetPagerControl()");
+            }
+
+            return objPager;
+        }
     }   // class
 }   // namespace

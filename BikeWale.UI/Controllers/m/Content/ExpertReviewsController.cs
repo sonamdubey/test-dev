@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Bikewale.Entities.CMS.Articles;
+﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Mobile.Content
 {
@@ -101,7 +100,7 @@ namespace Bikewale.Controllers.Mobile.Content
                 {
                     // set all metatags in the variables
                     ViewBag.Description = objExpertReviews.Description.StripHtml();
-                    ViewBag.Canonical = String.Format("{0}/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl,objExpertReviews.ArticleUrl, basicid);
+                    ViewBag.Canonical = String.Format("{0}/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objExpertReviews.ArticleUrl, basicid);
                     ViewBag.MobilePageUrl = String.Format("{0}/m/expert-reviews/{1}-{2}.html", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, objExpertReviews.ArticleUrl, basicid);
                     ViewBag.ArticleSectionTitle = " - BikeWale Expert Reviews";
                     ViewBag.ArticleType = "Article";
