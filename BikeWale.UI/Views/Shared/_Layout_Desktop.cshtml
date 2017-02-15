@@ -229,54 +229,7 @@ string GetGTTargeting(int targetId, string target)
                 <div class="clear"></div>
             </div>
         </div>
-        }
-
-        @if (IsHomePage)
-        {
-            <header class="home-top-banner">
-                <div class="container top-campaign-banner-container">
-                    <div class="welcome-box">
-                        <h1>Find your bike</h1>
-                        <p class="banner-subheading font20">Get Comprehensive Information on Bike Prices, Specs, Reviews & More!</p>
-                        <div class="margin-top60">
-                            <div class="bike-search-container position-rel">
-                                <div class="bike-search new-bike-search position-rel">
-                                    <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
-                                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                                </div>
-                                <div class="findBtn">
-                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
-                                </div>
-                                <div class="clear"></div>
-                                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                                    <li class="ui-menu-item" tabindex="-1">
-                                        <span class="text-bold">Oops! No suggestions found</span><br />
-                                        <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                                    </li>
-                                </ul>
-                                <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    @*<% if(bannerEntity!=null) { %>
-                    <%= bannerEntity.DesktopCss %>
-                    <%= bannerEntity.DesktopHtml %>
-                    <%= bannerEntity.DesktopJS %>
-                    <% } %>*@
-                </div>
-            </header>
-        }
-
-        @if(Ad_976x400First)
-        { 
-        <section>
-            <div id='div-gpt-ad-@AdId-6' class=" margin-top15 text-center ">
-                <script type='text/javascript'>
-                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-@AdId-6'); });
-                </script>
-            </div>
-        </section>
-        }
+        }        
         @RenderBody()
         @Html.Partial("~/Views/Shared/_PopupWidget.cshtml");
         @if(Ad_970x90Bottom){ 
