@@ -34,7 +34,6 @@ $(".chosen-select").chosen().change(function () {
 
 // more brand - collapse
 $('.view-brandType').click(function (e) {
-    debugger;
     var element = $(this),
         elementParent = element.closest('.collapsible-brand-content'),
         moreBrandContainer = elementParent.find('.brandTypeMore');
