@@ -33,7 +33,8 @@ $(".chosen-select").chosen().change(function () {
 });
 
 // more brand - collapse
-$('.view-brandType').click(function () {
+$('.view-brandType').click(function (e) {
+    debugger;
     var element = $(this),
         elementParent = element.closest('.collapsible-brand-content'),
         moreBrandContainer = elementParent.find('.brandTypeMore');
@@ -48,4 +49,8 @@ $('.view-brandType').click(function () {
         moreBrandContainer.slideUp();
         element.text('View more brands');
     }
+
+    e.preventDefault();
+    e.stopPropagtion();
+
 });
