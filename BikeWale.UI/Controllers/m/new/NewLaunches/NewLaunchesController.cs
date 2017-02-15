@@ -57,16 +57,16 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             return View("~/views/m/newlaunches/index.cshtml");
         }
 
-        [Route("m/newlaunches/make/{makeId}/")]
-        public ActionResult Index(uint makeId, ushort? pageNumber)
+        [Route("m/newlaunches/make/{maskingName}/")]
+        public ActionResult bikesByMake(string maskingName, ushort? pageNumber)
         {
-            return View();
+            return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
         [Route("m/newlaunches/year/{launchYear}/")]
-        public ActionResult Index(string launchYear, ushort? pageNumber)
+        public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
         {
-            return View();
+            return View("~/views/m/newlaunches/bikesbyyear.cshtml");
         }
 
         /// <summary>
