@@ -6,7 +6,7 @@
             @foreach (var makeDetails in ViewBag.TopMakes)
             {
                 <li>
-                    <a href="/m/@Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName))" title="Newly launched @makeDetails.Make.MakeName bikes">
                         <span class="brand-type">
                             <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
                         </span>
@@ -21,7 +21,7 @@
             @foreach (var makeDetails in ViewBag.OtherMakes)
             {
                 <li>
-                    <a href="/m/@Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName))" title="Newly launched @makeDetails.Make.MakeName bikes">
                         <span class="brand-type">
                             <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
                         </span>

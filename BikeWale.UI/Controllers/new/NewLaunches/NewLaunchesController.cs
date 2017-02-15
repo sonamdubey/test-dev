@@ -13,7 +13,11 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         {
             _newLaunches = newLaunches;
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 15 Feb 2017
+        /// Summary:- Added make widget changes for landing page
+        /// </summary>
+        /// <param name="pageNumber"></param>
         [Route("newlaunches/")]
         public ActionResult Index()
         {

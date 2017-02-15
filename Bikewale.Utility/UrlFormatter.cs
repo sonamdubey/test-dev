@@ -29,7 +29,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string NewLaunchePageUrl(string makeMaskingName)
         {
-            return String.Format("new-{0}-bikes-launches/", makeMaskingName);
+            return String.Format("/new-{0}-bikes-launches/", makeMaskingName);
         }
         public static string FormatVideoPageUrl(string makeMaskingName, string modelMaskingName)
         {
