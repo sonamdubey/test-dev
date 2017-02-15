@@ -16,6 +16,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: added new method GetMostPopularBikesbyMakeCity
     /// Modified by: Subodh Jain on 17 jan 2017
     /// Description: added new method GetUserReviewSimilarBike
+    /// Modified by: Sangram Nandkhile on 10 Feb 2017
+    /// Description: Added new method GetModelPhotoGalleryWithMainImage, GetModelPageDetailsNew which has extra main model image
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -30,12 +32,12 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null);
         //List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null);
         BikeModelPageEntity GetModelPageDetails(U modelId);
-        BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
+        BikeModelPageEntity GetModelPageDetailsNew(U modelId);
         //IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         List<ModelImage> GetBikeModelPhotoGallery(U modelId);
+        List<ModelImage> GetModelPhotoGalleryWithMainImage(U ModelId);
         BikeModelContent GetRecentModelArticles(U modelId);
-        IEnumerable<ModelImage> GetModelPhotos(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
     }

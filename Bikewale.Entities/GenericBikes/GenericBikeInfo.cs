@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.GenericBikes
 {
@@ -10,6 +11,10 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : To get genericbike info with min specs
     /// Modified By : Aditi Srivastava on 23 Jan 2017
     /// Summary     : Added estimated min and max price and used, new and futuristic flags
+    /// Modified  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details 
+    /// Modified by : Sajal Gupta on 14-02-2017
+    /// Description : Added PriceInCity
     /// </summary>
     [Serializable]
     public class GenericBikeInfo
@@ -23,6 +28,7 @@ namespace Bikewale.Entities.GenericBikes
         public uint NewsCount { get; set; }
         public uint ExpertReviewsCount { get; set; }
         public uint FeaturesCount { get; set; }
+        public uint UserReview { get; set; }
         public bool IsSpecsAvailable { get; set; }
         public MinSpecsEntity MinSpecs { get; set; }
         public uint BikePrice { get; set; }
@@ -31,5 +37,40 @@ namespace Bikewale.Entities.GenericBikes
         public bool IsUsed { get; set; }
         public bool IsNew { get; set; }
         public bool IsFuturistic { get; set; }
+        public UInt32 UsedBikeCount { get; set; }
+        public uint UsedBikeMinPrice { get; set; }
+        public uint DealersCount { get; set; }
+        public ICollection<BikeInfoTab> Tabs { get; set; }
+        public uint PriceInCity { get; set; }
     }
+    /// Created  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
+    [Serializable]
+    public class BikeInfoTab
+    {
+        public BikeInfoTabType Tab { get; set; }
+        public string TabText { get; set; }
+        public string URL { get; set; }
+        public string IconText { get; set; }
+        public string Title { get; set; }
+        public uint Count { get; set; }
+        public bool IsVisible { get; set; }
+    }
+    /// Created  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
+    /// Modified by : Sajal Gupta on 13-02-2017
+    /// Added PriceInCity.
+    public enum BikeInfoTabType
+    {
+        ExpertReview = 1,
+        Image = 2,
+        Specs = 3,
+        News = 4,
+        Videos = 5,
+        UserReview = 6,
+        Dealers = 7,
+        PriceInCity = 8
+
+    }
+
 }

@@ -1,0 +1,30 @@
+﻿@if (@ViewBag.Years != null)
+{
+    <div class="grid-12">
+        <div class="content-box-shadow padding-top20 padding-bottom20">
+            <div class="jcarousel-wrapper inner-content-carousel year-type-carousel">
+                <div class="jcarousel">
+                    <ul>
+                        @foreach (var BikeYear in @ViewBag.Years)
+                        {
+                            <li>
+                                <a href="@Bikewale.Utility.UrlFormatter.FormatBikeLaunchedYearUrl(BikeYear.Year)" title="Bikes launched in @BikeYear.Year" class="jcarousel-card">
+                                    <div class="card-image-block">
+                                        <span>@BikeYear.Year</span>
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <h3 class="margin-bottom5">Bikes launched in @BikeYear.Year</h3>
+                                        <p class="font12 text-light-grey text-truncate">@string.Join(", ", BikeYear.Bikes)</p>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+}

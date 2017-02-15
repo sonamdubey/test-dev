@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
@@ -32,6 +33,10 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :- Added GetSimilarBikesVideos method
     /// Modified By : Aditi Srivastava on 17 Jan 2017
     /// Description : Edited function to get top 10 bikes and their mopdelcount by bodystyle and cityid.
+    /// Modified by :   Sumit Kate on 10 Feb 2017
+    /// Description :   Added GetNewLaunchedBikesList 
+    /// Modified  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -71,7 +76,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
         List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
         BikeModelContent GetRecentModelArticles(U modelId);
-        ModelPhotos GetModelPhotoInfo(U modelId);
+        ModelHostImagePath GetModelPhotoInfo(U modelId);
         IEnumerable<SimilarBikesWithPhotos> GetAlternativeBikesWithPhotos(U modelId, ushort totalRecords);
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);
@@ -79,11 +84,13 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId);
-        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
+        GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
-
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
     }
 }
