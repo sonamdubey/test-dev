@@ -1460,6 +1460,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\newbikelaunch\BikesByMake.aspx.cs">
+      <DependentUpon>BikesByMake.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\newbikelaunch\Default_v2.aspx.cs">
       <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2944,6 +2948,7 @@
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
     <Content Include="App_Data\wurfl.xml.gz" />
+    <Content Include="new\newbikelaunch\BikesByMake.aspx" />
     <Content Include="m\sass\new-launch\new-launch.sass" />
     <Content Include="m\sass\new-launch\_new-launch-style.sass" />
     <Content Include="m\sass\modules\_brand-logo.sass" />
