@@ -1,21 +1,18 @@
-﻿
+﻿@using Bikewale.Entities.BikeData.NewLaunched;
+
 @{
     ViewBag.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     ViewBag.AdId = "1398766302464";
     ViewBag.Ad_Bot_320x50 = true;
-    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+    ViewBag.Page_JS_Path = "/m/src/new-launch.js";
+
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
+
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    ViewBag.pager = new Bikewale.Entities.Pager.PagerEntity(){
-        PageNo = 1,
-        PageSize=10,
-        PagerSlotSize=5,
-        BaseUrl = "/m/new-bikes-launches/",
-        PageUrlType = "page/",
-        TotalResults = 24
-    };
+
+    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";    
+
 }
 <section>
     <div class="container new-launch-banner text-center">
@@ -50,7 +47,7 @@
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    @{ Html.RenderAction("Years", "NewLaunches"); }
+    @Html.Partial("~/views/m/shared/_newlaunchedbyyear.cshtml", objYears);
     
 </section>
 
@@ -167,94 +164,6 @@
     </div>
 </section>
 
-<div id="brand-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
-    <div class="drawer-top-header">
-        <span id="close-brand-slideIn-drawer" class="back-arrow-box inline-block">
-            <span class="bwmsprite back-long-arrow-left"></span>
-        </span><p class="head-label inline-block">Select brand</p>
-    </div>
-    <div class="drawer-body-content">
-        <div class="filter-input-box">
-            <div class="form-control-box">
-                <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
-                <span class="bwmsprite search-icon-grey"></span>
-            </div>
-        </div>
-        <ul class="filter-list">
-            <li>
-                <span>Bajaj</span>
-            </li>
-            <li>
-                <span>Honda</span>
-            </li>
-            <li>
-                <span>Hero</span>
-            </li>
-            <li>
-                <span>Royal Enfield</span>
-            </li>
-            <li>
-                <span>Yamaha</span>
-            </li>
-            <li>
-                <span>Bajaj</span>
-            </li>
-            <li>
-                <span>Honda</span>
-            </li>
-            <li>
-                <span>Hero</span>
-            </li>
-            <li>
-                <span>Royal Enfield</span>
-            </li>
-            <li>
-                <span>Yamaha</span>
-            </li>
-            <li>
-                <span>Bajaj</span>
-            </li>
-            <li>
-                <span>Honda</span>
-            </li>
-            <li>
-                <span>Hero</span>
-            </li>
-            <li>
-                <span>Royal Enfield</span>
-            </li>
-            <li>
-                <span>Yamaha</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
-    <div class="drawer-top-header">
-        <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
-            <span class="bwmsprite back-long-arrow-left"></span>
-        </span><p class="head-label inline-block">Select year</p>
-    </div>
-    <div class="drawer-body-content">
-        <ul class="filter-list">
-            <li>
-                <span>2017</span>
-            </li>
-            <li>
-                <span>2016</span>
-            </li>
-            <li>
-                <span>2015</span>
-            </li>
-            <li>
-                <span>2014</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
 <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
-<script type="text/javascript" src="@(ViewBag.staticUrl != "" ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/new-launch.js?@ViewBag.staticFileVersion"></script>
 
 

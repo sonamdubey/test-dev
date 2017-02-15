@@ -1,5 +1,10 @@
-﻿@{
-    Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
+﻿@using Bikewale.Entities.BikeData.NewLaunched;
+
+@{       
+    
+    NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
+    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
+    IEnumerable<BikesCountByMakeEntityBase> objMakes = ViewBag.Makes;
 }
 
 @if (objBikeList != null)
@@ -75,3 +80,53 @@
     </div>
 }
 
+
+ @if (objMakes != null)
+ {
+
+    <div id="brand-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+        <div class="drawer-top-header">
+            <span id="close-brand-slideIn-drawer" class="back-arrow-box inline-block">
+                <span class="bwmsprite back-long-arrow-left"></span>
+            </span><p class="head-label inline-block">Select brand</p>
+        </div>
+        <div class="drawer-body-content">
+            <div class="filter-input-box">
+                <div class="form-control-box">
+                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
+                    <span class="bwmsprite search-icon-grey"></span>
+                </div>
+            </div>
+            <ul class="filter-list">
+                @foreach(var make in objMakes)
+                {
+                     <li>
+                    <span>@make.Make.MakeName</span>
+                </li>
+                }
+                
+            </ul>
+        </div>
+    </div>
+ }
+ 
+@if (objYears != null)
+ {
+<div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
+    <div class="drawer-top-header">
+        <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
+            <span class="bwmsprite back-long-arrow-left"></span>
+        </span><p class="head-label inline-block">Select year</p>
+    </div>
+    <div class="drawer-body-content">
+        <ul class="filter-list">
+            @foreach(var year in objYears)
+            {
+                <li>
+                    <span>@year.Year</span>
+                </li>  
+            }
+        </ul>
+    </div>
+</div>
+}

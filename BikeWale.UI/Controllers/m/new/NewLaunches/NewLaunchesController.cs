@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Mobile.NewLaunches
@@ -17,15 +19,29 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         [Route("m/newlaunches/")]
         public ActionResult Index(ushort? pageNumber)
         {
+            ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
+            ViewBag.PageSize = 10;
             var objFilters = new InputFilter()
             {
-                PageNo = (int)(pageNumber.HasValue ? pageNumber : 1),
-                PageSize = 10
+                PageNo = ViewBag.PageNumber,
+                PageSize = ViewBag.PageSize
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
+            ViewBag.Makes = _newLaunches.GetMakeList();
+            ViewBag.Years = _newLaunches.YearList();
             ViewBag.Description = "Check out the latest bikes in India. Explore the recently launched bikes of Honda, Bajaj, Hero, Royal Enfield and other major brands.";
             ViewBag.Title = "New Bike Launches| Latest Bikes in India- BikeWale";
             ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
+
+            ViewBag.pager = new PagerEntity()
+            {
+                PageNo = ViewBag.PageNumber,
+                PageSize = ViewBag.PageSize,
+                PagerSlotSize = 5,
+                BaseUrl = "/m/new-bikes-launches/",
+                PageUrlType = "page/",
+                TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
+            };
 
             return View("~/views/m/newlaunches/index.cshtml");
         }
@@ -62,7 +78,8 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         [Route("m/newlaunches/years/")]
         public ActionResult Years()
         {
-            return PartialView("~/views/m/shared/_newlaunchedbyyear.cshtml");
+            IEnumerable<BikesCountByYearEntityBase> objYears = _newLaunches.YearList();
+            return PartialView("~/views/m/shared/_newlaunchedbyyear.cshtml", objYears);
         }
 
         [Route("m/newlaunches/yearwise/make/{makeId}/")]
