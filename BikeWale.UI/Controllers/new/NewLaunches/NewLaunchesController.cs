@@ -18,5 +18,11 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             ViewBag.Years = _newLaunches.YearList();
             return View("~/views/newlaunches/index.cshtml");
         }
+
+        [Route("newlaunches/make/{makeMaskingName}/")]
+        public ActionResult Index(string makeMaskingName, ushort? pageNumber)
+        {
+            return View("~/views/newlaunches/bikesbymake.cshtml");
+        }
     }
 }
