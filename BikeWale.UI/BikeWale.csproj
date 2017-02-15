@@ -1209,6 +1209,10 @@
       <DependentUpon>BikeListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\newbikelaunch\BikesByMake.aspx.cs">
+      <DependentUpon>BikesByMake.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\newbikelaunch\Default_v2.aspx.cs">
       <DependentUpon>Default_v2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2799,6 +2803,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
+    <Content Include="m\new\newbikelaunch\BikesByMake.aspx" />
     <Content Include="m\new\newbikelaunch\Default_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
     <Content Include="m\service\Default.aspx" />
@@ -2952,6 +2957,7 @@
     <Content Include="sass\modules\_year-carousel.sass" />
     <Content Include="m\sass\modules\_pagination.sass" />
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
+    <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="servicecenter\Default.aspx" />
@@ -3189,7 +3195,7 @@
     <Content Include="m\sass\modules\_textarea-box.sass" />
     <Content Include="m\sass\modules\_bike-popup.sass" />
     <Content Include="m\sass\modules\_slideIn-drawer.sass" />
-    <Content Include="m\sass\service\_brand-carousel.sass" />
+    <Content Include="m\sass\modules\_brand-carousel.sass" />
     <Content Include="m\sass\service\_map-carousel.sass" />
     <Content Include="m\sass\generic\listing.sass" />
     <Content Include="m\sass\generic\_listing-style.sass" />
