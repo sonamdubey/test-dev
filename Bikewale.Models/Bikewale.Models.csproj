@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Pager.cs" />
@@ -51,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Desktop\" />
-    <Folder Include="Mobile\NewLaunches\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

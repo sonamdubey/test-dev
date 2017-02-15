@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
@@ -29,7 +30,12 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added function to get top 10 bikes by bodystyle
     /// Mocified by : Sajal Gupta on 02-02-2017
     /// Description : Modified function GetBestBikesByCategory
+    /// Modified by :   Sumit Kate on 10 Feb 2017
+    /// Description :   Added GetNewLaunchedBikesList     
+    /// Modified  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
     /// <typeparam name="U"></typeparam>
+    /// </summary>
     public interface IBikeModelsCacheRepository<U>
     {
         BikeModelPageEntity GetModelPageDetails(U modelId);
@@ -49,8 +55,11 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
-        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
+        GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
     }
 }

@@ -20,11 +20,6 @@
     border-radius:2px;
 }
 
-.vertical-top {
-    display:inline-block;
-    vertical-align:top;
-}
-
 .dealership-card-details { 
     width:92%
 }

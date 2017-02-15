@@ -108,7 +108,7 @@ div#globalPopupBlackOut {z-index: 9; }
 .user-profile-image { display: table-cell; width: 60px; height: 60px; overflow: hidden; vertical-align: middle; }
 .user-profile-name { display: table-cell; width: 150px; vertical-align: middle; }
 .profileUL li a:hover, .navUL li a.active { font-weight: 600; cursor: pointer; }
-.login-edit-icon, .login-garage-icon, .login-password-icon, .login-logout-icon { vertical-align:middle; }
+.login-password-icon, .login-logout-icon { vertical-align:middle; }
  
 /* login code */
 .loginPopUpWrapper { right:-400px; width: 400px; left: inherit; }
@@ -196,13 +196,49 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .back-circle-icon { background-position: -107px -291px; }
 .jcarousel li:hover .back-circle-icon { background-position: -150px -291px; }
 
-.login-edit-icon, .login-garage-icon, .login-password-icon, .login-logout-icon { width: 24px; height: 22px; position: relative; top: -2px; margin-right: 10px; }
-.login-edit-icon { background-position:-150px -160px; }
-.login-garage-icon { background-position:-150px -190px; }
+.login-password-icon, .login-logout-icon { width: 24px; height: 22px; position: relative; top: -2px; margin-right: 10px; }
 .login-password-icon { background-position: 0 -213px; }
 .login-logout-icon { background-position: 0 -74px; left: 2px; }
 
 .fa-angle-down { width:11px; height:6px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/d/dropArrowBg.png?v1=03Mar2016) no-repeat 96% 50%; }
+
+.next-grey-icon {
+    width: 8px;
+    height: 12px;
+    position: relative;
+    background-position: -222px -187px;
+    vertical-align: middle;
+}
+
+.photos-sm,
+.videos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.photos-sm {
+    background-position: -136px -235px;
+}
+.videos-sm {
+    background-position: -136px -251px;
+}
+
+/* btn arrows */
+.btn-red-arrow {
+    width: 6px;
+    height: 10px;
+    background-position: -222px 0;
+    margin-left: 5px;
+    position: relative;
+    top: 1px;
+}
+
+.btn-white:focus .btn-red-arrow,
+.btn-white:hover .btn-red-arrow {
+    background-position: -222px -14px;
+}
 
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
@@ -217,7 +253,6 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .video-image-thumbnail { position:relative; height: 164px; }
 .play-icon-wrapper { width: 292px; height: 100%; display: block; position:absolute; top:0; left:10px; margin: 0 auto; text-align:center; padding-top:20%; background: transparent; background: rgba(0,0,0,0.2) }
 .video-play-icon { width:38px; height:38px; background-position:0 -544px; }
-.text-truncate { width:90%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 
 /* On road price popup */
 /*PopupWidget Styling*/
@@ -240,6 +275,10 @@ a.action-btn:hover{text-decoration:none;}
 
 .booking-how-it-works { background-color: #cbcbcb; width: 976px; height: 1291px; }
 
+/* new common classes */
+.hover-no-underline:hover {
+    text-decoration: none;
+}
 
 .bg-footer { background: #323434; }
 .margin-left-1 { margin-left:-1px;}

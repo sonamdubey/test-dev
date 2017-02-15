@@ -284,7 +284,7 @@
     <Compile Include="BindViewModels\Controls\BindDealersCountInNearByCitiesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCareControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindGenericBikeInfo.cs" />
+    <Compile Include="BindViewModels\Controls\BindBikeInfo.cs" />
     <Compile Include="BindViewModels\Controls\BindGenericBikeRankingControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
@@ -318,6 +318,7 @@
     <Compile Include="BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="BindViewModels\Webforms\Compare\CompareBikes.cs" />
+    <Compile Include="BindViewModels\Webforms\Compare\CompareBikesDetails.cs" />
     <Compile Include="BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
     <Compile Include="BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
@@ -984,10 +985,6 @@
     </Compile>
     <Compile Include="m\controls\GenericBikeInfoControl.ascx.cs">
       <DependentUpon>GenericBikeInfoControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\MinGenericBikeInfoControl.ascx.cs">
-      <DependentUpon>MinGenericBikeInfoControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\LeadCaptureControl.ascx.cs">
@@ -2687,7 +2684,6 @@
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ExpertReviewsVideos.ascx" />
     <Content Include="m\controls\GenericBikeInfoControl.ascx" />
-    <Content Include="m\controls\MinGenericBikeInfoControl.ascx" />
     <Content Include="m\controls\LeadCaptureControl.ascx" />
     <Content Include="m\controls\LinkPagerControl.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
@@ -2790,7 +2786,7 @@
     <Content Include="m\css\new\bwm-modelprice-in-city.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
-    <Content Include="m\css\used-details.css" />
+    <Content Include="m\css\used\details.css" />
     <Content Include="m\css\used\search.css" />
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
@@ -2884,6 +2880,7 @@
     <Content Include="m\src\common.js" />
     <Content Include="m\src\common.min.js" />
     <Content Include="m\src\compare\details.js" />
+    <Content Include="m\src\compare\landing.js" />
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
@@ -3288,6 +3285,9 @@
     <Content Include="Views\NewLaunches\Index.cshtml" />
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />
+    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByMake.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

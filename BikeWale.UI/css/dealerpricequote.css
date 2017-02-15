@@ -27,11 +27,6 @@ h3 {
     padding: 14px 20px;
 }
 
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
 /* model-image */
 #pq-image-column.grid-5 {
     width: 375px;
@@ -596,7 +591,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
 .dealership-loc-icon { width:9px; height:12px; background-position:-52px -469px; position:relative;top:4px; }
 .dealership-card-details { width:92%; }
-.vertical-top { display:inline-block;vertical-align:top; }
 .inr-sm, .inr-sm-grey, .inr-sm-dark { width:8px; height:12px; }
 .inr-sm {background-position:-110px -468px; }
 .inr-sm-grey{background-position: -92px -468px;}
@@ -644,13 +638,6 @@ a.text-darker-black:hover { text-decoration:none; }
 
 #makeUsedBikeContent h2 {
     margin-bottom: 20px;
-}
-.btn-truncate {
-   max-width: 230px;
-   text-align: center;
-   text-overflow: ellipsis;
-   white-space: nowrap;
-   overflow: hidden;
 }
 
 /* campaign */

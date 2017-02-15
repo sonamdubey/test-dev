@@ -1,27 +1,13 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.EditCMS;
-using Bikewale.BindViewModels.Webforms.EditCMS;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
-using log4net;
-using Microsoft.Practices.Unity;
 using System;
-using System.Linq;
 using System.Web;
 
 namespace Bikewale.Mobile.Content
@@ -37,7 +23,7 @@ namespace Bikewale.Mobile.Content
         protected ArticleDetails objArticle = null;
         protected NewsDetails objNews;
         protected PageMetaTags metas;
-        protected MinGenericBikeInfoControl ctrlGenericBikeInfo;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected UpcomingBikesMin ctrlUpcomingBikes;
         protected PopularBikesMin ctrlPopularBikes;
         protected GlobalCityAreaEntity currentCityArea;
@@ -45,7 +31,7 @@ namespace Bikewale.Mobile.Content
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected bool isModelTagged;
         private BikeMakeEntityBase _taggedMakeObj;
-        
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -127,6 +113,8 @@ namespace Bikewale.Mobile.Content
         /// Description : Binded popular bikes widget.
         /// Modified by : Aditi Srivastava on 31-01-2017
         /// Description : Added popular bikes widget for tagged models.
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         protected void BindPageWidgets()
         {
@@ -149,7 +137,14 @@ namespace Bikewale.Mobile.Content
 
                 if (isModelTagged)
                 {
-                    ctrlGenericBikeInfo.ModelId = taggedModelId;
+                    if (ctrlGenericBikeInfo != null)
+                    {
+                        ctrlGenericBikeInfo.ModelId = taggedModelId;
+                        ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlGenericBikeInfo.PageId = BikeInfoTabType.News;
+                        ctrlGenericBikeInfo.TabCount = 3;
+                        ctrlGenericBikeInfo.SmallSlug = true;
+                    }
                     if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
