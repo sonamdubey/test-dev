@@ -33,5 +33,11 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         {
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
+
+        [Route("newlaunches/year/{launchYear}/")]
+        public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
+        {
+            return View("~/views/newlaunches/bikesbyyear.cshtml");
+        }
     }
 }
