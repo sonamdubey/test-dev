@@ -2815,7 +2815,7 @@
     <Content Include="m\css\dealer\details.css" />
     <Content Include="m\generic\BikeListing.aspx" />
     <Content Include="m\google863c8bc3ae47cfff.html" />
-    <Content Include="m\new\newbikelaunch\BikeByMakes.aspx" />
+    <Content Include="m\new\newbikelaunch\BikesByMake.aspx" />
     <Content Include="m\new\newbikelaunch\BikesByYear.aspx" />
     <Content Include="m\new\newbikelaunch\Default_v2.aspx" />
     <Content Include="m\new\photos\Default.aspx" />
@@ -3304,7 +3304,6 @@
     <Content Include="Views\Shared\_LoginStatus.cshtml" />
     <Content Include="Views\Shared\_PopupWidget.cshtml" />
     <Content Include="Views\Shared\_ChangeLocation.cshtml" />
-    <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\NewLaunches\Index.cshtml" />
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />
