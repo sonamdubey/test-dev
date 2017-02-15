@@ -520,7 +520,7 @@
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>            
-        @{ Html.RenderAction("Makes", "NewLaunches", new { makeId = 1}); }
+        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml") 
     </div>
 </section>
 
