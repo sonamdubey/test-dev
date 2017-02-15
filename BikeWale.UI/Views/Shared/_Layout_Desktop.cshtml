@@ -179,7 +179,7 @@ string GetGTTargeting(int targetId, string target)
 </head>
 <body>
     <form>
-        <div id="header" class='@(IsHeaderFix ? "header-fixed" : "header-not-fixed" ) @(IsTransparentHeader?"header-landing":"")'>
+        <div id="header" class='@(IsHeaderFix ? "header-fixed" : "header-not-fixed" ) @(IsTransparentHeader?"header-landing header-transparent":"")'>
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
                 <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
@@ -207,7 +207,7 @@ string GetGTTargeting(int targetId, string target)
                     </div>
                 </div>
 
-                @Html.Partial("~/Views/Shared/_LoginStatus.cshtml");
+                @Html.Partial("~/Views/Shared/_LoginStatus.cshtml")
                 <div class="changecity-blackout-window"></div>
                 <div class="clear"></div>
             </div>
@@ -424,7 +424,7 @@ string GetGTTargeting(int targetId, string target)
                 <div class="clear"></div>
             </div>
         </footer><!-- Ends here -->
-        @Html.Partial("~/Views/Shared/_LoginControl.cshtml");
+        @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
         <script>
             if ($(window).width() < 996 && $(window).width() > 790)
                 $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
