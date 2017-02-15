@@ -57,6 +57,9 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
+                         <div class="section-bottom-margin">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
 
                     <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",_bikeTested) : "" %>
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
@@ -75,9 +78,7 @@
                         </li>
                     </ul>
                     <div class="clear"></div>
-                      <div class="section-bottom-margin">
-                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
-            </div>
+                 
                     <%if (objImg != null)
                       { %>
                     <div class="border-solid-top padding-top10">
