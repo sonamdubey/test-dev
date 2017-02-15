@@ -116,6 +116,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// modified by : Sajal Gupta on 9-1-2017
         /// Description : Refreshed memcache popular bike makes key
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -149,10 +151,16 @@ namespace BikeWaleOpr.Content
                     {
                         // Push Data to Carwale DB
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("modelId", _modelId.ToString());
-                        nvc.Add("makeId", cmbMakes.SelectedValue);
-                        nvc.Add("modelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
+                        nvc.Add("v_modelId", _modelId.ToString());
+                        nvc.Add("v_MakeId", cmbMakes.SelectedValue);
+                        nvc.Add("v_ModelName", txtModel.Text.Trim().Replace("'", "''"));
+                        nvc.Add("v_ModelMaskingName", txtMaskingName.Text.Trim());
+                        nvc.Add("v_HostUrl", null);
+                        nvc.Add("v_OriginalImagePath ", null);
+                        nvc.Add("v_New ", "1");
+                        nvc.Add("v_Used ", "1");
+                        nvc.Add("v_Futuristic", "0");
+
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key                       
@@ -179,10 +187,9 @@ namespace BikeWaleOpr.Content
                 }
 
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             BindGrid();
         }
@@ -244,6 +251,12 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();
@@ -277,11 +290,17 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("modelname", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("isused", chkUsed1.Checked.ToString());
-                    nvc.Add("isnew", chkNew1.Checked.ToString());
-                    nvc.Add("isfuturistic", chkFuturistic1.Checked.ToString());
-                    nvc.Add("modelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("v_IsUsed", chkUsed1.Checked.ToString());
+                    nvc.Add("v_IsNew", chkNew1.Checked.ToString());
+                    nvc.Add("v_IsFuturistic", chkFuturistic1.Checked.ToString());
+                    nvc.Add("v_ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_MakeId", null);
+                    nvc.Add("v_ModelMaskingName", null);
+                    nvc.Add("v_HostUrl", null);
+                    nvc.Add("v_OriginalImagePath", null);
+                    nvc.Add("v_IsDeleted", null);
+
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 
@@ -306,7 +325,6 @@ namespace BikeWaleOpr.Content
                     catch (Exception ex)
                     {
                         ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                        errObj.SendMail();
                     }
                 }
 
@@ -316,6 +334,7 @@ namespace BikeWaleOpr.Content
 
                 //Refresh memcache object for bikeModelDetails
                 MemCachedUtil.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
 
                 //Refresh memcache object for popularBikes change
                 MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));

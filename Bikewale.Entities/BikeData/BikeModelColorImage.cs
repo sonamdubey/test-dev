@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -7,7 +9,7 @@ namespace Bikewale.Entities.BikeData
     /// Created by: Sangram Nandkhile on 30 Jan 2017
     /// Desc: Model images by colors, ColorCodeBase and ModelColorBase
     /// </summary>
-
+    [Serializable, DataContract]
     public class ColorCodeBase
     {
         public uint Id { get; set; }
@@ -16,6 +18,7 @@ namespace Bikewale.Entities.BikeData
         public bool IsActive { get; set; }
     }
 
+    [Serializable, DataContract]
     public class ModelColorBase
     {
         public uint Id { get; set; }
@@ -24,13 +27,13 @@ namespace Bikewale.Entities.BikeData
         public IEnumerable<ColorCodeBase> ColorCodes { get; set; }
     }
 
-
+    [Serializable, DataContract]
     public class ModelColorImage : ModelColorBase
     {
-
         public string Host { get; set; }
         public string OriginalImagePath { get; set; }
         public bool IsImageExists { get; set; }
         public uint BikeModelColorId { get; set; }
+        public string ImageCategory { get; set; }
     }
 }

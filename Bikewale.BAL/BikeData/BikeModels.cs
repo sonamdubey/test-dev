@@ -207,83 +207,6 @@ namespace Bikewale.BAL.BikeData
         {
             throw new NotImplementedException();
         }
-        /// <summary>
-        /// Created By: Aditi Srivastava on 17th Aug,2016
-        /// Description: To insert the model image into bike photo gallery at the first position
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        public IEnumerable<ModelImage> GetModelPhotos(U modelId)
-        {
-            List<ModelImage> modelPhotos = null;
-            ModelPhotos modelPhotoInfo = null;
-            try
-            {
-                modelPhotos = GetBikeModelPhotoGallery(modelId);
-                modelPhotoInfo = modelRepository.GetModelPhotoInfo(modelId);
-                if (modelPhotoInfo != null)
-                {
-                    modelPhotoInfo.ImageCategory = "Model Image";
-                    if (modelPhotos != null)
-                    {
-                        modelPhotos.Insert(0,
-                            new ModelImage()
-                            {
-                                HostUrl = modelPhotoInfo.HostURL,
-                                OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                                ImageCategory = modelPhotoInfo.ImageCategory,
-                                MakeBase = new BikeMakeEntityBase()
-                                {
-                                    MakeName = modelPhotoInfo.MakeName
-                                },
-                                ModelBase = new BikeModelEntityBase()
-                                {
-                                    ModelName = modelPhotoInfo.ModelName
-                                },
-                                Caption = "",
-                                ImageTitle = "",
-                                ImageName = modelPhotoInfo.ModelName,
-                                AltImageName = "",
-                                ImageDescription = "",
-                                ImagePathThumbnail = "",
-                                ImagePathLarge = ""
-                            });
-                    }
-                    else
-                    {
-                        modelPhotos = new List<ModelImage>();
-                        modelPhotos.Add(new ModelImage()
-                        {
-                            HostUrl = modelPhotoInfo.HostURL,
-                            OriginalImgPath = modelPhotoInfo.OriginalImgPath,
-                            ImageCategory = modelPhotoInfo.ImageCategory,
-                            MakeBase = new BikeMakeEntityBase()
-                            {
-                                MakeName = modelPhotoInfo.MakeName
-                            },
-                            ModelBase = new BikeModelEntityBase()
-                            {
-                                ModelName = modelPhotoInfo.ModelName
-                            },
-                            Caption = "",
-                            ImageTitle = "",
-                            ImageName = modelPhotoInfo.ModelName,
-                            AltImageName = "",
-                            ImageDescription = "",
-                            ImagePathThumbnail = "",
-                            ImagePathLarge = ""
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPhotos");
-                objErr.SendMail();
-            }
-            return modelPhotos;
-
-        }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 7 Oct 2015
@@ -973,39 +896,7 @@ namespace Bikewale.BAL.BikeData
 
                     #endregion
                 }
-                if (objModelPage != null)
-                {
-                    // Added by : Ashish G. Kamble on 15 Dec 2015
-                    // Get model photo gallery
-                    //if (HttpContext.Current.Response.Cookies["IsMobileSite"].Value == "true")
-                    //    objModelPage.Photos = null;               
-                    //else
-                    //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
 
-                    if (objModelPage.Photos != null)
-                    {
-                        objModelPage.Photos.Insert(0,
-                            new ModelImage()
-                            {
-                                HostUrl = objModelPage.ModelDetails.HostUrl,
-                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                                Caption = objModelPage.ModelDetails.ModelName,
-                                ImageCategory = "Model Image"
-                            });
-                    }
-                    else
-                    {
-                        objModelPage.Photos = new List<ModelImage>();
-                        objModelPage.Photos.Add(new ModelImage()
-                        {
-                            HostUrl = objModelPage.ModelDetails.HostUrl,
-                            OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                            Caption = objModelPage.ModelDetails.ModelName,
-                            ImageCategory = "Model Image"
-                        });
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -1022,7 +913,7 @@ namespace Bikewale.BAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
+        public BikeModelPageEntity GetModelPageDetailsNew(U modelId)
         {
             BikeModelPageEntity objModelPage = null;
             try
@@ -1048,44 +939,10 @@ namespace Bikewale.BAL.BikeData
                         objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
                     }
                 }
-                if (objModelPage != null)
-                {
-                    // Added by : Ashish G. Kamble on 15 Dec 2015
-                    // Get model photo gallery
-                    //if (HttpContext.Current.Response.Cookies["IsMobileSite"].Value == "true")
-                    //    objModelPage.Photos = null;               
-                    //else
-                    //    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);                      
-                    //objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
-
-                    if (objModelPage.Photos != null)
-                    {
-                        objModelPage.Photos.Insert(0,
-                            new ModelImage()
-                            {
-                                HostUrl = objModelPage.ModelDetails.HostUrl,
-                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                                Caption = objModelPage.ModelDetails.ModelName,
-                                ImageCategory = "Model Image"
-                            });
-                    }
-                    else
-                    {
-                        objModelPage.Photos = new List<ModelImage>();
-                        objModelPage.Photos.Add(new ModelImage()
-                        {
-                            HostUrl = objModelPage.ModelDetails.HostUrl,
-                            OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
-                            Caption = objModelPage.ModelDetails.ModelName,
-                            ImageCategory = "Model Image"
-                        });
-                    }
-                }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.BAL.BikeData.GetModelPageDetailsNew => ModelId: {0}"));
             }
 
             return objModelPage;
@@ -1822,7 +1679,34 @@ namespace Bikewale.BAL.BikeData
 
             return objPhotos;
         }
-
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 10 Feb 2017
+        /// Desc: To Fetch model main image and other model images
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public List<ModelImage> GetModelPhotoGalleryWithMainImage(U modelId)
+        {
+            ModelHostImagePath modelInfo = modelRepository.GetModelPhotoInfo(modelId);
+            List<ModelImage> modelImages = GetBikeModelPhotoGallery(modelId);
+            if (modelImages == null)
+                modelImages = new List<ModelImage>();
+            if (modelInfo != null)
+            {
+                string desc = !string.IsNullOrEmpty(modelInfo.ModelName) ? string.Format("{0} Model Image", modelInfo.ModelName) : string.Empty;
+                modelImages.Insert(0,
+                    new ModelImage()
+                    {
+                        HostUrl = modelInfo.HostURL,
+                        OriginalImgPath = modelInfo.OriginalImgPath,
+                        ImageTitle = desc,
+                        ImageCategory = desc,
+                        ImageDescription = desc,
+                        AltImageName = desc
+                    });
+            }
+            return modelImages;
+        }
         public List<ModelImage> GetBikeModelPhotoGallery(U modelId)
         {
             try

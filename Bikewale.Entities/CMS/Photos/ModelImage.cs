@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeData;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -47,27 +46,26 @@ namespace Bikewale.Entities.CMS.Photos
     public class ImageBaseEntity
     {
         [DataMember]
-        [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
         [DataMember]
-        [JsonProperty("imagePathLarge")]
         public string OriginalImgPath { get; set; }
         [DataMember]
-        [JsonProperty("imageType")]
         public ImageBaseType ImageType { get; set; }
-        [JsonProperty("imageTitle")]
+        [DataMember]
         public string ImageTitle { get; set; }
+        [DataMember]
+        public string ImageCategory { get; set; }
     }
 
+    [Serializable, DataContract]
     public class ColorImageBaseEntity : ImageBaseEntity
     {
         [DataMember]
         public uint ColorId { get; set; }
-
         [DataMember]
-        [JsonProperty("colors")]
         public IEnumerable<string> Colors { get; set; }
     }
+    [Serializable, DataContract]
     public enum ImageBaseType
     {
         ModelImage = 1,

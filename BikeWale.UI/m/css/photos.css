@@ -16,11 +16,6 @@
     padding: 15px 20px;
 }
 
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
 /* photos-grid-list */
 .bg-grid {
     background: #f0f0f0;
@@ -98,124 +93,6 @@
     padding-bottom: 56.1%;
 }
 
-/* model-more-info-section */
-.model-more-info-section .item-image-content {
-    width: 68px;
-    height: 38px;
-    margin-right: 5px;
-    display: inline-block;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
-}
-
-.item-image-content img {
-    width: 100%;
-}
-
-.model-more-info-section .bike-details-block {
-    font-size: 14px;
-    width: 70%;
-}
-
-/* ribbon */
-.model-ribbon-tag {
-    position: relative;
-    top: -5px;
-    left: -20px;
-    font-size: 12px;
-    padding: 2px 20px 2px 10px;
-    display: inline-block;
-}
-
-.upcoming-ribbon {
-    color: #fff;
-    background: #4d5057;
-}
-
-.discontinued-ribbon {
-    color: #4d5957;
-    background: #b5b5b5;
-}
-
-.model-ribbon-tag:after {
-    content: '';
-    position: absolute;
-    border-top: 10px solid transparent;
-    border-right: 10px solid #fff;
-    border-bottom: 10px solid transparent;
-    right: 0;
-    top: 0;
-}
-
-.model-more-info-section.ribbon-present {
-    padding-top: 10px;
-}
-
-/* more info list */
-.item-more-details-list li {
-    float: left;
-    margin-bottom: 8px;
-    margin-right: 8px;
-}
-
-.item-more-details-list a:hover {
-    color: #fff;
-    background: #54bbca;
-}
-
-.item-more-details-list a {
-    display: block;
-    padding: 1px 7px;
-    color: #787878;
-    background: rgba(245, 245, 245, 0.9);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-}
-
-.item-more-details-list a:hover {
-    text-decoration: none;
-}
-
-.item-more-details-list .icon-label {
-    font-size: 12px;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 12px;
-}
-
-.text-grey {
-    color: #787878 !important;
-}
-
-/* key-specs-list */
-.key-specs-list li {
-    margin-right: 4px;
-    padding-right: 8px;
-    position: relative;
-    display: inline-block;
-}
-
-.key-specs-list li:before {
-    content: "";
-    width: 1px;
-    height: 11px;
-    position: absolute;
-    top: 3px;
-    right: 0;
-    border-left: 1px solid #b0b0b0;
-}
-
-.key-specs-list li:last-child:before {
-    border-left: 0;
-}
-
-.btn-size-180 {
-    font-size: 14px;
-    width: 180px;
-    padding: 5px 0;
-}
-
 /* videos */
 .review-image-wrapper {
     width: 120px;
@@ -287,7 +164,7 @@
     top: 0;
     left: 0;
     z-index: 10;
-    background: #000;
+    background: #2a2a2a;
     overflow-y: hidden;
 }
 
@@ -304,7 +181,7 @@
     top: 0;
     left: 0;
     z-index: 2;
-    background: rgba(0,0,0,0.6);
+    background: #2a2a2a;
 }
 
 .gallery-header .gallery-title {
@@ -361,9 +238,9 @@
     padding: 5px;
     position: absolute;
     left: 0;
-    top: 12%;
+    top: 10%;
     z-index: 2;
-    background: rgba(0,0,0,0.1);
+    background: rgba(42,42,42,0.1);
 }
 
 .swiper-heading-details .text-truncate {
@@ -495,7 +372,7 @@
 
 /* gallery-footer */
 .gallery-footer {
-    background: #000;
+    background: #2a2a2a;
 }
 
 .footer-tabs-wrapper {
@@ -719,37 +596,33 @@
     display: inline-block;
 }
 
+.next-grey-icon {
+    width: 8px;
+    height: 13px;
+    background-position: -182px -393px;
+    vertical-align: middle;
+}
+
 /* generic icons */
 .reviews-sm,
 .news-sm,
-.photos-sm,
-.videos-sm,
 .specs-sm {
     width: 14px;
     height: 14px;
     vertical-align: middle;
-    position: relative;
-    top: 1px;
+    margin-right: 3px;
 }
 
 .reviews-sm {
-    background-position: -78px -555px;
+    background-position: -77px -555px;
 }
 
 .news-sm {
-    background-position: -108px -555px;
-}
-
-.videos-sm {
-    background-position: -138px -555px;
+    background-position: -109px -555px;
 }
 
 .specs-sm {
-    background-position: -168px -555px;
-}
-
-.photos-sm {
-    background-position: 0 -486px;
+    background-position: -141px -555px;
 }
 
 .item-more-details-list a:hover .reviews-sm {
@@ -757,19 +630,19 @@
 }
 
 .item-more-details-list a:hover .news-sm {
-    background-position: -123px -555px;
-}
-
-.item-more-details-list a:hover .videos-sm {
-    background-position: -153px -555px;
+    background-position: -125px -555px;
 }
 
 .item-more-details-list a:hover .specs-sm {
-    background-position: -183px -555px;
+    background-position: -157px -555px;
 }
 
 .item-more-details-list a:hover .photos-sm {
-    background-position: -198px -555px;
+    background-position: 0 -493px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -16px -492px;
 }
 
 /* button arrows */
@@ -782,8 +655,7 @@
     top: 1px;
 }
 
-.btn-white.active .btn-red-arrow,
-.btn-white:hover .btn-red-arrow {
+.btn-white.active .btn-red-arrow {
     background-position: -204px -49px;
 }
 
@@ -803,6 +675,39 @@ body {
     position: relative;
     top: 2px;
 }
+
+#gallery-root.uc-iframe-position #video-tab-screen {
+    height: 100px;
+}
+
+#gallery-root.uc-iframe-position #info-tab-screen {
+    height: 100px;
+    min-height: 100px;
+    overflow: scroll;
+}
+
+#gallery-root.uc-iframe-position .model-ribbon-tag {
+    top: -4px;
+    left: -10px;
+}
+
+#gallery-root.uc-iframe-position .video-tab-list li {
+    padding: 10px;
+}
+
+#gallery-root.uc-iframe-position #info-tab-screen .padding-15-20 {
+    padding: 5px 10px;
+}
+
+#gallery-root.uc-iframe-position #info-tab-screen .margin-bottom10,
+#gallery-root.uc-iframe-position #info-tab-screen h3.margin-bottom5 {
+    margin-bottom: 0;
+}
+
+#gallery-root.uc-iframe-position #info-tab-screen .item-more-details-list li {
+    margin-bottom: 4px;
+}
+
 
 @media only screen and (min-width: 768px) {
     .photos-grid-list li:nth-child(6n+3),
@@ -825,7 +730,7 @@ body {
 
 @media only screen and (max-width: 320px) {
     .swiper-heading-details {
-        top: 12%;
+        top: 10%;
     }
     #main-video-content .swiper-heading-details {
         top: 7%;
@@ -849,7 +754,7 @@ body {
         width: 70%;
     }
 
-    .footer-tab-card .btn-size-180 {
+    .footer-tab-card .btn-180-34 {
         width: 150px;
     }
 
@@ -870,6 +775,13 @@ body {
 
     .btn-size-120 {
         width: 110px;
+    }
+    .model-more-info-section .bike-details-block {
+        width: 62%;
+    }
+
+    .model-more-info-section .used-target-label {
+        width: 94%;
     }
 
 }

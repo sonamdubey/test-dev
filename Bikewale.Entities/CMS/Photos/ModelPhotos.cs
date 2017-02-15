@@ -15,7 +15,7 @@ namespace Bikewale.Entities.CMS.Photos
     /// Description: To set requred details of first image(model image) in moidel gallery
     /// </summary>
     [Serializable, DataContract]
-    public class ModelPhotos
+    public class ModelHostImagePath
     {
         [DataMember]
         public string MakeName { get; set; }

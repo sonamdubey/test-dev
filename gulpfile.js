@@ -51,7 +51,7 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/'],
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
     mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
 
 // convert desktop sass to css
@@ -169,6 +169,19 @@ var pageArray = [
     }
 ];
 
+var mvcPageArray =[
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    }
+];
+
 // replace css reference with internal css
 gulp.task('replace-css-reference', function () {
     var pageLength = pageArray.length;
@@ -178,6 +191,24 @@ gulp.task('replace-css-reference', function () {
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
             styleTag = '<style type="text/css">\n@charset "utf-8";' + style + '\n</style>',
             styleLink = '<link rel="stylesheet" type="text/css" href="/' + element.stylesheet + '" />';
+
+        gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+            .pipe(replace(styleLink, styleTag))
+            .pipe(gulp.dest(buildFolder + element.folderName));
+    }
+
+    console.log('internal css reference replaced');
+});
+
+// replace css reference with internal css for MVC views
+gulp.task('replace-mvc-css-reference', function () {
+    var pageLength = mvcPageArray.length;
+
+    for (var i = 0; i < pageLength; i++) {
+        var element = mvcPageArray[i],
+            style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'") + "</style>",
+            styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
             .pipe(replace(styleLink, styleTag))
@@ -205,6 +236,7 @@ gulp.task('default', gulpSequence(
     'minify-bw-css', 'minify-bw-js',
     'minify-bwm-css', 'minify-bwm-js',
     'bw-framework-js',
-    'replace-css-reference'
+    'replace-css-reference',
+	'replace-mvc-css-reference'
     )
 );

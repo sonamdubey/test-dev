@@ -44,6 +44,8 @@ namespace Bikewale.BindViewModels.Webforms.Videos
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
         /// Summary :- get makedetails if videos is present
+        /// Modified By :- Subodh Jain 7 Feb 2017
+        /// Summary :- OtherMakeList ordered by make
         /// </summary>
         public IEnumerable<BikeMakeEntityBase> GetMakeIfVideo()
         {
@@ -54,7 +56,7 @@ namespace Bikewale.BindViewModels.Webforms.Videos
                 if (objVideoMake != null)
                 {
                     TopMakeList = objVideoMake.Take(TopCount);
-                    OtherMakeList = objVideoMake.Skip(TopCount);
+                    OtherMakeList = objVideoMake.Skip(TopCount).OrderBy(m => m.MakeName);
                 }
 
             }

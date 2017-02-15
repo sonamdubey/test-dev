@@ -342,6 +342,78 @@ namespace Bikewale.BAL.BikeBooking
             }
             return objPQOutput;
         }   //End of ProcessPQ
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 14 Feb 2017
+        /// Summary: Fetch dealer properties for default version, Set priceQuote by specific version Id
+        /// </summary>
+        /// <param name="PQParams"></param>
+        /// <returns></returns>
+        public PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams)
+        {
+
+            PQOutputEntity objPQOutput = null;
+            if (PQParams != null)
+            {
+                uint defaultVersionId = 0;
+                bool isVersionPresent = PQParams.VersionId > 0 ? true : false;
+                ulong quoteId = 0;
+                BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+                try
+                {
+                    if (PQParams.AreaId > 0)
+                        defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
+                    else
+                        defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+
+                    if (PQParams.AreaId > 0)
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
+                            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                            IDealer objDealer = container.Resolve<IDealer>();
+                            objDealerDetail = objDealer.IsSubscribedDealerExistsV3(defaultVersionId, PQParams.AreaId);
+                        }
+                    }
+                    else
+                    {
+                        objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    objDealerDetail.DealerId = 0;
+                    objDealerDetail.IsDealerAvailable = false;
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("ProcessPQV2 => ModelId {0} VersionId {1}", PQParams.ModelId, PQParams.VersionId));
+                }
+                finally
+                {
+                    if (PQParams.VersionId == 0)
+                    {
+                        PQParams.VersionId = defaultVersionId;
+                    }
+                    if (PQParams.VersionId > 0)
+                    {
+                        if (objDealerDetail != null)
+                            PQParams.DealerId = objDealerDetail.DealerId;
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                            IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
+                            quoteId = objIPQ.RegisterPriceQuote(PQParams);
+                        }
+                    }
+                    objPQOutput = new PQOutputEntity()
+                    {
+                        DealerId = PQParams.DealerId,
+                        PQId = quoteId,
+                        VersionId = PQParams.VersionId,
+                        IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false
+                    };
+                }
+            }
+            return objPQOutput;
+        }   //End of ProcessPQV2
 
         /// <summary>
         /// Created By : Lucky Rathore

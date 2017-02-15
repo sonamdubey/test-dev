@@ -26,11 +26,10 @@ namespace Bikewale.Controls
         protected HtmlGenericControl noImageAv;
         protected string selectedImageName = string.Empty, selectedImagePath = string.Empty, selectedImageCategoryName = string.Empty,
             selectedImageMainCategoryName = string.Empty, selectedImageCategory = string.Empty;
-        public IEnumerable<ModelImage> objImageList = null;
+        public IEnumerable<ColorImageBaseEntity> objImageList = null;
         public string BikeName { get; set; }
         public int FetchedCount { get; set; }
         public int modelId { get; set; }
-        public string ImageId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -63,28 +62,15 @@ namespace Bikewale.Controls
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>();
                     var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    objImageList = objCache.GetModelPhotos(modelId);
-
-                    if (objImageList != null)
-                        FetchedCount = objImageList.Count();
-                    else
-                        FetchedCount = 0;
+                    objImageList = objCache.GetAllPhotos(modelId);
+                    FetchedCount = objImageList != null ? objImageList.Count() : 0;
                     if (FetchedCount > 0)
                     {
-                        if (!string.IsNullOrEmpty(ImageId))
+                        var firstImage = objImageList.FirstOrDefault();
+                        if (firstImage != null)
                         {
-                            ModelImage value = objImageList.FirstOrDefault(item => item.ImageId == Convert.ToUInt32(ImageId));
-                            if (value != null)
-                            {
-                                selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(value.OriginalImgPath, value.HostUrl, Bikewale.Utility.ImageSize._640x348);
-                                selectedImageCategoryName = value.ImageCategory;
-                                selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : string.Empty;
-                            }
-                        }
-                        else // first image not selected
-                        {
-                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(objImageList.First().OriginalImgPath, objImageList.First().HostUrl, Bikewale.Utility.ImageSize._640x348);
-                            selectedImageCategoryName = objImageList.First().ImageCategory;
+                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImgPath, firstImage.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                            selectedImageCategoryName = firstImage.ImageCategory;
                             selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : string.Empty;
                         }
                     }
@@ -96,8 +82,7 @@ namespace Bikewale.Controls
             }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "PhotoGallaryMin.GetImageList()");
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, string.Format("PhotoGallaryMin.GetImageList() => ModelId:{0}", modelId));
             }
         }//End of AllImageList
     }// End of class  

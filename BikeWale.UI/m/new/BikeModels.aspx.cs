@@ -178,7 +178,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PageLoad({0})", Request.QueryString["model"]));
-                objErr.SendMail();
+
             }
 
         }
@@ -232,7 +232,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "NewBikeModels.BindDescription");
-                objErr.SendMail();
+
             }
         }
 
@@ -390,7 +390,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
+
             }
         }
 
@@ -537,7 +537,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
-                objErr.SendMail();
+
 
                 Response.Redirect("/m/new-bikes-in-india/", true);
             }
@@ -628,7 +628,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
-                objErr.SendMail();
+
             }
         }
 
@@ -690,7 +690,6 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
             }
         }
         /// <summary>
@@ -767,48 +766,16 @@ namespace Bikewale.Mobile.New
                                     price = (onRoadPrice - totalDiscountedPrice);
                                 }
                             }
+                            else // Show dealer properties and Bikewale priceQuote when dealer has pricing for any of the bike
+                            // Added on 13 Feb 2017 Pivotal Id:138698777
+                            {
+                                SetBikeWalePQ(pqOnRoad);
+                            }
                             #endregion
                         }
                         else
                         {
-                            #region BikeWale PQ
-                            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
-                            {
-                                if (isOnRoadPrice)
-                                {
-                                    if (versionId > 0)
-                                    {
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == versionId);
-                                        if (objSelectedVariant != null)
-                                            price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
-                                    }
-                                    else
-                                    {
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                        price = Convert.ToUInt32(objSelectedVariant.OnRoadPrice);
-                                    }
-                                }
-                                else
-                                {
-                                    if (versionId > 0)
-                                    {
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault(p => p.VersionId == versionId);
-                                        if (objSelectedVariant != null)
-                                            price = Convert.ToUInt32(objSelectedVariant.Price);
-                                    }
-                                    else
-                                    {
-                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                        price = Convert.ToUInt32(objSelectedVariant.Price);
-                                    }
-
-                                }
-
-                                isBikeWalePQ = true;
-                                campaignId = pqOnRoad.BPQOutput.CampaignId;
-                                manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
-                            }
-                            #endregion
+                            SetBikeWalePQ(pqOnRoad);
                         }
                         // If DPQ or BWPQ Found change Version Pricing as well
                         if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
@@ -819,7 +786,7 @@ namespace Bikewale.Mobile.New
                     }
                     else // On road PriceQuote is Null so get price from the modelpage variants
                     {
-                        if (versionId != 0)
+                        if (versionId > 0)
                         {
                             var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == versionId).FirstOrDefault();
                             if (modelVersions != null)
@@ -843,7 +810,26 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "-" + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
+
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 14 Feb 2017
+        /// Summary: To set price variable with bikewale pricequote
+        /// </summary>
+        /// <param name="pqOnRoad"></param>
+        private void SetBikeWalePQ(PQOnRoadPrice pqOnRoad)
+        {
+            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null && versionId > 0)
+            {
+                objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == versionId).FirstOrDefault();
+                if (objSelectedVariant != null)
+                    price = isOnRoadPrice ? Convert.ToUInt32(objSelectedVariant.OnRoadPrice) : Convert.ToUInt32(objSelectedVariant.Price);
+
+                campaignId = pqOnRoad.BPQOutput.CampaignId;
+                manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
+                isBikeWalePQ = true;
             }
         }
 
@@ -871,7 +857,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FetchCityByModelId");
-                objErr.SendMail();
+
             }
             return cityList;
         }
@@ -905,7 +891,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "GetAreaForCityAndModel");
-                objErr.SendMail();
+
             }
 
             return areaList;
@@ -945,7 +931,7 @@ namespace Bikewale.Mobile.New
                     objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                     objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
-                    PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+                    PQOutputEntity objPQOutput = objDealer.ProcessPQV2(objPQEntity);
 
                     if (versionId == 0)
                     {
@@ -995,12 +981,10 @@ namespace Bikewale.Mobile.New
                                             pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
                                         }
                                     }
-                                    //}
                                 }
                                 catch (Exception ex)
                                 {
                                     Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                                    objErr.SendMail();
                                 }
                             }
                         }
@@ -1010,9 +994,8 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
-            }
 
+            }
             return pqOnRoad;
         }
 
@@ -1104,7 +1087,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "FillViewModel");
-                objErr.SendMail();
+
             }
 
         }
@@ -1135,7 +1118,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + "BindColorString");
-                objErr.SendMail();
+
             }
         }
 
@@ -1171,7 +1154,7 @@ namespace Bikewale.Mobile.New
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BikeModels.aspx --> TotalUsedBikes() --> modelId: {0}, cityId: {1}", modelId, cityId));
-                objErr.SendMail();
+
             }
             return totalUsedBikes;
         }

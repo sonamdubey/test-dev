@@ -11,10 +11,10 @@
                 <div class="bike-target-content inline-block padding-left10">
                     <h3><%= bikeName %></h3>
                     <% if(bike.VersionPrice > 0) { %>
-                    <p class="font11 text-light-grey">Ex-showroom <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName : Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                    <p class="font11 text-light-grey">Ex-showroom, <%= !string.IsNullOrEmpty(bike.CityName)? bike.CityName : Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
                     <span class="bwsprite inr-md"></span><span class="font16 text-bold">&nbsp;<%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice)) %></span>
                     <% } else { %>
-                    <span class='font14'>Price Unavailable</span>
+                    <span class='font14 text-light-grey'>Price not available</span>
                     <% } %>
                 </div>
             </a>

@@ -1,7 +1,6 @@
 ﻿using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
@@ -9,6 +8,7 @@ using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.Model
@@ -170,16 +170,17 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        [ResponseType(typeof(BikeModelContentDTO)), Route("api/model/{modelId}/photos/")]
+        [ResponseType(typeof(IList<ColorImageBaseDTO>)), Route("api/model/{modelId}/photos/")]
         public IHttpActionResult GetModelColorPhotos(int modelId)
         {
-            IEnumerable<ImageBaseEntity> allPhotos = null;
-
+            IEnumerable<ColorImageBaseDTO> allPhotos = null;
+            IEnumerable<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> imageList = null;
             try
             {
                 if (modelId > 0)
                 {
-                    allPhotos = _modelCacheRepository.CreateAllPhotoList(modelId);
+                    imageList = _modelCacheRepository.CreateAllPhotoList(modelId);
+                    allPhotos = ModelMapper.Convert(imageList);
                 }
                 else
                 {
@@ -202,5 +203,4 @@ namespace Bikewale.Service.Controllers.Model
             }
         }
     }
-
 }

@@ -106,3 +106,85 @@ $(window).on('popstate', function (event) {
         slideInDrawer.close($('#year-slideIn-drawer'));
     }
 });
+
+var vmPagination = function (curPgNum, pgSize, totalRecords) {
+    var self = this;
+    self.totalData = ko.observable(totalRecords);
+    self.pageNumber = ko.observable(curPgNum);
+    self.pageSize = ko.observable(pgSize);
+    self.pageSlot = ko.observable(5);
+    self.totalPages = ko.computed(function () {
+        var div = Math.ceil(self.totalData() / self.pageSize());
+        return div;
+    });
+    self.paginated = ko.computed(function () {
+        var pgSlot;
+
+        if (self.pageNumber() < 4) {
+            pgSlot = self.pageSlot();
+        } else {
+            pgSlot = self.pageNumber() + self.pageSlot() - 3;
+        }
+
+        if (self.totalPages() > pgSlot) {
+            return pgSlot;
+        } else {
+            return self.totalPages();
+        }
+
+    });
+    self.hasPrevious = ko.computed(function () {
+        return self.pageNumber() != 1;
+    });
+    self.hasNext = ko.computed(function () {
+        return self.pageNumber() != self.totalPages();
+    });
+    self.next = function () {
+        if (self.pageNumber() < self.totalPages())
+            return self.pageNumber() + 1;
+        return self.pageNumber();
+    }
+    self.previous = function () {
+        if (self.pageNumber() > 1) {
+            return self.pageNumber() - 1;
+        }
+        return self.pageNumber();
+    }
+};
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
+
+var makeFilter = function () {
+    var self = this;
+    self.setMakeFilter = function (d, e) {
+
+        $.getJSON("/api/v2/newlaunched/")
+        {
+
+        }
+    };
+};
+
+var makeFilter = function () {
+    var self = this;
+    self.setYearFilter = function (d, e) {
+
+    };
+};
+
+var newLaunches = function () {
+    var self = this;
+    self.Filters = ko.observable();
+    self.MakeFilter = ko.observable(new makeFilter);
+    self.YearFilter = ko.observable(new yearFilter);
+    self.Pagination = ko.observable(new vmPagination());
+    self.Filters.subscribe(function () {
+
+    });
+};

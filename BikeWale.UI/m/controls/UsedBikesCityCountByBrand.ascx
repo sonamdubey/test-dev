@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikesCityCountByBrand" %>
 
-<% if (viewModel != null && viewModel.bikesCountCityList != null)
+<% if (viewModel != null && viewModel.BikesCountCityList != null && viewModel.BikesCountCityList.Count() > 0)
    { %>
-<div class="swiper-container card-container city-model-carousel">
+<div id="UsedBikesCityCountByBrand" class="swiper-container card-container city-model-carousel">
     <div class="swiper-wrapper">
-        <% foreach (var cityBikeCount in viewModel.bikesCountCityList)
+        <% foreach (var cityBikeCount in viewModel.BikesCountCityList)
            { %>
         <div class="swiper-slide">
             <div class="swiper-card">

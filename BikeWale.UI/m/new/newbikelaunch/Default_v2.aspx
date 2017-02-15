@@ -26,8 +26,8 @@
                 <div class="grid-12">
                     <div class="banner-box-shadow padding-right20 padding-left20 padding-bottom20">
                         <div class="padding-top15 font14 text-light-grey collapsible-content">
-                            <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive competition, manufacturers try to keep up with the fast changing trends. Every year there are plenty of models that hit the market. Here is the list of all newly launched bikes</p>
-                            <p class="more-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                            <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive competition, manufacturers try to keep up with fast changing trends.</p>
+                            <p class="more-content">Every year there are plenty of bike models that hit the market. BikeWale brings you an exhaustive list of newly launched bikes in India. Explore the list of latest bikes.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
         </section>
 
         <section>
-            <h2 class="section-heading">Newly launched bikes</h2>
+            <h2 class="section-heading">New bike launches in India</h2>
             <div class="container bg-white box-shadow section-bottom-margin">
                 <div class="box-shadow padding-top10 padding-bottom10">
                     <div class="grid-6 padding-left15 padding-right15 border-solid-right">
@@ -200,7 +200,7 @@
         </section>
 
         <section>
-            <h2 class="section-heading">New launches by brands</h2>
+            <h2 class="section-heading">Explore new launches by brands</h2>
             <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
                 <div id="brand-type-container" class="brand-type-container">
                     <ul>
@@ -321,7 +321,7 @@
         </section>
 
         <section>
-            <h2 class="section-heading responsive-heading">Bike launches in the previous years</h2>
+            <h2 class="section-heading">Explore year-wise bike launches</h2>
             <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
                 <div class="swiper-container card-container year-type-swiper">
                     <div class="swiper-wrapper">
@@ -386,7 +386,7 @@
         </section>
 
         <section>
-            <h2 class="section-heading">Upcoming bikes</h2>
+            <h2 class="section-heading">Upcoming bikes in India</h2>
             <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">

@@ -62,6 +62,8 @@ namespace BikeWaleOpr.Content
         /// Desc : Refreshed popularbikekeys for new bike launch.
         /// Modified by : Aditi Srivastava on 12 Jan 2017
         /// Desc        : Refreshed upcoming bikes key on new bike launch
+        /// Modified by :   Sumit Kate on 10 Feb 2017
+        /// Description :   Clear BW_NewLaunchedBikes memcache object
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -81,25 +83,26 @@ namespace BikeWaleOpr.Content
 
                         if (lblId != null)
                             selId += lblId.Text + ",";
-                        UInt32 makeId,modelId;
+                        UInt32 makeId, modelId;
                         //Refresh memcache object for newbikelaunches
                         if (lblModelId != null)
                         {
                             selModelId += lblModelId.Text + ",";
                             MemCachedUtil.Remove(String.Format("BW_ModelDetails_{0}", lblModelId.Text));
-                        
+                            MemCachedUtil.Remove(String.Format("BW_ModelDetail_{0}", lblModelId.Text));
+
                         }
                         if (lblMakeId != null)
                         {
-                            UInt32.TryParse(lblMakeId.Text,out makeId);
+                            UInt32.TryParse(lblMakeId.Text, out makeId);
                             MemCachedUtil.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
                             //CLear popularBikes key
-                            
+
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(6, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                             BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(9, null);
-                                                     
+
                         }
                         if (lblMakeId != null && lblModelId != null)
                         {
@@ -112,10 +115,10 @@ namespace BikeWaleOpr.Content
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, null);
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, null, modelId);
                                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikesCacheKey(9, so, makeId, modelId);
-                                
+
                             }
-                            
-                                                      
+
+
                         }
                     }
                 }
@@ -129,7 +132,8 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for newbikelaunches
                 MemCachedUtil.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
                 MemCachedUtil.Remove("BW_NewBikeLaunches");
-                
+                MemCachedUtil.Remove("BW_NewLaunchedBikes");
+
             }
             catch (Exception err)
             {
@@ -251,6 +255,8 @@ namespace BikeWaleOpr.Content
         /// Written By : Ashwini Todkar on 17 Feb 2014
         /// Summary    : method updates New ,Used and futuristic flags of bikemodels and bikeversion table
         ///              also update isLaunched flags in ExpectedBikeLaunch table
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="launchBikeIds"></param>
         /// <param name="launchBikeModelIds"></param>
@@ -270,10 +276,17 @@ namespace BikeWaleOpr.Content
                         foreach (string modelId in launchBikeModelIds.Split(','))
                         {
                             NameValueCollection nvc = new NameValueCollection();
-                            nvc.Add("ModelId", modelId);
-                            nvc.Add("IsUsed", "1");
-                            nvc.Add("IsNew", "1");
-                            nvc.Add("IsFuturistic", "0");
+                            nvc.Add("v_MakeId", null);
+                            nvc.Add("v_ModelName", null);
+                            nvc.Add("v_ModelMaskingName", null);
+                            nvc.Add("v_HostUrl", null);
+                            nvc.Add("v_OriginalImagePath", null);
+                            nvc.Add("v_IsUsed", "1");
+                            nvc.Add("v_IsNew", "1");
+                            nvc.Add("v_IsFuturistic", "0");
+                            nvc.Add("v_IsDeleted", null);
+                            nvc.Add("v_ModelId", modelId);
+
                             SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         }
                     }

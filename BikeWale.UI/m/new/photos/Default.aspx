@@ -26,7 +26,8 @@
 <body>
     <form id="form1" runat="server">
          <% if (isModelPage)
-            { var objImages = vmModelPhotos.objImageList;%>
+            {
+                var objImages = vmModelPhotos.objImageList;%>
             <div class="blackOut-window" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center; display: block; opacity:1;"></div>
         <section>
             <div class="container box-shadow section-bottom-margin">
@@ -82,14 +83,7 @@
         </section>
         <%} } %>
         
-        <% if(!IsUpcoming) { %>
-        <section>
-            <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-                <h2 class="margin-bottom15">Know more about this bike</h2>
-                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
-            </div>
-        </section>
-         <% } %>
+    
 
         <%if (ctrlVideos.FetchedRecordsCount > 0)
           { %>
@@ -100,7 +94,13 @@
             </div>
         </section>
         <% } %>
-
+           
+        <%if(bikeInfo!=null){ %><section>
+            <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
+        </section>
+       <%} %>
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
            
         <div id="gallery-root">
@@ -108,7 +108,7 @@
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
                 <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
-                <div class="gallery-container" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center;"></div>
+                <div class="gallery-container" style="background: #2a2a2a url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center;"></div>
                 <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
@@ -172,7 +172,7 @@
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?&showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
@@ -225,13 +225,13 @@
                                     <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
                                         <span data-bind="style: { 'background-color': '#' + $data }"></span>
                                     </div>
-                                    <p class="color-box-label inline-block" data-bind="text: imageTitle"></p>
+                                    <p class="color-box-label inline-block" data-bind="text: (imageTitle.length > 17 ? imageTitle.substring(0, 17) + '...' : imageTitle)"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
+                  <%if(bikeInfo!=null){ %>  <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
                         <div class="model-more-info-section padding-15-20 ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
                            <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
                             <%if(IsDiscontinued){ %>
@@ -302,7 +302,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div>           
+                    </div>  <%} %>         
                 
                     <div id="video-tab-screen" class="footer-tab-card font14" data-bind="visible: videoListScreen()">
                         <ul class="video-tab-list" data-bind="foreach: videoList">

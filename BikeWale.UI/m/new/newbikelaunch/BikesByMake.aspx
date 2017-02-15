@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BikeByMakes.aspx.cs" Inherits="Bikewale.Mobile.New.Newbikelaunch.BikeByMakes" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BikesByMake.aspx.cs" Inherits="Bikewale.Mobile.New.Newbikelaunch.BikesByMake" %>
 
 <!DOCTYPE html>
 
@@ -17,17 +17,16 @@
 
         <section>
             <div class="container bg-white card-bottom-margin">
-                <h1 class="card-header">Newly launched Bajaj bikes</h1>
+                <h1 class="card-header">New Bajaj Bike Launches</h1>
                 <div class="card-inner-padding font14 text-light-grey collapsible-content">
-                    <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive competition, manufacturers try to keep up with the fast changing trends. Every year there are plenty of models that hit the market. Here is the list of all</p>
-                    <p class="more-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                    <p class="main-content">BikeWale brings you an exhaustive list of newly launched bajaj bikes in India. Explore the list of latest bajaj bikes.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom">24 Newly launched Bajaj bikes</h2>
+                <h2 class="padding-15-20 border-solid-bottom">Latest Bajaj bikes in India</h2>
                 <div class="padding-top10 padding-right20 padding-bottom10 padding-left20 border-light-bottom">
                     <div class="inline-block margin-right10">
                         <span class="bwmsprite filter-icon"></span>
@@ -187,80 +186,7 @@
 
         <section>
             <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-                <h2 class="padding-right20 padding-bottom15 padding-left20">New launches by popular brands</h2>
-                <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <div class="brand-logo-image">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-7"></span>
-                                        </span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Honda</p>
-                                        <h3 class="text-unbold text-light-grey font11">24 bikes</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <div class="brand-logo-image">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-6"></span>
-                                        </span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
-                                        <h3 class="text-unbold text-light-grey font11">48 bikes</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <div class="brand-logo-image">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-15"></span>
-                                        </span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
-                                        <h3 class="text-unbold text-light-grey font11">72 bikes</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="">
-                                    <div class="brand-logo-image">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-11"></span>
-                                        </span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Royal Enfield</p>
-                                        <h3 class="text-unbold text-light-grey font11">96 bikes</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-                <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming Bajaj bikes</h2>
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming Bajaj bikes in India</h2>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
@@ -364,6 +290,145 @@
                                         </div>
                                     </div>
                                 </a>                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Explore new launches by brands</h2>
+                <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <div class="brand-logo-image">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-7"></span>
+                                        </span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Honda</p>
+                                        <h3 class="text-unbold text-light-grey font11">24 bikes</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <div class="brand-logo-image">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-6"></span>
+                                        </span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
+                                        <h3 class="text-unbold text-light-grey font11">48 bikes</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <div class="brand-logo-image">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-15"></span>
+                                        </span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
+                                        <h3 class="text-unbold text-light-grey font11">72 bikes</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="">
+                                    <div class="brand-logo-image">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-11"></span>
+                                        </span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Royal Enfield</p>
+                                        <h3 class="text-unbold text-light-grey font11">96 bikes</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+                <h2 class="padding-right20 padding-bottom15 padding-left20">Explore year-wise bike launches</h2>
+                <div class="swiper-container card-container year-type-swiper">
+                    <div class="swiper-wrapper">
+                        
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2017" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2017</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bikes launched in 2017</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2016" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2016</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bikes launched in 2016</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2015" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2015</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bikes launched in 2015</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <a href="" title="Bike launched in 2014" class="block swiper-card-target">
+                                    <div class="swiper-image-preview">
+                                        <span>2014</span>
+                                    </div>
+                                    <div class="swiper-details-block">
+                                        <h3 class="margin-bottom5">Bikes launched in 2014</h3>
+                                        <p class="font12 text-light-grey text-truncate">Bajaj Dominar 400, Royal Enfield Classic 350, Honda CB Hornet 160R</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

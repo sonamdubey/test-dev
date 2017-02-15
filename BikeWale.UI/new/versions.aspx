@@ -135,28 +135,28 @@
                                     <%if (modelPageEntity.ModelVersionSpecs.Displacement != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite capacity-sm"></span>
+                                            <span class="bwsprite capacity-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.Displacement) %> cc</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite mileage-sm"></span>
+                                            <span class="bwsprite mileage-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) %> kmpl</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.MaxPower != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite power-sm"></span>
+                                            <span class="bwsprite power-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.MaxPower) %> bhp</span>
                                         </li>
                                     <% } %>
                                     <%if (modelPageEntity.ModelVersionSpecs.KerbWeight != 0)
                                         { %>
                                         <li>
-                                            <span class="model-sprite weight-sm"></span>
+                                            <span class="bwsprite weight-sm"></span>
                                             <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPageEntity.ModelVersionSpecs.KerbWeight) %> kgs</span>
                                         </li>
                                     <% } %>
@@ -189,18 +189,13 @@
                                        { %>
                                     <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                     <% } %>
-                                    <% else if (!isCitySelected)
-                                       {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span class="font14 text-default"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
-                                    <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
-                                    <p class="font14 text-light-grey">Ex-showroom price in <span><span class="font14 text-default city-area-name"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+                                    <p class="font14 text-light-grey">Ex-showroom price in<span><span class="city-area-name"><%= location %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <% else
                                        {%>
-                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName %></span></span><a data-persistent="true"  data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
-
+                                    <p class="font14 text-light-grey">On-road price in<span><span class="city-area-name"><%= location %></span></span><a data-persistent="true" data-reload="true" data-modelid="<%=modelId %>" class="margin-left5 getquotation changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                     <% } %>
                                     <%  if (price == 0)
                                         { %>
@@ -238,7 +233,7 @@
                                     <% } %>
                                 </div>
 
-                                <% if (viewModel != null && viewModel.IsPremiumDealer && !isBikeWalePQ )
+                                <% if (viewModel != null && viewModel.IsPremiumDealer )
                                    { %>
                                 <div class="margin-top15">
                                     <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>" data-item-area="<%= viewModel.AreaName %>" c="Model_Page" a="Get_Offers_Clicked" v="bikeVersionLocation"><%= viewModel.LeadBtnTextLarge %></a>
@@ -356,7 +351,7 @@
                             </div>
                             <div class="clear"></div>
 
-                            <% if (viewModel!= null && viewModel.IsPremiumDealer && !isBikeWalePQ)
+                            <% if (viewModel!= null && viewModel.IsPremiumDealer)
                                { %>
                             <div id="dealerDetailsWrapper" class="border-solid-top">
 
@@ -426,7 +421,7 @@
                                 <div id="dealerAssistance" class="border-light-top padding-top20">
                                     <div id="buyingAssistance">
                                         <p class="font14 text-bold margin-bottom15">Complete buying assistance from <%= viewModel.Organization %></p>
-                                        <p class="font14 text-light-grey margin-bottom30">Get in touch with <%= viewModel.Organization %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
+                                        <p class="font14 text-light-grey margin-bottom25">Get in touch with <%= viewModel.Organization %> for best offers, test rides, EMI options, exchange benefits and much more...</p>
                                         <div>
                                             <div class="input-box assistance-input-box">
                                                 <input type="text" id="assistGetName" data-bind="textInput: fullName" />
@@ -451,7 +446,7 @@
                                             </div>
 
                                             <a class="btn btn-teal assistance-submit-btn" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
-                                            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+                                            <p class="margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                                         </div>
                                     </div>
                                     <div id="dealer-assist-msg" class="hide">
