@@ -413,6 +413,17 @@ namespace Bikewale.Utility
             }
             return url;
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 15-02-2017
+        /// Description: Function to make url for new bike launches year wise page.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static string FormatBikeLaunchedYearUrl(int year)
+        {
+            return string.Format("/new-bike-launches-in-{0}/", year);
+        }
     }
 }
 
