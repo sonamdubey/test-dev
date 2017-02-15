@@ -451,7 +451,9 @@
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
@@ -3315,6 +3317,7 @@
     <Folder Include="Views\Features\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
+    <Folder Include="Views\Upcoming\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
