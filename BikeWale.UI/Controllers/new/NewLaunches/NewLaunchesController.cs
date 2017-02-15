@@ -37,5 +37,11 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             else
                 return View();
         }
+
+        [Route("newlaunches/year/{launchYear}/")]
+        public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
+        {
+            return View("~/views/newlaunches/bikesbyyear.cshtml");
+        }
     }
 }

@@ -3313,6 +3313,9 @@
     <Content Include="Views\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByBrand.cshtml" />
+    <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
+    <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
+    <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

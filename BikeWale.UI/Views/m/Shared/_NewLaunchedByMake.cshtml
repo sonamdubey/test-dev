@@ -1,117 +1,39 @@
-﻿<div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
+﻿@if (ViewBag.TopMakes != null)
+{ 
+<div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
     <div id="brand-type-container" class="brand-type-container">
         <ul>
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-7"></span>
-                    </span>
-                    <span class="brand-type-title">Honda</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-1"></span>
-                    </span>
-                    <span class="brand-type-title">Bajaj</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-6"></span>
-                    </span>
-                    <span class="brand-type-title">Hero</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-11"></span>
-                    </span>
-                    <span class="brand-type-title">Royal Enfield</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-13"></span>
-                    </span>
-                    <span class="brand-type-title">Yamaha</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-12"></span>
-                    </span>
-                    <span class="brand-type-title">Suzuki</span>
-                </a>
-            </li>
+            @foreach (var makeDetails in ViewBag.TopMakes)
+            {
+                <li>
+                    <a href="@Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@makeDetails.Make.MakeName</span>
+                    </a>
+                </li>
+            }
         </ul>
+       @if (ViewBag.OtherMakes != null)
+       {
         <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-7"></span>
-                    </span>
-                    <span class="brand-type-title">Honda</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-1"></span>
-                    </span>
-                    <span class="brand-type-title">Bajaj</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-6"></span>
-                    </span>
-                    <span class="brand-type-title">Hero</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-11"></span>
-                    </span>
-                    <span class="brand-type-title">Royal Enfield</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-13"></span>
-                    </span>
-                    <span class="brand-type-title">Yamaha</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="" title="">
-                    <span class="brand-type">
-                        <span class="lazy brandlogosprite brand-12"></span>
-                    </span>
-                    <span class="brand-type-title">Suzuki</span>
-                </a>
-            </li>
+            @foreach (var makeDetails in ViewBag.OtherMakes)
+            {
+                <li>
+                    <a href="@Bikewale.Utility.UrlFormatter.NewLaunchePageUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@makeDetails.Make.MakeName</span>
+                    </a>
+                </li>
+            }
         </ul>
-    </div>
-    <div>
-        <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
+        <div>
+            <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
+        </div>
+       }
     </div>
 </div>
+}
