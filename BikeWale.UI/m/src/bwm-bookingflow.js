@@ -8,6 +8,7 @@ var validateTabB = false,
 	bikePayment = $("#bikePayment"),
 	bikePaymentTab = $("#bikePaymentTab");
 otpText = $("#getOTP");
+var msg = ko.observable();
 
 $(".select-dropdown").on("click", function () {
     if (!$(this).hasClass("open")) {
@@ -79,21 +80,16 @@ var validateEmail = function () {
 };
 
 var validateMobile = function () {
-    var isValid = true,
-		mobileNo = $("#getMobile"),
-		mobileVal = mobileNo.val(),
-		reMobile = /^[0-9]{10}$/;
-    if (mobileVal == "") {
-        setError(mobileNo, "Please enter your Mobile Number");
-        isValid = false;
+    var mobileNo = $("#getMobile"),
+    mobileVal = mobileNo.val();
+    if (!validateMobileNo(mobileVal, this)) {
+        setError(mobileNo, this.msg());
+        return false;
     }
-    else if (!reMobile.test(mobileVal) && isValid) {
-        setError(mobileNo, "Mobile Number should be 10 digits");
-        isValid = false;
+    else {
+        hideError(mobileNo);
+        return true;
     }
-    else
-        hideError(mobileNo)
-    return isValid;
 };
 
 var setError = function (element, msg) {

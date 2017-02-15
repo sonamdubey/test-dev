@@ -138,7 +138,7 @@ var dealerDetails = function (dealerDetailsBind) {
         self.lat = ko.observable();
         self.lng = ko.observable();
     }
-
+    self.msg = ko.observable();
 }
 
 
@@ -340,28 +340,19 @@ function validateEMail() {
  return isValid;
 }
 
-function validatePhone() {
+function validatePhone()
+{
     var assistGetMobile = $('#assistGetMobile');
-    leadMobileNo = assistGetMobile.val();
-     var isValid = true,
-       reMobile = /^[1-9][0-9]{9}$/;
-     if (leadMobileNo == "") {
-         validate.setError(assistGetMobile, "Please enter your mobile no.");
-        isValid = false;
-    }
-     else if (leadMobileNo[0] == "0") {
-         validate.setError(assistGetMobile, "Mobile no. should not start with zero");
-        isValid = false;
-    }
-     else if (!reMobile.test(leadMobileNo) && isValid) {
-         validate.setError(assistGetMobile, "Mobile no. should be 10 digits only");
-        isValid = false;
-    }
-    else
-         validate.hideError(assistGetMobile)
-     return isValid;
+     leadMobileNo = assistGetMobile.val();
+     if (!validateMobileNo(leadMobileNo, self)) {
+         validate.setError(assistGetMobile, self.msg());
+         return false;
+     }
+     else {
+         validate.hideError(assistGetMobile);
+         return true;
+     }
 }
-
 
 $(document).on('click', '#assistance-response-close-btn', function () {
     $("#dealer-assist-msg").slideUp();

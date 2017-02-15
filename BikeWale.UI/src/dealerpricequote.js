@@ -13,6 +13,7 @@ var customerViewModel = new CustomerModel();
 var getOfferClick = false;
 var getMoreDetailsClick = false;
 var getEMIClick = false;
+var msg = ko.observable();
 
 $(function () {
     leadBtnBookNow.on('click', function () {
@@ -350,7 +351,7 @@ $("#assistanceGetEmail,#getEmailID").on("blur", function () {
 
 $("#assistanceGetMobile,#getMobile,#getUpdatedMobile").on("blur", function () {
     if (prevMobile != $(this).val().trim()) {
-        if (validateMobileNo($(this))) {
+        if (dpqvalidateMobileNo($(this))) {
             customerViewModel.IsVerified(false);
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
@@ -428,7 +429,7 @@ $(".edit-mobile-btn").on("click", function () {
 });
 
 $("#generateNewOTP").on("click", function () {
-    if (validateMobileNo($("#getUpdatedMobile"))) {
+    if (dpqvalidateMobileNo($("#getUpdatedMobile"))) {
         var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
         $(".update-mobile-box").hide();
         $(".lead-otp-box-container").show();
@@ -475,7 +476,7 @@ var validateUserInfo = function (leadUsername, leadEmailId, leadMobileNo) {
     var isValid = true;
     isValid = validateUserName(leadUsername);
     isValid &= validateEmailId(leadEmailId);
-    isValid &= validateMobileNo(leadMobileNo);
+    isValid &= dpqvalidateMobileNo(leadMobileNo);
     return isValid;
 };
 
@@ -512,25 +513,16 @@ var validateEmailId = function (leadEmailId) {
     return isValid;
 };
 
-var validateMobileNo = function (leadMobileNo) {
-    var isValid = true,
-		mobileVal = leadMobileNo.val(),
-		reMobile = /^[1-9][0-9]{9}$/;
-    if (mobileVal == "") {
-        setError(leadMobileNo, "Please enter your mobile no.");
-        isValid = false;
+var dpqvalidateMobileNo = function (leadMobileNo) {
+    var mobileNo = leadMobileNo.val();
+    if (!validateMobileNo(mobileNo, this)) {
+        setError(leadMobileNo, this.msg());
+        return false;
     }
-    else if (mobileVal[0] == "0") {
-        setError(leadMobileNo, "Mobile no. should not start with zero");
-        isValid = false;
+    else {
+        hideError(leadMobileNo);
+        return true;
     }
-    else if (!reMobile.test(mobileVal) && isValid) {
-        setError(leadMobileNo, "Mobile no. should be 10 digits only");
-        isValid = false;
-    }
-    else
-        hideError(leadMobileNo)
-    return isValid;
 };
 
 $(document).ready(function () {

@@ -106,6 +106,7 @@
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
+    <Compile Include="MobileVerification\IMobileVerificationCache.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />

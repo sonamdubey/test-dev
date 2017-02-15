@@ -13,15 +13,15 @@
         <p class="font20 margin-top10 margin-bottom10">Provide contact details</p>
         <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
         <div class="personal-info-form-container">
-            <!-- ko if : isDealerBikes() -->  
-            <div data-bind="visible : isDealerBikes()" class="form-control-box personal-info-list position-rel">
+            <!-- ko if : isDealerBikes() -->
+            <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
                 <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
-                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue : function(i){ return i.model.modelId ;}, optionsText: 'bike',optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
+                <select id="getLeadBike" data-placeholder="Choose a bike model" data-bind=" value: selectedBike, options: dealerBikes, optionValue: function (i) { return i.model.modelId; }, optionsText: 'bike', optionsCaption: 'Select a bike'" class="form-control chosen-select margin-bottom10"></select>
                 <span class="bwsprite error-icon errorIcon"></span>
                 <div class="bw-blackbg-tooltip errorText"></div>
                 <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
             </div>
-            <!-- /ko --> 
+            <!-- /ko -->
             <div class="input-box form-control-box personal-info-list">
                 <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName">
                 <label for="getFullName">Name<sup>*</sup></label>
@@ -42,9 +42,9 @@
                 <span class="error-text"></span>
             </div>
             <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>   
-            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>         
-        </div>        
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+        </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
         <div class="icon-outer-container rounded-corner50">
@@ -52,7 +52,7 @@
                 <span class="bwsprite otp-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="    visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
 
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
@@ -66,20 +66,20 @@
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
-    var assistanceGetName = $('#assistanceGetName'),    assistanceGetEmail = $('#assistanceGetEmail'),    assistanceGetMobile = $('#assistanceGetMobile');
+    var assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
-    var leadmodelid =  '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid =  '<%= AreaId %>';
+    var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
     // var getCityArea = GetGlobalCityArea();
 
-    
-   
-    
+
+
+
 
     $(function () {
-        
-        $(document).on('click',".leadcapturebtn", function () {
+
+        $(document).on('click', ".leadcapturebtn", function () {
             leadCapturePopup.show();
             $("#dealer-lead-msg").hide();
             $("div#contactDetailsPopup").show();
@@ -135,10 +135,10 @@
             }
         });
 
-        $(document).on("change","#getLeadBike",function(){
-            if($(this).val()!=null && $(this).val()!="0")
+        $(document).on("change", "#getLeadBike", function () {
+            if ($(this).val() != null && $(this).val() != "0")
                 hideError($(this));
-            else setError($(this)) ;
+            else setError($(this));
         });
 
         $("#getEmailID, #assistGetEmail").on("blur", function () {
@@ -168,6 +168,7 @@
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
         }
+        self.msg = ko.observable();
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -189,47 +190,44 @@
         self.GAObject = ko.observable();
         self.mfgCampaignId = ko.observable();
         self.IsLeadPopup = ko.observable(true);
-        
-        self.setOptions = function(options)
-        {
-            if(options!=null)
-            {
-                if(options.dealerid!=null)
+
+        self.setOptions = function (options) {
+            if (options != null) {
+                if (options.dealerid != null)
                     self.dealerId(options.dealerid);
 
-                if(options.dealername!=null)
+                if (options.dealername != null)
                     self.dealerName(options.dealername);
 
-                if(options.dealerarea!=null)
+                if (options.dealerarea != null)
                     self.dealerArea(options.dealerarea);
 
-                if(options.versionid!=null)
+                if (options.versionid != null)
                     self.versionId(options.versionid);
 
-                if(options.leadsourceid!=null)
+                if (options.leadsourceid != null)
                     self.leadSourceId(options.leadsourceid);
 
-                if(options.pqsourceid!=null)
+                if (options.pqsourceid != null)
                     self.pqSourceId(options.pqsourceid);
 
-                if(options.isregisterpq!=null)
+                if (options.isregisterpq != null)
                     self.isRegisterPQ(options.isregisterpq);
-                
-                if(options.campid!=null)
+
+                if (options.campid != null)
                     self.campaignId(options.campid);
 
                 if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
                 }
 
-                if(options.isdealerbikes!=null)
-                {
+                if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
 
                 if (options.isleadpopup != null)
-                    self.IsLeadPopup(options.isleadpopup!="false" ? true : false);
+                    self.IsLeadPopup(options.isleadpopup != "false" ? true : false);
                 else self.IsLeadPopup(true);
 
                 if (options.pqid != null)
@@ -238,15 +236,15 @@
                 if (options.gaobject != null) {
                     self.GAObject(options.gaobject);
                 }
-                if(options.pageurl!=null)
+                if (options.pageurl != null)
                     self.pageUrl = options.pageurl;
 
-                if(options.clientip!=null)
+                if (options.clientip != null)
                     self.clientIP = options.clientip;
             }
         };
 
-        self.getDealerBikes = function (data,event) {
+        self.getDealerBikes = function (data, event) {
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
@@ -254,7 +252,7 @@
                 if (!dealerInfo) {
 
                     startLoading(leadBike.parent());
-                    leadBike.prev().show(); 
+                    leadBike.prev().show();
 
                     $.ajax({
                         type: "GET",
@@ -275,9 +273,9 @@
                             if (xhr.status == 204 || xhr.status == 404) {
                                 lscache.set(dealerKey, null, 30);
                             }
-                            
+
                             stopLoading(leadBike.parent());
-                            leadBike.prev().hide(); 
+                            leadBike.prev().hide();
                         }
                     });
                 }
@@ -296,8 +294,7 @@
 
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-            if(self.isDealerBikes())
-            {
+            if (self.isDealerBikes()) {
                 var bike = self.selectedBike();
                 if (bike && bike.version && bike.model) {
                     self.versionId(bike.version.versionId);
@@ -356,8 +353,8 @@
         }
 
         self.verifyCustomer = function (data, event) {
-            
-            if(self.isRegisterPQ())
+
+            if (self.isRegisterPQ())
                 self.generatePQ(data, event);
 
             if (self.pqId() && self.dealerId()) {
@@ -390,7 +387,7 @@
                         self.IsVerified(obj.isSuccess);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
-                        if(xhr.status!=200)
+                        if (xhr.status != 200)
                             self.IsVerified(false);
 
                         self.pushToGA(self.GAObject());
@@ -480,8 +477,7 @@
                             $("#personalInfo").hide();
                             $("#dealer-lead-msg").fadeIn();
                         }
-                        else
-                        {
+                        else {
                             $("#buyingAssistance").hide();
                             $("#dealer-assist-msg").fadeIn();
                         }
@@ -504,7 +500,7 @@
                 "dealerid": ele.attr('data-item-id'),
                 "dealername": ele.attr('data-item-name'),
                 "dealerarea": ele.attr('data-item-area'),
-                "versionid": versionId ,
+                "versionid": versionId,
                 "leadsourceid": ele.attr('data-leadsourceid'),
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
@@ -531,13 +527,13 @@
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
-            if(self.isDealerBikes())
-                isValid &= self.validateBike(); 
+            if (self.isDealerBikes())
+                isValid &= self.validateBike();
             return isValid;
         };
 
         self.validateUserName = function (inputName) {
-            var isValid = false;              
+            var isValid = false;
             if (self.fullName() != null && self.fullName().trim() != "") {
                 var nameLength = self.fullName().length;
 
@@ -550,8 +546,7 @@
                     isValid = true;
                 }
             }
-            else
-            {
+            else {
                 validate.setError($(inputName), 'Please enter your name');
                 isValid = false;
             }
@@ -575,31 +570,22 @@
         };
 
         self.validateMobileNo = function (inputMobile) {
-            var isValid = true,
-                mobileVal = $(inputMobile).val(),
-                reMobile = /^[1-9][0-9]{9}$/;
-            if (mobileVal == "") {
-                validate.setError($(inputMobile), 'Please enter your mobile no.');
-                isValid = false;
+           
+            mobileVal = $(inputMobile).val();
+            if (!validateMobileNo(mobileVal, self)) {
+                validate.setError($(inputMobile), self.msg());
+                return false;
             }
-            else if (mobileVal[0] == "0") {
-                validate.setError($(inputMobile), 'Mobile no. should not start with zero');
-                isValid = false;
-            }
-            else if (!reMobile.test(mobileVal) && isValid) {
-                validate.setError($(inputMobile), 'Mobile no. should be 10 digits only');
-                isValid = false;
-            }
-            else
+            else {
                 validate.hideError($(inputMobile));
-            return isValid;
+                return true;
+            }
         };
 
         self.validateBike = function () {
             var isValid = true;
-            eleBike =  $("#getLeadBike");
-            if(eleBike!=null && self.selectedBike()!=null)
-            {
+            eleBike = $("#getLeadBike");
+            if (eleBike != null && self.selectedBike() != null) {
                 if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
                     hideError(eleBike);
                     isValid = true;
