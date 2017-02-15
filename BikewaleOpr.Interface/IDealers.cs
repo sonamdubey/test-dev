@@ -1,12 +1,17 @@
 ﻿
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entities;
+using BikewaleOpr.Entity.ContractCampaign;
 using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace BikewaleOpr.Interface
 {
+    /// <summary>
+    /// Modified by : Aditi Srivastava on 9 Feb 2017
+    /// Summary     : Added functions to get list of makes and dealers in a city
+    /// </summary>
     public interface IDealers
     {
         PQ_DealerDetailEntity GetDealerDetailsPQ(PQParameterEntity objParams);
@@ -47,6 +52,8 @@ namespace BikewaleOpr.Interface
         bool SaveDealerBenefit(uint dealerId, uint cityId, uint CatId, string BenefitText, uint UserId, uint BenefitId);
         bool SaveDealerEMI(uint dealerId, float? MinDownPayment, float? MaxDownPayment, UInt16? MinTenure, UInt16? MaxTenure, float? MinRateOfInterest, float? MaxRateOfInterest, float? MinLtv, float? MaxLtv, string loanProvider, float? ProcessingFee, uint? id, UInt32 UserID);
         bool DeleteDealerEMI(uint id);
+        IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> GetDealerMakesByCity(int cityId);
+        IEnumerable<DealerEntityBase> GetDealersByMake(uint makeId, uint cityId);
     }
 
     public interface IDealer

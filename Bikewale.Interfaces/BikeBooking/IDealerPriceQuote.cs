@@ -17,6 +17,8 @@ namespace Bikewale.Interfaces.BikeBooking
     ///               to pass autobiz leads only when dealer leads does not exceeds daily limit count
     /// Modified by :   Sumit Kate on 16 Dec 2016
     /// Description :   Added GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId)
+    /// Modified by : Sangram Nandkhile on 14 Feb
+    /// Summary : Added function ProcessPQV2
     /// </summary>
     public interface IDealerPriceQuote
     {
@@ -37,6 +39,7 @@ namespace Bikewale.Interfaces.BikeBooking
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId);
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
+        PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
         DealerInfo IsDealerExists(uint versionId, uint areaId);
         bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);

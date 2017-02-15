@@ -1,13 +1,21 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility.Terms;
 using BikewaleOpr.DAL;
+using BikewaleOpr.DTO.Dealers;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Interface;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
+using System.Linq;
+using System.Collections.ObjectModel;
+using BikewaleOpr.Service.AutoMappers.Dealer;
+using BikewaleOpr.Entity.ContractCampaign;
+
 namespace BikewaleOpr.Service
 {
     /// <summary>
@@ -15,6 +23,104 @@ namespace BikewaleOpr.Service
     /// </summary>
     public class DealersController : ApiController
     {
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 feb 2017
+        /// Summary    : To get makes in a city
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        [HttpGet, ResponseType(typeof(BikeMakeBase)), Route("api/makes/city/{cityId}/")]
+        public IHttpActionResult GetDealerMakesByCity(int cityId)
+        {
+             if (cityId > 0)
+            {
+                IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakes = null;
+                IEnumerable<BikeMakeBase> objMakesDTO = null;
+                try
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objAllDealer = container.Resolve<DealersRepository>();
+                        objMakes = objAllDealer.GetDealerMakesByCity(cityId);
+                    }
+
+                    if (objMakes != null && objMakes.Count() > 0)
+                    {
+                        objMakesDTO = new Collection<BikeMakeBase>();
+                        objMakesDTO = DealerListMapper.Convert(objMakes);
+
+                        objMakes = null;
+
+                        return Ok(objMakesDTO);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealerMakesByCity: CityId:{0}",cityId));
+                    return InternalServerError();
+                }
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+            
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 feb 2017
+        /// Summary    : To get dealers of a make in a city
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        [HttpGet, ResponseType(typeof(DealerBase)), Route("api/dealers/make/{makeid}/city/{cityId}/")]
+        public IHttpActionResult GetDealersByMake(uint makeId,uint cityId)
+        {
+            if (cityId > 0 && makeId>0)
+            {
+                IEnumerable<DealerEntityBase> objDealers = null;
+                IEnumerable<DealerBase> objDealersDTO = null;
+                try
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealers, DealersRepository>();
+                        IDealers objAllDealer = container.Resolve<DealersRepository>();
+                        objDealers = objAllDealer.GetDealersByMake(makeId, cityId);
+                    }
+
+                    if (objDealers != null && objDealers.Count() > 0)
+                    {
+                        objDealersDTO = new Collection<DealerBase>();
+                        objDealersDTO = DealerListMapper.Convert(objDealers);
+
+                        objDealers = null;
+
+                        return Ok(objDealersDTO);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, string.Format("Exception : BikewaleOpr.Service.Controllers.DealersController.GetDealersByMake: MakeId:{0}, CityId:{1}", makeId,cityId));
+                    return InternalServerError();
+                }
+
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
         /// <summary>
         /// Created By : Suresh Prajapati on 28th Oct, 2014.
         /// Description : To Get Dealer's name by cityId.

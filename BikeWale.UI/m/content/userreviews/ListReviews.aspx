@@ -160,6 +160,7 @@
                         <span class="text-bold text-default"><%=startIndex %>-<%=Math.Min(endIndex,totalReviews) %></span> of <span class="text-bold text-default"><%=totalReviews %></span> reviews
                     </div>
                     <BikeWale:Pager ID="ctrlPager" runat="server" />
+                    <div class="clear"></div>
                 </div>
             </div>
         </section>

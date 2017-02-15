@@ -4,52 +4,64 @@
 <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
 <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
+
 <style type="text/css">
     input[type='text'] {
         background-color: #fff;
     }
 </style>
-    <div>
-        
+<div>
+
     <!-- #Include file="/content/DealerMenu.aspx" -->
-    </div>
-    <div class="left">
-        <h1>Manage New Bike Dealers</h1>
+</div>
+<div class="left">
+    <h1>Manage New Bike Dealers</h1>
     <div>
+        <div style="border: 1px solid #777;" class="padding10" id="dealersmakecity">
+            <div class="margin-right10 verical-middle form-control-box">
+                Dealer's City : <span class="errMessage">* &nbsp</span>
+                <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass chosen-select" runat="server">
+                    <asp:ListItem Text="--Select City--" Value="-1" />
+                    </asp:dropdownlist>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select City</div>
+            </div>
+            <div class="margin-right10 verical-middle form-control-box position-rel">
+                Bike Make : <span class="errMessage">* &nbsp</span>
+                <select data-placeholder="--Select Make--" id="ddlMakes" class="drpClass chosen-select" data-bind="options: listMakes, value: selectedMake, optionsText: 'makeName', optionsValue: 'makeId', optionsCaption: '--Select Make--', chosen: { width: '150px', search_contains: true }">
+                </select>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Make</div>
+            </div>
+            <div class="margin-right10 verical-middle form-control-box position-rel">
+                Dealer Name : <span class="errMessage">* &nbsp</span>
+                <select data-placeholder="--Select Dealer--" id="drpDealer" class="drpClass chosen-select" data-bind="options: listDealers, value: selectedDealer, optionsText: 'dealerName', optionsValue: 'dealerId', optionsCaption: '--Select Dealers--', chosen: { width: '200px', search_contains: true }">
+                </select>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Dealer</div>
+            </div>
+        </div>
+
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
-            <tr id="city">
-                Dealer's City : <font color="red">* &nbsp</font>
-                <asp:dropdownlist id="drpCity" enabled="True" cssclass="drpClass" runat="server">
-					<asp:ListItem Text="--Select City--" Value="-1"/>
-				</asp:dropdownlist>
-                <span style="font-weight: bold; color: red;" id="spndrpCity" class="error" />&nbsp&nbsp
-            </tr>
-            <tr>
-                Dealer Name : <font color="red">* &nbsp</font>
-                <asp:dropdownlist id="drpDealer" enabled="True" cssclass="drpClass" runat="server">
-				<asp:ListItem Text="--Select Dealer--" Value="-1" />
-				</asp:dropdownlist>
-            </tr>            
             <tr>
                 <td>
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
                     <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
                     <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
-                    <%--<input type ="button" value="Manage Bike Avalability" id="btngoAvailable"/>--%>&nbsp;&nbsp;
-                    <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
+                     <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
                     <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
                 </td>
             </tr>
         </table>
-    </div>    
+    </div>
     <div id="selectCityPriceHead" runat="server" class="hide">
         <hr />
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px">
                         <legend>Add / Show Price</legend>
                         <div>
                             Select City of Pricing :
@@ -60,20 +72,20 @@
                         </div>
                         <div class="margin-top10">
                             Select Pricing Heads :
-                            <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 134px; vertical-align: text-top;">
+                            <asp:listbox id="drpPriceHead" runat="server" selectionmode="Multiple" style="height: 100px; vertical-align: text-top; position: relative">
                                 <asp:ListItem Value="0" Text="--Select--" />
                             </asp:listbox>
-                            <asp:button id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>                            
-                        </div>                        
+                            <asp:button class="margin-top10" id="btnAddCat" text="Add Cateogry to Price Sheet" runat="server"></asp:button>
+                        </div>
                     </fieldset>
                 </td>
                 <td width="33%"><%-- Start Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px;">
                         <legend>Copy Price Sheet to Other cities</legend>
-                        Select State :<span style="color:red">* </span>
+                        Select State :<span style="color: red">* </span>
                         <asp:dropdownlist id="ddlState" runat="server" />
-                        Select cities :<span style="color:red">* </span>
-                        <select id="lstCity" multiple="multiple" style="height: 134px; vertical-align: text-top;" ></select>
+                        Select cities :<span style="color: red">* </span>
+                        <select id="lstCity" multiple="multiple" style="height: 134px; vertical-align: text-top;"></select>
                         <asp:button id="btnTransferPriceSheet" text="Copy Price Sheet" runat="server" onclientclick="return ConfirmCopy();"></asp:button>
                         <asp:label runat="server" id="lblTransferStatus" class="errorMessage" text="Price Sheet copied successfully."></asp:label>
                     </fieldset>
@@ -81,12 +93,12 @@
                 </td>
                 <%-- Start Pivotal Tracker # : 104505670 Author : Sadhana Upadhyay --%>
                 <td width="33%">
-                    <fieldset style="height: 200px">
+                    <fieldset style="height: 250px">
                         <legend>Copy Price Sheet to Other dealer</legend>
-                        Select City :<span style="color:red">* </span>
+                        Select City :<span style="color: red">* </span>
                         <asp:dropdownlist id="ddlDealerCity" runat="server" />
-                        Select Dealer :<span style="color:red">* </span>
-                        <select id="lstDealer" multiple="multiple" style="height: 134px; vertical-align: text-top;" ></select>
+                        Select Dealer :<span style="color: red">* </span>
+                        <select id="lstDealer" multiple="multiple" style="height: 134px; vertical-align: text-top;"></select>
                         <asp:button id="btnUpdateDealerPrice" text="Copy Dealer Price Sheet" runat="server" onclientclick="return ConfirmDealerCopy();"></asp:button>
                         <asp:label runat="server" id="lblDealerPriceStatus" class="errorMessage" text="Price Sheet copied successfully."></asp:label>
                     </fieldset>
@@ -121,10 +133,6 @@
                 </HeaderTemplate>
                 <AlternatingItemTemplate>
                         <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>' style="background-color:#bfbfc6" >
-                        <%--<td>
-                            <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
-                            <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
-                        </td>--%>
                         <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>' id="chkUpdate" class="checkboxAll itsGrey" runat="server"/>
@@ -142,7 +150,6 @@
                                 </td>
                             </ItemTemplate>
                         </asp:Repeater>
-                        <%--<td class="metAvailable"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></td>--%>
                         <td>
                             <span class="spnDays"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></span>
                             <asp:Textbox class="metAvailableBlack hide" id="lblAvailableDays" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
@@ -154,11 +161,7 @@
                 </AlternatingItemTemplate>
                 <ItemTemplate>
                     <tr id='<%#DataBinder.Eval(Container.DataItem, "VersionId")%>'>
-                        <%--<td>i
-                            <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
-                            <input type="checkbox" versionid='<%#Eval("VersionId") %>' class="checkbox" runat="server" id="chkUpdate" />
-                        </td>--%>
-                        <td style="text-align: center;">
+                            <td style="text-align: center;">
                             <asp:Label style="display:none;" id="lblVersionId" Text='<%# DataBinder.Eval( Container.DataItem, "VersionId" ) %>' runat="server"></asp:Label>
                             <input type="checkbox" versionid='<%#Eval("VersionId") %>'  id="chkUpdate" class="checkboxAll" runat="server" />
                         </td>
@@ -204,20 +207,199 @@
         <footertemplate>
     </div>
 
-     <%--   <asp:HiddenField  ID="hdnCityId" runat="server" />
-        <asp:HiddenField  ID="hdnMakeId" runat="server" />
-        <asp:HiddenField  ID="hdnDealerId" runat="server" />--%>
-    <%--<input type="hidden"   ID="hdnCityId" runat="server">--%>
     <input type="hidden" id="hdnMakeId" runat="server">
     <input type="hidden" id="hdnDealerId" runat="server">
     <input type="hidden" id="hdnCities" runat="server">
     <input type="hidden" id="hdnDealerList" runat="server" />
     <input type="hidden" id="hdnDealerCity" runat="server" />
-    </div>
-    
+    <input type="hidden" id="ispostback" value="<%=Page.IsPostBack.ToString()%>" />
+</div>
 
 
+<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
 <script type="text/javascript">
+    var ddlCities = $('#<%=drpCity.ClientID%>');
+    var ddlMakes = $('#ddlMakes');
+    var ddlDealers = $('#drpDealer');
+
+    ko.bindingHandlers.chosen = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+            var options = ko.unwrap(valueAccessor());
+            if (typeof options === 'object')
+                $element.chosen(options);
+
+            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                if (allBindings.has(propName)) {
+                    var prop = allBindings.get(propName);
+                    if (ko.isObservable(prop)) {
+                        prop.subscribe(function () {
+                            $element.trigger('chosen:updated');
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    function isPostBack() {
+        return $('#ispostback').val() == 'True';
+    }
+
+    function dealerModel() {
+        var self = this;
+        self.listMakes = ko.observableArray();
+        self.listDealers = ko.observableArray();
+        self.selectedCity = ko.observable();
+        self.selectedMake = ko.observable();
+        self.selectedDealer = ko.observable();
+        self.makeApiUrl = "/api/makes/city/";
+
+        self.ClearMakes = function () {
+            self.listMakes([]);
+            ddlMakes.trigger('chosen:updated');
+        }
+
+        self.ClearDealers = function () {
+            self.listDealers([]);
+            ddlDealers.trigger('chosen:updated');
+        }
+
+        ddlCities.change(function (item, event) {
+            self.selectedCity(ddlCities.select().val());
+            showHideMatchError(ddlCities, false);
+            showHideMatchError(ddlMakes, false);
+            showHideMatchError(ddlDealers, false);
+            self.ClearMakes();
+            self.ClearDealers();
+            self.cityChanged();
+        });
+        ddlMakes.change(function () {
+            self.selectedMake(ddlMakes.select().val());
+            showHideMatchError(ddlMakes, false);
+            showHideMatchError(ddlDealers, false);
+            self.ClearDealers();
+            self.makeChanged();
+        });
+        ddlDealers.change(function () {
+            self.selectedDealer(ddlDealers.select().val());
+            showHideMatchError(ddlDealers, false);
+            $('#hdnDealerId').val(self.selectedDealer());
+        });
+
+        self.cityChanged = function () {
+            try {
+                if (self.selectedCity() != null && self.selectedCity() > 0) {
+                    $("#hdnCityId").val(self.selectedCity());
+                    $.ajax({
+                        type: "GET",
+                        url: self.makeApiUrl + self.selectedCity() + "/",
+                        datatype: "json",
+                        success: function (response) {
+                            var makes = ko.toJS(response);
+                            self.listMakes(makes);
+                            if (isPostBack()) {
+                                self.selectedMake($('#hdnMakeId').val());
+                             }
+                            else if (self.listMakes().length == 1) {
+                                self.selectedMake(self.listMakes()[0].makeId);
+                            }
+                            ddlMakes.trigger('chosen:updated');
+                            self.makeChanged();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            showToast("AJAX request failed status : " + xhr.status + " and err : " + thrownError);
+                            self.ClearMakes();
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                showToast("Something went wrong .Please try again !!");
+                            }
+                        }
+                    });
+                }
+                else {
+                    self.ClearMakes();
+                }
+            }
+            catch (e) {
+                showToast("Error occured : " + e.message);
+                self.ClearMakes();
+            }
+        }
+
+        self.makeChanged = function () {
+            try {
+                if (self.selectedMake() != null && self.selectedMake() > 0) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/dealers/make/" + self.selectedMake() + "/city/" + self.selectedCity() + "/",
+                        datatype: "json",
+                        success: function (response) {
+                            var dealers = ko.toJS(response);
+                            self.listDealers(dealers);
+                            ddlDealers.trigger('chosen:updated');
+                            if (isPostBack()) {
+                                self.selectedDealer($('#hdnDealerId').val());
+                                ddlDealers.trigger('chosen:updated');
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            showToast("AJAX request failed status : " + xhr.status + " and err : " + thrownError);
+                            self.ClearDealers();
+                        },
+                        complete: function (xhr) {
+                            if (xhr.status != 200) {
+                                showToast("Something went wrong .Please try again !!");
+                            }
+                        }
+                    });
+                }
+                else {
+
+                    self.ClearDealers();
+                }
+            }
+
+            catch (e) {
+                showToast("Error occured : " + e.message);
+                self.ClearDealers();
+            }
+        }
+
+
+        self.validateInputs = function (cityid, makeid, dealerId) {
+            var isValid = true;
+            if (navigator.onLine) {
+                if (!parseInt(cityid)) {
+                    showHideMatchError(ddlCities, true);
+                    isValid = false;
+                }
+                if (!parseInt(makeid)) {
+                    showHideMatchError(ddlMakes, true);
+                    isValid = false;
+                }
+                if (!parseInt(dealerId)) {
+                    showHideMatchError(ddlDealers, true);
+                    isValid = false;
+                }
+            }
+            else {
+                showToast("Oops you're offline!!! Please check the network connection.");
+                isValid = false;
+            }
+            return isValid;
+        }
+
+
+    }
+
+    var dVm = new dealerModel();
+    ko.applyBindings(dVm, document.getElementById("dealersmakecity"));
+    ddlCities.chosen();
+    ddlMakes.chosen()
+    ddlDealers.chosen();
+
     function ConfirmDelete() {
         var exists = false;
         var acknowledge;
@@ -236,7 +418,6 @@
         return acknowledge;
     }
     function ValidatePrice() {
-        //$('#btnUpdate').click(function () {
         $("#lblSaved").text("");
         var isError = true;
         $('#spnError').text("");
@@ -244,15 +425,10 @@
             if ((this).checked) {
                 var parentInputRow = $(this).parent().parent().find('input');
                 for (var i = 1; i < parentInputRow.length; i++) {
-                    //alert(isNaN(parentInputRow[i].value) || parentInputRow[i].value.trim() == "");
                     if (isNaN(parentInputRow[i].value) || parentInputRow[i].value.trim() == "") {
                         $('#spnError').text("Please Enter Numeric Values in Selected Text-Box Field(s)");
-                        // alert("inside as");
-                        //return false;
-
                         isError = false;
-                        //return false;
-                    }
+                        }
                 }
             }
         });
@@ -294,7 +470,7 @@
 
         strDealerId = strDealerId.substring(0, strDealerId.length - 1);
         if (strDealerId.length > 0 && cityId != '' && cityId > 0) {
-            
+
             $('#hdnDealerList').val(strDealerId);
             acknowledge = confirm("Do you want to copy the current city's price sheet to selected cities.");
             if (acknowledge)
@@ -357,8 +533,6 @@
         $('.checkboxAll').click(function () {
             $("#lblSaved").text("");
             var parentRow = $(this).parent().parent();
-            //alert($(this).parent().val());
-            //parentRow.hasClass("metBlack");
             if ($("[type='checkbox']:checked").length == 1) {
 
                 if ($("#rptModels_hd_chk").is(':checked')) {
@@ -371,8 +545,6 @@
             }
             else
                 $("#btnSaveDelete").addClass("hide");
-
-            //if ($(this).checked)
 
             var chkSiblings = $(this).parent().siblings();
             if (this.checked) {
@@ -391,7 +563,6 @@
             //on click 
             var chkSiblings;
             if (this.checked) {
-                //$("#btnSaveDelete").removeClass("hide");
                 // check select status
                 $('.checkboxAll').each(function () { //loop through each checkbox
                     this.checked = true;  //select all checkboxes with class "checkboxAll"      
@@ -415,53 +586,17 @@
         var BwOprHostUrl = '<%= BwOprHostUrl %>';
         var ddlDealer = $("#drpDealer");
         var selectString = "--Select Dealer--";
-        var onInitCity = $("#drpCity option:selected").val();
-        
-        if (onInitCity > 0) {
-            $.ajax({
-                type: "GET",
-                url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + onInitCity,
-                success: function (response) {
-                    ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
-                    for (var i = 0; i < response.length; i++) {
-                        ddlDealer.append("<option value=" + response[i].Value + " makeId=" + response[i].MakeId + ">" + response[i].Text + "</option>");
-                    }
-                }
-            });
-        }
-
 
         $('#drpPriceHead option:selected').click(function () {
 
             $(this).attr("selected", "selected");
-        });
-        $("#drpCity").change(function () {
-            var cityId = $(this).val();
-            $("#hdnCityId").val(cityId);
-            //alert("cityId : " + $("#hdnCityId").val());
-            
-            if (cityId > 0) {
-                $.ajax({
-                    type: "GET",
-                    url: BwOprHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
-                    success: function (response) {
-                        ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
-                        for (var i = 0; i < response.length; i++) {
-                            ddlDealer.append("<option value=" + response[i].Value + " makeId=" + response[i].MakeId + ">" + response[i].Text + "</option>");
-                        }
-                    }
-                });
-            }
-            else {
-                ddlDealer.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("enabled");
-            }
         });
 
         $('#ddlDealerCity').change(function () {
             var cityId = $(this).val();
             $('#hdnDealerCity').val(cityId);
             var ddlDealerList = $('#lstDealer');
-            
+
             if (cityId > 0) {
                 $.ajax({
                     type: "GET",
@@ -486,7 +621,7 @@
         $("#btnManageoffer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageOffers.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -497,35 +632,39 @@
         $("#btnManageBenefits").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
-            var cityId = $('#drpCity').val();
-            if (dealerId > 0) {
+            var dealerId = dVm.selectedDealer();
+            var cityId = dVm.selectedCity();
+            if (dealerId > 0 && cityId > 0) {
                 window.open('/newbikebooking/ManageDealerBenefits.aspx?dealerId=' + dealerId + '&cityId=' + cityId, 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
             else
                 alert("Please select dealer");
         });
-        
-        $("#btnManagePrice").click(function () {
 
-            var dealerId = $("#drpDealer").val();
-            if (dealerId > 0) {
-                var makeId = $("#drpDealer option:selected").attr("makeid");
-                $("#hdnDealerId").val(dealerId);
-                $("#hdnMakeId").val(makeId);
+        $("#btnManagePrice").click(function () {
+            if (dVm.validateInputs(dVm.selectedCity(), dVm.selectedMake(), dVm.selectedDealer())) {
+                showHideMatchError(ddlCities, false);
+                showHideMatchError(ddlMakes, false);
+                showHideMatchError(ddlDealers, false);
+                $("#hdnDealerId").val(dVm.selectedDealer());
+                $("#hdnMakeId").val(dVm.selectedMake());
                 $("#selectCityPriceHead").removeClass("hide");
             }
-            //alert("dealerId : " + dealerId + "MakeId : " + makeId);
-            if (dealerId <= 0) {
-                alert("Please select dealer");
+            else {
+                return false;
             }
+
         });
 
+        if (isPostBack()) {
+            dVm.selectedCity(ddlCities.select().val());
+            dVm.cityChanged();
+         }
 
         $("#btnManagefacilities").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerFacilities.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -536,7 +675,7 @@
         $("#btnMapDealer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerAreaMapping.aspx?dealerid=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -545,7 +684,7 @@
         });
 
         $("#btngoAvailable").click(function () {
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageBikeAvailability.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -557,7 +696,7 @@
         $("#btnEmi").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerLoanAmounts.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -569,7 +708,7 @@
         $("#btnDisclaimer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageDealerDisclaimer.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -580,7 +719,7 @@
         $("#btnBkgAmount").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
-            var dealerId = $("#drpDealer").val();
+            var dealerId = dVm.selectedDealer();
             if (dealerId > 0) {
                 window.open('/newbikebooking/ManageBookingAmount.aspx?dealerId=' + dealerId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
             }
@@ -589,7 +728,7 @@
         });
 
         //manage availability by color and cost script goes here
-        $("a.availabilityByColor").click(function () {            
+        $("a.availabilityByColor").click(function () {
             var versionId = $(this).parent().parent().attr('id');
             var versionAvailDays = $(this).attr("NoOfDays");
             var dealerId = $("#hdnDealerId").val();
@@ -599,10 +738,9 @@
             else
                 alert("Please select dealer");
         });
-
         //ends here
-
     });
+
 </script>
 
 <!-- #Include file="/includes/footerNew.aspx" -->

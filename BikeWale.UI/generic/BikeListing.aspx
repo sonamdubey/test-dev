@@ -105,25 +105,25 @@
                                     </div>
                                     <div class="grid-6 bike-details-block border-grey-right padding-right20">
                                         <h3><a href="<%= string.Format("/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %>" class="bikeTitle"><%= bike.BikeName %></a></h3>
-                                        <ul class="key-specs-list text-light-grey margin-bottom15">
+                                        <ul class="key-specs-list text-light-grey padding-bottom15 margin-bottom15 border-solid-bottom">
                                              <%if (bike.MinSpecs.Displacement != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite capacity-sm"></span>
+                                                <span class="bwsprite capacity-sm"></span>
                                                  <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(),"cc") %></span>
                                             </li>
                                              <% } %>
                                             <%if (bike.MinSpecs.FuelEfficiencyOverall != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite mileage-sm"></span>
+                                                <span class="bwsprite mileage-sm"></span>
                                                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(),"kmpl") %></span>
                                             </li>
                                             <% } %>
                                     <%if (bike.MinSpecs.MaxPower != 0)
                                         { %>
                                             <li>
-                                                <span class="generic-sprite power-sm"></span>
+                                                <span class="bwsprite power-sm"></span>
                                                    <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(),"bhp") %></span>
                                             </li>                                            
                                     <% } %>
@@ -171,7 +171,7 @@
                                                 <% if(bike.NewsCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatNewsUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> News">
-                                                        <span class="generic-sprite news-sm"></span>
+                                                        <span class="bwsprite news-sm"></span>
                                                         <span class="icon-label">News</span>
                                                     </a>
                                                 </li>
@@ -179,7 +179,7 @@
                                                  <% if(bike.ExpertReviewsCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatExpertReviewUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Reviews">
-                                                        <span class="generic-sprite reviews-sm"></span>
+                                                        <span class="bwsprite reviews-sm"></span>
                                                         <span class="icon-label">Reviews</span>
                                                     </a>
                                                 </li>
@@ -195,7 +195,7 @@
                                                   <% if(bike.VideosCount > 0) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.FormatVideoPageUrl(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Videos">
-                                                        <span class="generic-sprite videos-sm"></span>
+                                                        <span class="bwsprite videos-sm"></span>
                                                         <span class="icon-label">Videos</span>
                                                     </a>
                                                 </li>
@@ -203,7 +203,7 @@
                                                   <% if(bike.MinSpecs !=null) { %>
                                                 <li>
                                                     <a href="<%= UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) %>" title="<%= bike.BikeName %> Specs">
-                                                        <span class="generic-sprite specs-sm"></span>
+                                                        <span class="bwsprite specs-sm"></span>
                                                         <span class="icon-label">Specs</span>
                                                     </a>
                                                 </li>

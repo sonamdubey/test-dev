@@ -24,14 +24,14 @@
             <div class="ad-thumbs">
                 <ul id="galleryList" class="ad-thumb-list">
                 <% 
-                    foreach(Bikewale.Entities.CMS.Photos.ModelImage img in objImageList){ %>
+                    foreach(Bikewale.Entities.CMS.Photos.ColorImageBaseEntity img in objImageList){ %>
                     <li>
                         <a original-href="<%= Bikewale.Utility.Image.GetPathToShowImages(img.OriginalImgPath,img.HostUrl,Bikewale.Utility.ImageSize._640x348) %>">
                             <img height="70" <%--id='<%=index %>--%>'
                                 src='<%= Bikewale.Utility.Image.GetPathToShowImages(img.OriginalImgPath,img.HostUrl,Bikewale.Utility.ImageSize._144x81) %>'
                                 border="0" alt='<%= string.Format("{0} - {1}",BikeName, img.ImageCategory) %>'
                                 title='<%= string.Format("{0} - {1}",BikeName, img.ImageCategory) %>'
-                                desc='<%= img.Caption %>'
+                                desc='<%= img.ImageTitle %>'
                                 imgcnt='<%=FetchedCount %>' arttitle='<%= Server.HtmlEncode(img.ImageTitle.Replace("'","&rsquo;")) %>' />
 
                         </a>

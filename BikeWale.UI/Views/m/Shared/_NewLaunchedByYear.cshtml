@@ -1,0 +1,25 @@
+﻿@if (@ViewBag.Years != null)
+{
+    <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
+        <div class="swiper-container card-container year-type-swiper">
+            <div class="swiper-wrapper">
+                @foreach (var BikeYear in @ViewBag.Years)
+                {
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatBikeLaunchedYearUrl(BikeYear.Year))" title="Bike launched in @BikeYear.Year" class="block swiper-card-target">
+                                <div class="swiper-image-preview">
+                                    <span>@BikeYear.Year</span>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="margin-bottom5">Bike launched in @BikeYear.Year</h3>
+                                    <p class="font12 text-light-grey text-truncate">@string.Join(", ",BikeYear.Bikes)</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

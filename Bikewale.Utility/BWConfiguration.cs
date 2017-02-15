@@ -63,6 +63,9 @@ namespace Bikewale.Utility
             _AutoSuggestType = String.Empty,
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
+            _StaticFrameworkFileVersion = String.Empty,
+            _StaticPluginFileVersion = String.Empty,
+            _StaticCommonFileVersion = String.Empty,
             _apiRequestTypeJSON = String.Empty,
             _BWPrioritySmsQueue = String.Empty,
             _BWSmsQueue = string.Empty,
@@ -139,6 +142,9 @@ namespace Bikewale.Utility
             _AutoSuggestType = ConfigurationManager.AppSettings["AutoSuggestType"];
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
+            _StaticFrameworkFileVersion = ConfigurationManager.AppSettings["staticFrameworkFileVersion"];
+            _StaticPluginFileVersion = ConfigurationManager.AppSettings["staticPluginFileVersion"];
+            _StaticCommonFileVersion = ConfigurationManager.AppSettings["staticCommonFileVersion"];
             _apiRequestTypeJSON = "application/json";
             _BWPrioritySmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
             _BWSmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
@@ -265,6 +271,9 @@ namespace Bikewale.Utility
         public string AutoSuggestType { get { return _AutoSuggestType; } }
         public string PageSize { get { return _PageSize; } }
         public string StaticFileVersion { get { return _StaticFileVersion; } }
+        public string StaticFrameworkFileVersion { get { return _StaticFrameworkFileVersion; } }
+        public string StaticPluginFileVersion { get { return _StaticPluginFileVersion; } }
+        public string StaticCommonFileVersion { get { return _StaticCommonFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
         public string BWPrioritySmsQueue { get { return _BWPrioritySmsQueue; } }
         public string BWSmsQueue { get { return _BWSmsQueue; } }

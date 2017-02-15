@@ -18,6 +18,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
     /// <summary>
     /// Created By : Sushil Kumar on 5th Jan 2017
     /// Description : Viewmodel for Model's Photos page
+    /// Modified by : Sangram Nandkhile on 10 Feb 2017
+    /// Description: Changed Image entity to ColorImageBaseEntity
     /// </summary>
     public class BindModelPhotos
     {
@@ -31,7 +33,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public string pageRedirectUrl = "/";
         public BikeMakeEntityBase objMake = null;
         public BikeModelEntityBase objModel = null;
-        public List<ModelImage> objImageList = null;
+        public List<ColorImageBaseEntity> objImageList = null;
         public PageMetaTags pageMetas = null;
         public uint gridSize = 30;  //show more photos available after grid size more than 30
         public bool IsUpcoming = false, IsDiscontinued = false;
@@ -110,7 +112,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         {
             try
             {
-                objImageList = objModelCache.GetModelPhotos((int)_modelId) as List<ModelImage>;
+                objImageList = objModelCache.GetAllPhotos((int)_modelId) as List<ColorImageBaseEntity>;
 
                 if (objImageList != null && objImageList.Count > 0)
                 {

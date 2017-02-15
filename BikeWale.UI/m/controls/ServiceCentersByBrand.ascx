@@ -3,7 +3,7 @@
 <div class="container bg-white box-shadow padding-top15">
     <h2 class="padding-right20 padding-bottom15 padding-left20">Find service centers for other brands</h2>
 
-    <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
+    <div class="swiper-container card-container brand-type-carousel">
         <div class="swiper-wrapper">
             <%foreach(var centers in AllServiceCenters){ %>
                 <div class="swiper-slide">

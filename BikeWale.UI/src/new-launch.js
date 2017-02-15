@@ -1,6 +1,14 @@
-﻿var chosenSelectBox = $('.chosen-select');
+﻿
+var chosenSelectBox = $('.chosen-select');
 
 chosenSelectBox.chosen();
+
+$(window).on("scroll", function () {
+    if ($(window).scrollTop() > 40)
+        $('.header-transparent').removeClass("header-landing").addClass("header-fixed");
+    else
+        $('.header-transparent').removeClass("header-fixed").addClass("header-landing");
+});
 
 $(document).ready(function () {    
     chosenSelectBox.each(function () {

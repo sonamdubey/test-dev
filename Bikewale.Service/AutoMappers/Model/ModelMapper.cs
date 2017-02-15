@@ -14,6 +14,7 @@ using Bikewale.DTO.Videos;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
@@ -474,6 +475,19 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
+        }
+
+        /// <summary>
+        /// Created by  :   Sangram Nandkhile on 09 Feb 2017
+        /// Description :   AutoMapper Entity to DTO for mapping All model images
+        /// </summary>
+        /// <param name="imageList"></param>
+        /// <returns></returns>
+        internal static IEnumerable<ColorImageBaseDTO> Convert(IEnumerable<ColorImageBaseEntity> imageList)
+        {
+            Mapper.CreateMap<Entities.CMS.Photos.ImageBaseEntity, ImageBaseDTO>();
+            Mapper.CreateMap<Entities.CMS.Photos.ColorImageBaseEntity, Bikewale.DTO.Model.ColorImageBaseDTO>();
+            return Mapper.Map<IEnumerable<ColorImageBaseEntity>, IEnumerable<ColorImageBaseDTO>>(imageList);
         }
     }
 }

@@ -4,8 +4,10 @@ using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -28,7 +30,7 @@ namespace Bikewale.Mobile
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
         protected BikeModelPageEntity modelDetail;
-
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -49,6 +51,20 @@ namespace Bikewale.Mobile
             if (versionId > 0)
             {
                 specs = FetchVariantDetails(versionId);
+            }
+            BindWidget();
+        }
+        /// Created  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
+        /// </summary>
+        private void BindWidget()
+        {
+            if (ctrlGenericBikeInfo != null)
+            {
+                ctrlGenericBikeInfo.ModelId = modelId;
+                ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                ctrlGenericBikeInfo.TabCount = 3;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.Specs;
             }
         }
 
