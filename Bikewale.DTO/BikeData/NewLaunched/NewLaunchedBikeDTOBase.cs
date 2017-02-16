@@ -35,5 +35,7 @@ namespace Bikewale.DTO.BikeData.NewLaunched
         public City.CityBase City { get; set; }
         [JsonProperty("price")]
         public uint Price { get; set; }
+        [JsonProperty("bikeName")]
+        public String BikeName { get { return string.Format("{0} {1}", (Make != null) ? Make.MakeName : "", (Model != null) ? Model.ModelName : ""); } }
     }
 }

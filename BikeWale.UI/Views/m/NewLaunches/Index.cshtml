@@ -33,7 +33,7 @@
     </div>
 </section>
 
-<section>
+<section id="newlaunched-bikes">
     <h2 class="section-heading">New bike launches in India</h2>
     @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>
@@ -160,6 +160,7 @@
         </div>
     </div>
 </section>
+
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 
