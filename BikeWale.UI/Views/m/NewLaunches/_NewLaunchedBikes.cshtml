@@ -12,14 +12,20 @@
 {
     <div class="container bg-white box-shadow section-bottom-margin">
         <div class="box-shadow padding-top10 padding-bottom10">
-            <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+            @if(objMakes!=null)
+            {
+              <div class="grid-6 padding-left15 padding-right15 border-solid-right">
                 <p class="font12 text-light-grey">Brand</p>
-                <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake()">All brands</p>
-            </div>
+                  <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
+            </div>  
+            }
+            @if (objYears != null)
+            {
             <div class="grid-6 padding-left15 padding-right15">
                 <p class="font12 text-light-grey">Launch year</p>
-                <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear()">All years</p>
+                <p id="year-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedYear() ? selectedYear() : ''">All years</p>
             </div>
+            }
             <div class="clear"></div>
         </div>
         <!-- ko if : models() && models().length > 0 -->

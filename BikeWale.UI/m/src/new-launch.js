@@ -67,12 +67,11 @@ var slideInDrawer = {
     },
 
     close: function (container) {
-        if (container)
-        {
+        if (container) {
             container.hide(effect, directionRight, duration, function () { });
             container.removeClass('fix-header-input');
             windowScreen.unlock();
-        }       
+        }
     }
 };
 
@@ -114,8 +113,8 @@ $(window).on('popstate', function (event) {
 });
 
 $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
-    if(vmNewLaunches)
-    {
+    if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {
+      
         vmNewLaunches.init(e);
     }
 });
@@ -124,7 +123,7 @@ ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
         var amount = valueAccessor();
         var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
-      
+
         if (amount > 0) $(element).text(formattedAmount);
         else $(element).text("N/A");
     }
@@ -247,7 +246,7 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 var newLaunches = function () {
     var self = this;
     self.IsInitialized = ko.observable(false);
-    self.Filters = ko.observable({pageNo :1,pageSize:10});
+    self.Filters = ko.observable({ pageNo: 1, pageSize: 10 });
     self.PreviousQS = ko.observable("");
     self.IsReset = ko.observable(false);
     self.QueryString = ko.computed(function () {
@@ -275,30 +274,36 @@ var newLaunches = function () {
 
     self.init = function (e) {
         if (!self.IsInitialized()) {
-            ko.applyBindings(self, document.getElementById("newlaunched-bikes"));
-                self.IsInitialized(true);
 
-                var filterType = $(event.target).closest("ul").data("filter");
-                if (filterType) {
-                    if (filterType == 'makewise') {
-                        self.setMakeFilter(e);
-                    }
-                    else if (filterType == "yearwise") {
-                        self.setYearFilter(e);
-                    }
+            var eleSection = $("newlaunched-bikes");
+            ko.applyBindings(self, document.getElementById("newlaunched-bikes"));
+
+            self.Filters()["make"] = eleSection.data("make-filter") || "";
+            self.Filters()["year"] = eleSection.data("year-filter") || "";
+
+            var filterType = $(event.target).closest("ul").data("filter");
+            if (filterType) {
+                if (filterType == 'makewise') {
+                    self.setMakeFilter(e);
                 }
-                else {
+                else if (filterType == "yearwise") {
+                    self.setYearFilter(e);
+                }
+            }
+            else {
+                self.ChangePageNumber(e);
+            }
+
+            $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").off("click", self.init);
+
+            $(document).on("click", "#pagination-list-content ul li", function (e) {
+                if (self.IsInitialized()) {
                     self.ChangePageNumber(e);
                 }
+            });
 
-                $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").off("click", self.init);
-
-                $(document).on("click", "#pagination-list-content ul li", function (e) {
-                    if (self.IsInitialized()) {
-                        self.ChangePageNumber(e);
-                    }
-                });
-            }
+            self.IsInitialized(true);
+        }
     };
 
     self.ApplyPagination = function () {
@@ -339,7 +344,7 @@ var newLaunches = function () {
 
     self.ChangePageNumber = function (e) {
         try {
-            var pnum = parseInt($(e.target).attr("data-pagenum"),10);
+            var pnum = parseInt($(e.target).attr("data-pagenum"), 10);
             var selHash = $(e.target).attr("data-hash");
             self.Filters()["pageNo"] = pnum;
 
@@ -369,26 +374,22 @@ var newLaunches = function () {
         self.Filters()["make"] = make.id || "";
         self.Filters()["pageNo"] = 1;
         self.CurPageNo(1);
-        self.getNewLaunchedBikes($('#make-slideIn-drawer')).then(function () {
-            debugger;
-        });
+        self.getNewLaunchedBikes($('#make-slideIn-drawer'));
     };
 
     self.setYearFilter = function (e) {
-        
-        var ele = $(e.currentTarget),year = ele.data("bikeyear");         
+
+        var ele = $(e.currentTarget), year = ele.data("bikeyear");
         self.selectedYear(year || "All years");
         self.Filters()["yearLaunch"] = year || "";
         self.Filters()["pageNo"] = 1;
         self.CurPageNo(1);
-        self.getNewLaunchedBikes($('#year-slideIn-drawer')).then(function () {
-            debugger;
-        });
-       
+        self.getNewLaunchedBikes($('#year-slideIn-drawer'));
+
     };
 
     self.getNewLaunchedBikes = function (ele) {
-        
+
         self.Filters.notifySubscribers();
 
         var qs = self.QueryString();
