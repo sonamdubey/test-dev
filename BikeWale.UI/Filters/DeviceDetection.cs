@@ -44,6 +44,9 @@ namespace Bikewale.Filters
                         {
                             // This variable is not getting retrived need to check this value. Otherwise deveice detection won't work
                             _mobilePageUrl = filterContext.HttpContext.Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+
+                            if (String.IsNullOrEmpty(_mobilePageUrl))
+                                _mobilePageUrl = filterContext.HttpContext.Request.ServerVariables["URL"];
                         }
 
                         filterContext.Result = new RedirectResult(_hostUrl + _mobilePageUrl);
