@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         /// </summary>
         /// <param name="pageNumber"></param>
         [Route("newlaunches/")]
+        [DeviceDetection]
         public ActionResult Index()
         {
             int TopCount = 10;
@@ -33,12 +35,14 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         }
 
         [Route("newlaunches/make/{makeMaskingName}/")]
+        [DeviceDetection]
         public ActionResult Index(string makeMaskingName, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
         [Route("newlaunches/makes/")]
+        [DeviceDetection]
         public ActionResult Makes(uint? makeId)
         {
             if (makeId != null && makeId.HasValue)
@@ -51,6 +55,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         }
 
         [Route("newlaunches/year/{launchYear}/")]
+        [DeviceDetection]
         public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbyyear.cshtml");
