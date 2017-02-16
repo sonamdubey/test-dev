@@ -1,110 +1,42 @@
-﻿
+﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
 <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
     <div class="swiper-container card-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="TVS XL 100">
-                        <div class="swiper-image-preview position-rel">
-                            <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/tvs-xl100-704.jpg?20162803121410" alt="TVS XL 100" src="" />
-                            <span class="swiper-lazy-preloader"></span>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">TVS XL 100</h3>
-                            <div class="text-light-grey margin-bottom5">
-                                <p class="font11 text-light-grey">Expected launch</p>
-                                <p class="font16 text-bold text-default">Jan 2016</p>
+            @foreach (var bike in Model)
+            {
+                string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98)" alt="@bikeName" src="" />
+                                <span class="swiper-lazy-preloader"></span>
                             </div>
-                            <div>
-                                <div class="font11 text-light-grey">Expected Price</div>
-                                <div class="text-default">
-                                    <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="text-bold font16">28,000</span>
-                                    <span class="font14 text-bold">onwards</span>
-                                </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                @if (bike.ExpectedLaunchDate != null)
+                                {
+                                    <div class="text-light-grey margin-bottom5">
+                                        <p class="font11 text-light-grey">Expected launch</p>
+                                        <p class="font16 text-bold text-default">@bike.ExpectedLaunchDate</p>
+                                    </div>
+                                }
+                                @if (bike.EstimatedPriceMin > 0)
+                                {
+                                    <div>
+                                        <div class="font11 text-light-grey">Expected Price</div>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin))</span>
+                                            <span class="font14 text-bold">onwards</span>
+                                        </div>
+                                    </div>
+                                }
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="Kawasaki Ninja ZX-14R [2016]">
-                        <div class="swiper-image-preview position-rel">
-                            <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" src="" />
-                            <span class="swiper-lazy-preloader"></span>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
-                            <div class="text-light-grey margin-bottom5">
-                                <p class="font11 text-light-grey">Expected launch</p>
-                                <p class="font16 text-bold text-default">Feb 2016</p>
-                            </div>
-                            <div>
-                                <div class="font11 text-light-grey">Expected Price</div>
-                                <div class="text-default">
-                                    <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="text-bold font16">17,50,000</span>
-                                    <span class="font14 text-bold">onwards</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="Suzuki Hayate EP">
-                        <div class="swiper-image-preview position-rel">
-                            <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/suzuki-hayateep-705.jpg?20160104150238" alt="Suzuki Hayate EP" src="" />
-                            <span class="swiper-lazy-preloader"></span>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">Suzuki Hayate EP</h3>
-                            <div class="text-light-grey margin-bottom5">
-                                <p class="font11 text-light-grey">Expected launch</p>
-                                <p class="font16 text-bold text-default">Apr 2016</p>
-                            </div>
-                            <div>
-                                <div class="font11 text-light-grey">Expected Price</div>
-                                <div class="text-default">
-                                    <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="text-bold font16">28,000</span>
-                                    <span class="font14 text-bold">onwards</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <div class="swiper-slide">
-                <div class="swiper-card">
-                    <a href="" title="TVS XL 100">
-                        <div class="swiper-image-preview position-rel">
-                            <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/tvs-xl100-704.jpg?20162803121410" alt="TVS XL 100" src="" />
-                            <span class="swiper-lazy-preloader"></span>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">TVS XL 100</h3>
-                            <div class="text-light-grey margin-bottom5">
-                                <p class="font11 text-light-grey">Expected launch</p>
-                                <p class="font16 text-bold text-default">Jan 2016</p>
-                            </div>
-                            <div>
-                                <div class="font11 text-light-grey">Expected Price</div>
-                                <div class="text-default">
-                                    <span class="bwmsprite inr-xsm-icon"></span>
-                                    <span class="text-bold font16">28,000</span>
-                                    <span class="font14 text-bold">onwards</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>

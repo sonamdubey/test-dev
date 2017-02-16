@@ -50,7 +50,7 @@
 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
-    
+    @{ Html.RenderAction("Index", "Upcoming"); }
 </section>
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
