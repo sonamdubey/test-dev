@@ -7,8 +7,8 @@ namespace Bikewale.Interfaces.BikeData.UpComing
     /// Created By :- Subodh Jain 16 Feb 2017
     /// Summary :-  upcoming bikes interface
     /// </summary>
-    public interface IUpcomingBL
+    public interface IUpcoming
     {
-        IEnumerable<UpcomingBikeEntity> GetUpComingBike(int? makeId);
+        IEnumerable<UpcomingBikeEntity> GetModels(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy);
     }
 }

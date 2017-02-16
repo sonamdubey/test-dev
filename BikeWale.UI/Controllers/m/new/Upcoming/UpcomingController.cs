@@ -11,16 +11,20 @@ namespace Bikewale.Controllers.Mobile.Upcoming
     /// </summary>
     public class UpcomingController : Controller
     {
-        private readonly IUpcomingBL _upcoming = null;
+        private readonly IUpcoming _upcoming = null;
 
-        public UpcomingController(IUpcomingBL upcoming)
+        public UpcomingController(IUpcoming upcoming)
         {
             _upcoming = upcoming;
         }
         [Route("m/upcoming/")]
         public ActionResult Index(int? makeId)
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetUpComingBike(makeId);
+            UpcomingBikesListInputEntity objFiler = null;
+
+            if (makeId.HasValue && makeId.Value > 0)
+                objFiler.MakeId = makeId.Value;
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiler, EnumUpcomingBikesFilter.Default);
             return View("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcomingBikes);
         }
     }
