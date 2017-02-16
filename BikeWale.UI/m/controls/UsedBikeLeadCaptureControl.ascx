@@ -127,7 +127,7 @@
     getUserMobile = $('#getUserMobile'),
     getUpdatedUserMobile = $('#getUpdatedMobile'),
     getUserOTP = $('#getUserOTP');
-
+    var msg = "";
     $(document).on('click', '.used-bike-lead', function () {
         ele = $(this);
         ubLeadVM.leadInitGAObject({
@@ -291,22 +291,15 @@
     }
 
     function validateMobile(mobile) {
-        var isValid = true;
-        var reMobile = /^[0-9]{10}$/;
         var mobileNo = mobile.val().trim();
-        if (mobileNo == "") {
-            isValid = false;
-            validate.setError(mobile, "Please enter your mobile number");
-        }
-        else if (!reMobile.test(mobileNo) && isValid) {
-            isValid = false;
-            validate.setError(mobile, "Mobile number should be 10 digits");
+        if (!validateMobileNo(mobileNo, this)) {
+            validate.setError(mobile, this.msg);
+            return false;
         }
         else {
-            validate.hideError(mobile)
+            validate.hideError(mobile);
+            return true;
         }
-
-        return isValid;
     }
 
     function validateOTP() {

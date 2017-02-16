@@ -285,7 +285,7 @@ var validation = {
     },
 
     userMobile: function (val) {
-        var regexMobile = /^[7-9][0-9]{9}$/;
+        var regexMobile = /^[6-9][0-9]{9}$/;
 
         if (val[0] < 7 || !regexMobile.test(val)) {
             vmSellBike.personalDetails().mobileLabel(false);

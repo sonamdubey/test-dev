@@ -1,18 +1,24 @@
 ﻿using Bikewale.BAL.ABServiceRef;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.MobileVerification;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.MobileVerification;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-
+using System.Linq;
 namespace Bikewale.BAL.PriceQuote
 {
     /// <summary>
@@ -128,7 +134,9 @@ namespace Bikewale.BAL.PriceQuote
         /// <summary>
         /// Pushes Inquiry in AutoBiz using API
         /// Modified By : Sushil Kumar on 29th Nov 2016
-        /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count    
+        /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count
+        /// Modified by : Aditi Srivastava on 14 Feb 2017
+        /// Summary     : Added function to check if mobile number is authentic before pushing lead
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -143,19 +151,24 @@ namespace Bikewale.BAL.PriceQuote
             try
             {
                 IDealerPriceQuote objDealer = null;
-
+                IEnumerable<string> numberList = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>();
+                    container.RegisterType<IMobileVerificationRepository,MobileVerificationRepository>()
+                              .RegisterType<IMobileVerificationCache, MobileVerificationCache>()
+                              .RegisterType<ICacheManager, MemcacheManager>();
                     objDealer = container.Resolve<IDealerPriceQuote>();
                     IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
+                    IMobileVerificationCache objMobileVerification=container.Resolve<IMobileVerificationCache>();
                     PriceQuoteParametersEntity details = objPriceQuote.FetchPriceQuoteDetailsById(pqId);
                     campaignId = details.CampaignId.HasValue ? details.CampaignId.Value.ToString() : "0";
+                    numberList = objMobileVerification.GetBlockedNumbers();
                 }
 
                 //update dealer's daily lead count
-                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)))
+                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)) && !numberList.Contains(customerMobile))
                 {
 
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);

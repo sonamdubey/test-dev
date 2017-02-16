@@ -164,6 +164,7 @@
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
         }
+        self.msg ="";
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -478,24 +479,17 @@
 
         self.validateMobileNo = function () {
             leadMobileNo = mobile;
-            var isValid = true,
-                mobileVal = leadMobileNo.val(),
-                reMobile = /^[1-9][0-9]{9}$/;
-            if (mobileVal == "") {
-                setError(leadMobileNo, "Please enter your mobile no.");
-                isValid = false;
-            }
-            else if (mobileVal[0] == "0") {
-                setError(leadMobileNo, "Mobile no. should not start with zero");
-                isValid = false;
-            }
-            else if (!reMobile.test(mobileVal) && isValid) {
-                setError(leadMobileNo, "Mobile no. should be 10 digits only");
-                isValid = false;
+            var mobileVal = leadMobileNo.val();
+            if (!validateMobileNo(mobileVal, self))
+            {
+                setError(leadMobileNo, self.msg);
+                return false;
             }
             else
-                hideError(leadMobileNo)
-            return isValid;
+            {
+                hideError(leadMobileNo);
+                return true;
+            }
         };
 
         self.validateBike = function () {

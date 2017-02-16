@@ -53,7 +53,7 @@ var validation = {
     },
 
     userMobile: function (val) {
-        var regexMobile = /^[1-9][0-9]{9}$/;
+        var regexMobile = /^[6-9][0-9]{9}$/;
 
         if (val[0] == "0" || !regexMobile.test(val)) {
             vmSellBike.personalDetails().mobileLabel(false);
