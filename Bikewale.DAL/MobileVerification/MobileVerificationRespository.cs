@@ -201,9 +201,7 @@ namespace Bikewale.DAL.MobileVerification
                             numberList = new List<string>();
                             while (dr.Read())
                             {
-                                string number;
-                                number = Convert.ToString(dr["MobileNumber"]);
-                                numberList.Add(number);
+                               numberList.Add(Convert.ToString(dr["MobileNumber"]));
                             }
                             dr.Close();
                         }

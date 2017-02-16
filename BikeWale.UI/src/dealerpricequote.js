@@ -13,7 +13,7 @@ var customerViewModel = new CustomerModel();
 var getOfferClick = false;
 var getMoreDetailsClick = false;
 var getEMIClick = false;
-var msg = ko.observable();
+var msg = "";
 
 $(function () {
     leadBtnBookNow.on('click', function () {
@@ -516,7 +516,7 @@ var validateEmailId = function (leadEmailId) {
 var dpqvalidateMobileNo = function (leadMobileNo) {
     var mobileNo = leadMobileNo.val();
     if (!validateMobileNo(mobileNo, this)) {
-        setError(leadMobileNo, this.msg());
+        setError(leadMobileNo, this.msg);
         return false;
     }
     else {

@@ -154,8 +154,8 @@ namespace Bikewale.BAL.MobileVerification
 
 
         public IEnumerable<string> GetBlockedPhoneNumbers()
-        {
-            throw new NotImplementedException();
+        { 
+                return mobileVerRespo.GetBlockedPhoneNumbers();
         }
     }   // Class
 }   // namespace

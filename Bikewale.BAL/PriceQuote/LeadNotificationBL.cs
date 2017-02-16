@@ -18,7 +18,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-
+using System.Linq;
 namespace Bikewale.BAL.PriceQuote
 {
     /// <summary>
@@ -151,7 +151,7 @@ namespace Bikewale.BAL.PriceQuote
             try
             {
                 IDealerPriceQuote objDealer = null;
-                ICollection<string> numberList = null;
+                IEnumerable<string> numberList = null;
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
@@ -164,7 +164,7 @@ namespace Bikewale.BAL.PriceQuote
                     IMobileVerificationCache objMobileVerification=container.Resolve<IMobileVerificationCache>();
                     PriceQuoteParametersEntity details = objPriceQuote.FetchPriceQuoteDetailsById(pqId);
                     campaignId = details.CampaignId.HasValue ? details.CampaignId.Value.ToString() : "0";
-                    numberList = (ICollection<string>)objMobileVerification.GetBlockedNumbers();
+                    numberList = objMobileVerification.GetBlockedNumbers();
                 }
 
                 //update dealer's daily lead count

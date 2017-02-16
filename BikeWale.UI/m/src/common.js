@@ -1872,15 +1872,15 @@ window.validateMobileNo = function(mobileNo,self) {
         var regPhone = /^[6-9][0-9]{9}$/;
         var isValid = true;
         if (mobileNo == "") {
-            self.msg("Please enter your mobile no.");
+            self.msg="Please enter your mobile no.";
             isValid = false;
         }
         else if (!regPhone.test(mobileNo) && isValid) {
-            self.msg("Please enter a valid mobile no.");
+            self.msg="Please enter a valid mobile no.";
             isValid = false;
         }
         else
-            self.msg("");
+            self.msg="";
         return isValid;
     }
     else

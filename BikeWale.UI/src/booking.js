@@ -15,7 +15,7 @@ $(".select-dropdown").on("click", function () {
     else
         selectStateUp($(this));
 });
-var msg = ko.observable();
+var msg = "";
 var selectStateDown = function (div) {
     $(".select-dropdown").removeClass("open");
     $(".select-dropdown").next("div.select-dropdown-list").slideUp();
@@ -83,7 +83,7 @@ var validateMobile = function () {
     var mobileNo = $("#getMobile"),
     mobileVal = mobileNo.val();
     if (!validateMobileNo(mobileVal, this)) {
-        setError(mobileNo, this.msg());
+        setError(mobileNo, this.msg);
         return false;
     }
     else {

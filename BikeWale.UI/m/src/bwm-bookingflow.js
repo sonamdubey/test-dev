@@ -8,7 +8,7 @@ var validateTabB = false,
 	bikePayment = $("#bikePayment"),
 	bikePaymentTab = $("#bikePaymentTab");
 otpText = $("#getOTP");
-var msg = ko.observable();
+var msg = "";
 
 $(".select-dropdown").on("click", function () {
     if (!$(this).hasClass("open")) {
@@ -83,7 +83,7 @@ var validateMobile = function () {
     var mobileNo = $("#getMobile"),
     mobileVal = mobileNo.val();
     if (!validateMobileNo(mobileVal, this)) {
-        setError(mobileNo, this.msg());
+        setError(mobileNo, this.msg);
         return false;
     }
     else {

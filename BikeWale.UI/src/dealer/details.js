@@ -138,7 +138,7 @@ var dealerDetails = function (dealerDetailsBind) {
         self.lat = ko.observable();
         self.lng = ko.observable();
     }
-    self.msg = ko.observable();
+    self.msg = "";
 }
 
 
@@ -345,7 +345,7 @@ function validatePhone()
     var assistGetMobile = $('#assistGetMobile');
      leadMobileNo = assistGetMobile.val();
      if (!validateMobileNo(leadMobileNo, self)) {
-         validate.setError(assistGetMobile, self.msg());
+         validate.setError(assistGetMobile, self.msg);
          return false;
      }
      else {

@@ -134,7 +134,7 @@
     getUserMobile = $('#getUserMobile'),
     getUpdatedUserMobile = $('#getUpdatedMobile'),
     getUserOTP = $('#getUserOTP');
-    var msg = ko.observable();
+    var msg = "";
 
     $(document).on('click', '.used-bike-lead', function () {
         ele = $(this);
@@ -304,7 +304,7 @@
     function validateMobile(mobile) {
         var mobileNo = mobile.val().trim();
         if (!validateMobileNo(mobileNo, this)) {
-            validate.setError(mobile, this.msg());
+            validate.setError(mobile, this.msg);
             return false;
         }
         else {

@@ -168,7 +168,7 @@
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
         }
-        self.msg = ko.observable();
+        self.msg ="";
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -573,7 +573,7 @@
            
             mobileVal = $(inputMobile).val();
             if (!validateMobileNo(mobileVal, self)) {
-                validate.setError($(inputMobile), self.msg());
+                validate.setError($(inputMobile), self.msg);
                 return false;
             }
             else {
