@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using Bikewale.Interfaces.MobileVerification;
 using System.Data.Common;
 using MySql.CoreDAL;
+using System.Collections.Generic;
 
 namespace Bikewale.DAL.MobileVerification
 {
@@ -48,7 +49,6 @@ namespace Bikewale.DAL.MobileVerification
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return isVerified;
@@ -89,7 +89,6 @@ namespace Bikewale.DAL.MobileVerification
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return noOfOTPSend;
         }
@@ -133,7 +132,6 @@ namespace Bikewale.DAL.MobileVerification
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return cvId;
@@ -177,10 +175,44 @@ namespace Bikewale.DAL.MobileVerification
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return verified;
+        }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 14 Feb 2017
+        /// Summary    : Get list of verified numbers from database
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<string> GetBlockedPhoneNumbers()
+        {
+            ICollection<string> numberList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getblockedphonenumbers"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                   
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+
+                        if (dr != null)
+                        {
+                            numberList = new List<string>();
+                            while (dr.Read())
+                            {
+                               numberList.Add(Convert.ToString(dr["MobileNumber"]));
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.MobileVerification.GetVerifiedPhoneNumbers");
+            }
+            return numberList;
         }
     }   // class
 }   // namespace
