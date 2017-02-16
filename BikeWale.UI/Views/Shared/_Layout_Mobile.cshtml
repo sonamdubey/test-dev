@@ -288,7 +288,7 @@
                     </a>
                 </li>
                 @** Render login control here *@
-                @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml");
+                @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
             </ul>
 
             <div id="nav-app-content">
@@ -320,7 +320,7 @@
         <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st2.aeplcdn.com" + ViewBag.staticUrl : "")/src/bwcache.js?@ViewBag.staticFileVersion"></script>
         
         @* Render location widget  *@
-        @Html.Partial("~/Views/m/Shared/_ChangeLocation.cshtml");
+        @Html.Partial("~/Views/m/Shared/_ChangeLocation.cshtml")
         <!-- global-search-popup code starts here -->
         <div id="global-search-popup" class="global-search-popup" style="display:none">
             <div class="form-control-box">
@@ -341,7 +341,7 @@
             </div>
         </div> <!-- global-search-popup code ends here -->
 
-        @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml");
+        @Html.Partial("~/Views/m/Shared/_PopupWidget.cshtml")
 
         <footer class="bg-footer padding-top30 padding-bottom15">
             <!-- Footer section code starts here -->
