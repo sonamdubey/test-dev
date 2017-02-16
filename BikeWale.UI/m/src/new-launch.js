@@ -267,7 +267,7 @@ var newLaunches = function () {
     self.selectedMake = ko.observable("All brands");
     self.selectedYear = ko.observable("All years");
     self.noBikes = ko.observable(self.TotalBikes() == 0);
-
+    self.IsLoading = ko.observable(false);
     self.PagesListHtml = ko.observable("");
     self.PrevPageHtml = ko.observable("");
     self.NextPageHtml = ko.observable("");
@@ -395,6 +395,7 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            self.IsLoading(true);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
             .done(function (response) {
@@ -410,6 +411,7 @@ var newLaunches = function () {
                 self.ApplyPagination();
                 slideInDrawer.close(ele);
                 window.location.hash = qs;
+                self.IsLoading(false);
             });
         }
         else {

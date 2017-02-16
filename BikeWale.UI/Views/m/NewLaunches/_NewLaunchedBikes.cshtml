@@ -35,7 +35,7 @@
                 <!-- ko if : models()[@i] -->
                 string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                 <li class="list-item">
-                    <a href="" title="@bikeName" class="block" data-bind="attr : {'href' : '/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName" class="block" data-bind="attr : {'href' : '/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
                         <div class="item-image-content">
                             @if (i > 2)
                             {
@@ -43,7 +43,7 @@
                             }
                             else
                             {
-                               <img data-bind="attr : { 'src' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
+                                <img data-bind="attr : { 'src' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
                             }
 
                         </div>
@@ -149,3 +149,7 @@
         </div>
     </div>
 }
+
+<div id="sort-filters-loader" style="display: none;" data-bind="visible : IsLoading()">
+    <div id="popup-loader"></div>
+</div>
