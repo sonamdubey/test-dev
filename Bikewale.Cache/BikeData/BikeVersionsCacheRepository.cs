@@ -55,13 +55,15 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :    Sushil Kumar on 28th June 2016
         /// Summary     :   Gets the versions by type and modelid and cityId
+        /// Modified by :   Sumit Kate on 16 Feb 2017
+        /// Description :   Consider City Id for memcache key
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
         public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
         {
             List<BikeVersionsListEntity> versions = null;
-            string key = String.Format("BW_VersionsByType_{0}_MO_{1}", (int)requestType, modelId, cityId.HasValue && cityId.Value > 0 ? "_CI_" + cityId : "");
+            string key = String.Format("BW_VersionsByType_{0}_MO_{1}{2}", (int)requestType, modelId, cityId.HasValue && cityId.Value > 0 ? "_CI_" + cityId : "");
             try
             {
                 versions = _cache.GetFromCache<List<BikeVersionsListEntity>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetVersionsByType(requestType, modelId, cityId));
