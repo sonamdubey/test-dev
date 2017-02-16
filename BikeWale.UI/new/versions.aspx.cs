@@ -64,7 +64,7 @@ namespace Bikewale.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected short reviewTabsCnt;
         protected static bool isManufacturer;
-        protected uint totalUsedBikes, onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, variantId, areaId, dealerId;
+        protected uint totalUsedBikes, onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, variantId, defaultVersionId, areaId, dealerId;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -561,7 +561,9 @@ namespace Bikewale.New
                         {
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
                             {
-                                price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                                if (cityId == 0)
+                                    price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+
                                 if (variantId == 0 && cityId == 0)
                                 {
                                     variantId = modelPg.ModelVersionSpecs.BikeVersionId;
@@ -572,6 +574,7 @@ namespace Bikewale.New
                                     variantId = modelPg.ModelVersionSpecs.BikeVersionId;
                                 }
                             }
+
                             if (!modelPg.ModelDetails.New)
                                 isDiscontinued = true;
                             if (modelPg.ModelDetails != null)
@@ -682,7 +685,6 @@ namespace Bikewale.New
                 else
                 {
                     var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
-
                     if (modelVersions != null)
                         price = Convert.ToUInt32(modelVersions.Price);
                 }
@@ -752,6 +754,7 @@ namespace Bikewale.New
                     {
                         if (variantId == 0)
                             variantId = objPQOutput.VersionId;
+                        defaultVersionId = objPQOutput.DefaultVersionId;
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
@@ -1021,16 +1024,16 @@ namespace Bikewale.New
             {
                 if (cityId > 0 && areaId > 0 && variantId > 0)
                 {
-                    viewModel = new ModelPageVM(cityId, variantId, dealerId, areaId);
+                    viewModel = new ModelPageVM(cityId, defaultVersionId, dealerId, areaId);
                     if (viewModel.Offers != null && viewModel.Offers.Count() > 0)
                     {
                         rptOffers.DataSource = viewModel.Offers;
                         rptOffers.DataBind();
                         isOfferAvailable = true;
                     }
-                    if (viewModel.SecondaryDealers != null && viewModel.SecondaryDealerCount > 0)
+                    if (viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
                     {
-                        rptSecondaryDealers.DataSource = viewModel.SecondaryDealers;
+                        rptSecondaryDealers.DataSource = viewModel.SecondaryDealersV2;
                         rptSecondaryDealers.DataBind();
                     }
                 }
