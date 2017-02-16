@@ -92,7 +92,7 @@
                         </div>
                     </a>
                     <div class="margin-bottom10 margin-left20 @(bike.Price > 0 ? "" : "hide")" data-bind="visible : models()[@i].price != 0">
-                        <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
+                        <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
                     </div>
                 </li>
                      <!-- /ko -->

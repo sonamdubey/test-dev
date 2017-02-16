@@ -364,12 +364,12 @@ var newLaunches = function () {
 
         if (self.PreviousQS() != qs) {
             self.IsLoading(true);
+            self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
             .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.PreviousQS(qs);
                 self.noBikes(false);
             })
             .fail(function () {

@@ -2793,6 +2793,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\new-launch\new-launch.css" />
     <Content Include="m\css\photos.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
