@@ -5,11 +5,11 @@ using System.Linq;
 using System.Web.Mvc;
 namespace Bikewale.Controllers.Desktop.NewLaunches
 {
-    public class NewLaunchesController : Controller
+    public class DNewLaunchesController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
 
-        public NewLaunchesController(INewBikeLaunchesBL newLaunches)
+        public DNewLaunchesController(INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
         }
@@ -36,6 +36,18 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         public ActionResult Index(string makeMaskingName, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbymake.cshtml");
+        }
+
+        [Route("newlaunches/makes/")]
+        public ActionResult Makes(uint? makeId)
+        {
+            if (makeId != null && makeId.HasValue)
+            {
+                ViewBag.BrandCountList = (_newLaunches.GetMakeList(makeId.Value).Take(9);
+                return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
+            }
+            else
+                return View();
         }
 
         [Route("newlaunches/year/{launchYear}/")]
