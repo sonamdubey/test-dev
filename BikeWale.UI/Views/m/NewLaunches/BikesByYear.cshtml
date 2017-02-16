@@ -25,7 +25,7 @@
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>   
-    @{Html.RenderAction("Years", "NewLaunches");}
+    @{Html.RenderAction("Years", "NewLaunches", new { year = ViewBag.launchYear });}
 </section>
 
 <section>
