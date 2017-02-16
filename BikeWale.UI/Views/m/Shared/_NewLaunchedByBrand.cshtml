@@ -1,0 +1,25 @@
+﻿@if (@ViewBag.BrandCountList != null)
+{
+    <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
+        <div class="swiper-wrapper">
+            @foreach (var BrandCount in @ViewBag.BrandCountList)
+            {
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.FormatBikeLaunchedYearUrl(BrandCount.Make.MaskingName))" title="@BrandCount.Make.MakeName">
+                            <div class="brand-logo-image">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.Make.MakeId)"></span>
+                                </span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">@BrandCount.Make.MakeName</p>
+                                <h3 class="text-unbold text-light-grey font11">@BrandCount.BikeCount bikes</h3>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

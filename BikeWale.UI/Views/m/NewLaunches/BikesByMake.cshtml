@@ -288,73 +288,7 @@
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Explore new launches by brands</h2>
-        <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-7"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Honda</p>
-                                <h3 class="text-unbold text-light-grey font11">24 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-6"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
-                                <h3 class="text-unbold text-light-grey font11">48 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-15"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
-                                <h3 class="text-unbold text-light-grey font11">72 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-11"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Royal Enfield</p>
-                                <h3 class="text-unbold text-light-grey font11">96 bikes</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @{Html.RenderAction("Makes", "NewLaunches", new { makeId = 1 });}
     </div>
 </section>
 

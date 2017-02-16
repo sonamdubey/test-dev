@@ -82,10 +82,15 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         }
 
         [Route("m/newlaunches/makes/")]
-        public ActionResult Makes(bool showCount)
+        public ActionResult Makes(uint? makeId)
         {
-            return PartialView("~/views/m/shared/_newlaunchedbymake.cshtml"); ;
-
+            if (makeId != null && makeId.HasValue)
+            {
+                ViewBag.BrandCountList = (_newLaunches.GetMakeList((uint)makeId)).Take(9);
+                return PartialView("~/Views/m/Shared/_NewLaunchedByBrand.cshtml");
+            }
+            else
+                return View();
         }
 
         [Route("m/newlaunches/years/")]
