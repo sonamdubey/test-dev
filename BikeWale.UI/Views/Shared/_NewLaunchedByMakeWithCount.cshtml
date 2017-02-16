@@ -1,12 +1,14 @@
-﻿@if (@ViewBag.BrandCountList != null)
+﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByMakeEntityBase>
+
+@if (@Model != null)
 {
     <div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
         <div class="jcarousel">
             <ul>
-                @foreach (var BrandCount in @ViewBag.BrandCountList)
+                @foreach (var BrandCount in @Model)
                 {
                     <li>
-                        <a href="@Bikewale.Utility.UrlFormatter.FormatBikeLaunchedYearUrl(BrandCount.Make.MaskingName)" title="@BrandCount.Make.MakeName" class="jcarousel-card">
+                        <a href="@Bikewale.Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(BrandCount.Make.MaskingName)" title="Newly launched @BrandCount.Make.MakeName bikes" class="jcarousel-card">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.Make.MakeId)"></span>

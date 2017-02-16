@@ -62,6 +62,9 @@
     top: 3px;
     right: 0;
     border-left: 1px solid #b0b0b0; }
+    .key-specs-list li.hide {
+        display:none;
+    }
 
 .key-specs-list li:last-child:before {
   border-left: none; }

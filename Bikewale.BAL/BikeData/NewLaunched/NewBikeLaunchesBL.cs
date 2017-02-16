@@ -49,7 +49,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                         makeList = grpMakes
                                         .Select(m => new BikesCountByMakeEntityBase()
                                         {
-                                            BikeCount = grpMakes.Count(),
+                                            BikeCount = m.Count(),
                                             Make = m.FirstOrDefault().Make
                                         })
                                         .OrderBy(make => make.Make.PopularityIndex);
