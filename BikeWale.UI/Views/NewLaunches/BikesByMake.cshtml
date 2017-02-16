@@ -10,19 +10,19 @@
             <div class="breadcrumb margin-bottom15">
                 <ul>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                        <a href="/" itemprop="url">
+                        <a href="/" itemprop="url" title="Home">
                             <span itemprop="title">Home</span>
                         </a>
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <a href="" itemprop="url">
+                        <a href="/new-bike-launches/" itemprop="url" title="New bike launches">
                             <span itemprop="title">New bike launches</span>
                         </a>
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
-                        <span itemprop="title">New Bajaj Bike Launches</span>
+                        <span itemprop="title">New @ViewBag.MakeName Bike Launches</span>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -37,7 +37,7 @@
         <div class="grid-12">
             <div class="bg-white">
                 <h1 class="section-header">New @ViewBag.MakeName Bike Launches</h1>
-                <p class="section-inner-padding font14 text-light-grey">BikeWale brings you an exhaustive list of newly launched @ViewBag.MakeName.ToLower() bikes in India. Explore the list of latest @ViewBag.MakeName.ToLower() bikes.</p>
+                <p class="section-inner-padding font14 text-light-grey">@ViewBag.MakeName is a well-known two-wheeler brand in India. The two-wheeler brands in India have to update their portfolio of bikes vis-à-vis changing behavior pattern and usefulness on a regular basis. Every year there are plenty of bike models that hit the market to cater the customer’s need. BikeWale brings you an exhaustive list of newly launched @ViewBag.MakeName bikes in India. Explore the list of latest @ViewBag.MakeName bikes.</p>
             </div>
         </div>
         <div class="clear"></div>
@@ -46,8 +46,7 @@
 
 <section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId">
     <div class="container section-bottom-margin">
-        <div class="grid-12">
-            <h2 class="section-heading">Latest @ViewBag.MakeName bikes in India</h2>
+        <div class="grid-12">           
             @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes.cshtml")
         </div>
         <div class="clear"></div>
@@ -192,7 +191,7 @@
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
                 <h2 class="font18 padding-bottom20 padding-left20">New launches of other brands</h2>               
-                @{Html.RenderAction("Makes", "DNewLaunches", new { makeId = 1 });}
+                @{Html.RenderAction("Makes", "DNewLaunches", new { makeId = @ViewBag.MakeId });}
             </div>
         </div>
         <div class="clear"></div>
