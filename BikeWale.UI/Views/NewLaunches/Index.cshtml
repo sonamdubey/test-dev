@@ -10,7 +10,8 @@
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
-    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";    
+    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
 }
 <header class="new-launch-banner">
     <div id="new-launch-center-box" class="container">
@@ -350,7 +351,7 @@
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>            
-        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml") 
+        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml", objYears) 
     </div>
 </section>
 

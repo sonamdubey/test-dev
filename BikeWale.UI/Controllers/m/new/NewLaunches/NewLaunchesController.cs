@@ -90,7 +90,10 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 return PartialView("~/Views/m/Shared/_NewLaunchedByBrand.cshtml");
             }
             else
-                return View();
+            {
+                ViewBag.BrandCountList = _newLaunches.GetMakeList().Take(9);
+                return PartialView("~/Views/m/Shared/_NewLaunchedByBrand.cshtml");
+            }
         }
 
         [Route("m/newlaunches/years/")]
@@ -105,5 +108,6 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         {
             return PartialView();
         }
+
     }
 }

@@ -10,6 +10,7 @@
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
 
 }
 <section>
@@ -45,7 +46,7 @@
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml") 
+    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml", objYears); 
 </section>
 
 <section>
