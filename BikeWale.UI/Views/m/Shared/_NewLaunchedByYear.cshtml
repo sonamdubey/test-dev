@@ -1,9 +1,11 @@
-﻿@if (@ViewBag.Years != null)
+﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase>
+
+@if (@Model != null)
 {
     <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
         <div class="swiper-container card-container year-type-swiper">
             <div class="swiper-wrapper">
-                @foreach (var BikeYear in @ViewBag.Years)
+                @foreach (var BikeYear in @Model)
                 {
                     <div class="swiper-slide">
                         <div class="swiper-card">

@@ -48,10 +48,12 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             if (makeId != null && makeId.HasValue)
             {
                 ViewBag.BrandCountList = (_newLaunches.GetMakeList(makeId.Value).Take(9));
-                return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
             }
             else
-                return View();
+            {
+                ViewBag.BrandCountList = (_newLaunches.GetMakeList().Take(9));
+            }
+            return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
         }
 
         [Route("newlaunches/year/{launchYear}/")]
@@ -59,6 +61,13 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbyyear.cshtml");
+        }
+
+        [Route("newlaunches/years/")]
+        public ActionResult Years()
+        {
+            IEnumerable<BikesCountByYearEntityBase> objYears = _newLaunches.YearList();
+            return PartialView("~/Views/Shared/_NewLaunchedByYear.cshtml", objYears);
         }
     }
 }

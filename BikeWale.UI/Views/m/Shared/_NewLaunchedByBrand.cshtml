@@ -6,7 +6,7 @@
             {
                 <div class="swiper-slide">
                     <div class="swiper-card">
-                        <a href="@string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.FormatBikeLaunchedYearUrl(BrandCount.Make.MaskingName))" title="@BrandCount.Make.MakeName">
+                        <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(BrandCount.Make.MaskingName))" title="Newly launched @BrandCount.Make.MakeName bikes">
                             <div class="brand-logo-image">
                                 <span class="brand-type">
                                     <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.Make.MakeId)"></span>
