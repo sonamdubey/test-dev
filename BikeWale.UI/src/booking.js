@@ -15,7 +15,7 @@ $(".select-dropdown").on("click", function () {
     else
         selectStateUp($(this));
 });
-
+var msg = "";
 var selectStateDown = function (div) {
     $(".select-dropdown").removeClass("open");
     $(".select-dropdown").next("div.select-dropdown-list").slideUp();
@@ -80,21 +80,16 @@ var validateEmail = function () {
 };
 
 var validateMobile = function () {
-    var isValid = true,
-		mobileNo = $("#getMobile"),
-		mobileVal = mobileNo.val(),
-		reMobile = /^[0-9]{10}$/;
-    if (mobileVal == "") {
-        setError(mobileNo, "Please enter your Mobile Number");
-        isValid = false;
+    var mobileNo = $("#getMobile"),
+    mobileVal = mobileNo.val();
+    if (!validateMobileNo(mobileVal, this)) {
+        setError(mobileNo, this.msg);
+        return false;
     }
-    else if (!reMobile.test(mobileVal) && isValid) {
-        setError(mobileNo, "Mobile Number should be 10 digits");
-        isValid = false;
+    else {
+        hideError(mobileNo);
+        return true;
     }
-    else
-        hideError(mobileNo)
-    return isValid;
 };
 
 var setError = function (element, msg) {

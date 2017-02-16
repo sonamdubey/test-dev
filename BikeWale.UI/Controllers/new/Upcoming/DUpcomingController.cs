@@ -1,4 +1,4 @@
-﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using System.Collections.Generic;
 using System.Web.Mvc;

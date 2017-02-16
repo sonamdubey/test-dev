@@ -1,15 +1,16 @@
 ﻿using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 namespace Bikewale.Controllers.Desktop.NewLaunches
 {
-    public class NewLaunchesController : Controller
+    public class DNewLaunchesController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
 
-        public NewLaunchesController(INewBikeLaunchesBL newLaunches)
+        public DNewLaunchesController(INewBikeLaunchesBL newLaunches)
         {
             _newLaunches = newLaunches;
         }
@@ -19,6 +20,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         /// </summary>
         /// <param name="pageNumber"></param>
         [Route("newlaunches/")]
+        [DeviceDetection]
         public ActionResult Index()
         {
             int TopCount = 10;
@@ -33,12 +35,27 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         }
 
         [Route("newlaunches/make/{makeMaskingName}/")]
+        [DeviceDetection]
         public ActionResult Index(string makeMaskingName, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
+        [Route("newlaunches/makes/")]
+        [DeviceDetection]
+        public ActionResult Makes(uint? makeId)
+        {
+            if (makeId != null && makeId.HasValue)
+            {
+                ViewBag.BrandCountList = (_newLaunches.GetMakeList(makeId.Value).Take(9));
+                return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
+            }
+            else
+                return View();
+        }
+
         [Route("newlaunches/year/{launchYear}/")]
+        [DeviceDetection]
         public ActionResult bikesByYear(string launchYear, ushort? pageNumber)
         {
             return View("~/views/newlaunches/bikesbyyear.cshtml");
