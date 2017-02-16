@@ -2,7 +2,7 @@
 
 namespace Bikewale.Controllers.Desktop.Upcoming
 {
-    public class UpcomingController : Controller
+    public class DUpcomingController : Controller
     {
         // GET: Upcoming
         public ActionResult Index()
