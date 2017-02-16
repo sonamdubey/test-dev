@@ -156,7 +156,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         [Route("m/newlaunches/models/")]
         public ActionResult Models()
         {
-            return View("~/views/m/shared/_newlaunchedbymake.cshtml");
+            return View("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml");
         }
 
         [Route("m/newlaunches/makes/")]
@@ -170,13 +170,23 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             {
                 ViewBag.BrandCountList = _newLaunches.GetMakeList().Take(9);
             }
-            return PartialView("~/Views/m/Shared/_NewLaunchedByBrand.cshtml");
+            return PartialView("~/Views/m/Shared/_NewLaunchedByMakeWithCount.cshtml", ViewBag.BrandCountList);
         }
 
+        /// <summary>
+        /// modified by : Sajal Gupta on 16-02-2017
+        /// Description : skip year from list which is present.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
         [Route("m/newlaunches/years/")]
-        public ActionResult Years()
+        public ActionResult Years(int? year)
         {
             IEnumerable<BikesCountByYearEntityBase> objYears = _newLaunches.YearList();
+
+            if (year != null && year.HasValue)
+                objYears = objYears.Where(x => x.Year != year.Value);
+
             return PartialView("~/views/m/shared/_newlaunchedbyyear.cshtml", objYears);
         }
 

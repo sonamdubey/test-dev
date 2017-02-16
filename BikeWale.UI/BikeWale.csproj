@@ -3309,19 +3309,19 @@
     <Content Include="Views\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\Shared\_LoginControl.cshtml" />
     <Content Include="Views\m\NewLaunches\_NewLaunchedBikes.cshtml" />
-    <Content Include="Views\m\Shared\_NewLaunchedByMake.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByMakeWithoutCount.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByYear.cshtml" />
-    <Content Include="Views\Shared\_NewLaunchedByMake.cshtml" />
+    <Content Include="Views\Shared\_NewLaunchedByMakeWithoutCount.cshtml" />
     <Content Include="Views\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\Shared\_UpcomingBikes.cshtml" />
     <Content Include="Views\Shared\_UpcomingBikes.cshtml" />
-    <Content Include="Views\Shared\_NewLaunchedByBrand.cshtml" />
+    <Content Include="Views\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
-    <Content Include="Views\m\Shared\_NewLaunchedByBrand.cshtml" />
+    <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
