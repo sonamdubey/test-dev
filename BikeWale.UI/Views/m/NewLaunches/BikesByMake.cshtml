@@ -5,16 +5,16 @@
 }
 <section>
     <div class="container bg-white card-bottom-margin">
-        <h1 class="card-header">New Bajaj Bike Launches</h1>
+        <h1 class="card-header">New @ViewBag.MakeName Bike Launches</h1>
         <div class="card-inner-padding font14 text-light-grey collapsible-content">
-            <p class="main-content">BikeWale brings you an exhaustive list of newly launched bajaj bikes in India. Explore the list of latest bajaj bikes.</p>
+            <p class="main-content">BikeWale brings you an exhaustive list of newly launched @ViewBag.MakeName.toLower() bikes in India. Explore the list of latest @ViewBag.MakeName.toLower() bikes.</p>
         </div>
     </div>
 </section>
 
 <section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId">
     <div class="container bg-white box-shadow card-bottom-margin">
-        <h2 class="padding-15-20 border-solid-bottom">Latest Bajaj bikes in India</h2>
+        <h2 class="padding-15-20 border-solid-bottom">Latest @ViewBag.MakeName bikes in India</h2>
         @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
     </div>
 </section>

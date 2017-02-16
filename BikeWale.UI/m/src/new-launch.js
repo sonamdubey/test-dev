@@ -275,8 +275,8 @@ var newLaunches = function () {
     self.init = function (e) {
         if (!self.IsInitialized()) {
 
-            var eleSection = $("newlaunched-bikes");
-            ko.applyBindings(self, document.getElementById("newlaunched-bikes"));
+            var eleSection = $("#newlaunched-bikes");
+            ko.applyBindings(self, $("#newlaunched-bikes")[0]);
 
             self.Filters()["make"] = eleSection.data("make-filter") || "";
             self.Filters()["year"] = eleSection.data("year-filter") || "";

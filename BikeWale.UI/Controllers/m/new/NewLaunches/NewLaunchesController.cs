@@ -56,7 +56,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
                 PagerSlotSize = 5,
-                BaseUrl = "/m/new-bikes-launches/",
+                BaseUrl = "/m/new-bike-launches/",
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
@@ -164,11 +164,11 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         {
             if (makeId != null && makeId.HasValue)
             {
-                ViewBag.BrandCountList = _newLaunches.GetMakeList(makeId.Value).Take(9);                
+                ViewBag.BrandCountList = _newLaunches.GetMakeList(makeId.Value).Take(9);
             }
             else
             {
-                ViewBag.BrandCountList = _newLaunches.GetMakeList().Take(9);                
+                ViewBag.BrandCountList = _newLaunches.GetMakeList().Take(9);
             }
             return PartialView("~/Views/m/Shared/_NewLaunchedByBrand.cshtml");
         }

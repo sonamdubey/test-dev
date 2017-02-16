@@ -1,0 +1,119 @@
+﻿@using Bikewale.Entities.BikeData.NewLaunched;
+
+@{
+
+    NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
+    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
+    IEnumerable<BikesCountByMakeEntityBase> objMakes = ViewBag.Makes;
+    ushort i = 0;
+}
+
+@if (objBikeList != null)
+{
+
+    <div class="content-box-shadow">
+        <div class="padding-right20 padding-left20">
+            <div class="padding-top15 padding-bottom15 border-solid-bottom">
+                <h3 class="font18 text-black grid-4 alpha">lorem ipsum</h3>
+                <div class="grid-8 omega text-right new-launch-filter">
+                    <p class="font14 text-light-grey inline-block margin-right15">Filter by:</p>
+                    @if (objMakes != null)
+                    {
+                        <div class="select-box inline-block margin-right15">
+                            <p class="select-label" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
+                            <select class="chosen-select" data-placeholder="Select brand" id="makeFilter" data-filter="makewise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setMakeFilter(e);}}">
+                                <option value="0">All brands</option>
+                                @foreach (var make in objMakes)
+                                {
+                                    <option value="@make.Make.MakeId" data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName">@make.Make.MakeName</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    @if (objYears != null)
+                    {
+                        <div class="select-box select-box-no-input inline-block right-align-box">
+                            <p class="select-label" data-bind="text : selectedYear() ? selectedYear() : ''">All years</p>
+                            <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
+                                <option value="0" >All years</option>
+                                @foreach (var year in objYears)
+                                {
+                                    <option value="@year.Year" data-bikeyear="@year.Year">@year.Year</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- ko if : models() && models().length > 0 -->
+        <ul class="new-launches-list" data-bind="visible : (!noBikes() && TotalBikes() !== 0)">
+            @foreach (var bike in objBikeList.Bikes)
+            {
+                <!-- ko if : models()[@i] -->
+                string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                <li class="list-item">
+                    <a href="" title="@bikeName" class="block" data-bind="attr : {'href' : '/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
+                        <div class="model-jcarousel-image-preview">
+                            @if (i > 9)
+                            {
+                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath,'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                            }
+                            else
+                            {
+                                <img data-bind="attr : { 'src' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
+                            }
+                        </div>
+                        <div class="card-desc-block">
+                            <h3 class="bikeTitle" data-bind="text : models()[@i].bikeName ">@bikeName</h3>
+                            <ul class="key-specs-list margin-bottom10 font12">
+                                <li data-bind="visible : models()[@i].minSpec.displacement != 0" class="@(bike.MinSpecs.Displacement > 0 ? "" : "hide")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")
+                                </li>
+
+                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" class="@(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : "hide")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
+                                </li>
+
+                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0" class="@(bike.MinSpecs.MaximumTorque > 0 ? "" : "hide")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
+                                </li>
+                            </ul>
+                            <div class="grid-6 alpha padding-right20">
+                                <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</p>
+                                <span class="bwsprite inr-lg"></span> <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
+                            </div>
+                            <div class="grid-6 padding-left20 omega border-light-left">
+                                <p class="key-size-13 text-truncate margin-bottom5">Launched on</p>
+                                <span class="value-size-16" data-bind="text : models()[@i].launchedOn ">@Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy")</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </a>
+                    <div class="margin-bottom10 margin-left20 @(bike.Price > 0 ? "" : "hide")" data-bind="visible : models()[@i].price != 0">
+                        <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
+                    </div>
+                </li>
+                     <!-- /ko -->
+                            i++;
+            }
+        </ul>
+        <!-- /ko -->
+        <div style="text-align: center;display:none" data-bind="visible:noBikes() || TotalBikes()==0">
+            <div id="nobike" data-bind="visible : noBikes()">
+                <img src="/images/no_result_m.png">
+            </div>
+        </div>
+        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0">
+            <div class="footer-pagination font14 border-solid-top padding-top10">
+                <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
+                    <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@ViewBag.pager.PageNo</span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</p>
+                </div>
+                @{ Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+}

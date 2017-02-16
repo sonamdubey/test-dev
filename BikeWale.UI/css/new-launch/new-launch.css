@@ -93,6 +93,7 @@
   .new-launches-list .value-size-16 {
     position: relative;
     top: 2px; }
+    .new-launches-list .key-specs-list li.hide { display:none;}
   .new-launches-list .key-specs-list li {
     padding-left: 10px;
     padding-right: 10px; }

@@ -453,7 +453,6 @@
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
-
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
@@ -2265,6 +2264,7 @@
     <Content Include="css\model-atf.css" />
     <Content Include="css\model-btf.css" />
     <Content Include="css\model.css" />
+    <Content Include="css\new-launch\new-launch.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
@@ -3314,19 +3314,15 @@
     <Content Include="Views\Shared\_NewLaunchedByYear.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByMake.cshtml" />
     <Content Include="Views\NewLaunches\BikesByMake.cshtml" />
-
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\Shared\_UpcomingBikes.cshtml" />
     <Content Include="Views\Shared\_UpcomingBikes.cshtml" />
-
     <Content Include="Views\Shared\_NewLaunchedByBrand.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
-    <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
-    <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByBrand.cshtml" />
-
+    <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
