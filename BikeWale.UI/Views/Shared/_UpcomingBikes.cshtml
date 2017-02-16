@@ -1,4 +1,5 @@
 ﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
+            @if (Model != null) { 
 <div class="content-box-shadow padding-top20 padding-bottom20">
     <div class="jcarousel-wrapper inner-content-carousel">
         <div class="jcarousel">
@@ -38,3 +39,4 @@
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
 </div>
+            }

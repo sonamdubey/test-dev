@@ -1,4 +1,5 @@
 ﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
+            @if (Model != null) { 
 <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
     <div class="swiper-container card-container">
         <div class="swiper-wrapper">
@@ -40,3 +41,4 @@
         </div>
     </div>
 </div>
+            }
