@@ -35,9 +35,9 @@
     </div>
 </section>
 
-<section>
+<section id="newlaunched-bikes">
     <h2 class="section-heading">New bike launches in India</h2>
-    @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml");
+    @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>
 
 <section>
@@ -47,7 +47,7 @@
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    @Html.Partial("~/views/m/shared/_newlaunchedbyyear.cshtml", objYears);
+    @Html.Partial("~/views/m/shared/_newlaunchedbyyear.cshtml", objYears)
     
 </section>
 
@@ -164,6 +164,7 @@
     </div>
 </section>
 
-<script type="text/javascript" src="@(ViewBag.staticUrl != "" ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
+
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 
 
