@@ -48,13 +48,12 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             if (makeId != null && makeId.HasValue)
             {
                 ViewBag.BrandCountList = (_newLaunches.GetMakeList(makeId.Value).Take(9));
-                return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
             }
             else
             {
                 ViewBag.BrandCountList = (_newLaunches.GetMakeList().Take(9));
-                return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
             }
+            return PartialView("~/Views/Shared/_NewLaunchedByBrand.cshtml");
         }
 
         [Route("newlaunches/year/{launchYear}/")]
