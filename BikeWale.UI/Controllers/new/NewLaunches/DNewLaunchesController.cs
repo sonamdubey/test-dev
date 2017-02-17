@@ -16,7 +16,6 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
-        private string nextUrl, prevUrl;
 
         public DNewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
@@ -65,7 +64,8 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
-            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/new-bike-launches/", (int)ViewBag.PageNumber, ref prevUrl, ref nextUrl);
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
             return View("~/views/newlaunches/index.cshtml");
@@ -118,7 +118,8 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
 
-            Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref prevUrl, ref nextUrl);
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
 
@@ -160,7 +161,8 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
 
-            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref prevUrl, ref nextUrl);
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
 
