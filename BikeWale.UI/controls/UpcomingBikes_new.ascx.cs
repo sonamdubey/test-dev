@@ -1,9 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
@@ -12,12 +8,12 @@ namespace Bikewale.Controls
     {
         public Repeater rptUpcomingBikes;
 
-        public  int sortBy { get; set; }
-        public  int pageSize { get; set; }
-        public  int? MakeId { get; set; }
-        public  int? ModelId { get; set; }
-        public  int? curPageNo { get; set; }
-        public  int FetchedRecordsCount { get; set; }
+        public int sortBy { get; set; }
+        public int pageSize { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
+        public int? curPageNo { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

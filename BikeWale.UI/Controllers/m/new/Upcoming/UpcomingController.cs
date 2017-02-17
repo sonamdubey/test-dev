@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -11,16 +12,18 @@ namespace Bikewale.Controllers.Mobile.Upcoming
     /// </summary>
     public class UpcomingController : Controller
     {
-        private readonly IUpcomingBL _upcoming = null;
+        private readonly IUpcoming _upcoming = null;
 
-        public UpcomingController(IUpcomingBL upcoming)
+        public UpcomingController(IUpcoming upcoming)
         {
             _upcoming = upcoming;
         }
         [Route("m/upcoming/")]
-        public ActionResult Index(int? makeId)
+        public ActionResult Index(UpcomingBikesListInputEntity objFilters, EnumUpcomingBikesFilter sortBy)
         {
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetUpComingBike(makeId);
+
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFilters, sortBy);
+
             return View("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcomingBikes);
         }
     }

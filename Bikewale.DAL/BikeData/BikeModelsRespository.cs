@@ -110,17 +110,12 @@ namespace Bikewale.DAL.BikeData
                 modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
                 modelPage.ModelColors = GetModelColor(modelId);
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetModelDescription sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return modelPage;
@@ -365,9 +360,9 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-                HttpContext.Current.Trace.Warn("Exception in GetById", err.Message);
+
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
             return t;
 
@@ -414,17 +409,12 @@ namespace Bikewale.DAL.BikeData
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetVersionsList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetVersionsList ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return objList;

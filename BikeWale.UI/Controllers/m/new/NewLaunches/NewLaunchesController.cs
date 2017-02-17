@@ -64,14 +64,33 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
+
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
+
+
             ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
+
             return View("~/views/m/newlaunches/index.cshtml");
         }
 
+        /// <summary>
+        /// Modified By :- Subodh Jain 17 Feb 2017
+        /// Summary ;- Added upcoming widget
+        /// </summary>
+        /// <param name="launchYear"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         [Route("m/newlaunches/make/{maskingName}/")]
         public ActionResult BikeByMake(string maskingName, ushort? pageNumber)
         {
@@ -122,10 +141,25 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/m/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
 
             return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
+        /// <summary>
+        /// Modified By :- Subodh Jain 17 Feb 2017
+        /// Summary ;- Added upcoming widget
+        /// </summary>
+        /// <param name="launchYear"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         [Route("m/newlaunches/year/{launchYear}/")]
         public ActionResult BikeByYear(string launchYear, ushort? pageNumber)
         {
@@ -164,7 +198,14 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/m/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
-
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
             return View("~/views/m/newlaunches/bikesbyyear.cshtml");
         }
 
