@@ -56,30 +56,30 @@
                         <div class="model-jcarousel-image-preview">
                             @if (i > 9)
                             {
-                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath,'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
                             }
                             else
                             {
-                                <img data-bind="attr : { 'src' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
+                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
                             }
                         </div>
                         <div class="card-desc-block">
                             <h3 class="bikeTitle" data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                             <ul class="key-specs-list margin-bottom10 font12">
-                                <li data-bind="visible : models()[@i].minSpec.displacement != 0"  @(bike.MinSpecs.Displacement > 0 ? "" : " style=display:none")>
+                                <li data-bind="visible : models()[@i].minSpec.displacement != 0,text:models()[@i].minSpec.displacement + ' cc'" style="display:@(bike.MinSpecs.Displacement > 0 ? "block" : "none")">
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")
                                 </li>
 
-                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ") >
+                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0,text:models()[@i].minSpec.fuelEffeciency + ' kmpl'" style="display:@(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "block" : "none")">
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
                                 </li>
 
-                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0" @(bike.MinSpecs.MaximumTorque > 0 ? "" : " style=display:none ") >
+                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0,text:models()[@i].minSpec.maxTorque + ' bhp'" style="display:@(bike.MinSpecs.MaximumTorque > 0 ? "block" : "none")">
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
                                 </li>
                             </ul>
                             <div class="grid-6 alpha padding-right20">
-                                <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</p>
+                                <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
                                 <span class="bwsprite inr-lg"></span> <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
                             </div>
                             <div class="grid-6 padding-left20 omega border-light-left">
@@ -98,7 +98,7 @@
             }
         </ul>
         <!-- /ko -->
-        <div class="text-center" style="display: none" data-bind="visible:noBikes() || TotalBikes()==0">
+        <div class="text-center" style="display: @(ViewBag.pager.TotalResults > 0 ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>

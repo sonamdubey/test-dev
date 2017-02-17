@@ -242,16 +242,18 @@ var newLaunches = function () {
     self.PagesListHtml = ko.observable("");
     self.PrevPageHtml = ko.observable("");
     self.NextPageHtml = ko.observable("");
+    self.selectedCityId = ko.observable();
+    self.selectedCityName = ko.observable();
 
     self.init = function (e) {
         if (!self.IsInitialized()) {
 
             var eleSection = $("#newlaunched-bikes");
             ko.applyBindings(self, eleSection[0]);
-
+            self.CheckCookies();
             self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make-filter") || "";
             self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
-            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || "";
+            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || self.selectedCityId() || "";
 
             var filterType = $(e.target).data("filter");
             if (filterType) {
@@ -394,9 +396,27 @@ var newLaunches = function () {
                 var f = _filters[i].split("=");
                 self.Filters()[f[0]] = f[1];
             }
+            self.CurPageNo((self.Filters()["pageNo"] ? parseInt(self.Filters()["pageNo"]) : 0));
             self.init(e);
         }
 
+    };
+
+    self.CheckCookies = function () {
+        try {
+            c = document.cookie.split('; ');
+            for (i = c.length - 1; i >= 0; i--) {
+                C = c[i].split('=');
+                if (C[0] == "location") {
+                    var cData = (String(C[1])).split('_');
+                    self.selectedCityId(parseInt(cData[0]) || 0);
+                    self.selectedCityName(cData[1] || "");
+                    break;
+                }
+            }
+        } catch (e) {
+            console.warn(e);
+        }
     };
 };
 

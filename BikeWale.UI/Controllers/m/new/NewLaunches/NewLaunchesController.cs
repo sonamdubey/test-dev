@@ -17,7 +17,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
-        
+
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
             _newLaunches = newLaunches;
@@ -113,7 +113,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
                 PagerSlotSize = 5,
-                BaseUrl = string.Format("/m/new-{0}-bikes-launches/", maskingName),
+                BaseUrl = string.Format("/m/new-{0}-bike-launches/", maskingName),
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };

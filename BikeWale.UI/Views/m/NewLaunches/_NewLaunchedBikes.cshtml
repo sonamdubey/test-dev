@@ -39,11 +39,11 @@
                         <div class="item-image-content">
                             @if (i > 2)
                             {
-                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath,'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
                             }
                             else
                             {
-                                <img data-bind="attr : { 'src' : models()[@i].hostUrl +  '/310x174/' + models()[@i].originalImagePath},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
+                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
                             }
 
                         </div>
@@ -51,15 +51,15 @@
                         <ul class="key-specs-list font12 margin-bottom5">
 
                             <li data-bind="visible : models()[@i].minSpec.displacement != 0" @(bike.MinSpecs.Displacement > 0 ? "" : " style=display:none ")>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")</span>
+                                <span data-bind="text:models()[@i].minSpec.displacement + ' cc'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")</span>
                             </li>
 
                             <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0"  @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ")>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")</span>
+                                <span data-bind="text:models()[@i].minSpec.fuelEffeciency + ' kmpl'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")</span>
                             </li>
 
                             <li data-bind="visible : models()[@i].minSpec.maxTorque != 0"  @(bike.MinSpecs.MaximumTorque > 0 ? "" : " style=display:none ")>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")</span>
+                                <span data-bind="models()[@i].minSpec.maxTorque + ' bhp'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")</span>
                             </li>
 
                         </ul>
@@ -84,7 +84,7 @@
 
         </ul>
         <!-- /ko -->
-        <div style="text-align: center;display:none" data-bind="visible:noBikes() || TotalBikes()==0">
+        <div style="text-align: center;display:@(ViewBag.pager.TotalResults > 0 ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>
