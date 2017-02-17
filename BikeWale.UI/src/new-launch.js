@@ -195,7 +195,6 @@ var vmPagination = function (curPgNum, pgSize, totalRecords) {
 
     });
     self.hasPrevious = ko.computed(function () {
-        debugger;
         return self.pageNumber() != 1;
     });
     self.hasNext = ko.computed(function () {
