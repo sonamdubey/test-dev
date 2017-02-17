@@ -304,7 +304,7 @@ var newLaunches = function () {
 
             $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").off("click", self.init);
 
-            $(document).on("click", "#pagination-list-content ul li", function (e) {
+            $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev a,.pagination-control-next a", function (e) {
                 if (self.IsInitialized()) {
                     self.ChangePageNumber(e);
                 }
@@ -353,19 +353,22 @@ var newLaunches = function () {
     self.ChangePageNumber = function (e) {
         try {
             var pnum = parseInt($(e.target).attr("data-pagenum"), 10);
-            var selHash = $(e.target).attr("data-hash");
-            self.Filters()["pageNo"] = pnum;
+            if(pnum && !isNaN(pnum))
+            {
+                var selHash = $(e.target).attr("data-hash");
+                self.Filters()["pageNo"] = pnum;
 
-            if (selHash) {
-                var arr = selHash.split('&');
-                var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
-                if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
-                if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                if (selHash) {
+                    var arr = selHash.split('&');
+                    var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
+                    if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
+                    if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                }
+                self.CurPageNo(pnum);
+                self.getNewLaunchedBikes();
+                e.preventDefault();
+                $('html, body').scrollTop(0);
             }
-            self.CurPageNo(pnum);
-            self.getNewLaunchedBikes();
-            e.preventDefault();
-            $('html, body').scrollTop(0);
         } catch (e) {
             console.warn("Unable to change page number : " + e.message);
         }

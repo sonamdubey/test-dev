@@ -59,7 +59,7 @@
                             </li>
 
                             <li data-bind="visible : models()[@i].minSpec.maxTorque != 0"  @(bike.MinSpecs.MaximumTorque > 0 ? "" : " style=display:none ")>
-                                <span data-bind="models()[@i].minSpec.maxTorque + ' bhp'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")</span>
+                                <span data-bind="text:models()[@i].minSpec.maxTorque + ' bhp'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")</span>
                             </li>
 
                         </ul>

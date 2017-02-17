@@ -271,7 +271,7 @@ var newLaunches = function () {
                 self.getNewLaunchedBikes();
             }
 
-            $(document).on("click", "#pagination-list-content ul li", function (e) {
+            $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev,.pagination-control-next", function (e) {
                 if (self.IsInitialized()) {
                     self.ChangePageNumber(e);
                 }
@@ -295,6 +295,7 @@ var newLaunches = function () {
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : function(d,e) { $root.ChangePageNumber(e); } " data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
                 }
                 self.PagesListHtml(pages);
+                $(".pagination-control-prev,.pagination-control-next").removeClass("active").removeClass("inactive");
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite bwsprite prev-page-icon'/>";
                 } else {
@@ -319,19 +320,21 @@ var newLaunches = function () {
     self.ChangePageNumber = function (e) {
         try {
             var pnum = parseInt($(e.target).attr("data-pagenum"), 10);
-            var selHash = $(e.target).attr("data-hash");
-            self.Filters()["pageNo"] = pnum;
+            if (pnum && !isNaN(pnum)) {
+                var selHash = $(e.target).attr("data-hash");
+                self.Filters()["pageNo"] = pnum;
 
-            if (selHash) {
-                var arr = selHash.split('&');
-                var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
-                if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
-                if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                if (selHash) {
+                    var arr = selHash.split('&');
+                    var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
+                    if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
+                    if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                }
+                self.CurPageNo(pnum);
+                self.getNewLaunchedBikes();
+                e.preventDefault();
+                $('html, body').scrollTop(0);
             }
-            self.CurPageNo(pnum);
-            self.getNewLaunchedBikes();
-            e.preventDefault();
-            $('html, body').scrollTop(0);
         } catch (e) {
             console.warn("Unable to change page number : " + e.message);
         }
