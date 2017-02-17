@@ -270,6 +270,8 @@ var newLaunches = function () {
     self.PagesListHtml = ko.observable("");
     self.PrevPageHtml = ko.observable("");
     self.NextPageHtml = ko.observable("");
+    self.selectedCityId = ko.observable();
+    self.selectedCityName = ko.observable();
 
     self.init = function (e) {
         if (!self.IsInitialized()) {
@@ -277,9 +279,11 @@ var newLaunches = function () {
             var eleSection = $("#newlaunched-bikes");
             ko.applyBindings(self, eleSection[0]);
 
+            self.CheckCookies();
+
             self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make-filter") || "";
             self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
-            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || "";
+            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || self.selectedCityId() || "";
 
             var filterType = $(e.target).closest("ul").data("filter");
             if (filterType) {
@@ -300,7 +304,7 @@ var newLaunches = function () {
 
             $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").off("click", self.init);
 
-            $(document).on("click", "#pagination-list-content ul li", function (e) {
+            $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev a,.pagination-control-next a", function (e) {
                 if (self.IsInitialized()) {
                     self.ChangePageNumber(e);
                 }
@@ -324,17 +328,19 @@ var newLaunches = function () {
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : function(d,e) { $root.ChangePageNumber(e); } " data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
                 }
                 self.PagesListHtml(pages);
-
+                $(".pagination-control-prev,.pagination-control-next").removeClass("active inactive");
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite prev-page-icon'/>";
                 } else {
-                    prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'/>";
+                    prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'></a>";
+                    $(".pagination-control-prev").addClass("inactive");
                 }
                 self.PrevPageHtml(prevpg);
                 if (self.Pagination().hasNext()) {
                     nextpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwmsprite next-page-icon'/>";
                 } else {
-                    nextpg = "<a href='javascript:void(0)' class='bwmsprite next-page-icon'/>";
+                    nextpg = "<a href='javascript:void(0)' class='bwmsprite next-page-icon'></a>";
+                    $(".pagination-control-next").addClass("inactive");
                 }
                 self.NextPageHtml(nextpg);
                 $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");
@@ -349,19 +355,22 @@ var newLaunches = function () {
     self.ChangePageNumber = function (e) {
         try {
             var pnum = parseInt($(e.target).attr("data-pagenum"), 10);
-            var selHash = $(e.target).attr("data-hash");
-            self.Filters()["pageNo"] = pnum;
+            if(pnum && !isNaN(pnum))
+            {
+                var selHash = $(e.target).attr("data-hash");
+                self.Filters()["pageNo"] = pnum;
 
-            if (selHash) {
-                var arr = selHash.split('&');
-                var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
-                if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
-                if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                if (selHash) {
+                    var arr = selHash.split('&');
+                    var curcityId = arr[0].split("=")[1], curmakeId = arr[1].split("=")[1], curmodelId = arr[2].split("=")[1];
+                    if (curcityId && curcityId != "0") self.Filters()["city"] = curcityId;
+                    if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
+                }
+                self.CurPageNo(pnum);
+                self.getNewLaunchedBikes();
+                e.preventDefault();
+                $('html, body').scrollTop(0);
             }
-            self.CurPageNo(pnum);
-            self.getNewLaunchedBikes();
-            e.preventDefault();
-            $('html, body').scrollTop(0);
         } catch (e) {
             console.warn("Unable to change page number : " + e.message);
         }
@@ -432,9 +441,27 @@ var newLaunches = function () {
                 var f = _filters[i].split("=");
                 self.Filters()[f[0]] = f[1];
             }
+            self.CurPageNo((self.Filters()["pageNo"] ? parseInt(self.Filters()["pageNo"]) : 0));
             self.init(e);
         }
 
+    };
+
+    self.CheckCookies = function () {
+        try {
+            c = document.cookie.split('; ');
+            for (i = c.length - 1; i >= 0; i--) {
+                C = c[i].split('=');
+                if (C[0] == "location") {
+                    var cData = (String(C[1])).split('_');
+                    self.selectedCityId(parseInt(cData[0]) || 0);
+                    self.selectedCityName(cData[1] || "");
+                    break;
+                }
+            }
+        } catch (e) {
+            console.warn(e);
+        }
     };
 };
 

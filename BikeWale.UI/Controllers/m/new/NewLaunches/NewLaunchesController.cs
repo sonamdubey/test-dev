@@ -135,7 +135,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
                 PagerSlotSize = 5,
-                BaseUrl = string.Format("/m/new-{0}-bikes-launches/", maskingName),
+                BaseUrl = string.Format("/m/new-{0}-bike-launches/", maskingName),
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
