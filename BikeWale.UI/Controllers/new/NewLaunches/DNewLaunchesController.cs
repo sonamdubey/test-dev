@@ -5,6 +5,7 @@ using Bikewale.Entities.Pager;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,14 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
+        private readonly IUpcoming _upcoming = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
-        public DNewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
+        public DNewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
+            _upcoming = upcoming;
         }
         /// <summary>
         /// Modified By :- Subodh Jain 15 Feb 2017
@@ -59,9 +62,8 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
-
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
             ViewBag.Description = "Check out the latest bikes in India. Explore the recently launched bikes of Honda, Bajaj, Hero, Royal Enfield and other major brands.";
             ViewBag.Title = "New Bike Launches | Latest Bikes in India- BikeWale";
             ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
@@ -150,8 +152,8 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
@@ -206,8 +208,9 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
+
             return View("~/views/newlaunches/bikesbyyear.cshtml");
         }
 
