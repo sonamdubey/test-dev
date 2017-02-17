@@ -64,7 +64,7 @@
 
                         </ul>
                         <div class="leftfloat exshowroom-price-content">
-                            <p class="key-size-13 text-truncate">Ex-showroom price, @( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</p>
+                            <p class="key-size-13 text-truncate">Ex-showroom price, <span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
                             <span class="bwmsprite inr-sm-icon"></span> <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
                         </div>
                         <div class="leftfloat launched-date-content ">
