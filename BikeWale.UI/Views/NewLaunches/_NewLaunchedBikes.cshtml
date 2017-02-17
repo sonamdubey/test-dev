@@ -20,7 +20,6 @@
                     @if (objMakes != null)
                     {
                         <div class="select-box inline-block margin-right15 brand-type-filter">
-                            @*<p class="select-label" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>*@
                             <select class="chosen-select" data-placeholder="Select brand" id="makeFilter" data-filter="makewise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setMakeFilter(e);}}">
                                 <option value="0">All brands</option>
                                 @foreach (var make in objMakes)
@@ -33,7 +32,6 @@
                     @if (objYears != null)
                     {
                         <div class="select-box select-box-no-input inline-block right-align-box">
-                            @*<p class="select-label" data-bind="text : selectedYear() ? selectedYear() : ''">All years</p>*@
                             <select class="chosen-select" data-title="Select year" id="yearFilter" data-filter="yearwise" data-bind="chosen:{width: '100%'},event : { change : function(d,e) { setYearFilter(e);}}">
                                 <option value="0" >All years</option>
                                 @foreach (var year in objYears)
