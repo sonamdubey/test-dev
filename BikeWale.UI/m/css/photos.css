@@ -676,6 +676,12 @@ body {
     top: 2px;
 }
 
+.footer-tab-card .model-more-info-section .item-image-content {
+    width: 68px;
+    height: 38px;
+    margin-right: 5px;
+}
+
 #gallery-root.uc-iframe-position #video-tab-screen {
     height: 100px;
 }
