@@ -85,6 +85,13 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             return View("~/views/newlaunches/index.cshtml");
         }
 
+        /// <summary>
+        /// Modified By :- Subodh Jain 17 Feb 2017
+        /// Summary ;- Added upcoming widget
+        /// </summary>
+        /// <param name="launchYear"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         [Route("newlaunches/make/{maskingName}/")]
         [DeviceDetection]
         public ActionResult BikeByMake(string maskingName, ushort? pageNumber)
@@ -136,11 +143,24 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
-
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 17 Feb 2017
+        /// Summary ;- Added upcoming widget
+        /// </summary>
+        /// <param name="launchYear"></param>
+        /// <param name="pageNumber"></param>
+        /// <returns></returns>
         [Route("newlaunches/year/{launchYear}/")]
         public ActionResult BikeByYear(string launchYear, ushort? pageNumber)
         {
@@ -179,7 +199,14 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
-
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
             return View("~/views/newlaunches/bikesbyyear.cshtml");
         }
 
