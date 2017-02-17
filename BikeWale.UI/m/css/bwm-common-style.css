@@ -954,16 +954,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .author-grey-sm-icon {background-position: -66px -486px;}
 .views-grey-sm-icon {background-position: -84px -486px;}
 
-@media all and (max-width: 350px) {
-    .review-heading-wrapper {
-        width: 52% !important;
-    }
-    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
-    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
-    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
-        width: 265px;
-    }
-}
 #popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
     display: none;
 }
@@ -1429,11 +1419,18 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     vertical-align: middle;
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 350px) {
+    .review-heading-wrapper {
+        width: 52% !important;
+    }
+    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
+    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
+        width: 265px;
+    }    
     .model-more-info-section .bike-details-block {
         width: 62%;
     }
-
     .model-more-info-section .used-target-label {
         width: 92%;
     }

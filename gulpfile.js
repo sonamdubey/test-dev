@@ -166,7 +166,18 @@ var pageArray = [
         folderName: 'm/new/photos/',
         fileName: 'Default.aspx',
         stylesheet: 'm/css/photos.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBike.aspx',
+        stylesheet: 'm/css/compare/landing.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBikeDetails.aspx',
+        stylesheet: 'm/css/compare/details.css'
     }
+	
 ];
 
 var mvcPageArray =[

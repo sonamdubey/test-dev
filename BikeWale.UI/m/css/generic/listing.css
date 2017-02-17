@@ -139,7 +139,7 @@
 
 .best-bikes-swiper .swiper-card,
 .best-bikes-swiper .swiper-card-target {
-  min-height: 205px; }
+  min-height: 180px; }
 
 .best-bikes-swiper .swiper-image-preview {
   height: 113px;
@@ -149,7 +149,7 @@
 
 .best-bikes-swiper .swiper-details-block {
   padding-top: 10px;
-  padding-bottom: 20px; }
+  padding-bottom: 15px; }
 
 .used-target-label {
   width: 96%; }

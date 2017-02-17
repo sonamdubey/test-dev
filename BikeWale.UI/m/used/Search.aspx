@@ -207,7 +207,7 @@
                     </ul>
                     <div style="text-align: center;">
                         <div id="nobike"  data-bind="visible : noBikes()">
-                            <img src="/images/no_result_m.png">
+                            <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
                         </div>
                     </div>                     
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">

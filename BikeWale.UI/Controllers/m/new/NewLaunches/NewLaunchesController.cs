@@ -17,7 +17,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
-
+        
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
             _newLaunches = newLaunches;
@@ -53,6 +53,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             ViewBag.Description = "Check out the latest bikes in India. Explore the recently launched bikes of Honda, Bajaj, Hero, Royal Enfield and other major brands.";
             ViewBag.Title = "New Bike Launches | Latest Bikes in India- BikeWale";
             ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year);
+            ViewBag.canonical = string.Format("{0}/new-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs);
 
             ViewBag.pager = new PagerEntity()
             {
@@ -64,6 +65,10 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
             ViewBag.location = _objLocation;
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            ViewBag.relPrevPageUrl = prevUrl;
+            ViewBag.relNextPageUrl = nextUrl;
             return View("~/views/m/newlaunches/index.cshtml");
         }
 
@@ -101,6 +106,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             ViewBag.Description = string.Format("Check out the latest {0} bikes in India. Know more about prices, mileage, colors, specifications, and dealers of recently launched {0} bikes.", ViewBag.MakeName.ToLower());
             ViewBag.Title = string.Format("{0} Bike Launches| Latest {0} Bikes in India- BikeWale", ViewBag.MakeName);
             ViewBag.Keywords = string.Format("new {2} bikes {0}, new {2} bike launches in {1}, just launched {2} bikes, new {2} bike arrivals, {2} bikes just got launched", DateTime.Today.AddDays(-1).Year, DateTime.Today.Year, ViewBag.MakeName.ToLower());
+            ViewBag.canonical = string.Format("{0}/new-{1}-bike-launches/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, objResponse.MaskingName);
 
             ViewBag.pager = new PagerEntity()
             {
@@ -112,6 +118,11 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
             ViewBag.location = _objLocation;
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/m/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            ViewBag.relPrevPageUrl = prevUrl;
+            ViewBag.relNextPageUrl = nextUrl;
+
             return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
@@ -136,6 +147,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             ViewBag.Description = string.Format("Check out the latest bikes launched in {0}. Know more about prices, mileage, colors, specifications, and dealers of new bikes launched in {0}.", launchYear);
             ViewBag.Title = string.Format("Bike Launches in {0} | Latest Bikes launched in {0}- BikeWale", launchYear);
             ViewBag.Keywords = string.Format("new bikes {0}, new bike launches in {1}, just launched bikes, new bike arrivals, bikes just got launched", Convert.ToUInt32(launchYear) - 1, launchYear);
+            ViewBag.canonical = string.Format("{0}/new-bike-launches-in-{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, launchYear);
 
             ViewBag.pager = new PagerEntity()
             {
@@ -148,6 +160,10 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             };
 
             ViewBag.location = _objLocation;
+            string prevUrl = string.Empty, nextUrl = string.Empty;
+            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/m/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            ViewBag.relPrevPageUrl = prevUrl;
+            ViewBag.relNextPageUrl = nextUrl;
 
             return View("~/views/m/newlaunches/bikesbyyear.cshtml");
         }
