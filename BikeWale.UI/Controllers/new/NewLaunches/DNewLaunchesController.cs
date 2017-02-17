@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
@@ -16,6 +17,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
+        private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
         public DNewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
@@ -64,6 +66,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
+            ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
@@ -117,7 +120,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
@@ -160,7 +163,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;

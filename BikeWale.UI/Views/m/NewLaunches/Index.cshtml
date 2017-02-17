@@ -34,7 +34,7 @@
     </div>
 </section>
 
-<section id="newlaunched-bikes">
+<section id="newlaunched-bikes" data-city="@ViewBag.location.CityId">
     <h2 class="section-heading">New bike launches in India</h2>
     @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>

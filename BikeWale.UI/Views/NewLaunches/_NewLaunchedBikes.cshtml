@@ -66,15 +66,15 @@
                         <div class="card-desc-block">
                             <h3 class="bikeTitle" data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                             <ul class="key-specs-list margin-bottom10 font12">
-                                <li data-bind="visible : models()[@i].minSpec.displacement != 0" class="@(bike.MinSpecs.Displacement > 0 ? "" : "hide")">
+                                <li data-bind="visible : models()[@i].minSpec.displacement != 0"  @(bike.MinSpecs.Displacement > 0 ? "" : " style='display:none' ")>
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")
                                 </li>
 
-                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" class="@(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : "hide")">
+                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style='display:none' ") >
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
                                 </li>
 
-                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0" class="@(bike.MinSpecs.MaximumTorque > 0 ? "" : "hide")">
+                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0" @(bike.MinSpecs.MaximumTorque > 0 ? "" : " style='display:none' ") >
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
                                 </li>
                             </ul>
@@ -89,12 +89,12 @@
                             <div class="clear"></div>
                         </div>
                     </a>
-                    <div class="margin-bottom10 margin-left20 @(bike.Price > 0 ? "" : "hide")" data-bind="visible : models()[@i].price != 0">
+                    <div class="margin-bottom10 margin-left20 " @(bike.Price > 0 ? "" : " style='display:none' ")  data-bind="visible : models()[@i].price != 0">
                         <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
                     </div>
                 </li>
                 <!-- /ko -->
-                i++;
+               i++;
             }
         </ul>
         <!-- /ko -->

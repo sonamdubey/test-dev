@@ -44,9 +44,9 @@
     </div>
 </section>
 
-<section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId">
+<section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId" data-city="@ViewBag.location.CityId">
     <div class="container section-bottom-margin">
-        <div class="grid-12">           
+        <div class="grid-12">
             @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes.cshtml")
         </div>
         <div class="clear"></div>
