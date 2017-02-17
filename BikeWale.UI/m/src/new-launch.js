@@ -328,17 +328,19 @@ var newLaunches = function () {
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : function(d,e) { $root.ChangePageNumber(e); } " data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
                 }
                 self.PagesListHtml(pages);
-                $(".pagination-control-prev,.pagination-control-next").removeClass("active").removeClass("inactive");
+                $(".pagination-control-prev,.pagination-control-next").removeClass("active inactive");
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite prev-page-icon'/>";
                 } else {
-                    prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'/>";
+                    prevpg = "<a href='javascript:void(0)' class='bwmsprite prev-page-icon'></a>";
+                    $(".pagination-control-prev").addClass("inactive");
                 }
                 self.PrevPageHtml(prevpg);
                 if (self.Pagination().hasNext()) {
                     nextpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwmsprite next-page-icon'/>";
                 } else {
-                    nextpg = "<a href='javascript:void(0)' class='bwmsprite next-page-icon'/>";
+                    nextpg = "<a href='javascript:void(0)' class='bwmsprite next-page-icon'></a>";
+                    $(".pagination-control-next").addClass("inactive");
                 }
                 self.NextPageHtml(nextpg);
                 $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");

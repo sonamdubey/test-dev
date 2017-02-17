@@ -299,13 +299,15 @@ var newLaunches = function () {
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite bwsprite prev-page-icon'/>";
                 } else {
-                    prevpg = "<a href='javascript:void(0)' class='bwmsprite bwsprite prev-page-icon'/>";
+                    prevpg = "<a href='javascript:void(0)' class='bwmsprite bwsprite prev-page-icon'></a>";
+                    $(".pagination-control-prev").addClass("inactive");
                 }
                 self.PrevPageHtml(prevpg);
                 if (self.Pagination().hasNext()) {
                     nextpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().next() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().next()) + "' class='bwmsprite bwsprite next-page-icon'/>";
                 } else {
-                    nextpg = "<a href='javascript:void(0)' class='bwmsprite bwsprite next-page-icon'/>";
+                    nextpg = "<a href='javascript:void(0)' class='bwmsprite bwsprite next-page-icon'></a>";
+                    $(".pagination-control-next").addClass("inactive");
                 }
                 self.NextPageHtml(nextpg);
                 $("#pagination-list li[data-pagenum=" + self.Pagination().pageNumber() + "]").addClass("active");
