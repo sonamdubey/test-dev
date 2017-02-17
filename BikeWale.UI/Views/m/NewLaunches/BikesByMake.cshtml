@@ -1,16 +1,19 @@
+﻿@using Bikewale.Entities.BikeData;
 ﻿@{ 
     ViewBag.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     ViewBag.AdId = "1398766302464";
     ViewBag.Ad_320x50 = true;
+
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 <section>
     <div class="container bg-white card-bottom-margin">
         <h1 class="card-header">New @ViewBag.MakeName Bike Launches</h1>
         <div class="card-inner-padding font14 text-light-grey collapsible-content">
-            <p class="main-content">@ViewBag.MakeName is a well-known two-wheeler brand in India. The two-wheeler brands in India have to update their portfolio of bikes vis-à-vis changing behavior pattern and usefulness on a regular basis. Every year there are plenty of bike models that hit the market to cater the customer’s need. BikeWale brings you an exhaustive list of newly launched @ViewBag.MakeName bikes in India. Explore the list of latest @ViewBag.MakeName bikes.</p>
+            <p class="main-content">@ViewBag.MakeName is a well-known two-wheeler brand in India. The two-wheeler brands in India have to update their portfolio of bikes vis-à-vis changing behavior pattern and usefulness on a regular basis. Every year there are plenty of bike models that hit the market to cater the customer's need. BikeWale brings you an exhaustive list of newly launched @ViewBag.MakeName bikes in India. Explore the list of latest @ViewBag.MakeName bikes.</p>
         </div>
     </div>
 </section>
@@ -21,14 +24,14 @@
         @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
     </div>
 </section>
-
+@if (objUpcoming != null && objUpcoming.Count() > 0) {
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName bikes in India</h2>
-        @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+        @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
     </div>
 </section>
-
+}
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">New launches of other brands</h2>

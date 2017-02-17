@@ -1,5 +1,4 @@
 ﻿@using Bikewale.Entities.BikeData.NewLaunched;
-
 @{
 
     NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
@@ -7,7 +6,6 @@
     IEnumerable<BikesCountByMakeEntityBase> objMakes = ViewBag.Makes;
     ushort i = 0;
 }
-
 @if (objBikeList != null)
 {
     <div class="container bg-white box-shadow section-bottom-margin">
@@ -97,7 +95,6 @@
         </div>
     </div>
 }
-
 @if (objMakes != null)
 {
 
@@ -127,7 +124,6 @@
         </div>
     </div>
 }
-
 @if (objYears != null)
 {
     <div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
@@ -149,7 +145,6 @@
         </div>
     </div>
 }
-
 <div id="sort-filters-loader" style="display: none;" data-bind="visible : IsLoading()">
     <div id="popup-loader"></div>
 </div>

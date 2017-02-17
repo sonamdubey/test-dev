@@ -1,4 +1,4 @@
-﻿
+﻿@using Bikewale.Entities.BikeData;
 @{
     ViewBag.AdPath = "/1017752/BikeWale_New_";
     ViewBag.AdId = "1395986297721";
@@ -10,6 +10,7 @@
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
+    IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 <section>
     <div class="container padding-top10">
@@ -38,7 +39,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -50,7 +50,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId" data-city="@ViewBag.location.CityId">
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -59,19 +58,20 @@
         <div class="clear"></div>
     </div>
 </section>
-
+@if (objUpcoming != null && objUpcoming.Count() > 0)
+{
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
                 <h2 class="font18 padding-bottom20 padding-left20">Upcoming @ViewBag.MakeName bikes in India</h2>
-                @{ Html.RenderAction("Index", "DUpcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+                @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
             </div>
         </div>
         <div class="clear"></div>
     </div>
 </section>
-
+}
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -83,12 +83,10 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>
         @{Html.RenderAction("Years", "DNewLaunches");}
     </div>
-</section>
- 
+</section> 
 <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>

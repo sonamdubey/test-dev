@@ -1,16 +1,14 @@
-﻿@using Bikewale.Entities.BikeData.NewLaunched;
-
+﻿@using Bikewale.Entities.BikeData;
+@using Bikewale.Entities.BikeData.NewLaunched;
 @{
-    ViewBag.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
-    ViewBag.AdId = "1398766302464";
-    ViewBag.Ad_Bot_320x50 = true;
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
 
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
-    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years;
+    IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
+    IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 <section>
     <div class="container new-launch-banner text-center">
@@ -18,7 +16,6 @@
         <h2 class="font14 text-unbold text-white">Latest bikes in India</h2>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -32,30 +29,27 @@
         <div class="clear"></div>
     </div>
 </section>
-
+@if (ViewBag.Bikes!=null)
+{
 <section id="newlaunched-bikes" data-city="@ViewBag.location.CityId">
     <h2 class="section-heading">New bike launches in India</h2>
     @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>
-
+}
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
     @Html.Partial("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml")
 </section>
-
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
     @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml", objYears)
 </section>
-
+@if (objUpcoming != null && objUpcoming.Count() > 0) { 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
     <div class="content-box-shadow padding-top20 padding-bottom20">
-        @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+        @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
     </div>
 </section>
-
-
+}
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
-
-

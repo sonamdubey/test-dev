@@ -4,6 +4,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
+        private readonly IUpcoming _upcoming = null;
         private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
-        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
+        public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache, IUpcoming upcoming)
         {
             _newLaunches = newLaunches;
             _objMakeCache = objMakeCache;
+            _upcoming = upcoming;
         }
         /// <summary>
         /// Modified By :- Subodh Jain 15 Feb 2017
@@ -71,9 +74,9 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
 
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
 
             ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
@@ -148,9 +151,8 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
-
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
             return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
@@ -205,8 +207,8 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 StartIndex = 1
             };
             var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-            ViewBag.Filters = objFiltersUpcoming;
-            ViewBag.SortBy = sortBy;
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
             return View("~/views/m/newlaunches/bikesbyyear.cshtml");
         }
 
