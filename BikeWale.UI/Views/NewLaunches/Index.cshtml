@@ -2,10 +2,12 @@
 @using Bikewale.Entities.BikeData.NewLaunched;
 @{
     ViewBag.Ad_970x90 = false;
+    ViewBag.Ad_970x90Bottom = false;
+    ViewBag.Ad_300x250BTF = false;
+    ViewBag.Ad_Mid_320x50 = false;
+    ViewBag.Ad_300x250 = false;
     ViewBag.IsHeaderFix = false;
     ViewBag.IsTransparentHeader = true;
-    ViewBag.AdPath = "/1017752/BikeWale_New_";
-    ViewBag.AdId = "1395986297721";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
@@ -30,7 +32,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div id="newlaunched-bikes" data-city="@ViewBag.location.CityId" class="container section-bottom-margin">
         <div class="grid-12">
@@ -40,7 +41,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore new launches by brands</h2>
@@ -50,7 +50,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>
