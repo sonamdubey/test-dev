@@ -4,7 +4,7 @@
     title = "New Bikes Launches in " + year + " - BikeWale";
     keywords = "new bikes 2014, new bike launches in " + year + ", just launched bikes, new bike arrivals, bikes just got launched";
     description = "List of all new bikes launched in India in " + year + " (last eight months)";
-    canonical = "https://www.bikewale.com/new-bikes-launches/";
+    canonical = "https://www.bikewale.com/new-bike-launches/";
     relPrevPageUrl = prevPageUrl;
     relNextPageUrl = nextPageUrl;
     AdPath = "/1017752/Bikewale_Mobile_NewBikes";

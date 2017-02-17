@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.Utility
 {
@@ -36,6 +32,32 @@ namespace Bikewale.Utility
             int pageCount = (int)Math.Ceiling((double)totalRecords / (double)pageSize);// Total number of pages in the pager.
 
             return pageCount;
+        }
+
+
+        /// <summary>
+        /// Created By : Sajal Gupta on 17-02-2017
+        /// Desc: Function to make next url and prev url.
+        /// </summary>
+        /// <param name="totalPages"></param>
+        /// <param name="baseUrl"></param>
+        public static void CreatePrevNextUrl(int totalPages, string baseUrl, int pageNumber, ref string nextPageUrl, ref string prevPageUrl)
+        {
+            string _mainUrl = String.Format("{0}{1}page/", BWConfiguration.Instance.BwHostUrlForJs, baseUrl);
+
+            if (pageNumber == 1)    //if page is first page
+            {
+                nextPageUrl = string.Format("{0}2/", _mainUrl);
+            }
+            else if (pageNumber == totalPages)    //if page is last page
+            {
+                prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+            }
+            else
+            {          //for middle pages
+                prevPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber - 1);
+                nextPageUrl = string.Format("{0}{1}/", _mainUrl, pageNumber + 1);
+            }
         }
     }
 }
