@@ -1,5 +1,4 @@
 ﻿@using Bikewale.Entities.BikeData.NewLaunched;
-
 @{
 
     NewLaunchedBikeResult objBikeList = ViewBag.Bikes;
@@ -7,10 +6,8 @@
     IEnumerable<BikesCountByMakeEntityBase> objMakes = ViewBag.Makes;
     ushort i = 0;
 }
-
 @if (objBikeList != null)
 {
-
     <div class="content-box-shadow position-rel">
         <div class="padding-right20 padding-left20">
             <div class="padding-top15 padding-bottom15 border-solid-bottom">
@@ -118,5 +115,4 @@
             </svg>
         </div>
     </div>
-
 }

@@ -1,6 +1,5 @@
 ﻿@using Bikewale.Entities.BikeData;
 @using Bikewale.Entities.BikeData.NewLaunched;
-
 @{
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
 
@@ -17,7 +16,6 @@
         <h2 class="font14 text-unbold text-white">Latest bikes in India</h2>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -38,12 +36,10 @@
     @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>
 }
-
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
     @Html.Partial("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml")
 </section>
-
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
     @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml", objYears)
@@ -56,7 +52,4 @@
     </div>
 </section>
 }
-
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
-
-

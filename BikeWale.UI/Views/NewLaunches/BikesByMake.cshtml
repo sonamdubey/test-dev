@@ -39,7 +39,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -51,7 +50,6 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section id="newlaunched-bikes" data-make-filter="@ViewBag.MakeId" data-city="@ViewBag.location.CityId">
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -74,7 +72,6 @@
     </div>
 </section>
 }
-
 <section>
     <div class="container section-bottom-margin">
         <div class="grid-12">
@@ -86,12 +83,10 @@
         <div class="clear"></div>
     </div>
 </section>
-
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>
         @{Html.RenderAction("Years", "DNewLaunches");}
     </div>
-</section>
- 
+</section> 
 <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
