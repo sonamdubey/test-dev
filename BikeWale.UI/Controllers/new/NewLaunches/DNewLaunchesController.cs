@@ -50,7 +50,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 ViewBag.TopMakes = makes.Take(TopCount);
                 ViewBag.OtherMakes = makes.Count() > TopCount ? makes.Skip(TopCount).OrderBy(m => m.Make.MakeName) : null;
             }
-            ViewBag.pageHeading = "New Bike Launches";
+            ViewBag.pageHeading = "Latest bikes in India";
             ViewBag.Years = _newLaunches.YearList();
 
             var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
@@ -145,6 +145,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             ViewBag.relNextPageUrl = nextUrl;
             var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
+                MakeId = (int)objResponse.MakeId,
                 EndIndex = 9,
                 StartIndex = 1
             };
