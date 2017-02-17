@@ -176,8 +176,28 @@ var mvcPageArray =[
         stylesheet: 'm/css/new-launch/new-launch.css'
     },
 	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
         folderName: 'Views/NewLaunches/',
         fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
         stylesheet: 'css/new-launch/new-launch.css'
     }
 ];
