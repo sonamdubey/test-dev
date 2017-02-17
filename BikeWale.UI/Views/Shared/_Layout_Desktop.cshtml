@@ -51,7 +51,7 @@
     <meta property="og:title" content="@Title" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="@description" />
-    <meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
+    <meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
         if(!String.IsNullOrEmpty(canonical))
         {
         <meta property="og:url" content="@canonical" />
@@ -187,7 +187,7 @@ string GetGTTargeting(int targetId, string target)
 
             </div>
             <div class="rightfloat">
-                <div class="global-search" style="display:none">
+                <div class="global-search" style="">
                     <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                     <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                     <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
