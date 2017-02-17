@@ -1,9 +1,11 @@
-﻿@{    
+﻿@using Bikewale.Entities.BikeData;
+@{    
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 <section>
     <div class="container bg-white card-bottom-margin">
@@ -26,13 +28,15 @@
     @{Html.RenderAction("Years", "NewLaunches", new { year = ViewBag.launchYear });}
 </section>
 
-<section>
-    <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming bikes in India</h2>
-        @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
-    </div>
-</section>
-
+@if (objUpcoming != null && objUpcoming.Count() > 0)
+{
+    <section>
+        <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+            <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming bikes in India</h2>
+            @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
+        </div>
+    </section>
+}
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Explore new launches by brands</h2>

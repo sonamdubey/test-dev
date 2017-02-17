@@ -1,7 +1,9 @@
-﻿@{    
+﻿@using Bikewale.Entities.BikeData;
+@{    
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 <section>
     <div class="container bg-white card-bottom-margin">
@@ -18,14 +20,14 @@
         @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
     </div>
 </section>
-
+@if (objUpcoming != null && objUpcoming.Count() > 0) {
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName bikes in India</h2>
-        @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+        @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
     </div>
 </section>
-
+}
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">New launches of other brands</h2>
