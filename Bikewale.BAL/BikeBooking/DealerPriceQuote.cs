@@ -408,6 +408,7 @@ namespace Bikewale.BAL.BikeBooking
                         DealerId = PQParams.DealerId,
                         PQId = quoteId,
                         VersionId = PQParams.VersionId,
+                        DefaultVersionId = defaultVersionId,
                         IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false
                     };
                 }

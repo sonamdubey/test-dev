@@ -72,7 +72,7 @@ namespace Bikewale.Mobile.New
         static readonly string _PageNotFoundPath;
         static readonly string _bwHostUrl;
         protected static bool isManufacturer;
-        protected uint onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, versionId, areaId, dealerId;
+        protected uint onRoadPrice, totalDiscountedPrice, price, bookingAmt, cityId, campaignId, manufacturerId, modelId, versionId, defaultVersionId, areaId, dealerId;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -654,7 +654,8 @@ namespace Bikewale.Mobile.New
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                         {
-                            price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
+                            if (cityId == 0)
+                                price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
                             if (versionId == 0 && cityId == 0)
                             {
                                 versionId = modelPage.ModelVersionSpecs.BikeVersionId;
@@ -737,23 +738,11 @@ namespace Bikewale.Mobile.New
                                 isDealerPQ = true;
                                 onRoadPrice = selectedVariant.OnRoadPrice;
                                 price = onRoadPrice;
-                                if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
-                                {
-                                    // New model page offers section
-                                    IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
-                                    int distictOfferCount = distictOfferCategories.Count();
-                                    if (distictOfferCount > 3)
-                                    {
-                                        rptNewOffers.DataSource = distictOfferCategories.Take(2);
-                                        moreOffersCount = Convert.ToUInt16(pqOnRoad.DPQOutput.objOffers.Count() - 2);
-                                    }
-                                    else
-                                    {
-                                        rptNewOffers.DataSource = distictOfferCategories;
-                                    }
-                                    rptNewOffers.DataBind();
-                                    isOfferAvailable = true;
-                                }
+
+
+
+
+
                                 if (selectedVariant.PriceList != null)
                                 {
                                     totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
@@ -770,6 +759,24 @@ namespace Bikewale.Mobile.New
                             // Added on 13 Feb 2017 Pivotal Id:138698777
                             {
                                 SetBikeWalePQ(pqOnRoad);
+                            }
+
+                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                            {
+                                // New model page offers section
+                                IEnumerable<OfferEntity> distictOfferCategories = pqOnRoad.DPQOutput.objOffers.GroupBy(offer => offer.OfferCategoryId).Select(g => g.First());
+                                int distictOfferCount = distictOfferCategories.Count();
+                                if (distictOfferCount > 3)
+                                {
+                                    rptNewOffers.DataSource = distictOfferCategories.Take(2);
+                                    moreOffersCount = Convert.ToUInt16(pqOnRoad.DPQOutput.objOffers.Count() - 2);
+                                }
+                                else
+                                {
+                                    rptNewOffers.DataSource = distictOfferCategories;
+                                }
+                                rptNewOffers.DataBind();
+                                isOfferAvailable = true;
                             }
                             #endregion
                         }
@@ -933,16 +940,11 @@ namespace Bikewale.Mobile.New
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQV2(objPQEntity);
 
-                    if (versionId == 0)
-                    {
-                        if (objPQOutput != null && objPQOutput.VersionId > 0)
-                        {
-                            versionId = objPQOutput.VersionId;
-                        }
-                    }
-
                     if (objPQOutput != null)
                     {
+                        if (versionId == 0)
+                            versionId = objPQOutput.VersionId;
+                        defaultVersionId = objPQOutput.DefaultVersionId;
                         pqOnRoad = new PQOnRoadPrice();
                         pqOnRoad.PriceQuote = objPQOutput;
                         if (objPQOutput != null && objPQOutput.PQId > 0)
@@ -1070,7 +1072,7 @@ namespace Bikewale.Mobile.New
             {
                 if (cityId > 0 && areaId > 0 && versionId > 0)
                 {
-                    viewModel = new ModelPageVM(cityId, versionId, dealerId, areaId);
+                    viewModel = new ModelPageVM(cityId, defaultVersionId, dealerId, areaId);
                     if (viewModel.DealerCampaignV2.PrimaryDealer.OfferList != null && viewModel.DealerCampaignV2.PrimaryDealer.OfferList.Count() > 0)
                     {
                         rptOffers.DataSource = viewModel.Offers;
