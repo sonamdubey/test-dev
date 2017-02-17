@@ -293,7 +293,6 @@ var newLaunches = function () {
                     pages += ' <li class="page-url ' + (i == self.CurPageNo() ? 'active' : '') + ' "><a  data-bind="click : function(d,e) { $root.ChangePageNumber(e); } " data-pagenum="' + i + '" href="' + pageUrl + '">' + i + '</a></li>';
                 }
                 self.PagesListHtml(pages);
-
                 if (self.Pagination().hasPrevious()) {
                     prevpg = "<a  data-bind='click : $root.ChangePageNumber' data-pagenum='" + self.Pagination().previous() + "' href='" + qs.replace(rstr, "page-" + self.Pagination().previous()) + "' class='bwmsprite bwsprite prev-page-icon'/>";
                 } else {
