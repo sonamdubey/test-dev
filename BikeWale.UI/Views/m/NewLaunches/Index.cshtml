@@ -11,13 +11,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
     IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
-    var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-    {
-        EndIndex = 9,
-        StartIndex = 1
-    };
-    var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
-}
+    }
 <section>
     <div class="container new-launch-banner text-center">
         <h1 class="font24 text-uppercase text-white">New Bike Launches</h1>
@@ -56,7 +50,7 @@
 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
-    @{ Html.RenderAction("Index", "Upcoming", new { objFilters, sortBy = sortBy }); }
+    @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
 </section>
 
 

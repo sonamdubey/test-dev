@@ -31,6 +31,14 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 ViewBag.OtherMakes = makes.Count() > TopCount ? makes.Skip(TopCount).OrderBy(m => m.Make.MakeName) : null;
             }
             ViewBag.Years = _newLaunches.YearList();
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
             return View("~/views/newlaunches/index.cshtml");
         }
 

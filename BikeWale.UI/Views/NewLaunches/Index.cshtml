@@ -12,12 +12,6 @@
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
     IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
-    var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
-    {
-        EndIndex = 9,
-        StartIndex = 1
-    };
-    var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
 }
 <header class="new-launch-banner">
     <div id="new-launch-center-box" class="container">
@@ -365,7 +359,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Upcoming bikes in India</h2>
         <div class="grid-12">
-            @{ Html.RenderAction("Index", "DUpcoming", new { objFilters, sortBy = sortBy }); }
+            @{ Html.RenderAction("Index", "DUpcoming", new { objFilters=ViewBag.Filters, sortBy = ViewBag.SortBy }); }
         </div>
         <div class="clear"></div>
     </div>
