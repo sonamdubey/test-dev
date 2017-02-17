@@ -138,18 +138,111 @@
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
 
+        <div id="gallery-root">
+            <div class="gallery-container">
+                <div class="gallery-header">
+                    <h2 class="text-white gallery-title"><%= bikeName %> Images</h2>
+                    <span id="gallery-close-btn" class="bwsprite cross-md-white cur-pointer"></span>
+                    <ul class="horizontal-tabs-wrapper">
+                        <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active' : ''">Images</li>
+                        <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active' : ''">Videos</li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="gallery-body">
+                    <div id="main-photo-swiper" class="gallery-swiper" data-bind="visible: photosTabActive()">
+                        <div class="jcarousel-wrapper">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" src="" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" src="" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" src="" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a>
+                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+                        </div>
+                        <%--<div id="imageFlow">
+                            <div class="text">
+                                <div class="title">Loading</div>
+                                <div class="legend">Please wait...</div>
+                            </div>
+                            <div class="scrollbar">
+                                <img class="track" src="" alt="">
+                                <img class="arrow-left" src="/images/arrow-left-test.png" alt="">
+                                <img class="arrow-right" src="/images/arrow-right-test.png" alt="">
+                                <img class="bar" src="" alt="">
+                            </div>
+                        </div>--%>
+                    </div>
+
+                    <div id="main-video-content" data-bind="visible: !photosTabActive()">
+                        Videos
+                    </div>
+                </div>
+
+                <div class="gallery-footer">
+                    <div class="footer-tabs-wrapper">
+                        <div class="footer-tab">
+                            <span class="bwsprite info-icon"></span>
+                            <span class="inline-block font14">Know more about the bike</span>
+                        </div>
+
+                        <div class="footer-tab">
+                            <span class="bwsprite color-palette"></span>
+                            <span class="inline-block font14">Colours</span>
+                        </div>
+
+                        <div data-bind="visible: photosTabActive()" class="footer-tab">
+                            <span class="bwsprite grid-icon"></span>
+                            <span class="inline-block font14">All photos</span>
+                        </div>                        
+
+                        <div data-bind="visible: !photosTabActive()" class="footer-tab">
+                            <span class="bwsprite grid-icon"></span>
+                           <span class="inline-block font14">All videos</span>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
+
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
-
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/fontBW.aspx" -->
-
     </form>
 </body>
 </html>
