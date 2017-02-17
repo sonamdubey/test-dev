@@ -114,10 +114,30 @@
     left: 0;
     z-index: 1; }
 
-.key-specs-list li,
-.key-specs-list span {
-  display: inline-block;
-  vertical-align: middle; }
+.key-specs-list {
+  padding-bottom: 15px;
+  overflow: hidden;
+  border-bottom: 1px solid #ecedee; }
+  .key-specs-list li {
+    padding-left: 12px;
+    padding-right: 12px;
+    position: relative; }
+    .key-specs-list li:before {
+      content: "";
+      width: 1px;
+      height: 15px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      border-left: 1px solid #ecedee; }
+    .key-specs-list li:first-child {
+      padding-left: 0; }
+      .key-specs-list li:first-child:before {
+        border-left: 0; }
+  .key-specs-list li,
+  .key-specs-list span {
+    display: inline-block;
+    vertical-align: middle; }
 
 .item-table-content .table-head-row th {
   font-weight: 400;
@@ -149,7 +169,7 @@
   font-size: 13px;
   display: inline-block;
   vertical-align: middle;
-  line-height: 12px; }
+  line-height: 13px; }
 
 .used-bike-target-link {
   margin: 1px 0 1px 20px;
@@ -165,15 +185,27 @@
   background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/generic-sprite.jpg) no-repeat;
   display: inline-block; }
 
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
+/* key specs */
+.capacity-sm,
+.mileage-sm,
+.power-sm,
+.weight-sm {
   width: 16px;
-  height: 18px;
+  height: 14px;
   margin-right: 5px; }
 
 .capacity-sm {
-  background-position: 0 0; 
-  line-height: 13px; 
-  }
+  background-position: -136px -153px; }
+
+.mileage-sm {
+  background-position: -154px -153px; }
+
+.power-sm {
+  background-position: -136px -169px;
+  margin-right: 2px; }
+
+.weight-sm {
+  background-position: -154px -169px; }
 
 .reviews-sm,
 .news-sm,

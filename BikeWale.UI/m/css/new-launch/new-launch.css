@@ -62,9 +62,8 @@
     top: 3px;
     right: 0;
     border-left: 1px solid #b0b0b0; }
-    .key-specs-list li.hide {
-        display:none;
-    }
+  .key-specs-list li.hide {
+    display: none; }
 
 .key-specs-list li:last-child:before {
   border-left: none; }
@@ -75,7 +74,7 @@
   font-size: 14px; }
 
 .new-launch-banner {
-  background: #565b5e url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/m/bwm-service-banner.jpg) no-repeat center;
+  background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/new-launches-banner.jpg) no-repeat center;
   background-size: cover;
   height: 130px;
   padding-top: 25px; }
@@ -161,6 +160,15 @@
   position: relative;
   top: 1px;
   opacity: 0.6; }
+
+#sort-filters-loader {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(245, 245, 245, 0.95);
+  z-index: 4; }
 
 .pagination-list-content {
   width: auto; }
@@ -499,14 +507,3 @@
   .responsive-heading {
     margin-right: 20px;
     margin-left: 20px; } }
-
-#sort-filters-loader {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(245,245,245,0.95);
-    z-index: 4;
-}
-
