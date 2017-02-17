@@ -19,7 +19,7 @@
                                 {
                                     <div class="text-light-grey margin-bottom5">
                                         <p class="font11 text-light-grey">Expected launch</p>
-                                        <p class="font16 text-bold text-default">@bike.ExpectedLaunchDate</p>
+                                        <p class="font16 text-bold text-default">@Bikewale.Utility.FormatDate.GetFormatDate(Convert.ToString(bike.ExpectedLaunchDate), "MMM, yyyy ")</p>
                                     </div>
                                 }
                                 @if (bike.EstimatedPriceMin > 0)

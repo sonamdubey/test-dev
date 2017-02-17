@@ -43,7 +43,7 @@ namespace Bikewale.DAL.BikeData
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
 
-                                objModel.ExpectedLaunchDate = Convert.ToString(dr["ExpectedLaunch"]);
+                                objModel.ExpectedLaunchDate = Convert.ToDateTime(dr["LaunchDate"]).ToString("yyyy/MM/dd");
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);

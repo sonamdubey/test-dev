@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bikewale.Utility.LinqHelpers
@@ -21,6 +22,17 @@ namespace Bikewale.Utility.LinqHelpers
         public static IEnumerable<TSource> Page<TSource>(this IEnumerable<TSource> source, int page, int pageSize)
         {
             return source.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+        /// <summary>
+        /// Created By:- Subodh Jain 17 Feb 2017
+        /// Summary :- Process orderby filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="isAsc"></param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> Sort<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool asc = true)
+        {
+            return asc ? source.OrderBy(keySelector) : source.OrderByDescending(keySelector);
         }
     }
 }

@@ -18,13 +18,10 @@ namespace Bikewale.Controllers.Desktop.Upcoming
             _upcoming = upcoming;
         }
         [Route("upcoming/")]
-        public ActionResult Index(int? makeId)
+        public ActionResult Index(UpcomingBikesListInputEntity objFilters, EnumUpcomingBikesFilter sortBy)
         {
-            UpcomingBikesListInputEntity objFiler = null;
 
-            if (makeId.HasValue && makeId.Value > 0)
-                objFiler.MakeId = makeId.Value;
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiler, EnumUpcomingBikesFilter.Default);
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFilters, sortBy);
 
             return View("~/Views/Shared/_UpcomingBikes.cshtml", objUpcomingBikes);
         }

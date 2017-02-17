@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -18,13 +19,11 @@ namespace Bikewale.Controllers.Mobile.Upcoming
             _upcoming = upcoming;
         }
         [Route("m/upcoming/")]
-        public ActionResult Index(int? makeId)
+        public ActionResult Index(UpcomingBikesListInputEntity objFilters, EnumUpcomingBikesFilter sortBy)
         {
-            UpcomingBikesListInputEntity objFiler = null;
 
-            if (makeId.HasValue && makeId.Value > 0)
-                objFiler.MakeId = makeId.Value;
-            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiler, EnumUpcomingBikesFilter.Default);
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFilters, sortBy);
+
             return View("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcomingBikes);
         }
     }

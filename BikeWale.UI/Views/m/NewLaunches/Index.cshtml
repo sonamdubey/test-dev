@@ -10,7 +10,12 @@
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
-
+    var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+    {
+        EndIndex = 9,
+        StartIndex = 1
+    };
+    var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
 }
 <section>
     <div class="container new-launch-banner text-center">
@@ -50,7 +55,7 @@
 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
-    @{ Html.RenderAction("Index", "Upcoming"); }
+    @{ Html.RenderAction("Index", "Upcoming", new { objFilters, sortBy = sortBy }); }
 </section>
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

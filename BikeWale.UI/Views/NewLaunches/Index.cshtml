@@ -10,7 +10,13 @@
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
-    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";    
+    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+    {
+        EndIndex = 9,
+        StartIndex = 1
+    };
+    var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
 }
 <header class="new-launch-banner">
     <div id="new-launch-center-box" class="container">
@@ -358,7 +364,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Upcoming bikes in India</h2>
         <div class="grid-12">
-            @{ Html.RenderAction("Index", "DUpcoming"); }
+            @{ Html.RenderAction("Index", "DUpcoming", new { objFilters, sortBy = sortBy }); }
         </div>
         <div class="clear"></div>
     </div>
