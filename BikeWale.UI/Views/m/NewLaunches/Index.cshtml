@@ -10,8 +10,8 @@
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
-    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
-    }
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years;
+}
 <section>
     <div class="container new-launch-banner text-center">
         <h1 class="font24 text-uppercase text-white">New Bike Launches</h1>
@@ -40,7 +40,7 @@
 
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
-    @Html.Partial("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml")  
+    @Html.Partial("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml")
 </section>
 
 <section>
@@ -50,7 +50,9 @@
 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
-    @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+    <div class="content-box-shadow padding-top20 padding-bottom20">
+        @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+    </div>
 </section>
 
 

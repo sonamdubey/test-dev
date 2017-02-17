@@ -143,6 +143,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             ViewBag.relNextPageUrl = nextUrl;
             var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
             {
+                MakeId = (int)objResponse.MakeId,
                 EndIndex = 9,
                 StartIndex = 1
             };
