@@ -271,7 +271,7 @@ var newLaunches = function () {
                 self.getNewLaunchedBikes();
             }
 
-            $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev,.pagination-control-next", function (e) {
+            $(document).on("click", "#pagination-list-content ul li,.pagination-control-prev a,.pagination-control-next a", function (e) {
                 if (self.IsInitialized()) {
                     self.ChangePageNumber(e);
                 }

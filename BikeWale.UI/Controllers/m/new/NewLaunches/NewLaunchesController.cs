@@ -41,6 +41,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,
+                CityId = _objLocation.CityId,
                 PageSize = ViewBag.PageSize
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
@@ -78,9 +79,15 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
             ViewBag.UpcomingBikes = objUpcomingBikes;
 
-            ViewBag.location = _objLocation;
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
             string prevUrl = string.Empty, nextUrl = string.Empty;
-            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            Paging.CreatePrevNextUrl(pages, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+
+            ViewBag.location = _objLocation;
+
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
 
@@ -105,6 +112,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
+                CityId = _objLocation.CityId,
                 Make = objResponse.MakeId
             };
 
@@ -141,7 +149,12 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             };
             ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
-            Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/m/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
+
+            Paging.CreatePrevNextUrl(pages, string.Format("/m/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
             var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
@@ -173,6 +186,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
+                CityId = _objLocation.CityId,
                 YearLaunch = Convert.ToUInt32(launchYear)
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
@@ -197,8 +211,14 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
             };
 
             ViewBag.location = _objLocation;
+
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
+
             string prevUrl = string.Empty, nextUrl = string.Empty;
-            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/m/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            Paging.CreatePrevNextUrl(pages, string.Format("/m/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
             var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()

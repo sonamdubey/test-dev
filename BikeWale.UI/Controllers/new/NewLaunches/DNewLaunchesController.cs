@@ -42,6 +42,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,
+                CityId = _objLocation.CityId,
                 PageSize = ViewBag.PageSize
             };
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
@@ -101,12 +102,14 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             ViewBag.PageNumber = (int)(pageNumber.HasValue ? pageNumber : 1);
             ViewBag.PageSize = 15;
             MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(maskingName);
+            ViewBag.location = _objLocation;
 
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
-                Make = objResponse.MakeId
+                Make = objResponse.MakeId,
+                CityId = _objLocation.CityId
             };
 
             var objBikes = _newLaunches.GetBikes(objFilters);
@@ -140,7 +143,13 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
-            ViewBag.location = _objLocation;
+
+
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
+
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)objBikes.TotalCount, string.Format("/new-{0}-bike-launches/", maskingName), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
@@ -174,6 +183,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             {
                 PageNo = ViewBag.PageNumber,
                 PageSize = ViewBag.PageSize,
+                CityId = _objLocation.CityId,
                 YearLaunch = Convert.ToUInt32(launchYear)
             };
 
@@ -199,6 +209,11 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             };
             ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
+
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, string.Format("/new-bike-launches-in-{0}/", launchYear), (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
