@@ -21,16 +21,7 @@ namespace Bikewale.Utility
         {
             return String.Format("/bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
         }
-        /// <summary>
-        /// Created By:- Subodh Jain 15 Feb 2017
-        /// Summary :- Newlaunch page for brand wise
-        /// </summary>
-        /// <param name="makeMaskingName"></param>
-        /// <returns></returns>
-        public static string NewLaunchePageUrl(string makeMaskingName)
-        {
-            return String.Format("/new-{0}-bikes-launches/", makeMaskingName);
-        }
+
         public static string FormatVideoPageUrl(string makeMaskingName, string modelMaskingName)
         {
             string url = string.Empty;
@@ -439,7 +430,7 @@ namespace Bikewale.Utility
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public static string FormatBikeLaunchedYearUrl(string makeMaskingName)
+        public static string FormatMakeWiseBikeLaunchedUrl(string makeMaskingName)
         {
             return string.Format("/new-{0}-bike-launches/", makeMaskingName);
         }

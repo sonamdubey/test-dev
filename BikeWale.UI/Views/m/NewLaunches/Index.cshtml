@@ -10,6 +10,7 @@
 
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
     var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
     {
         EndIndex = 9,
@@ -38,25 +39,26 @@
     </div>
 </section>
 
-<section>
+<section id="newlaunched-bikes">
     <h2 class="section-heading">New bike launches in India</h2>
     @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")
 </section>
 
 <section>
     <h2 class="section-heading">Explore new launches by brands</h2>
-    @Html.Partial("~/views/m/shared/_newlaunchedbymake.cshtml")  
+    @Html.Partial("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml")  
 </section>
 
 <section>
     <h2 class="section-heading">Explore year-wise bike launches</h2>
-    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml") 
+    @Html.Partial("~/Views/m/Shared/_NewLaunchedByYear.cshtml", objYears); 
 </section>
 
 <section>
     <h2 class="section-heading">Upcoming bikes in India</h2>
     @{ Html.RenderAction("Index", "Upcoming", new { objFilters, sortBy = sortBy }); }
 </section>
+
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 

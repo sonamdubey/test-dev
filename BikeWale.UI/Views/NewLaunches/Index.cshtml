@@ -11,6 +11,7 @@
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
     var objFilters = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
     {
         EndIndex = 9,
@@ -347,7 +348,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore new launches by brands</h2>
         <div class="grid-12">
-            @Html.Partial("~/Views/shared/_newlaunchedbymake.cshtml") 
+            @Html.Partial("~/Views/shared/_newlaunchedbymakewithoutcount.cshtml") 
         </div>
         <div class="clear"></div>
     </div>
@@ -356,7 +357,7 @@
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore year-wise bike launches</h2>            
-        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml") 
+        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml", objYears) 
     </div>
 </section>
 
