@@ -110,7 +110,7 @@
         <div class="drawer-body-content">
             <div class="filter-input-box">
                 <div class="form-control-box">
-                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand">
+                    <input type="text" id="" class="form-control padding-right40" placeholder="Type to select brand" >
                     <span class="bwmsprite search-icon-grey"></span>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                 <li  data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
                 @foreach (var make in objMakes)
                 {
-                    <li data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-bind="click : function(d,e) { setMakeFilter(e);}">
+                    <li data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
                         <span>@make.Make.MakeName</span>
                     </li>
                 }

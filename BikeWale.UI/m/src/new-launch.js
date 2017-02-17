@@ -55,6 +55,8 @@ $('#close-year-slideIn-drawer').on('click', function () {
     history.back();
 });
 
+var objMakesList = $("#brand-slideIn-drawer ul li").slice(1), makeInputEle = $("#brand-slideIn-drawer input[type='text']");
+
 var slideInDrawer = {
     open: function (container) {
 
@@ -112,12 +114,6 @@ $(window).on('popstate', function (event) {
     }
 });
 
-$("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
-    if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {
-
-        vmNewLaunches.init(e);
-    }
-});
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
@@ -272,6 +268,23 @@ var newLaunches = function () {
     self.NextPageHtml = ko.observable("");
     self.selectedCityId = ko.observable();
     self.selectedCityName = ko.observable();
+
+    self.makeFilter = function () {
+        if (objMakesList) {
+            var term = $.trim(makeInputEle.val()).toLowerCase();
+            objMakesList.each(function () {
+                var li = $(this);
+                var found = li.data("makename-lower").indexOf(term) > -1;
+                if (found) {
+                    if (!li.is(":visible"))
+                        li.show();
+                } else if (li.is(":visible")) {
+                    li.hide();
+                }
+
+            });
+        }
+    };
 
     self.init = function (e) {
         if (!self.IsInitialized()) {
@@ -468,6 +481,19 @@ var newLaunches = function () {
 var vmNewLaunches = new newLaunches();
 
 $(function () {
+
     vmNewLaunches.setPageFilters(e);
+
+    $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
+        if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {
+
+            vmNewLaunches.init(e);
+        }
+    });
+
+    makeInputEle.keyup(function () {
+        vmNewLaunches.makeFilter();
+    });
+
 });
 
