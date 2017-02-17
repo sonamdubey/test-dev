@@ -64,11 +64,23 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
+
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            ViewBag.Filters = objFiltersUpcoming;
+            ViewBag.SortBy = sortBy;
+
+
             ViewBag.location = _objLocation;
             string prevUrl = string.Empty, nextUrl = string.Empty;
             Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/m/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
+
             return View("~/views/m/newlaunches/index.cshtml");
         }
 
