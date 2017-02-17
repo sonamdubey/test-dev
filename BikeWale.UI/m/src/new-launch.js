@@ -114,7 +114,7 @@ $(window).on('popstate', function (event) {
 
 $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
     if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {
-      
+
         vmNewLaunches.init(e);
     }
 });
@@ -258,7 +258,6 @@ var newLaunches = function () {
         qs = qs.substr(1);
         return qs;
     });
-
     self.models = ko.observable([]);
     self.Pagination = ko.observable(new vmPagination());
     self.TotalBikes = ko.observable();
@@ -267,7 +266,7 @@ var newLaunches = function () {
     self.selectedMake = ko.observable("All brands");
     self.selectedYear = ko.observable("All years");
     self.noBikes = ko.observable(self.TotalBikes() == 0);
-
+    self.IsLoading = ko.observable(false);
     self.PagesListHtml = ko.observable("");
     self.PrevPageHtml = ko.observable("");
     self.NextPageHtml = ko.observable("");
@@ -275,14 +274,16 @@ var newLaunches = function () {
     self.init = function (e) {
         if (!self.IsInitialized()) {
 
-            var eleSection = $("newlaunched-bikes");
-            ko.applyBindings(self, document.getElementById("newlaunched-bikes"));
+            var eleSection = $("#newlaunched-bikes");
+            ko.applyBindings(self, eleSection[0]);
 
-            self.Filters()["make"] = eleSection.data("make-filter") || "";
-            self.Filters()["year"] = eleSection.data("year-filter") || "";
+            self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make-filter") || "";
+            self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
+            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || "";
 
-            var filterType = $(event.target).closest("ul").data("filter");
+            var filterType = $(e.target).closest("ul").data("filter");
             if (filterType) {
+
                 if (filterType == 'makewise') {
                     self.setMakeFilter(e);
                 }
@@ -290,8 +291,11 @@ var newLaunches = function () {
                     self.setYearFilter(e);
                 }
             }
-            else {
+            else if (e.target) {
                 self.ChangePageNumber(e);
+            }
+            else {
+                self.getNewLaunchedBikes();
             }
 
             $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").off("click", self.init);
@@ -395,12 +399,13 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            self.IsLoading(true);
+            self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
             .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.PreviousQS(qs);
                 self.noBikes(false);
             })
             .fail(function () {
@@ -410,6 +415,7 @@ var newLaunches = function () {
                 self.ApplyPagination();
                 slideInDrawer.close(ele);
                 window.location.hash = qs;
+                self.IsLoading(false);
             });
         }
         else {
@@ -417,7 +423,24 @@ var newLaunches = function () {
             history.back();
         }
     };
+
+    self.setPageFilters = function (e) {
+        var currentQs = window.location.hash.substr(1);
+        if (currentQs != "") {
+            var _filters = currentQs.split("&"), objFilter = {};
+            for (var i = 0; i < _filters.length; i++) {
+                var f = _filters[i].split("=");
+                self.Filters()[f[0]] = f[1];
+            }
+            self.init(e);
+        }
+
+    };
 };
 
 var vmNewLaunches = new newLaunches();
+
+$(function () {
+    vmNewLaunches.setPageFilters(e);
+});
 

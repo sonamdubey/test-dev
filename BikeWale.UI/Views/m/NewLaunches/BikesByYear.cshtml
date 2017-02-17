@@ -1,5 +1,4 @@
-﻿@{
-    ViewBag.Title = "BikesByYear";
+﻿@{    
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
@@ -10,13 +9,12 @@
     <div class="container bg-white card-bottom-margin">
         <h1 class="card-header">New Bike Launches in @ViewBag.launchYear</h1>
         <div class="card-inner-padding font14 text-light-grey collapsible-content">
-            <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive competition, manufacturers try to keep up with the fast changing trends. Every year there are plenty of models that hit the market. Here is the list of all</p>
-            <p class="more-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+            <p class="main-content">Every year, more than 15 million two-wheelers are sold in India across dozens of brands. To keep up with the changing trends in lifestyle, roads, and requirements, two-wheeler brands launch dozens of model every year. Check out the latest bikes launched in @ViewBag.launchYear. Know more about prices, mileage, colors, specifications, and dealers of new bikes launched in @ViewBag.launchYear.</p>            
         </div>
     </div>
 </section>
 
-<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear">
+<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear" data-city="@ViewBag.location.CityId">
     <div class="container bg-white box-shadow card-bottom-margin">
         <h2 class="padding-15-20 border-solid-bottom">Latest bikes in India - @ViewBag.launchYear</h2>
         @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")

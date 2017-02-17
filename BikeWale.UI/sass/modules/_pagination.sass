@@ -18,10 +18,7 @@
 		float: left
 		margin-right: 5px
 		margin-left: 5px
-
-	.active,
-	a
-		color: #82888b
+		color: $text-light
 		font-size: 12px
 		padding: 5px
 		border: 1px solid #fff
@@ -30,12 +27,14 @@
 		text-align: center
 
 	a
+		color: $text-light
+
 		&:hover
-			color: #4d5057
+			color: $text-primary
 			text-decoration: none
 			
 	.active
-		color: #4d5057
+		color: $text-primary
 		font-weight: bold
 		border: 1px solid #a2a2a2
 		@include border-radius(1px)

@@ -287,7 +287,7 @@
     font-size: 16px;
 }
 
-@media screen and (max-width: 320px) {
+@media only screen and (max-width: 320px) {
     #bike-gallery-popup .stage-photos, #bike-gallery-popup .stage-videos { margin-bottom: 0; }
     .carousel-stage-videos .yt-iframe-preview iframe { height:180px; }
 
@@ -296,7 +296,7 @@
     }
 }
 
-@media (max-width: 350px) {
+@media only screen and (max-width: 350px) {
     .article-head .article-stats-content {
         width: 87%;
     }

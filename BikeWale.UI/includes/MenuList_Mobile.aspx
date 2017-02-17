@@ -8,7 +8,7 @@
         <li><a menu="13" href="/m/bikebooking/">Book Your Bike</a></li>
         <li><a menu="3" href="/m/pricequote/">On-Road Price</a></li>
         <li><a menu="4" href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
-        <li><a menu="5" href="/m/new-bikes-launches/">Recent Launches</a></li>
+        <li><a menu="5" href="/m/new-bike-launches/">Recent Launches</a></li>
         <li><a menu="6" href="/m/news/">News</a></li>
         <li><a menu="7" href="/m/expert-reviews/">Expert Reviews</a> </li>
         <li><a menu="8" href="/m/features/">Features</a> </li>

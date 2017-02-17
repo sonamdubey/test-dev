@@ -2264,6 +2264,7 @@
     <Content Include="css\model-atf.css" />
     <Content Include="css\model-btf.css" />
     <Content Include="css\model.css" />
+    <Content Include="css\new-launch\new-launch.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
@@ -2792,6 +2793,7 @@
     <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\new-launch\new-launch.css" />
     <Content Include="m\css\photos.css" />
     <Content Include="m\css\service\details.css" />
     <Content Include="m\css\service\landing.css" />
@@ -2973,6 +2975,7 @@
     <Content Include="m\sass\modules\_pagination.sass" />
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
+    <Content Include="sass\modules\_loader.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="servicecenter\Default.aspx" />
@@ -3320,9 +3323,8 @@
     <Content Include="Views\Shared\_UpcomingBikes.cshtml" />
     <Content Include="Views\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
-    <Content Include="Views\NewLaunches\BikesByYear.cshtml" />
-    <Content Include="Views\m\NewLaunches\BikesByYear.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
+    <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

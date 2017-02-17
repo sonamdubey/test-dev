@@ -152,6 +152,7 @@
 				<%if (isPriceAvailable)
 				  { %>
 				<div class="break-line margin-bottom15"></div>
+                <!-- Dealer PQ starts -->
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
 					<asp:Repeater ID="rptPriceList" runat="server">
 						<ItemTemplate>
@@ -204,21 +205,23 @@
 						}
 					%>
 				</table>
+                <!-- Bikewale PQ ends -->
 				<%}
 				  else if (objExQuotation != null && objExQuotation.ExShowroomPrice > 0)
 				  {%>
+                <!-- Bikewale PQ starts -->
 				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="pqTable font14">
 					<tr>
 						<td class="text-light-grey padding-bottom15" width="60%" align="left">Ex-Showroom Price</td>
-						<td class="padding-bottom15" width="40%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
+						<td class="padding-bottom15 text-bold" width="40%" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.ExShowroomPrice.ToString()) %></td>
 					</tr>
 					<tr>
 						<td class="text-light-grey padding-bottom15" align="left">RTO</td>
-						<td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
+						<td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%= CommonOpn.FormatPrice(objExQuotation.RTO.ToString()) %></td>
 					</tr>
 					<tr>
 						<td class="text-light-grey padding-bottom15" align="left">Insurance </td>
-						<td class="padding-bottom15" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
+						<td class="padding-bottom15 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span><%=CommonOpn.FormatPrice(objExQuotation.Insurance.ToString()) %></td>
 					</tr>
 
 					<tr align="left">
@@ -232,10 +235,15 @@
 					</tr>
                     <tr class="padding-bottom10">
 						<td colspan="2" align="right" class="text-bold padding-bottom10">
+                            <% if(isPrimaryDealer) { %>
+                            <a id='getMoreDetails' leadsourceid="23" class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid="23" data-item-id="<%= dealerId %>" data-item-name="<%= dealerName %>" data-item-area="<%= dealerArea %>" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc">Get more details</a>
+                            <% } else { %>
 							<p class='position-rel'><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a><span class='position-abt pos-right35 pos-top0'>Ad</span></p>
+                            <% } %>
 						</td>
 					</tr>
 				</table>
+                <!-- Bikewale PQ ends -->
 				<%}
 				  else
 				  {%>
@@ -261,7 +269,11 @@
 					<p><span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold"><%= Bikewale.Utility.Format.FormatPrice(!(totalPrice.ToString() == "" || totalPrice.ToString() == "0") ? totalPrice.ToString() : (objExQuotation != null ? objExQuotation.OnRoadPrice.ToString() : "")) %></span></p>
 					<%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium || dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe)
 					  { %>
-					<p class="text-light-grey margin-top5">EMI&nbsp;<span class="bwmsprite inr-xxsm-icon"></span><span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards.&nbsp;<a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a></p>
+					<p class="text-light-grey margin-top5">EMI&nbsp;
+                        <span class="bwmsprite inr-xxsm-icon"></span>
+                        <span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards.&nbsp;
+                        <a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a>
+					</p>
 					<%} %>
 				</div>
 
@@ -782,7 +794,7 @@
 				});
 
 				self.monthlyEMI = ko.pureComputed({
-					read: function () {
+				    read: function () {
 						var calculatedEMI = $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest(), self.processingFees());                        
 						if (calculatedEMI != "0")
 							$("#spnEMIAmount").text(calculatedEMI);                            

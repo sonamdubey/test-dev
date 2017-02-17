@@ -166,7 +166,18 @@ var pageArray = [
         folderName: 'm/new/photos/',
         fileName: 'Default.aspx',
         stylesheet: 'm/css/photos.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBike.aspx',
+        stylesheet: 'm/css/compare/landing.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBikeDetails.aspx',
+        stylesheet: 'm/css/compare/details.css'
     }
+	
 ];
 
 var mvcPageArray =[
@@ -176,8 +187,28 @@ var mvcPageArray =[
         stylesheet: 'm/css/new-launch/new-launch.css'
     },
 	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
         folderName: 'Views/NewLaunches/',
         fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
         stylesheet: 'css/new-launch/new-launch.css'
     }
 ];

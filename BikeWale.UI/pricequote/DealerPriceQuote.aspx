@@ -212,7 +212,10 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <% if(!isPrimaryDealer)
+                                                       { %>
                                                 <td align="right" colspan="2"><p class="position-rel"><span class="position-abt neg-right15 pos-top0 font8">Ad</span><a target="_blank" href="https://www.bankbazaar.com/personal-loan.html?variant=slide&headline=HEADLINE_PL_MelaSale&WT.mc_id=bb01|BW|PL|PriceQuote&utm_source=bb01&utm_medium=display&utm_campaign=bb01|BW|PL|PriceQuote&variantOptions=mobileRequired" class="font14 bw-ga text-bold" c="Dealer_PQ" a="Get_personal_loan_offers_clicked" f="GetBikeVerLoc" rel="nofollow">Get personal loan offers</a></p></td>
+                                                <% } %>
                                             </tr>
                                             <tr>
                                                 <td>
@@ -452,7 +455,7 @@
                                                 <div class="margin-bottom15">
                                                     <span class="bwsprite inr-lg"></span>
                                                     <span class="font18 text-bold">
-                                                        <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>per month
+                                                        <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                                     </span>
                                                 </div>
                                                 <a id="btnEmiQuote" leadsourceid="11" data-dealerid="<%=dealerId %>" class="btn btn-grey btn-md font14">Get EMI quote</a>

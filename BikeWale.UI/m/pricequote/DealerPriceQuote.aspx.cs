@@ -37,7 +37,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected DealersCard ctrlDealers;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty, mpqQueryString = string.Empty, leadBtnLargeText = "Get offers from dealer", leadBtnSmallText = "Get offers";
-        protected UInt32 dealerId = 0, cityId = 0, versionId = 0, areaId = 0, modelId = 0;
+        protected UInt32 dealerId = 0, cityId = 0, versionId = 0, defaultVersionId, areaId = 0, modelId = 0;
         protected bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
         protected UInt32 insuranceAmount = 0;
@@ -52,6 +52,7 @@ namespace Bikewale.Mobile.BikeBooking
         protected bool IsDiscount = false;
         protected UInt32 totalDiscount = 0;
         protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objPriceQuote = null;
+        protected Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objPriceQuoteForBW = null;
         protected string dealerName = string.Empty, dealerArea = string.Empty, dealerAdd = string.Empty, maskingNum = string.Empty, contactHours = string.Empty;
         protected double latitude = 0, longitude = 0;
         protected uint offerCount = 0, secondaryDealersCount = 0;
@@ -190,7 +191,6 @@ namespace Bikewale.Mobile.BikeBooking
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
                     objPriceQuote = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, Convert.ToUInt32(areaId));
-
                     if (objPriceQuote != null)
                     {
                         BikeName = (objPriceQuote.objMake != null ? objPriceQuote.objMake.MakeName : "") + " " + (objPriceQuote.objModel != null ? objPriceQuote.objModel.ModelName : "");
@@ -227,8 +227,7 @@ namespace Bikewale.Mobile.BikeBooking
                             }
                             isPriceAvailable = true;
                         }
-
-                        else
+                        else // When dealer price doesn't exists take bikewale pq
                         {
                             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                             objIQuotation = container.Resolve<IPriceQuote>();
@@ -237,8 +236,8 @@ namespace Bikewale.Mobile.BikeBooking
                             if (objExQuotation != null)
                             {
                                 objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd, objExQuotation.CampaignId, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objExQuotation.MaskingNumber) ? "hide" : string.Empty);
+                                totalPrice = objExQuotation.OnRoadPrice;
                             }
-
                         }
 
                         if (objPriceQuote.PrimaryDealer != null)
@@ -386,6 +385,10 @@ namespace Bikewale.Mobile.BikeBooking
                     var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
 
                     objVersionDetails = objCache.GetById(versionId);
+                    if (objVersionDetails != null && objVersionDetails.ModelBase != null)
+                    {
+                        modelId = (uint)objVersionDetails.ModelBase.ModelId;
+                    }
                     versionList = objCache.GetVersionsByType(EnumBikeType.PriceQuote, objVersionDetails.ModelBase.ModelId, Convert.ToInt32(PriceQuoteQueryString.CityId));
 
                     if (versionList != null && versionList.Count > 0)

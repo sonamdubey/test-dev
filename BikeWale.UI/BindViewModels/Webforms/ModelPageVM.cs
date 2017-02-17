@@ -30,7 +30,7 @@ namespace Bikewale.BindViewModels.Webforms
         public IEnumerable<OfferEntityBase> Offers { get; set; }
         public ushort OfferCount { get; set; }
         public IEnumerable<Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase> SecondaryDealersV2 { get; set; }
-        public IEnumerable<Bikewale.Entities.PriceQuote.NewBikeDealerBase> SecondaryDealers { get; set; }
+        //public IEnumerable<Bikewale.Entities.PriceQuote.NewBikeDealerBase> SecondaryDealers { get; set; }
         public string MobileNo { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DealerCampaignV2 { get; set; }
         public string primaryDealerDistance { get; set; }

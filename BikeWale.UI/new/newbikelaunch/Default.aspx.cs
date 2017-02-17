@@ -113,7 +113,7 @@ namespace Bikewale.New.NewLaunchBikes
                     else
                     {
                         PagerEntity pagerEntity = new PagerEntity();
-                        pagerEntity.BaseUrl = "/new-bikes-launches/";
+                        pagerEntity.BaseUrl = "/new-bike-launches/";
                         pagerEntity.PageNo = curPageNo;
                         pagerEntity.PagerSlotSize = 5;
                         pagerEntity.PageUrlType = "page/";

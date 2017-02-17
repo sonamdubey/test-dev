@@ -231,7 +231,7 @@ string GetGTTargeting(int targetId, string target)
         </div>
         }        
         @RenderBody()
-        @Html.Partial("~/Views/Shared/_PopupWidget.cshtml");
+        @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
         @if(Ad_970x90Bottom){ 
         <section>
             <div id='div-gpt-ad-@AdId-5' class="margin-bottom20 text-center">
@@ -264,7 +264,7 @@ string GetGTTargeting(int targetId, string target)
                         <li><a href="/dealer-showroom-locator/">Locate Dealer</a></li>
                         <li><a href="/bike-service-center/">Locate Service Center</a></li>
                         <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
-                        <li><a href="/new-bikes-launches/">New Launches</a></li>
+                        <li><a href="/new-bike-launches/">New Launches</a></li>
                         <li><a href="/bikebooking/default.aspx">Book Your Bike</a></li>
                     </ul>
                 </li>
@@ -361,7 +361,7 @@ string GetGTTargeting(int targetId, string target)
         </div>
 
         <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st2.aeplcdn.com" + ViewBag.staticUrl : "")/src/bwcache.js?@ViewBag.staticFileVersion"></script>
-        @Html.Partial("~/Views/Shared/_ChangeLocation.cshtml");
+        @Html.Partial("~/Views/Shared/_ChangeLocation.cshtml")
 
         <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer">
             <!-- Footer section code starts here -->

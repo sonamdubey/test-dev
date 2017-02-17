@@ -28,6 +28,6 @@
 	    </itemtemplate>
     </asp:Repeater>
 
-    <div class="readmore margin-top20 right-float"><a href="/new-bikes-launches/" >All New Launches</a></div>
+    <div class="readmore margin-top20 right-float"><a href="/new-bike-launches/" >All New Launches</a></div>
 </div>
 <div class="clear"></div>
