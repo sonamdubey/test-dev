@@ -1,14 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Ad_970x90 = false;
     ViewBag.IsHeaderFix = false;
-    ViewBag.IsTransparentHeader = true;    
+    ViewBag.IsTransparentHeader = true;
     ViewBag.AdPath = "/1017752/BikeWale_New_";
     ViewBag.AdId = "1395986297721";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
-    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years; 
+    IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByYearEntityBase> objYears = ViewBag.Years;
 }
 <header class="new-launch-banner">
     <div id="new-launch-center-box" class="container">
@@ -29,7 +28,7 @@
     </div>
 </section>
 
-<section >
+<section>
     <div id="newlaunched-bikes" data-city="@ViewBag.location.CityId" class="container section-bottom-margin">
         <div class="grid-12">
             <h2 class="section-heading">New bike launches in India</h2>
@@ -43,7 +42,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Explore new launches by brands</h2>
         <div class="grid-12">
-            @Html.Partial("~/Views/shared/_newlaunchedbymakewithoutcount.cshtml") 
+            @Html.Partial("~/Views/shared/_newlaunchedbymakewithoutcount.cshtml")
         </div>
         <div class="clear"></div>
     </div>
@@ -51,8 +50,8 @@
 
 <section>
     <div class="container section-bottom-margin">
-        <h2 class="section-heading">Explore year-wise bike launches</h2>            
-        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml", objYears) 
+        <h2 class="section-heading">Explore year-wise bike launches</h2>
+        @Html.Partial("~/Views/Shared/_NewLaunchedByYear.cshtml", objYears)
     </div>
 </section>
 
@@ -60,7 +59,9 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Upcoming bikes in India</h2>
         <div class="grid-12">
-            @{ Html.RenderAction("Index", "DUpcoming", new { objFilters=ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+            <div class="container bg-white box-shadow section-bottom-margin padding-top15 padding-bottom15">
+                @{ Html.RenderAction("Index", "DUpcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
+            </div>
         </div>
         <div class="clear"></div>
     </div>

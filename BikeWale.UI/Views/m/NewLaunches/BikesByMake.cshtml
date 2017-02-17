@@ -21,7 +21,7 @@
 
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming Bajaj bikes in India</h2>
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName bikes in India</h2>
         @{ Html.RenderAction("Index", "Upcoming", new { objFilters = ViewBag.Filters, sortBy = ViewBag.SortBy }); }
     </div>
 </section>
