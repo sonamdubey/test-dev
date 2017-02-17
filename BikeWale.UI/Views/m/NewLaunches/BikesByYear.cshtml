@@ -14,7 +14,7 @@
     </div>
 </section>
 
-<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear">
+<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear" data-city="@ViewBag.location.CityId">
     <div class="container bg-white box-shadow card-bottom-margin">
         <h2 class="padding-15-20 border-solid-bottom">Latest bikes in India - @ViewBag.launchYear</h2>
         @Html.Partial("~/Views/m/NewLaunches/_NewLaunchedBikes.cshtml")

@@ -46,7 +46,7 @@
     </div>
 </section>
 
-<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear">
+<section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear" data-city="@ViewBag.location.CityId">
     <div class="container section-bottom-margin">
         <div class="grid-12">
             @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes.cshtml")

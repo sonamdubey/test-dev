@@ -1,9 +1,11 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Filters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
+        private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
         public DNewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
@@ -62,7 +65,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             return View("~/views/newlaunches/index.cshtml");
         }
 
@@ -111,7 +114,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             return View("~/views/newlaunches/bikesbymake.cshtml");
         }
 
@@ -148,7 +151,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             return View("~/views/newlaunches/bikesbyyear.cshtml");
         }
 

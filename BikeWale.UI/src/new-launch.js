@@ -247,10 +247,11 @@ var newLaunches = function () {
         if (!self.IsInitialized()) {
 
             var eleSection = $("#newlaunched-bikes");
-            ko.applyBindings(self, $("#newlaunched-bikes")[0]);
+            ko.applyBindings(self, eleSection[0]);
 
-            self.Filters()["make"] = eleSection.data("make-filter") || "";
-            self.Filters()["year"] = eleSection.data("year-filter") || "";
+            self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make-filter") || "";
+            self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
+            self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || "";
 
             var filterType = $(e.target).data("filter");
             if (filterType) {
@@ -261,8 +262,11 @@ var newLaunches = function () {
                     self.setYearFilter(e);
                 }
             }
-            else {
+            else if (e.target) {
                 self.ChangePageNumber(e);
+            }
+            else {
+                self.getNewLaunchedBikes();
             }
 
             $(document).on("click", "#pagination-list-content ul li", function (e) {
@@ -382,9 +386,25 @@ var newLaunches = function () {
             });
         }
     };
+    self.setPageFilters = function (e) {
+        var currentQs = window.location.hash.substr(1);
+        if (currentQs != "") {
+            var _filters = currentQs.split("&"), objFilter = {};
+            for (var i = 0; i < _filters.length; i++) {
+                var f = _filters[i].split("=");
+                self.Filters()[f[0]] = f[1];
+            }
+            self.init(e);
+        }
+
+    };
 };
 
 var vmNewLaunches = new newLaunches();
+
+$(function () {
+    vmNewLaunches.setPageFilters(e);
+});
 
 
 

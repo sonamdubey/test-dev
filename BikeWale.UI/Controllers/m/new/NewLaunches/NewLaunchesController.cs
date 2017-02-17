@@ -1,8 +1,10 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
+        private GlobalCityAreaEntity _objLocation = GlobalCityArea.GetGlobalCityArea();
 
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository<int> objMakeCache)
         {
@@ -60,7 +63,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             return View("~/views/m/newlaunches/index.cshtml");
         }
 
@@ -108,7 +111,7 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(objBikes != null ? objBikes.TotalCount : 0)
             };
-
+            ViewBag.location = _objLocation;
             return View("~/views/m/newlaunches/bikesbymake.cshtml");
         }
 
@@ -124,7 +127,6 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageSize = ViewBag.PageSize,
                 YearLaunch = Convert.ToUInt32(launchYear)
             };
-
             ViewBag.Bikes = _newLaunches.GetBikes(objFilters);
             IEnumerable<BikesCountByMakeEntityBase> makes = _newLaunches.GetMakeList();
             ViewBag.Makes = makes;
@@ -144,6 +146,8 @@ namespace Bikewale.Controllers.Mobile.NewLaunches
                 PageUrlType = "page/",
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
+
+            ViewBag.location = _objLocation;
 
             return View("~/views/m/newlaunches/bikesbyyear.cshtml");
         }
