@@ -330,6 +330,7 @@
     width: 62%;
     padding-left: 10px;
     color: #82888b;
+    overflow: hidden;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
