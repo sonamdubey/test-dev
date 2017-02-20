@@ -27,8 +27,8 @@
     <form id="form1" runat="server">
          <% if (isModelPage)
             {
-                var objImages = vmModelPhotos.objImageList;%>
-            <div class="blackOut-window" style="background: #fff url('https://imgd2.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif') no-repeat center; display: block; opacity:1;"></div>
+            var objImages = vmModelPhotos.objImageList;%>
+            <div class="blackOut-window text-center" style="background: #2a2a2a; display: block; opacity:1;"><span class="spin-loader fixed-loader"></span></div>
         <section>
             <div class="container box-shadow section-bottom-margin">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
@@ -102,13 +102,13 @@
         </section>
        <%} %>
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
-           
+        
         <div id="gallery-root">
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
                 <!-- ko if: vmPhotosPage.photoGalleryContainerActive() -->
-                <div class="gallery-container" style="background: #2a2a2a url('https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') no-repeat center;"></div>
+                <div class="gallery-container text-center"><span class="spin-loader fixed-loader"></span></div>
                 <!-- /ko -->
                 <!-- ko if: vmPhotosPage.activateGallery() -->
                     <div id="gallery-container" class="gallery-container" data-bind="template: { name: 'gallery-template', afterRender: afterRender }"></div>
@@ -139,8 +139,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
-                                <span class="swiper-lazy-preloader"></span>
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next"></div>
@@ -157,8 +156,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide top10">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="" alt="" title="" border="0" />
-                                <span class="swiper-lazy-preloader"></span>
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next"></div>

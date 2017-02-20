@@ -1171,7 +1171,9 @@ input[type="number"]:focus {
 /* generic icons */
 .reviews-sm,
 .news-sm,
-.specs-sm {
+.specs-sm,
+.dealers-sm,
+.user-reviews-sm {
     width: 14px;
     height: 14px;
     vertical-align: middle;
@@ -1185,6 +1187,12 @@ input[type="number"]:focus {
 }
 .specs-sm {
     background-position: -136px -219px;
+}
+.dealers-sm {
+    background-position: -168px -203px;
+}
+.user-reviews-sm {
+    background-position: -168px -187px;
 }
 
 .item-more-details-list a:hover .reviews-sm {
@@ -1205,6 +1213,14 @@ input[type="number"]:focus {
 
 .item-more-details-list a:hover .videos-sm {
     background-position: -152px -251px;
+}
+
+.item-more-details-list a:hover .dealers-sm {
+    background-position: -184px -203px;
+}
+
+.item-more-details-list a:hover .user-reviews-sm {
+    background-position: -184px -187px;
 }
 
 /* ribbon */

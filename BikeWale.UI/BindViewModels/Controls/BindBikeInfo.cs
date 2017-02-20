@@ -162,7 +162,7 @@ namespace Bikewale.BindViewModels.Controls
                           URL = Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
                           Title = "User Reviews",
                           TabText = "User Reviews",
-                          IconText = "reviews",
+                          IconText = "user-reviews",
                           Count = _genericBikeInfo.UserReview,
                           Tab = BikeInfoTabType.UserReview
                       });
