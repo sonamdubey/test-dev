@@ -238,7 +238,7 @@ gulp.task('replace-mvc-css-reference', function () {
     for (var i = 0; i < pageLength; i++) {
         var element = mvcPageArray[i],
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'") + "</style>",
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'").replace(/\\/g,"\\") + "</style>",
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
