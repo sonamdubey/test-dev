@@ -74,6 +74,10 @@
                                 <li data-bind="visible : models()[@i].minSpec.maxTorque != 0,text:models()[@i].minSpec.maxTorque + ' bhp'" style="display:@(bike.MinSpecs.MaximumTorque > 0 ? "inline-block" : "none")">
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
                                 </li>
+
+                                <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0,text:models()[@i].minSpec.kerbWeight + ' kgs'" style="display:@(bike.MinSpecs.KerbWeight > 0 ? "inline-block" : "none")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.KerbWeight.ToString(), "kgs")
+                                </li>
                             </ul>
                             <div class="grid-6 alpha padding-right20">
                                 <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
