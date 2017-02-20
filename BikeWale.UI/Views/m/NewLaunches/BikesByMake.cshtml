@@ -8,6 +8,8 @@
     ViewBag.Page_JS_Path = "/m/src/new-launch.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 }
 <section>
     <div class="container bg-white card-bottom-margin">

@@ -72,13 +72,13 @@
     <link rel="next" href="@relNextPageUrl" /> 
     }
     <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    <link rel="stylesheet" type="text/css" href="/css/bw-common-atf.css" />
+    <link rel="stylesheet" type="text/css" href="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/css/bw-common-atf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" />
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     @{ Bikewale.Utility.BWCookies.SetBWUtmz(); }
     <!--[if lt IE 9]>
-        <script src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/html5.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
+        <script src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/html5.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
     <![endif]-->
     @Html.Raw(ViewBag.Page_ATF_CSS)
     <script type="text/javascript">
@@ -429,16 +429,16 @@ string GetGTTargeting(int targetId, string target)
             if ($(window).width() < 996 && $(window).width() > 790)
                 $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
         </script>
-        <link href="@(ViewBag.staticUrl != "" ? "https://st2.aeplcdn.com" + @ViewBag.staticUrl : "")/css/bw-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
+        <link href="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st2.aeplcdn.com" + @ViewBag.staticUrl : "")/css/bw-common-btf.css?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion" rel="stylesheet" type="text/css" />
         @if (!String.IsNullOrEmpty(ViewBag.Page_BTF_CSS_Path))
         {
-            <link href="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
+            <link href="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_BTF_CSS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion" rel="stylesheet" type="text/css" />
         }
-        <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
-        <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
+        <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/Plugins.js?@Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion"></script>
+        <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/common.js?@Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion"></script>
         @if (!String.IsNullOrEmpty(ViewBag.Page_JS_Path))
         {
-            <script type="text/javascript" src="@(ViewBag.staticUrl != "" ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
+            <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
         <script type="text/javascript">
             ga_pg_id = '1';

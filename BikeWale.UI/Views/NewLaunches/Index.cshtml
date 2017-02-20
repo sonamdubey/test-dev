@@ -13,6 +13,8 @@
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
     IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 }
 <header class="new-launch-banner">
     <div id="new-launch-center-box" class="container">
