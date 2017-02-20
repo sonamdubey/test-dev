@@ -373,11 +373,12 @@ var newLaunches = function () {
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
-            .done(function (response) {
-                $('.new-launches-list .list-item .lazy').attr('src', '');
+            .done(function (response) {                                       
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
                 self.noBikes(false);
+                $('.new-launches-list .list-item .lazy').attr('src', '');
+                $('.item-image-content img').each(function () { ($(this).attr('src', '')); });
             })
             .fail(function () {
                 self.noBikes(true);
@@ -431,7 +432,8 @@ var newLaunches = function () {
 var vmNewLaunches = new newLaunches();
 
 $(function () {
-
+    debugger;
+    
     vmNewLaunches.setPageFilters(e);
 
     $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
