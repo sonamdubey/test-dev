@@ -100,12 +100,15 @@
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>
         </div>
-        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(ViewBag.pager.TotalResults > 15 ? "block" : "none")">
+        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(ViewBag.pager.TotalResults > 0 ? "block" : "none")">
             <div class="footer-pagination font14 border-solid-top padding-top10">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((ViewBag.pager.PageNo - 1) * ViewBag.pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageNo * ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</p>
                 </div>
-                @{ Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
+                @if (ViewBag.pager.TotalResults > 15)
+                {
+                    Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); 
+                }
                 <div class="clear"></div>
             </div>
         </div>
