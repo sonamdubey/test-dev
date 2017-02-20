@@ -240,6 +240,12 @@ var newLaunches = function () {
             self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
             self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || self.selectedCityId() || "";
 
+            if (self.Filters()["make"] != "")
+                $(".filter-list li[data-makeid='" + self.Filters()["make"] + "']").click();
+
+            if (self.Filters()["yearLaunch"] != "")
+                $(".filter-list li[data-bikeyear='" + self.Filters()["yearLaunch"] + "']").click();
+
             var filterType = $(e.target).closest("ul").data("filter");
             if (filterType) {
 
@@ -332,7 +338,7 @@ var newLaunches = function () {
         return false;
     };
 
-    self.setMakeFilter = function (e) {
+    self.setMakeFilter = function (e) {        
         var ele = $(e.currentTarget);
         var make = {
             id: parseInt(ele.data("makeid")),
@@ -390,7 +396,7 @@ var newLaunches = function () {
         }
     };
 
-    self.setPageFilters = function (e) {
+    self.setPageFilters = function (e) {       
         var currentQs = window.location.hash.substr(1);
         if (currentQs != "") {
             var _filters = currentQs.split("&"), objFilter = {};

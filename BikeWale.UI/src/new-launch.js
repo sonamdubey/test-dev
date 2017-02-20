@@ -24,6 +24,9 @@ $(document).ready(function () {
 
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
+
+    $('#makeFilter').trigger("chosen:updated");
+    $('#yearFilter').trigger("chosen:updated");
 });
 
 $(".chosen-select").chosen().change(function () {
