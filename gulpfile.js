@@ -210,6 +210,16 @@ var mvcPageArray =[
         folderName: 'Views/NewLaunches/',
         fileName: 'BikesByMake.cshtml',
         stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Desktop.cshtml',
+        stylesheet: 'css/bw-common-atf.css'
+    },
+    {
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Mobile.cshtml',
+        stylesheet: 'm/css/bwm-common-atf.css'
     }
 ];
 
