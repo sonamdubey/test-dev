@@ -80,8 +80,12 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
                 TotalResults = (int)(ViewBag.Bikes != null ? ViewBag.Bikes.TotalCount : 0)
             };
             ViewBag.location = _objLocation;
+            int pages = (int)(ViewBag.Bikes.TotalCount / ViewBag.PageSize);
+
+            if ((ViewBag.Bikes.TotalCount % ViewBag.PageSize) > 0)
+                pages += 1;
             string prevUrl = string.Empty, nextUrl = string.Empty;
-            Paging.CreatePrevNextUrl((int)ViewBag.Bikes.TotalCount, "/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
+            Paging.CreatePrevNextUrl(pages, "/new-bike-launches/", (int)ViewBag.PageNumber, ref nextUrl, ref prevUrl);
             ViewBag.relPrevPageUrl = prevUrl;
             ViewBag.relNextPageUrl = nextUrl;
 
