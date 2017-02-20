@@ -446,7 +446,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 .changecity-blackout-window { z-index: 4; }
 /* sprite classes */
-.bwmsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v01Feb2017) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v20Feb2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -1360,7 +1360,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 /* generic icons */
 .reviews-sm,
 .news-sm,
-.specs-sm {
+.specs-sm,
+.dealers-sm,
+.user-reviews-sm {
     width: 14px;
     height: 14px;
     vertical-align: middle;
@@ -1377,6 +1379,14 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .specs-sm {
     background-position: -141px -555px;
+}
+
+.dealers-sm {
+    background-position: -31px -476px;
+}
+
+.user-reviews-sm {
+    background-position: -173px -555px;
 }
 
 .item-more-details-list a:hover .reviews-sm {
@@ -1397,6 +1407,14 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 
 .item-more-details-list a:hover .videos-sm {
     background-position: -16px -492px;
+}
+
+.item-more-details-list a:hover .dealers-sm {
+    background-position: -31px -492px;
+}
+
+.item-more-details-list a:hover .user-reviews-sm {
+    background-position: -189px -555px;
 }
 
 .btn-red-arrow {
