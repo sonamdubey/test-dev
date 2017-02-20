@@ -494,3 +494,18 @@ var xmlJSON = {
 }
 
 //imf.create("imageFlow", xmlJSON, 0.85, 0.4, 1, 20, 0, 0);
+
+$('#myCarousel').on('select', function (evt, index) {
+    console.log('item selected : ' + index);
+});
+
+var swiper = new Swiper('.swiper-container', {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    slidesPerView: 'auto',
+    preloadImages: false,
+    lazyLoading: true,
+    centeredSlides: true,
+    spaceBetween: 20,
+    lazyLoadingInPrevNext: true
+});

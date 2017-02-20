@@ -17,6 +17,7 @@
         }       
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/photos.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
@@ -138,6 +139,10 @@
 
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
 
+        
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
+
         <div id="gallery-root">
             <div class="gallery-container">
                 <div class="gallery-header">
@@ -152,7 +157,29 @@
 
                 <div class="gallery-body">
                     <div id="main-photo-swiper" class="gallery-swiper" data-bind="visible: photosTabActive()">
-                        <div class="jcarousel-wrapper">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" border="0" /></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" border="0" /></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" border="0" /></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" border="0" /></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" border="0" /></div>
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next swiper-button-white"></div>
+                            <div class="swiper-button-prev swiper-button-white"></div>
+                        </div>
+                        <%--<div id="wrapper">
+                            <div id="myCarousel" data-carousel-3d>
+                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" />
+                                <img src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" />
+                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" />
+                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" />
+                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" />
+                            </div>
+                        </div>--%>
+                        <%--<div class="jcarousel-wrapper">
                             <div class="jcarousel">
                                 <ul>
                                     <li>
@@ -184,7 +211,7 @@
                             </div>
                             <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a>
                             <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                        </div>
+                        </div>--%>
                         <%--<div id="imageFlow">
                             <div class="text">
                                 <div class="title">Loading</div>
@@ -231,8 +258,6 @@
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
