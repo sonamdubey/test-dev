@@ -10,7 +10,8 @@ $(window).on("scroll", function () {
         $('.header-transparent').removeClass("header-fixed").addClass("header-landing");
 });
 
-$(document).ready(function () {    
+$(document).ready(function () {
+    
     chosenSelectBox.each(function () {
         var text = $(this).attr('data-placeholder');
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
@@ -324,6 +325,7 @@ var newLaunches = function () {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
                 self.noBikes(false);
+                $('.model-jcarousel-image-preview img').each(function () { ($(this).attr('src', '')); });
             })
             .fail(function () {
                 self.noBikes(true);
@@ -369,7 +371,7 @@ var newLaunches = function () {
 
 var vmNewLaunches = new newLaunches();
 
-$(function () {
+$(function () {    
     vmNewLaunches.setPageFilters(e);
 });
 
