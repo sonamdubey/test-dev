@@ -175,6 +175,10 @@ namespace Bikewale.New
                                     currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.Price));
                             }
                         }
+                        else if (cityId > 0) // no dealer or bikewale price found
+                        {
+                            currentTextBox.Text = "N/A";
+                        }
                     }
                 }
             }
@@ -628,9 +632,9 @@ namespace Bikewale.New
                                 isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId.ToString());
                             }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
-
-                            if (pqOnRoad.PriceQuote.PQId == 0)
-                                isOnRoadPrice = false;
+                            // Commented on 20 Feb 2017
+                            // if (pqOnRoad.PriceQuote.PQId == 0)
+                            //    isOnRoadPrice = false;
 
                         }
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), variantId.ToString(), dealerId.ToString()));
@@ -904,7 +908,6 @@ namespace Bikewale.New
         {
             if (isCitySelected)
             {
-                //isOnRoadPrice = isAreaAvailable && isAreaSelected ? true : false;
                 if (isAreaAvailable)
                 {
                     if (isAreaSelected)
@@ -915,17 +918,21 @@ namespace Bikewale.New
                     isOnRoadPrice = true;
                 }
             }
-            // if city and area is not selected OR if city is selected & area is available but not selected
-            if (isCityAvailable && ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected)))
+            else if (cityId > 0 && (!isAreaAvailable))
             {
-                toShowOnRoadPriceButton = true;
+                isOnRoadPrice = true;
+            }
+            // if city and area is not selected OR if city is selected & area is available but not selected
+            //if (isCityAvailable && ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected)))
+            {
+                //toShowOnRoadPriceButton = true;
+                toShowOnRoadPriceButton = !isOnRoadPrice;
             }
             if (!isDiscontinued)
             {
-                if (isCitySelected)
+                if (cityId > 0)
                 {
                     location += !string.IsNullOrEmpty(areaName) ? string.Format("{0}, {1}", areaName, cityName) : cityName;
-
                 }
                 else
                 {

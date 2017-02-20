@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.PriceQuote;
 using Bikewale.Entities;
+using Bikewale.Entities.PriceQuote.v2;
 using Bikewale.Interfaces.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
@@ -29,10 +30,9 @@ namespace Bikewale.BindViewModels.Webforms
         public string MaskingNumber { get; set; }
         public IEnumerable<OfferEntityBase> Offers { get; set; }
         public ushort OfferCount { get; set; }
-        public IEnumerable<Bikewale.Entities.PriceQuote.v2.NewBikeDealerBase> SecondaryDealersV2 { get; set; }
-        //public IEnumerable<Bikewale.Entities.PriceQuote.NewBikeDealerBase> SecondaryDealers { get; set; }
+        public IEnumerable<NewBikeDealerBase> SecondaryDealersV2 { get; set; }
         public string MobileNo { get; set; }
-        public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DealerCampaignV2 { get; set; }
+        public DetailedDealerQuotationEntity DealerCampaignV2 { get; set; }
         public string primaryDealerDistance { get; set; }
 
         public ModelPageVM(uint cityId, uint versionId, uint dealerId, uint areaId)
@@ -43,7 +43,7 @@ namespace Bikewale.BindViewModels.Webforms
                 {
                     container.RegisterType<IDealerPriceQuoteDetail, DealerPriceQuoteDetail>();
                     IDealerPriceQuoteDetail objIPQ = container.Resolve<IDealerPriceQuoteDetail>();
-                    DealerCampaignV2 = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, Convert.ToUInt32(areaId));
+                    DealerCampaignV2 = objIPQ.GetDealerQuotationV2(cityId, versionId, dealerId, areaId);
                     if (DealerCampaignV2 != null)
                     {
                         var dealeDetails = DealerCampaignV2.PrimaryDealer.DealerDetails;
@@ -68,7 +68,6 @@ namespace Bikewale.BindViewModels.Webforms
                             else
                                 primaryDealerDistance = dealeDetails.Distance;
                         }
-
                         if (DealerCampaignV2.SecondaryDealers != null)
                         {
                             SecondaryDealersV2 = DealerCampaignV2.SecondaryDealers;
@@ -76,12 +75,10 @@ namespace Bikewale.BindViewModels.Webforms
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("Bikewale.BindViewModels.Webforms.ModelPageVM constructor-> cityId:{0}, versionId:{1}, dealerId:{2}, areaId{3}", cityId, versionId, dealerId, areaId));
-                objErr.SendMail();
             }
         }
     }
