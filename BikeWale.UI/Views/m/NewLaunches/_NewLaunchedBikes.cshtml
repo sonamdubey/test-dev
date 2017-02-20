@@ -61,7 +61,7 @@
                             </li>
 
                             <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0" @(bike.MinSpecs.KerbWeight > 0 ? "" : " style=display:none ")>
-                                <span data-bind="text:models()[@i].minSpec.kerbWeight + ' kgs'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.KerbWeight.ToString(), "kgs")</span>
+                                <span data-bind="text:models()[@i].minSpec.kerbWeight + ' kgs'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")</span>
                             </li>
 
                         </ul>
