@@ -14,9 +14,6 @@
         isAd970x90Shown = false;
         isTransparentHeader = true; 
     %>
-
-    <title>Used Bikes in India</title>
-
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
 
     <style type="text/css">
