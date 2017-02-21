@@ -159,11 +159,11 @@
                     <div id="main-photo-swiper" class="gallery-swiper" data-bind="visible: photosTabActive()">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" border="0" /></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" border="0" /></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" border="0" /></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" border="0" /></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" border="0" /></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
                             </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination"></div>
