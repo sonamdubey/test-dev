@@ -9,6 +9,8 @@
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
     IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 }
 <section>
     <div class="container new-launch-banner text-center">

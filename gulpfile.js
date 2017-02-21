@@ -210,6 +210,16 @@ var mvcPageArray =[
         folderName: 'Views/NewLaunches/',
         fileName: 'BikesByMake.cshtml',
         stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Desktop.cshtml',
+        stylesheet: 'css/bw-common-atf.css'
+    },
+    {
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Mobile.cshtml',
+        stylesheet: 'm/css/bwm-common-atf.css'
     }
 ];
 
@@ -238,7 +248,7 @@ gulp.task('replace-mvc-css-reference', function () {
     for (var i = 0; i < pageLength; i++) {
         var element = mvcPageArray[i],
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'") + "</style>",
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'").replace(/\\/g,"\\") + "</style>",
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })

@@ -11,6 +11,8 @@
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new-launch/new-launch.css' />";
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 }
 <section>
     <div class="container padding-top10">
