@@ -51,7 +51,7 @@
                         <div class="item-image-content">
                             @if (i > 2)
                             {
-                                <img class="lazy" data-bind="attr : { 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ) ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                                <img class="lazy" data-bind="attr : { 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ), 'src':'' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
                             }
                             else
                             {

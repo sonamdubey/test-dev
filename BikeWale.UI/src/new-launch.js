@@ -317,6 +317,7 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            $('.model-jcarousel-image-preview img').attr('src', '');
             self.IsLoading(true);
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
@@ -324,8 +325,7 @@ var newLaunches = function () {
             .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.noBikes(false);
-                $('.model-jcarousel-image-preview img').each(function () { ($(this).attr('src', '')); });
+                self.noBikes(false);                               
             })
             .fail(function () {
                 self.noBikes(true);

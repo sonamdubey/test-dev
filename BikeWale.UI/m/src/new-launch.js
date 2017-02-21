@@ -369,16 +369,16 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            $('.new-launches-list .list-item img').attr('src', '');
             self.IsLoading(true);
+            self.models();
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
-            .done(function (response) {                                       
+            .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.noBikes(false);
-                $('.new-launches-list .list-item .lazy').attr('src', '');
-                $('.item-image-content img').each(function () { ($(this).attr('src', '')); });
+                self.noBikes(false);                
             })
             .fail(function () {
                 self.noBikes(true);
@@ -432,7 +432,6 @@ var newLaunches = function () {
 var vmNewLaunches = new newLaunches();
 
 $(function () {
-    debugger;
     
     vmNewLaunches.setPageFilters(e);
 
