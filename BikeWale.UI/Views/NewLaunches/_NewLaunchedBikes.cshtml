@@ -53,7 +53,7 @@
                         <div class="model-jcarousel-image-preview">
                             @if (i > 9)
                             {
-                                <img class="lazy" data-bind="attr : { 'data-original' : '' ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                                <img class="lazy" data-bind="attr : {  'src':'' , 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ) ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd3.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
                             }
                             else
                             {
@@ -73,6 +73,10 @@
 
                                 <li data-bind="visible : models()[@i].minSpec.maxTorque != 0,text:models()[@i].minSpec.maxTorque + ' bhp'" style="display:@(bike.MinSpecs.MaximumTorque > 0 ? "inline-block" : "none")">
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
+                                </li>
+
+                                <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0,text:models()[@i].minSpec.kerbWeight + ' kgs'" style="display:@(bike.MinSpecs.KerbWeight > 0 ? "inline-block" : "none")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")
                                 </li>
                             </ul>
                             <div class="grid-6 alpha padding-right20">
@@ -100,12 +104,15 @@
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
             </div>
         </div>
-        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(ViewBag.pager.TotalResults > 15 ? "block" : "none")">
+        <div class="padding-right20 padding-bottom10 padding-left20" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(ViewBag.pager.TotalResults > 0 ? "block" : "none")">
             <div class="footer-pagination font14 border-solid-top padding-top10">
                 <div class="grid-5 alpha omega text-light-grey" data-bind="visible: TotalBikes() > 0">
                     <p>Showing <span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((ViewBag.pager.PageNo - 1) * ViewBag.pager.PageSize + 1)</span>-<span class="text-bold" data-bind="CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageNo * ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</p>
                 </div>
-                @{ Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
+                @if (ViewBag.pager.TotalResults > 15)
+                {
+                    Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); 
+                }
                 <div class="clear"></div>
             </div>
         </div>

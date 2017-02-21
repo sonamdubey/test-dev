@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 <%@ Register Src="~/m/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
@@ -23,8 +23,147 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-        @charset "utf-8";.swiper-card,.swiper-slide:first-child{margin-left:5px}.btn-white:hover,.swiper-card a:hover{text-decoration:none}#categoryHeader{background:#333;color:#fff;font-size:16px;width:100%;height:50px;position:fixed;overflow:hidden;z-index:2}.category-back-btn{width:45px;padding:15px 13px 12px;float:left;cursor:pointer}.fa-arrow-back{width:12px;height:20px;background-position:-63px -162px}#categoryHeader h1{width:80%;float:left;color:#fff;margin-top:12px;font-weight:400;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.miscWrapper ul{padding:20px;overflow:hidden;border-bottom:1px solid #e2e2e2}.miscWrapper li{width:100%;border-top:1px solid #e2e2e2;margin-top:20px;padding-top:20px}.miscWrapper li:first-child{border-top:none;margin-top:0;padding-top:0}.bottom-shadow{-webkit-box-shadow:0 2px 2px #ccc;-moz-box-shadow:0 2px 2px #ccc;box-shadow:0 2px 2px #ccc}.misc-container{display:table}.misc-container a{display:table-cell;vertical-align:middle}.misc-list-image{width:100px;height:54px;background:url(https://img.aeplcdn.com/bikewaleimg/images/circleloader.gif) center center no-repeat;overflow:hidden;text-align:center}.misc-container a img{width:100%}.video-views-count-container{min-width:140px}.border-light-right{border-right:1px solid #e2e2e2}.card-container{padding-top:5px;padding-bottom:5px}.card-container .swiper-slide{width:200px}.swiper-card{width:200px;min-height:160px;border:1px solid #e2e2e2\9;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-moz-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-ms-box-shadow:0 1px 4px rgba(0, 0, 0, .2);box-shadow:0 1px 4px rgba(0, 0, 0, .2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.swiper-image-preview{height:95px;padding:5px 5px 0;position:relative}.swiper-image-preview img{height:90px}.swiper-details-block{padding:3px 15px 0}.swiper-btn-block{padding:10px 15px}
-     </style>
+        @charset "utf-8";
+
+        .swiper-card, .swiper-slide:first-child {
+            margin-left: 5px;
+        }
+
+            .btn-white:hover, .swiper-card a:hover {
+                text-decoration: none;
+            }
+
+        #categoryHeader {
+            background: #333;
+            color: #fff;
+            font-size: 16px;
+            width: 100%;
+            height: 50px;
+            position: fixed;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .category-back-btn {
+            width: 45px;
+            padding: 15px 13px 12px;
+            float: left;
+            cursor: pointer;
+        }
+
+        .fa-arrow-back {
+            width: 12px;
+            height: 20px;
+            background-position: -63px -162px;
+        }
+
+        #categoryHeader h1 {
+            width: 80%;
+            float: left;
+            color: #fff;
+            margin-top: 12px;
+            font-weight: 400;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .miscWrapper ul {
+            padding: 20px;
+            overflow: hidden;
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .miscWrapper li {
+            width: 100%;
+            border-top: 1px solid #e2e2e2;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+
+            .miscWrapper li:first-child {
+                border-top: none;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
+        .bottom-shadow {
+            -webkit-box-shadow: 0 2px 2px #ccc;
+            -moz-box-shadow: 0 2px 2px #ccc;
+            box-shadow: 0 2px 2px #ccc;
+        }
+
+        .misc-container {
+            display: table;
+        }
+
+            .misc-container a {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+        .misc-list-image {
+            width: 100px;
+            height: 54px;
+            background: url(https://img.aeplcdn.com/bikewaleimg/images/circleloader.gif) center center no-repeat;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .misc-container a img {
+            width: 100%;
+        }
+
+        .video-views-count-container {
+            min-width: 140px;
+        }
+
+        .border-light-right {
+            border-right: 1px solid #e2e2e2;
+        }
+
+        .card-container {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+            .card-container .swiper-slide {
+                width: 200px;
+            }
+
+        .swiper-card {
+            width: 200px;
+            min-height: 160px;
+            border: 1px solid #e2e2e2\9;
+            background: #fff;
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+            -ms-box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            -ms-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .swiper-image-preview {
+            height: 95px;
+            padding: 5px 5px 0;
+            position: relative;
+        }
+
+            .swiper-image-preview img {
+                height: 90px;
+            }
+
+        .swiper-details-block {
+            padding: 3px 15px 0;
+        }
+
+        .swiper-btn-block {
+            padding: 10px 15px;
+        }
+    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -67,11 +206,14 @@
                 </div>
             </div>
         </section>
-         <section>
+        <%if (ctrlGenericBikeInfo.ModelId > 0)
+          { %>
+        <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin margin-bottom10">
                 <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
             </div>
         </section>
+        <%} %>
         <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
         <div class="container content-box-shadow margin-bottom10 padding-bottom20">
@@ -81,16 +223,17 @@
             </div>
         </div>
         <% } %>
-                <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
-         <section>
-             <div class="container content-box-shadow margin-bottom20">
-                 <div class="padding-top20 padding-bottom20 font14">
-                     <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                     <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
-                 </div>
-             </div>
-         </section>
-           <%} %>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
+          {%>
+        <section>
+            <div class="container content-box-shadow margin-bottom20">
+                <div class="padding-top20 padding-bottom20 font14">
+                    <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                    <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
+                </div>
+            </div>
+        </section>
+        <%} %>
         <!--template script-->
         <script type="text/html" id="templetVideos">
             <li>

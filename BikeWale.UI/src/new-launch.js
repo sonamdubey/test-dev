@@ -10,7 +10,8 @@ $(window).on("scroll", function () {
         $('.header-transparent').removeClass("header-fixed").addClass("header-landing");
 });
 
-$(document).ready(function () {    
+$(document).ready(function () {
+    
     chosenSelectBox.each(function () {
         var text = $(this).attr('data-placeholder');
         $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
@@ -24,6 +25,9 @@ $(document).ready(function () {
 
         searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
     });
+
+    $('#makeFilter').trigger("chosen:updated");
+    $('#yearFilter').trigger("chosen:updated");
 });
 
 $(".chosen-select").chosen().change(function () {
@@ -99,74 +103,14 @@ ko.bindingHandlers.chosen = {
         });
     }
 };
-
-(function ($, ko) {
-    'use strict';
-    function KoLazyLoad() {
-        var self = this;
-
-        var updatebit = ko.observable(true).extend({ throttle: 50 });
-
-        var handlers = {
-            img: updateImage
-        };
-
-        function flagForLoadCheck() {
-            updatebit(!updatebit());
-        }
-
-        $(window).on('scroll', flagForLoadCheck);
-        $(window).on('resize', flagForLoadCheck);
-        $(window).on('load', flagForLoadCheck);
-
-        function isInViewport(element) {
-            console.log(1);
-            var rect = element.getBoundingClientRect();
-            return rect.bottom > 0 && rect.right > 0 &&
-              rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-              rect.left < (window.innerWidth || document.documentElement.clientWidth);
-        }
-
-        function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = ko.unwrap(valueAccessor());
-            if (isInViewport(element)) {
-                element.src = value;
-                $(element).data('kolazy', true);
-            }
-        }
-
-        function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var initArgs = arguments;
-            updatebit.subscribe(function () {
-                update.apply(self, initArgs);
-            });
-        }
-
-        function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var $element = $(element);
-
-            if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
-                return;
-            }
-
-            var handlerName = element.tagName.toLowerCase();
-            if (handlers.hasOwnProperty(handlerName)) {
-                return handlers[handlerName].apply(this, arguments);
-            } else {
-                throw new Error('No lazy handler defined for "' + handlerName + '"');
-            }
-        }
-
-        return {
-            handlers: handlers,
-            init: init,
-            update: update
-        }
-    }
-
-    ko.bindingHandlers.lazyload = new KoLazyLoad();
-
-})(jQuery, ko);
+$(window).on('scroll', applyLazyLoad);
+$(window).on('resize', applyLazyLoad);
+$(window).on('load', applyLazyLoad);
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
 
 var vmPagination = function (curPgNum, pgSize, totalRecords) {
     var self = this;
@@ -373,6 +317,7 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            $('.model-jcarousel-image-preview img').attr('src', '');
             self.IsLoading(true);
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
@@ -380,7 +325,7 @@ var newLaunches = function () {
             .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.noBikes(false);
+                self.noBikes(false);                               
             })
             .fail(function () {
                 self.noBikes(true);
@@ -426,7 +371,7 @@ var newLaunches = function () {
 
 var vmNewLaunches = new newLaunches();
 
-$(function () {
+$(function () {    
     vmNewLaunches.setPageFilters(e);
 });
 

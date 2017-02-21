@@ -9,6 +9,8 @@
     ViewBag.PqSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewLaunchLanding;
     IEnumerable<BikesCountByYearEntityBase> objYears = ViewBag.Years;
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 }
 <section>
     <div class="container new-launch-banner text-center">
@@ -21,8 +23,8 @@
         <div class="grid-12">
             <div class="banner-box-shadow padding-right20 padding-left20 padding-bottom20">
                 <div class="padding-top15 font14 text-light-grey collapsible-content">
-                    <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive competition, manufacturers try to keep up with fast changing trends.</p>
-                    <p class="more-content">Every year there are plenty of bike models that hit the market. BikeWale brings you an exhaustive list of newly launched bikes in India. Explore the list of latest bikes.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                    <p class="main-content">India is one of the largest two-wheeler market in the world. The Indian market of two-wheelers has some noteworthy diversity. In order to thrive in this massive </p>
+                    <p class="more-content">competition, manufacturers try to keep up with fast changing trends. Every year there are plenty of bike models that hit the market. BikeWale brings you an exhaustive list of newly launched bikes in India. Explore the list of latest bikes.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                 </div>
             </div>
         </div>

@@ -125,73 +125,15 @@ ko.bindingHandlers.CurrencyText = {
     }
 };
 
-(function ($, ko) {
-    'use strict';
-    function KoLazyLoad() {
-        var self = this;
+$(window).on('scroll', applyLazyLoad);
+$(window).on('resize', applyLazyLoad);
+$(window).on('load', applyLazyLoad);
 
-        var updatebit = ko.observable(true).extend({ throttle: 50 });
-
-        var handlers = {
-            img: updateImage
-        };
-
-        function flagForLoadCheck() {
-            updatebit(!updatebit());
-        }
-
-        $(window).on('scroll', flagForLoadCheck);
-        $(window).on('resize', flagForLoadCheck);
-        $(window).on('load', flagForLoadCheck);
-
-        function isInViewport(element) {
-            console.log(1);
-            var rect = element.getBoundingClientRect();
-            return rect.bottom > 0 && rect.right > 0 &&
-              rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-              rect.left < (window.innerWidth || document.documentElement.clientWidth);
-        }
-
-        function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = ko.unwrap(valueAccessor());
-            if (isInViewport(element)) {
-                element.src = value;
-                $(element).data('kolazy', true);
-            }
-        }
-
-        function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var initArgs = arguments;
-            updatebit.subscribe(function () {
-                update.apply(self, initArgs);
-            });
-        }
-
-        function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var $element = $(element);
-
-            if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
-                return;
-            }
-
-            var handlerName = element.tagName.toLowerCase();
-            if (handlers.hasOwnProperty(handlerName)) {
-                return handlers[handlerName].apply(this, arguments);
-            } else {
-                throw new Error('No lazy handler defined for "' + handlerName + '"');
-            }
-        }
-
-        return {
-            handlers: handlers,
-            init: init,
-            update: update
-        }
-    }
-
-    ko.bindingHandlers.lazyload = new KoLazyLoad();
-
-})(jQuery, ko);
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
 
 var vmPagination = function (curPgNum, pgSize, totalRecords) {
     var self = this;
@@ -298,6 +240,12 @@ var newLaunches = function () {
             self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
             self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || self.selectedCityId() || "";
 
+            if (self.Filters()["make"] != "")
+                $(".filter-list li[data-makeid='" + self.Filters()["make"] + "']").click();
+
+            if (self.Filters()["yearLaunch"] != "")
+                $(".filter-list li[data-bikeyear='" + self.Filters()["yearLaunch"] + "']").click();
+
             var filterType = $(e.target).closest("ul").data("filter");
             if (filterType) {
 
@@ -390,7 +338,7 @@ var newLaunches = function () {
         return false;
     };
 
-    self.setMakeFilter = function (e) {
+    self.setMakeFilter = function (e) {        
         var ele = $(e.currentTarget);
         var make = {
             id: parseInt(ele.data("makeid")),
@@ -421,14 +369,16 @@ var newLaunches = function () {
         var qs = self.QueryString();
 
         if (self.PreviousQS() != qs) {
+            $('.new-launches-list .list-item img').attr('src', '');
             self.IsLoading(true);
+            self.models();
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
             $.getJSON(apiUrl)
             .done(function (response) {
                 self.models(response.bikes);
                 self.TotalBikes(response.totalCount);
-                self.noBikes(false);
+                self.noBikes(false);                
             })
             .fail(function () {
                 self.noBikes(true);
@@ -438,6 +388,7 @@ var newLaunches = function () {
                 slideInDrawer.close(ele);
                 window.location.hash = qs;
                 self.IsLoading(false);
+                $('html, body').animate({ scrollTop: $('#newlaunched-bikes').offset().top })
             });
         }
         else {
@@ -446,7 +397,7 @@ var newLaunches = function () {
         }
     };
 
-    self.setPageFilters = function (e) {
+    self.setPageFilters = function (e) {       
         var currentQs = window.location.hash.substr(1);
         if (currentQs != "") {
             var _filters = currentQs.split("&"), objFilter = {};
@@ -481,7 +432,7 @@ var newLaunches = function () {
 var vmNewLaunches = new newLaunches();
 
 $(function () {
-
+    
     vmNewLaunches.setPageFilters(e);
 
     $("#brand-slideIn-drawer ul li,#year-slideIn-drawer ul li,#pagination-list-content ul li").click(function (e) {
