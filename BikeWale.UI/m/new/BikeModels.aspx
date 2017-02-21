@@ -234,9 +234,13 @@
                         <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             <p class="font12 text-light-grey"><%=priceText %> price in <%= location%></p>
                             <p><span itemprop="priceCurrency" content="INR">
+                                <% if(price == 0) { %>
+                                <span class="font18 text-bold padding-right5">Price not available</span>
+                                <% } else { %>
                                 <span class="bwmsprite inr-md-icon"></span>
                                 </span>
                                 <span class="font22 text-bold padding-right5" itemprop="price" content="<%= price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+                                <% } %>
                                 <%if (isOnRoadPrice && price > 0)
                                   {%>
                                 <a href="/m/pricequote/dealerpricequote.aspx?MPQ=<%= detailedPriceLink %>" class="font16 text-bold viewBreakupText" rel="nofollow" >View detailed price</a>
@@ -297,28 +301,28 @@
                     <%} %>
                     <% if (viewModel.IsPremiumDealer)
                        {
-                           if (isBookingAvailable)
-                           { %>
-                    <div class="margin-bottom20">
-                        <div class="vertical-top">
-                            <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal btn-sm-0">Book now</a>
-                        </div>
-                        <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
-                            Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice((price - bookingAmt).ToString()) %> at dealership
-                        </p>
-                    </div>
-                    <% }
+                            if (isBookingAvailable)
+                            { %>
+                                <div class="margin-bottom20">
+                                    <div class="vertical-top">
+                                        <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal btn-sm-0">Book now</a>
+                                    </div>
+                                    <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
+                                        Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice(bookingAmt.ToString()) %> to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span><%= Bikewale.Utility.Format.FormatPrice((price - bookingAmt).ToString()) %> at dealership
+                                    </p>
+                                </div>
+                            <% }
                                      else
-                        { %>
-                    <div class="margin-bottom20">
-                        <div class="vertical-top">
-                            <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" data-leadsourceid="30"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %>" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
-                        </div>
-                        <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
-                    </div>
-                    <% 
-                    }
-                       }
+                            { %>
+                             <div class="margin-bottom20">
+                                <div class="vertical-top">
+                                    <a id="requestcallback" c="Model_Page" a="Request_Callback_Details_Clicked" v="bikeVersionLocation" data-leadsourceid="30"  data-item-id="<%= dealerId %>" data-item-name="<%= viewModel.Organization %>"  data-item-area="<%= viewModel.AreaName %>" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
+                                </div>
+                                <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
+                             </div>
+                            <% 
+                            }
+                        }
                        else
                        { %>
                     <div class="margin-bottom20">
