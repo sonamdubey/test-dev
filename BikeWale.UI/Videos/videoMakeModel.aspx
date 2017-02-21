@@ -97,7 +97,7 @@
             </div>
         </section>
 
-        <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
+        <%if(ctrlGenericBikeInfo.ModelId>0){ %><BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" /><%} %>
 
  <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
