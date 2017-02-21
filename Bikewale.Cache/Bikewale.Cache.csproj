@@ -52,6 +52,7 @@
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\BikeVersionsCacheRepository.cs" />
+    <Compile Include="BikeData\ModelsCache.cs" />
     <Compile Include="CMS\CMSCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Location\StateCacheRepository.cs" />
     <Compile Include="Memcache\BWMemcache.cs" />
     <Compile Include="Memcache\MakeMapping.cs" />
+    <Compile Include="MobileVerification\MobileVerificationCache.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceCenter\ServiceCenterCacheRepository.cs" />

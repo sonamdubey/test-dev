@@ -126,6 +126,8 @@
     <Compile Include="BikeData\BikeMakes.cs" />
     <Compile Include="BikeData\BikeModels.cs" />
     <Compile Include="BikeData\BikeVersions.cs" />
+    <Compile Include="BikeData\NewLaunched\NewBikeLaunchesBL.cs" />
+    <Compile Include="BikeData\Upcoming.cs" />
     <Compile Include="CMS\CMSData.cs">
       <SubType>Code</SubType>
     </Compile>

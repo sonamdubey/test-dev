@@ -1004,8 +1004,6 @@ namespace Bikewale.DAL.BikeBooking
             bool isUpdateDealerCount = false;
             try
             {
-
-
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "updatedealerdailyleadcount";
@@ -1026,9 +1024,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
                 objErr.SendMail();
             }
-
             return isUpdateDealerCount;
-
         }
 
 
@@ -1069,6 +1065,12 @@ namespace Bikewale.DAL.BikeBooking
         }
 
         public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams)
         {
             throw new NotImplementedException();
         }

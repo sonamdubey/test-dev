@@ -6,6 +6,7 @@
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -69,7 +70,7 @@
 		</section>
 
 		<section>
-            <div id="versionPriceInCityWrapper" class="container margin-bottom25">
+            <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
 			    <div class="grid-12 font14">
 				<div class="content-box-shadow">
 					<p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">
@@ -198,8 +199,10 @@
             </div>
 		</section>
 
+       <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
+
 		<section>
-            <div class="container margin-bottom20">
+            <div class="container section-bottom-margin">
 			<div class="grid-12">
 				<div class="content-box-shadow">
                      
@@ -243,7 +246,7 @@
                     </div>
                     <%} %>
                     <%} %>
-                    <div id="makeTabsContentWrapper" class="margin-bottom20">
+                    <div id="makeTabsContentWrapper">
 				        <div class="content-box-shadow">
 					        <div id="makeOverallTabsWrapper">
 						        <div id="makeOverallTabs" class="overall-floating-tabs">
@@ -259,11 +262,13 @@
                 </div>
 			    <div class="clear"></div>
             </div>
+            <div class="clear"></div>
+            </div>
 		</section>
 
 		<BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 		 <section>
-			<div class="container margin-top10 margin-bottom30">
+			<div class="container section-bottom-margin">
 				<div class="grid-12 font12">
 					<span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> price in <%=cityName %>.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
                     </div>

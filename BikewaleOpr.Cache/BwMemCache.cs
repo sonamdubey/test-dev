@@ -34,13 +34,13 @@ namespace BikewaleOpr.Cache
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public static bool ClearUpcomingBikesCacheKey(int pageSize, int sortBy, uint?makeId,uint? modelId)
+        public static bool ClearUpcomingBikesCacheKey(int pageSize, int sortBy, uint? makeId, uint? modelId)
         {
             bool cacheKeyClearStatus = false;
             try
             {
                 string key = string.Empty;
-                key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}",pageSize,sortBy);
+                key = string.Format("BW_UpcomingBikes_Cnt_{0}_SO_{1}", pageSize, sortBy);
                 if (makeId.HasValue && makeId.Value > 0)
                     key += "_MK_" + makeId;
                 if (modelId.HasValue && modelId.Value > 0)
@@ -48,9 +48,30 @@ namespace BikewaleOpr.Cache
                 MemCachedUtil.Remove(key);
                 cacheKeyClearStatus = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearUpcomingBikesCacheKey {0}, {1}" + (makeId.HasValue ? String.Format(", {0}", makeId.Value) : "") + (modelId.HasValue ? String.Format(", {0}", modelId.Value) : ""), pageSize, sortBy));
+            }
+            return cacheKeyClearStatus;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Feb 2017
+        /// Description :   ClearNewLaunchesBikes
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public static bool ClearNewLaunchesBikes(string cityId)
+        {
+            bool cacheKeyClearStatus = false;
+            try
+            {
+                string key = String.Format("BW_NewLaunchedBikes_Cid_{0}", cityId);
+                MemCachedUtil.Remove(key);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.ClearCache.CacheClear.ClearNewLaunchesBikes({0}", cityId));
             }
             return cacheKeyClearStatus;
         }

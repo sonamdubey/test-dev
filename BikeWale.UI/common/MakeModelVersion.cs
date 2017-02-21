@@ -502,47 +502,5 @@ namespace Bikewale.Common
             else
                 return CommonOpn.FormatNumeric(price);
         }
-
-        /// <summary>
-        /// Written By : Ashwini Todkar on 28 April 2014
-        /// Summary    : PopulateWhere to get buyng preferences of user
-        /// </summary>
-        /// <returns>datatable containing id and buying preferences like 1 week or just researching</returns>
-        public DataTable GetBuyingPreference()
-        {
-            ErrorClass objErr = new ErrorClass(new Exception("Method not used/commented"), "MakeModelVersion.GetBuyingPreference");
-            objErr.SendMail();
-            return null;
-
-            //DataSet ds = null;
-            //Database db = null;
-
-            //try
-            //{
-            //    using (SqlCommand cmd = new SqlCommand("GetPricequoteBuyingPreferences"))
-            //    {
-            //        cmd.CommandType = CommandType.StoredProcedure;
-            //        db = new Database();
-            //        ds = db.SelectAdaptQry(cmd);
-
-            //        if (ds != null && ds.Tables[0].Rows.Count > 0)
-            //        {
-            //            return ds.Tables[0];
-            //        }
-            //    }
-            //}
-            //catch (SqlException ex)
-            //{
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    objErr.SendMail();
-            //}
-            //return null;
-        }
-
     }   // End of class
 }   // End of namespace

@@ -369,7 +369,7 @@ else
                 var isError = false;
 
                 if ($("#txtAbuseComments").val().trim() == "") {
-                    $("#spnAbuseComments").html("Comments is required");
+                    $("#spnAbuseComments").html("Comments are required");
                     isError = true;
                 } else {
                     $("#spnAbuseComments").html("");

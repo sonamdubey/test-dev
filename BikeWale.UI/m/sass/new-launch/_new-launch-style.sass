@@ -1,0 +1,112 @@
+﻿.new-launch-banner
+	background: #89a3b7 url(https://imgd2.aeplcdn.com/0x0/bw/static/landing-banners/m/new-launches-banner.jpg) no-repeat center
+	background-size: cover
+	height: 130px
+	padding-top: 25px
+
+// filters
+.filter-selection-value
+	font-size: $font-size-medium
+	font-weight: $font-semibold
+	cursor: pointer
+	padding-right: 20px
+	background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 99%
+
+	&.selection-auto-width
+		width: auto
+		max-width: 200px
+		font-size: $font-size-base
+
+// new-launches-list
+.new-launches-list
+	padding-right: 20px
+	padding-left: 20px
+	overflow: hidden
+
+	a
+		&:hover
+			text-decoration: none
+
+	.list-item
+		padding-top: 20px
+		padding-bottom: 20px
+		border-top: 1px solid #f5f5f5
+
+		&:first-child
+			border-top: none
+
+		h3
+			font-size: 15px
+			color: #2a2a2a
+			margin-bottom: 10px
+
+	.item-image-content
+		width: 292px
+		height: 164px
+		background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center
+		margin-bottom: 5px
+
+		img
+			width: 100%
+
+	.exshowroom-price-content
+		width: 195px
+		padding-right: 20px
+		border-right: 1px solid #f5f5f5
+
+	.launched-date-content
+		width: 37%
+		padding-left: 20px
+
+		.value-size-16
+			position: relative
+			top: 2px
+
+.swiper-details-block
+	.text-bold
+		font-weight: $font-semibold
+
+// common classes
+.key-size-13
+	font-size: 13px
+	color: #787878
+
+.value-size-16,
+.value-size-18
+	font-weight: $font-bold
+	color: #4d5057
+
+.value-size-16
+	font-size: 16px
+
+.value-size-18
+	font-size: 18px
+
+.search-icon-grey
+	position: absolute
+	right: 10px
+	top: 10px
+	cursor: pointer
+	background-position: -34px -275px
+
+// by brand
+.padding-15-20
+	padding: 15px 20px
+
+.filter-icon
+	width: 18px
+	height: 13px
+	margin-right: 5px
+	background-position: -49px -528px
+	position: relative
+	top: 1px
+	opacity: 0.6
+
+#sort-filters-loader
+	width: 100%
+	height: 100%
+	position: fixed
+	top: 0
+	left: 0
+	background: rgba(245, 245, 245, 0.95)
+	z-index: 4

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Bikewale.Entities.BikeData.NewLaunched.BikesCountByMakeEntityBase>
+
+@if (@Model != null)
+{
+    <div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var BrandCount in @Model)
+                {
+                    <li>
+                        <a href="@Bikewale.Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(BrandCount.Make.MaskingName)" title="Newly launched @BrandCount.Make.MakeName bikes" class="jcarousel-card">
+                            <div class="brand-logo-image">
+                                <span class="brand-type">
+                                    <span class="brandlogosprite @string.Format("brand-{0}", BrandCount.Make.MakeId)"></span>
+                                </span>
+                            </div>
+                            <div class="card-desc-block">
+                                <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top">@BrandCount.Make.MakeName</p>
+                                <h3 class="text-unbold text-light-grey">@BrandCount.BikeCount bikes</h3>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+    </div>
+}

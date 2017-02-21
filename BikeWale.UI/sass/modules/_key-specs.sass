@@ -1,0 +1,26 @@
+﻿.key-specs-list
+	li
+		padding-left: 12px
+		padding-right: 12px
+		position: relative
+		color: #a2a2a2
+		
+		&:before
+			content: ""
+			width: 1px
+			height: 15px
+			position: absolute
+			top: 3px
+			left: 0
+			border-left: 1px solid #ecedee
+			
+		&:first-child
+			padding-left: 0
+			
+			&:before
+				border-left: 0
+
+	li,
+	span
+		display: inline-block
+		vertical-align: middle

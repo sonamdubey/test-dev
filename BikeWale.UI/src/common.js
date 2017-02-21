@@ -1402,12 +1402,12 @@ var recentSearches =
         var rsele = this.options.recentSearchesEle.find("li");
         if (rsele.length > 0)
         {
-            this.options.recentSearchesEle.show();
+            this.options.recentSearchesEle.slideDown(100);
             this.handleKeyEvents();
         }
     },
     hideRecentSearches: function () {
-        this.options.recentSearchesEle.hide().find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
+        this.options.recentSearchesEle.slideUp(100).find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
 
     },
     handleKeyEvents: function () {
@@ -1448,9 +1448,9 @@ recentSearches.options.recentSearchesEle.on('click', 'li', function () {
             bwcache.set(recentSearches.searchKey, objSearches);
             window.location.href = $(this).find('a').first().attr('data-href');
         }
-        else {
-            recentSearches.hideRecentSearches();
-        }
+
+       recentSearches.hideRecentSearches();
+
     } catch (e) {
         console.log(e.message);
     }
@@ -1470,3 +1470,25 @@ $(document).on('mouseleave', '.recent-searches-dropdown li', function () {
 $(document).on('mouseleave', '.recent-searches-dropdown', function () {
     curElement.addClass("focus-state").siblings().removeClass("focus-state");
 });
+
+window.validateMobileNo = function(mobileNo, self) {
+    if (self != null) {
+        var regPhone = /^[6-9][0-9]{9}$/;
+        var isValid = true;
+        if (mobileNo == "") {
+            self.msg="Please enter your mobile no.";
+            isValid = false;
+        }
+        else if (!regPhone.test(mobileNo) && isValid) {
+            self.msg="Please enter a valid mobile no.";
+            isValid = false;
+        }
+        else
+            self.msg="";
+        return isValid;
+    }
+    else
+    {
+        return false;
+    }
+};

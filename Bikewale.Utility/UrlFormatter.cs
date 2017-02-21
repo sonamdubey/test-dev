@@ -22,7 +22,6 @@ namespace Bikewale.Utility
             return String.Format("/bike-videos/category/{0}-{1}/", Regex.Replace(videoCategory.Trim(), @"[\(\)\s]+", "-").ToLower(), Regex.Replace(videoCatId, @"[,]+", "-"));
         }
 
-
         public static string FormatVideoPageUrl(string makeMaskingName, string modelMaskingName)
         {
             string url = string.Empty;
@@ -187,24 +186,22 @@ namespace Bikewale.Utility
         /// <param name="city"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public static string ViewMoreUsedBikes(uint cityId, string city, string make, string model)
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make, string model)
         {
-            if (cityId > 0)
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, city);
-                else
-                    return String.Format("/used/{0}-bikes-in-{1}/", make, city);
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(model))
-                    return String.Format("/used/{0}-{1}-bikes-in-india/", make, model);
-                else
-                    return String.Format("/used/{0}-bikes-in-india/", make);
-            }
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            string makeModelUrl = string.IsNullOrEmpty(model) ? string.Format("/used/{0}-bikes-in-{1}/", make, cityMasking) : string.Format("/used/{0}-{1}-bikes-in-{2}/", make, model, cityMasking);
+            return makeModelUrl;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string ViewMoreUsedBikes(uint cityId, string cityMasking, string make)
+        {
+            cityMasking = cityId > 0 ? cityMasking : "india";
+            return String.Format("/used/{0}-bikes-in-{1}/", make, cityMasking);
+        }
 
         /// <summary>
         ///  Created By : Sushil Kumar 
@@ -342,6 +339,25 @@ namespace Bikewale.Utility
             }
             return url;
         }
+        /// Created  By :- subodh Jain 10 Feb 2017
+        /// Summary :- FormatUserReviewUrl
+        public static string FormatUserReviewUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = string.Empty;
+            if (String.IsNullOrEmpty(makeMaskingName) && String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = "/user-reviews/";
+            }
+            else if (String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/user-reviews/", makeMaskingName);
+            }
+            else
+            {
+                url = String.Format("/{0}-bikes/{1}/user-reviews/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
 
         /// <summary>
         /// Created by  :   Sumit Kate on 02 jan 2017
@@ -395,6 +411,28 @@ namespace Bikewale.Utility
                     break;
             }
             return url;
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 15-02-2017
+        /// Description: Function to make url for new bike launches year wise page.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static string FormatBikeLaunchedYearUrl(int year)
+        {
+            return string.Format("/new-bike-launches-in-{0}/", year);
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 15-02-2017
+        /// Description: Function to make url for new bike launches brand wise page.
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        public static string FormatMakeWiseBikeLaunchedUrl(string makeMaskingName)
+        {
+            return string.Format("/new-{0}-bike-launches/", makeMaskingName);
         }
     }
 }

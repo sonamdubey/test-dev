@@ -1,0 +1,38 @@
+﻿.brand-type
+	height: 50px
+	width: 180px
+	display: block
+	margin: 0 auto
+
+.brand-type-title
+	margin-top: 10px
+	display: block
+
+.brand-type-container
+	a
+		text-decoration: none
+		color: #82888b
+		display: inline-block
+	li
+		display: inline-block
+		vertical-align: top
+		width: 180px
+		height: 85px
+		margin: 0 5px 30px
+		text-align: center
+		font-size: 18px
+		@include border-radius(2px)
+
+		&:hover
+			.brand-type-title
+				color: #4d5057
+				font-weight: 700
+
+.brand-bottom-border
+	overflow: hidden
+
+@media only screen and (max-width: 1024px)
+	.brand-type,
+	.brand-type-container
+		li
+			width: 170px

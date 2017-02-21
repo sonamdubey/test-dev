@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Version
             {
                 if (versionId > 0)
                 {
-                    objVersion = _versionRepository.GetById(versionId);
+                    objVersion = _objVersionColorCache.GetById(versionId);
 
                     if (objVersion != null)
                     {
@@ -84,7 +84,7 @@ namespace Bikewale.Service.Controllers.Version
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns>Version Minimum Details</returns>
-        [ResponseType(typeof(VersionDetails)), Route("api/v2/Version/")]
+        [ResponseType(typeof(Bikewale.DTO.Version.v2.VersionDetails)), Route("api/v2/Version/")]
         public IHttpActionResult GetV2(uint versionId)
         {
             BikeVersionEntity objVersion = null;
@@ -93,7 +93,7 @@ namespace Bikewale.Service.Controllers.Version
             {
                 if (versionId > 0)
                 {
-                    objVersion = _versionRepository.GetById(versionId);
+                    objVersion = _objVersionColorCache.GetById(versionId);
 
                     if (objVersion != null)
                     {

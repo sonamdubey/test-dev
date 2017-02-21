@@ -396,6 +396,22 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     top: 4px;
 }
 
+.photos-sm,
+.videos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.photos-sm {
+    background-position: 0 -477px;
+}
+
+.videos-sm {
+    background-position: -16px -476px;
+}
+
 .text-justify { text-align: justify; }
 .text-wrap { white-space: normal; }
 .text-nowrap { white-space: nowrap; }
@@ -447,7 +463,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .margin-right70 { margin-right: 70px; }
 .margin-right90 { margin-right: 90px; }
 
-.margin-bottom15 { margin-bottom: 15px; }
 .margin-bottom25 { margin-bottom: 25px; }
 .margin-bottom30 { margin-bottom: 30px; }
 .margin-bottom40 { margin-bottom: 40px; }
@@ -726,17 +741,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     margin: 3px auto;
 }
 
-@media all and (max-width: 350px) {
-    .review-heading-wrapper {
-        width: 52% !important;
-    }
-    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
-    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
-    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
-        width: 265px;
-    }
-}
-
 #ub-ajax-loader{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(245,245,245,.95);z-index:11}
 /* user logged in state */
 #user-banner-content {
@@ -782,6 +786,70 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 87%;
 }
 
+/* recent search dropdown */
+.history-icon,
+.ui-search-icon {
+    width: 16px;
+    position: relative;
+    margin-right: 10px;
+    float: left;
+}
+
+.history-icon {
+    height: 13px;
+    background-position: -126px -265px;
+    top: 3px;
+}
+
+.ui-search-icon {
+    height: 16px;
+    background-position: -126px -249px;
+    top: 2px;
+    -webkit-transform: scale(0.85);
+    -moz-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    transform: scale(0.85);
+}
+
+/* model-more-info-section */
+.model-more-info-section .item-image-content {
+    width: 100px;
+    height: 56px;
+    display: inline-block;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+}
+
+.item-image-content img {
+    width: 100%;
+}
+
+.model-more-info-section .bike-details-block {
+    width: 66%;
+    padding-left: 10px;
+}
+
+.model-more-info-section .used-target-label {
+    width: 96%;
+}
+
+.price-label-size-12 {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.price-value-size-18 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inr-12-grey {
+    width: 8px;
+    height: 10px;
+    background-position: -102px -137px;
+    position: relative;
+    top: 1px;
+}
+
 /* ribbon */
 .model-ribbon-tag {
     position: relative;
@@ -812,27 +880,173 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     top: 0;
 }
 
-/* recent search dropdown */
-.history-icon,
-.ui-search-icon {
-    width: 16px;
-    position: relative;
-    margin-right: 10px;
+.model-slug-type-news .model-ribbon-tag {
+    left: -11px;
+}
+
+.model-more-info-section.ribbon-present {
+    padding-top: 10px;
+}
+
+/* more info list */
+.item-more-details-list li {
     float: left;
+    margin-bottom: 8px;
+    margin-right: 8px;
 }
 
-.history-icon {
-    height: 13px;
-    background-position: -126px -265px;
+.item-more-details-list a:hover {
+    color: #fff;
+    background: #54bbca;
+}
+
+.item-more-details-list a {
+    display: block;
+    padding: 1px 8px 5px;
+    color: #787878;
+    background: rgba(245, 245, 245, 0.9);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.item-more-details-list a:hover {
+    text-decoration: none;
+}
+
+.item-more-details-list .icon-label {
+    font-size: 13px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 13px;
+}
+
+.text-grey {
+    color: #787878 !important;
+}
+
+/* key-specs-list */
+.key-specs-list li {
+    margin-right: 4px;
+    padding-right: 8px;
+    position: relative;
+    display: inline-block;
+}
+
+.key-specs-list li:before {
+    content: "";
+    width: 1px;
+    height: 11px;
+    position: absolute;
     top: 3px;
+    right: 0;
+    border-left: 1px solid #b0b0b0;
 }
 
-.ui-search-icon {
-    height: 16px;
-    background-position: -126px -249px;
-    top: 2px;
-    -webkit-transform: scale(0.85);
-    -moz-transform: scale(0.85);
-    -ms-transform: scale(0.85);
-    transform: scale(0.85);
+.key-specs-list li:last-child:before {
+    border-left: 0;
+}
+
+.btn-180-34 {
+    font-size: 14px;
+    width: 180px;
+    padding: 6px;
+}
+
+/* generic icons */
+.reviews-sm,
+.news-sm,
+.specs-sm,
+.dealers-sm,
+.user-reviews-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.reviews-sm {
+    background-position: -77px -555px;
+}
+
+.news-sm {
+    background-position: -109px -555px;
+}
+
+.specs-sm {
+    background-position: -141px -555px;
+}
+
+.dealers-sm {
+    background-position: -31px -476px;
+}
+
+.user-reviews-sm {
+    background-position: -173px -555px;
+}
+
+.item-more-details-list a:hover .reviews-sm {
+    background-position: -93px -555px;
+}
+
+.item-more-details-list a:hover .news-sm {
+    background-position: -125px -555px;
+}
+
+.item-more-details-list a:hover .specs-sm {
+    background-position: -157px -555px;
+}
+
+.item-more-details-list a:hover .photos-sm {
+    background-position: 0 -493px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -16px -492px;
+}
+
+.item-more-details-list a:hover .dealers-sm {
+    background-position: -31px -492px;
+}
+
+.item-more-details-list a:hover .user-reviews-sm {
+    background-position: -189px -555px;
+}
+
+.btn-red-arrow {
+    width: 6px;
+    height: 10px;
+    background-position: -204px -35px;
+    margin-left: 5px;
+    position: relative;
+    top: 1px;
+}
+
+.btn-white.active .btn-red-arrow {
+    background-position: -204px -49px;
+}
+
+.next-grey-icon {
+    width: 8px;
+    height: 13px;
+    background-position: -182px -393px;
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 350px) {
+    .review-heading-wrapper {
+        width: 52% !important;
+    }
+    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
+    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
+        width: 265px;
+    }    
+    .model-more-info-section .bike-details-block {
+        width: 62%;
+    }
+    .model-more-info-section .used-target-label {
+        width: 92%;
+    }
 }

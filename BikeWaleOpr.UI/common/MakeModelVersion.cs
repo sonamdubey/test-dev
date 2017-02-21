@@ -7,7 +7,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 
 /// <summary>
@@ -78,17 +77,9 @@ namespace BikeWaleOpr.Common
 
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return dt;
         }
@@ -122,17 +113,9 @@ namespace BikeWaleOpr.Common
 
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return dt;
         }
@@ -166,17 +149,9 @@ namespace BikeWaleOpr.Common
 
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return dt;
         }
@@ -218,7 +193,6 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return Make;
@@ -229,6 +203,8 @@ namespace BikeWaleOpr.Common
         /// <summary>
         /// Written By : Ashwini Todkar
         /// Method to update masking name in BikeMakes table and insert old masking name to OldMaskingLog 
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="maskingName"></param>
         /// <param name="updatedBy"></param>
@@ -249,8 +225,14 @@ namespace BikeWaleOpr.Common
 
                     // Update the Make Masking Name in CW database
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("makeid", makeId);
-                    nvc.Add("maskingname", maskingName);
+                    nvc.Add("v_MakeId", makeId);
+                    nvc.Add("v_MaskingName", maskingName);
+                    nvc.Add("v_MakeName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_IsDeleted", null);
+
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     if (_mc != null)
@@ -261,15 +243,9 @@ namespace BikeWaleOpr.Common
                     isSuccess = true;
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return isSuccess;
@@ -279,6 +255,8 @@ namespace BikeWaleOpr.Common
         /// <summary>
         ///  Written By : Ashwini Todkar on 7 oct 2013
         ///  Method to update masking name in BikeModel Table and insert old masking Name to OldMaskingLog
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="maskingName">passed as model masking name for url formation to bikemodel table</param>
         /// <param name="updatedBy">passed which user has updated last time</param>
@@ -303,8 +281,19 @@ namespace BikeWaleOpr.Common
                     if (!Convert.ToBoolean(cmd.Parameters["par_ismodelmaskingexist"].Value))
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("ModelMaskingName", maskingName);
-                        nvc.Add("modelId", modelId);
+
+                        nvc.Add("v_MakeId", null);
+                        nvc.Add("v_ModelName", null);
+                        nvc.Add("v_ModelMaskingName", maskingName);
+                        nvc.Add("v_HostUrl", null);
+                        nvc.Add("v_OriginalImagePath", null);
+                        nvc.Add("v_IsUsed", null);
+                        nvc.Add("v_IsNew", null);
+                        nvc.Add("v_IsFuturistic", null);
+                        nvc.Add("v_IsDeleted", null);
+                        nvc.Add("v_ModelId", modelId);
+
+
                         SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         isSuccess = true;
                     }
@@ -319,15 +308,9 @@ namespace BikeWaleOpr.Common
 
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return isSuccess;
@@ -351,15 +334,9 @@ namespace BikeWaleOpr.Common
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
         }//End of DiscontinueBikeModel
 
@@ -383,23 +360,17 @@ namespace BikeWaleOpr.Common
 
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("ManageMakeSynopsis Sql Error : ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("ManageMakeSynopsis Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
             }
         }   // End of ManageMakeSynopsis
 
         /// <summary>
         /// Written By : Ashwini Todkar on 29 July 2014
         /// Summary    : Method to set isdeleted flag of bike make ,its models and versions to 1 i.e. deleting a bike details
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="deletedBy"></param>
@@ -417,28 +388,28 @@ namespace BikeWaleOpr.Common
                     // Push the data to carwale DB
                     // Create name value collection
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("makeId", makeId);
-                    nvc.Add("IsDeleted", "1");
+                    nvc.Add("v_MakeId", makeId);
+                    nvc.Add("v_MaskingName", null);
+                    nvc.Add("v_MakeName", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_IsDeleted", "1");
+
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Sql Error : ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
             }
         }
 
         /// <summary>
         /// Written By : Ashwini Todkar on 29 July 2014
         /// Summary    : Method to set isdeleted flag = 1 of a models and its versions on deleting a model
+        /// Modified By : Sushil Kumar on 13th Feb 2016
+        /// Description : Added carwale mysql db changes for consumer datasync
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="deletedBy"></param>
@@ -453,22 +424,23 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("ModelId", modelId);
-                    nvc.Add("IsDeleted", "1");
+                    nvc.Add("v_MakeId", null);
+                    nvc.Add("v_ModelName", null);
+                    nvc.Add("v_ModelMaskingName", null);
+                    nvc.Add("v_HostUrl", null);
+                    nvc.Add("v_OriginalImagePath", null);
+                    nvc.Add("v_IsUsed", null);
+                    nvc.Add("v_IsNew", null);
+                    nvc.Add("v_IsFuturistic", null);
+                    nvc.Add("v_IsDeleted", "1");
+                    nvc.Add("v_ModelId", modelId);
+
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("DeleteModelVersions Sql Error : ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("DeleteModelVersions Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
             }
         }
 
@@ -495,17 +467,9 @@ namespace BikeWaleOpr.Common
                     synopsis = cmd.Parameters["par_synopsis"].Value.ToString();
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                HttpContext.Current.Trace.Warn("GetMakeSynopsis Sql Error : ", sqlEx.Message);
-                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetMakeSynopsis Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                errObj.SendMail();
             }
         }   // End of GetMakeSynopsis
 

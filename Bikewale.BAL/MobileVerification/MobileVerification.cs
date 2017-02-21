@@ -151,5 +151,11 @@ namespace Bikewale.BAL.MobileVerification
             return rs.ToString();
         }
 
+
+
+        public IEnumerable<string> GetBlockedPhoneNumbers()
+        { 
+                return mobileVerRespo.GetBlockedPhoneNumbers();
+        }
     }   // Class
 }   // namespace

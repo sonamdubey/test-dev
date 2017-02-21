@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Bikewale.Service\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.WebServices.OprAuthentication, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.WebServices.OprAuthentication.dll</HintPath>
