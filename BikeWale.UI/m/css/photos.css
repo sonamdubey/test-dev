@@ -755,6 +755,20 @@ body {
 
 .gallery-swiper .gallery-swiper-image.swiper-lazy[src$="circleloader.gif"]{min-width:16px !important; width:16px !important; height:16px !important;}
 
+.footer-tab-card .item-more-details-list li {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.footer-tab-card .item-more-details-list a {
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+.footer-tab-card .item-more-details-list .icon-label {
+    font-size: 12px;
+}
+
 @media only screen and (min-width: 768px) {
     .photos-grid-list li:nth-child(6n+3),
     .photos-grid-list li:nth-child(6n+4) {
