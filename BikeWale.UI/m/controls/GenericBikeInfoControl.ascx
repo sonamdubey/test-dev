@@ -20,7 +20,7 @@
   else
   { %>
     <div class="model-more-info-section model-slug-type-news">
-        <%} %>        
+ <%} %>        
         <div class="margin-bottom10">
             <%if (SmallSlug) {
                 if (IsUpcoming)
@@ -81,7 +81,7 @@
         </div>
         <%if (!IsDiscontinued && !IsUpcoming && bikeInfo.BikePrice > 0 && !SmallSlug)
           { %>
-        <a href="/m<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MakeName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
+        <a href="/m<%=Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName)%>" title="<%=bikeName%>" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
         <% } %>
   <%if(bikeInfo!=null) {%>  <ul class="item-more-details-list">
             <%foreach (var Tabsdetails in bikeInfo.Tabs)
@@ -106,5 +106,6 @@
             <span class="bwmsprite next-grey-icon"></span>
         </a>
         <%} %>
+    </div>
     </div>
     <% }  %>
