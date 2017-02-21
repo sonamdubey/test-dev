@@ -416,14 +416,22 @@
 
 /* gallery-footer */
 .footer-tabs-wrapper {
+    bottom: 0;
+    z-index: 2;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.footer-tabs-wrapper,
+.footer-tab-card {
     width: 976px;
     margin: 0 auto;
     position: fixed;
-    bottom: 0;
     left: 0;
     right: 0;
-    background: #fff;
-    z-index: 2;
+    background: #fff;    
     box-shadow: 0 0 6px #999;
 }
 
@@ -446,8 +454,7 @@
     top: 10px;
 }
 
-.tab-active .footer-tab:after,
-.footer-tab:hover:after {
+.tab-active .footer-tab:after {
     content: none;
 }
 
@@ -456,6 +463,19 @@
     background: #41b4c4;
     color: #fff;
 }
+
+.gallery-details-tab {
+    width: 44.5%;
+    padding: 15px 25px 10px;
+    float: left;
+    font-size: 14px;
+}
+
+.swiper-heading.text-truncate {
+    width: 82%;
+    display: inline-block;
+}
+
 
 /* gallery icons */
 .grid-icon,
@@ -495,157 +515,9 @@
 }
 
 /* gallery */
-.gallery-swiper .jcarousel-wrapper {
-    width: 100%;
-}
-
-.gallery-swiper .jcarousel li {
-    width: 960px;
-    height: 549px;
-    background: transparent;
-    display: table;
-    text-align: center;
-    position: relative;
-    margin-right: 0;
-}
-
-.gallery-swiper .jcarousel div {
-    width: 960px;
-    height: 549px;   
-    transform: scale(0.8);
-    transition: transform 0.2s; 
-    background: transparent;
-    display: table-cell;
-    vertical-align: middle;
-    /*opacity: 0.4;*/
-}
-
-.gallery-swiper .jcarousel .prev-sibling div {
-    position: absolute;
-    right: -100px;
-}
-
-.gallery-swiper .jcarousel .next-sibling div {
-    position: absolute;
-    left: -100px;
-}
-
-.gallery-swiper .jcarousel .target div {
-    transform: scale(1);
-    opacity: 1;
-}
-
-.gallery-swiper .jcarousel div img {
-    width: auto;
-    height: auto;
-}
-
-.gallery-swiper .jcarousel-control-prev,
-.gallery-swiper .jcarousel-control-next {
-    background-color: transparent;
-    border: none;
-    position: absolute;
-    top: 39%;
-}
-
-.gallery-swiper .jcarousel-control-prev {
-    left: 125px;
-}
-
-.gallery-swiper .jcarousel-control-next {
-    right: 125px;
-}
-
-@media only screen and (max-width:1024px) {
-    .model-grid-12-slug .model-details-block {
-        width: 72%;
-    }
-}
-
-#imageFlow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0%;
-    top: 14%;
-    overflow: hidden;
-    background: #2a2a2a;
-}
-#imageFlow .diapo {
-    position: absolute;
-    left: -4000px;
-    cursor: pointer;
-    -ms-interpolation-mode: nearest-neighbor;
-}
-#imageFlow .text {
-    position: absolute;
-    left: 0px;
-    width: 100%;
-    bottom: 40%;
-    text-align: center;
-    z-index: 1000;
-}
-#imageFlow .title {
-    display: none;
-    font-size: 0.9em;
-    font-weight: bold;
-}
-#imageFlow .legend {
-    display: none;
-    font-size: 0.8em;
-}
-#imageFlow .scrollbar {
-    position: absolute;
-    left: 10%;
-    width: 80%;
-    height: 16px;
-    z-index: 1000;
-}
-#imageFlow .track {
-    position: absolute;
-    left: 1%;
-    width: 98%;
-    height: 10px;
-    -moz-border-radius: 25px;
-	-webkit-border-radius: 25px;
-	border-radius: 25px;
-}
-#imageFlow .arrow-left {
-    position: absolute;
-}
-#imageFlow .arrow-right {
-    position: absolute;
-    right: 0px;
-}
-#imageFlow .bar {
-    position: absolute;
-    height: 10px;
-    left: 0;
-    width: 100px;
-    -moz-border-radius: 25px;
-	-webkit-border-radius: 25px;
-	border-radius: 25px;
-}
-
-.diapo {
-	opacity: 1;
-}
-
-.diapo.current {
-	opacity: 1;
-}
-
-.swiper-container {
-    width: 100%;
-    height: 540px;
-    margin: 0 auto;
-}
 .swiper-slide {
     text-align: center;
     font-size: 18px;
-    width: 980px;
-    min-width: 300px;
-    /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -659,23 +531,47 @@
     -webkit-align-items: center;
     align-items: center;
     position: relative;
+}
+
+.gallery-swiper .swiper-container {
+    width: 100%;
+    height: 520px;
+}
+
+.gallery-swiper .swiper-slide {
+    width: 980px;
+    min-width: 300px;
     opacity: 0.5;
 }
 
-.swiper-slide.swiper-slide-active {
+.gallery-swiper .gallery-swiper-image {
+    height: auto;
+    min-height: 50px;
+    max-height: 520px;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    line-height: 0;
+}
+
+.gallery-swiper .swiper-slide.swiper-slide-active {
     opacity: 1;
 }
 
-.swiper-slide.swiper-slide-prev {
+.gallery-swiper .swiper-slide.swiper-slide-prev {
     left: 345px;
 }
 
-.swiper-slide.swiper-slide-next {
+.gallery-swiper .swiper-slide.swiper-slide-next {
     right: 345px;
 }
 
-.swiper-slide.swiper-slide-prev img,
-.swiper-slide.swiper-slide-next img {
+.gallery-swiper .swiper-slide.swiper-slide-prev img,
+.gallery-swiper .swiper-slide.swiper-slide-next img {
     width: 300px;
     height: 162px;
     background: #fff;
@@ -684,8 +580,65 @@
 .swiper-slide img {
     width: auto;
     position: absolute;
+    background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center;
 }
 
 .swiper-button-disabled {
     display: none;
+}
+
+/* footer-tab-card */
+.footer-tab-card {
+    bottom: 50px;
+    z-index: 1;
+}
+
+.footer-tab-card .swiper-container {
+    height: 68px;
+    padding-right: 20px;
+}
+
+.footer-tab-card .thumbnail-swiper .swiper-slide {
+    width: 140px;
+    padding-left: 20px;
+    height: 68px;
+    cursor: pointer;
+}
+
+.thumbnail-swiper .swiper-slide img {
+    height: 68px;
+    line-height: 0;
+    border: 1px solid #e2e2e2;
+}
+
+/* active thumbnail image */
+.thumbnail-swiper .swiper-slide.focus-slide img {
+    border-color: #41b4c4;
+}
+
+/* model-more-info-section */
+.model-more-info-section {
+    padding: 20px;
+}
+
+.model-more-info-section .item-image-content {
+    width: 96px;
+    height: 54px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.item-image-content img {
+    width: 100%;
+}
+
+.model-more-info-section .bike-details-block {
+    font-size: 14px;
+    width: 70%;
+}
+
+@media only screen and (max-width:1024px) {
+    .model-grid-12-slug .model-details-block {
+        width: 72%;
+    }
 }

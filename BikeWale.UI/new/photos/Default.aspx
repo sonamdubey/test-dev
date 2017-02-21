@@ -141,7 +141,8 @@
 
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
+        <%--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>--%>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.7/js/swiper.min.js"></script>
 
         <div id="gallery-root">
             <div class="gallery-container">
@@ -157,73 +158,15 @@
 
                 <div class="gallery-body">
                     <div id="main-photo-swiper" class="gallery-swiper" data-bind="visible: photosTabActive()">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
-                                <div class="swiper-slide"><img class="swiper-lazy" data-src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" border="0" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div></div>
+                        <div class="swiper-container gallery-type-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/958x539/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                </div>
                             </div>
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
-                            <div class="swiper-button-next swiper-button-white"></div>
-                            <div class="swiper-button-prev swiper-button-white"></div>
+                            <div class="swiper-button-next swiper-button-white gallery-type-next"></div>
+                            <div class="swiper-button-prev swiper-button-white gallery-type-prev"></div>
                         </div>
-                        <%--<div id="wrapper">
-                            <div id="myCarousel" data-carousel-3d>
-                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" />
-                                <img src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" />
-                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" />
-                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" />
-                                <img src="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" />
-                            </div>
-                        </div>--%>
-                        <%--<div class="jcarousel-wrapper">
-                            <div class="jcarousel">
-                                <ul>
-                                    <li>
-                                        <div>
-                                            <img src="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg?1" alt="1" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img src="https://imgd.aeplcdn.com//958x539//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50256.jpg?2" alt="2" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Side-64339.jpg?3" alt="3" src="" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/22012/Honda-CB-Shine-Front-threequarter-66794.jpg?4" alt="4" src="" />
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <img class="lazy" data-original="https://imgd.aeplcdn.com//958x539//bw/ec/19963/Honda-Activa-3G-Front-threequarter-64338.jpg?5" alt="5" src="" />
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a>
-                            <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
-                        </div>--%>
-                        <%--<div id="imageFlow">
-                            <div class="text">
-                                <div class="title">Loading</div>
-                                <div class="legend">Please wait...</div>
-                            </div>
-                            <div class="scrollbar">
-                                <img class="track" src="" alt="">
-                                <img class="arrow-left" src="/images/arrow-left-test.png" alt="">
-                                <img class="arrow-right" src="/images/arrow-right-test.png" alt="">
-                                <img class="bar" src="" alt="">
-                            </div>
-                        </div>--%>
                     </div>
 
                     <div id="main-video-content" data-bind="visible: !photosTabActive()">
@@ -233,7 +176,7 @@
 
                 <div class="gallery-footer">
                     <div class="footer-tabs-wrapper">
-                        <div class="footer-tab">
+                        <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab">
                             <span class="bwsprite info-icon"></span>
                             <span class="inline-block font14">Know more about the bike</span>
                         </div>
@@ -243,18 +186,47 @@
                             <span class="inline-block font14">Colours</span>
                         </div>
 
-                        <div data-bind="visible: photosTabActive()" class="footer-tab">
+                        <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab">
                             <span class="bwsprite grid-icon"></span>
                             <span class="inline-block font14">All photos</span>
                         </div>                        
 
-                        <div data-bind="visible: !photosTabActive()" class="footer-tab">
+                        <div style="display: none" data-bind="visible: !photosTabActive()" class="footer-tab">
                             <span class="bwsprite grid-icon"></span>
                            <span class="inline-block font14">All videos</span>
                         </div>
 
+                        <div class="gallery-details-tab">
+                            <span class="swiper-heading text-truncate" data-bind="text: activePhotoTitle()"></span>
+                            <span class="rightfloat"><span data-bind="text: activePhotoIndex()"></span> / <span data-bind="    text: photoList().length"></span></span>
+                        </div>
+
                         <div class="clear"></div>
                     </div>
+
+                    
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" style="display: none" data-bind="visible: photoThumbnailScreen()">
+                        <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/110x61/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                            <div class="swiper-button-next swiper-button-white thumbnail-type-next"></div>
+                            <div class="swiper-button-prev swiper-button-white thumbnail-type-prev"></div>
+                        </div>
+                    </div>
+
+                    <div id="info-tab-screen" class="footer-tab-card" style="display: none" data-bind="visible: modelInfoScreen()">
+                        <div class="model-more-info-section ribbon-present"><!-- add class 'ribbon-present' for upcoming and discontinued bike -->
+                            <div>
+                                <a href="" class="item-image-content vertical-top" title="">
+                                    <img src="https://imgd.aeplcdn.com//110x61//bw/ec/22012/Honda-CB-Shine-Side-66791.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -265,6 +237,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
+            var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->
