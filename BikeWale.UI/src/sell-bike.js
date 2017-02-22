@@ -819,7 +819,7 @@ var personalDetails = function () {
                 "color": bdetails.color(),
                 "colorId": colorId,
                 "sourceId": 1,
-                "status": 1,
+                "status": 4,
                 "pageUrl": "used/sell",
                 "seller": {
                     "sellerType": sellerType,

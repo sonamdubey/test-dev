@@ -45,7 +45,12 @@ namespace Bikewale.BAL.UsedBikes
             _sellerRepository = sellerRepository;
         }
 
-
+        /// <summary>
+        /// Modified By : Sajal Gupta on 22-02-2016
+        /// Description : Saving ad after checking mobile verify status. 
+        /// </summary>
+        /// <param name="ad"></param>
+        /// <returns></returns>
         public SellBikeInquiryResultEntity SaveSellBikeAd(SellBikeAd ad)
         {
             SellBikeInquiryResultEntity result = new SellBikeInquiryResultEntity();
@@ -56,7 +61,6 @@ namespace Bikewale.BAL.UsedBikes
                 // Check if customer is fake
                 if (!IsFakeCustomer(ad.Seller.CustomerId))
                 {
-                    AddOrUpdateAd(ad);
                     result.InquiryId = ad.InquiryId;
                     //Check if mobile verified
                     if (!_mobileVerRespo.IsMobileVerified(ad.Seller.CustomerMobile, ad.Seller.CustomerEmail))
@@ -74,6 +78,8 @@ namespace Bikewale.BAL.UsedBikes
                         if (!isEdit)
                             SendNotification(ad);
                     }
+                    ad.Status = result.Status.Code;
+                    AddOrUpdateAd(ad);
                 }
                 else // Redirect user
                 {
