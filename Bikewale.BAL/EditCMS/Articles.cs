@@ -574,8 +574,8 @@ namespace Bikewale.BAL.EditCMS
                 if (basicId > 0)
                 {
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("ContentId", basicId.ToString());
-                    SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
+                    nvc.Add("v_ContentId", basicId.ToString());
+                    SyncBWData.PushToQueue("UpdateContentViewCount", DataBaseName.CWMysql, nvc);
                 }
             }
             catch (Exception ex)
