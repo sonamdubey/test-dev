@@ -514,10 +514,59 @@
     background-position: -205px -639px;
 }
 
+/* Swiper 3.4.1 */
+.swiper-container {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.swiper-container-no-flexbox .swiper-slide {
+  float: left;
+}
+.swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  -o-transition-property: -o-transform;
+  -ms-transition-property: -ms-transform;
+  transition-property: transform;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.swiper-container-android .swiper-slide,
+.swiper-wrapper {
+  -webkit-transform: translate3d(0px, 0, 0);
+  -moz-transform: translate3d(0px, 0, 0);
+  -o-transform: translate(0px, 0px);
+  -ms-transform: translate3d(0px, 0, 0);
+  transform: translate3d(0px, 0, 0);
+}
+/* Arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 47%;
+  z-index: 2;
+  cursor: pointer;
+}
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none;
+}
 /* gallery */
 .swiper-slide {
     text-align: center;
-    font-size: 18px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -531,23 +580,32 @@
     -webkit-align-items: center;
     align-items: center;
     position: relative;
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .gallery-swiper .swiper-container {
     width: 100%;
-    height: 520px;
+    height: 549px;
 }
 
 .gallery-swiper .swiper-slide {
-    width: 980px;
+    width: 976px;
     min-width: 300px;
-    opacity: 0.5;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    filter: alpha(opacity=30);
+    -moz-opacity:0.3;
+    -khtml-opacity: 0.3;
+    opacity: 0.3;
 }
 
 .gallery-swiper .gallery-swiper-image {
     height: auto;
     min-height: 50px;
-    max-height: 520px;
+    max-height: 549px;
     -ms-transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -558,30 +616,39 @@
     line-height: 0;
 }
 
-.gallery-swiper .swiper-slide.swiper-slide-active {
+.gallery-swiper .swiper-slide-active {
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    -moz-opacity:1;
+    -khtml-opacity: 1;
     opacity: 1;
 }
 
-.gallery-swiper .swiper-slide.swiper-slide-prev {
-    left: 345px;
+.gallery-swiper .swiper-slide-prev {
+    left: 320px;
 }
 
-.gallery-swiper .swiper-slide.swiper-slide-next {
-    right: 345px;
+.gallery-swiper .swiper-slide-next {
+    right: 320px;
 }
 
-.gallery-swiper .swiper-slide.swiper-slide-prev img,
-.gallery-swiper .swiper-slide.swiper-slide-next img {
+.gallery-swiper .swiper-slide-prev .gallery-image-placeholder,
+.gallery-swiper .swiper-slide-next .gallery-image-placeholder {
     width: 300px;
-    height: 162px;
+    height: 169px;
     background: #fff;
+}
+
+.gallery-swiper .swiper-slide-prev img,
+.gallery-swiper .swiper-slide-next img {
+    height: 169px;
 }
 
 .swiper-slide img {
     width: auto;
-    position: absolute;
-    background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center;
+    background: #fff url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center;
 }
+
 
 .swiper-button-disabled {
     display: none;
@@ -598,22 +665,90 @@
     padding-right: 20px;
 }
 
+.footer-tab-card .swiper-slide {
+    padding-left: 20px;
+}
+
 .footer-tab-card .thumbnail-swiper .swiper-slide {
     width: 140px;
-    padding-left: 20px;
     height: 68px;
     cursor: pointer;
 }
 
-.thumbnail-swiper .swiper-slide img {
+.thumbnail-image-placeholder {
+    width: 100%;
     height: 68px;
-    line-height: 0;
     border: 1px solid #e2e2e2;
+    overflow: hidden;
+}
+
+.thumbnail-swiper img {
+    height: 66px;
+    line-height: 0;
+    user-select: none;
 }
 
 /* active thumbnail image */
-.thumbnail-swiper .swiper-slide.focus-slide img {
+.thumbnail-swiper .focus-slide .thumbnail-image-placeholder {
     border-color: #41b4c4;
+}
+
+/* color-thumbnail-swiper */
+.footer-tab-card .color-thumbnail-swiper {
+    height: 40px;
+}
+
+.color-thumbnail-swiper .swiper-slide {
+    width: 170px;
+    height: 40px;
+    text-align: left;
+}
+
+.color-thumbnail-swiper .color-box {
+    width: 40px;
+    height: 40px;
+    background: #f1f1f1;
+    border: 1px solid #e2e2e2;
+    cursor: pointer;
+}
+
+.color-thumbnail-swiper .color-box-label {
+    font-size: 14px;
+    width: 72%;
+    padding-left: 10px;
+    color: #82888b;
+    cursor: pointer;
+}
+
+.color-box span {
+    width: 100%;
+    display: block !important;
+    background: #f1f1f1
+}
+
+.color-count-one span {
+    height: 100%;
+}
+
+.color-count-two span {
+    height: 50%;
+}
+
+.color-count-three span {
+    height: 33.33%;
+}
+
+.focus-slide .color-box:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.2) url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/white-tick-lg.png) 48% no-repeat;
+    width: 38px;
+    height: 38px;
+    display: block;
+    position: absolute;
+}
+
+.focus-slide .color-box-label {
+    color: #4d5057;
 }
 
 /* model-more-info-section */
@@ -634,7 +769,153 @@
 
 .model-more-info-section .bike-details-block {
     font-size: 14px;
-    width: 70%;
+    width: 60%;
+}
+
+.model-more-info-section .info-grid-9 {
+    width: 81%;
+}
+
+.model-more-info-section .info-grid-3 {
+    width: 18%;
+    position: relative;
+}
+.model-more-info-section .info-grid-3:before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -15px;
+    width: 1px;
+    height: 80%;
+    border-left: 1px solid #ecedee;
+}
+
+.btn-162-34 {
+    font-size: 14px;
+    width: 162px;
+    padding: 6px;
+}
+
+.bike-details-block .item-more-details-list li {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.model-more-info-section .text-truncate {
+    width: 100%;
+}
+
+.model-more-info-section .model-ribbon-tag {
+    top: -10px;
+}
+
+/* videos */
+.main-video-content {
+    width: 976px;
+    height: 549px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.main-video-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.main-video-iframe-content {
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.main-video-iframe-content iframe,
+.main-video-iframe-content video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* gallery icons */
+.gallery-next-icon,
+.gallery-prev-icon {
+    width: 17px;
+    height: 30px;
+    opacity: 0.8;
+}
+
+.gallery-next-icon {
+    background-position: -208px -663px;
+    right: 10%;
+    left: auto;
+}
+
+.gallery-prev-icon {
+    background-position: -188px -663px;
+    left: 10%;
+    right: auto;
+}
+
+.gallery-next-icon:hover,
+.gallery-prev-icon:hover {
+    opacity: 1;
+}
+
+.thumbnail-next-icon,
+.thumbnail-prev-icon {
+    width: 8px;
+    height: 14px;
+    opacity: 0.8;
+}
+
+.thumbnail-next-icon {
+    background-position: -158px -371px;
+    right: 10%;
+    left: auto;
+}
+
+.thumbnail-prev-icon {
+    background-position: -132px -371px;
+    left: 10%;
+    right: auto;
+}
+
+.thumbnail-next-icon:hover,
+.thumbnail-prev-icon:hover {
+    opacity: 1;
+}
+
+/* colorus tab absent */
+.resize-details-tab.gallery-details-tab {
+    width: 58%;
+}
+
+/* desktop resolutions */
+.gallery-700 .gallery-body {
+    padding-top: 5.5%;
+}
+.gallery-700 .gallery-swiper .gallery-swiper-image {
+    max-height: 510px;
+}
+
+.gallery-700 .main-video-content {
+    width: 924px;
+    height: 520px;
+    margin-top: 1.2%;
+}
+
+.gallery-768 .gallery-body {
+    padding-top: 9.5%;
+}
+
+.gallery-900 .gallery-body {
+    padding-top: 12%;
+}
+
+.gallery-1024 .gallery-body {
+    padding-top: 22%;
 }
 
 @media only screen and (max-width:1024px) {
