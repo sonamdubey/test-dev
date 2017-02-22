@@ -167,7 +167,7 @@
                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     
-                    <% if (modelPage.ModelDetails.New && viewModel != null )
+                    <% if (modelPage.ModelDetails.New && viewModel != null && !isBikeWalePQ)
                         {   
                         %>
                         <% if (viewModel!=null && viewModel.IsPremiumDealer)
@@ -249,7 +249,7 @@
                         </div>
                 <% } %>
                 <%
-                    if (viewModel != null)
+                    if (viewModel != null && !isBikeWalePQ)
                     { 
                 %>
                          <div id="model-dealer-card">
