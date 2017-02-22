@@ -2,6 +2,7 @@
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
@@ -108,29 +109,23 @@ namespace Bikewale.DAL.PriceQuote
                     {
                         if (dr != null && dr.Read())
                         {
-                            objQuotation.ExShowroomPrice = Convert.ToUInt64(dr["exshowroom"]);
-                            objQuotation.RTO = Convert.ToUInt32(dr["rto"]);
-                            objQuotation.Insurance = Convert.ToUInt32(dr["insurance"]);
-                            objQuotation.OnRoadPrice = Convert.ToUInt64(dr["onroad"]);
+                            objQuotation.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["exshowroom"]);
+                            objQuotation.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
+                            objQuotation.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
+                            objQuotation.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["onroad"]);
                             objQuotation.MakeName = Convert.ToString(dr["make"]);
                             objQuotation.ModelName = Convert.ToString(dr["model"]);
                             objQuotation.VersionName = Convert.ToString(dr["version"]);
                             objQuotation.City = Convert.ToString(dr["cityname"]);
-                            objQuotation.VersionId = Convert.ToUInt32(dr["versionid"]);
-                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignid"]);
-                            objQuotation.ManufacturerId = !Convert.IsDBNull(dr["manufacturerid"]) ? Convert.ToUInt32(dr["manufacturerid"]) : default(UInt32);
+                            objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
+                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
+                            objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
                             objQuotation.State = Convert.ToString(dr["statename"]);
 
                             objQuotation.PriceQuoteId = pqId;
                         }
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetPriceQuote sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -167,32 +162,26 @@ namespace Bikewale.DAL.PriceQuote
                     {
                         if (dr != null && dr.Read())
                         {
-                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignId"]);
+                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignId"]);
                             objQuotation.ManufacturerName = Convert.ToString(dr["organization"]);
                             objQuotation.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                            objQuotation.ExShowroomPrice = Convert.ToUInt64(dr["exshowroom"]);
-                            objQuotation.RTO = Convert.ToUInt32(dr["rto"]);
-                            objQuotation.Insurance = Convert.ToUInt32(dr["insurance"]);
-                            objQuotation.OnRoadPrice = Convert.ToUInt64(dr["onroad"]);
+                            objQuotation.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["exshowroom"]);
+                            objQuotation.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
+                            objQuotation.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
+                            objQuotation.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["onroad"]);
                             objQuotation.MakeName = Convert.ToString(dr["make"]);
                             objQuotation.ModelName = Convert.ToString(dr["model"]);
                             objQuotation.VersionName = Convert.ToString(dr["version"]);
                             objQuotation.City = Convert.ToString(dr["cityname"]);
-                            objQuotation.VersionId = Convert.ToUInt32(dr["versionid"]);
-                            objQuotation.CampaignId = Convert.ToUInt32(dr["campaignid"]);
-                            objQuotation.ManufacturerId = !Convert.IsDBNull(dr["manufacturerid"]) ? Convert.ToUInt32(dr["manufacturerid"]) : default(UInt32);
+                            objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
+                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
+                            objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
                             objQuotation.State = Convert.ToString(dr["statename"]);
                             objQuotation.ManufacturerAd = Convert.ToString(dr["manufacturerAd"]);
                             objQuotation.PriceQuoteId = pqId;
                         }
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetPriceQuote sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -250,12 +239,12 @@ namespace Bikewale.DAL.PriceQuote
                             {
                                 objVersionInfo.Add(new OtherVersionInfoEntity
                                 {
-                                    VersionId = Convert.ToUInt32(dr["VersionId"]),
+                                    VersionId = SqlReaderConvertor.ToUInt32(dr["VersionId"]),
                                     VersionName = Convert.ToString(dr["VersionName"]),
-                                    OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
-                                    Price = Convert.ToUInt32(dr["Price"]),
-                                    RTO = Convert.ToUInt32(dr["RTO"]),
-                                    Insurance = Convert.ToUInt32(dr["Insurance"])
+                                    OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                    RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]),
+                                    Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"])
                                 });
                             }
                             dr.Close();
@@ -263,12 +252,6 @@ namespace Bikewale.DAL.PriceQuote
                     }
                 }
 
-            }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetOtherVersionsPrices sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {
@@ -380,11 +363,11 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             while (dr.Read())
                             {
-                                objQuotation.AreaId = !Convert.IsDBNull(dr["AreaId"]) ? Convert.ToUInt32(dr["AreaId"]) : default(UInt32);
-                                objQuotation.CityId = !Convert.IsDBNull(dr["cityid"]) ? Convert.ToUInt32(dr["cityid"]) : default(UInt32);
-                                objQuotation.VersionId = !Convert.IsDBNull(dr["BikeVersionId"]) ? Convert.ToUInt32(dr["BikeVersionId"]) : default(UInt32);
-                                objQuotation.DealerId = !Convert.IsDBNull(dr["DealerId"]) ? Convert.ToUInt32(dr["DealerId"]) : default(UInt32);
-                                objQuotation.CampaignId = !Convert.IsDBNull(dr["CampaignId"]) ? Convert.ToUInt32(dr["CampaignId"]) : default(UInt32);
+                                objQuotation.AreaId = SqlReaderConvertor.ToUInt32(dr["AreaId"]);
+                                objQuotation.CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]);
+                                objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"]);
+                                objQuotation.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                                objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["CampaignId"]);
                             }
                             dr.Close();
                         }
@@ -429,13 +412,13 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             objPrice.Add(new PriceQuoteOfTopCities
                             {
-                                CityName = !Convert.IsDBNull(dr["City"]) ? Convert.ToString(dr["City"]) : default(string),
-                                CityMaskingName = !Convert.IsDBNull(dr["CityMaskingName"]) ? Convert.ToString(dr["CityMaskingName"]) : default(string),
-                                OnRoadPrice = !Convert.IsDBNull(dr["OnRoadPrice"]) ? Convert.ToUInt32(dr["OnRoadPrice"]) : default(UInt32),
-                                Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                CityName = Convert.ToString(dr["City"]),
+                                CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["OnRoadPrice"]),
+                                Make = Convert.ToString(dr["Make"]),
+                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                Model = Convert.ToString(dr["Model"]),
+                                ModelMaskingName = Convert.ToString(dr["ModelMaskingName"])
 
                             });
                         }
@@ -491,13 +474,13 @@ namespace Bikewale.DAL.PriceQuote
                             {
                                 objPrice.Add(new PriceQuoteOfTopCities
                                 {
-                                    CityName = Convert.IsDBNull(dr["City"]) ? default(string) : Convert.ToString(dr["City"]),
-                                    CityMaskingName = Convert.IsDBNull(dr["CityMaskingName"]) ? default(string) : Convert.ToString(dr["CityMaskingName"]),
-                                    OnRoadPrice = Convert.IsDBNull(dr["OnRoadPrice"]) ? default(UInt32) : Convert.ToUInt32(dr["OnRoadPrice"]),
-                                    Make = Convert.IsDBNull(dr["Make"]) ? default(string) : Convert.ToString(dr["Make"]),
-                                    MakeMaskingName = Convert.IsDBNull(dr["MakeMaskingName"]) ? default(string) : Convert.ToString(dr["MakeMaskingName"]),
-                                    Model = Convert.IsDBNull(dr["Model"]) ? default(string) : Convert.ToString(dr["Model"]),
-                                    ModelMaskingName = Convert.IsDBNull(dr["ModelMaskingName"]) ? default(string) : Convert.ToString(dr["ModelMaskingName"])
+                                    CityName = Convert.ToString(dr["City"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                    OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["OnRoadPrice"]),
+                                    Make = Convert.ToString(dr["Make"]),
+                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                    Model = Convert.ToString(dr["Model"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"])
                                 });
                             }
                             dr.Close();
@@ -551,24 +534,24 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             bikePrices.Add(new BikeQuotationEntity
                             {
-                                VersionId = Convert.ToUInt32(Convert.ToString(dr["BikeVersionId"])),
+                                VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"]),
                                 VersionName = Convert.ToString(dr["Version"]),
                                 MakeName = Convert.ToString(dr["Make"]),
                                 MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                 ModelName = Convert.ToString(dr["Model"]),
                                 ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
-                                CityId = Convert.ToUInt32(dr["CityId"]),
+                                CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                 CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
                                 City = Convert.ToString(dr["City"]),
-                                ExShowroomPrice = Convert.ToUInt64(dr["Price"]),
-                                RTO = Convert.ToUInt32(dr["RTO"]),
-                                Insurance = Convert.ToUInt32(dr["Insurance"]),
-                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["Price"]),
+                                RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]),
+                                Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"]),
+                                OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]),
                                 OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
                                 HostUrl = Convert.ToString(dr["HostUrl"]),
-                                MakeId = Convert.ToUInt32(Convert.ToString(dr["MakeId"])),
-                                IsModelNew = Convert.ToBoolean(dr["IsModelNew"]),
-                                IsVersionNew = Convert.ToBoolean(dr["IsVersionNew"])
+                                MakeId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["MakeId"])),
+                                IsModelNew = SqlReaderConvertor.ToBoolean(dr["IsModelNew"]),
+                                IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"])
 
                             });
 

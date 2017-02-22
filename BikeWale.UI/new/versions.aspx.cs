@@ -1038,11 +1038,6 @@ namespace Bikewale.New
                         rptOffers.DataBind();
                         isOfferAvailable = true;
                     }
-                    if (viewModel.SecondaryDealersV2 != null && viewModel.SecondaryDealerCount > 0)
-                    {
-                        rptSecondaryDealers.DataSource = viewModel.SecondaryDealersV2;
-                        rptSecondaryDealers.DataBind();
-                    }
                 }
             }
             catch (Exception ex)
