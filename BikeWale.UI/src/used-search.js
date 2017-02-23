@@ -31,7 +31,6 @@ var listingStartPoint = $('#listing-start-point'),
     bwSpinner = $('#ub-ajax-loader'),
     loaderColumn = $('#loader-right-column'),
     cityModelCarousel = $('#city-model-used-carousel');
-
 var getQueryString = function () {
     var qsColl = new Object();
     try {
@@ -223,13 +222,12 @@ var usedBikes = function () {
     self.Pagination = ko.observable(new vmPagination());
 
     self.FilterCity = function (d, e) {
-        try {
-
+     try {
             var ele = $(e.target).find("option:selected");
             var cityMaskingName = ele.data("citymasking") + "/", arrLocation = window.location.pathname.split("bikes-in-");
             arrLocation[arrLocation.length - 1] = cityMaskingName;
             var redirectUrl = arrLocation.join("bikes-in-");
-            window.location.hash = window.location.hash.replace("city=" + ele.data("cityid"));
+            window.location.hash = window.location.hash.replace(/city=[0-9]+/i, ("city=" + ele.data("cityid")));
             window.location.pathname = redirectUrl;
         } catch (e) {
             console.log("Error in city change : " + e);
@@ -503,7 +501,7 @@ var usedBikes = function () {
     };
 
     self.GetUsedBikes = function (e) {
-        try {
+       try {
 
             if (self.Filters()["pn"] && e == null) {
                 self.Filters()["pn"] = "";
