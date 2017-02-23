@@ -517,7 +517,7 @@ var usedBikes = function () {
                 self.PreviousQS(qs);
                 $.ajax({
                     type: 'GET',
-                    url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B") + ((selectedCityId > 0) ? "&city=" + selectedCityId : ""),
+                    url: '/api/used/search/?bikes=1&' + qs.replace(/[\+]/g, "%2B") + ((selectedCityId > 0 && qs.indexOf("city")==-1) ? "&city=" + selectedCityId : ""),
                     dataType: 'json',
                     success: function (response) {
 
