@@ -1118,7 +1118,7 @@ var personalDetails = function () {
                     "color": bdetails.color(),
                     "colorId": colorId,
                     "sourceId": 2,
-                    "status": 1,
+                    "status": 4,
                     "pageUrl": "used/sell",
                     "seller": {
                         "sellerType": pdetails.sellerTypeVal(),

@@ -147,6 +147,30 @@ namespace Bikewale.DAL.Used
         }
 
         /// <summary>
+        /// Created by : Sajal Gupta on 22-02-2017
+        /// Description: Funcion to update status aginst inquiry id.      
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <param name="status"></param>
+        public void ChangeInquiryStatus(uint inquiryId, SellAdStatus status)
+        {
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("sellbikelistingstatuschange"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, status));
+                    MySqlDatabase.UpdateQuery(cmd, ConnectionType.ReadOnly);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.ChangeInquiryStatus (inquiryId:{0}) => status:{1}", inquiryId, status));
+            }
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 14 Oct 2016
         /// Description :   Retrieves sell bike ad
         /// </summary>

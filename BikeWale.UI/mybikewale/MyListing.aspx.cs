@@ -77,22 +77,30 @@ namespace Bikewale.MyBikeWale
             //return Bikewale.Common.ImagingFunctions.GetPathToShowImages(directoryPath, hostUrl) + imgName;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 23-02-2017
+        /// Description : Setting approval pending status for status id = 5.
+        /// </summary>
+        /// <param name="statusId"></param>
+        /// <param name="isApproved"></param>
+        /// <param name="inquiryId"></param>
+        /// <returns></returns>
         protected string GetStatus(int statusId, bool isApproved, int inquiryId)
         {
             string retVal = string.Empty;
-            if (statusId == 1 && isApproved)
+            if (statusId == (int)SellAdStatus.Approved && isApproved)
             {
                 retVal = "[ Approved ]";
             }
-            else if (statusId == 4)
+            else if (statusId == (int)SellAdStatus.MobileUnverified)
             {
                 retVal = "<a target=_blank style=color:#f00; class=link-decoration href=/used/sell/default.aspx?id=" + inquiryId + " >[ Get Verified ]</a>";
             }
-            else if (statusId == 1 && !isApproved)
+            else if (statusId == (int)SellAdStatus.MobileVerified || (statusId == (int)SellAdStatus.Approved && !isApproved))
             {
                 retVal = "[ Approval pending ]";
             }
-            else if (statusId == 2 && !isApproved)
+            else if (statusId == (int)SellAdStatus.Fake && !isApproved)
             {
                 retVal = "[ Fake ]";
             }
@@ -101,3 +109,4 @@ namespace Bikewale.MyBikeWale
 
     }   // End of class
 }   // End of namespace
+
