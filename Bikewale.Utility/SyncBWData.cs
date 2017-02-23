@@ -30,9 +30,6 @@ namespace Bikewale.Utility
                     case DataBaseName.CW:
                         dbName = "CW";
                         break;
-                    case DataBaseName.CWMysql:
-                        dbName = "CWMysql";
-                        break;
                 }
                 nvc.Add("DBNAME", dbName);
                 nvc.Add("SPNAME", spName);
@@ -50,7 +47,6 @@ namespace Bikewale.Utility
     public enum DataBaseName
     {
         CW = 1,
-        BW = 2,
-        CWMysql = 3
+        BW = 2
     }
 }

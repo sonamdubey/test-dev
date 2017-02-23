@@ -108,7 +108,7 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_Futuristic", "0");
                         nvc.Add("v_Used", "1");
                         nvc.Add("v_New", "1");
-                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CWMysql, nvc);
+                        SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
                     }
                 }
             }
@@ -204,7 +204,7 @@ namespace BikeWaleOpr.Content
                     nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                     nvc.Add("v_MaskingName", null);
                     nvc.Add("v_IsDeleted", null);
-                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CWMysql, nvc);
+                    SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     //Refresh memcache object for bikemake description change
                     MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}", makeid));
