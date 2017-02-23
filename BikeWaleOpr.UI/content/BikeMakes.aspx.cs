@@ -66,12 +66,6 @@ namespace BikeWaleOpr.Content
             }
         } // Page_Load
 
-        /// <summary>
-        /// Modified By : Sushil Kumar on 13th Feb 2016
-        /// Description : Added carwale mysql db changes for consumer datasync
-        /// </summary>
-        /// <param name="Sender"></param>
-        /// <param name="e"></param>
         void btnSave_Click(object Sender, EventArgs e)
         {
             Page.Validate();
@@ -102,19 +96,24 @@ namespace BikeWaleOpr.Content
                     {
                         // Create name value collection
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("v_MakeId", _makeId.ToString());
-                        nvc.Add("v_MakeName", txtMake.Text.Trim().Replace("'", "''"));
-                        nvc.Add("v_MaskingName", txtMaskingName.Text.Trim());
-                        nvc.Add("v_Futuristic", "0");
-                        nvc.Add("v_Used", "1");
-                        nvc.Add("v_New", "1");
+                        nvc.Add("MakeId", _makeId.ToString());
+                        nvc.Add("MakeName", txtMake.Text.Trim().Replace("'", "''"));
+                        nvc.Add("MaskingName", txtMaskingName.Text.Trim());
                         SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                Trace.Warn("Error", ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
             catch (Exception ex)
             {
+                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             BindGrid();
         }
@@ -162,12 +161,6 @@ namespace BikeWaleOpr.Content
             btnSave.Enabled = false;
         }
 
-        /// <summary>
-        /// Modified By : Sushil Kumar on 13th Feb 2016
-        /// Description : Added carwale mysql db changes for consumer datasync
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
         {
             Page.Validate();
@@ -197,13 +190,11 @@ namespace BikeWaleOpr.Content
                     // Push the data to carwale DB
                     // Create name value collection
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_MakeId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                    nvc.Add("v_MakeName", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("v_IsNew", Convert.ToInt16(chkNew.Checked).ToString());
-                    nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
-                    nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
-                    nvc.Add("v_MaskingName", null);
-                    nvc.Add("v_IsDeleted", null);
+                    nvc.Add("makeId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("makename", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("isnew", Convert.ToInt16(chkNew.Checked).ToString());
+                    nvc.Add("isused", Convert.ToInt16(chkUsed.Checked).ToString());
+                    nvc.Add("isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     //Refresh memcache object for bikemake description change
@@ -221,9 +212,11 @@ namespace BikeWaleOpr.Content
             }
             catch (SqlException ex)
             {
-
+                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
 
+                Trace.Warn("number : " + ex.Number + " : error code : " + ex.ErrorCode);
                 // Error code Unique key constraint in the database.
                 if (ex.Number == 2627)
                 {
@@ -232,7 +225,9 @@ namespace BikeWaleOpr.Content
             }
             catch (Exception ex)
             {
+                Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             dtgrdMembers.EditItemIndex = -1;
