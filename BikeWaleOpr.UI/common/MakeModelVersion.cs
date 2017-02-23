@@ -225,14 +225,8 @@ namespace BikeWaleOpr.Common
 
                     // Update the Make Masking Name in CW database
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_MakeId", makeId);
-                    nvc.Add("v_MaskingName", maskingName);
-                    nvc.Add("v_MakeName", null);
-                    nvc.Add("v_IsNew", null);
-                    nvc.Add("v_IsUsed", null);
-                    nvc.Add("v_IsFuturistic", null);
-                    nvc.Add("v_IsDeleted", null);
-
+                    nvc.Add("makeid", makeId);
+                    nvc.Add("maskingname", maskingName);
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     if (_mc != null)
@@ -242,6 +236,11 @@ namespace BikeWaleOpr.Common
                     }
                     isSuccess = true;
                 }
+            }
+            catch (SqlException err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             catch (Exception err)
             {
@@ -281,19 +280,8 @@ namespace BikeWaleOpr.Common
                     if (!Convert.ToBoolean(cmd.Parameters["par_ismodelmaskingexist"].Value))
                     {
                         NameValueCollection nvc = new NameValueCollection();
-
-                        nvc.Add("v_MakeId", null);
-                        nvc.Add("v_ModelName", null);
-                        nvc.Add("v_ModelMaskingName", maskingName);
-                        nvc.Add("v_HostUrl", null);
-                        nvc.Add("v_OriginalImagePath", null);
-                        nvc.Add("v_IsUsed", null);
-                        nvc.Add("v_IsNew", null);
-                        nvc.Add("v_IsFuturistic", null);
-                        nvc.Add("v_IsDeleted", null);
-                        nvc.Add("v_ModelId", modelId);
-
-
+                        nvc.Add("ModelMaskingName", maskingName);
+                        nvc.Add("modelId", modelId);
                         SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         isSuccess = true;
                     }
@@ -308,9 +296,15 @@ namespace BikeWaleOpr.Common
 
                 }
             }
+            catch (SqlException err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
             catch (Exception err)
             {
                 ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
 
             return isSuccess;
@@ -388,20 +382,22 @@ namespace BikeWaleOpr.Common
                     // Push the data to carwale DB
                     // Create name value collection
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_MakeId", makeId);
-                    nvc.Add("v_MaskingName", null);
-                    nvc.Add("v_MakeName", null);
-                    nvc.Add("v_IsNew", null);
-                    nvc.Add("v_IsUsed", null);
-                    nvc.Add("v_IsFuturistic", null);
-                    nvc.Add("v_IsDeleted", "1");
-
+                    nvc.Add("makeId", makeId);
+                    nvc.Add("IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
             }
+            catch (SqlException sqlEx)
+            {
+                HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Sql Error : ", sqlEx.Message);
+                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                errObj.SendMail();
+            }
             catch (Exception ex)
             {
+                HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                errObj.SendMail();
             }
         }
 
@@ -424,23 +420,22 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_MakeId", null);
-                    nvc.Add("v_ModelName", null);
-                    nvc.Add("v_ModelMaskingName", null);
-                    nvc.Add("v_HostUrl", null);
-                    nvc.Add("v_OriginalImagePath", null);
-                    nvc.Add("v_IsUsed", null);
-                    nvc.Add("v_IsNew", null);
-                    nvc.Add("v_IsFuturistic", null);
-                    nvc.Add("v_IsDeleted", "1");
-                    nvc.Add("v_ModelId", modelId);
-
+                    nvc.Add("ModelId", modelId);
+                    nvc.Add("IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
             }
+            catch (SqlException sqlEx)
+            {
+                HttpContext.Current.Trace.Warn("DeleteModelVersions Sql Error : ", sqlEx.Message);
+                ErrorClass errObj = new ErrorClass(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                errObj.SendMail();
+            }
             catch (Exception ex)
             {
+                HttpContext.Current.Trace.Warn("DeleteModelVersions Exception : ", ex.Message);
                 ErrorClass errObj = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                errObj.SendMail();
             }
         }
 
