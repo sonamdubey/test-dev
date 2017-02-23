@@ -1,0 +1,42 @@
+﻿@model  IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity>
+            @if (Model != null) { 
+    <div class="swiper-container card-container">
+        <div class="swiper-wrapper">
+            @foreach (var bike in Model)
+            {
+                string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName">
+                            <div class="swiper-image-preview position-rel">
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98)" alt="@bikeName" src="" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                @if (bike.ExpectedLaunchDate != null)
+                                {
+                                    <div class="text-light-grey margin-bottom5">
+                                        <p class="font11 text-light-grey">Expected launch</p>
+                                        <p class="font16 text-bold text-default">@Bikewale.Utility.FormatDate.GetFormatDate(bike.ExpectedLaunchDate, "MMM yyyy")</p>
+                                    </div>
+                                }
+                                @if (bike.EstimatedPriceMin > 0)
+                                {
+                                    <div>
+                                        <div class="font11 text-light-grey">Expected Price</div>
+                                        <div class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span>
+                                            <span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin))</span>
+                                            <span class="font14 text-bold">onwards</span>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+            }

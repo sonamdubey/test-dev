@@ -251,7 +251,7 @@ namespace Bikewale.BAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {2}", HttpContext.Current.Request.ServerVariables["URL"], payload));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SendFCMNotification, payload : {1}", HttpContext.Current.Request.ServerVariables["URL"], payload));
             }
 
             return isSuccess;

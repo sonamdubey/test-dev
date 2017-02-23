@@ -43,6 +43,7 @@ namespace Bikewale.Service
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected CityEntityBase objCityEntityBase;
         protected UsedBikeWidget ctrlRecentUsedBikes;
+        protected UsedPopularModelsInCity ctrlUsedModels;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
@@ -129,14 +130,18 @@ namespace Bikewale.Service
                 ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
 
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.MakeId = makeId;
-                ctrlRecentUsedBikes.TopCount = 4;
-                ctrlRecentUsedBikes.isAd = true;
-                ctrlRecentUsedBikes.cityName = cityName;
-                ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
-                ctrlRecentUsedBikes.AdId = "1395986297721";
-                ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
+                if (ctrlUsedModels != null)
+                {
+                    ctrlUsedModels.CityId = cityId;
+                    ctrlUsedModels.MakeId = makeId;
+                    ctrlUsedModels.MakeMaskingName = makeMaskingName;
+                    ctrlUsedModels.MakeName = makeName;
+                    ctrlUsedModels.TopCount = 4;
+                    ctrlUsedModels.IsAd = true;
+                    ctrlUsedModels.CityName = cityName;
+                    ctrlUsedModels.CityMaskingName = urlCityMaskingName;
+                    ctrlUsedModels.AdId = "1395986297721";
+                }
 
                 if (ctrlChangeLocation != null)
                 {
@@ -146,7 +151,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterList.GetCityNameByCityMaskingName");
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterList.GetCityNameByCityMaskingName");
             }
         }
 
@@ -175,7 +180,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetCityNameByCityMaskingName");
+                ErrorClass objErr = new ErrorClass(ex, "GetCityNameByCityMaskingName");
             }
         }
 
@@ -203,7 +208,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeNameByMakeId");
+                ErrorClass objErr = new ErrorClass(ex, "GetMakeNameByMakeId");
             }
         }
 
@@ -237,7 +242,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindServiceCentersList : ");
+                ErrorClass objErr = new ErrorClass(ex, "BindServiceCentersList : ");
             }
         }
 
@@ -270,7 +275,7 @@ namespace Bikewale.Service
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "GetMakeIdByMakeMaskingName");
+                    ErrorClass objErr = new ErrorClass(ex, "GetMakeIdByMakeMaskingName");
                     isValidMake = false;
                 }
                 finally
@@ -342,7 +347,7 @@ namespace Bikewale.Service
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("ProcessQueryString for {0} makeMaskingName", makeMaskingName));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("ProcessQueryString for {0} makeMaskingName", makeMaskingName));
             }
             return isValidQueryString;
         }

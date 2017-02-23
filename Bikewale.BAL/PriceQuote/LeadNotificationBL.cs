@@ -1,18 +1,24 @@
 ﻿using Bikewale.BAL.ABServiceRef;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.MobileVerification;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.MobileVerification;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-
+using System.Linq;
 namespace Bikewale.BAL.PriceQuote
 {
     /// <summary>
@@ -22,18 +28,30 @@ namespace Bikewale.BAL.PriceQuote
     /// Description : Signature of Notify Dealer and SendEmailToDealer changed.
     /// Modified by :   Sumit Kate on 18 Aug 2016
     /// Description :   Push Lead To Gaadi.com external API
+    /// Modified by :  Aditi Srivastava on 16 Feb 2017
+    /// Summary     :  Added a function to check if mobile number is blocked or not
     /// </summary>
     public class LeadNotificationBL : ILeadNofitication
     {
         private readonly TCApi_Inquiry _objInquiry;
+        private readonly IMobileVerificationCache _objMobileVerification;
         public LeadNotificationBL()
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>()
+                          .RegisterType<IMobileVerificationCache, MobileVerificationCache>()
+                          .RegisterType<ICacheManager, MemcacheManager>();
+                _objMobileVerification = container.Resolve<IMobileVerificationCache>();
+            }
             _objInquiry = new TCApi_Inquiry();
         }
         /// <summary>
         /// Sends Email and SMS to Customer
         /// Modified By : Lucky Rathore on 13 May 2016
         /// Description : parameter versionName, dealerLat, dealerLong, workingHours added.
+        /// Modified by : Aditi Srivastava on 16 Feb 2017
+        /// Summary     : Added function to check if mobile number is authentic before notifying customer
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="bikeName"></param>
@@ -60,28 +78,30 @@ namespace Bikewale.BAL.PriceQuote
         {
             try
             {
-                //Different SMS is sent if lead is submitted from BikeWale APP
-                if (platformId == "3" || platformId == "4")
+                if (!IsFakeMobileNumber(objDPQSmsEntity.CustomerMobile))
                 {
-                    SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
-                }
-                else
-                {
+                    //Different SMS is sent if lead is submitted from BikeWale APP
+                    if (platformId == "3" || platformId == "4")
+                    {
+                        SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    }
+                    else
+                    {
+                        //If lead is submitted while Booking a bike online don't sent SMS to customer
+                        if (leadSourceId != 16 && leadSourceId != 22)
+                            SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    }
                     //If lead is submitted while Booking a bike online don't sent SMS to customer
                     if (leadSourceId != 16 && leadSourceId != 22)
-                        SendEmailSMSToDealerCustomer.SendSMSToCustomer(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
-                }
-                //If lead is submitted while Booking a bike online don't sent SMS to customer
-                if (leadSourceId != 16 && leadSourceId != 22)
-                {
-                    SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
-                        versionName, dealerLat, dealerLong, workingHours);
+                    {
+                        SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
+                            versionName, dealerLat, dealerLong, workingHours);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.NotifyCustomer");
-                objErr.SendMail();
             }
         }
 
@@ -91,6 +111,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : Signature of Notify Dealer and SendEmailToDealer.
         /// Modified By : Lucky Rathore on 11 July 2016.
         /// Description : parameter dealerArea added in NotifyDealer(). 
+        /// Modified by : Aditi Srivastava on 16 Feb 2017
+        /// Summary     : Added function to check if mobile number is authentic before notifying dealer
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -115,20 +137,24 @@ namespace Bikewale.BAL.PriceQuote
         {
             try
             {
-                SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
-                SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea);
+                if (!IsFakeMobileNumber(customerMobile))
+                {
+                    SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
+                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.NotifyDealer");
-                objErr.SendMail();
             }
         }
 
         /// <summary>
         /// Pushes Inquiry in AutoBiz using API
         /// Modified By : Sushil Kumar on 29th Nov 2016
-        /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count    
+        /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count
+        /// Modified by : Aditi Srivastava on 14 Feb 2017
+        /// Summary     : Added function to check if mobile number is authentic before pushing lead
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -143,7 +169,6 @@ namespace Bikewale.BAL.PriceQuote
             try
             {
                 IDealerPriceQuote objDealer = null;
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
@@ -155,7 +180,7 @@ namespace Bikewale.BAL.PriceQuote
                 }
 
                 //update dealer's daily lead count
-                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)))
+                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)) && !IsFakeMobileNumber(customerMobile))
                 {
 
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
@@ -172,7 +197,6 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.PushtoAB");
-                objErr.SendMail();
             }
         }
 
@@ -200,7 +224,6 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.UpdateDealerDailyLeadCount");
-                objErr.SendMail();
             }
             return isUpdateDealerCount;
         }
@@ -210,6 +233,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description :   Push Lead To Gaadi.com external API
         /// Modified by :   Sumit Kate on 02 Feb 2017
         /// Description :   Send the all the parameters with a base64 encoded json pack in a params variable
+        /// Modified by :   Aditi Srivastava on 16 Feb 2017
+        /// Summary     :   Added function to check if mobile number is authentic before pushing lead
         /// </summary>
         /// <param name="leadEntity"></param>
         /// <returns></returns>
@@ -220,41 +245,44 @@ namespace Bikewale.BAL.PriceQuote
             bool isSuccess = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (!IsFakeMobileNumber(leadEntity.Mobile))
                 {
-                    container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>().
-                    RegisterType<IDealer, DealersRepository>();
-                    IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
-                    BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
-
-                    GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        City = quotation.City,
-                        Email = leadEntity.Email,
-                        Make = quotation.MakeName,
-                        Mobile = leadEntity.Mobile,
-                        Model = quotation.ModelName,
-                        Name = leadEntity.Name,
-                        Source = "bikewale",
-                        State = quotation.State
-                    };
+                        container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>().
+                        RegisterType<IDealer, DealersRepository>();
+                        IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
+                        BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
 
-                    leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead)));
-
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        using (HttpResponseMessage _response = httpClient.GetAsync(leadURL).Result)
+                        GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
                         {
-                            if (_response.IsSuccessStatusCode)
+                            City = quotation.City,
+                            Email = leadEntity.Email,
+                            Make = quotation.MakeName,
+                            Mobile = leadEntity.Mobile,
+                            Model = quotation.ModelName,
+                            Name = leadEntity.Name,
+                            Source = "bikewale",
+                            State = quotation.State
+                        };
+
+                        leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead)));
+
+                        using (HttpClient httpClient = new HttpClient())
+                        {
+                            using (HttpResponseMessage _response = httpClient.GetAsync(leadURL).Result)
                             {
-                                if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                if (_response.IsSuccessStatusCode)
                                 {
-                                    response = _response.Content.ReadAsStringAsync().Result;
-                                    IDealer objDealer = container.Resolve<IDealer>();
-                                    objDealer.UpdateManufaturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
-                                    _response.Content.Dispose();
-                                    _response.Content = null;
-                                    isSuccess = true;
+                                    if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                                    {
+                                        response = _response.Content.ReadAsStringAsync().Result;
+                                        IDealer objDealer = container.Resolve<IDealer>();
+                                        objDealer.UpdateManufaturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
+                                        _response.Content.Dispose();
+                                        _response.Content = null;
+                                        isSuccess = true;
+                                    }
                                 }
                             }
                         }
@@ -267,5 +295,27 @@ namespace Bikewale.BAL.PriceQuote
             }
             return isSuccess;
         }
+        /// <summary>
+        /// Created by : Aditi Srivastava on 16 Feb 2017
+        /// Summar     : Check if a number is a part of blocked numbers list
+        /// </summary>
+        /// <param name="mobileNumber"></param>
+        /// <returns></returns>
+        private bool IsFakeMobileNumber(string mobileNumber)
+        {
+            bool isFake = false;
+            IEnumerable<string> numberList = null;
+            try
+            {
+                numberList = _objMobileVerification.GetBlockedNumbers();
+                isFake = numberList.Contains(mobileNumber);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "LeadNotificationBL.IsFakeMobileNumber");
+            }
+            return isFake;
+        }
+
     }
 }

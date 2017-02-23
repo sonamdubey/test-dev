@@ -36,7 +36,8 @@ namespace Bikewale.Mobile.Service
     /// </summary>
     public class ServiceCenterList : PageBase
     {
-        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty, urlCityMaskingName = string.Empty;
+        protected string makeName = string.Empty, modelName = string.Empty, cityName = string.Empty, areaName = string.Empty,
+            makeMaskingName = string.Empty, cityMaskingName = string.Empty;
         protected uint cityId, makeId, totalServiceCenters;
         protected string clientIP = string.Empty, pageUrl = string.Empty;
         protected LeadCaptureControl ctrlLeadCapture;
@@ -44,7 +45,7 @@ namespace Bikewale.Mobile.Service
         protected CityEntityBase objCityEntityBase;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
-        protected UsedBikes ctrlRecentUsedBikes;
+        protected UsedPopularModelsInCity ctrlPopularModels;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
@@ -78,7 +79,7 @@ namespace Bikewale.Mobile.Service
                 if (makeId > 0 && cityId > 0)
                 {
                     BindServiceCentersList();
-                    GetCityNameByCityMaskingName(urlCityMaskingName);
+                    GetCityNameByCityMaskingName(cityMaskingName);
 
                     BindWidgets();
                     CreateHeading();
@@ -130,17 +131,23 @@ namespace Bikewale.Mobile.Service
                 ctrlNearbyServiceCenters.makeName = makeName;
                 ctrlNearbyServiceCenters.makeMaskingName = makeMaskingName;
                 ctrlNearbyServiceCenters.topCount = 8;
+                if (ctrlPopularModels != null)
+                {
+                    ctrlPopularModels.MakeId = makeId;
+                    ctrlPopularModels.CityId = cityId;
+                    ctrlPopularModels.header = string.Format("Used {0} bikes in {1}", makeName, cityName);
+                    ctrlPopularModels.TopCount = 4;
+                    ctrlPopularModels.MakeName = makeName;
+                    ctrlPopularModels.MakeMaskingName = makeMaskingName;
+                    ctrlPopularModels.CityName = cityName;
+                    ctrlPopularModels.CityMaskingName = cityMaskingName;
+                }
 
-                ctrlRecentUsedBikes.MakeId = makeId;
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.header = string.Format("Popular used {0} bikes in {1}", makeName, cityName);
-                ctrlRecentUsedBikes.TopCount = 4;
-                ctrlRecentUsedBikes.cityMaskingName = urlCityMaskingName;
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
                 ctrlPopoularBikeMake.totalCount = 9;
                 ctrlPopoularBikeMake.cityname = cityName;
-                ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
+                ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
 
                 if (ctrlChangeLocation != null)
@@ -351,10 +358,10 @@ namespace Bikewale.Mobile.Service
                 if (currentReq.QueryString != null && currentReq.QueryString.HasKeys())
                 {
                     makeMaskingName = currentReq.QueryString["make"].ToLower();
-                    urlCityMaskingName = currentReq.QueryString["city"].ToLower();
-                    if (!String.IsNullOrEmpty(urlCityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
+                    cityMaskingName = currentReq.QueryString["city"].ToLower();
+                    if (!String.IsNullOrEmpty(cityMaskingName) && !String.IsNullOrEmpty(makeMaskingName))
                     {
-                        cityId = CitiMapping.GetCityId(urlCityMaskingName);
+                        cityId = CitiMapping.GetCityId(cityMaskingName);
                         isValidQueryString = true;
                     }
                     else

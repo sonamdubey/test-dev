@@ -1,24 +1,12 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.BAL.EditCMS;
-using Bikewale.BindViewModels.Webforms.EditCMS;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
+﻿using Bikewale.BindViewModels.Webforms.EditCMS;
 using Bikewale.Common;
-using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Memcache;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +41,7 @@ namespace Bikewale.Content
         protected bool isModelTagged;
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected RoadTestDetails objArticle;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -82,7 +71,7 @@ namespace Bikewale.Content
                     objArticle.GetRoadTestDetails();
 
                     if (objArticle.IsContentFound)
-                    {                       
+                    {
                         objRoadtest = objArticle.objRoadtest;
                         _taggedMakeObj = objArticle.taggedMakeObj;
                         if (objArticle.taggedModelObj != null)
@@ -90,7 +79,7 @@ namespace Bikewale.Content
                             taggedModelId = (uint)objArticle.taggedModelObj.ModelId;
                             modelName = objArticle.taggedModelObj.ModelName;
                         }
-                            if (objRoadtest != null)
+                        if (objRoadtest != null)
                         {
                             GetRoadTestData();
                             if (objRoadtest.PageList != null)
@@ -205,9 +194,12 @@ namespace Bikewale.Content
         /// Description : Binded popular bikes widget
         /// Modified By: Aditi Srivastava on 31 Jan 2017
         /// Summary    : Modified logic for widgets for tagged models
+
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         protected void BindPageWidgets()
-        {           
+        {
             try
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
@@ -232,6 +224,14 @@ namespace Bikewale.Content
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
                         ctrlBikesByBodyStyle.topCount = 9;
                         ctrlBikesByBodyStyle.CityId = currentCityArea.CityId;
+                    }
+                    if (ctrlGenericBikeInfo != null)
+                    {
+                        ctrlGenericBikeInfo.ModelId = taggedModelId;
+                        ctrlGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlGenericBikeInfo.PageId = BikeInfoTabType.ExpertReview;
+                        ctrlGenericBikeInfo.TabCount = 3;
+                        ctrlGenericBikeInfo.SmallSlug = true;
                     }
                 }
                 else

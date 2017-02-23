@@ -2,6 +2,7 @@
 
 <%@ Register Src="~/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikeByBodyStyleCarousal.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +96,9 @@
                 </div>
             </div>
         </section>
+
+        <%if(ctrlGenericBikeInfo.ModelId>0){ %><BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" /><%} %>
+
  <% if (ctrlSimilarBikeVideos.FetchCount > 0)
            {%>
         <section>

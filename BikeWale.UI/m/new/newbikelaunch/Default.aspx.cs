@@ -101,7 +101,7 @@ namespace Bikewale.Mobile.New
                     else
                     {
                         PagerEntity pagerEntity = new PagerEntity();
-                        pagerEntity.BaseUrl = "/m/new-bikes-launches/";
+                        pagerEntity.BaseUrl = "/m/new-bike-launches/";
                         pagerEntity.PageNo = curPageNo;
                         pagerEntity.PagerSlotSize = totalPages;
                         pagerEntity.PageUrlType = "page/";

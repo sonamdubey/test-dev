@@ -6,6 +6,7 @@
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -45,8 +46,7 @@
                 <div class="bike-image">
                     <img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
                 </div>
-                <h1 class="text-dark-black font18"><%=bikeName %><br />
-                    price in <%=cityName %></h1>
+                <h1 class="text-dark-black font18"><%=bikeName %> price in <%=cityName %></h1>
             </div>
             <p class="font14 text-light-grey padding-right20 padding-left20 margin-bottom10">
                 <%= pageDescription %>
@@ -112,9 +112,14 @@
                 <div class="margin-right20 margin-left20 border-divider"></div>
                 <BW:Dealers runat="server" ID="ctrlDealers" />
                 <% }  %>
+            <div class="margin-right20 margin-left20 border-divider"></div>
+            <div class="padding-15-20">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
+       
                  <% if (ctrlServiceCenterCard.showWidget)
                    { %>
-                <section class="padding-left5">
+                <section>
                     <div class="margin-right20 margin-left20 border-divider"></div>
                     <div class="bg-white padding-top20">
                         <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />

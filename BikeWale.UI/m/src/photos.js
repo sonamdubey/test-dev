@@ -6,7 +6,7 @@
     // add 'more photos count' if photo grid contains 30 images
     if (photosLength == photosLimit) {
         var lastPhoto = $('.photos-grid-list li').eq(lastPhotoIndex),
-            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - lastPhotoIndex) + '<br />photos</span></span>');
+            morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - lastPhotoIndex) + '<br />images</span></span>');
 
         lastPhoto.append(morePhotoCount);
     }

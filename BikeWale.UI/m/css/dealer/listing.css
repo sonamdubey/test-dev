@@ -62,11 +62,6 @@
     border-radius: 2px;
 }
 
-.vertical-top {
-    display: inline-block;
-    vertical-align: top;
-}
-
 .dealership-details {
     width: 92%;
 }

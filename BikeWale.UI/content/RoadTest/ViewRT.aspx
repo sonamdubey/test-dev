@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="BW" TagName="ModelGallery" Src="~/controls/ModelGallery.ascx" %>
 <%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
 <%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MinGenericBikeInfo" Src="~/controls/MinGenericBikeInfoControl.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -98,6 +99,8 @@
                                         </div>
                                     </ItemTemplate>
                                 </asp:Repeater>
+
+                                <BW:MinGenericBikeInfo ID="ctrlMinGenericBikeInfo" runat="server" />
 
                                 <div id="divPhotos">
                                     <PG:PhotoGallery runat="server" ID="ctrPhotoGallery" />

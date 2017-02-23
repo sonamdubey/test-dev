@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
@@ -29,7 +30,14 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added function to get top 10 bikes by bodystyle
     /// Mocified by : Sajal Gupta on 02-02-2017
     /// Description : Modified function GetBestBikesByCategory
+    /// Mocified by : Sangram Nandkhile on 10 Feb 2017
+    /// Description : Modified GetAllPhotos and CreateAllPhotoList
+    /// Modified by : Sumit Kate on 10 Feb 2017
+    /// Description : Added GetNewLaunchedBikesList     
+    /// Modified  By :- subodh Jain 10 Feb 2017
+    /// Summary :- BikeInfo Slug details GetBikeInfo
     /// <typeparam name="U"></typeparam>
+    /// </summary>
     public interface IBikeModelsCacheRepository<U>
     {
         BikeModelPageEntity GetModelPageDetails(U modelId);
@@ -41,16 +49,18 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeId = null);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
         List<ModelImage> GetModelPhotoGallery(U modelId);
-        IEnumerable<ModelImage> GetModelPhotos(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
-        IEnumerable<ImageBaseEntity> GetAllPhotos(BikeModelPageEntity objModelPage);
-        IEnumerable<ImageBaseEntity> CreateAllPhotoList(U modelId);
+        IEnumerable<ColorImageBaseEntity> GetAllPhotos(U modelId);
+        IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
-        GenericBikeInfo GetGenericBikeInfo(uint modelId);
+        GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
+        GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
+        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
     }
 }

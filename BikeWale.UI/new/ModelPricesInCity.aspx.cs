@@ -58,6 +58,7 @@ namespace Bikewale.New
         protected BikeRankingEntity bikeRankObj;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
         protected ChangeLocationPopup ctrlChangeLocation;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -109,6 +110,8 @@ namespace Bikewale.New
         /// Summary:- Bind Controls
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Added chnage location prompt widget
+        ///  Modified  By :- Sajal Gupta on 13 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindControl()
         {
@@ -162,6 +165,14 @@ namespace Bikewale.New
                 ctrlChangeLocation.UrlCityName = cityName;
             }
 
+            if (ctrlGenericBikeInfo != null)
+            {
+                ctrlGenericBikeInfo.ModelId = modelId;
+                ctrlGenericBikeInfo.CityId = cityId;
+                ctrlGenericBikeInfo.PageId = BikeInfoTabType.PriceInCity;
+                ctrlGenericBikeInfo.TabCount = 4;
+            }
+
         }
         /// <summary>
         /// Created by : Aditi Srivastava on 13 Jan 2017
@@ -203,7 +214,7 @@ namespace Bikewale.New
 
             if (firstVersion != null)
             {
-                string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                string newBikeDescription = string.Format("{0} {1} on-road price in {2} - Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                 if (dealerCount > 0)
                     newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, modelName, dealerCount, multiDealer, cityName);
