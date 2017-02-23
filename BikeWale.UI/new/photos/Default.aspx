@@ -26,6 +26,10 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
+        <%--<div class="gallery-loader-placeholder gallery-bg-overlay text-center">
+            <span class="spin-loader fixed-loader"></span>
+        </div>--%>
+
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
@@ -140,17 +144,18 @@
 
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <%--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>--%>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.7/js/swiper.min.js"></script>
 
         <div id="gallery-root">
-            <div class="gallery-container">
+            <div class="gallery-container gallery-bg-overlay" style="display: none;" data-bind="visible: isGalleryActive()">
                 <div class="gallery-header">
                     <h2 class="text-white gallery-title"><%= bikeName %> Images</h2>
                     <span id="gallery-close-btn" class="bwsprite cross-md-white cur-pointer"></span>
                     <ul class="horizontal-tabs-wrapper">
                         <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active' : ''">Images</li>
+                        <%if (VideoCount > 0) { %>
                         <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active' : ''">Videos</li>
+                        <%} %>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -187,21 +192,20 @@
                     <div id="main-video-content" class="main-video-content" data-bind="visible: !photosTabActive()">
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="976" height="549" src="https://www.youtube.com/embed/1Zl9K9WKGlI?showinfo=0" frameborder="0" allowfullscreen></iframe>
-                                <%--<iframe width="924" height="520" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>--%>
+                                <iframe width="976" height="549" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="gallery-footer">
-                    <div class="footer-tabs-wrapper">
+                    <div class="footer-tabs-wrapper" data-bind="css: !photosTabActive() && totalVideoCount < 2 ? 'video-tab-absent' : ''">
                         <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab">
                             <span class="bwsprite info-icon"></span>
                             <span class="inline-block font14">Know more about the bike</span>
                         </div>
 
-                        <div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''"class="footer-tab">
+                        <div style="display:none" data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''"class="footer-tab">
                             <span class="bwsprite color-palette"></span>
                             <span class="inline-block font14">Colours</span>
                         </div>
@@ -211,12 +215,12 @@
                             <span class="inline-block font14">All photos</span>
                         </div>                        
 
-                        <div style="display: none" data-bind="visible: !photosTabActive()" class="footer-tab">
+                        <div style="display:none" data-bind="click: toggleVideoListScreen, visible: !photosTabActive() && totalVideoCount > 1, css: videoListScreen() ? 'tab-active': ''" class="footer-tab">
                             <span class="bwsprite grid-icon"></span>
                            <span class="inline-block font14">All videos</span>
                         </div>
 
-                        <div class="gallery-details-tab" data-bind="css: !colorTabActive() ? 'resize-details-tab' : ''">
+                        <div class="gallery-details-tab" style="display: none;" data-bind="visible: photosTabActive() || !photosTabActive(), css: !colorTabActive() || !photosTabActive() ? 'color-tab-absent' : ''">
                             <!-- ko if: photosTabActive() && photoSwiperActive() -->
                             <span class="swiper-heading text-truncate" data-bind="text: activePhotoTitle()"></span>
                             <span class="rightfloat text-light-grey">
@@ -232,11 +236,11 @@
                             </span>
                             <!-- /ko -->
                             <!-- ko if: !photosTabActive() -->
-                            <%--<span class="swiper-heading text-truncate" data-bind="text: activeVideoTitle()"></span>
-                            <span class="rightfloat text-light-grey">
+                            <span class="swiper-heading text-truncate" data-bind="text: activeVideoTitle()"></span>
+                            <span class="rightfloat text-light-grey" data-bind="visible: totalVideoCount > 1">
                                 <span data-bind="text: activeVideoIndex()"></span> /
-                                <span data-bind="text: colorPhotoList().length"></span>
-                            </span>--%>
+                                <span data-bind="text: totalVideoCount"></span>
+                            </span>
                             <!-- /ko -->
                         </div>
 
@@ -245,7 +249,7 @@
 
                     
                     <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" style="display: none" data-bind="visible: photoThumbnailScreen()">
-                        <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
+                        <div class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
                                     <div class="thumbnail-image-placeholder">
@@ -253,20 +257,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-button-next thumbnail-next-icon thumbnail-type-next"></div>
-                            <div class="swiper-button-prev thumbnail-prev-icon thumbnail-type-prev"></div>
+                            <div class="swiper-button-next thumbnail-type-next">
+                                <span class="bwsprite thumbnail-next-icon"></span>
+                            </div>
+                            <div class="swiper-button-prev thumbnail-type-prev">
+                                <span class="bwsprite thumbnail-prev-icon"></span>
+                            </div>
                         </div>
                     </div>
 
                     <div id="color-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" style="display: none" data-bind="visible: colorsThumbnailScreen()">
-                        <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
+                        <div class="swiper-container color-thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                                 <div class="swiper-slide">
                                     <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
-                                            <span data-bind="style: { 'background-color': '#' + $data }"></span>
-                                        </div>
-                                        <p class="color-box-label inline-block" data-bind="text: (imageTitle.length > 20 ? imageTitle.substring(0, 20) + '...' : imageTitle)"></p>
+                                        <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                    </div>
+                                    <p class="color-box-label inline-block" data-bind="text: (imageTitle.length > 20 ? imageTitle.substring(0, 20) + '...' : imageTitle)"></p>
                                 </div>
+                            </div>
+                            <div class="swiper-button-next color-thumbnail-type-next">
+                                <span class="bwsprite thumbnail-next-icon"></span>
+                            </div>
+                            <div class="swiper-button-prev color-thumbnail-type-prev">
+                                <span class="bwsprite thumbnail-prev-icon"></span>
                             </div>
                         </div>
                     </div>
@@ -314,6 +328,28 @@
                         </div>
                     </div>
 
+                    <div id="video-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" style="display:none" data-bind="visible: videoListScreen()">
+                        <div class="swiper-container video-thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: videoList">
+                                <div class="swiper-slide">
+                                    <div class="video-image-block inline-block">
+                                        <img class="swiper-lazy" data-bind="attr: { alt: VideoTitle, title: VideoTitle, src: 'https://img.youtube.com/vi/'+VideoId+'/default.jpg' }" border="0" />
+                                        <span class="play-icon-wrapper">
+                                            <span class="bwsprite video-play-icon"></span>
+                                        </span>
+                                    </div>
+                                    <p class="video-title-block padding-left20 inline-block" data-bind="text: VideoTitle"></p>
+                                </div>
+                            </div>
+                            <div class="swiper-button-next video-type-next">
+                                <span class="bwsprite thumbnail-next-icon"></span>
+                            </div>
+                            <div class="swiper-button-prev video-type-prev">
+                                <span class="bwsprite thumbnail-prev-icon"></span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -325,6 +361,7 @@
         <script type="text/javascript">
             var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
             var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
+            var videoCount = <%=VideoCount%>;
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->
