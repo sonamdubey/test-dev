@@ -102,7 +102,7 @@
                                             { %>
                                             <div class="model-media-details ">
                                                 <div class="model-media-item">
-                                                    <span class="bwmsprite gallery-photo-icon"></span>
+                                                    <span class="bwmsprite photos-sm"></span>
                                                     <span class="model-media-count" ><%= bike.TotalPhotos %></span>
                                                 </div>
                                             </div>
@@ -207,16 +207,16 @@
                     </ul>
                     <div style="text-align: center;">
                         <div id="nobike"  data-bind="visible : noBikes()">
-                            <img src="/images/no_result_m.png">
+                            <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">
                         </div>
                     </div>                     
                     <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top font14">
                         <div class="grid-5 omega text-light-grey" data-bind="visible: TotalBikes() > 0">
-                    <div class="font14" style="display:none" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
+                    <div class="font14" data-bind="visible: !OnInit() && TotalBikes() > 0"><span class="text-bold" data-bind="    CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1"></span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())"></span> of <span class="text-bold" data-bind="    CurrencyText: TotalBikes()"></span> bikes</div>
                     <% if (totalListing > 0)
                        { %>
                             <div data-bind="visible: OnInit()" class="font14"><span class="text-bold"><%=_startIndex %>-<%=_endIndex %></span> of <span class="text-bold"><%=Bikewale.Utility.Format.FormatPrice(totalListing.ToString()) %></span>  bikes</div>
-                            <% } %>
+                    <% } %>
                     </div>
                         <div data-bind="visible: OnInit()" class="init-pagination">
                             <BikeWale:Pager ID="ctrlPager" runat="server" />

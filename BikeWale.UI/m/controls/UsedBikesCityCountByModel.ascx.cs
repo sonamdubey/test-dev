@@ -42,9 +42,9 @@ namespace Bikewale.Mobile.Controls
 
                 viewModel.BindUsedBikesInCityCountByModel(ModelId, TopCount);
 
-                if (viewModel.bikesCountCityList != null)
+                if (viewModel.BikesCountCityList != null)
                 {
-                    FetchedCount = (uint)viewModel.bikesCountCityList.Count();
+                    FetchedCount = (uint)viewModel.BikesCountCityList.Count();
                 }
             }
             catch (Exception err)

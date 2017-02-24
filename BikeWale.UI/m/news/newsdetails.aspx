@@ -2,7 +2,7 @@
 <%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/MinGenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +55,7 @@
                         <img alt='<%= metas.Title%>' title='<%= metas.Title%>' src='<%= metas.ShareImage %>'>
                         <%= String.IsNullOrEmpty(objArticle.Content) ? "" : objArticle.Content %>
                     </div>
-                    <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+                  <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
 
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">

@@ -17,9 +17,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.New
+namespace Bikewale.New.NewLaunchBikes
 {
-    public class NewLaunchBikes : System.Web.UI.Page
+    public class Default : System.Web.UI.Page
     {
         protected LinkPagerControl repeaterPager;
         protected Repeater rptLaunched;
@@ -113,7 +113,7 @@ namespace Bikewale.New
                     else
                     {
                         PagerEntity pagerEntity = new PagerEntity();
-                        pagerEntity.BaseUrl = "/new-bikes-launches/";
+                        pagerEntity.BaseUrl = "/new-bike-launches/";
                         pagerEntity.PageNo = curPageNo;
                         pagerEntity.PagerSlotSize = 5;
                         pagerEntity.PageUrlType = "page/";

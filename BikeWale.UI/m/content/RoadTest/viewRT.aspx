@@ -1,8 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.viewRT" Async="true" Trace="false" %>
-<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
+
+<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle" %>
 <%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin" %>
 <%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +41,7 @@
                         <span class="bwmsprite author-grey-sm-icon"></span>
                         <span class="article-stats-content"><%=author %></span>
                     </div>
-                    <div class="clear"></div>                    
+                    <div class="clear"></div>
                 </div>
 
                 <div class="article-content-padding">
@@ -55,6 +57,10 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
+                         <div class="section-bottom-margin">
+                <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
+            </div>
+
                     <%= (_bikeTested != null && !String.IsNullOrEmpty(_bikeTested.ToString())) ? String.Format("<div class='font12 text-light-grey margin-top10 margin-bottom10'>{0}</div>",_bikeTested) : "" %>
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
@@ -72,6 +78,7 @@
                         </li>
                     </ul>
                     <div class="clear"></div>
+                 
                     <%if (objImg != null)
                       { %>
                     <div class="border-solid-top padding-top10">
@@ -94,21 +101,26 @@
                     <%} %>
                 </div>
             </div>
-        </section>        
+          
+        </section>
+
         <BW:MPopularBikesMin runat="server" ID="ctrlPopularBikes" />
-         <%if(isModelTagged){ %>
-        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){%>
-         <section>
+        <%if (isModelTagged)
+          { %>
+        <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
+          {%>
+        <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">
-                    Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-           <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server"/>
-                </div>
-             </section>
+                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
+            </div>
+        </section>
         <%} %>
-          <%} else{%>
-         <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
-          <%} %>
+        <%}
+          else
+          {%>
+        <BW:MUpcomingBikesMin ID="ctrlUpcomingBikes" runat="server" />
+        <%} %>
         <BW:ModelGallery runat="server" ID="photoGallery" />
         <div class="back-to-top" id="back-to-top"></div>
 
@@ -120,7 +132,7 @@
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/content/details.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
-        <script type="text/javascript">       
+        <script type="text/javascript">
             ga_pg_id = "13";
         </script>
     </form>

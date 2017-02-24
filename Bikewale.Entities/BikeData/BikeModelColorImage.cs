@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -23,7 +22,6 @@ namespace Bikewale.Entities.BikeData
     {
         public uint Id { get; set; }
         public string Name { get; set; }
-        [JsonProperty("colors")]
         public IEnumerable<ColorCodeBase> ColorCodes { get; set; }
     }
 
@@ -34,5 +32,6 @@ namespace Bikewale.Entities.BikeData
         public string OriginalImagePath { get; set; }
         public bool IsImageExists { get; set; }
         public uint BikeModelColorId { get; set; }
+        public string ImageCategory { get; set; }
     }
 }

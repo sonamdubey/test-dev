@@ -26,17 +26,21 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IDealerPriceQuoteDetail _dealers;
-
+        private readonly IBikeModels<BikeModelEntity, int> _modelBL = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
-        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers)
+        /// <param name="cache"></param>
+        /// <param name="dealers"></param>
+        /// <param name="modelBL"></param>
+        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<BikeModelEntity, int> modelBL)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _dealers = dealers;
+            _modelBL = modelBL;
         }
 
         #region Model Page Complete
@@ -59,6 +63,7 @@ namespace Bikewale.Service.Controllers.Model
 
                 if (objModelPage != null)
                 {
+                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
 
@@ -206,7 +211,7 @@ namespace Bikewale.Service.Controllers.Model
                             objModelPage.objSpecs = null;
                         }
                     }
-
+                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
                     // Auto map the properties
                     objDTOModelPage = new Bikewale.DTO.Model.v2.ModelPage();
                     objDTOModelPage = ModelMapper.ConvertV2(objModelPage);
@@ -281,6 +286,7 @@ namespace Bikewale.Service.Controllers.Model
                 objModelPage = _cache.GetModelPageDetails(modelID);
                 if (objModelPage != null)
                 {
+                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
                     if (Request.Headers.Contains("platformId"))
                     {
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();
@@ -335,6 +341,7 @@ namespace Bikewale.Service.Controllers.Model
                 objModelPage = _cache.GetModelPageDetails(modelID);
                 if (objModelPage != null)
                 {
+                    objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
                     if (Request.Headers.Contains("platformId"))
                     {
                         string platformId = Request.Headers.GetValues("platformId").First().ToString();

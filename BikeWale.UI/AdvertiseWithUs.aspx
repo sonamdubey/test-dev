@@ -30,26 +30,19 @@
         <h1>Advertise with Us</h1>
         <div class="margin-top10">We ensure that your advertisement is linked to the relevant pages and reach your customers in the right way. Please contact for any advertisement related queries:</div>
         <div class="grid_3 alpha margin-top15 min-height">
-            <h2>West Zone</h2>
+            <h2>West and South Zone</h2>
             <div class="margin-top15">
-                <span class="bold">Mohd. Kashif Chilmai</span><br />
-                <span class="bFontCol">Email: <a href="mailto:kashif.chilmai@carwale.com" class="viewDetails">kashif.chilmai@carwale.com</a></span>
+                <span class="bold">Vijay Menon</span><br />
+                <span class="bFontCol">Email: <a href="mailto:vijay.menon@carwale.com" class="viewDetails">vijay.menon@carwale.com</a></span>
             </div>
         </div>
         <div class="grid_3 alpha margin-top15">
-            <h2>North & East Zone</h2>
+            <h2>North and East Zone</h2>
             <div class="margin-top15">
-                <span class="bold">Rahul Gupta</span><br />
-                <span class="bFontCol">Email: <a href="mailto:rahul.gupta@carwale.com" class="viewDetails">rahul.gupta@carwale.com</a></span>
+                <span class="bold">Nikhil Pillai</span><br />
+                <span class="bFontCol">Email: <a href="mailto:nikhil.pillai@carwale.com" class="viewDetails">nikhil.pillai@carwale.com</a></span>
             </div> 
-        </div>
-        <div class="grid_3 alpha margin-top15">
-            <h2>South Zone</h2>
-            <div class="margin-top15">
-                <span class="bold">Amal Siby Marian</span><br />
-                <span class="bFontCol">Email: <a href="mailto:amal.siby@carwale.com" class="viewDetails">amal.siby@carwale.com</a></span>
-            </div>
-        </div>        
+        </div>            
     </div>    
 </div>
 <style type="text/css">

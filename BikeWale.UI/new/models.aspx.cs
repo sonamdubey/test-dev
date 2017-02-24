@@ -30,13 +30,13 @@ namespace Bikewale.New
         //protected ExpertReviews ctrlExpertReviews;
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
-        protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected UsedPopularModels ctrlPopularUsedBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued, rptTop;
         protected DealerCard ctrlDealerCard;
         protected bool isDescription = false;
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
-        protected string makeId = String.Empty;
+        protected uint makeId;
         protected BikeMakeEntityBase _make = null;
         protected BikeDescriptionEntity _bikeDesc = null;
         protected Int64 _minModelPrice = 0;
@@ -51,9 +51,7 @@ namespace Bikewale.New
         private GlobalCityAreaEntity currentCityArea;
         protected uint cityId = 0;
         protected string cityName = string.Empty, cityMaskingName = string.Empty;
-
-
-        protected UsedBikes ctrlRecentUsedBikes;
+        private CityEntityBase cityDetails = null;
         protected LeadCaptureControl ctrlLeadCapture;
         protected String clientIP = CommonOpn.GetClientIP();
         protected override void OnInit(EventArgs e)
@@ -98,57 +96,80 @@ namespace Bikewale.New
                 DeviceDetection dd = new DeviceDetection(originalUrl);
                 dd.DetectDevice();
                 //To get Upcoming Bike List Details 
-                ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                ctrlUpcomingBikes.pageSize = 6;
-                ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-                ////news,videos,revews
-                ctrlNews.TotalRecords = 3;
-                ctrlNews.MakeId = Convert.ToInt32(makeId);
-                ctrlNews.WidgetTitle = _make.MakeName;
-                ctrlNews.MakeMaskingName = _make.MaskingName;
-                ctrlNews.MakeName = _make.MakeName;
 
-                ctrlExpertReviews.TotalRecords = 2;
-                ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                ctrlExpertReviews.MakeName = _make.MakeName;
-
-                ctrlVideos.TotalRecords = 2;
-                ctrlVideos.MakeId = Convert.ToInt32(makeId);
-                ctrlVideos.MakeMaskingName = makeMaskingName;
-                ctrlVideos.WidgetTitle = _make.MakeName;
-                ctrlVideos.MakeName = _make.MakeName;
-
-                ctrlExpertReviews.MakeMaskingName = makeMaskingName;
-
-                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(makeId);
-                ctrlRecentUsedBikes.CityId = (int?)cityId;
-                ctrlRecentUsedBikes.TopCount = 6;
-                ctrlRecentUsedBikes.ModelId = 0;
-
-                ctrlDealerCard.MakeId = Convert.ToUInt32(makeId);
-                ctrlDealerCard.makeName = _make.MakeName;
-                ctrlDealerCard.makeMaskingName = _make.MaskingName;
-                ctrlDealerCard.CityId = cityId;
-                ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
-                ctrlDealerCard.pageName = "Make_Page";
-                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
-
-                ctrlLeadCapture.CityId = cityId;
-                ctrlLeadCapture.AreaId = 0;
-
-                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId); ;
-                ctrlServiceCenterCard.CityId = cityId;
-                ctrlServiceCenterCard.makeName = _make.MakeName;
-                ctrlServiceCenterCard.cityName = cityName;
-                ctrlServiceCenterCard.makeMaskingName = _make.MaskingName;
-                ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
-                ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
-
+                BindUserControls();
                 BindDiscountinuedBikes();
 
             }
 
+        }
+        /// <summary>
+        /// Summary: To bind user controls
+        /// </summary>
+        private void BindUserControls()
+        {
+            int _makeId = Convert.ToInt16(makeId);
+            if (cityId > 0)
+            {
+                cityDetails = new CityHelper().GetCityById(cityId);
+                if (cityDetails != null)
+                    cityMaskingName = cityDetails.CityMaskingName;
+            }
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 6;
+            ctrlUpcomingBikes.MakeId = _makeId;
+            ////news,videos,revews
+            ctrlNews.TotalRecords = 3;
+            ctrlNews.MakeId = _makeId;
+            ctrlNews.WidgetTitle = _make.MakeName;
+            ctrlNews.MakeMaskingName = _make.MaskingName;
+            ctrlNews.MakeName = _make.MakeName;
+
+            ctrlExpertReviews.TotalRecords = 2;
+            ctrlExpertReviews.MakeId = _makeId;
+            ctrlExpertReviews.MakeName = _make.MakeName;
+
+            ctrlVideos.TotalRecords = 2;
+            ctrlVideos.MakeId = _makeId;
+            ctrlVideos.MakeMaskingName = makeMaskingName;
+            ctrlVideos.WidgetTitle = _make.MakeName;
+            ctrlVideos.MakeName = _make.MakeName;
+
+            ctrlExpertReviews.MakeMaskingName = makeMaskingName;
+
+            ctrlDealerCard.MakeId = makeId;
+            ctrlDealerCard.makeName = _make.MakeName;
+            ctrlDealerCard.makeMaskingName = _make.MaskingName;
+            ctrlDealerCard.CityId = cityId;
+            ctrlDealerCard.TopCount = Convert.ToUInt16(cityId > 0 ? 3 : 6);
+            ctrlDealerCard.pageName = "Make_Page";
+            ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", _make.MakeName, cityName);
+
+            ctrlLeadCapture.CityId = cityId;
+            ctrlLeadCapture.AreaId = 0;
+
+            ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId); ;
+            ctrlServiceCenterCard.CityId = cityId;
+            ctrlServiceCenterCard.makeName = _make.MakeName;
+            ctrlServiceCenterCard.cityName = cityName;
+            ctrlServiceCenterCard.makeMaskingName = _make.MaskingName;
+            ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
+            ctrlServiceCenterCard.TopCount = 3;
+            ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
+
+            if (ctrlPopularUsedBikes != null)
+            {
+                ctrlPopularUsedBikes.MakeId = makeId;
+                if (cityId > 0)
+                {
+                    ctrlPopularUsedBikes.CityId = cityId;
+                    ctrlPopularUsedBikes.CityName = cityName;
+                    ctrlPopularUsedBikes.CityMaskingName = cityMaskingName;
+                }
+                ctrlPopularUsedBikes.MakeMaskingName = makeMaskingName;
+                ctrlPopularUsedBikes.MakeName = _make.MakeName;
+                ctrlPopularUsedBikes.TopCount = 6;
+            }
         }
 
 
@@ -233,7 +254,7 @@ namespace Bikewale.New
                         {
                             if (objResponse.StatusCode == 200)
                             {
-                                makeId = Convert.ToString(objResponse.MakeId);
+                                makeId = objResponse.MakeId;
                             }
                             else if (objResponse.StatusCode == 301)
                             {

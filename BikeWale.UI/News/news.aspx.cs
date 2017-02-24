@@ -25,7 +25,6 @@ namespace Bikewale.News
         protected ArticleDetails objArticle = null;
         protected NewsDetails objNews;
         protected UpcomingBikesMinNew ctrlUpcomingBikes;
-        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected GlobalCityAreaEntity currentCityArea;
         protected PageMetaTags metas;
         protected uint taggedModelId;
@@ -33,8 +32,9 @@ namespace Bikewale.News
         protected PopularBikesByBodyStyle ctrlBikesByBodyStyle;
         protected bool isModelTagged;
         protected int makeId;
+        protected MinGenericBikeInfoControl ctrlMinGenericBikeInfo;
         private BikeMakeEntityBase _taggedMakeObj;
-        
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -126,10 +126,12 @@ namespace Bikewale.News
         /// Description : Bind ctrlGenericBikeInfo control 
         /// Modified By : Aditi Srivastava on 31 Jan 2017
         /// Summary     : Modified entire widget binding logic
+        /// Modified  By :- Sajal Gupta on 13 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindPageWidgets()
         {
-           try
+            try
             {
                 currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 isModelTagged = (taggedModelId > 0);
@@ -149,7 +151,14 @@ namespace Bikewale.News
 
                 if (isModelTagged)
                 {
-                    ctrlGenericBikeInfo.ModelId = taggedModelId;
+                    if (ctrlMinGenericBikeInfo != null)
+                    {
+                        ctrlMinGenericBikeInfo.ModelId = taggedModelId;
+                        ctrlMinGenericBikeInfo.CityId = currentCityArea.CityId;
+                        ctrlMinGenericBikeInfo.PageId = BikeInfoTabType.News;
+                        ctrlMinGenericBikeInfo.TabCount = 3;
+                    }
+
                     if (ctrlBikesByBodyStyle != null)
                     {
                         ctrlBikesByBodyStyle.ModelId = taggedModelId;
@@ -158,7 +167,7 @@ namespace Bikewale.News
                     }
                 }
                 else
-                {                  
+                {
                     if (ctrlUpcomingBikes != null)
                     {
                         ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;

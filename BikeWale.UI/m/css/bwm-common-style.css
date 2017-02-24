@@ -446,7 +446,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 .changecity-blackout-window { z-index: 4; }
 /* sprite classes */
-.bwmsprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v2.png?v30Jan2017) no-repeat; display: inline-block; }
+.bwmsprite { background: url(https://imgd4.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v3.png?v20Feb2017) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -573,6 +573,22 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .back-circle-icon { background-position: -107px -291px; }
 .swiper-container .swiper-slide:hover .back-circle-icon { background-position: -150px -291px; }
 
+.photos-sm,
+.videos-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.photos-sm {
+    background-position: 0 -477px;
+}
+
+.videos-sm {
+    background-position: -16px -476px;
+}
+
 /* common properties */
 .leftfloat{float:left;}
 .rightfloat{float:right;}
@@ -625,6 +641,9 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .content-inner-block-10 { padding: 10px; }
 .content-inner-block-15 { padding: 15px; }
 .content-inner-block-20 { padding: 20px; }
+.padding-15-20 {
+    padding: 15px 20px
+}
 .content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; border:1px solid #e2e2e2\9; }
 
 .bg-white { background: #FFF; }
@@ -808,6 +827,12 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .pq-no-mobile { background-position: -611px 0; }
 .pq-no-email { background-position: -712px 0; }
 .inline-block { display:inline-block; vertical-align: middle; }
+.vertical-top { display: inline-block; vertical-align: top; }
+
+/* new common classes */
+.hover-no-underline:hover {
+    text-decoration: none;
+}
 
  /* Budget Validation classes */
 .bw-blackbg-tooltip-search-error {right:-150px; top:50px; width:357px;}
@@ -929,16 +954,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .author-grey-sm-icon {background-position: -66px -486px;}
 .views-grey-sm-icon {background-position: -84px -486px;}
 
-@media all and (max-width: 350px) {
-    .review-heading-wrapper {
-        width: 52% !important;
-    }
-    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
-    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
-    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
-        width: 265px;
-    }
-}
 #popupWrapper.loader-active .popup-inner-container, #popup-loader-container {
     display: none;
 }
@@ -1174,6 +1189,70 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 87%;
 }
 
+/* recent search dropdown */
+.history-icon,
+.ui-search-icon {
+    width: 16px;
+    position: relative;
+    margin-right: 10px;
+    float: left;
+}
+
+.history-icon {
+    height: 13px;
+    background-position: -126px -265px;
+    top: 3px;
+}
+
+.ui-search-icon {
+    height: 16px;
+    background-position: -126px -249px;
+    top: 2px;
+    -webkit-transform: scale(0.85);
+    -moz-transform: scale(0.85);
+    -ms-transform: scale(0.85);
+    transform: scale(0.85);
+}
+
+/* model-more-info-section */
+.model-more-info-section .item-image-content {
+    width: 100px;
+    height: 56px;
+    display: inline-block;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+}
+
+.item-image-content img {
+    width: 100%;
+}
+
+.model-more-info-section .bike-details-block {
+    width: 66%;
+    padding-left: 10px;
+}
+
+.model-more-info-section .used-target-label {
+    width: 96%;
+}
+
+.price-label-size-12 {
+    font-size: 12px;
+    color: #82888b;
+}
+
+.price-value-size-18 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inr-12-grey {
+    width: 8px;
+    height: 10px;
+    background-position: -102px -137px;
+    position: relative;
+    top: 1px;
+}
+
 /* ribbon */
 .model-ribbon-tag {
     position: relative;
@@ -1204,27 +1283,173 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     top: 0;
 }
 
-/* recent search dropdown */
-.history-icon,
-.ui-search-icon {
-    width: 16px;
-    position: relative;
-    margin-right: 10px;
+.model-slug-type-news .model-ribbon-tag {
+    left: -11px;
+}
+
+.model-more-info-section.ribbon-present {
+    padding-top: 10px;
+}
+
+/* more info list */
+.item-more-details-list li {
     float: left;
+    margin-bottom: 8px;
+    margin-right: 8px;
 }
 
-.history-icon {
-    height: 13px;
-    background-position: -126px -265px;
+.item-more-details-list a:hover {
+    color: #fff;
+    background: #54bbca;
+}
+
+.item-more-details-list a {
+    display: block;
+    padding: 1px 8px 5px;
+    color: #787878;
+    background: rgba(245, 245, 245, 0.9);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.item-more-details-list a:hover {
+    text-decoration: none;
+}
+
+.item-more-details-list .icon-label {
+    font-size: 13px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 13px;
+}
+
+.text-grey {
+    color: #787878 !important;
+}
+
+/* key-specs-list */
+.key-specs-list li {
+    margin-right: 4px;
+    padding-right: 8px;
+    position: relative;
+    display: inline-block;
+}
+
+.key-specs-list li:before {
+    content: "";
+    width: 1px;
+    height: 11px;
+    position: absolute;
     top: 3px;
+    right: 0;
+    border-left: 1px solid #b0b0b0;
 }
 
-.ui-search-icon {
-    height: 16px;
-    background-position: -126px -249px;
-    top: 2px;
-    -webkit-transform: scale(0.85);
-    -moz-transform: scale(0.85);
-    -ms-transform: scale(0.85);
-    transform: scale(0.85);
+.key-specs-list li:last-child:before {
+    border-left: 0;
+}
+
+.btn-180-34 {
+    font-size: 14px;
+    width: 180px;
+    padding: 6px;
+}
+
+/* generic icons */
+.reviews-sm,
+.news-sm,
+.specs-sm,
+.dealers-sm,
+.user-reviews-sm {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.reviews-sm {
+    background-position: -77px -555px;
+}
+
+.news-sm {
+    background-position: -109px -555px;
+}
+
+.specs-sm {
+    background-position: -141px -555px;
+}
+
+.dealers-sm {
+    background-position: -31px -476px;
+}
+
+.user-reviews-sm {
+    background-position: -173px -555px;
+}
+
+.item-more-details-list a:hover .reviews-sm {
+    background-position: -93px -555px;
+}
+
+.item-more-details-list a:hover .news-sm {
+    background-position: -125px -555px;
+}
+
+.item-more-details-list a:hover .specs-sm {
+    background-position: -157px -555px;
+}
+
+.item-more-details-list a:hover .photos-sm {
+    background-position: 0 -493px;
+}
+
+.item-more-details-list a:hover .videos-sm {
+    background-position: -16px -492px;
+}
+
+.item-more-details-list a:hover .dealers-sm {
+    background-position: -31px -492px;
+}
+
+.item-more-details-list a:hover .user-reviews-sm {
+    background-position: -189px -555px;
+}
+
+.btn-red-arrow {
+    width: 6px;
+    height: 10px;
+    background-position: -204px -35px;
+    margin-left: 5px;
+    position: relative;
+    top: 1px;
+}
+
+.btn-white.active .btn-red-arrow {
+    background-position: -204px -49px;
+}
+
+.next-grey-icon {
+    width: 8px;
+    height: 13px;
+    background-position: -182px -393px;
+    vertical-align: middle;
+}
+
+@media only screen and (max-width: 350px) {
+    .review-heading-wrapper {
+        width: 52% !important;
+    }
+    .article-stats-content.video-view-count, .article-stats-content { width:70%; }
+    #makeVideosContent .article-stats-content.video-view-count { width: 68%; }
+    .dealer-horizontal-swiper .swiper-slide, .dealer-horizontal-swiper .swiper-card {
+        width: 265px;
+    }    
+    .model-more-info-section .bike-details-block {
+        width: 62%;
+    }
+    .model-more-info-section .used-target-label {
+        width: 92%;
+    }
 }

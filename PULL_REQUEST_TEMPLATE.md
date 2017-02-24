@@ -1,0 +1,6 @@
+- [ ] Null checks
+- [ ] Use of proper type-caste technique
+- [ ] Self Code Review
+- [ ] Page metas *if any*
+- [ ] Unit test
+- [ ] Code comments

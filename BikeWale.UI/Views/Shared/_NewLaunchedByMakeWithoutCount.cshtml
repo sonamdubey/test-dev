@@ -1,0 +1,39 @@
+﻿@if (ViewBag.TopMakes != null)
+{
+<div class="content-box-shadow padding-top20 padding-bottom25 text-center collapsible-brand-content">
+    <div id="brand-type-container" class="brand-type-container">
+        <ul>
+@foreach (var makeDetails in ViewBag.TopMakes)
+            {
+            <li>
+                <a href="@Bikewale.Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                    <span class="brand-type">
+                        <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
+                    </span>
+                    <span class="brand-type-title">@makeDetails.Make.MakeName</span>
+                </a>
+            </li>
+}
+        </ul>
+@if (ViewBag.OtherMakes != null)
+       {
+        <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
+            @foreach (var makeDetails in ViewBag.OtherMakes)
+            {
+                <li>
+                    <a href="@Bikewale.Utility.UrlFormatter.FormatMakeWiseBikeLaunchedUrl(makeDetails.Make.MaskingName)" title="Newly launched @makeDetails.Make.MakeName bikes">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@makeDetails.Make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@makeDetails.Make.MakeName</span>
+                    </a>
+                </li>
+            }
+        </ul>
+}
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="view-brandType view-more-btn font16" rel="nofollow">View more brands</a>
+    </div>
+</div>
+}

@@ -74,6 +74,10 @@
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="BikeData\IModelsCache.cs" />
+    <Compile Include="BikeData\IModelsRepository.cs" />
+    <Compile Include="BikeData\NewLaunched\INewBikeLaunchesBL.cs" />
+    <Compile Include="BikeData\IUpcoming.cs" />
     <Compile Include="CMS\ICMSCacheRepository.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlertRepository.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
+    <Compile Include="MobileVerification\IMobileVerificationCache.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />

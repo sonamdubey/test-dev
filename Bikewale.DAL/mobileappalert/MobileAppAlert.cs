@@ -40,7 +40,7 @@ namespace Bikewale.DAL.MobileAppAlert
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.MobileAppAlert.SaveIMEIFCMData : imei : {0}, gcmid : {1}, osType {3}: ,subsMaterId : {4}", imei, gcmId, osType, subsMasterId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.DAL.MobileAppAlert.SaveIMEIFCMData : imei : {0}, gcmid : {1}, osType {2}: ,subsMaterId : {3}", imei, gcmId, osType, subsMasterId));
                 isResult = false;
             }
             return isResult;

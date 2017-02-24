@@ -58,6 +58,7 @@ namespace Bikewale.Mobile.New
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected BikeRankingEntity bikeRankObj;
         protected ChangeLocationPopup ctrlChangeLocation;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
 
         protected override void OnInit(EventArgs e)
@@ -101,6 +102,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Bind page related widgets and location change prompt
+        /// Modified  By :- subodh Jain 10 Feb 2017
+        /// Summary :- BikeInfo Slug details
         /// </summary>
         private void BindPageWidgets()
         {
@@ -157,6 +160,12 @@ namespace Bikewale.Mobile.New
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
                     ctrlChangeLocation.UrlCityName = cityName;
+                }
+                if (ctrlGenericBikeInfo != null)
+                {
+                    ctrlGenericBikeInfo.ModelId = modelId;
+                    ctrlGenericBikeInfo.CityId = cityId;
+                    ctrlGenericBikeInfo.TabCount = 3;
                 }
 
 
@@ -488,7 +497,7 @@ namespace Bikewale.Mobile.New
 
             if (firstVersion != null)
             {
-                string newBikeDescription = string.Format("The on-road price of {0} {1} in {2} is Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
+                string newBikeDescription = string.Format("{0} {1} on-road price in {2} - Rs. {3} onwards. It is available in {4} version{5}{6}", makeName, modelName, cityName, CommonOpn.FormatPrice(firstVersion.OnRoadPrice.ToString()), versionCount, multiVersion, multiColour);
 
                 if (dealerCount > 0)
                     newBikeDescription = string.Format("{0} {1} is sold by {2} dealership{3} in {4}.", newBikeDescription, modelName, dealerCount, multiDealer, cityName);

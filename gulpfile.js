@@ -13,223 +13,71 @@ var app = 'BikeWale.UI/',
     minifiedAssetsFolder = buildFolder + 'min/';
 
 var paths = {
-    bwCSS: 'BikeWale.UI/css/**',
-    bwJS: 'BikeWale.UI/src/**',
-
-    bwmCSS: 'BikeWale.UI/m/css/**',
-    bwmJS: 'BikeWale.UI/m/src/**',
-
-    bwSASS: 'BikeWale.UI/sass/**',
-    bwmSASS: 'BikeWale.UI/m/sass/**',
-
-    destinationD_CSS: 'BikeWale.UI/build/min/css',
-    destinationD_JS: 'BikeWale.UI/build/min/src',
-
-    destinationM_CSS: 'BikeWale.UI/build/min/m/css',
-    destinationM_JS: 'BikeWale.UI/build/min/m/src'
+    CSS: 'css/',
+    JS: 'src/',
+    SASS: 'sass/'
 };
 
-var sassPaths = {
-    bw: {
-        service: {
-            source: 'BikeWale.UI/sass/service/**',
-            target: 'BikeWale.UI/build/min/css/service'
-        },
-
-        sellBike: {
-            source: 'BikeWale.UI/sass/sell-bike/**',
-            target: 'BikeWale.UI/build/min/css/'
-        },
-
-        generic: {
-            source: 'BikeWale.UI/sass/generic/**',
-            target: 'BikeWale.UI/build/min/css/generic'
-        }
-    },
-    bwm: {
-        service: {
-            source: 'BikeWale.UI/m/sass/service/**',
-            target: 'BikeWale.UI/build/min/m/css/service'
-        },
-
-        sellBike: {
-            source: 'BikeWale.UI/m/sass/sell-bike/**',
-            target: 'BikeWale.UI/build/min/m/css/'
-        },
-
-        generic: {
-            source: 'BikeWale.UI/m/sass/generic/**',
-            target: 'BikeWale.UI/build/min/m/css/generic'
-        }
-    }
-}
-
-var page = {
-    desktop: {
-        service: {
-            baseFolder: 'BikeWale.UI/servicecenter',
-            landing: 'BikeWale.UI/servicecenter/Default.aspx',
-            city: 'BikeWale.UI/servicecenter/ServiceCenterInCountry.aspx',
-            listing: 'BikeWale.UI/servicecenter/ServiceCenterList.aspx',
-            details: 'BikeWale.UI/servicecenter/ServiceCenterDetails.aspx',
-        },
-
-        model: 'BikeWale.UI/new/versions.aspx',
-
-        genericListing: 'BikeWale.UI/generic/BikeListing.aspx',
-
-        homepage: 'BikeWale.UI/default.aspx'
-    },
-
-    mobile: {
-        service: {
-            baseFolder: 'BikeWale.UI/m/service',
-            landing: 'BikeWale.UI/m/service/Default.aspx',
-            city: 'BikeWale.UI/m/service/ServiceCenterInCountry.aspx',
-            listing: 'BikeWale.UI/m/service/ServiceCenterList.aspx',
-            details: 'BikeWale.UI/m/service/ServiceCenterDetails.aspx',
-        },
-
-        genericListing: 'BikeWale.UI/m/generic/BikeListing.aspx',
-
-        homepage: 'BikeWale.UI/m/default.aspx'
-    }
-}
-
 gulp.task('clean', function () {
-    return del(['BikeWale.UI/build']);
+    return del([buildFolder]);
 });
 
+// minify css and js
 gulp.task('minify-bw-css', function () {
-    return gulp.src(paths.bwCSS, { base: 'BikeWale.UI/css/' })
+    return gulp.src(app + paths.CSS + '**', { base: app + paths.CSS })
         .pipe(cleanCss())
-        .pipe(gulp.dest(paths.destinationD_CSS));
+        .pipe(gulp.dest(minifiedAssetsFolder + paths.CSS));
 });
 
 gulp.task('minify-bw-js', function () {
-    return gulp.src(paths.bwJS, { base: 'BikeWale.UI/src/' })
+    return gulp.src(app + paths.JS + '**', { base: app + paths.JS })
         .pipe(uglify().on('error', function (e) {
             console.log(e);
         }))
-        .pipe(gulp.dest(paths.destinationD_JS));
+        .pipe(gulp.dest(minifiedAssetsFolder + paths.JS));
 });
 
 gulp.task('minify-bwm-css', function () {
-    return gulp.src(paths.bwmCSS, { base: 'BikeWale.UI/m/css/' })
+    return gulp.src(app + 'm/' + paths.CSS + '**', { base: app + 'm/' + paths.CSS })
         .pipe(cleanCss())
-        .pipe(gulp.dest(paths.destinationM_CSS));
+        .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.CSS));
 });
 
 gulp.task('minify-bwm-js', function () {
-    return gulp.src(paths.bwmJS, { base: 'BikeWale.UI/m/src/' })
+    return gulp.src(app + 'm/' + paths.JS + '**', { base: app + 'm/' + paths.JS })
         .pipe(uglify().on('error', function (e) {
             console.log(e);
         }))
-        .pipe(gulp.dest(paths.destinationM_JS));
+        .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-// desktop: sass to min css [build folder]
-gulp.task('bw-sass', function (callback) {
-    gulpSequence('bw-service-sass', 'bw-sell-bike-sass', 'bw-generic-sass')(callback)
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
+
+// convert desktop sass to css
+gulp.task('bw-sass-to-css', function () {
+    var fileLength = desktopSASSFolder.length;
+
+    for (var i = 0; i < fileLength; i++) {
+        gulp.src(app + 'sass/' + desktopSASSFolder[i] + '**', { base: app + 'sass/' + desktopSASSFolder[i] })
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest(app + 'css/' + desktopSASSFolder[i]))
+    }
+
+    console.log('Desktop SASS files converted to CSS files');
 });
 
-gulp.task('bw-service-sass', function () {
-    return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bw.service.target));
-});
+// convert mobile sass to css
+gulp.task('bwm-sass-to-css', function () {
+    var fileLength = mobileSASSFolder.length;
 
-gulp.task('bw-sell-bike-sass', function () {
-    return gulp.src(sassPaths.bw.sellBike.source, { base: 'BikeWale.UI/sass/sell-bike/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bw.sellBike.target));
-});
+    for (var i = 0; i < fileLength; i++) {
+        gulp.src(app + 'm/sass/' + mobileSASSFolder[i] + '**', { base: app + 'm/sass/' + mobileSASSFolder[i] })
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest(app + 'm/css/' + mobileSASSFolder[i]))
+    }
 
-gulp.task('bw-generic-sass', function () {
-    return gulp.src(sassPaths.bw.generic.source, { base: 'BikeWale.UI/sass/generic/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bw.generic.target));
-});
-
-// desktop: sass to original css
-gulp.task('bw-sass-to-css', function (callback) {
-    gulpSequence('bw-service-sass', 'bw-sell-bike-sass', 'bw-generic-css')(callback)
-});
-
-gulp.task('bw-service-css', function () {
-    return gulp.src(sassPaths.bw.service.source, { base: 'BikeWale.UI/sass/service/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/css/service/'));
-});
-
-gulp.task('bw-sell-bike-css', function () {
-    return gulp.src(sassPaths.bw.sellBike.source, { base: 'BikeWale.UI/sass/sell-bike/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/css/'));
-});
-
-gulp.task('bw-generic-css', function () {
-    return gulp.src(sassPaths.bw.generic.source, { base: 'BikeWale.UI/sass/generic/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/css/generic/'));
-});
-
-// mobile: sass to min css [build folder]
-gulp.task('bwm-sass', function (callback) {
-    gulpSequence('bwm-service-sass', 'bwm-sell-bike-sass', 'bwm-generic-sass')(callback)
-});
-
-gulp.task('bwm-service-sass', function () {
-    return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bwm.service.target));
-});
-
-gulp.task('bwm-sell-bike-sass', function () {
-    return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bwm.sellBike.target));
-});
-
-gulp.task('bwm-generic-sass', function () {
-    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(cleanCss())
-        .pipe(gulp.dest(sassPaths.bwm.generic.target));
-});
-
-// mobile: sass to original css
-gulp.task('bwm-sass-to-css', function (callback) {
-    gulpSequence('bwm-service-css', 'bwm-sell-bike-css', 'bwm-generic-css')(callback)
-});
-
-gulp.task('bwm-service-css', function () {
-    return gulp.src(sassPaths.bwm.service.source, { base: 'BikeWale.UI/m/sass/service/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/m/css/service/'));
-});
-
-gulp.task('bwm-sell-bike-css', function () {
-    return gulp.src(sassPaths.bwm.sellBike.source, { base: 'BikeWale.UI/m/sass/sell-bike/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/m/css/'));
-});
-
-gulp.task('bwm-generic-css', function () {
-    return gulp.src(sassPaths.bwm.generic.source, { base: 'BikeWale.UI/m/sass/generic/' })
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('BikeWale.UI/m/css/generic/'));
-});
-
-//Watch task
-gulp.task('watch-sass', function () {
-    gulp.watch(paths.bwSASS, ['bw-sass']);
-    gulp.watch(paths.bwmSASS, ['bwm-sass']);
+    console.log('Mobile SASS files converted to CSS files');
 });
 
 // desktop and mobile pages array to replace css link reference with internal css
@@ -318,6 +166,60 @@ var pageArray = [
         folderName: 'm/new/photos/',
         fileName: 'Default.aspx',
         stylesheet: 'm/css/photos.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBike.aspx',
+        stylesheet: 'm/css/compare/landing.css'
+    },
+    {
+        folderName: 'm/new/compare/',
+        fileName: 'CompareBikeDetails.aspx',
+        stylesheet: 'm/css/compare/details.css'
+    }
+	
+];
+
+var mvcPageArray =[
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/m/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'm/css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'Index.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByYear.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/NewLaunches/',
+        fileName: 'BikesByMake.cshtml',
+        stylesheet: 'css/new-launch/new-launch.css'
+    },
+	{
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Desktop.cshtml',
+        stylesheet: 'css/bw-common-atf.css'
+    },
+    {
+        folderName: 'Views/Shared/',
+        fileName: '_Layout_Mobile.cshtml',
+        stylesheet: 'm/css/bwm-common-atf.css'
     }
 ];
 
@@ -339,19 +241,43 @@ gulp.task('replace-css-reference', function () {
     console.log('internal css reference replaced');
 });
 
+// replace css reference with internal css for MVC views
+gulp.task('replace-mvc-css-reference', function () {
+    var pageLength = mvcPageArray.length;
+
+    for (var i = 0; i < pageLength; i++) {
+        var element = mvcPageArray[i],
+            style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'").replace(/\\/g,"\\") + "</style>",
+            styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
+
+        gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+            .pipe(replace(styleLink, styleTag))
+            .pipe(gulp.dest(buildFolder + element.folderName));
+    }
+
+    console.log('internal css reference replaced');
+});
+
 // replace desktop frameworks js, ie8 fix
 gulp.task('bw-framework-js', function () {
-    return gulp.src('BikeWale.UI/src/frameworks.js', { base: 'BikeWale.UI/src/' })
-        .pipe(gulp.dest(paths.destinationD_JS));
+    return gulp.src(app + paths.JS + 'frameworks.js', { base: app + paths.JS })
+        .pipe(gulp.dest(minifiedAssetsFolder + paths.JS));
+});
+
+//Watch task
+gulp.task('watch-sass', function () {
+    gulp.watch(app + paths.SASS + '**', ['bw-sass-to-css']);
+    gulp.watch(app + 'm/' + paths.SASS + '**', ['bwm-sass-to-css']);
 });
 
 gulp.task('default', gulpSequence(
     'clean',
+    'bw-sass-to-css', 'bwm-sass-to-css',
     'minify-bw-css', 'minify-bw-js',
     'minify-bwm-css', 'minify-bwm-js',
     'bw-framework-js',
-    'bw-sass', 'bwm-sass',
-    'bw-sass-to-css', 'bwm-sass-to-css',
-    'replace-css-reference'
+    'replace-css-reference',
+	'replace-mvc-css-reference'
     )
 );

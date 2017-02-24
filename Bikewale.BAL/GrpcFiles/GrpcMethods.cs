@@ -5,6 +5,8 @@ using Grpc.Core;
 using GRPCLoadBalancer;
 using log4net;
 using System;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace Grpc.CMS
 {
@@ -29,28 +31,28 @@ namespace Grpc.CMS
             return DateTime.Now.AddMilliseconds(incrementMillisecond).ToUniversalTime();
         }
 
-        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, int makeid = 0, int modelid = 0)
+        public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx,int makeid=0,int modelid=0)
         {
 
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
             int i = m_retryCount;
-            while (i-- >= 0)
+            while (i-->=0)
             {
                 if (ch != null)
-                {
+                {                    
                     var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
                     {
-                        return client.GetContentListByCategory(new GrpcArticleByCatURI()
-                      {
-                          ApplicationId = 2,
-                          CategoryIdList = catIdList,
-                          EndIndex = endIdx,
-                          MakeId = makeid,
-                          ModelId = modelid,
-                          StartIndex = startIdx
-                      },
-                      null, GetForwardTime(m_ChanelWaitTime));
+                          return  client.GetContentListByCategory(new GrpcArticleByCatURI()
+                        {
+                            ApplicationId = 2,
+                            CategoryIdList = catIdList,
+                            EndIndex = endIdx,
+                            MakeId = makeid,
+                            ModelId = modelid,
+                            StartIndex = startIdx
+                        },
+                        null, GetForwardTime(m_ChanelWaitTime));
                     }
                     catch (RpcException e)
                     {
@@ -60,7 +62,7 @@ namespace Grpc.CMS
                         else
                             break;
                     }
-                    catch (Exception e)
+                    catch(Exception e)
                     {
                         log.Error(e);
                     }
@@ -82,12 +84,12 @@ namespace Grpc.CMS
             while (i-- >= 0)
             {
                 if (ch != null)
-                {
+                {                   
                     var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
-                    {
+                    {                        
 
-                        return client.GetMostRecentArticles
+                        return  client.GetMostRecentArticles
                             (new GrpcArticleRecentURI()
                             {
                                 MakeId = makeId == null ? 0 : makeId.Value,
@@ -135,8 +137,7 @@ namespace Grpc.CMS
                         return client.GetArticlePhotos
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId,
-                                ApplicationId = 2
+                               BasicId=basicId
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -159,7 +160,7 @@ namespace Grpc.CMS
             return null;
         }
 
-        public static GrpcModelImageList GetModelPhotosList(uint applicationId, int modelId, string categoryId)
+        public static GrpcModelImageList GetModelPhotosList(uint applicationId,int modelId, string categoryId)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
@@ -175,9 +176,50 @@ namespace Grpc.CMS
                         return client.GetModelPhotosList
                             (new GrpcModelPhotoURI()
                             {
-                                ApplicationId = applicationId,
-                                ModelId = modelId,
-                                CategoryIdList = categoryId
+                                ApplicationId=applicationId,
+                                ModelId=modelId,
+                                CategoryIdList=categoryId
+                            },
+                             null, GetForwardTime(m_ChanelWaitTime));
+                    }
+                    catch (RpcException e)
+                    {
+                        log.Error(e);
+                        if (i > 0)
+                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                        else
+                            break;
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e);
+                    }
+                }
+                else
+                    break;
+            }
+            return null;
+        }
+
+        public static GrpcInt GrpcGetFeaturedCar(string versions,int categoryId,int platformId)
+        {
+            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+
+            int i = m_retryCount;
+            while (i-- >= 0)
+            {
+                if (ch != null)
+                {
+                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
+                    try
+                    {
+
+                        return client.GrpcGetFeaturedCar
+                            (new GrpcFeatureCarURI()
+                            {
+                                CategoryId= categoryId,
+                                PlatformId=platformId,
+                                VersionIds=versions
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -216,8 +258,7 @@ namespace Grpc.CMS
                         return client.GetContentDetails
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId,
-                                ApplicationId = 2
+                                BasicId=basicId
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -256,8 +297,7 @@ namespace Grpc.CMS
                         return client.GetContentPages
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId,
-                                ApplicationId = 2
+                                BasicId = basicId
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -296,10 +336,10 @@ namespace Grpc.CMS
                         return client.GetVideosByModelId
                             (new GrpcVideosByIdURI()
                             {
-                                Id = modelId,
-                                ApplicationId = 2,
-                                StartIndex = startId,
-                                EndIndex = endId
+                                Id=modelId,
+                                ApplicationId=2,
+                                StartIndex=startId,
+                                EndIndex=endId
                             },
 
                              null, GetForwardTime(m_ChanelWaitTime));
@@ -366,7 +406,7 @@ namespace Grpc.CMS
             return null;
         }
 
-        public static GrpcVideosList GetVideosBySubCategory(uint catId, uint startId, uint endId)
+        public static GrpcVideosList GetVideosBySubCategory(uint catId,uint startId, uint endId)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
@@ -382,10 +422,10 @@ namespace Grpc.CMS
                         return client.GetVideosBySubCategory
                             (new GrpcVideosBySubCategoryURI()
                             {
-                                ApplicationId = 2,
-                                SubCategoryId = catId,
-                                StartIndex = startId,
-                                EndIndex = endId
+                                ApplicationId=2,
+                                SubCategoryId=catId,
+                                StartIndex=startId,
+                                EndIndex=endId
                             },
 
                              null, GetForwardTime(m_ChanelWaitTime));
@@ -408,9 +448,9 @@ namespace Grpc.CMS
             }
             return null;
         }
+        
 
-
-        private static GrpcVideoSortOrderCategory MapVideosSortOrder(VideosSortOrder sortOrder)
+        private static GrpcVideoSortOrderCategory  MapVideosSortOrder(VideosSortOrder sortOrder)
         {
             switch (sortOrder)
             {
@@ -436,16 +476,16 @@ namespace Grpc.CMS
                 {
                     var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
                     try
-                    {
+                    {                        
 
                         return client.GetVideosBySubCategories
                             (new GrpcVideosBySubCategoriesURI()
                             {
                                 ApplicationId = 2,
-                                SubCategoryIds = catIds,
-                                StartIndex = startIndex,
-                                EndIndex = endIndex,
-                                SortCategory = MapVideosSortOrder(sortOrder)
+                                SubCategoryIds=catIds,
+                                StartIndex=startIndex,
+                                EndIndex=endIndex,
+                                SortCategory= MapVideosSortOrder(sortOrder)
                             },
 
                              null, GetForwardTime(m_ChanelWaitTime));
@@ -469,7 +509,7 @@ namespace Grpc.CMS
             return null;
         }
 
-        public static GrpcVideosList GetSimilarVideos(int id, int totalCount)
+        public static GrpcVideosList GetSimilarVideos(int  id, int totalCount)
         {
             Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
@@ -487,8 +527,8 @@ namespace Grpc.CMS
                             {
                                 ApplicationId = 2,
                                 Id = id,
-                                StartIndex = 1,
-                                EndIndex = (uint)totalCount
+                                StartIndex=1,
+                                EndIndex=(uint)totalCount
                             },
 
                              null, GetForwardTime(m_ChanelWaitTime));
@@ -567,7 +607,7 @@ namespace Grpc.CMS
                     {
 
                         return client.ClearMemcachedKeys
-                            (new EditCMSCategory() { Category = cat },
+                            (new EditCMSCategory(){Category= cat},
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
                     catch (RpcException e)

@@ -4,8 +4,8 @@
 <html>
 <head>
 <%
-    title="Used Bikes in India - Buy & Sell Second Hand Bikes";
-    description="With more than 10,000 used bikes listed for sale, BikeWale is India's largest source of used bikes in India. Find a second hand bike or list your bike for sale.";
+    title = "Used Bikes in India | Buy and Sell Used Bikes- BikeWale";
+    description = "BikeWale is the India's largest portal for selling and buying used bikes with more than 10000+ listings. Buy and Sell your second-hand bikes online for FREE!";
     keywords="Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";        
     canonical="https://www.bikewale.com/used/";
 %>
