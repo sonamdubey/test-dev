@@ -601,8 +601,8 @@
                                 <ul id="dealerList" class="more-dealers-list">
                                     <% foreach (var dealer in detailedDealer.SecondaryDealers)
                                        { %>
-                                    <li dealerid="<%= dealer.DealerId %>">
-                                        <a href="javascript:void(0)" title="<%= dealer.Name%>" class="top-block-target">
+                                    <li dealerid="<%= dealer.DealerId %>" style="min-height:191px">
+                                        <a href="javascript:void(0)" title="<%= dealer.Name%>" class="top-block-target" onclick="secondarydealer_Click(<%= dealer.DealerId %>)">
                                             <div class="grid-10 alpha margin-bottom5">
                                                 <h3 class="text-black text-truncate"><%= dealer.Name%></h3>
                                             </div>
@@ -613,15 +613,6 @@
                                                 <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                 <span class="vertical-top details-column font14 text-light-grey"><%= dealer.Area%></span>
                                             </div>
-
-                                            <div>
-                                                <% if (!string.IsNullOrEmpty(dealer.MaskingNumber))
-                                                   { %>
-                                                <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                                <% } %>
-                                                <span class="vertical-top details-column font14 text-default text-bold"><%= dealer.MaskingNumber%></span>
-                                            </div>
-
                                             <div class="margin-top10">
                                                 <div class="grid-5 alpha omega">
                                                     <p class="font12 text-light-grey margin-bottom2">On-road price</p>
@@ -639,7 +630,7 @@
                                             </div>
                                         </a>
                                         <div class="bottom-block-button margin-top15">
-                                            <a href="javascript:void(0);" id="leadSecondary" leadsourceid="39" data-dealerid="<%= dealer.DealerId %>" onclick="openLeadCaptureForm(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn"><%= dealer.DisplayTextLarge %></a>
+                                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn" rel="nofollow">View dealer details</a>
                                         </div>
                                     </li>
                                     <% } %>
@@ -963,10 +954,6 @@
                 }
                 $('#hdnDealerId').val($(this).attr('title'));
                 triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
-            });
-            $("#dealerList li").on("click", function(){
-                triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
-                registerPQ($(this).attr('dealerId'));
             });
 
             function secondarydealer_Click(dealerID) {
