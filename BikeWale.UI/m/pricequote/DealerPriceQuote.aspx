@@ -454,9 +454,7 @@
 									</div>
 								</a>
 								<div>
-									 <a href="javascript:void(0)" onclick="secondarydealer_Click(<%# DataBinder.Eval(Container.DataItem,"DealerId") %>)" class="btn btn-white btn-sm-1 margin-right5 inline-block" rel="nofollow">View dealer details</a>
-                                    <%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()) ? 
-									("<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + BikeName + "_" + Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City + "_" +Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>") : "" %>
+									 <a href="javascript:void(0)" onclick="secondarydealer_Click(<%# DataBinder.Eval(Container.DataItem,"DealerId") %>)" class="btn btn-white btn-sm-1 margin-right5 inline-block" rel="nofollow">View detailed price</a>
 								</div>
 							</div>
 						</ItemTemplate>

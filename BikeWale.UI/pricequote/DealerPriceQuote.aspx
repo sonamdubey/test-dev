@@ -630,7 +630,7 @@
                                             </div>
                                         </a>
                                         <div class="bottom-block-button margin-top15">
-                                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn" rel="nofollow">View dealer details</a>
+                                            <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= dealer.DealerId %>)" class="btn btn-white partner-dealer-offers-btn" rel="nofollow">View detailed price</a>
                                         </div>
                                     </li>
                                     <% } %>
