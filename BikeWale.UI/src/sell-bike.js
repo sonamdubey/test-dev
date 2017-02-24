@@ -819,7 +819,7 @@ var personalDetails = function () {
                 "color": bdetails.color(),
                 "colorId": colorId,
                 "sourceId": 1,
-                "status": 4,
+                "status": vmSellBike.inquiryId() > 0 ? 1 : 4,
                 "pageUrl": "used/sell",
                 "seller": {
                     "sellerType": sellerType,

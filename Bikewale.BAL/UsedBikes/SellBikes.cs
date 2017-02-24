@@ -53,8 +53,6 @@ namespace Bikewale.BAL.UsedBikes
         /// <returns></returns>
         public SellBikeInquiryResultEntity SaveSellBikeAd(SellBikeAd ad)
         {
-            isEdit = (ad.InquiryId > 0);
-
             SellBikeInquiryResultEntity result = new SellBikeInquiryResultEntity();
             result.Status = new SellBikeAdStatusEntity();
             // Check if user is registered
@@ -63,6 +61,7 @@ namespace Bikewale.BAL.UsedBikes
                 // Check if customer is fake
                 if (!IsFakeCustomer(ad.Seller.CustomerId))
                 {
+                    isEdit = (ad.InquiryId > 0);
                     //Check if mobile verified
                     if (!_mobileVerRespo.IsMobileVerified(ad.Seller.CustomerMobile, ad.Seller.CustomerEmail))
                     {
