@@ -69,6 +69,8 @@ namespace Bikewale.Mobile.New.Photos
 
                 if (!vmModelPhotos.isRedirectToModelPage && !vmModelPhotos.isPermanentRedirection && !vmModelPhotos.isPageNotFound)
                 {
+                    vmModelPhotos.GridSize = 30;
+                    vmModelPhotos.NoOfGrid = 6;
                     vmModelPhotos.isModelpage = isModelPage;
                     vmModelPhotos.GetModelDetails();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;

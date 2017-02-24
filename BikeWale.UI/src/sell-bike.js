@@ -819,7 +819,7 @@ var personalDetails = function () {
                 "color": bdetails.color(),
                 "colorId": colorId,
                 "sourceId": 1,
-                "status": 1,
+                "status": vmSellBike.inquiryId() > 0 ? 1 : 4,
                 "pageUrl": "used/sell",
                 "seller": {
                     "sellerType": sellerType,
@@ -842,12 +842,11 @@ var personalDetails = function () {
                 data: ko.toJSON(inquiryData),
                 async: false,
                 success: function (response) {
-                    var res = JSON.parse(response);
-                    if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified
-                        vmSellBike.verificationDetails().status(true);
+                    var res = JSON.parse(response);                    
+                    if (res != null && res.Status != null && res.Status.Code == 4) {      // if user is not verified                        
                         vmSellBike.inquiryId(res.InquiryId);
                         vmSellBike.customerId(res.CustomerId);
-                        
+                        vmSellBike.verificationDetails().status(true);
                     }
                     else if (res != null && res.Status != null && res.Status.Code == 5) {                    
                         vmSellBike.inquiryId(res.InquiryId);
@@ -873,7 +872,7 @@ var personalDetails = function () {
 
         if (self.mobileError().length != 0) {
             self.mobileLabel(false);
-        }
+        }        
     };
 
     self.backToBikeDetails = function () {
@@ -971,8 +970,7 @@ var verificationDetails = function () {
             scrollToForm.activate();
 
             var otp = vmSellBike.verificationDetails().otpCode();
-            var mobile = vmSellBike.personalDetails().sellerMobile();
-         
+            var mobile = vmSellBike.personalDetails().sellerMobile();            
             var mobileVerificationData = {
                 "sellerType": vmSellBike.personalDetails().sellerTypeVal() ,
                 "otp": otp,
@@ -1313,6 +1311,7 @@ $(function () {
     else {
         $("#kmsRidden").val('');
         $("#expectedPrice").val('');
+        $('#city-select-element').removeClass('done');
     }
     if (isEdit != "True" &&  userId != null) {
         var pdetails = vmSellBike.personalDetails();

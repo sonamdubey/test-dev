@@ -12,7 +12,9 @@ using Bikewale.Interfaces.Cache.Core;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
+
 namespace Bikewale.BindViewModels.Webforms.Photos
 {
     /// <summary>
@@ -23,10 +25,12 @@ namespace Bikewale.BindViewModels.Webforms.Photos
     /// </summary>
     public class BindModelPhotos
     {
-        private uint _modelId = 0, _noOfGrid = 6;
+        private uint _modelId;
+        public uint NoOfGrid;
         private IBikeModelsCacheRepository<int> objModelCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache = null;
         public string bikeName = string.Empty, modelImage = string.Empty;
+        public ImageBaseEntity firstImage = null;
         public int totalPhotosCount, gridPhotosCount, nongridPhotosCount;
         public bool isPageNotFound = false, isPermanentRedirection = false;
         public bool isRedirectToModelPage = false;
@@ -35,9 +39,10 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public BikeModelEntityBase objModel = null;
         public List<ColorImageBaseEntity> objImageList = null;
         public PageMetaTags pageMetas = null;
-        public uint gridSize = 30;  //show more photos available after grid size more than 30
+        public uint GridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
         public bool isModelpage;
+        public bool isDesktop;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -116,11 +121,18 @@ namespace Bikewale.BindViewModels.Webforms.Photos
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
+                    modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
+                    firstImage = objImageList[0];
+                    if (isDesktop)
+                    {
+                        objImageList = objImageList.Skip(1).ToList();
+                    }
+
                     totalPhotosCount = objImageList.Count;
 
-                    nongridPhotosCount = (int)(totalPhotosCount % _noOfGrid);
+                    nongridPhotosCount = (int)(totalPhotosCount % NoOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
-                    modelImage = Utility.Image.GetPathToShowImages(objImageList[0].OriginalImgPath, objImageList[0].HostUrl, Bikewale.Utility.ImageSize._476x268);
+
                 }
             }
             catch (Exception ex)

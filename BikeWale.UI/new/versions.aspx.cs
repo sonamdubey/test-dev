@@ -45,7 +45,6 @@ namespace Bikewale.New
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected NewUserReviewsList ctrlUserReviews;
-        protected ModelGallery ctrlModelGallery;
         protected PriceInTopCities ctrlTopCityPrices;
         protected BikeModelPageEntity modelPageEntity;
         protected PopularModelCompare ctrlPopularCompare;
@@ -460,10 +459,6 @@ namespace Bikewale.New
                     rptModelPhotos.DataBind();
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
-
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = photos;
                 }
 
                 //bind model colors
