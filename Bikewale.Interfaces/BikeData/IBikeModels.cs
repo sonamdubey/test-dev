@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
 
@@ -40,5 +41,6 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelContent GetRecentModelArticles(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
+        ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
@@ -8,6 +9,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -16,6 +18,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -43,6 +46,9 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
+        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IVideos _videos = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelEntity = null;
 
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
@@ -61,13 +67,16 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
-                _userReviewCache = container.Resolve<IUserReviewsCache>();
-
+                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<int>>();
+                _videos = container.Resolve<IVideos>();
             }
         }
 
@@ -901,7 +910,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
-                objErr.SendMail();
             }
 
             return objModelPage;
@@ -1674,7 +1682,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetBikeModelPhotoGallery");
-                objErr.SendMail();
             }
 
             return objPhotos;
@@ -1785,7 +1792,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
-                objErr.SendMail();
             }
 
             return objUpcoming;
@@ -1820,7 +1826,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objModelArticles;
@@ -1878,9 +1883,34 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
-                objErr.SendMail();
             }
             return objVideos;
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 24-02-2017
+        /// Description : Get model photo gallery data
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId)
+        {
+            ModelPhotoGalleryEntity objModelPhotoGalleryData = null;
+            try
+            {
+                objModelPhotoGalleryData = new ModelPhotoGalleryEntity();
+                //objModelPhotoGalleryData.ObjModelEntity = _modelEntity.GetById((int)modelId);
+                objModelPhotoGalleryData.ObjModelEntity = modelRepository.GetById(modelId);
+                if (objModelPhotoGalleryData.ObjModelEntity != null && objModelPhotoGalleryData.ObjModelEntity.MakeBase != null)
+                    objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 20, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId));
+                objModelPhotoGalleryData.ImageList = _modelCacheRepository.CreateAllPhotoList(Convert.ToInt32(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData  modelId{0}", modelId));
+            }
+            return objModelPhotoGalleryData;
+        }
+
     }   // Class
 }   // namespace

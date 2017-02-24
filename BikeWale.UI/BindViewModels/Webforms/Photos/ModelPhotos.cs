@@ -6,6 +6,7 @@ using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
@@ -43,6 +44,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public bool IsUpcoming = false, IsDiscontinued = false;
         public bool isModelpage;
         public bool isDesktop;
+        private IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        public ModelPhotoGalleryEntity photoGalleryEntity = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -62,16 +65,29 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>();
 
-
                     objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    _objModelEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                 }
 
                 ParseQueryString();
+                GetPhotoGalleryData();
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : BindModelPhotos");
+            }
+        }
+
+        public void GetPhotoGalleryData()
+        {
+            try
+            {
+                photoGalleryEntity = _objModelEntity.GetPhotoGalleryData(Convert.ToInt32(_modelId));
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
             }
         }
 

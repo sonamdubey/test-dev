@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.New.Photos.Default" %>
-
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/controls/SimilarBikeWithPhotos.ascx" %>
 <%@ Register TagPrefix="BW" TagName="Videos" Src="~/controls/NewVideosControl.ascx" %>
 <!DOCTYPE html>
@@ -124,6 +124,7 @@
             </div>
         </section>
 
+        <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
 
         <% if (ctrlVideos.FetchedRecordsCount > 0)
            { %>

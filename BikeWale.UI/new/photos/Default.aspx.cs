@@ -1,8 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Photos;
+using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -22,6 +24,7 @@ namespace Bikewale.New.Photos
         protected NewVideosControl ctrlVideos;
         protected uint gridSize = 25;
         private uint _modelId;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
 
         protected override void OnInit(EventArgs e)
         {
@@ -34,6 +37,9 @@ namespace Bikewale.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+            dd.DetectDevice();
+
             if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
                 isModelPage = true;
@@ -79,7 +85,18 @@ namespace Bikewale.New.Photos
                         IsUpcoming = genericBikeInfo.IsUpcoming;
                         IsDiscontinued = genericBikeInfo.IsDiscontinued;
                         VideoCount = bikeInfo.VideosCount;
+
+                        if (ctrlGenericBikeInfo != null && bikeInfo.Model != null)
+                        {
+                            var objresponse = new ModelHelper().GetModelDataByMasking((bikeInfo.Model.MaskingName));
+
+                            ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
+                            ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                            ctrlGenericBikeInfo.PageId = BikeInfoTabType.Image;
+                            ctrlGenericBikeInfo.TabCount = 4;
+                        }
                     }
+
                 }
             }
             catch (Exception ex)
