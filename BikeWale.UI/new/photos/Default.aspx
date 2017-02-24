@@ -18,6 +18,11 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/photos.css" />
+    <!--[if lt IE 9]>
+	    <style type="text/css">
+            .photos-grid-list li { height: auto; min-height: 100px; }
+        </style>
+    <![endif]-->
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
@@ -144,7 +149,6 @@
 
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.1.7/js/swiper.min.js"></script>
 
         <div id="gallery-root">
             <div class="gallery-container gallery-bg-overlay" style="display: none;" data-bind="visible: isGalleryActive()">
@@ -353,6 +357,91 @@
                 </div>
             </div>
         </div>
+        
+        <div id="fallback-model-gallery">
+            <div class="blackOut-window-model"></div>
+            <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
+
+            <div class="bike-gallery-popup bw-tabs-panel">
+                <% if (VideoCount > 0) { %>
+                <div class="text-center photos-videos-tabs margin-bottom20">
+                    <div class="bw-tabs home-tabs">
+                        <ul>
+                            <li class="active" data-tabs="Photos" id="photos-tab">Images</li>
+                            <li data-tabs="Videos" id="videos-tab">Videos</li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+                <div class="bike-gallery-heading margin-bottom20 margin-left30 <%= VideoCount == 0 ? "margin-top90" : "" %>">
+                    <p class="font18 text-bold text-white"><%= bikeName %></p>
+                </div>
+                <div class="bw-tabs-data" id="Photos">
+                    <div class="connected-carousels-photos">
+                        <div class="stage-photos stage-media">
+                            <div class="carousel-photos carousel-stage-photos carousel-stage-media">
+                                <ul data-bind="foreach: photoList">
+                                    <li>
+                                        <div class="gallery-photo-img-container">
+                                            <span>
+                                                <img class="lazy" data-bind="attr: { alt: imageTitle, 'data-original': hostUrl + '/1056x594/' + imagePathLarge }" src="https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="" border="0" />
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bike-gallery-details">
+                                <span class="leftfloat bike-gallery-title"></span>
+                                <span class="rightfloat bike-gallery-count"></span>
+                            </div>
+                            <a href="#" class="prev photos-prev-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-stage bwsprite media-prev-next-stage" rel="nofollow"></a>
+                        </div>
+                        <div class="navigation-photos navigation-media">
+                            <a href="#" class="prev photos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <a href="#" class="next photos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <div class="carousel-photos carousel-navigation-photos carousel-navigation-media">
+                                <ul data-bind="foreach: photoList">
+                                    <li>
+                                        <div class="gallery-photo-nav-img-container">
+                                            <span>
+                                                <img class="lazy" data-bind="attr: { alt: imageTitle, 'data-original': hostUrl + '/144x81/' + imagePathLarge }" src="" alt="" border="0" />
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% if (VideoCount > 0) { %>
+                <div class="bw-tabs-data hide" id="Videos">
+                    <div class="connected-carousels-videos">
+                        <div class="stage-videos stage-media">
+                                <div class="carousel-videos carousel-stage-videos carousel-stage-media">
+                                    <div class="yt-iframe-container">
+                                        <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="navigation-videos navigation-media">
+                            <a href="#" class="prev videos-prev-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <a href="#" class="next videos-next-navigation bwsprite media-prev-next-nav" rel="nofollow"></a>
+                            <div class="carousel-videos carousel-navigation-videos carousel-navigation-media">
+                                <ul data-bind="foreach: videoList">
+                                    <li>
+                                        <div class="yt-iframe-container">
+                                                <img data-bind="attr: { alt: VideoTitle, title: VideoTitle, src: 'https://img.youtube.com/vi/'+VideoId+'/default.jpg', 'iframe-data': VideoUrl }" border="0" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
 
         <!-- #include file="/includes/footerBW.aspx" -->
 
@@ -363,7 +452,12 @@
             var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
             var videoCount = <%=VideoCount%>;
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>        
+        <!--[if lt IE 10]>
+            <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/fallback-gallery.js?<%=staticFileVersion %>"></script>
+        <![endif]-->
+
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>

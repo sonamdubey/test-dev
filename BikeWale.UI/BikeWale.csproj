@@ -2967,6 +2967,7 @@
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
+    <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
@@ -3053,6 +3054,7 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
     <Content Include="src\used-details.js" />
