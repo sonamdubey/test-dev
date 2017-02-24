@@ -72,8 +72,8 @@
                                     @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
                                 </li>
 
-                                <li data-bind="visible : models()[@i].minSpec.maxTorque != 0,text:models()[@i].minSpec.maxTorque + ' bhp'" style="display:@(bike.MinSpecs.MaximumTorque > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaximumTorque.ToString(), "bhp")
+                                <li data-bind="visible : models()[@i].minSpec.maxPower != 0,text:models()[@i].minSpec.maxPower + ' bhp'" style="display:@(bike.MinSpecs.MaxPower > 0 ? "inline-block" : "none")">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp")
                                 </li>
 
                                 <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0,text:models()[@i].minSpec.kerbWeight + ' kgs'" style="display:@(bike.MinSpecs.KerbWeight > 0 ? "inline-block" : "none")">

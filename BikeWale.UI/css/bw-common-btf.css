@@ -1123,8 +1123,8 @@ input[type="number"]:focus {
 
 /* key specs */
 .key-specs-list li {
-    padding-left: 12px;
     padding-right: 12px;
+    margin-right: 12px;
     position: relative;
 }
 .key-specs-list li:before {
@@ -1133,21 +1133,22 @@ input[type="number"]:focus {
     height: 15px;
     position: absolute;
     top: 3px;
-    left: 0;
+    right: 0;
+    left: auto;
     border-left: 1px solid #ecedee;
 }
 .key-specs-list li:first-child {
     padding-left: 0;
 }
-.key-specs-list li:first-child:before {
-    border-left: 0;
-}
 .key-specs-list li,
 .key-specs-list span {
     display: inline-block;
     vertical-align: middle;
+    color: #82888b;
 }
-
+.key-specs-list li:last-child:before {
+    content: none;
+}
 /* key specs */
 .capacity-sm, .mileage-sm, .power-sm, .weight-sm {
     width: 16px;
