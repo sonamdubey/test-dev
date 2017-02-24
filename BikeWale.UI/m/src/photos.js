@@ -7,10 +7,8 @@
     if (photosLength == photosLimit) {
         var lastPhoto = $('.photos-grid-list li').eq(lastPhotoIndex),
             morePhotoCount = $('<span class="black-overlay"><span class="font14 text-white">+' + (photoCount - lastPhotoIndex) + '<br />images</span></span>');
-
         lastPhoto.append(morePhotoCount);
     }
-    
 });
 var pageNo = 1,
     modelImages = [],
@@ -25,6 +23,7 @@ $('.photos-grid-list').on('click', 'li', function () {
 });
 var bindGallery = function (clickedImg)
 {
+    triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
     vmPhotosPage.photoGalleryContainerActive(true);
     var imgIndex = clickedImg.index(),
         parentGridType = clickedImg.closest('.photos-grid-list');
@@ -41,7 +40,6 @@ var bindGallery = function (clickedImg)
     if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
-   
     pageNo = 1;
 };    
 
@@ -251,6 +249,7 @@ var modelGallery = function () {
                     }
                 },
                 onSlideChangeStart: function (swiper) {
+                    triggerGA('Gallery_Page', 'Colour_Changed', modelName);
                     setColorPhotoDetails(swiper);
                 }
             });
@@ -268,6 +267,7 @@ var modelGallery = function () {
             toggleFullScreen(false);
             self.getVideos();
             setVideoDetails(activeVideo);
+            triggerGA('Gallery_Page', 'Videos_Clicked', modelName);
         }
         if (self.screenActive()) {
             deactivateAllScreens();
@@ -289,12 +289,12 @@ var modelGallery = function () {
             // activate clicked tab screen
             self.photoThumbnailScreen(true);
             self.photoSwiperActive(true);
-            
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.photoThumbnailScreen(false);
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Closed', modelName);
         }
-
         self.screenActive(self.photoThumbnailScreen());
     };
 
@@ -305,13 +305,13 @@ var modelGallery = function () {
             self.photoSwiperActive(false);
             self.mainColorSwiper.update(true);
             self.initiateColorThumbnailSwiper();
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', modelName);
         }
         else {
             self.colorsThumbnailScreen(false);
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', modelName);
         }
-
         self.screenActive(self.colorsThumbnailScreen());
-
     };
 
     self.toggleModelInfoScreen = function () {
@@ -323,6 +323,7 @@ var modelGallery = function () {
                 }
             }
             self.modelInfoScreen(true);
+            triggerGA('Gallery_Page', 'Info_Tab_Clicked', modelName);
         }
         else {
             self.modelInfoScreen(false);
@@ -410,9 +411,11 @@ var modelGallery = function () {
             deactivateAllScreens();
             self.videoListScreen(true);
             self.getVideos();
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.videoListScreen(false);
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', modelName);
         }
         self.screenActive(self.videoListScreen());
     };
