@@ -736,6 +736,10 @@
       <DependentUpon>SimilarBikeVideos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\SimilarBikeWithPhotos.ascx.cs">
+      <DependentUpon>SimilarBikeWithPhotos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\SimilarCompareBikes.ascx.cs">
       <DependentUpon>SimilarCompareBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1460,6 +1464,10 @@
       <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\photos\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\newbikelaunch\BikesByMake.aspx.cs">
       <DependentUpon>BikesByMake.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1557,10 +1565,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\newbikelaunch\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\photos\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -2179,6 +2183,7 @@
     <Content Include="controls\serviceschedule.ascx" />
     <Content Include="controls\SimilarBikes.ascx" />
     <Content Include="controls\SimilarBikeVideos.ascx" />
+    <Content Include="controls\SimilarBikeWithPhotos.ascx" />
     <Content Include="controls\SimilarCompareBikes.ascx" />
     <Content Include="controls\SimilarBikesHorizontal.ascx" />
     <Content Include="controls\SimilarUsedBikes.ascx" />
@@ -2269,6 +2274,7 @@
     <Content Include="css\content\listing.css" />
     <Content Include="css\new\modelprice-in-city.css" />
     <Content Include="css\new\search.css" />
+    <Content Include="css\photos.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\new\bookinglisting.css" />
@@ -2978,6 +2984,7 @@
     <Content Include="sass\modules\_loader.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
+    <Content Include="new\photos\Default.aspx" />
     <Content Include="servicecenter\Default.aspx" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="servicecenter\ServiceCenterInCountry.aspx" />
@@ -3014,6 +3021,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\new-launch.js" />
+    <Content Include="src\photos.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
@@ -3037,7 +3045,6 @@
     <Content Include="new\locatenewbikedealers.aspx" />
     <Content Include="new\models.aspx" />
     <Content Include="new\newbikelaunch\Default.aspx" />
-    <Content Include="new\photos\Default.aspx" />
     <Content Include="new\search_old.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
