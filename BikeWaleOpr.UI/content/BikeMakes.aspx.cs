@@ -102,12 +102,12 @@ namespace BikeWaleOpr.Content
                     {
                         // Create name value collection
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("v_MakeId", _makeId.ToString());
-                        nvc.Add("v_MakeName", txtMake.Text.Trim().Replace("'", "''"));
-                        nvc.Add("v_MaskingName", txtMaskingName.Text.Trim());
-                        nvc.Add("v_Futuristic", "0");
-                        nvc.Add("v_Used", "1");
-                        nvc.Add("v_New", "1");
+                        nvc.Add("MakeId", _makeId.ToString());
+                        nvc.Add("MakeName", txtMake.Text.Trim().Replace("'", "''"));
+                        nvc.Add("MaskingName", txtMaskingName.Text.Trim());
+                        nvc.Add("Futuristic", "0");
+                        nvc.Add("Used", "1");
+                        nvc.Add("New", "1");
                         SyncBWData.PushToQueue("BW_AddBikeMakes", DataBaseName.CW, nvc);
                     }
                 }
@@ -197,13 +197,13 @@ namespace BikeWaleOpr.Content
                     // Push the data to carwale DB
                     // Create name value collection
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_MakeId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                    nvc.Add("v_MakeName", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("v_IsNew", Convert.ToInt16(chkNew.Checked).ToString());
-                    nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
-                    nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
-                    nvc.Add("v_MaskingName", null);
-                    nvc.Add("v_IsDeleted", null);
+                    nvc.Add("MakeId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("MakeName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
+                    nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
+                    nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
+                    nvc.Add("MaskingName", null);
+                    nvc.Add("IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     //Refresh memcache object for bikemake description change
