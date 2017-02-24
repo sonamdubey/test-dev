@@ -228,8 +228,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJson);
                 if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {
-                    _repository.UpdateDealerDailyLeadCount(campaignId, abInqId) 
-                   isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
+                    _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
+                    isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                 }
             }
             catch (Exception ex)
