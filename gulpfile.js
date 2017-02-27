@@ -52,7 +52,7 @@ gulp.task('minify-bwm-js', function () {
 });
 
 var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
