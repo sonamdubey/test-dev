@@ -2820,6 +2820,7 @@
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
+    <Content Include="m\css\videos\videos-by-make.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
