@@ -19,5 +19,10 @@ namespace Bikewale.Entities.Videos
         public BikeMakeEntityBase objMake { get; set; }
         [DataMember]
         public int VideoCount { get; set; }
+        [DataMember]
+        public string OriginalImagePath { get; set; }
+        [DataMember]
+        public string HostUrl { get; set; }
+        
     }
 }
