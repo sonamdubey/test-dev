@@ -189,23 +189,30 @@ namespace Bikewale.BAL.PriceQuote
 
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
 
-                    abInquiryId = _objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
-                    int abInqId = 0;
-                    if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
-                    {
-                        objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId);
-                        objDealer.PushedToAB(pqId, (uint)abInqId);
-                    }
-                    else
-                    {
-                        NameValueCollection objNVC = new NameValueCollection();
-                        objNVC.Add("pqId", pqId.ToString());
-                        objNVC.Add("dealerId", dealerId);
-                        objNVC.Add("campaignId", campaignId);
-                        objNVC.Add("inquiryJson", jsonInquiryDetails);
-                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-                    }
+                    NameValueCollection objNVC = new NameValueCollection();
+                    objNVC.Add("pqId", pqId.ToString());
+                    objNVC.Add("dealerId", dealerId);
+                    objNVC.Add("campaignId", campaignId);
+                    objNVC.Add("inquiryJson", jsonInquiryDetails);
+                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    //abInquiryId = _objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
+                    //int abInqId = 0;
+                    //if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
+                    //{
+                    //    objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId);
+                    //    objDealer.PushedToAB(pqId, (uint)abInqId);
+                    //}
+                    //else
+                    //{
+                    //    NameValueCollection objNVC = new NameValueCollection();
+                    //    objNVC.Add("pqId", pqId.ToString());
+                    //    objNVC.Add("dealerId", dealerId);
+                    //    objNVC.Add("campaignId", campaignId);
+                    //    objNVC.Add("inquiryJson", jsonInquiryDetails);
+                    //    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                    //    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    //}
                 }
             }
             catch (Exception ex)
