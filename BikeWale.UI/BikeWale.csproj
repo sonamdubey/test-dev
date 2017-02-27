@@ -452,8 +452,10 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
+    <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
@@ -3332,6 +3334,8 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\m\Videos\Makes.cshtml" />
+    <Content Include="Views\Videos\Makes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
