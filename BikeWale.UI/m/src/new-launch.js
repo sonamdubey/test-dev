@@ -388,7 +388,7 @@ var newLaunches = function () {
                 slideInDrawer.close(ele);
                 window.location.hash = qs;
                 self.IsLoading(false);
-                $('html, body').animate({ scrollTop: $('#newlaunched-bikes').offset().top })
+                $('html, body').scrollTop($('#newlaunched-bikes').offset().top);
             });
         }
         else {
