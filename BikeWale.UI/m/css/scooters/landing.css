@@ -41,10 +41,13 @@
   height: 130px;
   padding-top: 25px; }
 
-.bw-tabs-flex {
+.banner-box-shadow .bw-tabs-flex {
   margin-bottom: 0; }
-  .bw-tabs-flex li {
+  .banner-box-shadow .bw-tabs-flex li {
     width: 33.33%; }
+
+.panel-type-scooter.featured-bikes-panel .bw-tabs-flex {
+  margin-bottom: 10px; }
 
 .brand-type-container li {
   display: inline-block;
@@ -248,3 +251,53 @@
   width: 39px;
   height: 37px;
   background-position: -50px -596px; }
+
+.engine-lg {
+  width: 36px;
+  height: 24px;
+  background-position: -92px -596px;
+  position: relative; }
+
+.engine-sm {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  top: 2px; }
+
+.engine-md {
+  -webkit-transform: scale(0.85);
+  -moz-transform: scale(0.85);
+  -o-transform: scale(0.85);
+  transform: scale(0.85);
+  top: 1px; }
+
+.main-compare-bikes-target {
+  width: 100%;
+  min-height: 200px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: block;
+  border: 1px solid #e2e2e2;
+  border-radius: 1px;
+  background: #fff;
+  overflow: hidden; }
+  .main-compare-bikes-target .comparison-image {
+    width: 120px;
+    height: 67px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    display: block;
+    text-align: center; }
+  .main-compare-bikes-target img {
+    height: 67px; }
+  .main-compare-bikes-target .grid-6:first-child:after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 55px;
+    width: 22px;
+    height: 21px;
+    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    display: block; }

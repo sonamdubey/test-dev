@@ -2986,6 +2986,7 @@
     <Content Include="m\sass\scooters\landing.sass" />
     <Content Include="m\sass\scooters\_landing-style.sass" />
     <Content Include="m\sass\modules\_budget.sass" />
+    <Content Include="m\sass\modules\_main-comparison.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
