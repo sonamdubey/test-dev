@@ -1037,6 +1037,7 @@
 							        <span class="grid-9 alpha omega font14 text-default text-bold"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Name")) %></span>
 							        <span class="grid-3 omega text-light-grey text-right"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Distance")) %> kms</span>
 							        <div class="clear"></div>
+                                    <span class="bwmsprite dealership-loc-icon vertical-top"></span>
 							        <span class="font12 text-light-grey"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "Area")) %></span>
 							        <div class="margin-top15">
                                         <div class="grid-4 alpha omega">
@@ -1108,11 +1109,36 @@
                 }
 
             });
-           
+
             function secondarydealer_Click(dealerID) {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID + "&IsDealerAvailable=true";
-                window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                try {
+                    var isSuccess = false;
+
+                    var objData = {
+                        "dealerId": dealerID,
+                        "modelId": <%= modelId%>,
+                        "versionId": versionId,
+                        "cityId": cityId,
+                        "areaId": areaId,
+                        "clientIP": clientIP,
+                        "pageUrl": pageUrl,
+                        "sourceType": 2,
+                        "pQLeadId": pqSourceId,
+                        "deviceId": getCookie('BWC')
+                    };
+
+                    isSuccess = dleadvm.registerPQ(objData);
+
+                    if (isSuccess) {
+                        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                        window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                    }
+                } catch (e) {
+                    console.warn("Unable to create pricequote : " + e.message);
+                }
             }
+
+
             $("#viewprimarydealer, #dealername").on("click", function () {
                 var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
                 window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
