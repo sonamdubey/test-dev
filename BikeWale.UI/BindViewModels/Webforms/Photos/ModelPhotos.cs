@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -10,6 +11,7 @@ using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.SEO;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -59,7 +61,8 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    container.RegisterType<IPager, Pager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -133,7 +136,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         {
             try
             {
-                objImageList = objModelCache.GetAllPhotos((int)_modelId) as List<ColorImageBaseEntity>;
+                objImageList = _objModelEntity.CreateAllPhotoList((int)_modelId) as List<ColorImageBaseEntity>;
 
                 if (objImageList != null && objImageList.Count > 0)
                 {

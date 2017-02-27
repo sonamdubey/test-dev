@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
-using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
 using System.Collections.Generic;
@@ -36,6 +35,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetNewLaunchedBikesList     
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
+    /// Modified By : Sajal Gupta on 24-02-2017 Added GetModelColorPhotos.
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -48,12 +48,9 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeId = null);
         BikeDescriptionEntity GetModelSynopsis(U modelId);
-        List<ModelImage> GetModelPhotoGallery(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
-        IEnumerable<ColorImageBaseEntity> GetAllPhotos(U modelId);
-        IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
         ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
@@ -62,5 +59,6 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
+        IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
     }
 }

@@ -19,6 +19,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: added new method GetUserReviewSimilarBike
     /// Modified by: Sangram Nandkhile on 10 Feb 2017
     /// Description: Added new method GetModelPhotoGalleryWithMainImage, GetModelPageDetailsNew which has extra main model image
+    /// Modified by : Sajal Gupta - added CreateAllPhotoList on 27-02-2017
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -42,5 +43,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId);
+        IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
     }
 }
