@@ -228,9 +228,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             uint abInqId = 0;
             try
             {
-                Logs.WriteInfoLog(String.Format("Before Calling API. Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3}.", pqId, dealerId, campaignId, inquiryJson));
+                Logs.WriteInfoLog(String.Format("Push To AB Iteration {0}", retryAttempt));
                 abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJson);
-                Logs.WriteInfoLog(String.Format("After Calling API. Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3}. Response ab inquiryid : {4}", pqId, dealerId, campaignId, inquiryJson, abInquiryId));
+                Logs.WriteInfoLog(String.Format("Response ab inquiryid : {0}", abInquiryId));
                 if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {
                     Logs.WriteInfoLog("Update Lead Limit.");
