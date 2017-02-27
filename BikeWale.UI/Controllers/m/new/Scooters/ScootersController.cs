@@ -14,5 +14,11 @@ namespace Bikewale.Controllers.Mobile
         {
             return View("~/views/m/scooters/index.cshtml");
         }
+
+        [Route("m/scooters/make/")]
+        public ActionResult BikesByMake()
+        {
+            return View("~/views/m/scooters/bikesbymake.cshtml");
+        }
     }
 }
