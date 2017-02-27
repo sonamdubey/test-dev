@@ -134,14 +134,18 @@
                                <% } %>
                             </div>                           
                         </div>
+                        <!-- Upcoming bike start -->
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
                              <div class="bikeDescWrapper">
                           <% if (modelPage.UpcomingBike != null) {%>
                          <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
-                         <div>
-                             <span class="font24 text-bold"><span class="bwmsprite inr-lg-icon"></span>
-                                 <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                         <div itemscope itemtype="http://schema.org/Offer">
+                            <div itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                             <span class="font24 text-bold"><span itemprop="priceCurrency" content="INR"><span class="bwmsprite inr-lg-icon"></span></span>
+                                <span itemprop="price minPrice"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %></span>  - 
+                                <span itemprop="maxPrice"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                         </div>
                          </div>
                          <div class="border-solid-bottom margin-top15 margin-bottom15"></div>
                          <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
@@ -152,6 +156,7 @@
                         <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                     </div>
                     <% } %>
+                        <!-- Upcoming bike ends -->
                 </div>
                 
                 <!-- previous top model card -->
@@ -196,8 +201,6 @@
             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
             <div class="container bg-white clearfix elevated-shadow">
                 <!-- new bikes section -->
-                <% if (!isDiscontinued)
-                   { %>
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
@@ -211,22 +214,24 @@
                     </div>
                     <div class="grid-6 padding-left20">
                         <p class="font12 text-light-grey">Location:</p>
+                        <% if(!isDiscontinued) {%>
                         <div class="font14 text-bold">
                             <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='<%= modelId %>' class="getquotation changeCity" rel="nofollow">
                                 <span class="selected-location-label inline-block text-default text-truncate"><%= location %></span>                            
                                 <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
                         </div>
+                        <% } else{ %>
+                        <%= location %>
+                        <% } %>
                     </div>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
-                <% }
-                   else if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
-                       <div class="bike-price-container padding-10-20">
-                            <div class="bike-price-container ">
+                <% 
+                   if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
+                       <div class="bike-price-container padding-left20 padding-top10">
                                 <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
-                            </div>
                         </div>
                  <% } 
                    if (!modelPage.ModelDetails.Futuristic)
@@ -235,7 +240,7 @@
                             <p class="font12 text-light-grey"><%=priceText %> price in <%= location%></p>
                             <p><span itemprop="priceCurrency" content="INR">
                                 <% if(price == 0) { %>
-                                <span class="font18 text-bold padding-right5">Price not available</span>
+                                <span class="font18 text-bold padding-right5" itemprop="price" content="0">Price not available</span>
                                 <% } else { %>
                                 <span class="bwmsprite inr-md-icon"></span>
                                 </span>

@@ -574,8 +574,6 @@ namespace Bikewale.New
                                 }
                             }
 
-                            if (!modelPg.ModelDetails.New)
-                                isDiscontinued = true;
                             if (modelPg.ModelDetails != null)
                             {
                                 if (modelPg.ModelDetails.ModelName != null)
@@ -584,13 +582,49 @@ namespace Bikewale.New
                                     bikeMakeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             }
+
+                            // Discontinued bikes
+                            if (!modelPg.ModelDetails.New && modelPg.ModelVersions != null)
+                            {
+                                isDiscontinued = true;
+                                if (modelPg.ModelVersions.Count == 1)
+                                {
+                                    price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                                }
+                                else
+                                {
+                                    // When version is not selected
+                                    if (variantId == 0)
+                                    {
+                                        List<BikeVersionMinSpecs> nonZeroValues = modelPg.ModelVersions.Where(x => x.Price > 0).ToList();
+                                        if (nonZeroValues != null && nonZeroValues.Count > 0)
+                                        {
+                                            ulong minVal = nonZeroValues.Min(x => x.Price);
+                                            var lowestVersion = modelPg.ModelVersions.First(x => x.Price == minVal);
+                                            if (lowestVersion != null)
+                                            {
+                                                variantId = Convert.ToUInt16(lowestVersion.VersionId);
+                                                price = Convert.ToUInt32(lowestVersion.Price);
+                                            }
+                                        }
+                                    }
+                                    else //When version is selected
+                                    {
+                                        BikeVersionMinSpecs selectedVersion = modelPg.ModelVersions.FirstOrDefault(x => x.VersionId == variantId);
+                                        if (selectedVersion != null)
+                                        {
+                                            price = Convert.ToUInt32(selectedVersion.Price);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "versions.aspx ->" + "FetchmodelPgDetails()");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("versions.aspx -> FetchmodelPgDetails(): Modelid ==> {0}", modelId));
             }
             return modelPg;
         }

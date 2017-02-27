@@ -186,7 +186,7 @@
                                 <div id="modelPriceContainer">
                                     <% if (isDiscontinued)
                                        { %>
-                                    <p class="font14 text-light-grey">Last known Ex-showroom price</p>
+                                    <p class="font14 text-light-grey">Last known Ex-showroom price in<span class="city-area-name"><%= location %></span> </p>
                                     <% } %>
                                     <% else if (!isOnRoadPrice)
                                        {%>
@@ -207,7 +207,7 @@
                                             <span class="bwsprite inr-md-lg"></span>
                                         </span>
                                         <span id="new-bike-price" class="font22 text-bold" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
-                                        <%if (isOnRoadPrice)
+                                        <%if (isOnRoadPrice && !isDiscontinued)
                                           {%>
                                         <a id="viewBreakupText" href="/pricequote/dealerpricequote.aspx?MPQ=<%=detailedPriceLink %>" rel="nofollow" class="font14 text-bold viewBreakupText">View detailed price</a>
                                         <br>
@@ -265,15 +265,21 @@
                                     <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
                                        { %>
                                     <div id="expectedPriceContainer" class="padding-top15">
-                                        <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
-                                        <div class="modelExpectedPrice margin-bottom15">
-                                            <span class="bwsprite inr-md-lg"></span>
-                                            <span id="bike-price" class="font22 text-bold">
-                                                <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %></span>
-                                                <span>- </span>
+                                        <div itemscope itemtype="http://schema.org/Offer">
+                                            <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
+                                            <div class="modelExpectedPrice margin-bottom15">
                                                 <span class="bwsprite inr-md-lg"></span>
-                                                <span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
-                                            </span>
+                                                <span id="bike-price" class="font22 text-bold">
+                                                    <span itemprop="priceSpecification" itemscope itemtype="http://schema.org/PriceSpecification">
+                                                        <span itemprop="price minPrice">
+                                                            <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMin)) %>
+                                                        </span>
+                                                        <span>- </span>
+                                                        <span itemprop="priceCurrency" content="INR"><span class="bwsprite inr-md-lg"></span></span>
+                                                        <span itemprop="maxPrice"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPageEntity.UpcomingBike.EstimatedPriceMax)) %></span>
+                                                    </span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                     <%}
@@ -597,7 +603,9 @@
                                     { %>
                                 <span class="font16">Price not available</span>
                                 <%  } else{ %>
-                                <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
+
+                                <span class="bwsprite inr-lg"></span>&nbsp;
+                                <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 <%} %>
                             </div>
                             <%} 
