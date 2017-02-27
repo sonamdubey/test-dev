@@ -3336,6 +3336,8 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
+    <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
+    <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

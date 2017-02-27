@@ -22,7 +22,7 @@ namespace Bikewale.Controllers.Mobile.Videos
         {
             _videos = videos;
         }
-        [Route("m/videos/make/{maskingname}/")]
+        [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Index(string makeMaskingName)
         {
             MakeMaskingResponse makeInfo = new MakeMaskingResponse();
