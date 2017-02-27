@@ -289,8 +289,7 @@
 
             isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
 
-            if(self.isDealerBikes())
-            {
+            if (self.isDealerBikes()) {
                 var bike = self.selectedBike();
                 if (bike && bike.version && bike.model) {
                     self.versionId(bike.version.versionId);
@@ -303,7 +302,7 @@
             }
 
             if (isValidDetails && self.modelId() && self.versionId()) {
-                var url = '/api/RegisterPQ/';
+
                 var objData = {
                     "dealerId": self.dealerId(),
                     "modelId": self.modelId(),
@@ -316,11 +315,22 @@
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 }
+                return self.registerPQ(objData);
+               
+            }
+            return isSuccess;
+
+        }
+
+        self.registerPQ = function (objPQData) {
+            var isSuccess = false;
+            if (objPQData) {
+                var url = '/api/RegisterPQ/';
                 $.ajax({
                     type: "POST",
                     url: url,
                     async: false,
-                    data: ko.toJSON(objData),
+                    data: ko.toJSON(objPQData),
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
@@ -333,11 +343,12 @@
                             isSuccess = false;
                             stopLoading($("#user-details-submit-btn").parent());
                         }
+
                     }
                 });
             }
-            return isSuccess;
 
+            return isSuccess;
         }
 
         self.pushToGA = function (data, event) {

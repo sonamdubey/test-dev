@@ -92,7 +92,8 @@ namespace Bikewale.Utility
             _FCMApiKey = string.Empty,
             _FCMSusbscribeUserUrl = string.Empty,
             _FCMUnSusbscribeUserUrl = string.Empty,
-            _FCMEnvironment = String.Empty;
+            _FCMEnvironment = String.Empty,
+            _LeadConsumerQueue = String.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false;
         private readonly int _SecurityHashLength = 0;
@@ -174,6 +175,7 @@ namespace Bikewale.Utility
             _FCMUnSusbscribeUserUrl = ConfigurationManager.AppSettings["FCMIIDBatchRemoveEndPoint"];
             _FCMEnvironment = ConfigurationManager.AppSettings["FCMEnvironment"];
             _IsAppTrackDayVisible = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) : false;
+            _LeadConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["LeadConsumerQueue"]);
 
         }
 
@@ -302,6 +304,7 @@ namespace Bikewale.Utility
         public string FCMUnSusbscribeUserUrl { get { return _FCMUnSusbscribeUserUrl; } }
         public string FCMEnvironment { get { return _FCMEnvironment; } }
         public bool IsAppTrackDayVisible { get { return _IsAppTrackDayVisible; } }
+        public String LeadConsumerQueue { get { return _LeadConsumerQueue; } }
 
     }   // class
 }   // namespace
