@@ -50,6 +50,9 @@ namespace Bikewale.DAL.Videos
                                 objModelVideo.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModelVideo.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModelVideo.VideoCount = SqlReaderConvertor.ToInt32(dr["VideosCount"]);
+                                objModelVideo.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objModelVideo.HostUrl = Convert.ToString(dr["HostURL"]);
+                                modelVideoList.Add(objModelVideo);
                             }
                             dr.Close();
                         }
