@@ -307,7 +307,7 @@
             }
 
             if (isValidDetails && self.modelId() && self.versionId()) {
-                var url = '/api/RegisterPQ/';
+
                 var objData = {
                     "dealerId": self.dealerId(),
                     "modelId": self.modelId(),
@@ -320,11 +320,24 @@
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 }
+
+                return self.registerPQ(objData);
+            }
+
+            return isSuccess;
+
+        };
+
+        self.registerPQ = function (objPQData)
+        {
+            var isSuccess = false;
+            if (objPQData) {
+                var url = '/api/RegisterPQ/';
                 $.ajax({
                     type: "POST",
                     url: url,
                     async: false,
-                    data: ko.toJSON(objData),
+                    data: ko.toJSON(objPQData),
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
@@ -343,8 +356,7 @@
             }
 
             return isSuccess;
-
-        };
+        }
 
         self.pushToGA = function (data, event) {
             if (data != null && data.act != null) {

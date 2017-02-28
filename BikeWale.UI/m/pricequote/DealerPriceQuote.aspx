@@ -435,11 +435,12 @@
 					<asp:Repeater ID="rptSecondaryDealers" runat="server">
 						<ItemTemplate>
 							<div class="swiper-slide secondary-dealer-card">
-								<a href="javascript:void(0)" class="secondary-dealer bw-ga text-default" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName + "_" + currentCity + "_" +currentArea %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
+								<a href="javascript:void(0)" onclick="secondarydealer_Click(<%# DataBinder.Eval(Container.DataItem,"DealerId") %>)" class="secondary-dealer bw-ga text-default" c="Dealer_PQ" a="Secondary_Dealer_Card_Clicked" l="<%= BikeName + "_" + currentCity + "_" +currentArea %>" dealerid="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>">
 									<div class="margin-bottom15">
 										<span class="grid-9 alpha omega font14 text-default text-bold"><%# DataBinder.Eval(Container.DataItem,"Name") %></span>
 										<span class="grid-3 omega text-light-grey text-right"><%# String.Format("{0:0.0}",DataBinder.Eval(Container.DataItem,"Distance")) %> kms</span>
 										<div class="clear"></div>
+                                        <span class="bwmsprite dealership-loc-icon vertical-top"></span>
 										<span class="font12 text-light-grey"><%# DataBinder.Eval(Container.DataItem,"Area") %></span>
 										<div class="margin-top15">
 											<div class="grid-4 alpha omega <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"OfferCount")) > 0 && (Convert.ToString(DataBinder.Eval(Container.DataItem,"DealerPackageType")) != Convert.ToString(Bikewale.Entities.PriceQuote.DealerPackageTypes.Standard))) ?  "border-solid-right" : "" %>">
@@ -453,9 +454,7 @@
 									</div>
 								</a>
 								<div>
-									<a href="javascript:void(0)" data-pqsourceid="<%= Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation) %>" data-leadsourceid="17" leadsourceid="17" data-item-registerpq="true" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId")  %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Area") %>" class="btn btn-white btn-sm-1 margin-right5 inline-block leadcapturebtn bw-ga" c="Dealer_PQ" a="Get_Offers_Clicked" l="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="Secondary Dealer List_<%=BikeName %>_<%= currentCity %>_<%= currentArea%>"><%# DataBinder.Eval(Container.DataItem,"DisplayTextLarge")%></a>
-									<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MaskingNumber").ToString()) ? 
-									("<a href='tel:" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "' class=\"inline-block bw-ga\" c=\"Dealer_PQ\" a=\"Dealer_Number_Clicked\" l=\"Secondary Dealer List_" + BikeName + "_" + Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().City + "_" +Bikewale.Utility.GlobalCityArea.GetGlobalCityArea().Area + "\"><span class=\"bwmsprite tel-sm-icon\"></span><span class=\"font14 text-default text-bold\">" + DataBinder.Eval(Container.DataItem,"MaskingNumber") + "</span></a>") : "" %>
+									 <a href="javascript:void(0)" onclick="secondarydealer_Click(<%# DataBinder.Eval(Container.DataItem,"DealerId") %>)" class="btn btn-white btn-sm-1 margin-right5 inline-block" rel="nofollow">View detailed price</a>
 								</div>
 							</div>
 						</ItemTemplate>
@@ -707,9 +706,10 @@
 				$(".blackOut-window").hide();
 			});
 
-			$(".secondary-dealer").click(function () {
-				registerPQ($(this).attr("dealerId"));
-			});
+			function secondarydealer_Click(dealerId)
+			{
+			    registerPQ(dealerId);
+			}
 
 			function registerPQ(secondaryDealerId) {
 				var obj = {

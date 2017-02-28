@@ -14,11 +14,13 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using RabbitMqPublishing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Http;
 namespace Bikewale.BAL.PriceQuote
 {
     /// <summary>
@@ -155,6 +157,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count
         /// Modified by : Aditi Srivastava on 14 Feb 2017
         /// Summary     : Added function to check if mobile number is authentic before pushing lead
+        /// Modified by :   Sumit Kate on 24 Feb 2017
+        /// Description :   If AbInquiryId is invalid Push Inquiry Json to Rabbit Mq
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -189,8 +193,18 @@ namespace Bikewale.BAL.PriceQuote
                     int abInqId = 0;
                     if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                     {
-                        if (objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId))
-                            objDealer.PushedToAB(pqId, (uint)abInqId);
+                        objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId);
+                        objDealer.PushedToAB(pqId, (uint)abInqId);
+                    }
+                    else
+                    {
+                        NameValueCollection objNVC = new NameValueCollection();
+                        objNVC.Add("pqId", pqId.ToString());
+                        objNVC.Add("dealerId", dealerId);
+                        objNVC.Add("campaignId", campaignId);
+                        objNVC.Add("inquiryJson", jsonInquiryDetails);
+                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                     }
                 }
             }

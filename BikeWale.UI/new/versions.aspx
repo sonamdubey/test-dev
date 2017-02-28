@@ -495,7 +495,7 @@
                             <div class="jcarousel margin-top20 margin-bottom20">
                                 <ul>
                                     <% foreach(var bike in viewModel.SecondaryDealersV2) { %>
-                                            <li>
+                                            <li style="min-height:191px">
                                                 <a href="javascript:void(0);" onclick="secondarydealer_Click(<%= bike.DealerId %>)" title="<%= bike.Name %>" class="top-block-target">
                                                     <div class="grid-10 alpha margin-bottom5">
                                                         <span class="font14 text-black text-bold text-truncate block"><%= bike.Name %></span>
@@ -506,13 +506,6 @@
                                                         <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
                                                         <span class="vertical-top details-column font14 text-light-grey"><%= bike.Area %></span>
                                                     </div>
-                                                    <div>
-                                                        <%if(!string.IsNullOrEmpty(bike.MaskingNumber)){ %>
-                                                        <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                                                         <% } %>
-                                                        <span class="vertical-top details-column font14 text-default text-bold"><%= bike.MaskingNumber %></span>
-                                                    </div>
-                                                   
                                                     <div class="margin-top10">
                                                         <div class="grid-5 alpha omega">
                                                             <p class="font12 text-light-grey margin-bottom5">On-road price</p>
@@ -529,7 +522,7 @@
 							                        </div>
                                                 </a>
                                                 <div class="bottom-block-button margin-top15">
-                                                    <a href="javascript:void(0)" data-item-name="<%= bike.Name %>" data-item-area="<%= bike.Area %>" data-leadsourceid="40" data-item-id="<%= bike.DealerId %>" onclick="openLeadCaptureForm(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn leadcapturebtn"><%=bike.DisplayTextLarge %></a>
+                                                    <a href="javascript:void(0)" onclick="secondarydealer_Click(<%= bike.DealerId %>)" class="btn btn-white partner-dealer-offers-btn" rel="nofollow">View detailed price</a>
                                                 </div>
                                             </li>
                                     <% } %>                             
@@ -1420,11 +1413,34 @@
                 bikeVersion = getBikeVersion();
             }
             function secondarydealer_Click(dealerID) {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerID;
-                window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                try {
+                    var isSuccess = false;
+
+                    var objData = {
+                        "dealerId": dealerID,
+                        "modelId": <%= modelId%>,
+                        "versionId": versionId,
+                        "cityId": cityId,
+                        "areaId": areaId,
+                        "clientIP": clientIP,
+                        "pageUrl": pageUrl,
+                        "sourceType": 1,
+                        "pQLeadId": pqSourceId,
+                        "deviceId": getCookie('BWC')
+                    };
+
+                    isSuccess = dleadvm.registerPQ(objData);
+
+                    if (isSuccess) {
+                        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                        window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                    }
+                } catch (e) {
+                    console.warn("Unable to create pricequote : " + e.message);
+                }
             }
             function openLeadCaptureForm(dealerID) {
-                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
+                triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVersionLocation);
                 event.stopPropagation();
             }
             $(function () {
