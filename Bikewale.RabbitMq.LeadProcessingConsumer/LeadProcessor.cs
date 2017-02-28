@@ -106,6 +106,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             && UInt32.TryParse(nvc["campaignId"], out campaignId)
                             && campaignId > 0))
                         {
+                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message received for processing", pqId, dealerId, campaignId, nvc["inquiryJson"]));
                             if (nvc["iteration"] == _retryCount)
                             {
                                 _model.BasicReject(arg.DeliveryTag, false);
@@ -115,10 +116,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             UInt16 iteration = (UInt16)(nvc["iteration"] == null ? 1 : (UInt16.Parse(nvc["iteration"]) + 1));
                             if (_leadProcessor.PushLeadToAutoBiz(pqId, dealerId, campaignId, nvc["inquiryJson"], iteration))
                             {
+                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message processed successfully", pqId, dealerId, campaignId, nvc["inquiryJson"]));
                                 _model.BasicAck(arg.DeliveryTag, false);
                             }
                             else
                             {
+                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message processed into dead letter queue", pqId, dealerId, campaignId, nvc["inquiryJson"]));
                                 DeadLetterPublish(nvc, ConfigurationManager.AppSettings["QueueName"].ToUpper());
                                 _model.BasicReject(arg.DeliveryTag, false);
                             }
@@ -126,13 +129,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         else
                         {
                             _model.BasicReject(arg.DeliveryTag, false);
-                            Logs.WriteInfoLog("Invalid NVC : " + Newtonsoft.Json.JsonConvert.SerializeObject(nvc));
+                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3} Message is invalid", nvc["pqId"], nvc["dealerId"], nvc["campaignId"], nvc["inquiryJson"]));
                         }
                     }
                     catch (Exception ex)
                     {
                         _model.BasicReject(arg.DeliveryTag, false);
-                        Logs.WriteInfoLog(string.Format("Message {1}. Some Error Occured while Dequeuing : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(nvc), ex.Message));
+                        Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, CampaignId: {2}, inquiryJson: {3}. Error occured while processing message: Message : {4}", nvc["pqId"], nvc["dealerId"], nvc["campaignId"], nvc["inquiryJson"], ex.Message));
                     }
                 }
             }
@@ -225,11 +228,15 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             uint abInqId = 0;
             try
             {
+                Logs.WriteInfoLog(String.Format("Push To AB Iteration {0}", retryAttempt));
                 abInquiryId = _inquiryAPI.AddNewCarInquiry(dealerId.ToString(), inquiryJson);
+                Logs.WriteInfoLog(String.Format("Response ab inquiryid : {0}", abInquiryId));
                 if (UInt32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
                 {
+                    Logs.WriteInfoLog("Update Lead Limit.");
                     _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
                     isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
+                    Logs.WriteInfoLog("Saved AB InquiryId");
                 }
             }
             catch (Exception ex)
