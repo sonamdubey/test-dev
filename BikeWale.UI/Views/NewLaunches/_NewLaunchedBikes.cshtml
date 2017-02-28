@@ -42,9 +42,10 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <!-- ko if : models() && models().length > 0 -->
-        <ul class="new-launches-list" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
-            @foreach (var bike in objBikeList.Bikes)
+        <div class="new-launches-wrapper"  data-bind=" visible:TotalBikes() > 0">
+            <!-- ko if : models() && models().length > 0 -->
+            <ul class="new-launches-list" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
+                @foreach (var bike in objBikeList.Bikes)
             {
                 <!-- ko if : models()[@i] -->
                 string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
@@ -83,22 +84,23 @@
                                 <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
                                 <span class="bwsprite inr-lg"></span> <span class="value-size-18" data-bind="CurrencyText : models()[@i].price ">@Bikewale.Utility.Format.FormatPrice(bike.Price.ToString())</span>
                             </div>
-                            <div class="grid-6 padding-left20 omega border-light-left">
+                            <div class="grid-6 padding-left20 omega border-light-left" data-bind="visible : models()[@i].launchedOn && models()[@i].launchedOn !=''">
                                 <p class="key-size-13 text-truncate margin-bottom5">Launched on</p>
                                 <span class="value-size-16" data-bind="text : models()[@i].launchedOn ">@Bikewale.Utility.FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy")</span>
                             </div>
                             <div class="clear"></div>
                         </div>
                     </a>
-                    <div class="margin-bottom10 margin-left20 " @(bike.Price > 0 ? "" : " style=display:none ")  data-bind="visible : models()[@i].price != 0">
+                    <div class="margin-bottom10 margin-left20 " @(bike.Price > 0 ? "" : " style=display:none ") data-bind="visible : models()[@i].price != 0">
                         <a href="javascript:void(0)" data-pqsourceid="@ViewBag.PqSource" data-bind="attr : { 'data-modelid' : models()[@i].model.modelId }" data-modelid="@bike.Model.ModelId" class="btn btn-white btn-180-32 getquotation">Check on-road price</a>
                     </div>
                 </li>
                 <!-- /ko -->
                i++;
             }
-        </ul>
-        <!-- /ko -->
+            </ul>
+            <!-- /ko -->
+        </div>
         <div class="text-center" style="display: @(ViewBag.pager.TotalResults > 0 ? "none" : "block")" data-bind="visible:noBikes() || TotalBikes()==0">
             <div id="nobike" data-bind="visible : noBikes()">
                 <img src="https://imgd3.aeplcdn.com/0x0/bw/static/design15/no-result-m.png" alt="No match found">

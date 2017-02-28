@@ -37,7 +37,7 @@ namespace Bikewale.Utility
                 publish.PublishToQueue(BWConfiguration.Instance.BWDataSynchQueue, nvc);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }

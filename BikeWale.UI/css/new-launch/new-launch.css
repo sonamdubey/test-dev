@@ -88,6 +88,10 @@
   position: absolute;
   top: 15%; }
 
+.new-launches-wrapper 
+{
+    min-height: 350px ;
+}
 .new-launches-list {
   min-height: 350px;
   overflow: hidden;
