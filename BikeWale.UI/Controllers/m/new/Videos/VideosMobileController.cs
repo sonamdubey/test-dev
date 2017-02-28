@@ -32,7 +32,12 @@ namespace Bikewale.Controllers.Mobile.Videos
             MakeMaskingResponse makeInfo = new MakeMaskingResponse();
             makeInfo = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
 
+            ViewBag.MakeName = "";
             IEnumerable<BikeVideoModelEntity> objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
+            if (objModelVideos != null)
+            {
+                ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
+            }
             int TotalItems = 9;
             IEnumerable<MostPopularBikesBase> objPopularBikes = _modelCache.GetMostPopularBikes(TotalItems,(int)makeInfo.MakeId);
             ViewBag.PopularBikes = objPopularBikes;

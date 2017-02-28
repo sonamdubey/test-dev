@@ -9,24 +9,33 @@
                 <div class="swiper-wrapper">
     @foreach (var bike in Model)
     {
+        string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
         <div class="swiper-slide">
             <div class="swiper-card">
-                <a href="" title="Honda CB Hornet 160R">
+                <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName)" title="@bikeName">
                     <div class="swiper-image-preview position-rel">
-                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com//174x98//bw/models/honda-cb-hornet-160r.jpg?20151012195209" src="" alt="Honda CB Hornet 160R">
+                        <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._174x98)" src="" alt="@bikeName">
                         <span class="swiper-lazy-preloader"></span>
                     </div>
                     <div class="swiper-details-block">
-                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB Hornet 160R</h3>
-                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
+                        <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName)? bike.CityName :  Bikewale.Common.Configuration.GetDefaultCityName)</p>
+                        @if (bike.VersionPrice > 0) { 
                         <p class="text-default">
-                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">1,39,340</span><span class="font14 text-bold"> onwards</span>
+                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>@*<span class="font14 text-bold"> </span>*@
                         </p>
+                        }
+                        else { 
+                        <p class="text-default">
+                           <span class="text-bold font14">Price not available</span>
+                        </p>
+                        }
                     </div>
                 </a>
                 <div class="swiper-btn-block">
-                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                </div>
+                    <a href="javascript:void(0)" data-pagecatid="" data-pqsourceid="" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white @((bike.VersionPrice!=0 )?"":"hide") getquotation" rel="nofollow">Check on-road price</a>
+   @*<a href="javascript:void(0);" data-pagecatid="<%= PageId %>" data-pqsourceid="<%= PQSourceId%>" data-makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem," objmake.makename")) %>" data-modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelName")) %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-grey btn-sm font14 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> getquotation" rel="nofollow"*@
+</div>
 
             </div>
         </div>
