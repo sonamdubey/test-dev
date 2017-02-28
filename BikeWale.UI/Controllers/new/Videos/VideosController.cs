@@ -33,10 +33,15 @@ namespace Bikewale.Controllers.Desktop.Videos
             ViewBag.makeMaskingName = makeMaskingName;
             ViewBag.MakeName = "";
             IEnumerable<BikeVideoModelEntity> objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-            if (objModelVideos != null)
+            if (objModelVideos != null && objModelVideos.Count()>0 && objModelVideos.FirstOrDefault().objMake!=null)
             {
                 ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
             }
+            ViewBag.Title = string.Format("{0} Bike Videos - BikeWale", ViewBag.MakeName);
+            ViewBag.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", ViewBag.MakeName);
+            ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
+            ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
+            ViewBag.alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", ViewBag.makeMaskingName);
             return View("~/Views/Videos/Makes.cshtml", objModelVideos);
         }
     }

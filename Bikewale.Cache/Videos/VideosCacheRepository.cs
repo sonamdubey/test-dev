@@ -171,7 +171,7 @@ namespace Bikewale.Cache.Videos
         public IEnumerable<BikeVideoModelEntity> GetModelVideos(uint makeId)
         {
             IEnumerable<BikeVideoModelEntity> modelVideos = null;
-            string key = String.Format("BW_VideoModels_",makeId);
+            string key = String.Format("BW_VideoModels_Count_MK_{0}", makeId);
             try
             {
                 modelVideos = _cache.GetFromCache<IEnumerable<BikeVideoModelEntity>>(key, new TimeSpan(0, 30, 0), () => _videoRepo.GetModelVideos(makeId));

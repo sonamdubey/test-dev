@@ -2,6 +2,7 @@
 using Bikewale.Interfaces.BikeData;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Bikewale.Controllers
 {
@@ -26,6 +27,7 @@ namespace Bikewale.Controllers
                 objPopularBikes = _modelCache.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
             else
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
+            ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
             return View("~/Views/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 
@@ -36,6 +38,7 @@ namespace Bikewale.Controllers
                 objPopularBikes = _modelCache.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
             else
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
+            ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
             return View("~/Views/m/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
     }
