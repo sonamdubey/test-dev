@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Videos;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,13 @@ namespace Bikewale.Controllers.Mobile.Videos
 	public class VideosMobileController :Controller
 	{
          private readonly IVideosCacheRepository _videos = null;
+         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
 
-         public VideosMobileController(IVideosCacheRepository videos)
+
+         public VideosMobileController(IVideosCacheRepository videos, IBikeModelsCacheRepository<int> modelCache)
         {
             _videos = videos;
+            _modelCache = modelCache;
         }
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Index(string makeMaskingName)
@@ -29,7 +33,9 @@ namespace Bikewale.Controllers.Mobile.Videos
             makeInfo = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
 
             IEnumerable<BikeVideoModelEntity> objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-
+            int TotalItems = 9;
+            IEnumerable<MostPopularBikesBase> objPopularBikes = _modelCache.GetMostPopularBikes(TotalItems,(int)makeInfo.MakeId);
+            ViewBag.PopularBikes = objPopularBikes;
             return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
         }
 	}
