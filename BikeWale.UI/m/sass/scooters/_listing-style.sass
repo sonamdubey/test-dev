@@ -10,3 +10,65 @@
 
 		&:first-child
 			border-top: 0
+
+		h3
+			font-size: 15px
+			color: #2a2a2a
+			margin-bottom: 10px
+
+	.item-image-content
+		width: 292px
+		height: 164px
+		background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center
+		margin-bottom: 5px;
+
+// common classes
+.key-size-13
+	font-size: 13px
+	color: #787878
+
+.value-size-18
+	font-weight: $font-bold
+	color: #4d5057
+
+.value-size-18
+	font-size: 18px
+
+#makeTabsContentWrapper
+	h2
+		margin-bottom: 13px
+
+// makeOverallTabsWrapper
+#makeOverallTabsWrapper
+	height: 44px
+
+.overall-specs-tabs-container
+	width: 100%
+	display: block
+	background: #fff
+	overflow-x: scroll
+	z-index: 2
+
+	&.fixed-tab-nav
+		position: fixed
+		top: 0
+		left: 0
+
+.overall-specs-tabs-wrapper
+	width: 100%
+	display: table
+	border-bottom: 1px solid #e2e2e2
+	
+	li
+		font-size: $font-size-base
+		padding: 10px 15px
+		display: table-cell
+		text-align: center
+		white-space: nowrap
+		color: $text-light
+		cursor: pointer
+
+		&.active
+			border-bottom: 3px solid #ef3f30
+			color: $text-primary
+			font-weight: $font-bold
