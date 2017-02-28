@@ -33,6 +33,8 @@ namespace Bikewale.New.Photos
         }
         /// <summary>       
         /// Summary :- model page photo bind condition added in query string
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get imageindex from querystring.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -57,7 +59,8 @@ namespace Bikewale.New.Photos
 
         /// <summary>
         /// Created By : Created By : Sajal Gupta on 09-02-2017
-        /// Description : Bind photos page with metas,photos and widgets        
+        /// Description : Bind photos page with metas,photos and widgets 
+        /// Modified : Changed viewmodel function.
         /// </summary>
         private void BindPhotosPage()
         {

@@ -100,12 +100,14 @@ var popupGallery = {
     },
 
     close: function () {
-        vmModelGallery.isGalleryActive(false);
-        vmModelGallery.resetGallery();
         if (isModelPage === "true") {
             window.location.href = window.location.pathname.split("images/")[0];
         }
-        popup.unlock();
+        else {
+            vmModelGallery.isGalleryActive(false);
+            vmModelGallery.resetGallery();
+            popup.unlock();
+        }
     },
 
     bindGallery: function (imageIndex) {
@@ -336,7 +338,6 @@ $('.video-thumbnail-swiper .video-type-prev').on('click', function () {
 });
 
 $('.video-thumbnail-swiper .video-type-next').on('click', function () {
-    vmModelGallery.getVideos();
     thumbnailSwiperEvents.slideNext(videoThumbnailSwiper, 2);
 });
 
@@ -344,9 +345,6 @@ $('#video-tab-screen').on('click', '.video-thumbnail-swiper .swiper-slide', func
     var elementIndex = $(this).index();
     setVideo(elementIndex);
     thumbnailSwiperEvents.focusThumbnail(videoThumbnailSwiper, vmModelGallery.activeVideoIndex(), true);
-    if (elementIndex > 1) {
-        vmModelGallery.getVideos();
-    }
 });
 
 // model gallery thumbnail events namespace

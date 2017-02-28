@@ -542,6 +542,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get model page data from calling BAL layer instead of calling cache layer.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {

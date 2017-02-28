@@ -32,10 +32,11 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <%--<div class="gallery-loader-placeholder gallery-bg-overlay text-center">
+        <% if(isModelPage) { %>
+        <div class="gallery-loader-placeholder gallery-bg-overlay text-center">
             <span class="spin-loader fixed-loader"></span>
-        </div>--%>
-
+        </div>
+        <% } %>
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
@@ -503,7 +504,7 @@
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript">
+        <script type="text/javascript">            
             $(document).ready(function () {
                 if(isModelPage == 'true')
                 {                     

@@ -22,7 +22,6 @@ namespace Bikewale.Cache.BikeData
     public class BikeModelsCacheRepository<T, U> : IBikeModelsCacheRepository<U>
     {
         private readonly ICacheManager _cache;
-        //private readonly IBikeModels<T, U> _objModels;
         private readonly IBikeModelsRepository<T, U> _modelRepository;
         private readonly IPager _objPager;
 
@@ -802,6 +801,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by Subodh Jain 12 oct 2016
         /// Desc For getting colour count
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Call Dal instead of Bal function to get data.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -825,6 +826,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by Subodh Jain 17 jan 2017
         /// Desc Get User Review Similar Bike
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Call Dal instead of Bal function to get data.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="topCount"></param>

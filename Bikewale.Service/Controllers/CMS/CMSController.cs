@@ -49,6 +49,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble.
         /// Summary : API to get list of photos for the specified model.
+        /// Modified By : Sajal Gupta on 28-02-2017
+        /// Description : Called function of BAL instead of Cache
         /// </summary>
         /// <param name="modelId">Mandatory field. Value should be greater than 0.</param>
         /// <returns></returns>

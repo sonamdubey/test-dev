@@ -61,6 +61,8 @@ namespace Bikewale.Mobile.New.Photos
         /// Summary :- Added ismodel page flag for gallery binding
         /// modified by :- Subodh Jain 30 jan 2017
         /// Summary:- Added model gallery info values and added URL formatter
+        /// Modified By:Sajal Gupta on 28-02-2017
+        /// Description : Dump imagelist and videolist 
         /// </summary>
         private void BindPhotosPage()
         {

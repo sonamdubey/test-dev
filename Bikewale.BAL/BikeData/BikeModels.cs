@@ -49,7 +49,6 @@ namespace Bikewale.BAL.BikeData
         private readonly ICMSCacheContent _cacheArticles = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
         private readonly IVideos _videos = null;
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelEntity = null;
 
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
@@ -1191,7 +1190,7 @@ namespace Bikewale.BAL.BikeData
                 objModelPhotoGalleryData.ObjModelEntity = GetById(modelId);
 
                 if (objModelPhotoGalleryData.ObjModelEntity != null && objModelPhotoGalleryData.ObjModelEntity.MakeBase != null)
-                    objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 20, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId));
+                    objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId));
 
                 objModelPhotoGalleryData.ImageList = CreateAllPhotoList(modelId);
             }
@@ -1228,7 +1227,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetAllPhotos() : ModelId => {0}", modelId));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
             }
             return allPhotos;
         }
@@ -1251,6 +1250,13 @@ namespace Bikewale.BAL.BikeData
             return objColorImages;
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 28-02-2017
+        /// Description : Function to get data from cache and photo data from bal itself;
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;

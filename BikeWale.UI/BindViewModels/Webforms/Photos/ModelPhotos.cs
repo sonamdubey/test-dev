@@ -82,6 +82,10 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             }
         }
 
+        /// <summary>
+        /// Created BY : Sajal Gupta on 28-02-2017
+        /// Description : Function to get photo gallery data from bal
+        /// </summary>
         public void GetPhotoGalleryData()
         {
             try

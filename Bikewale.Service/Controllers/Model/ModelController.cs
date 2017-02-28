@@ -166,6 +166,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// Created By: Sangram Nandkhile on 31 Jan 2017
         /// Summary: To return Model Images, Other model Images and color wise images
+        /// Modified By : Sajal Gupta on 28-02-2017
+        /// Description : Call function of BAL Layer instead of Cache layer.       
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>

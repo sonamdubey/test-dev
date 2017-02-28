@@ -107,7 +107,7 @@ function bindPhotoGallery() {
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
     $('body').addClass('lock-browser-scroll');
-}de
+}
 
 function showGallery() {
     try {
@@ -133,6 +133,7 @@ var photosPage = function () {
 };
 
 var vmPhotosPage = new photosPage();
+
 var modelGallery = function () {
     var self = this;
     var activeVideo = 0;
@@ -561,7 +562,7 @@ ko.components.register("gallery-component", {
     template: { element: "gallery-template-wrapper" }
 });
 
-//ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'));
+ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'));
 
 var gallery = {
     close: function () {
