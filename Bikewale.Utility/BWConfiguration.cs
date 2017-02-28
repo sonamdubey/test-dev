@@ -176,7 +176,6 @@ namespace Bikewale.Utility
             _FCMEnvironment = ConfigurationManager.AppSettings["FCMEnvironment"];
             _IsAppTrackDayVisible = !String.IsNullOrEmpty(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) ? Convert.ToBoolean(ConfigurationManager.AppSettings["IsAppTrackDayVisible"]) : false;
             _LeadConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["LeadConsumerQueue"]);
-
         }
 
         // Static method to provide access to instance
@@ -305,6 +304,5 @@ namespace Bikewale.Utility
         public string FCMEnvironment { get { return _FCMEnvironment; } }
         public bool IsAppTrackDayVisible { get { return _IsAppTrackDayVisible; } }
         public String LeadConsumerQueue { get { return _LeadConsumerQueue; } }
-
     }   // class
 }   // namespace
