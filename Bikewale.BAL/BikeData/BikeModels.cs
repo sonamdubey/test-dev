@@ -77,6 +77,7 @@ namespace Bikewale.BAL.BikeData
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
                 _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<int>>();
                 _videos = container.Resolve<IVideos>();
+                _userReviewCache = container.Resolve<IUserReviewsCache>();
             }
         }
 
