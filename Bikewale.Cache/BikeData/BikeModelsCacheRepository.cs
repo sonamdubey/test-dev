@@ -100,6 +100,12 @@ namespace Bikewale.Cache.BikeData
             return objModelPage;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Moved function from BAL to cache
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         private BikeModelPageEntity GetModelPageDetailsNew(U modelId)
         {
             BikeModelPageEntity objModelPage = null;
@@ -127,6 +133,12 @@ namespace Bikewale.Cache.BikeData
             return objModelPage;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Moved function from BAL to cache
+        /// </summary>
+        /// <param name="bikeSpecificationEntity"></param>
+        /// <returns></returns>
         private Features FetchFeatures(BikeSpecificationEntity bikeSpecificationEntity)
         {
             Features objFeatures = new Features()
@@ -313,6 +325,13 @@ namespace Bikewale.Cache.BikeData
             return objFeatures;
         }
 
+
+        /// <summary>
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Moved function from BAL to cache
+        /// </summary>
+        /// <param name="bikeSpecificationEntity"></param>
+        /// <returns></returns>
         private Specifications FetchSpecList(BikeSpecificationEntity bikeSpecificationEntity)
         {
             Specifications objSpecs = new Specifications()
@@ -761,6 +780,12 @@ namespace Bikewale.Cache.BikeData
             return objSpecs;
         }
 
+        /// <summary>
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Moved function from BAL to cache
+        /// </summary>
+        /// <param name="bikeSpecificationEntity"></param>
+        /// <returns></returns>
         private Overview FetchOverViewList(BikeSpecificationEntity bikeSpecificationEntity)
         {
             Overview objOverview = new Overview()

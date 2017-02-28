@@ -51,6 +51,8 @@ namespace Bikewale.Controls
         /// Summary    : method to get model photo list from carwale api
         /// Modified By: Aditi Srivastava on 18th Aug,2016
         /// Description: Changed method GetModelPhotoGallery to GetModelPhotos
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Descrioption : Called Bal function instead of cache function.
         /// 
         /// </summary>
         private void GetImageList()
