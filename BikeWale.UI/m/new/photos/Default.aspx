@@ -323,14 +323,19 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
-            var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
-            var modelId = "<%= modelId%>";
-            var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
-            var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
-            var videoCount = "<%=VideoCount%>";
-            var modelName = "<%= vmModelPhotos.bikeName %>";            
-            var encodedVideoList = "<%= JSONVideoList%>"
-            var encodedImageList = "<%= JSONImageList %>"
+            try {
+                var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
+                var modelId = "<%= modelId%>";
+                var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
+                var videoCount = "<%=VideoCount%>";
+                var modelName = "<%= vmModelPhotos.bikeName %>";            
+                var encodedVideoList = "<%= JSONVideoList%>"
+                var encodedImageList = "<%= JSONImageList %>"
+            }catch(e)
+            {
+                console.warn(e);
+            }
         </script> 
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
