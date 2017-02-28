@@ -339,6 +339,7 @@
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
+    <Compile Include="Videos\BikeVideoModelEntity.cs" />
     <Compile Include="Videos\BikeVideosListEntity.cs" />
     <Compile Include="Videos\EnumVideosCategory.cs" />
     <Compile Include="Videos\VideosSortOrder.cs" />

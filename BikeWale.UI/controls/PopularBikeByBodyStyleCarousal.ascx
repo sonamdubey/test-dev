@@ -7,7 +7,7 @@
               {
                   string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);%>
             <li>
-                <a id="carousal-similar-bike" href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName) %>" title="<%= bikeName %>" class="jcarousel-card">
+                <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName) %>" title="<%= bikeName %>" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
                         <span class="card-image-block">
                             <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostURL,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" src="" border="0">

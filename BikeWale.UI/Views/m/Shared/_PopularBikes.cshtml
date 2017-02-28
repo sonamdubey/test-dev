@@ -1,0 +1,46 @@
+﻿@using Bikewale.Entities.BikeData;
+@using Bikewale.Utility;
+@model IEnumerable<MostPopularBikesBase>
+@if (Model != null && Model.Count() > 0) { 
+<section>
+    <div class="container bg-white box-shadow padding-top15 padding-bottom15 margin-bottom10">
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Explore popular @ViewBag.MakeName bikes</h2>
+        <div class="swiper-container card-container">
+            <div class="swiper-wrapper">
+                @foreach (var bike in Model)
+                {
+                    string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName))" title="@bikeName">
+                                <div class="swiper-image-preview position-rel">
+                                    <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98)" src="" alt="@bikeName">
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                    @if (bike.VersionPrice > 0)
+                                    {
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName) ? bike.CityName : Bikewale.Common.Configuration.GetDefaultCityName)</p>
+                                        <p class="text-default">
+                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>@*<span class="font14 text-bold"> </span>*@
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-default">
+                                            <span class="text-bold font14">Price not available</span>
+                                        </p>
+                                    }
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+}
+

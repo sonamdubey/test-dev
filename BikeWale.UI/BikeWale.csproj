@@ -453,8 +453,11 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
+    <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\new\Videos\VideosController.cs" />
+    <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
@@ -2295,6 +2298,7 @@
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\video\landing.css" />
+    <Content Include="css\video\videos-by-make.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2819,6 +2823,7 @@
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
+    <Content Include="m\css\videos\videos-by-make.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
@@ -3333,6 +3338,10 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\m\Videos\Makes.cshtml" />
+    <Content Include="Views\Videos\Makes.cshtml" />
+    <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
+    <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
