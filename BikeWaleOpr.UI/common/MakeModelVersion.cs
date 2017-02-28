@@ -249,8 +249,14 @@ namespace BikeWaleOpr.Common
 
                     // Update the Make Masking Name in CW database
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("makeid", makeId);
-                    nvc.Add("maskingname", maskingName);
+                    nvc.Add("MakeId", makeId);
+                    nvc.Add("MaskingName", maskingName);
+                    nvc.Add("MakeName", null);
+                    nvc.Add("IsNew", null);
+                    nvc.Add("IsUsed", null);
+                    nvc.Add("IsFuturistic", null);
+                    nvc.Add("IsDeleted", null);
+
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     if (_mc != null)
@@ -304,7 +310,16 @@ namespace BikeWaleOpr.Common
                     {
                         NameValueCollection nvc = new NameValueCollection();
                         nvc.Add("ModelMaskingName", maskingName);
-                        nvc.Add("modelId", modelId);
+                        nvc.Add("MakeId", null);
+                        nvc.Add("ModelName", null);
+                        nvc.Add("ModelMaskingName", maskingName);
+                        nvc.Add("HostUrl", null);
+                        nvc.Add("OriginalImagePath", null);
+                        nvc.Add("IsUsed", null);
+                        nvc.Add("IsNew", null);
+                        nvc.Add("IsFuturistic", null);
+                        nvc.Add("IsDeleted", null);
+                        nvc.Add("ModelId", modelId);
                         SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         isSuccess = true;
                     }
@@ -417,7 +432,12 @@ namespace BikeWaleOpr.Common
                     // Push the data to carwale DB
                     // Create name value collection
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("makeId", makeId);
+                    nvc.Add("MakeId", makeId);
+                    nvc.Add("MaskingName", null);
+                    nvc.Add("MakeName", null);
+                    nvc.Add("IsNew", null);
+                    nvc.Add("IsUsed", null);
+                    nvc.Add("IsFuturistic", null);
                     nvc.Add("IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
                 }
@@ -453,8 +473,16 @@ namespace BikeWaleOpr.Common
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, deletedBy));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("ModelId", modelId);
+                    nvc.Add("MakeId", null);
+                    nvc.Add("ModelName", null);
+                    nvc.Add("ModelMaskingName", null);
+                    nvc.Add("HostUrl", null);
+                    nvc.Add("OriginalImagePath", null);
+                    nvc.Add("IsUsed", null);
+                    nvc.Add("IsNew", null);
+                    nvc.Add("IsFuturistic", null);
                     nvc.Add("IsDeleted", "1");
+                    nvc.Add("ModelId", modelId);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
             }

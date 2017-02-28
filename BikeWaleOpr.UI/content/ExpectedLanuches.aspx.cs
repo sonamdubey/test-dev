@@ -274,10 +274,16 @@ namespace BikeWaleOpr.Content
                         foreach (string modelId in launchBikeModelIds.Split(','))
                         {
                             NameValueCollection nvc = new NameValueCollection();
-                            nvc.Add("ModelId", modelId);
+                            nvc.Add("MakeId", null);
+                            nvc.Add("ModelName", null);
+                            nvc.Add("ModelMaskingName", null);
+                            nvc.Add("HostUrl", null);
+                            nvc.Add("OriginalImagePath", null);
                             nvc.Add("IsUsed", "1");
                             nvc.Add("IsNew", "1");
                             nvc.Add("IsFuturistic", "0");
+                            nvc.Add("IsDeleted", null);
+                            nvc.Add("ModelId", modelId);
                             SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                         }
                     }
