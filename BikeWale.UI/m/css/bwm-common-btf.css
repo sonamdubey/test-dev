@@ -285,7 +285,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .video-play-lg { width:38px; height:38px; background-position:-131px -596px; }
 .overlay-carousel .swiper-details-block { padding-top: 10px; }
 /* youtube video swiper */
-.video-swiper .swiper-card { min-height: 195px; }
+.video-swiper .swiper-card { min-height: 196px; }
 .video-swiper .swiper-image-preview { padding: 0; }
 .video-swiper .swiper-image-preview, .video-swiper .swiper-slide img { height: 113px; }
 .video-swiper .swiper-details-block { padding-top: 10px; padding-bottom: 15px; }

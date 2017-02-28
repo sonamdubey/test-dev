@@ -468,8 +468,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .overlay-carousel .play-icon-wrapper { width: 100%; left: 0; }
 .overlay-carousel .card-desc-block { padding-top: 10px; }
 .video-carousel li { min-height: 263px; }
-.video-carousel .model-jcarousel-image-preview img { height: 165px; }
-.video-carousel .play-icon-wrapper { height: 165px; }
+.video-carousel .model-jcarousel-image-preview img, .video-carousel .play-icon-wrapper { height: 165px; }
 
 /* On road price popup */
 /*PopupWidget Styling*/
@@ -843,6 +842,7 @@ a.action-btn:hover{text-decoration:none;}
     .model-jcarousel-image-preview img { height: 155px; }
 
     .bw-horizontal-cards .card { width: 280px; }
+    .video-carousel .model-jcarousel-image-preview img, .video-carousel .play-icon-wrapper { height: 158px; }
 }
 
 /* offers popup */

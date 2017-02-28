@@ -20,7 +20,9 @@
                         <a href="@string.Format("/m{0}",UrlFormatter.FormatVideoPageUrl(bike.objMake.MaskingName, bike.MaskingName))" title="@bikeName" class="block">
                             <div class="item-image-content">
                                 <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
-                                <span class="black-overlay"></span>
+                                <span class="black-overlay">
+                                    <span class="bwmsprite video-play-lg"></span>
+                                </span>
                             </div>
                             <h2 class="margin-bottom5">@bikeName</h2>
                             <p class="font14 text-light-grey">@bike.VideoCount Videos</p>
