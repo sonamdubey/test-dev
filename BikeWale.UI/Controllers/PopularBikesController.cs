@@ -1,9 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -21,6 +18,7 @@ namespace Bikewale.Controllers
         {
             _modelCache = modelCache;
         }
+
         [Route("popularbikes/")]
         public ActionResult PopularBikesDesktop(uint topCount, uint makeId, uint cityId)
         {

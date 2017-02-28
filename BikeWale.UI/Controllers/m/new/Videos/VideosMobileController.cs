@@ -11,7 +11,7 @@ namespace Bikewale.Controllers.Mobile.Videos
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 27 Feb 2017
-    /// Summary    : Mobile Controller for make video page
+    /// Summary    : Mobile Controller for make specific video page
     /// </summary>
 	public class VideosMobileController :Controller
 	{

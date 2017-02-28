@@ -9,6 +9,10 @@ using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
 {
+    /// <summary>
+    /// Created by : Aditi Srivastava on 27 Feb 2017
+    /// Summary    : Desktop Controller for make specific video page
+    /// </summary>
     public class VideosController : Controller
     {
         private readonly IVideosCacheRepository _videos = null;
