@@ -135,7 +135,8 @@ namespace Grpc.CMS
                         return client.GetArticlePhotos
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId
+                                BasicId = basicId,
+                                ApplicationId = 2
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -256,7 +257,8 @@ namespace Grpc.CMS
                         return client.GetContentDetails
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId
+                                BasicId = basicId,
+                                ApplicationId = 2
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
@@ -295,7 +297,8 @@ namespace Grpc.CMS
                         return client.GetContentPages
                             (new GrpcArticleContentURI()
                             {
-                                BasicId = basicId
+                                BasicId = basicId,
+                                ApplicationId = 2
                             },
                              null, GetForwardTime(m_ChanelWaitTime));
                     }
