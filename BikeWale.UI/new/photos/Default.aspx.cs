@@ -1,8 +1,10 @@
 ﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms.Photos;
+using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Utility;
 using System;
 using System.Web;
 
@@ -20,8 +22,10 @@ namespace Bikewale.New.Photos
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected NewVideosControl ctrlVideos;
-        protected uint gridSize = 25;
+        protected uint gridSize = 25, imageIndex = 0;
         private uint _modelId;
+        protected GenericBikeInfoControl ctrlGenericBikeInfo;
+        protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,22 +33,34 @@ namespace Bikewale.New.Photos
         }
         /// <summary>       
         /// Summary :- model page photo bind condition added in query string
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get imageindex from querystring.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+            dd.DetectDevice();
+
             if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
             {
                 isModelPage = true;
             }
+
+            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+            {
+                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+            }
+
             BindPhotosPage();
             BindPageWidgets();
         }
 
         /// <summary>
         /// Created By : Created By : Sajal Gupta on 09-02-2017
-        /// Description : Bind photos page with metas,photos and widgets        
+        /// Description : Bind photos page with metas,photos and widgets 
+        /// Modified : Changed viewmodel function.
         /// </summary>
         private void BindPhotosPage()
         {
@@ -58,7 +74,7 @@ namespace Bikewale.New.Photos
                     vmModelPhotos.GridSize = 24;
                     vmModelPhotos.NoOfGrid = 8;
                     vmModelPhotos.isModelpage = isModelPage;
-                    vmModelPhotos.GetModelDetails();
+                    vmModelPhotos.GetPhotoGalleryData();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindBikeInfo genericBikeInfo = new BindBikeInfo();
 
@@ -72,14 +88,29 @@ namespace Bikewale.New.Photos
                     {
                         if (bikeInfo.Make != null && bikeInfo.Model != null)
                         {
-                            bikeUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                             bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                         }
                         pqSource = PQSourceEnum.Desktop_Photos_page;
                         IsUpcoming = genericBikeInfo.IsUpcoming;
                         IsDiscontinued = genericBikeInfo.IsDiscontinued;
                         VideoCount = bikeInfo.VideosCount;
+
+                        if (ctrlGenericBikeInfo != null && bikeInfo.Model != null)
+                        {
+                            var objresponse = new ModelHelper().GetModelDataByMasking((bikeInfo.Model.MaskingName));
+
+                            ctrlGenericBikeInfo.ModelId = objresponse.ModelId;
+                            ctrlGenericBikeInfo.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                            ctrlGenericBikeInfo.PageId = BikeInfoTabType.Image;
+                            ctrlGenericBikeInfo.TabCount = 4;
+                        }
+
+                        JSONImageList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objImageList));
+                        JSONVideoList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objVideosList));
+                        JSONFirstImage = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.firstImage));
                     }
+
                 }
             }
             catch (Exception ex)

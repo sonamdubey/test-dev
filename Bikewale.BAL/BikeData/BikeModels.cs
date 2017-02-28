@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
@@ -8,6 +9,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
@@ -16,6 +18,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
@@ -25,6 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -43,6 +47,8 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
+        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IVideos _videos = null;
 
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
         static bool _logGrpcErrors = Convert.ToBoolean(BWConfiguration.Instance.LogGrpcErrors);
@@ -61,13 +67,17 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
+                container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
+                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
+                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<int>>();
+                _videos = container.Resolve<IVideos>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
-
             }
         }
 
@@ -213,6 +223,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary : Function to get the model page details
         /// Modified By: Aditi Srivastava on 26 Aug 2016
         /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Call function to get images.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -897,11 +909,16 @@ namespace Bikewale.BAL.BikeData
                     #endregion
                 }
 
+                if (objModelPage != null)
+                {
+                    objModelPage.Photos = GetModelPhotoGalleryWithMainImage(modelId);
+                    objModelPage.AllPhotos = CreateAllPhotoList(modelId);
+                }
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
-                objErr.SendMail();
             }
 
             return objModelPage;
@@ -918,27 +935,7 @@ namespace Bikewale.BAL.BikeData
             BikeModelPageEntity objModelPage = null;
             try
             {
-                objModelPage = modelRepository.GetModelPage(modelId);
-                if (objModelPage != null && objModelPage.ModelVersionSpecsList != null)
-                {
-                    List<TransposeModelSpecEntity> objSpecList = new List<TransposeModelSpecEntity>();
-                    foreach (var bikeVersion in objModelPage.ModelVersionSpecsList)
-                    {
-                        TransposeModelSpecEntity versionTranspos = new TransposeModelSpecEntity();
-                        versionTranspos.BikeVersionId = bikeVersion.BikeVersionId;
-                        versionTranspos.objOverview = FetchOverViewList(bikeVersion);
-                        versionTranspos.objSpecs = FetchSpecList(bikeVersion);
-                        versionTranspos.objFeatures = FetchFeatures(bikeVersion);
-                        objSpecList.Add(versionTranspos);
-                    }
-                    objModelPage.TransposeModelSpecs = objSpecList;
-                    if (objModelPage.ModelVersionSpecs != null)
-                    {
-                        objModelPage.objOverview = FetchOverViewList(objModelPage.ModelVersionSpecs);
-                        objModelPage.objSpecs = FetchSpecList(objModelPage.ModelVersionSpecs);
-                        objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
-                    }
-                }
+
             }
             catch (Exception ex)
             {
@@ -948,676 +945,7 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
-        private Features FetchFeatures(BikeSpecificationEntity bikeSpecificationEntity)
-        {
-            Features objFeatures = new Features()
-            {
-                DisplayName = "Features"
-            };
 
-            List<Specs> objFeatuesList = new List<Specs>();
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Speedometer",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Speedometer)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Fuel Guage",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelGauge)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Tachometer Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TachometerType)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Digital Fuel Guage",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.DigitalFuelGauge)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Tripmeter",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Tripmeter)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Electric Start",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ElectricStart)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Tachometer",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Tachometer)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Shift Light",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ShiftLight)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "No. of Tripmeters",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.NoOfTripmeters)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Tripmeter Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TripmeterType)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Low Fuel Indicator",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.LowFuelIndicator)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Low Oil Indicator",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.LowOilIndicator)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Low Battery Indicator",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.LowBatteryIndicator)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Pillion Seat",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.PillionSeat)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Pillion Footrest",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.PillionFootrest)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Pillion Backrest",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.PillionBackrest)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Pillion Grabrail",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.PillionGrabrail)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Stand Alarm",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.StandAlarm)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Stepped Seat",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.SteppedSeat)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Antilock Braking System",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.AntilockBrakingSystem)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Killswitch",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Killswitch)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Clock",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Clock)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Electric System",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ElectricSystem)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Battery",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Battery)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Headlight Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.HeadlightType)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Headlight Bulb Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.HeadlightBulbType)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Brake/Tail Light",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Brake_Tail_Light)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Turn Signal",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TurnSignal)
-            });
-
-            objFeatuesList.Add(new Specs()
-            {
-                DisplayText = "Pass Light",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.PassLight)
-            });
-
-            objFeatures.FeaturesList = objFeatuesList;
-            return objFeatures;
-        }
-
-        private Specifications FetchSpecList(BikeSpecificationEntity bikeSpecificationEntity)
-        {
-            Specifications objSpecs = new Specifications()
-            {
-                DisplayName = "Specifications"
-            };
-
-            List<SpecsCategory> objSpecifications = new List<SpecsCategory>();
-
-            // Add summary as subcategory to specifications
-            SpecsCategory objSummary = new SpecsCategory()
-            {
-                CategoryName = "Summary",
-                DisplayName = "Summary"
-            };
-
-            // Add specifications to the summary
-            List<Specs> objSummarySpecs = new List<Specs>();
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Displacement",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Displacement, "cc")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Max Power",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.MaxPower, "bhp", bikeSpecificationEntity.MaxPowerRPM, "rpm")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Maximum Torque",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.MaximumTorque, "Nm", bikeSpecificationEntity.MaximumTorqueRPM, "rpm")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "No. of gears",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.NoOfGears)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Efficiency",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelEfficiencyOverall, "kmpl")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Brake Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.BrakeType)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Front Disc",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FrontDisc)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Rear Disc",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RearDisc)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Alloy Wheels",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.AlloyWheels)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Kerb Weight",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.KerbWeight, "kg")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Chassis Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ChassisType)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Top Speed",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TopSpeed, "kmph")
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Tubeless Tyres",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TubelessTyres)
-            });
-
-            objSummarySpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Tank Capacity",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelTankCapacity, "litres")
-            });
-
-            objSummary.Specs = objSummarySpecs;
-
-            // Add specs to the Engine and transmission
-            SpecsCategory objEngTrans = new SpecsCategory()
-            {
-                CategoryName = "EngTrans",
-                DisplayName = "Engine & Transmission"
-            };
-
-            List<Specs> objEngTransSpecs = new List<Specs>();
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Displacement",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Displacement, "cc")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Cylinders",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Cylinders)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Max Power",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.MaxPower, "bhp", bikeSpecificationEntity.MaxPowerRPM, "rpm")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Maximum Torque",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.MaximumTorque, "Nm", bikeSpecificationEntity.MaximumTorqueRPM, "rpm")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Bore",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Bore, "mm")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Stroke",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Stroke, "mm")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Valves Per Cylinder",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ValvesPerCylinder)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Delivery System",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelDeliverySystem)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelType)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Ignition",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Ignition)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Spark Plugs",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.SparkPlugsPerCylinder, "Per Cylinder")
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Cooling System",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.CoolingSystem)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Gearbox Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.GearboxType)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "No. of Gears",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.NoOfGears)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Transmission Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TransmissionType)
-            });
-
-            objEngTransSpecs.Add(new Specs()
-            {
-                DisplayText = "Clutch",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Clutch)
-            });
-
-            objEngTrans.Specs = objEngTransSpecs;
-
-            // Add Brakes, wheels and suspension
-            SpecsCategory objBrakesWheels = new SpecsCategory()
-            {
-                CategoryName = "BrakesAndWheels",
-                DisplayName = "Brakes, Wheels and Suspension"
-            };
-
-            List<Specs> objBrakesWheelsSpecs = new List<Specs>();
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Brake Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.BrakeType)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Front Disc",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FrontDisc)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Front Disc/Drum Size",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FrontDisc_DrumSize, "mm")
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Rear Disc",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RearDisc)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Rear Disc/Drum Size",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RearDisc_DrumSize, "mm")
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Calliper Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.CalliperType)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Wheel Size",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.WheelSize, "inches")
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Front Tyre",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FrontTyre)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Rear Tyre",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RearTyre)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Tubeless Tyres",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TubelessTyres)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Radial Tyres",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RadialTyres)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Alloy Wheels",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.AlloyWheels)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Front Suspension",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FrontSuspension)
-            });
-
-            objBrakesWheelsSpecs.Add(new Specs()
-            {
-                DisplayText = "Rear Suspension",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.RearSuspension)
-            });
-
-            objBrakesWheels.Specs = objBrakesWheelsSpecs;
-
-            // Add Dimensions and chassis specs
-
-            SpecsCategory objChassis = new SpecsCategory()
-            {
-                CategoryName = "DimChassis",
-                DisplayName = "Dimensions and Chassis"
-            };
-
-            List<Specs> objChassisSpecs = new List<Specs>();
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Kerb Weight",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.KerbWeight, "kg")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Overall Length",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.OverallLength, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Overall Width",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.OverallWidth, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Overall Height",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.OverallHeight, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Wheelbase",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Wheelbase, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Ground Clearance",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.GroundClearance, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Seat Height",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.SeatHeight, "mm")
-            });
-
-            objChassisSpecs.Add(new Specs()
-            {
-                DisplayText = "Chassis Type",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ChassisType)
-            });
-
-            objChassis.Specs = objChassisSpecs;
-
-            // Add fuel efficiency and performance
-            SpecsCategory objFuel = new SpecsCategory()
-            {
-                CategoryName = "FuelEffieciency",
-                DisplayName = "Fuel efficiency and Performance"
-            };
-
-            List<Specs> objFuelSpecs = new List<Specs>();
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Tank Capacity",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelTankCapacity, "litres")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "Reserve Fuel Capacity",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.ReserveFuelCapacity, "litres")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Efficiency Overall",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelEfficiencyOverall, "kmpl")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "Fuel Efficiency Range",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelEfficiencyRange, "km")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "0 to 60 kmph",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Performance_0_60_kmph, "seconds")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "0 to 80 kmph",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Performance_0_80_kmph, "seconds")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "0 to 40 kmph",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Performance_0_40_m, "seconds")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "Top Speed",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.TopSpeed, "kmph")
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "60 to 0 kmph",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Performance_60_0_kmph)
-            });
-
-            objFuelSpecs.Add(new Specs()
-            {
-                DisplayText = "80 to 0 kmph",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Performance_80_0_kmph)
-            });
-
-            objFuel.Specs = objFuelSpecs;
-
-            // Add specification categories to the specs object
-            objSpecifications.Add(objSummary);
-            objSpecifications.Add(objEngTrans);
-            objSpecifications.Add(objBrakesWheels);
-            objSpecifications.Add(objChassis);
-            objSpecifications.Add(objFuel);
-            objSpecs.SpecsCategory = objSpecifications;
-            return objSpecs;
-        }
-
-        private Overview FetchOverViewList(BikeSpecificationEntity bikeSpecificationEntity)
-        {
-            Overview objOverview = new Overview()
-            {
-                DisplayName = "Overview"
-            };
-
-            List<Specs> objOverviewSpecs = new List<Specs>();
-
-            objOverviewSpecs.Add(new Specs()
-            {
-                DisplayText = "Capacity",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.Displacement, "cc")
-            });
-
-            objOverviewSpecs.Add(new Specs()
-            {
-                DisplayText = "Mileage",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.FuelEfficiencyOverall, "kmpl")
-            });
-
-            objOverviewSpecs.Add(new Specs()
-            {
-                DisplayText = "Max power",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.MaxPower, "bhp")
-            });
-
-            objOverviewSpecs.Add(new Specs()
-            {
-                DisplayText = "Weight",
-                DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(bikeSpecificationEntity.KerbWeight, "kg")
-            });
-
-            objOverview.OverviewList = objOverviewSpecs;
-            return objOverview;
-        }
 
         /// <summary>
         /// Created by Subodh Jain 12 oct 2016
@@ -1674,7 +1002,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetBikeModelPhotoGallery");
-                objErr.SendMail();
             }
 
             return objPhotos;
@@ -1752,43 +1079,21 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
-            List<UpcomingBikeEntity> objUpcoming = null;
-
-            int recordCount = 0;
-            int startIndex = 0, endIndex = 0, currentPageNo = 0;
-
+            IEnumerable<UpcomingBikeEntity> objUpcoming = null;
             try
             {
-                currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                             .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
-
-                    var _objPager = container.Resolve<IPager>();
-                    var _modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                    _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                    UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
-                    {
-                        StartIndex = startIndex,
-                        EndIndex = endIndex,
-                        MakeId = makeId.HasValue ? makeId.Value : 0,
-                        ModelId = modelId.HasValue ? modelId.Value : 0
-                    };
-
-                    objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
-                }
+                objUpcoming = _modelCacheRepository.GetUpcomingBikesList(sortBy, pageSize, makeId, modelId, curPageNo);
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
-                objErr.SendMail();
             }
 
-            return objUpcoming;
+            if (objUpcoming != null)
+                return objUpcoming.ToList();
+            else
+                return null;
         }
 
         public BikeModelContent GetRecentModelArticles(U modelId)
@@ -1820,7 +1125,6 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objModelArticles;
@@ -1878,9 +1182,112 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
-                objErr.SendMail();
             }
             return objVideos;
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 24-02-2017
+        /// Description : Get model photo gallery data
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId)
+        {
+            ModelPhotoGalleryEntity objModelPhotoGalleryData = null;
+            try
+            {
+                objModelPhotoGalleryData = new ModelPhotoGalleryEntity();
+
+                objModelPhotoGalleryData.ObjModelEntity = GetById(modelId);
+
+                if (objModelPhotoGalleryData.ObjModelEntity != null && objModelPhotoGalleryData.ObjModelEntity.MakeBase != null)
+                    objModelPhotoGalleryData.VideosList = _videos.GetVideosByMakeModel(1, 50, (uint)objModelPhotoGalleryData.ObjModelEntity.MakeBase.MakeId, Convert.ToUInt32(modelId));
+
+                objModelPhotoGalleryData.ImageList = CreateAllPhotoList(modelId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetPhotoGalleryData  modelId{0}", modelId));
+            }
+            return objModelPhotoGalleryData;
+        }
+
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile On 9 Feb 2017
+        /// Summary: To sum up Model Photos
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <returns></returns>
+        public IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId)
+        {
+            List<ColorImageBaseEntity> allPhotos = null;
+            try
+            {
+                allPhotos = new List<ColorImageBaseEntity>();
+                List<ModelImage> modelPhotos = GetModelPhotoGalleryWithMainImage(modelId);
+                if (modelPhotos != null)
+                {
+                    allPhotos.AddRange(modelPhotos.Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
+                }
+                IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
+                if (colorPhotos != null)
+                {
+                    allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CreateAllPhotoList() : ModelId => {0}", modelId));
+            }
+            return allPhotos;
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 24-02-2017
+        /// Description : Get model color photo gallery data from cache.
+        /// </summary>
+        public IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId)
+        {
+            IEnumerable<ModelColorImage> objColorImages = null;
+            try
+            {
+                objColorImages = _modelCacheRepository.GetModelColorPhotos(Convert.ToInt32(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.Getmodelcolorphotos ==> ModelId: {0}", modelId));
+            }
+            return objColorImages;
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 28-02-2017
+        /// Description : Function to get data from cache and photo data from bal itself;
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
+        {
+            BikeModelPageEntity objModelPage = null;
+            try
+            {
+                objModelPage = _modelCacheRepository.GetModelPageDetails(Convert.ToInt32(modelId), versionId);
+                if (objModelPage != null)
+                {
+                    objModelPage.Photos = GetModelPhotoGalleryWithMainImage(modelId);
+                    objModelPage.AllPhotos = CreateAllPhotoList(modelId);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
+            }
+
+            return objModelPage;
+        }
+
     }   // Class
 }   // namespace

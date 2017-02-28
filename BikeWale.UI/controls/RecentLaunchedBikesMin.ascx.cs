@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -46,7 +47,8 @@ namespace Bikewale.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                    container.RegisterType<IPager, Pager>()
+                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()

@@ -41,10 +41,10 @@ namespace Bikewale
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
             container.RegisterType<ICacheManager, MemcacheManager>();
+            container.RegisterType<IPager, Pager>();
             container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
             container.RegisterType<IBikeInfo, BikeInfo>();
-            container.RegisterType<IPager, Pager>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
             container.RegisterType<IUpcoming, Upcoming>();
             container.RegisterType<IVideoRepository,ModelVideoRepository>();

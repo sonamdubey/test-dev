@@ -1,10 +1,12 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
@@ -45,6 +47,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IPager, Pager>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
                     IBikeModelsCacheRepository<int> modelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
@@ -66,7 +69,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
         /// <summary>
@@ -88,6 +91,7 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IPager, Pager>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
 
@@ -110,7 +114,7 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BindMostPopularBikesControl.BindMostPopularBikesMakeCity");
-                
+
             }
         }
     }

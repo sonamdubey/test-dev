@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
@@ -20,6 +21,7 @@ using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Utility;
@@ -540,6 +542,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get model page data from calling BAL layer instead of calling cache layer.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {
@@ -550,12 +554,13 @@ namespace Bikewale.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        container.RegisterType<IPager, Pager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
-                        var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
+                        var objBikeModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        modelPg = objBikeModels.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
                         if (modelPg != null)
                         {
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)

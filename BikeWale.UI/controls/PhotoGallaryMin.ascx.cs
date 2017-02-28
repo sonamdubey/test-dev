@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -7,6 +8,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -49,6 +51,8 @@ namespace Bikewale.Controls
         /// Summary    : method to get model photo list from carwale api
         /// Modified By: Aditi Srivastava on 18th Aug,2016
         /// Description: Changed method GetModelPhotoGallery to GetModelPhotos
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Descrioption : Called Bal function instead of cache function.
         /// 
         /// </summary>
         private void GetImageList()
@@ -57,12 +61,13 @@ namespace Bikewale.Controls
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    container.RegisterType<IPager, Pager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>();
-                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    objImageList = objCache.GetAllPhotos(modelId);
+                    var objModelEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    objImageList = objModelEntity.CreateAllPhotoList(modelId);
                     FetchedCount = objImageList != null ? objImageList.Count() : 0;
                     if (FetchedCount > 0)
                     {
