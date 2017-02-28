@@ -59,7 +59,7 @@ namespace Bikewale.Service.Controllers.Model
 
             try
             {
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
 
                 if (objModelPage != null)
                 {
@@ -159,6 +159,8 @@ namespace Bikewale.Service.Controllers.Model
         /// This returns the new dual tone colour with hexcodes(as list) 
         /// along with complete Model Page with Specs,Features,description and Details
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -171,7 +173,7 @@ namespace Bikewale.Service.Controllers.Model
 
             try
             {
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                objModelPage = _modelBL.GetModelPageDetails(modelId);
 
                 if (objModelPage != null)
                 {
@@ -283,7 +285,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(modelID);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
@@ -338,7 +340,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(modelID);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);

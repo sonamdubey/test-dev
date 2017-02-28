@@ -477,3 +477,21 @@ var videoThumbnailSwiper = new Swiper('.video-thumbnail-swiper', {
     lazyLoading: true,
     spaceBetween: 0
 });
+
+$(window).on('hashchange', function (e) {
+    hashChange(e);
+});
+
+var hashChange = function (e) {
+    var oldUrl, oldHash;
+    oldUrl = e.originalEvent.oldURL;
+    if (oldUrl && (oldUrl.indexOf('#') > 0)) {
+        oldHash = oldUrl.split('#')[1];
+        closePopUp(oldHash);
+    };
+};
+
+var closePopUp = function (state) {
+    if(state == "photosGallery")
+        popupGallery.close();
+}

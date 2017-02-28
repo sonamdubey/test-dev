@@ -906,6 +906,12 @@ namespace Bikewale.BAL.BikeData
                     #endregion
                 }
 
+                if (objModelPage != null)
+                {
+                    objModelPage.Photos = GetModelPhotoGalleryWithMainImage(modelId);
+                    objModelPage.AllPhotos = CreateAllPhotoList(modelId);
+                }
+
             }
             catch (Exception ex)
             {
