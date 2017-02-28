@@ -641,7 +641,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
-        /// 
+        /// Modified by : Sajal gupta on 28-02-2017
+        /// Description :" Fetch modelPage data from calling BAL function instead of cache function.
         /// </summary>
         private void FetchModelPageDetails()
         {

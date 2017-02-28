@@ -47,6 +47,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// To get complete Model Page with Specs,Features,description and Details
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -271,6 +273,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Removed specs, colors, features and unnecessary properties
         /// Modified by :   Sumit Kate on 23 May 2016
         /// Description :   Get the Device Id from deviceId parameter
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
@@ -325,7 +329,9 @@ namespace Bikewale.Service.Controllers.Model
 
         /// <summary>
         /// Created by  :   Lucky Rathore on 16 Jun 2016
-        /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.       
+        /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.  
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]

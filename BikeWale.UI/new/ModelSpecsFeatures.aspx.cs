@@ -88,6 +88,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
+        /// Modified by : Sajal gupta on 28-02-2017
+        /// Description :" Fetch modelPage data from calling BAL function instead of cache function.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID, uint versionId)
         {
@@ -102,7 +104,7 @@ namespace Bikewale.New
                             .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>();                        
+                                 .RegisterType<ICacheManager, MemcacheManager>();
                         var objBikeEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                         modelPg = objBikeEntity.GetModelPageDetails(Convert.ToInt16(modelID));
                         if (modelPg != null && modelPg.ModelDetails != null)

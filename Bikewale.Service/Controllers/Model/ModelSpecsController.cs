@@ -80,6 +80,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Description : API to give Model Specification, Feature, Versions and Colors.
         /// Modified by :   Sumit Kate on 23 May 2016
         /// Description :   Get the Device Id from deviceId parameter
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>

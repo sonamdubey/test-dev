@@ -222,6 +222,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary : Function to get the model page details
         /// Modified By: Aditi Srivastava on 26 Aug 2016
         /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Call function to get images.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
