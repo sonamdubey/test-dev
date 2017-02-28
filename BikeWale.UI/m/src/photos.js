@@ -107,52 +107,7 @@ function bindPhotoGallery() {
     ko.cleanNode(document.getElementById('gallery-root'))
     ko.applyBindings(vmPhotosPage, document.getElementById('gallery-root'))
     $('body').addClass('lock-browser-scroll');
-}
-
-//function showGallery() {      
-//    try {        
-//        var keyPhoto = "modelPhotos_" + modelId;
-
-//        if (!checkCacheModelPhotos(keyPhoto)) {
-//            $.ajax({
-//                type: "Get",
-//                url: "/api/model/" + modelId + "/photos/",
-//                contentType: "application/json",
-//                dataType: 'json',
-//                async: false,
-//                success: function (response) {
-//                    if (response) {
-//                        modelImages = response;
-//                        modelColorImages = filterColorImagesArray(response);
-//                    }                    
-
-//                    modelColorImageCount = modelColorImages.length;
-//                    bindPhotoGallery();
-
-//                    var cacheData = JSON.stringify({
-//                        modelImages: modelImages,
-//                        modelColorImages: modelColorImages
-//                    });                   
-//                    var cachedEncodedData = Base64.encode(cacheData)
-//                    bwcache.set(keyPhoto, cachedEncodedData, true);
-//                }
-//            });
-//        }
-//        else {
-//            vmPhotosPage.photoGalleryContainerActive(true);
-//            var cacheData = Base64.decode(bwcache.get(keyPhoto, true));
-//            var cacheDecodedData = JSON.parse(cacheData);
-//            modelImages = cacheDecodedData.modelImages;
-//            modelColorImages = cacheDecodedData.modelColorImages;
-//            modelColorImageCount = modelColorImages.length;
-//            bindPhotoGallery();
-//        }
-
-//    }
-//    catch (e) {
-//        console.warn(e);
-//    }
-//};
+}de
 
 function showGallery() {
     try {
@@ -564,48 +519,7 @@ var modelGallery = function () {
         self.colorsThumbnailScreen(false);
         self.modelInfoScreen(false);
         self.videoListScreen(false);
-    };
-    //self.getVideos=  function () {
-
-    //    var keyVideo = "PhotosVideos_" + ModelId + "_" + pageNo;
-    //    try {
-    //        if (videoCount > (pageNo-1) * pageSize) {
-    //            if (!checkCacheCityAreas(keyVideo)) {
-    //                $.ajax({
-    //                    type: 'GET',
-    //                    url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
-    //                    dataType: 'json',
-    //                    success: function (response) {
-    //                        if (response) {
-    //                            isNextPage = true;
-    //                            pushVideoList(response.videos);
-    //                            bwcache.set(keyVideo, Base64.encode(JSON.stringify(response)), 10);
-    //                        }
-    //                    },
-    //                    complete: function (xhr) {
-    //                        if (xhr.status != 200) {
-    //                            isNextPage = false;
-    //                        }
-    //                    }
-    //                });
-    //            }
-    //            else {
-    //                pushVideoList(JSON.parse(Base64.decode(bwcache.get(keyVideo))).videos);
-    //                isNextPage = true;
-    //            }
-    //        }
-    //        else {
-    //            if (!self.activeVideoId()) {
-    //                setVideoDetails(0);
-    //            }
-    //            else {
-    //                setVideoDetails(self.activeVideoIndex())
-    //            }
-    //        }
-    //    }catch (e) {
-    //        console.warn("Unable to fetch Videos model gallery " + e.message);
-    //    }
-    //}
+    };    
 
     self.getVideos = function () {
         try {

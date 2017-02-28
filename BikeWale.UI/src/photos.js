@@ -1,4 +1,24 @@
-﻿$(document).ready(function () {
+﻿var modelImages = [],
+    modelColorImages = [],
+    modelColorImageCount = 0,
+    videoList = null,
+    imageList = null;
+
+(function () {
+    imageList = JSON.parse(Base64.decode(encodedImageList));
+    videoList = JSON.parse(Base64.decode(encodedVideoList));
+
+    var firstImage = JSON.parse(Base64.decode(encodedFirstImage));
+
+    imageList.unshift(firstImage);
+
+    modelImages = imageList;
+    modelColorImages = filterColorImagesArray(imageList);
+
+    modelColorImageCount = modelColorImages.length;
+})();
+
+$(document).ready(function () {
     var photosLength = $('.model-grid-images li').length,
         photoLimitCount = 24;
 
@@ -63,8 +83,8 @@ $('.model-grid-images').on('click', 'li', function () {
     
 });
 
-$('#gallery-close-btn').on('click', function () {
-    popupGallery.close();
+$('#gallery-close-btn').on('click', function () {        
+        popupGallery.close();    
 });
 
 $(document).keydown(function (event) {
@@ -82,47 +102,30 @@ var popupGallery = {
     close: function () {
         vmModelGallery.isGalleryActive(false);
         vmModelGallery.resetGallery();
+        if (isModelPage === "true") {
+            window.location.href = window.location.pathname.split("images/")[0];
+        }
         popup.unlock();
     },
 
     bindGallery: function (imageIndex) {
-        getPhotos();
+        triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
         popupGallery.open();
         gallerySwiper.update(true);
         thumbnailSwiperEvents.focusGallery(gallerySwiper, imageIndex);
+
+        if (isModelPage === "false") {
+            window.location.hash = 'photosGallery';
+        }
     }
 }
-
-var modelImages = [],
-    modelColorImages = [],
-    modelColorImageCount = 0;
 
 var pageNo = 1,
     pageSize = 4;
 
-/* gallery */
-function getPhotos() {
-    $.ajax({
-        type: "Get",
-        url: "/api/model/" + ModelId + "/photos/",
-        contentType: "application/json",
-        dataType: 'json',
-        async: false,
-        success: function (response) {
-            if (response) {
-                modelImages = response;
-                modelColorImages = filterColorImagesArray(response);
-            }
-            modelColorImageCount = modelColorImages.length;
-        }
-    });
-};
-
-getPhotos();
-
 function filterColorImagesArray(responseArray) {
     return ko.utils.arrayFilter(responseArray, function (response) {
-        return response.imageType == 3;
+        return response.ImageType == 3;
     });
 }
 
@@ -177,6 +180,7 @@ var modelGallery = function () {
         }
         else {
             self.photosTabActive(false);
+            triggerGA('Gallery_Page', 'Videos_Clicked', modelName);
             if (!self.videoList().length) {
                 self.getVideos();
             }
@@ -200,9 +204,11 @@ var modelGallery = function () {
 
             thumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true); // (swiperName, activeIndex, slideToFlag)
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.photoThumbnailScreen(false);
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Closed', modelName);
         }
 
         self.screenActive(self.photoThumbnailScreen());
@@ -217,9 +223,11 @@ var modelGallery = function () {
             colorGallerySwiper.update(true);
             colorThumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', modelName);
         }
         else {
             self.colorsThumbnailScreen(false);
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', modelName);
         }
 
         self.screenActive(self.colorsThumbnailScreen());
@@ -230,6 +238,7 @@ var modelGallery = function () {
         if (!self.modelInfoScreen()) {
             self.deactivateAllScreens();
             self.modelInfoScreen(true);
+            triggerGA('Gallery_Page', 'Info_Tab_Clicked', modelName);
         }
         else {
             self.modelInfoScreen(false);
@@ -244,9 +253,11 @@ var modelGallery = function () {
             self.videoListScreen(true);
             videoThumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(videoThumbnailSwiper, vmModelGallery.activeVideoIndex(), true);
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.videoListScreen(false);
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', modelName);
         }
         self.screenActive(self.videoListScreen());
     };
@@ -259,25 +270,8 @@ var modelGallery = function () {
     };
 
     self.getVideos = function () {
-        try {
-            if (videoCount > (pageNo - 1) * pageSize) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/videos/pn/' + pageNo + '/ps/' + pageSize + '/model/' + ModelId + '/',
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response) {
-                            isNextPage = true;
-                            pushVideoList(response.videos);
-                        }
-                    },
-                    complete: function (xhr) {
-                        if (xhr.status != 200) {
-                            isNextPage = false;
-                        }
-                    }
-                });
-            }
+        try {            
+            pushVideoList(videoList);
         } catch (e) {
             console.warn("Unable to fetch Videos model gallery " + e.message);
         }
@@ -430,7 +424,7 @@ var gallerySwiper = new Swiper('.gallery-type-swiper', {
             vmModelGallery.deactivateAllScreens();
         }
     },
-    onSlideChangeStart: function (swiper) {
+    onSlideChangeStart: function (swiper) {        
         thumbnailSwiperEvents.setPhotoDetails(swiper);
     }
 });
@@ -457,6 +451,7 @@ var colorGallerySwiper = new Swiper('.gallery-color-type-swiper', {
     onSlideChangeStart: function (swiper) {
         thumbnailSwiperEvents.setColorPhotoDetails(swiper);
         thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
+        triggerGA('Gallery_Page', 'Colour_Changed', modelName);
     }
 });
 

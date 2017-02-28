@@ -22,9 +22,10 @@ namespace Bikewale.New.Photos
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected NewVideosControl ctrlVideos;
-        protected uint gridSize = 25;
+        protected uint gridSize = 25, imageIndex = 0;
         private uint _modelId;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
+        protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -44,6 +45,12 @@ namespace Bikewale.New.Photos
             {
                 isModelPage = true;
             }
+
+            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+            {
+                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+            }
+
             BindPhotosPage();
             BindPageWidgets();
         }
@@ -78,7 +85,7 @@ namespace Bikewale.New.Photos
                     {
                         if (bikeInfo.Make != null && bikeInfo.Model != null)
                         {
-                            bikeUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                            bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
                             bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
                         }
                         pqSource = PQSourceEnum.Desktop_Photos_page;
@@ -95,6 +102,10 @@ namespace Bikewale.New.Photos
                             ctrlGenericBikeInfo.PageId = BikeInfoTabType.Image;
                             ctrlGenericBikeInfo.TabCount = 4;
                         }
+
+                        JSONImageList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objImageList));
+                        JSONVideoList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objVideosList));
+                        JSONFirstImage = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.firstImage));
                     }
 
                 }
