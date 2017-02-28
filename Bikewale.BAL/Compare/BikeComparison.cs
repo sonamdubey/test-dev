@@ -908,10 +908,15 @@ namespace Bikewale.BAL.Compare
 
                     foreach (var version in arrVersion)
                     {
-                        var bikeColor = from color in compareEntity.Color
-                                        where color.VersionId == Convert.ToUInt32(version)
-                                        select color;
-                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = bikeColor.ToList() });
+                        var objBikeColor = new List<BikeColor>();
+                        foreach (var color in compareEntity.Color)
+                        {
+                            if (color.VersionId == Convert.ToUInt32(version))
+                            {
+                                objBikeColor.Add(color);
+                            }
+                        }
+                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = objBikeColor });
                     }
                 }
             }
