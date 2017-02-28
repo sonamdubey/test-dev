@@ -2296,6 +2296,7 @@
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
     <Content Include="css\video\landing.css" />
+    <Content Include="css\video\videos-by-make.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
