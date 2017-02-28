@@ -51,3 +51,7 @@
     height: 164px;
     background: rgba(0,0,0,0.4);
 }
+
+.swiper-card {
+    min-height:172px;
+}

@@ -456,6 +456,7 @@
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
+    <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
