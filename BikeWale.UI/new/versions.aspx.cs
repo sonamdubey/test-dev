@@ -557,8 +557,8 @@ namespace Bikewale.New
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
-                        var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
+                        var objBikeModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        modelPg = objBikeModels.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
                         if (modelPg != null)
                         {
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)

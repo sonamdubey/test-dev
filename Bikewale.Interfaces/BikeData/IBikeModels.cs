@@ -44,5 +44,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId);
         IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
+        BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
     }
 }
