@@ -172,7 +172,7 @@ var modelGallery = function () {
     self.activeVideoIndex = ko.observable(0);
     self.activeVideoId = ko.observable();
 
-    self.videoList = ko.observableArray([]);
+    self.videoList = ko.observableArray(videoList);
     self.totalVideoCount = videoCount;
 
     self.togglePhotoTab = function () {
@@ -183,12 +183,12 @@ var modelGallery = function () {
         else {
             self.photosTabActive(false);
             triggerGA('Gallery_Page', 'Videos_Clicked', modelName);
-            if (!self.videoList().length) {
-                self.getVideos();
-            }
-            else {
+            if (self.videoList().length) {                
+                if (!self.activeVideoId()) {
+                    setVideo(0);
+                }
                 setVideo(self.activeVideoIndex() - 1);
-            }
+            }            
         }
         if (self.screenActive()) {
             self.deactivateAllScreens();
@@ -269,25 +269,7 @@ var modelGallery = function () {
         self.colorsThumbnailScreen(false);
         self.modelInfoScreen(false);
         self.videoListScreen(false);
-    };
-
-    self.getVideos = function () {
-        try {            
-            pushVideoList(videoList);
-        } catch (e) {
-            console.warn("Unable to fetch Videos model gallery " + e.message);
-        }
-    };
-
-    function pushVideoList(response) {
-        ko.utils.arrayPushAll(self.videoList(), ko.toJS(response));
-        if (!self.activeVideoId()) {
-            setVideo(0);
-        }
-        pageNo = pageNo + 1;
-        self.videoList.notifySubscribers();
-        videoThumbnailSwiper.update();
-    }
+    };    
 
     self.resetGallery = function () {
         self.activeVideoId('');
