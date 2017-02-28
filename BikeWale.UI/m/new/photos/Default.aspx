@@ -139,7 +139,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: photoList">
                             <div class="swiper-slide">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: ImageTitle, title: ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next"></div>
@@ -156,7 +156,7 @@
                         </div>
                         <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                             <div class="swiper-slide top10">
-                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: imageTitle, title: imageTitle, 'data-src': hostUrl + '/642x361/' + imagePathLarge }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { alt: ImageTitle, title: ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                             </div>
                         </div>
                         <div class="bwmsprite swiper-button-next"></div>
@@ -210,7 +210,7 @@
                         <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
-                                    <img data-bind="attr: { alt: imageTitle, title: imageTitle, src: hostUrl + '/110x61/' + imagePathLarge }" src="" alt="" title="" border="0" />
+                                    <img data-bind="attr: { alt: ImageTitle, title: ImageTitle, src: HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
                                 </div>
                             </div>
                         </div>
@@ -220,10 +220,10 @@
                         <div id="thumbnail-colors-swiper" class="swiper-container color-thumbnail-swiper">
                             <div class="swiper-wrapper" data-bind="foreach: colorPhotoList">
                                 <div class="swiper-slide">
-                                    <div class="color-box inline-block" data-bind="foreach: colors, css: (colors.length == 3) ? 'color-count-three' : (colors.length == 2) ? 'color-count-two' : 'color-count-one'">
+                                    <div class="color-box inline-block" data-bind="foreach: Colors, css: (Colors.length == 3) ? 'color-count-three' : (Colors.length == 2) ? 'color-count-two' : 'color-count-one'">
                                         <span data-bind="style: { 'background-color': '#' + $data }"></span>
                                     </div>
-                                    <p class="color-box-label inline-block" data-bind="text: (imageTitle.length > 12 ? imageTitle.substring(0, 12) + '...' : imageTitle)"></p>
+                                    <p class="color-box-label inline-block" data-bind="text: (ImageTitle.length > 12 ? ImageTitle.substring(0, 12) + '...' : ImageTitle)"></p>
                                 </div>
                             </div>
                         </div>
@@ -328,7 +328,9 @@
             var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
             var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
             var videoCount = "<%=VideoCount%>";
-            var modelName = "<%= vmModelPhotos.bikeName %>";
+            var modelName = "<%= vmModelPhotos.bikeName %>";            
+            var encodedVideoList = "<%= JSONVideoList%>"
+            var encodedImageList = "<%= JSONImageList %>"
         </script> 
         
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Bikewale.DTO.Model
 {
@@ -7,10 +8,10 @@ namespace Bikewale.DTO.Model
     /// Created by:Sangram Nandkhile on 02 Feb 2017
     /// To return DTO of model images, color images and mainimage
     /// </summary>
-
+    [DataContract]
     public class ImageBaseDTO
     {
-        [JsonProperty("hostUrl")]
+        [JsonProperty("hostUrl"), DataMember]
         public string HostUrl { get; set; }
         [JsonProperty("imagePathLarge")]
         public string OriginalImgPath { get; set; }

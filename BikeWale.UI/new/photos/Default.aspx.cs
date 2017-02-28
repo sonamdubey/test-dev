@@ -64,7 +64,7 @@ namespace Bikewale.New.Photos
                     vmModelPhotos.GridSize = 24;
                     vmModelPhotos.NoOfGrid = 8;
                     vmModelPhotos.isModelpage = isModelPage;
-                    vmModelPhotos.GetModelDetails();
+                    vmModelPhotos.GetPhotoGalleryData();
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindBikeInfo genericBikeInfo = new BindBikeInfo();
 

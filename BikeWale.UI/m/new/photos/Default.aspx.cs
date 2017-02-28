@@ -31,6 +31,7 @@ namespace Bikewale.Mobile.New.Photos
         protected uint VideoCount;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -72,7 +73,9 @@ namespace Bikewale.Mobile.New.Photos
                     vmModelPhotos.GridSize = 30;
                     vmModelPhotos.NoOfGrid = 6;
                     vmModelPhotos.isModelpage = isModelPage;
-                    vmModelPhotos.GetModelDetails();
+
+                    vmModelPhotos.GetPhotoGalleryData();
+
                     IsDiscontinued = vmModelPhotos.IsDiscontinued;
                     BindModelPhotosPageWidgets();
                     BindBikeInfo genericBikeInfo = new BindBikeInfo();
@@ -94,6 +97,8 @@ namespace Bikewale.Mobile.New.Photos
                         IsUpcoming = genericBikeInfo.IsUpcoming;
                         IsDiscontinued = genericBikeInfo.IsDiscontinued;
                         VideoCount = bikeInfo.VideosCount;
+                        JSONImageList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objImageList));
+                        JSONVideoList = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64((new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(vmModelPhotos.objVideosList));
                     }
                 }
             }
@@ -158,5 +163,6 @@ namespace Bikewale.Mobile.New.Photos
                 }
             }
         }
+
     }
 }

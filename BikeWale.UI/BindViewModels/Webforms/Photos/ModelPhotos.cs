@@ -3,12 +3,12 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.SEO;
+using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
@@ -41,6 +41,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public BikeMakeEntityBase objMake = null;
         public BikeModelEntityBase objModel = null;
         public List<ColorImageBaseEntity> objImageList = null;
+        public List<BikeVideoEntity> objVideosList = null;
         public PageMetaTags pageMetas = null;
         public uint GridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
@@ -74,7 +75,6 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                 }
 
                 ParseQueryString();
-                GetPhotoGalleryData();
             }
             catch (Exception ex)
             {
@@ -87,56 +87,25 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             try
             {
                 photoGalleryEntity = _objModelEntity.GetPhotoGalleryData(Convert.ToInt32(_modelId));
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
-            }
-        }
 
-        /// <summary>
-        /// Created By : Sushil Kumar on 5th Jan 2016
-        /// Description: To get Model Details
-        /// </summary>
-        public void GetModelDetails()
-        {
-            try
-            {
-                var bikemodelEnt = new ModelHelper().GetModelDataById(_modelId);
-
-                if (bikemodelEnt != null)
+                if (photoGalleryEntity != null && photoGalleryEntity.ObjModelEntity != null)
                 {
-                    objMake = bikemodelEnt.MakeBase;
+                    var bikeEntity = photoGalleryEntity.ObjModelEntity;
+                    objMake = bikeEntity.MakeBase;
                     objModel = new BikeModelEntityBase();
-                    objModel.ModelId = bikemodelEnt.ModelId;
-                    objModel.ModelName = bikemodelEnt.ModelName;
-                    objModel.MaskingName = bikemodelEnt.MaskingName;
-                    bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
-                    IsUpcoming = bikemodelEnt.Futuristic;
-                    IsDiscontinued = !bikemodelEnt.Futuristic && !bikemodelEnt.New;
+                    objModel.ModelId = bikeEntity.ModelId;
+                    objModel.ModelName = bikeEntity.ModelName;
+                    objModel.MaskingName = bikeEntity.MaskingName;
+                    bikeName = string.Format("{0} {1}", objMake.MakeName, bikeEntity.ModelName);
+                    IsUpcoming = bikeEntity.Futuristic;
+                    IsDiscontinued = !bikeEntity.Futuristic && !bikeEntity.New;
                 }
 
-                GetModelImages();
-                SetPageMetas();
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
-            }
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 5th Jan 2016
-        /// Description: To get model images .Calculate grid and non grid images count based on total count
-        /// Modified By :- Subodh Jain 20 jan 2017
-        /// Summary :- take only 1 element if model page gallery is binding
-        /// </summary>
-        public void GetModelImages()
-        {
-            try
-            {
-                objImageList = _objModelEntity.CreateAllPhotoList((int)_modelId) as List<ColorImageBaseEntity>;
+                if (photoGalleryEntity != null)
+                {
+                    objImageList = photoGalleryEntity.ImageList as List<ColorImageBaseEntity>;
+                    objVideosList = photoGalleryEntity.VideosList as List<BikeVideoEntity>;
+                }
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
@@ -151,12 +120,13 @@ namespace Bikewale.BindViewModels.Webforms.Photos
 
                     nongridPhotosCount = (int)(totalPhotosCount % NoOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
-
                 }
+
+                SetPageMetas();
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
             }
         }
 
