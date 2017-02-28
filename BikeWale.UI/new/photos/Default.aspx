@@ -492,15 +492,19 @@
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
-            var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
-            var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
-            var videoCount = <%=VideoCount%>;
-            var modelName = "<%= vmModelPhotos.bikeName %>";  
-            var imageIndex = "<%=imageIndex%>";
-            var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
-            var encodedVideoList = "<%= JSONVideoList%>"
-            var encodedImageList = "<%= JSONImageList %>"
-            var encodedFirstImage = "<%= JSONFirstImage%>"                        
+            try{            
+                var photoCount = <%= vmModelPhotos.totalPhotosCount + 1%>;
+                var ModelId = <%=vmModelPhotos.objModel.ModelId%>;
+                var videoCount = <%=VideoCount%>;
+                var modelName = "<%= vmModelPhotos.bikeName %>";  
+                var imageIndex = "<%=imageIndex%>";
+                var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var encodedVideoList = "<%= JSONVideoList%>"
+                var encodedImageList = "<%= JSONImageList %>"
+                var encodedFirstImage = "<%= JSONFirstImage%>"   
+            }catch (e) {
+                console.warn(e);
+            }
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>

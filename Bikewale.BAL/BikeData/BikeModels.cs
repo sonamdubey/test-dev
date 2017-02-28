@@ -1089,7 +1089,10 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
             }
 
-            return objUpcoming.ToList();
+            if (objUpcoming != null)
+                return objUpcoming.ToList();
+            else
+                return null;
         }
 
         public BikeModelContent GetRecentModelArticles(U modelId)

@@ -657,7 +657,7 @@ namespace Bikewale.Mobile.New
                              .RegisterType<ICacheManager, MemcacheManager>();
 
                     var objBikeEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                    modelPage = objBikeEntity.GetModelPageDetails(Convert.ToInt16(modelId), (int)versionId);
+                    modelPage = objBikeEntity.GetModelPageDetails(Convert.ToInt32(modelId), (int)versionId);
                     if (modelPage != null)
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)

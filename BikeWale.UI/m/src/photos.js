@@ -7,16 +7,18 @@
     videoList = null;
 
 (function () {
+    try {
     var imageList = JSON.parse(Base64.decode(encodedImageList));
     videoList = JSON.parse(Base64.decode(encodedVideoList));
 
     modelImages = imageList;
     modelColorImages = filterColorImagesArray(imageList);
 
-    modelColorImageCount = modelColorImages.length;
-   
-    
-
+    if(modelColorImages)
+    modelColorImageCount = modelColorImages.length;   
+    } catch (e) {
+        console.warn(e);
+    }
 })();
 
 
@@ -88,11 +90,6 @@ function toggleFullScreen(goFullScreen) {
         docElement.style.backgroundColor = '';
     }
 }
-
-function checkCacheModelPhotos(bKey) {
-    return (bwcache.get(bKey, true));
-}
-
 
 function filterColorImagesArray(responseArray) {
     return ko.utils.arrayFilter(responseArray, function (response) {
@@ -538,10 +535,7 @@ var modelGallery = function () {
         pageNo = pageNo + 1;
         self.videoList.notifySubscribers();
     }
-    function checkCacheCityAreas(key) {
-
-        return (bwcache.get(key) != null);
-    }
+    
     function videoScroll() {
         if ($("#main-video-content").is(":visible")) {
             var winScroll = $('#video-tab-screen').scrollTop(),

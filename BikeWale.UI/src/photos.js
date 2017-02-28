@@ -5,6 +5,7 @@
     imageList = null;
 
 (function () {
+    try {
     imageList = JSON.parse(Base64.decode(encodedImageList));
     videoList = JSON.parse(Base64.decode(encodedVideoList));
 
@@ -15,7 +16,11 @@
     modelImages = imageList;
     modelColorImages = filterColorImagesArray(imageList);
 
+        if(modelColorImageCount)
     modelColorImageCount = modelColorImages.length;
+    } catch (e) {
+        console.warn(e);
+    }
 })();
 
 $(document).ready(function () {
