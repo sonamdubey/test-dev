@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.SimilarBikeVideos" EnableViewState="false" %>
   <%if (SimilarBikeVideoList!=null){ %>    
- <div class="swiper-container card-container alternate-bikes-photo-swiper">
+ <div class="swiper-container card-container alternate-bikes-photo-swiper overlay-carousel">
             <div class="swiper-wrapper">
                 <% foreach (var bike in SimilarBikeVideoList)
                    {
