@@ -111,7 +111,7 @@ namespace Bikewale.BAL.EditCMS
                 }
 
                 //sets the base URI for HTTP requests
-                string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", basicId);
+                string _apiUrl = String.Format("webapi/article/contentdetail/?applicationId=2&basicid={0}", basicId);
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
@@ -459,7 +459,7 @@ namespace Bikewale.BAL.EditCMS
             try
             {
 
-                string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + basicId;
+                string _apiUrl = "webapi/article/contentpagedetail/?applicationId=2&basicid=" + basicId;
 
                 using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {
@@ -539,7 +539,7 @@ namespace Bikewale.BAL.EditCMS
             IEnumerable<ModelImage> objImages = null;
             try
             {
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + basicId;
+                string _apiUrl = "webapi/image/GetArticlePhotos/?applicationId=2&basicid=" + basicId;
 
                 if (_logGrpcErrors)
                 {
@@ -575,7 +575,7 @@ namespace Bikewale.BAL.EditCMS
                 {
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("ContentId", basicId.ToString());
-                    SyncBWData.PushToQueue("cw.UpdateContentViewCount", DataBaseName.CW, nvc);
+                    SyncBWData.PushToQueue("editcms.UpdateContentViewCount", DataBaseName.CW, nvc);
                 }
             }
             catch (Exception ex)

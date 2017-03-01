@@ -106,6 +106,7 @@ ko.bindingHandlers.chosen = {
 $(window).on('scroll', applyLazyLoad);
 $(window).on('resize', applyLazyLoad);
 $(window).on('load', applyLazyLoad);
+
 function applyLazyLoad() {
     $("img.lazy").lazyload({
         event: "imgLazyLoad"
@@ -173,7 +174,6 @@ var newLaunches = function () {
         qs = qs.substr(1);
         return qs;
     });
-
     self.models = ko.observable([]);
     self.Pagination = ko.observable(new vmPagination());
     self.TotalBikes = ko.observable();
@@ -191,7 +191,8 @@ var newLaunches = function () {
 
     self.init = function (e) {
         if (!self.IsInitialized()) {
-
+            self.IsLoading(true);
+            self.TotalBikes(1); //handle container for loader
             var eleSection = $("#newlaunched-bikes");
             ko.applyBindings(self, eleSection[0]);
             self.CheckCookies();
@@ -318,6 +319,11 @@ var newLaunches = function () {
 
         if (self.PreviousQS() != qs) {
             $('.model-jcarousel-image-preview img').attr('src', '');
+            self.models([]);
+            if (self.noBikes()) {
+                self.TotalBikes(1); // to show bikes container
+                self.noBikes(false);
+            }
             self.IsLoading(true);
             self.PreviousQS(qs);
             var apiUrl = "/api/v2/newlaunched/?" + qs;
@@ -329,6 +335,7 @@ var newLaunches = function () {
             })
             .fail(function () {
                 self.noBikes(true);
+                self.TotalBikes(0);
             })
             .always(function () {
                 self.ApplyPagination();

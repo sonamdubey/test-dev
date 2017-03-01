@@ -150,9 +150,15 @@ namespace BikeWaleOpr.Content
                         // Push Data to Carwale DB
                         NameValueCollection nvc = new NameValueCollection();
                         nvc.Add("modelId", _modelId.ToString());
-                        nvc.Add("makeId", cmbMakes.SelectedValue);
-                        nvc.Add("modelName", txtModel.Text.Trim().Replace("'", "''"));
-                        nvc.Add("modelmaskingname", txtMaskingName.Text.Trim());
+                        nvc.Add("MakeId", cmbMakes.SelectedValue);
+                        nvc.Add("ModelName", txtModel.Text.Trim().Replace("'", "''"));
+                        nvc.Add("ModelMaskingName", txtMaskingName.Text.Trim());
+                        nvc.Add("HostUrl", null);
+                        nvc.Add("OriginalImagePath", null);
+                        nvc.Add("New", "1");
+                        nvc.Add("Used", "1");
+                        nvc.Add("Futuristic", "0");
+
                         SyncBWData.PushToQueue("BW_AddBikeModels", DataBaseName.CW, nvc);
 
                         //CLear popularBikes key                       
@@ -277,11 +283,16 @@ namespace BikeWaleOpr.Content
 
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("modelname", txt.Text.Trim().Replace("'", "''"));
-                    nvc.Add("isused", chkUsed1.Checked.ToString());
-                    nvc.Add("isnew", chkNew1.Checked.ToString());
-                    nvc.Add("isfuturistic", chkFuturistic1.Checked.ToString());
-                    nvc.Add("modelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("ModelName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
+                    nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
+                    nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                    nvc.Add("ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("MakeId", null);
+                    nvc.Add("ModelMaskingName", null);
+                    nvc.Add("HostUrl", null);
+                    nvc.Add("OriginalImagePath", null);
+                    nvc.Add("IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
                 }
 

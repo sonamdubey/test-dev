@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
-using Grpc.CMS;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
@@ -45,37 +44,8 @@ namespace Bikewale.BAL.Compare
         // Modified By : Sadhana Upadhyay on 9 Sept 2014
         // Summary : to get sponsored bike by web api
         /***********************************************************/
+
         public Int64 GetFeaturedBike(string versions)
-        {
-            try
-            {
-                if (_useGrpc)
-                {
-                    var _grpcInt = GrpcMethods.GrpcGetFeaturedCar(versions, 1, 2);
-
-                    if (_grpcInt != null)
-                    {
-                        return _grpcInt.IntOutput;
-                    }
-                    else
-                    {
-                        return GetFeaturedBikeOldWay(versions);
-                    }
-                }
-                else
-                {
-                    return GetFeaturedBikeOldWay(versions);
-                }
-
-            }
-            catch (Exception err)
-            {
-                _logger.Error(err.Message, err);
-                return GetFeaturedBikeOldWay(versions);
-            }
-        }
-
-        private static Int64 GetFeaturedBikeOldWay(string versions)
         {
             Int64 featuredBikeId = -1;
 
