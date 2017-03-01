@@ -3,7 +3,6 @@ using Bikewale.Interfaces.BikeData;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
-using Bikewale.Utility;
 
 namespace Bikewale.Controllers
 {
@@ -49,7 +48,7 @@ namespace Bikewale.Controllers
             IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(modelId, topCount, cityId);
             if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault()!=null)
             {
-                ViewBag.BodyStyle = BodyStyleLinks.BodyStyleHeadingText(objPopularBodyStyle.FirstOrDefault().BodyStyle);  
+                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;  
             }
             return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }

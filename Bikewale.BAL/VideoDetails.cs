@@ -126,31 +126,10 @@ namespace Bikewale.BAL
                 model.CityDetails = objCityList.FirstOrDefault(c => c.CityId == cityId);
             }
             model.BikeInfo.Tabs = BindInfoWidgetDatas(model.BikeInfo, model.CityDetails);
-            //if (CityId > 0)
-            //    cityDetails = new CityHelper().GetCityById(CityId);
-            //if (ModelId > 0)
-            //{
-            //    BindBikeInfo genericBikeInfo = new BindBikeInfo();
-            //    genericBikeInfo.ModelId = ModelId;
-            //    genericBikeInfo.CityId = CityId;
-            //    genericBikeInfo.PageId = PageId;
-            //    genericBikeInfo.TabCount = TabCount;
-            //    genericBikeInfo.cityDetails = cityDetails;
-            //    bikeInfo = genericBikeInfo.GetBikeInfo();
-
-            //    if (bikeInfo != null)
-            //    {
-            //        if (bikeInfo.Make != null && bikeInfo.Model != null)
-            //        {
-            //            bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
-            //            bikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
-            //        }
-            //        pqSource = PQSourceEnum.Mobile_GenricBikeInfo_Widget;
-            //        IsUpcoming = genericBikeInfo.IsUpcoming;
-            //        IsDiscontinued = genericBikeInfo.IsDiscontinued;
-            //    };
-
-            //}
+            model.IsUpcoming = model.BikeInfo.IsFuturistic;
+            model.IsDiscontinued = model.BikeInfo.IsUsed && !model.BikeInfo.IsNew;
+            model.BikeName = string.Format("{0} {1}", model.BikeInfo.Make.MakeName, model.BikeInfo.Model.ModelName);
+            model.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(model.BikeInfo.Make.MaskingName, model.BikeInfo.Model.MaskingName));
             return model;
         }
 
