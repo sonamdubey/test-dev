@@ -22,7 +22,7 @@ namespace Bikewale.New.Photos
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected NewVideosControl ctrlVideos;
-        protected uint gridSize = 25, imageIndex = 0;
+        protected uint gridSize = 25, imageIndex = 0, colorImageId = 0;
         private uint _modelId;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
@@ -51,6 +51,11 @@ namespace Bikewale.New.Photos
             if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
             {
                 imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+            }
+
+            if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
+            {
+                colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
             }
 
             BindPhotosPage();

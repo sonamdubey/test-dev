@@ -17,7 +17,13 @@
     modelColorImages = filterColorImagesArray(imageList);
 
         if(modelColorImageCount)
-    modelColorImageCount = modelColorImages.length;
+            modelColorImageCount = modelColorImages.length;
+
+        if(colorImageId > 0)
+        {
+
+        }
+
     } catch (e) {
         console.warn(e);
     }

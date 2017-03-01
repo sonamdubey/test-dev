@@ -1208,7 +1208,7 @@
                             <ul id="modelColorsList">
                                 <asp:Repeater ID="rptColor" runat="server">
                                     <ItemTemplate>
-                                        <li>
+                                        <li>                                            
                                             <div title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %>" class="color-box inline-block <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
                                                 <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
                                                     <ItemTemplate>

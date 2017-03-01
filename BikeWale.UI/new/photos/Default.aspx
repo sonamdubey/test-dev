@@ -499,6 +499,7 @@
                 var modelName = "<%= vmModelPhotos.bikeName %>";  
                 var imageIndex = "<%=imageIndex%>";
                 var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var colorImageId = "<%= colorImageId%>";
                 var encodedVideoList = "<%= JSONVideoList%>"
                 var encodedImageList = "<%= JSONImageList %>"
                 var encodedFirstImage = "<%= JSONFirstImage%>"   
