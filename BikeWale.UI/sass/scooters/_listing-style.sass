@@ -1,0 +1,65 @@
+﻿.padding-15-20
+	padding: 15px 20px
+
+.bike-listing
+	padding-top: 5px
+	padding-bottom: 15px
+	overflow: hidden
+
+	.list-item
+		width: 33%
+		min-height: 235px
+		display: inline-block
+		vertical-align: top
+		padding: 15px 10px 0
+
+		a:hover
+			text-decoration: none
+
+	.card-desc-block
+		padding-top: 10px
+		padding-right: 10px
+		padding-bottom: 10px
+
+.key-size-13
+	font-size: 13px
+	color: $text-light
+
+.value-size-18
+	font-size: $font-size-large
+	color: $text-primary
+	font-weight: $font-bold
+
+// makeOverallTabsWrapper
+#makeOverallTabsWrapper
+	height: 44px
+
+.overall-floating-tabs
+	width: 976px
+	background: #fff
+	border-bottom: 1px solid #e2e2e2
+
+	&.fixed-tab-nav
+		position: fixed
+		top: 0
+		left: 0
+
+.overall-specs-tabs-wrapper
+	display: table
+	background: #fff
+	
+	a
+		font-size: $font-size-base
+		padding: 10px 20px
+		display: table-cell
+		text-align: center
+		color: $text-light
+
+		&.active
+			border-bottom: 3px solid #ef3f30
+			color: $text-primary
+			font-weight: $font-bold
+
+		&:hover
+			text-decoration: none
+			color: $text-primary

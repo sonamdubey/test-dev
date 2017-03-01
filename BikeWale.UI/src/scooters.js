@@ -41,3 +41,16 @@ $('.view-brandType').click(function (e) {
     e.stopPropagtion();
 
 });
+
+$(document).ready(function () {
+    var comparisonCarousel = $("#comparisonCarousel");
+    comparisonCarousel.find(".jcarousel").jcarousel();
+
+    comparisonCarousel.find(".jcarousel-control-prev").jcarouselControl({
+        target: '-=2'
+    });
+
+    comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
+        target: '+=2'
+    });
+});
