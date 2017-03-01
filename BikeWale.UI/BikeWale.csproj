@@ -454,7 +454,7 @@
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
-    <Compile Include="Controllers\m\shared\GenericBikeInfoController1.cs" />
+    <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
@@ -3355,6 +3355,7 @@
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
+    <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

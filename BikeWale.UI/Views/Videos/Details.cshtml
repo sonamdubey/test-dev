@@ -63,7 +63,7 @@
         </div>
     </section>
 }
-@{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId=411,CityId=1 });}
+@{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId });}
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId});}
 
 @{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId=@ViewBag.ModelId, topCount=@ViewBag.TopCount, cityId = @ViewBag.CityId});}

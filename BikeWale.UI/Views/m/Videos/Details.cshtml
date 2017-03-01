@@ -55,17 +55,6 @@
                 </div>
             </section>
         }
-                @*<section>
-                    <div class="padding-15-20 section-bottom-margin margin-bottom10">
-                        <BW:GenericBikeInfo ID="ctrlGenericBikeInfo" runat="server" />
-                    </div>
-                </section>*@
-
-
-                @*<section class="margin-bottom30 @(ctrlSimilarVideos.FetchedRecordsCount > 0) ? string.Empty : " hide" %>
-
-                    <BW:SimilarVideos ID="ctrlSimilarVideos" runat="server" />
-                </section>*@
-        
- 
+        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId });}  
+         
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
