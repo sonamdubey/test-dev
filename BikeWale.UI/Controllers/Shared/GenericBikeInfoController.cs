@@ -28,20 +28,20 @@ namespace Bikewale.Controllers.Shared
         /// Created by : Sangram Nandkhile on 01 Mar 2017
         /// Summary: Partial view to show generic bike info card
         /// </summary>
-        [Route("GenericBikeInfo/BikeInfoCard/{CityId}/{ModelId}")]
-        public ActionResult BikeInfoCard(uint CityId, uint ModelId)
+        [Route("GenericBikeInfo/BikeInfoCard/")]
+        public ActionResult BikeInfoCard(GenericBikeInfoCard bikeInfo)
         {
-            GenericBikeInfo bikeInfo;
+
             GenericBikeInfoModel bikeData = null;
-            if (ModelId > 0)
+            if (bikeInfo.ModelId > 0)
             {
-                GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo,_city);
-                bikeData = helper.GetDetails(ModelId, CityId);
+                GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo, _city);
+                bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId);
             }
-            if (CityId > 0)
-            {
-                bikeData.CityDetails = new CityHelper().GetCityById(CityId);
-            }
+            //if (CityId > 0)
+            //{
+            //    bikeData.CityDetails = new CityHelper().GetCityById(CityId);
+            //}
             return PartialView("~/views/shared/_GenericBikeInfoCard.cshtml", bikeData);
         }
     }

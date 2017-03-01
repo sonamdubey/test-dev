@@ -63,5 +63,6 @@
         </div>
     </section>
 }
+@{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId=411,CityId=1 });}
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId});}
 <script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
