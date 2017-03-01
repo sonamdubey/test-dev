@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL;
+using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
@@ -13,11 +14,11 @@ namespace Bikewale.Controllers.Mobile.Videos
     /// Created by : Aditi Srivastava on 27 Feb 2017
     /// Summary    : Mobile Controller for make specific video page
     /// </summary>
-	public class VideosMobileController :Controller
-	{
-         private readonly IVideosCacheRepository _videos = null;
+    public class VideosMobileController : Controller
+    {
+        private readonly IVideosCacheRepository _videos = null;
 
-         public VideosMobileController(IVideosCacheRepository videos)
+        public VideosMobileController(IVideosCacheRepository videos)
         {
             _videos = videos;
         }
@@ -45,5 +46,28 @@ namespace Bikewale.Controllers.Mobile.Videos
             ViewBag.Ad_Bot_320x50 = true;
             return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
         }
-	}
+        [Route("m/videos/details/{videoId}/")]
+        public ActionResult Index(uint videoId)
+        {
+            VideoDetailsHelper helper = new VideoDetailsHelper(videoId, _videos);
+            var details = helper.GetDetails();
+            ViewBag.DetailsPage = details;
+
+            ViewBag.Description = details.PageMetas.Description;
+            ViewBag.Title = details.PageMetas.Title;
+            ViewBag.Keywords = details.PageMetas.Keywords;
+            ViewBag.canonical = details.PageMetas.CanonicalUrl;
+            ViewBag.alternate = details.PageMetas.AlternateUrl;
+
+            ModelMaskingResponse modelInfo = new ModelMaskingResponse();
+            modelInfo = new ModelHelper().GetModelDataByMasking(details.VideoEntity.MaskingName);
+            ViewBag.ModelId = modelInfo.ModelId;
+            if (GlobalCityArea.GetGlobalCityArea().CityId != 0)
+                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            else
+                ViewBag.CityId = Configuration.GetDefaultCityId;
+            ViewBag.TopCount = 9;
+            return View("~/Views/m/Videos/Details.cshtml");
+        }
+    }
 }
