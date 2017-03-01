@@ -56,5 +56,7 @@
             </section>
         }
         @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId });}  
+    
+@{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
          
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

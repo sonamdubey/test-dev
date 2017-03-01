@@ -13,8 +13,7 @@
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/detail.css' />";
     ViewBag.Page_JS_Path = "/src/Videos/detail.js";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-    
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;    
 }
 @if (Model != null)
 {
@@ -67,5 +66,5 @@
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId});}
 
 @{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId=@ViewBag.ModelId, topCount=@ViewBag.TopCount, cityId = @ViewBag.CityId});}
-
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 <script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>

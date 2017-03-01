@@ -3354,6 +3354,7 @@
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
+    <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
     <None Include="Web.Debug.config">
@@ -3372,6 +3373,7 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\Content\" />
+    <Folder Include="Controllers\m\shared\" />
     <Folder Include="Models\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
