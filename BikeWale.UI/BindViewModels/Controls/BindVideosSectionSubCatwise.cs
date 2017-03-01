@@ -1,13 +1,12 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -25,7 +24,7 @@ namespace Bikewale.BindViewModels.Controls
         public ushort TotalRecords { get; set; }
         public ushort FetchedRecordsCount { get; set; }
         public string CategoryIdList { get; set; }
-       
+
         public BikeVideoEntity FirstVideoRecord { get; set; }
         private BikeVideosListEntity objVideosList { get; set; }
 
@@ -38,7 +37,7 @@ namespace Bikewale.BindViewModels.Controls
         private VideosSortOrder _sortOrder = VideosSortOrder.JustLatest;
         public VideosSortOrder sortOrder { get { return _sortOrder; } set { _sortOrder = value; } }
 
-        
+
 
 
         public void FetchVideos()
@@ -50,12 +49,13 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
                              .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IVideoRepository, ModelVideoRepository>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
-                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo, TotalRecords,sortOrder);
+                    objVideosList = objCache.GetVideosBySubCategory(CategoryIdList, PageNo, TotalRecords, sortOrder);
 
-                    if (objVideosList != null && objVideosList.TotalRecords > 0 &&  objVideosList.Videos != null)
+                    if (objVideosList != null && objVideosList.TotalRecords > 0 && objVideosList.Videos != null)
                     {
 
                         FetchedRecordsCount = Convert.ToUInt16(objVideosList.Videos.Count());
@@ -91,7 +91,7 @@ namespace Bikewale.BindViewModels.Controls
                     }
                     rptr.DataBind();
                 }
-               
+
             }
             catch (Exception ex)
             {

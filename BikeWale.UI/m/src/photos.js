@@ -413,11 +413,13 @@ var modelGallery = function () {
     function setVideoDetails(elementIndex) {
         var element = $('.video-tab-list li')[elementIndex],
             elementId = self.videoList()[elementIndex].VideoId,
-            elementTitle = self.videoList()[elementIndex].VideoTitle;
+            elementTitle = self.videoList()[elementIndex].VideoTitle;       
 
         self.activeVideoId(elementId);
         self.activeVideoIndex(elementIndex);
-        self.activeVideoTitle(elementTitle);
+        self.activeVideoTitle(elementTitle);       
+
+        (document.getElementById("iframe-video").contentWindow || document.getElementById("iframe-video").documentWindow).location.replace('https://www.youtube.com/embed/' + self.activeVideoId() + '?showinfo=0');
 
         $(element).siblings().removeClass('active');
         $(element).addClass('active');

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -37,7 +38,8 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
                              .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IVideoRepository, ModelVideoRepository>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
                     objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
@@ -77,7 +79,7 @@ namespace Bikewale.BindViewModels.Controls
                     }
                     rptr.DataBind();
                 }
-                
+
             }
             catch (Exception ex)
             {

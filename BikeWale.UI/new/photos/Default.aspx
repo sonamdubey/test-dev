@@ -202,7 +202,7 @@
                     <div id="main-video-content" class="main-video-content" data-bind="visible: !photosTabActive()">
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="976" height="549" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe id="iframe-video" width="976" height="549" data-bind="attr: { src: '' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
