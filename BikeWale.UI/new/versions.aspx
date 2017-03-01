@@ -1473,7 +1473,7 @@
                 $('#assistGetMobile').parent().removeClass('not-empty');
             });
 
-            $(".leadcapturebtn").click(function (e) {
+            $(".leadcapturebtn").click(function (e) {debugger;
                 ele = $(this);
                 var leadOptions = {
                     "dealerid": ele.attr('data-item-id'),
@@ -1487,11 +1487,15 @@
                     "pqid": pqId,
                     "pageurl": pageUrl,
                     "clientip": clientIP,
+                    "dealerHeading" : ele.attr('data-item-heading'), 
+                    "dealerMessage" : ele.attr('data-item-message'), 
+                    "dealerDescription" : ele.attr('data-item-description'), 
                     "gaobject": {
                         cat: ele.attr("c"),
                         act: ele.attr("a"),
                         lab: bikeVersionLocation
                     }
+
                 };
                 dleadvm.setOptions(leadOptions);
             });

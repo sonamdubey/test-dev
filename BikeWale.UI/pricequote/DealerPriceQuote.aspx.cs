@@ -66,6 +66,7 @@ namespace Bikewale.BikeBooking
         protected BikeQuotationEntity objQuotation = null;
         protected IEnumerable<PQ_Price> primaryPriceList = null;
         private readonly ModelHelper modelHelper = null;
+        protected LeadCaptureControl ctrlLeadCapture;
         #endregion Variables
 
         public DealerPriceQuote()
@@ -112,6 +113,8 @@ namespace Bikewale.BikeBooking
         /// <summary>
         /// Created By  : Sushil Kumar on 11th Jan 2016
         /// Description : Bind page related widgets
+        /// Modifued By :- Subodh Jain 01 march 2017
+        /// Summary :- lead capture pop up
         /// </summary>
         private void BindPageWidgets()
         {
@@ -138,6 +141,10 @@ namespace Bikewale.BikeBooking
                             ctrlDealers.PQSourceId = (int)PQSourceEnum.Desktop_Dealerpricequote_DealersCard_GetOfferButton;
                             ctrlDealers.widgetHeading = string.Format("{0} showrooms {1}", objVersionDetails.MakeBase.MakeName, !string.IsNullOrEmpty(currentCity) ? "in " + currentCity : string.Empty);
                             ctrlDealers.pageName = "DealerPriceQuote_Page";
+
+                            ctrlLeadCapture.AreaId = areaId;
+                            ctrlLeadCapture.ModelId = modelId;
+                            ctrlLeadCapture.CityId = cityId;
 
                         }
                     }
