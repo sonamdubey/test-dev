@@ -17,13 +17,7 @@
     modelColorImages = filterColorImagesArray(imageList);
 
     if (modelColorImages)
-            modelColorImageCount = modelColorImages.length;
-
-        if(colorImageId > 0)
-        {
-            
-        }
-
+            modelColorImageCount = modelColorImages.length;            
     } catch (e) {
         console.warn(e);
     }
@@ -108,6 +102,11 @@ var popupGallery = {
     open: function () {
         vmModelGallery.isGalleryActive(true);
         popup.lock();
+
+        if (colorImageId > 0) {
+            vmModelGallery.toggleColorThumbnailScreen();
+        }
+
     },
 
     close: function () {
@@ -295,7 +294,6 @@ var vmModelGallery = new modelGallery();
 
 ko.applyBindings(vmModelGallery, document.getElementById('gallery-root'));
 
-
 // thumbnail swiper events listener
 $('.thumbnail-swiper .thumbnail-type-prev').on('click', function () {
     thumbnailSwiperEvents.slidePrev(thumbnailSwiper, 6); // (swiperName, no. of slides to scroll)
@@ -344,7 +342,7 @@ $('#video-tab-screen').on('click', '.video-thumbnail-swiper .swiper-slide', func
 var thumbnailSwiperEvents = {
     
     focusGallery: function (swiper, elementIndex) {
-        swiper.slideTo(elementIndex);
+        swiper.slideTo(elementIndex);        
     },
 
     focusThumbnail: function (swiper, vmActiveIndex, slideToFlag) {
@@ -396,6 +394,23 @@ function setVideo(elementIndex) {
     (document.getElementById("iframe-video").contentWindow || document.getElementById("iframe-video").documentWindow).location.replace('https://www.youtube.com/embed/' + vmModelGallery.activeVideoId() + '?showinfo=0');
 
     };
+
+var colorIndex = 0;
+
+(function () {
+    try {
+        if (colorImageId > 0) {
+
+            ko.utils.arrayForEach(modelColorImages, function (item, index) {
+                if (item.ColorId == colorImageId) { colorIndex = index; }
+            });
+
+            vmModelGallery.activeColorIndex(colorIndex);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+})();
 
 // initialize swipers
 var gallerySwiper = new Swiper('.gallery-type-swiper', {
@@ -488,7 +503,16 @@ var hashChange = function (e) {
 };
 
 var closePopUp = function (state) {
-    if(state == "photosGallery")
+    if (state == "photosGallery")
         popupGallery.close();
-}
+};
 
+(function () {
+    try {
+        if (colorImageId > 0) {            
+            thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
+        }
+    } catch (e) {
+        console.warn(e);
+    }
+})();

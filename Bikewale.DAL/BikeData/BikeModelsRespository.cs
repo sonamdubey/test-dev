@@ -232,6 +232,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             tempColor.ColorName = colorList.ColorName;
                             tempColor.ModelId = colorList.ModelId;
+                            tempColor.ColorImageId = colorList.ColorImageId;
                             HexCodeList.Add(colorList.HexCode);
                         }
 

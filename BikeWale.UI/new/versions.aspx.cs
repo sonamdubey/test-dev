@@ -55,7 +55,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected int grid1_size = 9, grid2_size = 3, colorCount;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptSecondaryDealers;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptOffers, rptSecondaryDealers;
         protected string location = string.Empty, modelQuerystring = string.Empty, cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         protected bool isCityAvailable, isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
 
@@ -450,6 +450,11 @@ namespace Bikewale.New
             }
         }
 
+        /// <summary>
+        /// Modified By : Sajal Gupta on 01-03-2017
+        /// Description : Removed repeater rptcolor.
+        /// </summary>
+        /// <param name="modelPage"></param>
         private void BindPhotoRepeater(BikeModelPageEntity modelPage)
         {
             if (modelPage != null)
@@ -461,13 +466,6 @@ namespace Bikewale.New
                     rptModelPhotos.DataBind();
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
-                }
-
-                //bind model colors
-                if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                {
-                    rptColor.DataSource = modelPage.ModelColors;
-                    rptColor.DataBind();
                 }
 
                 if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))

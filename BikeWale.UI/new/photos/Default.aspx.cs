@@ -40,26 +40,34 @@ namespace Bikewale.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
-            dd.DetectDevice();
-
-            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            try
             {
-                isModelPage = true;
-            }
+                Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+                dd.DetectDevice();
 
-            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+                {
+                    isModelPage = true;
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                {
+                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
+                {
+                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
+                }
+
+                BindPhotosPage();
+                BindPageWidgets();
+
+            }
+            catch (Exception ex)
             {
-                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : Page_Load");
             }
-
-            if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
-            {
-                colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
-            }
-
-            BindPhotosPage();
-            BindPageWidgets();
         }
 
         /// <summary>
