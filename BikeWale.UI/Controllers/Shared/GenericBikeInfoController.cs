@@ -36,10 +36,6 @@ namespace Bikewale.Controllers.Shared
                 GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo, _city);
                 bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId);
             }
-            //if (CityId > 0)
-            //{
-            //    bikeData.CityDetails = new CityHelper().GetCityById(CityId);
-            //}
             return PartialView("~/views/shared/_GenericBikeInfoCard.cshtml", bikeData);
         }
     }

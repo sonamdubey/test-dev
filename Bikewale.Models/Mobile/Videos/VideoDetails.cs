@@ -23,18 +23,18 @@ namespace Bikewale.Models.Mobile.Videos
     {
         public string BikeName { get; set; }
         public string BikeUrl { get; set; }
-
         public GenericBikeInfo BikeInfo { get; set; }
         public CityEntityBase CityDetails { get; set; }
         public bool IsUpcoming { get; set; }
         public bool IsDiscontinued { get; set; }
+        public bool IsSmallSlug { get; set; }
     }
 
     public class GenericBikeInfoCard
     {
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
-        public bool SmallSlug { get; set; }
+
     }
 
     public class SimilarModelsModel
