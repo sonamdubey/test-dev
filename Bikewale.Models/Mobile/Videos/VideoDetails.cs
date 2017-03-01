@@ -1,4 +1,6 @@
 ﻿
+using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using Bikewale.Entities.Videos;
 namespace Bikewale.Models.Mobile.Videos
@@ -14,5 +16,11 @@ namespace Bikewale.Models.Mobile.Videos
         public string Description { get; set; }
         public string DisplayDate { get; set; }
         public bool IsMakeModelTag { get; set; }
+    }
+
+    public class GenericBikeInfoModel
+    {
+        public GenericBikeInfo BikeInfo { get; set; }
+        public CityEntityBase CityDetails { get; set; }
     }
 }
