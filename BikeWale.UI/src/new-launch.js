@@ -60,10 +60,12 @@ $('.view-brandType').click(function (e) {
 
 
 
-$("#pagination-list-content ul li").click(function (e) {
+$("#pagination-list-content ul li a").click(function (e) {
     if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {
-
-        vmNewLaunches.init(e);
+        if (!$(e.target).parent().hasClass("active"))
+            vmNewLaunches.init(e);
+        $('html, body').scrollTop(0);
+        return false;
     }
 });
 
@@ -194,11 +196,12 @@ var newLaunches = function () {
             self.IsLoading(true);
             self.TotalBikes(1); //handle container for loader
             var eleSection = $("#newlaunched-bikes");
-            ko.applyBindings(self, eleSection[0]);
             self.CheckCookies();
             self.Filters()["make"] = self.Filters()["make"] || eleSection.data("make-filter") || "";
             self.Filters()["yearLaunch"] = self.Filters()["yearLaunch"] || eleSection.data("year-filter") || "";
             self.Filters()["city"] = self.Filters()["city"] || eleSection.data("city") || self.selectedCityId() || "";
+
+            ko.applyBindings(self, eleSection[0]);
 
             var filterType = $(e.target).data("filter");
             if (filterType) {
@@ -266,9 +269,9 @@ var newLaunches = function () {
 
     self.ChangePageNumber = function (e) {
         try {
-            var pnum = parseInt($(e.target).attr("data-pagenum"), 10);
-            if (pnum && !isNaN(pnum)) {
-                var selHash = $(e.target).attr("data-hash");
+            var ele = $(e.target), pnum = parseInt(ele.attr("data-pagenum"), 10);
+            if (pnum && !isNaN(pnum) && !ele.parent().hasClass("active")) {
+                var selHash = ele.attr("data-hash");
                 self.Filters()["pageNo"] = pnum;
 
                 if (selHash) {
@@ -278,10 +281,10 @@ var newLaunches = function () {
                     if (curmakeId && curmakeId != "0") self.Filters()["make"] = curmakeId;
                 }
                 self.CurPageNo(pnum);
-                self.getNewLaunchedBikes();
-                e.preventDefault();
-                $('html, body').scrollTop(0);
+                self.getNewLaunchedBikes();               
             }
+            e.preventDefault();
+            $('html, body').scrollTop(0);
         } catch (e) {
             console.warn("Unable to change page number : " + e.message);
         }
@@ -353,6 +356,19 @@ var newLaunches = function () {
                 self.Filters()[f[0]] = f[1];
             }
             self.CurPageNo((self.Filters()["pageNo"] ? parseInt(self.Filters()["pageNo"]) : 0));
+
+            if (self.Filters()["make"] != "") {
+                var selOption = $("#makeFilter option[data-makeid='" + self.Filters()["make"] + "']");
+                self.selectedMake(selOption.text());
+                selOption.prop('selected', true);
+                selOption.parent().chosen().trigger("chosen:updated");
+            }
+            if (self.Filters()["yearLaunch"] != "") {
+                var selOption = $("#yearFilter option[data-bikeyear='" + self.Filters()["yearLaunch"] + "']");
+                self.selectedYear(selOption.text());
+                selOption.prop('selected', true);
+                selOption.parent().chosen().trigger("chosen:updated");
+            }
             self.init(e);
         }
 
