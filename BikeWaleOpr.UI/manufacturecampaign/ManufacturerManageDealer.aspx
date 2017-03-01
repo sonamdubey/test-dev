@@ -328,7 +328,6 @@
 
 
         $("textarea").each(function () {
-            debugger;
             var ele = $(this);
             if (ele.next().prop("checked")!=null&&!ele.next().prop("checked") && $.trim($(this).val()) == '' && !ele.hasClass('LeadCaptureDetails')) {
                 $(this).addClass('redmsg');

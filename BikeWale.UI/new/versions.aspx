@@ -1473,7 +1473,7 @@
                 $('#assistGetMobile').parent().removeClass('not-empty');
             });
 
-            $(".leadcapturebtn").click(function (e) {debugger;
+            $(".leadcapturebtn").click(function (e) {
                 ele = $(this);
                 var leadOptions = {
                     "dealerid": ele.attr('data-item-id'),
