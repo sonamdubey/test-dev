@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Utility.StringExtention;
 using Bikewale.Common;
 using System.Reflection;
+using Bikewale.DAL.Videos;
 
 
 namespace Bikewale.Videos
@@ -77,7 +78,8 @@ namespace Bikewale.Videos
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
                              .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IVideoRepository, ModelVideoRepository>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
 
