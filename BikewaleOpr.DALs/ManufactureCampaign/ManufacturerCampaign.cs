@@ -68,7 +68,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.searchmanufacturercampaign");
-                objErr.SendMail();
             }
             return dtManufactureCampaigns;
         }
@@ -89,15 +88,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_id", DbType.UInt32, id));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isactive", DbType.Boolean, isactive));
-
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
-                        isSuccess = true;
+                    isSuccess = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.statuschangeCampaigns");
-                objErr.SendMail();
             }
             return isSuccess;
         }
@@ -140,7 +136,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
-                objErr.SendMail();
             }
 
             return manufacturers;
@@ -183,7 +178,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.GetManufacturerCities");
-                objErr.SendMail();
             }
             return AllMfgcities;
 
@@ -235,7 +229,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.FetchManufacturerCampaignRules");
-                objErr.SendMail();
             }
 
             return dtManufacturerCampaignRules;
@@ -260,9 +253,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, MgfRules.UserId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelids", DbType.String, MgfRules.ModelIds));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isallindia", DbType.Boolean, MgfRules.IsAllIndia));
-
-
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -278,7 +268,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.SaveManufacturerCampaignRules");
-                objErr.SendMail();
                 rowsInserted = -1;
             }
             return rowsInserted;
@@ -309,7 +298,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ManageDealerCampaignRule.DeleteManufacturerCampaignRules");
-                objErr.SendMail();
             }
 
             return isDeleted;
@@ -345,7 +333,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.InsertBWDealerCampaign");
-                objErr.SendMail();
                 return 0;
             }
         }
@@ -353,6 +340,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <summary>
         /// Created by : Sajal Gupta on 30/08/2016
         /// Description : This function updates template data in database.
+        /// Modified By:- Subodh Jain 1 march 2017
+        /// Description :- Added LeadCapturePopupMessage,LeadCapturePopupHeading,LeadCapturePopupDescription
         /// </summary>
         /// <param name="description"></param>
         /// <param name="isActive"></param>
@@ -368,12 +357,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId3"></param>
         /// <param name="templateHtml4"></param>
         /// <param name="templateId4"></param>
-        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList)
+        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading)
         {
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign_01032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 45, description));
@@ -390,6 +379,9 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId3", DbType.Int32, objList[2].TemplateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml4", DbType.String, objList[3].TemplateHtml));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupMessage", DbType.String, LeadCapturePopupMessage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
                 }
@@ -398,7 +390,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             {
 
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.UpdateBWDealerCampaign");
-                objErr.SendMail();
             }
             return isSuccess;
         }
@@ -406,7 +397,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <summary>
         /// Created By : Sajal Gupta on 30/08/2016
         /// Description : This function saves template html and also maps them in database.
-        /// </summary>
+        /// Modified By:- Subodh Jain 1 march 2017
+        /// Description :- Added LeadCapturePopupMessage,LeadCapturePopupHeading,LeadCapturePopupDescription
         /// <param name="templateHtml1"></param>
         /// <param name="templateId1"></param>
         /// <param name="templateHtml2"></param>
@@ -417,12 +409,12 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId4"></param>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
-        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId)
+        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId)
         {
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate_28022017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, objList[0].TemplateHtml));
@@ -435,16 +427,17 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateId4", DbType.Int32, objList[3].TemplateId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_userId", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
-
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    isSuccess = true;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupMessage", DbType.String, LeadCapturePopupMessage));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
+                    isSuccess = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
             catch (Exception ex)
             {
 
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.SaveManufacturerCampaignTemplate");
-                objErr.SendMail();
             }
             return isSuccess;
         }
@@ -453,7 +446,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <summary>
         /// Created by :Sajal Gupta on 30/08/2016
         /// Description : This method fetches campaign and template data from database.
-        /// </summary>
+        /// Modified By:- Subodh Jain 1 march 2017
+        /// Description :- Added LeadCapturePopupMessage,LeadCapturePopupHeading,LeadCapturePopupDescription
         /// <param name="campaignId"></param>
         /// <returns></returns>
         public List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> FetchCampaignDetails(int campaignId)
@@ -461,7 +455,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity> objManufacturerCampaignDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("fetchcampaigndetails_28022017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
@@ -472,20 +466,32 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                             objManufacturerCampaignDetails = new List<BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity>();
                             while (dr.Read())
                             {
-                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity() { CampaignDescription = dr["Description"].ToString(), CampaignMaskingNumber = dr["maskingnumber"].ToString(), IsActive = SqlReaderConvertor.ToInt32(dr["isactive"]), IsDefault = SqlReaderConvertor.ToInt32(dr["isdefault"]), PageId = SqlReaderConvertor.ToInt32(dr["pageid"]), TemplateHtml = dr["templatehtml"].ToString(), TemplateId = SqlReaderConvertor.ToInt32(dr["id"]) });
+                                objManufacturerCampaignDetails.Add(new BikewaleOpr.Entities.ManufacturerCampaign.ManufacturerCampaignEntity()
+                                {
+                                    CampaignDescription = Convert.ToString(dr["Description"]),
+                                    CampaignMaskingNumber = Convert.ToString(dr["maskingnumber"]),
+                                    IsActive = SqlReaderConvertor.ToInt32(dr["isactive"]),
+                                    IsDefault = SqlReaderConvertor.ToInt32(dr["isdefault"]),
+                                    PageId = SqlReaderConvertor.ToInt32(dr["pageid"]),
+                                    TemplateHtml = Convert.ToString(dr["templatehtml"]),
+                                    TemplateId = SqlReaderConvertor.ToInt32(dr["id"]),
+                                    LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]),
+                                    LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]),
+                                    LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"])
+
+                                });
                             }
                         }
                     }
-                    return objManufacturerCampaignDetails;
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "MaufacturerCampaign.FetchCampaignDetails");
-                objErr.SendMail();
 
-                return objManufacturerCampaignDetails;
             }
+            return objManufacturerCampaignDetails;
         }
 
 
@@ -511,9 +517,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             }
             catch (Exception ex)
             {
-
                 ErrorClass objErr = new ErrorClass(ex, "ManufacturerCampaign.ReleaseCampaignMaskingNumber");
-                objErr.SendMail();
             }
             return isSuccess;
         }
