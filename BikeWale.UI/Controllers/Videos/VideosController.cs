@@ -2,6 +2,7 @@ using Bikewale.BAL;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Utility;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Desktop.Videos
@@ -29,10 +30,13 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// <summary>
         /// Created by : Sangram Nandkhile on 01 Mar 2017
         /// Summary: Action method for Video details Page
+        /// Modified By : Aditi Srivastava on 1 March 2017
+        /// Summary     : Added information in viewbag for popular body style widget
         /// </summary>
         [Route("videos/details/{videoId}/")]
         public ActionResult Index(uint videoId)
         {
+           
             VideoDetailsHelper helper = new VideoDetailsHelper(videoId, _videos);
             var details = helper.GetDetails();
             ViewBag.DetailsPage = details;
@@ -43,6 +47,14 @@ namespace Bikewale.Controllers.Desktop.Videos
             ViewBag.canonical = details.PageMetas.CanonicalUrl;
             ViewBag.alternate = details.PageMetas.AlternateUrl;
 
+            ModelMaskingResponse modelInfo = new ModelMaskingResponse();
+            modelInfo = new ModelHelper().GetModelDataByMasking(details.VideoEntity.MaskingName);
+            ViewBag.ModelId = new ModelHelper().GetModelDataByMasking(details.VideoEntity.MaskingName);
+            if (GlobalCityArea.GetGlobalCityArea().CityId != 0)
+                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            else
+                ViewBag.CityId = Configuration.GetDefaultCityId;
+            ViewBag.TopCount = 9;
             return View("~/Views/Videos/Details.cshtml");
         }
 

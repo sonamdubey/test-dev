@@ -64,4 +64,7 @@
     </section>
 }
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId});}
+
+@{Html.RenderAction("PopularBikesByBodyStyleDesktop", "PopularBikes", new { modelId=@ViewBag.ModelId,topCount=@ViewBag.TopCount,cityId=@ViewBag.CityId});}
+
 <script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
