@@ -1,5 +1,4 @@
 ﻿$(function () {
-    alert('1')
     try{
         $("body").floatingSocialShare();
         $('.comma').each(function (i, obj) {
