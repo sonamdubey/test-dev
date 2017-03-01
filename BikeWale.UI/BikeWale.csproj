@@ -455,6 +455,7 @@
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
+    <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="Controllers\Videos\VideosController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
@@ -3337,6 +3338,7 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
+    <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3362,6 +3364,7 @@
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\ExpertReviews\" />
     <Folder Include="Views\Features\" />
+    <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
     <Folder Include="Views\Upcoming\" />
