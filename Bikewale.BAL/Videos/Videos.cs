@@ -440,16 +440,27 @@ namespace Bikewale.BAL.Videos
             try
             {
                 objVideosList = GetSimilarVideos(videoId, totalCount).ToList();
+                // If there are no enpugh videos for Model, calculate category id and fetch remaining videos by category
                 int fetchedCount = objVideosList.Count;
                 if (fetchedCount < totalCount)
                 {
                     int remainingCount = totalCount - Convert.ToUInt16(fetchedCount);
                     if (remainingCount > 0)
                     {
-                        IEnumerable<BikeVideoEntity> objCategoryVidesos = GetVideosByCategory(EnumVideosCategory.FeaturedAndLatest, (ushort)remainingCount);
-                        if (objCategoryVidesos != null && objCategoryVidesos.Count() > 0)
+                        var videoDetails = GetVideoDetails(videoId);
+                        if (videoDetails != null)
                         {
-                            objVideosList.AddRange(objCategoryVidesos);
+                            int categoryId = Convert.ToInt32(videoDetails.SubCatId);
+                            if (categoryId > 0)
+                            {
+                                EnumVideosCategory category = (EnumVideosCategory)categoryId;
+                                BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, 10, null);
+                                IEnumerable<BikeVideoEntity> objCategoryVidesos = allVideos.Videos.Where(x => x.BasicId != videoId).Take(remainingCount);
+                                if (objCategoryVidesos != null && objCategoryVidesos.Count() > 0)
+                                {
+                                    objVideosList.AddRange(objCategoryVidesos);
+                                }
+                            }
                         }
                     }
                 }

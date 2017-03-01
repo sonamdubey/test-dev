@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.Mobile.Videos;
 using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             ViewBag.makeMaskingName = makeMaskingName;
             ViewBag.MakeName = "";
             IEnumerable<BikeVideoModelEntity> objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-            if (objModelVideos != null && objModelVideos.Count()>0 && objModelVideos.FirstOrDefault().objMake!=null)
+            if (objModelVideos != null && objModelVideos.Count() > 0 && objModelVideos.FirstOrDefault().objMake != null)
             {
                 ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
             }
@@ -81,10 +82,12 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary: Partial view to show Similar model bike videos
         /// </summary>
         [Route("videos/SimilarVideos/")]
-        public ActionResult SimilarVideos(uint videoId)
+        public ActionResult SimilarVideos(uint videoId, uint modelId, string bikeName)
         {
-            var similarModelsVideos = _video.GetSimilarModelsVideos(videoId, 9);
-            return PartialView("~/views/shared/_SimilarVideo.cshtml", similarModelsVideos);
+            SimilarModelsModel similarVideosModel = new SimilarModelsModel();
+            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, 9);
+            similarVideosModel.ModelId = modelId;
+            return PartialView("~/views/shared/_SimilarVideo.cshtml", similarVideosModel);
         }
     }
 }

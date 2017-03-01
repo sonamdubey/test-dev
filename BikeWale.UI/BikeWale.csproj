@@ -3122,7 +3122,6 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
-    <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
@@ -3345,7 +3344,6 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
-    <Content Include="Views\Shared\_PopularBodyType.cshtml" />
     <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />

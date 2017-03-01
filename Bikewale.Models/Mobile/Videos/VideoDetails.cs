@@ -3,6 +3,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.SEO;
 using Bikewale.Entities.Videos;
+using System.Collections.Generic;
 namespace Bikewale.Models.Mobile.Videos
 {
     /// <summary>
@@ -33,5 +34,13 @@ namespace Bikewale.Models.Mobile.Videos
     {
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
+    }
+
+    public class SimilarModelsModel
+    {
+        public uint ModelId { get; set; }
+        public string ModelName { get; set; }
+        public string BikeName { get; set; }
+        public IEnumerable<BikeVideoEntity> Videos { get; set; }
     }
 }
