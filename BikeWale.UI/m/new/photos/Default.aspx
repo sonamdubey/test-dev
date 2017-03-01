@@ -170,7 +170,7 @@
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe width="320" height="180" data-bind="attr: { src: 'https://www.youtube.com/embed/' + activeVideoId() + '?showinfo=0' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe id="iframe-video" width="320" height="180" data-bind="attr: { src: '' }" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

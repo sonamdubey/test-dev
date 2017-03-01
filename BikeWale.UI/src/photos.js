@@ -381,12 +381,15 @@ var thumbnailSwiperEvents = {
 
 function setVideo(elementIndex) {
     var elementId = vmModelGallery.videoList()[elementIndex].VideoId,
-        elementTitle = vmModelGallery.videoList()[elementIndex].VideoTitle;
+        elementTitle = vmModelGallery.videoList()[elementIndex].VideoTitle;        
 
     vmModelGallery.activeVideoId(elementId);
     vmModelGallery.activeVideoIndex(elementIndex + 1);
     vmModelGallery.activeVideoTitle(elementTitle);
-};
+
+    (document.getElementById("iframe-video").contentWindow || document.getElementById("iframe-video").documentWindow).location.replace('https://www.youtube.com/embed/' + vmModelGallery.activeVideoId() + '?showinfo=0');
+
+    };
 
 // initialize swipers
 var gallerySwiper = new Swiper('.gallery-type-swiper', {
@@ -482,3 +485,4 @@ var closePopUp = function (state) {
     if(state == "photosGallery")
         popupGallery.close();
 }
+
