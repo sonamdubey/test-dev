@@ -77,35 +77,45 @@
   padding: 5px;
   font-size: 14px; }
 
-.main-compare-bikes-target {
-  width: 100%;
-  min-height: 200px;
-  margin-bottom: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: block;
+.comparison-swiper .swiper-slide {
+  width: 310px;
+  min-height: 220px; }
+  .comparison-swiper .swiper-slide a {
+    padding-top: 15px;
+    padding-bottom: 20px; }
+
+.comparison-swiper .swiper-card {
+  width: 310px;
+  min-height: 220px;
   border: 1px solid #e2e2e2;
-  border-radius: 1px;
   background: #fff;
-  overflow: hidden; }
-  .main-compare-bikes-target .comparison-image {
-    width: 120px;
-    height: 67px;
-    margin: 0 auto 15px;
-    overflow: hidden;
-    display: block;
-    text-align: center; }
-  .main-compare-bikes-target img {
-    height: 67px; }
-  .main-compare-bikes-target .grid-6:first-child:after {
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
+  -ms-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
+  -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc; }
+
+.model-img-content {
+  width: 126px;
+  height: 71px;
+  margin-bottom: 5px; }
+
+.model-comparison-list h3 + .grid-6 {
+  position: relative;
+  border-right: 1px solid #f5f5f5; }
+  .model-comparison-list h3 + .grid-6:after {
     content: '';
     position: absolute;
-    right: -6px;
-    top: 55px;
+    right: -11px;
+    top: 45px;
     width: 22px;
     height: 21px;
-    background: url(https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png) no-repeat;
+    background: url("https://imgd2.aeplcdn.com/0x0/bw/static/design15/comparison-divider.png") no-repeat;
     display: block; }
+
+.btn-size-1 {
+  font-size: 14px;
+  padding: 6px 42px; }
 
 .brand-type-carousel .swiper-slide,
 .brand-type-carousel .swiper-card {
