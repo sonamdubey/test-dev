@@ -15,6 +15,11 @@
             alternate = vmModelPhotos.pageMetas.AlternateUrl;
             enableOG = true;
             ogImage = vmModelPhotos.modelImage;
+            AdId = "1442913773076";
+            AdPath = "/1017752/Bikewale_NewBike_";    
+            isAd300x250BTFShown= false;
+            isAd300x250Shown = false;
+            isAd970x90BottomShown = false;                    
         }       
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
