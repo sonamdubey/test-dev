@@ -16,12 +16,12 @@
     modelImages = imageList;
     modelColorImages = filterColorImagesArray(imageList);
 
-        if(modelColorImageCount)
+    if (modelColorImages)
             modelColorImageCount = modelColorImages.length;
 
         if(colorImageId > 0)
         {
-
+            
         }
 
     } catch (e) {
