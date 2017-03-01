@@ -459,6 +459,7 @@
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
+    <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
@@ -2297,6 +2298,7 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
+    <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\video\videos-by-make.css" />
     <Content Include="css\zebra-datepicker.css" />
@@ -3120,6 +3122,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
@@ -3340,6 +3343,9 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\Videos\Details.cshtml" />
+    <Content Include="Views\Shared\_SimilarVideo.cshtml" />
+    <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
@@ -3369,6 +3375,7 @@
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\ExpertReviews\" />
     <Folder Include="Views\Features\" />
+    <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
     <Folder Include="Views\Upcoming\" />

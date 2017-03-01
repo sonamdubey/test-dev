@@ -46,15 +46,15 @@ namespace Bikewale
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
             container.RegisterType<IBikeInfo, BikeInfo>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
-            container.RegisterType<IUpcoming, Upcoming>();
-            container.RegisterType<IVideoRepository,ModelVideoRepository>();
-            container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
-            container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
+            container.RegisterType<IUpcoming, Upcoming>();            
             container.RegisterType<IModelsCache, ModelsCache>();
             container.RegisterType<IModelsRepository, ModelsRepository>();
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
             container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-            
+            container.RegisterType<IVideoRepository, ModelVideoRepository>();
+            container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
+            container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
+
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
