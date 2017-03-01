@@ -52,5 +52,16 @@ namespace Bikewale.Controllers
             }
             return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
+
+        [Route("m/popularbodystyle/")]
+        public ActionResult PopularBodyStyleMobile(int modelId, int topCount, uint cityId)
+        {
+            IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetPopularBikesByBodyStyle(modelId, topCount, cityId);
+            if (objPopularBodyStyle != null && objPopularBodyStyle.FirstOrDefault() != null)
+            {
+                ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
+            }
+            return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+        }
     }
 }

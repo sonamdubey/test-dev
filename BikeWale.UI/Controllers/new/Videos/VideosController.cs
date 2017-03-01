@@ -45,6 +45,8 @@ namespace Bikewale.Controllers.Desktop.Videos
             ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
             ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
             ViewBag.alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", ViewBag.makeMaskingName);
+            ViewBag.Ad_300x250BTF = false;
+            ViewBag.Ad_300x250 = false;
             return View("~/Views/Videos/Makes.cshtml", objModelVideos);
         }
 
