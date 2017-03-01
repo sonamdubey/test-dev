@@ -65,6 +65,14 @@ namespace Bikewale.Controllers.Desktop.Videos
             ViewBag.canonical = details.PageMetas.CanonicalUrl;
             ViewBag.alternate = details.PageMetas.AlternateUrl;
 
+            ModelMaskingResponse modelInfo = new ModelMaskingResponse();
+            modelInfo = new ModelHelper().GetModelDataByMasking(details.VideoEntity.MaskingName);
+            ViewBag.ModelId = modelInfo.ModelId;
+            if (GlobalCityArea.GetGlobalCityArea().CityId != 0)
+                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            else
+                ViewBag.CityId = Configuration.GetDefaultCityId;
+            ViewBag.TopCount = 9;
             return View("~/Views/Videos/Details.cshtml");
         }
 

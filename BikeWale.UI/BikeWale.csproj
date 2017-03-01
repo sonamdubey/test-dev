@@ -3350,6 +3350,7 @@
     <Content Include="Views\Videos\Makes.cshtml" />
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
+    <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
