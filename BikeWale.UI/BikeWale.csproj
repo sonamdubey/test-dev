@@ -456,6 +456,7 @@
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
+    <Compile Include="Controllers\Videos\VideosController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2293,6 +2294,7 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
+    <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
@@ -3112,6 +3114,7 @@
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
@@ -3332,6 +3335,8 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\Videos\Details.cshtml" />
+    <Content Include="Views\Shared\_SimilarVideo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
