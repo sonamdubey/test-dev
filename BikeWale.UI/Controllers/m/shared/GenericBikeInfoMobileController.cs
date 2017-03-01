@@ -4,14 +4,14 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Models.Mobile.Videos;
 using System.Web.Mvc;
 
-namespace Bikewale.Controllers.Shared
+namespace Bikewale.Controllers.Mobile.Shared
 {
-    public class GenericBikeInfoController : Controller
+    public class GenericBikeInfoMobileController : Controller
     {
 
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _city;
-        public GenericBikeInfoController(IBikeInfo bikeInfo, ICityCacheRepository city)
+        public GenericBikeInfoMobileController(IBikeInfo bikeInfo, ICityCacheRepository city)
         {
             _bikeInfo = bikeInfo;
             _city = city;
@@ -26,7 +26,7 @@ namespace Bikewale.Controllers.Shared
         /// Created by : Sangram Nandkhile on 01 Mar 2017
         /// Summary: Partial view to show generic bike info card
         /// </summary>
-        [Route("GenericBikeInfo/BikeInfoCard/")]
+        [Route("m/GenericBikeInfo/BikeInfoCard/")]
         public ActionResult BikeInfoCard(GenericBikeInfoCard bikeInfo)
         {
 
@@ -35,12 +35,9 @@ namespace Bikewale.Controllers.Shared
             {
                 GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo, _city);
                 bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId);
+               
             }
-            //if (CityId > 0)
-            //{
-            //    bikeData.CityDetails = new CityHelper().GetCityById(CityId);
-            //}
-            return PartialView("~/views/shared/_GenericBikeInfoCard.cshtml", bikeData);
+            return PartialView("~/views/m/shared/_GenericBikeInfoCard.cshtml", bikeData);
         }
     }
 }

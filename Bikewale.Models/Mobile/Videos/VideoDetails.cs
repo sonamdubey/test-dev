@@ -34,6 +34,7 @@ namespace Bikewale.Models.Mobile.Videos
     {
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
+        public bool SmallSlug { get; set; }
     }
 
     public class SimilarModelsModel
