@@ -54,3 +54,73 @@ $(document).ready(function () {
         target: '+=2'
     });
 });
+
+// read more - collapse
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.addClass('active');
+        element.text(' Collapse');
+    }
+    else {
+        parentElemtent.removeClass('active');
+        element.text('Read more');
+    }
+});
+
+
+// floating tabs
+var makeOverallTabs = $('#makeOverallTabs'),
+    overallMakeDetailsFooter = $('#overallMakeDetailsFooter'),
+    makeTabsContentWrapper = $('#makeTabsContentWrapper');
+
+makeOverallTabs.find('.overall-specs-tabs-wrapper a').first().addClass('active');
+
+var makeDealersContent = $('#makeDealersContent');
+
+if (makeDealersContent.length != 0) {
+    makeDealersContent.removeClass('bw-model-tabs-data');
+}
+
+attachListener('scroll', window, highlightSpecTabs);
+
+$('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
+    var target = $(this.hash);
+    if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+    if (target.length == 0) target = $('html');
+    $('html, body').animate({ scrollTop: target.offset().top - makeOverallTabs.height() }, 1000);
+    return false;
+});
+
+function highlightSpecTabs() {
+    var windowScrollTop = $(window).scrollTop(),
+        makeOverallTabsOffsetTop = makeOverallTabs.offset().top,
+        makeDetailsFooterOffsetTop = overallMakeDetailsFooter.offset().top,
+        makeTabsContentWrapperOffsetTop = makeTabsContentWrapper.offset().top;
+
+    if (windowScrollTop > makeOverallTabsOffsetTop) {
+        makeOverallTabs.addClass('fixed-tab');
+    }
+
+    else if (windowScrollTop < makeTabsContentWrapperOffsetTop) {
+        makeOverallTabs.removeClass('fixed-tab');
+    }
+
+    if (windowScrollTop > makeDetailsFooterOffsetTop - 44) { //44 height of top nav bar
+        makeOverallTabs.removeClass('fixed-tab');
+    }
+
+    $('#makeTabsContentWrapper .bw-model-tabs-data').each(function () {
+        var top = $(this).offset().top - makeOverallTabs.height(),
+        bottom = top + $(this).outerHeight();
+        if (windowScrollTop >= top && windowScrollTop <= bottom) {
+            makeOverallTabs.find('a').removeClass('active');
+            $('#makeTabsContentWrapper .bw-mode-tabs-data').removeClass('active');
+
+            $(this).addClass('active');
+            makeOverallTabs.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+        }
+    });
+}

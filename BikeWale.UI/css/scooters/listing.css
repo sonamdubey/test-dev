@@ -21,6 +21,15 @@
   margin-bottom: 15px;
   font-weight: 700; }
 
+.collapsible-content .main-content {
+  display: inline; }
+
+.collapsible-content .more-content {
+  display: none; }
+
+.collapsible-content.active .more-content {
+  display: inline; }
+
 .padding-15-20 {
   padding: 15px 20px; }
 
@@ -40,6 +49,8 @@
     padding-top: 10px;
     padding-right: 10px;
     padding-bottom: 10px; }
+  .bike-listing .model-jcarousel-image-preview img {
+    background: url("https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif") no-repeat center; }
 
 .key-size-13 {
   font-size: 13px;
@@ -52,6 +63,18 @@
 
 #makeOverallTabsWrapper {
   height: 44px; }
+
+#makeOverallTabs.fixed-tab {
+  position: fixed;
+  top: 0;
+  margin: 0 auto;
+  z-index: 5;
+  border-bottom: 0;
+  -webkit-box-shadow: 0 2px 2px 0 #e2e2e2;
+  -moz-box-shadow: 0 2px 2px 0 #e2e2e2;
+  -ms-box-shadow: 0 2px 2px 0 #e2e2e2;
+  -o-box-shadow: 0 2px 2px 0 #e2e2e2;
+  box-shadow: 0 2px 2px 0 #e2e2e2; }
 
 .overall-floating-tabs {
   width: 976px;
@@ -78,6 +101,42 @@
     .overall-specs-tabs-wrapper a:hover {
       text-decoration: none;
       color: #4d5057; }
+
+#makeTabsContentWrapper h2 {
+  margin-bottom: 15px; }
+
+.line-height17 {
+  line-height: 1.7; }
+
+.dealer-card-target {
+  display: block; }
+  .dealer-card-target:hover {
+    text-decoration: none; }
+
+.dealer-jcarousel-image-preview {
+  width: 292px;
+  height: 114px;
+  display: block;
+  margin-bottom: 15px;
+  text-align: center;
+  padding-top: 10px; }
+
+.details-column {
+  width: 92%; }
+
+.dealership-loc-icon {
+  width: 9px;
+  height: 12px;
+  background-position: -52px -469px;
+  position: relative;
+  top: 4px; }
+
+.phone-black-icon {
+  width: 11px;
+  height: 15px;
+  position: relative;
+  top: 5px;
+  background-position: -73px -444px; }
 
 .inner-content-carousel.comparison-type-carousel .model-comparison-list li {
   width: 457px;
@@ -265,3 +324,89 @@
 .brand-71 {
   width: 39px;
   background-position: -2616px 0; }
+
+.city-sprite {
+  background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?26Dec2016) no-repeat;
+  display: inline-block; }
+
+.mumbai-icon,
+.pune-icon,
+.bangalore-icon,
+.delhi-icon,
+.chennai-icon,
+.hyderabad-icon,
+.kolkata-icon,
+.ahmedabad-icon,
+.chandigarh-icon,
+.lucknow-icon,
+.india-icon {
+  height: 92px; }
+
+.mumbai-icon {
+  width: 130px;
+  background-position: 0 0; }
+
+.pune-icon {
+  width: 186px;
+  background-position: -140px 0; }
+
+.bangalore-icon {
+  width: 136px;
+  background-position: -336px 0; }
+
+.delhi-icon {
+  width: 70px;
+  background-position: -482px 0; }
+
+.chennai-icon {
+  width: 53px;
+  background-position: -562px 0; }
+
+.hyderabad-icon {
+  width: 65px;
+  background-position: -625px 0; }
+
+.kolkata-icon {
+  width: 182px;
+  background-position: -700px 0; }
+
+.lucknow-icon {
+  width: 174px;
+  background-position: -892px 0; }
+
+.ahmedabad-icon,
+.chandigarh-icon {
+  width: 0px;
+  background-position: 0 0; }
+
+.india-icon {
+  width: 81px;
+  background-position: -1076px 0; }
+
+.card {
+  width: 292px;
+  min-height: 140px;
+  font-size: 14px;
+  border: 1px solid #f6f6f6;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -ms-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  -o-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-left: 30px;
+  margin-bottom: 20px; }
+  .card:first-child {
+    margin-left: 20px; }
+  .card .card-target {
+    min-height: 147px;
+    display: block;
+    padding: 15px 20px; }
+    .card .card-target:hover {
+      text-decoration: none; }
+  .card .text-truncate {
+    width: 100%; }
+
+@media only screen and (max-width: 1024px) {
+  .card {
+    width: 280px; } }

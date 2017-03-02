@@ -21,6 +21,10 @@
 		padding-right: 10px
 		padding-bottom: 10px
 
+	.model-jcarousel-image-preview
+		img
+			background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center
+
 .key-size-13
 	font-size: 13px
 	color: $text-light
@@ -33,6 +37,15 @@
 // makeOverallTabsWrapper
 #makeOverallTabsWrapper
 	height: 44px
+
+#makeOverallTabs	
+	&.fixed-tab
+		position: fixed
+		top: 0
+		margin: 0 auto
+		z-index: 5
+		border-bottom: 0
+		@include box-shadow(0, 2px, 2px, 0, #e2e2e2)
 
 .overall-floating-tabs
 	width: 976px
@@ -63,3 +76,42 @@
 		&:hover
 			text-decoration: none
 			color: $text-primary
+
+#makeTabsContentWrapper
+	h2
+		margin-bottom: 15px
+
+.line-height17
+	line-height: 1.7
+
+// dealers and service center carousel
+.dealer-card-target
+	display: block
+	
+	&:hover
+		text-decoration: none
+
+.dealer-jcarousel-image-preview
+	width: 292px
+	height: 114px
+	display: block
+	margin-bottom: 15px
+	text-align: center
+	padding-top: 10px
+
+.details-column
+    width: 92%
+
+.dealership-loc-icon
+	width: 9px
+	height: 12px
+	background-position: -52px -469px
+	position: relative
+	top: 4px
+
+.phone-black-icon
+	width: 11px
+	height: 15px
+	position: relative
+	top: 5px
+	background-position: -73px -444px

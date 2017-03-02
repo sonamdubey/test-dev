@@ -2996,6 +2996,7 @@
     <Content Include="sass\scooters\listing.sass" />
     <Content Include="sass\scooters\_listing-style.sass" />
     <Content Include="sass\modules\_comparison-carousel.sass" />
+    <Content Include="sass\modules\_city-icons.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />

@@ -225,6 +225,8 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 .text-truncate { width:100%; text-align:left; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
 
+.model-jcarousel-image-preview { width:100%; height:165px; display:table; text-align:center; position:relative;}
+
 /* common properties */
 .leftfloat{float:left;}
 .rightfloat{float:right;}
