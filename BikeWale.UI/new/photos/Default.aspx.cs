@@ -35,6 +35,8 @@ namespace Bikewale.New.Photos
         /// Summary :- model page photo bind condition added in query string
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Get imageindex from querystring.
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get colorImageId from querystring.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

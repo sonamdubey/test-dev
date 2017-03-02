@@ -1266,17 +1266,17 @@
                         </div>
                         <% } %>
 
-                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                            <%if (modelPageEntity != null && modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
                               { %>
                             <div id="modelColorsContent" class="bw-model-tabs-data padding-top20 font14">
                                 <h2 class="padding-left20 padding-right20"><%=bikeName %> Colors</h2>
                                 <ul id="modelColorsList">
                                     <% foreach (var modelColor in modelPageEntity.ModelColors)
-                                       { %>
-                                   <%  if(modelColor.ColorImageId > 0) { %>
+                                       { %>                                   
+                                    <li>
+                                        <%  if(modelColor.ColorImageId > 0) { %>
                                     <a href="/<%=modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/?modelpage=true&colorImageId=<%=modelColor.ColorImageId %>#modelGallery">
                                         <%} %>
-                                    <li>
                                         <div title="<%= modelColor.ColorName %>" class="color-box inline-block <%= (((IList)modelColor.HexCodes).Count == 1 )?"color-count-one": (((IList)modelColor.HexCodes).Count >= 3 )?"color-count-three":"color-count-two" %>">
                                             <% if (modelPageEntity.ModelColors != null)
                                                {
@@ -1287,10 +1287,10 @@
                                                } %>
                                         </div> 
                                         <p class="font16 inline-block text-truncate"><%= Convert.ToString(modelColor.ColorName) %></p>
-                                    </li> 
-                                         <%  if(modelColor.ColorImageId > 0) { %>  
+                                        <%  if(modelColor.ColorImageId > 0) { %>  
                                     </a> 
-                                    <%} %>                               
+                                    <%} %> 
+                                    </li>                                                                                                            
                                     <%} %>
                                 </ul>
                                 <div class="margin-right10 margin-left10 border-solid-top"></div>
