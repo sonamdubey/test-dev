@@ -10,7 +10,7 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "",menu="", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = "";
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];        
-        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false;
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, Ad320x150_I = false, Ad320x150_II = false, ShowSellBikeLink=false;
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
     <!-- #include file="/includes/gacode.aspx" --> 

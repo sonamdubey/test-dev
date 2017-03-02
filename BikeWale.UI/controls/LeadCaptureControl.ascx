@@ -62,7 +62,13 @@
     </div>
 </div>
 <!-- lead capture popup End-->
-
+<div id="ub-ajax-loader">
+    <div id="spinner-content">
+        <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+           <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+        </svg>
+    </div>
+</div>
 <!-- scripts goes here -->
 <script type="text/javascript">
 
@@ -267,6 +273,7 @@
                         contentType: "application/json",
                         dataType: 'json',
                         beforeSend: function (xhr) {
+                            self.showLoader();
                             xhr.setRequestHeader('utma', getCookie('__utma'));
                             xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                         },
@@ -277,6 +284,7 @@
                             self.dealerBikes(obj.dealerBikes);
                         },
                         complete: function (xhr) {
+                            self.hideLoader();
                             if (xhr.status == 204 || xhr.status == 404) {
                                 lscache.set(dealerKey, null, 30);
                             }
@@ -347,11 +355,15 @@
                     data: ko.toJSON(objPQData),
                     contentType: "application/json",
                     dataType: 'json',
+                    beforeSend: function (xhr) {
+                        self.showLoader();
+                    },
                     success: function (response) {
                         self.pqId(response.quoteId);
                         isSuccess = true;
                     },
                     complete: function (xhr) {
+                        self.hideLoader();
                         if (xhr.status != 200) {
                             self.IsVerified(false);
                             isSuccess = false;
@@ -397,6 +409,7 @@
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                        self.showLoader();
                     },
                     async: false,
                     contentType: "application/json",
@@ -406,6 +419,7 @@
                         self.IsVerified(obj.isSuccess);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
@@ -440,6 +454,7 @@
                     url: "/api/ManufacturerLead/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
+                        self.showLoader();
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
@@ -455,6 +470,9 @@
                         $("#leadCapturePopup").show();
                         $('body').addClass('lock-browser-scroll');
                         $(".blackOut-window").show();
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                     }
                 });
                 setPQUserCookie();
@@ -621,6 +639,14 @@
 
             return isValid;
         };
+
+        self.showLoader = function () {                
+            $('#ub-ajax-loader').show();
+        }
+
+        self.hideLoader = function () {
+            $('#ub-ajax-loader').hide();
+        }
 
     }
 
