@@ -11,28 +11,38 @@
 		&:first-child
 			border-top: 0
 
-		h3
-			font-size: 15px
-			color: #2a2a2a
-			margin-bottom: 10px
+	h2
+		&:hover
+			text-decoration: underline
 
 	.item-image-content
 		width: 292px
 		height: 164px
 		background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center
-		margin-bottom: 5px;
+		margin-bottom: 10px;
+
+	a
+		&:hover
+			text-decoration: none
 
 // common classes
-.key-size-13
-	font-size: 13px
-	color: #787878
+.key-size-14
+	font-size: $font-size-base
+	color: $text-light
 
+.value-size-14,
 .value-size-18
 	font-weight: $font-bold
 	color: #4d5057
 
+.value-size-14
+	font-size: $font-size-base
+
 .value-size-18
-	font-size: 18px
+	font-size: $font-size-large
+
+.margin-top15
+	margin-top: 15px
 
 #makeTabsContentWrapper
 	h2
