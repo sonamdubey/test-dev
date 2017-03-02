@@ -5,8 +5,8 @@
 
 
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/video-detail.css' />";
+    ViewBag.Page_JS_Path = "/m/src/videos/details.js";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    ViewBag.Page_JS_Path = "/src/video/detail.js";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 
@@ -23,10 +23,10 @@
                         <p class="font12 margin-top10 margin-bottom10 text-xlight-grey">@videoModel.DisplayDate</p>
                         <div class="font14 text-light-grey line-height18 margin-bottom10">@Html.Raw(videoModel.Description)</div>
                         <div class="video-views-count-container font14 leftfloat border-light-right">
-                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma">@videoModel.Views</span>
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Views.ToString())</span>
                         </div>
                         <div class="video-views-count-container font14 leftfloat padding-left10 border-light-right">
-                            <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma">@videoModel.Likes</span>
+                            <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Likes.ToString())</span>
                         </div>
                         <div class="font14 leftfloat padding-left10 powerdrift-sub-btn">
                             <script src="https://apis.google.com/js/platform.js"></script>
@@ -55,7 +55,7 @@
                 </div>
             </section>
         }
-        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId });}  
+        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}  
     
 @{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
          

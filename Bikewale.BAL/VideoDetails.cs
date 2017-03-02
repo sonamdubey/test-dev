@@ -117,7 +117,7 @@ namespace Bikewale.BAL
             _city = city;
         }
 
-        public GenericBikeInfoModel GetDetails(uint modelId, uint cityId)
+        public GenericBikeInfoModel GetDetails(uint modelId, uint cityId, uint totalTabCount, BikeInfoTabType pageId)
         {
             model.BikeInfo = _bikeInfo.GetBikeInfo(modelId, cityId);
             if (cityId > 0)
@@ -125,7 +125,7 @@ namespace Bikewale.BAL
                 var objCityList = _city.GetAllCities(EnumBikeType.All);
                 model.CityDetails = objCityList.FirstOrDefault(c => c.CityId == cityId);
             }
-            model.BikeInfo.Tabs = BindInfoWidgetDatas(model.BikeInfo, model.CityDetails);
+            model.BikeInfo.Tabs = BindInfoWidgetDatas(model.BikeInfo, model.CityDetails, totalTabCount, pageId);
             model.IsUpcoming = model.BikeInfo.IsFuturistic;
             model.IsDiscontinued = model.BikeInfo.IsUsed && !model.BikeInfo.IsNew;
             model.BikeName = string.Format("{0} {1}", model.BikeInfo.Make.MakeName, model.BikeInfo.Model.ModelName);
@@ -133,7 +133,7 @@ namespace Bikewale.BAL
             return model;
         }
 
-        private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails)
+        private ICollection<BikeInfoTab> BindInfoWidgetDatas(GenericBikeInfo _genericBikeInfo, CityEntityBase cityDetails, uint totalTabCount, BikeInfoTabType pageId)
         {
             ICollection<BikeInfoTab> tabs = null;
             try
@@ -222,6 +222,10 @@ namespace Bikewale.BAL
                         Count = _genericBikeInfo.DealersCount,
                         Tab = BikeInfoTabType.Dealers
                     });
+                }
+                if (tabs.Count() > 0)
+                {
+                    tabs = tabs.Where(m => (m.Count > 0 || m.IsVisible) && pageId != m.Tab).OrderBy(m => m.Tab).Take((int)totalTabCount).ToList();
                 }
             }
             catch (Exception ex)

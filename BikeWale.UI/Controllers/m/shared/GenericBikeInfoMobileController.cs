@@ -29,13 +29,13 @@ namespace Bikewale.Controllers.Mobile.Shared
         [Route("m/GenericBikeInfo/BikeInfoCard/")]
         public ActionResult BikeInfoCard(GenericBikeInfoCard bikeInfo)
         {
-
+            uint tabsCount = 3;
             GenericBikeInfoModel bikeData = null;
             if (bikeInfo.ModelId > 0)
             {
                 GenericBikeInfoHelper helper = new GenericBikeInfoHelper(_bikeInfo, _city);
-                bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId);
-               
+                bikeData = helper.GetDetails(bikeInfo.ModelId, bikeInfo.CityId, tabsCount, bikeInfo.PageId);
+                bikeInfo.IsSmallSlug = bikeInfo.IsSmallSlug;
             }
             return PartialView("~/views/m/shared/_GenericBikeInfoCard.cshtml", bikeData);
         }

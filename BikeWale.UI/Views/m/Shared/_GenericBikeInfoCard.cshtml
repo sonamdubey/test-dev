@@ -2,37 +2,39 @@
     var bikeInfo = Model.BikeInfo;
     var cityDetails = Model.CityDetails;
 }
-
-@if (!Model.IsSmallSlug)
-  { 
-<div class="model-more-info-section">
-    @if (Model.IsUpcoming)
-    { 
-    <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-    }
-    else if (Model.IsDiscontinued)
-    { 
-    <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-    }
-    <div class="clear"></div>
-    <a href="@Model.BikeUrl" class="leftfloat text-default margin-bottom15" title="@Model.BikeName">
-        <h2>@Model.BikeName</h2>
-    </a>
+@if (Model != null && bikeInfo!= null)
+{ 
+    if (!Model.IsSmallSlug) { 
+        <div class="model-more-info-section">
+        @if (Model.IsUpcoming) { 
+        <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+        }
+        else if (Model.IsDiscontinued)
+        { 
+        <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+        }
+        <div class="clear"></div>
+        <a href="@Model.BikeUrl" class="leftfloat text-default margin-bottom15" title="@Model.BikeName">
+            <h2>@Model.BikeName</h2>
+        </a>
+        </div>
     }
     else
     { 
     <div class="model-more-info-section model-slug-type-news">
-        } 
+    </div>
+    } 
         <div class="margin-bottom10">
-            @if (Model.IsSmallSlug) {
-            if (Model.Model.IsUpcoming)
-            { 
-            <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-            }
-            else if (Model.IsDiscontinued)
-            { 
-            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-            } 
+            @if (Model.IsSmallSlug) 
+            {
+                if (Model.Model.IsUpcoming)
+                { 
+                <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                }
+                else if (Model.IsDiscontinued)
+                { 
+                <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                } 
             } 
             <div class="clear"></div>
             <a href="@Model.BikeUrl" class="item-image-content vertical-top" title="@Model.BikeName ">
@@ -66,43 +68,45 @@
                 {
                     if (bikeInfo.PriceInCity > 0 && cityDetails != null)
                     { 
-                    <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}",cityDetails.CityName)</p>
-                    <div>
-                        <span class="bwmsprite inr-sm-icon"></span>
-                        <span class="price-value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) </span>
-                    </div>
+                        <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}",cityDetails.CityName)</p>
+                        <div>
+                            <span class="bwmsprite inr-sm-icon"></span>
+                            <span class="price-value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.PriceInCity)) </span>
+                        </div>
                     }
                     else
                     { 
-                    <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
-                    <div>
-                        <span class="bwmsprite inr-sm-icon"></span>
-                        <span class="price-value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
-                    </div>
+                        <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}",Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
+                        <div>
+                            <span class="bwmsprite inr-sm-icon"></span>
+                            <span class="price-value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) </span>
+                        </div>
                     }
                 } 
             </div>
         </div>
-        @if (!Model.IsDiscontinued && !Model.IsUpcoming && bikeInfo.BikePrice > 0 && !Model.IsSmallSlug)
-        { 
-          <a href="/m@Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName)" title="@Model.BikeName" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
-        }
-        @if(bikeInfo!=null) {  <ul class="item-more-details-list">
+    if (!Model.IsDiscontinued && !Model.IsUpcoming && bikeInfo.BikePrice > 0 && !Model.IsSmallSlug)
+    {
+        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName))" title="@Model.BikeName" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
+    }
+    if (bikeInfo != null)
+    {  <ul class="item-more-details-list">
             @foreach (var Tabsdetails in bikeInfo.Tabs)
             { 
             <li>
-                <a href="/m@Tabsdetails.URL" title="@Model.BikeName  @Tabsdetails.Title">
+                <a href="@string.Format("/m{0}",Tabsdetails.URL)" title="@Model.BikeName  @Tabsdetails.Title">
                     <span class="bwmsprite @Tabsdetails.IconText-sm"></span>
                     <span class="icon-label">@Tabsdetails.TabText </span>
                 </a>
             </li>
             } 
-        </ul>} 
+        </ul>
+        } 
         <div class="clear"></div>
-        @if (bikeInfo.UsedBikeCount > 0)
+        if (bikeInfo.UsedBikeCount > 0)
         { 
         <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-        <a href="/m@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName,(cityDetails!=null)?cityDetails.CityMaskingName:" india")" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+        <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : " india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
             <span class="used-target-label inline-block">
                 <span class="font14 text-bold">@bikeInfo.UsedBikeCount  Used @bikeInfo.Model.ModelName  bikes</span><br />
                 <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey"></span>@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
@@ -110,7 +114,4 @@
             <span class="bwmsprite next-grey-icon"></span>
         </a>
         } 
-    </div>
-</div>
 }
-    
