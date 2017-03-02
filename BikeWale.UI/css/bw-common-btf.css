@@ -420,9 +420,6 @@ a.action-btn:hover{text-decoration:none;}
 .bikeTitle:hover {
     text-decoration: underline;
 }
-.card-desc-block {
-    padding: 5px 20px 15px;
-}
 .inner-content-carousel .jcarousel-control-left { left:0; top:40%; }
 .inner-content-carousel .jcarousel-control-right { right:0; top:40%; }
 .inner-content-carousel .jcarousel-control-prev:hover { background-position: -35px -135px}

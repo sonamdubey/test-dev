@@ -6,12 +6,15 @@
 	padding-bottom: 15px
 	overflow: hidden
 
+	h2
+		font-size: $font-size-medium
+
 	.list-item
 		width: 33%
 		min-height: 235px
 		display: inline-block
 		vertical-align: top
-		padding: 15px 10px 0
+		padding: 20px 10px 0
 
 		a:hover
 			text-decoration: none
@@ -19,20 +22,25 @@
 	.card-desc-block
 		padding-top: 10px
 		padding-right: 10px
-		padding-bottom: 10px
 
 	.model-jcarousel-image-preview
 		img
 			background: url('https://imgd4.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center
 
-.key-size-13
-	font-size: 13px
+.key-size-14
+	font-size: $font-size-base
 	color: $text-light
+
+.value-size-14,
+.value-size-18
+	color: $text-primary
+	font-weight: $font-bold
+
+.value-size-14
+	font-size: $font-size-base
 
 .value-size-18
 	font-size: $font-size-large
-	color: $text-primary
-	font-weight: $font-bold
 
 // makeOverallTabsWrapper
 #makeOverallTabsWrapper
