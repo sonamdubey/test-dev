@@ -65,10 +65,7 @@ namespace Bikewale.Controllers.Mobile.Videos
             ModelMaskingResponse modelInfo = new ModelMaskingResponse();
             modelInfo = new ModelHelper().GetModelDataByMasking(details.VideoEntity.MaskingName);
             ViewBag.ModelId = modelInfo.ModelId;
-            if (GlobalCityArea.GetGlobalCityArea().CityId != 0)
-                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            else
-                ViewBag.CityId = Configuration.GetDefaultCityId;
+            ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
             ViewBag.TopCount = 9;
             return View("~/Views/m/Videos/Details.cshtml");
         }
