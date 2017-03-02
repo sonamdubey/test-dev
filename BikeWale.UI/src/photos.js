@@ -64,7 +64,7 @@ $('.model-main-image').on('click', 'li', function () {
             popupGallery.bindGallery(0);
         }
         else {
-            fallbackGallery.open();
+            fallbackGallery.open(0);
         }
     }
 });
@@ -83,7 +83,7 @@ $('.model-grid-images').on('click', 'li', function () {
         popupGallery.bindGallery(imageIndex);
     }
     else {
-        fallbackGallery.open();
+        fallbackGallery.open(imageIndex);
     }
     
 });

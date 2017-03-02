@@ -222,120 +222,6 @@
     font-size: 14px;
 }
 
-/* item-more-details-list */
-.item-more-details-list li {
-    float: left;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-.item-more-details-list a {
-    display: block;
-    padding: 1px 10px 5px;
-    color: #787878;
-    background: rgba(245, 245, 245, 0.9);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-}
-.item-more-details-list a:hover {
-    color: #fff;
-    background: #54bbca;
-    text-decoration: none;
-}
-.item-more-details-list .icon-label {
-    font-size: 13px;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 13px;
-}
-
-/* key specs */
-.key-specs-list li {
-    padding-left: 12px;
-    padding-right: 12px;
-    position: relative;
-}
-.key-specs-list li:before {
-    content: "";
-    width: 1px;
-    height: 15px;
-    position: absolute;
-    top: 3px;
-    left: 0;
-    border-left: 1px solid #ecedee;
-}
-.key-specs-list li:first-child {
-    padding-left: 0;
-}
-.key-specs-list li:first-child:before {
-    border-left: 0;
-}
-.key-specs-list li,
-.key-specs-list span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* key specs */
-.capacity-sm, .mileage-sm, .power-sm, .weight-sm {
-    width: 16px;
-    height: 14px;
-    margin-right: 5px;
-}
-.capacity-sm {
-    background-position: -136px -153px;
-}
-.mileage-sm {
-    background-position: -154px -153px;
-}
-.power-sm {
-    background-position: -136px -169px;
-    margin-right: 2px;
-}
-.weight-sm {
-    background-position: -154px -169px;
-}
-
-/* generic icons */
-.reviews-sm,
-.news-sm,
-.specs-sm {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    margin-right: 3px;
-}
-.reviews-sm {
-    background-position: -136px -187px;
-}
-.news-sm {
-    background-position: -136px -203px;
-}
-.specs-sm {
-    background-position: -136px -219px;
-}
-
-.item-more-details-list a:hover .reviews-sm {
-    background-position: -152px -187px;
-}
-
-.item-more-details-list a:hover .news-sm {
-    background-position: -152px -203px;
-}
-
-.item-more-details-list a:hover .specs-sm {
-    background-position: -152px -219px;
-}
-
-.item-more-details-list a:hover .photos-sm {
-    background-position: -152px -236px;
-}
-
-.item-more-details-list a:hover .videos-sm {
-    background-position: -152px -251px;
-}
-
 #modelVideosContent h2 {
     margin-bottom: 20px;
 }
@@ -816,15 +702,15 @@
 
 .model-more-info-section .bike-details-block {
     font-size: 14px;
-    width: 60%;
+    width: 78%;
 }
 
 .model-more-info-section .info-grid-9 {
-    width: 81%;
+    width: 59%;
 }
 
 .model-more-info-section .info-grid-3 {
-    width: 18%;
+    width: 40%;
     position: relative;
 }
 .model-more-info-section .info-grid-3:before {
@@ -835,6 +721,10 @@
     width: 1px;
     height: 80%;
     border-left: 1px solid #ecedee;
+}
+
+.model-more-info-section .info-exshowroom-block {
+    width: 55.5%;
 }
 
 .btn-162-34 {
@@ -1047,10 +937,17 @@
     .model-grid-12-slug .model-details-block {
         width: 72%;
     }
+    .gallery-700 .gallery-body,
+    .gallery-body {
+        padding-top: 9%;
+    }
+    .gallery-swiper .swiper-container {
+        height: 510px;
+    }
 }
 
 .bike-gallery-popup { display: none; width:700px; height:635px; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:5%; left:5%; z-index:10; }
-.blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
+.blackOut-window-model { background:#2a2a2a; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; display: none; }
 .modelgallery-close-btn { z-index:9; }
 /*image-videos tabs*/
 .bike-gallery-popup .home-tabs { background:#ccc;}
