@@ -190,21 +190,20 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Sep 2016
         /// Description :   Sets buyer details from tempcurretnuser cookie for 1 day
+        /// Modified by :   Sumit Kate on 02 Mar 2017
+        /// Description :   Use _PQUser cookie
         /// </summary>
         /// <param name="buyerDetails"></param>
         /// <returns></returns>
         public static bool SetBuyerDetailsCookie(string buyerDetails)
         {
             bool isDone = false;
-
             try
             {
-                // set buyer details to cookies
-                HttpCookie cookie = new HttpCookie("TempCurrentUser");
+                Cookie cookie = new Cookie("_PQUser");
                 cookie.Value = buyerDetails;
-                cookie.Expires = DateTime.Now.AddHours(24);
-                HttpContext.Current.Response.Cookies.Add(cookie);
-
+                cookie.Expires = DateTime.Now.AddYears(1);
+                CookieManager.Add(cookie);
                 isDone = true;
             }
             catch (Exception)
@@ -250,59 +249,8 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Sep 2016
         /// Description :   Gets the buyer details from TempCurrentUser cookie
-        /// </summary>
-        /// <param name="BuyerName"></param>
-        /// <param name="BuyerMobile"></param>
-        /// <param name="BuyerEmail"></param>
-        /// <param name="BuyerId"></param>
-        public static void GetBuyerDetailsFromCookie(out string BuyerName, out string BuyerMobile, out string BuyerEmail, out UInt64 BuyerId)
-        {
-            try
-            {
-                var request = HttpContext.Current.Request;
-                if (request.Cookies["TempCurrentUser"] != null && request.Cookies["TempCurrentUser"].Value.ToString() != "")
-                {
-                    string userData = request.Cookies["TempCurrentUser"].Value.ToString();
-
-                    if (userData.Length > 0 && userData.IndexOf(':') > 0)
-                    {
-                        string[] details = userData.Split(':');
-
-                        BuyerName = details[0];
-                        BuyerMobile = details[1];
-                        BuyerEmail = details[2] == "" ? CurrentUser.Email : details[2];
-                        BuyerId = Convert.ToUInt64(BikewaleSecurity.DecryptUserId(Convert.ToInt64(details[3])));
-                    }
-                    else
-                    {
-                        BuyerName = "";
-                        BuyerMobile = "";
-                        BuyerEmail = "";
-                        BuyerId = 0;
-
-                    }
-                }
-                else
-                {
-                    BuyerName = "";
-                    BuyerMobile = "";
-                    BuyerEmail = "";
-                    BuyerId = 0;
-
-                }
-            }
-            catch (Exception)
-            {
-                BuyerName = "";
-                BuyerMobile = "";
-                BuyerEmail = "";
-                BuyerId = 0;
-            }
-        }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 01 Sep 2016
-        /// Description :   Gets the buyer details from TempCurrentUser cookie
+        /// Modified by :   Sumit Kate on 02 Mar 2017
+        /// Description :   Replaced old used bike cookie with PQUser cookie. Single user cookie will be used to form pre-fill
         /// </summary>
         /// <param name="BuyerName"></param>
         /// <param name="BuyerMobile"></param>
@@ -313,18 +261,19 @@ namespace Bikewale.Utility
             try
             {
                 var request = HttpContext.Current.Request;
-                if (request.Cookies["TempCurrentUser"] != null && request.Cookies["TempCurrentUser"].Value.ToString() != "")
+                if (request.Cookies["_PQUser"] != null && request.Cookies["_PQUser"].Value.ToString() != "")
                 {
-                    string userData = request.Cookies["TempCurrentUser"].Value.ToString();
+                    string userData = request.Cookies["_PQUser"].Value.ToString();
 
-                    if (userData.Length > 0 && userData.IndexOf(':') > 0)
+                    if (userData.Length > 0 && userData.IndexOf('&') > 0)
                     {
-                        string[] details = userData.Split(':');
+                        string[] details = userData.Split('&');
 
                         customer.CustomerName = details[0];
-                        customer.CustomerMobile = details[1];
-                        customer.CustomerEmail = details[2] == "" ? CurrentUser.Email : details[2];
-                        customer.CustomerId = Convert.ToUInt64(BikewaleSecurity.DecryptUserId(Convert.ToInt64(details[3])));
+                        customer.CustomerMobile = details[2];
+                        customer.CustomerEmail = details[1] == "" ? CurrentUser.Email : details[1];
+                        if (details.Length > 3)
+                            customer.CustomerId = Convert.ToUInt64(BikewaleSecurity.DecryptUserId(Convert.ToInt64(details[3])));
                     }
                 }
             }
