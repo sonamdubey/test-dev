@@ -1,9 +1,10 @@
 ﻿@{
+   
+}
+@if (Model != null && Model.BikeInfo!= null)
+{
     var bikeInfo = Model.BikeInfo;
     var cityDetails = Model.CityDetails;
-}
-@if (Model != null && bikeInfo!= null)
-{ 
     if (!Model.IsSmallSlug) { 
         <div class="model-more-info-section">
         @if (Model.IsUpcoming) { 
