@@ -236,12 +236,8 @@ var BookingPageViewModel = function () {
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.Customer().IsVerified(obj.isSuccess);
-                        self.Customer().OtpAttempts(obj.noOfAttempts)
-                        if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
-                            //getotp code here
-                            $("#otpPopup").show();
-                            $('.update-mobile-box').hide().siblings().show();
-                            $(".blackOut-window").show();
+                        if (!self.Customer().IsVerified() ) {
+                        
                             isSuccess = false;
 
                         }
@@ -255,19 +251,12 @@ var BookingPageViewModel = function () {
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.Customer().IsVerified(false);
-                        $("#otpPopup").show();
-                        $('.update-mobile-box').hide().siblings().show();
-                        $(".blackOut-window").show();
                         isSuccess = false;
                     }
                 });
             }
             else {
-                if (validate)
-                {
-                    $("#otpPopup").show();
-                    $(".blackOut-window").show();
-                }                
+                              
                 isSuccess = false;
             }
         }           
@@ -337,7 +326,6 @@ var BikeCustomer = function () {
     self.MobileNo = ko.observable();
     self.EmailId = ko.observable();
     self.IsVerified = ko.observable(false);
-    self.OtpAttempts = ko.observable(0);
     self.OtpCode = ko.observable();
 
     self.verifyOtp = function () {

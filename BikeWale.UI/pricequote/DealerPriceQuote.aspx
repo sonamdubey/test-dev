@@ -274,7 +274,7 @@
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block <%= primarydealer.DealerDetails.IsDSA ? "rightfloat" :"" %>">
-                                        <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadsourceid="9"  data-item-id="<%= dealerId %>" data-item-name="<%= primarydealer.DealerDetails.Organization %>" data-item-area="<%= primarydealer.DealerDetails.objArea.AreaName %>" class="btn btn-orange pq-get-dealer-offers leadcapturebtn" c="DealerPriceQoute_Page" a="Get_Offers_Clicked" v="bikeVerLocation" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
                                     <% if(primarydealer.DealerDetails.IsDSA){ %>
@@ -829,24 +829,6 @@
                 <% }%>
             });
 
-            $("#dealer-assist-msg .assistance-response-close").on("click", function(){
-                $("#dealer-assist-msg").parent().slideUp();
-            });
-
-            $("#dealer-lead-msg .okay-thanks-msg").on("click", function(){
-                $(".leadCapture-close-btn").click();
-            });
-
-            
-            $('#btnGetDealerDetails, #btnBikeBooking').on("click", function () {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = '/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
-            });
-
-            $("#leadLink").on("click", function () {
-                getMoreDetailsClick = true;
-            });
-
             $("input[name*='btnVariant']").on("click", function () {
                 if ($(this).attr('versionid') == $('#hdnVariant').val()) {
                     return false;
@@ -855,59 +837,40 @@
                 triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
             });
 
-            $("input[name*='switchDealer']").on("click", function () {
-                if ($(this).attr('dealerId') == $('#hdnDealerId').val()) {
-                    return false;
-                }
-                $('#hdnDealerId').val($(this).attr('title'));
-                triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
-            });
-
             function secondarydealer_Click(dealerID) {
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
-                registerPQ(dealerID);
+                try {
+                    var isSuccess = false;
+
+                    var objData = {
+                        "dealerId": dealerID,
+                        "modelId": <%= modelId%>,
+                        "versionId": versionId,
+                        "cityId": cityId,
+                        "areaId": areaId,
+                        "clientIP": clientIP,
+                        "pageUrl": pageUrl,
+                        "sourceType": 1,
+                        "pQLeadId": pqSourceId,
+                        "deviceId": getCookie('BWC')
+                    };
+
+                    isSuccess = dleadvm.registerPQ(objData);
+
+                    if (isSuccess) {
+                        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                        window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                    }
+                } catch (e) {
+                    console.warn("Unable to create pricequote : " + e.message);
+                }
             }
             function openLeadCaptureForm(dealerID) {
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
                 event.stopPropagation();
             }
             
-            function registerPQ(secondaryDealerId) {
-                var obj = {
-                    'cityId': cityId,
-                    'areaId': areaId,
-                    'clientIP': clientIP,
-                    'sourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>',
-                    'versionId': versionId,
-                    'pQLeadId': leadSourceId,
-                    'deviceId': getCookie('BWC'),
-                    'dealerId': secondaryDealerId,
-                    'refPQId' : pqId
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: "/api/RegisterPQ/",
-                    data: obj,
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                    },
-                    success: function (json) {
-                        var jsonObj = json; 
-                        if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                            cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
-                        }
-                        else {
-                            window.location.href = "/pricequote/";
-                        }
-                    },
-                    error: function (e) {
-                        window.location = "/pricequote/";
-                    }
-                });
-            }
+           
 
             function GetBikeVerLoc() {
                 return bikeName + "_" + versionName + "_" + getCityArea;
@@ -935,7 +898,7 @@
                     $("div#termsPopUpContainer").hide();
                     $(".blackOut-window").hide();
                 });
-                $(".leadcapturebtn").click(function (e) {
+                $(".leadcapturebtn").click(function (e) {debugger;
                     ele = $(this);
                     var leadOptions = {
                         "dealerid": ele.attr('data-item-id'),
