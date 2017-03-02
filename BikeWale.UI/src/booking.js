@@ -7,7 +7,7 @@ var validateTabB = false,
 	deliveryDetailsTab = $("#deliveryDetailsTab"),
 	bikePayment = $("#bikePayment"),
 	bikePaymentTab = $("#bikePaymentTab");
-        otpText = $("#getOTP");
+otpText = $("#getOTP");
 $(".select-dropdown").on("click", function () {
     if (!$(this).hasClass("open")) {
         selectStateDown($(this));
@@ -193,11 +193,10 @@ var BookingPageViewModel = function () {
             return false;
         }
     };
-    
+
 
     self.verifyCustomer = function (data, event) {
-        if (event.target.id = "bikeSummaryNextBtn")
-        {
+        if (event.target.id = "bikeSummaryNextBtn") {
             leadSourceId = $(event.target).attr("leadSourceId");
         }
         var isSuccess = false, validate = validateUserDetail();
@@ -236,9 +235,12 @@ var BookingPageViewModel = function () {
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.Customer().IsVerified(obj.isSuccess);
-                        if (!self.Customer().IsVerified() ) {
-                        
-                            isSuccess = false;
+                        self.Customer().OtpAttempts(obj.noOfAttempts)
+                        if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
+                            //getotp code here		
+                            $("#otpPopup").show();
+                            $('.update-mobile-box').hide().siblings().show();
+                            $(".blackOut-window").show();
 
                         }
                         else {
@@ -251,15 +253,22 @@ var BookingPageViewModel = function () {
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.Customer().IsVerified(false);
+                        $("#otpPopup").show();
+                        $('.update-mobile-box').hide().siblings().show();
+                        $(".blackOut-window").show();
+
                         isSuccess = false;
                     }
                 });
             }
             else {
-                              
+                if (validate) {
+                    $("#otpPopup").show();
+                    $(".blackOut-window").show();
+                }
                 isSuccess = false;
             }
-        }           
+        }
         else {
             isSuccess = true;
             self.changedSteps();
@@ -299,7 +308,7 @@ var BookingPageViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                            history.replaceState(null, null, "?MPQ="+ Base64.encode(cookieValue));
+                            history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
                             isSuccess = true;
                         }
                         else isSuccess = false;
@@ -326,6 +335,7 @@ var BikeCustomer = function () {
     self.MobileNo = ko.observable();
     self.EmailId = ko.observable();
     self.IsVerified = ko.observable(false);
+    self.OtpAttempts = ko.observable(0);
     self.OtpCode = ko.observable();
 
     self.verifyOtp = function () {
@@ -640,7 +650,7 @@ $('.tnc').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
-   
+
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
     $('#terms').empty();
@@ -665,7 +675,7 @@ function LoadTerms(offerId) {
     }
     else {
         $("#terms").load("/statichtml/tnc.html");
-      
+
     }
     $(".termsPopUpContainer").css('height', '500');
 }

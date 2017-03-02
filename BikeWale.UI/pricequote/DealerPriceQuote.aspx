@@ -898,7 +898,7 @@
                     $("div#termsPopUpContainer").hide();
                     $(".blackOut-window").hide();
                 });
-                $(".leadcapturebtn").click(function (e) {debugger;
+                $(".leadcapturebtn").click(function (e) {
                     ele = $(this);
                     var leadOptions = {
                         "dealerid": ele.attr('data-item-id'),
