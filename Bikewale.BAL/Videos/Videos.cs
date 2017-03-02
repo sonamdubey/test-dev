@@ -8,7 +8,7 @@ using Grpc.CMS;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Linq;
 using System.Web;
 
 namespace Bikewale.BAL.Videos
@@ -60,7 +60,7 @@ namespace Bikewale.BAL.Videos
             {
                 if (_useGrpc)
                 {
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId,1,totalCount);
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategory((uint)categoryId, 1, totalCount);
 
                     if (_objVideoList != null)
                     {
@@ -126,16 +126,16 @@ namespace Bikewale.BAL.Videos
                 {
                     if (!sortOrder.HasValue)
                         sortOrder = VideosSortOrder.MostPopular;
-                    
+
                     int startIndex, endIndex;
                     Bikewale.Utility.Paging.GetStartEndIndex(pageSize, pageNo, out startIndex, out endIndex);
 
-                    var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList,(uint)startIndex,(uint)endIndex,sortOrder.Value);
+                    var _objVideoList = GrpcMethods.GetVideosBySubCategories(categoryIdList, (uint)startIndex, (uint)endIndex, sortOrder.Value);
 
                     if (_objVideoList != null && _objVideoList.TotalRecords > 0)
                     {
                         var pageCount = (int)Math.Ceiling((double)_objVideoList.TotalRecords / (double)pageSize);
-                       
+
                         if (pageNo < pageCount)
                             _objVideoList.NextPageUrl = String.Format("api/v1/videos/subcategory/{0}/?appId={1}&pageNo={2}&pageSize={3}&sortCategory={4}", categoryIdList, 2, pageNo + 1, pageSize, sortOrder.ToString());
 
@@ -166,7 +166,7 @@ namespace Bikewale.BAL.Videos
         public BikeVideosListEntity GetVideosBySubCategoryOldWay(string categoryIdList, ushort pageNo, ushort pageSize, VideosSortOrder? sortOrder = null)
         {
             BikeVideosListEntity objVideosList = null;
-            
+
             try
             {
                 string _apiUrl = string.Empty;
@@ -220,7 +220,7 @@ namespace Bikewale.BAL.Videos
                 {
                     GrpcVideosList _objVideoList;
 
-                    _objVideoList = GrpcMethods.GetSimilarVideos((int)videoId, totalCount);              
+                    _objVideoList = GrpcMethods.GetSimilarVideos((int)videoId, totalCount);
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
                     {
@@ -361,13 +361,13 @@ namespace Bikewale.BAL.Videos
                 if (_useGrpc)
                 {
                     GrpcVideosList _objVideoList;
-                    
+
                     int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);    
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)pageSize, (int)pageNo, out startIndex, out endIndex);
 
                     if (modelId.HasValue)
                     {
-                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value,(uint)startIndex,(uint)endIndex);
+                        _objVideoList = GrpcMethods.GetVideosByModelId((int)modelId.Value, (uint)startIndex, (uint)endIndex);
                     }
                     else
                     {
@@ -423,6 +423,51 @@ namespace Bikewale.BAL.Videos
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"] + "BikeVideosRepository.GetVideosByCategory");
                 objErr.SendMail();
+            }
+
+            return objVideosList;
+        }
+
+        /// <summary>
+        /// Created by: Sangram Nandkhile on 28 Feb 2017
+        /// Summary: Fetch similar videos by video basic id and totalCount
+        /// </summary>
+        /// <param name="videoId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoEntity> GetSimilarModelsVideos(uint videoId, ushort totalCount)
+        {
+            List<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                objVideosList = GetSimilarVideos(videoId, totalCount).ToList();
+                // If there are no enpugh videos for Model, calculate category id and fetch remaining videos by category
+                int fetchedCount = objVideosList.Count;
+                if (fetchedCount < totalCount)
+                {
+                    int remainingCount = totalCount - Convert.ToUInt16(fetchedCount);
+                    if (remainingCount > 0)
+                    {
+                        var videoDetails = GetVideoDetails(videoId);
+                        if (videoDetails != null)
+                        {
+                            int categoryId = Convert.ToInt32(videoDetails.SubCatId);
+                            if (categoryId > 0)
+                            {
+                                EnumVideosCategory category = (EnumVideosCategory)categoryId;
+                                BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, 10, null);
+                                IEnumerable<BikeVideoEntity> objCategoryVidesos = allVideos.Videos.Where(x => x.BasicId != videoId).Take(remainingCount);
+                                if (objCategoryVidesos != null && objCategoryVidesos.Count() > 0)
+                                {
+                                    objVideosList.AddRange(objCategoryVidesos);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeVideosRepository.GetSimilarModelsVideos => {0}", videoId));
             }
 
             return objVideosList;

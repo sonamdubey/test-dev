@@ -1,0 +1,62 @@
+﻿@{
+
+    var Model = ViewBag.DetailsPage;
+    var videoModel = Model.VideoEntity;
+
+
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/video-detail.css' />";
+    ViewBag.Page_JS_Path = "/m/src/videos/details.js";
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
+    ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+
+}
+        @if (videoModel != null)
+        {
+            <section class="bg-white">
+                <div class="container bottom-shadow">
+                    <div id="embedVideo">
+                        <iframe height="180" src="@string.Format("{0}&autoplay=1",videoModel.VideoUrl)" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="padding20">
+                        <h1 class="font18">@videoModel.VideoTitle</h1>
+                        <p class="font12 margin-top10 margin-bottom10 text-xlight-grey">@videoModel.DisplayDate</p>
+                        <div class="font14 text-light-grey line-height18 margin-bottom10">@Html.Raw(videoModel.Description)</div>
+                        <div class="video-views-count-container font14 leftfloat border-light-right">
+                            <span class="bwmsprite video-views-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Views.ToString())</span>
+                        </div>
+                        <div class="video-views-count-container font14 leftfloat padding-left10 border-light-right">
+                            <span class="bwmsprite video-likes-icon margin-right5"></span><span class="text-default comma">@Bikewale.Utility.Format.FormatNumeric(videoModel.Likes.ToString())</span>
+                        </div>
+                        <div class="font14 leftfloat padding-left10 powerdrift-sub-btn">
+                            <script src="https://apis.google.com/js/platform.js"></script>
+                            <div class="g-ytsubscribe" data-channel="powerdriftofficial" data-layout="default" data-count="hidden"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class=""></div>
+
+                        <p class="padding-top15 margin-top20 margin-bottom15 font14 text-light-grey border-light-top">Share this story</p>
+                        <ul class="social-wrapper">
+                            <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
+                                <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                            </li>
+                            <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
+                                <span class="social-icons-sprite fb-icon"></span>
+                            </li>
+                            <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
+                                <span class="social-icons-sprite tweet-icon"></span>
+                            </li>
+                            <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
+                                <span class="social-icons-sprite gplus-icon"></span>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </section>
+        }
+        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}  
+@{Html.RenderAction("SimilarVideos", "VideosMobile", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId});}
+@{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
+         
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

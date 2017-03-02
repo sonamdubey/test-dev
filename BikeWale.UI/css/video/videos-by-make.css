@@ -29,3 +29,7 @@
 .bike-listing .play-icon-wrapper {
     left: 7px;
 }
+
+.jcarousel-card {
+    min-height:262px;
+}

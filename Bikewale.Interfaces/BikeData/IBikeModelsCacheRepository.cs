@@ -52,7 +52,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
         EnumBikeBodyStyles GetBikeBodyType(uint modelId);
-        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int bodyStyleId, int topCount, uint cityId);
+        ICollection<MostPopularBikesBase> GetPopularBikesByBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
