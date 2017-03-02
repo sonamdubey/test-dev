@@ -90,7 +90,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
             SimilarModelsModel similarVideosModel = new SimilarModelsModel();
-            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, 9);
+            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId,modelId, 9);
             similarVideosModel.ModelId = modelId;
             return PartialView("~/views/shared/_SimilarVideo.cshtml", similarVideosModel);
         }

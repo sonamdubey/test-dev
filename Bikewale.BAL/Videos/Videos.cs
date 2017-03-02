@@ -434,14 +434,20 @@ namespace Bikewale.BAL.Videos
         /// </summary>
         /// <param name="videoId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVideoEntity> GetSimilarModelsVideos(uint videoId, ushort totalCount)
+        public IEnumerable<BikeVideoEntity> GetSimilarModelsVideos(uint videoId, uint modelId, ushort totalCount)
         {
             List<BikeVideoEntity> objVideosList = null;
+            int fetchedCount = 0;
             try
             {
-                objVideosList = GetSimilarVideos(videoId, totalCount).ToList();
+                var videoList = GetVideosByMakeModel(1, totalCount, 0, modelId);
+                if (videoList != null)
+                {
+                    objVideosList = videoList.ToList();
+                    fetchedCount = objVideosList.Count;
+                }
+                //GetSimilarVideos(videoId, totalCount).ToList();
                 // If there are no enpugh videos for Model, calculate category id and fetch remaining videos by category
-                int fetchedCount = objVideosList.Count;
                 if (fetchedCount < totalCount)
                 {
                     int remainingCount = totalCount - Convert.ToUInt16(fetchedCount);
@@ -454,7 +460,7 @@ namespace Bikewale.BAL.Videos
                             if (categoryId > 0)
                             {
                                 EnumVideosCategory category = (EnumVideosCategory)categoryId;
-                                BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, 10, null);
+                                BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, (ushort)(remainingCount + 1), null);
                                 IEnumerable<BikeVideoEntity> objCategoryVidesos = allVideos.Videos.Where(x => x.BasicId != videoId).Take(remainingCount);
                                 if (objCategoryVidesos != null && objCategoryVidesos.Count() > 0)
                                 {

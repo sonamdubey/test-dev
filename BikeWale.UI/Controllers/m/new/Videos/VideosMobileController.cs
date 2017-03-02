@@ -78,7 +78,7 @@ namespace Bikewale.Controllers.Mobile.Videos
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
             SimilarModelsModel similarVideosModel = new SimilarModelsModel();
-            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, 9);
+            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, modelId, 9);
             similarVideosModel.ModelId = modelId;
             return PartialView("~/views/m/shared/_SimilarVideo.cshtml", similarVideosModel);
         }

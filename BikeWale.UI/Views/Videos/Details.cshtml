@@ -9,6 +9,7 @@
     ViewBag.Ad_Mid_320x50 = false;
     ViewBag.Ad_300x250 = false;
     ViewBag.IsHeaderFix = false;
+    ViewBag.Page_JS_Path = "/src/videos/detail.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/detail.css' />";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
@@ -64,5 +65,8 @@
 @{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos,IsSmallSlug = false });}
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId });}
 @{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId=@ViewBag.ModelId, topCount=@ViewBag.TopCount, cityId = @ViewBag.CityId});}
+
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 <script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
+<link href="https://st2.aeplcdn.com/bikewale/min/css/jquery.floating-social-share.min.css?28Feb2017v1" rel="stylesheet" type="text/css">
+
