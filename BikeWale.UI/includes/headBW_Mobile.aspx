@@ -31,7 +31,11 @@
                         <p class="header-dealername" id="header-dealername"></p>
                     </div>                   
                 </div>
+                <% if(IsUsedListingPage){ %>
+                    <!-- sell bike button -->
+                    <%} %>
                 <div class="rightfloat">
+                    
                     <div class="global-search" id="global-search" style="display:none">
                         <span class="bwmsprite search-bold-icon"></span>
                     </div>
