@@ -72,7 +72,7 @@
                             @if (Model.BikeInfo.UsedBikeCount > 0)
                             {
                                 <div class="border-solid-bottom margin-bottom10"></div>
-                                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName, (Model.CityDetails != null) ? Model.CityDetails.CityMaskingName : " india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+                                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName, (Model.CityDetails != null) ? Model.CityDetails.CityMaskingName : "india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
                                     <span class="used-target-label inline-block">
                                         <span class="font14 text-bold">@Model.BikeInfo.UsedBikeCount  Used @Model.BikeName bikes</span>
                                         <span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey"></span> @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
