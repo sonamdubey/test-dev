@@ -85,7 +85,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn-teal:hover { background: #58bdcb; border: 1px solid #58bdcb; text-decoration: none; }
 .btn-inv-teal { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
 .btn-inv-teal.active { background: #3799a7; color: #fff; }
-.btn-white:hover, .btn-inv-teal:hover { text-decoration: none }
+.btn-transparent { color: #fff; border: 1px solid #fff; }
+.btn-transparent:hover { background: #fff; color: #2a2a2a; }
+.btn:hover { text-decoration: none }
 
 .btn-xs { padding: 8px; }
 .btn-sm { padding: 8px 25px; }
@@ -107,6 +109,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 .home-getFinalPrice-banner { background:#161209 no-repeat center top; background-size: cover; height: 373px; }
+
+.header-sell-btn { padding: 5px 9px; font-size: 14px; float: left; position: relative; top: -6px; margin-right: 10px; }
 
 /* global-search classes */
 .global-search { float: left; padding: 0 10px; position: relative; top: 2px; cursor: pointer; }
