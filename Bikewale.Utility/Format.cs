@@ -231,7 +231,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "FormatManufacturerAd");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage));
             }
 
             return retVal;
