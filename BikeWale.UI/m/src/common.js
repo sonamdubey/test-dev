@@ -174,7 +174,7 @@ $(document).ready(function () {
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
-    $('#newBikeList').val('').focus();
+    //$('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
 
     $(".fa-spinner").hide();
@@ -217,7 +217,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-
+    /*
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
         source: 1,
@@ -326,13 +326,14 @@ $(document).ready(function () {
             $('#errNewBikeSearch').show();
         }
     });
+    */
 
     function btnFindBikeNewNav() {
         if (focusedMakeModel == undefined || focusedMakeModel == null) {
             return false;
         }
         return MakeModelRedirection(focusedMakeModel);
-    }
+    }    
 
     // global city popup autocomplete
     $("#globalCityPopUp").bw_autocomplete({
@@ -1763,9 +1764,8 @@ var recentSearches =
 {
     searchKey: "recentsearches",
     options: {
-        homeSearchEle: $('#newBikeList'),
         bikeSearchEle: $('#globalSearch'),
-        recentSearchesEle: $("#new-global-recent-searches").length ? $("#new-global-recent-searches") : $("#global-recent-searches"),
+        recentSearchesEle: $("#global-recent-searches"),
         recentSearchesLoaded: false
     },
     saveRecentSearches: function (opt) {
@@ -1850,6 +1850,7 @@ recentSearches.options.recentSearchesEle.on('click', 'li', function () {
             if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
             objSearches.searches.unshift(obj);
             bwcache.set(recentSearches.searchKey, objSearches);
+            $('#globalSearch').attr('placeholder', $(this).find('a').text());
             window.location.href = $(this).find('a').first().attr('data-href');
         }
 
