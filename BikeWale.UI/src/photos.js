@@ -397,21 +397,22 @@ function setVideo(elementIndex) {
 
 var colorIndex = 0;
 
-(function () {
-    try {
-        if (colorImageId > 0) {
+if (!detectIEBrowser()) {
+    (function () {
+        try {
+            if (colorImageId > 0) {
 
-            ko.utils.arrayForEach(modelColorImages, function (item, index) {
-                if (item.ColorId == colorImageId) { colorIndex = index; }
-            });
+                ko.utils.arrayForEach(modelColorImages, function (item, index) {
+                    if (item.ColorId == colorImageId) { colorIndex = index; }
+                });
 
-            vmModelGallery.activeColorIndex(colorIndex);
+                vmModelGallery.activeColorIndex(colorIndex);
+            }
+        } catch (e) {
+            console.warn(e);
         }
-    } catch (e) {
-        console.warn(e);
-    }
-})();
-
+    })();
+}
 // initialize swipers
 var gallerySwiper = new Swiper('.gallery-type-swiper', {
     nextButton: '.gallery-type-next',
@@ -507,12 +508,14 @@ var closePopUp = function (state) {
         popupGallery.close();
 };
 
-(function () {
-    try {
-        if (colorImageId > 0) {            
-            thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
+if (!detectIEBrowser()) {
+    (function () {
+        try {
+            if (colorImageId > 0) {
+                thumbnailSwiperEvents.focusGallery(colorGallerySwiper, colorIndex);
+            }
+        } catch (e) {
+            console.warn(e);
         }
-    } catch (e) {
-        console.warn(e);
-    }
-})();
+    })();
+}

@@ -512,8 +512,13 @@
         <script type="text/javascript">            
             $(document).ready(function () {
                 if(isModelPage == 'true')
-                {                     
-                    popupGallery.bindGallery(imageIndex);
+                {                              
+                    if (!detectIEBrowser()) {
+                        popupGallery.bindGallery(imageIndex);                        
+                    }
+                    else {
+                        fallbackGallery.open();
+                    }  
                 }
             });
         </script>
