@@ -293,7 +293,6 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .video-swiper .article-stats-content { width: 72%; }
 
 /* fa alternatives */
-.search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }
 .video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
 .video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
 .fa-angle-down { width:12px; height:7px; background-position:-155px -87px; }
