@@ -21,7 +21,7 @@
         Ad_300x250 = false;
         TargetedModel = (inquiryDetails != null && inquiryDetails.Model != null) ? inquiryDetails.Model.ModelName : string.Empty;
         TargetedCity = (inquiryDetails != null && inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
-    
+        ShowSellBikeLink = true;
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
