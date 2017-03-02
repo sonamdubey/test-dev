@@ -141,7 +141,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Summary : Function to Get the price quote by price quote id.
         /// Modified by :   Vivek Gupta on 29th Aug 2016
         /// Description :   Created new SP to return manufacturere Ad value and created overload of the function
-        /// </summary>
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
         /// <returns>Returns price quote object.</returns>
         public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
@@ -152,7 +153,7 @@ namespace Bikewale.DAL.PriceQuote
                 objQuotation = new BikeQuotationEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequote_new_07092016";
+                    cmd.CommandText = "getpricequote_new_02032017";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
@@ -179,6 +180,9 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.State = Convert.ToString(dr["statename"]);
                             objQuotation.ManufacturerAd = Convert.ToString(dr["manufacturerAd"]);
                             objQuotation.PriceQuoteId = pqId;
+                            objQuotation.LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]);
+                            objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
+                            objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
                         }
                     }
                 }

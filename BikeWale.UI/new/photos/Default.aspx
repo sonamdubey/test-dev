@@ -15,6 +15,11 @@
             alternate = vmModelPhotos.pageMetas.AlternateUrl;
             enableOG = true;
             ogImage = vmModelPhotos.modelImage;
+            AdId = "1442913773076";
+            AdPath = "/1017752/Bikewale_NewBike_";    
+            isAd300x250BTFShown= false;
+            isAd300x250Shown = false;
+            isAd970x90BottomShown = false;                    
         }       
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
@@ -340,16 +345,20 @@
                                         <%} %>
                                     </ul>
                                 </div>
-                                <a href="<%=bikeUrl %>" title="<%= bikeName %>" class="btn btn-white btn-162-34">View details<span class="bwsprite btn-red-arrow"></span></a>
                             </div>
 
                             <%if (!IsUpcoming && !IsDiscontinued)
                               { %>
                             <div class="info-grid-3 inline-block">
-                                <p class="font12 text-light-grey text-truncate margin-bottom5">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <div class="info-exshowroom-block inline-block padding-right10">
+                                    <p class="font12 text-light-grey text-truncate margin-bottom5">Ex-showroom price, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
 
-                                <span class="bwsprite inr-md"></span>
-                                <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                    <span class="bwsprite inr-md"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                </div>
+                                <div class="inline-block">
+                                    <a href="<%=bikeUrl %>" title="<%= bikeName %>" class="btn btn-white btn-162-34">View details<span class="bwsprite btn-red-arrow"></span></a>
+                                </div>
                             </div>
                             <%}
                               else if (IsUpcoming)

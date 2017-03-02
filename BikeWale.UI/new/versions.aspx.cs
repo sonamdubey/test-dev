@@ -640,6 +640,8 @@ namespace Bikewale.New
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed
         /// Modified by     :   Sajal Gupta on 13-01-2017
         /// Description     :   Changed flag isOnRoadPrice if onroad price not available
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -653,7 +655,7 @@ namespace Bikewale.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {

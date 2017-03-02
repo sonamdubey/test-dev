@@ -624,30 +624,37 @@
 			var areaId = '<%= areaId %>';
 			var versionName = "<%= objPriceQuote.objVersion.VersionName %>";
 
-			$(".leadcapturebtn").click(function (e) {
-				ele = $(this);
-				var leadOptions = {
-					"dealerid": ele.attr('data-item-id'),
-					"dealername": ele.attr('data-item-name'),
-					"dealerarea": ele.attr('data-item-area'),
-					"versionid": '<%= versionId %>',
-					"leadsourceid": ele.attr('data-leadsourceid'),
-					"pqsourceid": ele.attr('data-pqsourceid'),
-					"pageurl": pageUrl,
-					"clientip": clientIP,
-					"isregisterpq": ele.attr('data-item-registerpq') == "true" ? true : false,
-					"mfgCampid": ele.attr('data-mfgcampid'),
-					"pqid": pqId,
-					"gaobject" : {
-						cat : ele.attr('data-ga-cat'),
-						act: ele.attr('data-ga-act'),
-						lab: ele.attr('data-ga-lab')
-								}
-				};
+		    $(".leadcapturebtn").click(function (e) {
+		        ele = $(this);
+		        try {
+		            var leadOptions = {
+		                "dealerid": ele.attr('data-item-id'),
+		                "dealername": ele.attr('data-item-name'),
+		                "dealerarea": ele.attr('data-item-area'),
+		                "versionid": versionId,
+		                "leadsourceid": ele.attr('data-leadsourceid'),
+		                "pqsourceid": ele.attr('data-pqsourceid'),
+		                "isleadpopup": ele.attr('data-isleadpopup'),
+		                "mfgCampid": ele.attr('data-mfgcampid'),
+		                "pqid": pqId,
+		                "pageurl": pageUrl,
+		                "clientip": clientIP,
+		                "dealerHeading": ele.attr('data-item-heading'),
+		                "dealerMessage": ele.attr('data-item-message'),
+		                "dealerDescription": ele.attr('data-item-description'),
+		                "gaobject": {
+		                    cat: ele.attr("c"),
+		                    act: ele.attr("a"),
+		                    lab: ele.attr("v")
+		                }
+		            };
 
-				dleadvm.setOptions(leadOptions);
+		            dleadvm.setOptions(leadOptions);
+		        } catch (e) {
+		            console.warn("Unable to get submit details : " + e.message);
+		        }
 
-			});           
+		    });
 
 			$('#getDealerDetails,#btnBookBike').click(function () {
 				var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;

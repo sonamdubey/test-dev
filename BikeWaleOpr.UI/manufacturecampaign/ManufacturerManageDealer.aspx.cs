@@ -20,8 +20,8 @@ namespace BikewaleOpr.manufacturecampaign
     {
         protected bool isEdit = true;
         protected Button btnUpdate;
-        protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4;
-        protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4;
+        protected TextBox campaignDescription, txtMaskingNumber, textBox1, textBox2, textBox3, textBox4, LeadCapturePopup_Heading, LeadCapturePopup_Description, LeadCapturePopup_Message;
+        protected CheckBox isActive, CheckBox1, CheckBox2, CheckBox3, CheckBox4, CheckBox5, CheckBox6, CheckBox7;
         protected HiddenField Hiddenfield1, Hiddenfield2, Hiddenfield3, Hiddenfield4, hdnOldMaskingNumber, hdnmaskingnumber;
         protected int dealerId, userId;
         protected int campaignId = 0;
@@ -51,6 +51,7 @@ namespace BikewaleOpr.manufacturecampaign
             if (Request.QueryString["campaignid"] == null)
             {
                 isEdit = false;
+
             }
             else
             {
@@ -63,12 +64,14 @@ namespace BikewaleOpr.manufacturecampaign
             dealerId = Convert.ToInt32(Request.QueryString["dealerid"]);
             userId = Convert.ToInt32(CurrentUser.Id);
             manufacturerName = Request.QueryString["manufactureName"];
+
         }
 
         /// <summary>
         /// Created by : SajalGupta on 30/08/2016
         /// Description : This function binds the data to the textboxes;
-        /// </summary>
+        /// Modified By:- Subodh Jain 1 march 2017
+        /// Description :- Added LeadCapturePopupMessage,LeadCapturePopupHeading,LeadCapturePopupDescription
         /// <param name="campaignId"></param>
         private void ShowData(int campaignId)
         {
@@ -86,12 +89,45 @@ namespace BikewaleOpr.manufacturecampaign
                         string templateHtml;
                         foreach (var campaignDetails in dataReader)
                         {
+                            pageId = campaignDetails.PageId;
                             if (count == 0)
                             {
                                 campaignDescription.Text = campaignDetails.CampaignDescription;
                                 txtMaskingNumber.Text = campaignDetails.CampaignMaskingNumber;
                                 hdnOldMaskingNumber.Value = campaignDetails.CampaignMaskingNumber;
                                 hdnmaskingnumber.Value = campaignDetails.CampaignMaskingNumber;
+                                if (!string.IsNullOrEmpty(campaignDetails.LeadCapturePopupHeading))
+                                {
+                                    LeadCapturePopup_Heading.Text = campaignDetails.LeadCapturePopupHeading;
+
+                                }
+                                else
+                                {
+                                    CheckBox5.Checked = true;
+                                    LeadCapturePopup_Heading.Enabled = false;
+                                }
+
+                                if (!string.IsNullOrEmpty(campaignDetails.LeadCapturePopupDescription))
+                                {
+                                    LeadCapturePopup_Description.Text = campaignDetails.LeadCapturePopupDescription;
+
+                                }
+                                else
+                                {
+                                    CheckBox6.Checked = true;
+                                    LeadCapturePopup_Description.Enabled = false;
+                                }
+                                if (!string.IsNullOrEmpty(campaignDetails.LeadCapturePopupMessage))
+                                {
+                                    LeadCapturePopup_Message.Text = campaignDetails.LeadCapturePopupMessage;
+
+                                }
+                                else
+                                {
+
+                                    CheckBox7.Checked = true;
+                                    LeadCapturePopup_Message.Enabled = false;
+                                }
                                 if (campaignDetails.IsActive == 1)
                                 {
                                     isActive.Checked = true;
@@ -102,7 +138,7 @@ namespace BikewaleOpr.manufacturecampaign
                                 }
                             }
 
-                            pageId = campaignDetails.PageId;
+
                             isDefault = campaignDetails.IsDefault;
                             templateHtml = campaignDetails.TemplateHtml;
 
@@ -134,7 +170,6 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ShowData");
-                objErr.SendMail();
             }
 
         }
@@ -144,15 +179,14 @@ namespace BikewaleOpr.manufacturecampaign
         /// Description : This function update or inserts manufacturer campaign data.
         /// Modified by : Sajal Gupta on 07/08/2016
         /// Description : Masking number mapping using cw web service.
-        /// </summary>
+        /// Modified By:- Subodh Jain 1 march 2017
+        /// Description :- Added LeadCapturePopupMessage,LeadCapturePopupHeading,LeadCapturePopupDescription
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void InserOrUpdateDealerCampaign(object sender, EventArgs e)
         {
-            string templateHtml1, templateHtml2, templateHtml3, templateHtml4;
+            string templateHtml1, templateHtml2, templateHtml3, templateHtml4, LeadCapturePopupMessage = string.Empty, LeadCapturePopupDescription = string.Empty, LeadCapturePopupHeading = string.Empty;
             int templateId1 = 0, templateId2 = 0, templateId3 = 0, templateId4 = 0;
-
-
             string dealerMobile = null;
 
 
@@ -239,15 +273,29 @@ namespace BikewaleOpr.manufacturecampaign
                             templateHtml4 = null;
                             templateId4 = 4;
                         }
-
+                        if (!CheckBox5.Checked)
+                        {
+                            LeadCapturePopupHeading = LeadCapturePopup_Heading.Text.Trim();
+                            LeadCapturePopup_Heading.Enabled = true;
+                        }
+                        if (!CheckBox6.Checked)
+                        {
+                            LeadCapturePopupDescription = LeadCapturePopup_Description.Text.Trim();
+                            LeadCapturePopup_Description.Enabled = true;
+                        }
+                        if (!CheckBox7.Checked)
+                        {
+                            LeadCapturePopupMessage = LeadCapturePopup_Message.Text.Trim();
+                            LeadCapturePopup_Message.Enabled = true;
+                        }
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        if (objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId))
+                        if (objMfgCampaign.SaveManufacturerCampaignTemplate(objList, userId, campaignId, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading, dealerId))
                         {
-                            lblGreenMessage.Text = "Campaign added succesfully";
+                            lblGreenMessage.Text = "Campaign added successfully";
                             Response.Redirect("/manufacturecampaign/ManufacturerManageDealer.aspx?campaignid=" + campaignId + "&dealerid=" + dealerId + "&manufactureName=" + manufacturerName, false);
                         }
                         else
@@ -298,13 +346,27 @@ namespace BikewaleOpr.manufacturecampaign
                             templateHtml4 = null;
                             templateId4 = 4;
                         }
-
+                        if (!CheckBox5.Checked)
+                        {
+                            LeadCapturePopupHeading = LeadCapturePopup_Heading.Text.Trim();
+                            LeadCapturePopup_Heading.Enabled = true;
+                        }
+                        if (!CheckBox6.Checked)
+                        {
+                            LeadCapturePopupDescription = LeadCapturePopup_Description.Text.Trim();
+                            LeadCapturePopup_Description.Enabled = true;
+                        }
+                        if (!CheckBox7.Checked)
+                        {
+                            LeadCapturePopupMessage = LeadCapturePopup_Message.Text.Trim();
+                            LeadCapturePopup_Message.Enabled = true;
+                        }
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml1, TemplateId = templateId1 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml2, TemplateId = templateId2 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml3, TemplateId = templateId3 });
                         objList.Add(new ManuCamEntityForTemplate() { TemplateHtml = templateHtml4, TemplateId = templateId4 });
 
-                        if (objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList))
+                        if (objMfgCampaign.UpdateBWDealerCampaign(campaignDescription.Text.Trim(), (isActive.Checked ? 1 : 0), hdnOldMaskingNumber.Value, dealerId, userId, campaignId, objList, LeadCapturePopupMessage, LeadCapturePopupDescription, LeadCapturePopupHeading))
                         {
                             ShowData(campaignId);
                             lblGreenMessage.Text = "Campaign updated succesfully";
@@ -323,7 +385,6 @@ namespace BikewaleOpr.manufacturecampaign
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "InserOrUpdateDealerCampaign");
-                objErr.SendMail();
             }
 
         }
