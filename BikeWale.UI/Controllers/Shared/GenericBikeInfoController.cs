@@ -6,6 +6,10 @@ using System.Web.Mvc;
 
 namespace Bikewale.Controllers.Shared
 {
+    /// <summary>
+    /// Created by : Sangram Nandkhile on 01 Mar 2017
+    /// Summary:  Desktop Generic bike controller
+    /// </summary>
     public class GenericBikeInfoController : Controller
     {
 
