@@ -150,7 +150,7 @@
                         <div class="swiper-heading-details" data-bind="visible: photoHeadingActive()">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activeColorTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
-                                <span data-bind="text: activeColorIndex()"></span> of <span data-bind="text: colorPhotoList().length"></span> <span data-bind="text: colorPhotoList().length > 1 ? 'colors' : 'color'"></span>
+                                <span data-bind="text: activeColorIndex()"></span> of <span data-bind="text: colorPhotoList().length"></span> <span data-bind="text: colorPhotoList().length > 1 ? 'colours' : 'colour'"></span>
                             </div>
                             <div class="clear"></div>
                         </div>

@@ -110,7 +110,10 @@ var popupGallery = {
     },
 
     close: function () {
-        if (isModelPage === "true") {
+        if ((isModelPage === "true") && (colorImageId > 0)) {
+            window.location.href = window.location.pathname.split("images/")[0] + '#modelColorsContent';
+        }
+        else if (isModelPage === "true") {
             window.location.href = window.location.pathname.split("images/")[0];
         }
         else {

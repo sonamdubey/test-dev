@@ -16,7 +16,7 @@
 <head>
     <%
         var modDetails = modelPageEntity.ModelDetails;
-        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", bikeName);
         description = pgDescription;
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPageEntity.ModelDetails.MakeBase.MaskingName, modelPageEntity.ModelDetails.MaskingName);
         AdId = "1442913773076";
@@ -692,14 +692,14 @@
                            { %>
                         <a href="#modelPricesContent" rel="nofollow">Price</a>
                         <% } %>
+                        <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                          { %>
+                        <a href="#modelColorsContent" rel="nofollow">Colours</a>
+                        <%} %>
                         <% if (modelPageEntity.ModelVersionSpecs != null)
                            { %>
                         <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-                        <% } %>
-                        <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
-                          { %>
-                        <a href="#modelColorsContent" rel="nofollow">Colors</a>
-                        <%} %>
+                        <% } %>                        
                         <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                         <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
@@ -752,14 +752,14 @@
                                { %>
                             <a href="#modelPricesContent" rel="nofollow">Price</a>
                             <% } %>
+                             <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                              { %>
+                            <a href="#modelColorsContent" rel="nofollow">Colours</a>
+                            <%} %>
                             <% if (modelPageEntity.ModelVersionSpecs != null)
                                { %>
                             <a href="#modelSpecsFeaturesContent" rel="nofollow">Specs & Features</a>
-                            <% } %>
-                            <%if (modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
-                              { %>
-                            <a href="#modelColorsContent" rel="nofollow">Colors</a>
-                            <%} %>
+                            <% } %>                           
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                                { %>
                             <a href="#modelReviewsContent" rel="nofollow">Reviews</a>
@@ -868,7 +868,7 @@
                                             <%if (colorCount > 0)
                                               {%>
                                             <tr>
-                                                <td valign="top">Colors</td>
+                                                <td valign="top">Colours</td>
                                                 <td valign="top" class="text-bold">
                                                     <ul class="model-color-list">
                                                           <%foreach (var colorName in modelPageEntity.ModelColors)
@@ -959,6 +959,38 @@
                             <div class="clear"></div>
                         </div>
                         <% } %>
+
+                         <%if (modelPageEntity != null && modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
+                              { %>
+                            <div id="modelColorsContent" class="bw-model-tabs-data padding-top20 font14">
+                                <h2 class="padding-left20 padding-right20"><%=bikeName %> Colours</h2>
+                                <ul id="modelColorsList">
+                                    <% foreach (var modelColor in modelPageEntity.ModelColors)
+                                       { %>                                   
+                                    <li>
+                                        <%  if(modelColor.ColorImageId > 0) { %>
+                                    <a href="/<%=modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/?modelpage=true&colorImageId=<%=modelColor.ColorImageId %>#modelGallery">
+                                        <%} %>
+                                        <div title="<%= modelColor.ColorName %>" class="color-box inline-block <%= (((IList)modelColor.HexCodes).Count == 1 )?"color-count-one": (((IList)modelColor.HexCodes).Count >= 3 )?"color-count-three":"color-count-two" %>">
+                                            <% if (modelPageEntity.ModelColors != null)
+                                               {
+                                                   foreach (var HexCode in modelColor.HexCodes)
+                                                   { %>
+                                            <span <%= String.Format("style='background-color: #{0}'",Convert.ToString(HexCode)) %>></span>
+                                            <%}
+                                               } %>
+                                        </div> 
+                                        <p class="font16 inline-block text-truncate"><%= Convert.ToString(modelColor.ColorName) %></p>
+                                        <%  if(modelColor.ColorImageId > 0) { %>  
+                                    </a> 
+                                    <%} %> 
+                                    </li>                                                                                                            
+                                    <%} %>
+                                </ul>
+                                <div class="margin-right10 margin-left10 border-solid-top"></div>
+                            </div>
+                            <%
+                              } %>
 
                         <% if (modelPageEntity.ModelVersionSpecs != null)
                            { %>
@@ -1264,39 +1296,7 @@
 
                             <div class="margin-right10 margin-left10 border-solid-top"></div>
                         </div>
-                        <% } %>
-
-                            <%if (modelPageEntity != null && modelPageEntity.ModelColors != null && modelPageEntity.ModelColors.Count() > 0)
-                              { %>
-                            <div id="modelColorsContent" class="bw-model-tabs-data padding-top20 font14">
-                                <h2 class="padding-left20 padding-right20"><%=bikeName %> Colors</h2>
-                                <ul id="modelColorsList">
-                                    <% foreach (var modelColor in modelPageEntity.ModelColors)
-                                       { %>                                   
-                                    <li>
-                                        <%  if(modelColor.ColorImageId > 0) { %>
-                                    <a href="/<%=modelPageEntity.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPageEntity.ModelDetails.MaskingName %>/images/?modelpage=true&colorImageId=<%=modelColor.ColorImageId %>#modelGallery">
-                                        <%} %>
-                                        <div title="<%= modelColor.ColorName %>" class="color-box inline-block <%= (((IList)modelColor.HexCodes).Count == 1 )?"color-count-one": (((IList)modelColor.HexCodes).Count >= 3 )?"color-count-three":"color-count-two" %>">
-                                            <% if (modelPageEntity.ModelColors != null)
-                                               {
-                                                   foreach (var HexCode in modelColor.HexCodes)
-                                                   { %>
-                                            <span <%= String.Format("style='background-color: #{0}'",Convert.ToString(HexCode)) %>></span>
-                                            <%}
-                                               } %>
-                                        </div> 
-                                        <p class="font16 inline-block text-truncate"><%= Convert.ToString(modelColor.ColorName) %></p>
-                                        <%  if(modelColor.ColorImageId > 0) { %>  
-                                    </a> 
-                                    <%} %> 
-                                    </li>                                                                                                            
-                                    <%} %>
-                                </ul>
-                                <div class="margin-right10 margin-left10 border-solid-top"></div>
-                            </div>
-                            <%
-                              } %>
+                        <% } %>                           
 
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>

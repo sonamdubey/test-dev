@@ -6,8 +6,8 @@
 
 <%
     title = "Compare " + pageTitle + "- BikeWale";
-    description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
-    keywords = "Compare bikes,Compare bike prices,Compare bike specifications,Compare bike mileage,Compare features,Compare colors,Compare " + pageTitle;
+    description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colours of bikes on BikeWale.";
+    keywords = "Compare bikes,Compare bike prices,Compare bike specifications,Compare bike mileage,Compare features,Compare colours,Compare " + pageTitle;
     canonical = "https://www.bikewale.com/comparebikes/" + canonicalUrl + "/";
     if (count == 2)
     {
@@ -54,7 +54,7 @@
             <ul class="featured-bike-tabs-inner padding-top20">
                 <li id="liSpecs" class="fbike-active-tab first_tab">Specs</li>
                 <li id="liFeatures">Features</li>
-                <li id="liColors">Colors</li>
+                <li id="liColors">Colours</li>
             </ul>
         </div>
         <div class="tab_inner_container">
@@ -689,7 +689,7 @@
                                             <td class="headerSpecs">Clock</td>
                                         </tr>
                                         <tr>
-                                            <td class="headerSpecs">Colors</td>
+                                            <td class="headerSpecs">Colours</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -815,7 +815,7 @@
                                 <td class="specs-title repeater-1">
                                     <table class="tblColor" width="165" cellpadding="0" border="0" cellspacing="0">
                                         <tr>
-                                            <th>Available Colors</th>
+                                            <th>Available Colours</th>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
