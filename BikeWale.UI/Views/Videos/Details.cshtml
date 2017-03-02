@@ -62,7 +62,7 @@
     </section>
 }
 @{Html.RenderAction("BikeInfoCard", "GenericBikeInfo", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos,IsSmallSlug = false });}
-@{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId, bikeName= @ViewBag.BikeName });}
+@{Html.RenderAction("SimilarVideos", "Videos", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId });}
 @{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId=@ViewBag.ModelId, topCount=@ViewBag.TopCount, cityId = @ViewBag.CityId});}
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
 <script type="text/javascript" src='https://st2.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>

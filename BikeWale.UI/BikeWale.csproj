@@ -3356,6 +3356,7 @@
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3372,7 +3373,6 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\Content\" />
-    <Folder Include="Controllers\m\shared\" />
     <Folder Include="Models\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />
