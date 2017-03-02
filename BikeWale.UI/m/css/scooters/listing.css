@@ -100,13 +100,7 @@
 .comparison-swiper .swiper-card {
   width: 310px;
   min-height: 220px;
-  border: 1px solid #e2e2e2;
-  background: #fff;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
-  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
-  -ms-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
-  -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) #dcdcdc; }
+  border: 1px solid #e2e2e2; }
 
 .model-img-content {
   width: 126px;
