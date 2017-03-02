@@ -2,7 +2,7 @@
 <!-- get seller details pop up start  -->
 <div id="get-seller-details-popup" class="bw-popup bwm-fullscreen-popup size-small">
     <div class="popup-inner-container text-center">
-        <div class="bwmsprite close-btn seller-details-close position-abt pos-top20 pos-right20"></div>
+        <div class="bwmsprite close-btn seller-details-close position-abt pos-top20 pos-right20" data-bind="click: function (data, event) { closePopup(); }"></div>
         <div id="user-details-section">
             <div class="icon-outer-container rounded-corner50percent margin-bottom10">
                 <div class="icon-inner-container rounded-corner50percent">
@@ -34,7 +34,7 @@
             <!-- ko if : message -->
             <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
             <!-- /ko -->
-            <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn" rel="nofollow">Get seller details</a>
+            <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn" rel="nofollow" data-bind="click: function (data, event) { submitUserDetails(); }">Get seller details</a>
             <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
         </div>
 
@@ -57,7 +57,7 @@
                             <span class="user-submitted-mobile" data-bind="text: buyer().mobileNo"></span>
                         </div>
                     </div>
-                    <div class="rightfloat bwmsprite edit-blue-icon" id="edit-mobile-btn"></div>
+                    <div class="rightfloat bwmsprite edit-blue-icon" id="edit-mobile-btn" data-bind="click: function (data, event) { editMobile(); }"></div>
                     <div class="clear"></div>
                 </div>
 
@@ -70,7 +70,7 @@
                 <!-- ko ifnot : isVerified -->
                 <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
                 <!-- /ko -->
-                <a class="btn btn-orange btn-fixed-width" id="submit-user-otp-btn" rel="nofollow">Verify</a>
+                <a class="btn btn-orange btn-fixed-width" id="submit-user-otp-btn" rel="nofollow" data-bind="click: function (d, e) { submitOtp(); }">Verify</a>
             </div>
 
             <div id="update-mobile-content">
@@ -81,7 +81,7 @@
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
-                <a class="btn btn-orange btn-fixed-width" id="submit-updated-mobile-btn" rel="nofollow">Done</a>
+                <a class="btn btn-orange btn-fixed-width" id="submit-updated-mobile-btn" rel="nofollow" data-bind="click: function (data, event) { submitUpdateMobile(); }">Done</a>
             </div>
         </div>
 
@@ -130,6 +130,7 @@
     var msg = "";
     $(document).on('click', '.used-bike-lead', function () {
         ele = $(this);
+        ubLeadVM.init();
         ubLeadVM.leadInitGAObject({
             cat: ele.attr('data-ga-cat'),
             act: ele.attr('data-ga-act'),
@@ -141,47 +142,6 @@
         ubLeadVM.shownInterest();
         getSellerDetailsPopup.open();
         appendHash("sellerDealers");
-    });
-
-    $('.seller-details-close').on('click', function () {
-        getSellerDetailsPopup.close();
-        window.history.back();
-    });
-
-    $('#submit-user-details-btn').on('click', function () {
-        if (ValidateUserDetail(getUserName, getUserEmailID, getUserMobile)) {
-            ubLeadVM.removeUserCookie();
-            ubLeadVM.submitPurchaseRequest();
-        }
-    });
-
-    $('#edit-mobile-btn').on('click', function () {
-        var prevMobile = getUserMobile.val();
-        getSellerDetailsPopup.updateMobileSection();
-        getUserOTP.val('');
-        getUpdatedUserMobile.focus().val(prevMobile);
-    });
-
-    $('#submit-updated-mobile-btn').on('click', function () {
-        if (validateMobile(getUpdatedUserMobile)) {
-            var newMobile = getUpdatedUserMobile.val();
-            $('#verify-otp-content').find('.user-submitted-mobile').text(newMobile);
-
-            var inputBox = getUserOTP.closest('.input-box');
-            if (inputBox.hasClass('invalid')) {
-                inputBox.removeClass('invalid').find('.error-text').text('');
-            }
-
-            getSellerDetailsPopup.generateNewOTP();
-            ubLeadVM.removeUserCookie();
-            ubLeadVM.submitPurchaseRequest();
-        }
-    });
-
-    $('#submit-user-otp-btn').on('click', function () {
-        if (validateOTP()) {
-            ubLeadVM.submitPurchaseRequest();
-        }
     });
 
     var getSellerDetailsPopup = {
@@ -404,6 +364,7 @@
 
     function usedBikeLead() {
         var self = this;
+        self.targetBindItem = "get-seller-details-popup";
         self.buyer = ko.observable();
         self.seller = ko.observable();
         self.isVerified = ko.observable(true);
@@ -414,7 +375,7 @@
         self.pageUrl = ko.observable(location.href);
         self.leadInitGAObject = ko.observable();
         self.platformId = ko.observable(2);
-        self.userCookieName = ko.observable("TempCurrentUser");
+        self.userCookieName = ko.observable("_PQUser");
         self.widgetName = ko.observable('');
         self.pushInitGAObject = function () {
             if (self.leadInitGAObject())
@@ -587,13 +548,12 @@
             var cookieName = self.userCookieName();
             if (cookieName != undefined && cookieName != null && cookieName != "" && cookieName != "-1") {
                 var keyValue = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
-                var arr = keyValue ? keyValue[2].split(":") : null;
+                var arr = keyValue ? keyValue[2].split("&") : null;
                 return arr;
             }
         }
         self.removeUserCookie = function () {
             var cookieName = self.userCookieName();
-            //document.cookie = cookieName + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             $.cookie(cookieName, null, { path: '/' });
         }
         self.setSeller = function (s, sa) {
@@ -626,12 +586,55 @@
         self.init = function () {
             var arr = self.readTempUserCookie();
             if (arr && arr.length > 1) {
-                self.setBuyer(arr[0], arr[2], arr[1]);
+                self.setBuyer(arr[0], arr[1], arr[2]);
                 getSellerDetailsPopup.userDetails.find(".input-box").addClass("not-empty");
             }
             else
                 self.setBuyer();
             self.setSeller();
+            ko.cleanNode(document.getElementById(self.targetBindItem));
+            ko.applyBindings(self, document.getElementById(self.targetBindItem));
+        }
+
+        self.closePopup = function () {
+            getSellerDetailsPopup.close();
+            window.history.back();
+        }
+
+        self.submitUserDetails = function () {
+            if (ValidateUserDetail(getUserName, getUserEmailID, getUserMobile)) {
+                self.removeUserCookie();
+                self.submitPurchaseRequest();
+            }
+        }
+
+        self.editMobile = function () {
+            var prevMobile = getUserMobile.val();
+            getSellerDetailsPopup.updateMobileSection();
+            getUserOTP.val('');
+            getUpdatedUserMobile.focus().val(prevMobile);
+        }
+
+        self.submitUpdateMobile = function () {
+            if (validateMobile(getUpdatedUserMobile)) {
+                var newMobile = getUpdatedUserMobile.val();
+                $('#verify-otp-content').find('.user-submitted-mobile').text(newMobile);
+
+                var inputBox = getUserOTP.closest('.input-box');
+                if (inputBox.hasClass('invalid')) {
+                    inputBox.removeClass('invalid').find('.error-text').text('');
+                }
+
+                getSellerDetailsPopup.generateNewOTP();
+                self.removeUserCookie();
+                self.submitPurchaseRequest();
+            }
+        }
+
+        self.submitOtp = function () {
+            if (validateOTP()) {
+                self.submitPurchaseRequest();
+            }
         }
     }
 
@@ -643,8 +646,5 @@
         self.location = ko.observable();
     }
 
-    var ubLeadVM = new usedBikeLead();
-    ubLeadVM.init();
-    ko.applyBindings(ubLeadVM, document.getElementById("get-seller-details-popup"));
-
+    var ubLeadVM = new usedBikeLead();    
 </script>

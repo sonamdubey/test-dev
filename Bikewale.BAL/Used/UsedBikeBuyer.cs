@@ -143,6 +143,8 @@ namespace Bikewale.BAL.Used
         /// <summary>
         /// Created by  :   Sumit Kate on 03 Sep 2016
         /// Description :   Process User Cookie for Form Pre-Fill and Customer registration if new customer
+        /// Modified by :   Sumit Kate on 02 Mar 2017
+        /// Description :   replaced : with &
         /// </summary>
         /// <param name="buyer"></param>
         /// <returns></returns>
@@ -162,7 +164,7 @@ namespace Bikewale.BAL.Used
                     if (buyer.CustomerId > 0)
                     {
                         //create tempcurrentuser cookie
-                        string buyerData = String.Format("{0}:{1}:{2}:{3}", buyer.CustomerName, buyer.CustomerMobile, buyer.CustomerEmail, BikewaleSecurity.EncryptUserId(Convert.ToInt64(buyer.CustomerId)));
+                        string buyerData = String.Format("{0}&{1}&{2}&{3}", buyer.CustomerName, buyer.CustomerEmail, buyer.CustomerMobile, BikewaleSecurity.EncryptUserId(Convert.ToInt64(buyer.CustomerId)));
                         BWCookies.SetBuyerDetailsCookie(buyerData);
                     }
                 }
