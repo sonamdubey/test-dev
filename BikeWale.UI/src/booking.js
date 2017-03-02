@@ -155,7 +155,6 @@ var BookingPageViewModel = function () {
             curCustInfo = viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
         }
         if (self.CustomerInfo() != curCustInfo) {
-            debugger;
             if (validate && self.Customer().IsVerified(false)) {
                 var objCust = {
                     "dealerId": self.Dealer().DealerId(),
@@ -200,7 +199,7 @@ var BookingPageViewModel = function () {
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Lead_Submitted', 'lab': thisBikename + "_" + getCityArea });
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        self.Customer().IsVerified(false);
+                  
                         isSuccess = false;
                     }
                 });
@@ -276,7 +275,6 @@ var BikeCustomer = function () {
     self.MobileNo = ko.observable();
     self.EmailId = ko.observable();
     self.IsVerified = ko.observable(false);
-    self.OtpCode = ko.observable();
 }
 
 var BikeDetails = function () {
