@@ -196,7 +196,8 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created by Subodh Jain on 6 Sep 2016
         /// To format manufacturer's params
-        /// </summary>
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// <param name="textToReplace"></param>
         /// <param name="ManufacturerName"></param>
         /// <param name="MaskingNumber"></param>
@@ -218,19 +219,19 @@ namespace Bikewale.Utility
             string PqSourceId,
             string action,
             string category,
-            string label, string hide)
+            string label, string hide, string LeadCapturePopupHeading, string LeadCapturePopupDescription, string LeadCapturePopupMessage)
         {
             string retVal = string.Empty;
             try
             {
                 if (!String.IsNullOrEmpty(textToReplace))
                 {
-                    retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide);
+                    retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage);
                 }
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage));
             }
 
             return retVal;
@@ -243,7 +244,7 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string FormatRank(int num)
         {
-            string RankText=string.Empty;
+            string RankText = string.Empty;
             switch (num)
             {
                 case 1:

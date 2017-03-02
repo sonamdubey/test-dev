@@ -268,6 +268,7 @@
 
 
     function enableDisableTextbox(bEnable, textBoxID) {
+
         $('#' + textBoxID).prop("disabled", bEnable);
         $('#lblGreenMessage').html('Please fill values');
     }
@@ -292,9 +293,9 @@
                     leadBtn.attr("a", "{7}");
                     leadBtn.attr("c", "{8}");
                     leadBtn.attr("l", "{9}");
-                    leadBtn.attr("data-item-message", $('#LeadCapturePopup_Message').val());
-                    leadBtn.attr("data-item-heading", $('#LeadCapturePopup_Heading').val());
-                    leadBtn.attr("data-item-description", $('#LeadCapturePopup_Description').val());
+                    leadBtn.attr("data-item-heading", "{11}");
+                    leadBtn.attr("data-item-description","{12}");
+                    leadBtn.attr("data-item-message","{13}");
                 }
                 ele.val(el.html());
             }
