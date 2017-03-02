@@ -485,7 +485,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                             <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colors, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
+                             <p>To sell your bike quickly, you should provide correct and comprehensive description about your bike. It is recommended to upload more than 5 high resolution images to make the Ad more effective. The registration city, colours, and make year should be provided with best of your knowledge. You should look out for price of similar bikes and provide a reasonable and competitive pricing to get better responses. Once you provide all the above mentioned information, you are very likely to sell your bike within few days from date of posting.</p>
                         </div>
                     </li>
                     <li>

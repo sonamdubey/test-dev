@@ -59,14 +59,14 @@ var bindGallery = function (clickedImg) {
     vmPhotosPage.imageIndex(imgIndex);
     showGallery();
 
-    if (isModelPage === "false") {
+    if (!isModelPage) {
         window.location.hash = 'photosGallery';
     }
     pageNo = 1;
 };
 
 $(document).on('click', '#gallery-close-btn', function () {
-    if (isModelPage === "true") {
+    if (isModelPage) {
         gallery.gotoModelPage();
     }
     else {

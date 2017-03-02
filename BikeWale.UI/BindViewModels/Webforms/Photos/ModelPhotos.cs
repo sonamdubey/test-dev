@@ -147,7 +147,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     pageMetas = new PageMetaTags();
                     pageMetas.Title = String.Format("{0} Images | {1} Photos - BikeWale", bikeName, objModel.ModelName);
                     pageMetas.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", objModel.ModelName, objMake.MakeName);
-                    pageMetas.Description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
+                    pageMetas.Description = String.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
                     pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                     pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                 }

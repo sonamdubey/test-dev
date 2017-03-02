@@ -1090,7 +1090,7 @@ namespace Bikewale.New
                     string lastColor = modelPageEntity.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} different colors : ", bikeName, colorCount);
+                        colorStr.AppendFormat("{0} is available in {1} different colours : ", bikeName, colorCount);
                         var colorArr = modelPageEntity.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
                         // Comma separated colors (except last one)
                         colorStr.Append(string.Join(",", colorArr));
@@ -1099,7 +1099,7 @@ namespace Bikewale.New
                     }
                     else if (colorCount == 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
+                        colorStr.AppendFormat("{0} is available in {1} colour.", bikeName, lastColor);
                     }
                 }
             }
