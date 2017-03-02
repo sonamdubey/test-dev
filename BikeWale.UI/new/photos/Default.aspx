@@ -507,7 +507,7 @@
                 var videoCount = <%=VideoCount%>;
                 var modelName = "<%= vmModelPhotos.bikeName %>";  
                 var imageIndex = "<%=imageIndex%>";
-                var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var isModelPage = <%= isModelPage.ToString().ToLower() %>;
                 var colorImageId = "<%= colorImageId%>";
                 var encodedVideoList = "<%= JSONVideoList%>"
                 var encodedImageList = "<%= JSONImageList %>"
@@ -520,7 +520,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
             $(document).ready(function () {
-                if(isModelPage == 'true')
+                if(isModelPage)
                 {                              
                     if (!detectIEBrowser()) {
                         popupGallery.bindGallery(imageIndex);                        

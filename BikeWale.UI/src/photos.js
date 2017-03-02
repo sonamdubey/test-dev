@@ -110,10 +110,10 @@ var popupGallery = {
     },
 
     close: function () {
-        if ((isModelPage === "true") && (colorImageId > 0)) {
+        if ((isModelPage) && (colorImageId > 0)) {
             window.location.href = window.location.pathname.split("images/")[0] + '#modelColorsContent';
         }
-        else if (isModelPage === "true") {
+        else if (isModelPage) {
             window.location.href = window.location.pathname.split("images/")[0];
         }
         else {
@@ -129,7 +129,7 @@ var popupGallery = {
         gallerySwiper.update(true);
         thumbnailSwiperEvents.focusGallery(gallerySwiper, imageIndex);
 
-        if (isModelPage === "false") {
+        if (!isModelPage) {
             window.location.hash = 'photosGallery';
         }
     }

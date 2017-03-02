@@ -326,7 +326,7 @@
             try {
                 var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
                 var modelId = "<%= modelId%>";
-                var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var isModelPage = <%= isModelPage.ToString().ToLower() %>;
                 var ModelId="<%=vmModelPhotos.objModel.ModelId%>";
                 var videoCount = "<%=VideoCount%>";
                 var modelName = "<%= vmModelPhotos.bikeName %>";            
@@ -349,7 +349,7 @@
                 }
             });
             $(document).ready(function () {
-                if(isModelPage == 'true')
+                if(isModelPage)
                 {   
                     bindGallery($(this));
                 }
