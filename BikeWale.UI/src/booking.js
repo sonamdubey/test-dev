@@ -237,10 +237,11 @@ var BookingPageViewModel = function () {
                         self.Customer().IsVerified(obj.isSuccess);
                         self.Customer().OtpAttempts(obj.noOfAttempts)
                         if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
-                            //getotp code here		
+                            //getotp code here
                             $("#otpPopup").show();
                             $('.update-mobile-box').hide().siblings().show();
                             $(".blackOut-window").show();
+                            isSuccess = false;
 
                         }
                         else {
@@ -256,7 +257,6 @@ var BookingPageViewModel = function () {
                         $("#otpPopup").show();
                         $('.update-mobile-box').hide().siblings().show();
                         $(".blackOut-window").show();
-
                         isSuccess = false;
                     }
                 });
