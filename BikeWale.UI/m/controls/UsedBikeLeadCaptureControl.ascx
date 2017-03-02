@@ -13,19 +13,19 @@
             <p class="font14 text-light-grey margin-bottom25">For privacy concerns, we hide owner details. Please fill this form to get owner's details.</p>
 
             <div class="input-box form-control-box margin-bottom10">
-                <input type="text" id="getUserName" data-bind="textInput: buyer().userName" />
+                <input type="text" id="getUserName" data-bind="textInput: buyer().userName, event: { focus: function (d, e) { userNameOnFocus($(e.target)); }, blur: function (d, e) { userNameOnBlur($(e.target)); } }" />
                 <label for="getUserName">Name<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box form-control-box margin-bottom10">
-                <input type="email" id="getUserEmailID" data-bind="textInput: buyer().emailId" />
+                <input type="email" id="getUserEmailID" data-bind="textInput: buyer().emailId, event: { focus: function (d, e) { userEmailOnFocus($(e.target)); }, blur: function (d, e) { userEmailOnBlur($(e.target)); } }" />
                 <label for="getUserEmailID">Email<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box input-number-box form-control-box margin-bottom15">
-                <input type="tel" id="getUserMobile" maxlength="10" data-bind="textInput: buyer().mobileNo" />
+                <input type="tel" id="getUserMobile" maxlength="10" data-bind="textInput: buyer().mobileNo, event: { focus: function (d, e) { userMobileOnFocus($(e.target)); }, blur: function (d, e) { userMobileOnBlur($(e.target)); } }" />
                 <label for="getUserMobile">Mobile number<sup>*</sup></label>
                 <span class="input-number-prefix">+91</span>
                 <span class="boundary"></span>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="input-box form-control-box margin-bottom15">
-                    <input type="tel" id="getUserOTP" maxlength="5" data-bind="textInput: otp" />
+                    <input type="tel" id="getUserOTP" maxlength="5" data-bind="textInput: otp, event: { focus: function (d, e) { userOtpOnFocus($(e.target)); }, blur: function (d, e) { userOtpOnBlur($(e.target)); } }" />
                     <label for="getUserOTP">One-time password</label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
@@ -75,7 +75,7 @@
 
             <div id="update-mobile-content">
                 <div class="input-box input-number-box form-control-box margin-bottom15">
-                    <input type="tel" id="getUpdatedMobile" maxlength="10" data-bind="textInput: buyer().mobileNo" />
+                    <input type="tel" id="getUpdatedMobile" maxlength="10" data-bind="textInput: buyer().mobileNo, event: { focus: function (d, e) { updatedUserMobileOnFocus($(e.target)); }, blur: function (d, e) { updatedUserMobileOnBlur($(e.target)); } }" />
                     <label for="getUpdatedMobile">Mobile number<sup>*</sup></label>
                     <span class="input-number-prefix">+91</span>
                     <span class="boundary"></span>
@@ -285,46 +285,6 @@
         }
         return retVal;
     }
-
-    getUserName.on("focus", function () {
-        validate.onFocus(getUserName);
-    });
-
-    getUserEmailID.on("focus", function () {
-        validate.onFocus(getUserEmailID);
-    });
-
-    getUserMobile.on("focus", function () {
-        validate.onFocus(getUserMobile);
-    });
-
-    getUpdatedUserMobile.on("focus", function () {
-        validate.onFocus(getUpdatedUserMobile);
-    });
-
-    getUserOTP.on("focus", function () {
-        validate.onFocus(getUserOTP);
-    });
-
-    getUserName.on("blur", function () {
-        validate.onBlur(getUserName);
-    });
-
-    getUserEmailID.on("blur", function () {
-        validate.onBlur(getUserEmailID);
-    });
-
-    getUserMobile.on("blur", function () {
-        validate.onBlur(getUserMobile);
-    });
-
-    getUpdatedUserMobile.on("blur", function () {
-        validate.onBlur(getUpdatedUserMobile);
-    });
-
-    getUserOTP.on("blur", function () {
-        validate.onBlur(getUserOTP);
-    });
 
     var validate = {
         setError: function (element, message) {
@@ -635,6 +595,38 @@
             if (validateOTP()) {
                 self.submitPurchaseRequest();
             }
+        }
+
+        self.userNameOnFocus = function (getUserName) {
+            validate.onFocus(getUserName);
+        }
+        self.userEmailOnFocus = function (getUserEmailID) {
+            validate.onFocus(getUserEmailID);
+        }
+        self.userMobileOnFocus = function (getUserMobile) {
+            validate.onFocus(getUserMobile);
+        }
+        self.updatedUserMobileOnFocus = function (getUpdatedUserMobile) {
+            validate.onFocus(getUpdatedUserMobile);
+        }
+        self.userOtpOnFocus = function (getUserOTP) {
+            validate.onFocus(getUserOTP);
+        }
+
+        self.userNameOnBlur = function (getUserName) {
+            validate.onBlur(getUserName);
+        }
+        self.userEmailOnBlur = function (getUserEmailID) {
+            validate.onBlur(getUserEmailID);
+        }
+        self.userMobileOnBlur = function (getUserMobile) {
+            validate.onBlur(getUserMobile);
+        }
+        self.updatedUserMobileOnBlur = function (getUpdatedUserMobile) {
+            validate.onBlur(getUpdatedUserMobile);
+        }
+        self.userOtpOnBlur = function (getUserOTP) {
+            validate.onBlur(getUserOTP);
         }
     }
 
