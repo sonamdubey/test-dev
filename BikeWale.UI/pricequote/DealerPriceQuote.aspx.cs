@@ -167,7 +167,8 @@ namespace Bikewale.BikeBooking
         /// Description : for Dealer Basics details.
         /// Modified By : Sushil Kumar on 17th March 2016
         /// Description  : Added default values for emi if no emi details is available
-        /// </summary>
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// <param name="cityId"></param>
         /// <param name="versionId"></param>
         /// <param name="dealerId"></param>
@@ -209,7 +210,7 @@ namespace Bikewale.BikeBooking
                                 isBWPriceQuote = true;
                                 totalPrice = (uint)objQuotation.OnRoadPrice;
                                 if (objQuotation != null)
-                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
+                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage);
                             }
 
                             if (primarydealer.DealerDetails != null)

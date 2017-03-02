@@ -12,6 +12,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Description :   Added state
     /// Modified By : Vivek Gupta on 29th aug, 2016
     /// Description : added property ManufacturerAd
+    /// Modifide By :- Subodh jain on 02 March 2017
+    /// Summary:- added manufacturer campaign leadpopup changes
     /// </summary>
     public class BikeQuotationEntity
     {
@@ -53,5 +55,8 @@ namespace Bikewale.Entities.PriceQuote
         public string State { get; set; }
 
         public string ManufacturerAd { get; set; }
+        public string LeadCapturePopupHeading { get; set; }
+        public string LeadCapturePopupDescription { get; set; }
+        public string LeadCapturePopupMessage { get; set; }
     }
 }

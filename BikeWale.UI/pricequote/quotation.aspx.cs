@@ -152,6 +152,8 @@ namespace Bikewale.PriceQuote
         ///     Function will show price quote for the current version id 
         ///     Modified By : Sadhana Upadhyay on 28 Oct 2014
         ///     Summary : called method from Bikewale BAL
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// </summary>
         protected void ShowPriceQuote()
         {
@@ -159,7 +161,7 @@ namespace Bikewale.PriceQuote
             {
                 objQuotation = objPriceQuote.GetPriceQuoteById(Convert.ToUInt64(priceQuoteId), LeadSourceEnum.DPQ_Desktop);
                 if (objQuotation != null)
-                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty);
+                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage);
 
             }
             catch (Exception ex)
