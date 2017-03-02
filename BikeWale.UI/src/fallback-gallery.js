@@ -144,9 +144,10 @@ var vmFallbackGallery = new fallbackModelGallery();
 ko.applyBindings(vmFallbackGallery, document.getElementById('fallback-model-gallery'));
 
 var fallbackGallery = {
-    open: function () {
+    open: function (imageIndex) {
         $('.blackOut-window-model').show();
         $('.modelgallery-close-btn, .bike-gallery-popup').show();
+        setGalleryImage(imageIndex);
         $('body').addClass('lock-browser-scroll');
     },
 
@@ -169,16 +170,17 @@ $(".carousel-navigation-photos").click(function () {
     getImageIndex();
 });
 
-$(".modelgallery-close-btn, .blackOut-window-model").click(function () {
+$(".modelgallery-close-btn").click(function () {
     fallbackGallery.close();
     if (videoiFrame != undefined) {
         videoiFrame.setAttribute("src", "");
     }
 });
 
-$(document).ready(function () {
+var setGalleryImage = function (currentImgIndex) {
+    $(".carousel-stage-photos").jcarousel('scroll', currentImgIndex);
     getImageDetails();
-});
+};
 
 var mainImgIndexA;
 

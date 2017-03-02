@@ -1474,7 +1474,7 @@ input[type="number"]:focus {
 
 /* key specs */
 .key-specs-list li {
-    padding-right: 12px;
+    padding-right: 14px;
     margin-right: 12px;
     position: relative;
 }
