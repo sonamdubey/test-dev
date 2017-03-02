@@ -16,7 +16,7 @@
 <head>
     <%
         description = pgDescription;
-        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colors | Bikewale", bikeName);
+        title = String.Format("{0} Price, Reviews, Spec, Images, Mileage, Colours | Bikewale", bikeName);
         canonical = String.Format("https://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1444028976556";
@@ -383,13 +383,13 @@
                             { %>
                             <li data-tabs="#modelPricesContent">Price</li>
                             <%} %>
-                            <% if(modelPage.ModelVersionSpecs!= null){ %>
-                            <li data-tabs="#modelSpecsFeaturesContent">Specs & Features</li>
-                            <% } %>
                             <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
                             { %>
-                            <li data-tabs="#modelColoursContent">Colors</li>
+                            <li data-tabs="#modelColoursContent">Colours</li>
                             <%} %>
+                            <% if(modelPage.ModelVersionSpecs!= null){ %>
+                            <li data-tabs="#modelSpecsFeaturesContent">Specs & Features</li>
+                            <% } %>                            
                            <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                            { %>
                              <li data-tabs="#modelReviewsContent">Reviews</li>
@@ -462,7 +462,7 @@
                                 <%} %>
                                    <%if (colorCount>0){ %> 
                                 <tr>
-                                    <td valign="top">Colors</td>
+                                    <td valign="top">Colours</td>
                                     <td valign="top" class="text-bold">
                                         <ul class="model-color-list">
                                             <%foreach(var colorName in  modelPage.ModelColors){ %>
@@ -590,6 +590,31 @@
                    <BW:TopCityPrice ID="ctrlTopCityPrices" runat="server" />
                    <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                 </div>
+
+                <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+                { %>   
+                <!-- colours code starts here -->    
+                <div id="modelColoursContent" class="bw-model-tabs-data font14">
+                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colours</h2>
+                    <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
+                    <asp:Repeater ID="rptColors" runat="server">
+                            <ItemTemplate>                        
+                                <li>
+                                    <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
+                                        <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
+                                            <ItemTemplate>
+                                                    <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </div>
+                                    <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                </li>
+                            </ItemTemplate>
+                    </asp:Repeater>
+                    </ul>
+                </div>
+                <%} %>
+                        <!-- colours code ends here -->
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
@@ -803,31 +828,7 @@
                     <div class="margin-right20 margin-left20 border-solid-bottom padding-bottom20"></div>
                 </div>
                 <% } %>
-
-                <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                { %>   
-                <!-- colours code starts here -->    
-                <div id="modelColoursContent" class="bw-model-tabs-data font14">
-                    <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colors</h2>
-                    <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
-                    <asp:Repeater ID="rptColors" runat="server">
-                            <ItemTemplate>                        
-                                <li>
-                                    <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
-                                        <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
-                                            <ItemTemplate>
-                                                    <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                    <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
-                                </li>
-                            </ItemTemplate>
-                    </asp:Repeater>
-                    </ul>
-                </div>
-                <%} %>
-                        <!-- colours code ends here -->
+                
                 <%if (Ad_300x250)
                    { %>
                 <section>

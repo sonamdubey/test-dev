@@ -239,21 +239,21 @@
                             <!-- ko if: photosTabActive() && photoSwiperActive() -->
                             <span class="swiper-heading text-truncate" data-bind="text: activePhotoTitle()"></span>
                             <span class="rightfloat text-light-grey">
-                                <span data-bind="text: activePhotoIndex()"></span>/
+                                <span data-bind="text: activePhotoIndex()"></span>&nbsp;/
                                 <span data-bind="text: photoList().length"></span>
                             </span>
                             <!-- /ko -->
                             <!-- ko if: photosTabActive() && !photoSwiperActive() -->
                             <span class="swiper-heading text-truncate" data-bind="text: activeColorTitle()"></span>
                             <span class="rightfloat text-light-grey">
-                                <span data-bind="text: activeColorIndex()"></span>/
+                                <span data-bind="text: activeColorIndex()"></span>&nbsp;/
                                 <span data-bind="text: colorPhotoList().length"></span>
                             </span>
                             <!-- /ko -->
                             <!-- ko if: !photosTabActive() -->
                             <span class="swiper-heading text-truncate" data-bind="text: activeVideoTitle()"></span>
                             <span class="rightfloat text-light-grey" data-bind="visible: totalVideoCount > 1">
-                                <span data-bind="text: activeVideoIndex()"></span>/
+                                <span data-bind="text: activeVideoIndex()"></span>&nbsp;/
                                 <span data-bind="text: totalVideoCount"></span>
                             </span>
                             <!-- /ko -->
@@ -507,7 +507,8 @@
                 var videoCount = <%=VideoCount%>;
                 var modelName = "<%= vmModelPhotos.bikeName %>";  
                 var imageIndex = "<%=imageIndex%>";
-                var isModelPage = "<%= isModelPage.ToString().ToLower() %>";
+                var isModelPage = <%= isModelPage.ToString().ToLower() %>;
+                var colorImageId = "<%= colorImageId%>";
                 var encodedVideoList = "<%= JSONVideoList%>"
                 var encodedImageList = "<%= JSONImageList %>"
                 var encodedFirstImage = "<%= JSONFirstImage%>"   
@@ -519,9 +520,14 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
             $(document).ready(function () {
-                if(isModelPage == 'true')
-                {                     
-                    popupGallery.bindGallery(imageIndex);
+                if(isModelPage)
+                {                              
+                    if (!detectIEBrowser()) {
+                        popupGallery.bindGallery(imageIndex);                        
+                    }
+                    else {
+                        fallbackGallery.open();
+                    }  
                 }
             });
         </script>

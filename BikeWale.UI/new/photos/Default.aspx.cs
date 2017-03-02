@@ -22,7 +22,7 @@ namespace Bikewale.New.Photos
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected NewVideosControl ctrlVideos;
-        protected uint gridSize = 25, imageIndex = 0;
+        protected uint gridSize = 25, imageIndex = 0, colorImageId = 0;
         private uint _modelId;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty, JSONFirstImage = string.Empty;
@@ -35,26 +35,41 @@ namespace Bikewale.New.Photos
         /// Summary :- model page photo bind condition added in query string
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Get imageindex from querystring.
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get colorImageId from querystring.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
-            dd.DetectDevice();
-
-            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            try
             {
-                isModelPage = true;
-            }
+                Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+                dd.DetectDevice();
 
-            if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+                {
+                    isModelPage = true;
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["imageindex"]))
+                {
+                    imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                }
+
+                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
+                {
+                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
+                }
+
+                BindPhotosPage();
+                BindPageWidgets();
+
+            }
+            catch (Exception ex)
             {
-                imageIndex = Convert.ToUInt32(Request.QueryString["imageindex"]);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.New.Photos : Page_Load");
             }
-
-            BindPhotosPage();
-            BindPageWidgets();
         }
 
         /// <summary>

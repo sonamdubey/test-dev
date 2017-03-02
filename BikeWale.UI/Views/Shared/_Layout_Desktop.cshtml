@@ -44,7 +44,7 @@
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     @if (!String.IsNullOrEmpty(keywords))
     {
-        <meta name="keywords" content="@keywords" /> 
+     <meta name="keywords" content="@keywords" /> 
     }
     @if(EnableOG)
     {
@@ -54,7 +54,7 @@
     <meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
         if(!String.IsNullOrEmpty(canonical))
         {
-        <meta property="og:url" content="@canonical" />
+    <meta property="og:url" content="@canonical" />
         }
     }
     @if (!String.IsNullOrEmpty(alternate))

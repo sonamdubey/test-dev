@@ -2,6 +2,10 @@
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// modified by : Sajal Gupta on 01-03-2017
+    /// Description : Added ColorImageId
+    /// </summary>
     [Serializable]
     public class BikeModelColor
     {
@@ -10,5 +14,6 @@ namespace Bikewale.Entities.BikeData
         public string ColorName { get; set; }
         public string HexCode { get; set; }
         public UInt16 NoOfDays { get; set; }
+        public UInt32 ColorImageId { get; set; }
     }
 }
