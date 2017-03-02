@@ -3,6 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.Mobile.Videos;
 using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,12 @@ namespace Bikewale.Controllers.Mobile.Videos
     public class VideosMobileController : Controller
     {
         private readonly IVideosCacheRepository _videos = null;
+        private readonly IVideos _video = null;
 
-        public VideosMobileController(IVideosCacheRepository videos)
+        public VideosMobileController(IVideosCacheRepository videos, IVideos video)
         {
             _videos = videos;
+            _video = video;
         }
 
         [Route("m/videos/make/{makeMaskingname}/")]
@@ -68,6 +71,19 @@ namespace Bikewale.Controllers.Mobile.Videos
                 ViewBag.CityId = Configuration.GetDefaultCityId;
             ViewBag.TopCount = 9;
             return View("~/Views/m/Videos/Details.cshtml");
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava 2 March 2017
+        /// Summary    : Partial view for similar model videos 
+        /// </summary>
+        [Route("m/videos/SimilarVideos/")]
+        public ActionResult SimilarVideos(uint videoId, uint modelId)
+        {
+            SimilarModelsModel similarVideosModel = new SimilarModelsModel();
+            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, 9);
+            similarVideosModel.ModelId = modelId;
+            return PartialView("~/views/m/shared/_SimilarVideo.cshtml", similarVideosModel);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Bikewale.Controllers
 {
     /// <summary>
     /// Created by : Aditi Srivastava on 28 Feb 2017
-    /// Summary    : Controller for popular bikes
+    /// Summary    : Controller for popular bikes/body style bikes
     /// </summary>
     public class PopularBikesController : Controller
     {

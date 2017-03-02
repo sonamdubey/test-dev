@@ -1,4 +1,4 @@
-<!-- similar video carousel -->
+@using Bikewale.Utility;
 @if (Model!= null && Model.Videos != null && Model.Videos.Count > 0) 
 { 
    <section>
@@ -13,7 +13,7 @@
                                             @foreach (var video in Model.Videos)
                                             { 
                                             <li class="list-item">
-                                                <a href="@Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,video.BasicId.ToString())" title="@video.VideoTitle" class="jcarousel-card">
+                                                <a href="@UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,video.BasicId.ToString())" title="@video.VideoTitle" class="jcarousel-card">
                                                     <div class="model-jcarousel-image-preview">
                                                         <div class="card-image-block">
                                                             <img class="lazy" data-original="https://img.youtube.com/vi/@Html.Raw(video.VideoId)/mqdefault.jpg" alt="@video.VideoTitle" src="" border="0" />
@@ -26,11 +26,11 @@
                                                         <h3 class="text-black margin-bottom5">@video.VideoTitle</h3>
                                                         <div class="inline-block margin-right10">
                                                             <span class="bwsprite calender-grey-sm-icon"></span>
-                                                            <span class="article-stats-content">@Bikewale.Utility.FormatDate.GetFormatDate(video.DisplayDate, "MMMM dd, yyyy")</span>
+                                                            <span class="article-stats-content">@FormatDate.GetFormatDate(video.DisplayDate, "MMMM dd, yyyy")</span>
                                                         </div>
                                                         <div class="inline-block">
                                                             <span class="bwsprite review-sm-lgt-grey"></span>
-                                                            <span class="article-stats-content">@Bikewale.Utility.Format.FormatNumeric(video.Views.ToString())</span>
+                                                            <span class="article-stats-content">@Format.FormatNumeric(video.Views.ToString())</span>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -48,4 +48,3 @@
                 </div>
         </section>
 }
-<!-- similar video carousel ends here -->

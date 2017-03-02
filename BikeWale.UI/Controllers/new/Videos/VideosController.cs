@@ -84,7 +84,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary: Partial view to show Similar model bike videos
         /// </summary>
         [Route("videos/SimilarVideos/")]
-        public ActionResult SimilarVideos(uint videoId, uint modelId, string bikeName)
+        public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
             SimilarModelsModel similarVideosModel = new SimilarModelsModel();
             similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, 9);
