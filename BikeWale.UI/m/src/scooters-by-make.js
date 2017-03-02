@@ -28,6 +28,12 @@ $(document).ready(function () {
 
     makeOverallTabsWrapper.find('.overall-specs-tabs-wrapper li').first().addClass('active');
 
+    var makeDealersContent = $('#makeDealersContent');
+
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
+    }
+
     $(window).scroll(function () {
         var windowScrollTop = $window.scrollTop(),
             makeOverallTabsOffsetTop = makeOverallTabsWrapper.offset().top,
