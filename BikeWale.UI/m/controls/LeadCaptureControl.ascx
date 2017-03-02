@@ -5,8 +5,8 @@
     <div class="popup-inner-container text-center">
         <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
         <div id="contactDetailsPopup">
-            <p class="font18 margin-top10 margin-bottom10">Provide contact details</p>
-            <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
+            <p class="font18 margin-top10 margin-bottom10"data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+            <p class="text-light-grey margin-bottom10" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
 
 
             <div class="personal-info-form-container">
@@ -62,10 +62,15 @@
                     <span class="bwmsprite thankyou-icon margin-top15"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            
+         
+             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+            <!-- ko if : !dealerMessage() -->
             <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
             <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
+            <!-- /ko -->
+            <!-- ko ifnot : -->
+            <p class="font16 margin-bottom40" data-bind="text:dealerMessage()"></p>
+            <!-- /ko -->
             <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
         <!-- thank you message ends here -->
@@ -185,6 +190,9 @@
         self.campaignId = ko.observable();
         self.mfgCampaignId = ko.observable();
         self.GAObject = ko.observable();
+        self.dealerHeading = ko.observable();
+        self.dealerMessage = ko.observable();
+        self.dealerDescription = ko.observable();
         self.setOptions = function(options)
         {
             if(options!=null)
@@ -223,6 +231,14 @@
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
+                if (options.dealerHeading != null && options.dealerHeading != "")
+                    self.dealerHeading(options.dealerHeading);
+
+                if (options.dealerMessage != null && options.dealerMessage != "")
+                    self.dealerMessage(options.dealerMessage);
+
+                if (options.dealerDescription != null && options.dealerDescription != "")
+                    self.dealerDescription(options.dealerDescription);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;

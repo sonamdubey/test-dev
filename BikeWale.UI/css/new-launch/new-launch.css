@@ -161,27 +161,23 @@
   .pagination-list li {
     float: left;
     margin-right: 5px;
-    margin-left: 5px;
+    margin-left: 5px; }
+    .pagination-list li.active {
+      color: #4d5057;
+      font-weight: 700;
+      border: 1px solid #a2a2a2;
+      border-radius: 1px; }
+  .pagination-list a {
     color: #82888b;
     font-size: 12px;
-    padding: 5px;
-    border: 1px solid #fff;
     display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
     min-width: 30px;
     text-align: center; }
-  .pagination-list a {
-    color: #82888b; }
     .pagination-list a:hover {
       color: #4d5057;
       text-decoration: none; }
-  .pagination-list .active {
-    color: #4d5057;
-    font-weight: bold;
-    border: 1px solid #a2a2a2;
-    -webkit-border-radius: 1px;
-    -moz-border-radius: 1px;
-    -ms-border-radius: 1px;
-    border-radius: 1px; }
 
 .pagination-control-prev,
 .pagination-control-next {

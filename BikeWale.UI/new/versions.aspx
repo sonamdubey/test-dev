@@ -1575,11 +1575,15 @@
                     "pqid": pqId,
                     "pageurl": pageUrl,
                     "clientip": clientIP,
+                    "dealerHeading" : ele.attr('data-item-heading'), 
+                    "dealerMessage" : ele.attr('data-item-message'), 
+                    "dealerDescription" : ele.attr('data-item-description'), 
                     "gaobject": {
                         cat: ele.attr("c"),
                         act: ele.attr("a"),
                         lab: bikeVersionLocation
                     }
+
                 };
                 dleadvm.setOptions(leadOptions);
             });

@@ -47,7 +47,7 @@
                 <!-- ko if : models()[@i] -->
                 string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                 <li class="list-item">
-                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName" class="block" data-bind="attr : {'href' : '/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
+                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName))" title="@bikeName" class="block" data-bind="attr : {'href' : '/m/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
                         <div class="item-image-content">
                             @if (i > 2)
                             {
