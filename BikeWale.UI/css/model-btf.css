@@ -359,4 +359,12 @@ li.offertxt:hover span {display:inline}
     .inner-content-carousel .model-comparison-list li { width: 438px !important; }
 }
 
-#modelColorsList li a:hover { text-decoration: none; }
+#modelColorsList a {
+    display: block;
+}
+#modelColorsList a:hover {
+    text-decoration: none;
+}
+#modelColorsList a:hover p {
+    color: #4d5057;
+}

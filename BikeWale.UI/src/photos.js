@@ -217,6 +217,7 @@ var modelGallery = function () {
             self.photoThumbnailScreen(true);
             self.photoSwiperActive(true);
 
+            gallerySwiper.update(true);
             thumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true); // (swiperName, activeIndex, slideToFlag)
             triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);
@@ -439,6 +440,7 @@ var gallerySwiper = new Swiper('.gallery-type-swiper', {
     },
     onSlideChangeStart: function (swiper) {        
         thumbnailSwiperEvents.setPhotoDetails(swiper);
+        thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true);
     }
 });
 
