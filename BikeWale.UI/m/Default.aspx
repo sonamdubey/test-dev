@@ -38,18 +38,10 @@
                     <!-- Top banner code starts here -->
                     <h1 class="font22 text-uppercase text-white">Find your bike</h1>
                     <h2 class="banner-subheading font14 text-unbold text-white">Get Comprehensive Information on Bikes!</h2>
-                    <div class="new-used-search new-bikes-search position-rel">
+                    <div class="new-bikes-search position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
-                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
-                        <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
+                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
                     </div>
-                    <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                        <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br />
-                            <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                        </li>
-                    </ul>
-                    <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
                     <%= bannerEntity.MobileCss %>
                     <%= bannerEntity.MobileHtml %>
                     <%= bannerEntity.MobileJS %>                    
@@ -419,7 +411,6 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
@@ -427,7 +418,22 @@
             $("img.lazy").lazyload();
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            
+            $("a.view-more-btn").click(function (e) {
+                e.preventDefault();
+                var a = $(this).parent().parent().find("ul.brand-style-moreBtn");
+                a.slideToggle();
+                $("html, body").animate({ scrollTop: $("#discoverBikesContainer").offset().top }, 1000);
+                $(this).text($(this).text() == 'View more brands' ? 'View less brands' : 'View more brands');
+            });
+            $("ul.brand-budget-mileage-style-UL li").click(function () {
+                $("ul.brand-style-moreBtn").slideUp();
+            });
+
+            $("#newBikeList").on("click", function () {
+                $('#global-search').trigger("click");
+            });
         </script>
         <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
