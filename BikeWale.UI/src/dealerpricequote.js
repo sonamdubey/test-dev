@@ -266,7 +266,6 @@ function CustomerModel() {
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
-            setPQUserCookie();
         }
     };
 
@@ -414,11 +413,6 @@ function setuserDetails() {
         var arr = getCookie(cookieName).split("&");
         return arr;
     }
-}
-
-function setPQUserCookie() {
-    var val = customerViewModel.fullName() + '&' + customerViewModel.emailId() + '&' + customerViewModel.mobileNo();
-    SetCookie("_PQUser", val);
 }
 
 $(".edit-mobile-btn").on("click", function () {
