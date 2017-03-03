@@ -136,7 +136,7 @@
                                     <span class="back-arrow-box">
                                         <span class="bwmsprite back-long-arrow-left"></span>
                                     </span>
-                                    <input class="form-control" type="text" id="listingPopupAreaInput" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().areaName : '' }" />
+                                    <input class="form-control" type="text" id="listingPopupAreaInput" placeholder="Select Area" data-bind="attr: { value: SelectedArea() ? SelectedArea().areaName : '' }" />
                                 </div>
                                 <ul id="listingPopupAreaList" class="margin-top40">
                                     <asp:Repeater ID="rptAreas" runat="server">
