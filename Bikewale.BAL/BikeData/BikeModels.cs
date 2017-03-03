@@ -1217,6 +1217,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by: Sangram Nandkhile On 9 Feb 2017
         /// Summary: To sum up Model Photos
+        /// Modified by : Aditi Srivastava on 3 Mar 2017
+        /// Summary     : Added model color photos after first image
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -1229,13 +1231,23 @@ namespace Bikewale.BAL.BikeData
                 List<ModelImage> modelPhotos = GetModelPhotoGalleryWithMainImage(modelId);
                 if (modelPhotos != null)
                 {
-                    allPhotos.AddRange(modelPhotos.Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
+                    allPhotos.Add(new ColorImageBaseEntity()
+                       {
+                           HostUrl = modelPhotos[0].HostUrl,
+                           OriginalImgPath = modelPhotos[0].OriginalImgPath,
+                           ImageTitle = modelPhotos[0].ImageCategory,
+                           ImageType = ImageBaseType.ModelGallaryImage,
+                           ImageCategory = modelPhotos[0].ImageCategory
+                       });
+
+                    IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
+                    if (colorPhotos != null)
+                    {
+                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                    }
+                    allPhotos.AddRange(modelPhotos.Skip(1).Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
                 }
-                IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
-                if (colorPhotos != null)
-                {
-                    allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
-                }
+                
             }
             catch (Exception ex)
             {
