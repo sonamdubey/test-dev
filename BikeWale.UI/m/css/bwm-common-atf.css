@@ -98,7 +98,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
-.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.8; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; }
 .changecity-blackout-window { z-index: 4; }
 
 #errGlobalSearch.ui-autocomplete { display: none; width:100%; margin-left:0; }
