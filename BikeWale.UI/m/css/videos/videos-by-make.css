@@ -49,6 +49,7 @@
 
 .bike-listing .black-overlay {
     height: 164px;
+    padding-top: 62px;
     background: rgba(0,0,0,0.4);
 }
 
