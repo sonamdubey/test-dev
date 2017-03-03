@@ -57,6 +57,12 @@ namespace Bikewale.Controllers.Mobile.Videos
             ViewBag.DetailsPage = details;
 
             ViewBag.Description = details.PageMetas.Description;
+            ViewBag.IsSmallDescriptionAvailable = false;
+            if (details.Description.Length > 200)
+            {
+                ViewBag.SmallDescription = System.StrinHtmlHelpers.TruncateHtml(details.Description, 200, " ..");
+                ViewBag.IsSmallDescriptionAvailable = true;
+            }
             ViewBag.Title = details.PageMetas.Title;
             ViewBag.Keywords = details.PageMetas.Keywords;
             ViewBag.canonical = details.PageMetas.CanonicalUrl;
