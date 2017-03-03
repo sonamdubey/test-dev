@@ -1059,3 +1059,4 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
         width: 92%;
     }
 }
+.red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
