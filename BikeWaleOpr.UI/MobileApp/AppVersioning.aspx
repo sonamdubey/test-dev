@@ -1,11 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.MobileApp.AppVersioning" Trace="false" Debug="false" %>
 <%@ import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<!-- #Include file="../content/ContentsMenu.aspx" -->
-<div style="margin-left:300px;">
-<script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
-<script src="/src/knockout.js" type="text/javascript"></script>
-        <div style="margin:10px; padding:10px; border-style: solid;">
+<div class="left">
+        <div class="margin-top10" style="padding:10px; border: 1px solid;">
             <h2>Save/Edit Version</h2>
             <p><input type="checkbox" data-bind="checked: isLatest"/> Latest</p>
             <p><input type="checkbox" data-bind="checked: isSupported"/> Supported</p>

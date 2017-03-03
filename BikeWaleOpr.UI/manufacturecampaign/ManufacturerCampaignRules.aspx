@@ -23,9 +23,6 @@
 </head>
 <body>
     <form id="mfgRuleForm" runat="server">
-        <div class="margin-left20">
-        <!-- #Include file="/content/DealerMenu.aspx" -->
-        </div>
         <div class="left min-height600"> 
             <h1>Manage Campaign Rules For <%=manufactureName %></h1>           
             <fieldset class="margin-top10">

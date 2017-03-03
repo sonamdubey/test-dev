@@ -2,9 +2,11 @@
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DALs.BikeColorImages;
+using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Interface.BikeColorImages;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.Used;
@@ -29,6 +31,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
         public static IUnityContainer Initialize()
         {
             IUnityContainer container = new UnityContainer();
+
             container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
             container.RegisterType<IContractCampaign, ContractCampaign>();
             container.RegisterType<IManufacturerReleaseMaskingNumber, ManufacturerReleaseMaskingNumber>();
@@ -36,6 +39,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ISellBikes, SellBikes>();
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
+            container.RegisterType<IBikeMakes, BikeMakesRepository>();
+
             return container;
         }
     }
