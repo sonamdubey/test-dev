@@ -431,6 +431,7 @@ namespace Bikewale.BAL.Videos
         /// <summary>
         /// Created by: Sangram Nandkhile on 28 Feb 2017
         /// Summary: Fetch similar videos by video basic id and totalCount
+        /// First fetch videos by ModelId, If there are lesser vidos than the total count, fetch videos from subcategory id
         /// </summary>
         /// <param name="videoId"></param>
         /// <returns></returns>
@@ -440,13 +441,15 @@ namespace Bikewale.BAL.Videos
             int fetchedCount = 0;
             try
             {
-                var videoList = GetVideosByMakeModel(1, totalCount, 0, modelId);
-                if (videoList != null)
+                if (modelId > 0)
                 {
-                    objVideosList = videoList.ToList();
-                    fetchedCount = objVideosList.Count;
+                    var videoList = GetVideosByMakeModel(1, totalCount, 0, modelId);
+                    if (videoList != null)
+                    {
+                        objVideosList = videoList.ToList();
+                        fetchedCount = objVideosList.Count;
+                    }
                 }
-                //GetSimilarVideos(videoId, totalCount).ToList();
                 // If there are no enpugh videos for Model, calculate category id and fetch remaining videos by category
                 if (fetchedCount < totalCount)
                 {
@@ -461,10 +464,16 @@ namespace Bikewale.BAL.Videos
                             {
                                 EnumVideosCategory category = (EnumVideosCategory)categoryId;
                                 BikeVideosListEntity allVideos = GetVideosBySubCategory(categoryId.ToString(), 1, (ushort)(remainingCount + 1), null);
-                                IEnumerable<BikeVideoEntity> objCategoryVidesos = allVideos.Videos.Where(x => x.BasicId != videoId).Take(remainingCount);
-                                if (objCategoryVidesos != null && objCategoryVidesos.Count() > 0)
+                                if (objVideosList == null)
+                                    objVideosList = new List<BikeVideoEntity>();
+                                if (allVideos.Videos != null && allVideos.Videos.Count() > 0)
                                 {
-                                    objVideosList.AddRange(objCategoryVidesos);
+                                    objVideosList.AddRange(allVideos.Videos);
+                                    var objVideos = objVideosList.Where(x => x.BasicId != videoId).Take(totalCount).ToList();
+                                    if (objVideos != null)
+                                    {
+                                        objVideosList = objVideos.ToList();
+                                    }
                                 }
                             }
                         }
