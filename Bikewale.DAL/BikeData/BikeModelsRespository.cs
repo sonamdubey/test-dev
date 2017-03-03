@@ -172,13 +172,19 @@ namespace Bikewale.DAL.BikeData
 
         }
 
+        /// <summary>
+        /// Modified By : Sajal Gupta on 01-03-2017
+        /// Description : Changed sp to get modelcolor image id .
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
         {
             List<BikeModelColor> colors = null;
             List<NewBikeModelColor> objMultiToneColor = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelcolor_27012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelcolor_01032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     //cmd.CommandText = "getmodelcolor_27012016";
@@ -202,6 +208,7 @@ namespace Bikewale.DAL.BikeData
                                         ColorName = Convert.ToString(dr["Color"]),
                                         HexCode = Convert.ToString(dr["HexCode"]),
                                         ModelId = Convert.ToUInt32(dr["BikeModelID"]),
+                                        ColorImageId = Convert.ToUInt32(dr["colorimageid"]),
                                     }
                                 );
                             }
@@ -225,6 +232,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             tempColor.ColorName = colorList.ColorName;
                             tempColor.ModelId = colorList.ModelId;
+                            tempColor.ColorImageId = colorList.ColorImageId;
                             HexCodeList.Add(colorList.HexCode);
                         }
 

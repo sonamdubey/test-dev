@@ -58,9 +58,7 @@ namespace Bikewale.Controls
                     IsUpcoming = genericBikeInfo.IsUpcoming;
                     IsDiscontinued = genericBikeInfo.IsDiscontinued;
                 };
-
             }
-
         }
     }
 }

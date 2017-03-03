@@ -1,14 +1,17 @@
 ﻿
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.SEO;
+using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -38,11 +41,14 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         public BikeMakeEntityBase objMake = null;
         public BikeModelEntityBase objModel = null;
         public List<ColorImageBaseEntity> objImageList = null;
+        public List<BikeVideoEntity> objVideosList = null;
         public PageMetaTags pageMetas = null;
         public uint GridSize;  //show more photos available after grid size more than gridSize
         public bool IsUpcoming = false, IsDiscontinued = false;
         public bool isModelpage;
         public bool isDesktop;
+        private IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        public ModelPhotoGalleryEntity photoGalleryEntity = null;
 
         /// <summary>
         /// Created By : Sushil Kumar on 5th Jan 2016
@@ -56,15 +62,16 @@ namespace Bikewale.BindViewModels.Webforms.Photos
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    container.RegisterType<IPager, Pager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>();
 
-
                     objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
                     objModelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                    _objModelEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                 }
 
                 ParseQueryString();
@@ -76,48 +83,33 @@ namespace Bikewale.BindViewModels.Webforms.Photos
         }
 
         /// <summary>
-        /// Created By : Sushil Kumar on 5th Jan 2016
-        /// Description: To get Model Details
+        /// Created BY : Sajal Gupta on 28-02-2017
+        /// Description : Function to get photo gallery data from bal
         /// </summary>
-        public void GetModelDetails()
+        public void GetPhotoGalleryData()
         {
             try
             {
-                var bikemodelEnt = new ModelHelper().GetModelDataById(_modelId);
+                photoGalleryEntity = _objModelEntity.GetPhotoGalleryData(Convert.ToInt32(_modelId));
 
-                if (bikemodelEnt != null)
+                if (photoGalleryEntity != null && photoGalleryEntity.ObjModelEntity != null)
                 {
-                    objMake = bikemodelEnt.MakeBase;
+                    var bikeEntity = photoGalleryEntity.ObjModelEntity;
+                    objMake = bikeEntity.MakeBase;
                     objModel = new BikeModelEntityBase();
-                    objModel.ModelId = bikemodelEnt.ModelId;
-                    objModel.ModelName = bikemodelEnt.ModelName;
-                    objModel.MaskingName = bikemodelEnt.MaskingName;
-                    bikeName = string.Format("{0} {1}", objMake.MakeName, bikemodelEnt.ModelName);
-                    IsUpcoming = bikemodelEnt.Futuristic;
-                    IsDiscontinued = !bikemodelEnt.Futuristic && !bikemodelEnt.New;
+                    objModel.ModelId = bikeEntity.ModelId;
+                    objModel.ModelName = bikeEntity.ModelName;
+                    objModel.MaskingName = bikeEntity.MaskingName;
+                    bikeName = string.Format("{0} {1}", objMake.MakeName, bikeEntity.ModelName);
+                    IsUpcoming = bikeEntity.Futuristic;
+                    IsDiscontinued = !bikeEntity.Futuristic && !bikeEntity.New;
                 }
 
-                GetModelImages();
-                SetPageMetas();
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
-            }
-        }
-
-        /// <summary>
-        /// Created By : Sushil Kumar on 5th Jan 2016
-        /// Description: To get model images .Calculate grid and non grid images count based on total count
-        /// Modified By :- Subodh Jain 20 jan 2017
-        /// Summary :- take only 1 element if model page gallery is binding
-        /// </summary>
-        public void GetModelImages()
-        {
-            try
-            {
-                objImageList = objModelCache.GetAllPhotos((int)_modelId) as List<ColorImageBaseEntity>;
+                if (photoGalleryEntity != null)
+                {
+                    objImageList = photoGalleryEntity.ImageList as List<ColorImageBaseEntity>;
+                    objVideosList = photoGalleryEntity.VideosList as List<BikeVideoEntity>;
+                }
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
@@ -132,12 +124,13 @@ namespace Bikewale.BindViewModels.Webforms.Photos
 
                     nongridPhotosCount = (int)(totalPhotosCount % NoOfGrid);
                     gridPhotosCount = totalPhotosCount - nongridPhotosCount;
-
                 }
+
+                SetPageMetas();
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetModelImages");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BindViewModels.Webforms.BindModelPhotos : GetPhotoGalleryData");
             }
         }
 
@@ -154,7 +147,7 @@ namespace Bikewale.BindViewModels.Webforms.Photos
                     pageMetas = new PageMetaTags();
                     pageMetas.Title = String.Format("{0} Images | {1} Photos - BikeWale", bikeName, objModel.ModelName);
                     pageMetas.Keywords = string.Format("{0} photos, {0} pictures, {0} images, {1} {0} photos", objModel.ModelName, objMake.MakeName);
-                    pageMetas.Description = String.Format("View images of {0} in different colors and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
+                    pageMetas.Description = String.Format("View images of {0} in different colours and angles. Check out {2} photos of {1} on BikeWale", objModel.ModelName, bikeName, totalPhotosCount);
                     pageMetas.CanonicalUrl = String.Format("https://www.bikewale.com/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                     pageMetas.AlternateUrl = String.Format("https://www.bikewale.com/m/{0}-bikes/{1}/images/", objMake.MaskingName, objModel.MaskingName);
                 }

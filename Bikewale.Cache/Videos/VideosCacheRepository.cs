@@ -16,10 +16,12 @@ namespace Bikewale.Cache.Videos
     {
         private readonly IVideos _VideosRepository = null;
         private readonly ICacheManager _cache = null;
-        public VideosCacheRepository(ICacheManager cache, IVideos videosRepository)
+        private readonly IVideoRepository _videoRepo = null;
+        public VideosCacheRepository(ICacheManager cache, IVideos videosRepository,IVideoRepository videoRepo)
         {
             _cache = cache;
             _VideosRepository = videosRepository;
+            _videoRepo=videoRepo;
         }
 
         #region Get Bike Videos by Category
@@ -159,5 +161,26 @@ namespace Bikewale.Cache.Videos
         }
 
         #endregion
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 27 Feb 2017
+        /// Summary    : Get model wise video count
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeVideoModelEntity> GetModelVideos(uint makeId)
+        {
+            IEnumerable<BikeVideoModelEntity> modelVideos = null;
+            string key = String.Format("BW_VideoModels_Count_MK_{0}", makeId);
+            try
+            {
+                modelVideos = _cache.GetFromCache<IEnumerable<BikeVideoModelEntity>>(key, new TimeSpan(0, 30, 0), () => _videoRepo.GetModelVideos(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.Cache.Videos.GetModelVideos MakeId:{0}",makeId));
+            }
+            return modelVideos;
+        }
     }
 }

@@ -114,12 +114,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\Libs\grpc\Google.Protobuf.dll</HintPath>
-    </Reference>
-    <Reference Include="Grpc.Core, Version=0.13.1.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\grpc\Grpc.Core.dll</HintPath>
+      <HintPath>..\Libs\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Grpc.Core.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
@@ -184,13 +185,13 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\grpc\System.Interactive.Async.dll</HintPath>
+      <HintPath>..\Libs\System.Interactive.Async.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
@@ -198,13 +199,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Http.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.2\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -452,9 +453,14 @@
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
+    <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
+    <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
+    <Compile Include="Controllers\new\Videos\VideosController.cs" />
+    <Compile Include="Controllers\PopularBikesController.cs" />
     <Compile Include="Controllers\Shared\BikeInfoController.cs" />
+    <Compile Include="Controllers\Shared\GenericBikeInfoController.cs" />
     <Compile Include="Controllers\Shared\Pager\PagerController.cs" />
     <Compile Include="controls\BestBikes.ascx.cs">
       <DependentUpon>BestBikes.ascx</DependentUpon>
@@ -2293,7 +2299,9 @@
     <Content Include="css\used\landing.css" />
     <Content Include="css\used\details.css" />
     <Content Include="css\user-review\listing.css" />
+    <Content Include="css\video\detail.css" />
     <Content Include="css\video\landing.css" />
+    <Content Include="css\video\videos-by-make.css" />
     <Content Include="css\zebra-datepicker.css" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2818,6 +2826,8 @@
     <Content Include="m\css\used\bikes-in-city.css" />
     <Content Include="m\css\user-review\listing.css" />
     <Content Include="m\css\videos\bwm-videos-landing.css" />
+    <Content Include="m\css\videos\video-detail.css" />
+    <Content Include="m\css\videos\videos-by-make.css" />
     <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\css\dealer\details.css" />
@@ -2940,6 +2950,7 @@
     <Content Include="m\src\used-search.js" />
     <Content Include="m\src\used\bikes-in-city.js" />
     <Content Include="m\src\used\landing.js" />
+    <Content Include="m\src\video\details.js" />
     <Content Include="m\src\video\videoByCategory.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="BikeBooking\BookingListing.aspx" />
@@ -3021,6 +3032,7 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\new-launch.js" />
+    <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
@@ -3107,11 +3119,13 @@
     <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\swiper-3.1.7.js" />
     <Content Include="src\used-landing.js" />
     <Content Include="src\sell-bike.js" />
     <Content Include="src\used-details.js" />
     <Content Include="src\used-search.js" />
     <Content Include="src\Used\search.js" />
+    <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
     <Content Include="staticHtml\premium.html" />
@@ -3332,6 +3346,18 @@
     <Content Include="Views\m\NewLaunches\BikesByMake.cshtml" />
     <Content Include="Views\m\Shared\_NewLaunchedByMakeWithCount.cshtml" />
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
+    <Content Include="Views\Videos\Details.cshtml" />
+    <Content Include="Views\Shared\_SimilarVideo.cshtml" />
+    <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\m\Videos\Makes.cshtml" />
+    <Content Include="Views\Videos\Makes.cshtml" />
+    <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
+    <Content Include="Views\Shared\_PopularBikes.cshtml" />
+    <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
+    <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
+    <Content Include="Views\m\Videos\Details.cshtml" />
+    <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
+    <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3357,6 +3383,7 @@
     <Folder Include="Views\Content\News\Amp\" />
     <Folder Include="Views\ExpertReviews\" />
     <Folder Include="Views\Features\" />
+    <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
     <Folder Include="Views\Upcoming\" />
@@ -3459,4 +3486,12 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)..\libs\grpc_csharp_ext.x64.dll $(ProjectDir)bin\ 
+copy $(ProjectDir)..\libs\grpc_csharp_ext.x86.dll $(ProjectDir)bin\</PostBuildEvent>
+  </PropertyGroup>
 </Project>

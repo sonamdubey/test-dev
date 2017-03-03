@@ -18,26 +18,25 @@
 		float: left
 		margin-right: 5px
 		margin-left: 5px
-		color: $text-light
-		font-size: 12px
-		padding: 5px
-		border: 1px solid #fff
-		display: block
-		min-width: 30px
-		text-align: center
+
+		&.active
+			color: $text-primary
+			font-weight: $font-bold
+			border: 1px solid #a2a2a2
+			border-radius: 1px
 
 	a
 		color: $text-light
+		font-size: 12px
+		display: block
+		padding-top: 5px
+		padding-bottom: 5px
+		min-width: 30px
+		text-align: center
 
 		&:hover
 			color: $text-primary
 			text-decoration: none
-			
-	.active
-		color: $text-primary
-		font-weight: bold
-		border: 1px solid #a2a2a2
-		@include border-radius(1px)
 
 
 .pagination-control-prev,

@@ -1,113 +1,195 @@
-﻿<%@ Page Language="C#" validateRequest = "false" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
+﻿<%@ Page Language="C#" ValidateRequest="false" AutoEventWireup="false" Inherits="BikewaleOpr.manufacturecampaign.ManageDealer" AsyncTimeout="45" EnableEventValidation="false" Async="true" %>
+
 <!-- #Include file="/includes/headerNew.aspx" -->
 <style type="text/css">
-    .greenMessage {color: #6B8E23;font-size: 11px;}
-    .redMessage {color: #ff0000;font-size: 11px;}
-    .errMessage {color: #FF4A4A;}
-    .valign {vertical-align: top;}
-    .position-abt {position: absolute;}
-    .position-rel {position: relative;}
-    .required {color: red;}
-    .redmsg {border: 1px solid red;background: #FFCECE;}
-    .hide {display: none;}
-    .show {display: block;}
-    #pageloaddiv {position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 1000;background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;}
+    .greenMessage {
+        color: #6B8E23;
+        font-size: 11px;
+    }
+
+    .redMessage {
+        color: #ff0000;
+        font-size: 11px;
+    }
+
+    .errMessage {
+        color: #FF4A4A;
+    }
+
+    .valign {
+        vertical-align: top;
+    }
+
+    .position-abt {
+        position: absolute;
+    }
+
+    .position-rel {
+        position: relative;
+    }
+
+    .required {
+        color: red;
+    }
+
+    .redmsg {
+        border: 1px solid red;
+        background: #FFCECE;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+
+    #pageloaddiv {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
+    }
 </style>
 <div>
     <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
 <div class="left min-height600">
     <h1><%= (isEdit ? "Edit" : "Add") %>&nbsp;<%= manufacturerName %> Campaign</h1>
-    <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" /> 
-    <asp:label class="redMessage margin-bottom10 margin-left10" id="lblRedMessage" runat="server" /> 
+    <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" />
+    <asp:label class="redMessage margin-bottom10 margin-left10" id="lblRedMessage" runat="server" />
     <table class="margin-top10 margin-bottom10 tblSimple" rules="all" cellspacing="0" cellpadding="5">
         <tbody>
             <tr>
                 <th>Campaign Description :<span class="errorMessage">*</span> </th>
-                <td><asp:TextBox runat="server" id="campaignDescription" class="req" enabled="true" width="300"/></td>
+                <td>
+                    <asp:textbox runat="server" id="campaignDescription" class="req" enabled="true" width="300" />
+                </td>
             </tr>
             <tr>
                 <th>Campaign Masking Number :<span class="errorMessage">*</span></th>
                 <td>
-                    <asp:TextBox runat="server" id="txtMaskingNumber" maxlength="10" class="numeric"  disabled="disabled" />
+                    <asp:textbox runat="server" id="txtMaskingNumber" maxlength="10" class="numeric" disabled="disabled" />
                     <asp:dropdownlist id="ddlMaskingNumber" runat="server" />
-                    <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />     
-                    <asp:hiddenfield id="hdnmaskingnumber" runat="server" />                     
-                    <% if (isEdit) { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
+                    <asp:hiddenfield id="hdnOldMaskingNumber" runat="server" />
+                    <asp:hiddenfield id="hdnmaskingnumber" runat="server" />
+                    <% if (isEdit)
+                       { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                 </td>
-            </tr>  
+            </tr>
             <tr>
-                <th>Start / Stop Campaign :</th> 
-                <td><asp:CheckBox runat="server" id="isActive" Checked="True" /></td>                  
-            </tr>   
+                <th>Start / Stop Campaign :</th>
+                <td>
+                    <asp:checkbox runat="server" id="isActive" checked="True" />
+                </td>
+            </tr>
             <tr>
                 <th>Dealer Price Quote Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
-                    <asp:textbox id="textBox1" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                           
-                    <asp:CheckBox runat="server" id="CheckBox1" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox1')"/> 
+                    <asp:textbox id="textBox1" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
+                    <asp:checkbox runat="server" id="CheckBox1" checked="True" text="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox1')" />
                     <asp:hiddenfield id="Hiddenfield1" runat="server" />
                 </td>
-            </tr>   
+            </tr>
             <tr>
                 <th>Dealer Price Quote Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
-                    <asp:textbox id="textBox2" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                        
-                    <asp:CheckBox runat="server" id="CheckBox2" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox2')"/> 
+                    <asp:textbox id="textBox2" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
+                    <asp:checkbox runat="server" id="CheckBox2" checked="True" text="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox2')" />
                     <asp:hiddenfield id="Hiddenfield2" runat="server" />
                 </td>
-            </tr> 
+            </tr>
             <tr>
                 <th>Model Page Desktop Template<span class="errorMessage">*</span></th>
                 <td>
-                    <asp:textbox id="textBox3" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />                           
-                    <asp:CheckBox runat="server" id="CheckBox3" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox3')"/> 
+                    <asp:textbox id="textBox3" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
+                    <asp:checkbox runat="server" id="CheckBox3" checked="True" text="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox3')" />
                     <asp:hiddenfield id="Hiddenfield3" runat="server" />
                 </td>
-            </tr>  
+            </tr>
             <tr>
                 <th>Model Page Mobile Template<span class="errorMessage">*</span></th>
                 <td>
-                    <asp:textbox id="textBox4" textmode="multiline" multiline="true" height="100" width="300" runat="server" />                            
-                    <asp:CheckBox runat="server" id="CheckBox4" Checked="True" text ="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox4')"/> 
+                    <asp:textbox id="textBox4" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
+                    <asp:checkbox runat="server" id="CheckBox4" checked="True" text="Use Default Template" onclick="enableDisableTextbox(this.checked, 'textBox4')" />
                     <asp:hiddenfield id="Hiddenfield4" runat="server" />
                 </td>
-            </tr>             
+            </tr>
             <tr>
-                <td colspan="2"><asp:button id="btnUpdate" onclientclick="return ValidateForm();"  runat="server" cssclass="padding10" /></td>
-            </tr>  
-            <% if (isEdit) { %>                      
+                <th>LeadCapturePopup Heading</th>
+                <td>
+                    <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Heading" textmode="multiline" multiline="true" height="100" width="300" runat="server"/>
+                    <asp:checkbox class="LeadCaptureCheckbox" runat="server" id="CheckBox5" text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Heading')" />
+                    <asp:hiddenfield id="Hiddenfield5" runat="server" />
+                      <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
+                </td>
+              
+            </tr>
             <tr>
-                <td colspan="2"><a href="/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>                         
-            </tr>  
-             <%} %>                 
-        </tbody>                                                                    
+                <th>LeadCapturePopup Description</th>
+                <td>
+                    <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Description" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
+                    <asp:checkbox class="LeadCaptureCheckbox" runat="server" id="CheckBox6"   text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Description')" />
+                    <asp:hiddenfield id="Hiddenfield6" runat="server" />
+                     <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
+                </td>
+                
+            </tr>
+            <tr>
+                <th>LeadCapturePopup Message</th>
+                <td>
+                    <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Message" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />
+                    <asp:checkbox class="LeadCaptureCheckbox"  runat="server" id="CheckBox7"  text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Message')" />
+                    <asp:hiddenfield id="Hiddenfield7" runat="server" />
+                     <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
+                </td>
+               
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <asp:button id="btnUpdate" onclientclick="return ValidateForm();" runat="server" cssclass="padding10" />
+                </td>
+            </tr>
+            <% if (isEdit)
+               { %>
+            <tr>
+                <td colspan="2"><a href="/manufacturecampaign/ManufacturerCampaignRules.aspx?campaignid=<%=campaignId%>&dealerid=<%=dealerId%>&manufactureName=<%=manufacturerName%>">manage rules for the campaign</a></td>
+            </tr>
+            <%} %>
+        </tbody>
     </table>
-            <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
+    <asp:label class="errMessage margin-bottom10 margin-left10 required" id="lblErrorSummary" runat="server" />
 </div>
 
 <script type="text/javascript">
-    var BwOprHostUrl = '<%= BwOprHostUrl%>';
-    var dealerId='<%=dealerId%>';
+    var BwOprHostUrl = '<%= Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs%>';
+    var dealerId = '<%=dealerId%>';
     var userId = '<%= userId %>';
     var campaignId = '<%= campaignId %>';
     $(document).ready(function () {
-
-        if ('<%= isEdit %>' == 'False')
-        { 
+        if ('<%= isEdit %>' == 'False') {
             $('#textBox1').prop("disabled", true);
             $('#textBox2').prop("disabled", true);
             $('#textBox3').prop("disabled", true);
             $('#textBox4').prop("disabled", true);
+            $('.LeadCaptureDetails').prop("disabled", true);
+            $('#CheckBox7').prop("checked", true);
+            $('#CheckBox5').prop("checked", true);
+            $('#CheckBox6').prop("checked", true);
+
             $("#btnUpdate").val("Save Campaign");
         }
-        else
-        {        
+        else {
             $("#btnUpdate").val("Update Campaign");
-            
+
         }
 
         bindMaskingNumber(dealerId);
-       
+
 
     });
 
@@ -115,7 +197,7 @@
         $(this).prop("disabled", true);
         if ($(this).text() == txtMaskingNumber) {
             $('#txtMaskingNumber').val($(this).text());
-            
+
         }
     });
 
@@ -137,9 +219,9 @@
         try {
             if (confirm("Do you want to release the number?")) {
                 $.ajax({
-                    
+
                     type: "POST",
-                    url: BwOprHostUrl + "/api/ManufacturerCampaign/ReleaseNumber/?dealerId=" + dealerId + "&campaignId=" + campaignId + "&maskingNumber=" +  maskingNumber  + "&userId=" + userId,
+                    url: BwOprHostUrl + "/api/ManufacturerCampaign/ReleaseNumber/?dealerId=" + dealerId + "&campaignId=" + campaignId + "&maskingNumber=" + maskingNumber + "&userId=" + userId,
                     datatype: "json",
 
                     success: function (response) {
@@ -147,7 +229,7 @@
                             $("#txtMaskingNumber").val('');
                             //bindMaskingNumber(dealerId);                                
                             alert("Masking Number is released successful.");
-                            
+
                         }
                         else {
                             alert("There was error while releasing masking number. Please contact System Administrator for more details.");
@@ -185,14 +267,13 @@
     }
 
 
-    function enableDisableTextbox(bEnable, textBoxID)
-    {
+    function enableDisableTextbox(bEnable, textBoxID) {
+
         $('#' + textBoxID).prop("disabled", bEnable);
         $('#lblGreenMessage').html('Please fill values');
     }
 
-    function modifyHtmlTemplate(ele)
-    {
+    function modifyHtmlTemplate(ele) {
         try {
             if (ele) {
                 var el = $("<section></section>");
@@ -203,29 +284,30 @@
                 $(maskingNum).prev().addClass("{10}");
                 $(d).find("#btnCallDealer").attr("href", "tel:+91{2}").parent(".grid-6").addClass("{10}");
                 var leadBtn = $(d).find(".leadcapturebtn");
-                if(leadBtn)
-                {
+                if (leadBtn) {
                     leadBtn.attr("data-mfgcampid", "{0}");
-                    leadBtn.attr("data-item-id","{3}");
-                    leadBtn.attr("data-item-area","{4}");
-                    leadBtn.attr("data-leadsourceid","{5}");
-                    leadBtn.attr("data-pqsourceid","{6}");                                                                                                 
-                    leadBtn.attr("a","{7}");
-                    leadBtn.attr("c","{8}");
+                    leadBtn.attr("data-item-id", "{3}");
+                    leadBtn.attr("data-item-area", "{4}");
+                    leadBtn.attr("data-leadsourceid", "{5}");
+                    leadBtn.attr("data-pqsourceid", "{6}");
+                    leadBtn.attr("a", "{7}");
+                    leadBtn.attr("c", "{8}");
                     leadBtn.attr("l", "{9}");
-
+                    leadBtn.attr("data-item-heading", "{11}");
+                    leadBtn.attr("data-item-description","{12}");
+                    leadBtn.attr("data-item-message","{13}");
                 }
                 ele.val(el.html());
             }
-            
+
         } catch (e) {
-            
+
         }
     }
 
     function ValidateForm() {
         var isValid = true;
-        
+
         $('.req').each(function () {
             if ($.trim($(this).val()) == '') {
                 isValid = false;
@@ -236,18 +318,19 @@
             }
         });
 
-        
-        
-        $("textarea").each(function(){
+
+
+        $("textarea").each(function () {
+           
             var ele = $(this);
-            if(!ele.next().prop("checked"))
+            if (ele.next().prop("checked") != null && !ele.next().prop("checked") && !ele.hasClass('LeadCaptureDetails'))
                 modifyHtmlTemplate(ele);
         })
-        
-        
-        $("textarea").each(function(){
+
+
+        $("textarea").each(function () {
             var ele = $(this);
-            if(!ele.next().prop("checked") && $.trim($(this).val()) == ''){
+            if (ele.next().prop("checked")!=null&&!ele.next().prop("checked") && $.trim($(this).val()) == '' && !ele.hasClass('LeadCaptureDetails')) {
                 $(this).addClass('redmsg');
                 isValid = false;
             }
@@ -255,16 +338,16 @@
                 $(this).removeClass('redmsg');
             }
 
-                
+
         })
 
         if (!isValid) {
             $('#lblErrorSummary').html('Please fill values');
-            
+
         }
 
         return isValid;
-        }
+    }
 
 </script>
 

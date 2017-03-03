@@ -1,0 +1,76 @@
+﻿@using Bikewale.Utility;
+@{
+    ViewBag.AdId = "1395995626568";
+    ViewBag.AdPath = "/1017752/BikeWale_News_";
+    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videos-by-make.css' />";
+    ViewBag.IsHeaderFix = false;
+    ViewBag.IsTransparentHeader = false;
+}
+@model IEnumerable<Bikewale.Entities.Videos.BikeVideoModelEntity>
+
+<section>
+    <div class="container padding-top10">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/" itemprop="url" title="Home">
+                            <span itemprop="title">Home</span>
+                        </a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <a href="@string.Format("/{0}-bikes/", ViewBag.makeMaskingName)" itemprop="url" title="">
+                            <span itemprop="title">@ViewBag.MakeName Bikes</span>
+                        </a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <span class="bwsprite fa-angle-right margin-right10"></span>
+                        <span itemprop="title">@ViewBag.MakeName bike videos</span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+@if (Model != null && Model.Count() > 0)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <h1 class="content-box-shadow padding-15-20">@ViewBag.MakeName bike videos</h1>
+                    <ul class="bike-listing">
+                        @foreach (var bike in Model)
+                        {
+                            string bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.ModelName);
+                            <li class="list-item">
+                                <a href="@UrlFormatter.FormatVideoPageUrl(bike.objMake.MaskingName, bike.MaskingName)" title="@string.Format("{0} Videos",bikeName)" class="block">
+                                    <div class="model-jcarousel-image-preview">
+                                        <img class="lazy" data-original="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._310x174)" alt="@bikeName" src="" />
+                                        <span class="play-icon-wrapper">
+                                            <span class="bwsprite video-play-icon"></span>
+                                        </span>
+                                    </div>
+                                    <div class="card-desc-block">
+                                        <h2 class="bikeTitle">@bikeName</h2>
+                                        <p class="font14 text-light-grey">@bike.VideoCount Video@(bike.VideoCount > 1 ? "s" : "")</p>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}
+
+@{Html.RenderAction("PopularBikesDesktop", "PopularBikes", new { topCount = @ViewBag.TopCount,makeId=@ViewBag.MakeId,cityId=@ViewBag.CityId });}
+
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>

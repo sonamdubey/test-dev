@@ -149,7 +149,7 @@ namespace Bikewale.BindViewModels.Webforms.Compare
 
                     PageMetas.Title = string.Format("Compare {0} - BikeWale", ComparisionText);
                     PageMetas.Keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison India";
-                    PageMetas.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colors and much more.", string.Join(" and ", bikeList));
+                    PageMetas.Description = string.Format("Compare {0} at Bikewale. Compare Price, Mileage, Engine Power, Space, Features, Specifications, Colours and much more.", string.Join(" and ", bikeList));
                     PageMetas.CanonicalUrl = string.Format("{0}/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
                     PageMetas.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, ComparisionUrls);
                 }

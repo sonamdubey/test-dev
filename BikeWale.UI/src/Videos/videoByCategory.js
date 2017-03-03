@@ -81,8 +81,8 @@ $(window).scroll(function () {
     var winScroll = $(window).scrollTop(),
         pageHeight = $(document).height(),
         windowHeight = $(window).height(),
-        footerHeight = $("#bg-footer").height();
-    var position = pageHeight - (windowHeight + 286 + 200);
+        footerHeight = $("#bg-footer").height();   
+    var position = $("#section-videos-list").height();
     if (winScroll >= position && pageNo < maxPage && isNextPage) {
         isNextPage = false;
         pageNo = $.getPageNo() + 1;

@@ -146,9 +146,9 @@ namespace BikeWaleOpr.Content
                     if (currentId != "-1")
                     {
                         NameValueCollection nvc = new NameValueCollection();
-                        nvc.Add("versionid", currentId);
-                        nvc.Add("modelId", Request["cmbmodels"].ToString());
-                        nvc.Add("versionName", txtVersion.Text.Trim());
+                        nvc.Add("versionId", currentId);
+                        nvc.Add("ModelId", Request["cmbmodels"].ToString());
+                        nvc.Add("VersionName", txtVersion.Text.Trim());
                         nvc.Add("IsNew", Convert.ToInt16(chkNew.Checked).ToString());
                         nvc.Add("IsUsed", Convert.ToInt16(chkUsed.Checked).ToString());
                         nvc.Add("Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
@@ -276,10 +276,12 @@ namespace BikeWaleOpr.Content
                 MySqlDatabase.InsertQuery(sql, param, ConnectionType.MasterDatabase);
                 NameValueCollection nvc = new NameValueCollection();
                 nvc.Add("VersionId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
-                nvc.Add("versionname", txt.Text.Trim().Replace("'", "''"));
+                nvc.Add("VersionName", txt.Text.Trim().Replace("'", "''"));
                 nvc.Add("IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
                 nvc.Add("IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
                 nvc.Add("IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
+                nvc.Add("ModelId", null);
+                nvc.Add("IsDeleted", null);
                 SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
 
                 var makeId = Request.Form["cmbMakes"];
@@ -323,6 +325,11 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.InsertQuery(sql, ConnectionType.MasterDatabase);
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("VersionId", _versionId.ToString());
+                    nvc.Add("VersionName", null);
+                    nvc.Add("IsNew", null);
+                    nvc.Add("IsUsed", null);
+                    nvc.Add("IsFuturistic", null);
+                    nvc.Add("ModelId", null);
                     nvc.Add("IsDeleted", "1");
                     SyncBWData.PushToQueue("BW_UpdateBikeVersions", DataBaseName.CW, nvc);
                 }

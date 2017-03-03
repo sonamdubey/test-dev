@@ -249,6 +249,41 @@ namespace Bikewale.BAL.GrpcFiles
                 return null;
         }
 
+
+        public static ArticleSummary ConvertFromGrpcToBikeWale(GrpcArticleSummary data)
+        {
+            if (data == null || data.ArticleBase == null) return new ArticleSummary();
+
+            try
+            {
+                var curArt = new ArticleSummary();
+                curArt.ArticleUrl = data.ArticleBase.ArticleUrl;
+                curArt.BasicId = data.ArticleBase.BasicId;
+                curArt.Title = data.ArticleBase.Title;
+                curArt.AuthorName = data.AuthorName;
+                //curArt.AuthorMaskingName = data.AuthorMaskingName;
+                curArt.CategoryId = (ushort)data.CategoryId;
+                //curArt.CategoryMaskingName = data.CategoryMaskingName;
+                curArt.Description = data.Description;
+                curArt.DisplayDate = Convert.ToDateTime(data.DisplayDate);
+                curArt.FacebookCommentCount = data.FacebookCommentCount;
+                curArt.HostUrl = data.HostUrl;
+                curArt.IsFeatured = false;
+                curArt.IsSticky = data.IsSticky;
+                curArt.LargePicUrl = data.LargePicUrl;
+                curArt.OriginalImgUrl = data.OriginalImgUrl;
+                curArt.SmallPicUrl = data.SmallPicUrl;
+                curArt.Views = data.Views;
+                //curArt.SubCategory = data.SubCategory;
+                return curArt;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                throw e;
+            }
+        }
+
         public static ArticlePageDetails ConvertFromGrpcToBikeWale(GrpcArticlePageDetails grpcAtricleDet)
         {
             if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)

@@ -52,28 +52,6 @@ $(document).ready(function (e) {
     }
 });
 
-
-$(document).ready(function (e) {
-
-    if ($(".bw-overall-rating a").last().css("display") == "none") {
-        var a = $(this);
-        var b = $(this).attr("href");
-        console.log(a);
-        $(this).remove();
-        $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
-    }
-
-    $('.bw-overall-rating a[href^="#"]').click(function () {
-        var target = $(this.hash);
-        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-        if (target.length == 0) target = $('html');
-        $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
-        return false;
-
-    });
-    // ends	
-});
-
 (function ($) {
 
     var connector = function (itemNavigation, carouselStage) {
@@ -460,8 +438,7 @@ $(document).ready(function () {
             }
         });
 
-    });
-    
+    });    
 
     $('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
         var target = $(this.hash);
@@ -470,6 +447,11 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() + 1 }, 1000);
         return false;
     });
+
+    var tabsHashParameter = window.location.hash;
+    if (tabsHashParameter) {
+        $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
+    }
 
 });
 

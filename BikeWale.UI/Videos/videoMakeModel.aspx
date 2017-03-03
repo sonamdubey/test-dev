@@ -31,7 +31,7 @@
 
 
     <style type="text/css">
-       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}.play-icon-wrapper{width:100%;left:0;}#carousal-similar-bike{min-height:262px}</style>
+       .miscWrapper li{width:312px;height:312px;background:#fff;float:left;border:1px solid #e2e2e2;padding:20px;margin-right:10px;margin-bottom:20px;margin-left:10px}.video-image-wrapper{width:271px;height:153px;margin-bottom:15px;overflow:hidden;text-align:center}.video-image-wrapper a,.video-image-wrapper img{width:100%;height:100%}.video-image-wrapper a{display:block;background:url(https://img.aeplcdn.com/bikewaleimg/images/loader.gif) center center no-repeat}.border-light-right{border-right:1px solid #e2e2e2}</style>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
@@ -59,7 +59,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="section-videos-list">
             <div class="miscWrapper container">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
@@ -157,7 +157,7 @@
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = <%= isModel ? modelId : makeId %>;
             var maxPage = 10000000;//Number.MAX_VALUE; 
-            var isModel = false;
+            var isModel = <%= isModel.ToString().ToLower() %>;
             var isNextPage = true;  //change it
             var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
             var cacheKey = isModel ? "model_" + catId : "make_" + catId;

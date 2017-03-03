@@ -2,7 +2,6 @@ using Bikewale.Utility;
 using Grpc.Core;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 
 namespace GRPCLoadBalancer
 {
@@ -21,7 +20,7 @@ namespace GRPCLoadBalancer
         static CustomGRPCLoadBalancerWithSingleton()
         {
 
-            m_WorkingQueue = new Queue<Channel>();     
+            m_WorkingQueue = new Queue<Channel>();
 
             string[] allServers = serverList.Split(';');
             for (int i = 0, j = allServers.Length; i < j; i++)
@@ -64,7 +63,7 @@ namespace GRPCLoadBalancer
                     var client = new EditCMSWindowsService.Messages.EditCMSGrpcService.EditCMSGrpcServiceClient(serverChannel);
                     var output = client.CheckHeartBit
                                 (new EditCMSWindowsService.Messages.GrpcInt() { IntOutput = 2 },
-                                 null, GetForwardTime(500));
+                                 null, GetForwardTime(1000));
                     return output.IntOutput == 2;
 
                 }
@@ -97,5 +96,5 @@ namespace GRPCLoadBalancer
         }
 
     }
-    
+
 }

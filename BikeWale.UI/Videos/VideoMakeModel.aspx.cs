@@ -4,6 +4,7 @@ using Bikewale.Cache.Videos;
 using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -252,7 +253,8 @@ namespace Bikewale.Videos
                     {
                         container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
                                  .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                                 .RegisterType<ICacheManager, MemcacheManager>();
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IVideoRepository, ModelVideoRepository>();
 
                         var objCache = container.Resolve<IVideosCacheRepository>();
                         if (modelId.HasValue && modelId.Value > 0)

@@ -178,7 +178,8 @@ namespace Bikewale.Mobile.BikeBooking
         /// <summary>
         /// Created By  : Sushil Kumar on 11th Jan 2016
         /// Description : Removed binding of leadcapture control as it was used multiple times
-        /// </summary>
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// <param name="cityId"></param>
         /// <param name="versionId"></param>
         /// <param name="dealerId"></param>
@@ -235,7 +236,7 @@ namespace Bikewale.Mobile.BikeBooking
 
                             if (objExQuotation != null)
                             {
-                                objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd, objExQuotation.CampaignId, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objExQuotation.MaskingNumber) ? "hide" : string.Empty);
+                                objExQuotation.ManufacturerAd = Format.FormatManufacturerAd(objExQuotation.ManufacturerAd, objExQuotation.CampaignId, objExQuotation.ManufacturerName, objExQuotation.MaskingNumber, Convert.ToString(objExQuotation.ManufacturerId), objExQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objExQuotation.MaskingNumber) ? "hide" : string.Empty, objExQuotation.LeadCapturePopupHeading, objExQuotation.LeadCapturePopupDescription, objExQuotation.LeadCapturePopupMessage);
                                 totalPrice = objExQuotation.OnRoadPrice;
                             }
                         }

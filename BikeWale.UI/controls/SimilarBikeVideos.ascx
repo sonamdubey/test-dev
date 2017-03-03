@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.SimilarBikeVideos" EnableViewState="false" %>
 <%if(SimilarBikeVideoList!=null){ %>
-<div class="jcarousel-wrapper inner-content-carousel">
+<div class="jcarousel-wrapper inner-content-carousel overlay-carousel">
     <div class="jcarousel">
         <ul>
             <%foreach (var BikeInfo in SimilarBikeVideoList)
@@ -10,12 +10,10 @@
             <li>
                 <a href="/<%=BikeInfo.Make.MaskingName%>-bikes/<%=BikeInfo.Model.MaskingName%>/videos/" title="<%=bikeName %> videos" class="jcarousel-card">
                     <div class="model-jcarousel-image-preview">
-                        <div class="model-preview-image-container position-rel">
-                            <div class="card-image-block">
-                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(BikeInfo.OriginalImagePath,BikeInfo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" src="" border="0">
-                                <div class="play-icon-wrapper">
-                                    <span class="bwsprite video-play-icon"></span>
-                                </div>
+                        <div class="card-image-block">
+                            <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(BikeInfo.OriginalImagePath,BikeInfo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" src="" border="0">
+                            <div class="play-icon-wrapper">
+                                <span class="bwsprite video-play-icon"></span>
                             </div>
                         </div>
                     </div>

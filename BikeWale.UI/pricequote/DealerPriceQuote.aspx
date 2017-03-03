@@ -2,6 +2,7 @@
 
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
+<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 
@@ -189,10 +190,7 @@
                                                 </td>
                                             </tr>
                                             <tr class="row-with-padding">
-                                                <td class="font14">Insurance (Comprehensive)<%--<br />
-                                                        <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
-                                                            <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
-                                                        </div>--%>
+                                                <td class="font14">Insurance (Comprehensive)
                                                 </td>
                                                 <td align="right">
                                                     <span class="bwsprite inr-md"></span>&nbsp;<span class="font16 text-bold"><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
@@ -276,7 +274,7 @@
                                         </ul>
                                     </div>
                                     <div id="get-offers-btn-content" class="inline-block <%= primarydealer.DealerDetails.IsDSA ? "rightfloat" :"" %>">
-                                        <a href="javascript:void(0)" id="leadBtn" leadsourceid="9" data-dealerid="<%=dealerId %>" class="btn btn-orange pq-get-dealer-offers" rel="nofollow"><%= leadBtnLargeText %></a>
+                                        <a href="javascript:void(0)" id="leadBtn" leadsourceid="9"  data-item-id="<%= dealerId %>" data-item-name="<%= primarydealer.DealerDetails.Organization %>" data-item-area="<%= primarydealer.DealerDetails.objArea.AreaName %>" class="btn btn-orange pq-get-dealer-offers leadcapturebtn" c="DealerPriceQoute_Page" a="Get_Offers_Clicked" v="bikeVerLocation" rel="nofollow"><%= leadBtnLargeText %></a>
                                     </div>
                                     <div class="clear"></div>
                                     <% if(primarydealer.DealerDetails.IsDSA){ %>
@@ -677,104 +675,13 @@
         </div>
         <!-- Terms and condition Popup Ends -->
 
-        <div id="dealerAssistance">
-
-            <div id="leadCapturePopup" class="text-center rounded-corner2">
-                <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                <!-- contact details starts here -->
-                <div id="contactDetailsPopup">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
-                        </div>
-                    </div>
-                    <p class="font20 margin-top15 margin-bottom10">Provide contact details</p>
-                    <p class="text-light-grey margin-bottom20">Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
-                    <div class="personal-info-form-container">
-                        <div class="form-control-box personal-info-list">
-                            <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
-                                id="getFullName" data-bind="textInput: fullName">
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                        </div>
-                        <div class="form-control-box personal-info-list">
-                            <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                                id="getEmailID" data-bind="textInput: emailId">
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-                        </div>
-                        <div class="form-control-box personal-info-list">
-                            <p class="mobile-prefix">+91</p>
-                            <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
-                                id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
-                            <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                        </div>
-                        <div class="clear"></div>
-                        <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                        <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
-                    </div>
-                </div>
-                <!-- contact details ends here -->
-                <!-- otp starts here -->
-                <div id="otpPopup">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite otp-icon margin-top25"></span>
-                        </div>
-                    </div>
-                    <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                    <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                    <div>
-                        <div class="lead-mobile-box lead-otp-box-container">
-                            <span class="bwsprite phone-grey-icon"></span>
-                            <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24"></span>
-                            <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                        </div>
-                        <div class="otp-box lead-otp-box-container">
-                            <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
-                                <span class="bwsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
-                            </a>
-                            <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                                OTP has been already sent to your mobile
-                            </p>
-                            <div class="clear"></div>
-                            <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
-                        </div>
-                        <div class="update-mobile-box">
-                            <div class="form-control-box text-left">
-                                <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
-                                <span class="bwsprite error-icon errorIcon"></span>
-                                <div class="bw-blackbg-tooltip errorText"></div>
-                            </div>
-                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
-                        </div>
-                    </div>
-                </div>
-                <!-- otp ends here -->
-                <div id="dealer-lead-msg" class="hide">
-                    <div class="icon-outer-container rounded-corner50">
-                        <div class="icon-inner-container rounded-corner50">
-                            <span class="bwsprite otp-icon margin-top25"></span>
-                        </div>
-                    </div>
-                    <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <%= dealerName %>, <%= dealerArea %> will get in touch with you soon.</p>
-
-                    <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
-                </div>
-            </div>
-            <!-- lead capture popup End-->
-        </div>
+        
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+
+         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
@@ -922,24 +829,6 @@
                 <% }%>
             });
 
-            $("#dealer-assist-msg .assistance-response-close").on("click", function(){
-                $("#dealer-assist-msg").parent().slideUp();
-            });
-
-            $("#dealer-lead-msg .okay-thanks-msg").on("click", function(){
-                $(".leadCapture-close-btn").click();
-            });
-
-            
-            $('#btnGetDealerDetails, #btnBikeBooking').on("click", function () {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = '/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
-            });
-
-            $("#leadLink").on("click", function () {
-                getMoreDetailsClick = true;
-            });
-
             $("input[name*='btnVariant']").on("click", function () {
                 if ($(this).attr('versionid') == $('#hdnVariant').val()) {
                     return false;
@@ -948,59 +837,40 @@
                 triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
             });
 
-            $("input[name*='switchDealer']").on("click", function () {
-                if ($(this).attr('dealerId') == $('#hdnDealerId').val()) {
-                    return false;
-                }
-                $('#hdnDealerId').val($(this).attr('title'));
-                triggerGA('Dealer_PQ', 'Version_Change', bikeVerLocation);
-            });
-
             function secondarydealer_Click(dealerID) {
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Card_Clicked', bikeVerLocation);
-                registerPQ(dealerID);
+                try {
+                    var isSuccess = false;
+
+                    var objData = {
+                        "dealerId": dealerID,
+                        "modelId": <%= modelId%>,
+                        "versionId": versionId,
+                        "cityId": cityId,
+                        "areaId": areaId,
+                        "clientIP": clientIP,
+                        "pageUrl": pageUrl,
+                        "sourceType": 1,
+                        "pQLeadId": pqSourceId,
+                        "deviceId": getCookie('BWC')
+                    };
+
+                    isSuccess = dleadvm.registerPQ(objData);
+
+                    if (isSuccess) {
+                        var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+                        window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                    }
+                } catch (e) {
+                    console.warn("Unable to create pricequote : " + e.message);
+                }
             }
             function openLeadCaptureForm(dealerID) {
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVerLocation);
                 event.stopPropagation();
             }
             
-            function registerPQ(secondaryDealerId) {
-                var obj = {
-                    'cityId': cityId,
-                    'areaId': areaId,
-                    'clientIP': clientIP,
-                    'sourceType': '<%=Bikewale.Utility.BWConfiguration.Instance.SourceId %>',
-                    'versionId': versionId,
-                    'pQLeadId': leadSourceId,
-                    'deviceId': getCookie('BWC'),
-                    'dealerId': secondaryDealerId,
-                    'refPQId' : pqId
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: "/api/RegisterPQ/",
-                    data: obj,
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('utma', getCookie('__utma'));
-                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                    },
-                    success: function (json) {
-                        var jsonObj = json; 
-                        if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                            cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + versionId + "&DealerId=" + secondaryDealerId;
-                            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
-                        }
-                        else {
-                            window.location.href = "/pricequote/";
-                        }
-                    },
-                    error: function (e) {
-                        window.location = "/pricequote/";
-                    }
-                });
-            }
+           
 
             function GetBikeVerLoc() {
                 return bikeName + "_" + versionName + "_" + getCityArea;
@@ -1027,6 +897,32 @@
                 $('.blackOut-window').on("click", function () {
                     $("div#termsPopUpContainer").hide();
                     $(".blackOut-window").hide();
+                });
+                $(".leadcapturebtn").click(function (e) {
+                    ele = $(this);
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": versionId,
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "isleadpopup": ele.attr('data-isleadpopup'),
+                        "mfgCampid": ele.attr('data-mfgcampid'),
+                        "pqid": pqId,
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "dealerHeading" : ele.attr('data-item-heading'), 
+                        "dealerMessage" : ele.attr('data-item-message'), 
+                        "dealerDescription" : ele.attr('data-item-description'), 
+                        "gaobject": {
+                            cat: ele.attr("c"),
+                            act: ele.attr("a"),
+                            lab: bikeVerLocation
+                        }
+
+                    };
+                    dleadvm.setOptions(leadOptions);
                 });
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : ""%>/src/dealerpricequote.js?<%= staticFileVersion%>"></script>

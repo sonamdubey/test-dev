@@ -1,0 +1,129 @@
+﻿@if (Model!= null && Model.BikeInfo != null)
+{
+    <section>
+        <div class="container section-bottom-margin">
+            <div class="grid-12">
+                <div class="content-box-shadow padding-top20 padding-right20 padding-bottom15 padding-left20 model-grid-12-slug">
+                    @if (Model.IsUpcoming)
+                    {
+                        <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                    }
+                    else if (Model.IsDiscontinued)
+                    {
+                        <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                    }
+                    <div class="clear"></div>
+                    <a href="@Model.BikeUrl" title="@Model.BikeName" class="leftfloat margin-bottom15 text-default">
+                        <h2>@Model.BikeName</h2>
+                    </a>
+                    <div class="clear"></div>
+                    <div class="grid-8 alpha padding-right20 border-solid-right">
+                        <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top">
+                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) " src="" alt="@Model.BikeName" />
+                        </a>
+                        <div class="model-details-block vertical-top">
+                            @if (Model.BikeInfo.MinSpecs != null)
+                            {
+                                <ul class="key-specs-list margin-bottom15 text-light-grey">
+                                    @if (Model.BikeInfo.MinSpecs.Displacement > 0)
+                                    {
+                                    <li>
+                                        <span class="bwsprite capacity-sm"></span>
+                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.Displacement)) cc</span>
+                                    </li>
+                                    }
+                                    @if (Model.BikeInfo.MinSpecs.FuelEfficiencyOverall > 0)
+                                    {
+                                    <li>
+                                        <span class="bwsprite mileage-sm"></span>
+                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.FuelEfficiencyOverall),"kmpl") </span>
+                                    </li>
+                                    }
+                                    @if (Model.BikeInfo.MinSpecs.MaxPower > 0)
+                                    {
+                                    <li>
+                                        <span class="bwsprite power-sm"></span>
+                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.MaxPower))  bhp</span>
+                                    </li>
+                                    }
+                                    @if (Model.BikeInfo.MinSpecs.KerbWeight > 0)
+                                    {
+                                    <li>
+                                        <span class="bwsprite weight-sm"></span>
+                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.KerbWeight))  kgs</span>
+                                    </li>
+                                    }
+                                </ul>
+                            }
+                            <ul class="item-more-details-list margin-bottom5 inline-block">
+                                @if (Model.BikeInfo.Tabs != null)
+                                {
+                                    foreach (var Tabsdetails in Model.BikeInfo.Tabs)
+                                    {
+                                        <li>
+                                            <a href="@Tabsdetails.URL" title="@Model.BikeName @Tabsdetails.Title">
+                                                <span class="bwsprite @Tabsdetails.IconText-sm"></span>
+                                                <span class="icon-label">@Tabsdetails.TabText</span>
+                                            </a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                            @if (Model.BikeInfo.UsedBikeCount > 0)
+                            {
+                                <div class="border-solid-bottom margin-bottom10"></div>
+                                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName, (Model.CityDetails != null) ? Model.CityDetails.CityMaskingName : "india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+                                    <span class="used-target-label inline-block">
+                                        <span class="font14 text-bold">@Model.BikeInfo.UsedBikeCount  Used @Model.BikeName bikes</span>
+                                        <span class="font12 text-light-grey">starting at <span class="bwsprite inr-xsm-grey"></span> @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
+                                    </span>
+                                    <span class="bwsprite next-grey-icon"></span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="grid-4 omega padding-left20">
+                        @if (Model.IsDiscontinued)
+                        {
+                            <p class="font14 text-light-grey margin-bottom5" title="Last known Ex-showroom price">Last known Ex-showroom price</p>
+                            <div class="margin-bottom10">
+                                <span class="bwsprite inr-lg"></span>
+                                <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+                            </div>
+                        }
+                        else if (Model.IsUpcoming)
+                        {
+                            <p class="font14 text-light-grey margin-bottom5" title="Expected price">Expected price</p>
+                            <div class="margin-bottom10">
+                                <span class="bwsprite inr-lg"></span>
+                                <span class="font18 text-bold">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin))  - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMax)) </span>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.BikeInfo.PriceInCity > 0 && Model.CityDetails != null)
+                            {
+                                <p class="font14 text-light-grey margin-bottom5" title="@String.Format(" ex-showroom, {0}", Model.CityDetails.CityName)">@String.Format("Ex-showroom, {0}", Model.CityDetails.CityName)</p>
+                                <div class="margin-bottom10">
+                                    <span class="bwsprite inr-lg"></span>
+                                    <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.PriceInCity)) </span>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="font14 text-light-grey margin-bottom5" title="@String.Format(" ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
+                                <div class="margin-bottom10">
+                                    <span class="bwsprite inr-lg"></span>
+                                    <span class="font18 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice)) </span>
+                                </div>
+                            }
+                        }
+                        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName)" title="@Model.BikeName" class="btn btn-white btn-180-34">View model details <span class="bwsprite btn-red-arrow"></span></a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

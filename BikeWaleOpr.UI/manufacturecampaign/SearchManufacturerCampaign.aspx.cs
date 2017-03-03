@@ -7,7 +7,6 @@ using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.manufacturecampaign
@@ -57,8 +56,7 @@ namespace BikeWaleOpr.manufacturecampaign
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "SearchManufacturerCampaign.BindManufacturerList");
             }
         }   // end of GetManufacturerList
 

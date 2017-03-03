@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -33,10 +34,10 @@ namespace Bikewale.BindViewModels.Controls
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                        .RegisterType<IPager, Pager>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                         .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsCacheRepository<int> _objModel = container.Resolve<IBikeModelsCacheRepository<int>>();
                     var _objPager = container.Resolve<IPager>();
                     LaunchedBikeList objLaunched = new LaunchedBikeList();

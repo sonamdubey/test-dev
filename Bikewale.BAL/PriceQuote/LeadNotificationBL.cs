@@ -169,7 +169,9 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="cityId"></param>
         public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId)
         {
-            string abInquiryId = string.Empty, campaignId = string.Empty;
+            string abInquiryId = string.Empty, message = string.Empty;
+            uint campaignId = 0;
+            bool isNotDealerDailyLeadLimitExceeds = false, isNotFakeMobileNumber = false;
             try
             {
                 IDealerPriceQuote objDealer = null;
@@ -180,33 +182,55 @@ namespace Bikewale.BAL.PriceQuote
                     objDealer = container.Resolve<IDealerPriceQuote>();
                     IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
                     PriceQuoteParametersEntity details = objPriceQuote.FetchPriceQuoteDetailsById(pqId);
-                    campaignId = details.CampaignId.HasValue ? details.CampaignId.Value.ToString() : "0";
+
+                    if (details != null && details.CampaignId.HasValue)
+                    {
+                        campaignId = details.CampaignId.Value;
+                        isNotDealerDailyLeadLimitExceeds = !objDealer.IsDealerDailyLeadLimitExceeds(campaignId);
+                    }
+
+                    isNotFakeMobileNumber = !IsFakeMobileNumber(customerMobile);
+
                 }
 
+
                 //update dealer's daily lead count
-                if (objDealer != null && !objDealer.IsDealerDailyLeadLimitExceeds(Convert.ToUInt32(campaignId)) && !IsFakeMobileNumber(customerMobile))
+                if (isNotFakeMobileNumber)
                 {
 
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", customerName, customerMobile, customerEmail, versionId, cityId, campaignId);
 
-                    abInquiryId = _objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
-                    int abInqId = 0;
-                    if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
-                    {
-                        objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId);
-                        objDealer.PushedToAB(pqId, (uint)abInqId);
-                    }
-                    else
-                    {
-                        NameValueCollection objNVC = new NameValueCollection();
-                        objNVC.Add("pqId", pqId.ToString());
-                        objNVC.Add("dealerId", dealerId);
-                        objNVC.Add("campaignId", campaignId);
-                        objNVC.Add("inquiryJson", jsonInquiryDetails);
-                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-                    }
+                    NameValueCollection objNVC = new NameValueCollection();
+                    objNVC.Add("pqId", pqId.ToString());
+                    objNVC.Add("dealerId", dealerId);
+                    objNVC.Add("campaignId", campaignId.ToString());
+                    objNVC.Add("inquiryJson", jsonInquiryDetails);
+                    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    //abInquiryId = _objInquiry.AddNewCarInquiry(dealerId, jsonInquiryDetails);
+                    //int abInqId = 0;
+                    //if (Int32.TryParse(abInquiryId, out abInqId) && abInqId > 0)
+                    //{
+                    //    objDealer.UpdateDealerDailyLeadCount(Convert.ToUInt32(campaignId), (uint)abInqId);
+                    //    objDealer.PushedToAB(pqId, (uint)abInqId);
+                    //}
+                    //else
+                    //{
+                    //    NameValueCollection objNVC = new NameValueCollection();
+                    //    objNVC.Add("pqId", pqId.ToString());
+                    //    objNVC.Add("dealerId", dealerId);
+                    //    objNVC.Add("campaignId", campaignId);
+                    //    objNVC.Add("inquiryJson", jsonInquiryDetails);
+                    //    RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                    //    objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+                    //}
                 }
+                else
+                {
+                    ErrorClass objErr = new ErrorClass(new Exception("Lead not pushed to AutoBiz "),
+                        string.Format("Parameters - DealerId : {0}, CampaignId : {1}, PQId : {2}, CustomerEmail : {3}, CustomerMobile : {4}, CustomerName : {5}, VersionId : {6}, CityId : {7},isNotDealerDailyLeadLimitExceeds : {8}, isNotFakeMobileNumber : {9} ", dealerId, campaignId, pqId, customerEmail, customerMobile, customerName, versionId, cityId, isNotDealerDailyLeadLimitExceeds, isNotFakeMobileNumber));
+                }
+
             }
             catch (Exception ex)
             {
