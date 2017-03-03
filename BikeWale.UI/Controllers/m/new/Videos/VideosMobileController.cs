@@ -29,24 +29,32 @@ namespace Bikewale.Controllers.Mobile.Videos
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Index(string makeMaskingName)
         {
-            MakeMaskingResponse makeInfo = new MakeMaskingResponse();
+            IEnumerable<BikeVideoModelEntity> objModelVideos = null;
+            MakeMaskingResponse makeInfo = null;
             makeInfo = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
-            ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            ViewBag.TopCount = 9;
-            ViewBag.MakeId = makeInfo.MakeId;
-            ViewBag.makeMaskingName = makeMaskingName;
-            ViewBag.MakeName = "";
-            IEnumerable<BikeVideoModelEntity> objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
-            if (objModelVideos != null && objModelVideos.Count() > 0 && objModelVideos.FirstOrDefault().objMake != null)
+            if (makeInfo.StatusCode == 200)
             {
-                ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
+                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                ViewBag.TopCount = 9;
+                ViewBag.MakeId = makeInfo.MakeId;
+                ViewBag.makeMaskingName = makeMaskingName;
+                ViewBag.MakeName = "";
+              objModelVideos = _videos.GetModelVideos(makeInfo.MakeId);
+                if (objModelVideos != null && objModelVideos.Count() > 0 && objModelVideos.FirstOrDefault().objMake != null)
+                {
+                    ViewBag.MakeName = objModelVideos.FirstOrDefault().objMake.MakeName;
+                }
+                ViewBag.Title = string.Format("{0} Bike Videos - BikeWale", ViewBag.MakeName);
+                ViewBag.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", ViewBag.MakeName);
+                ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
+                ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
+                ViewBag.Ad_320x50 = true;
+                ViewBag.Ad_Bot_320x50 = true;
             }
-            ViewBag.Title = string.Format("{0} Bike Videos - BikeWale", ViewBag.MakeName);
-            ViewBag.Description = string.Format("Check latest {0} bikes videos, watch BikeWale expert's take on {0} bikes - features, performance, price, fuel economy, handling and more.", ViewBag.MakeName);
-            ViewBag.Keywords = string.Format("{0},{0} bikes,{0} videos", ViewBag.MakeName);
-            ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
-            ViewBag.Ad_320x50 = true;
-            ViewBag.Ad_Bot_320x50 = true;
+            else if (makeInfo.StatusCode == 301)
+            {
+                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
+            }
             return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
         }
         [Route("m/videos/details/{videoId}/")]
