@@ -41,9 +41,15 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
+            <div id="getPincode-input-box" class="input-box form-control-box personal-info-list">
+                <input type="text" id="getPincode" maxlength="10">
+                <label for="getPincode">Pincode<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
             <div class="clear"></div>
             <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+            <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -164,7 +170,7 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
-            $('.input-box').addClass('not-empty');
+            $('.personal-info-form-container .input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
@@ -732,6 +738,20 @@
         }
         catch (e) { return };
     }
+
+    $(function () {
+        var availablePincodes = [
+          "401101, Bhayander West - Thane",
+          "401102, Umbarpada - Thane",
+          "401103, Vangaon - Thane",
+          "401104, Bhayander East - Thane",
+          "401105, Uttan -Thane"
+        ];
+        $("#getPincode").autocomplete({
+            source: availablePincodes,
+            appendTo: "#getPincode-input-box"
+        }).autocomplete("widget").addClass("pincode-autocomplete");
+    });
 
 </script>
 

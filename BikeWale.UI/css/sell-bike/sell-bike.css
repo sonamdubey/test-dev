@@ -123,11 +123,6 @@
   opacity: 1 !important;
   background: none; }
 
-input[type="text"]:focus,
-input[type="number"]:focus {
-  outline: none;
-  box-shadow: none; }
-
 .input-box {
   height: 60px;
   text-align: left; }
@@ -151,6 +146,10 @@ input[type="number"]:focus {
     -moz-transition: 0.2s ease all;
     -o-transition: 0.2s ease all;
     transition: 0.2s ease all; }
+  .input-box input[type="text"]:focus,
+  .input-box input[type="number"]:focus {
+    outline: none;
+    box-shadow: none; }
 
 .input-number-box input {
   padding-left: 30px !important; }
@@ -406,8 +405,6 @@ textarea {
   left: 0;
   color: #d9534f; }
 
-.invalid ~ .boundary:before,
-.invalid ~ .boundary:after,
 .invalid .boundary:before,
 .invalid .boundary:after {
   background-color: #d9534f;
