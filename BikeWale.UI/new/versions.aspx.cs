@@ -98,33 +98,94 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
+            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             DetectDevice();
+            watch.Stop();
+            long elapsedMs = watch.ElapsedMilliseconds;
+            sb.AppendFormat("DetectDevice\t{0} ms", elapsedMs).AppendLine();
+
+            watch = System.Diagnostics.Stopwatch.StartNew();
             ParseQueryString();
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            sb.AppendFormat("ParseQueryString\t{0} ms", elapsedMs).AppendLine();
+
             try
             {
                 if (modelId > 0)
                 {
                     #region Do Not change the sequence
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     CheckCityCookie();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CheckCityCookie\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     SetFlags();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("SetFlags\t{0} ms", elapsedMs).AppendLine();
 
                     if (hdnVariant != null && hdnVariant.Value != "0")
                         variantId = Convert.ToUInt32(hdnVariant.Value);
 
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     modelPageEntity = FetchModelPageDetails(modelId);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("FetchModelPageDetails\t{0} ms", elapsedMs).AppendLine();
 
                     if (modelPageEntity != null && modelPageEntity.ModelDetails != null && modelPageEntity.ModelDetails.New)
                     {
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         FetchOnRoadPrice(modelPageEntity);
-                        FillViewModel();
-                    }
-                    BindPhotoRepeater(modelPageEntity);
-                    LoadVariants(modelPageEntity);
-                    BindControls(modelPageEntity);
-                    ToggleOfferDiv();
-                    BindColorString();
-                    CreateMetas();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FetchOnRoadPrice\t{0} ms", elapsedMs).AppendLine();
 
+                        watch = System.Diagnostics.Stopwatch.StartNew();
+                        FillViewModel();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FillViewModel\t{0} ms", elapsedMs).AppendLine();
+                    }
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindPhotoRepeater(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindPhotoRepeater\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    LoadVariants(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("LoadVariants\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindControls(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindControls\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    ToggleOfferDiv();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("ToggleOfferDiv\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindColorString();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindColorString\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    CreateMetas();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CreateMetas\t{0} ms", elapsedMs).AppendLine();
                     #endregion Do Not change the sequence
                 }
             }
@@ -132,6 +193,10 @@ namespace Bikewale.New
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Page_load({0})", modelQuerystring));
 
+            }
+            finally
+            {
+                Notifications.ErrorClass obj = new Notifications.ErrorClass(new Exception("Mobile Model Page - Performance in ms"), sb.ToString());
             }
         }
 
