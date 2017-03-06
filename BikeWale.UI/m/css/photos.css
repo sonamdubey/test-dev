@@ -311,7 +311,7 @@
     border: 1px solid #e2e2e2;
 }
 
-.thumbnail-swiper .swiper-slide-active.swiper-slide img {
+.thumbnail-swiper .focus-slide.swiper-slide img {
     border-color: #41b4c4;
 }
 

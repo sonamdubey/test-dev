@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="gallery-body">
-                    <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive()">
+                    <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive() && photoSwiperActive()">
                         <div class="swiper-heading-details">
                             <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
                             <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
@@ -137,6 +137,119 @@
                     </div>
                 </div>
 
+                <div class="gallery-footer">
+                    <div class="footer-tabs-wrapper">
+                        <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                            <span class="inline-block font14">All photos</span>
+                        </div>
+
+                         <%if(VideoCount>1){ %>
+                        <div style="display: none" data-bind="visible: !photosTabActive(), css: videoListScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
+                            <span class="bwmsprite grid-icon margin-right10"></span>
+                           <span class="inline-block font14">All videos</span>
+                        </div>
+                        <%} %>
+
+                        <%--<div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite fullscreen-icon"></span>
+                        </div>--%>
+
+                        <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite info-icon"></span>
+                        </div>
+
+                        <%--<div data-bind="click: toggleColorThumbnailScreen, visible: photosTabActive() && colorTabActive(), css: colorsThumbnailScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
+                            <span class="bwmsprite color-palette"></span>
+                        </div>--%>
+
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="thumbnail-tab-screen" class="footer-tab-card padding-top20 padding-bottom20" data-bind="css: photoThumbnailScreen() ? 'position-fixed' : ''">
+                        <div id="thumbnail-photo-swiper" class="swiper-container thumbnail-swiper">
+                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                                <div class="swiper-slide">
+                                    <img class="swiper-lazy" data-bind="attr: { alt: ImageTitle, title: ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%if(bikeInfo!=null){ %>  <div id="info-tab-screen" class="footer-tab-card" data-bind="css: modelInfoScreen() ? 'position-fixed' : ''">
+                        <div class="model-more-info-section padding-15-20">
+                           <%if(IsUpcoming){ %><p class="model-ribbon-tag upcoming-ribbon">Upcoming</p><%} %>
+                            <%if(IsDiscontinued){ %>
+                            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                            <%} %>
+                            <div class="margin-bottom10">
+                                <a href="<%=bikeUrl %>" class="item-image-content vertical-top" title="<%=bikeName %>">
+                                    <img src="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)%>" alt="<%=bikeName %>">
+                                </a>
+                                <div class="bike-details-block vertical-top">
+                                    <h3 class="margin-bottom5"><a href="<%=bikeUrl %>" class="block text-bold text-default text-truncate" title="<%=bikeName %>"><%=bikeName%></a></h3>
+                                    <ul class="item-more-details-list">
+                                        <%if(bikeInfo.ExpertReviewsCount>0) {%>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Reviews">
+                                                <span class="bwmsprite reviews-sm"></span>
+                                                <span class="icon-label">Reviews</span>
+                                            </a>
+                                        </li>        
+                                        <%} %>
+                                        <%if(bikeInfo.NewsCount>0){ %>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.FormatNewsUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> News">
+                                                <span class="bwmsprite news-sm"></span>
+                                                <span class="icon-label">News</span>
+                                            </a>
+                                        </li>
+                                        <%} %>
+                                        <%if(bikeInfo.IsSpecsAvailable) {%>
+                                        <li>
+                                            <a href="/m<%= Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName) %>" title="<%=bikeName %> Specification">
+                                                <span class="bwmsprite specs-sm"></span>
+                                                <span class="icon-label">Specs</span>
+                                            </a>
+                                        </li>         
+                                        <%} %>
+                                    </ul>
+                                </div>
+                            </div>
+                            <%if(!IsUpcoming&&!IsDiscontinued){ %>
+                            
+                            <div class="grid-7 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Ex-showroom, <%=Bikewale.Utility.BWConfiguration.Instance.DefaultName %></p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                </div>
+                            </div>
+                            <%}else if (IsUpcoming){ %>
+                               <div class="grid-7 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Expected price</p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) %> onwards</span>
+                                </div>
+                            </div>
+                            <%}else if (IsDiscontinued){ %>
+                             <div class="grid-7 alpha omega">
+                                <p class="font11 text-light-grey text-truncate">Last know price</p>
+                                <div>
+                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                    <span class="font16 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeInfo.BikePrice)) %></span>
+                                </div>
+                            </div>
+                            <%} %>
+                            <div class="grid-5 omega">
+                                <a href="<%=bikeUrl %>" title="<%=bikeName%>" class="btn btn-white btn-size-120">View details<span class="bwmsprite btn-red-arrow"></span></a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>  <%} %>
+
+                </div>
 
             </div>
         </div>
