@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
+﻿
+<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
 
 <!-- lead capture popup start-->
 <div id="leadCapturePopup" class="text-center rounded-corner2">
@@ -34,6 +35,14 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
+             <!-- ko if : pinCodeRequired() -->
+            <div class="input-box form-control-box personal-info-list">
+                <input type="text" class="get-pincode" id="getPinCode" data-bind="textInput: pincode">
+                <label for="getPinCode">PinCode<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+             <!-- /ko -->
             <div class="input-box input-number-box form-control-box personal-info-list">
                 <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
                 <label for="getMobile">Mobile number<sup>*</sup></label>
@@ -75,11 +84,13 @@
     var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
+    var pincode = $("#getPinCode");
     var mobile = $("#getMobile");
     var assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
+    var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
   
 
@@ -126,7 +137,10 @@
             validate.onFocus($(this));
             prevMobile = $(this).val().trim();
         });
-
+        $(document).on("focus", "#getPinCode", function () {
+            validate.onFocus($(this));
+            prevPinCode = $(this).val().trim();
+        });
         $("#getFullName, #assistGetName").on("blur", function () {
             validate.onBlur($(this));
         });
@@ -139,7 +153,14 @@
                 }
             }
         });
-
+        $(document).on("blur", "#getPinCode", function () {
+            validate.onBlur($(this));
+            if (prevPinCode != $(this).val().trim()) {
+                if (dleadvm.validatePinCode(pincode)) {
+                    dleadvm.IsVerified(false);
+                }
+            }
+        });
         $(document).on("change", "#getLeadBike", function () {
             if ($(this).val() != null && $(this).val() != "0")
                 hideError($(this));
@@ -164,12 +185,14 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
+            self.pincode = ko.observable(arr[3]);
             $('.input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
+            self.pincode = ko.observable();
         }
         self.msg ="";
         self.IsVerified = ko.observable(false);
@@ -196,6 +219,7 @@
         self.dealerHeading = ko.observable();
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
+        self.pinCodeRequired = ko.observable();
             self.setOptions = function (options) {
             if (options != null) {
                 if (options.dealerid != null)
@@ -203,7 +227,7 @@
 
                 if (options.dealername != null)
                     self.dealerName(options.dealername);
-
+               
                 if (options.dealerarea != null)
                     self.dealerArea(options.dealerarea);
 
@@ -233,6 +257,9 @@
 
                 if (options.dealerDescription != null&& options.dealerDescription !="")
                     self.dealerDescription(options.dealerDescription);
+                
+                if (options.pinCodeRequired != null)
+                    self.pinCodeRequired(options.pinCodeRequired);
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
@@ -436,7 +463,6 @@
 
                 if (self.isRegisterPQ())
                     self.generatePQ(data, event);
-
                 $('#processing').show();
                 var objCust = {
                     "dealerId": self.dealerId(),
@@ -447,6 +473,7 @@
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
+                    "PinCode":self.pincode(),
                     "deviceId": getCookie('BWC')
                 }
                 $.ajax({
@@ -546,11 +573,6 @@
                 "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
                 "clientip": clientIP
-                <%--"gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
             };
 
             self.setOptions(leadOptions);
@@ -605,7 +627,21 @@
             }
             return isValid;
         };
-
+        self.validatePinCode = function () {
+            leadPinCode = $('#getPinCode');
+            var isValid = true,
+                pinCodeValue = self.pincode(),
+                rePinCode = /^[1-9][0-9]{5}$/;
+            if (pinCodeValue == "") {
+                validate.setError(leadPinCode, 'Please enter pincode');
+                isValid = false;
+            }
+            else if (!rePinCode.test(pinCodeValue)) {
+                validate.setError(leadPinCode, 'Invalid pincode');
+                isValid = false;
+            }
+            return isValid;
+        };
         self.validateMobileNo = function (inputMobile) {
            
             mobileVal = $(inputMobile).val();

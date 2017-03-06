@@ -655,7 +655,7 @@ namespace Bikewale.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired);
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {

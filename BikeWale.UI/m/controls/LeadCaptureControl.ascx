@@ -43,6 +43,13 @@
                     <span class="bwmsprite error-icon errorIcon"></span>
                     <div class="bw-blackbg-tooltip errorText"></div>
                 </div>
+                    <!-- ko if : pinCodeRequired() -->
+              <div class="form-control-box margin-top20">
+                    <input type="tel" class="form-control get-pincode-id" maxlength="6" placeholder="Pincode" id="getPinCode" data-bind="textInput: pincode">
+                    <span class="bwmsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                </div>
+             <!-- /ko -->
                 <div class="form-control-box margin-top20">
                     <p class="mobile-prefix">+91</p>
                     <input type="tel" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
@@ -87,6 +94,7 @@
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
+    var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
     var CityArea = '<%=cityName%>' + '<%=areaName != "" ? "_" + areaName : "" %>';
     
@@ -122,7 +130,11 @@
         $("#getFullName").on("focus", function () {
             hideError($(this));
         });
-
+        $(document).on("focus", "#getPinCode", function () {
+            var pincode = $("#getPinCode");
+            hideError(pincode);
+            prevPinCode = pincode.val().trim();
+        });
         $("#getEmailID").on("focus", function () {
             hideError($(this));
             prevEmail = $(this).val().trim();
@@ -142,12 +154,20 @@
                 }
             }
         });
+        $(document).on("blur", "#getPinCode", function () {
+            var pincode = $("#getPinCode");
+            if (prevPinCode != $(this).val().trim()) {
+                if (dleadvm.validatePinCode(pincode)) {
+                    dleadvm.IsVerified(false);
 
+                    hideError(pincode);
+                }
+            }
+        });
         $("#getEmailID").on("blur", function () {
             if (prevEmail != $(this).val().trim()) {
                 if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                  
                     hideError($(this));
                 }
             }
@@ -163,11 +183,13 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
+            self.pincode = ko.observable(arr[3]);
         }
         else {
             self.fullName = ko.observable();
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
+            self.pincode = ko.observable();
         }
         self.msg ="";
         self.IsVerified = ko.observable(false);
@@ -193,6 +215,7 @@
         self.dealerHeading = ko.observable();
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
+        self.pinCodeRequired = ko.observable();
         self.setOptions = function(options)
         {
             if(options!=null)
@@ -239,6 +262,9 @@
 
                 if (options.dealerDescription != null && options.dealerDescription != "")
                     self.dealerDescription(options.dealerDescription);
+
+                if (options.pinCodeRequired != null)
+                    self.pinCodeRequired(options.pinCodeRequired);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -503,7 +529,21 @@
             }
             return isValid;
         };
-
+        self.validatePinCode = function () {
+            leadPinCode = $('#getPinCode');
+            var isValid = true,
+                pinCodeValue = self.pincode(),
+                rePinCode =/^[1-9][0-9]{5}$/;
+            if (pinCodeValue == "") {
+                setError(leadPinCode, 'Please enter pincode');
+                isValid = false;
+            }
+            else if (!rePinCode.test(pinCodeValue)) {
+                setError(leadPinCode, 'Invalid pincode');
+                isValid = false;
+            }
+            return isValid;
+        };
         self.validateMobileNo = function () {
             leadMobileNo = mobile;
             var mobileVal = leadMobileNo.val();
@@ -559,6 +599,7 @@
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
+                    "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
                 }
                 $.ajax({

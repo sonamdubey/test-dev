@@ -58,5 +58,6 @@ namespace Bikewale.Entities.PriceQuote
         public string LeadCapturePopupHeading { get; set; }
         public string LeadCapturePopupDescription { get; set; }
         public string LeadCapturePopupMessage { get; set; }
+        public bool PinCodeRequired { get; set; }
     }
 }

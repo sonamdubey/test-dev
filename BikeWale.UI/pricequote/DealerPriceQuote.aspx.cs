@@ -210,7 +210,7 @@ namespace Bikewale.BikeBooking
                                 isBWPriceQuote = true;
                                 totalPrice = (uint)objQuotation.OnRoadPrice;
                                 if (objQuotation != null)
-                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage);
+                                    objQuotation.ManufacturerAd = Format.FormatManufacturerAd(objQuotation.ManufacturerAd, objQuotation.CampaignId, objQuotation.ManufacturerName, objQuotation.MaskingNumber, Convert.ToString(objQuotation.ManufacturerId), objQuotation.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(objQuotation.MaskingNumber) ? "hide" : string.Empty, objQuotation.LeadCapturePopupHeading, objQuotation.LeadCapturePopupDescription, objQuotation.LeadCapturePopupMessage, objQuotation.PinCodeRequired);
                             }
 
                             if (primarydealer.DealerDetails != null)

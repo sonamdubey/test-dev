@@ -357,7 +357,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId3"></param>
         /// <param name="templateHtml4"></param>
         /// <param name="templateId4"></param>
-        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading)
+        public bool UpdateBWDealerCampaign(string description, int isActive, string maskingNumber, int dealerId, int userId, int campaignId, List<ManuCamEntityForTemplate> objList, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, bool pinCodeRequired)
         {
             bool isSuccess = false;
             try
@@ -382,6 +382,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupMessage", DbType.String, LeadCapturePopupMessage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pinCodeRequired", DbType.Boolean, pinCodeRequired));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isSuccess = true;
                 }
@@ -409,7 +410,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
         /// <param name="templateId4"></param>
         /// <param name="userId"></param>
         /// <param name="campaignId"></param>
-        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId)
+        public bool SaveManufacturerCampaignTemplate(List<ManuCamEntityForTemplate> objList, int userId, int campaignId, string LeadCapturePopupMessage, string LeadCapturePopupDescription, string LeadCapturePopupHeading, int dealerId, bool pinCodeRequired)
         {
             bool isSuccess = false;
             try
@@ -431,6 +432,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupMessage", DbType.String, LeadCapturePopupMessage));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupDescription", DbType.String, LeadCapturePopupDescription));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_LeadCapturePopupHeading", DbType.String, LeadCapturePopupHeading));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pinCodeRequired", DbType.Boolean, pinCodeRequired));
                     isSuccess = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                 }
             }
@@ -477,8 +479,8 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                     TemplateId = SqlReaderConvertor.ToInt32(dr["id"]),
                                     LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]),
                                     LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]),
-                                    LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"])
-
+                                    LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]),
+                                    PinCodeRequire = Convert.ToBoolean(dr["PinCodeRequired"])
                                 });
                             }
                         }
