@@ -102,8 +102,46 @@
         </section>
        <%} %>
         <BW:SimilarBikeWithPhotos ID="ctrlSimilarBikesWithPhotos" runat="server" />
-        
+
         <div id="gallery-root">
+            <div class="gallery-container gallery-bg-overlay">
+                <div class="gallery-header">
+                    <h2 class="text-white gallery-title"><%=bikeName %> Images</h2>
+                    <span id="gallery-close-btn" class="position-abt pos-top10 pos-right10 bwmsprite cross-md-white cur-pointer"></span>
+                    <ul class="horizontal-tabs-wrapper">
+                       <%if(vmModelPhotos!=null && vmModelPhotos.totalPhotosCount>0) {%>
+                        <li data-bind="click: togglePhotoTab, css: photosTabActive() ? 'active': ''">Images</li>
+                        <%} %>
+                        <%if (VideoCount > 0) { %>
+                        <li data-bind="click: togglePhotoTab, css: !photosTabActive() ? 'active': ''">Videos</li>
+                        <%} %>
+                    </ul>
+                </div>
+
+                <div class="gallery-body">
+                    <div id="main-photo-swiper" class="swiper-container gallery-swiper" data-bind="visible: photosTabActive()">
+                        <div class="swiper-heading-details">
+                            <p class="grid-9 text-truncate font14 text-white text-left" data-bind="text: activePhotoTitle()"></p>
+                            <div class="grid-3 alpha font12 text-xx-light text-right position-rel pos-top2">
+                                <span data-bind="text: activePhotoIndex()"></span> / <span data-bind="    text: photoList().length"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="swiper-wrapper" data-bind="foreach: photoList">
+                            <div class="swiper-slide">
+                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: ImageTitle, title: ImageTitle, 'data-src': HostUrl + '/642x361/' + OriginalImgPath }" src="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                            </div>
+                        </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        
+        <%--<div id="gallery-root">
             <!-- ko component: "gallery-component" -->
             <!-- /ko -->
             <script type="text/html" id="gallery-template-wrapper">
@@ -317,7 +355,7 @@
                     </div>         
                 </div>
             </script>
-        </div>        
+        </div>--%>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -338,7 +376,7 @@
             }
         </script> 
         
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/photos2.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(".gallery-close-btn").on('click', function () {
                 if(isModelPage) {
