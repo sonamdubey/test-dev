@@ -123,6 +123,72 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return dataObj;
         }
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 03-03-2017
+        /// Des : function to save used bike model images to db and get saved photo id. 
+        /// </summary>
+        public uint FetchPhotoId(UsedBikeModelImageEntity objModelImageEntity)
+        {
+            uint photoId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_saveUsedBikeImage"))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, objModelImageEntity.Modelid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_userid", DbType.Int32, objModelImageEntity.UserId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+
+                            while (dr.Read())
+                            {
+                                photoId = SqlReaderConvertor.ToUInt32(dr["Id"]);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+            }
+
+            return photoId;
+        }
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 03-03-2017
+        /// Des : function to delete used bike model image .
+        /// </summary>
+        public bool DeleteUsedBikeModelImage(uint modelId)
+        {
+            bool isDeleted = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("opr_deleteUsedBikeImage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
+                    isDeleted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
+            }
+            return isDeleted;
+        }
+
     }
 }
 

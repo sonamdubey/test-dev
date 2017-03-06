@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Upload Used Model Image";
+    ViewBag.PageTitle = "Upload Used Model Image";
+    IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakeList = ViewBag.MakeList;
+}
+
+
+<div class="row" style="margin-top:5px;">
+    <div class="col m8" >
+        
+    </div>
+    <div class="col m4">
+        <div class="row">
+            <div class="col s4 m5">
+                <div class="card">
+                    <div class="card-content">
+                            <a class='dropdown-button btn' data-beloworigin="true" href='#' data-activates='dropdown1'>Select Make</a>
+                            <!-- Dropdown Structure -->
+                            <ul id='dropdown1' class='dropdown-content'>
+                                @if (objMakeList != null)
+                                {
+                                    foreach (var make in objMakeList)
+                                    {
+                                        <li data-makeid="@make.MakeId"><a href="#!">@make.MakeName</a></li>
+                                    }
+                                }
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="~/src/content/usedimageupload.js"></script>

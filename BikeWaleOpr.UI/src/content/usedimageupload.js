@@ -1,0 +1,1 @@
+﻿$('.dropdown-button').dropdown('open');

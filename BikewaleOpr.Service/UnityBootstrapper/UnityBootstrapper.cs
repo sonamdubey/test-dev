@@ -22,6 +22,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Summary : Added color bike repository
     /// Modified by :   Sumit Kate on 18 jan 2017
     /// Description :   Register IDealerCampaignRepository
+    /// Modified by : Sajal Gupta on 03-03-2017
+    /// Description : Register IBikeModels
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -40,6 +42,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
             container.RegisterType<IBikeMakes, BikeMakesRepository>();
+            container.RegisterType<IBikeModels, BikeModelsRepository>();
 
             return container;
         }

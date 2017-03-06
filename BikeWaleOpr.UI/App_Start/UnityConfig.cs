@@ -1,7 +1,7 @@
-using System.Web.Mvc;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Interface.BikeData;
 using Microsoft.Practices.Unity;
+using System.Web.Mvc;
 using Unity.Mvc5;
 
 namespace BikewaleOpr
@@ -18,7 +18,9 @@ namespace BikewaleOpr
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
-            container.RegisterType<IBikeMakes, BikeMakesRepository>();
+            container.RegisterType<IBikeMakes, BikeMakesRepository>()
+                .RegisterType<IBikeModels, BikeModelsRepository>()
+                .RegisterType<IBikeVersions, BikeVersionsRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
