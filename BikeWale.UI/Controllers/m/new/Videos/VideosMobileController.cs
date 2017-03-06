@@ -25,7 +25,12 @@ namespace Bikewale.Controllers.Mobile.Videos
             _videos = videos;
             _video = video;
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 27 Feb 2017
+        /// Summary    : ActionResult method for make wise videos page
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Index(string makeMaskingName)
         {
@@ -50,13 +55,18 @@ namespace Bikewale.Controllers.Mobile.Videos
                 ViewBag.canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", ViewBag.makeMaskingName);
                 ViewBag.Ad_320x50 = true;
                 ViewBag.Ad_Bot_320x50 = true;
+                return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
             }
             else if (makeInfo.StatusCode == 301)
             {
-                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
+                return Index(makeInfo.MaskingName);
             }
-            return View("~/Views/m/Videos/Makes.cshtml", objModelVideos);
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }                     
         }
+
         [Route("m/videos/details/{videoId}/")]
         public ActionResult Index(uint videoId)
         {

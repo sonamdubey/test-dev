@@ -56,12 +56,16 @@ namespace Bikewale.Controllers.Desktop.Videos
                 ViewBag.alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", ViewBag.makeMaskingName);
                 ViewBag.Ad_300x250BTF = false;
                 ViewBag.Ad_300x250 = false;
+                return View("~/Views/Videos/Makes.cshtml", objModelVideos);
             }
             else if(makeInfo.StatusCode==301)
             {
-                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
+                return Index(makeInfo.MaskingName);
             }
-            return View("~/Views/Videos/Makes.cshtml", objModelVideos);
+            else
+            {
+                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+            }
         }
 
         /// <summary>
