@@ -1735,3 +1735,4 @@ input[type="number"]:focus {
             transform: rotate(450deg);
   }
 }
+.red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }

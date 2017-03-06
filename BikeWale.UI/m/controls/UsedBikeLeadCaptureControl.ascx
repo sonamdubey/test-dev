@@ -31,9 +31,7 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-            <!-- ko if : message -->
-            <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
-            <!-- /ko -->
+            <p class="font14 red-text margin-bottom10"  data-bind="visible: message() && message().length > 0, text: message()"  style="display:none"></p>
             <a class="btn btn-orange btn-fixed-width" id="submit-user-details-btn" rel="nofollow" data-bind="click: function (data, event) { submitUserDetails(); }">Get seller details</a>
             <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
         </div>
@@ -68,7 +66,7 @@
                     <span class="error-text"></span>
                 </div>
                 <!-- ko ifnot : isVerified -->
-                <p class="font14 error-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
+                <p class="font14 red-text margin-bottom10" data-bind="text: message, style: { display: message ? 'block' : 'none' }"></p>
                 <!-- /ko -->
                 <a class="btn btn-orange btn-fixed-width" id="submit-user-otp-btn" rel="nofollow" data-bind="click: function (d, e) { submitOtp(); }">Verify</a>
             </div>

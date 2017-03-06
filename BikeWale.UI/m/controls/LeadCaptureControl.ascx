@@ -6,17 +6,19 @@
         <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
         <div id="contactDetailsPopup">
             <p class="font18 margin-top10 margin-bottom10"data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
-            <p class="text-light-grey margin-bottom10" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+            <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
 
 
             <div class="personal-info-form-container">
                 <!-- ko if : isDealerBikes() -->
-                <div id="getLeadBike" class="margin-top10 form-control-box">
-                    <div class="dealer-search-brand form-control-box">
-                        
-                        <div class="dealer-search-brand-form"><span id="selectedbike">Select a bike</span></div>
-                        <span class="bwmsprite error-icon errorIcon"></span>
-                        <div class="bw-blackbg-tooltip errorText"></div>
+                <div id="getLeadBike" class="form-control-box margin-bottom15">
+                    <div class="input-select-box dealer-search-brand form-control-box">                        
+                        <div class="dealer-search-brand-form font16 text-light-grey">
+                            <span id="selectedbike">Select a bike<sup>*</sup></span>
+                        </div>
+                        <span class="bwmsprite grey-right-icon"></span>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
                         <span class="position-abt progress-bar"></span>
                     </div>
                 </div>
@@ -33,31 +35,36 @@
                     </div>
                 </div>
                 <!-- /ko -->
-                <div class="form-control-box margin-top20">
-                    <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="textInput: fullName">
-                    <span class="bwmsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
+                <div class="input-box form-control-box margin-bottom15">
+                    <input type="text" id="getFullName" data-bind="textInput: fullName">
+                    <label for="getFullName">Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
                 </div>
-                <div class="form-control-box margin-top20">
-                    <input type="email" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="textInput: emailId">
-                    <span class="bwmsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
+                <div class="input-box form-control-box margin-bottom15">
+                    <input type="email" id="getEmailID" data-bind="textInput: emailId">
+                    <label for="getEmailID">Email<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
                 </div>
-                    <!-- ko if : pinCodeRequired() -->
-              <div class="form-control-box margin-top20">
-                    <input type="tel" class="form-control get-pincode-id" maxlength="6" placeholder="Pincode" id="getPinCode" data-bind="textInput: pincode">
-                    <span class="bwmsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
+                
+                <div class="input-box input-number-box form-control-box margin-bottom15">
+                    <input type="tel" maxlength="10" id="getMobile" data-bind="textInput: mobileNo">
+                    <label for="getMobile">Mobile number<sup>*</sup></label>
+                    <span class="input-number-prefix">+91</span>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+                  <!-- ko if : pinCodeRequired() -->
+             <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15">
+                    <input type="text" maxlength="6" id="getPinCode" data-bind="textInput: pincode">
+                    <label for="getPincode">Pincode<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
                 </div>
              <!-- /ko -->
-                <div class="form-control-box margin-top20">
-                    <p class="mobile-prefix">+91</p>
-                    <input type="tel" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="textInput: mobileNo">
-                    <span class="bwmsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText"></div>
-                </div>
                 <div class="clear"></div>
-                <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Get details</a>
                 <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
             </div>
         </div>
@@ -69,11 +76,10 @@
                     <span class="bwmsprite thankyou-icon margin-top15"></span>
                 </div>
             </div>
-         
-             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
             <!-- ko if : !dealerMessage() -->
+             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
             <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
             <!-- /ko -->
             <!-- ko ifnot : -->
             <p class="font16 margin-bottom40" data-bind="text:dealerMessage()"></p>
@@ -82,6 +88,9 @@
         </div>
         <!-- thank you message ends here -->
     </div>
+</div>
+<div id="ub-ajax-loader">
+    <div id="popup-loader"></div>
 </div>
 <!-- Lead Capture pop up end  -->
 
@@ -102,19 +111,20 @@
     $(function () {
 
         leadBtnBookNow.on('click', function () {
-            $('#selectedbike').text('Select a bike');
+            $('#selectedbike').html('Select a bike<sup>*</sup>');
             dleadvm.selectedBike(null);
             leadCapturePopup.show();
             $("#notify-response").hide();
             $("div#contactDetailsPopup").show();
-            $(".blackOut-window").show();
+            appendState('leadCapture');
+            lockPopup();
         });
 
         $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
             leadCapturePopup.hide();
             $("#notify-response").hide();
             $('body').removeClass('lock-browser-scroll');
-            $(".blackOut-window").hide();
+            unlockPopup();
         });
 
         $(document).on('click', '#notifyOkayBtn', function () {
@@ -126,49 +136,51 @@
                 $("#leadCapturePopup .leadCapture-close-btn").trigger("click");
             }
         });
-
+        
         $("#getFullName").on("focus", function () {
-            hideError($(this));
+            validate.onFocus($(this));
         });
         $(document).on("focus", "#getPinCode", function () {
             var pincode = $("#getPinCode");
-            hideError(pincode);
+            validate.hideError(pincode);
             prevPinCode = pincode.val().trim();
         });
         $("#getEmailID").on("focus", function () {
-            hideError($(this));
+            validate.onFocus($(this));
             prevEmail = $(this).val().trim();
         });
 
         $("#getMobile").on("focus", function () {
-            hideError($(this));
+            validate.onFocus($(this));
             prevMobile = $(this).val().trim();
-        }); 
+        });
 
-        $("#getMobile").on("blur", function () {
-            if (prevMobile != $(this).val().trim()) {
-                if (dleadvm.validateMobileNo($(this))) {
-                    dleadvm.IsVerified(false);
-                  
-                    hideError($(this));
-                }
-            }
+        $("#getFullName").on("blur", function () {
+            validate.onBlur($(this));
         });
         $(document).on("blur", "#getPinCode", function () {
             var pincode = $("#getPinCode");
             if (prevPinCode != $(this).val().trim()) {
                 if (dleadvm.validatePinCode(pincode)) {
                     dleadvm.IsVerified(false);
-
-                    hideError(pincode);
+                    validate.hideError(pincode);
                 }
             }
         });
         $("#getEmailID").on("blur", function () {
+            validate.onBlur($(this));
             if (prevEmail != $(this).val().trim()) {
                 if (dleadvm.validateEmailId($(this))) {
                     dleadvm.IsVerified(false);
-                    hideError($(this));
+                }
+            }
+        });
+
+        $("#getMobile").on("blur", function () {
+            validate.onBlur($(this));
+            if (prevMobile != $(this).val().trim()) {
+                if (dleadvm.validateMobileNo($(this))) {
+                    dleadvm.IsVerified(false);
                 }
             }
         });
@@ -184,6 +196,7 @@
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
             self.pincode = ko.observable(arr[3]);
+            $('.personal-info-form-container .input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
@@ -297,6 +310,7 @@
                         contentType: "application/json",
                         dataType: 'json',
                         beforeSend: function (xhr) {
+                            self.showLoader();
                             xhr.setRequestHeader('utma', getCookie('__utma'));
                             xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                         },
@@ -307,6 +321,7 @@
                             self.dealerBikes(obj.dealerBikes);
                         },
                         complete: function (xhr) {
+                            self.hideLoader();
                             if (xhr.status == 204 || xhr.status == 404) {
                                 lscache.set(dealerKey, null, 30);
                             }
@@ -375,11 +390,15 @@
                     data: ko.toJSON(objPQData),
                     contentType: "application/json",
                     dataType: 'json',
+                    beforeSend: function (xhr) {
+                        self.showLoader();
+                    },
                     success: function (response) {
                         self.pqId(response.quoteId);
                         isSuccess = true;
                     },
                     complete: function (xhr) {
+                        self.hideLoader();
                         if (xhr.status != 200) {
                             self.IsVerified(false);
                             isSuccess = false;
@@ -427,6 +446,7 @@
                     url: "/api/PQCustomerDetail/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
+                        self.showLoader();
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
@@ -438,6 +458,7 @@
                         self.IsVerified(obj.isSuccess);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
@@ -455,8 +476,8 @@
             else {
 
                 self.IsVerified(false);
+                
                 isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
-
                 if (self.dealerId() && isValidDetails) {
                     self.verifyCustomer();
                     if (self.IsVerified()) {
@@ -481,6 +502,8 @@
             isValid =  self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
+            if (self.pinCodeRequired())
+                isValid &= self.validatePinCode();
             if(self.isDealerBikes())
                 isValid &= self.validateBike(); 
             return isValid;
@@ -493,21 +516,21 @@
                 nameLength = self.fullName().length;
 
                 if (self.fullName().indexOf('&') != -1) {
-                    setError(leadUsername, 'Invalid name');
+                    validate.setError(leadUsername, 'Invalid name');
                     isValid = false;
                 }
                 else if (nameLength == 0) {
-                    setError(leadUsername, 'Please enter your name');
+                    validate.setError(leadUsername, 'Please enter your name');
                     isValid = false;
                 }
                 else if (nameLength >= 1) {
-                    hideError(leadUsername);
+                    validate.hideError(leadUsername);
                     isValid = true;
                 }
             }
             else
             {
-                setError(leadUsername, 'Please enter your name');
+                validate.setError(leadUsername, 'Please enter your name');
                 isValid = false;
             }
             return isValid;
@@ -520,11 +543,11 @@
                 emailVal = leadEmailId.val(),
                 reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
             if (emailVal == "") {
-                setError(leadEmailId, 'Please enter email id');
+                validate.setError(leadEmailId, 'Please enter email id');
                 isValid = false;
             }
             else if (!reEmail.test(emailVal)) {
-                setError(leadEmailId, 'Invalid Email');
+                validate.setError(leadEmailId, 'Invalid Email');
                 isValid = false;
             }
             return isValid;
@@ -535,11 +558,11 @@
                 pinCodeValue = self.pincode(),
                 rePinCode =/^[1-9][0-9]{5}$/;
             if (pinCodeValue == "") {
-                setError(leadPinCode, 'Please enter pincode');
+                validate.setError(leadPinCode, 'Please enter pincode');
                 isValid = false;
             }
             else if (!rePinCode.test(pinCodeValue)) {
-                setError(leadPinCode, 'Invalid pincode');
+                validate.setError(leadPinCode, 'Invalid pincode');
                 isValid = false;
             }
             return isValid;
@@ -549,12 +572,12 @@
             var mobileVal = leadMobileNo.val();
             if (!validateMobileNo(mobileVal, self))
             {
-                setError(leadMobileNo, self.msg);
+                validate.setError(leadMobileNo, self.msg);
                 return false;
             }
             else
             {
-                hideError(leadMobileNo);
+                validate.hideError(leadMobileNo);
                 return true;
             }
         };
@@ -565,16 +588,16 @@
             if(eleBike!=null && self.selectedBike()!=null)
             {
                 if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
-                    hideError(eleBike);
+                    validateInputSelection.hideError(eleBike);
                     isValid = true;
                 }
                 else {
-                    setError(eleBike, 'Select a bike');
+                    validateInputSelection.setError(eleBike, 'Select a bike');
                     isValid = false;
                 }
             }
             else {
-                setError(eleBike, 'Select a bike');
+                validateInputSelection.setError(eleBike, 'Select a bike');
                 isValid = false;
             }
 
@@ -607,6 +630,7 @@
                     url: "/api/ManufacturerLead/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
+                        self.showLoader();
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
@@ -624,12 +648,23 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#processing').hide();
                         $("#contactDetailsPopup, #otpPopup").hide();
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                     }
                 });
 
                 setPQUserCookie();                
             }
-        };
+        }
+
+        self.showLoader = function () {
+            $('#ub-ajax-loader').show();
+        }
+
+        self.hideLoader = function () {
+            $('#ub-ajax-loader').hide();
+        }
     }
 
     var dleadvm = new leadModel();
@@ -657,6 +692,57 @@
     var hideError = function (element) {
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
+
+    /* form validation */
+    var validate = {
+        setError: function (element, message) {
+            var elementLength = element.val().length,
+                errorTag = element.siblings('span.error-text');
+
+            errorTag.text(message);
+            if (!elementLength) {
+                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+            }
+            else {
+                element.closest('.input-box').addClass('not-empty invalid');
+            }
+        },
+
+        hideError: function (element) {
+            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+            element.siblings('span.error-text').text('');
+        },
+
+        onFocus: function (inputField) {
+            if (inputField.closest('.input-box').hasClass('invalid')) {
+                validate.hideError(inputField);
+            }
+        },
+
+        onBlur: function (inputField) {
+            var inputLength = inputField.val().length;
+            if (!inputLength) {
+                inputField.closest('.input-box').removeClass('not-empty');
+            }
+            else {
+                inputField.closest('.input-box').addClass('not-empty');
+            }
+        }
+    }
+
+    var validateInputSelection = {
+        setError: function (element, message) {
+            var errorTag = element.siblings('span.error-text');
+
+            element.closest('.input-select-box').addClass('invalid');
+            errorTag.text(message);
+        },
+
+        hideError: function (element) {
+            element.closest('.input-select-box').removeClass('invalid');
+            element.siblings('span.error-text').text('');
+        }
+    }
 
     function startLoading(ele) {
         try {
@@ -691,7 +777,7 @@
         _self.addClass('activeBrand').siblings().removeClass('activeBrand');
         $(".dealer-search-brand-form").addClass('selection-done').find("span").text(selectedElement);
         $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
-        hideError($(".dealer-search-brand-form"));
+        validateInputSelection.hideError($(".dealer-search-brand-form"));
     });
 
     function setSelectedElement(_self, selectedElement) {
@@ -702,6 +788,20 @@
     leadCapturePopup.on("click",".dealer-brand-wrapper .back-arrow-box", function () {
         $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
         $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
+    });
+
+    $(function () {
+        var availablePincodes = [
+          "401101, Bhayander West - Thane",
+          "401102, Umbarpada - Thane",
+          "401103, Vangaon - Thane",
+          "401104, Bhayander East - Thane",
+          "401105, Uttan -Thane"
+        ];
+        $("#getPincode").autocomplete({
+            source: availablePincodes,
+            appendTo: "#getPincode-input-box"
+        }).autocomplete("widget").addClass("pincode-autocomplete");
     });
 
 </script>

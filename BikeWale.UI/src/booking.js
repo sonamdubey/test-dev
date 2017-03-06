@@ -203,6 +203,7 @@ var BookingPageViewModel = function () {
                         isSuccess = false;
                     }
                 });
+                self.setUserCookie();
             }
             else {
                               
@@ -223,6 +224,11 @@ var BookingPageViewModel = function () {
             return true;
         }
     };
+
+    self.setUserCookie = function setPQUserCookie() {
+        var val = self.Customer().Name() + '&' + self.Customer().EmailId() + '&' + self.Customer().MobileNo();
+        SetCookie("_PQUser", val);
+    }
 
     self.bookNow = function (data, event) {
         var isSuccess = false;

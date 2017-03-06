@@ -456,7 +456,7 @@
                                                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                                     </span>
                                                 </div>
-                                                <a id="btnEmiQuote" leadsourceid="11" data-dealerid="<%=dealerId %>" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                                <a id="btnEmiQuote" leadsourceid="11" data-item-id="<%=dealerId %>" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
                                             </div>
 
                                         </div>
