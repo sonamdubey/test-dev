@@ -55,14 +55,14 @@
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
-                  <!-- ko if : pinCodeRequired() -->
-             <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15">
+
+             <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                     <input type="text" maxlength="6" id="getPinCode" data-bind="textInput: pincode">
                     <label for="getPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
-             <!-- /ko -->
+
                 <div class="clear"></div>
                 <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Get details</a>
                 <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
@@ -604,7 +604,7 @@
             return isValid;
         };
 
-        self.submitCampaignLead = function (data, event) {            
+        self.submitCampaignLead = function (data, event) {
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
@@ -637,7 +637,7 @@
                     async: false,
                     contentType: "application/json",
                     dataType: 'json',
-                    success: function (response) {                        
+                    success: function (response) {
                         $("#personalInfo,#otpPopup").hide();
                         $('#processing').hide();
 
@@ -654,9 +654,73 @@
                     }
                 });
 
-                setPQUserCookie();                
+                setPQUserCookie();
             }
-        }
+        };
+
+        self.setPinCodeSuggestion = function () {
+            $("#getPinCode").bw_autocomplete({
+                source: 4,
+                recordCount: 5,
+                onClear: function () {
+                    objPinCodes = new Object();
+                },
+                click: function (event, ui, orgTxt) {
+                    var keywrd = ui.item.label + '_' + $('#getPinCode').val();
+                    //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                },
+                open: function (result) {
+                    objPinCodes.result = result;
+                },
+                focusout: function () {
+                    if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
+                        //$('#errNewBikeSearch').hide()
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    }
+                    else {
+                        //$('#errNewBikeSearch').hide();
+                    }
+                },
+                afterfetch: function (result, searchtext) {
+                    if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                        //$('#errNewBikeSearch').hide();
+                        NewBikeSearchResult = true;
+                    }
+                    else {
+                        focusedMakeModel = null; NewBikeSearchResult = false;
+                        if (searchtext.trim() != "") {
+                            // $('#errNewBikeSearch').show();
+                        }
+                    }
+                },
+                keyup: function () {
+                    if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                        //$('#errNewBikeSearch').hide();
+                    } else {
+                        if ($('#getPinCode').val().trim() == '') {
+                            //$('#errNewBikeSearch').hide();
+                        }
+                    }
+
+                    if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                        if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                            if ($('#getPinCode').val().trim() != '') {
+                                // $('#errNewBikeSearch').show();
+                            }
+                        }
+                        else {
+                            $('#errNewBikeSearch').hide();
+                        }
+
+                    }
+
+
+                }
+            }).autocomplete("widget").addClass("pincode-autocomplete");
+        };
 
         self.showLoader = function () {
             $('#ub-ajax-loader').show();
@@ -669,6 +733,10 @@
 
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+    
+    $(function () {
+        dleadvm.setPinCodeSuggestion();
+    });
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -789,19 +857,4 @@
         $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
         $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
     });
-
-    $(function () {
-        var availablePincodes = [
-          "401101, Bhayander West - Thane",
-          "401102, Umbarpada - Thane",
-          "401103, Vangaon - Thane",
-          "401104, Bhayander East - Thane",
-          "401105, Uttan -Thane"
-        ];
-        $("#getPincode").autocomplete({
-            source: availablePincodes,
-            appendTo: "#getPincode-input-box"
-        }).autocomplete("widget").addClass("pincode-autocomplete");
-    });
-
 </script>

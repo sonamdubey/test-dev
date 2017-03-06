@@ -1014,6 +1014,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .ui-autocomplete.pincode-autocomplete {
     z-index: 10;
     overflow-y: auto;
+    height:auto;
     max-height: 160px;
 }
 .btn-grey {

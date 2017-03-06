@@ -265,6 +265,8 @@ $(document).ready(function () {
         }
     }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
 
+   
+
     $("#citySelectionFinalPrice").autocomplete({
         source: function (request, response) {
             dataListDisplay(availableTags, request, response);
