@@ -59,7 +59,7 @@ namespace Bikewale.Controllers.Mobile.Videos
             }
             else if (makeInfo.StatusCode == 301)
             {
-                return Index(makeInfo.MaskingName);
+                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
             }
             else
             {
