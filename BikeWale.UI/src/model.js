@@ -450,7 +450,7 @@ $(document).ready(function () {
 
     var tabsHashParameter = window.location.hash;
     if (tabsHashParameter) {
-        $('html, body').scrollTop($(tabsHashParameter).offset().top - 130);
+        $('html, body').scrollTop($(tabsHashParameter).offset().top - 130); // default topNavBar height 130px
         $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
     }
 
