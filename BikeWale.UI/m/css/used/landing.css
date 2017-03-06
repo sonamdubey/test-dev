@@ -255,27 +255,6 @@ h2.section-heading {
     width: 205px;
 }
 
-/* input field */
-input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow: none; }
-.input-box { height:60px; text-align: left; }
-.input-box input { width: 100%; display:block; padding: 7px 0; border-bottom:1px solid #82888b; font-weight: bold; color: #4d5057; }
-.input-box label { position: absolute; top: 4px; left: 0; font-size:16px; color: #82888b; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
-.input-number-box input { padding-left: 25px; }
-.input-number-prefix { display:none; position: absolute; top: 7px; font-weight: bold; color: #82888b; }
-.boundary { position: relative; width: 100%; display: block; }
-.boundary:before, .boundary:after { content: ''; position: absolute; bottom: 0; width: 0; height: 2px; background-color: #41b4c4; -webkit-transition:0.2s ease all; -moz-transition:0.2s ease all; -o-transition:0.2s ease all; transition:0.2s ease all; }
-.boundary:before { left:50%; }
-.boundary:after { right:50%; }
-.error-text { display:none; font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
-/* on focus */
-.input-box input:focus ~ label { top:-14px; font-size:12px; }
-.input-box.not-empty label { top:-14px; font-size:12px; }
-.input-box.input-number-box input:focus ~ .input-number-prefix, .input-box.input-number-box.not-empty .input-number-prefix { display:inline-block; }
-.input-box input:focus ~ .boundary:before, .input-box input:focus ~ .boundary:after { width: 50%; } 
-/* validation */
-.input-box.invalid .boundary:before, .input-box.invalid .boundary:after { background-color: #d9534f; width:50%; }
-.input-box.invalid .error-text { display:inline-block; }
-
 /* sprite */
 .used-sprite { background: url(https://imgd2.aeplcdn.com/0x0/bw/static/sprites/m/used-sprite.png?v1=04Oct2016) no-repeat; display: inline-block; }
 .free-cost, .buyer, .listing-time, .contact-buyer { width: 20px; height: 20px; margin-right: 10px; vertical-align: middle; }

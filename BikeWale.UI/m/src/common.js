@@ -1642,6 +1642,9 @@ $(window).on('popstate', function (event) {
     if ($('#nav').is(':visible')) {
         navDrawer.close();
     }
+    if ($('#leadCapturePopup').is(':visible')) {
+        $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
+    }
 });
 
 
