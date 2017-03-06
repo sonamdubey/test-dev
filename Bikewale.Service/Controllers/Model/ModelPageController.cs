@@ -57,8 +57,7 @@ namespace Bikewale.Service.Controllers.Model
         {
             BikeModelPageEntity objModelPage = null;
             Bikewale.DTO.Model.ModelPage objDTOModelPage = null;
-            //List<EnumCMSContentType> categorList = null;
-
+          
             try
             {
                 objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
@@ -66,6 +65,7 @@ namespace Bikewale.Service.Controllers.Model
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
+                                       
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
 
@@ -80,9 +80,6 @@ namespace Bikewale.Service.Controllers.Model
                     }
                     else
                     {
-                        //objModelPage.objFeatures = null;
-                        //objModelPage.objOverview = null;
-                        //objModelPage.objSpecs = null;
                         if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
                         {
                             objModelPage.objFeatures.FeaturesList.Clear();
@@ -193,9 +190,6 @@ namespace Bikewale.Service.Controllers.Model
                     }
                     else
                     {
-                        //objModelPage.objFeatures = null;
-                        //objModelPage.objOverview = null;
-                        //objModelPage.objSpecs = null;
                         if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
                         {
                             objModelPage.objFeatures.FeaturesList.Clear();
