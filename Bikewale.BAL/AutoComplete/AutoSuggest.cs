@@ -1,14 +1,11 @@
-﻿using Bikewale.Entities.AutoComplete;
+﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.Entities.AutoComplete;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Nest;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.DAL.CoreDAL;
 
 namespace Bikewale.BAL.AutoComplete
 {
@@ -37,7 +34,7 @@ namespace Bikewale.BAL.AutoComplete
 
                 ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText).Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)));
 
-                if (_result!=null && _result.Suggestions!=null && _result.Suggestions.ContainsKey(completion_field))
+                if (_result != null && _result.Suggestions != null && _result.Suggestions.ContainsKey(completion_field))
                 {
                     if (_result.Suggestions[completion_field][0].Options.Count() > 0)
                         suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
@@ -47,14 +44,13 @@ namespace Bikewale.BAL.AutoComplete
                         .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
                         ));
                         suggestionList = _result.Suggestions[completion_field][0].Options;
-                    } 
+                    }
                 }
 
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
-                objErr.SendMail();
             }
             return suggestionList;
         }
@@ -65,16 +61,19 @@ namespace Bikewale.BAL.AutoComplete
             switch (source)
             {
                 case AutoSuggestEnum.AllMakeModel:
-                    indexName = ConfigurationManager.AppSettings["MMindexName"];
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
                     break;
                 case AutoSuggestEnum.PriceQuoteMakeModel:
-                    indexName = ConfigurationManager.AppSettings["PQindexName"];
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.PQindexName;
                     break;
                 case AutoSuggestEnum.AllCity:
-                    indexName = ConfigurationManager.AppSettings["cityIndexName"];
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.CityIndexName;
+                    break;
+                case AutoSuggestEnum.AreaPinCodes:
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.PinCodesIndexName;
                     break;
                 default:
-                    indexName = ConfigurationManager.AppSettings["MMindexName"];
+                    indexName = Bikewale.Utility.BWConfiguration.Instance.MMindexName;
                     break;
             }
             return indexName;
