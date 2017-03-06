@@ -236,7 +236,7 @@ namespace Bikewale.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "");
+                ErrorClass objErr = new ErrorClass(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
             }
             return tabs;
         }

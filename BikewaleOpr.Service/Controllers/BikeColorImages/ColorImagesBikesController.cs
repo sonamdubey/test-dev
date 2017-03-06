@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Notifications;
+using BikewaleOpr.BAL;
 using BikewaleOpr.Entities.BikeColorImages;
 using BikewaleOpr.Interface.BikeColorImages;
 using System;
@@ -32,7 +33,7 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
                 if (objBikeColorDetails != null && ModelState.IsValid)
                 {
 
-
+                    MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", objBikeColorDetails.Modelid));
                     return Ok(_objColorImagesBikes.FetchPhotoId(objBikeColorDetails));
                 }
                 else
@@ -53,13 +54,14 @@ namespace BikewaleOpr.Service.Controllers.BikeColorImages
         /// <param name="photoId"></param>
         /// <returns></returns>
         [HttpPost, Route("api/image/delete/modelid/")]
-        public IHttpActionResult DeleteBikeColorDetails(uint photoId)
+        public IHttpActionResult DeleteBikeColorDetails(uint photoId,uint modelid)
         {
 
             try
             {
                 if (photoId > 0)
                 {
+                    MemCachedUtil.Remove(string.Format("BW_ModelPhotosColorWise_{0}", modelid));
                     return Ok(_objColorImagesBikes.DeleteBikeColorDetails(photoId));
                 }
                 else
