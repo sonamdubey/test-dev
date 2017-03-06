@@ -77,13 +77,11 @@ namespace BikewaleOpr.DALs.Bikedata
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_monthyear", DbType.DateTime, date));
 
                     MySqlDatabase.InsertQuery(cmd, ConnectionType.ReadOnly);
-
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
-                objErr.SendMail();
             }
         }
 
@@ -102,12 +100,9 @@ namespace BikewaleOpr.DALs.Bikedata
                     dataObj = new SoldUnitData();
                     cmd.CommandText = "getlastsoldunitdate";
                     cmd.CommandType = CommandType.StoredProcedure;
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_lastUpdateDate", DbType.DateTime, ParameterDirection.Output));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isEmailToSend", DbType.Int16, ParameterDirection.Output));
-
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
-
                     if (cmd.Parameters["par_lastUpdateDate"].Value != DBNull.Value)
                         dataObj.LastUpdateDate = Convert.ToDateTime(cmd.Parameters["par_lastUpdateDate"].Value);
 
@@ -119,9 +114,42 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
-                objErr.SendMail();
             }
             return dataObj;
+        }
+        /// <summary>
+        /// Created by Sangram Nandkhile on 06 Mar 2017
+        /// Desc : function to get the used bikes where no model image is found
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetPendingUsedBikesWithoutModelImage()
+        {
+            List<string> _objBikeModels = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getPendingUsedBikesWithoutModelImage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            _objBikeModels = new List<string>();
+                            while (dr.Read())
+                            {
+                                string bikeName = string.Format("{0} {1}", Convert.ToString(dr["makeName"]), Convert.ToString(dr["modelName"]));
+                                _objBikeModels.Add(bikeName);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
+            }
+            return _objBikeModels;
         }
     }
 }

@@ -16,5 +16,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeModelEntityBase> GetModels(uint makeId, string requestType);
         void SaveModelUnitSold(string list, DateTime date);
         SoldUnitData GetLastSoldUnitData();
+        List<string> GetPendingUsedBikesWithoutModelImage();
     }
 }

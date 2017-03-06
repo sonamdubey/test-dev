@@ -1,12 +1,62 @@
 ﻿@{
-    ViewBag.Title = "Home Page";    
-    ViewBag.PageTitle = "Bikewale Operations Home";
+    ViewBag.Title = "Home Page";
+    ViewBag.PageTitle = "Bikewale Operations - Home";
 }
-<div class="row" style="margin-top:5px;">
-    <div class="col s10 m10">
-        
-    </div>
-    <div class="col s2 m2">
-        
-    </div>    
+
+
+<div class="row">
+    @if (ViewBag.IsUsedBikeModelsAvailable)
+    {
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content">
+                    <h5><span class="card-title">Used bike models</span></h5>
+                    <p>
+                        <b>Please upload used bike model :</b>
+                    </p>
+                    @if (ViewBag.BikeNames != null)
+                    {
+                        <p>@ViewBag.BikeNameShort <a href="#modal1">See all</a></p>
+                    }
+                    else
+                    {
+                        <p>@ViewBag.BikeNameShort</p>
+                    }
+                </div>
+                <div class="card-action">
+                    <a href="">Upload Photos now</a>
+                </div>
+            </div>
+        </div>
+        if (ViewBag.BikeNames != null)
+        {
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Used bike Models</h4>
+                    <ul>
+                        @foreach (var bike in ViewBag.BikeNames)
+                        {
+                            <li>@bike</li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        }
+    }
+    @if (ViewBag.IsSoldBikeDataUpatedShown && @ViewBag.DataObj != null)
+    {
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content">
+                    <h5><span class="card-title">Sold bike data</span></h5>
+                    <p>Model units sold data has been last updated on </p>
+                    <p>@ViewBag.DataObj.LastUpdateDate.ToString("dd/MM/yyyy")</p>
+                </div>
+                <div class="card-action">
+                    <a href="/content/bikeunitssold.aspx">Click here to Update data</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
