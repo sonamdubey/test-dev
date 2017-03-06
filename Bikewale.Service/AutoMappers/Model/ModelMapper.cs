@@ -220,20 +220,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-                //if (objModelPage.Photos != null)
-                //{
-                //    var photos = new List<DTO.Model.v3.CMSModelImageBase>();
-                //    foreach (var photo in objModelPage.Photos)
-                //    {
-                //        var addPhoto = new DTO.Model.v3.CMSModelImageBase()
-                //        {
-                //            HostUrl = photo.HostUrl,
-                //            OriginalImgPath = photo.OriginalImgPath
-                //        };
-                //        photos.Add(addPhoto);
-                //    }
-                //    objDTOModelPage.Photos = photos;
-                //}
+                
 
                 if (objModelPage.AllPhotos != null)
                 {
@@ -320,20 +307,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-                //if (objModelPage.Photos != null)
-                //{
-                //    var photos = new List<DTO.Model.v3.CMSModelImageBase>();
-                //    foreach (var photo in objModelPage.Photos)
-                //    {
-                //        var addPhoto = new DTO.Model.v3.CMSModelImageBase()
-                //        {
-                //            HostUrl = photo.HostUrl,
-                //            OriginalImgPath = photo.OriginalImgPath
-                //        };
-                //        photos.Add(addPhoto);
-                //    }
-                //    objDTOModelPage.Photos = photos;
-                //}
+              
                 if (objModelPage.AllPhotos != null)
                 {
                     var photos = new List<DTO.Model.v3.CMSModelImageBase>();

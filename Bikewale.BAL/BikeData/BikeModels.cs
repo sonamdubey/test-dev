@@ -1229,7 +1229,7 @@ namespace Bikewale.BAL.BikeData
             {
                 allPhotos = new List<ColorImageBaseEntity>();
                 List<ModelImage> modelPhotos = GetModelPhotoGalleryWithMainImage(modelId);
-                if (modelPhotos != null)
+                if (modelPhotos != null && modelPhotos.Count()>0)
                 {
                     allPhotos.Add(new ColorImageBaseEntity()
                        {
