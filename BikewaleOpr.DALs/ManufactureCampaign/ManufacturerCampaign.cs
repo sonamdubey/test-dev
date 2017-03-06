@@ -480,7 +480,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                                     LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]),
                                     LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]),
                                     LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]),
-                                    PinCodeRequire = Convert.ToBoolean(dr["PinCodeRequired"])
+                                    PinCodeRequire = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"])
                                 });
                             }
                         }
