@@ -94,7 +94,7 @@
                                 <%if (vmModelPhotos.firstImage != null)
                                   { %>
                                 <div class="main-image-container">
-                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(vmModelPhotos.firstImage.OriginalImgPath,vmModelPhotos.firstImage.HostUrl,Bikewale.Utility.ImageSize._640x348)%>" alt="<%= vmModelPhotos.firstImage.ImageCategory %> Image" title="<%= vmModelPhotos.firstImage.ImageCategory %>" />
+                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(vmModelPhotos.firstImage.OriginalImgPath,vmModelPhotos.firstImage.HostUrl,Bikewale.Utility.ImageSize._640x348)%>" alt="<%= string.Format("{0} {1}",vmModelPhotos.bikeName, vmModelPhotos.firstImage.ImageCategory) %> Image" title="<%=string.Format("{0} {1}",vmModelPhotos.bikeName, vmModelPhotos.firstImage.ImageCategory) %>" />
                                 </div>
                                 <% } %>
                             </li>
@@ -106,13 +106,13 @@
                             <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 13) //to handle lazy load for initial images (12 images can vary) 
                                { %>
                             <li>
-                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />
+                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory) %> Image" title="<%=string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory) %>" />
                             </li>
                             <% } %>
                             <% while (i < vmModelPhotos.gridPhotosCount && i < vmModelPhotos.GridSize)
                                { %>
                             <li>
-                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />
+                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[i++].ImageCategory) %>" />
                             </li>
                             <% }  %>
                         </ul>
@@ -122,14 +122,14 @@
                             <% while (i < vmModelPhotos.totalPhotosCount && i < vmModelPhotos.GridSize)
                                { %>
                             <li>
-                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= objImages[i].ImageCategory %> Image" title="<%= objImages[i++].ImageCategory %>" />
+                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%=string.Format("{0} {1}",bikeName, objImages[i].ImageCategory) %> Image" title="<%= string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory) %>" />
                             </li>
                             <% }
                            }
                            else if (vmModelPhotos.totalPhotosCount == 1)
                            { %>
                             <li>
-                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= objImages[0].ImageCategory %> Image" title="<%= objImages[0].ImageCategory %>" />
+                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[0].OriginalImgPath,objImages[0].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[0].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[0].ImageCategory) %>" />
                             </li>
                             <% } %>
                         </ul>
@@ -268,7 +268,7 @@
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
                                     <div class="thumbnail-image-placeholder">
-                                        <img class="swiper-lazy" data-bind="attr: { alt: ImageTitle, title: ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                        <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
                                     </div>
                                 </div>
                             </div>

@@ -20,7 +20,7 @@ namespace Bikewale.New.Photos
         protected bool isModelPage;
         protected uint VideoCount;
         protected PQSourceEnum pqSource;
-        protected string bikeUrl = string.Empty, bikeName = string.Empty;
+        protected string bikeUrl = string.Empty, bikeName = string.Empty,imgTitle=string.Empty;
         protected NewVideosControl ctrlVideos;
         protected uint gridSize = 25, imageIndex = 0, colorImageId = 0;
         private uint _modelId;
