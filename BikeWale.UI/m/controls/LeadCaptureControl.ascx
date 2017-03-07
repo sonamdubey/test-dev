@@ -57,7 +57,7 @@
                 </div>
 
              <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                    <input type="text" maxlength="6" id="getPinCode" data-bind="textInput: pincode">
+                    <input type="text"  id="getPinCode" data-bind="textInput: pincode">
                     <label for="getPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
@@ -159,6 +159,7 @@
             validate.onBlur($(this));
         });
         $(document).on("blur", "#getPinCode", function () {
+            validate.onBlur($(this));
             var pincode = $("#getPinCode");
             if (prevPinCode != $(this).val().trim()) {
                 if (dleadvm.validatePinCode(pincode)) {
