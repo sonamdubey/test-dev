@@ -112,7 +112,7 @@
                             <% while (i < vmModelPhotos.gridPhotosCount && i < vmModelPhotos.GridSize)
                                { %>
                             <li>
-                                <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[i++].ImageCategory) %>" />
+                              <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" src="" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory)%> Image" title="<%=string.Format("{0} {1}",bikeName, objImages[i++].ImageCategory) %>" />
                             </li>
                             <% }  %>
                         </ul>
@@ -268,7 +268,7 @@
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
                                 <div class="swiper-slide">
                                     <div class="thumbnail-image-placeholder">
-                                        <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
+                                      <img class="swiper-lazy" data-bind="attr: { alt: modelName + ' ' +ImageTitle, title:  modelName + ' ' +ImageTitle, 'data-src': HostUrl + '/110x61/' + OriginalImgPath }" src="" alt="" title="" border="0" />
                                     </div>
                                 </div>
                             </div>

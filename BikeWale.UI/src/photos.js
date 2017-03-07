@@ -375,6 +375,7 @@ var thumbnailSwiperEvents = {
         activeSlideTitle = $(activeSlide).find('img').attr('alt');
 
         vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
+
         vmModelGallery.activePhotoTitle(modelName + " " +activeSlideTitle);
     },
 
