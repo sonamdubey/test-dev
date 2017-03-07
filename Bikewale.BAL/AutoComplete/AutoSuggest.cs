@@ -40,9 +40,19 @@ namespace Bikewale.BAL.AutoComplete
                         suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
                     else
                     {
-                        _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
-                        .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
-                        ));
+                        if (!source.Equals(AutoSuggestEnum.AreaPinCodes))
+                        {
+                            _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
+                       .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
+                       ));
+                        }
+                        else
+                        {
+                            _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
+                     .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
+                     ));
+                        }
+
                         suggestionList = _result.Suggestions[completion_field][0].Options;
                     }
                 }
