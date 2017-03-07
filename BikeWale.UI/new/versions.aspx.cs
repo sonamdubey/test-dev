@@ -526,7 +526,7 @@ namespace Bikewale.New
             {
                 if (modelPage != null)
                 {
-                    var photos = modelPage.Photos;
+                    var photos = modelPage.AllPhotos;
                     if (photos != null && photos.Count() > 0)
                     {
                         rptModelPhotos.DataSource = photos;
