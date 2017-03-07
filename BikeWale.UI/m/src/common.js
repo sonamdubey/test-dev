@@ -856,7 +856,7 @@ function slideChangeStart() {
                         if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
                     }
                 },
-                minLength: 1,
+                minLength: options.minLength || 1,
                 select: function (event, ui) {
                     if (options.click != undefined)
                         options.click(event, ui, $(this).val());
