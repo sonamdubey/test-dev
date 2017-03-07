@@ -26,7 +26,7 @@ namespace BikewaleOpr.DALs.BikeColorImages
             uint photoId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("savebikemodelcolorphoto"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savebikemodelcolorphoto_02032017"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -68,7 +68,7 @@ namespace BikewaleOpr.DALs.BikeColorImages
             bool isDeleted = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("deletebikemodelcolorphoto"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("deletebikemodelcolorphoto_02032017"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;

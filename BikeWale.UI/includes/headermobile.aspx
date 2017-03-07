@@ -3,7 +3,7 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
         ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "",OGImage = "";
-        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, EnableOG = true;
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false, EnableOG = true, ShowSellBikeLink=false;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -10,6 +11,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -86,6 +88,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
+        /// Modified by : Sajal gupta on 28-02-2017
+        /// Description :" Fetch modelPage data from calling BAL function instead of cache function.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID, uint versionId)
         {
@@ -96,12 +100,13 @@ namespace Bikewale.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        container.RegisterType<IPager, Pager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
-                        var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID));
+                        var objBikeEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        modelPg = objBikeEntity.GetModelPageDetails(Convert.ToInt16(modelID));
                         if (modelPg != null && modelPg.ModelDetails != null)
                         {
                             if (modelPg.ModelDetails.ModelName != null)

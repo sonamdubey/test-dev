@@ -31,7 +31,13 @@
                         <p class="header-dealername" id="header-dealername"></p>
                     </div>                   
                 </div>
+               
+                    
+                    
                 <div class="rightfloat">
+                     <% if(ShowSellBikeLink){ %>
+                    <a href="/m/used/sell/" title="Sell your bike" class="btn header-sell-btn">Sell bike</a> 
+                      <%} %>                 
                     <div class="global-search" id="global-search" style="display:none">
                         <span class="bwmsprite search-bold-icon"></span>
                     </div>

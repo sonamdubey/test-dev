@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
@@ -22,6 +23,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Mobile.Controls;
@@ -723,7 +725,8 @@ namespace Bikewale.Mobile.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   27 Nov 2015
-        /// 
+        /// Modified by : Sajal gupta on 28-02-2017
+        /// Description :" Fetch modelPage data from calling BAL function instead of cache function.
         /// </summary>
         private void FetchModelPageDetails()
         {
@@ -731,13 +734,14 @@ namespace Bikewale.Mobile.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    container.RegisterType<IPager, Pager>()
+                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                              .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                              .RegisterType<ICacheManager, MemcacheManager>();
 
-                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId), (int)versionId);
+                    var objBikeEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    modelPage = objBikeEntity.GetModelPageDetails(Convert.ToInt32(modelId), (int)versionId);
                     if (modelPage != null)
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -760,8 +764,6 @@ namespace Bikewale.Mobile.New
                                 }
                             }
                         }
-                        if (!modelPage.ModelDetails.New)
-                            isDiscontinued = true;
 
                         if (modelPage.ModelDetails != null)
                         {
@@ -773,12 +775,47 @@ namespace Bikewale.Mobile.New
                             bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
                         }
+                        // Discontinued bikes
+                        if (!modelPage.ModelDetails.New && modelPage.ModelVersions != null)
+                        {
+                            isDiscontinued = true;
+                            if (modelPage.ModelVersions.Count == 1)
+                            {
+                                price = Convert.ToUInt32(modelPage.ModelDetails.MinPrice);
+                            }
+                            else
+                            {
+                                // When version is not selected
+                                if (versionId == 0)
+                                {
+                                    List<BikeVersionMinSpecs> nonZeroValues = modelPage.ModelVersions.Where(x => x.Price > 0).ToList();
+                                    if (nonZeroValues != null && nonZeroValues.Count > 0)
+                                    {
+                                        ulong minVal = nonZeroValues.Min(x => x.Price);
+                                        var lowestVersion = modelPage.ModelVersions.First(x => x.Price == minVal);
+                                        if (lowestVersion != null)
+                                        {
+                                            versionId = Convert.ToUInt16(lowestVersion.VersionId);
+                                            price = Convert.ToUInt32(lowestVersion.Price);
+                                        }
+                                    }
+                                }
+                                else //When version is selected
+                                {
+                                    BikeVersionMinSpecs selectedVersion = modelPage.ModelVersions.FirstOrDefault(x => x.VersionId == versionId);
+                                    if (selectedVersion != null)
+                                    {
+                                        price = Convert.ToUInt32(selectedVersion.Price);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModels.aspx =>FetchModelPageDetails: ModelId {0}", modelId));
             }
         }
         /// <summary>
@@ -791,6 +828,8 @@ namespace Bikewale.Mobile.New
         /// Description     :   Removed the Dealer Assistance code as it is not used.
         /// Modified by     :   Sajal Gupta on 13-01-2017
         /// Description     :   Changed flag isOnRoadPrice if onroad price not available
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// </summary>
         private void FetchOnRoadPrice()
         {
@@ -803,16 +842,13 @@ namespace Bikewale.Mobile.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null)
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
 
                         versionId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = pqOnRoad.PriceQuote.DealerId;
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
-                            // Commented on 20 Feb 2017
-                            // if (pqOnRoad.PriceQuote.PQId == 0)
-                            //    isOnRoadPrice = false;
                         }
 
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, areaId.ToString(), versionId.ToString(), dealerId.ToString()));
@@ -1196,7 +1232,7 @@ namespace Bikewale.Mobile.New
                     string lastColor = modelPage.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} different colors : ", bikeName, colorCount);
+                        colorStr.AppendFormat("{0} is available in {1} different colours : ", bikeName, colorCount);
                         var colorArr = modelPage.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
                         // Comma separated colors (except last one)
                         colorStr.Append(string.Join(",", colorArr));
@@ -1205,7 +1241,7 @@ namespace Bikewale.Mobile.New
                     }
                     else if (colorCount == 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
+                        colorStr.AppendFormat("{0} is available in {1} colour.", bikeName, lastColor);
                     }
                 }
             }

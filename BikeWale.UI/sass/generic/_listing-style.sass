@@ -112,34 +112,10 @@
 			font-size: $font-size-small
 			color: $text-light
 			text-align: left
-			padding-bottom: 5px			
-
-/* item-more-details-list */
-.item-more-details-list
-	li
-		float: left
-		margin-left: 10px
-
-	a
-		display: block
-		padding: 1px 10px 5px
-		color: #787878
-		background: rgba(245,245,245,.9)
-		@include border-radius(2px)
-
-		&:hover
-			color: #fff
-			background: #54bbca
-			text-decoration: none
-
-	.icon-label
-		font-size: 13px
-		display: inline-block
-		vertical-align: middle
-		line-height: 13px
+			padding-bottom: 5px
 
 .used-bike-target-link
-	margin: 1px 0 1px 20px
+	margin: 3px 0 3px 20px
 	padding-left: 20px
 	border-left: 1px solid #ecedee
 
@@ -178,37 +154,14 @@
 .weight-sm
 	background-position: -154px -169px
 
-.reviews-sm,
-.news-sm,
-.specs-sm
-	width: 14px
-	height: 14px
-	vertical-align: middle
-	margin-right: 3px
+.item-details-content
+	.item-more-details-list
+		li
+			margin-left: 10px
+			margin-right: 0
+			margin-bottom: 0
 
-.reviews-sm
-	background-position: -136px -187px
-
-.news-sm
-	background-position: -136px -203px
-
-.specs-sm
-	background-position: -136px -219px
-
-.item-more-details-list
-	a
-		&:hover
-			.reviews-sm
-				background-position: -152px -187px
-				
-			.news-sm
-				background-position: -152px -203px
-				
-			.specs-sm
-				background-position: -152px -219px
-				
-			.photos-sm
-				background-position: -152px -235px
-				
-			.videos-sm
-				background-position: -152px -251px
+.key-specs-list
+	li,
+	span
+		display: inline-block

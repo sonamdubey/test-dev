@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Videos;
@@ -7,11 +8,9 @@ using Bikewale.Notifications;
 using Bikewale.Utility.StringExtention;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.Videos
@@ -27,7 +26,7 @@ namespace Bikewale.Mobile.Videos
             pageHeading = string.Empty, descName = string.Empty;
         protected string categoryIdList = string.Empty;
         protected bool Ad_Bot_320x50 = false;
-       
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -74,7 +73,8 @@ namespace Bikewale.Mobile.Videos
                 {
                     container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
                              .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
+                             .RegisterType<ICacheManager, MemcacheManager>()
+                             .RegisterType<IVideoRepository, ModelVideoRepository>();
 
                     var objCache = container.Resolve<IVideosCacheRepository>();
 

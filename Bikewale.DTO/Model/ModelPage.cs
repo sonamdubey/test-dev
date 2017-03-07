@@ -28,7 +28,7 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("photos")]
         public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
-        
+
         [JsonProperty("modelColors")]
         public IEnumerable<ModelColor> ModelColors { get; set; }
 

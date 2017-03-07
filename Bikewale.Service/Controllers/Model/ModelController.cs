@@ -8,7 +8,6 @@ using Bikewale.Service.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.Model
@@ -26,18 +25,18 @@ namespace Bikewale.Service.Controllers.Model
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModels<BikeModelEntity, int> _modelsContent = null;
-        public readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="modelRepository"></param>
         /// <param name="modelContent"></param>
-        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent, IBikeModelsCacheRepository<int> modelCacheRepository)
+        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModels<BikeModelEntity, int> modelContent, IBikeModels<BikeModelEntity, int> bikeModelEntity)
         {
             _modelRepository = modelRepository;
             _modelsContent = modelContent;
-            _modelCacheRepository = modelCacheRepository;
+            _bikeModelEntity = bikeModelEntity;
         }
 
         #region Model Details
@@ -167,6 +166,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// Created By: Sangram Nandkhile on 31 Jan 2017
         /// Summary: To return Model Images, Other model Images and color wise images
+        /// Modified By : Sajal Gupta on 28-02-2017
+        /// Description : Call function of BAL Layer instead of Cache layer.       
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -179,7 +180,7 @@ namespace Bikewale.Service.Controllers.Model
             {
                 if (modelId > 0)
                 {
-                    imageList = _modelCacheRepository.CreateAllPhotoList(modelId);
+                    imageList = _bikeModelEntity.CreateAllPhotoList(modelId);
                     allPhotos = ModelMapper.Convert(imageList);
                 }
                 else

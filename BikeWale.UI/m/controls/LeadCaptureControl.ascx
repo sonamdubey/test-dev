@@ -5,8 +5,8 @@
     <div class="popup-inner-container text-center">
         <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
         <div id="contactDetailsPopup">
-            <p class="font18 margin-top10 margin-bottom10">Provide contact details</p>
-            <p class="text-light-grey margin-bottom10">Dealership will get back to you with offers</p>
+            <p class="font18 margin-top10 margin-bottom10"data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+            <p class="text-light-grey margin-bottom10" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
 
 
             <div class="personal-info-form-container">
@@ -62,14 +62,22 @@
                     <span class="bwmsprite thankyou-icon margin-top15"></span>
                 </div>
             </div>
-            <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            
+         
+             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+            <!-- ko if : !dealerMessage() -->
             <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
             <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
+            <!-- /ko -->
+            <!-- ko ifnot : -->
+            <p class="font16 margin-bottom40" data-bind="text:dealerMessage()"></p>
+            <!-- /ko -->
             <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
         <!-- thank you message ends here -->
     </div>
+</div>
+<div id="ub-ajax-loader">
+    <div id="popup-loader"></div>
 </div>
 <!-- Lead Capture pop up end  -->
 
@@ -185,6 +193,9 @@
         self.campaignId = ko.observable();
         self.mfgCampaignId = ko.observable();
         self.GAObject = ko.observable();
+        self.dealerHeading = ko.observable();
+        self.dealerMessage = ko.observable();
+        self.dealerDescription = ko.observable();
         self.setOptions = function(options)
         {
             if(options!=null)
@@ -223,6 +234,14 @@
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
+                if (options.dealerHeading != null && options.dealerHeading != "")
+                    self.dealerHeading(options.dealerHeading);
+
+                if (options.dealerMessage != null && options.dealerMessage != "")
+                    self.dealerMessage(options.dealerMessage);
+
+                if (options.dealerDescription != null && options.dealerDescription != "")
+                    self.dealerDescription(options.dealerDescription);
 
                 if(options.pageurl!=null)
                     self.pageUrl = options.pageurl;
@@ -255,6 +274,7 @@
                         contentType: "application/json",
                         dataType: 'json',
                         beforeSend: function (xhr) {
+                            self.showLoader();
                             xhr.setRequestHeader('utma', getCookie('__utma'));
                             xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                         },
@@ -265,6 +285,7 @@
                             self.dealerBikes(obj.dealerBikes);
                         },
                         complete: function (xhr) {
+                            self.hideLoader();
                             if (xhr.status == 204 || xhr.status == 404) {
                                 lscache.set(dealerKey, null, 30);
                             }
@@ -333,11 +354,15 @@
                     data: ko.toJSON(objPQData),
                     contentType: "application/json",
                     dataType: 'json',
+                    beforeSend: function (xhr) {
+                        self.showLoader();
+                    },
                     success: function (response) {
                         self.pqId(response.quoteId);
                         isSuccess = true;
                     },
                     complete: function (xhr) {
+                        self.hideLoader();
                         if (xhr.status != 200) {
                             self.IsVerified(false);
                             isSuccess = false;
@@ -385,6 +410,7 @@
                     url: "/api/PQCustomerDetail/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
+                        self.showLoader();
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
@@ -396,6 +422,7 @@
                         self.IsVerified(obj.isSuccess);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
@@ -550,6 +577,7 @@
                     url: "/api/ManufacturerLead/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
+                        self.showLoader();
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
                     },
@@ -567,12 +595,23 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         $('#processing').hide();
                         $("#contactDetailsPopup, #otpPopup").hide();
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
                     }
                 });
 
                 setPQUserCookie();                
             }
-        };
+        }
+
+        self.showLoader = function () {
+            $('#ub-ajax-loader').show();
+        }
+
+        self.hideLoader = function () {
+            $('#ub-ajax-loader').hide();
+        }
     }
 
     var dleadvm = new leadModel();

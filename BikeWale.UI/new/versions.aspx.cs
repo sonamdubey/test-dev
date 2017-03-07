@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.Pager;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
@@ -20,6 +21,7 @@ using Bikewale.Entities.Used.Search;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Utility;
@@ -45,7 +47,6 @@ namespace Bikewale.New
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected NewUserReviewsList ctrlUserReviews;
-        protected ModelGallery ctrlModelGallery;
         protected PriceInTopCities ctrlTopCityPrices;
         protected BikeModelPageEntity modelPageEntity;
         protected PopularModelCompare ctrlPopularCompare;
@@ -54,7 +55,7 @@ namespace Bikewale.New
         protected PQOnRoadPrice pqOnRoad;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected int grid1_size = 9, grid2_size = 3, colorCount;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptSecondaryDealers;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptOffers, rptSecondaryDealers;
         protected string location = string.Empty, modelQuerystring = string.Empty, cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         protected bool isCityAvailable, isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton;
 
@@ -514,34 +515,35 @@ namespace Bikewale.New
             }
         }
 
+        /// <summary>
+        /// Modified By : Sajal Gupta on 01-03-2017
+        /// Description : Removed repeater rptcolor.
+        /// </summary>
+        /// <param name="modelPage"></param>
         private void BindPhotoRepeater(BikeModelPageEntity modelPage)
         {
-            if (modelPage != null)
+            try
             {
-                var photos = modelPage.Photos;
-                if (photos != null && photos.Count > 0)
+                if (modelPage != null)
                 {
-                    rptModelPhotos.DataSource = photos;
-                    rptModelPhotos.DataBind();
-                    rptNavigationPhoto.DataSource = photos;
-                    rptNavigationPhoto.DataBind();
+                    var photos = modelPage.Photos;
+                    if (photos != null && photos.Count() > 0)
+                    {
+                        rptModelPhotos.DataSource = photos;
+                        rptModelPhotos.DataBind();
+                        rptNavigationPhoto.DataSource = photos;
+                        rptNavigationPhoto.DataBind();
+                    }
 
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = photos;
+                    if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
+                    {
+                        modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                    }
                 }
-
-                //bind model colors
-                if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                {
-                    rptColor.DataSource = modelPage.ModelColors;
-                    rptColor.DataBind();
-                }
-
-                if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
-                {
-                    modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindPhotoRepeater");
             }
         }
 
@@ -610,6 +612,8 @@ namespace Bikewale.New
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
+        /// Modified by : Sajal Gupta on 28-02-2017
+        /// Description : Get model page data from calling BAL layer instead of calling cache layer.
         /// </summary>
         private BikeModelPageEntity FetchModelPageDetails(uint modelID)
         {
@@ -620,12 +624,13 @@ namespace Bikewale.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                        container.RegisterType<IPager, Pager>()
+                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                                  .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                                  .RegisterType<ICacheManager, MemcacheManager>();
-                        var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        modelPg = objCache.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
+                        var objBikeModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        modelPg = objBikeModels.GetModelPageDetails(Convert.ToInt16(modelID), (int)variantId);
                         if (modelPg != null)
                         {
                             if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
@@ -644,8 +649,6 @@ namespace Bikewale.New
                                 }
                             }
 
-                            if (!modelPg.ModelDetails.New)
-                                isDiscontinued = true;
                             if (modelPg.ModelDetails != null)
                             {
                                 if (modelPg.ModelDetails.ModelName != null)
@@ -654,13 +657,49 @@ namespace Bikewale.New
                                     bikeMakeName = modelPg.ModelDetails.MakeBase.MakeName;
                                 bikeName = string.Format("{0} {1}", bikeMakeName, bikeModelName);
                             }
+
+                            // Discontinued bikes
+                            if (!modelPg.ModelDetails.New && modelPg.ModelVersions != null)
+                            {
+                                isDiscontinued = true;
+                                if (modelPg.ModelVersions.Count == 1)
+                                {
+                                    price = Convert.ToUInt32(modelPg.ModelDetails.MinPrice);
+                                }
+                                else
+                                {
+                                    // When version is not selected
+                                    if (variantId == 0)
+                                    {
+                                        List<BikeVersionMinSpecs> nonZeroValues = modelPg.ModelVersions.Where(x => x.Price > 0).ToList();
+                                        if (nonZeroValues != null && nonZeroValues.Count > 0)
+                                        {
+                                            ulong minVal = nonZeroValues.Min(x => x.Price);
+                                            var lowestVersion = modelPg.ModelVersions.First(x => x.Price == minVal);
+                                            if (lowestVersion != null)
+                                            {
+                                                variantId = Convert.ToUInt16(lowestVersion.VersionId);
+                                                price = Convert.ToUInt32(lowestVersion.Price);
+                                            }
+                                        }
+                                    }
+                                    else //When version is selected
+                                    {
+                                        BikeVersionMinSpecs selectedVersion = modelPg.ModelVersions.FirstOrDefault(x => x.VersionId == variantId);
+                                        if (selectedVersion != null)
+                                        {
+                                            price = Convert.ToUInt32(selectedVersion.Price);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "versions.aspx ->" + "FetchmodelPgDetails()");
+                ErrorClass objErr = new ErrorClass(ex, string.Format("versions.aspx -> FetchmodelPgDetails(): Modelid ==> {0}", modelId));
             }
             return modelPg;
         }
@@ -673,6 +712,8 @@ namespace Bikewale.New
         /// Description     :   Removed repeater binding for rptCategory and rptDiscount as view breakup popup removed
         /// Modified by     :   Sajal Gupta on 13-01-2017
         /// Description     :   Changed flag isOnRoadPrice if onroad price not available
+        /// Modifide By :- Subodh jain on 02 March 2017
+        /// Summary:- added manufacturer campaign leadpopup changes
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -686,7 +727,7 @@ namespace Bikewale.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
@@ -1121,7 +1162,7 @@ namespace Bikewale.New
                     string lastColor = modelPageEntity.ModelColors.Last().ColorName;
                     if (colorCount > 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} different colors : ", bikeName, colorCount);
+                        colorStr.AppendFormat("{0} is available in {1} different colours : ", bikeName, colorCount);
                         var colorArr = modelPageEntity.ModelColors.Select(x => x.ColorName).Take(colorCount - 1);
                         // Comma separated colors (except last one)
                         colorStr.Append(string.Join(",", colorArr));
@@ -1130,7 +1171,7 @@ namespace Bikewale.New
                     }
                     else if (colorCount == 1)
                     {
-                        colorStr.AppendFormat("{0} is available in {1} color.", bikeName, lastColor);
+                        colorStr.AppendFormat("{0} is available in {1} colour.", bikeName, lastColor);
                     }
                 }
             }

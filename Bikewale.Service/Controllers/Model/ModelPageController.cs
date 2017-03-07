@@ -47,6 +47,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <summary>
         /// To get complete Model Page with Specs,Features,description and Details
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -55,15 +57,15 @@ namespace Bikewale.Service.Controllers.Model
         {
             BikeModelPageEntity objModelPage = null;
             Bikewale.DTO.Model.ModelPage objDTOModelPage = null;
-            //List<EnumCMSContentType> categorList = null;
-
+          
             try
             {
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
 
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelId);
+                                       
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
 
@@ -78,9 +80,6 @@ namespace Bikewale.Service.Controllers.Model
                     }
                     else
                     {
-                        //objModelPage.objFeatures = null;
-                        //objModelPage.objOverview = null;
-                        //objModelPage.objSpecs = null;
                         if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
                         {
                             objModelPage.objFeatures.FeaturesList.Clear();
@@ -159,6 +158,8 @@ namespace Bikewale.Service.Controllers.Model
         /// This returns the new dual tone colour with hexcodes(as list) 
         /// along with complete Model Page with Specs,Features,description and Details
         /// For the Specs and Features Default version selected is the one with maximum pricequotes
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
@@ -171,7 +172,7 @@ namespace Bikewale.Service.Controllers.Model
 
             try
             {
-                objModelPage = _cache.GetModelPageDetails(modelId);
+                objModelPage = _modelBL.GetModelPageDetails(modelId);
 
                 if (objModelPage != null)
                 {
@@ -189,9 +190,6 @@ namespace Bikewale.Service.Controllers.Model
                     }
                     else
                     {
-                        //objModelPage.objFeatures = null;
-                        //objModelPage.objOverview = null;
-                        //objModelPage.objSpecs = null;
                         if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
                         {
                             objModelPage.objFeatures.FeaturesList.Clear();
@@ -269,6 +267,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Removed specs, colors, features and unnecessary properties
         /// Modified by :   Sumit Kate on 23 May 2016
         /// Description :   Get the Device Id from deviceId parameter
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
@@ -283,7 +283,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(modelID);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);
@@ -323,7 +323,9 @@ namespace Bikewale.Service.Controllers.Model
 
         /// <summary>
         /// Created by  :   Lucky Rathore on 16 Jun 2016
-        /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.       
+        /// Description :   This the new version v4 of existing API update include PrimatyDealer, IsPrimary, SecondaryDealerCount and AltPrimarySectionText.  
+        /// Modified by Sajal Gupta on 28-02-2017
+        /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]
@@ -338,7 +340,7 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 BikeModelPageEntity objModelPage = null;
-                objModelPage = _cache.GetModelPageDetails(modelID);
+                objModelPage = _modelBL.GetModelPageDetails(Convert.ToInt32(modelId));
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = _modelBL.GetModelPhotoGalleryWithMainImage(modelID);

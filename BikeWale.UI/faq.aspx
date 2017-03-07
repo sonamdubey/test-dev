@@ -126,8 +126,8 @@
                     </div>
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20" id="faq15">
-                	    <h3>Can I change the color preference post visiting the dealership?</h3>
-                        <p>Yes you can. However, please note that different color versions might have different pricing / availability / waiting periods and some color variants might even not be available from the manufacturers end. Dealership will provide the exact details on your visit to dealership.</p>
+                	    <h3>Can I change the colour preference post visiting the dealership?</h3>
+                        <p>Yes you can. However, please note that different colour versions might have different pricing / availability / waiting periods and some colour variants might even not be available from the manufacturers end. Dealership will provide the exact details on your visit to dealership.</p>
                     </div>
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20" id="faq16">

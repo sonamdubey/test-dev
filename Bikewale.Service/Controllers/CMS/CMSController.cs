@@ -1,24 +1,18 @@
-﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.DTO.CMS.Articles;
+﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.CMS.Photos;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Content;
-using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Service.Utilities;
 using Bikewale.Utility;
-using Grpc.CMS;
-using log4net;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -36,18 +30,18 @@ namespace Bikewale.Service.Controllers.CMS
     {
 
         private readonly IPager _pager = null;
-        private readonly IBikeModelsCacheRepository<int> _objModelRepo = null;
         private readonly ICMSCacheContent _CMSCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="pager"></param>
-        public CMSController(IPager pager, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache)
+        public CMSController(IPager pager, ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> objModelCache, IBikeModels<BikeModelEntity, int> bikeModelEntity)
         {
             _pager = pager;
             _CMSCache = cmsCache;
-            _objModelRepo = objModelCache;
+            _bikeModelEntity = bikeModelEntity;
         }
 
 
@@ -55,6 +49,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Modified By : Ashish G. Kamble.
         /// Summary : API to get list of photos for the specified model.
+        /// Modified By : Sajal Gupta on 28-02-2017
+        /// Description : Called function of BAL instead of Cache
         /// </summary>
         /// <param name="modelId">Mandatory field. Value should be greater than 0.</param>
         /// <returns></returns>
@@ -64,7 +60,7 @@ namespace Bikewale.Service.Controllers.CMS
             List<ModelImage> objImageList = null;
             try
             {
-                objImageList = _objModelRepo.GetModelPhotoGallery(modelId);
+                objImageList = _bikeModelEntity.GetBikeModelPhotoGallery(modelId);
                 if (objImageList != null && objImageList.Count > 0)
                 {
                     // Auto map the properties

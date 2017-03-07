@@ -116,50 +116,10 @@
                             </div>
                             <div class="clear"></div>
 
-                            <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
-                                <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div class="icon-outer-container rounded-corner50 margin-bottom20">
-                                    <div class="icon-inner-container rounded-corner50">
-                                        <span class="bwsprite booking-otp-icon margin-top25"></span>
-                                    </div>
-                                </div>
-                                <p class="font18 margin-bottom20">Verify your mobile number</p>
-                                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                                <div>
-                                    <div class="lead-mobile-box lead-otp-box-container" style="display: block;">
-                                        <span class="bwsprite phone-grey-icon"></span>
-                                        <span class="text-light-grey font24">+91</span>
-                                        <span class="lead-mobile font24" data-bind="text : MobileNo"></span>
-                                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                                    </div>
-                                    <div class="otp-box lead-otp-box-container" style="display: block;">
-                                        <div class="form-control-box margin-bottom10">
-                                            <input type="text" class="form-control" placeholder="Enter your OTP" data-bind="textInput : OtpCode" id="getOTP" />
-                                            <span class="bwsprite error-icon errorIcon"></span>
-                                            <div class="bw-blackbg-tooltip errorText"></div>
-                                        </div>
-                                        <p class="resend-otp-btn margin-bottom5" data-bind="visible: (OtpAttempts() < 2), click:regenerateOTP">Resend OTP</p>
-                                        <p class=" otp-notify-text text-light-grey font12 " data-bind="visible: (OtpAttempts() >= 2)">
-                                            OTP has been already sent to your mobile
-                                        </p>
-                                        <input type="button" class="btn btn-orange margin-top20" value="Submit OTP" data-bind="click : function(data,event){return validateOTP(data,event);}" id="processOTP">
-                                    </div>
-                                    <div class="update-mobile-box" style="display: none;">
-                                        <div class="form-control-box text-left">
-                                            <span class="mobile-prefix">+91</span>
-                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="textInput : MobileNo" />
-                                            <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
-                                            <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your Mobile Number</div>
-                                        </div>
-                                        <input type="button" class="btn btn-orange" value="Send OTP" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" id="generateNewOTP">
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                         </div>
                         <div class="grid-12 alpha margin-top15 query-number-container">
-                            <%--<p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>--%>
-                            <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
                             <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" leadsourceid="16" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                         </div>
                         <div class="clear"></div>
@@ -291,14 +251,6 @@
                                             </tr>
                                             <!-- /ko -->
                                             <% } %>
-                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
-                                            
-
-                                            <tr>
-                                                <td class="padding-bottom10">Minus insurance</td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
-                                            </tr>
-                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>

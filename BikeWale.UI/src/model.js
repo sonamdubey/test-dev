@@ -52,28 +52,6 @@ $(document).ready(function (e) {
     }
 });
 
-
-$(document).ready(function (e) {
-
-    if ($(".bw-overall-rating a").last().css("display") == "none") {
-        var a = $(this);
-        var b = $(this).attr("href");
-        console.log(a);
-        $(this).remove();
-        $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
-    }
-
-    $('.bw-overall-rating a[href^="#"]').click(function () {
-        var target = $(this.hash);
-        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-        if (target.length == 0) target = $('html');
-        $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
-        return false;
-
-    });
-    // ends	
-});
-
 (function ($) {
 
     var connector = function (itemNavigation, carouselStage) {
@@ -87,13 +65,7 @@ $(document).ready(function (e) {
     };
     $(function () {
         var carouselStage = $('.carousel-stage').jcarousel();
-        var carouselNavigation = $('.carousel-navigation').jcarousel();
-
-        var carouselStage2 = $('.carousel-stage-photos').jcarousel();
-        var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
-
-        var carouselStage3 = $('.carousel-stage-videos').jcarousel();
-        var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();        
+        var carouselNavigation = $('.carousel-navigation').jcarousel();          
 
         carouselNavigation.jcarousel('items').each(function () {
             var item = $(this);
@@ -112,41 +84,7 @@ $(document).ready(function (e) {
                 });
         });
 
-        carouselNavigation2.jcarousel('items').each(function () {
-            var item2 = $(this);
-            var target = connector2(item2, carouselStage2);
-            item2
-				.on('jcarouselcontrol:active', function () {
-				    carouselNavigation2.jcarousel('scrollIntoView', this);
-				    item2.addClass('active');
-				})
-				.on('jcarouselcontrol:inactive', function () {
-				    item2.removeClass('active');
-				})
-				.jcarouselControl({
-				    target: target,
-				    carousel: carouselStage2
-				});
-        });
-
-        carouselNavigation3.jcarousel('items').each(function () {
-            var item3 = $(this);
-            var target = connector3(item3, carouselStage3);
-            item3
-				.on('jcarouselcontrol:active', function () {
-				    carouselNavigation3.jcarousel('scrollIntoView', this);
-				    item3.addClass('active');
-				})
-				.on('jcarouselcontrol:inactive', function () {
-				    item3.removeClass('active');
-				})
-				.jcarouselControl({
-				    target: target,
-				    carousel: carouselStage3
-				});
-        });
-
-        $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
+        $('.prev-stage')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
@@ -156,7 +94,7 @@ $(document).ready(function (e) {
             .jcarouselControl({
                 target: '-=1'
             });
-        $('.next-stage, .photos-next-stage, .videos-next-stage')
+        $('.next-stage')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
@@ -166,7 +104,7 @@ $(document).ready(function (e) {
             .jcarouselControl({
                 target: '+=1'
             });
-        $('.prev-navigation, .photos-prev-navigation, .videos-prev-navigation')
+        $('.prev-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
@@ -176,7 +114,7 @@ $(document).ready(function (e) {
             .jcarouselControl({
                 target: '-=4'
             });
-        $('.next-navigation, .photos-next-navigation, .videos-next-navigation')
+        $('.next-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
@@ -186,23 +124,11 @@ $(document).ready(function (e) {
             .jcarouselControl({
                 target: '+=4'
             });
-        $(".carousel-navigation, .carousel-stage, .carousel-stage-photos, .carousel-navigation-photos").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(".carousel-navigation, .carousel-stage").on('jcarousel:visiblein', 'li', function (event, carousel) {
             $(this).find("img.lazy").trigger("imgLazyLoad");
         });     
     });
 })(jQuery);
-
-$(".photos-next-stage").click(function () {
-    getImageNextIndex();
-});
-
-$(".photos-prev-stage").click(function () {
-    getImagePrevIndex();
-});
-
-$(".carousel-navigation-photos").click(function () {
-    getImageIndex();
-});
 
 function animatePrice(ele,start,end)
 {
@@ -218,119 +144,8 @@ function animatePrice(ele,start,end)
 }
 
 $("#bikeBannerImageCarousel .stage li").click(function () {
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Photo_Clicked", "lab": myBikeName });
-    if (imgTotalCount > 0) {
-        $('body').addClass('lock-browser-scroll');
-        $(".blackOut-window-model").show();
-        $(".bike-gallery-popup").removeClass("hide").addClass("show");
-        $(".modelgallery-close-btn").removeClass("hide").addClass("show");
-        $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-        $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
-        $(document).on("keydown", function (e) {
-            var $blackModel = $(".blackOut-window-model");
-            var $bikegallerypopup = $(".bike-gallery-popup");
-            if ($bikegallerypopup.hasClass("show") && e.keyCode === 27) {
-                $(".modelgallery-close-btn").click();
-            }
-            if ($bikegallerypopup.hasClass("show") && e.keyCode == 39 && $("#photos-tab").hasClass("active")) {
-                $(".photos-next-stage").click();
-            }
-            if ($bikegallerypopup.hasClass("show") && e.keyCode == 37 && $("#photos-tab").hasClass("active")) {
-                $(".photos-prev-stage").click();
-            }
-        });
-    }    
+    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Photo_Clicked", "lab": myBikeName });       
 });
-
-$(".modelgallery-close-btn, .blackOut-window-model").click(function () {
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window-model").hide();
-    $(".bike-gallery-popup").removeClass("show").addClass("hide");
-    $(".modelgallery-close-btn").removeClass("show").addClass("hide");
-    if (videoiFrame != undefined) {
-        videoiFrame.setAttribute("src", "");
-    }
-    var galleryThumbIndex = $(".carousel-navigation-photos ul li.active").index();
-    $(".carousel-stage").jcarousel('scroll', galleryThumbIndex);
-});
-
-$(document).ready(function () {
-    getImageDetails();
-});
-
-var mainImgIndexA;
-
-$(".carousel-stage ul li").click(function () {
-    mainImgIndexA = $(".carousel-navigation ul li.active").index();
-    setGalleryImage(mainImgIndexA);
-});
-
-var setGalleryImage = function (currentImgIndex) {
-    $(".carousel-stage-photos").jcarousel('scroll', currentImgIndex);
-    getImageDetails();
-};
-
-var getImageDetails = function () {
-    imgTotalCount = $(".carousel-stage-photos ul li").length;
-    var imgIndexA = $(".carousel-navigation-photos ul li.active");
-    var imgIndex = imgIndexA.index() + 1;
-    var imgTitle = imgIndexA.find("img").attr("title");
-    setImageDetails(imgTitle, imgIndex);
-};
-
-var getImageNextIndex = function () {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
-    var imgIndex = imgIndexA.index() + 1;
-    var imgTitle = imgIndexA.find("img").attr("title");
-    setImageDetails(imgTitle, imgIndex);
-}
-
-var getImagePrevIndex = function () {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
-    var imgIndex = imgIndexA.index() + 1;
-    var imgTitle = imgIndexA.find("img").attr("title");    
-    setImageDetails(imgTitle, imgIndex);
-}
-
-var getImageIndex = function () {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active");
-    var imgIndex = imgIndexA.index() + 1;
-    var imgTitle = imgIndexA.find("img").attr("title");
-    setImageDetails(imgTitle, imgIndex);
-}
-
-var setImageDetails = function (imgTitle,imgIndex) {            
-    $(".leftfloatbike-gallery-details").text(imgTitle);
-    if (imgIndex > 0) {
-        $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
-    }
-}
-
-var videoiFrame = document.getElementById("video-iframe");
-
-/* first video src */
-$("#photos-tab, #videos-tab").click(function () {
-    firstVideo();
-});
-
-$("#videos-tab").click(function () {
-    dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Video_Tab_Clicked", "lab": myBikeName });
-});
-
-var firstVideo = function () {
-    var a = $(".carousel-navigation-videos ul").first("li");
-    var newSrc = a.find("img").attr("iframe-data");
-    videoiFrame.setAttribute("src", newSrc);
-};
-
-var navigationVideosLI = $(".carousel-navigation-videos ul li");
-navigationVideosLI.click(function () {
-    navigationVideosLI.removeClass("active");
-    $(this).addClass("active");
-    var newSrc = $(this).find("img").attr("iframe-data");
-    videoiFrame.setAttribute("src", newSrc);
-});
-
 
 $("a.read-more-btn").click(function () {
     if(!$(this).hasClass("open")) {
@@ -623,8 +438,7 @@ $(document).ready(function () {
             }
         });
 
-    });
-    
+    });    
 
     $('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
         var target = $(this.hash);
@@ -633,6 +447,12 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: target.offset().top - topNavBar.height() + 1 }, 1000);
         return false;
     });
+
+    var tabsHashParameter = window.location.hash;
+    if (tabsHashParameter) {
+        $('html, body').scrollTop($(tabsHashParameter).offset().top - 130); // default topNavBar height 130px
+        $('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');
+    }
 
 });
 

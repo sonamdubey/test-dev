@@ -45,7 +45,12 @@ namespace Bikewale.BAL.UsedBikes
             _sellerRepository = sellerRepository;
         }
 
-
+        /// <summary>
+        /// Modified By : Sajal Gupta on 22-02-2016
+        /// Description : Saving ad after checking mobile verify status. 
+        /// </summary>
+        /// <param name="ad"></param>
+        /// <returns></returns>
         public SellBikeInquiryResultEntity SaveSellBikeAd(SellBikeAd ad)
         {
             SellBikeInquiryResultEntity result = new SellBikeInquiryResultEntity();
@@ -56,8 +61,7 @@ namespace Bikewale.BAL.UsedBikes
                 // Check if customer is fake
                 if (!IsFakeCustomer(ad.Seller.CustomerId))
                 {
-                    AddOrUpdateAd(ad);
-                    result.InquiryId = ad.InquiryId;
+                    isEdit = (ad.InquiryId > 0);
                     //Check if mobile verified
                     if (!_mobileVerRespo.IsMobileVerified(ad.Seller.CustomerMobile, ad.Seller.CustomerEmail))
                     {
@@ -74,6 +78,8 @@ namespace Bikewale.BAL.UsedBikes
                         if (!isEdit)
                             SendNotification(ad);
                     }
+                    ad.Status = result.Status.Code;
+                    result.InquiryId = AddOrUpdateAd(ad);
                 }
                 else // Redirect user
                 {
@@ -83,7 +89,7 @@ namespace Bikewale.BAL.UsedBikes
             else
             {
                 //Register user
-                AddOrUpdateAd(ad);
+                result.InquiryId = AddOrUpdateAd(ad);
             }
 
             result.CustomerId = ad.Seller.CustomerId;
@@ -91,19 +97,25 @@ namespace Bikewale.BAL.UsedBikes
             return result;
         }
 
-        private void AddOrUpdateAd(SellBikeAd ad)
+        /// <summary>
+        /// Modified By : Sajal Gupta ON 22-02-2017
+        /// Description : Return inquiry id from the function and change status to approved if it is already live.        
+        /// </summary>
+        /// <param name="ad"></param>
+        private uint AddOrUpdateAd(SellBikeAd ad)
         {
 
             if (ad.InquiryId > 0)
             {
+                ad.Status = SellAdStatus.Approved;
                 _sellBikeRepository.Update(ad);
-                isEdit = true;
             }
             else
             {
                 int inquiryId = _sellBikeRepository.Add(ad);
                 ad.InquiryId = (uint)inquiryId;
             }
+            return ad.InquiryId;
         }
 
         /// <summary>
@@ -143,7 +155,6 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RegisteredUser({0})", Newtonsoft.Json.JsonConvert.SerializeObject(user)));
-                objErr.SendMail();
             }
             return user.CustomerId;
         }
@@ -169,6 +180,10 @@ namespace Bikewale.BAL.UsedBikes
                 SellBikeAd ad = _sellBikeRepository.GetById((int)seller.InquiryId, seller.CustomerId);
                 SendNotification(ad);
             }
+
+            if (mobileVerified)
+                ChangeInquiryStatus(seller.InquiryId, SellAdStatus.MobileVerified);
+
             return mobileVerified;
         }
         /// <summary>
@@ -190,6 +205,24 @@ namespace Bikewale.BAL.UsedBikes
                     HttpContext.Current.Request.ServerVariables["URL"].ToString());
             }
         }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 22-02-2017       
+        /// Description: To change status id of a particular inquiry id.
+        /// </summary>
+        public void ChangeInquiryStatus(uint inquiryId, SellAdStatus status)
+        {
+            try
+            {
+                if (inquiryId > 0 && status > 0)
+                    _sellBikeRepository.ChangeInquiryStatus(inquiryId, status);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Bikewale.BAL.UsedBikes.SellBikes.ChangeInquiryStatus({0},{1})", inquiryId, status));
+            }
+        }
+
         /// <summary>
         /// Modified by :   Sumit Kate on 02 Nov 2016
         /// Description :   Return bike photos along with profile details
@@ -225,7 +258,6 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("GetById({0},{1})", inquiryId, customerId));
-                objErr.SendMail();
                 return null;
             }
         }
@@ -256,7 +288,6 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("RemoveBikePhotos: ProfileId {0}, CustomerId {1}, photoId {2}", profileId, customerId, photoId));
-                objErr.SendMail();
             }
 
             return isSuccess;
@@ -347,7 +378,6 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("UploadBikeImage({0},{1},{2},{3})", isMain, customerId, profileId, description));
-                objErr.SendMail();
                 result.Status = ImageUploadResultStatus.InternalError;
 
             }
@@ -386,7 +416,6 @@ namespace Bikewale.BAL.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, String.Format("MakeMainImage({0},{1},{2})", photoId, customerId, profileId));
-                objErr.SendMail();
             }
 
             return isSuccess;
