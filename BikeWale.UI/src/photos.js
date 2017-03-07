@@ -375,7 +375,8 @@ var thumbnailSwiperEvents = {
         activeSlideTitle = $(activeSlide).find('img').attr('alt');
 
         vmModelGallery.activePhotoIndex(swiper.activeIndex + 1);
-        vmModelGallery.activePhotoTitle(activeSlideTitle);
+
+        vmModelGallery.activePhotoTitle(modelName + " " +activeSlideTitle);
     },
 
     setColorPhotoDetails: function (swiper) {
@@ -383,7 +384,7 @@ var thumbnailSwiperEvents = {
             activeSlideTitle = $(activeSlide).find('img').attr('alt');
 
         vmModelGallery.activeColorIndex(swiper.activeIndex + 1);
-        vmModelGallery.activeColorTitle(activeSlideTitle);
+        vmModelGallery.activeColorTitle(modelName + " "+ activeSlideTitle);
     }
 }
 
