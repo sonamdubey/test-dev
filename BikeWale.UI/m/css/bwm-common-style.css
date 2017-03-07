@@ -1016,6 +1016,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     overflow-y: auto;
     height:auto;
     max-height: 160px;
+    margin-top: 0;
 }
 .btn-grey {
     background: #fff;

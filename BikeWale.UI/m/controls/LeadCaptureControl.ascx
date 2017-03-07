@@ -5,14 +5,14 @@
     <div class="popup-inner-container text-center">
         <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
         <div id="contactDetailsPopup">
-            <p class="font18 margin-top10 margin-bottom10"data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+            <p class="font18 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
             <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
 
 
             <div class="personal-info-form-container">
                 <!-- ko if : isDealerBikes() -->
                 <div id="getLeadBike" class="form-control-box margin-bottom15">
-                    <div class="input-select-box dealer-search-brand form-control-box">                        
+                    <div class="input-select-box dealer-search-brand form-control-box">
                         <div class="dealer-search-brand-form font16 text-light-grey">
                             <span id="selectedbike">Select a bike<sup>*</sup></span>
                         </div>
@@ -29,8 +29,8 @@
                             <span class="back-arrow-box"><span class="bwmsprite back-long-arrow-left"></span></span>
                             <input class="form-control" type="text" id="assistanceBrandInput" placeholder="Select a bike" />
                         </div>
-                        <ul id="sliderBrandList" class="slider-brand-list margin-top40" data-bind="foreach : dealerBikes ">
-                            <li data-bind="attr : {modelid : model.modelid , bikeName : bike , versionId : version.versionId} , text : bike, click : function(data,event){ return $root.selectedBike($data);}"></li>
+                        <ul id="sliderBrandList" class="slider-brand-list margin-top40" data-bind="foreach: dealerBikes ">
+                            <li data-bind="attr: { modelid: model.modelid, bikeName: bike, versionId: version.versionId }, text: bike, click: function (data, event) { return $root.selectedBike($data); }"></li>
                         </ul>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <span class="boundary"></span>
                     <span class="error-text"></span>
                 </div>
-                
+
                 <div class="input-box input-number-box form-control-box margin-bottom15">
                     <input type="tel" maxlength="10" id="getMobile" data-bind="textInput: mobileNo">
                     <label for="getMobile">Mobile number<sup>*</sup></label>
@@ -56,11 +56,17 @@
                     <span class="error-text"></span>
                 </div>
 
-             <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
+                <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                     <input type="text"  id="getPinCode" data-bind="textInput: pincode">
                     <label for="getPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
+
+                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide" >
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="clear"></div>
@@ -77,12 +83,12 @@
                 </div>
             </div>
             <!-- ko if : !dealerMessage() -->
-             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            <p class="font16 margin-bottom40" data-bind="visible : !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text : dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0 ,text : ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="text: dealerName()"></span> Company would get back to you shortly with additional information.</p>
+            <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+            <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
             <!-- /ko -->
             <!-- ko ifnot : -->
-            <p class="font16 margin-bottom40" data-bind="text:dealerMessage()"></p>
+            <p class="font16 margin-bottom40" data-bind="text: dealerMessage()"></p>
             <!-- /ko -->
             <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
         </div>
@@ -106,7 +112,8 @@
     var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
     var CityArea = '<%=cityName%>' + '<%=areaName != "" ? "_" + areaName : "" %>';
-    
+    var objPinCodes = new Object();
+
 
     $(function () {
 
@@ -136,15 +143,17 @@
                 $("#leadCapturePopup .leadCapture-close-btn").trigger("click");
             }
         });
-        
+
         $("#getFullName").on("focus", function () {
             validate.onFocus($(this));
         });
+
         $(document).on("focus", "#getPinCode", function () {
             var pincode = $("#getPinCode");
             validate.hideError(pincode);
             prevPinCode = pincode.val().trim();
         });
+
         $("#getEmailID").on("focus", function () {
             validate.onFocus($(this));
             prevEmail = $(this).val().trim();
@@ -158,6 +167,7 @@
         $("#getFullName").on("blur", function () {
             validate.onBlur($(this));
         });
+
         $(document).on("blur", "#getPinCode", function () {
             validate.onBlur($(this));
             var pincode = $("#getPinCode");
@@ -168,6 +178,7 @@
                 }
             }
         });
+
         $("#getEmailID").on("blur", function () {
             validate.onBlur($(this));
             if (prevEmail != $(this).val().trim()) {
@@ -205,7 +216,7 @@
             self.mobileNo = ko.observable();
             self.pincode = ko.observable();
         }
-        self.msg ="";
+        self.msg = "";
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -230,41 +241,37 @@
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
-        self.setOptions = function(options)
-        {
-            if(options!=null)
-            {
-                if(options.dealerid!=null)
+        self.setOptions = function (options) {
+            if (options != null) {
+                if (options.dealerid != null)
                     self.dealerId(options.dealerid);
 
-                if(options.dealername!=null)
+                if (options.dealername != null)
                     self.dealerName(options.dealername);
 
-                if(options.dealerarea!=null)
+                if (options.dealerarea != null)
                     self.dealerArea(options.dealerarea);
 
-                if(options.versionid!=null)
+                if (options.versionid != null)
                     self.versionId(options.versionid);
 
-                if(options.leadsourceid!=null)
+                if (options.leadsourceid != null)
                     self.leadSourceId(options.leadsourceid);
 
-                if(options.pqsourceid!=null)
+                if (options.pqsourceid != null)
                     self.pqSourceId(options.pqsourceid);
 
-                if(options.isregisterpq!=null)
+                if (options.isregisterpq != null)
                     self.isRegisterPQ(options.isregisterpq);
 
-                if(options.campid!=null)
+                if (options.campid != null)
                     self.campaignId(options.campid);
 
-                if (options.mfgCampid != null)
-                {
+                if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
                 }
 
-                if(options.isdealerbikes!=null && options.isdealerbikes)
-                {
+                if (options.isdealerbikes != null && options.isdealerbikes) {
                     self.isDealerBikes(options.isdealerbikes);
                     self.getDealerBikes();
                 }
@@ -280,10 +287,10 @@
                 if (options.pinCodeRequired != null)
                     self.pinCodeRequired(options.pinCodeRequired);
 
-                if(options.pageurl!=null)
+                if (options.pageurl != null)
                     self.pageUrl = options.pageurl;
 
-                if(options.clientip!=null)
+                if (options.clientip != null)
                     self.clientIP = options.clientip;
 
                 if (options.pqid != null)
@@ -294,7 +301,7 @@
             }
         };
 
-        self.getDealerBikes = function (data,event) {
+        self.getDealerBikes = function (data, event) {
 
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
@@ -303,7 +310,7 @@
                 if (!dealerInfo) {
 
                     startLoading(leadBike);
-                    leadBike.find(".btnSpinner").show(); 
+                    leadBike.find(".btnSpinner").show();
 
                     $.ajax({
                         type: "GET",
@@ -326,9 +333,9 @@
                             if (xhr.status == 204 || xhr.status == 404) {
                                 lscache.set(dealerKey, null, 30);
                             }
-                            
+
                             stopLoading(leadBike);
-                            leadBike.find(".btnSpinner").hide(); 
+                            leadBike.find(".btnSpinner").hide();
                         }
                     });
                 }
@@ -374,7 +381,7 @@
                     "deviceId": getCookie('BWC')
                 }
                 return self.registerPQ(objData);
-               
+
             }
             return isSuccess;
 
@@ -414,7 +421,7 @@
         }
 
         self.pushToGA = function (data, event) {
-         
+
             if (data != null && data.act != null) {
                 if (data.lab == "lead_label") {
                     data.lab = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_' + CityArea;
@@ -424,8 +431,8 @@
         }
 
         self.verifyCustomer = function (data, event) {
-            
-            if(self.isRegisterPQ())
+
+            if (self.isRegisterPQ())
                 self.generatePQ(data, event);
 
             if (self.pqId() && self.dealerId()) {
@@ -463,21 +470,21 @@
                         if (xhr.status != 200)
                             self.IsVerified(false);
 
-                       self.pushToGA(self.GAObject());
+                        self.pushToGA(self.GAObject());
                     }
                 });
             }
         };
 
         self.submitLead = function (data, event) {
-           
+
             if (self.mfgCampaignId() > 0) {
                 self.submitCampaignLead(data, event);
             }
             else {
 
                 self.IsVerified(false);
-                
+
                 isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                 if (self.dealerId() && isValidDetails) {
                     self.verifyCustomer();
@@ -499,21 +506,21 @@
 
         self.validateUserInfo = function () {
             var isValid = true;
-            
-            isValid =  self.validateUserName();
+
+            isValid = self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
             if (self.pinCodeRequired())
                 isValid &= self.validatePinCode();
-            if(self.isDealerBikes())
-                isValid &= self.validateBike(); 
+            if (self.isDealerBikes())
+                isValid &= self.validateBike();
             return isValid;
         };
 
         self.validateUserName = function () {
             leadUsername = fullName;
-            var isValid = false;              
-            if (self.fullName()!=null && self.fullName().trim() != "") {
+            var isValid = false;
+            if (self.fullName() != null && self.fullName().trim() != "") {
                 nameLength = self.fullName().length;
 
                 if (self.fullName().indexOf('&') != -1) {
@@ -529,8 +536,7 @@
                     isValid = true;
                 }
             }
-            else
-            {
+            else {
                 validate.setError(leadUsername, 'Please enter your name');
                 isValid = false;
             }
@@ -557,7 +563,7 @@
             leadPinCode = $('#getPinCode');
             var isValid = true,
                 pinCodeValue = self.pincode(),
-                rePinCode =/^[1-9][0-9]{5}$/;
+                rePinCode = /^[1-9][0-9]{5}$/;
             if (pinCodeValue == "") {
                 validate.setError(leadPinCode, 'Please enter pincode');
                 isValid = false;
@@ -571,13 +577,11 @@
         self.validateMobileNo = function () {
             leadMobileNo = mobile;
             var mobileVal = leadMobileNo.val();
-            if (!validateMobileNo(mobileVal, self))
-            {
+            if (!validateMobileNo(mobileVal, self)) {
                 validate.setError(leadMobileNo, self.msg);
                 return false;
             }
-            else
-            {
+            else {
                 validate.hideError(leadMobileNo);
                 return true;
             }
@@ -585,9 +589,8 @@
 
         self.validateBike = function () {
             var isValid = true;
-            eleBike =  $("#getLeadBike").find(".dealer-search-brand-form");
-            if(eleBike!=null && self.selectedBike()!=null)
-            {
+            eleBike = $("#getLeadBike").find(".dealer-search-brand-form");
+            if (eleBike != null && self.selectedBike() != null) {
                 if (self.selectedBike().model && self.selectedBike().model.modelId > 0) {
                     validateInputSelection.hideError(eleBike);
                     isValid = true;
@@ -663,35 +666,49 @@
             $("#getPinCode").bw_autocomplete({
                 source: 4,
                 recordCount: 5,
+                minLength : 2,
                 onClear: function () {
                     objPinCodes = new Object();
                 },
                 click: function (event, ui, orgTxt) {
-                    var keywrd = ui.item.label + '_' + $('#getPinCode').val();
-                    //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+                    debugger;
+                    if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model)
+                    {
+                        var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
+                       dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
+                    }
+                    if(ui && ui.item)
+                    {
+                        self.pincode(ui.item.payload.pinCodeId);
+                    }
+                    else
+                    {
+                        self.pincode(0);
+                    }
+                   
                 },
                 open: function (result) {
                     objPinCodes.result = result;
                 },
                 focusout: function () {
                     if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
-                        //$('#errNewBikeSearch').hide()
+                        $('#errPinCodeSearch').hide()
                         focusedMakeModel = new Object();
                         focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
                     }
                     else {
-                        //$('#errNewBikeSearch').hide();
+                        $('#errPinCodeSearch').hide();
                     }
                 },
                 afterfetch: function (result, searchtext) {
                     if (result != undefined && result.length > 0 && searchtext.trim() != "") {
-                        //$('#errNewBikeSearch').hide();
-                        NewBikeSearchResult = true;
+                        $('#errPinCodeSearch').hide();
                     }
                     else {
-                        focusedMakeModel = null; NewBikeSearchResult = false;
+                        focusedMakeModel = null;
                         if (searchtext.trim() != "") {
-                            // $('#errNewBikeSearch').show();
+                            $('#errPinCodeSearch').show();
+                            self.pincode(0);
                         }
                     }
                 },
@@ -699,28 +716,27 @@
                     if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
                         focusedMakeModel = new Object();
                         focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
-                        //$('#errNewBikeSearch').hide();
+                        $('#errPinCodeSearch').hide();
                     } else {
                         if ($('#getPinCode').val().trim() == '') {
-                            //$('#errNewBikeSearch').hide();
+                            $('#errPinCodeSearch').hide();
                         }
                     }
 
                     if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
                         if (focusedMakeModel == null || focusedMakeModel == undefined) {
                             if ($('#getPinCode').val().trim() != '') {
-                                // $('#errNewBikeSearch').show();
+                                $('#errPinCodeSearch').show();
+                                self.pincode(0);
                             }
                         }
                         else {
-                            $('#errNewBikeSearch').hide();
+                            $('#errPinCodeSearch').hide();
                         }
 
                     }
-
-
                 }
-            }).autocomplete("widget").addClass("pincode-autocomplete");
+            }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
         };
 
         self.showLoader = function () {
@@ -734,7 +750,7 @@
 
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
-    
+
     $(function () {
         dleadvm.setPinCodeSuggestion();
     });
@@ -831,8 +847,8 @@
 
     var brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
 
-    
-    leadCapturePopup.on('click',".dealer-search-brand", function () {
+
+    leadCapturePopup.on('click', ".dealer-search-brand", function () {
         $('.dealer-brand-wrapper').show();
         $("#brandSearchBar").addClass('open').animate({ 'left': '0px' }, 500);
         $("#brandSearchBar").find(".user-input-box").animate({ 'left': '0px' }, 500);
@@ -854,7 +870,7 @@
         $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
     };
 
-    leadCapturePopup.on("click",".dealer-brand-wrapper .back-arrow-box", function () {
+    leadCapturePopup.on("click", ".dealer-brand-wrapper .back-arrow-box", function () {
         $("#brandSearchBar").removeClass("open").animate({ 'left': '100%' }, 500);
         $("#brandSearchBar").find(".user-input-box").animate({ 'left': '100%' }, 500);
     });
