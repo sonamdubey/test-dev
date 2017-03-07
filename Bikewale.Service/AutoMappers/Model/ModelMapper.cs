@@ -79,7 +79,6 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
             Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
 
-
             return Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.ModelPage>(objModelPage);
         }
         /// <summary>
@@ -108,6 +107,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
             Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
             Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
+           
             return Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>(objModelPage);
         }
 
@@ -220,10 +220,12 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-                if (objModelPage.Photos != null)
+                
+
+                if (objModelPage.AllPhotos != null)
                 {
                     var photos = new List<DTO.Model.v3.CMSModelImageBase>();
-                    foreach (var photo in objModelPage.Photos)
+                    foreach (var photo in objModelPage.AllPhotos)
                     {
                         var addPhoto = new DTO.Model.v3.CMSModelImageBase()
                         {
@@ -234,6 +236,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     }
                     objDTOModelPage.Photos = photos;
                 }
+
                 if (pqEntity != null)
                 {
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists; //soo
@@ -304,10 +307,11 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-                if (objModelPage.Photos != null)
+              
+                if (objModelPage.AllPhotos != null)
                 {
                     var photos = new List<DTO.Model.v3.CMSModelImageBase>();
-                    foreach (var photo in objModelPage.Photos)
+                    foreach (var photo in objModelPage.AllPhotos)
                     {
                         var addPhoto = new DTO.Model.v3.CMSModelImageBase()
                         {
@@ -318,6 +322,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     }
                     objDTOModelPage.Photos = photos;
                 }
+
                 if (pqEntity != null)
                 {
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;

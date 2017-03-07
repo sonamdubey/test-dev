@@ -152,9 +152,15 @@ var fallbackGallery = {
     },
 
     close: function () {
-        $('.blackOut-window-model').hide();
-        $('.modelgallery-close-btn, .bike-gallery-popup').hide();
-        $('body').removeClass('lock-browser-scroll');
+        if (isModelPage)
+        {
+            window.location.href = window.location.pathname.split("images/")[0];
+        }
+        else {
+            $('.blackOut-window-model').hide();
+            $('.modelgallery-close-btn, .bike-gallery-popup').hide();
+            $('body').removeClass('lock-browser-scroll');
+        }
     }
 }
 
