@@ -106,7 +106,7 @@ $.getVideos = function () {
             url: catURL,
             dataType: 'json',
             success: function (response) {
-                if (response)
+                if (response && response.length > 0)
                 {
                     var objVideos;
                     if (typeof response.Videos == 'undefined') {
