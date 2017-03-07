@@ -522,21 +522,28 @@ namespace Bikewale.New
         /// <param name="modelPage"></param>
         private void BindPhotoRepeater(BikeModelPageEntity modelPage)
         {
-            if (modelPage != null)
+            try
             {
-                var photos = modelPage.AllPhotos;
-                if (photos != null && photos.Count() > 0)
+                if (modelPage != null)
                 {
-                    rptModelPhotos.DataSource = photos;
-                    rptModelPhotos.DataBind();
-                    rptNavigationPhoto.DataSource = photos;
-                    rptNavigationPhoto.DataBind();
-                }
+                    var photos = modelPage.Photos;
+                    if (photos != null && photos.Count() > 0)
+                    {
+                        rptModelPhotos.DataSource = photos;
+                        rptModelPhotos.DataBind();
+                        rptNavigationPhoto.DataSource = photos;
+                        rptNavigationPhoto.DataBind();
+                    }
 
-                if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
-                {
-                    modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                    if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
+                    {
+                        modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindPhotoRepeater");
             }
         }
 
