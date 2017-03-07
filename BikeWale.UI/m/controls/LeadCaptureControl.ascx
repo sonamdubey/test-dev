@@ -57,14 +57,14 @@
                 </div>
 
                 <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                    <input type="text"  id="getPinCode" data-bind="textInput: pincode">
+                    <input type="text"  id="getPinCode" >
                     <label for="getPincode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
 
                     <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide" >
                         <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                            <span class="text-bold">Oops! No suggestions found</span><br>  <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
                         </li>
                     </ul>
                 </div>

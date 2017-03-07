@@ -1,5 +1,4 @@
-﻿
-<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LeadCaptureControl" %>
 
 <!-- lead capture popup start-->
 <div id="leadCapturePopup" class="text-center rounded-corner2">
@@ -11,8 +10,8 @@
                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() !='')? dealerHeading() : 'Provide contact details'"></p>
-        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() :'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
         <div class="personal-info-form-container">
             <!-- ko if : isDealerBikes() -->
             <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
@@ -42,14 +41,21 @@
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
-          <!-- ko if : pinCodeRequired() -->
-              <div id="getPincode-input-box" class="input-box form-control-box personal-info-list">
+
+            <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
                 <input type="text" id="getPinCode">
                 <label for="getPincode">Pincode<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
+
+                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span><br>
+                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                    </li>
+                </ul>
             </div>
-             <!-- /ko -->
+
             <div class="clear"></div>
             <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
             <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
@@ -61,12 +67,12 @@
                 <span class="bwsprite otp-icon margin-top25"></span>
             </div>
         </div>
-         <!-- ko if : !dealerMessage() -->
+        <!-- ko if : !dealerMessage() -->
         <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-          <!-- /ko -->
-            <!-- ko ifnot : -->
-            <p class="font18 margin-top25 margin-bottom20" data-bind="text: dealerMessage()"></p>
-            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot : -->
+        <p class="font18 margin-top25 margin-bottom20" data-bind="text: dealerMessage()"></p>
+        <!-- /ko -->
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
 </div>
@@ -74,7 +80,7 @@
 <div id="ub-ajax-loader">
     <div id="spinner-content">
         <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
-           <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+            <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
         </svg>
     </div>
 </div>
@@ -92,7 +98,7 @@
     var prevMobile = "";
     var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
-  
+
 
 
     $(function () {
@@ -194,7 +200,7 @@
             self.mobileNo = ko.observable();
             self.pincode = ko.observable();
         }
-        self.msg ="";
+        self.msg = "";
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -220,14 +226,14 @@
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
-            self.setOptions = function (options) {
+        self.setOptions = function (options) {
             if (options != null) {
                 if (options.dealerid != null)
                     self.dealerId(options.dealerid);
 
                 if (options.dealername != null)
                     self.dealerName(options.dealername);
-               
+
                 if (options.dealerarea != null)
                     self.dealerArea(options.dealerarea);
 
@@ -249,15 +255,15 @@
                 if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
                 }
-                if (options.dealerHeading != null && options.dealerHeading!="")
+                if (options.dealerHeading != null && options.dealerHeading != "")
                     self.dealerHeading(options.dealerHeading);
 
                 if (options.dealerMessage != null && options.dealerMessage != "")
                     self.dealerMessage(options.dealerMessage);
 
-                if (options.dealerDescription != null&& options.dealerDescription !="")
+                if (options.dealerDescription != null && options.dealerDescription != "")
                     self.dealerDescription(options.dealerDescription);
-                
+
                 if (options.pinCodeRequired != null)
                     self.pinCodeRequired(options.pinCodeRequired);
 
@@ -370,8 +376,7 @@
 
         };
 
-        self.registerPQ = function (objPQData)
-        {
+        self.registerPQ = function (objPQData) {
             var isSuccess = false;
             if (objPQData) {
                 var url = '/api/RegisterPQ/';
@@ -473,7 +478,7 @@
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
-                    "PinCode":self.pincode(),
+                    "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
                 }
                 $.ajax({
@@ -581,6 +586,80 @@
 
         };
 
+        self.setPinCodeSuggestion = function () {
+            $("#getPinCode").bw_autocomplete({
+                source: 4,
+                recordCount: 5,
+                minLength: 2,
+                onClear: function () {
+                    objPinCodes = new Object();
+                },
+                click: function (event, ui, orgTxt) {
+                    debugger;
+                    if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
+                        var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
+                    }
+                    if (ui && ui.item) {
+                        self.pincode(ui.item.payload.pinCodeId);
+                    }
+                    else {
+                        self.pincode(0);
+                    }
+
+                },
+                open: function (result) {
+                    objPinCodes.result = result;
+                },
+                focusout: function () {
+                    if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
+                        $('#errPinCodeSearch').hide()
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    }
+                    else {
+                        $('#errPinCodeSearch').hide();
+                    }
+                },
+                afterfetch: function (result, searchtext) {
+                    if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                        $('#errPinCodeSearch').hide();
+                    }
+                    else {
+                        focusedMakeModel = null;
+                        if (searchtext.trim() != "") {
+                            $('#errPinCodeSearch').show();
+                            self.pincode(0);
+                        }
+                    }
+                },
+                keyup: function () {
+                    if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                        $('#errPinCodeSearch').hide();
+                    } else {
+                        if ($('#getPinCode').val().trim() == '') {
+                            $('#errPinCodeSearch').hide();
+                        }
+                    }
+
+                    if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                        if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                            if ($('#getPinCode').val().trim() != '') {
+                                $('#errPinCodeSearch').show();
+                                self.pincode(0);
+                            }
+                        }
+                        else {
+                            $('#errPinCodeSearch').hide();
+                        }
+
+                    }
+                }
+            }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
+        };
+
         self.validateUserInfo = function (inputName, inputEmail, inputMobile) {
             var isValid = true;
             isValid = self.validateUserName(inputName);
@@ -643,7 +722,7 @@
             return isValid;
         };
         self.validateMobileNo = function (inputMobile) {
-           
+
             mobileVal = $(inputMobile).val();
             if (!validateMobileNo(mobileVal, self)) {
                 validate.setError($(inputMobile), self.msg);
@@ -676,7 +755,7 @@
             return isValid;
         };
 
-        self.showLoader = function () {                
+        self.showLoader = function () {
             $('#ub-ajax-loader').show();
         }
 
@@ -768,20 +847,5 @@
         }
         catch (e) { return };
     }
-
-    $(function () {
-        var availablePincodes = [
-          "401101, Bhayander West - Thane",
-          "401102, Umbarpada - Thane",
-          "401103, Vangaon - Thane",
-          "401104, Bhayander East - Thane",
-          "401105, Uttan -Thane"
-        ];
-        $("#getPincode").autocomplete({
-            source: availablePincodes,
-            appendTo: "#getPincode-input-box"
-        }).autocomplete("widget").addClass("pincode-autocomplete");
-    });
-
 </script>
 
