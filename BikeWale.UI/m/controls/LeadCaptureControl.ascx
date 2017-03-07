@@ -56,9 +56,9 @@
                     <span class="error-text"></span>
                 </div>
 
-                <div id="getPincode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
+                <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                     <input type="text"  id="getPinCode" data-bind="textInput: pincode">
-                    <label for="getPincode">Pincode<sup>*</sup></label>
+                    <label for="getPinCode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
 
@@ -671,7 +671,6 @@
                     objPinCodes = new Object();
                 },
                 click: function (event, ui, orgTxt) {
-                    debugger;
                     if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model)
                     {
                         var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
