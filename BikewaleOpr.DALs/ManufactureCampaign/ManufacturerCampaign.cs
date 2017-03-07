@@ -362,7 +362,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign_01032017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatemanufacturercampaign_07032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_description", DbType.String, 45, description));
@@ -415,7 +415,7 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             bool isSuccess = false;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate_28022017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("savemanufacturecampaigntemplate_07032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_templateHtml1", DbType.String, objList[0].TemplateHtml));
