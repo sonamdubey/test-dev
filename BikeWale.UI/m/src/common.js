@@ -1203,11 +1203,8 @@ var closePopUp = function (state) {
         case "sellerDealers":
             getSellerDetailsPopup.close();
             break;
-        case "modelGallery":
-            gallery.gotoModelPage();
-            break;
         case "photosGallery":
-            gallery.close();
+            popupGallery.close();
             break;
         default:
             return true;

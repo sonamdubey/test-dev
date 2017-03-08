@@ -33,7 +33,7 @@
         {
             var objImages = vmModelPhotos.objImageList; %>
         <section>
-            <div class="container box-shadow section-bottom-margin">
+            <div class="container box-shadow section-bottom-margin padding-bottom2">
                 <h1 class="section-header bg-white"><%= vmModelPhotos.bikeName %> Images</h1>
                 <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                    { %>
@@ -90,6 +90,8 @@
         <% } %>
 
         <div id="gallery-root">
+            <div class="gallery-loader-placeholder gallery-bg-overlay text-center hide"><span class="spin-loader fixed-loader"></span></div>
+
             <div class="gallery-container gallery-bg-overlay" style="display: none;" data-bind="visible: isGalleryActive()">
                 <div class="gallery-header" data-bind="visible: galleryTabsActive()">
                     <h2 class="text-white gallery-title"><%=bikeName %> Images</h2>
@@ -148,14 +150,14 @@
                         </div>
                         <div class="main-video-wrapper">
                             <div class="main-video-iframe-content">
-                                <iframe id="iframe-video" width="360" height="203" data-bind="attr: { src: '' }" src="" frameborder="0" allowfullscreen></iframe>
+                                <iframe id="iframe-video" width="360" height="203" src="" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
+                <div id="gallery-footer" class="gallery-footer" data-bind="visible: galleryFooterActive()">
                     <div class="footer-tabs-wrapper">
                         <div data-bind="click: togglePhotoThumbnailScreen, visible: photosTabActive(), css: photoThumbnailScreen() ? 'tab-active': ''" class="footer-tab all-option-tab position-rel tab-separator">
                             <span class="bwmsprite grid-icon margin-right10"></span>
@@ -169,9 +171,9 @@
                         </div>
                         <%} %>
 
-                        <%--<div data-bind="click: toggleFullScreen, visible: photosTabActive(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
+                        <div data-bind="click: toggleFullScreen, visible: photosTabActive() && fullscreenSupport(), css: fullScreenModeActive() ? 'fullscreen-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite fullscreen-icon"></span>
-                        </div>--%>
+                        </div>
 
                         <div data-bind="click: toggleModelInfoScreen, css: modelInfoScreen() ? 'tab-active' : ''" class="footer-tab grid-3-tab">
                             <span class="bwmsprite info-icon"></span>
@@ -288,7 +290,7 @@
                             <li>
                                 <div class="video-image-block inline-block">
                                     <img data-bind="attr: { alt: VideoTitle, src: 'https://img.youtube.com/vi/' + VideoId + '/default.jpg' }" border="0" />
-                                    <span class="play-icon-wrapper">
+                                    <span class="black-overlay">
                                         <span class="bwmsprite video-play-icon"></span>
                                     </span>
                                 </div>
