@@ -90,7 +90,6 @@
     var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
-    var pincode = $("#getPinCode");
     var mobile = $("#getMobile");
     var assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
     var detailsSubmitBtn = $("#user-details-submit-btn");
@@ -98,7 +97,7 @@
     var prevMobile = "";
     var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
-
+    var objPinCodes = new Object();
 
 
     $(function () {
@@ -161,10 +160,9 @@
         });
         $(document).on("blur", "#getPinCode", function () {
             validate.onBlur($(this));
-            if (prevPinCode != $(this).val().trim()) {
-                if (dleadvm.validatePinCode(pincode)) {
-                    dleadvm.IsVerified(false);
-                }
+            if (!dleadvm.pincode()) {
+               
+                validate.setError($("#getPinCode"), 'Invalid pincode');
             }
         });
         $(document).on("change", "#getLeadBike", function () {
@@ -518,7 +516,7 @@
             }
             else {
                 self.IsVerified(false);
-
+                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                 var eventButtonId = $(event.currentTarget).attr('id');
                 switch (eventButtonId) {
                     case 'user-details-submit-btn': // model 'get offers from dealers', dealer locator listing 'submit'
@@ -595,7 +593,6 @@
                     objPinCodes = new Object();
                 },
                 click: function (event, ui, orgTxt) {
-                    debugger;
                     if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
                         var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
@@ -665,6 +662,8 @@
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
+            if (self.pinCodeRequired())
+                isValid &= self.validatePinCode();
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
@@ -709,13 +708,8 @@
         self.validatePinCode = function () {
             leadPinCode = $('#getPinCode');
             var isValid = true,
-                pinCodeValue = self.pincode(),
-                rePinCode = /^[1-9][0-9]{5}$/;
-            if (pinCodeValue == "") {
-                validate.setError(leadPinCode, 'Please enter pincode');
-                isValid = false;
-            }
-            else if (!rePinCode.test(pinCodeValue)) {
+                pinCodeValue = self.pincode();
+            if (!pinCodeValue) {
                 validate.setError(leadPinCode, 'Invalid pincode');
                 isValid = false;
             }
@@ -770,7 +764,9 @@
 
     if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
         ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
-
+    $(function () {
+        dleadvm.setPinCodeSuggestion();
+    });
 
     function setuserDetails() {
         var cookieName = "_PQUser";
