@@ -674,7 +674,7 @@
                 success: function (data) {
                     if (data && data.suggestionList.length > 0) {
                         $('#getPinCode').val(data.suggestionList[0].text);
-                        isValid =  self.validatePinCode();
+                        isValid = true;
                     }
                     else {
                         validate.setError($('#getPinCode'), 'Invalid pincode');
@@ -691,11 +691,11 @@
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
-            if (self.pinCodeRequired())
-            {
-                isValid &= self.checkPinCode(self.pincode());
+            if (self.pinCodeRequired() && isValid) {
+                isValid &= self.validatePinCode();
+                if (isValid)
+                    isValid &= self.checkPinCode(self.pincode());
             }
-               
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
