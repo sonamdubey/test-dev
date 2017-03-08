@@ -57,14 +57,15 @@
                 </div>
 
                 <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                    <input type="text"  id="getPinCode"  autocomplete="off">
+                    <input type="text" id="getPinCode" autocomplete="off">
                     <label for="getPinCode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>
 
-                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide" >
+                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
                         <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br>  <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                            <span class="text-bold">Oops! No suggestions found</span><br>
+                            <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
                         </li>
                     </ul>
                 </div>
@@ -84,8 +85,8 @@
             </div>
             <!-- ko if : !dealerMessage() -->
             <p class="font18 text-bold margin-top20 margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-            <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: !(campaignId() > 0)">Thank you for providing your details. <span data-bind="    text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+            <p class="font16 margin-bottom40" data-bind="visible: (campaignId() > 0)"><span data-bind="    text: dealerName()"></span>Company would get back to you shortly with additional information.</p>
             <!-- /ko -->
             <!-- ko ifnot : -->
             <p class="font16 margin-bottom40" data-bind="text: dealerMessage()"></p>
@@ -151,7 +152,7 @@
         $(document).on("focus", "#getPinCode", function () {
             var pincode = $("#getPinCode");
             validate.hideError(pincode);
-            prevPinCode = pincode.val().trim();
+            prevPinCode = $(this).val().trim().substring(0, 6);
         });
 
         $("#getEmailID").on("focus", function () {
@@ -171,11 +172,15 @@
         $(document).on("blur", "#getPinCode", function () {
             validate.onBlur($(this));
             var pincode = $("#getPinCode");
-            if (prevPinCode != $(this).val().trim()) {
-                if (dleadvm.validatePinCode(pincode)) {
-                    dleadvm.IsVerified(false);
-                    validate.hideError(pincode);
-                }
+            var pc = pincode.val().trim();
+
+            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+                validate.setError($("#getPinCode"), 'Invalid pincode');
+            }
+
+            if (dleadvm.validatePinCode(pincode)) {
+                dleadvm.IsVerified(false);
+                validate.hideError(pincode);
             }
         });
 
@@ -207,16 +212,16 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
-            self.pincode = ko.observable(arr[3]);
             $('.personal-info-form-container .input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
-            self.pincode = ko.observable();
+
         }
         self.msg = "";
+        self.pincode = ko.observable();
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -511,7 +516,7 @@
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
             if (self.pinCodeRequired())
-                isValid &= self.validatePinCode();
+                isValid &= self.checkPinCode(self.pincode());
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
@@ -562,8 +567,12 @@
         self.validatePinCode = function () {
             leadPinCode = $('#getPinCode');
             var isValid = true,
-                pinCodeValue = self.pincode(),
+                pinCodeValue = leadPinCode.val().trim(),
                 rePinCode = /^[1-9][0-9]{5}$/;
+
+            if (pinCodeValue.indexOf(',') > 0)
+                pinCodeValue = pinCodeValue.substring(0, 6);
+
             if (pinCodeValue == "") {
                 validate.setError(leadPinCode, 'Please enter pincode');
                 isValid = false;
@@ -609,6 +618,9 @@
         };
 
         self.submitCampaignLead = function (data, event) {
+
+            self.pincode($("#getPinCode").val().trim());
+
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
@@ -666,25 +678,22 @@
             $("#getPinCode").bw_autocomplete({
                 source: 4,
                 recordCount: 5,
-                minLength : 2,
+                minLength: 2,
                 onClear: function () {
                     objPinCodes = new Object();
                 },
                 click: function (event, ui, orgTxt) {
-                    if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model)
-                    {
+                    if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
                         var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
-                       dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
                     }
-                    if(ui && ui.item)
-                    {
-                        self.pincode(ui.item.payload.pinCodeId);
+                    if (ui && ui.item) {
+                        self.pincode(ui.item.payload.pinCode);
                     }
-                    else
-                    {
+                    else {
                         self.pincode(0);
                     }
-                   
+
                 },
                 open: function (result) {
                     objPinCodes.result = result;
@@ -736,6 +745,29 @@
                     }
                 }
             }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
+        };
+
+        self.checkPinCode = function () {
+            isValid = false;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/autosuggest/?source=4&inputText=" + self.pincode() + "&noofrecords=5",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.suggestionList.length > 0) {
+                        $('#getPinCode').val(data.suggestionList[0].text);
+                        isValid = self.validatePinCode();
+                    }
+                    else {
+                        validate.setError($('#getPinCode'), 'Invalid pincode');
+                        isValid = false;
+                    }
+                }
+            });
+
+            return isValid;
         };
 
         self.showLoader = function () {

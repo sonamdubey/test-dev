@@ -142,10 +142,12 @@
             validate.onFocus($(this));
             prevMobile = $(this).val().trim();
         });
+
         $(document).on("focus", "#getPinCode", function () {
             validate.onFocus($(this));
-            prevPinCode = $(this).val().trim();
+            prevPinCode = $(this).val().trim().substring(0,6);
         });
+
         $("#getFullName, #assistGetName").on("blur", function () {
             validate.onBlur($(this));
         });
@@ -160,8 +162,10 @@
         });
         $(document).on("blur", "#getPinCode", function () {
             validate.onBlur($(this));
-            if (!dleadvm.pincode()) {
-               
+            var pc = $(this).val().trim();
+            if (pc.indexOf(',') > 0)
+                pc = pc.substring(0, 6);
+            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
                 validate.setError($("#getPinCode"), 'Invalid pincode');
             }
         });
@@ -189,14 +193,12 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
-            self.pincode = ko.observable(arr[3]);
             $('.personal-info-form-container .input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
-            self.pincode = ko.observable();
         }
         self.msg = "";
         self.IsVerified = ko.observable(false);
@@ -224,6 +226,7 @@
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
+        self.pincode = ko.observable();
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.dealerid != null)
@@ -460,6 +463,9 @@
         };
 
         self.submitCampaignLead = function (data, event) {
+
+            self.pincode($("#getPinCode").val().trim());
+
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
@@ -598,7 +604,7 @@
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
                     }
                     if (ui && ui.item) {
-                        self.pincode(ui.item.payload.pinCodeId);
+                        self.pincode(ui.item.payload.pinCode);
                     }
                     else {
                         self.pincode(0);
@@ -657,13 +663,39 @@
             }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
         };
 
+        self.checkPinCode = function () {
+            isValid = false;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/autosuggest/?source=4&inputText=" + self.pincode() + "&noofrecords=5",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.suggestionList.length > 0) {
+                        $('#getPinCode').val(data.suggestionList[0].text);
+                        isValid =  self.validatePinCode();
+                    }
+                    else {
+                        validate.setError($('#getPinCode'), 'Invalid pincode');
+                        isValid=  false;
+                    }
+                }
+            });
+
+            return isValid;
+        };
+
         self.validateUserInfo = function (inputName, inputEmail, inputMobile) {
             var isValid = true;
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
             if (self.pinCodeRequired())
-                isValid &= self.validatePinCode();
+            {
+                isValid &= self.checkPinCode(self.pincode());
+            }
+               
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
@@ -706,10 +738,10 @@
             return isValid;
         };
         self.validatePinCode = function () {
-            leadPinCode = $('#getPinCode');
-            var isValid = true,
-                pinCodeValue = self.pincode();
-            if (!pinCodeValue) {
+            leadPinCode = $('#getPinCode'); var isValid = true,pc = leadPinCode.val().trim() ;
+            if (pc.indexOf(',') > 0)
+                pc = pc.substring(0, 6);
+            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
                 validate.setError(leadPinCode, 'Invalid pincode');
                 isValid = false;
             }
