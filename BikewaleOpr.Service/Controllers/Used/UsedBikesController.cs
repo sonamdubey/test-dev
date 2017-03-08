@@ -53,7 +53,7 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// </summary>
         /// <param name="objModelImageEntity"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost, Route("api/used/modelimageupload/fetchphotoid/")]
         public IHttpActionResult FetchPhotoId([FromBody]UsedBikeModelImageEntity objModelImageEntity)
         {
             try
@@ -80,7 +80,7 @@ namespace BikewaleOpr.Service.Controllers.Used
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost, Route("api/used/modelimageupload/deleteusedbikemodelimage/{modelId}")]
         public IHttpActionResult DeleteUsedBikeModelImage(uint modelId)
         {
             try

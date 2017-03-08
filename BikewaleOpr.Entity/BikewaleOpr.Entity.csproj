@@ -49,6 +49,7 @@
     <Compile Include="AppEnum.cs" />
     <Compile Include="AppVersionEntity.cs" />
     <Compile Include="AreaEntityBase.cs" />
+    <Compile Include="AWS\Token.cs" />
     <Compile Include="BikeAvailabilityByColor.cs" />
     <Compile Include="BikeColorAvailability.cs" />
     <Compile Include="BikeColorImages\ColorImagesBikeEntities.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\SoldUnitData.cs" />
+    <Compile Include="BikeData\UsedBikeModelImageData.cs" />
     <Compile Include="BikeData\UsedBikeModelImageEntity.cs" />
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="FacilityEntity.cs" />
     <Compile Include="GeoLocationDestinationEntity.cs" />
     <Compile Include="GeoLocationEntity.cs" />
+    <Compile Include="Images\Image.cs" />
+    <Compile Include="Images\ImageToken.cs" />
     <Compile Include="MakeEntity.cs" />
     <Compile Include="MakeEntityBase.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />

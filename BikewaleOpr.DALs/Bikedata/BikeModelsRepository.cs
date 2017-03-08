@@ -177,8 +177,8 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-                    Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));                    
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     isDeleted = true;
                 }
             }
@@ -187,6 +187,53 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.BikeModelsRepository.FetchPhotoId");
             }
             return isDeleted;
+        }
+
+
+        /// <summary>
+        ///  Created by Sajal Gupta on 06-03-2017
+        /// Des : function to get used bike model image data by make
+        /// </summary>
+        public IEnumerable<UsedBikeModelImageData> GetUsedBikeModelImageByMake(uint makeId)
+        {
+            IList<UsedBikeModelImageData> objImageList = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikemodelimagebymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            objImageList = new List<UsedBikeModelImageData>();
+                            while (dr.Read())
+                            {
+                                UsedBikeModelImageData objImage = new UsedBikeModelImageData();
+                                objImage.ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]);
+                                objImage.MakeId = SqlReaderConvertor.ToUInt32(dr["makeid"]);
+                                objImage.ModelName = Convert.ToString(dr["modelname"]);
+                                objImage.MakeName = Convert.ToString(dr["makename"]);
+                                objImage.HostUrl = Convert.ToString(dr["HostURL"]);
+                                objImage.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objImageList.Add(objImage);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.BikeModelsRepository.GetUsedBikeModelImageByMake makeId {0}", makeId));
+            }
+
+            return objImageList;
         }
 
     }

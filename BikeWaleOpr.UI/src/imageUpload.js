@@ -73,7 +73,7 @@
                 $.ajax({
                     type: "POST",
                     async: false,
-                    url: self.baseURL + "/api/image/",
+                    url: self.baseURL + "/api/image/savepath",
                     dataType: 'json',
                     contentType: "application/json;charset=utf-8",
                     crossDomain: true,

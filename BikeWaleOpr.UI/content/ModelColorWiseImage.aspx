@@ -106,5 +106,6 @@
     environment = '<%= Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment %>';
     bwHostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
     userid = '<%= BikeWaleOpr.Common.CurrentUser.Id %>';
+    bwOprHostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

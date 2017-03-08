@@ -56,6 +56,7 @@
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
     <Compile Include="DealersRepository.cs" />
+    <Compile Include="Image\ImageRepository.cs" />
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="PopularComparisions\PopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
