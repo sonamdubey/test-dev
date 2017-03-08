@@ -264,7 +264,7 @@ namespace Bikewale.Mobile.New
             }
             finally
             {
-                Notifications.ErrorClass obj = new Notifications.ErrorClass(new Exception("Mobile Model Page - Performance in ms"), sb.ToString());
+                //Notifications.ErrorClass obj = new Notifications.ErrorClass(new Exception("Mobile Model Page - Performance in ms"), sb.ToString());
             }
 
         }
