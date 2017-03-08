@@ -125,7 +125,6 @@
                     <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Heading" textmode="multiline" multiline="true" height="100" width="300" runat="server"/>
                     <asp:checkbox class="LeadCaptureCheckbox" runat="server" id="CheckBox5" text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Heading')" />
                     <asp:hiddenfield id="Hiddenfield5" runat="server" />
-                      <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
                 </td>
               
             </tr>
@@ -135,7 +134,6 @@
                     <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Description" textmode="multiline" multiline="true" height="100" width="300" runat="server" />
                     <asp:checkbox class="LeadCaptureCheckbox" runat="server" id="CheckBox6"   text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Description')" />
                     <asp:hiddenfield id="Hiddenfield6" runat="server" />
-                     <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
                 </td>
                 
             </tr>
@@ -145,7 +143,13 @@
                     <asp:textbox class="LeadCaptureDetails" id="LeadCapturePopup_Message" textmode="multiline" multiline="true" height="100" width="300" runat="server"  />
                     <asp:checkbox class="LeadCaptureCheckbox"  runat="server" id="CheckBox7"  text="Use Default" onclick="enableDisableTextbox(this.checked, 'LeadCapturePopup_Message')" />
                     <asp:hiddenfield id="Hiddenfield7" runat="server" />
-                     <p  class="errorMessage">If you edit this please edit HTML template of the champaign also</p>
+                </td>
+               
+            </tr>
+               <tr>
+                <th>Pincode</th>
+                <td>
+                    <asp:checkbox class="LeadCaptureCheckbox"  runat="server" id="CheckBox8"  text="IsPinCodeRequired" onclick="enableDisableTextbox(this.checked, 'txtPincode')" />
                 </td>
                
             </tr>
@@ -180,7 +184,6 @@
             $('#CheckBox7').prop("checked", true);
             $('#CheckBox5').prop("checked", true);
             $('#CheckBox6').prop("checked", true);
-
             $("#btnUpdate").val("Save Campaign");
         }
         else {
@@ -295,7 +298,8 @@
                     leadBtn.attr("l", "{9}");
                     leadBtn.attr("data-item-heading", "{11}");
                     leadBtn.attr("data-item-description","{12}");
-                    leadBtn.attr("data-item-message","{13}");
+                    leadBtn.attr("data-item-message", "{13}");
+                    leadBtn.attr("data-ispincodrequired", "{14}");
                 }
                 ele.val(el.html());
             }

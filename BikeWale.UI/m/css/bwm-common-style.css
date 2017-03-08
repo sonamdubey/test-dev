@@ -161,7 +161,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 
 /* city popup classes */
 /*.bw-popup,.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }*/
-.bwm-fullscreen-popup { background: #fff; padding:10px 20px; margin: auto; width:100%; position: fixed; left:0; top:0; height:100%; z-index: 10; overflow-y:scroll; }
+.bwm-fullscreen-popup { background: #fff; padding:10px 20px 30px; margin: auto; width:100%; position: fixed; left:0; top:0; height:100%; z-index: 10; overflow-y:scroll; }
 /*.globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }*/
 .cityPopup-box { background: #333333; width: 60px; height: 60px; line-height: 2; display: inline-block; }
 .bw-popup .close-btn, .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }
@@ -1005,13 +1005,18 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 }
 
 /* lead capture control */
-#leadCapturePopup .bw-blackbg-tooltip,
-#leadCapturePopup .error-icon,
 .dealer-brand-wrapper {
     display: none
 }
-#leadCapturePopup .leadCapture-close-btn {
+.leadCapture-close-btn {
     z-index: 2
+}
+.ui-autocomplete.pincode-autocomplete {
+    z-index: 10;
+    overflow-y: auto;
+    height:auto;
+    max-height: 160px;
+    margin-top: 0;
 }
 .btn-grey {
     background: #fff;
@@ -1045,7 +1050,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     list-style: disc;
     margin-left: 10px
 }
-#notifyAvailabilityContainer .notify-close-btn {
+.notify-close-btn {
     z-index: 2
 }
 .float-button {
@@ -1058,6 +1063,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     z-index: 8;
     left: 0;
     right: 0
+}
+#getMobile {
+    padding: 7px 0 7px 30px;
 }
 .mobile-prefix {
     position: absolute;
@@ -1092,6 +1100,35 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 #brandSearchBar li:hover {
     background: #ededed
 }
+.dealer-search-brand-form {
+    padding: 7px 0;
+    cursor: pointer;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid #82888b;
+}
+.grey-right-icon {
+    width: 7px;
+    height: 11px;
+    background-position: -69px -421px;
+    position: absolute;
+    top: 15px;
+    right: 0;
+}
+.border-red {
+    border: 1px solid red!important
+}
+#notify-response .icon-outer-container {
+    width: 72px;
+    height: 72px;
+}
+#notify-response .icon-inner-container {
+    width: 64px;
+    height: 64px;
+    margin: 3px auto;
+}
 .bwm-dealer-brand-box .back-arrow-box {
     height: 30px;
     width: 40px;
@@ -1116,32 +1153,12 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     font-weight: 700;
     background-color: #ddd
 }
-.dealer-search-brand-form {
-    padding: 10px 25px 10px 10px;
-    cursor: pointer;
-    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/old-images/m/dropArrowBg.png?v1=19082015) 96% 50% no-repeat #fff;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    border-radius: 2px;
-    border: 1px solid #ccc;
-}
 .selection-done span {
-    font-size: 14px;
+    font-size: 16px;
     color: #4d5057;
     font-weight: bold;
 }
 
-.dealer-search-brand-form.selection-done span {
-    font-weight: 400;
-}
-
-.dealer-search-brand {
-    width: 100%;
-    height: 60px;
-    text-align: left;
-}
 .border-red {
     border: 1px solid red!important
 }
@@ -1153,6 +1170,15 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     width: 64px;
     height: 64px;
     margin: 3px auto;
+}
+
+.progress-bar {
+    width: 0;
+    height: 2px;
+    background: #16A085;
+    top: 38px;
+    left: 0;
+    border-radius: 2px;
 }
 
 #ub-ajax-loader{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(245,245,245,.95);z-index:11}
@@ -1466,3 +1492,118 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+
+/* input box */
+.input-box {
+    height: 60px;
+    text-align: left;
+}
+.input-box input {
+    width: 100%;
+    display: block;
+    padding: 7px 0;
+    border-bottom: 1px solid #82888b;
+    color: #4d5057;
+}
+.input-box label {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    font-size: 16px;
+    color: #82888b;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+}
+.input-box input[type="text"]:focus,
+.input-box input[type="number"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+.input-box input,
+.input-number-prefix {
+    font-size: 16px;
+    font-weight: 700;
+}
+.input-number-box input {
+    padding-left: 30px;
+}
+.input-number-box .input-number-label {
+    font-size: 12px;
+    position: relative;
+    top: 4px;
+    color: #a2a2a2;
+}
+.input-number-prefix {
+    display: none;
+    position: absolute;
+    top: 7px;
+    color: #82888b;
+}
+
+/* on focus */
+.input-box input:focus ~ label,
+.input-box.not-empty label {
+    top: -14px;
+    font-size: 12px;
+}
+.input-number-box input:focus ~ .input-number-prefix,
+.input-number-box.not-empty .input-number-prefix {
+    display: inline-block;
+}
+.input-box input:focus ~ .boundary:before,
+.input-box input:focus ~ .boundary:after {
+    width: 50%;
+}
+.input-box.input-no-focus input:focus {
+    border-color: #82888b;
+}
+.input-box.input-no-focus input:focus ~ .boundary:before,
+.input-box.input-no-focus input:focus ~ .boundary:after {
+    width: 0;
+}
+/* boundary */
+.boundary {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+.boundary::before,
+.boundary::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #41b4c4;
+    -webkit-transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -o-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+}
+.boundary::before {
+    left: 50%;
+}
+.boundary::after {
+    right: 50%;
+}
+.error-text {
+    font-size: 12px;
+    position: relative;
+    top: 4px;
+    left: 0;
+    color: #d9534f;
+}
+.invalid ~ .boundary:before,
+.invalid ~ .boundary:after,
+.invalid .boundary:before,
+.invalid .boundary:after {
+    background-color: #d9534f;
+    width: 50%;
+}
+/* input select box */
+.input-select-box {
+    height: 60px;
+    text-align: left;
+}
