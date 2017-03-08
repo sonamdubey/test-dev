@@ -426,7 +426,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 padding-top15">
-                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-white book-now-btn">Book now</a>
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-white book-now-btn btn-188-40">Book now</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -459,7 +459,7 @@
                                                 <span class="error-text"></span>
                                             </div>
 
-                                            <a class="btn btn-teal assistance-submit-btn" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
+                                            <a class="btn btn-teal assistance-submit-btn btn-188-40" data-leadsourceid="13" data-item-id="<%= dealerId %>" data-item-name="<%= (viewModel!=null) ? viewModel.Organization : string.Empty %>" data-item-area="<%= (viewModel!=null) ? viewModel.AreaName : string.Empty %> " data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
                                             <p class="margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
                                         </div>
                                     </div>
@@ -555,43 +555,40 @@
         <% } %>
 
         <% if (pqOnRoad != null && pqOnRoad.BPQOutput != null && viewModel == null && isOnRoadPrice && !string.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
-           {
-        %>
-        <style type="text/css">
-            .offer-benefit-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat; display: inline-block; }
-            #campaign-offer-list li, #campaign-offer-list li span { display: inline-block; vertical-align: middle; }
-            #campaign-container .campaign-left-col { width: 78%; padding-right: 10px; }
-            #campaign-container .campaign-right-col { width: 21%; }
-            .campaign-offer-label { width: 75%; font-size: 14px; font-weight: 700; }
-            .btn-large { padding: 8px 56px; }
-            #campaign-offer-list li { width: 175px; margin-top: 15px; margin-bottom: 10px; padding-right: 5px; }
-            .campaign-offer-1, .campaign-offer-2, .campaign-offer-3, .campaign-offer-4 { width: 34px; height: 28px; margin-right: 5px; }
-            .campaign-offer-1 { background-position: 0 -356px; }
-            .campaign-offer-2 { background-position: 0 -390px; }
-            .campaign-offer-3 { background-position: 0 -425px; }
-            .campaign-offer-4 { background-position: 0 -463px; }
-            #campaign-container .phone-black-icon { top: 0; }
-        </style>
-        <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
-
+        { %>
+            <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
         <%} %>
+
+        <div class="campaign-content container margin-bottom20">
+            <div class="grid-12">
+                <div class="padding-top20 padding-right20 padding-bottom10 padding-left20 content-box-shadow">
+                    <div class="margin-bottom10 padding-bottom15 border-light-bottom">
+                        <span class="campaign-logo inline-block"></span>
+                        <div class="campaign-title-content text-bold inline-block">
+                            <p class="font18">Bajaj Finance Pvt. Ltd.</p>
+                        </div>
+                    </div>
+                    <div class="campaign-left-col inline-block">
+                        <p class="font14 margin-bottom10">Loans for your two and three wheeler vehicles across 2,000 locations in India</p>
+                        <ul class="campaign-disc-list font14">
+                            <li>Transparent process</li>
+                            <li>Easy pay-in-cash option</li>
+                            <li>Special preapproved offers</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="campaign-right-col inline-block text-right">
+                        <a href="javascript:void(0)" class="btn btn-orange btn-188-40 leadcapturebtn" rel="nofollow">Get offers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">
         <meta itemprop="model" content="<%= TargetedModel %>" />
         <meta itemprop="brand" content="<%= bikeMakeName %>" />
-        <style type="text/css">
-            .padding-left2 { padding-left: 2px; }
-            , #campaign-offer-list li, #campaign-offer-list li span { display: inline-block; vertical-align: middle; }
-            #campaign-container .campaign-left-col { width: 78%; padding-right: 10px; }
-            #campaign-container .campaign-right-col { width: 21%; }
-            .campaign-offer-label { width: 75%; font-size: 14px; font-weight: 700; }
-            .btn-large { padding: 8px 56px; }
-            #campaign-offer-list li { width: 175px; margin-top: 15px; margin-bottom: 10px; padding-right: 5px; }
-            .campaign-offer-1, .campaign-offer-2, .campaign-offer-3, .campaign-offer-4 { width: 34px; height: 28px; margin-right: 5px; }
-            .campaign-offer-1 { background-position: 0 -356px; }
-            .campaign-offer-2 { background-position: 0 -390px; }
-            .campaign-offer-3 { background-position: 0 -425px; }
-            .campaign-offer-4 { background-position: 0 -463px; }
-        </style>
+        
         <section>
             <div id="modelDetailsFloatingCardContent" class="container">
                 <div class="grid-12">

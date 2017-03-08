@@ -362,11 +362,25 @@
         </section>
         <%} %>
         
-        <style type="text/css">
-            #campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
-        </style>
-
-        
+        <section>
+            <div class="campaign-content container bg-white clearfix box-shadow margin-top10 margin-bottom10 padding-top15 padding-right20 padding-bottom20 padding-left20">
+                <div class="margin-bottom15 padding-bottom10 border-light-bottom">
+                    <span class="campaign-logo inline-block"></span>
+                    <div class="campaign-title-content text-bold inline-block">
+                        <p class="font18">Bajaj Finance Pvt. Ltd.</p>
+                    </div>
+                </div>
+                <p class="font14 margin-bottom10">Loans for your two and three wheeler vehicles across 2,000 locations in India</p>
+                <ul class="campaign-disc-list font14">
+                    <li>Transparent process</li>
+                    <li>Easy pay-in-cash option</li>
+                    <li>Special preapproved offers</li>
+                </ul>
+                <div class="campaign-button-content padding-top10">
+                    <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn" rel="nofollow">Get offers</a>
+                </div>
+            </div>
+        </section>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 

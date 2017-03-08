@@ -456,7 +456,7 @@
                                                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                                     </span>
                                                 </div>
-                                                <a id="btnEmiQuote" leadsourceid="11" data-dealerid="<%=dealerId %>" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                                <a id="btnEmiQuote" leadsourceid="11" data-dealerid="<%=dealerId %>" class="btn btn-grey btn-188-40">Get EMI quote</a>
                                             </div>
 
                                         </div>
@@ -531,7 +531,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 padding-top5">
-                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal book-now-btn">Book bike</a>
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal book-now-btn btn-188-40">Book bike</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -585,7 +585,7 @@
             <%= string.Format(objQuotation.ManufacturerAd) %>
         </section>
         <%} %>
-
+        
         <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0)
           { %>
         <!-- Secondary dealer section -->
