@@ -47,7 +47,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
-        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IBikeModelsCacheRepository<U> _modelCacheRepository = null;
         private readonly IVideos _videos = null;
 
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
@@ -68,14 +68,14 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
-                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
-                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<int>>();
+                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<U>>();
                 _videos = container.Resolve<IVideos>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
             }
@@ -1021,16 +1021,16 @@ namespace Bikewale.BAL.BikeData
             if (modelInfo != null)
             {
                 string desc = !string.IsNullOrEmpty(modelInfo.ModelName) ? string.Format("{0} Model Image", modelInfo.ModelName) : string.Empty;
-                 modelImages.Insert(0,
-                    new ModelImage()
-                    {
-                        HostUrl = modelInfo.HostURL,
-                        OriginalImgPath = modelInfo.OriginalImgPath,
-                        ImageTitle = desc,
-                        ImageCategory = "Model Image",
-                        ImageDescription = desc,
-                        AltImageName = desc
-                    });
+                modelImages.Insert(0,
+                   new ModelImage()
+                   {
+                       HostUrl = modelInfo.HostURL,
+                       OriginalImgPath = modelInfo.OriginalImgPath,
+                       ImageTitle = desc,
+                       ImageCategory = "Model Image",
+                       ImageDescription = desc,
+                       AltImageName = desc
+                   });
             }
             return modelImages;
         }
@@ -1229,7 +1229,7 @@ namespace Bikewale.BAL.BikeData
             {
                 allPhotos = new List<ColorImageBaseEntity>();
                 List<ModelImage> modelPhotos = GetModelPhotoGalleryWithMainImage(modelId);
-                if (modelPhotos != null && modelPhotos.Count()>0)
+                if (modelPhotos != null && modelPhotos.Count() > 0)
                 {
                     allPhotos.Add(new ColorImageBaseEntity()
                        {
@@ -1242,12 +1242,20 @@ namespace Bikewale.BAL.BikeData
                     IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
                     if (colorPhotos != null)
                     {
-                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage,
-                            ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity()
+                        {
+                            HostUrl = x.Host,
+                            OriginalImgPath = x.OriginalImagePath,
+                            ColorId = x.BikeModelColorId,
+                            ImageTitle = x.Name,
+                            ImageType = ImageBaseType.ModelColorImage,
+                            ImageCategory = x.ImageCategory,
+                            Colors = x.ColorCodes.Select(y => y.HexCode)
+                        }));
                     }
                     allPhotos.AddRange(modelPhotos.Skip(1).Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1265,7 +1273,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelColorImage> objColorImages = null;
             try
             {
-                objColorImages = _modelCacheRepository.GetModelColorPhotos(Convert.ToInt32(modelId));
+                objColorImages = _modelCacheRepository.GetModelColorPhotos(modelId);
             }
             catch (Exception ex)
             {
@@ -1286,7 +1294,7 @@ namespace Bikewale.BAL.BikeData
             BikeModelPageEntity objModelPage = null;
             try
             {
-                objModelPage = _modelCacheRepository.GetModelPageDetails(Convert.ToInt32(modelId), versionId);
+                objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = GetModelPhotoGalleryWithMainImage(modelId);
