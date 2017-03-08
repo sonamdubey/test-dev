@@ -19,5 +19,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeMakeEntityBase GetMakeDetails(uint makeId);
         IEnumerable<BikeMakeModelBase> GetAllMakeModels();
         MakeMaskingResponse GetMakeMaskingResponse(string maskingName);
+        BikeMakeEntityBase GetScooterMakes();
+
     }
 }

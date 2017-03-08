@@ -92,5 +92,8 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
     }
 }

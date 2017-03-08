@@ -3358,6 +3358,34 @@
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
+    <Content Include="Views\Scooters\index.cshtml" />
+    <Content Include="Views\Scooters\models.cshtml" />
+    <Content Include="Views\Shared\_makes.cshtml" />
+    <Content Include="Views\Shared\_makeWithCount.cshtml" />
+    <Content Include="Views\Shared\_newLaunches.cshtml" />
+    <Content Include="Views\Shared\_upcomings.cshtml" />
+    <Content Include="Views\Shared\_popularBikesScooters.cshtml" />
+    <Content Include="Views\Shared\_news.cshtml" />
+    <Content Include="Views\Shared\_expertReviews.cshtml" />
+    <Content Include="Views\Shared\_features.cshtml" />
+    <Content Include="Views\Shared\_videos.cshtml" />
+    <Content Include="Views\Shared\_showrooms.cshtml" />
+    <Content Include="Views\Shared\_popularComparisions.cshtml" />
+    <Content Include="Views\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\Shared\_similarBikes.cshtml" />
+    <Content Include="Views\m\Shared\_makes.cshtml" />
+    <Content Include="Views\m\Shared\_makewithcount.cshtml" />
+    <Content Include="Views\m\Shared\_newLaunches.cshtml" />
+    <Content Include="Views\m\Shared\_upcomings.cshtml" />
+    <Content Include="Views\m\Shared\_popularBikesScooters.cshtml" />
+    <Content Include="Views\m\Shared\_news.cshtml" />
+    <Content Include="Views\m\Shared\_expertReviews.cshtml" />
+    <Content Include="Views\m\Shared\_features.cshtml" />
+    <Content Include="Views\m\Shared\_videos.cshtml" />
+    <Content Include="Views\m\Shared\_showrooms.cshtml" />
+    <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
+    <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
+    <Content Include="Views\m\Shared\_similarBikes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -60,5 +60,8 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId);
+        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
     }
 }
