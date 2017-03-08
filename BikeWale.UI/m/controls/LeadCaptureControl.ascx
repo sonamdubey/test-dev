@@ -57,7 +57,7 @@
                 </div>
 
                 <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
-                    <input type="text"  id="getPinCode" >
+                    <input type="text"  id="getPinCode"  autocomplete="off">
                     <label for="getPinCode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
                     <span class="error-text"></span>

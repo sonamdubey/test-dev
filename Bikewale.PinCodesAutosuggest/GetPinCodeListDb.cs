@@ -67,7 +67,7 @@ namespace Bikewale.PinCodesAutosuggest
 
                     ObjTemp.Id = pinCode.PinCodeId.ToString();
                     ObjTemp.name = string.Format("{0}_{1}", pinCode.PinCodeId, pinCode.PinCode);
-                    string displayName = string.Format("{0}, {1} {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
+                    string displayName = string.Format("{0}, {1} - {2}", pinCode.PinCode, pinCode.Area, pinCode.District);
 
                     ObjTemp.mm_suggest = new PinCodeSuggestion();
                     ObjTemp.mm_suggest.output = displayName;
