@@ -6,6 +6,7 @@
     ViewBag.Page_JS_Path = "/src/scooters.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
     Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
+    IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 }
 
 <header class="scooters-banner">
@@ -263,9 +264,12 @@
                                 <h3>New launches</h3>
                             </li>
                         }
-                        <li data-tabs="ctrlUpcomingBikes">
-                            <h3>Upcoming</h3>
-                        </li>
+                        @if (objUpcoming != null && objUpcoming.Count() > 0)
+                        {
+                            <li data-tabs="ctrlUpcomingBikes">
+                                <h3>Upcoming</h3>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="bw-tabs-data" id="ctrlMostPopularBikes">
@@ -375,95 +379,12 @@
                         @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
                     </div>
                 }
-                <div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
-                    <div class="jcarousel-wrapper inner-content-carousel">
-                        <div class="jcarousel">
-                            <ul>
-                                <li>
-                                    <a href="" title="TVS XL 100" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="http://imgd3.aeplcdn.com///310x174//bw/upcoming/tvs-xl100-704.jpg?20162803121410" alt="TVS XL 100" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">
-                                                <span>TVS XL 100</span>
-                                            </h3>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                            <p class="font16 text-default text-bold margin-bottom15">Jan 2016</p>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18 text-default text-bold">28,000 onwards</span>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Kawasaki Ninja ZX-14R [2016]" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="http://imgd2.aeplcdn.com///310x174//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">
-                                                <span>Kawasaki Ninja ZX-14R [2016]</span>
-                                            </h3>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                            <p class="font16 text-default text-bold margin-bottom15">Feb 2016</p>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18 text-default text-bold">17,50,000 onwards</span>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Suzuki Hayate EP" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="http://imgd3.aeplcdn.com///310x174//bw/upcoming/suzuki-hayateep-705.jpg?20160104150238" alt="Suzuki Hayate EP" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">
-                                                <span>Suzuki Hayate EP</span>
-                                            </h3>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                            <p class="font16 text-default text-bold margin-bottom15">Apr 2016</p>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18 text-default text-bold">60,000 onwards</span>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Indian Springfield" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="http://imgd6.aeplcdn.com//310x174//bw/upcoming/indian-springfield-966.jpg?20161804141406" alt="Indian Springfield" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">
-                                                <span>Indian Springfield</span>
-                                            </h3>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected launch</p>
-                                            <p class="font16 text-default text-bold margin-bottom15">Apr 2016</p>
-                                            <p class="font14 text-light-grey margin-bottom5">Expected price</p>
-                                            <span class="bwsprite inr-lg"></span>
-                                            <span class="font18 text-default text-bold">30,50,000 onwards</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                @if (objUpcoming != null && objUpcoming.Count() > 0)
+                {
+                    <div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
+                        @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
                     </div>
-                </div>
+                }
             </div>
         </div>
         <div class="clear"></div>
