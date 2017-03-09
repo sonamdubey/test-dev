@@ -14,22 +14,30 @@ namespace Bikewale.PinCodesAutosuggest
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-            List<PayLoad> objList = GetPinCodeListDb.GetPinCodeList();
-
-            if (objList != null)
+            try
             {
-                Logs.WriteInfoLog("All PinCodes List : " + objList.Count);
+                log4net.Config.XmlConfigurator.Configure();
+                List<PayLoad> objList = GetPinCodeListDb.GetPinCodeList();
 
-                List<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
+                if (objList != null)
+                {
+                    Logs.WriteInfoLog("All PinCodes List : " + objList.Count);
 
-                CreateIndex(suggestionList);
-                Logs.WriteInfoLog("All Make Model Index Created successfully");
+                    List<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
 
+                    CreateIndex(suggestionList);
+                    Logs.WriteInfoLog("All Make Model Index Created successfully");
+
+                }
+                else
+                {
+                    Logs.WriteInfoLog("No pincodes returned. Failed to create pincodes Index");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Logs.WriteInfoLog("No pincodes returned. Failed to create pincodes Index");
+                Logs.WriteErrorLog("Bikewale.PinCodesAutosuggest.Program.Main", ex);
+                Console.WriteLine(ex.Message);
             }
 
 

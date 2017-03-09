@@ -1056,6 +1056,7 @@ input[type="number"] {
 .ui-autocomplete.pincode-autocomplete {
     overflow-y: auto;
     max-height: 140px;
+    top: 1px !important;
 }
 #otpPopup .otp-box,
 #otpPopup .update-mobile-box {
