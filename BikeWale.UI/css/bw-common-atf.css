@@ -106,7 +106,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; z-index: 5; }
 .gl-default-stage { border: 1px solid #e2e2e2; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
-.globalCity-auto-desktop.ui-menu .ui-search-icon { display: none }
+.globalCity-auto-desktop.ui-menu .ui-search-icon,
+.pincode-autocomplete.ui-menu .ui-search-icon { display: none }
 
 /* login classes */
 .login-box { display: inline-block; vertical-align:middle; padding: 4px 10px; color: #fff; cursor: pointer; margin-right: 10px; }
@@ -200,7 +201,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 /* autocomplete class */
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; }
-.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #aaa; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
+.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #fff; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
 .ui-autocomplete.source:hover { background: #ddd; }
 .ui-menu .ui-menu-item, .recent-searches-dropdown li { padding: 10px; background:#fff; font-size:14px; cursor:pointer; display: block; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus, .recent-searches-dropdown li:hover, .recent-searches-dropdown li.focus-state { background:#eee; }

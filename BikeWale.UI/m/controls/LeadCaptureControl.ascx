@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="clear"></div>
-                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Get details</a>
+                <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                 <p class="margin-top20 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
             </div>
         </div>
@@ -141,27 +141,26 @@
 
         $(document).on('keydown', function (e) {
             if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").trigger("click");
+                leadCapturePopup.find(".leadCapture-close-btn").trigger("click");
             }
         });
 
         $("#getFullName").on("focus", function () {
-            validate.onFocus($(this));
+            validate.onFocus($(this), leadCapturePopup);
         });
 
         $(document).on("focus", "#getPinCode", function () {
-            var pincode = $("#getPinCode");
-            validate.hideError(pincode);
+            validate.onFocus($(this), leadCapturePopup);
             prevPinCode = $(this).val().trim().substring(0, 6);
         });
 
         $("#getEmailID").on("focus", function () {
-            validate.onFocus($(this));
+            validate.onFocus($(this), leadCapturePopup);
             prevEmail = $(this).val().trim();
         });
 
         $("#getMobile").on("focus", function () {
-            validate.onFocus($(this));
+            validate.onFocus($(this), leadCapturePopup);
             prevMobile = $(this).val().trim();
         });
 
@@ -748,7 +747,7 @@
 
                     }
                 }
-            }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
+            }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
         };
 
         self.checkPinCode = function () {
@@ -835,10 +834,14 @@
             element.siblings('span.error-text').text('');
         },
 
-        onFocus: function (inputField) {
-            if (inputField.closest('.input-box').hasClass('invalid')) {
+        onFocus: function (inputField, popupContainer) {
+            var inputBox = inputField.closest('.input-box');
+
+            if (inputBox.hasClass('invalid')) {
                 validate.hideError(inputField);
             }
+
+            popupContainer.animate({ scrollTop: inputBox.offset().top - 20 });
         },
 
         onBlur: function (inputField) {

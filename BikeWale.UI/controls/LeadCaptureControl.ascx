@@ -23,19 +23,19 @@
             </div>
             <!-- /ko -->
             <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName">
+                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1">
                 <label for="getFullName">Name<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="2">
                 <label for="getEmailID">Email<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box input-number-box form-control-box personal-info-list">
-                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="3">
                 <label for="getMobile">Mobile number<sup>*</sup></label>
                 <span class="input-number-prefix">+91</span>
                 <span class="boundary"></span>
@@ -43,7 +43,7 @@
             </div>
 
             <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
-                <input type="text" id="getPinCode" autocomplete="off">
+                <input type="text" id="getPinCode" autocomplete="off" tabindex="4">
                 <label for="getPinCode">Pincode<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
             <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
         </div>
     </div>
@@ -660,7 +660,7 @@
 
                     }
                 }
-            }).autocomplete({ appendTo: "#getPincode-input-box" }).autocomplete("widget").addClass("pincode-autocomplete");
+            }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
         };
 
         self.checkPinCode = function () {
