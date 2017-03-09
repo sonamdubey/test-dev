@@ -174,21 +174,22 @@
         </section>   
              <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 ) {%>
         <section>
-            <div class="container bg-white box-shadow margin-bottom15">
-             <div class="container bg-white box-shadow margin-bottom15">
-                 <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
-            </div>
+            <div class="container bg-white box-shadow margin-bottom10">
+                 <div class="container bg-white box-shadow margin-bottom15">
+                     <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 </div>
-            
+            </div>            
         </section>
         <% } %>
 
          <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
          <% if (ctrlServiceCenterCard.showWidget)
-                   { %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                <% }  %>
+            { %>
+            <div class="container bg-white box-shadow padding-top15 margin-bottom10">
+                <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+            </div>
+         <% }  %>
 
          <section>
             <div class="container margin-bottom30">

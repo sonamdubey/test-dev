@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
-                            <div class="budget-container margin-bottom20">
+                            <div class="budget-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?budget=0-50000">
@@ -161,7 +161,7 @@
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverMileage">
-                            <div class="mileage-container margin-bottom20">
+                            <div class="mileage-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?mileage=1">
@@ -208,7 +208,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="bw-tabs-data hide margin-bottom20" id="discoverStyle">
+                        <div class="bw-tabs-data hide" id="discoverStyle">
                             <div class="style-type-container">
                                 <ul class="text-center">
                                     <li>
