@@ -1019,6 +1019,7 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     height:auto;
     max-height: 160px;
     margin-top: 0;
+    top: 1px !important;
 }
 .btn-grey {
     background: #fff;

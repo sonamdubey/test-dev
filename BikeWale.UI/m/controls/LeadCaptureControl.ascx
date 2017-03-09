@@ -210,8 +210,7 @@
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
-            self.mobileNo = ko.observable(arr[2]);
-            $('.personal-info-form-container .input-box').addClass('not-empty');
+            self.mobileNo = ko.observable(arr[2]);            
         }
         else {
             self.fullName = ko.observable();
@@ -775,6 +774,19 @@
             return isValid;
         };
 
+        self.setInputValues = function () {
+            var inputBoxes = $('.personal-info-form-container .input-box');
+            for (var i = 0; i < inputBoxes.length; i++) {
+                var item = $(inputBoxes[i]),
+                    inputValue = item.find('input').val();
+
+                if (inputValue.length > 0) {
+                    item.addClass('not-empty');
+                }
+
+            }
+        };
+
         self.showLoader = function () {
             $('#ub-ajax-loader').show();
         }
@@ -786,6 +798,7 @@
 
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+    dleadvm.setInputValues();
 
     $(function () {
         dleadvm.setPinCodeSuggestion();
