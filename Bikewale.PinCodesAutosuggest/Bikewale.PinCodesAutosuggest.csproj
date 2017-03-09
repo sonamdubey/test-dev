@@ -36,10 +36,12 @@
     <Reference Include="Consumer">
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
-    <Reference Include="ElasticClientManager">
+    <Reference Include="ElasticClientManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticClientManager.dll</HintPath>
     </Reference>
-    <Reference Include="Elasticsearch.Net">
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Gelf4Net">
@@ -54,7 +56,8 @@
     <Reference Include="MySqlDatabaseLibrary">
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
