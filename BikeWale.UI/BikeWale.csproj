@@ -452,6 +452,7 @@
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
+    <Compile Include="Controllers\m\new\Scooters\ScootersController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
@@ -2924,6 +2925,7 @@
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\photos.js" />
+    <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
@@ -3002,6 +3004,14 @@
     <Content Include="sass\scooters\listing.sass" />
     <Content Include="sass\modules\_city-icons.sass" />
     <Content Include="sass\modules\_comparison-carousel.sass" />
+    <Content Include="m\sass\scooters\landing.sass" />
+    <Content Include="m\sass\scooters\_landing-style.sass" />
+    <Content Include="m\sass\modules\_budget.sass" />
+    <Content Include="m\sass\modules\_main-comparison.sass" />
+    <Content Include="m\sass\scooters\listing.sass" />
+    <Content Include="m\sass\scooters\_listing-style.sass" />
+    <Content Include="m\sass\modules\_comparison-carousel.sass" />
+    <Content Include="m\sass\modules\_city-icons.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3358,6 +3368,8 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
+    <Content Include="Views\m\Scooters\Index.cshtml" />
+    <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
     <Content Include="Views\Videos\Makes.cshtml" />

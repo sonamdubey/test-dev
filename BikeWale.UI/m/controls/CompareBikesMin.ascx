@@ -3,7 +3,7 @@
 <div class="container">
     <h2 class="font18 text-center margin-top20 margin-bottom10">Compare bikes</h2>
     <div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
-        <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2,TopRecord.VersionId1.ToString(),TopRecord.VersionId2.ToString(),Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget) %>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" id="main-compare-bikes-target">
+        <a href="/m/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2,TopRecord.VersionId1.ToString(),TopRecord.VersionId2.ToString(),Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget) %>" title="Compare <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" id="main-compare-bikes-target" class="main-compare-bikes-target">
             <div class="grid-6">
                 <div class="comparison-image">
                     <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(TopRecord.VersionImgUrl1,TopRecord.HostUrl1,Bikewale.Utility.ImageSize._144x81) %>" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />

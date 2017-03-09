@@ -1768,3 +1768,21 @@ window.validateMobileNo = function(mobileNo,self) {
         return false;
     }
 };
+
+// more brand - collapse
+$('.view-brandType').click(function () {
+    var element = $(this),
+        elementParent = element.closest('.collapsible-brand-content'),
+        moreBrandContainer = elementParent.find('.brandTypeMore');
+
+    if (!moreBrandContainer.is(':visible')) {
+        moreBrandContainer.slideDown();
+        element.attr('href', 'javascript:void(0)');
+        element.text('View less brands');
+    }
+    else {
+        element.attr('href', '#brand-type-container');
+        moreBrandContainer.slideUp();
+        element.text('View more brands');
+    }
+});
