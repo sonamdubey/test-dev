@@ -2,6 +2,10 @@
 
 namespace Bikewale.PinCodesAutosuggest
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 9th March 2017
+    /// Description : PinCode entity list
+    /// </summary>
     public class PinCodeList
     {
         public string Id { get; set; }
@@ -9,6 +13,10 @@ namespace Bikewale.PinCodesAutosuggest
         public string name { get; set; }
     }
 
+    /// <summary>
+    /// Created By : Sushil Kumar on 9th March 2017
+    /// Description : PinCodeSuggestion entity
+    /// </summary>
     public class PinCodeSuggestion
     {
         public List<string> input { get; set; }
@@ -17,6 +25,11 @@ namespace Bikewale.PinCodesAutosuggest
         public int Weight { get; set; }
     }
 
+
+    /// <summary>
+    /// Created By : Sushil Kumar on 9th March 2017
+    /// Description : PayLoad entity
+    /// </summary>
     public class PayLoad
     {
         public uint PinCodeId { get; set; }

@@ -9,9 +9,19 @@ using System.Reflection;
 
 namespace Bikewale.PinCodesAutosuggest
 {
+    /// <summary>
+    /// Created By : Sushil Kumar on 9th March 2017
+    /// Description : Dataccess and business logic for pincodes suggestion
+    /// </summary>
     public class GetPinCodeListDb
     {
         private static string _con = ConfigurationManager.AppSettings["ReadOnlyConnectionString"];
+
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th March 2017
+        /// Description : To fetch pincodes from database 
+        /// </summary>
+        /// <returns></returns>
         public static List<PayLoad> GetPinCodeList()
         {
             List<PayLoad> lstPinCodes = null;
@@ -53,6 +63,12 @@ namespace Bikewale.PinCodesAutosuggest
             return lstPinCodes;
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th March 2017
+        /// Description : To create suggestion list and populate the same in elastic search
+        /// </summary>
+        /// <param name="objPinCodes"></param>
+        /// <returns></returns>
         public static List<PinCodeList> GetSuggestList(List<PayLoad> objPinCodes)
         {
             List<PinCodeList> objSuggestList = null;
@@ -102,6 +118,15 @@ namespace Bikewale.PinCodesAutosuggest
         }
 
 
+        /// <summary>
+        /// Description : Function to print combinations of words related to pincode and areaname
+        /// </summary>
+        /// <param name="n"></param>
+        /// <param name="k"></param>
+        /// <param name="len"></param>
+        /// <param name="arr"></param>
+        /// <param name="combination"></param>
+        /// <param name="obj"></param>
         private static void printSeqUtil(int n, int k, ref int len, int[] arr, string[] combination, PinCodeList obj)
         {
             // If length of current increasing sequence becomes k, print it
@@ -145,6 +170,13 @@ namespace Bikewale.PinCodesAutosuggest
             len--;
         }
 
+        /// <summary>
+        /// Description : Recursive function to print combinations of words related to pincode and areaname
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="p"></param>
+        /// <param name="combination"></param>
+        /// <param name="obj"></param>
         private static void printSeq(int l, int p, string[] combination, PinCodeList obj)
         {
             int[] arr = new int[p];
