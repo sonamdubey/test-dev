@@ -23,7 +23,7 @@ namespace Bikewale.PinCodesAutosuggest
 
                 List<PinCodeList> suggestionList = GetPinCodeListDb.GetSuggestList(objList);
 
-                CreateIndex(suggestionList, System.Configuration.ConfigurationManager.AppSettings["PinCodesIndexName"]);
+                CreateIndex(suggestionList);
                 Logs.WriteInfoLog("All Make Model Index Created successfully");
 
             }
@@ -42,7 +42,7 @@ namespace Bikewale.PinCodesAutosuggest
         /// </summary>
         /// <param name="suggestionList"></param>
         /// <param name="indexName"></param>
-        private static void CreateIndex(List<PinCodeList> suggestionList, string indexName)
+        private static void CreateIndex(List<PinCodeList> suggestionList)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Bikewale.PinCodesAutosuggest
 
                 if (isUpdateOperation)
                 {
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, indexName, TypeName, s => s.Id);
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, TypeName, s => s.Id);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace Bikewale.PinCodesAutosuggest
                     var aliasIndexName = System.Configuration.ConfigurationManager.AppSettings["aliasName"];
                     bool isDeleteOldIndex = Boolean.Parse(System.Configuration.ConfigurationManager.AppSettings["isDeleteOldIndex"]);
                     ElasticClientOperations.CreateIndex<PinCodeList>(req => req
-                        .Index(indexName)
+                        .Index(NewIndexName)
                         .AddMapping<PinCodeList>(type => type
                             .Type(TypeName)
                             .MapFromAttributes()
@@ -72,7 +72,7 @@ namespace Bikewale.PinCodesAutosuggest
                                     .SearchAnalyzer("standard")
                                     .PreserveSeparators(false)))));
 
-                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, indexName, TypeName, s => s.Id);
+                    ElasticClientOperations.AddDocument<PinCodeList>(suggestionList, NewIndexName, TypeName, s => s.Id);
                     ElasticClientOperations.Alias(aliases => aliases.Remove(a => a.Alias(aliasIndexName).Index("*"))
                                                .Add(a => a.Alias(aliasIndexName).Index(NewIndexName)));
                     if (isDeleteOldIndex)
