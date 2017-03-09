@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{53BA3292-B62D-4A22-9633-8C8CDFDD03E4}</ProjectGuid>
+    <ProjectGuid>{93634C09-BB22-489D-BFE2-C6A2C02A6D01}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BikewaleAutoSuggest</RootNamespace>
-    <AssemblyName>BikewaleAutoSuggest</AssemblyName>
+    <RootNamespace>Bikewale.PinCodesAutosuggest</RootNamespace>
+    <AssemblyName>Bikewale.PinCodesAutosuggest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,14 +29,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Consumer">
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
-    <Reference Include="ElasticClientManager">
+    <Reference Include="ElasticClientManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticClientManager.dll</HintPath>
     </Reference>
-    <Reference Include="Elasticsearch.Net">
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="Gelf4Net">
@@ -47,14 +50,14 @@
     <Reference Include="Gelf4Net.UdpAppender">
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\Libs\MySqlDatabaseDLL\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySqlDatabaseLibrary">
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Nest">
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -71,8 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetBikeListDb.cs" />
-    <Compile Include="MakeModel.cs" />
+    <Compile Include="GetPinCodeListDb.cs" />
+    <Compile Include="PinCodeList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

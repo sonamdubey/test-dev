@@ -265,6 +265,8 @@ $(document).ready(function () {
         }
     }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
 
+   
+
     $("#citySelectionFinalPrice").autocomplete({
         source: function (request, response) {
             dataListDisplay(availableTags, request, response);
@@ -854,7 +856,7 @@ function slideChangeStart() {
                         if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
                     }
                 },
-                minLength: 1,
+                minLength: options.minLength || 1,
                 select: function (event, ui) {
                     if (options.click != undefined)
                         options.click(event, ui, $(this).val());
@@ -1641,6 +1643,9 @@ var appendState = function (state) {
 $(window).on('popstate', function (event) {
     if ($('#nav').is(':visible')) {
         navDrawer.close();
+    }
+    if ($('#leadCapturePopup').is(':visible')) {
+        $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
     }
 });
 

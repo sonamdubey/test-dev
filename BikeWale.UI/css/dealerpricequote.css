@@ -260,12 +260,6 @@ h3 {
     padding-left: 0;
 }
 
-#btnEmiQuote, .book-now-btn {
-    width: 188px;
-    padding-right: 0;
-    padding-left: 0;
-}
-
 #offers-label-list {
     margin-top: 6px;
     padding-left: 16px;
@@ -544,7 +538,6 @@ a.text-darker-black:hover { text-decoration:none; }
 .available-colors{display:inline-block;width:150px;text-align:center;margin-bottom:20px;padding:0 5px;vertical-align:top}
 .available-colors .color-box{width:60px;height:60px;margin:0 auto 15px;border-radius:3px;background:#f00;border:1px solid #ccc}
 #leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:10;padding:30px 40px}
-.personal-info-form-container .personal-info-list{margin-bottom: 20px !important;}
 .personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
 #otpPopup{display:none}
 #otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}
@@ -578,6 +571,9 @@ a.text-darker-black:hover { text-decoration:none; }
      #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:105px; }
     #city-dealer-list li { width: 280px; }
+    .btn-188-40 {
+        width: 160px;
+    }
 }
 
 .btn-xxlg { padding: 8px 62px; }
@@ -740,4 +736,40 @@ a.text-darker-black:hover { text-decoration:none; }
 
 .neg-right15 {
     right: -15px
+}
+
+/* btn sizes */
+.btn-188-40 {
+    width: 188px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* new campaign */
+.campaign-content .tel-sm-icon {
+    top: 0;
+}
+.campaign-content .campaign-title-content {
+    padding-left: 20px;
+    width: 70%;
+}
+.campaign-content .campaign-logo {
+    width: 80px;
+    height: 40px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg) no-repeat;
+}
+.campaign-content .campaign-left-col {
+    width: 78%;
+}
+.campaign-content .campaign-right-col {
+    width: 21%;
+}
+.campaign-disc-list {
+    padding-left: 20px;
+}
+.campaign-disc-list li {
+    list-style: disc;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 10px;
 }
