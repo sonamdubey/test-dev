@@ -29,7 +29,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>

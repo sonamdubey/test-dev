@@ -176,8 +176,12 @@ var pageArray = [
         folderName: 'm/new/compare/',
         fileName: 'CompareBikeDetails.aspx',
         stylesheet: 'm/css/compare/details.css'
-    }
-	
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'BikeMakes.aspx',
+        stylesheet: 'm/css/bwm-brand.css'
+    }	
 ];
 
 var mvcPageArray =[
