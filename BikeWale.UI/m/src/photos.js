@@ -41,7 +41,7 @@ var popupGallery = {
     },
 
     bindGallery: function (imageIndex) {
-        //triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
+        triggerGA('Gallery_Page', 'Gallery_Loaded', modelName);
         popupGallery.open();
         gallerySwiper.update(true);
         thumbnailSwiperEvents.focusGallery(gallerySwiper, imageIndex);
@@ -166,7 +166,7 @@ var modelGallery = function () {
         else {
             self.photosTabActive(false);
             toggleFullScreen(false);
-            //triggerGA('Gallery_Page', 'Videos_Clicked', modelName);
+            triggerGA('Gallery_Page', 'Videos_Clicked', modelName);
             if (self.videoList().length) {
                 if (!self.activeVideoId()) {
                     videoListEvents.setVideo(0); // set 1st video from the list
@@ -188,11 +188,11 @@ var modelGallery = function () {
             //gallerySwiper.update(true);
             thumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true); // (swiperName, activeIndex, slideToFlag)
-            //triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.photoThumbnailScreen(false);
-            //triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Closed', modelName);
+            triggerGA('Gallery_Page', 'All_Photos_Tab_Clicked_Closed', modelName);
         }
         self.screenActive(self.photoThumbnailScreen());
     };
@@ -207,11 +207,11 @@ var modelGallery = function () {
             colorGallerySwiper.update(true);
             colorThumbnailSwiper.update(true);
             thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
-            //triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', modelName);
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', modelName);
         }
         else {
             self.colorsThumbnailScreen(false);
-            //triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', modelName);
+            triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', modelName);
         }
         self.screenActive(self.colorsThumbnailScreen());
     };
@@ -223,7 +223,7 @@ var modelGallery = function () {
                 galleryRoot.addClass('uc-iframe-position');
             }
             self.modelInfoScreen(true);
-            //triggerGA('Gallery_Page', 'Info_Tab_Clicked', modelName);
+            triggerGA('Gallery_Page', 'Info_Tab_Clicked', modelName);
         }
         else {
             self.modelInfoScreen(false);
@@ -239,11 +239,11 @@ var modelGallery = function () {
             self.videoListScreen(true);
 
             videoListEvents.focusThumbnail($('.video-tab-list'), vmModelGallery.activeVideoIndex());
-            //triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', modelName);
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', modelName);
         }
         else {
             self.videoListScreen(false);
-            //triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', modelName);
+            triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', modelName);
         }
         self.screenActive(self.videoListScreen());
     };
@@ -446,7 +446,7 @@ var colorGallerySwiper = new Swiper('#main-color-swiper', {
     onSlideChangeStart: function (swiper) {
         thumbnailSwiperEvents.setColorPhotoDetails(swiper);
         thumbnailSwiperEvents.focusThumbnail(colorThumbnailSwiper, vmModelGallery.activeColorIndex(), true);
-        //triggerGA('Gallery_Page', 'Colour_Changed', modelName);
+        triggerGA('Gallery_Page', 'Colour_Changed', modelName);
         if (vmModelGallery.modelInfoScreen()) {
             vmModelGallery.modelInfoScreen(false);
         }
