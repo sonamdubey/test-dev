@@ -476,17 +476,12 @@
        <% }  %>
 
         <% if (objExQuotation != null && objExQuotation.CampaignId > 0 && objPriceQuote != null && dealerId==0 && objPriceQuote.SecondaryDealerCount == 0 && !string.IsNullOrEmpty(objExQuotation.ManufacturerAd))
-				{ %>
-				<section>
-					<%=String.Format(objExQuotation.ManufacturerAd) %>
-				</section>
-			<%} %>
-
-			
-		<style type="text/css">
-			#campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}.position-abt{font-size:8px;}.bottomlink{ margin:5px}.pos-right35 { right: -15px; }
-		</style>
-
+			{ %>
+			<section>
+				<%=String.Format(objExQuotation.ManufacturerAd) %>
+			</section>
+		<%} %>
+        
 		<section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
 			<div class="bg-white bottom-shadow margin-top10 margin-bottom20 padding-bottom10">
 				<BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
@@ -642,6 +637,7 @@
 		                "dealerHeading": ele.attr('data-item-heading'),
 		                "dealerMessage": ele.attr('data-item-message'),
 		                "dealerDescription": ele.attr('data-item-description'),
+		                "pinCodeRequired": ele.attr("data-ispincodrequired"),
 		                "gaobject": {
 		                    cat: ele.attr("c"),
 		                    act: ele.attr("a"),

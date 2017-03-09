@@ -42,11 +42,10 @@ namespace Bikewale.New.Photos
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
+            dd.DetectDevice();
             try
             {
-                Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.RawUrl);
-                dd.DetectDevice();
-
                 if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
                 {
                     isModelPage = true;

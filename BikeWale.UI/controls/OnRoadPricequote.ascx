@@ -27,7 +27,7 @@
         </div>
 </div>
 
-<script type="text/javascript">
+<%--<script type="text/javascript">
 
     var preSelectedCityId = 0;
     var preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
@@ -318,4 +318,4 @@
       ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
 
     });
-</script>
+</script>--%>

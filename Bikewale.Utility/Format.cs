@@ -219,19 +219,19 @@ namespace Bikewale.Utility
             string PqSourceId,
             string action,
             string category,
-            string label, string hide, string LeadCapturePopupHeading, string LeadCapturePopupDescription, string LeadCapturePopupMessage)
+            string label, string hide, string LeadCapturePopupHeading, string LeadCapturePopupDescription, string LeadCapturePopupMessage, bool PinCodeRequired)
         {
             string retVal = string.Empty;
             try
             {
                 if (!String.IsNullOrEmpty(textToReplace))
                 {
-                    retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage);
+                    retVal = String.Format(textToReplace, campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired.ToString().ToLower());
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("FormatManufacturerAd: campaignId {0} ManufacturerName : {1}   MaskingNumber :{2}  dealerid :{3}   dealerArea :{4}  LeadSourceId:{5}  PqSourceId :{6}  action:{7}  category:{8}  label:{9}  hide:{10}   LeadCapturePopupHeading:{11}   LeadCapturePopupDescription:{12}   LeadCapturePopupMessage:{13} PinCodeRequired:{14}", campaignId, ManufacturerName, MaskingNumber, dealerid, dealerArea, LeadSourceId, PqSourceId, action, category, label, hide, LeadCapturePopupHeading, LeadCapturePopupDescription, LeadCapturePopupMessage, PinCodeRequired));
             }
 
             return retVal;
