@@ -2922,8 +2922,8 @@
     <Content Include="m\src\content\details.js" />
     <Content Include="m\src\dealerdetail.js" />
     <Content Include="m\src\new-launch.js" />
+    <Content Include="m\src\photos-old.js" />
     <Content Include="m\src\photos.js" />
-    <Content Include="m\src\photos2.js" />
     <Content Include="m\src\sell-bike.js" />
     <Content Include="m\src\service\details.js" />
     <Content Include="m\src\service\listing.js" />
