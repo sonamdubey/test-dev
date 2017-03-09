@@ -2,11 +2,8 @@
 using BikewaleOpr.Entities.AWS;
 using BikewaleOpr.Interface.Security;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BikewaleOpr.BAL.Security
 {
@@ -86,7 +83,6 @@ namespace BikewaleOpr.BAL.Security
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "SecurityBL.GenerateHash : " + uniqueId);
-                objErr.SendMail();
             }
             return (new string(hashPadding) + baseHash);
         }
@@ -116,7 +112,6 @@ namespace BikewaleOpr.BAL.Security
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "VerifyHash : " + hashValue);
-                objErr.SendMail();
             }
             return isEqual;
         }

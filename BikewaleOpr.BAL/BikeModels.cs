@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace BikewaleOpr.BAL
 {
+    /// <summary>
+    /// created by : Sajal Gupta on 09-03-2017
+    /// Description : BAL layer for calling dal functions of opr model related.
+    /// </summary>
     public class BikeModels : IBikeModels
     {
         private readonly IBikeModelsRepository _IBikeModel;
@@ -15,6 +19,11 @@ namespace BikewaleOpr.BAL
             _IBikeModel = bikeModel;
         }
 
+        /// <summary>
+        /// created by : Sajal Gupta on 09-03-2017
+        /// Description : BAL layer for calling dal function GetPendingUsedBikesWithoutModelImage.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<UsedModelsByMake> GetPendingUsedBikesWithoutModelImage()
         {
             IList<UsedModelsByMake> objBikesByMake = null;

@@ -111,7 +111,7 @@ var updateBikeMake = function () {
         }
 
         if (self.makeMaskingName() == "") {
-            Materialize.toast("Invalid make masking name");
+            Materialize.toast("Invalid make masking name", 5000);
             isValid = false;
         }
         
@@ -121,10 +121,7 @@ var updateBikeMake = function () {
             });
             $('form').submit();
         }
-        else
-        {
-            $('#modal-make-update').modal('open');
-        }
+        
         return isValid;
     }
 }

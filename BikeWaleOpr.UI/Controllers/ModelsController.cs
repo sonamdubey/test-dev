@@ -40,10 +40,7 @@ namespace BikewaleOpr.Controllers
                 {
                     objBikeModelsImage = _modelsRepo.GetUsedBikeModelImageByMake((uint)makeId);
                 }
-                else
-                {
-                    objBikeModelsImage = TempData["modelImageList"] as List<UsedBikeModelImageData>;
-                }
+
                 ViewBag.MakeList = _makesRepo.GetMakes("NEW");
                 return View(objBikeModelsImage);
             }

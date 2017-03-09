@@ -11,6 +11,8 @@ namespace BikewaleOpr
 {
     /// <summary>
     /// Created by : Ashish G. Kamble on 6 Jan 2017
+    /// Modified by : Sajal Gupta on 09-03-2017
+    /// Description : Added IBikeModels, IUsedBikes
     /// </summary>
     public static class UnityConfig
     {
@@ -23,10 +25,10 @@ namespace BikewaleOpr
 
             container.RegisterType<IBikeMakes, BikeMakesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                .RegisterType<IBikeVersions, BikeVersionsRepository>();
-            container.RegisterType<IBikeModels, BikeModels>();
-            container.RegisterType<IUsedBikes, UsedBikes>();
-            
+                .RegisterType<IBikeVersions, BikeVersionsRepository>()
+                .RegisterType<IBikeModels, BikeModels>()
+                .RegisterType<IUsedBikes, UsedBikes>();
+
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

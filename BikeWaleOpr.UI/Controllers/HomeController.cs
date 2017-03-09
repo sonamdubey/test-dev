@@ -23,6 +23,11 @@ namespace BikeWaleOpr.MVC.UI.Controllers
             _IBikeModel = bikeModel;
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 09-03-2017
+        /// Description : Added functionality for user notification panel.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             try
