@@ -14,5 +14,11 @@ namespace Bikewale.Controllers.Desktop.Scooters
         {
             return View("~/views/scooters/index.cshtml");
         }
+
+        [Route("scooters/make/")]
+        public ActionResult BikesByMake()
+        {
+            return View("~/views/scooters/bikesbymake.cshtml");
+        }
     }
 }

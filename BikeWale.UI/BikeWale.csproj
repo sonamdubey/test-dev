@@ -2998,6 +2998,10 @@
     <Content Include="sass\scooters\_landing-style.sass" />
     <Content Include="sass\modules\_main-comparison.sass" />
     <Content Include="sass\modules\_budget.sass" />
+    <Content Include="sass\scooters\listing.sass" />
+    <Content Include="sass\scooters\_listing-style.sass" />
+    <Content Include="sass\modules\_comparison-carousel.sass" />
+    <Content Include="sass\modules\_city-icons.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3362,6 +3366,7 @@
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\Scooters\Index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
+    <Content Include="Views\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Shared\_SimilarVideo.cshtml" />
