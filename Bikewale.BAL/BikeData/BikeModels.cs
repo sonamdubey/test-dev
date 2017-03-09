@@ -1021,13 +1021,13 @@ namespace Bikewale.BAL.BikeData
             if (modelInfo != null)
             {
                 string desc = !string.IsNullOrEmpty(modelInfo.ModelName) ? string.Format("{0} Model Image", modelInfo.ModelName) : string.Empty;
-                modelImages.Insert(0,
+                 modelImages.Insert(0,
                     new ModelImage()
                     {
                         HostUrl = modelInfo.HostURL,
                         OriginalImgPath = modelInfo.OriginalImgPath,
                         ImageTitle = desc,
-                        ImageCategory = desc,
+                        ImageCategory = "Model Image",
                         ImageDescription = desc,
                         AltImageName = desc
                     });
@@ -1239,11 +1239,11 @@ namespace Bikewale.BAL.BikeData
                            ImageType = ImageBaseType.ModelGallaryImage,
                            ImageCategory = modelPhotos[0].ImageCategory
                        });
-
                     IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
                     if (colorPhotos != null)
                     {
-                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
+                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage,
+                            ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
                     }
                     allPhotos.AddRange(modelPhotos.Skip(1).Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
                 }

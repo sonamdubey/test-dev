@@ -458,7 +458,7 @@ var modelGallery = function () {
             activeSlideTitle = $(activeSlide).find('img').attr('title');
 
         self.activePhotoIndex(swiper.activeIndex + 1);
-        self.activePhotoTitle(activeSlideTitle);
+        self.activePhotoTitle(modelName+ " " +activeSlideTitle);
     };
 
     function setColorPhotoDetails(swiper) {
@@ -466,7 +466,7 @@ var modelGallery = function () {
             activeSlideTitle = $(activeSlide).find('img').attr('title');
 
         self.activeColorIndex(swiper.activeIndex + 1);
-        self.activeColorTitle(activeSlideTitle);
+        self.activeColorTitle(modelName + " " + activeSlideTitle);
 
         if (self.colorThumbnailSwiper) {
             focusColorThumbnail(self.colorThumbnailSwiper);

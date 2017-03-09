@@ -229,11 +229,6 @@
     width: 33%;
     float: left;
 }
-.book-now-btn, .assistance-submit-btn {
-    width: 188px;
-    padding-right: 10px;
-    padding-left: 10px;
-}
 
 /* assistance-input-box */
 .assistance-input-box {
@@ -482,4 +477,95 @@
 
 #dealerAssistance .error-text {
     top: 0;
+}
+
+/* btn sizes */
+.btn-188-40 {
+    width: 188px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* campaign */
+.offer-benefit-sprite {
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/offer-benefit-sprite.png?v1=30Mar2016v1) no-repeat;
+    display: inline-block;
+}
+#campaign-offer-list li,
+#campaign-offer-list li span {
+    display: inline-block;
+    vertical-align: middle;
+}
+#campaign-container .campaign-left-col {
+    width: 78%;
+    padding-right: 10px;
+}
+#campaign-container .campaign-right-col {
+    width: 21%;
+}
+.campaign-offer-label {
+    width: 75%;
+    font-size: 14px;
+    font-weight: 700;
+}
+.btn-large {
+    padding: 8px 56px;
+}
+#campaign-offer-list li {
+    width: 175px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+.campaign-offer-1,
+.campaign-offer-2,
+.campaign-offer-3,
+.campaign-offer-4 {
+    width: 34px;
+    height: 28px;
+    margin-right: 5px;
+}
+.campaign-offer-1 {
+    background-position: 0 -356px;
+}
+.campaign-offer-2 {
+    background-position: 0 -390px;
+}
+.campaign-offer-3 {
+    background-position: 0 -425px;
+}
+.campaign-offer-4 {
+    background-position: 0 -463px;
+}
+#campaign-container .phone-black-icon {
+    top: 0;
+}
+
+/* new campaign */
+.campaign-content .tel-sm-icon {
+    top: 0;
+}
+.campaign-content .campaign-title-content {
+    padding-left: 20px;
+    width: 70%;
+}
+.campaign-content .campaign-logo {
+    width: 80px;
+    height: 40px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg) no-repeat;
+}
+.campaign-content .campaign-left-col {
+    width: 78%;
+}
+.campaign-content .campaign-right-col {
+    width: 21%;
+}
+.campaign-disc-list {
+    padding-left: 20px;
+}
+.campaign-disc-list li {
+    list-style: disc;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 10px;
 }
