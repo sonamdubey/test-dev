@@ -260,12 +260,6 @@ h3 {
     padding-left: 0;
 }
 
-#btnEmiQuote, .book-now-btn {
-    width: 188px;
-    padding-right: 0;
-    padding-left: 0;
-}
-
 #offers-label-list {
     margin-top: 6px;
     padding-left: 16px;
@@ -577,6 +571,9 @@ a.text-darker-black:hover { text-decoration:none; }
      #modelPriceInNearbyCities li { width:190px; }
     #modelPriceInNearbyCities li a{ width:105px; }
     #city-dealer-list li { width: 280px; }
+    .btn-188-40 {
+        width: 160px;
+    }
 }
 
 .btn-xxlg { padding: 8px 62px; }
@@ -739,4 +736,40 @@ a.text-darker-black:hover { text-decoration:none; }
 
 .neg-right15 {
     right: -15px
+}
+
+/* btn sizes */
+.btn-188-40 {
+    width: 188px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+/* new campaign */
+.campaign-content .tel-sm-icon {
+    top: 0;
+}
+.campaign-content .campaign-title-content {
+    padding-left: 20px;
+    width: 70%;
+}
+.campaign-content .campaign-logo {
+    width: 80px;
+    height: 40px;
+    background: url(https://imgd1.aeplcdn.com/0x0/bw/static/design15/bajaj-finance-logo.jpg) no-repeat;
+}
+.campaign-content .campaign-left-col {
+    width: 78%;
+}
+.campaign-content .campaign-right-col {
+    width: 21%;
+}
+.campaign-disc-list {
+    padding-left: 20px;
+}
+.campaign-disc-list li {
+    list-style: disc;
+    float: left;
+    margin-right: 40px;
+    margin-bottom: 10px;
 }

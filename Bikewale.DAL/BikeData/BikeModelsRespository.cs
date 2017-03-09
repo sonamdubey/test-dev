@@ -1731,6 +1731,7 @@ namespace Bikewale.DAL.BikeData
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     IsImageExists = SqlReaderConvertor.ToBoolean(reader["IsImageExists"]),
                                     BikeModelColorId = SqlReaderConvertor.ParseToUInt32(reader["BikeModelColorId"]),
+                                    ImageCategory = Convert.ToString(reader["ColorName"])                                    
                                 });
                             }
                             if (reader.NextResult())
