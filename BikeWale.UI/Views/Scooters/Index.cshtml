@@ -257,9 +257,12 @@
                         <li class="active" data-tabs="ctrlMostPopularBikes">
                             <h3>Most Popular</h3>
                         </li>
-                        <li data-tabs="ctrlNewLaunchedBikes">
-                            <h3>New launches</h3>
-                        </li>
+                        @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                        {
+                            <li data-tabs="ctrlNewLaunchedBikes">
+                                <h3>New launches</h3>
+                            </li>
+                        }
                         <li data-tabs="ctrlUpcomingBikes">
                             <h3>Upcoming</h3>
                         </li>
@@ -366,9 +369,12 @@
                         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                     </div>
                 </div>
-                <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
-                    @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
-                </div>
+                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                {
+                    <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
+                        @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
+                    </div>
+                }
                 <div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">

@@ -316,7 +316,9 @@
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
                     <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
-                    <li data-tabs="mctrlNewLaunchedBikes">New launches</li>
+                    @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                    {
+                    <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>
                 </ul>
             </div>
@@ -388,9 +390,12 @@
                     </div>
                 </div>
             </div>
-            <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
-                @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
-            </div>
+            @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+            {
+                <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
+                    @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
+                </div>
+            }
             <div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper discover-bike-carousel">
@@ -470,7 +475,7 @@
 </section>
 
 <section>
-    <h2 class="section-heading">Compare Scooters</h2>    
+    <h2 class="section-heading">Compare Scooters</h2>
     <div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
         <a href="" title="Bajaj Avenger 150 Street vs Benelli TNT 25" id="main-compare-bikes-target" class="main-compare-bikes-target">
             <div class="grid-6">
