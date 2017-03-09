@@ -165,7 +165,7 @@
             var pc = $(this).val().trim();
             if (pc.indexOf(',') > 0)
                 pc = pc.substring(0, 6);
-            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
                 validate.setError($("#getPinCode"), 'Invalid pincode');
             }
         });
@@ -193,7 +193,7 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
-            $('.personal-info-form-container .input-box').addClass('not-empty');
+            $('.input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
@@ -266,7 +266,7 @@
                     self.dealerDescription(options.dealerDescription);
 
                 if (options.pinCodeRequired != null)
-                    self.pinCodeRequired(options.pinCodeRequired);
+                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true );
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
@@ -593,7 +593,7 @@
         self.setPinCodeSuggestion = function () {
             $("#getPinCode").bw_autocomplete({
                 source: 4,
-                recordCount: 5,
+                recordCount: 3,
                 minLength: 2,
                 onClear: function () {
                     objPinCodes = new Object();
@@ -693,7 +693,7 @@
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
-            if (self.pinCodeRequired() && isValid) {
+            if (self.pinCodeRequired()) {
                 isValid &= self.validatePinCode();
                 if (isValid)
                     isValid &= self.checkPinCode(self.pincode());
