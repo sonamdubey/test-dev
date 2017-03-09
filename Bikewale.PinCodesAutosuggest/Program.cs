@@ -7,7 +7,11 @@ namespace Bikewale.PinCodesAutosuggest
 {
     public class Program
     {
-
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th March 2017
+        /// Description : Main function to build elastic search index for pincode suggestion
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
@@ -32,6 +36,12 @@ namespace Bikewale.PinCodesAutosuggest
 
         }
 
+        /// <summary>
+        /// Created By : Sushil Kumar on 9th March 2017
+        /// Description : To create,modify and delete elastic search index for the specified indexname and suggestionlist
+        /// </summary>
+        /// <param name="suggestionList"></param>
+        /// <param name="indexName"></param>
         private static void CreateIndex(List<PinCodeList> suggestionList, string indexName)
         {
             try

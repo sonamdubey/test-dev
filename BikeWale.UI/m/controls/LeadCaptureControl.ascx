@@ -762,10 +762,12 @@
                 success: function (data) {
                     if (data && data.suggestionList.length > 0) {
                         $('#getPinCode').val(data.suggestionList[0].text);
+                        self.pincode(data.suggestionList[0].payload.pinCode);
                         isValid = true;
                     }
                     else {
                         validate.setError($('#getPinCode'), 'Invalid pincode');
+                        self.pincode(0);
                         isValid = false;
                     }
                 }
