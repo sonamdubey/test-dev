@@ -118,5 +118,16 @@ namespace Bikewale.BAL.BikeData
         {
             return makesRepository.GetOldMaskingNames();
         }
+
+
+        public BikeMakeEntityBase GetScooterMakes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
+        {
+            throw new NotImplementedException();
+        }
     }   // Class
 }   //Namespace

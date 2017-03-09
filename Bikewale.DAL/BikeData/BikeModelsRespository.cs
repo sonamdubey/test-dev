@@ -1731,7 +1731,7 @@ namespace Bikewale.DAL.BikeData
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     IsImageExists = SqlReaderConvertor.ToBoolean(reader["IsImageExists"]),
                                     BikeModelColorId = SqlReaderConvertor.ParseToUInt32(reader["BikeModelColorId"]),
-                                    ImageCategory = Convert.ToString(reader["ColorName"])                                    
+                                    ImageCategory = Convert.ToString(reader["ColorName"])
                                 });
                             }
                             if (reader.NextResult())
@@ -2313,6 +2313,22 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return newLaunchedBikes;
+        }
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
         }
     }   // class
 }   // namespace

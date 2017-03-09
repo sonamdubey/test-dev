@@ -541,5 +541,16 @@ namespace Bikewale.DAL.BikeData
 
             return ht;
         }
+
+
+        public BikeMakeEntityBase GetScooterMakes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

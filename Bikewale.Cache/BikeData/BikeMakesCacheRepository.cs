@@ -189,6 +189,12 @@ namespace Bikewale.Cache.BikeData
                 objErr.SendMail();
             }
             return response;
-        }        
+        }
+
+
+        public BikeMakeEntityBase GetScooterMakes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

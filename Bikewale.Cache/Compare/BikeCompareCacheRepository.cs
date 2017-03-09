@@ -145,5 +145,11 @@ namespace Bikewale.Cache.Compare
             }
             return compareEntity;
         }
+
+
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

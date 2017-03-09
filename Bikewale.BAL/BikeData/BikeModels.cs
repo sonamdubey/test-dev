@@ -1309,5 +1309,21 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
     }   // Class
 }   // namespace

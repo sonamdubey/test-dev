@@ -957,5 +957,16 @@ namespace Bikewale.BAL.Compare
             }
             return compareEntity;
         }
+
+
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

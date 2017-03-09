@@ -1288,5 +1288,21 @@ namespace Bikewale.Cache.BikeData
             }
             return bikes;
         }
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
