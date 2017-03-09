@@ -45,8 +45,8 @@ namespace Bikewale.Interfaces.BikeData
         ModelPhotoGalleryEntity GetPhotoGalleryData(U modelId);
         IEnumerable<ColorImageBaseEntity> CreateAllPhotoList(U modelId);
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
-        BikeModelPageEntity GetMostPopularScooters(uint topCount);
-        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId);
-        BikeModelPageEntity GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
     }
 }
