@@ -1,10 +1,12 @@
-﻿@{
+﻿@using Bikewale.Entities.BikeData;
+@{
     ViewBag.Ad_970x90 = false;
     ViewBag.IsHeaderFix = false;
     ViewBag.IsTransparentHeader = true;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/landing.css' />";
     ViewBag.Page_JS_Path = "/src/scooters.js";
     Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
 }
 
 <header class="scooters-banner">
@@ -264,108 +266,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="bw-tabs-data" id="ctrlMostPopularBikes">
-                    <div class="jcarousel-wrapper inner-content-carousel">
-                        <div class="jcarousel">
-                            <ul>
-                                <li>
-                                    <a href="" title="Royal Enfield Classic 350" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/royal-enfield-classic-350-standard-136.jpg?20151209202137" alt="Royal Enfield Classic 350" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">Royal Enfield Classic 350</h3>
-                                            <p class="text-xt-light-grey font14 margin-bottom10">
-                                                <span><span>346</span><span> cc</span></span><span>, <span>37</span><span> kmpl</span></span><span>, <span>19.8</span><span> bhp</span></span>
-                                            </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                            <p class="text-bold text-default">
-                                                <span class="bwsprite inr-lg"></span> <span class="font18">1,39,340</span><span class="font14"> onwards</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <div class="margin-left20 margin-bottom20">
-                                        <a href="javascript:void(0);" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Honda CB Hornet 160R" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="https://imgd2.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg?20151012195209" alt="Honda CB Hornet 160R" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">Honda CB Hornet 160R</h3>
-                                            <p class="text-xt-light-grey font14 margin-bottom10">
-                                                <span><span>162.71</span><span> cc</span></span><span>, <span>52</span><span> kmpl</span></span><span>, <span>15.44</span><span> bhp</span></span>
-                                            </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                            <p class="text-bold text-default">
-                                                <span class="bwsprite inr-lg"></span> <span class="font18">86,041</span><span class="font14"> onwards</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <div class="margin-left20 margin-bottom20">
-                                        <a href="javascript:void(0);" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Bajaj Dominar 400" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="https://imgd5.aeplcdn.com//310x174//bw/models/bajaj-dominar400.jpg?20161512143417" alt="Bajaj Dominar 400" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">Bajaj Dominar 400</h3>
-                                            <p class="text-xt-light-grey font14 margin-bottom10">
-                                                <span><span>373.3</span><span> cc</span></span><span>, <span>34.5</span><span> bhp</span></span>
-                                            </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                            <p class="text-bold text-default">
-                                                <span class="bwsprite inr-lg"></span> <span class="font18">1,44,069</span><span class="font14"> onwards</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <div class="margin-left20 margin-bottom20">
-                                        <a href="javascript:void(0);" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <a href="" title="Honda Activa 3G" class="jcarousel-card">
-                                        <div class="model-jcarousel-image-preview">
-                                            <span class="card-image-block">
-                                                <img class="lazy" data-original="https://imgd1.aeplcdn.com//310x174//bw/models/honda-activa-3g-standard-806.jpg?20151209184243" alt="Honda Activa 3G" src="" border="0" />
-                                            </span>
-                                        </div>
-                                        <div class="card-desc-block">
-                                            <h3 class="bikeTitle">Honda Activa 3G</h3>
-                                            <p class="text-xt-light-grey font14 margin-bottom10">
-                                                <span><span>109.2</span><span> cc</span></span><span>, <span>61</span><span> kmpl</span></span><span>, <span>8</span><span> bhp</span></span>
-                                            </p>
-                                            <p class="font14 text-light-grey margin-bottom5">Ex-showroom, Mumbai</p>
-                                            <p class="text-bold text-default">
-                                                <span class="bwsprite inr-lg"></span> <span class="font18">54,609</span><span class="font14"> onwards</span>
-                                            </p>
-                                        </div>
-                                    </a>
-                                    <div class="margin-left20 margin-bottom20">
-                                        <a href="javascript:void(0);" class="btn btn-grey btn-sm font14 getquotation" rel="nofollow">Check on-road price</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
-                        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-                    </div>
-                </div>
-                <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
+                @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+                  <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
                     <div class="jcarousel-wrapper inner-content-carousel">
                         <div class="jcarousel">
                             <ul>

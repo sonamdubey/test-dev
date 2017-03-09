@@ -15,6 +15,7 @@ namespace Bikewale.Controllers
     public class PopularBikesController : Controller
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        
         IEnumerable<MostPopularBikesBase> objPopularBikes = null;
 
         public PopularBikesController(IBikeModelsCacheRepository<int> modelCache)
@@ -84,5 +85,7 @@ namespace Bikewale.Controllers
             }
             return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
+        
+        
     }
 }

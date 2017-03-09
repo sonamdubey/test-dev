@@ -2315,13 +2315,73 @@ namespace Bikewale.DAL.BikeData
             return newLaunchedBikes;
         }
 
-
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        /// <summary>
+        /// Created By : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : Return list of popular scooters
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
         {
-            throw new NotImplementedException();
+            ICollection<MostPopularBikesBase> popularScooters = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmostpopularscootersbymakecity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.DBNull));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            popularScooters = new Collection<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                popularScooters.Add(
+                                   new MostPopularBikesBase()
+                                  {
+                                      objModel = new BikeModelEntityBase()
+                                      {
+                                          ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                          ModelName = Convert.ToString(dr["model"]),
+                                          MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                      },
+                                      Specs = new MinSpecsEntity()
+                                      {
+                                          Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
+                                          KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
+                                          MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
+                                          MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
+                                          FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
+                                      },
+                                      BikeName = Convert.ToString(dr["bikename"]),
+                                      MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                      MakeName = Convert.ToString(dr["make"]),
+                                      MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                      HostURL = Convert.ToString(dr["hosturl"]),
+                                      OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                      VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
+                                      ReviewCount = SqlReaderConvertor.ToInt32(dr["reviewcount"]),
+                                      CityName = Convert.ToString(dr["cityname"]),
+                                      CityMaskingName = Convert.ToString(dr["citymasking"])
+                                  }
+                                  );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+            }
+            return popularScooters;
         }
 
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
         {
             throw new NotImplementedException();
         }

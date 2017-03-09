@@ -3407,8 +3407,7 @@
     <Content Include="Views\m\Shared\_showrooms.cshtml" />
     <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
     <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
-    <Content Include="Views\m\Shared\_similarBikes.cshtml" />
-    <Content Include="Views\m\scooters\index.cshtml" />
+    <Content Include="Views\m\Shared\_similarBikes.cshtml" />    
     <Content Include="Views\m\scooters\models.cshtml" />
     <Content Include="Views\Scooters\BikesByMake.cshtml" />
     <None Include="Web.Debug.config">
