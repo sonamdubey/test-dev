@@ -22,9 +22,9 @@
                                     </p>
                                     @if (bike.VersionPrice > 0)
                                     {
-                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.DefaultName)</p>
+                                        <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
                                         <p class="text-bold text-default">
-                                            <span class="bwsprite inr-lg"></span> <span class="font18">@bike.VersionPrice</span><span class="font14"> onwards</span>
+                                            <span class="bwsprite inr-lg"></span> <span class="font18">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14"> onwards</span>
                                         </p>
                                     }
                                     else

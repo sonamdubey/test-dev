@@ -18,9 +18,9 @@
                             <h3 class="target-link font12 text-truncate margin-bottom5">@bike.BikeName</h3>
                             @if (bike.VersionPrice>0)
                             { 
-                            <p class="text-truncate text-light-grey font11">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.DefaultName)</p>
+                            <p class="text-truncate text-light-grey font11">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
                             <p class="text-default">
-                                <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">@bike.VersionPrice</span><span class="font14 text-bold"> onwards</span>
+                                <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
                             </p>
                             }
                             else
