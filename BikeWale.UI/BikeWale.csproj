@@ -456,6 +456,7 @@
     <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
     <Compile Include="Controllers\new\NewLaunches\DNewLaunchesController.cs" />
+    <Compile Include="Controllers\new\Scooters\ScootersController.cs" />
     <Compile Include="Controllers\new\Upcoming\DUpcomingController.cs" />
     <Compile Include="Controllers\new\Videos\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
@@ -2993,6 +2994,10 @@
     <Content Include="m\sass\new-launch\_year-swiper.sass" />
     <Content Include="m\sass\modules\_brand-collapsible.sass" />
     <Content Include="sass\modules\_loader.sass" />
+    <Content Include="sass\scooters\landing.sass" />
+    <Content Include="sass\scooters\_landing-style.sass" />
+    <Content Include="sass\modules\_main-comparison.sass" />
+    <Content Include="sass\modules\_budget.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="new\newbikelaunch\Default_v2.aspx" />
     <Content Include="new\photos\Default.aspx" />
@@ -3034,6 +3039,7 @@
     <Content Include="src\new-launch.js" />
     <Content Include="src\fallback-gallery.js" />
     <Content Include="src\photos.js" />
+    <Content Include="src\scooters.js" />
     <Content Include="src\service\location.js" />
     <Content Include="src\service\details.js" />
     <Content Include="src\service\listing.js" />
@@ -3354,6 +3360,7 @@
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
+    <Content Include="Views\Scooters\Index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
