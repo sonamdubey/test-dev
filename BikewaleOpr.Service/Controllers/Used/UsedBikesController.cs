@@ -14,9 +14,9 @@ namespace BikewaleOpr.Service.Controllers.Used
     public class UsedBikesController : ApiController
     {
         private readonly ISellBikes _objSellBikes = null;
-        private readonly IBikeModels _objBikeModels = null;
+        private readonly IBikeModelsRepository _objBikeModels = null;
 
-        public UsedBikesController(ISellBikes objSellBikes, IBikeModels objBikeModels)
+        public UsedBikesController(ISellBikes objSellBikes, IBikeModelsRepository objBikeModels)
         {
             _objSellBikes = objSellBikes;
             _objBikeModels = objBikeModels;

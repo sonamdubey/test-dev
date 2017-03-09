@@ -11,9 +11,9 @@ namespace BikewaleOpr.Controllers
     public class ModelsController : Controller
     {
         private readonly IBikeMakes _makesRepo;
-        private readonly IBikeModels _modelsRepo;
+        private readonly IBikeModelsRepository _modelsRepo;
 
-        public ModelsController(IBikeMakes makesRepo, IBikeModels modelsRepo)
+        public ModelsController(IBikeMakes makesRepo, IBikeModelsRepository modelsRepo)
         {
             _makesRepo = makesRepo;
             _modelsRepo = modelsRepo;
@@ -25,6 +25,12 @@ namespace BikewaleOpr.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Created by : Sajal Gupta on 09-03-2017
+        /// Description : Action method for binding UsedModelImageUpload page
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
         public ActionResult UsedModelImageUpload(uint? makeId)
         {
             try
@@ -48,21 +54,5 @@ namespace BikewaleOpr.Controllers
             }
         }
 
-        public ActionResult FetchModelsImage(uint? makeId)
-        {
-            try
-            {
-                if (makeId.HasValue && makeId.Value > 0)
-                {
-                    TempData["modelImageList"] = _modelsRepo.GetUsedBikeModelImageByMake((uint)makeId);
-                }
-                return RedirectToAction("UsedModelImageUpload");
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "ModelsController/FetchModels");
-                return null;
-            }
-        }
     }
 }

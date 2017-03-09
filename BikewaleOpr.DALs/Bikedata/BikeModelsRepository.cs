@@ -11,7 +11,7 @@ using System.Data;
 using System.Data.Common;
 namespace BikewaleOpr.DALs.Bikedata
 {
-    public class BikeModelsRepository : IBikeModels
+    public class BikeModelsRepository : IBikeModelsRepository
     {
         /// <summary>
         /// Created By : Sushil Kumar on  25th Oct 2016
@@ -83,7 +83,6 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.SaveModelUnitSold-{0}-{1}", list, date));
-                objErr.SendMail();
             }
         }
 
@@ -119,9 +118,47 @@ namespace BikewaleOpr.DALs.Bikedata
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikewaleOpr.DALs.Bikedata.GetLastSoldUnitData"));
-                objErr.SendMail();
             }
             return dataObj;
+        }
+        /// <summary>
+        /// Created by Sangram Nandkhile on 06 Mar 2017
+        /// Desc : function to get the used bikes where no model image is found
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<UsedBikeImagesModel> GetPendingUsedBikesWithoutModelImage()
+        {
+            IList<UsedBikeImagesModel> _objBikeModels = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getPendingUsedBikesWithoutModelImage"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            _objBikeModels = new List<UsedBikeImagesModel>();
+                            while (dr.Read())
+                            {
+                                UsedBikeImagesModel _objBike = new UsedBikeImagesModel();
+
+                                _objBike.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
+                                _objBike.MakeName = Convert.ToString(dr["makeName"]);
+                                _objBike.ModelName = Convert.ToString(dr["modelname"]);
+
+                                _objBikeModels.Add(_objBike);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.GetPendingUsedBikesWithoutModelImage()");
+            }
+            return _objBikeModels;
         }
 
         /// <summary>
@@ -177,7 +214,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));                    
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.ReadOnly);
                     isDeleted = true;
                 }

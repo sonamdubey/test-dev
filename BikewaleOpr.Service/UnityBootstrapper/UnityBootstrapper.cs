@@ -47,7 +47,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
             container.RegisterType<IBikeMakes, BikeMakesRepository>();
-            container.RegisterType<IBikeModels, BikeModelsRepository>();
+            container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
             container.RegisterType<IImage, ImageBL>();
             container.RegisterType<IImageRepository, ImageRepository>();
             container.RegisterType<ISecurity, SecurityBL>();

@@ -66,6 +66,7 @@ namespace Bikewale.Utility
             _AWSEnvironment = string.Empty,
             _AWSImageQueueName = String.Empty,
             _notificationUserId = String.Empty,
+            _notificationOtherUserId = String.Empty,
             _notificationToUserMailId = String.Empty,
             _notificationCCUserMailId = String.Empty;
 
@@ -126,6 +127,7 @@ namespace Bikewale.Utility
             _SmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
             _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
             _notificationUserId = ConfigurationManager.AppSettings["notificationUserId"];
+            _notificationOtherUserId = ConfigurationManager.AppSettings["notificationOtherUserId"];
             _notificationToUserMailId = ConfigurationManager.AppSettings["notificationToUserMailId"];
             _notificationCCUserMailId = ConfigurationManager.AppSettings["notificationCCUserMailId"];
             _AWSAccessKey = ConfigurationManager.AppSettings["AWSAccessKey"];
@@ -257,6 +259,8 @@ namespace Bikewale.Utility
         public string SmsQueue { get { return _SmsQueue; } }
 
         public string NotificationUserId { get { return _notificationUserId; } }
+
+        public string NotificationOtherUserId { get { return _notificationOtherUserId; } }
 
         public string NotificationToUserMailId { get { return _notificationToUserMailId; } }
 

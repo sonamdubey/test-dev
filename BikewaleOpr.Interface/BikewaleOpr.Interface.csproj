@@ -43,6 +43,7 @@
     <Compile Include="BikeColorImages\IColorImagesBikeRepository.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikePricing\IDealerPriceRepository.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Security\ISecurity.cs" />
     <Compile Include="Used\ISellBikes.cs" />
     <Compile Include="Used\ISellerRepository.cs" />
+    <Compile Include="Used\IUsedBikes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

@@ -121,6 +121,7 @@ var makeViewModel = function () {
 
         if (self.makeId() != null) {
             isValid = true;
+            window.location.href = "/Models/UsedModelImageUpload/?makeId=" + self.makeId();
         }
         else {
             Materialize.toast('Please select make', 4000);

@@ -14,7 +14,7 @@
                     <th>Model Id</th>
                     <th>Model Name</th>
                     <th>Image</th>
-                   
+
                     <th colspan="2">Upload image</th>
                     <th>Delete image</th>
                 </tr>
@@ -23,7 +23,7 @@
                     <tr>
                         <td>@m.ModelId</td>
                         <td>@m.MakeName @m.ModelName</td>
-                        <td> 
+                        <td>
                             <div class="image-wrapper" style="width:144px">
                                 <img id="mainImage" src='@Bikewale.Utility.Image.GetPathToShowImages(@m.OriginalImagePath, @m.HostUrl, Bikewale.Utility.ImageSize._144x81)' />
                             </div>
@@ -50,36 +50,38 @@
             </table>
         }
     </div>
-    @using (Html.BeginForm("FetchModelsImage", "Models", FormMethod.Post))
-    {
-        <div class="col m3">
-                    <div class="card">
-                        <div id="make-card" class="card-content" data-bind="with : vmMake">
-                            <a class='dropdown-button btn' href='#' data-activates='makeDropDown' data-bind="text : makeName()"></a>
-                            <!-- Dropdown Structure -->
-                            <ul id='makeDropDown' class='dropdown-content'>
-                                @if (objMakeList != null)
-                                {
-                                    foreach (var make in objMakeList)
-                                    {
-                                        <li data-makeid="@make.MakeId" data-makename="@make.MakeName" data-bind="event : {click : function(d,e) { updateMake(d,e) }}"><a href="#!">@make.MakeName</a></li>
-                                    }
-                                }
-                            </ul>                            
-                            <input name="makeId" data-bind="textInput: makeId()" type="text" hidden />
-                            <br /><br /><br /><br />
-                            <button class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : {click : function() { return validateMakeSubmit();}}">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
+
+    <div class="col m3">
+        <div id="make-card" class="card" data-bind="with : vmMake">
+            <div class="card-content">
+                <span class="card-title">Show Models</span>
+                <p>
+                    <a class='dropdown-button btn' href='#' data-activates='makeDropDown' data-bind="text : makeName()"></a>
+                    <!-- Dropdown Structure -->
+                    <ul id='makeDropDown' class='dropdown-content'>
+                        @if (objMakeList != null)
+                        {
+                            foreach (var make in objMakeList)
+                            {
+                                <li data-makeid="@make.MakeId" data-makename="@make.MakeName" data-bind="event : {click : function(d,e) { updateMake(d,e) }}"><a href="#!">@make.MakeName</a></li>
+                            }
+                        }
+                    </ul>
+                    <input name="makeId" data-bind="textInput: makeId()" type="text" hidden />
+                </p>
+            </div>
+            <div class="card-action">
+                <button class="btn waves-effect waves-light" type="submit" name="action" data-bind="event : {click : function() { return validateMakeSubmit();}}">
+                    Submit
+                </button>
+            </div>
 
         </div>
-    }
+    </div>
 </div>
 
 
-<script type="text/javascript">    
+<script type="text/javascript">
     environment = '@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment';
     bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs';
     userid = '@BikeWaleOpr.Common.CurrentUser.Id';

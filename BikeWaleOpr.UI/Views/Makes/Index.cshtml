@@ -30,7 +30,7 @@
                     <td><i class="material-icons @((m.New) ? "icon-green" : "icon-red")">@((m.New) ? "done" : "close")</i></td>
                     <td><i class="material-icons @((m.Used) ? "icon-green" : "icon-red")">@((m.Used) ? "done" : "close")</i></td>
                     <td><a href="#!" data-target="modal-make-synopsis" data-bind="event : {click : function(d,e) { setmakedata(e); synopsis().getSynopsis() }}"><i class="material-icons icon-green">add_circle</i></a></td>
-                    <td><a href="#!" data-target="modal-make-update"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                    <td><a href="#!" data-target="modal-make-update" data-bind="event : {click : function(d,e) { setmakedata(e)}}"><i class="material-icons icon-blue">mode_edit</i></a></td>
                     <td><a href="/Makes/Delete/?makeId=@m.MakeId" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
                     <td>@m.CreatedOn</td>
                     <td>@m.UpdatedOn</td>
@@ -71,39 +71,40 @@
         .modal { width: 35% !important ; }
     </style>
     <!-- Modal Structure -->
-    <div id="modal-make-update" class="modal">
-        @using(Html.BeginForm("Update", "Makes", FormMethod.Post)) {
-        <div class="modal-content">
-            <h4>Update Bike Make</h4>
-            <div>
-                <div class="input-field row m12">
-                    <input id="txtUMakeName" type="text" class="validate" name="makeName">
-                    <label for="txtUMakeName">Make Name</label>
-                </div>
-                <div class="input-field row m12">
-                    <input id="txtUMakeMaskingName" type="text" class="validate" name="maskingName">
-                    <label for="txtUMakeMaskingName">Masking Name</label>
-                </div>
-                <div class="input-field row m12">
-                    <div class="input-field col m4">
-                        <input type="checkbox" id="chkNewUpdate" name="New" checked='checked' /><label for="chkNewUpdate">New</label>                        
+    <div id="modal-make-update" class="modal" data-bind="with : updateMake">
+        @using (Html.BeginForm("Update", "Makes", FormMethod.Post))
+        {
+            <div class="modal-content">
+                <h4>Update <span data-bind="text: makeName "></span> Data</h4>
+                <div>
+                    <div class="input-field row m12">
+                        <input id="txtUMakeName" type="text" class="validate" name="makeName" data-bind="textInput: makeName ">
+                        <label for="txtUMakeName">Make Name</label>                        
                     </div>
-                    <div class="input-field col m4">
-                        <input type="checkbox" id="chkUsedUpdate" checked='checked' name="Used" /><label for="chkUsedUpdate">Used</label>                       
+                    <div class="input-field row m12">
+                        <input id="txtUMakeMaskingName" type="text" class="validate" name="maskingName" data-bind="textInput: makeMaskingName">
+                        <label for="txtUMakeMaskingName">Masking Name</label>
                     </div>
-                    <div class="input-field col m4">
-                        <input type="checkbox" id="chkFuturisticUpdate" checked='checked' name="Futuristic" /><label for="chkFuturisticUpdate">Futuristic</label>
-                        <input id="foo" name="foo" type="checkbox" />
-                        <input name="foo" type="hidden" value="true" /> 
+                    <div class="input-field row m12">
+                        <div class="input-field col m4">
+                            <input type="checkbox" id="chkNewUpdate" name="New" data-bind="checked: selectedMake() ? selectedMake().new : false" /><label for="chkNewUpdate">New</label>
+                        </div>
+                        <div class="input-field col m4">
+                            <input type="checkbox" id="chkUsedUpdate" data-bind="checked: selectedMake() ? selectedMake().used : false" name="Used" /><label for="chkUsedUpdate">Used</label>
+                        </div>
+                        <div class="input-field col m4">
+                            <input type="checkbox" id="chkFuturisticUpdate" data-bind="checked: selectedMake() ? selectedMake().futuristic : false" name="Futuristic" /><label for="chkFuturisticUpdate">Futuristic</label>
+                            <input id="foo" name="foo" type="checkbox" />
+                            <input name="foo" type="hidden" value="true" />
+                        </div>
                     </div>
+                    <input type="hidden" id="hdnUpdateMakeId" name="MakeId" data-bind="textInput: selectedMake() ? selectedMake().makeId : 0" />
                 </div>
-                <input type="hidden" id="hdnUpdateMakeId" name="makeId" />
             </div>
-        </div>
-        <div class="modal-footer">
-            <a href="javascript:$('form').submit()" class=" modal-action modal-close waves-effect waves-green teal white-text btn-flat" id="btnUpdateMake" style="margin-left:5px;">Update</a>            
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-        </div>
+            <div class="modal-footer">
+                <a  class=" modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { updateMakeDetails() }}" id="btnUpdateMake" style="margin-left:5px;">Update</a>
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
         }
     </div>
     <!-- Modal Structure -->

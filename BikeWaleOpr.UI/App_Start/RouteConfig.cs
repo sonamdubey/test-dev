@@ -24,14 +24,8 @@ namespace BikeWaleOpr.MVC.UI
 
             routes.MapRoute(
                     name: "Default.Opr.UI",
-                    url: "",
+                    url: "{controller}/{action}",
                     defaults: new { controller = "Home", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}",
-                defaults: new { controller = UrlParameter.Optional, action = UrlParameter.Optional }
             );
         }
     }
