@@ -361,26 +361,6 @@
        
         </section>
         <%} %>
-        
-        <section>
-            <div class="campaign-content container bg-white clearfix box-shadow margin-top10 margin-bottom10 padding-top15 padding-right20 padding-bottom20 padding-left20">
-                <div class="margin-bottom15 padding-bottom10 border-light-bottom">
-                    <span class="campaign-logo inline-block"></span>
-                    <div class="campaign-title-content text-bold inline-block">
-                        <p class="font18">Bajaj Finance Pvt. Ltd.</p>
-                    </div>
-                </div>
-                <p class="font14 margin-bottom10">Loans for your two and three wheeler vehicles across 2,000 locations in India</p>
-                <ul class="campaign-disc-list font14">
-                    <li>Transparent process</li>
-                    <li>Easy pay-in-cash option</li>
-                    <li>Special preapproved offers</li>
-                </ul>
-                <div class="campaign-button-content padding-top10">
-                    <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn" rel="nofollow">Get offers</a>
-                </div>
-            </div>
-        </section>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 

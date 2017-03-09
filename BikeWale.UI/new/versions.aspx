@@ -559,32 +559,6 @@
             <%=String.Format(pqOnRoad.BPQOutput.ManufacturerAd) %>
         <%} %>
 
-        <div class="campaign-content container margin-bottom20">
-            <div class="grid-12">
-                <div class="padding-top20 padding-right20 padding-bottom10 padding-left20 content-box-shadow">
-                    <div class="margin-bottom10 padding-bottom15 border-light-bottom">
-                        <span class="campaign-logo inline-block"></span>
-                        <div class="campaign-title-content text-bold inline-block">
-                            <p class="font18">Bajaj Finance Pvt. Ltd.</p>
-                        </div>
-                    </div>
-                    <div class="campaign-left-col inline-block">
-                        <p class="font14 margin-bottom10">Loans for your two and three wheeler vehicles across 2,000 locations in India</p>
-                        <ul class="campaign-disc-list font14">
-                            <li>Transparent process</li>
-                            <li>Easy pay-in-cash option</li>
-                            <li>Special preapproved offers</li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="campaign-right-col inline-block text-right">
-                        <a href="javascript:void(0)" class="btn btn-orange btn-188-40 leadcapturebtn" rel="nofollow">Get offers</a>
-                    </div>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-
         <meta itemprop="manufacturer" name="manufacturer" content="<%= modelPageEntity.ModelDetails.MakeBase.MakeName %>">
         <meta itemprop="model" content="<%= TargetedModel %>" />
         <meta itemprop="brand" content="<%= bikeMakeName %>" />
