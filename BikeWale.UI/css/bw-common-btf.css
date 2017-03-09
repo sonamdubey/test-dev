@@ -543,6 +543,7 @@ li.offertxt:hover span {display:inline}
 .input-box {
     height: 60px;
     text-align: left;
+    position: relative;
 }
 .input-box input {
     width: 100%;

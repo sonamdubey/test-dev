@@ -174,14 +174,14 @@
             var pincode = $("#getPinCode");
             var pc = pincode.val().trim();
 
-            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
                 validate.setError($("#getPinCode"), 'Invalid pincode');
+                if (dleadvm.validatePinCode(pincode)) {
+                    dleadvm.IsVerified(false);
+                    validate.hideError(pincode);
+                }
             }
-
-            if (dleadvm.validatePinCode(pincode)) {
-                dleadvm.IsVerified(false);
-                validate.hideError(pincode);
-            }
+           
         });
 
         $("#getEmailID").on("blur", function () {
@@ -290,7 +290,7 @@
                     self.dealerDescription(options.dealerDescription);
 
                 if (options.pinCodeRequired != null)
-                    self.pinCodeRequired(options.pinCodeRequired);
+                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
 
                 if (options.pageurl != null)
                     self.pageUrl = options.pageurl;
@@ -515,7 +515,7 @@
             isValid = self.validateUserName();
             isValid &= self.validateEmailId();
             isValid &= self.validateMobileNo();
-            if (self.pinCodeRequired() && isValid)
+            if (self.pinCodeRequired())
             {
                 isValid &= self.validatePinCode();
                 if (isValid)
@@ -681,7 +681,7 @@
         self.setPinCodeSuggestion = function () {
             $("#getPinCode").bw_autocomplete({
                 source: 4,
-                recordCount: 5,
+                recordCount: 3,
                 minLength: 2,
                 onClear: function () {
                     objPinCodes = new Object();

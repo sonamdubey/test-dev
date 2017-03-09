@@ -289,6 +289,7 @@
                 var leadBtn = $(d).find(".leadcapturebtn");
                 if (leadBtn) {
                     leadBtn.attr("data-mfgcampid", "{0}");
+                    leadBtn.attr("data-item-name", "{1}");
                     leadBtn.attr("data-item-id", "{3}");
                     leadBtn.attr("data-item-area", "{4}");
                     leadBtn.attr("data-leadsourceid", "{5}");
