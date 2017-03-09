@@ -1,1 +1,44 @@
-﻿
+﻿@model  Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult
+@if (Model != null && Model.Bikes!=null) {
+    <div class="jcarousel-wrapper inner-content-carousel">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var bikedetails in Model.Bikes)
+                {
+                    string bikeName = string.Format("{0} {1}", bikedetails.Make.MakeName, bikedetails.Model.ModelName);
+                    <li>
+                        <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.Make.MaskingName, bikedetails.Model.MaskingName)" title="@bikeName" class="jcarousel-card">
+                            <div class="model-jcarousel-image-preview">
+                                <span class="card-image-block">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostUrl, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" border="0" />
+                                </span>
+                            </div>
+                            <div class="card-desc-block">
+                                <h3 class="bikeTitle">@bikeName</h3>
+                                <p class="text-xt-light-grey font14 margin-bottom10">
+                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.MinSpecs.Displacement), Convert.ToString(bikedetails.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bikedetails.MinSpecs.MaxPower), Convert.ToString(bikedetails.MinSpecs.KerbWeight)))
+                                  
+                                </p>
+                                @if (bikedetails.City != null)
+                                {
+                                    <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @bikedetails.City.CityName</p>
+                                }
+                                else
+                                {<p class="font14 text-light-grey margin-bottom5">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p> }
+                                
+                                <div class="text-default text-bold">
+                                    <span class="bwsprite inr-lg"></span> <span class="font18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.MinPrice))</span><span class="font14"> onwards</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div>
+                            <a href="#" data-makename="@bikedetails.Make.MakeName" data-modelname="@bikedetails.Model.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.Model.ModelId" class="btn btn-grey btn-sm font14 margin-left20 margin-bottom20 getquotation">Check on-road price</a>
+                        </div>
+                    </li>
+            }
+            </ul>
+        </div>
+        <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+        <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+    </div>
+            }

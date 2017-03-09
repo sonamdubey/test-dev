@@ -2166,6 +2166,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Returns New bikes launched
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
@@ -2176,7 +2178,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikes_10022017";
+                    cmd.CommandText = "getnewlaunchedbikes_09032017";
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -2218,7 +2220,8 @@ namespace Bikewale.DAL.BikeData
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
-                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"])
+                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
                             }
@@ -2238,6 +2241,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   Returns New Bikes launched with Exshowroom of given city
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2249,7 +2254,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_09032017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2298,7 +2303,8 @@ namespace Bikewale.DAL.BikeData
                                             CityName = Convert.ToString(dr["cityname"]),
                                             CityMaskingName = Convert.ToString(dr["citymaskingname"])
                                         } : null),
-                                        Price = SqlReaderConvertor.ToUInt32(dr["price"])
+                                        Price = SqlReaderConvertor.ToUInt32(dr["price"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
                             }
