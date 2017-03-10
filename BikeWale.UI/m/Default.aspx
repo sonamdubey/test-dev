@@ -61,7 +61,7 @@
                     <div class="bw-tabs-panel padding-bottom20 content-box-shadow bg-white" id="discoverBikesContainer">
 
                         <div class="bw-tabs bw-tabs-flex">
-                            <ul class="brand-budget-mileage-style-UL">
+                            <ul class="brand-collapsible-present">
                                 <li class="active" data-tabs="discoverBrand">Brand</li>
                                 <li data-tabs="discoverBudget">Budget</li>
                                 <li data-tabs="discoverMileage">Mileage</li>
@@ -419,10 +419,6 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-            
-            $("ul.brand-budget-mileage-style-UL li").click(function () {
-                $("ul.brand-style-moreBtn").slideUp();
-            });
 
             $("#newBikeList").on("click", function () {
                 $('#global-search').trigger("click");

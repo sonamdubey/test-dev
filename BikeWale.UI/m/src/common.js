@@ -1786,3 +1786,14 @@ $('.view-brandType').click(function () {
         element.removeClass('active').find('.btn-label').text('View more brands');
     }
 });
+
+$(".brand-collapsible-present li").click(function () {
+    var tabsPanel = $(this).closest('.bw-tabs-panel'),
+        collapsibleBrand = tabsPanel.find('.collapsible-brand-content'),
+        moreBrandContainer = collapsibleBrand.find('.brandTypeMore'),
+        viewMoreBtn = collapsibleBrand.find('.view-brandType');
+    
+    viewMoreBtn.attr('href', '#brand-type-container');
+    moreBrandContainer.slideUp();
+    viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
+}); 

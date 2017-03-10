@@ -74,7 +74,7 @@
                         </ul>  
                     </div>
                     <div class="view-all-btn-container">
-                        <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
+                        <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
             </div>
