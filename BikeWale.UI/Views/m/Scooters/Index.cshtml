@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
     IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase> TopScootersCompares = ViewBag.TopScootersCompares;
 }
 
 <section>
@@ -407,45 +408,12 @@
         </div>
     </div>
 </section>
-
+@if (TopScootersCompares != null && TopScootersCompares.Count() > 0)
+{
 <section>
-    <h2 class="section-heading">Compare Scooters</h2>
-    <div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
-        <a href="" title="Bajaj Avenger 150 Street vs Benelli TNT 25" id="main-compare-bikes-target" class="main-compare-bikes-target">
-            <div class="grid-6">
-                <div class="comparison-image">
-                    <img class="lazy" data-original="https://imgd3.aeplcdn.com//144x81//bw/models/bajaj-avenger-150-street.jpg?20152710145912" alt="Bajaj Avenger 150 Street" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
-                </div>
-                <h3 class="font14 text-black margin-bottom5">Bajaj Avenger 150 Street</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">99,999</span>
-                    <span class="font12">onwards</span>
-                </div>
-                <p class="text-light-grey margin-bottom5 font12">Ex-showroom, Mumbai</p>
-            </div>
-            <div class="grid-6">
-                <div class="comparison-image">
-                    <img class="lazy" data-original="https://imgd4.aeplcdn.com//144x81//bw/models/benelli-tnt25.jpg?20152112153904" alt="Benelli TNT 25" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
-                </div>
-                <h3 class="font14 text-black margin-bottom5">Benelli TNT 25</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">52,200</span>
-                    <span class="font12">onwards</span>
-                </div>
-                <p class="text-light-grey margin-bottom5 font12">Ex-showroom, Mumbai</p>
-            </div>
-            <div class="clear"></div>
-            <div class="margin-top10 text-center">
-                <span class="btn btn-orange">Compare now</span>
-            </div>
-        </a>
-        <div class="text-center margin-bottom10">
-            <a href="" class="font14">View more comparisons</a>
-        </div>
-    </div>
-    <div class="clear"></div>
+    @Html.Partial("~/Views/m/Shared/_popularComparisions.cshtml", TopScootersCompares)
 </section>
-
+}
 <div class="margin-bottom10"></div>
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

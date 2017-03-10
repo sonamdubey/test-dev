@@ -1,1 +1,39 @@
-﻿
+﻿@model IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase>
+@if (Model != null)
+{
+<h2 class="section-heading">Compare Scooters</h2>
+<div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
+    <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.First().MakeMaskingName1, Model.First().ModelMaskingName1, Model.First().MakeMaskingName2, Model.First().ModelMaskingName2, Convert.ToString(Model.First().VersionId1), Convert.ToString(Model.First().VersionId2), Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Model.First().Bike1 vs @Model.First().Bike2" id="main-compare-bikes-target" class="main-compare-bikes-target">
+        <div class="grid-6">
+            <div class="comparison-image">
+                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl1, Model.First().HostUrl1, Bikewale.Utility.ImageSize._210x118)" alt="@Model.First().Bike1" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+            </div>
+            <h3 class="font14 text-black margin-bottom5">@Model.First().Bike1</h3>
+            <div class="text-default text-bold">
+                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
+                <span class="font12">onwards</span>
+            </div>
+            <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+        </div>
+        <div class="grid-6">
+            <div class="comparison-image">
+                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl2, Model.First().HostUrl2, Bikewale.Utility.ImageSize._210x118)" alt="@Model.First().Bike2" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
+            </div>
+            <h3 class="font14 text-black margin-bottom5">@Model.First().Bike2</h3>
+            <div class="text-default text-bold">
+                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
+                <span class="font12">onwards</span>
+            </div>
+            <p class="text-light-grey margin-bottom5 font12">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+        </div>
+        <div class="clear"></div>
+        <div class="margin-top10 text-center">
+            <span class="btn btn-orange">Compare now</span>
+        </div>
+    </a>
+    <div class="text-center margin-bottom10">
+        <a href="/comparebikes/" class="font14">View more comparisons</a>
+    </div>
+</div>
+<div class="clear"></div>
+}
