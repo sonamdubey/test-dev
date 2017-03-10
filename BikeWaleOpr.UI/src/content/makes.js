@@ -57,8 +57,8 @@ var addSynopsis = function () {
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        self.makeSynopsis(response.BikeDescription);
-                        self.makeScooterSynopsis(response.ScooterDescription);
+                        self.makeSynopsis(response.bikeDescription);
+                        self.makeScooterSynopsis(response.scooterDescription);
                         Materialize.updateTextFields();
                     }
                 },
@@ -75,8 +75,8 @@ var addSynopsis = function () {
     self.updateSynopsis = function () {
         if (self.selectedMake() != null && self.selectedMake().makeId > 0 && self.makeSynopsis() != "") {
             var synopsisData = {
-                "ScooterDescription": self.makeScooterSynopsis(),
-                "BikeDescription": self.makeSynopsis()
+                "scooterDescription": self.makeScooterSynopsis(),
+                "bikeDescription": self.makeSynopsis()
             }
             $.ajax({
                 type: "POST",

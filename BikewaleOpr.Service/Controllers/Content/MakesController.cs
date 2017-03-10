@@ -1,6 +1,8 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Service.AutoMappers.BikeData;
 using System;
 using System.Web.Http;
 
@@ -46,7 +48,7 @@ namespace BikewaleOpr.Service.Controllers.Content
                 }
 
                 if (objSynopsis != null)
-                    return Ok(objSynopsis);
+                    return Ok(BikeDataMapper.Convert(objSynopsis));
                 else
                     return NotFound();
             }
@@ -64,8 +66,10 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <param name="synopsis">null not allowed</param>
         /// <returns></returns>
         [HttpPost, Route("api/makes/{makeid}/synopsis/")]
-        public IHttpActionResult SaveSynopsis(int makeId, [FromBody] SynopsisData objSynopsis)
+        public IHttpActionResult SaveSynopsis(int makeId, [FromBody] SynopsisDataDto objSynopsisDto)
         {
+            SynopsisData objSynopsis = BikeDataMapper.Convert(objSynopsisDto);
+
             if (makeId > 0 && !String.IsNullOrEmpty(objSynopsis.BikeDescription))
             {
                 try
