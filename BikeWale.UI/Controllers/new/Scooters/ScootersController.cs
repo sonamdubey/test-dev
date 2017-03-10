@@ -10,6 +10,7 @@ using Bikewale.Interfaces.Compare;
 using System.Collections.Generic;
 using Bikewale.Utility;
 using System.Web.Mvc;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Controllers.Desktop.Scooters
 {
@@ -31,32 +32,18 @@ namespace Bikewale.Controllers.Desktop.Scooters
         public ActionResult Index()
         {
             PopulateNewlaunch();
-            PopulatePopularScooters();
+            PopularScooters();
             UpcomingScooters();
             CompareScootersList();
 
             return View("~/views/scooters/index.cshtml");
         }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 9 Mar 2017
-        /// Summary    : get list of popular scooters
-        /// </summary>
-        private void PopulatePopularScooters()
-        {
-            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            uint topCount = 9;
-            PopularScootersList objScooters = new PopularScootersList();
-            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
-            
-            objScooters.PQSourceId = 86;
-            objScooters.PageCatId = 62;
-            ViewBag.popularScooters = objScooters;
-        }
+        
         [Route("m/scooters/")]
         public ActionResult MIndex()
         {
             PopulateNewlaunch();
-            MPopulatePopularScooters();
+            MPopularScooters();
             UpcomingScooters();
             CompareScootersList();
             return View("~/views/m/scooters/index.cshtml");
@@ -102,6 +89,23 @@ namespace Bikewale.Controllers.Desktop.Scooters
             NewLaunchedBikeResult objNewLaunchesBikes = _newLaunches.GetBikes(filters);
             ViewBag.NewLaunchesList = objNewLaunchesBikes;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : get list of popular scooters
+        /// </summary>
+        private void PopularScooters()
+        {
+            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            uint topCount = 9;
+            PopularScootersList objScooters = new PopularScootersList();
+            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
+
+            objScooters.PQSourceId = (int)PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
+            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Desktop;
+            ViewBag.popularScooters = objScooters;
+        }
+
         [Route("scooters/make/")]
         public ActionResult BikesByMake()
         {
@@ -113,15 +117,15 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// Created by : Aditi Srivastava on 9 Mar 2017
         /// Summary    : get list of popular scooters
         /// </summary>
-        private void MPopulatePopularScooters()
+        private void MPopularScooters()
         {
             uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
             uint topCount = 9;
             PopularScootersList objScooters = new PopularScootersList();
             objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
 
-            objScooters.PQSourceId = 87;
-            objScooters.PageCatId = 63;
+            objScooters.PQSourceId =(int)PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
+            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
             ViewBag.popularScooters = objScooters;
         }
         [Route("m/scooters/make/")]

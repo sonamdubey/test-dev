@@ -331,19 +331,24 @@
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>}
                 </ul>
             </div>
-            @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
-            @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
-            {
-                <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
-                    @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
+            @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+              {
+            <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
+                @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
                 </div>
-            }
-            @if (objUpcoming != null && objUpcoming.Count() > 0)
-            {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
-                @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                }
+                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                {
+                    <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
+                        @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
+                    </div>
+                }
+                @if (objUpcoming != null && objUpcoming.Count() > 0)
+                {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
+                    @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                </div>
+                }
             </div>
-            }
-        </div>
     </div>
 </section>
 @if (TopScootersCompares != null && TopScootersCompares.Count() > 0)

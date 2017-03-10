@@ -278,8 +278,13 @@
                         }
                     </ul>
                 </div>
-                @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
-                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                {
+                <div id="ctrlMostPopularBikes" class="bw-tabs-data">
+               @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+               </div>
+                }
+                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                 {
                     <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
                         @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
