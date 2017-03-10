@@ -60,8 +60,13 @@ namespace Bikewale.Utility
             _areaMaxPerCall = String.Empty,
             _CwWebServiceHostUrl = String.Empty,
             _SmsQueue = String.Empty,
+            _AWSAccessKey = String.Empty,
+            _AWSBucketName = String.Empty,
+            _AWSSecretKey = String.Empty,
             _AWSEnvironment = string.Empty,
+            _AWSImageQueueName = String.Empty,
             _notificationUserId = String.Empty,
+            _notificationOtherUserId = String.Empty,
             _notificationToUserMailId = String.Empty,
             _notificationCCUserMailId = String.Empty;
 
@@ -122,9 +127,15 @@ namespace Bikewale.Utility
             _SmsQueue = ConfigurationManager.AppSettings["SmsQueue"];
             _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
             _notificationUserId = ConfigurationManager.AppSettings["notificationUserId"];
+            _notificationOtherUserId = ConfigurationManager.AppSettings["notificationOtherUserId"];
             _notificationToUserMailId = ConfigurationManager.AppSettings["notificationToUserMailId"];
             _notificationCCUserMailId = ConfigurationManager.AppSettings["notificationCCUserMailId"];
-
+            _AWSAccessKey = ConfigurationManager.AppSettings["AWSAccessKey"];
+            _AWSBucketName = ConfigurationManager.AppSettings["AWSBucketName"];
+            _AWSSecretKey = ConfigurationManager.AppSettings["AWSSecretKey"];
+            _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
+            _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
+            _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
         }
 
         // Static method to provide access to instance
@@ -247,14 +258,19 @@ namespace Bikewale.Utility
 
         public string SmsQueue { get { return _SmsQueue; } }
 
-        public string AWSEnvironment { get { return _AWSEnvironment; } }
-
         public string NotificationUserId { get { return _notificationUserId; } }
+
+        public string NotificationOtherUserId { get { return _notificationOtherUserId; } }
 
         public string NotificationToUserMailId { get { return _notificationToUserMailId; } }
 
         public string NotificationCCUserMailId { get { return _notificationCCUserMailId; } }
 
-
+        public string AWSAccessKey { get { return _AWSAccessKey; } }
+        public string AWSBucketName { get { return _AWSBucketName; } }
+        public string AWSSecretKey { get { return _AWSSecretKey; } }
+        public string AWSEnvironment { get { return _AWSEnvironment; } }
+        public string AWSImageQueueName { get { return _AWSImageQueueName; } }
+        public int SecurityHashLength { get { return _SecurityHashLength; } }
     }   // class
 }   // namespace

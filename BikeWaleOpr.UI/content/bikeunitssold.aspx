@@ -1,13 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.UnitSoldUpload" %>
 <%@ Register TagPrefix="Vspl" TagName="Calendar" Src="/controls/DateControl.ascx" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script type="text/javascript" src="/src/common/common.js?V1.1"></script>
 <script src="/src/bt.js"></script>
-
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
-
 <style type="text/css">          
 	       .successMessage { text-align:center;color:#008000; }
     </style>

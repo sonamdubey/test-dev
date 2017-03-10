@@ -1,20 +1,11 @@
 <%@ Page trace="false" Inherits="BikeWaleOpr.Content.BulkPriceUpload" AutoEventWireUp="false" Language="C#" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-
 <style type="text/css">
 	.divCont {padding:3px;}
 	.divCont h2{background-color:#F0F0F0; font-size:16px; padding:5px; }
 	.tblStock { border-collapse:collapse; border:1px solid #BDBDBD; font-family:Arial, Helvetica, sans-serif; font-size:12px;}
 	.tblStock th{background:#eeeeee; }
 </style>
-<script src="/src/AjaxFunctions.js"></script>
-<div class="urh">
-	You are here &raquo; <a href="/Contents/default.aspx">Contents</a> &raquo; Bulk Price Upload
-</div>
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
-
 <div class="left">
     <h1>Bulk Price Upload</h1>
     <fieldset>

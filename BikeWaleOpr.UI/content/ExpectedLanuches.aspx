@@ -6,11 +6,6 @@
 	.dvRed{color: #FF3300; font-weight:bold;}
     .alignCenter {text-align:center;}
 </style>
-<div class="urh">
-	You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Expected Bike Launches
-</div>
-<!-- #Include file="ContentsMenu.aspx" -->
-<script type="text/javascript" language="javascript" src="/src/AjaxFunctions.js"></script>
 <script type="text/javascript" language="javascript" src="/src/PopUpDiv.js"></script>
 
 <div class="left">
