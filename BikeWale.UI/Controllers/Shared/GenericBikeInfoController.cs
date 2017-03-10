@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL;
+using Bikewale.BAL.MVC.UI;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Models.Mobile.Videos;

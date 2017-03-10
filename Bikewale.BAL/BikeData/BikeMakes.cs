@@ -120,7 +120,7 @@ namespace Bikewale.BAL.BikeData
         }
 
 
-        public BikeMakeEntityBase GetScooterMakes()
+        public IEnumerable<BikeMakeEntityBase> GetScooterMakes()
         {
             throw new NotImplementedException();
         }
