@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Models.Shared
 {
+    /// <summary>
+    /// Created by : Aditi Srivastava on 9 Mar 2017
+    /// Summary    : Model for popular scooters widget
+    /// </summary>
     public class PopularScootersList
     {
         public int PageCatId { get; set; }
