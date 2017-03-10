@@ -132,6 +132,22 @@ namespace Bikewale.Controllers.Desktop.Scooters
         }
 
 
+        [Route("scooters/otherBrands/")]
+        public ActionResult OtherBrands(uint makeId)
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_IScooterCache, makeId, 9);
+            return View("~/views/shared/_otherbrands.cshtml", otherBrand);
+        }
+
+        [Route("m/scooters/otherBrands/")]
+        public ActionResult OtherBrandsMobile(uint makeId)
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_IScooterCache, makeId, 9);
+            return View("~/views/m/shared/_otherbrands.cshtml", otherBrand);
+        }
+
         /// <summary>
         /// Created by : Aditi Srivastava on 9 Mar 2017
         /// Summary    : get list of popular scooters
@@ -152,6 +168,5 @@ namespace Bikewale.Controllers.Desktop.Scooters
         {
             return View("~/views/m/scooters/bikesbymake.cshtml");
         }
-
     }
 }

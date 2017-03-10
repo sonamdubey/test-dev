@@ -33,5 +33,20 @@ namespace Bikewale.BAL.MVC.UI
             }
             return objBrand;
         }
+
+        public IEnumerable<BikeMakeEntityBase> GetOtherScooterBrands(IBikeMakesCacheRepository<int> IScooters, uint MakeId, ushort topCount)
+        {
+            IEnumerable<BikeMakeEntityBase> scooterBrand = null;
+            try
+            {
+                scooterBrand = IScooters.GetScooterMakes();
+                scooterBrand = scooterBrand.Where(x => x.MakeId != MakeId).Take(topCount);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass er = new ErrorClass(ex, string.Format("ScooterBrands.GetOtherScooterBrands(): MakeId {0}", MakeId));
+            }
+            return scooterBrand;
+        }
     }
 }

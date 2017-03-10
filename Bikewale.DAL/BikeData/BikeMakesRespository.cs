@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -566,7 +567,9 @@ namespace Bikewale.DAL.BikeData
                                         {
                                             MaskingName = Convert.ToString(dr["makemaskingname"]),
                                             MakeName = Convert.ToString(dr["makename"]),
-                                            MakeId = Convert.ToUInt16(dr["makeid"])
+                                            MakeId = SqlReaderConvertor.ToUInt16(dr["makeid"]),
+                                            IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["IsScooterOnly"]),
+                                            TotalCount = SqlReaderConvertor.ToUInt32(dr["ScooterCount"])
                                         }
                                     );
                             }
