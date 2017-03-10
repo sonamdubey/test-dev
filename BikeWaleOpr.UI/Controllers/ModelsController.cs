@@ -38,7 +38,7 @@ namespace BikewaleOpr.Controllers
                 IEnumerable<UsedBikeModelImageData> objBikeModelsImage = null;
                 if (makeId.HasValue && makeId.Value > 0)
                 {
-                    objBikeModelsImage = _modelsRepo.GetUsedBikeModelImageByMake((uint)makeId);
+                    objBikeModelsImage = _modelsRepo.GetUsedBikeModelImageByMake((uint)makeId.Value);
                 }
 
                 ViewBag.MakeList = _makesRepo.GetMakes("NEW");

@@ -16,7 +16,6 @@ namespace BikeWaleOpr.MVC.UI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("ajaxpro/{*pathInfo}");
             routes.IgnoreRoute("ajax/{*pathInfo}");
-            routes.IgnoreRoute("ajax/{*pathInfo}");
             routes.IgnoreRoute("m/default.aspx");
             routes.IgnoreRoute("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
 

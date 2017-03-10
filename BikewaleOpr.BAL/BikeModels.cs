@@ -26,27 +26,26 @@ namespace BikewaleOpr.BAL
         /// <returns></returns>
         public IEnumerable<UsedModelsByMake> GetPendingUsedBikesWithoutModelImage()
         {
-            IList<UsedModelsByMake> objBikesByMake = null;
+            IEnumerable<UsedModelsByMake> objBikesByMake = null;
             try
             {
                 IEnumerable<UsedBikeImagesModel> usedBikeList = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
-
-                if (usedBikeList != null && usedBikeList.Count() > 0)
+                objBikesByMake = new List<UsedModelsByMake>();
+                if (usedBikeList != null)
                 {
-                    objBikesByMake = new List<UsedModelsByMake>();
-                    usedBikeList.GroupBy(makesGroup => makesGroup.MakeId).ToList().ForEach(makesGroup =>
+                    var grpMakes = usedBikeList
+                        .GroupBy(m => m.MakeId);
+
+                    if (grpMakes != null)
                     {
-                        UsedModelsByMake objBike = new UsedModelsByMake();
-                        var firstModel = makesGroup.FirstOrDefault();
-                        objBike.MakeId = firstModel.MakeId;
-                        objBike.MakeName = firstModel.MakeName;
-                        objBike.ModelList = new List<string>();
-                        foreach (var bikeEntity in makesGroup)
-                        {
-                            objBike.ModelList.Add(bikeEntity.ModelName);
-                        }
-                        objBikesByMake.Add(objBike);
-                    });
+                        objBikesByMake = grpMakes
+                                        .Select(m => new UsedModelsByMake()
+                                        {
+                                            MakeId = m.FirstOrDefault().MakeId,
+                                            MakeName = m.FirstOrDefault().MakeName,
+                                            ModelList = m.Select(x => x.ModelName)
+                                        });
+                    }
                 }
             }
             catch (Exception ex)

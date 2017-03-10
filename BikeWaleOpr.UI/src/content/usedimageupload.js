@@ -5,13 +5,13 @@
 
     self.deleteUsedPhoto = function (d, e) {
         try {
-            var imagepath = $(e.currentTarget).attr('data-imagepath');            
+            var imagepath = $(e.currentTarget).data("imagepath");
             if (imagepath == "")
                 Materialize.toast('No image available', 4000);
             else {
-                if (confirm('Are you sure?')) {
-                    var modelId = $(e.currentTarget).attr('data-modelid');
-                    var modelName = $(e.currentTarget).attr('data-modelname');
+                if (confirm('Are you sure?')) {                    
+                    var modelId = $(e.currentTarget).data("modelid");
+                    var modelName = $(e.currentTarget).data("modelname");
                     $.ajax({
                         type: "POST",
                         url: "/api/used/modelimageupload/deleteusedbikemodelimage/" + modelId + "/",
@@ -45,18 +45,19 @@
                 if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
                     Materialize.toast('Invalid extension!', 4000);
                     return false;
-                }
+                }               
+                var modelId = $(e.currentTarget).data("modelid");
+                var modelName = $(e.currentTarget).data("modelname");
+                var makeName = $(e.currentTarget).data("makename");
+                var bikFullName = makeName + modelName;
+                var bikeName = bikFullName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-') + "-" + Date.now() + '.' + ext;
 
-                var modelId = $(e.currentTarget).attr('data-modelid');
-                var modelName = $(e.currentTarget).attr('data-modelname');
-                var bikeName = modelName.replace(/[^a-z0-9\s]/gi, '').replace(/[_\s]/g, '-') + "-" + Date.now() + '.' + ext;
-
-                var path = 'bw/' + environment + 'used/modelimages/' + bikeName;
-
+                var path = 'n/bw/' + $('#environment').val() + 'used/modelimages/' + bikeName;
+               
                 $.ajax({
                     type: "POST",
                     url: "/api/used/modelimageupload/fetchphotoid/",
-                    data: '{"Modelid":"' + modelId + '","UserId":' + userid + '}',
+                    data: '{"Modelid":"' + modelId + '","UserId":' + $("#userid").val() + '}',
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (data) {
@@ -96,7 +97,7 @@
         var imgUpldUtil = new ImageUploadUtility();
         imgUpldUtil.request = { "originalPath": path, "categoryId": 3, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
         imgUpldUtil.photoId = photoId;
-        imgUpldUtil.baseURL = bwOprHostUrl;
+        imgUpldUtil.baseURL = $('#bwOprHostUrl').val();
         file.type = "image/" + ext;
         imgUpldUtil.upload(file);
         $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));
@@ -111,9 +112,9 @@ var makeViewModel = function () {
     self.makeName = ko.observable("Select Make");
     self.makeId = ko.observable();
 
-    self.updateMake = function (data, event) {
-        self.makeName($(event.currentTarget).attr("data-makename"));
-        self.makeId($(event.currentTarget).attr("data-makeid"));
+    self.updateMake = function (data, event) {        
+        self.makeName($(event.currentTarget).data("makename"));
+        self.makeId($(event.currentTarget).data("makeid"));
     };
 
     self.validateMakeSubmit = function () {

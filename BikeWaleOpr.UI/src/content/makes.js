@@ -141,20 +141,16 @@ var makeViewModel = function () {
     self.updateMake = ko.observable(vmUpdateMake);
 
     self.setmakedata = function (e) {
-        ele = $(e.target).closest("tr");
-
+        ele = $(e.target).closest("tr");       
         var objMake = {
-            "makeId": ele.attr("data-makeId"),
-            "makeName": ele.attr("data-makeName"),
-            "maskingName": ele.attr("data-maskingname"),
-            "new": (ele.attr("data-new").toLowerCase()  == "true"),
-            "used": (ele.attr("data-used").toLowerCase() == "true"),
-            "futuristic": (ele.attr("data-futuristic").toLowerCase() == "true")
-        }
-
+            "makeId": $(ele[0]).data("makeid"),
+            "makeName": $(ele[0]).data("makename"),
+            "maskingName": $(ele[0]).data("maskingname"),
+            "new": ($(ele[0]).data("new").toLowerCase() == "true"),
+            "used": ($(ele[0]).data("used").toLowerCase() == "true"),
+            "futuristic": ($(ele[0]).data("futuristic").toLowerCase() == "true")
+        }        
         self.selectedMake(objMake);
-
-
     }
 
     self.selectedMake.subscribe(function () {

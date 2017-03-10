@@ -37,7 +37,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
                 // If customer id matches the user id from the config file then send the notification to the user
 
                 string[] allowedUsers = Bikewale.Utility.BWOprConfiguration.Instance.NotificationOtherUserId.Split(',');
-                if (allowedUsers.Length > 0 && allowedUsers.Contains(CurrentUser.Id))
+                if (allowedUsers != null && allowedUsers.Length > 0 && allowedUsers.Contains(CurrentUser.Id))
                 {
                     // Sold bike data updates
                     if (DateTime.Now.Day > 15)

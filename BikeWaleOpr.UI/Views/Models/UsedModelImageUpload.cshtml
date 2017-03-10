@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Upload Used Model Image";
-    ViewBag.PageTitle = "Upload Used Model Image";
+    ViewBag.PageTitle = "Bikewale Operations - Upload Used Model Image";
     IEnumerable<BikewaleOpr.Entities.BikeData.BikeMakeEntityBase> objMakeList = ViewBag.MakeList;
 }
 
@@ -42,13 +42,15 @@
                             </form>
                         </td>
                         <td>
-                            <button class="btn waves-effect waves-light uploadImage" data-modelid="@m.ModelId" data-modelname="@m.ModelName" data-bind="click : uploadUsedPhoto ">Upload</button>
+                            <button class="btn waves-effect waves-light uploadImage" data-makename="@m.MakeName" data-modelid="@m.ModelId" data-modelname="@m.ModelName" data-bind="click : uploadUsedPhoto ">Upload</button>
                         </td>
                         <td><a href="javascript:void(0)" id="deleteButton" data-imagepath="@m.OriginalImagePath" data-modelname="@m.ModelName" data-modelid="@m.ModelId" data-bind="click : deleteUsedPhoto "><i class="material-icons icon-red">delete</i></a></td>
                     </tr>
                 }
             </table>
         }
+        
+
     </div>
 
     <div class="col m3">
@@ -78,14 +80,11 @@
 
         </div>
     </div>
+    <input id="environment" value="@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment" type="text" hidden />
+    <input id="userid" value="@BikeWaleOpr.Common.CurrentUser.Id" type="text" hidden />
+    <input id="bwOprHostUrl" value="@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs" type="text" hidden />
+
 </div>
 
-
-<script type="text/javascript">
-    environment = '@Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment';
-    bwHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs';
-    userid = '@BikeWaleOpr.Common.CurrentUser.Id';
-    bwOprHostUrl = '@Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs';
-</script>
 <script src="/src/imageUpload.js"></script>
 <script src="~/src/content/usedimageupload.js"></script>

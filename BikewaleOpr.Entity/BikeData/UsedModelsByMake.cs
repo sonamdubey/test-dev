@@ -5,6 +5,6 @@ namespace BikewaleOpr.Entity.BikeData
 {
     public class UsedModelsByMake : BikeMakeEntityBase
     {
-        public IList<string> ModelList { get; set; }
+        public IEnumerable<string> ModelList { get; set; }
     }
 }
