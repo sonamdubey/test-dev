@@ -256,7 +256,7 @@
 
    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&sensor=false"></script>
         <script>
             $(function () {
 

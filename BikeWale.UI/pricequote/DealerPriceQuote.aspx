@@ -325,7 +325,7 @@
                                     <%if (isPremium)
                                       { %>
                                     <div class="grid-6 omega">
-                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&callback=initializeDealerMap" async defer></script>
 
                                         <div id="dealerMap" style="width: 438px; height: 202px; border: 1px solid #f5f5f5;"></div>
                                         <div id="get-direction-button" title="get directions">
