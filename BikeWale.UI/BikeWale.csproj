@@ -452,7 +452,6 @@
     <Compile Include="Controllers\m\Content\FeaturesController.cs" />
     <Compile Include="Controllers\m\Content\NewsController.cs" />
     <Compile Include="Controllers\m\new\NewLaunches\NewLaunchesController.cs" />
-    <Compile Include="Controllers\m\new\Scooters\ScootersController.cs" />
     <Compile Include="Controllers\m\new\Upcoming\UpcomingController.cs" />
     <Compile Include="Controllers\m\new\Videos\VideosMobileController.cs" />
     <Compile Include="Controllers\m\shared\GenericBikeInfoMobileController.cs" />
@@ -3368,7 +3367,6 @@
     <Content Include="Views\NewLaunches\_NewLaunchedBikes.cshtml" />
     <Content Include="Views\Videos\Details.cshtml" />
     <Content Include="Views\Shared\_SimilarVideo.cshtml" />
-    <Content Include="Views\m\Scooters\Index.cshtml" />
     <Content Include="Views\m\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\Shared\_GenericBikeInfoCard.cshtml" />
     <Content Include="Views\m\Videos\Makes.cshtml" />
@@ -3376,7 +3374,7 @@
     <Content Include="Views\m\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBikes.cshtml" />
     <Content Include="Views\Shared\_PopularBodyStyle.cshtml" />
-    <Content Include="Views\Scooters\Index.cshtml" />
+    <Content Include="Views\Scooters\index.cshtml" />
     <Content Include="Views\m\Shared\_PopularBodyStyle.cshtml" />
     <Content Include="Views\m\Videos\Details.cshtml" />
     <Content Include="Views\m\Shared\_GenericBikeInfoCard.cshtml" />
@@ -3385,7 +3383,6 @@
     <Content Include="Views\Shared\_makes.cshtml" />
     <Content Include="Views\Shared\_makeWithCount.cshtml" />
     <Content Include="Views\Shared\_newLaunches.cshtml" />
-    <Content Include="Views\Shared\_upcomings.cshtml" />
     <Content Include="Views\Shared\_popularBikesScooters.cshtml" />
     <Content Include="Views\Shared\_news.cshtml" />
     <Content Include="Views\Shared\_expertReviews.cshtml" />
@@ -3398,7 +3395,6 @@
     <Content Include="Views\m\Shared\_makes.cshtml" />
     <Content Include="Views\m\Shared\_makewithcount.cshtml" />
     <Content Include="Views\m\Shared\_newLaunches.cshtml" />
-    <Content Include="Views\m\Shared\_upcomings.cshtml" />
     <Content Include="Views\m\Shared\_popularBikesScooters.cshtml" />
     <Content Include="Views\m\Shared\_news.cshtml" />
     <Content Include="Views\m\Shared\_expertReviews.cshtml" />
@@ -3408,7 +3404,6 @@
     <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
     <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
     <Content Include="Views\m\Shared\_similarBikes.cshtml" />
-    <Content Include="Views\m\scooters\index.cshtml" />
     <Content Include="Views\m\scooters\models.cshtml" />
     <Content Include="Views\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\Shared\_Brands.cshtml" />
@@ -3429,6 +3424,7 @@
     <Folder Include="community\pms\" />
     <Folder Include="content\ComparisonTest\" />
     <Folder Include="Controllers\Content\" />
+    <Folder Include="Controllers\m\new\Scooters\" />
     <Folder Include="Models\" />
     <Folder Include="msmq\" />
     <Folder Include="m\dealerlocator\" />

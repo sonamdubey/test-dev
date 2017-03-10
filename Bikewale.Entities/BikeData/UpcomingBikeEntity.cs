@@ -3,6 +3,10 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Modified By :- Subodh Jain 09 March 2017
+    /// Summary :- added BodyStyleId
+    /// </summary>
     [Serializable, DataContract]
     public class UpcomingBikeEntity
     {
@@ -35,5 +39,7 @@ namespace Bikewale.Entities.BikeData
 
         [DataMember]
         public string BikeName { get; set; }
+        [DataMember]
+        public uint BodyStyleId { get; set; }
     }
 }
