@@ -79,7 +79,6 @@ namespace Bikewale.BindViewModels.Controls
                     container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
                     container.RegisterType<IBikeCompare, BikeCompareRepository>();
                     container.RegisterType<ICacheManager, MemcacheManager>();
-                    //var _objCompare = container.Resolve<IBikeCompare>();
                     var _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
 
                     topBikeCompares = _objCompareCache.CompareList(TotalRecords);
@@ -100,7 +99,6 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
         }
     }

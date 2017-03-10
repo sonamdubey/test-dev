@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
     Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
+    IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase> TopScootersCompares = ViewBag.TopScootersCompares;
 }
 
 <section>
@@ -323,8 +325,10 @@
                     }
                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                     {
-                    <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
-                    <li data-tabs="mctrlUpcomingBikes">Upcoming </li>
+                        <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
+                    @if (objUpcoming != null && objUpcoming.Count() > 0)
+                    {
+                    <li data-tabs="mctrlUpcomingBikes">Upcoming </li>}
                 </ul>
             </div>
             @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
@@ -334,122 +338,20 @@
                     @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
                 </div>
             }
-            <div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper discover-bike-carousel">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Kawasaki Ninja ZX-14R [2016]">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
-                                        <div class="text-light-grey margin-bottom5">
-                                            <p class="font11 text-light-grey">Expected launch</p>
-                                            <p class="font16 text-bold text-default">Feb 2016</p>
-                                        </div>
-                                        <div class="font11 text-light-grey">Expected Price</div>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">17,50,000</span>
-                                            <span class="font14 text-bold">onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Suzuki Hayate EP">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="http://imgd3.aeplcdn.com///174x98//bw/upcoming/suzuki-hayateep-705.jpg?20160104150238" alt="Suzuki Hayate EP" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Suzuki Hayate EP</h3>
-                                        <div class="text-light-grey margin-bottom5">
-                                            <p class="font11 text-light-grey">Expected launch</p>
-                                            <p class="font16 text-bold text-default">Apr 2016</p>
-                                        </div>
-                                        <div class="font11 text-light-grey">Expected Price</div>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">60,000</span>
-                                            <span class="font14 text-bold">onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Hero Dare">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com///174x98//bw/upcoming/hero-dare-560.jpg?20151209054851" alt="Hero Dare" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Hero Dare</h3>
-                                        <div class="text-light-grey margin-bottom5">
-                                            <p class="font11 text-light-grey">Expected launch</p>
-                                            <p class="font16 text-bold text-default">Sep 2016</p>
-                                        </div>
-                                        <div class="font11 text-light-grey">Expected Price</div>
-                                        <div class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">56,000</span>
-                                            <span class="font14 text-bold">onwards</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            @if (objUpcoming != null && objUpcoming.Count() > 0)
+            {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
+                @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
             </div>
+            }
         </div>
     </div>
 </section>
-
+@if (TopScootersCompares != null && TopScootersCompares.Count() > 0)
+{
 <section>
-    <h2 class="section-heading">Compare Scooters</h2>
-    <div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
-        <a href="" title="Bajaj Avenger 150 Street vs Benelli TNT 25" id="main-compare-bikes-target" class="main-compare-bikes-target">
-            <div class="grid-6">
-                <div class="comparison-image">
-                    <img class="lazy" data-original="https://imgd3.aeplcdn.com//144x81//bw/models/bajaj-avenger-150-street.jpg?20152710145912" alt="Bajaj Avenger 150 Street" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
-                </div>
-                <h3 class="font14 text-black margin-bottom5">Bajaj Avenger 150 Street</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">99,999</span>
-                    <span class="font12">onwards</span>
-                </div>
-                <p class="text-light-grey margin-bottom5 font12">Ex-showroom, Mumbai</p>
-            </div>
-            <div class="grid-6">
-                <div class="comparison-image">
-                    <img class="lazy" data-original="https://imgd4.aeplcdn.com//144x81//bw/models/benelli-tnt25.jpg?20152112153904" alt="Benelli TNT 25" src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" />
-                </div>
-                <h3 class="font14 text-black margin-bottom5">Benelli TNT 25</h3>
-                <div class="text-default text-bold">
-                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16">52,200</span>
-                    <span class="font12">onwards</span>
-                </div>
-                <p class="text-light-grey margin-bottom5 font12">Ex-showroom, Mumbai</p>
-            </div>
-            <div class="clear"></div>
-            <div class="margin-top10 text-center">
-                <span class="btn btn-orange">Compare now</span>
-            </div>
-        </a>
-        <div class="text-center margin-bottom10">
-            <a href="" class="font14">View more comparisons</a>
-        </div>
-    </div>
-    <div class="clear"></div>
+    @Html.Partial("~/Views/m/Shared/_popularComparisions.cshtml", TopScootersCompares)
 </section>
-
+}
 <div class="margin-bottom10"></div>
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
