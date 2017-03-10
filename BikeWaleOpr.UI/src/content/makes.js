@@ -45,6 +45,7 @@ var vmaddMake = new addMakeViewModel;
 var addSynopsis = function () {
     var self = this;
     self.makeSynopsis = ko.observable("");
+    self.makeScooterSynopsis = ko.observable("");
     self.selectedMake = ko.observable(null);
 
     self.getSynopsis = function () {
@@ -56,12 +57,15 @@ var addSynopsis = function () {
                 dataType: "json",
                 success: function (response) {
                     if (response != null) {
-                        self.makeSynopsis(response);
+                        self.makeSynopsis(response.BikeDescription);
+                        self.makeScooterSynopsis(response.ScooterDescription);
+                        Materialize.updateTextFields();
                     }
                 },
                 complete: function (xhr) {
                     if (xhr.status != 200) {
                         self.makeSynopsis("");
+                        self.makeScooterSynopsis("");
                     }
                 }
             });
@@ -70,12 +74,16 @@ var addSynopsis = function () {
 
     self.updateSynopsis = function () {
         if (self.selectedMake() != null && self.selectedMake().makeId > 0 && self.makeSynopsis() != "") {
+            var synopsisData = {
+                "ScooterDescription": self.makeScooterSynopsis(),
+                "BikeDescription": self.makeSynopsis()
+            }
             $.ajax({
                 type: "POST",
                 dataType: 'json',
                 url: "/api/makes/" + self.selectedMake().makeId + "/synopsis/",
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                data: '=' + encodeURIComponent(self.makeSynopsis()),
+                contentType: "application/json",
+                data: ko.toJSON(synopsisData),
                 complete: function (xhr) {
                     if (xhr.status == 200) {
                         Materialize.toast(self.selectedMake().makeName + " synopsis updated successfully", 5000);

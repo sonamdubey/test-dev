@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using Bikewale.Notifications;
-using BikewaleOpr.DALs.Bikedata;
+﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
-using Microsoft.Practices.Unity;
+using System;
+using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.Content
 {
@@ -27,6 +22,8 @@ namespace BikewaleOpr.Service.Controllers.Content
         /// <summary>
         /// Written By : Ashish G. Kamble
         /// Summary : API to get the synopsis for the given make
+        /// Modified By : Sajal Gupta on 10-03-2017
+        /// Description : Fetch scooter synopsis along with bike synopsis
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -35,51 +32,53 @@ namespace BikewaleOpr.Service.Controllers.Content
         {
             if (makeId > 0)
             {
-                string synopsis = string.Empty;
+                SynopsisData objSynopsis = null;
 
                 try
                 {
-                    synopsis = makesRepo.Getsynopsis(makeId);
+                    objSynopsis = makesRepo.Getsynopsis(makeId);
                 }
                 catch (Exception ex)
-                {                    
+                {
                     ErrorClass objErr = new ErrorClass(ex, "GetSynopsis");
-                    
+
                     return InternalServerError();
                 }
 
-                if (!String.IsNullOrEmpty(synopsis))
-                    return Ok(synopsis);
+                if (objSynopsis != null)
+                    return Ok(objSynopsis);
                 else
                     return NotFound();
             }
             else
-                return BadRequest();        
+                return BadRequest();
         }
 
         /// <summary>
         /// Writtten By : Ashish G. Kamble on 3 Feb 2017
         /// Summary : api to update the synopsis for the given make id
+        /// Modified By : Sajal Gupta on 10-03-2017
+        /// Description : Save scooter synopsis along with bike synopsis
         /// </summary>
         /// <param name="makeId">null not allowed</param>
         /// <param name="synopsis">null not allowed</param>
         /// <returns></returns>
         [HttpPost, Route("api/makes/{makeid}/synopsis/")]
-        public IHttpActionResult SaveSynopsis(int makeId, [FromBody] string synopsis)
+        public IHttpActionResult SaveSynopsis(int makeId, [FromBody] SynopsisData objSynopsis)
         {
-            if (makeId > 0 && !String.IsNullOrEmpty(synopsis))
+            if (makeId > 0 && !String.IsNullOrEmpty(objSynopsis.BikeDescription))
             {
                 try
                 {
                     int userId = 0;
                     int.TryParse(Bikewale.Utility.OprUser.Id, out userId);
 
-                    makesRepo.UpdateSynopsis(makeId, synopsis, userId);
+                    makesRepo.UpdateSynopsis(makeId, userId, objSynopsis);
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, "SaveSynopsis");
-                    
+
                     return InternalServerError();
                 }
             }

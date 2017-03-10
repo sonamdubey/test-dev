@@ -73,7 +73,7 @@ namespace Bikewale.Utility
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
-        private readonly int _SecurityHashLength = 0;
+        private readonly int _SecurityHashLength = 0, _UnitSoldDataNotificationDay;
 
         // Private constructor, so no outsiders have access.
         private BWOprConfiguration()
@@ -136,6 +136,7 @@ namespace Bikewale.Utility
             _AWSEnvironment = ConfigurationManager.AppSettings["AWSEnvironment"];
             _AWSImageQueueName = ConfigurationManager.AppSettings["AWSImageQueueName"];
             _SecurityHashLength = Convert.ToInt32(ConfigurationManager.AppSettings["SecurityHashLength"]);
+            _UnitSoldDataNotificationDay = Convert.ToInt32(ConfigurationManager.AppSettings["unitSoldDataNotificationDay"]);
         }
 
         // Static method to provide access to instance
@@ -272,5 +273,6 @@ namespace Bikewale.Utility
         public string AWSEnvironment { get { return _AWSEnvironment; } }
         public string AWSImageQueueName { get { return _AWSImageQueueName; } }
         public int SecurityHashLength { get { return _SecurityHashLength; } }
+        public int UnitSoldDataNotificationDay { get { return _UnitSoldDataNotificationDay; } }
     }   // class
 }   // namespace

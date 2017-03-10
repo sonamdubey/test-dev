@@ -40,7 +40,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
                 if (allowedUsers != null && allowedUsers.Length > 0 && allowedUsers.Contains(CurrentUser.Id))
                 {
                     // Sold bike data updates
-                    if (DateTime.Now.Day > 15)
+                    if (DateTime.Now.Day > Bikewale.Utility.BWOprConfiguration.Instance.UnitSoldDataNotificationDay)
                     {
                         SoldUnitData dataObj = _IBikeModelRepo.GetLastSoldUnitData();
                         if (dataObj != null)

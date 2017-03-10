@@ -2,42 +2,43 @@
     ViewBag.Title = "Manage Bike Makes";
     ViewBag.PageTitle = "Manage Bike Makes";
 }
-<div class="row" style="margin-top:5px;">    
+<div class="row" style="margin-top:5px;">
     <div class="col m10">
-        @using(Html.BeginForm()){
-        <table id="tblMakeData" class="bordered highlight z-depth-3 centered responsive-table">
-            <tr>
-                <th>Make Id</th>
-                <th>Make Name</th>
-                <th>Make Masking Name</th>                
-                <th>Futuristic</th>
-                <th>New</th>
-                <th>Used</th>                
-                <th>Synopsis</th>
-                <th>Edit</th>
-                <th>Delete</th>
-                <th>Created On</th>
-                <th>Last Updated</th>
-                <th>UpdatedBy</th>
-            </tr>
-            @foreach (var m in Model)
-            {
-                <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)">
-                    <td>@m.MakeId</td>
-                    <td class="@(m.New && m.Used ? "teal lighten-4" : (m.Futuristic) ? "lime lighten-4" : "red lighten-4")"> @m.MakeName</td>
-                    <td>@m.MaskingName</td>
-                    <td><i class="material-icons @((m.Futuristic) ? "icon-green" : "icon-red")">@((m.Futuristic) ? "done" : "close")</i></td>
-                    <td><i class="material-icons @((m.New) ? "icon-green" : "icon-red")">@((m.New) ? "done" : "close")</i></td>
-                    <td><i class="material-icons @((m.Used) ? "icon-green" : "icon-red")">@((m.Used) ? "done" : "close")</i></td>
-                    <td><a href="#!" data-target="modal-make-synopsis" data-bind="event : {click : function(d,e) { setmakedata(e); synopsis().getSynopsis() }}"><i class="material-icons icon-green">add_circle</i></a></td>
-                    <td><a href="#!" data-target="modal-make-update" data-bind="event : {click : function(d,e) { setmakedata(e)}}"><i class="material-icons icon-blue">mode_edit</i></a></td>
-                    <td><a href="/Makes/Delete/?makeId=@m.MakeId" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
-                    <td>@m.CreatedOn</td>
-                    <td>@m.UpdatedOn</td>
-                    <td>@m.UpdatedBy</td>
+        @using (Html.BeginForm())
+        {
+            <table id="tblMakeData" class="bordered highlight z-depth-3 centered responsive-table">
+                <tr>
+                    <th>Make Id</th>
+                    <th>Make Name</th>
+                    <th>Make Masking Name</th>
+                    <th>Futuristic</th>
+                    <th>New</th>
+                    <th>Used</th>
+                    <th>Synopsis</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Created On</th>
+                    <th>Last Updated</th>
+                    <th>UpdatedBy</th>
                 </tr>
-            }
-        </table>
+                @foreach (var m in Model)
+                {
+                    <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)">
+                        <td>@m.MakeId</td>
+                        <td class="@(m.New && m.Used ? "teal lighten-4" : (m.Futuristic) ? "lime lighten-4" : "red lighten-4")"> @m.MakeName</td>
+                        <td>@m.MaskingName</td>
+                        <td><i class="material-icons @((m.Futuristic) ? "icon-green" : "icon-red")">@((m.Futuristic) ? "done" : "close")</i></td>
+                        <td><i class="material-icons @((m.New) ? "icon-green" : "icon-red")">@((m.New) ? "done" : "close")</i></td>
+                        <td><i class="material-icons @((m.Used) ? "icon-green" : "icon-red")">@((m.Used) ? "done" : "close")</i></td>
+                        <td><a href="#!" data-target="modal-make-synopsis" data-bind="event : {click : function(d,e) { setmakedata(e); synopsis().getSynopsis() }}"><i class="material-icons icon-green">add_circle</i></a></td>
+                        <td><a href="#!" data-target="modal-make-update" data-bind="event : {click : function(d,e) { setmakedata(e)}}"><i class="material-icons icon-blue">mode_edit</i></a></td>
+                        <td><a href="/Makes/Delete/?makeId=@m.MakeId" onclick="return confirm('Are you sure?')"><i class="material-icons icon-red">delete</i></a></td>
+                        <td>@m.CreatedOn</td>
+                        <td>@m.UpdatedOn</td>
+                        <td>@m.UpdatedBy</td>
+                    </tr>
+                }
+            </table>
         }
     </div>
     @using (Html.BeginForm("Add", "Makes", FormMethod.Post))
@@ -68,7 +69,7 @@
         </div>
     }
     <style type="text/css">
-        .modal { width: 35% !important ; }
+        .modal { width: 35% !important; }
     </style>
     <!-- Modal Structure -->
     <div id="modal-make-update" class="modal" data-bind="with : updateMake">
@@ -79,7 +80,7 @@
                 <div>
                     <div class="input-field row m12">
                         <input id="txtUMakeName" type="text" class="validate" name="makeName" data-bind="textInput: makeName ">
-                        <label for="txtUMakeName">Make Name</label>                        
+                        <label for="txtUMakeName">Make Name</label>
                     </div>
                     <div class="input-field row m12">
                         <input id="txtUMakeMaskingName" type="text" class="validate" name="maskingName" data-bind="textInput: makeMaskingName">
@@ -102,13 +103,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a  class=" modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { updateMakeDetails() }}" id="btnUpdateMake" style="margin-left:5px;">Update</a>
+                <a class=" modal-action modal-close waves-effect waves-green teal white-text btn-flat" data-bind="event : {click : function() { updateMakeDetails() }}" id="btnUpdateMake" style="margin-left:5px;">Update</a>
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         }
     </div>
     <!-- Modal Structure -->
-    <div id="modal-make-synopsis" class="modal" data-bind="with : synopsis">        
+    <div id="modal-make-synopsis" class="modal" data-bind="with : synopsis">
         <div class="modal-content">
             <h4>Update <span data-bind="text: selectedMake() ? selectedMake().makeName : 'Make'"></span> Synopsis</h4>
             <div>
@@ -116,17 +117,20 @@
                     <textarea id="txtSynopsis" name="synopsis" class="materialize-textarea" length="3000" maxlength="3000" data-bind="textInput: makeSynopsis"></textarea>
                     <label for="txtSynopsis">Make Synopsis</label>
                 </div>
+                <div class="input-field row m12">
+                    <textarea id="txtScooterSynopsis" name="scooterSynopsis" class="materialize-textarea" length="3000" maxlength="3000" data-bind="textInput: makeScooterSynopsis"></textarea>
+                    <label for="txtScooterSynopsis">Scooter Synopsis</label>
+                </div>
                 <input type="hidden" id="hdnUpdateMakeId" name="makeId" />
             </div>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green teal white-text btn-flat" style="margin-left:5px;" id="btnUpdateSynopsis" data-bind="event : {click : function(d,e) { synopsis().updateSynopsis() }}">Update</a>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-        </div>        
+        </div>
     </div>
     <script type="text/javascript">
         msg = '@ViewBag.SuccessMsg';
     </script>
     <script src="~/src/content/makes.js"></script>
 </div>
-
