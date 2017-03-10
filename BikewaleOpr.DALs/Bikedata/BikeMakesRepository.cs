@@ -1,15 +1,16 @@
 ﻿
+using Bikewale.DAL.CoreDAL;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Bikewale.DAL.CoreDAL;
-using Dapper;
 using System.Linq;
 
 namespace BikewaleOpr.DALs.Bikedata
@@ -195,26 +196,30 @@ namespace BikewaleOpr.DALs.Bikedata
 
         /// <summary>
         /// Function to get the make synopsis from database
+        /// Modified by : Sajal gupta on 10-03-2017
+        /// Description : Fetch scooter synopsis
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        public string Getsynopsis(int makeId)
+        public SynopsisData Getsynopsis(int makeId)
         {
-            string synopsis = string.Empty;
+            SynopsisData objSynopsis = null;
 
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
+                    objSynopsis = new SynopsisData();
                     connection.Open();
 
                     var param = new DynamicParameters();
 
                     param.Add("par_makeid", makeId);
 
-                    dynamic temp = connection.Query<dynamic>("getmakesynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    dynamic temp = connection.Query<dynamic>("getmakesynopsis_10032017", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
-                    synopsis = ReferenceEquals(null, temp) ? string.Empty : temp.description;
+                    objSynopsis.BikeDescription = ReferenceEquals(null, temp) ? string.Empty : temp.description;
+                    objSynopsis.ScooterDescription = ReferenceEquals(null, temp) ? string.Empty : temp.scooterdescription;
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
@@ -225,17 +230,19 @@ namespace BikewaleOpr.DALs.Bikedata
                 ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.DALs.Bikedata.Getsynopsis");
             }
 
-            return synopsis;
+            return objSynopsis;
         }
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 3 Feb 2017
         /// Summary : Function to update the synopsis for the given make
+        /// Modified by : Sajal gupta on 10-03-2017
+        /// Description : Save scooter synopsis
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="synopsis"></param>
         /// <param name="updatedBy"></param>
-        public void UpdateSynopsis(int makeId, string synopsis, int updatedBy)
+        public void UpdateSynopsis(int makeId, int updatedBy, SynopsisData objSynopsis)
         {
             try
             {
@@ -246,10 +253,14 @@ namespace BikewaleOpr.DALs.Bikedata
                     var param = new DynamicParameters();
 
                     param.Add("par_makeid", makeId);
-                    param.Add("par_discription", synopsis);
                     param.Add("par_userid", updatedBy);
+                    if (objSynopsis != null)
+                    {
+                        param.Add("par_discription", objSynopsis.BikeDescription);
+                        param.Add("par_scootersynopsis", objSynopsis.ScooterDescription);
+                    }
 
-                    connection.Query("managemakesynopsis", param: param, commandType: CommandType.StoredProcedure);
+                    connection.Query("managemakesynopsis_10032017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (connection.State == ConnectionState.Open)
                         connection.Close();
