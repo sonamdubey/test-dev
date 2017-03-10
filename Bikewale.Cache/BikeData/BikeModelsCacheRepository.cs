@@ -1289,13 +1289,28 @@ namespace Bikewale.Cache.BikeData
             return bikes;
         }
 
-
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        /// <summary>
+        /// Created By : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : Return list of popular scooters
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint?cityId)
         {
-            throw new NotImplementedException();
+            string key = String.Format("BW_MostPopularScooters_topCount_{0}",topCount);
+            if (cityId != null)
+                key = string.Format("{0}_CityId_{1}", key, cityId.Value);
+            IEnumerable<MostPopularBikesBase> popularScooters = null;
+            try
+            {
+                popularScooters = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetMostPopularScooters(topCount, cityId));
+            }
+            catch(Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+            }
+            return popularScooters;
         }
 
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
         {
             throw new NotImplementedException();
         }

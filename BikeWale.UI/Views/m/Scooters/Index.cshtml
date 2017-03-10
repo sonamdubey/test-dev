@@ -1,7 +1,9 @@
-﻿@{
+﻿@using Bikewale.Entities.BikeData;
+@{
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
+    Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
 }
 
 <section>
@@ -315,81 +317,17 @@
         <div class="bw-tabs-panel">
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
-                    <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+                    {
+                        <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    }
                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                     {
                     <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>
                 </ul>
             </div>
-            <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper discover-bike-carousel">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda CB Hornet 160R">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com//174x98//bw/models/honda-cb-hornet-160r.jpg?20151012195209" title="Honda CB Hornet 160R" alt="Honda CB Hornet 160R" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB Hornet 160R</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">86,041</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Bajaj Dominar 400">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd5.aeplcdn.com//174x98//bw/models/bajaj-dominar400.jpg?20161512143417" title="Bajaj Dominar 400" alt="Bajaj Dominar 400" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj Dominar 400</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">1,44,069</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Activa 3G">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//174x98//bw/models/honda-activa-3g-standard-806.jpg?20151209184243" title="Honda Activa 3G" alt="Honda Activa 3G" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 3G</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">54,609</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
             @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
             {
                 <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
