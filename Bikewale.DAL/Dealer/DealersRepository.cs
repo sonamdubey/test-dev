@@ -364,7 +364,7 @@ namespace Bikewale.DAL.Dealer
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
 
-                        status = Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
+                        status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
                 }
             }

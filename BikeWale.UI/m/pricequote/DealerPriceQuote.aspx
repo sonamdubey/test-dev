@@ -312,7 +312,7 @@
 
 					<%if (dealerType == Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium)
 					  { %>
-					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+					<script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&callback=initializeDealerMap" async defer></script>
 					<div id="dealerMap" style="height: 94px; position: relative; text-align: center">
 						<img src="https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
 					</div>

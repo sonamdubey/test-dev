@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
-
 <!-- Lead Capture pop up start  -->
 <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
     <div class="popup-inner-container text-center">
@@ -39,13 +38,13 @@
                     <input type="text" id="getFullName" data-bind="textInput: fullName">
                     <label for="getFullName">Name<sup>*</sup></label>
                     <span class="boundary"></span>
-                    <span class="error-text"></span>
+                    <span class="error-text hide"></span>
                 </div>
                 <div class="input-box form-control-box margin-bottom15">
                     <input type="email" id="getEmailID" data-bind="textInput: emailId">
                     <label for="getEmailID">Email<sup>*</sup></label>
                     <span class="boundary"></span>
-                    <span class="error-text"></span>
+                    <span class="error-text hide"></span>
                 </div>
 
                 <div class="input-box input-number-box form-control-box margin-bottom15">
@@ -53,14 +52,14 @@
                     <label for="getMobile">Mobile number<sup>*</sup></label>
                     <span class="input-number-prefix">+91</span>
                     <span class="boundary"></span>
-                    <span class="error-text"></span>
+                    <span class="error-text hide"></span>
                 </div>
 
                 <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                     <input type="text" id="getPinCode" autocomplete="off">
                     <label for="getPinCode">Pincode<sup>*</sup></label>
                     <span class="boundary"></span>
-                    <span class="error-text"></span>
+                    <span class="error-text hide"></span>
 
                     <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
                         <li class="ui-menu-item" tabindex="-1">
@@ -760,7 +759,7 @@
                 success: function (data) {
                     if (data && data.suggestionList.length > 0) {
                         $('#getPinCode').val(data.suggestionList[0].text);
-                        self.pincode(data.suggestionList[0].payload.pinCode);
+                        self.pincode(data.suggestionList[0].payload.pinCodeId);
                         isValid = true;
                     }
                     else {
@@ -833,7 +832,7 @@
             var elementLength = element.val().length,
                 errorTag = element.siblings('span.error-text');
 
-            errorTag.text(message);
+            errorTag.show().text(message);
             if (!elementLength) {
                 element.closest('.input-box').removeClass('not-empty').addClass('invalid');
             }
@@ -844,7 +843,7 @@
 
         hideError: function (element) {
             element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-            element.siblings('span.error-text').text('');
+            element.siblings('span.error-text').text('').hide();
         },
 
         onFocus: function (inputField, popupContainer) {

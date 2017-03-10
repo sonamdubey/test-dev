@@ -673,7 +673,7 @@
                 success: function (data) {
                     if (data && data.suggestionList.length > 0) {
                         $('#getPinCode').val(data.suggestionList[0].text);
-                        self.pincode(data.suggestionList[0].payload.pinCode)
+                        self.pincode(data.suggestionList[0].payload.pinCodeId);
                         isValid = true;
                     }
                     else {
