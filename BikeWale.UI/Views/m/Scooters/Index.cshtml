@@ -316,7 +316,10 @@
         <div class="bw-tabs-panel">
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
-                    <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+                    {
+                        <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    }
                     <li data-tabs="mctrlNewLaunchedBikes">New launches</li>
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>
                 </ul>

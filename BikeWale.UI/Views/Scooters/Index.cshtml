@@ -255,10 +255,13 @@
             <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul>
-                        <li class="active" data-tabs="ctrlMostPopularBikes">
-                            <h3>Most Popular</h3>
+                    @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                    { 
+                         <li class="active" data-tabs="ctrlMostPopularBikes">
+                          <h3>Most Popular</h3>
                         </li>
-                        <li data-tabs="ctrlNewLaunchedBikes">
+                    }
+                          <li data-tabs="ctrlNewLaunchedBikes">
                             <h3>New launches</h3>
                         </li>
                         <li data-tabs="ctrlUpcomingBikes">
