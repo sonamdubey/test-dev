@@ -6,6 +6,8 @@ namespace BikeWaleOpr.MVC.UI
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : Class to register all the MVC routes
+    /// Modified By : Sajal Gupta 
+    /// Summary : Api routing for mvc + other controllers
     /// </summary>
     public class RouteConfig
     {
@@ -20,9 +22,9 @@ namespace BikeWaleOpr.MVC.UI
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-                name: "Default.Opr.UI",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                    name: "Default.Opr.UI",
+                    url: "{controller}/{action}",
+                    defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

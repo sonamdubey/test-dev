@@ -1,14 +1,19 @@
 ﻿using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.BAL.Images;
+using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DALs.BikeColorImages;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.ContractCampaign;
+using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
+using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
+using BikewaleOpr.Interface.Security;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
@@ -22,6 +27,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Summary : Added color bike repository
     /// Modified by :   Sumit Kate on 18 jan 2017
     /// Description :   Register IDealerCampaignRepository
+    /// Modified by : Sajal Gupta on 03-03-2017
+    /// Description : Register IBikeModels
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -40,7 +47,10 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IColorImagesBikeRepository, ColorImagesBikeRepository>();
             container.RegisterType<IDealerCampaignRepository, DealerCampaignRepository>();
             container.RegisterType<IBikeMakes, BikeMakesRepository>();
-
+            container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+            container.RegisterType<IImage, ImageBL>();
+            container.RegisterType<IImageRepository, ImageRepository>();
+            container.RegisterType<ISecurity, SecurityBL>();
             return container;
         }
     }

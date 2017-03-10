@@ -94,6 +94,42 @@ var addSynopsis = function () {
 }
 var vmAddSynopsis = new addSynopsis;
 
+
+/* Update bike make details */
+var updateBikeMake = function () {
+    var self = this;   
+    self.selectedMake = ko.observable(null); 
+    self.makeName = ko.observable("");
+    self.makeMaskingName = ko.observable("");   
+
+    self.updateMakeDetails = function () {
+        var isValid = true;
+
+        if (self.makeName() == "") {
+            Materialize.toast("Invalid make name", 5000);
+            isValid = false;
+        }
+
+        if (self.makeMaskingName() == "") {
+            Materialize.toast("Invalid make masking name", 5000);
+            isValid = false;
+        }
+        
+        if (isValid) {
+            $('input[type=checkbox]').each(function () {
+                $(this).val($(this).is(':checked'))
+            });
+            $('form').submit();
+        }
+        
+        return isValid;
+    }
+}
+
+var vmUpdateMake = new updateBikeMake;
+
+
+
 /* make table view model */
 var makeViewModel = function () {
     var self = this;
@@ -102,25 +138,28 @@ var makeViewModel = function () {
 
     self.synopsis = ko.observable(vmAddSynopsis);
     self.addMake = ko.observable(vmaddMake);
+    self.updateMake = ko.observable(vmUpdateMake);
 
     self.setmakedata = function (e) {
-        ele = $(e.target).closest("tr");
-
+        ele = $(e.target).closest("tr");       
         var objMake = {
-            "makeId": ele.attr("data-makeId"),
-            "makeName": ele.attr("data-makeName"),
-            "maskingName": ele.attr("data-maskingname"),
-            "new": ele.attr("data-new"),
-            "used": ele.attr("data-used"),
-            "futuristic": ele.attr("data-futuristic")
-        }
-
+            "makeId": $(ele[0]).data("makeid"),
+            "makeName": $(ele[0]).data("makename"),
+            "maskingName": $(ele[0]).data("maskingname"),
+            "new": ($(ele[0]).data("new").toLowerCase() == "true"),
+            "used": ($(ele[0]).data("used").toLowerCase() == "true"),
+            "futuristic": ($(ele[0]).data("futuristic").toLowerCase() == "true")
+        }        
         self.selectedMake(objMake);
     }
 
     self.selectedMake.subscribe(function () {
         if (self.selectedMake) {
             self.synopsis().selectedMake(self.selectedMake());
+            self.updateMake().selectedMake(self.selectedMake());
+            self.updateMake().makeName(self.selectedMake().makeName);
+            self.updateMake().makeMaskingName(self.selectedMake().maskingName);
+            Materialize.updateTextFields();
         }
     });
 }

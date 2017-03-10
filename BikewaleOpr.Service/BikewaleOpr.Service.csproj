@@ -131,11 +131,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
     <Compile Include="Controllers\DealersController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Global.asax.cs">
