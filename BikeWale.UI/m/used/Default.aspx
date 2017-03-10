@@ -17,7 +17,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body>
+<body class="page-type-landing">
     <form id="form1" runat="server">
         <% if(viewModel!= null){ %>
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
@@ -93,9 +93,9 @@
         </section>
         <% if( viewModel.TopMakeList!= null ){  %>
         <section>
-            <div class="container text-center section-container">
+            <div class="container text-center section-container collapsible-brand-content">
                 <h2 class="font18 section-heading">Search used bikes by brands</h2>
-                <div class="bg-white box-shadow brand-type-container content-inner-block-20">
+                <div id="brand-type-container" class="bg-white box-shadow brand-type-container content-inner-block-20">
                     <ul id="main-brand-list">
                         <% foreach(var bike in viewModel.TopMakeList){ %>    
                         <li>
@@ -123,8 +123,8 @@
                         <% } %>
                     </ul>
                   
-                    <div class="text-center">
-                        <a href="javascript:void(0)" id="more-brand-tab" class="font14" rel="nofollow">View more brands</a>
+                    <div class="view-all-btn-container">
+                        <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                     </div>
                       <%} %>
                 </div>

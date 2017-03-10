@@ -69,8 +69,8 @@
                             </ul>
                         </div>
 
-                        <div class="bw-tabs-data" id="discoverBrand">
-                            <div class="brand-type-container">
+                        <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                            <div id="brand-type-container" class="brand-type-container">
                                 <ul class="text-center">
                                     <asp:Repeater ID="rptPopularBrand" runat="server">
                                         <ItemTemplate>
@@ -101,8 +101,8 @@
 
                                 </ul>
                             </div>
-                            <div class="view-brandType text-center clear">
-                                <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
+                            <div class="view-all-btn-container">
+                                <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
@@ -420,13 +420,6 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
             
-            $("a.view-more-btn").click(function (e) {
-                e.preventDefault();
-                var a = $(this).parent().parent().find("ul.brand-style-moreBtn");
-                a.slideToggle();
-                $("html, body").animate({ scrollTop: $("#discoverBikesContainer").offset().top }, 1000);
-                $(this).text($(this).text() == 'View more brands' ? 'View less brands' : 'View more brands');
-            });
             $("ul.brand-budget-mileage-style-UL li").click(function () {
                 $("ul.brand-style-moreBtn").slideUp();
             });

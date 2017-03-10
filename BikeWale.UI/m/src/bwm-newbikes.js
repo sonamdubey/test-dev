@@ -7,13 +7,4 @@ $(document).ready(function(){
 			$('.header-fixed').removeClass('header-fixed-with-bg');
 		}
 	});
-	
-	$("#more-brand-tab").click(function(e) {
-		e.preventDefault();
-		var a = $(this).parent().parent().find("#more-brand-nav");
-		a.slideToggle();
-		$("html, body").animate({ scrollTop: $(".brand-type-container").offset().top }, 1000);
-		var b = $(this).find("span");
-		b.text(b.text() === "more" ? "less" : "more");
-	});
 });

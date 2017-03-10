@@ -25,7 +25,7 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -41,9 +41,9 @@
         <section class="container">
             <!-- Brand section code starts here -->
             <div class="grid-12">
-                <div class="bg-white brand-wrapper content-box-shadow margin-minus60">
+                <div class="bg-white brand-wrapper content-box-shadow margin-minus60 padding-bottom20 collapsible-brand-content">
                     <h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
-                    <div class="brand-type-container">
+                    <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                             <asp:Repeater ID="rptPopularBrand" runat="server">
                                 <ItemTemplate>
@@ -73,8 +73,8 @@
                             </asp:Repeater>
                         </ul>  
                     </div>
-                    <div class="text-center padding-bottom20">
-                        <a href="javascript:void(0)" id="more-brand-tab" class="view-more-btn font16">View <span>more</span> Brands</a>
+                    <div class="view-all-btn-container">
+                        <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
             </div>
@@ -276,7 +276,6 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             ga_pg_id = '4';
             $("img.lazy").lazyload();
