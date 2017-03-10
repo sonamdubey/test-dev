@@ -1,12 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.ManageDealers" AsyncTimeout="45" Async="true" %>
 <%@ import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script src="https://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
-<script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
-<script src="/src/knockout.js" type="text/javascript"></script>
-<link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />
+<%--<script src="https://st1.aeplcdn.com/bikewale/src/frameworks.js?01July2016v1" type="text/javascript"></script>--%>
+<%--<link href="https://st2.aeplcdn.com/bikewale/css/chosen.min.css?v15416" rel="stylesheet" />--%>
 
 <style type="text/css">
     .greenMessage {
@@ -76,12 +72,6 @@
         background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
 </style>
-<div>
-    You are here &raquo; Edit Dealer Campaigns
-</div>
-<div>
-    <!-- #Include file="/content/DealerMenu.aspx" -->
-</div>
 <div>
     <fieldset class="margin-left10">
         <a id='backbutton' href="javascript:void(0)">Back to Manage Campaigns Page</a>

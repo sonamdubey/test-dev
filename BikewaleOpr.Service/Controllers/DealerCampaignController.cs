@@ -26,7 +26,7 @@ namespace BikewaleOpr.Service.Controllers
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        [HttpGet, Route("api/dealermakes/")]
+        [HttpGet, Route("api/dealermakes/city/{cityId}/")]
         public IHttpActionResult MakesByDealerCity(uint cityId)
         {
             try
@@ -98,7 +98,7 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
         /// <returns></returns>
-        [HttpGet, Route("api/dealercampaigns/")]
+        [HttpGet, Route("api/dealercampaigns/dealer/{dealerId}/")]
         public IHttpActionResult DealerCampaigns(uint dealerId, bool activecontract = false)
         {
             try

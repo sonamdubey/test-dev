@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="false" %>
-
 <%@ Import Namespace="BikeWaleOpr.Classified" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/controls/LinkPagerControl.ascx" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
@@ -10,29 +9,24 @@
         font-weight: bold;
     }
 </style>
-<div class="urh">
-    You are here &raquo; Classified &raquo; Verify Customer Listings
-</div>
-<div>
-    <!-- #Include file="classifiedMenu.aspx" -->
-</div>
 
-<div>
-    <table>
-        <tr>
-            <td>Search by Profile Id:</td>
-            <td class="floatLeft margin-left10">
-                <asp:textbox id="txtProfileId" runat="server" width="95%" />
-            </td>
-            <td><asp:button id="btnSearch" text="Search" runat="server" /></td>
-            <td><asp:Label runat="server" ID="lblErrorMessage" class="errorMessage" Text="Profile Id not found."></asp:Label></td>
-        </tr>
-    </table>
-</div>
 
 <div class="left">
-    <b>Verify Customer Listings</b>
-    <table id="VerifyCustomerListings" class="margin-top10" cellpadding="5" border="1" style="text-align: center; font-size: 11px; border-style: solid; border-collapse: collapse;">
+    <div>
+        <h1>Manage Used Bike Listings</h1>
+        <table class="margin-top10 margin-bottom10">
+            <tr>
+                <td>Search by Profile Id:</td>
+                <td>
+                    <asp:textbox id="txtProfileId" runat="server" />
+                </td>
+                <td><asp:button id="btnSearch" text="Search" runat="server" /></td>
+                <td><asp:Label runat="server" ID="lblErrorMessage" class="errorMessage" Text="Profile Id not found."></asp:Label></td>
+            </tr>
+        </table>
+    </div>
+    <h3>Verify Customer Listings</h3>
+    <table id="VerifyCustomerListings" class="margin-top10 table-bordered" cellpadding="5" border="1" style="text-align: center; font-size: 11px; border-style: solid; border-collapse: collapse;">
         <tbody>
             <tr class="dtHeader">
                 <th>Customer Id</th>
@@ -43,7 +37,7 @@
                 <th>Fake Listings</th>
                 <th>Mobile Unverified Listings</th>
                 <th>Sold Listings</th>
-                <th style="max-width: 100px">IsFake customer?<input type="button" id="btnFakeCustomer" value="Mark Fake" /></th>
+                <th style="max-width: 100px"><div>Is Fake customer?</div><input type="button" id="btnFakeCustomer" value="Mark Fake" style="margin-top:5px;"/></th>
             </tr>
             <asp:repeater id="rptCustomerList" runat="server">
                 <ItemTemplate>

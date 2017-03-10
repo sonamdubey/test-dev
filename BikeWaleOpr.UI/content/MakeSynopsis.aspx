@@ -34,14 +34,5 @@
         </div>	
     </div>
     </form>
-   <%-- <script type="text/javascript">
-        $("#btnSave").click(function () {
-            alert($('#makeDescription').html());
-            if ($('#makeDescription').val().trim() == "") {
-                alert("Enter Description");
-                return false;
-            }
-        });
-    </script>--%>
 </body>
 </html>

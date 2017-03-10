@@ -1,11 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="BikeWaleOpr.Content.ManageUserReviews" AutoEventWireup="false" Trace="false" Debug="false" EnableEventValidation="false" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div class="urh">
-		You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Manage User Reviews
-</div>
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
 <div class="left">
     <h3>Manage Reviews</h3>
     <div class="margin-top10">

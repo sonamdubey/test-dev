@@ -55,9 +55,6 @@
         background: rgb(250, 246, 246) url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center;
     }
 </style>
-<div>
-    <!-- #Include file="/content/DealerMenu.aspx" -->
-</div>
 <div class="left min-height600">
     <h1><%= (isEdit ? "Edit" : "Add") %>&nbsp;<%= manufacturerName %> Campaign</h1>
     <asp:label class="greenMessage margin-bottom10 margin-left10" id="lblGreenMessage" runat="server" />

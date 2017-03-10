@@ -1,11 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.manufacturecampaign.SearchManufacturerCampaign" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div>
-<!-- #Include file="/content/DealerMenu.aspx" -->
-</div>
 <div class="left min-height600">
     <div id="mfgCampaigns">
-        <h3> Manage Manufacturer's Campaigns</h3>      
+        <h1> Manage Manufacturer's Campaigns</h1>      
         <div class="margin-top10">
             <span>Select Manufacturer : </span><span class="errorMessage">*</span>
             <asp:DropDownList id="ddlManufacturers" runat="server" class="margin-left10" />

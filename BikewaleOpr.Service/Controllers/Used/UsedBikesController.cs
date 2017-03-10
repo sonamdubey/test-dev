@@ -1,4 +1,6 @@
 ﻿using Bikewale.Notifications;
+using BikewaleOpr.Entity.BikeData;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.Used;
 using System;
 using System.Web.Http;
@@ -12,10 +14,12 @@ namespace BikewaleOpr.Service.Controllers.Used
     public class UsedBikesController : ApiController
     {
         private readonly ISellBikes _objSellBikes = null;
+        private readonly IBikeModelsRepository _objBikeModels = null;
 
-        public UsedBikesController(ISellBikes objSellBikes)
+        public UsedBikesController(ISellBikes objSellBikes, IBikeModelsRepository objBikeModels)
         {
             _objSellBikes = objSellBikes;
+            _objBikeModels = objBikeModels;
         }
 
         /// <summary>
@@ -41,6 +45,60 @@ namespace BikewaleOpr.Service.Controllers.Used
                 return InternalServerError();
             }
             return Ok(isSuccess);
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 03-03-2017
+        /// Description: Api to fetch photo id of used bike model image.
+        /// </summary>
+        /// <param name="objModelImageEntity"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/used/modelimageupload/fetchphotoid/")]
+        public IHttpActionResult FetchPhotoId([FromBody]UsedBikeModelImageEntity objModelImageEntity)
+        {
+            try
+            {
+                if (objModelImageEntity != null && ModelState.IsValid)
+                {
+                    return Ok(_objBikeModels.FetchPhotoId(objModelImageEntity));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.SaveBikeColorDetails objModelImageEntity {0}", objModelImageEntity));
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sajal Gupta on 03-03-2017
+        /// Description: Api to delete photo of used bike model image.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/used/modelimageupload/deleteusedbikemodelimage/{modelId}")]
+        public IHttpActionResult DeleteUsedBikeModelImage(uint modelId)
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    return Ok(_objBikeModels.DeleteUsedBikeModelImage(modelId));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesController.DeleteUsedBikeModelImage modelid {0}", modelId));
+                return InternalServerError();
+            }
         }
     }
 }
