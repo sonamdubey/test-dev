@@ -1,31 +1,34 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.MVC.UI;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.Compare;
-using Bikewale.Interfaces.BikeData.NewLaunched;
-using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Models.Shared;
+using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
-using System.Collections.Generic;
+using Bikewale.Models.Shared;
 using Bikewale.Utility;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using Bikewale.Entities.PriceQuote;
+
 
 namespace Bikewale.Controllers.Desktop.Scooters
 {
     public class ScootersController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
+        public readonly IBikeMakesCacheRepository<int> _IScooterCache;
         private readonly IBikeModels<BikeModelEntity, int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompareCacheRepository _compareScooters = null;
-        public ScootersController(IBikeModels<BikeModelEntity,int> models,INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters)
+        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter)
         {
             _newLaunches = newLaunches;
             _models = models;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
+            _IScooterCache = IScooter;
         }
 
         [Route("scooters/")]
@@ -38,7 +41,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
 
             return View("~/views/scooters/index.cshtml");
         }
-        
+
         [Route("m/scooters/")]
         public ActionResult MIndex()
         {
@@ -112,7 +115,23 @@ namespace Bikewale.Controllers.Desktop.Scooters
             return View("~/views/scooters/bikesbymake.cshtml");
         }
 
-        
+        [Route("scooters/brands/")]
+        public ActionResult Brands()
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            BrandWidget brands = scooters.GetScooterBrands(_IScooterCache, 10);
+            return View("~/views/shared/_brands.cshtml", brands);
+        }
+
+        [Route("m/scooters/brands/")]
+        public ActionResult BrandsMobile()
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            BrandWidget brands = scooters.GetScooterBrands(_IScooterCache, 6);
+            return View("~/views/m/shared/_brands.cshtml", brands);
+        }
+
+
         /// <summary>
         /// Created by : Aditi Srivastava on 9 Mar 2017
         /// Summary    : get list of popular scooters
@@ -124,7 +143,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
             PopularScootersList objScooters = new PopularScootersList();
             objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
 
-            objScooters.PQSourceId =(int)PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
+            objScooters.PQSourceId = (int)PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
             objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
             ViewBag.popularScooters = objScooters;
         }

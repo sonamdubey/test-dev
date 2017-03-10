@@ -542,10 +542,46 @@ namespace Bikewale.DAL.BikeData
             return ht;
         }
 
-
-        public BikeMakeEntityBase GetScooterMakes()
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 10 Mar 2017
+        /// Summary: DAL to fetch scooter's brands
+        /// </summary>
+        public IEnumerable<BikeMakeEntityBase> GetScooterMakes()
         {
-            throw new NotImplementedException();
+            IList<BikeMakeEntityBase> bikeLinkList = null;
+            try
+            {
+                using (DbCommand DbCommand = DbFactory.GetDBCommand("getscootermakes"))
+                {
+                    DbCommand.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(DbCommand, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            bikeLinkList = new List<BikeMakeEntityBase>();
+                            while (dr.Read())
+                            {
+                                bikeLinkList.Add(
+                                        new BikeMakeEntityBase()
+                                        {
+                                            MaskingName = Convert.ToString(dr["makemaskingname"]),
+                                            MakeName = Convert.ToString(dr["makename"]),
+                                            MakeId = Convert.ToUInt16(dr["makeid"])
+                                        }
+                                    );
+                            }
+                        }
+
+                        dr.Close();
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "BikeMakesRepository<T, U>.GetScooterMakes()");
+            }
+
+            return bikeLinkList;
         }
 
         public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
