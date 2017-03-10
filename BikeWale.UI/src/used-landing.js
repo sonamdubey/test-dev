@@ -16,27 +16,11 @@ $(document).ready(function () {
 
     // set min budget
     budgetForm.set.minList();
-
-    $(window).on("scroll", function () {
-        if ($(window).scrollTop() > 40)
-            $('#header').removeClass("header-landing").addClass("header-fixed");
-        else
-            $('#header').removeClass("header-fixed").addClass("header-landing");
-    });
-
+    
     var obj = GetGlobalLocationObject();
     if (obj != null) {
         $("#drpCities").val(obj.CityId).trigger("chosen:updated");
     }
-});
-
-$("a.view-more-btn").click(function (e) {
-    var moreBrandList = $("ul.brand-style-moreBtn"),
-        moreText = $(this).find("span"),
-        borderDivider = $(".brand-bottom-border");
-    moreBrandList.slideToggle();
-    moreText.text(moreText.text() === "more" ? "less" : "more");
-    borderDivider.slideToggle();
 });
 
 /* budget */

@@ -24,7 +24,7 @@
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="used-landing-banner">
@@ -117,8 +117,8 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Search used bikes by brands</h2>
-                    <div class="content-box-shadow padding-top20">
-                        <div class="brand-type-container">
+                    <div class="content-box-shadow padding-top20 collapsible-brand-content">
+                        <div id="brand-type-container" class="brand-type-container">
                             <ul class="text-center">
                                   <% foreach(var bike in viewModel.TopMakeList){ %>  
                                 <li>
@@ -145,8 +145,8 @@
                                 <%} %>
                             </ul>
                         </div>
-                        <div class="view-brandType text-center padding-bottom25">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
+                        <div class="view-all-btn-container padding-bottom25">
+                            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>

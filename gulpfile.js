@@ -176,6 +176,11 @@ var pageArray = [
         folderName: 'm/new/compare/',
         fileName: 'CompareBikeDetails.aspx',
         stylesheet: 'm/css/compare/details.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'models.aspx',
+        stylesheet: 'css/brand.css'
     }
 	
 ];

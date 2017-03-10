@@ -75,6 +75,13 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-teal { background: #41b4c4; color: #fff; border:1px solid #41b4c4; }
 .btn-teal:hover { text-decoration: none; background: #58bdcb; border:1px solid #58bdcb; }
 .btn-teal:focus { background: #37939f;  border: 1px solid #37939f; }
+.btn-inv-teal, .view-all-target-btn { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.view-all-target-btn { padding: 5px 7px; font-size: 14px; }
+.btn-inv-teal:hover,
+.view-all-target-btn:hover { color: #fff; background: #41b4c4; border-color: #41b4c4; }
+.btn:hover {
+    text-decoration: none;
+}
 
 .btn-white, .btn-grey { background: #fff; color: #ef402f; border: 1px solid #f04130; }
 .btn-white:hover, .btn-grey:hover { background: #f04031; color: #fff; text-decoration: none; }
@@ -291,6 +298,11 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 /* new common classes */
 .section-bottom-margin {
     margin-bottom: 20px;
+}
+
+/* view all button */
+.page-type-landing .view-all-btn-container {
+    text-align: center;
 }
 
 .hide { display: none; }

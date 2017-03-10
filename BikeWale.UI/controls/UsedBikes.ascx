@@ -17,8 +17,8 @@
         </asp:Repeater>
     </div>
     <div class="clear"></div>
-    <div class="padding-left10">
-        <a title="Used <%=pageHeading %> bikes in India" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>">View all used <%= pageHeading %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="padding-left10 view-all-btn-container">
+        <a title="Used <%=pageHeading %> bikes in India" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>" class="btn view-all-target-btn">View all used <%= pageHeading %> bikes<span class="bwsprite teal-right"></span></a>
     </div>
     <%}
           else
@@ -40,8 +40,8 @@
     </asp:Repeater>
 </div>
 <div class="clear"></div>
-<div class="padding-left10">
-    <a title="Used <%=pageHeading%> bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>">View all used <%= pageHeading %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+<div class="padding-left10 view-all-btn-container">
+    <a title="Used <%=pageHeading%> bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>" class="btn view-all-target-btn">View all used <%= pageHeading %> bikes<span class="bwsprite teal-right"></span></a>
 </div>
 <%} %>
 
