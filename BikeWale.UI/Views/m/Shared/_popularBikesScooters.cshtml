@@ -1,9 +1,6 @@
 ﻿@using Bikewale.Utility;
 @model  Bikewale.Models.Shared.PopularScootersList
-@if (Model.PopularScooters != null && Model.PopularScooters.Count() > 0)
-{
- <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
-    <div class="swiper-container card-container">
+<div class="swiper-container card-container">
         <div class="swiper-wrapper discover-bike-carousel">
             @foreach (var bike in Model.PopularScooters)
             { 
@@ -40,5 +37,3 @@
             }
         </div>
     </div>
-</div>
-}
