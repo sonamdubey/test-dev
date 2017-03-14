@@ -1,13 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PopularModelCompare" %>
 
 <% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
-<div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom20">
+<div id="comparisonCarousel" class="jcarousel-wrapper inner-content-carousel margin-bottom15 comparison-type-carousel">
     <div class="jcarousel">
         <ul class="model-comparison-list">
             <% foreach(var bike in  objSimilarBikes) { %>
             <li class="position-rel">
                 <a href="/<%= Bikewale.Utility.UrlFormatter.CreateCompareUrl(bike.MakeMasking1,bike.ModelMasking1,bike.MakeMasking2,bike.ModelMasking2,bike.VersionId1,bike.VersionId2,Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget) %>" title ="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %>">
-                    <h3 class="text-black text-center"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
+                    <h3 class="text-black text-center margin-bottom10"><%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.Model1,bike.Model2) %></h3>
                     <% if(SponsoredVersionId == Convert.ToUInt32(bike.VersionId2)) { %>  <span class="content-inner-block-5 text-grey position-abt font12" style="right:0;top:0">Sponsored</span>   <% } %>
                                 
                     <div class="grid-6 alpha omega border-light-right padding-bottom20">

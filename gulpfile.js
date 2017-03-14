@@ -51,8 +51,8 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'],
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {

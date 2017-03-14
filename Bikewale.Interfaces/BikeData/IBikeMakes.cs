@@ -13,6 +13,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary :   Added new function GetDiscontinuedBikeModelsByMake
     /// Modified by :   Sumit Kate on 16 Sep 2016
     /// Description :   Added new function GetOldMaskingNames
+    /// Modified by :   Sangram Nandkhile on 10 Mar 2017
+    /// Description :   Added new function GetScooterMakes
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -26,6 +28,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
         IEnumerable<BikeMakeModelBase> GetAllMakeModels();
         Hashtable GetOldMaskingNames();
-
+        BikeDescriptionEntity GetScooterMakeDescription(uint makeId);
+        IEnumerable<BikeMakeEntityBase> GetScooterMakes();
     }
 }

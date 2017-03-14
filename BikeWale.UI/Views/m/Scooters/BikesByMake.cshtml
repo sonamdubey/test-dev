@@ -1,0 +1,201 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/listing.css' />";
+    ViewBag.Page_JS_Path = "/m/src/scooters-by-make.js";
+    ICollection<Bikewale.Entities.BikeData.SimilarCompareBikeEntity> similarBikeList = ViewBag.similarBikeList;
+    IEnumerable<Bikewale.Entities.BikeData.MostPopularBikesBase> ScootersList = ViewBag.ScootersList;
+}
+
+<section>
+    <div class="container content-box-shadow card-bottom-margin">
+        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName scooters</h1>
+       @if (ScootersList != null && ScootersList.Count() > 0)
+       { <ul class="bike-listing">
+           @foreach (var bikedetails in ScootersList)
+                   {
+             <li class="list-item">
+                 <a href="@string.Format("m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
+                     <div class="item-image-content">
+                         <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
+                     </div>
+                     <h2 class="margin-bottom10">@bikedetails.BikeName</h2>
+                    @if (bikedetails.Specs != null)
+                                  { <div class="font14 text-x-light margin-bottom10">
+                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
+                     </div>
+                    }
+                     <p class="key-size-14 margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                     <span class="bwmsprite inr-sm-icon"></span>
+                     <span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
+                     <span class="value-size-14"> onwards</span>
+                 </a>
+                <div class="margin-top15">
+                    <a href="javascript:void(0)" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId"  class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
+                </div>
+            </li>
+           }
+        </ul>
+       }
+    </div>
+</section>
+@if (similarBikeList != null && similarBikeList.Count() > 0)
+{
+    <section>
+        @Html.Partial("~/Views/m/Shared/_similarComparisions.cshtml", similarBikeList)
+    </section>
+}
+<section>
+    <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of other brands</h2>
+
+            @{ Html.RenderAction("OtherBrandsMobile", "Scooters", new { makeId = @ViewBag.MakeId }); }
+
+    </div>
+</section>
+
+<section>
+    <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming scooters</h2>
+        <div class="swiper-container card-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
+                                <div class="text-light-grey margin-bottom5">
+                                    <p class="font11 text-light-grey">Expected launch</p>
+                                    <p class="font16 text-bold text-default">Jan 2016</p>
+                                </div>
+                                <div>
+                                    <div class="font11 text-light-grey">Expected Price</div>
+                                    <div class="text-default">
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
+                                <div class="text-light-grey margin-bottom5">
+                                    <p class="font11 text-light-grey">Expected launch</p>
+                                    <p class="font16 text-bold text-default">Jan 2016</p>
+                                </div>
+                                <div>
+                                    <div class="font11 text-light-grey">Expected Price</div>
+                                    <div class="text-default">
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
+                            <div class="swiper-image-preview">
+                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
+                                <span class="swiper-lazy-preloader"></span>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
+                                <div class="text-light-grey margin-bottom5">
+                                    <p class="font11 text-light-grey">Expected launch</p>
+                                    <p class="font16 text-bold text-default">Jan 2016</p>
+                                </div>
+                                <div>
+                                    <div class="font11 text-light-grey">Expected Price</div>
+                                    <div class="text-default">
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
+        <div id="makeOverallTabsWrapper">
+            <div class="overall-specs-tabs-container">
+                <ul class="overall-specs-tabs-wrapper">
+                    <li class="active" data-tabs="#makeAboutContent">About</li>
+                    <li data-tabs="#dealerAndServiceContent">Dealers & Service Centers</li>
+                </ul>
+            </div>
+        </div>
+        <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 active">
+            <div class="padding-right20 padding-left20">
+                <h2 class="text-bold">Honda Scooters Summary</h2>
+                <div class="font14 text-light-grey collapsible-content">
+                    <p class="main-content">Honda Motorcycle amp Scooter India is a 100 per cent Indian subsidiary of Honda Motor Company Founded in 1999 Honda was the erstwhile partner of Hero MotoCorp before both companies parted ways Known for pioneering the scooter segment in India through Activa range of scooters Honda manufactures </p>
+                    <p class="more-content">a wide range of two wheelers in India Honda currently has four production facilities Manesar in Gurgaon Tapukara in Rajasthan Narsapura in Karnataka and the new Vithalapur unit in Gujarat Other than manufacturing bikes. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+        <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+            <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+                <h2 class="padding-right20 padding-left20">Honda Showrooms & Service Centers</h2>
+                <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
+                    <!-- dealers when no city selected -->
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <span class="dealer-city-image-preview">
+                                    <span class="city-sprite hyderabad-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5">Honda outlets in Hyderabad</p>
+                                <a href="" title="" class="block">27 showrooms</a>
+                                <a href="" title="" class="block">31 service centers</a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <span class="dealer-city-image-preview">
+                                    <span class="city-sprite pune-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5">Honda outlets in Pune</p>
+                                <a href="" title="" class="block">27 showrooms</a>
+                                <a href="" title="" class="block">31 service centers</a>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-card">
+                                <span class="dealer-city-image-preview">
+                                    <span class="city-sprite india-icon"></span>
+                                </span>
+                                <p class="text-default text-bold margin-bottom5">Honda outlets in India</p>
+                                <a href="" title="" class="block">1888 showrooms</a>
+                                <a href="" title="" class="block">2534 service centers</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="makeSpecsFooter"></div>
+    </div>
+</section>
+
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

@@ -1731,7 +1731,7 @@ namespace Bikewale.DAL.BikeData
                                     OriginalImagePath = Convert.ToString(reader["OriginalImagePath"]),
                                     IsImageExists = SqlReaderConvertor.ToBoolean(reader["IsImageExists"]),
                                     BikeModelColorId = SqlReaderConvertor.ParseToUInt32(reader["BikeModelColorId"]),
-                                    ImageCategory = Convert.ToString(reader["ColorName"])                                    
+                                    ImageCategory = Convert.ToString(reader["ColorName"])
                                 });
                             }
                             if (reader.NextResult())
@@ -2166,6 +2166,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Returns New bikes launched
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
@@ -2176,7 +2178,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikes_10022017";
+                    cmd.CommandText = "getnewlaunchedbikes_09032017";
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -2218,7 +2220,8 @@ namespace Bikewale.DAL.BikeData
                                         MinPrice = SqlReaderConvertor.ToUInt32(dr["minprice"]),
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
-                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"])
+                                        Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
                             }
@@ -2238,6 +2241,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   Returns New Bikes launched with Exshowroom of given city
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2249,7 +2254,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_09032017";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2298,7 +2303,8 @@ namespace Bikewale.DAL.BikeData
                                             CityName = Convert.ToString(dr["cityname"]),
                                             CityMaskingName = Convert.ToString(dr["citymaskingname"])
                                         } : null),
-                                        Price = SqlReaderConvertor.ToUInt32(dr["price"])
+                                        Price = SqlReaderConvertor.ToUInt32(dr["price"]),
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
                                     }
                                 );
                             }
@@ -2313,6 +2319,139 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetNewLaunchedBikesList");
             }
             return newLaunchedBikes;
+        }
+ /// <summary>
+        /// Created By : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : Return list of popular scooters
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
+        {
+            ICollection<MostPopularBikesBase> popularScooters = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getmostpopularscootersbymakecity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.DBNull));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            popularScooters = new Collection<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                popularScooters.Add(
+                                   new MostPopularBikesBase()
+                                  {
+                                      objModel = new BikeModelEntityBase()
+                                      {
+                                          ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
+                                          ModelName = Convert.ToString(dr["model"]),
+                                          MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                      },
+                                      Specs = new MinSpecsEntity()
+                                      {
+                                          Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
+                                          KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
+                                          MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
+                                          MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
+                                          FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
+                                      },
+                                      BikeName = Convert.ToString(dr["bikename"]),
+                                      MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                      MakeName = Convert.ToString(dr["make"]),
+                                      MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
+                                      HostURL = Convert.ToString(dr["hosturl"]),
+                                      OriginalImagePath = Convert.ToString(dr["originalimagepath"]),
+                                      VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
+                                      ReviewCount = SqlReaderConvertor.ToInt32(dr["reviewcount"]),
+                                      CityName = Convert.ToString(dr["cityname"]),
+                                      CityMaskingName = Convert.ToString(dr["citymasking"])
+                                  }
+                                  );
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass err = new ErrorClass(ex, "Bikewale.DAL.BikeData.GetMostPopularScooters");
+            }
+            return popularScooters;
+        }
+         /// <summary>
+        /// Created by:- Subodh Jain 10 March 2017
+        /// Summary :- Get comparision list of popular bike 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
+        {
+            ICollection<MostPopularBikesBase> objList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularscootersbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
+                                objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objList.Add(objData);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, string.Format("Bikewale.DAL.BikeData.GetMostPopularScooters MakeId:{0}", makeId));
+            }
+            return objList;
+        }
+
+
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
         }
     }   // class
 }   // namespace

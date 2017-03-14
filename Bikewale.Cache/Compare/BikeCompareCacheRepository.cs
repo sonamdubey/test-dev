@@ -145,5 +145,44 @@ namespace Bikewale.Cache.Compare
             }
             return compareEntity;
         }
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            IEnumerable<TopBikeCompareBase> topScootersComapareBase = null;
+            string key = string.Format("BW_CompareScooters_topCount_{0}", topCount);
+            try
+            {
+                topScootersComapareBase = _cache.GetFromCache<IEnumerable<TopBikeCompareBase>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.ScooterCompareList(topCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository.ScooterCompareList topCount:{0}", topCount));
+
+            }
+            return topScootersComapareBase;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList version list wise
+        /// </summary>
+        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
+        {
+            ICollection<SimilarCompareBikeEntity> compareEntity = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_SimilarCompareBikes_VersionList{0}_City_{1}_Cnt_{2}", versionList.Replace(',', '_'), cityId, topCount);
+                compareEntity = _cache.GetFromCache<ICollection<SimilarCompareBikeEntity>>(key, new TimeSpan(1, 0, 0), () => _compareRepository.ScooterCompareList(versionList, topCount, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareCacheRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityId));
+            }
+            return compareEntity;
+        }
     }
 }

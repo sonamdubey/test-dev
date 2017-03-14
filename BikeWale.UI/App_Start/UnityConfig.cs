@@ -3,21 +3,23 @@ using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
-using Bikewale.BAL.Videos;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
+using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.Videos;
 using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Videos;
+using Bikewale.DAL.Compare;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.Videos;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
@@ -49,7 +51,7 @@ namespace Bikewale
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
             container.RegisterType<IBikeInfo, BikeInfo>();
             container.RegisterType<INewBikeLaunchesBL, NewBikeLaunchesBL>();
-            container.RegisterType<IUpcoming, Upcoming>();            
+            container.RegisterType<IUpcoming, Upcoming>();
             container.RegisterType<IModelsCache, ModelsCache>();
             container.RegisterType<IModelsRepository, ModelsRepository>();
             container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
@@ -59,7 +61,8 @@ namespace Bikewale
             container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
             container.RegisterType<ICity, CityRepository>();
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
-            
+            container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
+            container.RegisterType<IBikeCompare, BikeCompareRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

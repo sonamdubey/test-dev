@@ -18,6 +18,9 @@ namespace Bikewale.DAL.BikeData
     {
         /// <summary>
         /// Function to get the all upcoming models
+        /// modified By :- Subodh Jain 09 March 2017
+        /// Summary :- added body style
+        /// </summary>
         /// </summary>
         /// <returns></returns>
         public IEnumerable<UpcomingBikeEntity> GetUpcomingModels()
@@ -26,7 +29,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_16022017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getupcomingbikeslist_new_09032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -57,6 +60,7 @@ namespace Bikewale.DAL.BikeData
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objModel.BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]);
                                 objModel.BikeName = string.Format("{0} {1}", objModel.MakeBase.MakeName, objModel.ModelBase.ModelName);
                                 objModelList.Add(objModel);
                             }
