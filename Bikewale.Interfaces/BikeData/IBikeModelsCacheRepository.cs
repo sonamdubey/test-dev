@@ -36,6 +36,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
     /// Modified By : Sajal Gupta on 24-02-2017 Added GetModelColorPhotos.
+    /// Modified  By :- subodh Jain 10 march 2017
+    /// Summary :- added GetMostPopularScooters
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -60,8 +62,9 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
+
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint?cityId);
-        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
     }
 }

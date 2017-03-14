@@ -1289,7 +1289,7 @@ namespace Bikewale.Cache.BikeData
             return bikes;
         }
 
-        /// <summary>
+          /// <summary>
         /// Created By : Aditi Srivastava on 9 Mar 2017
         /// Summary    : Return list of popular scooters
         /// </summary>
@@ -1309,12 +1309,30 @@ namespace Bikewale.Cache.BikeData
             }
             return popularScooters;
         }
-
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+               /// <summary>
+        /// Created by:- Subodh Jain 10 March 2017
+        /// Summary :- Get comparision list of popular bike 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
-            throw new NotImplementedException();
+            IEnumerable<MostPopularBikesBase> popularBikesList = null;
+            string key = string.Format("BW_GetMostPopularScooters_MK_{0}", makeId);
+            try
+            {
+                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(makeId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModelsCacheRepository.GetMostPopularScooters: MakeId: {0}", makeId));
+
+            }
+            return popularBikesList;
         }
 
+
+       
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
             throw new NotImplementedException();

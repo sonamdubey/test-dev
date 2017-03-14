@@ -10,8 +10,8 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Models.Shared;
 using Bikewale.Utility;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-
 
 namespace Bikewale.Controllers.Desktop.Scooters
 {
@@ -20,15 +20,21 @@ namespace Bikewale.Controllers.Desktop.Scooters
         private readonly INewBikeLaunchesBL _newLaunches = null;
         public readonly IBikeMakesCacheRepository<int> _IScooterCache;
         private readonly IBikeModels<BikeModelEntity, int> _models = null;
+        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _objBikeModel = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompareCacheRepository _compareScooters = null;
-        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter)
+        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepo)
         {
             _newLaunches = newLaunches;
             _models = models;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
             _IScooterCache = IScooter;
+            _objMakeCache = objMakeCache;
+            _objBikeModel = objBikeModel;
+            _objMakeRepo = objMakeRepo;
         }
 
         [Route("scooters/")]
@@ -109,9 +115,23 @@ namespace Bikewale.Controllers.Desktop.Scooters
             ViewBag.popularScooters = objScooters;
         }
 
-        [Route("scooters/make/")]
-        public ActionResult BikesByMake()
+        [Route("scooters/make/{makemaskingname}/")]
+        public ActionResult BikesByMake(string makemaskingname)
         {
+            IEnumerable<MostPopularBikesBase> ScootersList = null;
+            ViewBag.MakeName = "";
+            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makemaskingname);
+            if (objResponse != null)
+            {
+                ScootersList = BindPopularScooters(objResponse.MakeId);
+                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
+                ViewBag.MakeName = objMake.MakeName;
+
+            }
+            ViewBag.ScootersList = ScootersList;
+            string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
+            ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
+            ViewBag.similarBikeList = similarBikeList;
             return View("~/views/scooters/bikesbymake.cshtml");
         }
 
@@ -163,10 +183,41 @@ namespace Bikewale.Controllers.Desktop.Scooters
             objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
             ViewBag.popularScooters = objScooters;
         }
-        [Route("m/scooters/make/")]
-        public ActionResult MBikesByMake()
+        [Route("m/scooters/make/{makemaskingname}/")]
+        public ActionResult MBikesByMake(string makemaskingname)
         {
+            IEnumerable<MostPopularBikesBase> ScootersList = null;
+            ViewBag.MakeName = "";
+            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makemaskingname);
+            if (objResponse != null)
+            {
+                ScootersList = BindPopularScooters(objResponse.MakeId);
+                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
+                ViewBag.MakeName = objMake.MakeName;
+
+            }
+            ViewBag.ScootersList = ScootersList;
+            string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
+            ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
+            ViewBag.similarBikeList = similarBikeList;
             return View("~/views/m/scooters/bikesbymake.cshtml");
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Bind similar bike list 
+        /// </summary>
+        private ICollection<SimilarCompareBikeEntity> BindSimilarBikes(string versionList)
+        {
+
+            return _compareScooters.ScooterCompareList(versionList, 1, 1);
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Bind popular bike list 
+        /// </summary>
+        private IEnumerable<MostPopularBikesBase> BindPopularScooters(uint makeId)
+        {
+            return _objBikeModel.GetMostPopularScooters(makeId);
         }
     }
 }

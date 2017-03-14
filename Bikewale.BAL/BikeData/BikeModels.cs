@@ -1309,7 +1309,6 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
-
         /// <summary>
         /// Created By : Aditi Srivastava on 9 Mar 2017
         /// Summary    : Return list of popular scooters
@@ -1328,11 +1327,14 @@ namespace Bikewale.BAL.BikeData
             return popularScooters;
         }
 
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
-            throw new NotImplementedException();
+            return _modelCacheRepository.GetMostPopularScooters(makeId);
         }
-
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
             throw new NotImplementedException();

@@ -2,140 +2,48 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/listing.css' />";
     ViewBag.Page_JS_Path = "/m/src/scooters-by-make.js";
+    ICollection<Bikewale.Entities.BikeData.SimilarCompareBikeEntity> similarBikeList = ViewBag.similarBikeList;
+    IEnumerable<Bikewale.Entities.BikeData.MostPopularBikesBase> ScootersList = ViewBag.ScootersList;
 }
 
 <section>
     <div class="container content-box-shadow card-bottom-margin">
-        <h1 class="padding-15-20 content-box-shadow">Honda scooters</h1>
-        <ul class="bike-listing">
-            <li class="list-item">
-                <a href="" title="Bajaj Avenger 150 Street" class="block">
-                    <div class="item-image-content">
-                        <img class="lazy" data-original="https://imgd3.aeplcdn.com//310x174//bw/models/bajaj-avenger-150-street.jpg?20152710145912" alt="Bajaj Avenger 150 Street" src="" />
-                    </div>
-                    <h2 class="margin-bottom10">Bajaj Avenger 150 Street</h2>
-                    <div class="font14 text-x-light margin-bottom10">
-                        <span>109.19 cc</span>, <span>7.72 bhp</span>, <span>101 kgs</span>
-                    </div>
-                    <p class="key-size-14 margin-bottom5">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="value-size-18">99,999</span>
-                    <span class="value-size-14"> onwards</span>
-                </a>
+        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName scooters</h1>
+       @if (ScootersList != null && ScootersList.Count() > 0)
+       { <ul class="bike-listing">
+           @foreach (var bikedetails in ScootersList)
+                   {
+             <li class="list-item">
+                 <a href="@string.Format("m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
+                     <div class="item-image-content">
+                         <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
+                     </div>
+                     <h2 class="margin-bottom10">@bikedetails.BikeName</h2>
+                    @if (bikedetails.Specs != null)
+                                  { <div class="font14 text-x-light margin-bottom10">
+                        @if(bikedetails.Specs.Displacement>0){<span>@bikedetails.Specs.Displacement cc</span>}, @if(bikedetails.Specs.FuelEfficiencyOverall>0){<span>@bikedetails.Specs.FuelEfficiencyOverall kmpl</span>},  @if(bikedetails.Specs.MaxPower>0){<span>@bikedetails.Specs.MaxPower bhp</span>},  @if(bikedetails.Specs.KerbWeight>0){<span>@bikedetails.Specs.KerbWeight kgs</span>}
+                     </div>
+                    }
+                     <p class="key-size-14 margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                     <span class="bwmsprite inr-sm-icon"></span>
+                     <span class="value-size-18">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.VersionPrice))</span>
+                     <span class="value-size-14"> onwards</span>
+                 </a>
                 <div class="margin-top15">
-                    <a href="javascript:void(0)" class="btn btn-white btn-180-32" rel="nofollow">Check on-road price</a>
+                    <a href="javascript:void(0)" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId"  class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
                 </div>
             </li>
-            <li class="list-item">
-                <a href="" title="Bajaj Avenger 150 Street" class="block">
-                    <div class="item-image-content">
-                        <img class="lazy" data-original="https://imgd3.aeplcdn.com//310x174//bw/models/bajaj-avenger-150-street.jpg?20152710145912" alt="Bajaj Avenger 150 Street" src="" />
-                    </div>
-                    <h2 class="margin-bottom10">Bajaj Avenger 150 Street</h2>
-                    <div class="font14 text-x-light margin-bottom10">
-                        <span>109.19 cc</span>, <span>7.72 bhp</span>, <span>101 kgs</span>
-                    </div>
-                    <p class="key-size-14 margin-bottom5">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="value-size-18">99,999</span>
-                    <span class="value-size-14"> onwards</span>
-                </a>
-                <div class="margin-top15">
-                    <a href="javascript:void(0)" class="btn btn-white btn-180-32" rel="nofollow">Check on-road price</a>
-                </div>
-            </li>
-            <li class="list-item">
-                <a href="" title="Bajaj Avenger 150 Street" class="block">
-                    <div class="item-image-content">
-                        <img class="lazy" data-original="https://imgd3.aeplcdn.com//310x174//bw/models/bajaj-avenger-150-street.jpg?20152710145912" alt="Bajaj Avenger 150 Street" src="" />
-                    </div>
-                    <h2 class="margin-bottom10">Bajaj Avenger 150 Street</h2>
-                    <div class="font14 text-x-light margin-bottom10">
-                        <span>109.19 cc</span>, <span>7.72 bhp</span>, <span>101 kgs</span>
-                    </div>
-                    <p class="key-size-14 margin-bottom5">Ex-showroom price, Mumbai</p>
-                    <span class="bwmsprite inr-sm-icon"></span>
-                    <span class="value-size-18">99,999</span>
-                    <span class="value-size-14"> onwards</span>
-                </a>
-                <div class="margin-top15">
-                    <a href="javascript:void(0)" class="btn btn-white btn-180-32" rel="nofollow">Check on-road price</a>
-                </div>
-            </li>
+           }
         </ul>
+       }
     </div>
 </section>
-
-<section>
-    <div class="container content-box-shadow padding-top15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Popular comparison of scooters</h2>
-        <div id="ctrlCompareBikes">
-            <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="swiper-card rounded-corner2">
-                            <a href="" title="CB Shine vs Splendor iSmart" class="block">
-                                <h3 class="font12 text-black text-center margin-bottom10">CB Shine vs Splendor iSmart</h3>
-                                <div class="grid-6">
-                                    <div class="model-img-content">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt="" title="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">57,300</span>
-                                </div>
-                                <div class="grid-6">
-                                    <div class="model-img-content">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" alt="" title="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">49,887</span>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="margin-top15 text-center">
-                                    <span class="btn btn-white btn-size-1">Compare now</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="swiper-card rounded-corner2">
-                            <a href="" title="CB Shine vs Splendor iSmart" class="block">
-                                <h3 class="font12 text-black text-center margin-bottom10">CB Shine vs Splendor iSmart</h3>
-                                <div class="grid-6">
-                                    <div class="model-img-content">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/honda-cb-shine-electric-start/drum/alloy-112.jpg?20151209184344" alt="" title="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">57,300</span>
-                                </div>
-                                <div class="grid-6">
-                                    <div class="model-img-content">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//144x81//bw/models/hero-splendor-ismart-spoke-755.jpg?20151209181902" alt="" title="" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <p class="font11 text-light-grey text-truncate">Ex-showroom, Mumbai</p>
-                                    <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">49,887</span>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="margin-top15 text-center">
-                                    <span class="btn btn-white btn-size-1">Compare now</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="margin-top10 margin-left20 padding-bottom20 font14">
-                <a href="" title="View more comparisons">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>
-        </div>
-    </div>
-</section>
-
+@if (similarBikeList != null && similarBikeList.Count() > 0)
+{
+    <section>
+        @Html.Partial("~/Views/m/Shared/_similarComparisions.cshtml", similarBikeList)
+    </section>
+}
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of other brands</h2>
