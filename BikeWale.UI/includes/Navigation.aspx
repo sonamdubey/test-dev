@@ -10,11 +10,12 @@
         <li>
             <a href="javascript:void(0)" rel="nofollow">
                 <span class="bwsprite newBikes-icon"></span>
-                <span class="navbarTitle">New Bikes</span>
+                <span class="navbarTitle">New Bikes & Scooters</span>
                 <span class="nav-drop fa-angle-down"></span>
             </a>
             <ul class="nestedUL">
                 <li><a href="/new-bikes-in-india/">Find New Bikes</a></li>
+                <li><a href="/new-scooters/">Find New Scooters</a></li>
                 <li><a href="/comparebikes/">Compare Bikes</a></li>
                 <li><a href="/pricequote/">Check On-Road Price</a></li>
                 <li><a href="/dealer-showroom-locator/">Locate Dealer</a></li>
