@@ -35,8 +35,8 @@
                 <span class="btn btn-orange">Compare now</span>
             </div>
         </a>
-        <div class="text-center margin-bottom10">
-            <a href="/m/comparebikes/" class="font14">View more comparisons</a>
+        <div class="view-all-btn-container margin-bottom10">
+            <a href="/m/comparebikes/" class="btn view-all-target-btn">View more comparisons<span class="bwmsprite teal-right"></span></a>
         </div>
     </div>
     <div class="clear">

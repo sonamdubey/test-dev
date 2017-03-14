@@ -179,6 +179,11 @@ var pageArray = [
     },
     {
         folderName: 'm/new/',
+        fileName: 'BikeMakes.aspx',
+        stylesheet: 'm/css/bwm-brand.css'
+    },	
+    {
+        folderName: 'new/',
         fileName: 'models.aspx',
         stylesheet: 'css/brand.css'
     },

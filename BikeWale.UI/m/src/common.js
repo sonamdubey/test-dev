@@ -1773,3 +1773,32 @@ window.validateMobileNo = function(mobileNo,self) {
         return false;
     }
 };
+
+// more brand - collapse
+$('.view-brandType').click(function () {
+    var element = $(this),
+        elementParent = element.closest('.collapsible-brand-content'),
+        moreBrandContainer = elementParent.find('.brandTypeMore');
+
+    if (!moreBrandContainer.is(':visible')) {
+        moreBrandContainer.slideDown();
+        element.attr('href', 'javascript:void(0)');
+        element.addClass('active').find('.btn-label').text('View less brands');
+    }
+    else {
+        element.attr('href', '#brand-type-container');
+        moreBrandContainer.slideUp();
+        element.removeClass('active').find('.btn-label').text('View more brands');
+    }
+});
+
+$(".brand-collapsible-present li").click(function () {
+    var tabsPanel = $(this).closest('.bw-tabs-panel'),
+        collapsibleBrand = tabsPanel.find('.collapsible-brand-content'),
+        moreBrandContainer = collapsibleBrand.find('.brandTypeMore'),
+        viewMoreBtn = collapsibleBrand.find('.view-brandType');
+    
+    viewMoreBtn.attr('href', '#brand-type-container');
+    moreBrandContainer.slideUp();
+    viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
+}); 
