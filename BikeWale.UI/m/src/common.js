@@ -265,6 +265,8 @@ $(document).ready(function () {
         }
     }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
 
+   
+
     $("#citySelectionFinalPrice").autocomplete({
         source: function (request, response) {
             dataListDisplay(availableTags, request, response);
@@ -854,7 +856,7 @@ function slideChangeStart() {
                         if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
                     }
                 },
-                minLength: 1,
+                minLength: options.minLength || 1,
                 select: function (event, ui) {
                     if (options.click != undefined)
                         options.click(event, ui, $(this).val());
@@ -1642,6 +1644,9 @@ $(window).on('popstate', function (event) {
     if ($('#nav').is(':visible')) {
         navDrawer.close();
     }
+    if ($('#leadCapturePopup').is(':visible')) {
+        $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
+    }
 });
 
 
@@ -1778,11 +1783,22 @@ $('.view-brandType').click(function () {
     if (!moreBrandContainer.is(':visible')) {
         moreBrandContainer.slideDown();
         element.attr('href', 'javascript:void(0)');
-        element.text('View less brands');
+        element.addClass('active').find('.btn-label').text('View less brands');
     }
     else {
         element.attr('href', '#brand-type-container');
         moreBrandContainer.slideUp();
-        element.text('View more brands');
+        element.removeClass('active').find('.btn-label').text('View more brands');
     }
+});
+
+$(".brand-collapsible-present li").click(function () {
+    var tabsPanel = $(this).closest('.bw-tabs-panel'),
+        collapsibleBrand = tabsPanel.find('.collapsible-brand-content'),
+        moreBrandContainer = collapsibleBrand.find('.brandTypeMore'),
+        viewMoreBtn = collapsibleBrand.find('.view-brandType');
+    
+    viewMoreBtn.attr('href', '#brand-type-container');
+    moreBrandContainer.slideUp();
+    viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
 });

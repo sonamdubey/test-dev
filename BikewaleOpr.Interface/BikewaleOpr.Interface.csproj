@@ -43,6 +43,7 @@
     <Compile Include="BikeColorImages\IColorImagesBikeRepository.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikePricing\IDealerPriceRepository.cs" />
     <Compile Include="BikePricing\IShowroomPricesRepository.cs" />
@@ -50,6 +51,8 @@
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
     <Compile Include="IDealers.cs" />
+    <Compile Include="Images\IImage.cs" />
+    <Compile Include="Images\IImageRepository.cs" />
     <Compile Include="ManufacturerCampaign\IManufacturerCampaign.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -58,8 +61,10 @@
     </Compile>
     <Compile Include="Popular Comparisions\IPopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ISecurity.cs" />
     <Compile Include="Used\ISellBikes.cs" />
     <Compile Include="Used\ISellerRepository.cs" />
+    <Compile Include="Used\IUsedBikes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

@@ -29,7 +29,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -61,7 +61,7 @@
                     <div class="bw-tabs-panel padding-bottom20 content-box-shadow bg-white" id="discoverBikesContainer">
 
                         <div class="bw-tabs bw-tabs-flex">
-                            <ul class="brand-budget-mileage-style-UL">
+                            <ul class="brand-collapsible-present">
                                 <li class="active" data-tabs="discoverBrand">Brand</li>
                                 <li data-tabs="discoverBudget">Budget</li>
                                 <li data-tabs="discoverMileage">Mileage</li>
@@ -69,8 +69,8 @@
                             </ul>
                         </div>
 
-                        <div class="bw-tabs-data" id="discoverBrand">
-                            <div class="brand-type-container">
+                        <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                            <div id="brand-type-container" class="brand-type-container">
                                 <ul class="text-center">
                                     <asp:Repeater ID="rptPopularBrand" runat="server">
                                         <ItemTemplate>
@@ -101,12 +101,12 @@
 
                                 </ul>
                             </div>
-                            <div class="view-brandType text-center clear">
-                                <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
+                            <div class="view-all-btn-container">
+                                <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
-                            <div class="budget-container margin-bottom20">
+                            <div class="budget-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?budget=0-50000">
@@ -161,7 +161,7 @@
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverMileage">
-                            <div class="mileage-container margin-bottom20">
+                            <div class="mileage-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?mileage=1">
@@ -208,7 +208,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="bw-tabs-data hide margin-bottom20" id="discoverStyle">
+                        <div class="bw-tabs-data hide" id="discoverStyle">
                             <div class="style-type-container">
                                 <ul class="text-center">
                                     <li>
@@ -419,17 +419,6 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-            
-            $("a.view-more-btn").click(function (e) {
-                e.preventDefault();
-                var a = $(this).parent().parent().find("ul.brand-style-moreBtn");
-                a.slideToggle();
-                $("html, body").animate({ scrollTop: $("#discoverBikesContainer").offset().top }, 1000);
-                $(this).text($(this).text() == 'View more brands' ? 'View less brands' : 'View more brands');
-            });
-            $("ul.brand-budget-mileage-style-UL li").click(function () {
-                $("ul.brand-style-moreBtn").slideUp();
-            });
 
             $("#newBikeList").on("click", function () {
                 $('#global-search').trigger("click");

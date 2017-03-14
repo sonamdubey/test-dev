@@ -50,8 +50,8 @@ namespace BikeWaleOpr
         {
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBikeModels, BikeModelsRepository>();
-                IBikeModels _objModelsRepo = container.Resolve<IBikeModels>();
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                IBikeModelsRepository _objModelsRepo = container.Resolve<IBikeModelsRepository>();
 
                 dataObj = _objModelsRepo.GetLastSoldUnitData();
             }

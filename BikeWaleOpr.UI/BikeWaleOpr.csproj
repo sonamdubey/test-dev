@@ -62,6 +62,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\FreeTextBox.dll</HintPath>
     </Reference>
+    <Reference Include="Gelf4Net, Version=2.0.3.11, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
@@ -73,6 +81,9 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
@@ -83,7 +94,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\mvc 5\newtonsoft 6.0.4\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -99,29 +110,58 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 4\Assemblies\System.Net.Http.Formatting.dll</HintPath>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Cors">
-      <HintPath>..\Libs\System.Web.Cors.dll</HintPath>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.Cors">
-      <HintPath>..\Libs\System.Web.Http.Cors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET MVC 4\Assemblies\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -134,8 +174,15 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unity.Mvc5">
+      <HintPath>..\Libs\mvc 5\unity 4.0.1\Unity.Mvc5.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="campaign\DealersRules.aspx.cs">
       <DependentUpon>DealersRules.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,6 +410,10 @@
       <DependentUpon>ViewReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Controllers\MakesController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ModelsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="controls\DateControl.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -1316,7 +1367,9 @@
     <Content Include="controls\RichTextEditor.ascx" />
     <Content Include="css\960_12_col.css" />
     <Content Include="css\chosen.min.css" />
+    <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
+    <Content Include="css\materialize.css" />
     <Content Include="Default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\word.css" />
@@ -1820,6 +1873,7 @@
     <Content Include="editor\tiny_mce_old\utils\form_utils.js" />
     <Content Include="editor\tiny_mce_old\utils\mctabs.js" />
     <Content Include="editor\tiny_mce_old\utils\validate.js" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="images\calendar.png" />
     <Content Include="includes\footerNew.aspx" />
@@ -1849,7 +1903,11 @@
     <Content Include="src\bt.js" />
     <Content Include="src\calender.js" />
     <Content Include="src\chains.js" />
+    <Content Include="src\common.js" />
     <Content Include="src\common\common.js" />
+    <Content Include="src\content\makes.js" />
+    <Content Include="src\content\usedimageupload.js" />
+    <Content Include="src\framework.js" />
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
     <Content Include="src\imageUpload.js" />
@@ -1867,6 +1925,35 @@
   <ItemGroup>
     <Content Include="newbikebooking\web.config" />
     <Content Include="campaign\web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Makes\Index.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_MenuContent.cshtml" />
+    <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="css\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="css\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="css\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="css\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="css\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="css\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="css\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="css\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="css\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="css\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="css\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="css\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="css\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="css\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="css\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="css\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="css\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="css\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="css\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="css\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="Views\Models\UsedModelImageUpload.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -1913,6 +2000,10 @@
     <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
       <Project>{539fa12c-3799-4e88-a833-f65594ea1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Models\BikewaleOpr.Models.csproj">
+      <Project>{d41da250-c329-4956-abac-17b9b1e53880}</Project>
+      <Name>BikewaleOpr.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.Service\BikewaleOpr.Service.csproj">
       <Project>{d0c53270-a025-4d8b-a675-93a1ccd58bf6}</Project>

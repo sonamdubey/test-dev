@@ -1,1 +1,87 @@
-﻿
+﻿@using Bikewale.Utility;
+@model Bikewale.Models.Shared.Showrooms
+
+@if (ViewBag.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
+{
+    <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+        <h2 class="padding-right20 padding-left20 text-bold">@ViewBag.MakeName showrooms in @ViewBag.CityName</h2>
+        
+        <div class="swiper-container card-container dealer-horizontal-swiper">
+            <!-- dealers by city -->
+            <div class="swiper-wrapper">
+                @foreach (var dealers in Model.dealers.Dealers) { 
+                 <div class="swiper-slide">
+                    <div class="swiper-card">
+                        <a href="@String.Format("/m{0}",UrlFormatter.GetDealerUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName, dealers.Name,Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
+                            <div class="target-link margin-bottom5 text-truncate font14">
+                                @dealers.Name
+                                </div>
+                            <p class="margin-bottom5 text-light-grey @(String.IsNullOrEmpty(dealers.Address)?" hide":string.Empty)">
+                                <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                                <span class="vertical-top dealership-address details-column">@dealers.Address</span>
+                            </p>
+</a>
+                        <a href="tel:@dealers.MaskingNumber" class="text-default text-bold text-truncate @(String.IsNullOrEmpty(dealers.MaskingNumber)? " hide":"block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealers.MaskingNumber</a>
+                    </div>
+                </div>
+                } 
+            </div>
+        </div>
+
+        <div class="margin-top10 padding-right20 padding-left20">
+            <a href="@string.Format("/m{0}",UrlFormatter.DealerLocatorUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName showroom in @ViewBag.CityName">View all @ViewBag.MakeName showrooms <span class="bwmsprite blue-right-arrow-icon font14"></span></a>
+        </div>
+    </div>
+
+}
+
+else
+{
+    if (Model.dealerServiceCenter != null)
+    {
+
+        <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+            <h2 class="padding-right20 padding-left20">@ViewBag.MakeName @(Model.dealerServiceCenter.TotalDealerCount > 0?"Showrooms":"") @((Model.dealerServiceCenter.TotalDealerCount > 0 && Model.dealerServiceCenter.TotalServiceCenterCount > 0)?"&":"") @(Model.dealerServiceCenter.TotalServiceCenterCount > 0?"Service Centers":"")</h2>
+            <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
+                <!-- dealers when no city selected -->
+                <div class="swiper-wrapper">
+
+                    @foreach(var details in Model.dealerServiceCenter.DealerDetails){ 
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <span class="dealer-city-image-preview">
+                                <span class="city-sprite @details.CityMaskingName-icon"></span>
+                            </span>
+                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in @details.CityName</p>
+                            @if (details.DealerCount>0) {
+                            <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@ViewBag.MakeName showroom in @details.CityName" class="block">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom" )</a>
+                            }
+                            @if (details.ServiceCenterCount>0){
+                            <a href="/m/@ViewBag.MakeMaskingName-service-center-in-@details.CityMaskingName/" title="@ViewBag.MakeName service center in @details.CityName" class="block">@details.ServiceCenterCount service center@(details.ServiceCenterCount > 1 ? "s" : "")</a>
+                            }
+                        </div>
+                    </div>
+                    }
+                    @if(Model.dealerServiceCenter.TotalDealerCount>0||Model.dealerServiceCenter.TotalServiceCenterCount>0) {
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <span class="dealer-city-image-preview">
+                                <span class="city-sprite india-icon"></span>
+                            </span>
+                            <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in India</p>
+                            @if (Model.dealerServiceCenter.TotalDealerCount > 0) {
+                            <a href="/m/@ViewBag.MakeMaskingName-dealer-showrooms-in-india/" title="@ViewBag.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @(Model.dealerServiceCenter.TotalDealerCount > 1 ? "showrooms" : "showroom")</a>
+                            }
+                            @if (Model.dealerServiceCenter.TotalServiceCenterCount > 0) {
+                            <a href="/m/@ViewBag.MakeMaskingName-service-center-in-india/" title="@ViewBag.MakeName service center in India" class="block">@Model.dealerServiceCenter.TotalServiceCenterCount service center@(Model.dealerServiceCenter.TotalServiceCenterCount > 1 ? "s" : "")</a>
+                            } 
+                        </div>
+                    </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
