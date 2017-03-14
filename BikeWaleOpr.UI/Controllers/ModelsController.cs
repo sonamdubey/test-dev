@@ -41,7 +41,7 @@ namespace BikewaleOpr.Controllers
                     objBikeModelsImage = _modelsRepo.GetUsedBikeModelImageByMake(makeId.Value);
                 }
 
-                ViewBag.MakeList = _makesRepo.GetMakes("NEW");
+                ViewBag.MakeList = _makesRepo.GetMakes("ALL");
                 return View(objBikeModelsImage);
             }
             catch (Exception ex)
