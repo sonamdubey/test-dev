@@ -16,8 +16,8 @@
            %>
     </div>
     <div class="clear"></div>
-    <div class="padding-left10">
-        <a title="Used <%=MakeName %> bikes in <%= CityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId, CityMaskingName, MakeMaskingName) %>">View all used <%=MakeName %> <%= pageHeading %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="padding-left10 view-all-btn-container">
+        <a title="Used <%=MakeName %> bikes in <%= CityName %>" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId, CityMaskingName, MakeMaskingName) %>" class="btn view-all-target-btn">View all used <%=MakeName %> <%= pageHeading %> bikes<span class="bwsprite teal-right"></span></a>
     </div>
 
 </div>

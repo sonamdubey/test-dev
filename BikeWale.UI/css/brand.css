@@ -27,8 +27,8 @@
 .overall-specs-tabs-wrapper a { padding:10px 20px; display:table-cell; font-size:14px; color:#82888b; }
 .overall-specs-tabs-wrapper a:hover { text-decoration:none; color:#4d5057; }
 .overall-specs-tabs-wrapper a.active { border-bottom:3px solid #ef3f30; font-weight:bold; color:#4d5057; }
-#makeTabsContentWrapper h2 { margin-bottom:15px; }
-#makeTabsContentWrapper h3 { font-weight:bold; margin-bottom:12px; }
+.content-details-wrapper h2 { margin-bottom:15px; }
+.content-details-wrapper h3 { font-weight:bold; margin-bottom:12px; }
 #makeReviewsContent h3.model-section-subtitle { margin-bottom:20px; }
 .preview-more-content { display:none; }
 .border-divider { border-top:1px solid #e2e2e2; }
@@ -43,7 +43,7 @@
 .blue-right-arrow-icon { width:6px; height:10px; background-position:-74px -469px; position:relative; top:1px; left:7px; }
 .model-user-review-rating-container { width:148px; height:84px; border:1px solid #e2e2e2; background:#f9f9f9; padding-top:17px; text-align:center;}
 .model-user-review-title-container { width:308px; }
-#makeTabsContentWrapper .model-user-review-title-container h3 { font-size:16px; color:#2a2a2a; line-height:1.7; margin-bottom:5px; position:relative; top:-6px; }
+.content-details-wrapper .model-user-review-title-container h3 { font-size:16px; color:#2a2a2a; line-height:1.7; margin-bottom:5px; position:relative; top:-6px; }
 .dealer-card-target { display: block; }
 .dealer-card-target:hover { text-decoration: none; }
 .dealer-jcarousel-image-preview { width:292px; height:114px; display:block; margin-bottom:15px; text-align:center; padding-top:10px; }

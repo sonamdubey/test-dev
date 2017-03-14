@@ -207,14 +207,19 @@ namespace Bikewale.DAL.Compare
                         }
                     }
 
-                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count() > 0)
                     {
-                        compare.Color.ForEach(
-                                            _color => _color.HexCodes =
-                                                (from hexCode in hexCodes
-                                                 where hexCode.ModelColorId == _color.ColorId
-                                                 select hexCode.HexCode).ToList()
-                                            );
+                        foreach (var mColor in compare.Color)
+                        {
+                            mColor.HexCodes = new List<string>();
+                            foreach (var hexCode in hexCodes)
+                            {
+                                if (hexCode.ModelColorId.Equals(mColor.ColorId))
+                                {
+                                    mColor.HexCodes.Add(hexCode.HexCode);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -241,7 +246,7 @@ namespace Bikewale.DAL.Compare
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
-            List<BikeColor> color = null;
+            IList<BikeColor> color = null;
             IList<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
 
             try
@@ -433,19 +438,25 @@ namespace Bikewale.DAL.Compare
                             compare.BasicInfo = basicInfos;
                             compare.Specifications = specs;
                             compare.Features = features;
-                            compare.Color = color.GroupBy(x => x.ColorId).Select(y => y.First()).ToList();
+                            //compare.Color = color.GroupBy(x => x.ColorId).Select(y => y.First()).ToList();
+                            compare.Color = color;
                             reader.Close();
                         }
                     }
 
-                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count() > 0)
                     {
-                        compare.Color.ForEach(
-                                            _color => _color.HexCodes =
-                                                (from hexCode in hexCodes
-                                                 where hexCode.ModelColorId == _color.ColorId
-                                                 select hexCode.HexCode).ToList()
-                                            );
+                        foreach (var mColor in compare.Color)
+                        {
+                            mColor.HexCodes = new List<string>();
+                            foreach (var hexCode in hexCodes)
+                            {
+                                if (hexCode.ModelColorId.Equals(mColor.ColorId))
+                                {
+                                    mColor.HexCodes.Add(hexCode.HexCode);
+                                }
+                            }
+                        }
                     }
                 }
             }

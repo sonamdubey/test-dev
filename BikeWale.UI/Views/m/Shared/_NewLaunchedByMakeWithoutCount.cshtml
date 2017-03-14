@@ -1,4 +1,4 @@
-﻿@if (ViewBag.TopMakes != null)
+@if (ViewBag.TopMakes != null)
 { 
 <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
     <div id="brand-type-container" class="brand-type-container">
@@ -34,6 +34,8 @@
        }
        
     </div>
-    <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
+    <div class="view-all-btn-container">
+        <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
+    </div>
 </div>
 }

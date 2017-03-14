@@ -39,7 +39,7 @@
     </script>
 
 </head>
-<body>
+<body class="page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="home-top-banner">
@@ -88,15 +88,15 @@
                     <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Discover your bike</h2>
                     <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
                         <div class="bw-tabs bw-tabs-flex">
-                            <ul class="brand-budget-mileage-style-UL">
+                            <ul class="brand-collapsible-present">
                                 <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
                                 <li data-tabs="discoverBudget"><h3>Budget</h3></li>
                                 <li data-tabs="discoverMileage"><h3>Mileage</h3></li>
                                 <li data-tabs="discoverStyle"><h3>Style</h3></li>
                             </ul>
                         </div>
-                        <div class="bw-tabs-data" id="discoverBrand">
-                            <div class="brand-type-container">
+                        <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                            <div id="brand-type-container" class="brand-type-container">
                                 <ul class="text-center">
                                     <asp:Repeater ID="rptPopularBrand" runat="server">
                                         <ItemTemplate>
@@ -128,8 +128,8 @@
                                     </asp:Repeater>
                                 </ul>
                             </div>
-                            <div class="view-brandType text-center padding-top10 padding-bottom30">
-                                <a href="#" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
+                            <div class="view-all-btn-container padding-top10 padding-bottom30">
+                                <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
@@ -455,7 +455,6 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             ga_pg_id = '1';

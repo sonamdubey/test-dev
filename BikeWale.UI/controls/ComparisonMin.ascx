@@ -70,8 +70,8 @@
         <% } %>
     </ul>
      <% if (ShowCompButton) {%>
-        <div class="text-center">
-            <a href="/comparebikes/" >View more comparisons</a>
+        <div class="view-all-btn-container">
+            <a href="/comparebikes/" class="btn view-all-target-btn">View more comparisons<span class="bwsprite teal-right"></span></a>
         </div>
     <%} %>
 </div>

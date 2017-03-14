@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.NewBikeModelColors_New" EnableEventValidation="false" %>
-
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script language="javascript" src="/src/AjaxFunctions.js"></script>
-
 <style>
     .doNotDisplay {
         display: none;
@@ -98,12 +95,8 @@
     }
 
 </style>
-<div class="urh">
-    You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Bike Model Colors
-</div>
-<!-- #Include file="ContentsMenu.aspx" -->
 <div class="left">
-
+    <h1>Manage Bike Colors</h1>
     <span id="spnError" class="error" runat="server"></span>
     <fieldset>
         <legend style="font-weight: bold">Select Model</legend>
@@ -130,7 +123,7 @@
                 <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="6" /></span>
             <span>
                 <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="7" /></span>
-            <button class="add_field_button">Add New Code</button>
+            <input type="button" class="add_field_button" value="Add New Code" />
         </div>
         <asp:button id="btnSave" text="Save Model Color" style='margin-top: 15px' runat="server" tabindex="8" />
         <hr />

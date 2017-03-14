@@ -42,32 +42,6 @@ function FetchCityObject(cityId) {
     });
     return cityObj;
 }
-$('#more-brand-tab').click(function () {
-    var target = $(this),
-        moreBrands = $('#more-brand-nav');
-    if (!target.hasClass('active')) {
-        collapse.open(target, moreBrands, 'Collapse');
-    }
-    else {
-        collapse.close(target, moreBrands, 'View all brands');
-    }
-});
-
-var collapse = {
-    open: function (targetLink, content, message) {
-        var contentWrapper = content.closest('div');
-        content.slideDown();
-        targetLink.addClass('active').text(message);
-        $('html, body').animate({
-            scrollTop: contentWrapper.offset().top
-        }, 500);
-    },
-
-    close: function (targetLink, content, message) {
-        content.hide();
-        targetLink.removeClass('active').text(message);
-    }
-};
 
 /* city slider */
 $('#search-form-city').on('click', function () {
