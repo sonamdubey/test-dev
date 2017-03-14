@@ -51,7 +51,7 @@
                 for (int i = 1; i < Bikedetails.Count(); i++)
                 {
                     <li>
-                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Bikedetails[i].MakeMaskingName1,Bikedetails[i].ModelMaskingName1, Bikedetails[i].MakeMaskingName2, Bikedetails[i].ModelMaskingName2, Convert.ToString(Bikedetails[i].VersionId1),Convert.ToString(Bikedetails[i].VersionId2),Bikewale.Entities.Compare.CompareSources.Desktop_Featured_Compare_Widget)" title="Compare @Bikedetails[i].Bike1 vs @Bikedetails[i].Bike2" class="compare-bikes-target">
+                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Bikedetails[i].MakeMaskingName1,Bikedetails[i].ModelMaskingName1, Bikedetails[i].MakeMaskingName2, Bikedetails[i].ModelMaskingName2, Convert.ToString(Bikedetails[i].VersionId1),Convert.ToString(Bikedetails[i].VersionId2),Bikewale.Entities.Compare.CompareSources.Desktop_Scooter_Landing_Compare)" title="Compare @Bikedetails[i].Bike1 vs @Bikedetails[i].Bike2" class="compare-bikes-target">
                             <div class="grid-6 compare-bike-box">
                                 <div class="sidebar-image inline-block">
                                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bikedetails[i].VersionImgUrl1, Bikedetails[i].HostUrl1, Bikewale.Utility.ImageSize._210x118)" src="" />
