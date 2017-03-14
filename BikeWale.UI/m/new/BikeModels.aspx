@@ -70,14 +70,14 @@
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
+                    <div class="upcoming-text-label font16 position-abt text-white text-center">Upcoming</div>
                     <div class="bikeTitle">
                         <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
                     <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
+                    <div class="upcoming-text-label font16 position-abt text-white text-center">Discontinued</div>
                     <div class="bikeTitle">
                         <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
@@ -204,7 +204,7 @@
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
-                        <p id="defversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
+                        <p id="defversion" class="single-version-label font14"><%=variantText %></p>
                         <% if (versionCount > 1)
                            { %>
                             <div class="dropdown-select-wrapper">
@@ -222,7 +222,7 @@
                             </a>
                         </div>
                         <% } else{ %>
-                        <%= location %>
+                        <span class="text-bold font14 text-truncate block margin-top5"><%= location %></span>  
                         <% } %>
                     </div>
                     <div class="clear"></div>
@@ -365,7 +365,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section>
-            <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20">
+            <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20 content-details-wrapper">
                 <div id="modelOverallSpecsTopContent">
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">

@@ -1,14 +1,6 @@
-﻿
-var chosenSelectBox = $('.chosen-select');
+﻿var chosenSelectBox = $('.chosen-select');
 
 chosenSelectBox.chosen();
-
-$(window).on("scroll", function () {
-    if ($(window).scrollTop() > 40)
-        $('.header-transparent').removeClass("header-landing").addClass("header-fixed");
-    else
-        $('.header-transparent').removeClass("header-fixed").addClass("header-landing");
-});
 
 $(document).ready(function () {
     
@@ -35,30 +27,6 @@ $(".chosen-select").chosen().change(function () {
         $(this).siblings('.select-label').hide();
     }
 });
-
-// more brand - collapse
-$('.view-brandType').click(function (e) {
-    var element = $(this),
-        elementParent = element.closest('.collapsible-brand-content'),
-        moreBrandContainer = elementParent.find('.brandTypeMore');
-
-    if (!moreBrandContainer.is(':visible')) {
-        moreBrandContainer.slideDown();
-        element.attr('href', 'javascript:void(0)');
-        element.text('View less brands');
-    }
-    else {
-        element.attr('href', '#brand-type-container');
-        moreBrandContainer.slideUp();
-        element.text('View more brands');
-    }
-
-    e.preventDefault();
-    e.stopPropagtion();
-
-});
-
-
 
 $("#pagination-list-content ul li a").click(function (e) {
     if (vmNewLaunches && !vmNewLaunches.IsInitialized()) {

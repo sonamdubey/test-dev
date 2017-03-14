@@ -201,6 +201,24 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
     overflow:hidden;
 }
 
+.carousel-heading-content {
+    margin-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.swiper-heading-left-grid {
+    width: 77%;
+}
+
+.swiper-heading-right-grid {
+    width: 21%;
+}
+
+.content-details-wrapper .carousel-heading-content h2 {
+    margin-bottom: 0;
+}
+
 /* featured bikes */
 .featured-bikes-panel .bw-tabs-flex { margin-bottom: 15px; }
 
@@ -649,13 +667,35 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .red-font{ color: #FF0000;}
 /* AutoExpo classes end */
 
-.blue-right-arrow-icon {
-    width: 10px;
-    height: 12px;
-    background-position: -56px -435px;
+.blue-right-arrow-icon,
+.teal-right {
+    width: 6px;
+    height: 10px;
     position: relative;
     top: 1px;
-    left: 2px;
+    margin-left: 6px;
+}
+
+.blue-right-arrow-icon {
+    background-position: -58px -437px;
+}
+
+.teal-right {    
+    background-position: -69px -437px;
+}
+
+.rotate-arrow .teal-right {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rotate-arrow.active .teal-right {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 /*ratings*/
@@ -1159,6 +1199,14 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
     }
     .model-more-info-section .used-target-label {
         width: 92%;
+    }
+
+    /* swiper heading */
+    .swiper-heading-left-grid {
+        width: 73%;
+    }
+    .swiper-heading-right-grid {
+        width: 24%;
     }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }

@@ -178,6 +178,16 @@ var pageArray = [
         stylesheet: 'm/css/compare/details.css'
     },
     {
+        folderName: 'm/new/',
+        fileName: 'BikeMakes.aspx',
+        stylesheet: 'm/css/bwm-brand.css'
+    },	
+    {
+        folderName: 'new/',
+        fileName: 'models.aspx',
+        stylesheet: 'css/brand.css'
+    },
+    {
         folderName: 'm/used/',
         fileName: 'Default.aspx',
         stylesheet: 'm/css/used/landing.css'

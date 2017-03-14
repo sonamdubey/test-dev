@@ -36,9 +36,9 @@
                 </asp:Repeater>
             </div>
         </div>
-            <div class="text-center margin-top10">
-                <a class="font14" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View more used bikes</a>
-            </div>
+        <div class="view-all-btn-container margin-top10">
+            <a class="btn view-all-target-btn" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View more used bikes<span class="bwmsprite teal-right"></span></a>
+        </div>
         </div>
     </div>
     <div class="clear"></div>

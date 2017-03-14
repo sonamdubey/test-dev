@@ -712,7 +712,7 @@
 
         <section>
             <div class="container">
-                <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20">
+                <div id="modelSpecsTabsContentWrapper" class="grid-12 margin-bottom20 content-details-wrapper">
                     <div class="content-box-shadow">
                         <div class="overall-specs-tabs-wrapper">
                             <% if ((modelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(modelPageEntity.ModelDesc.SmallDescription)) || modelPageEntity.ModelVersionSpecs != null)
