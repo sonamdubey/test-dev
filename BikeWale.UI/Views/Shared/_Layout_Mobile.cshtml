@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     @{
         var Title = ViewBag.Title;
+        var PageMetaTags = ViewBag.PageMetaTags;
         var relPrevPageUrl = ViewBag.relPrevPageUrl;
         var relNextPageUrl = ViewBag.relNextPageUrl;
         var description = ViewBag.Description;
@@ -29,30 +30,82 @@
         var IsHomePage= Convert.ToBoolean(ViewBag.IsHomePage !=null ? ViewBag.IsHomePage : false);        
     }
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@Title</title>
-    <meta name="description" content="@description" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-    <meta name="theme-color" content="#2a2a2a" />
-    @if(!String.IsNullOrEmpty(keywords)) {
-        <meta name="keywords" content="@keywords" />}
-    @if(EnableOG)
+
+    @if (PageMetaTags != null) 
     {
-        <meta property="og:title" content="@Title" />
-        <meta property="og:type" content="website" />
-        <meta property="og:description" content="@description" />
-        <meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
-        if (!String.IsNullOrEmpty(canonical)) {
-            <meta property="og:url" content="@canonical" /> }
+        if (!String.IsNullOrEmpty(PageMetaTags.Title))
+        { 
+<title>@PageMetaTags.Title</title>
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.Description))
+        {
+<meta name="description" content="@PageMetaTags.Description" />
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.Keywords))
+        {
+<meta name="keywords" content="@PageMetaTags.Keywords" />
+        }
+        if (EnableOG)
+        {
+<meta property="og:title" content="@PageMetaTags.Title" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@PageMetaTags.Description" />
+<meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
+            if (!String.IsNullOrEmpty(PageMetaTags.CanonicalUrl))
+            {
+<meta property="og:url" content="@PageMetaTags.CanonicalUrl" />
+            }
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.AlternateUrl))
+        {
+<meta name="alternate" content="@PageMetaTags.AlternateUrl" />
+        }
+        if (!String.IsNullOrEmpty(PageMetaTags.CanonicalUrl))
+        {
+<link rel="canonical" href="@PageMetaTags.CanonicalUrl" />}
+        if (!String.IsNullOrEmpty(PageMetaTags.PreviousPageUrl))
+        {
+<link rel="prev" href="@PageMetaTags.PreviousPageUrl" /> }
+        if (!String.IsNullOrEmpty(PageMetaTags.NextPageUrl))
+        {
+<link rel="next" href="@PageMetaTags.NextPageUrl" />
+        }
     }
-    @if(!String.IsNullOrEmpty(canonical)) {
-        <link rel="canonical" href="@canonical" />}
-    @if(!String.IsNullOrEmpty(relPrevPageUrl)){
-        <link rel="prev" href="@relPrevPageUrl" />}
-    @if(!String.IsNullOrEmpty(relNextPageUrl)){
-        <link rel="next" href="@relNextPageUrl" />}
-    <link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    <link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
+    else
+    {
+<title>@Title</title>
+<meta name="description" content="@description" />
+        if (!String.IsNullOrEmpty(keywords))
+        {
+<meta name="keywords" content="@keywords" />}
+        if (EnableOG)
+        {
+<meta property="og:title" content="@Title" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@description" />
+<meta property="og:image" content="@string.IsNullOrEmpty(OGImage) ? @Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : @OGImage" />
+            if (!String.IsNullOrEmpty(canonical))
+            {
+<meta property="og:url" content="@canonical" /> 
+            }
+        }
+        if (!String.IsNullOrEmpty(canonical))
+        {
+<link rel="canonical" href="@canonical" />}
+        if (!String.IsNullOrEmpty(relPrevPageUrl))
+        {
+<link rel="prev" href="@relPrevPageUrl" />}
+        if (!String.IsNullOrEmpty(relNextPageUrl))
+        {
+<link rel="next" href="@relNextPageUrl" />
+        }
+    }
+                                                  
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
+<meta name="theme-color" content="#2a2a2a" />
+<link rel="SHORTCUT ICON" href="https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
+<link rel='stylesheet' type='text/css' href='/m/css/bwm-common-atf.css' />
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(ViewBag.Page_ATF_CSS)
