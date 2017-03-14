@@ -90,10 +90,12 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// </summary>
         private void PopulateNewlaunch()
         {
+            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
             var filters = new InputFilter()
             {
                 PageSize = 9,
-                BodyStyle = 5
+                BodyStyle = 5,
+                CityId = cityId
             };
             NewLaunchedBikeResult objNewLaunchesBikes = _newLaunches.GetBikes(filters);
             ViewBag.NewLaunchesList = objNewLaunchesBikes;
