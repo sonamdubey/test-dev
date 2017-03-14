@@ -85,7 +85,14 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-orange:focus { background: #df3828; }
 .btn-teal { background: #41b4c4; color: #fff; border:1px solid #41b4c4; }
 .btn-teal:hover { text-decoration: none; background: #58bdcb; border:1px solid #58bdcb; }
-.btn-teal:focus { background: #37939f; border: 1px solid #37939f; }
+.btn-teal:focus { background: #37939f;  border: 1px solid #37939f; }
+.btn-inv-teal, .view-all-target-btn { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.view-all-target-btn { padding: 5px 7px; font-size: 14px; }
+.btn-inv-teal:hover,
+.view-all-target-btn:hover { color: #fff; background: #41b4c4; border-color: #41b4c4; }
+.btn:hover {
+    text-decoration: none;
+}
 
 .btn-white, .btn-grey { background: #fff; color: #ef402f; border: 1px solid #f04130; }
 .btn-white:hover, .btn-grey:hover { background: #f04031; color: #fff; text-decoration: none; }
@@ -375,6 +382,11 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
     background-position: -222px -14px;
 }
 
+.btn-inv-teal:hover .teal-right,
+.view-all-target-btn:hover .teal-right {
+    background-position: -222px -14px;
+}
+
 .fa-twitter, .fa-google-plus{ position:relative; top:14px; } 
 .fa-facebook { width:11px; height:23px; background-position:-144px -2px; position:relative; top:12px; }
 .fa-twitter { width:26px; height:23px; background-position:-168px -4px; }
@@ -494,6 +506,11 @@ a.action-btn:hover{text-decoration:none;}
 
 .hover-no-underline:hover {
     text-decoration: none;
+}
+
+/* view all button */
+.page-type-landing .view-all-btn-container {
+    text-align: center;
 }
 
 /* common properties */
@@ -867,13 +884,35 @@ li.offertxt:hover span {display:inline}
 .strike{text-decoration: line-through; color:#82888b}
 .red-font{ color: #FF0000;}
 
-.blue-right-arrow-icon {
+.blue-right-arrow-icon,
+.teal-right {
     width: 6px;
     height: 10px;
-    background-position: -74px -469px;
     position: relative;
     top: 1px;
-    left: 7px;
+    margin-left: 6px;
+}
+
+.blue-right-arrow-icon {
+    background-position: -74px -469px;
+}
+
+.teal-right {
+    background-position: -82px -469px;
+}
+
+.rotate-arrow .teal-right {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.rotate-arrow.active .teal-right {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 
 /*ratings*/
@@ -1025,6 +1064,23 @@ input[type="number"] {
     margin-right: 10px;
 }
 
+.carousel-heading-content {
+    margin-bottom: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.swiper-heading-left-grid {
+    width: 75%;
+}
+
+.swiper-heading-right-grid {
+    width: 25%;
+}
+
+.content-details-wrapper .carousel-heading-content h2 {
+    margin-bottom: 0;
+}
 
 /* popup widget */
 .select-box {
