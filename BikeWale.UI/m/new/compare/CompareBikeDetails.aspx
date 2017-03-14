@@ -219,15 +219,16 @@
                                        { %>
                                     <td>
                                         <% foreach (var color in bike.bikeColors)
-                                           { %>
-                                        <div class="color-box color-count-<%= color.HexCodes.Count %>">
+                                           {
+                                               if (color.HexCodes != null) { %>
+                                        <div class="color-box color-count-<%= color.HexCodes.Count()   %>">
                                             <% foreach (var hexCode in color.HexCodes)
                                                { %>
                                             <span style="background-color: #<%= hexCode %>"></span>
                                             <% } %>
                                         </div>
                                         <p><%= color.Color %></p>
-                                        <% } %>
+                                        <% } } %>
                                     </td>
                                     <% } %>
                                 </tr>

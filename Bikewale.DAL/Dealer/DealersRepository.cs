@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 namespace Bikewale.DAL.Dealer
 {
@@ -56,17 +55,12 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersMakesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealersMakesList ex : " + ex.Message + ex.Source);
+
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return objMakeList;
@@ -126,17 +120,10 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersCitiesListByMakeId sqlex : " + sqEx.Message + sqEx.Source);
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealersCitiesListByMakeId ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objDealerList;
@@ -190,17 +177,10 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealersList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objDealerList;
@@ -255,17 +235,9 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetBikeShowrooms sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetBikeShowrooms ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return objDealerList;
@@ -309,17 +281,10 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersMakeListByCityId sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealersMakeListByCityId ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+
             }
 
             return objMakeList;
@@ -363,17 +328,10 @@ namespace Bikewale.DAL.Dealer
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("GetDealersCitiesList sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealersCitiesList ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             return objCityList;
         }
@@ -395,34 +353,25 @@ namespace Bikewale.DAL.Dealer
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "savemanufacturerlead";
+                        cmd.CommandText = "savemanufacturerlead_03032017";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, objLead.Mobile));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCode));
 
-                        //TVS Dealer ID to be sent to update pricequote ID
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
-                        // LogLiveSps.LogSpInGrayLog(cmd);
 
-                        if (MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0)
-                            status = true;
+                        status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn("SaveManufacturerLead sql ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("SaveManufacturerLead ex : " + ex.Message + ex.Source);
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, "DealersRepository.SaveManufacturerLead");
             }
 
             return status;
@@ -517,9 +466,7 @@ namespace Bikewale.DAL.Dealer
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealerByMakeCity ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return dealers;
@@ -623,7 +570,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerDetailsAndBikes");
-                objErr.SendMail();
             }
             return dealers;
         }
@@ -742,7 +688,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "DealersRepository.GetDealerDetailsAndBikes");
-                objErr.SendMail();
             }
             return dealers;
         }
@@ -788,7 +733,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "FetchDealerCitiesByMake");
-                objErr.SendMail();
             }
 
             return objCityList;
@@ -863,7 +807,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("GetPopularCityDealer(makeId : {0})", makeId));
-                objErr.SendMail();
             }
 
             return objDealerServiceDetails;
@@ -902,7 +845,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return status;
@@ -946,7 +888,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDealerByBrandList");
-                objErr.SendMail();
             }
             return objDealerList;
 
@@ -994,7 +935,6 @@ namespace Bikewale.DAL.Dealer
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("exception in Dal for FetchNearByCityDealersCount {0}, {1}", makeId, cityId));
-                objErr.SendMail();
             }
             return objDealerCountList;
         }

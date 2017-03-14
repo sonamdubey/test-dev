@@ -75,6 +75,13 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .btn-teal { background: #41b4c4; color: #fff; border:1px solid #41b4c4; }
 .btn-teal:hover { text-decoration: none; background: #58bdcb; border:1px solid #58bdcb; }
 .btn-teal:focus { background: #37939f;  border: 1px solid #37939f; }
+.btn-inv-teal, .view-all-target-btn { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.view-all-target-btn { padding: 5px 7px; font-size: 14px; }
+.btn-inv-teal:hover,
+.view-all-target-btn:hover { color: #fff; background: #41b4c4; border-color: #41b4c4; }
+.btn:hover {
+    text-decoration: none;
+}
 
 .btn-white, .btn-grey { background: #fff; color: #ef402f; border: 1px solid #f04130; }
 .btn-white:hover, .btn-grey:hover { background: #f04031; color: #fff; text-decoration: none; }
@@ -106,7 +113,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .global-location { position: relative; display: inline-block; vertical-align:middle; color: #fff; margin-right: 20px; z-index: 5; }
 .gl-default-stage { border: 1px solid #e2e2e2; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
-.globalCity-auto-desktop.ui-menu .ui-search-icon { display: none }
+.globalCity-auto-desktop.ui-menu .ui-search-icon,
+.pincode-autocomplete.ui-menu .ui-search-icon { display: none }
 
 /* login classes */
 .login-box { display: inline-block; vertical-align:middle; padding: 4px 10px; color: #fff; cursor: pointer; margin-right: 10px; }
@@ -200,7 +208,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 /* autocomplete class */
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; }
-.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #aaa; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
+.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #fff; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; overflow:visible;}
 .ui-autocomplete.source:hover { background: #ddd; }
 .ui-menu .ui-menu-item, .recent-searches-dropdown li { padding: 10px; background:#fff; font-size:14px; cursor:pointer; display: block; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus, .recent-searches-dropdown li:hover, .recent-searches-dropdown li.focus-state { background:#eee; }
@@ -291,6 +299,11 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 /* new common classes */
 .section-bottom-margin {
     margin-bottom: 20px;
+}
+
+/* view all button */
+.page-type-landing .view-all-btn-container {
+    text-align: center;
 }
 
 .hide { display: none; }

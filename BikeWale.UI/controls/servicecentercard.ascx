@@ -1,7 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ServiceCenterCard" %>
 <% if(ServiceCenteList!=null) { %>
 
-<h2 class="padding-top15 padding-right20 margin-bottom15 padding-left20"><%=widgetHeading%></h2>
+<div class="carousel-heading-content padding-top20">
+    <div class="swiper-heading-left-grid inline-block">
+        <h2><%=widgetHeading %></h2>
+    </div><div class="swiper-heading-right-grid inline-block text-right">
+        <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%= makeName %> service centers in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+    </div>
+    <div class="clear"></div>
+</div>
 <%if(!string.IsNullOrEmpty(biLineText)) {%>
 <p class="font14 margin-left20 margin-bottom20"><%=biLineText%></p>
 <%} %>
@@ -28,8 +35,5 @@
     <% } %>
 </ul>
 <div class="clear"></div>
-<div class="padding-left20 font14 padding-bottom20">
-    <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%= makeName %> service centers in <%=cityName %>" >View all <%= makeName %> service centers in <%=cityName %><span class="bwsprite blue-right-arrow-icon"></span></a>
-</div>
 <div class="margin-right10 margin-left10 border-solid-bottom"></div>     
 <% } %>

@@ -325,7 +325,7 @@
                                     <%if (isPremium)
                                       { %>
                                     <div class="grid-6 omega">
-                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&callback=initializeDealerMap" async defer></script>
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&callback=initializeDealerMap" async defer></script>
 
                                         <div id="dealerMap" style="width: 438px; height: 202px; border: 1px solid #f5f5f5;"></div>
                                         <div id="get-direction-button" title="get directions">
@@ -456,7 +456,7 @@
                                                         <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                                     </span>
                                                 </div>
-                                                <a id="btnEmiQuote" leadsourceid="11" data-dealerid="<%=dealerId %>" class="btn btn-grey btn-md font14">Get EMI quote</a>
+                                                <a id="btnEmiQuote" leadsourceid="11" data-item-id="<%=dealerId %>" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
                                             </div>
 
                                         </div>
@@ -531,7 +531,7 @@
                                         <div class="clear"></div>
                                     </div>
                                     <div class="grid-4 padding-top5">
-                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal book-now-btn">Book bike</a>
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-teal book-now-btn btn-188-40">Book bike</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -585,7 +585,7 @@
             <%= string.Format(objQuotation.ManufacturerAd) %>
         </section>
         <%} %>
-
+        
         <%if (detailedDealer != null && detailedDealer.SecondaryDealers != null && detailedDealer.SecondaryDealerCount > 0)
           { %>
         <!-- Secondary dealer section -->
@@ -915,6 +915,7 @@
                         "dealerHeading" : ele.attr('data-item-heading'), 
                         "dealerMessage" : ele.attr('data-item-message'), 
                         "dealerDescription" : ele.attr('data-item-description'), 
+                        "pinCodeRequired":ele.attr("data-ispincodrequired"),
                         "gaobject": {
                             cat: ele.attr("c"),
                             act: ele.attr("a"),

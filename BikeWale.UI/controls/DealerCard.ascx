@@ -3,9 +3,16 @@
    { %>
 <% if (isCitySelected)
    { %>
-<div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
+<div id="makeDealersContent" class="bw-model-tabs-data padding-top20 font14">
     <% if(isHeading) { %>
-    <h2 class="padding-right20 padding-left20 margin-bottom15"><%=widgetHeading %></h2>
+    <div class="carousel-heading-content">
+        <div class="swiper-heading-left-grid inline-block">
+            <h2><%=widgetHeading %></h2>
+        </div><div class="swiper-heading-right-grid inline-block text-right">
+            <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+    </div>
     <% } %>
     <ul id="city-dealer-list" class="bw-horizontal-cards">
         <asp:Repeater ID="rptDealers" runat="server">
@@ -27,7 +34,7 @@
         </asp:Repeater>
     </ul>
     <div class="clear"></div>
-    <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%=cityName %>" class="margin-left20">View all <%=makeName %> showrooms<span class="bwsprite blue-right-arrow-icon"></span></a>
+    
 </div>
 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 <% }

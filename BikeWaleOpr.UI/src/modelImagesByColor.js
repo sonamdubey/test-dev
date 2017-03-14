@@ -145,7 +145,7 @@ function uploadToAWS(file, photoId, itemId, path, ext) {
     var imgUpldUtil = new ImageUploadUtility();
     imgUpldUtil.request = { "originalPath": path, "categoryId": 2, "itemId": itemId, "aspectRatio": "1.777", "isWaterMark": 0, "isMaster": 1, "isMain": 0, "extension": ext };
     imgUpldUtil.photoId = photoId;
-    imgUpldUtil.baseURL = bwHostUrl;
+    imgUpldUtil.baseURL = bwOprHostUrl;
     file.type = "image/" + ext;    
     imgUpldUtil.upload(file);
     $(file._removeLink).attr("photoId", (imgUpldUtil.photoId ? imgUpldUtil.photoId : ''));

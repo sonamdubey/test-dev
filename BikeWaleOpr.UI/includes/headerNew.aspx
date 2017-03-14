@@ -1,24 +1,93 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
-<link rel="stylesheet" href="/css/chosen.min.css?03102016" />
-<script src="https://st1.aeplcdn.com/bikewale/min/src/frameworks.js?09Jan2017v1" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
-<script type="text/javascript" src="/src/common/common.js?03102016"></script>
-<script type="text/javascript" src="https://st2.aeplcdn.com/bikewale/src/common/chosen.jquery.min.js?v15416"></script>
-<title>BikeWale Operations</title>
-<style type="text/css">
-    .chosen-container {padding: 8px;}
-</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="/css/common.css?03102016" type="text/css" />
+    <link rel="stylesheet" href="/css/chosen.min.css?03102016" />
+    <script src="https://st1.aeplcdn.com/bikewale/min/src/frameworks.js?09Jan2017v1" type="text/javascript"></script>
+    <script src="/src/AjaxFunctions.js?03102016" type="text/javascript"></script>
+    <title>BikeWale Operations</title>
+    <style type="text/css">
+        .chosen-container {padding: 8px;}
+    </style>
 </head>
 <body>
     <form runat="server">
-	<div class="content">
-		<div class="header">				
+	    <div>
+           
+            <div class="nav-wrapper">
+                <ul class="side-nav" id="nav-drawer">
+                    <li>
+                        <div class="teal">
+                            <a href="javascript:void(0)"><span class="side-nav-title">BikeWale Operations</span></a>
+                        </div>
+                    </li>
+                    <li>
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header">Contents</div>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li class="collapsible-body-title">Bike Data</li>
+                                        <li><a href="/content/makes/">Makes</a></li>
+                                        <li><a href="/content/bikemodels.aspx">Models</a></li>
+                                        <li><a href="/content/bikeversions.aspx">Versions</a></li>
+                                        <li><a href="/content/NewBikeModelColors_New.aspx">Model Colors</a></li>
+                                        <li><a href="/content/ModelColorWiseImage.aspx">Model Images By Color</a></li>
+                                        <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>
+                                        <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
+                                        <li><a href="/content/bikeunitssold.aspx">Bulk Units Sold</a></li>
+                                        <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
+                                        <li><a href="/content/showroomprices.aspx">Pricing</a></li>
+                                        <li><a href="/content/bulkpriceupload.aspx">Bulk Pricing</a></li>
+                                        <li><a href="/content/pricemonitoring.aspx">Price Monitoring</a></li>
+                                        <li class="collapsible-body-title teal lighten-4">Bikewale Dealers</li>
+                                        <li><a href="/content/adddealers.aspx">Add delears</a></li>
+                                        <li><a href="/content/editdealers.aspx">Edit delears</a></li>
+                                        <li class="collapsible-body-title teal lighten-4">User Reviews</li>
+                                        <li><a href="/content/manageuserreviews.aspx">Manage Reviews</a></li>
+                                        <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
+                                        <li><a href="/MobileApp/AppVersioning.aspx">App Versions</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">Classified</div>
+                                <div class="collapsible-body teal-text">
+                                    <ul>
+                                        <li><a href="/classified/verifycustomerlisting.aspx">Manage Listings</a></li>
+                                        <li><a href="/classified/verifyeditedlisting.aspx">Verify Edited Listings</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">Dealers</div>
+                                <div class="collapsible-body teal-text">
+                                    <ul>
+                                        <li><a href="/newbikebooking/default.aspx">Manage Dealers</a></li>
+                                        <li><a href="/campaign/SearchDealerCampaigns.aspx">Dealer Campaigns</a></li>
+                                        <li><a href="/manufacturecampaign/SearchManufacturerCampaign.aspx">Manufacturer Campaigns</a></li>
+                                        <li><a href="/campaign/ManageDealerPriceCategories.aspx">Dealer Price Categories</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="floatLeft">
+                    <li><a href="javascript:void(0)" id="nav-btn" rel="nofollow"><span class="bwsprite nav-icon"></span></a></li>
+                    <li class="nav-title">BikeWale Operations</li>
+                </ul>
+                <ul class="floatRight">
+                    <li class="nav-logged-in-user">Welcome <%= Bikewale.Utility.OprUser.UserName %></li>
+                    <li><a class="white-text" href="/common/logout.aspx?logout=logout">Logout</a></li>
+                </ul>
+
+            </div>
+
+		<%--<div class="header">				
 			<div class="logo floatLeft">
-				<h1><a href="/default.aspx" title="Centralized Internet Services"><span class="dark">BikeWale</span>Operations</a></h1>
+				<h1><a href="" title="Centralized Internet Services"><span class="dark">BikeWale</span>Operations</a></h1>
 			</div>					
 			
             <div class="floatRight">
@@ -37,6 +106,6 @@
                 <li><a href="/classified/default.aspx" accesskey="e">Classified</a></li>
                 <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>                    
             </ul>
-		</div>
+		</div>--%>
 	    <div class='toast' style='display:none'></div>
 

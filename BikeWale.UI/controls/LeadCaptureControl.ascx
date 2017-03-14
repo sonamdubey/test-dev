@@ -10,8 +10,8 @@
                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() !='')? dealerHeading() : 'Provide contact details'"></p>
-        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() :'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
         <div class="personal-info-form-container">
             <!-- ko if : isDealerBikes() -->
             <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
@@ -23,27 +23,42 @@
             </div>
             <!-- /ko -->
             <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName">
+                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1">
                 <label for="getFullName">Name<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId">
+                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="2">
                 <label for="getEmailID">Email<sup>*</sup></label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
             <div class="input-box input-number-box form-control-box personal-info-list">
-                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo">
+                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="3">
                 <label for="getMobile">Mobile number<sup>*</sup></label>
                 <span class="input-number-prefix">+91</span>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
+
+            <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
+                <input type="text" id="getPinCode" autocomplete="off" tabindex="4">
+                <label for="getPinCode">Pincode<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+
+                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                        <span class="text-bold">Oops! No suggestions found</span><br>
+                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                    </li>
+                </ul>
+            </div>
+
             <div class="clear"></div>
-            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-            <p class="margin-top15 margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
+            <a class="btn btn-orange" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
+            <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank">privacy policy</a>.</p>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -52,12 +67,12 @@
                 <span class="bwsprite otp-icon margin-top25"></span>
             </div>
         </div>
-         <!-- ko if : !dealerMessage() -->
+        <!-- ko if : !dealerMessage() -->
         <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="    visible: dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-          <!-- /ko -->
-            <!-- ko ifnot : -->
-            <p class="font18 margin-top25 margin-bottom20" data-bind="text: dealerMessage()"></p>
-            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot : -->
+        <p class="font18 margin-top25 margin-bottom20" data-bind="text: dealerMessage()"></p>
+        <!-- /ko -->
         <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
 </div>
@@ -65,7 +80,7 @@
 <div id="ub-ajax-loader">
     <div id="spinner-content">
         <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
-           <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+            <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
         </svg>
     </div>
 </div>
@@ -80,8 +95,9 @@
     var detailsSubmitBtn = $("#user-details-submit-btn");
     var prevEmail = "";
     var prevMobile = "";
+    var prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
-  
+    var objPinCodes = new Object();
 
 
     $(function () {
@@ -127,6 +143,11 @@
             prevMobile = $(this).val().trim();
         });
 
+        $(document).on("focus", "#getPinCode", function () {
+            validate.onFocus($(this));
+            prevPinCode = $(this).val().trim().substring(0,6);
+        });
+
         $("#getFullName, #assistGetName").on("blur", function () {
             validate.onBlur($(this));
         });
@@ -139,7 +160,15 @@
                 }
             }
         });
-
+        $(document).on("blur", "#getPinCode", function () {
+            validate.onBlur($(this));
+            var pc = $(this).val().trim();
+            if (pc.indexOf(',') > 0)
+                pc = pc.substring(0, 6);
+            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
+                validate.setError($("#getPinCode"), 'Invalid pincode');
+            }
+        });
         $(document).on("change", "#getLeadBike", function () {
             if ($(this).val() != null && $(this).val() != "0")
                 hideError($(this));
@@ -164,14 +193,13 @@
             self.fullName = ko.observable(arr[0]);
             self.emailId = ko.observable(arr[1]);
             self.mobileNo = ko.observable(arr[2]);
-            $('.input-box').addClass('not-empty');
         }
         else {
             self.fullName = ko.observable();
             self.emailId = ko.observable();
             self.mobileNo = ko.observable();
         }
-        self.msg ="";
+        self.msg = "";
         self.IsVerified = ko.observable(false);
         self.pqId = ko.observable(0);
         self.dealerId = ko.observable();
@@ -196,7 +224,9 @@
         self.dealerHeading = ko.observable();
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
-            self.setOptions = function (options) {
+        self.pinCodeRequired = ko.observable();
+        self.pincode = ko.observable();
+        self.setOptions = function (options) {
             if (options != null) {
                 if (options.dealerid != null)
                     self.dealerId(options.dealerid);
@@ -225,14 +255,17 @@
                 if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
                 }
-                if (options.dealerHeading != null && options.dealerHeading!="")
+                if (options.dealerHeading != null && options.dealerHeading != "")
                     self.dealerHeading(options.dealerHeading);
 
                 if (options.dealerMessage != null && options.dealerMessage != "")
                     self.dealerMessage(options.dealerMessage);
 
-                if (options.dealerDescription != null&& options.dealerDescription !="")
+                if (options.dealerDescription != null && options.dealerDescription != "")
                     self.dealerDescription(options.dealerDescription);
+
+                if (options.pinCodeRequired != null)
+                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true );
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
@@ -343,8 +376,7 @@
 
         };
 
-        self.registerPQ = function (objPQData)
-        {
+        self.registerPQ = function (objPQData) {
             var isSuccess = false;
             if (objPQData) {
                 var url = '/api/RegisterPQ/';
@@ -430,13 +462,15 @@
         };
 
         self.submitCampaignLead = function (data, event) {
+
+            self.pincode($("#getPinCode").val().trim());
+
             var isValidCustomer = self.validateUserInfo(fullName, emailid, mobile);
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
                 if (self.isRegisterPQ())
                     self.generatePQ(data, event);
-
                 $('#processing').show();
                 var objCust = {
                     "dealerId": self.dealerId(),
@@ -447,6 +481,7 @@
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "leadSourceId": self.leadSourceId(),
+                    "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
                 }
                 $.ajax({
@@ -486,7 +521,7 @@
             }
             else {
                 self.IsVerified(false);
-
+                isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                 var eventButtonId = $(event.currentTarget).attr('id');
                 switch (eventButtonId) {
                     case 'user-details-submit-btn': // model 'get offers from dealers', dealer locator listing 'submit'
@@ -546,11 +581,6 @@
                 "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
                 "clientip": clientIP
-                <%--"gaobject": {
-                        cat: 'Price_in_City_Page',
-                        act: 'Lead_Submitted',
-                        lab: '<%= string.Format("{0}_", bikeName)%>' + CityArea
-                    }--%>
             };
 
             self.setOptions(leadOptions);
@@ -559,11 +589,114 @@
 
         };
 
+        self.setPinCodeSuggestion = function () {
+            $("#getPinCode").bw_autocomplete({
+                source: 4,
+                recordCount: 3,
+                minLength: 2,
+                onClear: function () {
+                    objPinCodes = new Object();
+                },
+                click: function (event, ui, orgTxt) {
+                    if (self.selectedBike() && self.selectedBike().make && self.selectedBike().model) {
+                        var keywrd = self.selectedBike().make.makeName + '_' + self.selectedBike().model.modelName + '_pinCode_' + $('#getPinCode').val();
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'LeadCapture_Popup', 'act': 'PinCode_Selected', 'lab': keywrd });
+                    }
+                    if (ui && ui.item) {
+                        self.pincode(ui.item.payload.pinCode);
+                    }
+                    else {
+                        self.pincode(0);
+                    }
+
+                },
+                open: function (result) {
+                    objPinCodes.result = result;
+                },
+                focusout: function () {
+                    if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
+                        $('#errPinCodeSearch').hide()
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                    }
+                    else {
+                        $('#errPinCodeSearch').hide();
+                    }
+                },
+                afterfetch: function (result, searchtext) {
+                    if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                        $('#errPinCodeSearch').hide();
+                    }
+                    else {
+                        focusedMakeModel = null;
+                        if (searchtext.trim() != "") {
+                            $('#errPinCodeSearch').show();
+                            self.pincode(0);
+                        }
+                    }
+                },
+                keyup: function () {
+                    if ($('#getPinCode').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                        focusedMakeModel = new Object();
+                        focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
+                        $('#errPinCodeSearch').hide();
+                    } else {
+                        if ($('#getPinCode').val().trim() == '') {
+                            $('#errPinCodeSearch').hide();
+                        }
+                    }
+
+                    if ($('#getPinCode').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                        if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                            if ($('#getPinCode').val().trim() != '') {
+                                $('#errPinCodeSearch').show();
+                                self.pincode(0);
+                            }
+                        }
+                        else {
+                            $('#errPinCodeSearch').hide();
+                        }
+
+                    }
+                }
+            }).autocomplete({ appendTo: $("#getPinCode").closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
+        };
+
+        self.checkPinCode = function () {
+            isValid = false;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/autosuggest/?source=4&inputText=" + self.pincode() + "&noofrecords=5",
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.suggestionList.length > 0) {
+                        $('#getPinCode').val(data.suggestionList[0].text);
+                        self.pincode(data.suggestionList[0].payload.pinCodeId);
+                        isValid = true;
+                    }
+                    else {
+                        validate.setError($('#getPinCode'), 'Invalid pincode');
+                        self.pincode(0);
+                        isValid=  false;
+                    }
+                }
+            });
+
+            return isValid;
+        };
+
         self.validateUserInfo = function (inputName, inputEmail, inputMobile) {
             var isValid = true;
             isValid = self.validateUserName(inputName);
             isValid &= self.validateEmailId(inputEmail);
             isValid &= self.validateMobileNo(inputMobile);
+            if (self.pinCodeRequired()) {
+                isValid &= self.validatePinCode();
+                if (isValid)
+                    isValid &= self.checkPinCode(self.pincode());
+            }
             if (self.isDealerBikes())
                 isValid &= self.validateBike();
             return isValid;
@@ -605,9 +738,18 @@
             }
             return isValid;
         };
-
+        self.validatePinCode = function () {
+            leadPinCode = $('#getPinCode'); var isValid = true,pc = leadPinCode.val().trim() ;
+            if (pc.indexOf(',') > 0)
+                pc = pc.substring(0, 6);
+            if (!(/^[1-9][0-9]{5}$/.test(pc))) {
+                validate.setError(leadPinCode, 'Invalid pincode');
+                isValid = false;
+            }
+            return isValid;
+        };
         self.validateMobileNo = function (inputMobile) {
-           
+
             mobileVal = $(inputMobile).val();
             if (!validateMobileNo(mobileVal, self)) {
                 validate.setError($(inputMobile), self.msg);
@@ -640,7 +782,20 @@
             return isValid;
         };
 
-        self.showLoader = function () {                
+        self.setInputValues = function () {
+            var inputBoxes = $('.personal-info-form-container .input-box');
+            for (var i = 0; i < inputBoxes.length; i++) {
+                var item = $(inputBoxes[i]),
+                    inputValue = item.find('input').val();
+
+                if (inputValue.length > 0) {
+                    item.addClass('not-empty');
+                }
+
+            }
+        };
+
+        self.showLoader = function () {
             $('#ub-ajax-loader').show();
         }
 
@@ -652,10 +807,13 @@
 
     var dleadvm = new leadModel();
     ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+    dleadvm.setInputValues();
 
     if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
         ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
-
+    $(function () {
+        dleadvm.setPinCodeSuggestion();
+    });
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -732,6 +890,5 @@
         }
         catch (e) { return };
     }
-
 </script>
 
