@@ -92,6 +92,7 @@
     <Compile Include="GenericBikes\GenericBikesCategoriesMapping.cs" />
     <Compile Include="GlobalCityArea.cs" />
     <Compile Include="LinqHelpers\LinqExtensions.cs" />
+    <Compile Include="OprUser.cs" />
     <Compile Include="LinqHelpers\PredicateBuilder.cs" />
     <Compile Include="SponsoredCampaigns.cs" />
     <Compile Include="StrinHtmlHelpers.cs" />

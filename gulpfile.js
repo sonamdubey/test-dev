@@ -181,8 +181,22 @@ var pageArray = [
         folderName: 'm/new/',
         fileName: 'models.aspx',
         stylesheet: 'css/brand.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/used/landing.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'Search.aspx',
+        stylesheet: 'm/css/used/search.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'BikeDetails.aspx',
+        stylesheet: 'm/css/used/details.css'
     }
-	
 ];
 
 var mvcPageArray =[

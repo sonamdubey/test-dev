@@ -1,9 +1,5 @@
 <%@ Page Inherits="BikeWaleOpr.Content.ShowroomPrices" AutoEventWireup="false" Language="C#" Trace="false" Debug="false" EnableEventValidation="false" EnableViewState="true" %>
-
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
 <div class="left min-height600" id="divManagePrices">
     <h1>Manage Showroom Prices</h1>
     <fieldset>
