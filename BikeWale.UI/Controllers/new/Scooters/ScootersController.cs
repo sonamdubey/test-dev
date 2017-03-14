@@ -126,7 +126,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
                 ScootersList = BindPopularScooters(objResponse.MakeId);
                 BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                 ViewBag.MakeName = objMake.MakeName;
-
+                ViewBag.MakeId = objResponse.MakeId;
             }
             ViewBag.ScootersList = ScootersList;
             string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
@@ -188,12 +188,14 @@ namespace Bikewale.Controllers.Desktop.Scooters
         {
             IEnumerable<MostPopularBikesBase> ScootersList = null;
             ViewBag.MakeName = "";
+            ViewBag.MakeId = 0;
             MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makemaskingname);
             if (objResponse != null)
             {
                 ScootersList = BindPopularScooters(objResponse.MakeId);
                 BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                 ViewBag.MakeName = objMake.MakeName;
+                ViewBag.MakeId = objResponse.MakeId;
 
             }
             ViewBag.ScootersList = ScootersList;
