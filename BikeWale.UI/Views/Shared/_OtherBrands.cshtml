@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-desc-block">
                             <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top">@make.MakeName</p>
-                            <h3 class="text-unbold text-light-grey">@make.TotalCount scooters</h3>
+                            <h3 class="text-unbold text-light-grey">@String.Format("{0} {1}", make.TotalCount, make.TotalCount > 1 ? "scooters" : "scooter")</h3>
                         </div>
                     </a>
                 </li>
