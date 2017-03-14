@@ -108,7 +108,8 @@
         </div>
        </section>    
 }
-
+@if ((ViewBag.Synopsis != null && ViewBag.Synopsis.FullDescription.Length>0) || showDealerWidget || (showServiceWidget && ViewBag.CityId>0))
+{
 <section>
     <div class="container section-bottom-margin">
         <div id="makeTabsContentWrapper" class="grid-12">
@@ -175,5 +176,6 @@
         <div class="clear"></div>
     </div>
 </section>
+}
 
 <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
