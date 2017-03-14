@@ -3408,6 +3408,9 @@
     <Content Include="Views\Scooters\BikesByMake.cshtml" />
     <Content Include="Views\Shared\_Brands.cshtml" />
     <Content Include="Views\m\Shared\_Brands.cshtml" />
+    <Content Include="Views\m\Scooters\index.cshtml" />
+    <Content Include="Views\Shared\_ServiceCenters.cshtml" />
+    <Content Include="Views\m\Shared\_ServiceCenters.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

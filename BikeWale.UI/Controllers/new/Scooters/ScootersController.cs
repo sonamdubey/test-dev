@@ -11,7 +11,12 @@ using Bikewale.Models.Shared;
 using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Web.Mvc;
-
+using System.Linq;
+using Bikewale.Interfaces.Dealer;
+using Bikewale.Entities.DealerLocator;
+using Bikewale.Entities.Dealer;
+using Bikewale.Interfaces.ServiceCenter;
+using Bikewale.Entities.ServiceCenters;
 
 namespace Bikewale.Controllers.Desktop.Scooters
 {
@@ -22,13 +27,17 @@ namespace Bikewale.Controllers.Desktop.Scooters
         private readonly IBikeModels<BikeModelEntity, int> _models = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompareCacheRepository _compareScooters = null;
-        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter)
+        private readonly IDealerCacheRepository _dealerCache = null;
+        private readonly IServiceCenter _serviceCenter = null;
+        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter, IDealerCacheRepository dealerCache,IServiceCenter serviceCenter)
         {
             _newLaunches = newLaunches;
             _models = models;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
             _IScooterCache = IScooter;
+            _dealerCache = dealerCache;
+            _serviceCenter=serviceCenter;
         }
 
         [Route("scooters/")]
@@ -109,9 +118,16 @@ namespace Bikewale.Controllers.Desktop.Scooters
             ViewBag.popularScooters = objScooters;
         }
 
-        [Route("scooters/make/")]
-        public ActionResult BikesByMake()
+        [Route("scooters/make/{makemaskingname}")]
+        public ActionResult BikesByMake(string makemaskingname)
         {
+            ViewBag.CityId=GlobalCityArea.GetGlobalCityArea().CityId;
+            MakeMaskingResponse objResponse = _IScooterCache.GetMakeMaskingResponse(makemaskingname);
+            if (objResponse != null){
+                UpcomingMakeScooters((int)objResponse.MakeId);
+                DealerShowrooms(ViewBag.CityId, objResponse.MakeId,3);
+                ServiceCenters(ViewBag.CityId,(int)objResponse.MakeId,3);
+            }
             return View("~/views/scooters/bikesbymake.cshtml");
         }
 
@@ -147,11 +163,92 @@ namespace Bikewale.Controllers.Desktop.Scooters
             objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
             ViewBag.popularScooters = objScooters;
         }
-        [Route("m/scooters/make/")]
-        public ActionResult MBikesByMake()
+
+        [Route("m/scooters/make/{makemaskingname}")]
+        public ActionResult MBikesByMake(string makemaskingname)
         {
+            ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            MakeMaskingResponse objResponse = _IScooterCache.GetMakeMaskingResponse(makemaskingname);
+            if (objResponse != null)
+            {
+                UpcomingMakeScooters((int)objResponse.MakeId);
+                DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
+                ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
+            }
             return View("~/views/m/scooters/bikesbymake.cshtml");
         }
 
+        /// <summary>
+        /// Created by : Aditi Srivastava on 10 Mar 2017
+        /// Summary    : To fetch upcoming make scooters
+        /// </summary>
+        
+        private void UpcomingMakeScooters(int makeId)
+        {
+            var objFiltersUpcoming = new Bikewale.Entities.BikeData.UpcomingBikesListInputEntity()
+            {
+                EndIndex = 9,
+                StartIndex = 1,
+                BodyStyleId = 5,
+                MakeId= makeId
+            };
+            var sortBy = Bikewale.Entities.BikeData.EnumUpcomingBikesFilter.Default;
+            IEnumerable<UpcomingBikeEntity> objUpcomingBikes = _upcoming.GetModels(objFiltersUpcoming, sortBy);
+            ViewBag.UpcomingBikes = objUpcomingBikes;
+            if(objUpcomingBikes!=null && objUpcomingBikes.Count()>0)
+            ViewBag.MakeName = objUpcomingBikes.FirstOrDefault().MakeBase.MakeName;
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 10 Mar 2017
+        /// Summary    : To fetch dealer showroom info
+        /// </summary>
+        private void DealerShowrooms(uint cityId,uint makeId,int topCount)
+        {
+           
+            
+            Showrooms objShowrooms = new Showrooms();
+            if (cityId > 0)
+            {
+                objShowrooms.dealers = _dealerCache.GetDealerByMakeCity(cityId, makeId, 0);
+                if (objShowrooms.dealers != null)
+                {
+                    ViewBag.MakeName = objShowrooms.dealers.MakeName;
+                    ViewBag.MakeMaskingName = objShowrooms.dealers.MakeMaskingName;
+                    ViewBag.CityMaskingName = objShowrooms.dealers.CityMaskingName;
+                    ViewBag.CityName = objShowrooms.dealers.CityName;
+                }
+                objShowrooms.dealers.Dealers = objShowrooms.dealers.Dealers.Take(topCount);
+            }
+            else
+            {
+                objShowrooms.dealerServiceCenter = _dealerCache.GetPopularCityDealer(makeId,(uint)topCount);
+                
+            }
+            if (objShowrooms.dealerServiceCenter != null)
+            {
+                ViewBag.showWidget = (objShowrooms.dealerServiceCenter.TotalDealerCount > 0 || objShowrooms.dealerServiceCenter.TotalServiceCenterCount > 0);
+                ViewBag.showServiceCenter = (objShowrooms.dealerServiceCenter.TotalServiceCenterCount > 0);
+            }
+            ViewBag.objShowrooms = objShowrooms;
+        }
+
+
+        private void ServiceCenters(uint cityId,int makeId,int topCount)
+        {
+            ServiceCenterData objServiceCenter = _serviceCenter.GetServiceCentersByCity(cityId, makeId);
+            IEnumerable<ServiceCenterDetails> ServiceCenterList = null;
+            if (objServiceCenter != null && objServiceCenter.ServiceCenters != null && objServiceCenter.ServiceCenters.Count() > 0)
+            {
+                ServiceCenterList = objServiceCenter.ServiceCenters.Take(topCount);
+
+                if (objServiceCenter.Count > 0)
+                    ViewBag.showWidget = true;
+
+                ViewBag.serviceCenters = ServiceCenterList;
+            }
+        }
+
+       
     }
 }

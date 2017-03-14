@@ -1,0 +1,42 @@
+﻿@using Bikewale.Utility;
+@model IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails>
+@if(Model!=null && Model.Count()>0){
+<div class="container card-bottom-margin padding-bottom20">
+    <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
+    @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
+    <p class="margin-top5 margin-left20 margin-bottom15">@ViewBag.biLineText</p>
+    } 
+    <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
+        <div class="swiper-wrapper">
+            @foreach (var serviceCenter in Model)
+            { 
+            <div class="swiper-slide">
+                <div class="swiper-card">
+                    <a href="@string.Format("/m{0}",UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName,ViewBag.CityMaskingName, serviceCenter.Name,serviceCenter.ServiceCenterId))" title="@serviceCenter.Name" class="block">
+                        <div class="target-link margin-bottom5 text-truncate font14">@serviceCenter.Name</div>
+                        @if (!string.IsNullOrEmpty(serviceCenter.Address))
+                        {
+                        <p class="margin-bottom5 text-light-grey">
+                            <span class="bwmsprite dealership-loc-icon vertical-top"></span>
+                            <span class="vertical-top dealership-address details-column">@FormatDescription.TruncateDescription(serviceCenter.Address, 95)</span>
+                        </p>
+                         }
+                    </a>
+                    @if (!string.IsNullOrEmpty(serviceCenter.Phone))
+                    {
+                    <a href="tel:@serviceCenter.Phone" class="text-default text-bold text-truncate block">
+                        <span class="bwmsprite tel-sm-grey-icon"></span>@serviceCenter.Phone
+                    </a>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="padding-right20 padding-left20 font14">
+        <a href="@string.Format("/m{0}",UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName service centers in @ViewBag.CityName">View all @ViewBag.MakeName service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+    </div>
+</div>
+} 
+
