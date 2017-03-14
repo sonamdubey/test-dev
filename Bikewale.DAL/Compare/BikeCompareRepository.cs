@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -208,14 +207,19 @@ namespace Bikewale.DAL.Compare
                         }
                     }
 
-                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count() > 0)
                     {
-                        compare.Color.ForEach(
-                                            _color => _color.HexCodes =
-                                                (from hexCode in hexCodes
-                                                 where hexCode.ModelColorId == _color.ColorId
-                                                 select hexCode.HexCode).ToList()
-                                            );
+                        foreach (var mColor in compare.Color)
+                        {
+                            mColor.HexCodes = new List<string>();
+                            foreach (var hexCode in hexCodes)
+                            {
+                                if (hexCode.ModelColorId.Equals(mColor.ColorId))
+                                {
+                                    mColor.HexCodes.Add(hexCode.HexCode);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -242,7 +246,7 @@ namespace Bikewale.DAL.Compare
             IList<BikeEntityBase> basicInfos = null;
             IList<BikeSpecification> specs = null;
             IList<BikeFeature> features = null;
-            List<BikeColor> color = null;
+            IList<BikeColor> color = null;
             IList<Bikewale.Entities.Compare.BikeModelColor> hexCodes = null;
 
             try
@@ -434,19 +438,25 @@ namespace Bikewale.DAL.Compare
                             compare.BasicInfo = basicInfos;
                             compare.Specifications = specs;
                             compare.Features = features;
-                            compare.Color = color.GroupBy(x => x.ColorId).Select(y => y.First()).ToList();
+                            //compare.Color = color.GroupBy(x => x.ColorId).Select(y => y.First()).ToList();
+                            compare.Color = color;
                             reader.Close();
                         }
                     }
 
-                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count > 0)
+                    if (hexCodes != null && hexCodes.Count > 0 && compare.Color != null && compare.Color.Count() > 0)
                     {
-                        compare.Color.ForEach(
-                                            _color => _color.HexCodes =
-                                                (from hexCode in hexCodes
-                                                 where hexCode.ModelColorId == _color.ColorId
-                                                 select hexCode.HexCode).ToList()
-                                            );
+                        foreach (var mColor in compare.Color)
+                        {
+                            mColor.HexCodes = new List<string>();
+                            foreach (var hexCode in hexCodes)
+                            {
+                                if (hexCode.ModelColorId.Equals(mColor.ColorId))
+                                {
+                                    mColor.HexCodes.Add(hexCode.HexCode);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -511,15 +521,10 @@ namespace Bikewale.DAL.Compare
                     }
                 }
             }
-            catch (SqlException sqEx)
-            {
-                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
 
             return topBikeList;
@@ -586,7 +591,6 @@ namespace Bikewale.DAL.Compare
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityid));
-                objErr.SendMail();
             }
 
             return similarBikeList;
@@ -667,6 +671,127 @@ namespace Bikewale.DAL.Compare
         public Int64 GetFeaturedBike(string versions)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            IList<TopBikeCompareBase> topBikeList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getscootercomparisonmin"))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            topBikeList = new List<TopBikeCompareBase>();
+                            while (reader.Read())
+                            {
+                                topBikeList.Add(new TopBikeCompareBase()
+                                {
+                                    Bike1 = Convert.ToString(reader["Bike1"]),
+                                    Bike2 = Convert.ToString(reader["Bike2"]),
+                                    ID = SqlReaderConvertor.ToInt32(reader["ID"]),
+                                    MakeMaskingName2 = Convert.ToString(reader["MakeMakingName2"]),
+                                    MakeMaskingName1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt16(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt16(reader["ModelId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
+
+                                    Price1 = SqlReaderConvertor.ToUInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToUInt32(reader["Price2"]),
+
+                                    VersionId1 = SqlReaderConvertor.ToUInt16(reader["VersionId1"]),
+                                    VersionId2 = SqlReaderConvertor.ToUInt16(reader["VersionId2"]),
+                                    VersionImgUrl1 = Convert.ToString(reader["VersionImgUrl1"]),
+                                    VersionImgUrl2 = Convert.ToString(reader["VersionImgUrl2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"])
+                                });
+                            }
+
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository.ScooterCompareList topCount:{0}", topCount));
+            }
+
+            return topBikeList;
+
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList version list wise
+        /// </summary>
+        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
+        {
+            IList<SimilarCompareBikeEntity> similarBikeList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, versionList));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    // LogLiveSps.LogSpInGrayLog(command);
+                    using (IDataReader reader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (reader != null)
+                        {
+                            similarBikeList = new List<SimilarCompareBikeEntity>();
+                            while (reader.Read())
+                            {
+                                similarBikeList.Add(new SimilarCompareBikeEntity()
+                                {
+                                    Make1 = Convert.ToString(reader["Make1"]),
+                                    MakeMasking1 = Convert.ToString(reader["MakeMaskingName1"]),
+                                    Make2 = Convert.ToString(reader["Make2"]),
+                                    MakeMasking2 = Convert.ToString(reader["MakeMaskingName2"]),
+                                    Model1 = Convert.ToString(reader["Model1"]),
+                                    ModelMasking1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    Model2 = Convert.ToString(reader["Model2"]),
+                                    ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    VersionId1 = Convert.ToString(reader["VersionId1"]),
+                                    VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
+                                    ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
+                                    OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
+                                    OriginalImagePath2 = Convert.ToString(reader["OriginalImagePath2"]),
+                                    Price1 = SqlReaderConvertor.ToInt32(reader["Price1"]),
+                                    Price2 = SqlReaderConvertor.ToInt32(reader["Price2"]),
+                                    HostUrl1 = Convert.ToString(reader["HostUrl1"]),
+                                    HostUrl2 = Convert.ToString(reader["HostUrl2"]),
+                                    City1 = Convert.ToString(reader["city1"]),
+                                    City2 = Convert.ToString(reader["city2"])
+                                });
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeCompareRepository_GetSimilarCompareBikes_{0}_Cnt_{1}_City_{2}", versionList, topCount, cityId));
+            }
+
+            return similarBikeList;
         }
     }
 }

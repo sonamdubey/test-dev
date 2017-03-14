@@ -36,8 +36,8 @@
                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
-            <div class="text-center margin-top10">
-                <a class="font16" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View complete list</a>
+            <div class="view-all-btn-container margin-top15">
+                <a class="btn view-all-target-btn" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View complete list<span class="bwsprite teal-right"></span></a>
             </div>
         </div>
     </div>

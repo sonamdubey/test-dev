@@ -75,7 +75,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .btn-disable { cursor: not-allowed; opacity: .3; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; filter: alpha(opacity=30); -moz-opacity:0.3; -khtml-opacity: 0.3; }
 .btn-teal { background: #41b4c4; color: #fff; border: 1px solid #41b4c4; }
 .btn-teal:hover { background: #58bdcb; border: 1px solid #58bdcb; text-decoration: none; }
-.btn-inv-teal { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.btn-inv-teal, .view-all-target-btn { background: transparent; color: #3799a7; border: 1px solid #3799a7; }
+.view-all-target-btn {
+    padding: 5px 6px;
+    font-size: 14px;
+}
 .btn-inv-teal.active { background: #3799a7; color: #fff; }
 .btn:hover { text-decoration: none }
 
@@ -98,10 +102,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
-.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
+.blackOut-window, .changecity-blackout-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.8; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; filter: alpha(opacity=80); -moz-opacity:0.8; -khtml-opacity: 0.8; }
 .changecity-blackout-window { z-index: 4; }
 
-#errNewBikeSearch.ui-autocomplete { width:95.5%;position:relative;top:0;left:3px; color:#4d5057; }
 #errGlobalSearch.ui-autocomplete { display: none; width:100%; margin-left:0; }
 
 #global-recent-searches li {
@@ -213,6 +216,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
     padding: 15px 20px
 }
 .content-box-shadow { background: #fff; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; border:1px solid #e2e2e2\9; }
+
+.card-bottom-margin { margin-bottom: 10px; }
 
 .margin-bottom5 { margin-bottom: 5px; }
 
@@ -357,4 +362,9 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 /* new common classes */
 .hover-no-underline:hover {
     text-decoration: none;
+}
+
+/* view all button */
+.page-type-landing .view-all-btn-container {
+    text-align: center;
 }

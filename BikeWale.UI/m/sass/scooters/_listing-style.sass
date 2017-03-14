@@ -1,0 +1,91 @@
+﻿.bike-listing
+	padding-right: 20px
+	padding-left: 20px
+	overflow: hidden
+
+	.list-item
+		padding-top: 20px
+		padding-bottom: 20px
+		border-top: 1px solid #f5f5f5
+
+		&:first-child
+			border-top: 0
+
+	h2
+		&:hover
+			text-decoration: underline
+
+	.item-image-content
+		width: 292px
+		height: 164px
+		background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center
+		margin-bottom: 10px;
+
+	a
+		&:hover
+			text-decoration: none
+
+// common classes
+.key-size-14
+	font-size: $font-size-base
+	color: $text-light
+
+.value-size-14,
+.value-size-18
+	font-weight: $font-bold
+	color: #4d5057
+
+.value-size-14
+	font-size: $font-size-base
+
+.value-size-18
+	font-size: $font-size-large
+
+.margin-top15
+	margin-top: 15px
+
+#makeTabsContentWrapper
+	h2
+		margin-bottom: 13px
+
+// makeOverallTabsWrapper
+#makeOverallTabsWrapper
+	height: 44px
+
+.overall-specs-tabs-container
+	width: 100%
+	display: block
+	background: #fff
+	overflow-x: scroll
+	z-index: 2
+
+	&.fixed-tab-nav
+		position: fixed
+		top: 0
+		left: 0
+
+.overall-specs-tabs-wrapper
+	width: 100%
+	display: table
+	border-bottom: 1px solid #e2e2e2
+	
+	li
+		font-size: $font-size-base
+		padding: 10px 15px
+		display: table-cell
+		text-align: center
+		white-space: nowrap
+		color: $text-light
+		cursor: pointer
+
+		&.active
+			border-bottom: 3px solid #ef3f30
+			color: $text-primary
+			font-weight: $font-bold
+
+// dealer and service center carousel
+.dealer-city-image-preview
+	height: 75px
+	display: block
+	text-align: center
+	margin-bottom: 10px

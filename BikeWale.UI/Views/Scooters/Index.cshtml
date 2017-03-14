@@ -1,0 +1,183 @@
+﻿@using Bikewale.Entities.BikeData;
+@{
+    ViewBag.Ad_970x90 = false;
+    ViewBag.IsHeaderFix = false;
+    ViewBag.IsTransparentHeader = true;
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/landing.css' />";
+    ViewBag.Page_JS_Path = "/src/scooters.js";
+    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
+    Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
+    IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
+    IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase> TopScootersCompares = ViewBag.TopScootersCompares;
+}
+
+<header class="scooters-banner">
+    <div class="container">
+        <div class="welcome-box margin-top85">
+            <h1 class="font30 text-uppercase margin-bottom30">Scooters in India</h1>
+            <h2 class="font20 text-unbold text-white margin-bottom50">All scooters under one roof</h2>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="grid-12">
+            <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow negative-50">
+                <div class="bw-tabs bw-tabs-flex">
+                    <ul class="brand-budget-mileage-style-UL">
+                        <li class="active" data-tabs="discoverBrand">
+                            <h3>Brand</h3>
+                        </li>
+                        <li data-tabs="discoverBudget">
+                            <h3>Budget</h3>
+                        </li>
+                        <li data-tabs="discoverDisplacement">
+                            <h3>Displacement</h3>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                
+
+                @{Html.RenderAction("Brands", "Scooters");}
+                <div id="discoverBudget" class="bw-tabs-data padding-bottom15 hide">
+                    <ul class="elevated-card-list">
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&budget=0-50000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite budget-one"></span>
+                                    </div>
+                                    <span class="key-size-14">Upto</span><br />
+                                    <span class="bwsprite inr-md"></span> <span class="value-size-16">50,000</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&budget=50000-70000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite budget-two"></span>
+                                    </div>
+                                    <span class="key-size-14">Between</span><br />
+                                    <span class="bwsprite inr-md"></span> <span class="value-size-16">50,000 -</span>
+                                    <span class="bwsprite inr-md"></span> <span class="value-size-16">70,000</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&budget=70000-6000000" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite budget-three"></span>
+                                    </div>
+                                    <span class="key-size-14">Above</span><br />
+                                    <span class="bwsprite inr-md"></span> <span class="value-size-16">70,000</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="discoverDisplacement" class="bw-tabs-data padding-bottom15 hide">
+                    <ul class="elevated-card-list">
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&displacement=1" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite engine-lg engine-sm"></span>
+                                    </div>
+                                    <span class="key-size-14">Upto</span><br />
+                                    <span class="value-size-16">110 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&displacement=2" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite engine-lg engine-md"></span>
+                                    </div>
+                                    <span class="key-size-14">Between</span><br />
+                                    <span class="value-size-16">110 - 125 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/new/bike-search/#ridestyle=5&displacement=7+6+5+3+4" rel="nofollow">
+                                <div class="table-middle">
+                                    <div class="tab-icon-container">
+                                        <span class="bwsprite engine-lg"></span>
+                                    </div>
+                                    <span class="key-size-14">Above</span><br />
+                                    <span class="value-size-16">125 cc</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <div class="container section-bottom-margin">
+        <h2 class="section-heading">Featured scooters</h2>
+        <div class="grid-12">
+            <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                <div class="bw-tabs bw-tabs-flex">
+                    <ul>
+                    @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                    { 
+                         <li class="active" data-tabs="ctrlMostPopularBikes">
+                          <h3>Most Popular</h3>
+                        </li>
+                    }
+                        @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                        {
+                            <li data-tabs="ctrlNewLaunchedBikes">
+                                <h3>New launches</h3>
+                            </li>
+                        }
+                        @if (objUpcoming != null && objUpcoming.Count() > 0)
+                        {
+                            <li data-tabs="ctrlUpcomingBikes">
+                                <h3>Upcoming</h3>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                {
+                <div id="ctrlMostPopularBikes" class="bw-tabs-data">
+               @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+               </div>
+                }
+                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                {
+                    <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
+                        @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
+                    </div>
+                }
+                @if (objUpcoming != null && objUpcoming.Count() > 0)
+                {
+                    <div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
+                        @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+@if (TopScootersCompares != null && TopScootersCompares.Count() > 0)
+{
+    <section>
+        @Html.Partial("~/Views/Shared/_popularComparisions.cshtml", TopScootersCompares)
+    </section>
+}
+<script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>
+

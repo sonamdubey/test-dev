@@ -1,9 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.frmManageAppVersions" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<%--<script type="text/javascript" src="/src/common/common.js?V1.1"></script>--%>
-<script type="text/ecmascript" src="/src/AjaxFunctions.js"></script>
-<script src="/src/knockout.js" type="text/javascript"></script>
-
 <script type="text/javascript">
     function vmAppVersion() {
         var self = this;

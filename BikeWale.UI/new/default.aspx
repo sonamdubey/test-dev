@@ -34,11 +34,8 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-    <%  isTransparentHeader = true;
-    %>
 </head>
-<body>
+<body class="page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="new-bikes-top-banner">
@@ -55,7 +52,7 @@
             <div class="grid-12">
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper content-box-shadow margin-minus50">
                     <div class="bw-tabs bw-tabs-flex">
-                        <ul class="brand-budget-mileage-style-UL">
+                        <ul class="brand-collapsible-present">
                             <li class="active" data-tabs="discoverBrand">
                                 <h3>Brand</h3>
                             </li>
@@ -70,8 +67,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="bw-tabs-data" id="discoverBrand">
-                        <div class="brand-type-container">
+                    <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                        <div id="brand-type-container" class="brand-type-container">
                             <ul class="text-center">
                                 <asp:Repeater ID="rptPopularBrand" runat="server">
                                     <ItemTemplate>
@@ -104,8 +101,8 @@
                                 </asp:Repeater>
                             </ul>
                         </div>
-                        <div class="view-brandType text-center padding-top10 padding-bottom30">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>more</span> brands</a>
+                        <div class="view-all-btn-container padding-top10 padding-bottom30">
+                            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="discoverBudget">
@@ -315,8 +312,8 @@
                                     <!-- Most Popular Bikes Control-->
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                     </div>
 
@@ -333,8 +330,8 @@
                                     <!-- Upcoming Bikes Control-->
                                 </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                     </div>
                 </div>
@@ -484,8 +481,6 @@
         </section>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <%--<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>--%>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/newbikes.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             ga_pg_id = '4';

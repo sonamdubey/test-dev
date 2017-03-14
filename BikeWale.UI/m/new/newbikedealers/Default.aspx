@@ -25,7 +25,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -62,8 +62,8 @@
         <section>
             <div class="container section-container">
                 <h2 class="section-heading">Explore showroom by brand</h2>
-                <div class="content-box-shadow padding-top25 padding-bottom20">
-                    <div class="brand-type-container">
+                <div class="content-box-shadow padding-top25 padding-bottom20 collapsible-brand-content">
+                    <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                             <asp:Repeater ID="rptPopularBrands" runat="server">
                                 <ItemTemplate>
@@ -93,8 +93,8 @@
                             </asp:Repeater>
                         </ul>
                     </div>
-                    <div class="view-brandType text-center">
-                        <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font14">View more brands</a>
+                    <div class="view-all-btn-container">
+                        <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                     </div>
                 </div>
             </div>
@@ -254,16 +254,6 @@
                 _self.parent().prev("input[type='text']").val(selectedElement);
                 locatorSearchBar.addClass('open').animate({ 'left': '100%' }, 500);
             };
-
-            $("#view-brandType").click(function () {
-                $(".brandTypeMore").slideToggle();
-                var targetLink = $(this);
-                targetLink.text(targetLink.text() == 'View more brands' ? 'View less brands' : 'View more brands');
-                if (targetLink.text() === "View more brands")
-                    targetLink.attr("href", "#more");
-                else
-                    targetLink.attr("href", "javascript:void(0)");
-            });
 
             function getCities(mId) {
                 $ddlCities.empty();

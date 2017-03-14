@@ -14,15 +14,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-namespace Bikewale.BAL
+namespace Bikewale.BAL.MVC.UI
 {
+
+    /* ***********************************************************************
+     * This classes needs to be moved at appropriate place after the discussion 
+     * ***********************************************************************/
+
+
     /// <summary>
     /// Created by : Sangram Nandkhile on 01 Mar 2017
     /// Summary: Model for Video details Page
     /// </summary>
     public class VideoDetailsHelper
     {
-        Bikewale.Models.Mobile.Videos.VideoDetails model = null;
+        private Bikewale.Models.Mobile.Videos.VideoDetails model = null;
         private uint _videoId;
         private readonly IVideosCacheRepository _IVideos;
         public VideoDetailsHelper(uint videoId, IVideosCacheRepository IVideos)
@@ -100,7 +106,7 @@ namespace Bikewale.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, string.Format(""));
+                ErrorClass er = new ErrorClass(ex, string.Format("VideoDetailsHelper.CreateDescriptionTag() => videoBasicId {0}", videoModel.BasicId));
             }
             return metas;
         }
@@ -230,7 +236,7 @@ namespace Bikewale.BAL
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "");
+                ErrorClass objErr = new ErrorClass(ex, "VideoDetailsHelper.BindInfoWidgetDatas");
             }
             return tabs;
         }

@@ -104,6 +104,8 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Get New Launched Bikes with filters
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
@@ -167,6 +169,8 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Process Input Filters
+        /// Modified by:- Subodh jain 09 march 2017
+        ///summary :-  Added body type filter
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
@@ -182,6 +186,10 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 if (filters.YearLaunch > 0)
                 {
                     filterExpression = filterExpression.And(PredicateYear(filters.YearLaunch));
+                }
+                if (filters.BodyStyle > 0)
+                {
+                    filterExpression = filterExpression.And(PredicateBodyStyle(filters.BodyStyle));
                 }
             }
             return filterExpression.Compile();
@@ -218,6 +226,16 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         private Expression<Func<NewLaunchedBikeEntityBase, bool>> PredicateYear(uint year)
         {
             return m => m.LaunchedOn.Year == year;
+        }
+        /// <summary>
+        /// Created by  :   Subodh Jain 09 March 2017
+        /// Description :   Predicate to match BodyStyle
+        /// </summary>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private Expression<Func<NewLaunchedBikeEntityBase, bool>> PredicateBodyStyle(uint BodyStyleId)
+        {
+            return m => m.BodyStyleId == BodyStyleId;
         }
         #endregion
     }

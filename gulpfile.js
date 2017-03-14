@@ -51,8 +51,8 @@ gulp.task('minify-bwm-js', function () {
         .pipe(gulp.dest(minifiedAssetsFolder + 'm/' + paths.JS));
 });
 
-var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'],
-    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/'];
+var desktopSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'],
+    mobileSASSFolder = ['service/', 'sell-bike/', 'generic/', 'new-launch/', 'scooters/'];
 
 // convert desktop sass to css
 gulp.task('bw-sass-to-css', function () {
@@ -176,8 +176,32 @@ var pageArray = [
         folderName: 'm/new/compare/',
         fileName: 'CompareBikeDetails.aspx',
         stylesheet: 'm/css/compare/details.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'BikeMakes.aspx',
+        stylesheet: 'm/css/bwm-brand.css'
+    },	
+    {
+        folderName: 'new/',
+        fileName: 'models.aspx',
+        stylesheet: 'css/brand.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/used/landing.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'Search.aspx',
+        stylesheet: 'm/css/used/search.css'
+    },
+    {
+        folderName: 'm/used/',
+        fileName: 'BikeDetails.aspx',
+        stylesheet: 'm/css/used/details.css'
     }
-	
 ];
 
 var mvcPageArray =[

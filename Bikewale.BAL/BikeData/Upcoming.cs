@@ -94,6 +94,8 @@ namespace Bikewale.BAL.BikeData.UpComingBike
         /// <summary>
         /// Created by  :   Subodh Jain on 10 Feb 2017
         /// Description :   Process Input Filters
+        /// Modified By: Subodh Jain 09 March 2017
+        /// Summary :- added body style filter
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
@@ -109,6 +111,10 @@ namespace Bikewale.BAL.BikeData.UpComingBike
                 if (filters.ModelId > 0)
                 {
                     filterExpression = filterExpression.And(m => m.ModelBase.ModelId == filters.ModelId);
+                }
+                if (filters.BodyStyleId > 0)
+                {
+                    filterExpression = filterExpression.And(m => m.BodyStyleId == filters.BodyStyleId);
                 }
             }
             return filterExpression.Compile();

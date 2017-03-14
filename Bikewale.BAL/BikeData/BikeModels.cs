@@ -47,7 +47,7 @@ namespace Bikewale.BAL.BikeData
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
         private readonly ICMSCacheContent _cacheArticles = null;
-        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IBikeModelsCacheRepository<U> _modelCacheRepository = null;
         private readonly IVideos _videos = null;
 
         static bool _useGrpc = Convert.ToBoolean(BWConfiguration.Instance.UseGrpc);
@@ -68,14 +68,14 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<IUserReviews, UserReviewsRepository>();
                 container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
                 container.RegisterType<IBikeMakesCacheRepository<int>, BikeMakesCacheRepository<BikeMakeEntity, int>>();
-                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+                container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
                 container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
                 _articles = container.Resolve<IArticles>();
                 _cacheArticles = container.Resolve<ICMSCacheContent>();
-                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<int>>();
+                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<U>>();
                 _videos = container.Resolve<IVideos>();
                 _userReviewCache = container.Resolve<IUserReviewsCache>();
             }
@@ -1022,15 +1022,15 @@ namespace Bikewale.BAL.BikeData
             {
                 string desc = !string.IsNullOrEmpty(modelInfo.ModelName) ? string.Format("{0} Model Image", modelInfo.ModelName) : string.Empty;
                 modelImages.Insert(0,
-                    new ModelImage()
-                    {
-                        HostUrl = modelInfo.HostURL,
-                        OriginalImgPath = modelInfo.OriginalImgPath,
-                        ImageTitle = desc,
-                        ImageCategory = desc,
-                        ImageDescription = desc,
-                        AltImageName = desc
-                    });
+                   new ModelImage()
+                   {
+                       HostUrl = modelInfo.HostURL,
+                       OriginalImgPath = modelInfo.OriginalImgPath,
+                       ImageTitle = desc,
+                       ImageCategory = "Model Image",
+                       ImageDescription = desc,
+                       AltImageName = desc
+                   });
             }
             return modelImages;
         }
@@ -1217,6 +1217,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by: Sangram Nandkhile On 9 Feb 2017
         /// Summary: To sum up Model Photos
+        /// Modified by : Aditi Srivastava on 3 Mar 2017
+        /// Summary     : Added model color photos after first image
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -1227,15 +1229,33 @@ namespace Bikewale.BAL.BikeData
             {
                 allPhotos = new List<ColorImageBaseEntity>();
                 List<ModelImage> modelPhotos = GetModelPhotoGalleryWithMainImage(modelId);
-                if (modelPhotos != null)
+                if (modelPhotos != null && modelPhotos.Count() > 0)
                 {
-                    allPhotos.AddRange(modelPhotos.Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
+                    allPhotos.Add(new ColorImageBaseEntity()
+                       {
+                           HostUrl = modelPhotos[0].HostUrl,
+                           OriginalImgPath = modelPhotos[0].OriginalImgPath,
+                           ImageTitle = modelPhotos[0].ImageCategory,
+                           ImageType = ImageBaseType.ModelGallaryImage,
+                           ImageCategory = modelPhotos[0].ImageCategory
+                       });
+                    IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
+                    if (colorPhotos != null)
+                    {
+                        allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity()
+                        {
+                            HostUrl = x.Host,
+                            OriginalImgPath = x.OriginalImagePath,
+                            ColorId = x.BikeModelColorId,
+                            ImageTitle = x.Name,
+                            ImageType = ImageBaseType.ModelColorImage,
+                            ImageCategory = x.ImageCategory,
+                            Colors = x.ColorCodes.Select(y => y.HexCode)
+                        }));
+                    }
+                    allPhotos.AddRange(modelPhotos.Skip(1).Select(x => new ColorImageBaseEntity() { HostUrl = x.HostUrl, OriginalImgPath = x.OriginalImgPath, ImageTitle = x.ImageCategory, ImageType = ImageBaseType.ModelGallaryImage, ImageCategory = x.ImageCategory }));
                 }
-                IEnumerable<ModelColorImage> colorPhotos = GetModelColorPhotos(modelId);
-                if (colorPhotos != null)
-                {
-                    allPhotos.AddRange(colorPhotos.Where(x => !string.IsNullOrEmpty(x.Host)).Select(x => new ColorImageBaseEntity() { HostUrl = x.Host, OriginalImgPath = x.OriginalImagePath, ColorId = x.BikeModelColorId, ImageTitle = x.Name, ImageType = ImageBaseType.ModelColorImage, ImageCategory = x.ImageCategory, Colors = x.ColorCodes.Select(y => y.HexCode) }));
-                }
+
             }
             catch (Exception ex)
             {
@@ -1253,7 +1273,7 @@ namespace Bikewale.BAL.BikeData
             IEnumerable<ModelColorImage> objColorImages = null;
             try
             {
-                objColorImages = _modelCacheRepository.GetModelColorPhotos(Convert.ToInt32(modelId));
+                objColorImages = _modelCacheRepository.GetModelColorPhotos(modelId);
             }
             catch (Exception ex)
             {
@@ -1274,7 +1294,7 @@ namespace Bikewale.BAL.BikeData
             BikeModelPageEntity objModelPage = null;
             try
             {
-                objModelPage = _modelCacheRepository.GetModelPageDetails(Convert.ToInt32(modelId), versionId);
+                objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
                 if (objModelPage != null)
                 {
                     objModelPage.Photos = GetModelPhotoGalleryWithMainImage(modelId);
@@ -1289,5 +1309,35 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
+        /// <summary>
+        /// Created By : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : Return list of popular scooters
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
+        {
+            IEnumerable<MostPopularBikesBase> popularScooters = null;
+            try
+            {
+                popularScooters = _modelCacheRepository.GetMostPopularScooters(topCount, cityId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BikeModels.GetMostPopularScooters() => topCount {0}, cityId: {1}", topCount, cityId));
+            }
+            return popularScooters;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
+        {
+            return _modelCacheRepository.GetMostPopularScooters(makeId);
+        }
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
     }   // Class
 }   // namespace

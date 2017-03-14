@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase>
+@if (Model != null)
+{
+    <div class="container section-bottom-margin">
+        <h2 class="section-heading">Compare scooters</h2>
+        <div class="grid-12">
+            <div class="content-box-shadow padding-top20 padding-bottom20">
+                <div class="grid-6">
+                    <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.First().MakeMaskingName1, Model.First().ModelMaskingName1, Model.First().MakeMaskingName2, Model.First().ModelMaskingName2, Convert.ToString(Model.First().VersionId1), Convert.ToString(Model.First().VersionId2), Bikewale.Entities.Compare.CompareSources.Desktop_Scooter_Landing_Compare)" title="Compare @Model.First().Bike1 vs @Model.First().Bike2" id="main-compare-bikes-target">
+                        <div class="grid-6 padding-left20 border-light-right">
+                            <div class="imageWrapper margin-bottom30">
+                                <div class="comparison-image">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl1, Model.First().HostUrl1, Bikewale.Utility.ImageSize._210x118)" alt="@Model.First().Bike1 " src="" />
+                                </div>
+                            </div>
+                            <h3 class="font18 text-black margin-bottom5">@Model.First().Bike1</h3>
+                            <div class="text-default text-bold">
+                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price1))</span>
+
+                                <span class="font16">&nbsp;onwards</span>
+
+                            </div>
+                            <p class="text-light-grey margin-bottom5 font14">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                        </div>
+                        <div class="grid-6 padding-right20">
+                            <div class="imageWrapper margin-bottom30">
+                                <div class="comparison-image">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.First().VersionImgUrl2, Model.First().HostUrl2, Bikewale.Utility.ImageSize._210x118)" src="" />
+                                </div>
+                            </div>
+                            <h3 class="font18 text-black margin-bottom5">@Model.First().Bike2</h3>
+                            <div class="text-default text-bold">
+                                <span class="bwsprite inr-md-lg"></span>&nbsp;<span class="font22">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.First().Price2))</span>
+
+                                <span class="font16">&nbsp;onwards</span>
+
+                            </div>
+                            <p class="text-light-grey margin-bottom5 font14">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top20 text-center">
+                            <span class="btn btn-orange">Compare now</span>
+                        </div>
+                    </a>
+                </div>
+                @if (Model.Count() > 1) {
+                    <div class="grid-6 font14">
+                        <ul id="compare-sidebar-list">
+                            @{
+                var Bikedetails = Model.ToList();
+                for (int i = 1; i < Bikedetails.Count(); i++)
+                {
+                    <li>
+                        <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Bikedetails[i].MakeMaskingName1,Bikedetails[i].ModelMaskingName1, Bikedetails[i].MakeMaskingName2, Bikedetails[i].ModelMaskingName2, Convert.ToString(Bikedetails[i].VersionId1),Convert.ToString(Bikedetails[i].VersionId2),Bikewale.Entities.Compare.CompareSources.Desktop_Scooter_Landing_Compare)" title="Compare @Bikedetails[i].Bike1 vs @Bikedetails[i].Bike2" class="compare-bikes-target">
+                            <div class="grid-6 compare-bike-box">
+                                <div class="sidebar-image inline-block">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bikedetails[i].VersionImgUrl1, Bikedetails[i].HostUrl1, Bikewale.Utility.ImageSize._210x118)" src="" />
+                                </div>
+                                <div class="sidebar-image-label inline-block text-default">
+                                    <h3 class="text-black text-bold margin-bottom5">@Bikedetails[i].Bike1</h3>
+                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price1)) onwards
+                                </div>
+                            </div>
+                            <div class="grid-6 compare-bike-box">
+                                <div class="sidebar-image inline-block">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Bikedetails[i].VersionImgUrl2, Bikedetails[i].HostUrl2, Bikewale.Utility.ImageSize._210x118)" src="" />
+                                </div>
+                                <div class="sidebar-image-label inline-block text-default">
+                                    <h3 class="text-black text-bold margin-bottom5">@Bikedetails[i].Bike2</h3>
+                                    <span class="bwsprite inr-sm-dark"></span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bikedetails[i].Price2)) onwards
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </a>
+                    </li>
+
+                        }
+                            }
+                        </ul>
+                        
+                        <div class="text-center">
+                            <a href="/comparebikes/">View more comparisons</a>
+                        </div>
+
+                    </div>
+                }
+
+                    <div class="clear"></div>
+                      
+                </div>
+            </div>
+                    <div class="clear"></div>
+                </div>
+}

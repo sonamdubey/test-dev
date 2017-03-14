@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Bikewale.BAL.GrpcFiles;
+using Bikewale.Entities.Videos;
+using Bikewale.Notifications;
+using Bikewale.Utility;
+using EditCMSWindowsService.Messages;
+using Grpc.CMS;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Bikewale.DTO.Videos;
-using Bikewale.Entities.CMS.Articles;
-using Bikewale.Entities.Videos;
-using Bikewale.Notifications;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
-using log4net;
-using EditCMSWindowsService.Messages;
-using Grpc.CMS;
-using Bikewale.BAL.GrpcFiles;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -26,7 +23,7 @@ namespace Bikewale.BindViewModels.Controls
 
         static string _cwHostUrl;
         static string _requestType;
-        static string _applicationid  ;
+        static string _applicationid;
         uint pageNo = 1;
 
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
@@ -60,7 +57,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     if (FetchedRecordsCount > 0)
                     {
-                        rptr.DataSource = objVideosList;
+                        rptr.DataSource = objVideosList.Take(TotalRecords);
                         rptr.DataBind();
                     }
                 }
@@ -79,7 +76,7 @@ namespace Bikewale.BindViewModels.Controls
         /// <returns></returns>
         private List<BikeVideoEntity> GetVideosFromCWAPI()
         {
-            return GetVideosByMakeModelViaGrpc();          
+            return GetVideosByMakeModelViaGrpc();
         }
 
         /// <summary>
@@ -96,7 +93,7 @@ namespace Bikewale.BindViewModels.Controls
 
                     GrpcVideosList _objVideoList;
                     int startIndex, endIndex;
-                    Bikewale.Utility.Paging.GetStartEndIndex((int)TotalRecords, (int)pageNo, out startIndex, out endIndex);    
+                    Bikewale.Utility.Paging.GetStartEndIndex((int)TotalRecords, (int)pageNo, out startIndex, out endIndex);
 
                     if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                     {
@@ -106,8 +103,8 @@ namespace Bikewale.BindViewModels.Controls
                             _objVideoList = GrpcMethods.GetVideosByMakeId(MakeId.Value, (uint)startIndex, (uint)endIndex);
                     }
                     else
-                    {                                           
-                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest,(uint)startIndex, (uint)endIndex);
+                    {
+                        _objVideoList = GrpcMethods.GetVideosBySubCategory((int)EnumVideosCategory.JustLatest, (uint)startIndex, (uint)endIndex);
                     }
 
                     if (_objVideoList != null && _objVideoList.LstGrpcVideos.Count > 0)
@@ -160,7 +157,7 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
 
-            return objVideosList;  
+            return objVideosList;
         }
     }
 }

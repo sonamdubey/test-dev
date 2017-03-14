@@ -878,10 +878,15 @@ namespace Bikewale.BAL.Compare
 
                     foreach (var version in arrVersion)
                     {
-                        var bikeColor = from color in compareEntity.Color
-                                        where color.VersionId == Convert.ToUInt32(version)
-                                        select color;
-                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = bikeColor.ToList() });
+                        var objBikeColor = new List<BikeColor>();
+                        foreach (var color in compareEntity.Color)
+                        {
+                            if (color.VersionId == Convert.ToUInt32(version))
+                            {
+                                objBikeColor.Add(color);
+                            }
+                        }
+                        compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = objBikeColor });
                     }
                 }
             }
@@ -956,6 +961,24 @@ namespace Bikewale.BAL.Compare
                 ErrorClass objErr = new ErrorClass(ex, string.Format("Bikewale.BAL.Compare.BikeComparison.DoCompare - {0} - {1}", versions, cityId));
             }
             return compareEntity;
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<TopBikeCompareBase> ScooterCompareList(uint topCount)
+        {
+            return _objCompare.ScooterCompareList(topCount);
+        }
+
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList version list wise
+        /// </summary>
+        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
+        {
+            return _objCompare.ScooterCompareList(versionList, topCount, cityId);
         }
     }
 }

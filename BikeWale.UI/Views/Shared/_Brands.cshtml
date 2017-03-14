@@ -1,0 +1,38 @@
+﻿@{
+    var TopBrands = Model.TopBrands;
+    var OtherBrands = Model.OtherBrands;
+}
+
+<div id="discoverBrand" class="bw-tabs-data text-center padding-bottom25 collapsible-brand-content">
+    <div id="brand-type-container" class="brand-type-container">
+        <ul>
+            @foreach (var make in TopBrands) 
+            { 
+            <li>
+                <a href="@String.Format("/{0}-bikes/", make.MaskingName)" title="@String.Format("{0} scooters",make.MakeName)">
+                    <span class="brand-type">
+                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                    </span>
+                    <span class="brand-type-title">@make.MakeName</span>
+                </a>
+            </li>
+            }
+        </ul>
+        <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
+            @foreach (var make in OtherBrands)
+            {
+                <li>
+                    <a href="@String.Format("/{0}-bikes/", make.MaskingName)" title="@String.Format("{0} scooters",make.MakeName)">
+                        <span class="brand-type">
+                            <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                        </span>
+                        <span class="brand-type-title">@make.MakeName</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="view-brandType view-more-btn font16" rel="nofollow">View more brands</a>
+    </div>
+</div>

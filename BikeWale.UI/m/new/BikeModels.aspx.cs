@@ -105,60 +105,113 @@ namespace Bikewale.Mobile.New
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
+
             //Set identification for m site
             // HttpContext.Current.Response.Cookies["IsMobileSite"].Value = "true";
             // Modified By :Ashish Kamble on 5 Feb 2016
             Form.Action = Request.RawUrl;
             // Do not change the sequence of the function calls
             Trace.Warn("Trace 3 : ParseQueryString Start");
+            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             ParseQueryString();
+            watch.Stop();
+            long elapsedMs = watch.ElapsedMilliseconds;
+            sb.AppendFormat("ParseQueryString\t{0} ms", elapsedMs).AppendLine();
             Trace.Warn("Trace 4 : ParseQueryString End");
             try
             {
                 if (modelId > 0)
                 {
                     Trace.Warn("Trace 5 : CheckCityCookie Start");
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     CheckCityCookie();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CheckCityCookie\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     SetFlags();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("SetFlags\t{0} ms", elapsedMs).AppendLine();
+
                     Trace.Warn("Trace 6 : CheckCityCookie End");
                     if (hdnVariant.Value != "0")
                         versionId = Convert.ToUInt32(hdnVariant.Value);
                     Trace.Warn("Trace 7 : FetchModelPageDetails Start");
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     FetchModelPageDetails();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("FetchModelPageDetails\t{0} ms", elapsedMs).AppendLine();
+
                     Trace.Warn("Trace 8 : FetchModelPageDetails End");
                     if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
                     {
 
                         Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         FetchOnRoadPrice();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FetchOnRoadPrice\t{0} ms", elapsedMs).AppendLine();
+
                         Trace.Warn("Trace 10 : FetchOnRoadPrice End");
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         FillViewModel();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FillViewModel\t{0} ms", elapsedMs).AppendLine();
                     }
 
                     Trace.Warn("Trace 11 : !IsPostBack");
                     #region Do not change the sequence of these functions
                     Trace.Warn("Trace 12 : BindRepeaters Start");
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     BindRepeaters();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindRepeaters\t{0} ms", elapsedMs).AppendLine();
                     Trace.Warn("Trace 13 : BindRepeaters End");
                     //BindModelGallery();
                     Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     BindAlternativeBikeControl();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindAlternativeBikeControl\t{0} ms", elapsedMs).AppendLine();
+
                     Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
                     Trace.Warn("Trace 16 : GetClientIP Start");
                     Trace.Warn("Trace 17 : GetClientIP End");
                     Trace.Warn("Trace 18 : LoadVariants Start");
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     LoadVariants();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("LoadVariants\t{0} ms", elapsedMs).AppendLine();
                     Trace.Warn("Trace 19 : LoadVariants End");
                     #endregion
 
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     BindControls();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindControls\t{0} ms", elapsedMs).AppendLine();
 
                     Trace.Warn("Trace 20 : Page Load ends");
 
                     if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                     {
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         rptVarients.DataSource = modelPage.ModelVersions;
                         rptVarients.DataBind();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("rptVarients\t{0} ms", elapsedMs).AppendLine();
+
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         if (versionCount > 1)
                         {
                             ddlNewVersionList.DataSource = modelPage.ModelVersions;
@@ -168,19 +221,50 @@ namespace Bikewale.Mobile.New
                             ddlNewVersionList.SelectedValue = versionId.ToString();
                             versionText = ddlNewVersionList.SelectedItem.Text;
                         }
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("ddlNewVersionList\t{0} ms", elapsedMs).AppendLine();
                     }
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     SetFlagsAtEnd();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("SetFlagsAtEnd\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     BindColorString();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindColorString\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     CreateMetas();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CreateMetas\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     BindDescription();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindDescription\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     GetBikeRankingCategory(modelId);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("GetBikeRankingCategory\t{0} ms", elapsedMs).AppendLine();
 
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("PageLoad({0})", Request.QueryString["model"]));
-
+            }
+            finally
+            {
+                //Notifications.ErrorClass obj = new Notifications.ErrorClass(new Exception("Mobile Model Page - Performance in ms"), sb.ToString());
             }
 
         }
@@ -758,7 +842,7 @@ namespace Bikewale.Mobile.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null)
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired);
 
                         versionId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)

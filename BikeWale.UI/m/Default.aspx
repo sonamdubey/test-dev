@@ -29,7 +29,7 @@
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -38,18 +38,10 @@
                     <!-- Top banner code starts here -->
                     <h1 class="font22 text-uppercase text-white">Find your bike</h1>
                     <h2 class="banner-subheading font14 text-unbold text-white">Get Comprehensive Information on Bikes!</h2>
-                    <div class="new-used-search new-bikes-search position-rel">
+                    <div class="new-bikes-search position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
-                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search"><span class="bwmsprite search-bold-icon"></span></a>
-                        <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
+                        <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
                     </div>
-                    <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
-                        <li class="ui-menu-item" tabindex="-1">
-                            <span class="text-bold">Oops! No suggestions found</span><br />
-                            <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
-                        </li>
-                    </ul>
-                    <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
                     <%= bannerEntity.MobileCss %>
                     <%= bannerEntity.MobileHtml %>
                     <%= bannerEntity.MobileJS %>                    
@@ -69,7 +61,7 @@
                     <div class="bw-tabs-panel padding-bottom20 content-box-shadow bg-white" id="discoverBikesContainer">
 
                         <div class="bw-tabs bw-tabs-flex">
-                            <ul class="brand-budget-mileage-style-UL">
+                            <ul class="brand-collapsible-present">
                                 <li class="active" data-tabs="discoverBrand">Brand</li>
                                 <li data-tabs="discoverBudget">Budget</li>
                                 <li data-tabs="discoverMileage">Mileage</li>
@@ -77,8 +69,8 @@
                             </ul>
                         </div>
 
-                        <div class="bw-tabs-data" id="discoverBrand">
-                            <div class="brand-type-container">
+                        <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
+                            <div id="brand-type-container" class="brand-type-container">
                                 <ul class="text-center">
                                     <asp:Repeater ID="rptPopularBrand" runat="server">
                                         <ItemTemplate>
@@ -109,12 +101,12 @@
 
                                 </ul>
                             </div>
-                            <div class="view-brandType text-center clear">
-                                <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more brands</a>
+                            <div class="view-all-btn-container">
+                                <a href="javascript:void(0)" class="view-brandType view-more-btn btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwmsprite teal-right"></span></a>
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
-                            <div class="budget-container margin-bottom20">
+                            <div class="budget-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?budget=0-50000">
@@ -169,7 +161,7 @@
                             </div>
                         </div>
                         <div class="bw-tabs-data hide" id="discoverMileage">
-                            <div class="mileage-container margin-bottom20">
+                            <div class="mileage-container">
                                 <ul class="text-center">
                                     <li>
                                         <a href="/m/new/bike-search/?mileage=1">
@@ -216,7 +208,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="bw-tabs-data hide margin-bottom20" id="discoverStyle">
+                        <div class="bw-tabs-data hide" id="discoverStyle">
                             <div class="style-type-container">
                                 <ul class="text-center">
                                     <li>
@@ -419,7 +411,6 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
@@ -427,7 +418,11 @@
             $("img.lazy").lazyload();
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+            $("#newBikeList").on("click", function () {
+                $('#global-search').trigger("click");
+            });
         </script>
         <link href="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->

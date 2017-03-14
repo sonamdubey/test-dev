@@ -99,33 +99,94 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            StringBuilder sb = new StringBuilder();
+            System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
             DetectDevice();
+            watch.Stop();
+            long elapsedMs = watch.ElapsedMilliseconds;
+            sb.AppendFormat("DetectDevice\t{0} ms", elapsedMs).AppendLine();
+
+            watch = System.Diagnostics.Stopwatch.StartNew();
             ParseQueryString();
+            watch.Stop();
+            elapsedMs = watch.ElapsedMilliseconds;
+            sb.AppendFormat("ParseQueryString\t{0} ms", elapsedMs).AppendLine();
+
             try
             {
                 if (modelId > 0)
                 {
                     #region Do Not change the sequence
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     CheckCityCookie();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CheckCityCookie\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     SetFlags();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("SetFlags\t{0} ms", elapsedMs).AppendLine();
 
                     if (hdnVariant != null && hdnVariant.Value != "0")
                         variantId = Convert.ToUInt32(hdnVariant.Value);
 
+                    watch = System.Diagnostics.Stopwatch.StartNew();
                     modelPageEntity = FetchModelPageDetails(modelId);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("FetchModelPageDetails\t{0} ms", elapsedMs).AppendLine();
 
                     if (modelPageEntity != null && modelPageEntity.ModelDetails != null && modelPageEntity.ModelDetails.New)
                     {
+                        watch = System.Diagnostics.Stopwatch.StartNew();
                         FetchOnRoadPrice(modelPageEntity);
-                        FillViewModel();
-                    }
-                    BindPhotoRepeater(modelPageEntity);
-                    LoadVariants(modelPageEntity);
-                    BindControls(modelPageEntity);
-                    ToggleOfferDiv();
-                    BindColorString();
-                    CreateMetas();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FetchOnRoadPrice\t{0} ms", elapsedMs).AppendLine();
 
+                        watch = System.Diagnostics.Stopwatch.StartNew();
+                        FillViewModel();
+                        watch.Stop();
+                        elapsedMs = watch.ElapsedMilliseconds;
+                        sb.AppendFormat("FillViewModel\t{0} ms", elapsedMs).AppendLine();
+                    }
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindPhotoRepeater(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindPhotoRepeater\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    LoadVariants(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("LoadVariants\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindControls(modelPageEntity);
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindControls\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    ToggleOfferDiv();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("ToggleOfferDiv\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    BindColorString();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("BindColorString\t{0} ms", elapsedMs).AppendLine();
+
+                    watch = System.Diagnostics.Stopwatch.StartNew();
+                    CreateMetas();
+                    watch.Stop();
+                    elapsedMs = watch.ElapsedMilliseconds;
+                    sb.AppendFormat("CreateMetas\t{0} ms", elapsedMs).AppendLine();
                     #endregion Do Not change the sequence
                 }
             }
@@ -133,6 +194,10 @@ namespace Bikewale.New
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("Page_load({0})", modelQuerystring));
 
+            }
+            finally
+            {
+                //Notifications.ErrorClass obj = new Notifications.ErrorClass(new Exception("Mobile Model Page - Performance in ms"), sb.ToString());
             }
         }
 
@@ -457,21 +522,27 @@ namespace Bikewale.New
         /// <param name="modelPage"></param>
         private void BindPhotoRepeater(BikeModelPageEntity modelPage)
         {
-            if (modelPage != null)
+            try
             {
-                var photos = modelPage.Photos;
-                if (photos != null && photos.Count > 0)
+                if (modelPage != null)
                 {
-                    rptModelPhotos.DataSource = photos;
-                    rptModelPhotos.DataBind();
-                    rptNavigationPhoto.DataSource = photos;
-                    rptNavigationPhoto.DataBind();
+                    var photos = modelPage.AllPhotos;
+                    if (photos != null && photos.Count() > 0)
+                    {
+                        rptModelPhotos.DataSource = photos;
+                        rptModelPhotos.DataBind();
+                        rptNavigationPhoto.DataSource = photos;
+                        rptNavigationPhoto.DataBind();
+                    }
+                    if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
+                    {
+                        modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
+                    }
                 }
-
-                if (!String.IsNullOrEmpty(modelPage.ModelDetails.OriginalImagePath))
-                {
-                    modelImage = Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath, modelPage.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._476x268);
-                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindPhotoRepeater");
             }
         }
 
@@ -655,7 +726,7 @@ namespace Bikewale.New
                     if (pqOnRoad != null)
                     {
                         if (pqOnRoad.BPQOutput != null && !String.IsNullOrEmpty(pqOnRoad.BPQOutput.ManufacturerAd))
-                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage);
+                            pqOnRoad.BPQOutput.ManufacturerAd = Format.FormatManufacturerAd(pqOnRoad.BPQOutput.ManufacturerAd, pqOnRoad.BPQOutput.CampaignId, pqOnRoad.BPQOutput.ManufacturerName, pqOnRoad.BPQOutput.MaskingNumber, Convert.ToString(pqOnRoad.BPQOutput.ManufacturerId), pqOnRoad.BPQOutput.Area, pq_leadsource, pq_sourcepage, string.Empty, string.Empty, string.Empty, string.IsNullOrEmpty(pqOnRoad.BPQOutput.MaskingNumber) ? "hide" : string.Empty, pqOnRoad.BPQOutput.LeadCapturePopupHeading, pqOnRoad.BPQOutput.LeadCapturePopupDescription, pqOnRoad.BPQOutput.LeadCapturePopupMessage, pqOnRoad.BPQOutput.PinCodeRequired);
                         variantId = pqOnRoad.PriceQuote.VersionId;
                         if (pqOnRoad.PriceQuote != null)
                         {
