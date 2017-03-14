@@ -13,9 +13,7 @@
                  <div class="swiper-slide">
                     <div class="swiper-card">
                         <a href="@String.Format("/m{0}",UrlFormatter.GetDealerUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName, dealers.Name,Convert.ToInt32(dealers.DealerId)))" title="@dealers.Name" class="block">
-                            <div class="target-link margin-bottom5 text-truncate font14">
-                                @dealers.Name
-                                </div>
+                            <div class="target-link margin-bottom5 text-truncate font14">@dealers.Name</div>
                             <p class="margin-bottom5 text-light-grey @(String.IsNullOrEmpty(dealers.Address)?" hide":string.Empty)">
                                 <span class="bwmsprite dealership-loc-icon vertical-top"></span>
                                 <span class="vertical-top dealership-address details-column">@dealers.Address</span>
