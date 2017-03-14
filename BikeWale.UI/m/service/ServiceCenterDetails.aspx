@@ -106,10 +106,12 @@
         </div>
 
         <section>
+            <div class="container bg-white box-shadow padding-top15">
             <% if (ctrlServiceCenterCard.showWidget && ctrlServiceCenterCard.centerData!=null && ctrlServiceCenterCard.centerData.Count>1)
                    { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                 <% }  %>
+            </div>
         </section>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 

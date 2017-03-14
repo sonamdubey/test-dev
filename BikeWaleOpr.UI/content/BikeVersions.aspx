@@ -1,11 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Content.BikeVersions" Trace="false" Debug="false" EnableEventValidation="false"%>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div class="urh">
-		You are here &raquo; Contents &raquo; Add Bike Versions
-</div>
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
 <script type="text/javascript" language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 

@@ -1,10 +1,6 @@
 <%@ Page trace="false" Inherits="BikeWaleOpr.Content.ModelColorWiseImage" AutoEventWireUp="false" EnableEventValidation="false" Language="C#" %>
 <%@ Import Namespace ="System.Linq" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
-<script language="javascript" src="/src/AjaxFunctions.js"></script>
 <script language="javascript" src="/src/modelImagesByColor.js"></script>
 <script language="javascript" src="/src/imageUpload.js"></script>
 <style>
@@ -110,5 +106,6 @@
     environment = '<%= Bikewale.Utility.BWOprConfiguration.Instance.AWSEnvironment %>';
     bwHostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwHostUrlForJs %>';
     userid = '<%= BikeWaleOpr.Common.CurrentUser.Id %>';
+    bwOprHostUrl = '<%= Bikewale.Utility.BWOprConfiguration.Instance.BwOprHostUrlForJs %>';
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

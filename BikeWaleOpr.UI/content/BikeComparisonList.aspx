@@ -1,9 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="BikeWaleOpr.Content.BikeComparisonList" AutoEventWireup="false" Trace="false" Debug="false" EnableEventValidation="false" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<div>
-    <!-- #Include file="contentsMenu.aspx" -->
-</div>
  <style>
     #comparision-bike-selection{position: fixed; right: 20px;}
      .model-img-content {

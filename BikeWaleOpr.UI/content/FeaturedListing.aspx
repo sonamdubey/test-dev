@@ -7,11 +7,6 @@
     .detailShow {float:left; padding-left:20px;}
     .txtWidth { width:30px;}
 </style>
-<div class="urh">
-	You are here &raquo; <a href="/Content/default.aspx">Contents</a> &raquo; Add Featured Listing
-</div>
-<!-- #Include file="ContentsMenu.aspx" -->
-<script language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 	<h3>Add Featured Listing</h3>
 	

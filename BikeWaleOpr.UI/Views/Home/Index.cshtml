@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    ViewBag.PageTitle = "Bikewale Operations - Home";
+}
+
+
+<div class="row">
+    @if (ViewBag.IsUsedBikeModelsAvailable)
+    {
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content">
+                    <h5><span class="card-title">Pending used model images</span></h5>
+                    <p>
+                        <b>Please upload pending used bike model images by clicking on the link below given by make name.</b>
+                    </p>
+                    <p>@ViewBag.BikeNameShort <a href="#modal1">See all models</a></p>
+                </div>
+                <div class="card-action">
+                    <a href="/Models/UsedModelImageUpload/">Upload Photos now</a>
+                </div>
+            </div>
+        </div>
+        if (ViewBag.BikeNames != null)
+        {
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Pending used model images</h4>
+
+                    @foreach (var bikeGroup in ViewBag.BikeNames)
+                    {
+                        <div class="col s4">
+                            <div class="card">
+                                <div class="card-image waves-effect waves-block waves-light margin-left20">
+                                    <span class="margin-top10 brandlogosprite brand-@bikeGroup.MakeId"></span>
+                                </div>
+                                <div class="card-content ">
+                                    <span class="card-title activator grey-text text-darken-4 ">@bikeGroup.MakeName<i class="material-icons right">more_vert</i></span>
+                                </div>
+
+                                <div class="card-action teal"><a class="white-text" href="/Models/UsedModelImageUpload/?makeId=@bikeGroup.MakeId">Update Photos <i class="material-icons right white-text">keyboard_arrow_right</i></a></div>
+
+                                <div class="card-reveal">
+                                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                                    <ul class="collection">
+                                        @foreach (var bikeModel in bikeGroup.ModelList)
+                                        {
+                                            <li class="collection-item">@bikeModel</li>
+                                        }
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    @if (ViewBag.IsSoldBikeDataUpatedShown && @ViewBag.DataObj != null)
+    {
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-content">
+                    <h5><span class="card-title">Sold bike data</span></h5>
+                    <p>Model units sold data has been last updated on </p>
+                    <p><b>@ViewBag.DataObj.LastUpdateDate.ToString("dd/MM/yyyy")</b></p>
+                </div>
+                <div class="card-action">
+                    <a href="/content/bikeunitssold.aspx">Click here to Update data</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

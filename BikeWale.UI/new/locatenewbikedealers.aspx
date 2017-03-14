@@ -25,7 +25,7 @@
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="dealerlocator-banner">
@@ -82,8 +82,8 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Explore showroom by brand</h2>
-                    <div class="content-box-shadow padding-top20">
-                        <div class="brand-type-container">
+                    <div class="content-box-shadow padding-top20 collapsible-brand-content">
+                        <div id="brand-type-container" class="brand-type-container">
                             <ul class="text-center">
                                 <asp:Repeater ID="rptPopularBrands" runat="server">
                                     <ItemTemplate>
@@ -114,8 +114,8 @@
                                 </asp:Repeater>
                             </ul>
                         </div>
-                        <div class="view-brandType text-center padding-bottom25">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16" rel="nofollow">View <span>more</span> brands</a>
+                        <div class="view-all-btn-container padding-bottom25">
+                            <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>
@@ -190,23 +190,7 @@
             var key = "dealerCitiesByMake_";
             lscache.setBucket('DLPage');  
 
-            $(function () {
-                $(window).on("scroll", function () {
-                    if ($(window).scrollTop() > 40)
-                        $('#header').removeClass("header-landing").addClass("header-fixed");
-                    else
-                        $('#header').removeClass("header-fixed").addClass("header-landing");
-                });
-
-                $("a.view-more-btn").click(function (e) {
-                    var moreBrandList = $("ul.brand-style-moreBtn"),
-                        moreText = $(this).find("span"),
-                        borderDivider = $(".brand-bottom-border");                    
-                    moreBrandList.slideToggle();
-                    moreText.text(moreText.text() === "more" ? "less" : "more");
-                    borderDivider.slideToggle();
-                });
-
+            $(function () {           
 
                 $('select').prop('selectedIndex', 0);
 

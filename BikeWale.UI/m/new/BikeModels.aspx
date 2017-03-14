@@ -70,14 +70,14 @@
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
+                    <div class="upcoming-text-label font16 position-abt text-white text-center">Upcoming</div>
                     <div class="bikeTitle">
                         <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
                     <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %>
-                    <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
+                    <div class="upcoming-text-label font16 position-abt text-white text-center">Discontinued</div>
                     <div class="bikeTitle">
                         <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
@@ -204,7 +204,7 @@
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
-                        <p id="defversion" class="single-version-label font14 margin-left5"><%=variantText %></p>
+                        <p id="defversion" class="single-version-label font14"><%=variantText %></p>
                         <% if (versionCount > 1)
                            { %>
                             <div class="dropdown-select-wrapper">
@@ -222,7 +222,7 @@
                             </a>
                         </div>
                         <% } else{ %>
-                        <%= location %>
+                        <span class="text-bold font14 text-truncate block margin-top5"><%= location %></span>  
                         <% } %>
                     </div>
                     <div class="clear"></div>
@@ -361,17 +361,11 @@
        
         </section>
         <%} %>
-        
-        <style type="text/css">
-            #campaign-container .tel-sm-icon{top:0}#campaign-offer-list li{width:50%;display:inline-block;vertical-align:middle;margin-bottom:20px}#campaign-offer-list li span{display:inline-block;vertical-align:middle}.campaign-offer-label{width:80%;font-size:13px;font-weight:bold;padding-right:5px}#campaign-button-container .btn{padding-right:0;padding-left:0}#campaign-button-container .grid-6.hide + .grid-6{width:100%;padding-right:0}.campaign-offer-1,.campaign-offer-2,.campaign-offer-3,.campaign-offer-4{width:22px;height:22px;margin-right:5px}.campaign-offer-1{background-position:0 -387px}.campaign-offer-2{background-position:0 -418px}.campaign-offer-3{background-position:-28px -387px}.campaign-offer-4{background-position:-56px -387px}
-        </style>
-
-        
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section>
-            <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20">
+            <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20 content-details-wrapper">
                 <div id="modelOverallSpecsTopContent">
                     <div id="overallSpecsTab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
@@ -1163,6 +1157,7 @@
                         "dealerHeading" : ele.attr('data-item-heading'), 
                         "dealerMessage" : ele.attr('data-item-message'), 
                         "dealerDescription" : ele.attr('data-item-description'), 
+                        "pinCodeRequired":ele.attr("data-ispincodrequired"),
                         "gaobject": {
                             cat: ele.attr("c"),
                             act: ele.attr("a"),

@@ -311,7 +311,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 for (int i = 0; i < filterInputs.Displacement.Length; i++)
                 {
-                    if (CommonValidators.ValidRange(Convert.ToInt32(filterInputs.Displacement[i]), 1, 6))
+                    if (CommonValidators.ValidRange(Convert.ToInt32(filterInputs.Displacement[i]), 1, 7))
                     {
                         string displacementClause = GetDisplacementClause(filterInputs.Displacement[i]);
                         if (!String.IsNullOrEmpty(displacementClause))
@@ -353,7 +353,12 @@ namespace Bikewale.DAL.NewBikeSearch
                 objError.SendMail();
             }
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 14 March 2017
+        /// Summary :- Added displacement 110-125
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private string GetDisplacementClause(string id)
         {
             string clause = string.Empty;
@@ -364,18 +369,21 @@ namespace Bikewale.DAL.NewBikeSearch
                     clause = " sd.displacement <= 110 ";
                     break;
                 case "2":
-                    clause = " sd.displacement between 110 and 150 ";
+                    clause = " sd.displacement between 110 and 125 ";
                     break;
                 case "3":
-                    clause = " sd.displacement between 150 and 200 ";
+                    clause = " sd.displacement between 125 and 150 ";
                     break;
                 case "4":
-                    clause = " sd.displacement between 200 and 250 ";
+                    clause = " sd.displacement between 150 and 200 ";
                     break;
                 case "5":
-                    clause = " sd.displacement between 250 and 500 ";
+                    clause = " sd.displacement between 200 and 500 ";
                     break;
                 case "6":
+                    clause = " sd.displacement between 250 and 500 ";
+                    break;
+                case "7":
                     clause = " sd.displacement >= 500 ";
                     break;
                 default:

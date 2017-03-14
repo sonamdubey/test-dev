@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
@@ -122,13 +125,20 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Unity.Mvc5">
+      <HintPath>..\Libs\mvc 5\unity 4.0.1\Unity.Mvc5.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoMappers\BikeData\BikeDataMapper.cs" />
     <Compile Include="AutoMappers\Dealer\DealerListMapper.cs" />
+    <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
+    <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\DealerCampaignController.cs" />
     <Compile Include="Controllers\DealerPriceQuoteController.cs" />
     <Compile Include="Controllers\DealersController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />
     <Compile Include="Global.asax.cs">

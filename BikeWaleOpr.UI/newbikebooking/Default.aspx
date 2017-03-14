@@ -6,13 +6,10 @@
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 
 <style type="text/css">
-    input[type='text'] {
-        background-color: #fff;
-    }
+    input[type='text'] {background-color: #fff;}
 </style>
 <div>
 
-    <!-- #Include file="/content/DealerMenu.aspx" -->
 </div>
 <div class="left">
     <h1>Manage New Bike Dealers</h1>
@@ -44,11 +41,11 @@
 
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
-                <td>
+                <td style="padding-top:10px;">
                     <input type="button" value="Manage Offers" id="btnManageoffer" />&nbsp;&nbsp;
-                    <input runat="server" type="submit" value="Manage Prices And Availability" id="btnManagePrice" />&nbsp;&nbsp;
+                    <input type="submit" value="Manage Prices And Availability" id="btnManagePrice" runat="server"/>&nbsp;&nbsp;
                     <input type="button" value="Manage Facilities" id="btnManagefacilities" />&nbsp;&nbsp;
-                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;
+                    <input type="button" value="Manage Emi" id="btnEmi" />&nbsp;&nbsp;                    
                      <input type="button" value="Manage Dealer Disclaimer" id="btnDisclaimer" />&nbsp;&nbsp;
                     <input type="button" value="Manage Booking Amount" id="btnBkgAmount" />&nbsp;&nbsp;
                     <input type="button" value="Manage Benefits/ USP" id="btnManageBenefits" />&nbsp;&nbsp;
