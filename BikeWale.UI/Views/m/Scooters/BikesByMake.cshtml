@@ -4,6 +4,9 @@
     ViewBag.Page_JS_Path = "/m/src/scooters-by-make.js";
     ICollection<Bikewale.Entities.BikeData.SimilarCompareBikeEntity> similarBikeList = ViewBag.similarBikeList;
     IEnumerable<Bikewale.Entities.BikeData.MostPopularBikesBase> ScootersList = ViewBag.ScootersList;
+    IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> upcomingScooters = ViewBag.UpcomingBikes;
+    Bikewale.Models.Shared.Showrooms dealerShowrooms = ViewBag.objShowrooms;
+    IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCenters = ViewBag.serviceCenters;
 }
 
 <section>
@@ -53,7 +56,18 @@
     </div>
 </section>
 
+@if (upcomingScooters != null && upcomingScooters.Count() > 0)
+{
+    
 <section>
+    <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName scooters</h2>
+        @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", upcomingScooters)
+      </div>
+    </section>     
+}
+
+@*<section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming scooters</h2>
         <div class="swiper-container card-container">
@@ -132,7 +146,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 
 <section>
     <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
@@ -155,7 +169,9 @@
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
-            <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
+            @Html.Partial("~/Views/m/Shared/_showrooms.cshtml", dealerShowrooms)
+            @Html.Partial("~/Views/m/Shared/_ServiceCenters.cshtml", serviceCenters)
+    @*@<div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
                 <h2 class="padding-right20 padding-left20">Honda Showrooms & Service Centers</h2>
                 <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
                     <!-- dealers when no city selected -->
@@ -192,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
         <div id="makeSpecsFooter"></div>
     </div>
