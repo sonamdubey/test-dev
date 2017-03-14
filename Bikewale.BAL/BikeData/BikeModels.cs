@@ -1309,17 +1309,15 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
-
-
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount)
+        /// <summary>
+        /// Created By :- Subodh Jain 10 March 2017
+        /// Summary :- Populate Compare ScootersList
+        /// </summary>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
-            throw new NotImplementedException();
+            return _modelCacheRepository.GetMostPopularScooters(makeId);
         }
 
-        public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
