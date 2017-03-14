@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL;
+using Bikewale.BAL.MVC.UI;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;

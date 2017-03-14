@@ -19,6 +19,8 @@ namespace Bikewale.Entities.PriceQuote
     /// Description :   Added Desktop_DealerLocator_Detail_AvailableModels
     /// Modified by : Sajal Gupta on 24-01-217
     /// Description : Added Mobile_News_Listing_page
+    /// Modified By:- Subodh jain 09 march 2017 
+    /// Summary :- Added Desktop_Scooters_Landing_Check_on_road_price  Mobile_Scooters_Landing_Check_on_road_price                      
     /// </summary>
     public enum PQSourceEnum
     {
@@ -106,7 +108,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DealerLocator_Detail_AvailableModels = 82,
         Mobile_DealerLocator_Detail_AvailableModels = 83,
         Mobile_News_Listing_page = 84,
-        Desktop_Photos_page = 85
-
+        Desktop_Photos_page = 85,
+        Desktop_Scooters_Landing_Check_on_road_price = 86,
+        Mobile_Scooters_Landing_Check_on_road_price = 87
     }
 }

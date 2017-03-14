@@ -116,7 +116,7 @@ namespace Bikewale.Cache.BikeData
             }
             return objMakeDetails;
         }
-        
+
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Sep 2016
         /// Description :   Gets All make and models from Cache if available else calls DAL
@@ -189,6 +189,25 @@ namespace Bikewale.Cache.BikeData
                 objErr.SendMail();
             }
             return response;
-        }        
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 10 Mar 2017
+        /// Summary: Cache layer for scooter's brands
+        /// </summary>
+        public IEnumerable<BikeMakeEntityBase> GetScooterMakes()
+        {
+            IEnumerable<BikeMakeEntityBase> makes = null;
+            string key = String.Format("BW_Scooters_All_Brands");
+            try
+            {
+                makes = _cache.GetFromCache<IEnumerable<BikeMakeEntityBase>>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetScooterMakes());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeMakesCacheRepository.GetScooterMakes");
+            }
+            return makes;
+        }
     }
 }

@@ -37,6 +37,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added GetNewLaunchedBikesList 
     /// Modified  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo
+    ///    Modified  By :- subodh Jain 10 march 2017
+    /// Summary :- Added GetMostPopularScooters
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -92,5 +94,8 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId);
     }
 }

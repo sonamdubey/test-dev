@@ -1801,4 +1801,4 @@ $(".brand-collapsible-present li").click(function () {
     viewMoreBtn.attr('href', '#brand-type-container');
     moreBrandContainer.slideUp();
     viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
-}); 
+});
