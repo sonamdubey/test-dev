@@ -3404,9 +3404,12 @@
     <Content Include="Views\m\Shared\_popularComparisions.cshtml" />
     <Content Include="Views\m\Shared\_similarComparisions.cshtml" />
     <Content Include="Views\m\Shared\_similarBikes.cshtml" />
-    <Content Include="Views\m\scooters\index.cshtml" />
     <Content Include="Views\m\scooters\models.cshtml" />
     <Content Include="Views\Scooters\BikesByMake.cshtml" />
+    <Content Include="Views\Shared\_Brands.cshtml" />
+    <Content Include="Views\m\Shared\_Brands.cshtml" />
+    <Content Include="Views\Shared\_OtherBrands.cshtml" />
+    <Content Include="Views\m\Shared\_OtherBrands.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

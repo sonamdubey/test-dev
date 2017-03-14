@@ -1,10 +1,14 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.MVC.UI;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Models.Shared;
+using Bikewale.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -14,16 +18,20 @@ namespace Bikewale.Controllers.Desktop.Scooters
     public class ScootersController : Controller
     {
         private readonly INewBikeLaunchesBL _newLaunches = null;
+        public readonly IBikeMakesCacheRepository<int> _IScooterCache;
+        private readonly IBikeModels<BikeModelEntity, int> _models = null;
+        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _objBikeModel = null;
         private readonly IBikeMakes<BikeMakeEntity, int> _objMakeRepo = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeCompareCacheRepository _compareScooters = null;
-        private readonly IBikeMakesCacheRepository<int> _objMakeCache = null;
-        private readonly IBikeModels<BikeModelEntity, int> _objBikeModel = null;
-        public ScootersController(INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepo)
+        public ScootersController(IBikeModels<BikeModelEntity, int> models, INewBikeLaunchesBL newLaunches, IUpcoming upcoming, IBikeCompareCacheRepository compareScooters, IBikeMakesCacheRepository<int> IScooter, IBikeMakesCacheRepository<int> objMakeCache, IBikeModels<BikeModelEntity, int> objBikeModel, IBikeMakes<BikeMakeEntity, int> objMakeRepo)
         {
             _newLaunches = newLaunches;
+            _models = models;
             _upcoming = upcoming;
             _compareScooters = compareScooters;
+            _IScooterCache = IScooter;
             _objMakeCache = objMakeCache;
             _objBikeModel = objBikeModel;
             _objMakeRepo = objMakeRepo;
@@ -33,15 +41,18 @@ namespace Bikewale.Controllers.Desktop.Scooters
         public ActionResult Index()
         {
             PopulateNewlaunch();
+            PopularScooters();
             UpcomingScooters();
             CompareScootersList();
 
             return View("~/views/scooters/index.cshtml");
         }
+
         [Route("m/scooters/")]
         public ActionResult MIndex()
         {
             PopulateNewlaunch();
+            MPopularScooters();
             UpcomingScooters();
             CompareScootersList();
             return View("~/views/m/scooters/index.cshtml");
@@ -87,6 +98,23 @@ namespace Bikewale.Controllers.Desktop.Scooters
             NewLaunchedBikeResult objNewLaunchesBikes = _newLaunches.GetBikes(filters);
             ViewBag.NewLaunchesList = objNewLaunchesBikes;
         }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : get list of popular scooters
+        /// </summary>
+        private void PopularScooters()
+        {
+            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            uint topCount = 9;
+            PopularScootersList objScooters = new PopularScootersList();
+            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
+
+            objScooters.PQSourceId = (int)PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
+            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Desktop;
+            ViewBag.popularScooters = objScooters;
+        }
+
         [Route("scooters/make/{makemaskingname}/")]
         public ActionResult BikesByMake(string makemaskingname)
         {
@@ -105,6 +133,55 @@ namespace Bikewale.Controllers.Desktop.Scooters
             ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
             ViewBag.similarBikeList = similarBikeList;
             return View("~/views/scooters/bikesbymake.cshtml");
+        }
+
+        [Route("scooters/brands/")]
+        public ActionResult Brands()
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            BrandWidget brands = scooters.GetScooterBrands(_IScooterCache, 10);
+            return View("~/views/shared/_brands.cshtml", brands);
+        }
+
+        [Route("m/scooters/brands/")]
+        public ActionResult BrandsMobile()
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            BrandWidget brands = scooters.GetScooterBrands(_IScooterCache, 6);
+            return View("~/views/m/shared/_brands.cshtml", brands);
+        }
+
+
+        [Route("scooters/otherBrands/")]
+        public ActionResult OtherBrands(uint makeId)
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_IScooterCache, makeId, 9);
+            return View("~/views/shared/_otherbrands.cshtml", otherBrand);
+        }
+
+        [Route("m/scooters/otherBrands/")]
+        public ActionResult OtherBrandsMobile(uint makeId)
+        {
+            ScooterBrands scooters = new ScooterBrands();
+            IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_IScooterCache, makeId, 9);
+            return View("~/views/m/shared/_otherbrands.cshtml", otherBrand);
+        }
+
+        /// <summary>
+        /// Created by : Aditi Srivastava on 9 Mar 2017
+        /// Summary    : get list of popular scooters
+        /// </summary>
+        private void MPopularScooters()
+        {
+            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
+            uint topCount = 9;
+            PopularScootersList objScooters = new PopularScootersList();
+            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
+
+            objScooters.PQSourceId = (int)PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
+            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
+            ViewBag.popularScooters = objScooters;
         }
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult MBikesByMake(string makemaskingname)

@@ -47,55 +47,9 @@
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
         <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of other brands</h2>
-        <div class="swiper-container padding-top5 padding-bottom5 brand-type-carousel">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-7"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Honda</p>
-                                <h3 class="text-unbold text-light-grey font11">7 scooters</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-6"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">Hero</p>
-                                <h3 class="text-unbold text-light-grey font11">6 scooters</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="">
-                            <div class="brand-logo-image">
-                                <span class="brand-type">
-                                    <span class="brandlogosprite brand-15"></span>
-                                </span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">TVS</p>
-                                <h3 class="text-unbold text-light-grey font11">15 scooters</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+            @{ Html.RenderAction("OtherBrandsMobile", "Scooters", new { makeId = 7 }); }
+
     </div>
 </section>
 

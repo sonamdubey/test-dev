@@ -43,7 +43,9 @@
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
+    <Compile Include="Shared\Brands.cs" />
     <Compile Include="Shared\Pager.cs" />
+    <Compile Include="Shared\PopularScootersList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

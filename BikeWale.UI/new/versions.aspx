@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.BikeModel" EnableViewState="false" Trace="false" %>
+﻿iew<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.BikeModel" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>

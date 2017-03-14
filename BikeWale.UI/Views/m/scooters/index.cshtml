@@ -1,7 +1,9 @@
-﻿@{
+﻿@using Bikewale.Entities.BikeData;
+@{
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/landing.css' />";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Bikewale.Entities.BikeData.NewLaunched.NewLaunchedBikeResult NewLaunchesList = ViewBag.NewLaunchesList;
+    Bikewale.Models.Shared.PopularScootersList popularScooters = ViewBag.popularScooters;
     IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
     IEnumerable<Bikewale.Entities.Compare.TopBikeCompareBase> TopScootersCompares = ViewBag.TopScootersCompares;
 }
@@ -27,205 +29,7 @@
                     </div>
                     <div id="brand-tab" class="bw-tabs-data">
                         <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                            <div id="brand-type-container" class="brand-type-container">
-                                <ul>
-                                    <li>
-                                        <a href="/m/new-honda-bike-launches/" title="Newly launched Honda bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-7"></span>
-                                            </span>
-                                            <span class="brand-type-title">Honda</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-bajaj-bike-launches/" title="Newly launched Bajaj bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-1"></span>
-                                            </span>
-                                            <span class="brand-type-title">Bajaj</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-hero-bike-launches/" title="Newly launched Hero bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-6"></span>
-                                            </span>
-                                            <span class="brand-type-title">Hero</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-tvs-bike-launches/" title="Newly launched TVS bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-15"></span>
-                                            </span>
-                                            <span class="brand-type-title">TVS</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-royalenfield-bike-launches/" title="Newly launched Royal Enfield bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-11"></span>
-                                            </span>
-                                            <span class="brand-type-title">Royal Enfield</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-yamaha-bike-launches/" title="Newly launched Yamaha bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-13"></span>
-                                            </span>
-                                            <span class="brand-type-title">Yamaha</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
-                                    <li>
-                                        <a href="/m/new-aprilia-bike-launches/" title="Newly launched Aprilla bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-2"></span>
-                                            </span>
-                                            <span class="brand-type-title">Aprilla</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-benelli-bike-launches/" title="Newly launched Benelli bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-40"></span>
-                                            </span>
-                                            <span class="brand-type-title">Benelli</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-bmw-bike-launches/" title="Newly launched BMW1 bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-3"></span>
-                                            </span>
-                                            <span class="brand-type-title">BMW1</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-ducati-bike-launches/" title="Newly launched Ducati bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-4"></span>
-                                            </span>
-                                            <span class="brand-type-title">Ducati</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-goldian-bike-launches/" title="Newly launched Goldian bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-82"></span>
-                                            </span>
-                                            <span class="brand-type-title">Goldian</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-harleydavidson-bike-launches/" title="Newly launched Harley Davidson bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-5"></span>
-                                            </span>
-                                            <span class="brand-type-title">Harley Davidson</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-hyosung-bike-launches/" title="Newly launched Hyosung bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-8"></span>
-                                            </span>
-                                            <span class="brand-type-title">Hyosung</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-indian-bike-launches/" title="Newly launched Indian bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-34"></span>
-                                            </span>
-                                            <span class="brand-type-title">Indian</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-kawasaki-bike-launches/" title="Newly launched Kawasaki bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-17"></span>
-                                            </span>
-                                            <span class="brand-type-title">Kawasaki</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-ktm-bike-launches/" title="Newly launched KTM bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-9"></span>
-                                            </span>
-                                            <span class="brand-type-title">KTM</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-mahindra-bike-launches/" title="Newly launched Mahindra bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-10"></span>
-                                            </span>
-                                            <span class="brand-type-title">Mahindra</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-mvagusta-bike-launches/" title="Newly launched MV Agusta bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-41"></span>
-                                            </span>
-                                            <span class="brand-type-title">MV Agusta</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-new-brand-bike-launches/" title="Newly launched New Brand bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-83"></span>
-                                            </span>
-                                            <span class="brand-type-title">New Brand</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-piaggio-bike-launches/" title="Newly launched Piaggio bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-38"></span>
-                                            </span>
-                                            <span class="brand-type-title">Piaggio</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-suzuki-bike-launches/" title="Newly launched Suzuki bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-12"></span>
-                                            </span>
-                                            <span class="brand-type-title">Suzuki</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-triumph-bike-launches/" title="Newly launched Triumph bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-22"></span>
-                                            </span>
-                                            <span class="brand-type-title">Triumph</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-um-bike-launches/" title="Newly launched UM bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-42"></span>
-                                            </span>
-                                            <span class="brand-type-title">UM</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/m/new-vespa-bike-launches/" title="Newly launched Vespa bikes">
-                                            <span class="brand-type">
-                                                <span class="lazy brandlogosprite brand-16"></span>
-                                            </span>
-                                            <span class="brand-type-title">Vespa</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
+                            @{Html.RenderAction("BrandsMobile", "Scooters");}
                             <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
                         </div>
                     </div>
@@ -317,7 +121,10 @@
         <div class="bw-tabs-panel">
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
-                    <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+                    {
+                        <li class="active" data-tabs="mctrlMostPopularBikes">Most Popular</li>
+                    }
                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                     {
                         <li data-tabs="mctrlNewLaunchedBikes">New launches</li>}
@@ -326,86 +133,24 @@
                     <li data-tabs="mctrlUpcomingBikes">Upcoming </li>}
                 </ul>
             </div>
+            @if(popularScooters.PopularScooters!=null && popularScooters.PopularScooters.Count()>0)
+              {
             <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
-                <div class="swiper-container card-container">
-                    <div class="swiper-wrapper discover-bike-carousel">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda CB Hornet 160R">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd2.aeplcdn.com//174x98//bw/models/honda-cb-hornet-160r.jpg?20151012195209" title="Honda CB Hornet 160R" alt="Honda CB Hornet 160R" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda CB Hornet 160R</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">86,041</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Bajaj Dominar 400">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd5.aeplcdn.com//174x98//bw/models/bajaj-dominar400.jpg?20161512143417" title="Bajaj Dominar 400" alt="Bajaj Dominar 400" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Bajaj Dominar 400</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">1,44,069</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <a href="" title="Honda Activa 3G">
-                                    <div class="swiper-image-preview">
-                                        <img class="swiper-lazy" data-src="https://imgd1.aeplcdn.com//174x98//bw/models/honda-activa-3g-standard-806.jpg?20151209184243" title="Honda Activa 3G" alt="Honda Activa 3G" src="" />
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                    <div class="swiper-details-block">
-                                        <h3 class="target-link font12 text-truncate margin-bottom5">Honda Activa 3G</h3>
-                                        <p class="text-truncate text-light-grey font11">Ex-showroom, Mumbai</p>
-                                        <p class="text-default">
-                                            <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">54,609</span><span class="font14 text-bold"> onwards</span>
-                                        </p>
-                                    </div>
-                                </a>
-                                <div class="swiper-btn-block">
-                                    <a href="javascript:void(0)" class="btn btn-card btn-full-width btn-white">Check on-road price</a>
-                                </div>
-                            </div>
-                        </div>
+                @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
+                </div>
+                }
+                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                {
+                    <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
+                        @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
                     </div>
+                }
+                @if (objUpcoming != null && objUpcoming.Count() > 0)
+                {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
+                    @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
                 </div>
+                }
             </div>
-            @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
-            {
-                <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
-                    @Html.Partial("~/Views/m/Shared/_newLaunches.cshtml", NewLaunchesList)
-                </div>
-            }
-            @if (objUpcoming != null && objUpcoming.Count() > 0)
-            {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
-                @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
-            </div>
-            }
-        </div>
     </div>
 </section>
 @if (TopScootersCompares != null && TopScootersCompares.Count() > 0)

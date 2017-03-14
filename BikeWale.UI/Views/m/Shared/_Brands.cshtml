@@ -1,0 +1,28 @@
+﻿<div id="brand-type-container" class="brand-type-container">
+    <ul>
+        @foreach (var make in Model.TopBrands)
+        {
+            <li>
+                <a href="@String.Format("/m/{0}-bikes/", make.MaskingName)" title="@String.Format("{0} scooters",make.MakeName)">
+                    <span class="brand-type">
+                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                    </span>
+                    <span class="brand-type-title">@make.MakeName</span>
+                </a>
+            </li>
+        }        
+    </ul>
+    <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 hide">
+        @foreach (var make in Model.OtherBrands)
+        {
+            <li>
+                <a href="@String.Format("/m/{0}-bikes/", make.MaskingName)" title="@String.Format("{0} scooters",make.MakeName)">
+                    <span class="brand-type">
+                        <span class="lazy brandlogosprite brand-@make.MakeId"></span>
+                    </span>
+                    <span class="brand-type-title">@make.MakeName</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

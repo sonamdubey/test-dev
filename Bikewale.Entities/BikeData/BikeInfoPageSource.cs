@@ -10,7 +10,9 @@ namespace Bikewale.Entities.BikeData
         UserReviewsdetails = 4,
         ModelWiseVideo = 5,
         NewsDetailsPage = 6,
-        Priceincitypage = 7
+        Priceincitypage = 7,
+        ScootersLandingPage_Mobile=8,
+        ScootersLandingPage_Desktop=9
 
     }
 }
