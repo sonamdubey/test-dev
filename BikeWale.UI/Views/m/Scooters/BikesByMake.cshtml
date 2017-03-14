@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Bikewale.Utility;
+@{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/listing.css' />";
     ViewBag.Page_JS_Path = "/m/src/scooters-by-make.js";
@@ -7,6 +8,9 @@
     IEnumerable<Bikewale.Entities.BikeData.UpcomingBikeEntity> upcomingScooters = ViewBag.UpcomingBikes;
     Bikewale.Models.Shared.Showrooms dealerShowrooms = ViewBag.objShowrooms;
     IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCenters = ViewBag.serviceCenters;
+    bool showServiceWidget = ViewBag.showServiceWidget;
+    bool showDealerWidget = ViewBag.showDealerWidget;
+    bool showServiceCenter = ViewBag.showServiceCenter;
 }
 
 <section>
@@ -67,149 +71,56 @@
     </section>     
 }
 
-@*<section>
-    <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming scooters</h2>
-        <div class="swiper-container card-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
-                                <div class="text-light-grey margin-bottom5">
-                                    <p class="font11 text-light-grey">Expected launch</p>
-                                    <p class="font16 text-bold text-default">Jan 2016</p>
-                                </div>
-                                <div>
-                                    <div class="font11 text-light-grey">Expected Price</div>
-                                    <div class="text-default">
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
-                                <div class="text-light-grey margin-bottom5">
-                                    <p class="font11 text-light-grey">Expected launch</p>
-                                    <p class="font16 text-bold text-default">Jan 2016</p>
-                                </div>
-                                <div>
-                                    <div class="font11 text-light-grey">Expected Price</div>
-                                    <div class="text-default">
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="swiper-card">
-                        <a href="" title="Kawasaki Ninja ZX-14R [2016]">
-                            <div class="swiper-image-preview">
-                                <img class="swiper-lazy" data-src="http://imgd2.aeplcdn.com///174x98//bw/upcoming/kawasaki-ninjazx-14r[2016]-703.jpg?20162402145840" alt="Kawasaki Ninja ZX-14R [2016]" />
-                                <span class="swiper-lazy-preloader"></span>
-                            </div>
-                            <div class="swiper-details-block">
-                                <h3 class="target-link font12 text-truncate margin-bottom5">Kawasaki Ninja ZX-14R [2016]</h3>
-                                <div class="text-light-grey margin-bottom5">
-                                    <p class="font11 text-light-grey">Expected launch</p>
-                                    <p class="font16 text-bold text-default">Jan 2016</p>
-                                </div>
-                                <div>
-                                    <div class="font11 text-light-grey">Expected Price</div>
-                                    <div class="text-default">
-                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="text-bold font16">28,000</span><span class="font14 text-bold"> onwards</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>*@
 
 <section>
     <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
         <div id="makeOverallTabsWrapper">
             <div class="overall-specs-tabs-container">
                 <ul class="overall-specs-tabs-wrapper">
-                    <li class="active" data-tabs="#makeAboutContent">About</li>
-                    <li data-tabs="#dealerAndServiceContent">Dealers & Service Centers</li>
+                    @if (ViewBag.Synopsis != null && ViewBag.Synopsis.FullDescription.Length > 0) { 
+                     <li class="active" data-tabs="#makeAboutContent">About</li>
+                    }
+                    @if (showDealerWidget || (showServiceWidget && ViewBag.CityId > 0))
+                     {
+                    <li data-tabs="#dealerAndServiceContent">
+                    @(showDealerWidget ? "Dealers" : "")
+                    @((showServiceCenter || (showServiceWidget && ViewBag.CityId > 0)) ? ((showDealerWidget) ? " & Service Centers" : "") : "")
+                    </li>
+                    }
                 </ul>
             </div>
         </div>
         <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 active">
             <div class="padding-right20 padding-left20">
-                <h2 class="text-bold">Honda Scooters Summary</h2>
+                <h2 class="text-bold">@ViewBag.MakeName Scooters Summary</h2>
                 <div class="font14 text-light-grey collapsible-content">
-                    <p class="main-content">Honda Motorcycle amp Scooter India is a 100 per cent Indian subsidiary of Honda Motor Company Founded in 1999 Honda was the erstwhile partner of Hero MotoCorp before both companies parted ways Known for pioneering the scooter segment in India through Activa range of scooters Honda manufactures </p>
-                    <p class="more-content">a wide range of two wheelers in India Honda currently has four production facilities Manesar in Gurgaon Tapukara in Rajasthan Narsapura in Karnataka and the new Vithalapur unit in Gujarat Other than manufacturing bikes. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                    <p class="main-content">@FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700)</p>
+                    <p class="more-content">@ViewBag.Synopsis.FullDescription</p>
+                    @if (ViewBag.Synopsis.FullDescription.Length > 700) { 
+                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>}
                 </div>
             </div>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+
             @Html.Partial("~/Views/m/Shared/_showrooms.cshtml", dealerShowrooms)
-            @Html.Partial("~/Views/m/Shared/_ServiceCenters.cshtml", serviceCenters)
-    @*@<div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
-                <h2 class="padding-right20 padding-left20">Honda Showrooms & Service Centers</h2>
-                <div class="swiper-container card-container dealer-horizontal-swiper no-city-selection-carousel">
-                    <!-- dealers when no city selected -->
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <span class="dealer-city-image-preview">
-                                    <span class="city-sprite hyderabad-icon"></span>
-                                </span>
-                                <p class="text-default text-bold margin-bottom5">Honda outlets in Hyderabad</p>
-                                <a href="" title="" class="block">27 showrooms</a>
-                                <a href="" title="" class="block">31 service centers</a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <span class="dealer-city-image-preview">
-                                    <span class="city-sprite pune-icon"></span>
-                                </span>
-                                <p class="text-default text-bold margin-bottom5">Honda outlets in Pune</p>
-                                <a href="" title="" class="block">27 showrooms</a>
-                                <a href="" title="" class="block">31 service centers</a>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="swiper-card">
-                                <span class="dealer-city-image-preview">
-                                    <span class="city-sprite india-icon"></span>
-                                </span>
-                                <p class="text-default text-bold margin-bottom5">Honda outlets in India</p>
-                                <a href="" title="" class="block">1888 showrooms</a>
-                                <a href="" title="" class="block">2534 service centers</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+
+@if (serviceCenters != null && serviceCenters.Count() > 0)
+{
+    <div class="container card-bottom-margin padding-bottom20">
+        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
+        @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
+            <p class="margin-top5 margin-left20 margin-bottom15">@ViewBag.biLineText</p>
+    }
+        @Html.Partial("~/Views/m/Shared/_ServiceCenters.cshtml", serviceCenters)
+        <div class="padding-right20 padding-left20 font14">
+                <a href="@string.Format("/m{0}",UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName service centers in @ViewBag.CityName">View all @ViewBag.MakeName service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
+            </div>
         </div>
+        }
+        
+    </div>
         <div id="makeSpecsFooter"></div>
     </div>
 </section>

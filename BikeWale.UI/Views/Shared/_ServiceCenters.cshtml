@@ -1,8 +1,5 @@
 ﻿@using Bikewale.Utility;
 @model IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails>
-@if(Model!=null && Model.Count()>0){
-<h2 class="padding-top15 padding-right20 margin-bottom15 padding-left20">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
-<ul class="bw-horizontal-cards font14">
     @foreach (var center in Model){
     <li class="card">
         <a href="@UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName, center.Name, center.ServiceCenterId)" title="@center.Name" class="card-target">
@@ -22,35 +19,4 @@
         </a>
     </li>
     }
-    @*<li class="card">
-        <a href="" title="" class="card-target">
-            <h3 class="text-black text-bold text-truncate margin-bottom5">Sterling Sales & Service</h3>
-            <p class="text-light-grey margin-bottom5">
-                <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                <span class="vertical-top details-column">Shop No 3 2 Nago Sayaji Chawl Ballam Street Dist Mumbai City Grant Road...</span>
-            </p>
-            <p class="text-default">
-                <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                <span class="text-bold vertical-top details-column text-truncate">9322507782</span>
-            </p>
-        </a>
-    </li>
-    <li class="card">
-        <a href="" title="" class="card-target">
-            <h3 class="text-black text-bold text-truncate margin-bottom5">Sterling Sales & Service</h3>
-            <p class="text-light-grey margin-bottom5">
-                <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                <span class="vertical-top details-column">Shop No 3 2 Nago Sayaji Chawl Ballam Street Dist Mumbai City Grant Road...</span>
-            </p>
-            <p class="text-default">
-                <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
-                <span class="text-bold vertical-top details-column text-truncate">9322507782</span>
-            </p>
-        </a>
-    </li>*@
-</ul>
-<div class="clear"></div>
-<div class="padding-left20 font14 padding-bottom20">
-    <a href="@UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName)" title="@ViewBag.MakeName service centers in @ViewBag.cityName">View all @ViewBag.MakeName service centers<span class="bwsprite blue-right-arrow-icon"></span></a>
-</div>
-}
+    

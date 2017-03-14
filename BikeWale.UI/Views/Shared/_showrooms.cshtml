@@ -22,33 +22,7 @@
                 </a>
             </li>
             }
-            @*<li class="card">
-                    <a href="" title="" class="card-target">
-                        <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
-                        <p class="text-light-grey margin-bottom5">
-                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                            <span class="vertical-top details-column">11 Link House Plot No 446 Near Lakozy Toyota Link Road Malad W </span>
-                        </p>
-                        <p class="text-default">
-                            <span class="bwsprite phone-black-icon vertical-top"></span>
-                            <span class="text-bold vertical-top details-column text-truncate">7620914785</span>
-                        </p>
-                    </a>
-                </li>*@
-            @*<li class="card">
-                    <a href="" title="" class="card-target">
-                        <p class="text-black text-bold text-truncate margin-bottom5">Executive Bajaj - Malad</p>
-                        <p class="text-light-grey margin-bottom5">
-                            <span class="bwsprite dealership-loc-icon vertical-top margin-right5"></span>
-                            <span class="vertical-top details-column">11 Link House Plot No 446 Near Lakozy Toyota Link Road Malad W </span>
-                        </p>
-                        <p class="text-default">
-                            <span class="bwsprite phone-black-icon vertical-top"></span>
-                            <span class="text-bold vertical-top details-column text-truncate">7620914785</span>
-                        </p>
-                    </a>
-                </li>*@
-        </ul>
+           </ul>
         <div class="clear"></div>
         <a href="@UrlFormatter.DealerLocatorUrl(Model.dealers.MakeMaskingName, Model.dealers.CityMaskingName)" title="@Model.dealers.MakeName showroom in @Model.dealers.CityName" class="margin-left20">View all @Model.dealers.MakeName showrooms<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
@@ -64,10 +38,10 @@ else {
                         @foreach (var details in Model.dealerServiceCenter.DealerDetails) { 
                         <li>
                             <div class="dealer-jcarousel-image-preview">
-                                <span class="city-sprite <%=details.CityMaskingName %>-icon"></span>
+                                <span class="city-sprite @details.CityMaskingName-icon"></span>
                             </div>
                             <div class="font14 padding-left20 padding-right20 padding-bottom20">
-                                <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName  outlets in @details.CityName</p>
+                                <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in @details.CityName</p>
                                 @if (details.DealerCount>0) {
                                 <a href="/@ViewBag.MakeMaskingName-dealer-showrooms-in-@details.CityMaskingName/" title="@ViewBag.MakeName showroom in @details.CityName" class="block">@details.DealerCount @((details.DealerCount > 1 )? "showrooms" : "showroom")</a>
                                 } 
@@ -84,7 +58,7 @@ else {
                                 <span class="city-sprite india-icon"></span>
                             </div>
                             <div class="font14 padding-left20 padding-right20 padding-bottom20">
-                                <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in India</p>
+                                <p class="text-default text-bold margin-bottom5">@ViewBag.MakeName outlets in India</p>
                                 @if (Model.dealerServiceCenter.TotalDealerCount > 0)
                                 {
                                 <a href="/@ViewBag.MakeMaskingName-dealer-showrooms-in-india/" title="@ViewBag.MakeName showroom in India" class="block">@Model.dealerServiceCenter.TotalDealerCount @((Model.dealerServiceCenter.TotalDealerCount>0 )? "showrooms" : "showroom" )</a>
