@@ -15,8 +15,8 @@
                                 <div class="card-desc-block">
                                     <h3 class="bikeTitle">@bike.BikeName</h3>
                                     <p class="text-xt-light-grey font14 margin-bottom10">
-                                        <span><span>@bike.Specs.Displacement</span><span> cc</span></span><span>, <span>@bike.Specs.FuelEfficiencyOverall</span><span> kmpl</span></span><span>, <span>@bike.Specs.MaxPower</span><span> bhp</span></span>
-                                    </p>
+                                       @Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement),Convert.ToString(bike.Specs.FuelEfficiencyOverall),Convert.ToString(bike.Specs.MaxPower)))
+                                            </p>
                                     @if (bike.VersionPrice > 0)
                                     {
                                         <p class="font14 text-light-grey margin-bottom5">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
