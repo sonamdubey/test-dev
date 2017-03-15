@@ -413,6 +413,8 @@ namespace Bikewale.DAL.Used
         /// Description : Get Used Bike By Model Count In City
         /// Modified By : Sangram Nandkhile on 07 Feb 2017 
         /// Description : Changed SP to fetch Minimum price for the model
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added getusedbikesinpopularcitybymodel_14032017
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="totalCount"></param>
@@ -425,7 +427,7 @@ namespace Bikewale.DAL.Used
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesinpopularcitybymodel_02022017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikesinpopularcitybymodel_14032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
@@ -449,7 +451,11 @@ namespace Bikewale.DAL.Used
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     MakeName = Convert.ToString(dr["makename"]),
                                     MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
-                                    MinimumPrice = Convert.ToString(dr["price"])
+                                    MinimumPrice = Convert.ToString(dr["price"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    UsedHostUrl = Convert.ToString(dr["usedHostUrl"]),
+                                    UsedOriginalImagePath = Convert.ToString(dr["usedOriginalImagePath"]),
+                                    BikePrice = SqlReaderConvertor.ToUInt32(dr["price"])
                                 });
                             }
                             dr.Close();
@@ -477,7 +483,7 @@ namespace Bikewale.DAL.Used
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getpopularusedbikesmodelsbymake"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getpopularusedbikesmodelsbymake_14032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int16, makeid));
@@ -499,7 +505,11 @@ namespace Bikewale.DAL.Used
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     MakeName = Convert.ToString(dr["makename"]),
                                     MakeMaskingName = Convert.ToString(dr["makemaskingname"]),
-                                    MinimumPrice = Convert.ToString(dr["price"])
+                                    MinimumPrice = Convert.ToString(dr["price"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    UsedHostUrl = Convert.ToString(dr["usedHostUrl"]),
+                                    UsedOriginalImagePath = Convert.ToString(dr["usedOriginalImagePath"]),
+                                    BikePrice = SqlReaderConvertor.ToUInt32(dr["price"])
                                 });
                             }
                             dr.Close();
@@ -518,6 +528,8 @@ namespace Bikewale.DAL.Used
         /// <summary>
         ///Created By : Subodh Jain on 2 jan 2017 
         /// Description : Get Used Bike By Model Count In City
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added getusedbikespopularmodelincity_14032017
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="totalCount"></param>
@@ -527,7 +539,7 @@ namespace Bikewale.DAL.Used
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikespopularmodelincity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikespopularmodelincity_14032017"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -550,7 +562,11 @@ namespace Bikewale.DAL.Used
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     MakeMaskingName = Convert.ToString(dr["makeMaskingName"]),
-                                    MakeName = Convert.ToString(dr["makename"])
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    UsedHostUrl = Convert.ToString(dr["usedHostUrl"]),
+                                    UsedOriginalImagePath = Convert.ToString(dr["usedOriginalImagePath"]),
+                                    BikePrice = SqlReaderConvertor.ToUInt32(dr["price"])
                                 });
                             }
                             dr.Close();
@@ -564,7 +580,58 @@ namespace Bikewale.DAL.Used
             }
             return objUsedBikesList;
         }
+        /// <summary>
+        ///Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model In India
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="totalCount"></param>
+        public IEnumerable<MostRecentBikes> GetUsedBike(uint topcount)
+        {
+            IList<MostRecentBikes> objUsedBikesList = null;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getusedbikespopularmodel"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topcount));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objUsedBikesList = new List<MostRecentBikes>();
+                            while (dr.Read())
+                            {
+
+                                objUsedBikesList.Add(new MostRecentBikes
+                                {
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                    AvailableBikes = SqlReaderConvertor.ToUInt32(dr["AvailableBikes"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    MakeMaskingName = Convert.ToString(dr["makeMaskingName"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]),
+                                    UsedHostUrl = Convert.ToString(dr["usedHostUrl"]),
+                                    UsedOriginalImagePath = Convert.ToString(dr["usedOriginalImagePath"]),
+                                    BikePrice = SqlReaderConvertor.ToUInt32(dr["price"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("UsedBikesRepository.GetUsedBike:topcount:{0}", topcount));
+            }
+            return objUsedBikesList;
+        }
         /// <summary>
         /// Created by  :   Sajal Gupta on 30-12-2016
         /// Description :   DAL function to read available used bikes in city by make

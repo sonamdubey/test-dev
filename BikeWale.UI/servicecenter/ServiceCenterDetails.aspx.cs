@@ -23,8 +23,8 @@ namespace Bikewale.ServiceCenter
         protected ServiceSchedule ctrlServiceSchedule;
         protected DealerCard ctrlDealerCard;
         public ServiceDetailsPage serviceVM;
-        protected UsedBikeWidget ctrlRecentUsedBikes;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
+        protected usedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -62,6 +62,8 @@ namespace Bikewale.ServiceCenter
         /// Summary :- Added Used Bike and popular bike widget
         /// Modified By :-Subodh Jain on 16 Dec 2016
         /// Summary :- Added heading to dealer widget
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used Bike widget
         /// <returns></returns>
         private void BindControls()
         {
@@ -97,14 +99,19 @@ namespace Bikewale.ServiceCenter
                 ctrlPopoularBikeMake.cityMaskingName = serviceVM.CityMaskingName;
                 ctrlPopoularBikeMake.makeName = serviceVM.MakeName;
 
-                ctrlRecentUsedBikes.CityId = (int?)serviceVM.CityId;
-                ctrlRecentUsedBikes.MakeId = serviceVM.MakeId;
-                ctrlRecentUsedBikes.TopCount = 4;
-                ctrlRecentUsedBikes.isAd = true;
-                ctrlRecentUsedBikes.cityName = serviceVM.CityName; ;
-                ctrlRecentUsedBikes.cityMaskingName = serviceVM.CityMaskingName;
-                ctrlRecentUsedBikes.AdId = "1395986297721";
-                ctrlRecentUsedBikes.pageHeading = string.Format("Popular used {0} bikes in {1}", serviceVM.MakeName, serviceVM.CityName);
+
+                if (ctrlusedBikeModel != null)
+                {
+
+                    ctrlusedBikeModel.MakeId = makeId;
+                    if (cityId > 0)
+                        ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.widgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.widgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
+
             }
             catch (Exception ex)
             {

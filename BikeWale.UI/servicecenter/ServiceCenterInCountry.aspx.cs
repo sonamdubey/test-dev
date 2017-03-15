@@ -33,6 +33,7 @@ namespace Bikewale.ServiceCenter
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
         protected ServiceCentersByBrand ctrlOtherServiceCenters;
+        protected usedBikeModel ctrlusedBikeModel;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -46,7 +47,12 @@ namespace Bikewale.ServiceCenter
         {
             base.Load += new EventHandler(this.Page_Load);
         }
-
+        /// <summary>
+        /// Modified By :- Subodh Jain 15 March 2017
+        /// Summary :- Added used bike widget
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             // Modified By :Lucky Rathore on 12 July 2016.
@@ -72,6 +78,19 @@ namespace Bikewale.ServiceCenter
                 BindStatesCities();
                 ctrlBikeCare.TotalRecords = 3;
                 ctrlOtherServiceCenters.makeId = makeId;
+                if (ctrlusedBikeModel != null)
+                {
+                    CityEntityBase _cityDetails = null;
+                    if (cityId > 0)
+                        _cityDetails = new CityHelper().GetCityById(cityId);
+                    ctrlusedBikeModel.MakeId = makeId;
+
+                    ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.widgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.widgetHref = string.Format("/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
             }
         }
         /// <summary>

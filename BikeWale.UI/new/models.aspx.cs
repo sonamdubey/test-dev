@@ -25,12 +25,12 @@ namespace Bikewale.New
     public class Model : PageBase
     {
         protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected usedBikeModel ctrlusedBikeModel;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected News_Widget ctrlNews;
         //protected ExpertReviews ctrlExpertReviews;
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
-        protected UsedPopularModels ctrlPopularUsedBikes;
         protected Repeater rptMostPopularBikes, rptDiscontinued, rptTop;
         protected DealerCard ctrlDealerCard;
         protected bool isDescription = false;
@@ -54,6 +54,7 @@ namespace Bikewale.New
         private CityEntityBase cityDetails = null;
         protected LeadCaptureControl ctrlLeadCapture;
         protected String clientIP = CommonOpn.GetClientIP();
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -105,6 +106,8 @@ namespace Bikewale.New
         }
         /// <summary>
         /// Summary: To bind user controls
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used bike widget
         /// </summary>
         private void BindUserControls()
         {
@@ -157,19 +160,18 @@ namespace Bikewale.New
             ctrlServiceCenterCard.TopCount = 3;
             ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", _make.MakeName, cityName);
 
-            if (ctrlPopularUsedBikes != null)
+            if (ctrlusedBikeModel != null)
             {
-                ctrlPopularUsedBikes.MakeId = makeId;
+
+                ctrlusedBikeModel.MakeId = makeId;
                 if (cityId > 0)
-                {
-                    ctrlPopularUsedBikes.CityId = cityId;
-                    ctrlPopularUsedBikes.CityName = cityName;
-                    ctrlPopularUsedBikes.CityMaskingName = cityMaskingName;
-                }
-                ctrlPopularUsedBikes.MakeMaskingName = makeMaskingName;
-                ctrlPopularUsedBikes.MakeName = _make.MakeName;
-                ctrlPopularUsedBikes.TopCount = 6;
+                    ctrlusedBikeModel.CityId = cityId;
+                ctrlusedBikeModel.widgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", _make.MakeName, cityId > 0 ? cityName : "India");
+                ctrlusedBikeModel.widgetHref = string.Format("/used/{0}-bikes-in-{1}/", _make.MaskingName, cityId > 0 ? cityMaskingName : "india");
+                ctrlusedBikeModel.TopCount = 9;
             }
+
         }
 
 
