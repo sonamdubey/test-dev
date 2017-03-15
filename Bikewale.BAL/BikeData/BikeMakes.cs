@@ -124,10 +124,14 @@ namespace Bikewale.BAL.BikeData
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Created by  :   Aditi Srivastava on 15 Mar 2017
+        /// Description :   Calls make repository
+        /// </summary>
+        /// <returns></returns>
         public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
         {
-            throw new NotImplementedException();
+            return makesRepository.GetScooterMakeDescription(makeId);
         }
     }   // Class
 }   //Namespace

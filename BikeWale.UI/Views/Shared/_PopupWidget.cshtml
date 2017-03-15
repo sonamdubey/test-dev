@@ -429,8 +429,7 @@
             });
         };
     }
-
-
+        
     function gtmCodeAppender(pageId, action, label) {
         var category = '';
         if (pageId != null) {
@@ -454,6 +453,12 @@
                     break;
                 case '6':
                     category = 'Search_Page';
+                    break;
+                case '7':
+                    category = 'Scooter_Landing_Page';
+                    break;
+                case '8':
+                    category = 'Scooter_Brand_Page';
                     break;
             }
             if (label) {
