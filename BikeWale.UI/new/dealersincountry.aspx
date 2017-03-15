@@ -60,9 +60,9 @@
                         <div class="content-box-shadow padding-14-20">
                             <h1><%=objMMV.MakeName %> Showrooms in India</h1>
                         </div>
-                        <div class="padding-14-20 font14 text-light-grey">
-                            <p id="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
-					        <p id="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
+                        <div class="padding-14-20 font14 text-light-grey collapsible-content">
+                            <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+					        <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                         </div>
                     </div>
                 </div>

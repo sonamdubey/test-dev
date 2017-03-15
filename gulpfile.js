@@ -181,7 +181,7 @@ var pageArray = [
         folderName: 'm/new/',
         fileName: 'BikeMakes.aspx',
         stylesheet: 'm/css/bwm-brand.css'
-    },	
+    },
     {
         folderName: 'new/',
         fileName: 'models.aspx',
@@ -201,45 +201,90 @@ var pageArray = [
         folderName: 'm/used/',
         fileName: 'BikeDetails.aspx',
         stylesheet: 'm/css/used/details.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/dealer/landing.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'dealersincountry.aspx',
+        stylesheet: 'm/css/dealer/location.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'NewBikeDealerList.aspx',
+        stylesheet: 'm/css/dealer/listing.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'DealerDetails.aspx',
+        stylesheet: 'm/css/dealer/details.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/bwm-newbikes.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'ModelPricesInCity.aspx',
+        stylesheet: 'm/css/new/bwm-modelprice-in-city.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'default.aspx',
+        stylesheet: 'css/newbikes.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'locatenewbikedealers.aspx',
+        stylesheet: 'css/dealer/landing.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'ModelPricesInCity.aspx',
+        stylesheet: 'css/new/modelprice-in-city.css'
     }
 ];
 
-var mvcPageArray =[
+var mvcPageArray = [
 	{
-        folderName: 'Views/m/NewLaunches/',
-        fileName: 'Index.cshtml',
-        stylesheet: 'm/css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/m/NewLaunches/',
+	    fileName: 'Index.cshtml',
+	    stylesheet: 'm/css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/m/NewLaunches/',
-        fileName: 'BikesByMake.cshtml',
-        stylesheet: 'm/css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/m/NewLaunches/',
+	    fileName: 'BikesByMake.cshtml',
+	    stylesheet: 'm/css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/m/NewLaunches/',
-        fileName: 'BikesByYear.cshtml',
-        stylesheet: 'm/css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/m/NewLaunches/',
+	    fileName: 'BikesByYear.cshtml',
+	    stylesheet: 'm/css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/NewLaunches/',
-        fileName: 'Index.cshtml',
-        stylesheet: 'css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/NewLaunches/',
+	    fileName: 'Index.cshtml',
+	    stylesheet: 'css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/NewLaunches/',
-        fileName: 'BikesByYear.cshtml',
-        stylesheet: 'css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/NewLaunches/',
+	    fileName: 'BikesByYear.cshtml',
+	    stylesheet: 'css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/NewLaunches/',
-        fileName: 'BikesByMake.cshtml',
-        stylesheet: 'css/new-launch/new-launch.css'
-    },
+	    folderName: 'Views/NewLaunches/',
+	    fileName: 'BikesByMake.cshtml',
+	    stylesheet: 'css/new-launch/new-launch.css'
+	},
 	{
-        folderName: 'Views/Shared/',
-        fileName: '_Layout_Desktop.cshtml',
-        stylesheet: 'css/bw-common-atf.css'
-    },
+	    folderName: 'Views/Shared/',
+	    fileName: '_Layout_Desktop.cshtml',
+	    stylesheet: 'css/bw-common-atf.css'
+	},
     {
         folderName: 'Views/Shared/',
         fileName: '_Layout_Mobile.cshtml',
@@ -272,7 +317,7 @@ gulp.task('replace-mvc-css-reference', function () {
     for (var i = 0; i < pageLength; i++) {
         var element = mvcPageArray[i],
             style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
-			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g,"'").replace(/\\/g,"\\") + "</style>",
+			styleTag = "<style type='text/css'>@charset 'utf-8';" + style.replace(/\"/g, "'").replace(/\\/g, "\\") + "</style>",
             styleLink = "<link rel='stylesheet' type='text/css' href='/" + element.stylesheet + "' />";
 
         gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
