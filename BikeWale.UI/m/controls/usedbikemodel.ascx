@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.usedBikeModel" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.usedBikeModel" EnableViewState="false" %>
 <%if (FetchCount > 0)
   { %>
 <div class="container">
