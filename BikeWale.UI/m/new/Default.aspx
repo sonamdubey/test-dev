@@ -106,10 +106,11 @@
                                     <div class="swiper-container card-container">
                                         <div class="swiper-wrapper discover-bike-carousel">
                                             <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
-                                        </div>
+                                         </div>
+                                       
                                     </div>
                                 </div>
-                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                   <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
                                     <div class="swiper-container card-container">
                                         <div class="swiper-wrapper discover-bike-carousel">
                                             <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />

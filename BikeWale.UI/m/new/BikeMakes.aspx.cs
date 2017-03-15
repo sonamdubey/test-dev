@@ -84,6 +84,7 @@ namespace Bikewale.Mobile
             ctrlUpcomingBikes.pageSize = 6;
             ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
             ctrlUpcomingBikes.MakeName = _make.MakeName;
+            ctrlUpcomingBikes.MakeMaskingName = _make.MaskingName;
 
             ////news,videos,revews
             ctrlNews.TotalRecords = 3;
