@@ -5,9 +5,8 @@ using Bikewale.Entities.UsedBikes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Bikewale.Controls
-{
-    /// Created  By :-Subodh Jain on 15 March 2017
+namespace Bikewale.Mobile.Controls
+{    /// Created  By :-Subodh Jain on 15 March 2017
     /// Summary :-Used Bike Widget
     public class usedBikeModel : System.Web.UI.UserControl
     {

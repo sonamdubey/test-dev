@@ -21,6 +21,7 @@
                                         <div class="text-bold text-default margin-bottom10">
                                             <span class="bwsprite inr-lg"></span>
                                             <span class="font18"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice)) %></span>
+                                              <span class="font14">onwards</span>
                                         </div>
                                         <p class="font16">
                                             <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Bikes Available
@@ -35,7 +36,7 @@
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
             <div class="view-all-btn-container margin-top15">
-                <a class="btn view-all-target-btn" title="<%=widgetTitle%>" href="<%=widgetHref %>">View complete list<span class="bwsprite teal-right"></span></a>
+                <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetTitle %>">View complete list<span class="bwsprite teal-right"></span></a>
             </div>
         </div>
     </div>

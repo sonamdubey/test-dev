@@ -5,8 +5,8 @@
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedPopularModels.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -131,7 +131,7 @@
            { %>
         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
         <%} %>
-        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlPopularUsedBikes.FetchedRecordsCount > 0))
+        <%if ((_bikeDesc != null && _bikeDesc.FullDescription.Length > 0) || (ctrlNews.FetchedRecordsCount > 0) || (ctrlExpertReviews.FetchedRecordsCount > 0) || (ctrlVideos.FetchedRecordsCount > 0) || (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) || (ctrlusedBikeModel.FetchCount > 0))
           { %>
         <section>
             <div id="makeTabsContentWrapper" class="container bg-white clearfix box-shadow margin-bottom20 content-details-wrapper">
@@ -158,7 +158,7 @@
                             <li data-tabs="#dealerAndServiceContent"><% if (ctrlDealerCard.showWidget){%>Dealers<%} %>  <%if (ctrlDealerCard.showServiceCenter || (ctrlServiceCenterCard.showWidget && cityId > 0))
                                                                          { %><% if (ctrlDealerCard.showWidget){%> &<%}%> Service Centers<%} %></li>
                             <%} %>
-                               <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
+                               <% if (ctrlusedBikeModel.FetchCount > 0)
                                    {%><li data-tabs="#makeUsedBikeContent">Used</li> <%} %>
                         </ul>
                     </div>
@@ -218,9 +218,11 @@
                     <% }  %>
                     <% }  %>
                 </div>
-                <% if (ctrlPopularUsedBikes.FetchedRecordsCount > 0)
+              <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                    <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+                      <div id="makeUsedBikeContent" >
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                          </div>
                     <% } %>
                 <div id="makeSpecsFooter"></div>
             </div>

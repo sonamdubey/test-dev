@@ -1096,6 +1096,10 @@
       <DependentUpon>UsedBikeLeadCaptureControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\usedBikeModel.ascx.cs">
+      <DependentUpon>usedBikeModel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\UsedBikeModelByCity.ascx.cs">
       <DependentUpon>UsedBikeModelByCity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2745,6 +2749,7 @@
     <Content Include="controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\UsedBikeByModels.ascx" />
     <Content Include="m\controls\UsedBikeLeadCaptureControl.ascx" />
+    <Content Include="m\controls\usedBikeModel.ascx" />
     <Content Include="m\controls\UsedBikeModelByCity.ascx" />
     <Content Include="m\controls\UsedBikePhotoGallery.ascx" />
     <Content Include="m\controls\ModelGallery.ascx" />

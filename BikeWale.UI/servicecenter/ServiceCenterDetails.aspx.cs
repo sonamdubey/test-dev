@@ -106,9 +106,9 @@ namespace Bikewale.ServiceCenter
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.widgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
-                    ctrlusedBikeModel.widgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }
 
@@ -116,7 +116,6 @@ namespace Bikewale.ServiceCenter
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "ServiceCenterDetails.BindControls");
-                objErr.SendMail();
 
             }
         }
