@@ -283,7 +283,7 @@
                         });
                     }
                     else {
-                        $("div.locator-search-city-form span").text("Select a city")
+                        $("div.locator-search-city-form span").text("Select a city");
                         data = lscache.get(key + mId);
                         setOptions(data);
                     }
@@ -393,7 +393,7 @@
                     }, timeout);
                 });
                 return this; // maintain jQuery chainability
-            }
+            };
 
             function selectCityObject(cityId) {
                 var cityObj = {};

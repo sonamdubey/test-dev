@@ -1073,7 +1073,7 @@
             isUsed = '<%= !modelPage.ModelDetails.New %>';
             var pageUrl = "<%= canonical %>";
             var myBikeName = "<%= this.bikeName %>";
-            var versionName = "<%= variantText %>"
+            var versionName = "<%= variantText %>",
             ga_pg_id = '2';
             if (bikeVersionLocation == '') {
                 bikeVersionLocation = getBikeVersionLocation();

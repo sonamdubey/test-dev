@@ -265,7 +265,7 @@
                     self.dealerDescription(options.dealerDescription);
 
                 if (options.pinCodeRequired != null)
-                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true );
+                    self.pinCodeRequired(options.pinCodeRequired != 'true' ? false : true);
 
                 if (options.isdealerbikes != null) {
                     self.isDealerBikes(options.isdealerbikes);
@@ -367,7 +367,7 @@
                     "sourceType": 1,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
 
                 return self.registerPQ(objData);
             }
@@ -407,13 +407,13 @@
             }
 
             return isSuccess;
-        }
+        };
 
         self.pushToGA = function (data, event) {
             if (data != null && data.act != null) {
                 triggerGA(data.cat, data.act, data.lab)
             }
-        }
+        };
 
         self.verifyCustomer = function (data, event) {
 
@@ -433,7 +433,7 @@
                     "PageUrl": self.pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/PQCustomerDetail/",
@@ -483,7 +483,7 @@
                     "leadSourceId": self.leadSourceId(),
                     "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/ManufacturerLead/",
@@ -615,7 +615,7 @@
                 },
                 focusout: function () {
                     if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
-                        $('#errPinCodeSearch').hide()
+                        $('#errPinCodeSearch').hide();
                         focusedMakeModel = new Object();
                         focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
                     }
@@ -679,7 +679,7 @@
                     else {
                         validate.setError($('#getPinCode'), 'Invalid pincode');
                         self.pincode(0);
-                        isValid=  false;
+                        isValid = false;
                     }
                 }
             });
@@ -739,7 +739,7 @@
             return isValid;
         };
         self.validatePinCode = function () {
-            leadPinCode = $('#getPinCode'); var isValid = true,pc = leadPinCode.val().trim() ;
+            leadPinCode = $('#getPinCode'); var isValid = true, pc = leadPinCode.val().trim();
             if (pc.indexOf(',') > 0)
                 pc = pc.substring(0, 6);
             if (!(/^[1-9][0-9]{5}$/.test(pc))) {
@@ -797,7 +797,7 @@
 
         self.showLoader = function () {
             $('#ub-ajax-loader').show();
-        }
+        };
 
         self.hideLoader = function () {
             $('#ub-ajax-loader').hide();
@@ -873,7 +873,7 @@
                 inputField.closest('.input-box').addClass('not-empty');
             }
         }
-    }
+    };
 
     function startLoading(ele) {
         try {

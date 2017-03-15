@@ -237,7 +237,7 @@
                 }
             });
         }
-    }
+    };
 
     function isPostBack() {
         return $('#ispostback').val() == 'True';

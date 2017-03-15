@@ -480,33 +480,6 @@ string GetGTTargeting(int targetId, string target)
         {
             <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
-        <script type="text/javascript">
-            ga_pg_id = '1';
-            //for jquery chosen : knockout event
-            ko.bindingHandlers.chosen = {
-                init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-                    var $element = $(element);
-                    var options = ko.unwrap(valueAccessor());
-                    if (typeof options === 'object')
-                        $element.chosen(options);
-
-                    ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-                        if (allBindings.has(propName)) {
-                            var prop = allBindings.get(propName);
-                            if (ko.isObservable(prop)) {
-                                prop.subscribe(function () {
-                                    $element.trigger('chosen:updated');
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-            if ('@ViewBag.isNewsActive' == "False") $("#ctrlNews").addClass("hide");
-            if ('@ViewBag.isExpertReviewActive' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('@ViewBag.isVideoActive' == "False") $("#ctrlVideos").addClass("hide");
-
-        </script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
 </body>

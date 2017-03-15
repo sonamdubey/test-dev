@@ -221,7 +221,7 @@
                     'isPersistance' : self.IsPersistance()  ,
                     'refPQId': typeof pqId != 'undefined' ? pqId : '',
                     'isReload' : self.IsReload()
-                }
+                };
 
                 $.ajax({
                     type: "POST",
@@ -246,7 +246,7 @@
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
                                     var areas = ko.toJS(_responseData.pqAreas);
-                                     if (areas != null && areas.length > 0) {
+                                    if (areas != null && areas.length > 0) {
                                         
                                         self.BookingAreas(areas);
                                         if (self.SelectedAreaId() > 0) {
@@ -297,8 +297,8 @@
                             else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel); 
                                     
                             if (self.DealerId() > 0 && _responseData.qStr.length) {
-                                    _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
-                                }
+                                _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
+                            }
                             if(!self.IsReload() && _responseData.qStr!='')
                             {                                          
                                 window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
@@ -353,11 +353,11 @@
                 self.LoadingText("Loading areas for " + self.SelectedCity().name);  
             }
             self.SelectedArea(null);
-			self.SelectedAreaId(0);                
-			self.BookingAreas([]);
+            self.SelectedAreaId(0);                
+            self.BookingAreas([]);
 				
-             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
-				self.InitializePQ(true);
+            if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
+                self.InitializePQ(true);
             }                              
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -398,7 +398,7 @@
 
 
         };
-    }
+    };
 
 
     function findAreaById(id) {

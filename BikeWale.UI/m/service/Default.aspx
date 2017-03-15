@@ -281,7 +281,7 @@
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
                         selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement); key
+                setSelectedElement(_self, selectedElement);
                 _self.addClass('activeBrand').siblings().removeClass('activeBrand');
                 $("div.locator-search-brand-form").find("span").text(selectedElement);
                 selMakeId = $(this).attr("makeId");
@@ -344,7 +344,7 @@
                         });
                     }
                     else {
-                        $("div.locator-search-city-form span").text("Select city")
+                        $("div.locator-search-city-form span").text("Select city");
                         data = lscache.get(key + mId);
                         setOptions(data);
                     }

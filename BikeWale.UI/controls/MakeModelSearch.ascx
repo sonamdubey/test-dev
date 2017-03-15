@@ -45,15 +45,10 @@
         var makeValueArray = $("#MakeModelSearch_drpMake option:selected").val();
         var makeId = makeValueArray.split('_')[0];
         var makeName = makeValueArray.split('_')[1];
-        //var makeId = $("#MakeModelSearch_drpMake").val();
-        //var makeName = $("#MakeModelSearch_drpMake option:selected").text();
         var modelValueArray = $("#MakeModelSearch_drpModel option:selected").val();
         var modelId = modelValueArray.split('_')[0];
-        //var modelName = $("#MakeModelSearch_drpModel option:selected").text();
-        //var modelName = $("#MakeModelSearch_drpModel option:selected").val();
         var modelName = modelValueArray.split('_')[1];
         var base = '/';
-        //var loc = base + FormatSpecial(makeName.toLowerCase()) + "-bikes/";
         var loc = base + makeName + "-bikes/";
 
         if (modelId != "" && modelId != null && modelId > 0) {            

@@ -458,7 +458,6 @@
 
         <script type="text/javascript">
             ga_pg_id = '1';
-            //for jquery chosen : knockout event 
             ko.bindingHandlers.chosen = {
                 init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                     var $element = $(element);
@@ -477,7 +476,7 @@
                         }
                     });
                 }
-            }
+            };
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");

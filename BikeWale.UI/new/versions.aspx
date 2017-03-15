@@ -613,7 +613,6 @@
                                 <%} %>
                             </div>
                             <%}
-                               //<!-- upcoming start Floating -->
                                else if (modelPageEntity.UpcomingBike != null)
                                { %>
                             <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
@@ -1475,7 +1474,7 @@
 
                     var objData = {
                         "dealerId": dealerID,
-                        "modelId": <%= modelId%>,
+                        "modelId": '<%= modelId%>',
                         "versionId": versionId,
                         "cityId": cityId,
                         "areaId": areaId,

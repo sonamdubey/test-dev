@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.LeadCaptureControl" %>
 <!-- Lead Capture pop up start  -->
 <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
     <div class="popup-inner-container text-center">
@@ -381,13 +381,13 @@
                     "sourceType": 2,
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 return self.registerPQ(objData);
 
             }
             return isSuccess;
 
-        }
+        };
 
         self.registerPQ = function (objPQData) {
             var isSuccess = false;
@@ -420,7 +420,7 @@
             }
 
             return isSuccess;
-        }
+        };
 
         self.pushToGA = function (data, event) {
 
@@ -430,7 +430,7 @@
                 }
                 triggerGA(data.cat, data.act, data.lab)
             }
-        }
+        };
 
         self.verifyCustomer = function (data, event) {
 
@@ -450,7 +450,7 @@
                     "PageUrl": pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/PQCustomerDetail/",
@@ -493,7 +493,7 @@
                     if (self.IsVerified()) {
 
                         $("#contactDetailsPopup").hide();
-                        $("#personalInfo").hide()
+                        $("#personalInfo").hide();
                         $("#notify-response").fadeIn();
                     }
                     else {
@@ -641,7 +641,7 @@
                     "leadSourceId": self.leadSourceId(),
                     "PinCode": self.pincode(),
                     "deviceId": getCookie('BWC')
-                }
+                };
                 $.ajax({
                     type: "POST",
                     url: "/api/ManufacturerLead/",
@@ -701,7 +701,7 @@
                 },
                 focusout: function () {
                     if ($('#getPinCode').find('li.ui-state-focus a:visible').text() != "") {
-                        $('#errPinCodeSearch').hide()
+                        $('#errPinCodeSearch').hide();
                         focusedMakeModel = new Object();
                         focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
                     }
@@ -788,11 +788,11 @@
 
         self.showLoader = function () {
             $('#ub-ajax-loader').show();
-        }
+        };
 
         self.hideLoader = function () {
             $('#ub-ajax-loader').hide();
-        }
+        };
     }
 
     var dleadvm = new leadModel();
@@ -865,7 +865,7 @@
                 inputField.closest('.input-box').addClass('not-empty');
             }
         }
-    }
+    };
 
     var validateInputSelection = {
         setError: function (element, message) {
@@ -879,7 +879,7 @@
             element.closest('.input-select-box').removeClass('invalid');
             element.siblings('span.error-text').text('');
         }
-    }
+    };
 
     function startLoading(ele) {
         try {

@@ -297,7 +297,7 @@
                         });
                     }
                     else {
-                        $("div.booking-search-area-form span").text("Select an area")
+                        $("div.booking-search-area-form span").text("Select an area");
                         data = lscache.get(key + cid);
                         setOptions(data);
                     }

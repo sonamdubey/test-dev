@@ -417,7 +417,7 @@
     <script>
         var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
         var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),
-            areaName = $("#listingPopupAreaList li[areaid='" + selectedAreaId + "']").text()
+            areaName = $("#listingPopupAreaList li[areaid='" + selectedAreaId + "']").text();
         $("#Userlocation").text(cityName + ', ' + areaName);
         $("#listingCitySelection .selected-city").text(cityName);
         $("#listingAreaSelection .selected-area").text(areaName);

@@ -77,7 +77,7 @@
                 }
             });
         }
-    }
+    };
 
     // Chosen touch support.
     if ($('.chosen-container').length > 0) {

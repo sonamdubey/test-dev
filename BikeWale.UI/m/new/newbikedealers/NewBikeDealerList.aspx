@@ -181,7 +181,7 @@
             initializeCityMap();
             function initializeCityMap() {
                 $(".map_canvas").each(function (index) {
-                    var lat = $(this).attr("data-lat")
+                    var lat = $(this).attr("data-lat");
                     var lng = $(this).attr("data-long");
                     var latlng = new google.maps.LatLng(lat, lng);
 
