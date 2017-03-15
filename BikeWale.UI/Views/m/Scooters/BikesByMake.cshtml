@@ -15,7 +15,7 @@
 
 <section>
     <div class="container content-box-shadow card-bottom-margin">
-        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName scooters</h1>
+        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName Scooters</h1>
        @if (ScootersList != null && ScootersList.Count() > 0)
        { <ul class="bike-listing">
            @foreach (var bikedetails in ScootersList)
@@ -53,7 +53,7 @@
 }
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of other brands</h2>
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of Other Brands</h2>
 
             @{ Html.RenderAction("OtherBrandsMobile", "Scooters", new { makeId = @ViewBag.MakeId }); }
 
@@ -65,7 +65,7 @@
     
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName scooters</h2>
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName Scooters</h2>
         @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", upcomingScooters)
       </div>
     </section>     
@@ -110,7 +110,7 @@
 @if (serviceCenters != null && serviceCenters.Count() > 0)
 {
     <div class="container card-bottom-margin padding-bottom20">
-        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
+        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
         @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
             <p class="margin-top5 margin-left20 margin-bottom15">@ViewBag.biLineText</p>
     }
