@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--  class="grid-12"-->
+                    
                     <div class="bg-white box-shadow content-inner-block-1520">
                         <h1><%= _make.MakeName %> Bikes</h1>
                     </div>
