@@ -4,7 +4,6 @@
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedBikes.ascx" TagName="UsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
@@ -246,19 +245,6 @@
                     </div>
                     <%} %>
                     <%} %>
-                    <div id="makeTabsContentWrapper">
-				        <div class="content-box-shadow">
-					        <div id="makeOverallTabsWrapper">
-						        <div id="makeOverallTabs" class="overall-floating-tabs">
-			                    <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-					                { %>
-                                    <div class="border-solid-top margin-right10 margin-left10"></div>
-					                <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-					            <%} %>
-						        </div>
-			                </div>
-					    </div>
-				    </div>
                 </div>
 			    <div class="clear"></div>
             </div>

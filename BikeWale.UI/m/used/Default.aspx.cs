@@ -44,8 +44,8 @@ namespace Bikewale.Mobile.Used
 
         private void RenderUserControls()
         {
-            ctrlRecentUsedBikes.WidgetTitle = "Recently uploaded used bikes";
-            ctrlRecentUsedBikes.TopCount = 6;
+            ctrlRecentUsedBikes.WidgetTitle = "Popular used bikes";
+            ctrlRecentUsedBikes.TopCount = 9;
         }
 
     }

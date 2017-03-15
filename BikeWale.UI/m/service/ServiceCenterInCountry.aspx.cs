@@ -33,6 +33,7 @@ namespace Bikewale.Mobile.Service
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
         protected ServiceCentersByBrand ctrlOtherServiceCenters;
+        protected usedBikeModel ctrlusedBikeModel;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;
@@ -60,10 +61,39 @@ namespace Bikewale.Mobile.Service
 
                 }
                 BindCities();
-                ctrlBikeCare.TotalRecords = 3;
-                ctrlOtherServiceCenters.makeId = makeId;
+                BindWidget();
             }
 
+        }
+        /// <summary>
+        /// Created By :- Subodh Jain 15 March 2017
+        /// Summary :- Bind widget funtion
+        /// </summary>
+        private void BindWidget()
+        {
+            try
+            {
+                ctrlBikeCare.TotalRecords = 3;
+                ctrlOtherServiceCenters.makeId = makeId;
+                if (ctrlusedBikeModel != null)
+                {
+                    CityEntityBase _cityDetails = null;
+                    if (cityId > 0)
+                        _cityDetails = new CityHelper().GetCityById(cityId);
+                    ctrlusedBikeModel.MakeId = makeId;
+
+                    ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", objMMV.MakeName, cityId > 0 ? _cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", objMMV.MaskingName, cityId > 0 ? _cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindWidget");
+            }
         }
         private bool checkServiceCenterForMakeCity(ushort _makeId)
         {
@@ -100,7 +130,6 @@ namespace Bikewale.Mobile.Service
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.checkDealersForMakeCity");
-                    objErr.SendMail();
                 }
             }
             return true;
@@ -128,7 +157,6 @@ namespace Bikewale.Mobile.Service
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "ServiceCenterInCountry.BindCities");
-                objErr.SendMail();
             }
         }
 

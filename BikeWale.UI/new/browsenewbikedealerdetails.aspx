@@ -1,11 +1,11 @@
 <%@ Page Language="C#" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedPopularModelsInCity.ascx" TagName="UsedPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 
 <html>
@@ -143,7 +143,7 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
-        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlUsedModels.FetchedRecordsCount > 0 || ctrlServiceCenterCard.showWidget)
+        <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0 || ctrlServiceCenterCard.showWidget)
            { %>
         <section>
             <div class="container">
@@ -160,10 +160,12 @@
                           <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                           <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <% } %>
-                        <% if (ctrlUsedModels.FetchedRecordsCount > 0)
-                           { %>
-                        <BW:UsedPopularModels runat="server" ID="ctrlUsedModels" />
-                        <%} %>
+                            <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>   
                         <div class="clear"></div>
                     </div>
                 </div>

@@ -48,7 +48,7 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow">
-                <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName scooters</h1>
+                <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName Scooters</h1>
                 @if (ScootersList != null && ScootersList.Count() > 0)
                 { <ul class="bike-listing">
                    @foreach (var bikedetails in ScootersList)
@@ -94,7 +94,7 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
-                <h2 class="font18 padding-bottom20 padding-left20">Scooters of other brands</h2>
+                <h2 class="font18 padding-bottom20 padding-left20">Scooters of Other Brands</h2>
                 @{ Html.RenderAction("OtherBrands", "Scooters",new{ makeId = @ViewBag.MakeId  }); }
             </div>
         </div>
@@ -108,7 +108,7 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
-                <h2 class="font18 padding-bottom20 padding-left20">Upcoming @ViewBag.MakeName scooters</h2>
+                <h2 class="font18 padding-bottom20 padding-left20">Upcoming @ViewBag.MakeName Scooters</h2>
            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", upcomingScooters)
      </div>
             </div>
@@ -168,7 +168,7 @@
                     @if(serviceCenters!=null && serviceCenters.Count()>0){
                         
                     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                        <h2 class="padding-top15 padding-right20 margin-bottom15 padding-left20">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
+                        <h2 class="padding-top15 padding-right20 margin-bottom15 padding-left20">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
                     <ul class="bw-horizontal-cards font14">
                         @Html.Partial("~/Views/Shared/_ServiceCenters.cshtml", serviceCenters)
                     </ul>

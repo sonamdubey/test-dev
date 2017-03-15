@@ -54,11 +54,12 @@ namespace Bikewale.Used
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;
         }
-
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Made count for other used bike 9
         private void RenderUserControls()
         {
-            ctrlRecentUsedBikes.WidgetTitle = "Recently uploaded used bikes";
-            ctrlRecentUsedBikes.TopCount = 6;
+            ctrlRecentUsedBikes.WidgetTitle = "Popular used bikes";
+            ctrlRecentUsedBikes.TopCount = 9;
         }
     }
 }

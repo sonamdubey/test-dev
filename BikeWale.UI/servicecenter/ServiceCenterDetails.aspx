@@ -1,9 +1,9 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.ServiceCenter.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UsedBikeWidget.ascx" TagName="UsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>l
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,7 +174,8 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-             <% if(ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.FetchedRecordsCount >0){ %>
+             <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+                { %>
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -186,10 +187,12 @@
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <!-- Used bikes widget -->
-                        <% if (ctrlRecentUsedBikes.FetchedRecordsCount > 0)
-                           { %>
-                        <BW:UsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-                        <%} %>
+                             <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>  
 
                         <div class="clear"></div>
                     </div>

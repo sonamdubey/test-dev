@@ -127,7 +127,7 @@ namespace Bikewale.Mobile.Used
                 ctrlOtherUsedBikes.InquiryId = inquiryId;
                 ctrlOtherUsedBikes.CityId = inquiryDetails.City.CityId;
                 ctrlOtherUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlOtherUsedBikes.TopCount = 4;
+                ctrlOtherUsedBikes.TopCount = 9;
 
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);

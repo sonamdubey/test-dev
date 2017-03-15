@@ -1,11 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterList" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/UsedPopularModelsInCity.ascx" TagName="UsedMostPopularModels" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,7 +142,7 @@
         <%if(ctrlNearbyServiceCenters.FetchedRecordsCount>0){ %>
          <BW:NearbyServiceCenters runat="server" ID="ctrlNearbyServiceCenters" />
         <%} %>
-           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlPopularModels.fetchedCount > 0)
+           <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0 || ctrlDealerCard.showWidget)
               {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
@@ -155,10 +155,12 @@
                     <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                 <% if (ctrlPopularModels.fetchedCount > 0)
-                {%> 
-                 <BW:UsedMostPopularModels runat="server" ID="ctrlPopularModels" />
-                <%} %>
+                        <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>  
                  <% if (ctrlDealerCard.showWidget) { %>
                     <div class="margin-right20 margin-left20 padding-top5">
                     <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>

@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterInCountry" EnableViewState="false" %>
 <%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCentersByBrand.ascx" TagName="OtherServiceCenters" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +77,12 @@
         <%if(ctrlOtherServiceCenters.FetchedRecordsCount>0){ %>
         <BW:OtherServiceCenters runat="server" ID="ctrlOtherServiceCenters" />
        <%} %>
+        <% if (ctrlusedBikeModel.FetchCount > 0)
+           { %>
+   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                   
+              
+        <% } %>
       <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />

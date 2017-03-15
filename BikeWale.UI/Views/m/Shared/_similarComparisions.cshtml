@@ -1,7 +1,7 @@
 ﻿@model ICollection<Bikewale.Entities.BikeData.SimilarCompareBikeEntity>
 @if (Model != null) {
 <div class="container content-box-shadow padding-top15 card-bottom-margin">
-    <h2 class="padding-right20 padding-bottom15 padding-left20">Popular comparison of @ViewBag.MakeName scooters</h2>
+    <h2 class="padding-right20 padding-bottom15 padding-left20">Popular Comparison of @ViewBag.MakeName Scooters</h2>
     <div id="ctrlCompareBikes">
         <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
             <div class="swiper-wrapper">
@@ -17,7 +17,9 @@
                                     <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath1, bikedetails.HostUrl1, Bikewale.Utility.ImageSize._144x81)" alt="@bike1" title="@bike1" src="" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+@if (!string.IsNullOrEmpty(ViewBag.CityName)) { <p class="font11 text-light-grey text-truncate">Ex-showroom, @ViewBag.CityName</p>}
+else
+{<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
                                 <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1))</span>
                             </div>
                             <div class="grid-6">
@@ -25,7 +27,10 @@
                                     <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath2, bikedetails.HostUrl2, Bikewale.Utility.ImageSize._144x81)" alt="@bike2" title="@bike2" src="" />
                                     <span class="swiper-lazy-preloader"></span>
                                 </div>
-                                <p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                                @if (!string.IsNullOrEmpty(ViewBag.CityName))
+                                { <p class="font11 text-light-grey text-truncate">Ex-showroom, @ViewBag.CityName</p>}
+                                else
+                                {<p class="font11 text-light-grey text-truncate">Ex-showroom, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>}
                                 <span class="bwmsprite inr-xsm-icon"></span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price2))</span>
                             </div>
                             <div class="clear"></div>
