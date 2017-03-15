@@ -25,16 +25,13 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-
     <link rel="stylesheet" href="/css/dealer/listing.css" type="text/css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
-    var currentCityName = '<%= cityName %>';
+        var currentCityName = '<%= cityName %>';
         var pageUrl = '<%= pageUrl %>';
         var clientip = '<%= clientIP %>';
-      </script>
-
+    </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -126,7 +123,7 @@
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
                             <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" style="width: 661px; height: 530px;">
+                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                                     <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                                 </div>
                             </div>
@@ -188,6 +185,7 @@
         <BW:BrandCity ID="ctrlBrandCity" runat="server" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
         
         <script type="text/javascript">
