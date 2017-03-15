@@ -201,7 +201,14 @@
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="section-h2-title padding-15-20">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Popular <%=makeName %> bikes in <%=cityName %></h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= makeMaskingName %>-bikes/" title="<%= makeName %> Bikes" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
@@ -224,11 +231,7 @@
         <section>
             <div class="container section-bottom-margin">
                 <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <div class="padding-top15 padding-right20 padding-left20">
-                            <h2 class="section-h2-title margin-bottom10">Looking to buy a new <%= makeName %> bike in <%= cityName %>?</h2>
-                            <p class="font14">Check out authorised <%= makeName %> dealers in <%= cityName %></p>
-                        </div>
+                    <div class="content-box-shadow">                        
                         <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                     </div>
                 </div>

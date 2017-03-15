@@ -13,7 +13,7 @@
     <%      
         keywords = String.Format("{0} showroom {1}, {0} dealers {1}, {1} bike showroom, {1} bike dealers,{1} dealers, {1} bike showroom, bike dealers, bike showroom, dealerships", makeName, cityName);
         description = String.Format("Find address, contact details and direction for {2} {0} showrooms in {1}. Contact {0} showroom near you for prices, EMI options, and availability of {0} bike", makeName, cityName, totalDealers);
-        title = String.Format("{0} showroom in {1} | {2} {0} bike dealers- BikeWale", makeName, cityName, totalDealers);
+        title = String.Format("{0} showroom in {1} | {2} {0} bike dealers - BikeWale", makeName, cityName, totalDealers);
         canonical = String.Format("https://www.bikewale.com/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         alternate = String.Format("https://www.bikewale.com/m/{0}-dealer-showrooms-in-{1}/", makeMaskingName, cityMaskingName);
         AdId = "1395986297721";
@@ -151,7 +151,14 @@
                     <div class="content-box-shadow">
                         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="font18 padding-18-20">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Popular <%=makeName %> bikes in <%=cityName %></h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= makeMaskingName %>-bikes/" title="<%= makeName %> Bikes" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         <%} %>
                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>

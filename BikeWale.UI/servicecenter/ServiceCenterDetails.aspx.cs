@@ -87,8 +87,8 @@ namespace Bikewale.ServiceCenter
                     ctrlDealerCard.CityId = serviceVM.CityId;
                     ctrlDealerCard.cityName = serviceVM.CityName;
                     ctrlDealerCard.TopCount = 3;
-                    ctrlDealerCard.isHeading = false;
-                    ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", serviceVM.MakeName, serviceVM.CityName);
+                    ctrlDealerCard.isHeading = true;
+                    ctrlDealerCard.widgetHeading = string.Format("New {0} bikes showrooms", serviceVM.MakeName);
                 }
                 ctrlPopoularBikeMake.makeId = Convert.ToInt32(serviceVM.MakeId);
                 ctrlPopoularBikeMake.cityId = Convert.ToInt32(serviceVM.CityId);

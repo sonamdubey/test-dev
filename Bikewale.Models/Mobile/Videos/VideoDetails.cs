@@ -44,5 +44,9 @@ namespace Bikewale.Models.Mobile.Videos
         public string ModelName { get; set; }
         public string BikeName { get; set; }
         public IEnumerable<BikeVideoEntity> Videos { get; set; }
+        public string ViewAllLinkText { get; set; }
+        public string ViewAllLinkUrl { get; set; }
+
+        public string ViewAllLinkTitle { get; set; }
     }
 }
