@@ -3485,6 +3485,7 @@
     <Content Include="Views\Shared\Ads\Desktop\Ad976x400_Second.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x150_First.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x150_Second.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad300x250.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
