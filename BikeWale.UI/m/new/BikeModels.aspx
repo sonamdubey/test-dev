@@ -10,7 +10,6 @@
 <%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -1054,9 +1053,7 @@
             </ul>
         </div>
         <% } %>
-        <%if(ctrlModelGallery.ShowWidget){ %>
-          <BW:ModelGallery runat="server" ID="ctrlModelGallery" />
-        <%} %>
+        
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
