@@ -63,7 +63,9 @@ if (makeDealersContent.length != 0) {
     makeDealersContent.removeClass('bw-model-tabs-data');
 }
 
-attachListener('scroll', window, highlightSpecTabs);
+if (makeOverallTabs.length > 0) {
+    attachListener('scroll', window, highlightSpecTabs);
+}
 
 $('.overall-specs-tabs-wrapper a[href^="#"]').click(function () {
     var target = $(this.hash);
