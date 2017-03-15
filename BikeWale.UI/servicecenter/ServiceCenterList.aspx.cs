@@ -48,6 +48,7 @@ namespace Bikewale.Service
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected ChangeLocationPopup ctrlChangeLocation;
+        protected usedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -98,6 +99,8 @@ namespace Bikewale.Service
         /// Description : Added widget for service centers in nearby cities
         /// Modified By : Sushil Kumar on 17th Jan 2016
         /// Description : Added chnage location prompt widget
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Added used Bike widget
         /// </summary>
         /// <returns></returns>
         private void BindUserControls()
@@ -130,23 +133,21 @@ namespace Bikewale.Service
                 ctrlPopoularBikeMake.cityMaskingName = urlCityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
 
-                if (ctrlUsedModels != null)
-                {
-                    ctrlUsedModels.CityId = cityId;
-                    ctrlUsedModels.MakeId = makeId;
-                    ctrlUsedModels.MakeMaskingName = makeMaskingName;
-                    ctrlUsedModels.MakeName = makeName;
-                    ctrlUsedModels.TopCount = 4;
-                    ctrlUsedModels.IsAd = true;
-                    ctrlUsedModels.CityName = cityName;
-                    ctrlUsedModels.CityMaskingName = urlCityMaskingName;
-                    ctrlUsedModels.AdId = "1395986297721";
-                }
-
                 if (ctrlChangeLocation != null)
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
                     ctrlChangeLocation.UrlCityName = cityName;
+                }
+                if (ctrlusedBikeModel != null)
+                {
+
+                    ctrlusedBikeModel.MakeId = makeId;
+                    if (cityId > 0)
+                        ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? urlCityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
                 }
             }
             catch (Exception ex)

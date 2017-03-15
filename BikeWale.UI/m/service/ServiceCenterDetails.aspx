@@ -2,8 +2,8 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -141,7 +141,8 @@
                 </ul>
             </div>
         </section>
-            <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlRecentUsedBikes.fetchedCount > 0) {%>
+            <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+               {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
                 
@@ -156,10 +157,12 @@
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 
-                <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-                {%> 
-                 <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-                <%} %>
+                           <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %> 
             </div>
                 </div>
             

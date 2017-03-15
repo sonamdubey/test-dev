@@ -17,6 +17,8 @@ namespace Bikewale.Interfaces.Used
     /// Description : Added GetUsedBikeCountInCity function
     /// Modified by : Sajal Gupta on 3 jan 2017
     /// Desc Added GetUsedBikeInCityCountByModel function
+    /// Modified By :-Subodh Jain on 15 March 2017
+    /// Summary :-Added used GetUsedBike
     /// </summary>
     public interface IUsedBikeDetailsCacheRepository
     {
@@ -30,5 +32,6 @@ namespace Bikewale.Interfaces.Used
         IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByModel(uint modelId, ushort topCount);
         IEnumerable<UsedBikesCountInCity> GetUsedBikeInCityCountByMake(uint makeId, ushort topCount);
         IEnumerable<MostRecentBikes> GetPopularUsedModelsByMake(uint makeid, uint topcount);
+        IEnumerable<MostRecentBikes> GetUsedBike(uint topcount);
     }
 }
