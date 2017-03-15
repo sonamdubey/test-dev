@@ -67,7 +67,7 @@
                              </div>
                          </a>
                         <div class="margin-left20 margin-bottom10">
-                            <a href="javascript:void(0)" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class=" btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
+                            <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class=" btn btn-sm btn-grey font14 getquotation" rel="nofollow">Check on-road price</a>
                         </div>
                     </li>
                    }
@@ -105,9 +105,11 @@
            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", upcomingScooters)
      </div>
             </div>
-        </div>
+        <div class="clear"></div>   
+     </div>
        </section>    
 }
+
 @if ((ViewBag.Synopsis != null && ViewBag.Synopsis.FullDescription.Length>0) || showDealerWidget || (showServiceWidget && ViewBag.CityId>0))
 {
 <section>
