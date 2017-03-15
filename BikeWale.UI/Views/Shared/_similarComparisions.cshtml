@@ -11,7 +11,7 @@
                            string bike1 = string.Format("{0} {1}", bikedetails.Make1, bikedetails.Model1);
                            string bike2=string.Format("{0} {1}",bikedetails.Make2,bikedetails.Model2);
                          <li>
-                             <a href="@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMaskingName1, bikedetails.MakeMasking2, bikedetails.ModelMaskingName2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2), Bikewale.Entities.Compare.CompareSources.Mobile_Scooter_Listing_Compare)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)">
+                             <a href="/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(bikedetails.MakeMasking1, bikedetails.ModelMaskingName1, bikedetails.MakeMasking2, bikedetails.ModelMaskingName2, Convert.ToString(bikedetails.VersionId1), Convert.ToString(bikedetails.VersionId2), Bikewale.Entities.Compare.CompareSources.Mobile_Scooter_Listing_Compare)" title="@string.Format("{0} {1} vs {2} {3}",bikedetails.Make1,bikedetails.Model1,bikedetails.Make2,bikedetails.Model2)">
                                  <h3 class="text-black text-center margin-bottom10">@string.Format("{0} vs {1}", bikedetails.Model1, bikedetails.Model2)</h3>
                                  <div class="grid-6 alpha omega border-light-right padding-bottom20">
                                      <div class="imageWrapper margin-bottom10">

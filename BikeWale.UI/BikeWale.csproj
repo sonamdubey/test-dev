@@ -3473,6 +3473,8 @@
     <Content Include="Views\m\Scooters\index.cshtml" />
     <Content Include="Views\Shared\_ServiceCenters.cshtml" />
     <Content Include="Views\m\Shared\_ServiceCenters.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad976x400_First.cshtml" />
+    <Content Include="Views\Shared\Ads\Desktop\Ad976x400_Second.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3500,7 +3502,6 @@
     <Folder Include="Views\ExpertReviews\" />
     <Folder Include="Views\Features\" />
     <Folder Include="Views\GenericBikeInfo\" />
-    <Folder Include="Views\Shared\Ads\Desktop\" />
     <Folder Include="Views\Shared\Ads\Mobile\" />
     <Folder Include="Views\Upcoming\" />
   </ItemGroup>
