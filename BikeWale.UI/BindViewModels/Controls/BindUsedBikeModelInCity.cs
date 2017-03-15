@@ -70,7 +70,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetPopularUsedModelsByMake_{0}_{1}_{2}", makeid, topcount));
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetPopularUsedModelsByMake_{0}_{1}", makeid, topcount));
             }
             return objBikeCity;
 
@@ -91,6 +91,25 @@ namespace Bikewale.BindViewModels.Controls
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetUsedBikeCountInCity_{0}", cityid));
+            }
+            return objBikeCity;
+
+        }
+
+        /// <summary>
+        /// Created By : Subodh Jain on 2 jan 2017 
+        /// Description : Get Used Bike By Model Count In City
+        /// </summary>
+        public IEnumerable<MostRecentBikes> GetUsedBike(uint topcount)
+        {
+            IEnumerable<MostRecentBikes> objBikeCity = null;
+            try
+            {
+                objBikeCity = objCache.GetUsedBike(topcount);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, string.Format("BindUsedBikeModelInCity.GetUsedBike_{0}", topcount));
             }
             return objBikeCity;
 

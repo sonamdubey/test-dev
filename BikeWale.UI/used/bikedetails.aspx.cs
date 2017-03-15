@@ -100,6 +100,8 @@ namespace Bikewale.Used
         /// Description : Bind similar and other bike widgets
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :-Made count for other used bike 9
         /// </summary>
         private void BindUserControls()
         {
@@ -120,7 +122,7 @@ namespace Bikewale.Used
                 ctrlOtherUsedBikes.InquiryId = inquiryId;
                 ctrlOtherUsedBikes.CityId = inquiryDetails.City.CityId;
                 ctrlOtherUsedBikes.ModelId = (uint)inquiryDetails.Model.ModelId;
-                ctrlOtherUsedBikes.TopCount = 6;
+                ctrlOtherUsedBikes.TopCount = 9;
 
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);

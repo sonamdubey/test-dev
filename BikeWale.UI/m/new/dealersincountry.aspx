@@ -2,6 +2,7 @@
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/DealersByBrand.ascx" TagName="DealersByBrand" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +86,8 @@
             </div>
         </section>
            <%} %>
-         <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
+         <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0 || ctrlUpcomingBikes.FetchedRecordsCount > 0 || (ctrlusedBikeModel.FetchCount > 0))
+            { %>
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">
                <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
@@ -107,6 +109,12 @@
                     </div>
                 </div>
         <%} %>
+                 <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %> 
             </div>
         </section>
         <%} %>

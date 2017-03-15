@@ -118,7 +118,9 @@
         <div class="clear"></div>
     </div>
 </section>
-
+<section>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = ViewBag.AdId });}
+</section>
 <section>
     <h2 class="section-heading">Featured Scooters</h2>
     <div class="featured-bikes-panel content-box-shadow padding-bottom10 panel-type-scooter">
@@ -163,6 +165,9 @@
     @Html.Partial("~/Views/m/Shared/_popularComparisions.cshtml", TopScootersCompares)
 </section>
 }
+<section>
+    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = ViewBag.AdId });}
+</section>
 <div class="margin-bottom10"></div>
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>

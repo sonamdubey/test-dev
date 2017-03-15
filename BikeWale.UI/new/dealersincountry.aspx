@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/DealersByBrand.ascx" TagName="DealersByBrand" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 
@@ -125,7 +126,8 @@
         </section>
         <%} %>
                       
-           <% if(ctrlNewLaunchedBikes.FetchedRecordsCount > 0 ||ctrlUpcomingBikes.FetchedRecordsCount  >0){ %>
+           <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0 || ctrlUpcomingBikes.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
+              { %>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12">
@@ -151,7 +153,12 @@
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
         <%} %>
-                       
+                  <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        
+                    <% } %>       
                     </div>
                 </div>
                 <div class="clear"></div>
