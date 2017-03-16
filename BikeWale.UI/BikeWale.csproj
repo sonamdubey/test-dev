@@ -801,6 +801,7 @@
     </Compile>
     <Compile Include="controls\usedBikeModel.ascx.cs">
       <DependentUpon>usedBikeModel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UsedBikeModelByCity.ascx.cs">
       <DependentUpon>UsedBikeModelByCity.ascx</DependentUpon>

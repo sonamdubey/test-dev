@@ -1,9 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.usedBikeInCities" EnableViewState="false"%>
         <% if(objCitiesWithCount != null) { %>
-        <section>
-            <div class="container text-center section-container">
-                <h2 class="section-header">Search used bikes by cities</h2>
-                <div class="grid-12">
+     
                     <div id="city-jcarousel" class="content-box-shadow padding-top20 padding-bottom20">
                         <div class="jcarousel-wrapper inner-content-carousel margin-bottom5">
                             <div class="jcarousel">
@@ -27,10 +24,9 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-                        <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwsprite teal-next"></span></a>
+                        <div class="more-article-target view-all-btn-container"> 
+                            <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-next"></span></a>
+                        </div>
                     </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
+               
         <% } %>
