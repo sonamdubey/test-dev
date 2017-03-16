@@ -87,104 +87,12 @@
 <!-- scripts goes here -->
 <script type="text/javascript">
 
-    var leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
-    var fullName = $("#getFullName");
-    var emailid = $("#getEmailID");
-    var mobile = $("#getMobile");
-    var assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
-    var detailsSubmitBtn = $("#user-details-submit-btn");
-    var prevEmail = "";
-    var prevMobile = "";
-    var prevPinCode = "";
+    var leadBtnBookNow , leadCapturePopup , leadBike ;
+    var fullName,emailid , mobile ;
+    var assistanceGetName , assistanceGetEmail, assistanceGetMobile,detailsSubmitBtn ;
+    var prevEmail = "",prevMobile = "",prevPinCode = "";
     var leadmodelid = '<%= ModelId %>', leadcityid = '<%= CityId %>', leadareaid = '<%= AreaId %>';
-    var objPinCodes = new Object();
-
-
-    $(function () {
-
-        $(document).on('click', ".leadcapturebtn", function () {
-            leadCapturePopup.show();
-            $("#dealer-lead-msg").hide();
-            $("div#contactDetailsPopup").show();
-            popup.lock();
-        });
-
-        $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
-            leadCapturePopup.hide();
-            $("#dealer-lead-msg").hide();
-            popup.unlock();
-        });
-
-        $(document).on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
-            $(".leadCapture-close-btn").click();
-        });
-
-        $(document).on('keydown', function (e) {
-            if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-            }
-        });
-
-        $("#dealer-assist-msg .assistance-response-close").on("click", function () {
-            $("#dealer-assist-msg").parent().slideUp();
-        });
-
-        $("#getFullName, #assistGetName").on("focus", function () {
-            validate.onFocus($(this));
-        });
-
-        $("#getEmailID, #assistGetEmail").on("focus", function () {
-            validate.onFocus($(this));
-            prevEmail = $(this).val().trim();
-        });
-
-        $("#getMobile, #assistGetMobile").on("focus", function () {
-            validate.onFocus($(this));
-            prevMobile = $(this).val().trim();
-        });
-
-        $(document).on("focus", "#getPinCode", function () {
-            validate.onFocus($(this));
-            prevPinCode = $(this).val().trim().substring(0,6);
-        });
-
-        $("#getFullName, #assistGetName").on("blur", function () {
-            validate.onBlur($(this));
-        });
-
-        $("#getMobile, #assistGetMobile").on("blur", function () {
-            validate.onBlur($(this));
-            if (prevMobile != $(this).val().trim()) {
-                if (dleadvm.validateMobileNo($(this))) {
-                    dleadvm.IsVerified(false);
-                }
-            }
-        });
-        $(document).on("blur", "#getPinCode", function () {
-            validate.onBlur($(this));
-            var pc = $(this).val().trim();
-            if (pc.indexOf(',') > 0)
-                pc = pc.substring(0, 6);
-            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
-                validate.setError($("#getPinCode"), 'Invalid pincode');
-            }
-        });
-        $(document).on("change", "#getLeadBike", function () {
-            if ($(this).val() != null && $(this).val() != "0")
-                hideError($(this));
-            else setError($(this));
-        });
-
-        $("#getEmailID, #assistGetEmail").on("blur", function () {
-            validate.onBlur($(this));
-            if (prevEmail != $(this).val().trim()) {
-                if (dleadvm.validateEmailId($(this))) {
-                    dleadvm.IsVerified(false);
-                }
-            }
-        });
-    });
-
+    var objPinCodes = new Object(),dleadvm,validate;
 
     function leadModel() {
         var arr = setuserDetails();
@@ -590,6 +498,10 @@
         };
 
         self.setPinCodeSuggestion = function () {
+
+            $.fn.hint = bwHint;
+            $.fn.bw_autocomplete = bwAutoComplete;
+
             $("#getPinCode").bw_autocomplete({
                 source: 4,
                 recordCount: 3,
@@ -801,19 +713,10 @@
 
         self.hideLoader = function () {
             $('#ub-ajax-loader').hide();
-        }
+        };
 
     }
 
-    var dleadvm = new leadModel();
-    ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
-    dleadvm.setInputValues();
-
-    if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
-        ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
-    $(function () {
-        dleadvm.setPinCodeSuggestion();
-    });
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -838,43 +741,6 @@
         element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
     };
 
-    /* form validation */
-    var validate = {
-        setError: function (element, message) {
-            var elementLength = element.val().length,
-                errorTag = element.siblings('span.error-text');
-
-            errorTag.text(message);
-            if (!elementLength) {
-                element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-            }
-            else {
-                element.closest('.input-box').addClass('not-empty invalid');
-            }
-        },
-
-        hideError: function (element) {
-            element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-            element.siblings('span.error-text').text('');
-        },
-
-        onFocus: function (inputField) {
-            if (inputField.closest('.input-box').hasClass('invalid')) {
-                validate.hideError(inputField);
-            }
-        },
-
-        onBlur: function (inputField) {
-            var inputLength = inputField.val().length;
-            if (!inputLength) {
-                inputField.closest('.input-box').removeClass('not-empty');
-            }
-            else {
-                inputField.closest('.input-box').addClass('not-empty');
-            }
-        }
-    };
-
     function startLoading(ele) {
         try {
             var _self = $(ele).find(".progress-bar").css({ 'width': '0' }).show();
@@ -890,5 +756,147 @@
         }
         catch (e) { return };
     }
+
+    docReady(function () {
+
+        leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
+        fullName = $("#getFullName"),emailid = $("#getEmailID"), mobile = $("#getMobile");
+        assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
+        detailsSubmitBtn = $("#user-details-submit-btn");
+
+        /* form validation */
+        validate = {
+            setError: function (element, message) {
+                var elementLength = element.val().length,
+                    errorTag = element.siblings('span.error-text');
+
+                errorTag.text(message);
+                if (!elementLength) {
+                    element.closest('.input-box').removeClass('not-empty').addClass('invalid');
+                }
+                else {
+                    element.closest('.input-box').addClass('not-empty invalid');
+                }
+            },
+
+            hideError: function (element) {
+                element.closest('.input-box').removeClass('invalid').addClass('not-empty');
+                element.siblings('span.error-text').text('');
+            },
+
+            onFocus: function (inputField) {
+                if (inputField.closest('.input-box').hasClass('invalid')) {
+                    validate.hideError(inputField);
+                }
+            },
+
+            onBlur: function (inputField) {
+                var inputLength = inputField.val().length;
+                if (!inputLength) {
+                    inputField.closest('.input-box').removeClass('not-empty');
+                }
+                else {
+                    inputField.closest('.input-box').addClass('not-empty');
+                }
+            }
+        };
+
+        $(document).on('click', ".leadcapturebtn", function () {
+            leadCapturePopup.show();
+            $("#dealer-lead-msg").hide();
+            $("div#contactDetailsPopup").show();
+            popup.lock();
+        });
+
+        $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
+            leadCapturePopup.hide();
+            $("#dealer-lead-msg").hide();
+            popup.unlock();
+        });
+
+        $(document).on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
+            $(".leadCapture-close-btn").click();
+        });
+
+        $(document).on('keydown', function (e) {
+            if (e.keyCode === 27) {
+                $("#leadCapturePopup .leadCapture-close-btn").click();
+            }
+        });
+
+        $("#dealer-assist-msg .assistance-response-close").on("click", function () {
+            $("#dealer-assist-msg").parent().slideUp();
+        });
+
+        $("#getFullName, #assistGetName").on("focus", function () {
+            validate.onFocus($(this));
+        });
+
+        $("#getEmailID, #assistGetEmail").on("focus", function () {
+            validate.onFocus($(this));
+            prevEmail = $(this).val().trim();
+        });
+
+        $("#getMobile, #assistGetMobile").on("focus", function () {
+            validate.onFocus($(this));
+            prevMobile = $(this).val().trim();
+        });
+
+        $(document).on("focus", "#getPinCode", function () {
+            validate.onFocus($(this));
+            prevPinCode = $(this).val().trim().substring(0,6);
+        });
+
+        $("#getFullName, #assistGetName").on("blur", function () {
+            validate.onBlur($(this));
+        });
+
+        $("#getMobile, #assistGetMobile").on("blur", function () {
+            validate.onBlur($(this));
+            if (prevMobile != $(this).val().trim()) {
+                if (dleadvm.validateMobileNo($(this))) {
+                    dleadvm.IsVerified(false);
+                }
+            }
+        });
+        $(document).on("blur", "#getPinCode", function () {
+            validate.onBlur($(this));
+            var pc = $(this).val().trim();
+            if (pc.indexOf(',') > 0)
+                pc = pc.substring(0, 6);
+            if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
+                validate.setError($("#getPinCode"), 'Invalid pincode');
+            }
+        });
+        $(document).on("change", "#getLeadBike", function () {
+            if ($(this).val() != null && $(this).val() != "0")
+                hideError($(this));
+            else setError($(this));
+        });
+
+        $("#getEmailID, #assistGetEmail").on("blur", function () {
+            validate.onBlur($(this));
+            if (prevEmail != $(this).val().trim()) {
+                if (dleadvm.validateEmailId($(this))) {
+                    dleadvm.IsVerified(false);
+                }
+            }
+        });
+
+        dleadvm = new leadModel();
+        ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
+        dleadvm.setInputValues();
+
+        if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
+        {
+            ko.applyBindings(dleadvm, document.getElementById("dealerAssistance"));
+        }
+           
+        if ($("#getPinCode").is(":visible"))
+        {
+            dleadvm.setPinCodeSuggestion();
+        }           
+
+    });
 </script>
 

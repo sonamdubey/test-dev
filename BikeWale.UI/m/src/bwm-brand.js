@@ -3,6 +3,13 @@
     $("html, body").animate({ scrollTop: $("#bw-header").offset().top }, 0);
 });
 
+function ShowAllDisModels() {
+    $("#discontinuedLess").hide();
+    $("#discontinuedMore").show();
+    var xContents = $('#discontinuedMore').contents();
+    xContents[xContents.length - 1].nodeValue = "";
+}
+
 $('#sort-by-div a[data-title="sort"]').click(function () {
     var dt = '';
     var list = $(".listitems> .front");

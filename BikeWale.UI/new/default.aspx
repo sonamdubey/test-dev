@@ -485,6 +485,8 @@
         <script type="text/javascript">
             ga_pg_id = '4';
 
+            $('#globalSearch').parent().show();
+
             ko.bindingHandlers.chosen = {
                 init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                     var $element = $(element);

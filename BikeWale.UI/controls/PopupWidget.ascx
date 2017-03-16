@@ -65,8 +65,9 @@
 <!-- widget script starts here-->
 <script type="text/javascript">
     var onCookieObj = {};
+    var vmquotation, timeOutVariable;
 
-    $(document).ready(function(){
+    docReady(function(){
         $(document).on("click",".blackOut-window, #priceQuoteWidget .close-btn",function(){
             pqPopupContent.close();
         });
@@ -78,7 +79,6 @@
             $(this).siblings('.chosen-container').find('input[type=text]').attr('placeholder', text);
         });
  
-    });
 
     $(document).keydown(function(event){
         if(event.keyCode == 27){
@@ -465,8 +465,6 @@
 
     };
 
-    var timeOutVariable;
-
     var pqPopupContent = {
         
         active: function(){
@@ -511,9 +509,9 @@
         }
     };
 
-    var vmquotation = new mPopup;
+    vmquotation = new mPopup;
     ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
     $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
 
-
+    });
 </script>

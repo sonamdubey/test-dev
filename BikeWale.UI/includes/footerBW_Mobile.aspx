@@ -34,9 +34,6 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
-<BW:LocationWidget runat="server" id="ctrlChangeLocation" />
-
 <!-- global-search-popup code starts here -->
 <div id="global-search-popup" class="global-search-popup" style="display:none"> 
     <div class="form-control-box">
@@ -101,3 +98,6 @@
     </div>
     <div class="clear"></div>
 </footer> <!-- Ends here -->
+
+<script type="text/javascript" defer async src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<BW:LocationWidget runat="server" id="ctrlChangeLocation" />

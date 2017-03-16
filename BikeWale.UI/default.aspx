@@ -335,8 +335,6 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-
         <section class="lazy home-getFinalPrice-banner" data-original="https://imgd3.aeplcdn.com/0x0/bw/static/landing-banners/d/get-final-price-banner.jpg">
             <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server" />
         </section>
@@ -453,33 +451,20 @@
         <!-- Ends here -->
         
         <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript" defer async src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
-            ga_pg_id = '1';
-            ko.bindingHandlers.chosen = {
-                init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-                    var $element = $(element);
-                    var options = ko.unwrap(valueAccessor());
-                    if (typeof options === 'object')
-                        $element.chosen(options);
-
-                    ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-                        if (allBindings.has(propName)) {
-                            var prop = allBindings.get(propName);
-                            if (ko.isObservable(prop)) {
-                                prop.subscribe(function () {
-                                    $element.trigger('chosen:updated');
-                                });
-                            }
-                        }
-                    });
-                }
-            };
-            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            ga_pg_id = '1';            
+            docReady(function () {
+                $('#globalSearch').parent().hide();
+                if (!<%=isNewsActive.ToString().ToLower() %>) $("#ctrlNews").addClass("hide");
+                if (!<%=isExpertReviewActive.ToString().ToLower() %>) $("#ctrlExpertReviews").addClass("hide");
+                if (!<%=isVideoActive.ToString().ToLower() %>) $("#ctrlVideos").addClass("hide");
+            });
+            
 
         </script>
 
