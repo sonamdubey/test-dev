@@ -39,6 +39,7 @@ namespace Bikewale.Mobile.Controls
             if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
             {
                 MoreExpertReviewUrl = "/m/expert-reviews/";
+                linkTitle = "Expert Reviews on Bikes";
             }
             else if (String.IsNullOrEmpty(ModelMaskingName))
             {

@@ -19,6 +19,7 @@ namespace Bikewale.Mobile.Controls
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
         public string MakeName { get; set; }
+        public string MakeMaskingName { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

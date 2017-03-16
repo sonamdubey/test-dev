@@ -110,10 +110,16 @@
                                    <%if (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                            { %>
                     <BW:MNewLaunchedBikes runat="server" ID="mctrlNewLaunchedBikes" />
-                        <%} %>
                             
+                        <%} %>                            
                         </div>
                     </div>
+                    <%if (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)
+                           { %>
+                    <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                               </div>
+                    <%} %>
                 </div>
             </div>
         </section>

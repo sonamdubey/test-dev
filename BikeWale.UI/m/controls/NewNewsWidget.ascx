@@ -31,7 +31,7 @@
 </asp:Repeater>
 
 <div class="view-all-btn-container">
-    <a href="/m<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} news", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} news",MakeName) : "News") %>" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
+    <a href="/m<%= UrlFormatter.FormatNewsUrl(MakeMaskingName,ModelMaskingName) %>" title="<%= !String.IsNullOrEmpty(ModelMaskingName) ? String.Format("{0} {1} News", MakeName, ModelName) : (!String.IsNullOrEmpty(MakeMaskingName) ? String.Format("{0} News",MakeName) : "Bikes News") %>" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
 </div>
 
 <div class="bw-tabs-data" id="ctrlNews">  

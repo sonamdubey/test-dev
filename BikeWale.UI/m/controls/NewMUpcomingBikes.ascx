@@ -1,8 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewMUpcomingBikes" %>
 <section id="bikeByMakesUpcoming" class="bg-white margin-bottom20">
     <div class="container box-shadow padding-top20 padding-bottom20">
-        <h2 class="margin-bottom25 padding-right20 padding-left20">Upcoming <%= MakeName %> bikes</h2>
+        <div class="carousel-heading-content margin-bottom25">
+        <div class="swiper-heading-left-grid inline-block">        
+        <h2>Upcoming <%= MakeName %> bikes</h2>
+        </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m/<%=MakeMaskingName%>-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+            </div>
         <div class="swiper-container">
+            
             <div class="swiper-wrapper upcoming-carousel-content">
                 <asp:Repeater ID="rptUpcomingBikes" runat="server">
                     <ItemTemplate>
