@@ -138,6 +138,7 @@ namespace Bikewale.Mobile.Service
                 ctrlPopoularBikeMake.cityname = cityName;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+                ctrlPopoularBikeMake.makeMaskingName = makeMaskingName;
 
                 if (ctrlChangeLocation != null)
                 {

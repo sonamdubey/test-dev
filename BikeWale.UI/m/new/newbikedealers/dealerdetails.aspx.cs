@@ -76,6 +76,7 @@ namespace Bikewale.Mobile
                 ctrlPopoularBikeMake.cityname = dealerCity;
                 ctrlPopoularBikeMake.cityMaskingName = cityMaskingName;
                 ctrlPopoularBikeMake.makeName = makeName;
+                ctrlPopoularBikeMake.makeMaskingName = makeMaskingName;
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(makeId);
                 ctrlServiceCenterCard.makeMaskingName = makeMaskingName;
@@ -84,7 +85,7 @@ namespace Bikewale.Mobile
                 ctrlServiceCenterCard.cityName = dealerCity;
                 ctrlServiceCenterCard.cityMaskingName = cityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", makeName, dealerCity);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", makeName, dealerCity);
                 ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", makeName);
             }
             catch (Exception ex)
@@ -176,7 +177,7 @@ namespace Bikewale.Mobile
                         ctrlDealerCard.TopCount = 6;
                         ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
                         ctrlDealerCard.LeadSourceId = 15;
-                        ctrlDealerCard.widgetHeading = string.Format("Other {0} showrooms in {1}", dealerDetails.MakeName, dealerCity);
+                        ctrlDealerCard.widgetHeading = string.Format("More {0} showrooms", dealerDetails.MakeName);
                         makeName = dealerDetails.MakeName;
                         campaignId = dealerDetails.CampaignId;
                         ctrlDealerCard.DealerId = (int)dealerId;

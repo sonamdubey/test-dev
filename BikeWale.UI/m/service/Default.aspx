@@ -127,6 +127,9 @@
                                         <BW:MMostPopularBikes PageId="4" runat="server" ID="ctrlMostPopularBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
                                 <div class="swiper-container card-container">
@@ -134,6 +137,9 @@
                                         <BW:MNewLaunchedBikes PageId="4" runat="server" ID="ctrlNewLaunchedBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
                                 <div class="swiper-container card-container">
@@ -141,6 +147,9 @@
                                         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                         </div>
                     </div>

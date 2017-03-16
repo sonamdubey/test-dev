@@ -163,8 +163,13 @@
                     <% } %>  
                  <% if (ctrlDealerCard.showWidget) { %>
                     <div class="margin-right20 margin-left20 padding-top5">
-                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
-                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
+                    <div class="swiper-heading-left-grid inline-block padding-top20">
+                        <h2 class="margin-bottom5">New <%=makeName %> bikes showrooms</h2>
+                    </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Showrooms in <%= cityName %>" class="btn view-all-target-btn">View all</a>
+        </div>
+                  <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
                     </div>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                  <% }  %>
