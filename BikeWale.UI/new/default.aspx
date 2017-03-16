@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Default" EnableViewState="false" %>
 
 <%@ Register Src="~/controls/News.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
@@ -485,7 +485,6 @@
         <script type="text/javascript">
             ga_pg_id = '4';
 
-            //for jquery chosen : knockout event 
             ko.bindingHandlers.chosen = {
                 init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                     var $element = $(element);

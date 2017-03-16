@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default" EnableViewState="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default" EnableViewState="false" %>
 
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
