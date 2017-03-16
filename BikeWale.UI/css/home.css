@@ -18,8 +18,8 @@
 .inr-budget { width:10px; height:16px; background-position:0 -515px; position:relative; top:1px; }
 .brand-type-title, .style-type-title { margin-top:10px; display:block; }
 .brand-type-container a, .style-type-container a { text-decoration:none; color:#82888b; display: inline-block; }
-.style-type-container ul li:hover { border: 1px solid #4d5057;}
-.brand-type-container ul li:hover span.brand-type-title, .style-type-container ul li:hover span.style-type-title {color:#4d5057; font-weight: bold; }
+.style-type-container li:hover { border: 1px solid #4d5057;}
+.brand-type-container li:hover .brand-type-title, .style-type-container li:hover .style-type-title {color:#4d5057; font-weight: bold; }
 .brandlogosprite { background:url('https://imgd2.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?v=04Oct2016') no-repeat; display: inline-block; }
 .brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-24, .brand-5, .brand-6, .brand-39, .brand-37, .brand-7, .brand-23, .brand-8, .brand-34, .brand-17, .brand-18, .brand-9, .brand-19, .brand-10, .brand-20, .brand-41, .brand-38, .brand-11, .brand-12, .brand-22, .brand-15, .brand-42, .brand-16, .brand-16, .brand-13, .brand-14, .brand-81, .brand-71 { height:50px; }
 .brand-2 { width: 87px; background-position: 0 0; }.brand-7 { width: 56px; background-position: -96px 0; }.brand-1 { width: 88px; background-position: -162px 0; }.brand-8 { width: 100px; background-position: -260px 0; }.brand-12 { width: 67px; background-position: -370px 0; }.brand-40 { width: 125px; background-position: -447px 0; }.brand-34 { width: 122px; background-position: -582px 0; }.brand-22 { width: 121px; background-position: -714px 0; }.brand-3 { width: 44px; background-position: -845px 0; }.brand-17 { width: 86px; background-position: -899px 0; }.brand-15 { width: 118px; background-position: -995px 0; }.brand-4 { width: 43px; background-position: -1123px 0; }.brand-9 { width: 99px; background-position: -1176px 0; }.brand-16 { width: 117px; background-position: -1285px 0; }.brand-5 { width: 59px; background-position: -1412px 0; }.brand-19 { width: 122px; background-position: -1481px 0; }.brand-13 { width: 122px; background-position: -1613px 0; }.brand-6 { width: 63px; background-position: -1745px 0; }.brand-10 { width: 102px; background-position: -1818px 0; }.brand-14 { width: 127px; background-position: -1930px 0; }.brand-39 { width: 89px; background-position: -2067px 0; }.brand-20 { width: 82px; background-position: -2166px 0; }.brand-11 { width: 121px; background-position: -2258px 0; }.brand-41 { width:63px; background-position: -2389px 0; }.brand-42 { width:64px; background-position:-2461px 0; }.brand-81 { width:71px; background-position:-2535px 0; }
@@ -33,15 +33,15 @@
 .styletypesprite { background: url(https://imgd3.aeplcdn.com/0x0/bw/static/sprites/d/style-type-sprite.png) no-repeat; display: inline-block;  }
 .style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }
 .style-scooters { background-position: 0 0; }.style-street { background-position: 0 -108px; }.style-cruiser { background-position: 0 -216px; }.style-sports { background-position: 0 -324px; }
-.style-type-container ul li:hover span.styletypesprite.style-scooters { background-position: 0 -54px; }.style-type-container ul li:hover span.styletypesprite.style-street { background-position: 0 -162px; }.style-type-container ul li:hover span.styletypesprite.style-cruiser { background-position: 0 -270px; }.style-type-container ul li:hover span.styletypesprite.style-sports { background-position: 0 -378px; }
-.budget-container ul li, .mileage-container ul li { text-align: center; display: inline-block; *display:inline; *zoom:1; }
-.budget-container ul li:hover a, .mileage-container ul li:hover a { color:#4d5057;}
-.budget-container ul li a, .mileage-container ul li a { display:inline-block; *display:inline; *zoom:1; width:226px; height:155px; margin:0 5px 30px; text-align:center; background:#fff; color:#82888b; font-size:18px; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-.budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
-.budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
-.budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 47px; padding-bottom: 5px; }
-.budget-container ul li:hover .inr-budget { background-position:-20px -515px; }
-.popular-used-bikes-container .jcarousel ul li:hover .bikes-avaiable-count span{ color:#0288d1; }
+.style-type-container li:hover .styletypesprite.style-scooters { background-position: 0 -54px; }.style-type-container ul li:hover span.styletypesprite.style-street { background-position: 0 -162px; }.style-type-container ul li:hover span.styletypesprite.style-cruiser { background-position: 0 -270px; }.style-type-container ul li:hover span.styletypesprite.style-sports { background-position: 0 -378px; }
+.budget-container li, .mileage-container li { text-align: center; display: inline-block; *display:inline; *zoom:1; }
+.budget-container li:hover a, .mileage-container li:hover a { color:#4d5057;}
+.budget-container li a, .mileage-container li a { display:inline-block; *display:inline; *zoom:1; width:226px; height:155px; margin:0 5px 30px; text-align:center; background:#fff; color:#82888b; font-size:18px; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.budget-container li a .budget-title-box , .budget-container li a .budget-amount-box, .mileage-container li a .mileage-title-box , .mileage-container li a .mileage-amount-box { display:block; }
+.budget-container li a:hover, .mileage-container li a:hover { border: 1px solid #4d5057; text-decoration:none; }
+.budget-container li a .budget-title-box, .mileage-container li a .mileage-title-box { padding-top: 47px; padding-bottom: 5px; }
+.budget-container li:hover .inr-budget { background-position:-20px -515px; }
+.popular-used-bikes-container .jcarousel li:hover .bikes-avaiable-count span{ color:#0288d1; }
 
 #main-compare-bikes-target {
     width: 100%;
@@ -172,11 +172,9 @@
         padding-left: 0;
         padding-right: 5px;
     }
-}
 
-@media only screen and (max-width:1024px) {
-    .brand-type-container ul li, .brand-type { width:170px; }
-    .budget-container ul li a, .mileage-container ul li a, .style-type-container ul li { width:215px; }
+    .brand-type-container li, .brand-type { width:170px; }
+    .budget-container li a, .mileage-container li a, .style-type-container li { width:215px; }
 }
 
 @-moz-document url-prefix() { 
@@ -184,4 +182,108 @@
         padding-top: 6px;
         padding-bottom: 7px;
     }
+}
+
+/* used section */
+/* city */
+.city-card-target {
+    display: block;
+}
+.city-card-target:hover {
+    text-decoration: none;
+}
+.city-image-preview {
+    width:292px;
+    height:114px;
+    display:block;
+    margin-bottom:15px;
+    text-align:center;
+    padding-top:10px;
+}
+
+#city-jcarousel .inner-content-carousel .jcarousel-control-left, #city-jcarousel .inner-content-carousel .jcarousel-control-right {
+    top: 32%
+}
+
+/* city sprite */
+.city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
+.c1-icon, .c12-icon, .c2-icon, .c10-icon, .c176-icon, .c105-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon { height: 92px; }
+.c1-icon { width: 130px; background-position: 0 0; }
+.c12-icon { width: 186px; background-position: -140px 0; }
+.c2-icon { width: 136px; background-position: -336px 0; }
+.c10-icon { width: 70px; background-position: -482px 0; }
+.c176-icon { width: 53px; background-position: -562px 0; }
+.c105-icon { width: 65px; background-position: -625px 0; }
+.kolkata-icon { width: 182px; background-position: -700px 0; }
+.lucknow-icon { width: 174px; background-position: -892px 0; }
+.ahmedabad-icon { width: 0px; background-position: 0 0; }
+.chandigarh-icon { width: 0px; background-position: 0 0; }
+
+.table-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.key-size-14 {
+    font-size: 14px;
+    color: #82888b;
+}
+
+.value-size-16 {
+    font-size: 16px;
+    color: #4d5057;
+    font-weight: 700;
+}
+
+.elevated-card-list {
+    text-align: center;
+}
+
+.elevated-card-list li {
+    width: 31%;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 7px 10px;
+}
+
+.elevated-card-list li a {
+    width: 100%;
+    height: 137px;
+    display: table;
+    -webkit-box-shadow: 0 1px 2px 1px #e4e4e4;
+    -moz-box-shadow: 0 1px 2px 1px #e4e4e4;
+    -ms-box-shadow: 0 1px 2px 1px #e4e4e4;
+    -o-box-shadow: 0 1px 2px 1px #e4e4e4;
+    box-shadow: 0 1px 2px 1px #e4e4e4;
+}
+
+.elevated-card-list li a:hover {
+    text-decoration: none;
+}
+
+.tab-icon-container {
+    height: 37px;
+    margin-bottom: 10px;
+}
+
+.budget-one {
+    width: 16px;
+    height: 24px;
+    background-position: 0 -710px;
+    position: relative;
+    top: 6px;
+}
+
+.budget-two {
+    width: 28px;
+    height: 30px;
+    background-position: -19px -710px;
+    position: relative;
+    top: 3px;
+}
+
+.budget-three {
+    width: 39px;
+    height: 37px;
+    background-position: -50px -710px;
 }

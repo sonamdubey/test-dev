@@ -17,8 +17,6 @@ namespace Bikewale.Mobile.New.Photos
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-
-
         protected GenericBikeInfo bikeInfo;
         protected NewVideosWidget ctrlVideos;
         protected BindModelPhotos vmModelPhotos = null;
@@ -28,7 +26,7 @@ namespace Bikewale.Mobile.New.Photos
         protected uint modelId;
         protected bool IsDiscontinued { get; set; }
         protected bool isModelPage;
-        protected uint VideoCount;
+        protected uint VideoCount, colorImageId = 0;
         protected PQSourceEnum pqSource;
         protected string bikeUrl = string.Empty, bikeName = string.Empty;
         protected string JSONImageList = string.Empty, JSONVideoList = string.Empty;
@@ -39,17 +37,29 @@ namespace Bikewale.Mobile.New.Photos
         /// <summary>
         /// Modified By :- Subodh Jain 20 jan 2017
         /// Summary :- model page photo bind condition added in query string
+        /// Modified by : Sajal Gupta on 16-03-2017
+        /// Description : Fetch color image id from query srting.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+            try
             {
-                isModelPage = true;
+                if (!String.IsNullOrEmpty(Request.QueryString["modelpage"]))
+                {
+                    isModelPage = true;
+                }
+                if (!String.IsNullOrEmpty(Request.QueryString["colorImageId"]))
+                {
+                    colorImageId = Convert.ToUInt32(Request.QueryString["colorImageId"]);
+                }
+                BindPhotosPage();
             }
-            BindPhotosPage();
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.Photos.Default : Page_Load");
+            }
 
 
         }

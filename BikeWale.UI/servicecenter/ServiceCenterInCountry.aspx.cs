@@ -33,7 +33,7 @@ namespace Bikewale.ServiceCenter
         protected BikeMakeEntityBase objMMV;
         protected BikeCare ctrlBikeCare;
         protected ServiceCentersByBrand ctrlOtherServiceCenters;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         public ushort makeId;
         public uint cityId;
         public string makeMaskingName = string.Empty;

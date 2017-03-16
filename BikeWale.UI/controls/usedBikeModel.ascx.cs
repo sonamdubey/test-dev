@@ -9,7 +9,7 @@ namespace Bikewale.Controls
 {
     /// Created  By :-Subodh Jain on 15 March 2017
     /// Summary :-Used Bike Widget
-    public class usedBikeModel : System.Web.UI.UserControl
+    public class UsedBikeModel : System.Web.UI.UserControl
     {
         public uint CityId { get; set; }
         public uint MakeId { get; set; }
@@ -21,6 +21,7 @@ namespace Bikewale.Controls
         public CityEntityBase cityDetails;
         public string WidgetTitle { get; set; }
         public string WidgetHref { get; set; }
+        public bool IsLandingPage { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

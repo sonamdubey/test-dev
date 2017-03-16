@@ -25,7 +25,7 @@ namespace Bikewale.New
     public class Model : PageBase
     {
         protected UpcomingBikes_new ctrlUpcomingBikes;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected News_Widget ctrlNews;
         //protected ExpertReviews ctrlExpertReviews;
