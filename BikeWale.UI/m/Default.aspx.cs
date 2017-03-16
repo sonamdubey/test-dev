@@ -34,8 +34,8 @@ namespace Bikewale.Mobile
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
         protected BestBikes ctrlBestBikes;
-        protected usedBikeModel ctrlusedBikeModel;
-        protected usedBikeInCities ctrlusedBikeInCities;
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;

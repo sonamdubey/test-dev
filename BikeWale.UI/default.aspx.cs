@@ -34,8 +34,8 @@ namespace Bikewale
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-        protected usedBikeModel ctrlusedBikeModel;
-        protected usedBikeInCities ctrlusedBikeInCities;
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected BestBikes ctrlBestBikes;
 
         protected short reviewTabsCnt = 0;

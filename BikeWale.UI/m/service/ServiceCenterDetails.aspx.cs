@@ -45,7 +45,7 @@ namespace Bikewale.Mobile.Service
         protected BikeMakeEntityBase objBikeMakeEntityBase;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected ServiceCenterData centerList = null;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

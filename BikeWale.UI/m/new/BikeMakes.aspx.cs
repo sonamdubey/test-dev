@@ -22,7 +22,7 @@ namespace Bikewale.Mobile
     public class BikeMakes : PageBase
     {
         protected NewMUpcomingBikes ctrlUpcomingBikes;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected NewNewsWidget ctrlNews;
         protected NewExpertReviewsWidget ctrlExpertReviews;
         protected NewVideosWidget ctrlVideos;

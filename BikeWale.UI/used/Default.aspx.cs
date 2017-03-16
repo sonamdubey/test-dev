@@ -14,7 +14,7 @@ namespace Bikewale.Used
     {
         protected UsedBikeLandingPage viewModel;
         protected UsedRecentBikes ctrlRecentUsedBikes;
-        protected usedBikeInCities ctrlusedBikeInCities;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected int topCount = 10;
         protected string currentUser = string.Empty;
         protected override void OnInit(EventArgs e)
