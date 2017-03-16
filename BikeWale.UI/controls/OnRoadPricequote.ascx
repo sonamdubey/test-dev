@@ -45,10 +45,7 @@
             type: "GET",
             url: "/api/PQCityList/?modelId=" + modelId,
             dataType: 'json',
-            //data: '{"modelId":"' + modelId + '"}',
-            //beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {
-                //var obj = JSON.parse(response);
                 var cities = response.cities;
                 var citySelected = null; 
                 if (cities) {
@@ -73,7 +70,6 @@
     }
 
     function cityChangedOnRoad() {
-        //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelOnRoad.selectedCity() != undefined) {
             viewModelOnRoad.hasAreas(RfindCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
             if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
@@ -93,10 +89,13 @@
                             viewModelOnRoad.selectedArea(0);
                             viewModelOnRoad.bookingAreas([]);
                         }
+
+                        onRoadArea.trigger('chosen:updated');
                     },
                     error: function (e) {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
+                        onRoadArea.trigger('chosen:updated');
                     }
                 });
             }
@@ -107,6 +106,8 @@
         } else {
             viewModelOnRoad.bookingAreas([]);
         }
+
+        onRoadArea.trigger('chosen:updated');
     }
 
     function isValidInfoOnRoad() {

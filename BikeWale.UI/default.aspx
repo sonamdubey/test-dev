@@ -451,7 +451,7 @@
         <!-- Ends here -->
         
         <!-- #include file="/includes/footerBW.aspx" -->
-        <script type="text/javascript" defer async src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
@@ -464,8 +464,6 @@
                 if (!<%=isExpertReviewActive.ToString().ToLower() %>) $("#ctrlExpertReviews").addClass("hide");
                 if (!<%=isVideoActive.ToString().ToLower() %>) $("#ctrlVideos").addClass("hide");
             });
-            
-
         </script>
 
         <!-- #include file="/includes/fontBW.aspx" -->

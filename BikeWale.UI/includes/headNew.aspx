@@ -100,21 +100,14 @@
             po.src = 'https://apis.google.com/js/plusone.js?v=1.0';
             var s = document.getElementsByTagName( 'script' )[0]; s.parentNode.insertBefore( po, s );
         } )();
-    </script>    
+    </script> 
+    <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
+       
     <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
 </head>
 <body class="bg-white header-fixed-inner">
     <form runat="server">    
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->
-        <%--<section class="bg-white">
-            <div class="container_12">
-                <div class="grid_12">
-                    <div class="padding-bottom5 text-center">
-                        <!-- #include file="/ads/Ad970x90.aspx" -->
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>--%>
+
         <div class="clear"></div>
