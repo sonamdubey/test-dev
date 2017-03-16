@@ -108,7 +108,7 @@
     <div class="container section-bottom-margin">
         <div class="grid-12">
             <div class="content-box-shadow padding-top20 padding-bottom20">
-                <h2 class="font18 padding-bottom20 padding-left20">Upcoming @ViewBag.MakeName Scooters</h2>
+                <h2 class="font18 padding-bottom20 padding-left20">Upcoming Scooters</h2>
            @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", upcomingScooters)
      </div>
             </div>
@@ -146,10 +146,10 @@
                         <h2>@ViewBag.MakeName Scooters Summary</h2>
                         <div class="font14 text-light-grey line-height17 collapsible-content">
                             <p class="main-content">
-                                @FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700)
+                                @Html.Raw(FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700))
                             </p>
                             <p class="more-content">
-                                @ViewBag.Synopsis.FullDescription
+                                @Html.Raw(ViewBag.Synopsis.FullDescription)
                             </p>
                             @if(ViewBag.Synopsis.FullDescription.Length > 700){
                             <a href="javascript:void(0)" class="read-more-target" rel="nofollow">Read more</a>

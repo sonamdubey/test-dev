@@ -11,6 +11,7 @@ $('.read-more-target').on('click', function () {
         parentElemtent.removeClass('active');
         element.text('...Read more');
     }
+    
 });
 
 $(document).ready(function () {
