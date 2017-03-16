@@ -13,6 +13,7 @@ namespace Bikewale.Mobile.Used
     {
         protected UsedBikeLandingPage viewModel;
         protected UsedRecentBikes ctrlRecentUsedBikes;
+        protected usedBikeInCities ctrlusedBikeInCities;
         protected int topCount = 6;
 
         protected override void OnInit(EventArgs e)

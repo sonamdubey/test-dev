@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.usedBikeModel" EnableViewState="false"%>
 <%if (FetchCount > 0)
   { %>
-<div class="container padding-top20">
-    <div class="grid-12 ">
+
         <div class="carousel-heading-content">
             <div class="swiper-heading-left-grid inline-block">
                 <h2><%= header %></h2>
@@ -43,7 +42,4 @@
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
         </div>
-    </div>
-    <div class="clear"></div>
-</div>
 <%} %>
