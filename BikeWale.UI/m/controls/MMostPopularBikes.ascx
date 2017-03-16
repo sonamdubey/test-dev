@@ -29,6 +29,9 @@
     <% if (mostPopularByMake)
                            { %>
 	 <h2 class="padding-15-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
+<div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m" title="<%=makeName %> Showrooms in <%= cityname %>" class="btn view-all-target-btn">View all</a>
+        </div>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                          <asp:Repeater ID="rptPopoularBikeMake" runat="server">

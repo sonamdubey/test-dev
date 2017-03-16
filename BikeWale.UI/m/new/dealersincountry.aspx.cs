@@ -69,6 +69,7 @@ namespace Bikewale.Mobile.New
                 }
 
                 BindStatesCities();
+                Bindwidget();
             }
         }
         /// <summary>

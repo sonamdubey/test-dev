@@ -102,7 +102,7 @@
 
         <section>
             <div class="container section-container">
-                <h2 class="section-heading">Newly launched bikes</h2>
+                <h2 class="section-heading">New Bike Launches in India</h2>
                 <div class="content-box-shadow padding-top15 padding-bottom15">
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
@@ -126,7 +126,7 @@
 
         <section>
             <div class="container section-container">
-                <h2 class="section-heading">Upcoming bikes</h2>
+                <h2 class="section-heading">Upcoming Bikes in India</h2>
                 <div class="content-box-shadow padding-top15 padding-bottom15">
                     <div class="swiper-container card-container">
                         <div class="swiper-wrapper discover-bike-carousel">
@@ -134,12 +134,14 @@
                                    <%if (mctrlUpcomingBikes.FetchedRecordsCount > 0)
                            { %>
                       <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
-                        <%} %>
-                              
+                        <%} %>                               
                         </div>
                     </div>
+                <div class="padding-left10 view-all-btn-container margin-top10">
+                     <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                     </div>
                 </div>
-            </div>
+                  </div>
         </section>
 
         <div id="locatorSearchBar" class="bwm-fullscreen-popup">
