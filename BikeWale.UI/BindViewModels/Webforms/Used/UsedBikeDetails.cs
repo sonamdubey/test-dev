@@ -88,7 +88,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         ProfileId = InquiryDetails.OtherDetails.Seller + InquiryDetails.OtherDetails.Id;
                         IsAdUserLoggedIn = _customerId == InquiryDetails.CustomerId.ToString();
                         BikeName = string.Format("{0} {1} {2}", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.Version.VersionName);
-                        ModelYear = (InquiryDetails.MinDetails.ModelYear != null) ? InquiryDetails.MinDetails.ModelYear.Year.ToString() : string.Empty;
+                        ModelYear = InquiryDetails.MinDetails.ModelYear.Year.ToString();
                         Title = string.Format("Used {0} {1} ({2}) for sale in {3} | BikeWale", ModelYear, BikeName, ProfileId, InquiryDetails.City.CityName);
                         Keywords = string.Format("used {0}, used {0} for sale, used {0} in {1}", BikeName, InquiryDetails.City.CityName);
                         Description = string.Format("BikeWale - Used {0} {1} for sale in {2}. This second hand bike is of {3} model and its profile id is {4}. Get phone number of the seller and call directly to inspect and test ride the bike.", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.City.CityName, ModelYear, ProfileId);

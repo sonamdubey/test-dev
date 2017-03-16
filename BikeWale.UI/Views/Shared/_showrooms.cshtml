@@ -4,8 +4,14 @@
 @if (ViewBag.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
 { 
     <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-        <h2 class="padding-right20 padding-left20 margin-bottom15">@ViewBag.MakeName Showrooms in @ViewBag.CityName</h2>
-
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>@ViewBag.MakeName Showrooms in @ViewBag.CityName</h2>
+            </div><div class="swiper-heading-right-grid inline-block text-right">
+                <a href="@UrlFormatter.DealerLocatorUrl(Model.dealers.MakeMaskingName, Model.dealers.CityMaskingName)" title="@Model.dealers.MakeName Showrooms in @Model.dealers.CityName" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
         <ul id="city-dealer-list" class="bw-horizontal-cards">
             @foreach(var dealer in Model.dealers.Dealers){
             <li class="card">
@@ -24,7 +30,6 @@
             }
            </ul>
         <div class="clear"></div>
-        <a href="@UrlFormatter.DealerLocatorUrl(Model.dealers.MakeMaskingName, Model.dealers.CityMaskingName)" title="@Model.dealers.MakeName showroom in @Model.dealers.CityName" class="margin-left20">View all @Model.dealers.MakeName showrooms<span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 }

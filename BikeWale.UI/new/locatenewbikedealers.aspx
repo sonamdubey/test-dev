@@ -140,12 +140,15 @@
         <section>
             <div class="container section-container">
                 <div class="grid-12">
-                    <h2 class="section-header">Newly launched bikes</h2>
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="section-header">New Bike Launches in India</h2>
+                    <div class="content-box-shadow">
                         
                         <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                             { %>
-                            <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                        </div>
                         <%} %>
                     </div>
                 </div>
@@ -156,19 +159,22 @@
         <section>
             <div class="container section-container">
                 <div class="grid-12">
-                    <h2 class="section-header">Upcoming bikes</h2>
-                    <div class="content-box-shadow padding-top20 padding-bottom20">
+                    <h2 class="section-header">Upcoming Bikes in India</h2>
+                    <div class="content-box-shadow">
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                   <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-                                    { %>
-                                        <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
+                                    <%if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
+                                      { %>
+                                    <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                                     <%} %>
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>

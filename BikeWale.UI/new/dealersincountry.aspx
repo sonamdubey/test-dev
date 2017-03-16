@@ -134,16 +134,28 @@
                     <div class="content-box-shadow">
                           <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                            { %>
-                          <h2 class="font18 padding-18-20">Newly launched <%=objMMV.MakeName %> bikes</h2>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>New <%=objMMV.MakeName %> bike launches</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/new-<%= objMMV.MaskingName %>-bike-launches/" title="<%= objMMV.MakeName %> Bike Launches in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                         <BW:NewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
                         <%} %>
-                      
-
-
                         <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
-           { %> <h2 class="font18 padding-18-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
-                         <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
+                           { %>
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Upcoming <%= objMMV.MakeName %> Bikes</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="/<%= objMMV.MaskingName %>-bikes/upcoming/" title="Upcoming <%= objMMV.MakeName %> Bikes in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="jcarousel-wrapper inner-content-carousel padding-bottom20">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
@@ -152,13 +164,13 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-        <%} %>
+         <%} %>
                   <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
                  
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         
-                    <% } %>       
+                    <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>

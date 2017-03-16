@@ -216,7 +216,7 @@ string GetGTTargeting(int targetId, string target)
         });
     </script>
 </head>
-<body>
+<body class="@(IsTransparentHeader ? "page-type-landing" : "")">
     <form>
         <div id="header" class='@(IsHeaderFix ? "header-fixed" : "header-not-fixed" ) @(IsTransparentHeader?"header-landing header-transparent":"")'>
             <!-- Fixed Header code starts here -->

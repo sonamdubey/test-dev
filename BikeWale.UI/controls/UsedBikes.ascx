@@ -2,7 +2,7 @@
 
 <div id="makeUsedBikeContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
 
-    <h2 class="padding-left10 padding-right10">Recently uploaded Used <%= pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : "" %></h2>
+    <h2 class="padding-left10 padding-right10">Used <%= pageHeading %> bikes <%=CityId > 0 ? String.Format("in {0}", cityName) : " in India" %></h2>
     <!-- when city is not selected -->
     <div class="grid-12 alpha omega text-black">
         <%if (CityId <= 0)
@@ -18,7 +18,7 @@
     </div>
     <div class="clear"></div>
     <div class="padding-left10 view-all-btn-container">
-        <a title="Used <%=pageHeading %> bikes in India" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>" class="btn view-all-target-btn">View all used <%= pageHeading %> bikes<span class="bwsprite teal-right"></span></a>
+        <a title="<%=pageHeading %> Used Bikes in India" href="<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName) %>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
     </div>
     <%}
           else
@@ -41,7 +41,7 @@
 </div>
 <div class="clear"></div>
 <div class="padding-left10 view-all-btn-container">
-    <a title="Used <%=pageHeading%> bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>" class="btn view-all-target-btn">View all used <%= pageHeading %> bikes<span class="bwsprite teal-right"></span></a>
+    <a title="<%=pageHeading%> Used Bikes in <%=cityName%>" href="<%=Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Convert.ToUInt32(CityId), cityMaskingName, makeMaskingName, modelMaskingName)%>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
 </div>
 <%} %>
 

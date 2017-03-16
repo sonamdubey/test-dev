@@ -290,7 +290,7 @@
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
-                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
@@ -315,10 +315,16 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
                     </div>
 
                     <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
                         <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                        </div>
                         <!-- New Launched Bikes Control-->
                     </div>
 
@@ -332,6 +338,9 @@
                             </div>
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                        </div>
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                 </div>

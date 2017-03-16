@@ -89,8 +89,8 @@ namespace Bikewale.ServiceCenter
                     ctrlDealerCard.CityId = serviceVM.CityId;
                     ctrlDealerCard.cityName = serviceVM.CityName;
                     ctrlDealerCard.TopCount = 3;
-                    ctrlDealerCard.isHeading = false;
-                    ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", serviceVM.MakeName, serviceVM.CityName);
+                    ctrlDealerCard.isHeading = true;
+                    ctrlDealerCard.widgetHeading = string.Format("New {0} bikes showrooms", serviceVM.MakeName);
                 }
                 ctrlPopoularBikeMake.makeId = Convert.ToInt32(serviceVM.MakeId);
                 ctrlPopoularBikeMake.cityId = Convert.ToInt32(serviceVM.CityId);
@@ -108,7 +108,7 @@ namespace Bikewale.ServiceCenter
                         ctrlusedBikeModel.CityId = cityId;
                     ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }
 

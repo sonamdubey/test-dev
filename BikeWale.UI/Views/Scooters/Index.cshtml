@@ -140,7 +140,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Featured scooters</h2>
         <div class="grid-12">
-            <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+            <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul>
                         @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
@@ -167,17 +167,20 @@
                 {
                     <div id="ctrlMostPopularBikes" class="bw-tabs-data">
                         @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+                        <div class="view-all-btn-container padding-top15 padding-bottom20">
+                            <a href="/best-scooters-in-india/" class="btn view-all-target-btn" title="Popular Scooters in India">View all scooters<span class="bwsprite teal-right"></span></a>
+                        </div>
                     </div>
                 }
                 @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                 {
-                    <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
+                    <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlNewLaunchedBikes">
                         @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
                     </div>
                 }
                 @if (objUpcoming != null && objUpcoming.Count() > 0)
                 {
-                    <div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
+                    <div class="bw-tabs-data hide padding-top15 padding-bottom20" id="ctrlUpcomingBikes">
                         @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
                     </div>
                 }

@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
+using System.Linq;
 namespace Bikewale.Models.Shared
 {
 
@@ -12,5 +13,6 @@ namespace Bikewale.Models.Shared
     {
         public IEnumerable<BikeMakeEntityBase> TopBrands { get; set; }
         public IEnumerable<BikeMakeEntityBase> OtherBrands { get; set; }
+        public bool HasOtherBrands { get { return (OtherBrands != null && OtherBrands.Count() > 0); } }
     }
 }

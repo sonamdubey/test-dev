@@ -71,7 +71,7 @@
     </ul>
      <% if (ShowCompButton) {%>
         <div class="view-all-btn-container">
-            <a href="/comparebikes/" class="btn view-all-target-btn">View more comparisons<span class="bwsprite teal-right"></span></a>
+            <a href="/comparebikes/" class="btn view-all-target-btn" title="New Bike Comparisons in India">View more comparisons<span class="bwsprite teal-right"></span></a>
         </div>
     <%} %>
 </div>
