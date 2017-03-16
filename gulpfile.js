@@ -239,13 +239,28 @@ var pageArray = [
     },
     {
         folderName: 'new/',
+        fileName: 'ModelPricesInCity.aspx',
+        stylesheet: 'css/new/modelprice-in-city.css'
+    },
+    {
+        folderName: 'new/',
         fileName: 'locatenewbikedealers.aspx',
         stylesheet: 'css/dealer/landing.css'
     },
     {
         folderName: 'new/',
-        fileName: 'ModelPricesInCity.aspx',
-        stylesheet: 'css/new/modelprice-in-city.css'
+        fileName: 'dealersincountry.aspx',
+        stylesheet: 'css/dealer/location.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'browsenewbikedealerdetails.aspx',
+        stylesheet: 'css/dealer/listing.css'
+    },
+    {
+        folderName: 'new/',
+        fileName: 'BikeDealerDetails.aspx',
+        stylesheet: 'css/dealer/details.css'
     }
 ];
 

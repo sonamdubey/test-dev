@@ -25,7 +25,7 @@
         isHeaderFix = false;
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" href="/css/dealer/listing.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/dealer/listing.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
         var currentCityName = '<%= cityName %>';
