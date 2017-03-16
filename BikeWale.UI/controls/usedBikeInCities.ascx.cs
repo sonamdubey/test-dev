@@ -10,7 +10,7 @@ namespace Bikewale.Controls
     /// Created By :- Subodh Jain 16 March 2017
     /// Summary :- usedBikes in cities widget
     /// </summary>
-    public class usedBikeInCities : System.Web.UI.UserControl
+    public class UsedBikeInCities : System.Web.UI.UserControl
     {
         public IEnumerable<UsedBikeCities> objCitiesWithCount;
         protected override void OnInit(EventArgs e)

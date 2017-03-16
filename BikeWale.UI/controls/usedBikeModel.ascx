@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.usedBikeModel" EnableViewState="false"%>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UsedBikeModel" EnableViewState="false"%>
 <%if (FetchCount > 0)
   { %>
 

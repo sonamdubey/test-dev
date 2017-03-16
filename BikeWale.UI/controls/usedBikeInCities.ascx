@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.usedBikeInCities" EnableViewState="false"%>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UsedBikeInCities" EnableViewState="false"%>
         <% if(objCitiesWithCount != null) { %>
      
                     <div id="city-jcarousel" class="content-box-shadow padding-top20 padding-bottom20">

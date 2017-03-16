@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.usedBikeInCities" EnableViewState="false" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.UsedBikeInCities" EnableViewState="false" %>
  <% if (objCitiesWithCount != null)
     { %>
         <section>

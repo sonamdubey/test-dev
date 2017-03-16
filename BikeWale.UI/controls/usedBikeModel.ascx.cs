@@ -9,7 +9,7 @@ namespace Bikewale.Controls
 {
     /// Created  By :-Subodh Jain on 15 March 2017
     /// Summary :-Used Bike Widget
-    public class usedBikeModel : System.Web.UI.UserControl
+    public class UsedBikeModel : System.Web.UI.UserControl
     {
         public uint CityId { get; set; }
         public uint MakeId { get; set; }
