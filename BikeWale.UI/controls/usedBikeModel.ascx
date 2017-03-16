@@ -9,8 +9,8 @@
                 <div class="jcarousel">
                     <ul>
                         <%foreach (var bikeDetails in UsedBikeModelInCityList) {%>
-                                <li>
-                                    <a href="<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName,bikeDetails.ModelMaskingName,cityDetails!=null?cityDetails.CityMaskingName:"india") %>" title="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India")%>" class="jcarousel-card">
+                            <li>
+                                <a href="<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName,bikeDetails.ModelMaskingName,cityDetails!=null?cityDetails.CityMaskingName:"india") %>" title="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India")%>" class="jcarousel-card">
                                     <div class="model-jcarousel-image-preview">
                                         <div class="card-image-block">
                                             <img class="lazy" src="" data-original="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedOriginalImagePath,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India") %>">
@@ -18,17 +18,17 @@
                                     </div>
                                     <div class="card-desc-block">
                                         <h3 class="bikeTitle"><%=string.Format("{0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)%></h3>
-                                        <div class="text-bold text-default margin-bottom10">
+                                        <p class="text-light-grey margin-bottom5">
+                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes Available
+                                        </p>
+                                        <div class="text-bold text-default">
                                             <span class="bwsprite inr-lg"></span>
                                             <span class="font18"><%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice)) %></span>
-                                              <span class="font14">onwards</span>
+                                                <span class="font14">onwards</span>
                                         </div>
-                                        <p class="font16">
-                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Bikes Available
-                                        </p>
                                     </div>
-                                  </a>
-                                </li>
+                                </a>
+                            </li>
                         <%} %>
                     </ul>
                 </div>

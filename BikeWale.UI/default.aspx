@@ -373,6 +373,134 @@
             </div>
         </section>
         <!-- Ends here -->
+
+        <section>
+            <!--  Discover your bike code starts here -->
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Find used bikes</h2>
+                    <div class="bw-tabs-panel content-box-shadow">
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <li data-tabs="usedByCity"><h3>City</h3></li>
+                                <li class="active" data-tabs="usedByBudget"><h3>Budget</h3></li>
+                                <li data-tabs="usedByModel"><h3>Model</h3></li>
+                            </ul>
+                        </div>
+                        <div class="bw-tabs-data hide padding-bottom20" id="usedByCity">
+                            <div class="jcarousel-wrapper inner-content-carousel margin-bottom15">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <li>
+                                            <a href="" title="" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c1-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5">Mumbai</p>
+                                                    <p class="text-light-grey">2220 Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c12-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5">Pune</p>
+                                                    <p class="text-light-grey">2220 Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c2-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5">Bangalore</p>
+                                                    <p class="text-light-grey">2220 Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c10-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5">New Delhi</p>
+                                                    <p class="text-light-grey">2220 Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="" title="" class="city-card-target">
+                                                <div class="city-image-preview">
+                                                    <span class="city-sprite c176-icon"></span>
+                                                </div>
+                                                <div class="text-left font14 padding-left20 padding-right20 padding-bottom25">
+                                                    <p class="text-default text-bold margin-bottom5">Chennai</p>
+                                                    <p class="text-light-grey">2220 Used bikes</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                 </div>
+                                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
+                                <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
+                            </div>
+                            <div class="view-all-btn-container">
+                                <a href="" title="" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        </div>
+                        <div class="bw-tabs-data padding-bottom15" id="usedByBudget">
+                            <ul class="elevated-card-list">
+                                <li>
+                                    <a href="" title="">
+                                        <div class="table-middle">
+                                            <div class="tab-icon-container">
+                                                <span class="bwsprite budget-one"></span>
+                                            </div>
+                                            <span class="key-size-14">Upto</span><br />
+                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">30,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="">
+                                        <div class="table-middle">
+                                            <div class="tab-icon-container">
+                                                <span class="bwsprite budget-two"></span>
+                                            </div>
+                                            <span class="key-size-14">Between</span><br />
+                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">30,000 -</span>
+                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">60,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="">
+                                        <div class="table-middle">
+                                            <div class="tab-icon-container">
+                                                <span class="bwsprite budget-three"></span>
+                                            </div>
+                                            <span class="key-size-14">Above</span><br />
+                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">60,000</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bw-tabs-data hide padding-bottom20" id="usedByModel">
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
         <section>
             <div class="<%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
                 <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
