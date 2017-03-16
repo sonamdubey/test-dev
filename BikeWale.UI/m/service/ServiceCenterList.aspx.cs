@@ -45,12 +45,11 @@ namespace Bikewale.Mobile.Service
         protected CityEntityBase objCityEntityBase;
         protected IEnumerable<Bikewale.Entities.ServiceCenters.ServiceCenterDetails> serviceCentersList = null;
         protected DealersCard ctrlDealerCard;
-        protected UsedPopularModelsInCity ctrlPopularModels;
         protected MMostPopularBikes ctrlPopoularBikeMake;
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected ChangeLocationPopup ctrlChangeLocation;
-
+        protected usedBikeModel ctrlusedBikeModel;
         protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {
@@ -131,17 +130,7 @@ namespace Bikewale.Mobile.Service
                 ctrlNearbyServiceCenters.makeName = makeName;
                 ctrlNearbyServiceCenters.makeMaskingName = makeMaskingName;
                 ctrlNearbyServiceCenters.topCount = 8;
-                if (ctrlPopularModels != null)
-                {
-                    ctrlPopularModels.MakeId = makeId;
-                    ctrlPopularModels.CityId = cityId;
-                    ctrlPopularModels.header = string.Format("Used {0} bikes in {1}", makeName, cityName);
-                    ctrlPopularModels.TopCount = 4;
-                    ctrlPopularModels.MakeName = makeName;
-                    ctrlPopularModels.MakeMaskingName = makeMaskingName;
-                    ctrlPopularModels.CityName = cityName;
-                    ctrlPopularModels.CityMaskingName = cityMaskingName;
-                }
+
 
                 ctrlPopoularBikeMake.makeId = (int)makeId;
                 ctrlPopoularBikeMake.cityId = (int)cityId;
@@ -154,6 +143,17 @@ namespace Bikewale.Mobile.Service
                 {
                     ctrlChangeLocation.UrlCityId = cityId;
                     ctrlChangeLocation.UrlCityName = cityName;
+                }
+                if (ctrlusedBikeModel != null)
+                {
+
+                    ctrlusedBikeModel.MakeId = makeId;
+                    if (cityId > 0)
+                        ctrlusedBikeModel.CityId = cityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeName, cityId > 0 ? cityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
                 }
             }
             catch (Exception ex)

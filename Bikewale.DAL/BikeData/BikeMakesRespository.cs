@@ -586,10 +586,46 @@ namespace Bikewale.DAL.BikeData
 
             return bikeLinkList;
         }
-
+        /// <summary>
+        /// Created by : Aditi Srivastava on 15 Mar 2017
+        /// Summary    : Get scooter synopsis
+        /// </summary>
         public BikeDescriptionEntity GetScooterMakeDescription(uint makeId)
         {
-            throw new NotImplementedException();
+            BikeDescriptionEntity objDesc = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmakesynopsis"))
+                {
+                    
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objDesc = new BikeDescriptionEntity()
+                            {
+                                Name = Convert.ToString(dr["MakeName"]),
+                                SmallDescription = Convert.ToString(dr["scooterdescription"]),
+                                FullDescription = Convert.ToString(dr["scooterdescription"])
+                            };
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorClass objErr = new ErrorClass(ex,string.Format("Bikewale.DAL.BikeData.BikeMakeRepository.GetScooterMakeDescription: MakeId:{0}",makeId));
+            }
+
+            return objDesc;
         }
     }
 }

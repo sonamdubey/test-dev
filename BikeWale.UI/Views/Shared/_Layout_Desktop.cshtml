@@ -1,7 +1,6 @@
 ﻿<!doctype html>
 <html>
 <head>
-
     @{
         var Title = ViewBag.Title;
         var PageMetaTags = ViewBag.PageMetaTags;
@@ -37,26 +36,22 @@
         bool IsHomePage = Convert.ToBoolean(ViewBag.IsHomePage != null ? ViewBag.IsHomePage : false);
         bool IsHeaderFix = Convert.ToBoolean(ViewBag.IsHeaderFix!=null ? ViewBag.IsHeaderFix : true);
     }
-    @if (PageMetaTags != null)
-    {
-        if (!String.IsNullOrEmpty(PageMetaTags.Title))
-        { 
-            <title>@PageMetaTags.Title</title>
+    @if (PageMetaTags != null){if (!String.IsNullOrEmpty(PageMetaTags.Title)){ 
+<title>@PageMetaTags.Title</title>
         }
-        if (!String.IsNullOrEmpty(PageMetaTags.Description))
-        {
-            <meta name="description" content="@PageMetaTags.Description" />
+        if (!String.IsNullOrEmpty(PageMetaTags.Description)){
+<meta name="description" content="@PageMetaTags.Description" />
         }
         if (!String.IsNullOrEmpty(PageMetaTags.Keywords))
         {
-            <meta name="keywords" content="@PageMetaTags.Keywords" />
+<meta name="keywords" content="@PageMetaTags.Keywords" />
         }
         if (EnableOG)
         {
-            <meta property="og:title" content="@PageMetaTags.Title" />
-            <meta property="og:type" content="website" />
-            <meta property="og:description" content="@PageMetaTags.Description" />
-            <meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
+<meta property="og:title" content="@PageMetaTags.Title" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="@PageMetaTags.Description" />
+<meta property="og:image" content="@(string.IsNullOrEmpty(OGImage) ? Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo : OGImage)" />
             if (!String.IsNullOrEmpty(PageMetaTags.CanonicalUrl))
             {
                 <meta property="og:url" content="@PageMetaTags.CanonicalUrl" />

@@ -56,7 +56,6 @@ namespace Bikewale.New
         private bool redirectToPageNotFound = false, redirectPermanent = false;
         protected bool isAreaAvailable, isAreaSelected, isDiscontinued;
         protected String clientIP = CommonOpn.GetClientIP();
-        protected UsedBikes ctrlRecentUsedBikes;
         protected BikeRankingEntity bikeRankObj;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
         protected ChangeLocationPopup ctrlChangeLocation;
@@ -114,6 +113,8 @@ namespace Bikewale.New
         /// Description : Added chnage location prompt widget
         ///  Modified  By :- Sajal Gupta on 13 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified By :-Subodh Jain on 15 March 2017
+        /// Summary :Removed Used Bike widget
         /// </summary>
         private void BindControl()
         {
@@ -135,10 +136,6 @@ namespace Bikewale.New
             ctrlLeadCapture.CityId = cityId;
             ctrlLeadCapture.ModelId = modelId;
             ctrlLeadCapture.AreaId = 0;
-
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.TopCount = 6;
-            ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
 
 
 

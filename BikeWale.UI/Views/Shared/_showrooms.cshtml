@@ -4,7 +4,7 @@
 @if (ViewBag.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
 { 
     <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-        <h2 class="padding-right20 padding-left20 margin-bottom15">@ViewBag.MakeName showrooms in @ViewBag.CityName</h2>
+        <h2 class="padding-right20 padding-left20 margin-bottom15">@ViewBag.MakeName Showrooms in @ViewBag.CityName</h2>
 
         <ul id="city-dealer-list" class="bw-horizontal-cards">
             @foreach(var dealer in Model.dealers.Dealers){

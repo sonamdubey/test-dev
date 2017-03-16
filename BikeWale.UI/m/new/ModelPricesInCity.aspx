@@ -4,7 +4,6 @@
 <%@ Register Src="~/m/controls/DealersCard.ascx" TagName="Dealers" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/NewAlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedBikes.ascx" TagName="MostRecentusedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
 
@@ -199,16 +198,6 @@
             </div>
         </section>
 
-
-
-        <% if (ctrlRecentUsedBikes.fetchedCount > 0)
-           { %>
-        <section>
-            <div class="box-shadow bg-white margin-bottom10">
-                <BW:MostRecentUsedBikes runat="server" ID="ctrlRecentUsedBikes" />
-            </div>
-        </section>
-        <%} %>
         <span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
         <p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10">
             BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 

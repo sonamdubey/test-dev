@@ -1,7 +1,15 @@
 ﻿@using Bikewale.Entities.BikeData;
 @{
+    ViewBag.Ad_976x400First = true;
+    ViewBag.Ad_976x400Second = true;
+    ViewBag.Ad_300x250BTF = false;
+    ViewBag.Ad_300x250 = false;
     ViewBag.Ad_970x90 = false;
+    ViewBag.Ad_970x90BTF = false;
+    ViewBag.Ad_970x90Bottom = false;
     ViewBag.IsHeaderFix = false;
+    ViewBag.AdId = "1395986297721";
+    ViewBag.AdPath = "/1017752/BikeWale_CompareBikes_";
     ViewBag.IsTransparentHeader = true;
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/scooters/landing.css' />";
     ViewBag.Page_JS_Path = "/src/scooters.js";
@@ -39,7 +47,7 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
-                
+
 
                 @{Html.RenderAction("Brands", "Scooters");}
                 <div id="discoverBudget" class="bw-tabs-data padding-bottom15 hide">
@@ -122,7 +130,12 @@
         <div class="clear"></div>
     </div>
 </section>
-
+@if (ViewBag.Ad_976x400First)
+{
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_First.cshtml", new { AdId = ViewBag.AdId });}
+    </section>
+}
 <section>
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Featured scooters</h2>
@@ -130,12 +143,12 @@
             <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul>
-                    @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
-                    { 
-                         <li class="active" data-tabs="ctrlMostPopularBikes">
-                          <h3>Most Popular</h3>
-                        </li>
-                    }
+                        @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
+                        {
+                            <li class="active" data-tabs="ctrlMostPopularBikes">
+                                <h3>Most Popular</h3>
+                            </li>
+                        }
                         @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                         {
                             <li data-tabs="ctrlNewLaunchedBikes">
@@ -152,11 +165,11 @@
                 </div>
                 @if (popularScooters.PopularScooters != null && popularScooters.PopularScooters.Count() > 0)
                 {
-                <div id="ctrlMostPopularBikes" class="bw-tabs-data">
-               @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
-               </div>
+                    <div id="ctrlMostPopularBikes" class="bw-tabs-data">
+                        @Html.Partial("~/Views/Shared/_popularBikesScooters.cshtml", popularScooters)
+                    </div>
                 }
-                     @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
+                @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
                 {
                     <div class="bw-tabs-data hide" id="ctrlNewLaunchedBikes">
                         @Html.Partial("~/Views/Shared/_newLaunches.cshtml", NewLaunchesList)
@@ -177,6 +190,12 @@
 {
     <section>
         @Html.Partial("~/Views/Shared/_popularComparisions.cshtml", TopScootersCompares)
+    </section>
+}
+@if (ViewBag.Ad_976x400Second)
+{
+    <section>
+        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad976x400_Second.cshtml", new { AdId = ViewBag.AdId });}
     </section>
 }
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/src/frameworks.js?@ViewBag.staticFileVersion"></script>

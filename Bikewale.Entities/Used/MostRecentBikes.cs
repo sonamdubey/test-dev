@@ -11,6 +11,8 @@ namespace Bikewale.Entities.UsedBikes
     /// Added CityId ,kilometer,OriginalImagePath,HostUrl,owner
     /// Modeified by:- Sangram Nandkhile 07 Feb 2017
     /// Added Minimum Price of for the model
+    /// Modified By :-Subodh Jain on 15 March 2017
+    /// Summary :-Added  UsedHostUrl,UsedOriginalImagePath,ModelId
     [Serializable, DataContract]
     public class MostRecentBikes
     {
@@ -50,5 +52,15 @@ namespace Bikewale.Entities.UsedBikes
         public uint owner { get; set; }
         [DataMember]
         public string MinimumPrice { get; set; }
+        [DataMember]
+        public string UsedHostUrl { get; set; }
+        [DataMember]
+        public string UsedOriginalImagePath { get; set; }
+        [DataMember]
+        public uint ModelId { get; set; }
+
+
+
+
     }
 }

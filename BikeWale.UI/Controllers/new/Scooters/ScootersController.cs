@@ -48,8 +48,9 @@ namespace Bikewale.Controllers.Desktop.Scooters
         [DeviceDetection]
         public ActionResult Index()
         {
-            PopulateNewlaunch();
-            PopularScooters();
+            int pageCatId = 7;
+            PopulateNewlaunch(pageCatId);
+            PopularScooters(9, pageCatId, PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price);
             UpcomingScooters();
             CompareScootersList();
             ViewBag.PageMetaTags = new ScootersHelper().CreateLandingMetaTags(true);
@@ -59,8 +60,9 @@ namespace Bikewale.Controllers.Desktop.Scooters
         [Route("m/scooters/")]
         public ActionResult MIndex()
         {
-            PopulateNewlaunch();
-            MPopularScooters();
+            int pageCatId = 7;
+            PopulateNewlaunch(pageCatId);
+            PopularScooters(9, pageCatId, PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price);
             UpcomingScooters();
             CompareScootersList();
             ViewBag.PageMetaTags = new ScootersHelper().CreateLandingMetaTags(false);
@@ -97,7 +99,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// Created By :- Subodh Jain 09 March 2017
         /// Summary :- Populate New launchs
         /// </summary>
-        private void PopulateNewlaunch()
+        private void PopulateNewlaunch(int pageCatId)
         {
             uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
             var filters = new InputFilter()
@@ -108,21 +110,22 @@ namespace Bikewale.Controllers.Desktop.Scooters
             };
             NewLaunchedBikeResult objNewLaunchesBikes = _newLaunches.GetBikes(filters);
             ViewBag.NewLaunchesList = objNewLaunchesBikes;
+            ViewBag.PageCatId = pageCatId;
         }
 
         /// <summary>
         /// Created by : Aditi Srivastava on 9 Mar 2017
-        /// Summary    : get list of popular scooters
+        /// Summary    : Get list of popular scooters
         /// </summary>
-        private void PopularScooters()
+        private void PopularScooters(uint topCount,int pageCatId,PQSourceEnum pqSource)
         {
             uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            uint topCount = 9;
+            
             PopularScootersList objScooters = new PopularScootersList();
             objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
 
-            objScooters.PQSourceId = (int)PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price;
-            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Desktop;
+            objScooters.PQSourceId = (int)pqSource;
+            objScooters.PageCatId = pageCatId;
             ViewBag.popularScooters = objScooters;
         }
 
@@ -130,6 +133,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
         [DeviceDetection]
         public ActionResult BikesByMake(string makemaskingname)
         {
+            ViewBag.PageCatId = 8;
             ViewBag.showServiceCenter=false;
             ViewBag.showServiceWidget = false;
             ViewBag.showDealerWidget = false;
@@ -137,6 +141,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
             ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
             IEnumerable<MostPopularBikesBase> ScootersList = null;
             ViewBag.MakeName = "";
+            ViewBag.MakeMaskingName = makemaskingname;
             MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makemaskingname);
             if (objResponse != null)
             {
@@ -147,7 +152,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
                 UpcomingMakeScooters((int)objResponse.MakeId);
                 DealerShowrooms(ViewBag.CityId, objResponse.MakeId, Convert.ToUInt16(ViewBag.CityId > 0 ? 3 : 6));
                 ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 3);
-                BikeDescriptionEntity scooterSynopis = _objMakeRepo.GetMakeDescription((int)objResponse.MakeId);
+                BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
                 ViewBag.Synopsis = scooterSynopis;
             }
             ViewBag.ScootersList = ScootersList;
@@ -161,6 +166,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
         [Route("m/scooters/make/{makemaskingname}/")]
         public ActionResult MBikesByMake(string makemaskingname)
         {
+            ViewBag.PageCatId = 8;
             ViewBag.showServiceCenter = false;
             ViewBag.showServiceWidget = false;
             ViewBag.showDealerWidget = false;
@@ -169,6 +175,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
             IEnumerable<MostPopularBikesBase> ScootersList = null;
             ViewBag.MakeName = "";
             ViewBag.MakeId = 0;
+            ViewBag.MakeMaskingName = makemaskingname;
             MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makemaskingname);
             if (objResponse != null)
             {
@@ -179,7 +186,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
                 UpcomingMakeScooters((int)objResponse.MakeId);
                 DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
                 ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
-                BikeDescriptionEntity scooterSynopis = _objMakeRepo.GetMakeDescription((int)objResponse.MakeId);
+                BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
                 ViewBag.Synopsis = scooterSynopis;
             }
             ViewBag.ScootersList = ScootersList;
@@ -222,23 +229,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
             IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_objMakeCache, makeId, 9);
             return View("~/views/m/shared/_otherbrands.cshtml", otherBrand);
         }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 9 Mar 2017
-        /// Summary    : get list of popular scooters
-        /// </summary>
-        private void MPopularScooters()
-        {
-            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            uint topCount = 9;
-            PopularScootersList objScooters = new PopularScootersList();
-            objScooters.PopularScooters = _models.GetMostPopularScooters(topCount, cityId);
-
-            objScooters.PQSourceId = (int)PQSourceEnum.Mobile_Scooters_Landing_Check_on_road_price;
-            objScooters.PageCatId = (int)BikeInfoPageSource.ScootersLandingPage_Mobile;
-            ViewBag.popularScooters = objScooters;
-        }
-
                 
         /// <summary>
         /// Created By :- Subodh Jain 10 March 2017
@@ -285,8 +275,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// </summary>
         private void DealerShowrooms(uint cityId, uint makeId, int topCount)
         {
-
-
             Showrooms objShowrooms = new Showrooms();
             if (cityId > 0)
             {
@@ -304,7 +292,6 @@ namespace Bikewale.Controllers.Desktop.Scooters
             else
             {
                 objShowrooms.dealerServiceCenter = _dealerCache.GetPopularCityDealer(makeId, (uint)topCount);
-
             }
             if (objShowrooms.dealerServiceCenter != null)
             {

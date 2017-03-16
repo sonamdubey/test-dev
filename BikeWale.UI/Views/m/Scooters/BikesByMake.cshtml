@@ -1,5 +1,12 @@
 ﻿@using Bikewale.Utility;
 @{
+    ViewBag.Ad_320x50 = true;
+    ViewBag.Ad_Bot_320x50 = true;
+    ViewBag.Ad_300x250 = false;
+    ViewBag.Ad320x150_Top = false;
+    ViewBag.Ad320x150_Bottom = false;
+    ViewBag.AdPath = "/1017752/Bikewale_Mobile_Make";
+    ViewBag.AdId = "1444028878952";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/scooters/listing.css' />";
     ViewBag.Page_JS_Path = "/m/src/scooters-by-make.js";
@@ -15,7 +22,7 @@
 
 <section>
     <div class="container content-box-shadow card-bottom-margin">
-        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName scooters</h1>
+        <h1 class="padding-15-20 content-box-shadow">@ViewBag.MakeName Scooters</h1>
        @if (ScootersList != null && ScootersList.Count() > 0)
        { <ul class="bike-listing">
            @foreach (var bikedetails in ScootersList)
@@ -37,7 +44,7 @@
                      <span class="value-size-14"> onwards</span>
                  </a>
                 <div class="margin-top15">
-                    <a href="javascript:void(0)" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId"  class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
+                    <a href="javascript:void(0)" data-pagecatid="@ViewBag.PageCatId" data-makename="@bikedetails.objMake.MakeName" data-modelname="@bikedetails.objModel.ModelName" data-pqsourceid="@Convert.ToUInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_Scooters_Landing_Check_on_road_price)" data-modelid="@bikedetails.objModel.ModelId" class="btn btn-white btn-180-32 getquotation" rel="nofollow">Check on-road price</a>
                 </div>
             </li>
            }
@@ -53,7 +60,7 @@
 }
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of other brands</h2>
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Scooters of Other Brands</h2>
 
             @{ Html.RenderAction("OtherBrandsMobile", "Scooters", new { makeId = @ViewBag.MakeId }); }
 
@@ -65,13 +72,14 @@
     
 <section>
     <div class="container content-box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName scooters</h2>
+        <h2 class="padding-right20 padding-bottom15 padding-left20">Upcoming @ViewBag.MakeName Scooters</h2>
         @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", upcomingScooters)
       </div>
     </section>     
 }
 
-
+@if ((ViewBag.Synopsis != null && ViewBag.Synopsis.FullDescription.Length > 0) || showDealerWidget || (showServiceWidget && ViewBag.CityId > 0))
+{
 <section>
     <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
         <div id="makeOverallTabsWrapper">
@@ -109,7 +117,7 @@
 @if (serviceCenters != null && serviceCenters.Count() > 0)
 {
     <div class="container card-bottom-margin padding-bottom20">
-        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName service centers in @ViewBag.CityName</h2>
+        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
         @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
             <p class="margin-top5 margin-left20 margin-bottom15">@ViewBag.biLineText</p>
     }
@@ -124,5 +132,6 @@
         <div id="makeSpecsFooter"></div>
     </div>
 </section>
+}
 
 <script type="text/javascript" src="@(!string.IsNullOrEmpty(ViewBag.staticUrl) ? ("https://st.aeplcdn.com" + @ViewBag.staticUrl) : "")/m/src/frameworks.js?@ViewBag.staticFileVersion"></script>
