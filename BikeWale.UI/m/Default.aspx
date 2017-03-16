@@ -325,6 +325,200 @@
         <!-- Compare code Ends here -->
 
         <section>
+            <div class="container">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
+                <div class="bw-tabs-panel padding-bottom20 content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex tabs-bottom15">
+                        <ul>
+                            <li class="active" data-tabs="usedByCity">City</li>
+                            <li data-tabs="usedByBudget">Budget</li>
+                            <li data-tabs="usedByModel">Model</li>
+                        </ul>
+                    </div>
+
+                    <div class="bw-tabs-data" id="usedByCity">
+                        <div class="swiper-container card-container swiper-city">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <span class="city-sprite c1-icon"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="font14 margin-bottom5">Mumbai</h3>
+                                                <p class="font14 text-light-grey">2220 Used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <span class="city-sprite c12-icon"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="font14 margin-bottom5">Pune</h3>
+                                                <p class="font14 text-light-grey">2220 Used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <span class="city-sprite c2-icon"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="font14 margin-bottom5">Bangalore</h3>
+                                                <p class="font14 text-light-grey">2220 Used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <span class="city-sprite c10-icon"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="font14 margin-bottom5">New Delhi</h3>
+                                                <p class="font14 text-light-grey">2220 Used bikes</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bw-tabs-data hide" id="usedByBudget">
+                        <ul class="elevated-card-list padding-top5">
+                            <li>
+                                <a href="" title="">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">30K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">30K -</span>
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">60K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" title="">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">60K</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bw-tabs-data hide" id="usedByModel">
+                        <div class="swiper-container card-container swiper-type-min">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com///174x98//bw/upcoming/hero-dare-560.jpg?20151209054851" alt="" src="" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="target-link font12 text-truncate margin-bottom5">Hero Dare</h3>
+                                                <p class="font14 text-light-grey margin-bottom5">2220 Used bikes</p>
+                                                <div class="text-default">
+                                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                                    <span class="text-bold font16">89,000</span>
+                                                    <span class="text-bold font14">onwards</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com///174x98//bw/upcoming/hero-dare-560.jpg?20151209054851" alt="" src="" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="target-link font12 text-truncate margin-bottom5">Hero Dare</h3>
+                                                <p class="font14 text-light-grey margin-bottom5">2220 Used bikes</p>
+                                                <div class="text-default">
+                                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                                    <span class="text-bold font16">89,000</span>
+                                                    <span class="text-bold font14">onwards</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com///174x98//bw/upcoming/hero-dare-560.jpg?20151209054851" alt="" src="" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="target-link font12 text-truncate margin-bottom5">Hero Dare</h3>
+                                                <p class="font14 text-light-grey margin-bottom5">2220 Used bikes</p>
+                                                <div class="text-default">
+                                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                                    <span class="text-bold font16">89,000</span>
+                                                    <span class="text-bold font14">onwards</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="swiper-card">
+                                        <a href="" title="">
+                                            <div class="swiper-image-preview">
+                                                <img class="swiper-lazy" data-src="http://imgd1.aeplcdn.com///174x98//bw/upcoming/hero-dare-560.jpg?20151209054851" alt="" src="" />
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                            <div class="swiper-details-block">
+                                                <h3 class="target-link font12 text-truncate margin-bottom5">Hero Dare</h3>
+                                                <p class="font14 text-light-grey margin-bottom5">2220 Used bikes</p>
+                                                <div class="text-default">
+                                                    <span class="bwmsprite inr-xsm-icon"></span>
+                                                    <span class="text-bold font16">89,000</span>
+                                                    <span class="text-bold font14">onwards</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
             <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
         </section>
 

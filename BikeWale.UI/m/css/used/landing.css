@@ -317,11 +317,6 @@ h2.section-heading {
 .c198-icon { width: 110px; background-position: -413px 0; }
 .c220-icon { width: 106px; background-position: -529px 0; }
 
-.card-container {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
 .swiper-details-block {
     text-align: left;
 }
@@ -414,25 +409,4 @@ h2.section-heading {
 
 .author-grey-icon-xs {
     background-position: -196px -486px
-}
-
-/* common */
-.swiper-card {
-    margin-left: 5px;
-    width: 200px;
-    min-height: 200px;
-    border: 1px solid #e2e2e2\9;
-    background: #fff;
-    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -ms-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -ms-border-radius: 2px;
-    border-radius: 2px;
-}
-
-.swiper-wrapper .swiper-slide:first-child {
-    margin-left: 10px;
 }
