@@ -32,6 +32,12 @@ $(document).ready(function () {
     comparisonCarousel.find(".jcarousel-control-next").jcarouselControl({
         target: '+=2'
     });
+
+    var makeDealersContent = $('#makeDealerContent');
+
+    if (makeDealersContent.length != 0) {
+        makeDealersContent.removeClass('bw-model-tabs-data');
+    }
 });
 
 // read more - collapse
@@ -57,11 +63,7 @@ var makeOverallTabs = $('#makeOverallTabs'),
 
 makeOverallTabs.find('.overall-specs-tabs-wrapper a').first().addClass('active');
 
-var makeDealersContent = $('#makeDealersContent');
 
-if (makeDealersContent.length != 0) {
-    makeDealersContent.removeClass('bw-model-tabs-data');
-}
 
 if (makeOverallTabs.length > 0) {
     attachListener('scroll', window, highlightSpecTabs);
