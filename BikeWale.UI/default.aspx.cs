@@ -29,7 +29,6 @@ namespace Bikewale
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
 
         protected UpcomingBikes_new ctrlUpcomingBikes;
@@ -78,8 +77,6 @@ namespace Bikewale
             ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(currentCityArea.City) ? currentCityArea.City : "India");
-            ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 
             BindRepeaters();

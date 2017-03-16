@@ -4,12 +4,13 @@
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewVideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -392,11 +393,7 @@
             </div>
         </section>
         <!-- Ends here -->
-        <section>
-            <div class="<%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
-                <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
-            </div>
-        </section>
+       
 
         <!-- Ends here -->
         <% 
