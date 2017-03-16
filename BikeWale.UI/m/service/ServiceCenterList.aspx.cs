@@ -49,7 +49,7 @@ namespace Bikewale.Mobile.Service
         protected BrandCityPopUp ctrlBrandCity;
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected ChangeLocationPopup ctrlChangeLocation;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected string listingHeading;
         protected override void OnInit(EventArgs e)
         {

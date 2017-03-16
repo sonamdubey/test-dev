@@ -30,7 +30,7 @@ namespace Bikewale.Mobile.New
     {
         protected BikeMakeEntityBase objMMV;
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected DealersByBrand ctrlDealersByBrand;
         public ushort makeId;

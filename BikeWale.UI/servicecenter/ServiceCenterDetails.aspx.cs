@@ -24,7 +24,7 @@ namespace Bikewale.ServiceCenter
         protected DealerCard ctrlDealerCard;
         public ServiceDetailsPage serviceVM;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();

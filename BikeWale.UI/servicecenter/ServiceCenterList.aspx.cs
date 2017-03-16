@@ -48,7 +48,7 @@ namespace Bikewale.Service
         protected ServiceCentersInNearbyCities ctrlNearbyServiceCenters;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected ChangeLocationPopup ctrlChangeLocation;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();

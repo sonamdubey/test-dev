@@ -8,8 +8,9 @@
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="MMostPopularBikes" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -325,8 +326,73 @@
         <!-- Compare code Ends here -->
 
         <section>
-            <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+            <div class="container">
+                <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
+                <div class="bw-tabs-panel padding-bottom20 content-box-shadow">
+                    <div class="bw-tabs bw-tabs-flex tabs-bottom15">
+                        <ul>
+                            <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %><li class="active" data-tabs="usedByCity">City</li><%} %>
+                            <li data-tabs="usedByBudget">Budget</li>
+                                           <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %> <li data-tabs="usedByModel">Model</li><%} %>
+                        </ul>
+                    </div>
+<%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %>
+                    <div class="bw-tabs-data" id="usedByCity">
+                    <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
+                    </div>
+                    <%} %>
+                    <div class="bw-tabs-data hide" id="usedByBudget">
+                        <ul class="elevated-card-list padding-top5">
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=0+35000" rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-one"></span>
+                                        </div>
+                                        <span class="key-size-14">Upto</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">35K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=35000+80000"  rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-two"></span>
+                                        </div>
+                                        <span class="key-size-14">Between</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">35K -</span>
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">80K</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/m/used/bikes-in-india/#budget=80000+200000"  rel="nofollow">
+                                    <div class="table-middle">
+                                        <div class="tab-icon-container">
+                                            <span class="bwmsprite budget-three"></span>
+                                        </div>
+                                        <span class="key-size-14">Above</span><br />
+                                        <span class="bwmsprite inr-xsm-icon"></span> <span class="value-size-15">80K</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                                      <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                  <div class="bw-tabs-data hide" id="usedByModel">
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        </div>
+                    <% } %> 
+                    </div>
+                
+            </div>
         </section>
+
+      
 
         <%
             if (ctrlNews.FetchedRecordsCount > 0)

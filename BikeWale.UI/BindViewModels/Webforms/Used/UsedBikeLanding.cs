@@ -1,5 +1,4 @@
-﻿using Bikewale.BindViewModels.Controls;
-using Bikewale.Cache.Core;
+﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -61,7 +60,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                     GetAllMakes(objUsedBikes, topCount);
                     GetAllCities(objCitiesCache);
-                    BindCityWidgetWithCount();
                 }
             }
             catch (Exception ex)
@@ -148,24 +146,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
         }
 
-        /// <summary>
-        /// Created By: Subodh Jain on 06 Oct, 2016
-        /// Description: Get top cities with used bike count
-        /// </summary>
-        /// <param name="objCitiesCache"></param>
-        private void BindCityWidgetWithCount()
-        {
-            try
-            {
-                BindUsedBikesCityWithCount objBikeCity = new BindUsedBikesCityWithCount();
-                objCitiesWithCount = objBikeCity.GetUsedBikeByCityWithCount();
-                objCitiesWithCount = objCitiesWithCount.Where(x => x.Priority > 0);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Default.BindCityWidgetWithCount");
-                objErr.SendMail();
-            }
-        }
+
     }
 }

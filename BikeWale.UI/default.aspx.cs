@@ -29,13 +29,13 @@ namespace Bikewale
         protected NewExpertReviews ctrlExpertReviews;
         protected NewVideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected OnRoadPricequote ctrlOnRoadPriceQuote;
 
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
-
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected BestBikes ctrlBestBikes;
 
         protected short reviewTabsCnt = 0;
@@ -78,8 +78,6 @@ namespace Bikewale
             ctrlVideos.ShowWidgetTitle = false;
             ctrlCompareBikes.TotalRecords = 4;
             GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-            ctrlPopularUsedBikes.header = String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(currentCityArea.City) ? currentCityArea.City : "India");
-            ctrlPopularUsedBikes.TotalRecords = 6;
             ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
 
             BindRepeaters();
@@ -88,6 +86,8 @@ namespace Bikewale
         /// <summary>
         /// Created By : Sushil Kumar on 28th Oct 2016
         /// Description : Added new launched,upcoming and poular bikes binding 
+        /// Modified By :- Subodh Jain 16 March 2016
+        /// Summary :- Added Used and city widget
         /// </summary>
         private void BindBikesWidgets()
         {
@@ -104,12 +104,30 @@ namespace Bikewale
                 //To get Upcoming Bike List Details 
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
+                GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                string _cityName = currentCityArea.City;
+                if (ctrlusedBikeModel != null)
+                {
+
+                    CityEntityBase cityDetails = null;
+
+                    if (currentCityArea.CityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
+                        ctrlusedBikeModel.CityId = currentCityArea.CityId;
+                    }
+
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                    ctrlusedBikeModel.IsLandingPage = true;
+                }
+
 
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindBikesWidgets");
-                objErr.SendMail();
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Default.BindBikesWidgets");
             }
         }
 

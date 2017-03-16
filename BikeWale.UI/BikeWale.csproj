@@ -795,6 +795,10 @@
       <DependentUpon>UsedBikeByModels.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\usedBikeInCities.ascx.cs">
+      <DependentUpon>usedBikeInCities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\usedBikeModel.ascx.cs">
       <DependentUpon>usedBikeModel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1090,6 +1094,10 @@
     </Compile>
     <Compile Include="m\controls\UsedBikeByModels.ascx.cs">
       <DependentUpon>UsedBikeByModels.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\usedBikeInCities.ascx.cs">
+      <DependentUpon>usedBikeInCities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\UsedBikeLeadCaptureControl.ascx.cs">
@@ -2210,6 +2218,7 @@
     <Content Include="controls\UpcomingBikesMinNew.ascx" />
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikeByModels.ascx" />
+    <Content Include="controls\usedBikeInCities.ascx" />
     <Content Include="controls\usedBikeModel.ascx" />
     <Content Include="controls\UsedBikeModelByCity.ascx" />
     <Content Include="controls\UsedBikes.ascx" />
@@ -2748,6 +2757,7 @@
     <Content Include="m\controls\PopularModelComparison.ascx" />
     <Content Include="controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\UsedBikeByModels.ascx" />
+    <Content Include="m\controls\usedBikeInCities.ascx" />
     <Content Include="m\controls\UsedBikeLeadCaptureControl.ascx" />
     <Content Include="m\controls\usedbikemodel.ascx" />
     <Content Include="m\controls\UsedBikeModelByCity.ascx" />
