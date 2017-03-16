@@ -70,7 +70,7 @@ namespace BikewaleOpr.Service.Controllers.Content
         {
             SynopsisData objSynopsis = BikeDataMapper.Convert(objSynopsisDto);
 
-            if (makeId > 0 && !String.IsNullOrEmpty(objSynopsis.BikeDescription))
+            if (makeId > 0)
             {
                 try
                 {

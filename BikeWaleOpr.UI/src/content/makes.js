@@ -70,10 +70,10 @@ var addSynopsis = function () {
                 }
             });
         }
-    }
+    }    
 
     self.updateSynopsis = function () {
-        if (self.selectedMake() != null && self.selectedMake().makeId > 0 && self.makeSynopsis() != "") {
+        if (self.selectedMake() != null && self.selectedMake().makeId > 0) {
             var synopsisData = {
                 "scooterDescription": self.makeScooterSynopsis(),
                 "bikeDescription": self.makeSynopsis()
