@@ -584,30 +584,40 @@
                    <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                 </div>
 
+                <!-- colours code starts here -->
                 <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                { %>   
-                <!-- colours code starts here -->    
+                  { %>
                 <div id="modelColoursContent" class="bw-model-tabs-data font14">
                     <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colours</h2>
                     <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
-                    <asp:Repeater ID="rptColors" runat="server">
-                            <ItemTemplate>                        
-                                <li>
-                                    <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
-                                        <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
-                                            <ItemTemplate>
-                                                    <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                    <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
-                                </li>
-                            </ItemTemplate>
-                    </asp:Repeater>
+                        <% foreach (var modelColor in modelPage.ModelColors)
+                           { %>
+                        <li>
+                            <%  if (modelColor.ColorImageId > 0 && modelPage.ModelDetails != null && modelPage.ModelDetails.MakeBase != null)
+                                { %>
+                            <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true&colorImageId=<%=modelColor.ColorImageId %>#modelGallery">
+                                <%} %>
+                                <div class="color-box <%= (((IList)modelColor.HexCodes).Count == 1 )?"color-count-one": (((IList)modelColor.HexCodes).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
+                                    <% if (modelColor.HexCodes != null && modelColor.HexCodes.Count() > 0)
+                                       {
+                                           foreach (var HexCode in modelColor.HexCodes)
+                                           { %>
+                                    <span <%= String.Format("style='background-color: #{0}'",Convert.ToString(HexCode)) %>></span>
+                                    <%}
+                                   } %>
+                                </div>
+                                <p class="font16 inline-block"><%= Convert.ToString(modelColor.ColorName) %></p>
+                                <%  if (modelColor.ColorImageId > 0)
+                                    { %>  
+                            </a>
+                            <%} %> 
+                        </li>
+                        <%} %>
                     </ul>
                 </div>
+                <div class="margin-right20 margin-left20 padding-top15 border-solid-bottom"></div>
                 <%} %>
-                        <!-- colours code ends here -->
+                <!-- colours code ends here -->
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
@@ -831,7 +841,7 @@
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                     { %>   
-                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
+                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14">
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                        { %>
                     <h2><%=bikeName %> Reviews</h2>
@@ -840,11 +850,13 @@
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                        { %>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>
 
                     <%if (ctrlUserReviews.FetchedRecordsCount > 0)
                        { %>
                     <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>
 
                     <%if (ctrlNews.FetchedRecordsCount > 0)
@@ -852,6 +864,7 @@
                     <div class="padding-top15">
                         <BW:News runat="server" ID="ctrlNews" />
                     </div>
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>                        
                 </div>
                 <% } %>
@@ -863,7 +876,6 @@
                     <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
                 <% } %>
-
               
                 <div id="modelSimilarContent" class="bw-model-tabs-data padding-bottom20 font14">
                       <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)

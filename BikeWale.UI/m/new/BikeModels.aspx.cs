@@ -61,7 +61,7 @@ namespace Bikewale.Mobile.New
         protected LeadCaptureControl ctrlLeadCapture;
         protected PQOnRoadPrice pqOnRoad;
         protected UsedBikes ctrlRecentUsedBikes;
-        protected Repeater rptNavigationPhoto, rptVarients, rptColors, rptOffers, rptNewOffers, rptSecondaryDealers;
+        protected Repeater rptNavigationPhoto, rptVarients, rptOffers, rptNewOffers, rptSecondaryDealers;
         protected string cityName = string.Empty, mpqQueryString = string.Empty, areaName = string.Empty, variantText = string.Empty, pqId = string.Empty, bikeName = string.Empty, bikeModelName = string.Empty, bikeMakeName = string.Empty, modelImage = string.Empty, location = string.Empty, priceText = "Ex-showroom", detailedPriceLink = string.Empty, versionText = string.Empty, summaryDescription = string.Empty, clientIP = CommonOpn.GetClientIP();
         //Varible to Hide or show controlers
         protected bool isCitySelected, isAreaSelected, isBikeWalePQ, isDiscontinued, isOnRoadPrice, toShowOnRoadPriceButton, isUserReviewActive, isExpertReviewActive, isNewsActive, isVideoActive, isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable, isDealerPQ, isDealerAssitance, isBookingAvailable, isOfferAvailable;
@@ -575,23 +575,26 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Function to bind the photos album
+        /// Modified by : Sajal Gupta on 16-03-2017
+        /// Description : Removed rptColors
         /// </summary>
         private void BindRepeaters()
         {
-            if (modelPage != null)
+            try
             {
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                if (modelPage != null)
                 {
-                    versionCount = Convert.ToUInt16(modelPage.ModelVersions.Count);
-                    rptVarients.DataSource = modelPage.ModelVersions;
-                    rptVarients.DataBind();
+                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    {
+                        versionCount = Convert.ToUInt16(modelPage.ModelVersions.Count);
+                        rptVarients.DataSource = modelPage.ModelVersions;
+                        rptVarients.DataBind();
+                    }
                 }
-
-                if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                {
-                    rptColors.DataSource = modelPage.ModelColors;
-                    rptColors.DataBind();
-                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.NewBikeModels.BindRepeaters");
             }
         }
 

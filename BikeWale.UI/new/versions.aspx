@@ -1271,7 +1271,7 @@
 
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>
-                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
                               <h2><%=bikeName %> Reviews</h2>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                                { %>
@@ -1282,18 +1282,21 @@
                                { %>
                             <div class="margin-bottom20"></div>
                             <% } %>
+                            <div class="margin-top15 padding-top15 border-solid-top"></div>
                             <% } %>
 
                             <% if (ctrlUserReviews.FetchedRecordsCount > 0)
                                { %>
                             <!-- user reviews -->
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- user reviews ends -->
                             <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                { %>
                             <!-- News widget starts -->
                                 <BW:LatestNews runat="server" ID="ctrlNews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- News widget ends -->
                             <% } %>
                         </div>
