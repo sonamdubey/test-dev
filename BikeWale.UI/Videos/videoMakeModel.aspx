@@ -123,7 +123,14 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-top20 font14">
-                            <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                            <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="<%= Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(ctrlBikesByBodyStyle.BodyStyle) %>" title="Best <%= ctrlBikesByBodyStyle.BodyStyleLinkTitle %> in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                             <BW:PopularBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
                         </div>
                     </div>

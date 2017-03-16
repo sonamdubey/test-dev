@@ -3,7 +3,7 @@
     var OtherBrands = Model.OtherBrands;
 }
 
-<div id="discoverBrand" class="bw-tabs-data text-center padding-bottom25 collapsible-brand-content">
+<div id="discoverBrand" class="bw-tabs-data text-center collapsible-brand-content">
     <div id="brand-type-container" class="brand-type-container">
         <ul>
             @foreach (var make in TopBrands) 
@@ -18,6 +18,8 @@
             </li>
             }
         </ul>
+        @if (Model.HasOtherBrands)
+        {
         <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide border-solid-top">
             @foreach (var make in OtherBrands)
             {
@@ -31,8 +33,12 @@
                 </li>
             }
         </ul>
+        }
     </div>
-    <div>
-        <a href="javascript:void(0)" class="view-brandType view-more-btn font16" rel="nofollow">View more brands</a>
+    @if (Model.HasOtherBrands)
+    {
+    <div class="view-all-btn-container padding-top10 padding-bottom30">
+        <a href="javascript:void(0)" class="view-brandType btn view-all-target-btn rotate-arrow" rel="nofollow"><span class="btn-label">View more brands</span><span class="bwsprite teal-right"></span></a>
     </div>
+    }
 </div>

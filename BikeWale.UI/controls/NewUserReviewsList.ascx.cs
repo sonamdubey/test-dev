@@ -66,7 +66,7 @@ namespace Bikewale.Controls
             MakeMaskingName = objUserReview.MakeMaskingName;
             ModelMaskingName = objUserReview.ModelMaskingName;
 
-            linkTitle = string.Format("{0} {1} User reviews", MakeName, ModelName);
+            linkTitle = string.Format("{0} {1} User Reviews", MakeName, ModelName);
 
             this.FetchedRecordsCount = objUserReview.FetchedRecordsCount;
             if (this.FetchedRecordsCount == 1)

@@ -259,7 +259,14 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="bw-model-tabs-data padding-top20 padding-bottom20 border-solid-bottom font14">
-                            <h2 class="font15 text-bold text-x-black padding-right20 padding-left20 margin-bottom15">Popular <%=makeName %> bikes in <%=cityName %></h2>
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>Popular <%=makeName %> bikes in <%=cityName %></h2>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/<%= makeMaskingName %>-bikes/" title="<%= makeName %> Bikes" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                             <BW:MostPopularBikesMake runat="server" ID="ctrlPopoularBikeMake" />
                         </div>
                     </div>

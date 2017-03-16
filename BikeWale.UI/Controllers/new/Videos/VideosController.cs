@@ -1,11 +1,11 @@
-﻿using Bikewale.BAL;
-using Bikewale.BAL.MVC.UI;
+﻿using Bikewale.BAL.MVC.UI;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.Mobile.Videos;
 using Bikewale.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -59,9 +59,9 @@ namespace Bikewale.Controllers.Desktop.Videos
                 ViewBag.Ad_300x250 = false;
                 return View("~/Views/Videos/Makes.cshtml", objModelVideos);
             }
-            else if(makeInfo.StatusCode==301)
+            else if (makeInfo.StatusCode == 301)
             {
-                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName,makeInfo.MaskingName));
+                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, makeInfo.MaskingName));
             }
             else
             {
@@ -103,8 +103,12 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
             SimilarModelsModel similarVideosModel = new SimilarModelsModel();
-            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId,modelId, 9);
+            similarVideosModel.Videos = _video.GetSimilarModelsVideos(videoId, modelId, 9);
             similarVideosModel.ModelId = modelId;
+            BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
+            similarVideosModel.ViewAllLinkText = "View all";
+            similarVideosModel.ViewAllLinkUrl = String.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
+            similarVideosModel.ViewAllLinkTitle = String.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
             return PartialView("~/views/shared/_SimilarVideo.cshtml", similarVideosModel);
         }
     }

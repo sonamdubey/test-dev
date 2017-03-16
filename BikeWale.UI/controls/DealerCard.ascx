@@ -9,7 +9,7 @@
         <div class="swiper-heading-left-grid inline-block">
             <h2><%=widgetHeading %></h2>
         </div><div class="swiper-heading-right-grid inline-block text-right">
-            <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+            <a href="<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Showrooms in <%=cityName %>" class="btn view-all-target-btn">View all</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -54,10 +54,10 @@
                         <div class="font14 padding-left20 padding-right20 padding-bottom20">
                             <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
                             <%if (details.DealerCount>0) {%>
-                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> showroom in <%=details.CityName%>" class="block"><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Showrooms in <%=details.CityName%>" class="block"><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
                             <%} %>
                             <%if (details.ServiceCenterCount>0){%>
-                            <a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> service center in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
+                            <a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Service Centers in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
                             <%} %>
                         </div>
                     </li>

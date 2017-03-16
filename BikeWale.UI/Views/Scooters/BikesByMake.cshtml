@@ -166,17 +166,20 @@
                     
                     @Html.Partial("~/Views/Shared/_showrooms.cshtml", dealerShowrooms)
 
-                    @if(serviceCenters!=null && serviceCenters.Count()>0){
-                        
-                    <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                        <h2 class="padding-top15 padding-right20 margin-bottom15 padding-left20">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
+                    @if (serviceCenters != null && serviceCenters.Count() > 0)
+                    {
+                        <div class="carousel-heading-content padding-top20">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2>@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
+                            </div><div class="swiper-heading-right-grid inline-block text-right">
+                                      <a href="@UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName)" title="@ViewBag.MakeName Service Centers in @ViewBag.cityName" class="btn view-all-target-btn">View all</a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
                     <ul class="bw-horizontal-cards font14">
                         @Html.Partial("~/Views/Shared/_ServiceCenters.cshtml", serviceCenters)
                     </ul>
                     <div class="clear"></div>
-                    <div class="padding-left20 font14 padding-bottom20">
-                        <a href="@UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName)" title="@ViewBag.MakeName service centers in @ViewBag.cityName">View all @ViewBag.MakeName service centers<span class="bwsprite blue-right-arrow-icon"></span></a>
-                    </div>
                     }
 
                 </div>

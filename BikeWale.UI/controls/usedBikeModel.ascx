@@ -1,10 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.usedBikeModel" EnableViewState="false"%>
 <%if (FetchCount > 0)
   { %>
-<div class="container">
+<div class="container padding-top20">
     <div class="grid-12 ">
-        <h2 class="padding-top10 padding-right10 padding-left10"><%= header %></h2>
-        <div class="padding-top20 padding-bottom20">
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2><%= header %></h2>
+            </div><div class="swiper-heading-right-grid inline-block text-right">
+                <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="padding-bottom20">
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
                     <ul>
@@ -13,7 +20,7 @@
                                     <a href="<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName,bikeDetails.ModelMaskingName,cityDetails!=null?cityDetails.CityMaskingName:"india") %>" title="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India")%>" class="jcarousel-card">
                                     <div class="model-jcarousel-image-preview">
                                         <div class="card-image-block">
-                                            <img class="lazy" src="" data-original="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedOriginalImagePath,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India") %>">
+                                            <img class="lazy" src="" data-original="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedHostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India") %>">
                                         </div>
                                     </div>
                                     <div class="card-desc-block">
@@ -34,9 +41,6 @@
                 </div>
                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-            </div>
-            <div class="view-all-btn-container margin-top15">
-                <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetTitle %>">View complete list<span class="bwsprite teal-right"></span></a>
             </div>
         </div>
     </div>

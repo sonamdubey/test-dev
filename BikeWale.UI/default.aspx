@@ -63,11 +63,12 @@
                                     <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                                 </li>
                             </ul>
-                              <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
+                            <ul id="new-global-recent-searches" class="recent-searches-dropdown"></ul>
                         </div>
                     </div>
                 </div>
-                <% if(bannerEntity!=null) { %>
+                <% if (bannerEntity != null)
+                   { %>
                 <%= bannerEntity.DesktopCss %>
                 <%= bannerEntity.DesktopHtml %>
                 <%= bannerEntity.DesktopJS %>
@@ -89,10 +90,18 @@
                     <div class="bw-tabs-panel content-box-shadow brand-budget-mileage-style-wrapper">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul class="brand-collapsible-present">
-                                <li class="active" data-tabs="discoverBrand"><h3>Brand</h3></li>
-                                <li data-tabs="discoverBudget"><h3>Budget</h3></li>
-                                <li data-tabs="discoverMileage"><h3>Mileage</h3></li>
-                                <li data-tabs="discoverStyle"><h3>Style</h3></li>
+                                <li class="active" data-tabs="discoverBrand">
+                                    <h3>Brand</h3>
+                                </li>
+                                <li data-tabs="discoverBudget">
+                                    <h3>Budget</h3>
+                                </li>
+                                <li data-tabs="discoverMileage">
+                                    <h3>Mileage</h3>
+                                </li>
+                                <li data-tabs="discoverStyle">
+                                    <h3>Style</h3>
+                                </li>
                             </ul>
                         </div>
                         <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
@@ -102,8 +111,8 @@
                                         <ItemTemplate>
                                             <li>
                                                 <a href="/<%# DataBinder.Eval(Container.DataItem, "MaskingName") %>-bikes/">
-                                                    <span class="brand-type">                                                        
-                                                	    <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
+                                                    <span class="brand-type">
+                                                        <span class="brandlogosprite brand-<%# DataBinder.Eval(Container.DataItem, "MakeId") %>"></span>
                                                     </span>
                                                     <span class="brand-type-title"><%# DataBinder.Eval(Container.DataItem, "MakeName") %></span>
                                                 </a>
@@ -279,13 +288,13 @@
                 <div class="clear"></div>
             </div>
         </section>
-        
+
         <section>
             <div class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount) > 0 )?" margin-bottom30":"hide" %> ">
                 <!--  Discover bikes section code starts here -->
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Featured bikes</h2>
-                    <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow padding-bottom15">
+                    <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
                                 <li class="active" style="<%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"": "display:none" %>" data-tabs="ctrlMostPopularBikes">
@@ -310,10 +319,16 @@
                                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
                                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
                             </div>
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            </div>
                         </div>
 
                         <div class="bw-tabs-data hide <%= (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlNewLaunchedBikes">
                             <BW:NewLaunchedBikes PageId="5" runat="server" ID="ctrlNewLaunchedBikes" />
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
+                            </div>
                             <!-- New Launched Bikes Control-->
                         </div>
 
@@ -327,6 +342,9 @@
                                 </div>
                                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
                                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                            </div>
+                            <div class="view-all-btn-container padding-top15 padding-bottom20">
+                                <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                             </div>
                         </div>
                     </div>
@@ -347,7 +365,8 @@
         </section>
         <%} %>
 
-        <% if(ctrlBestBikes!= null) { %>
+        <% if (ctrlBestBikes != null)
+           { %>
         <section>
             <div class="container section-bottom-margin">
                 <h2 class="text-center margin-top30 margin-bottom20 font22">Best bikes of <%= ctrlBestBikes.PrevMonthDate %></h2>
@@ -451,7 +470,7 @@
             </div>
         </section>
         <!-- Ends here -->
-        
+
         <!-- #include file="/includes/footerBW.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->

@@ -31,14 +31,14 @@
     </ul>
     <% if (!string.IsNullOrEmpty(makeMasking))
        { %>
-    <div class="margin-top10 margin-bottom10">
-        <a href="/<%= makeMasking %>-bikes/" title="All <%= makeName %> bikes" class="font14">View all <%= makeName %> bikes<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="view-all-btn-container padding-top10 padding-bottom10">
+        <a href="/<%= makeMasking %>-bikes/" title="<%= makeName %> bikes" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
     </div>
     <% } %>
     <% else 
        { %>
-    <div class="margin-top10 margin-bottom10">
-        <a href="/best-bikes-in-india/" title="Best Bikes in India" class="font14">View the complete list<span class="bwsprite blue-right-arrow-icon"></span></a>
+    <div class="view-all-btn-container padding-top10 padding-bottom10">
+        <a href="/best-bikes-in-india/" title="Best Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
     </div>
     <% } %>
 </div>

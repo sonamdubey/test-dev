@@ -1,9 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.SimilarUsedBikes" %>
 <% if (FetchedRecordsCount > 0)
    { %>
-<div id="similarContent" class="bw-model-tabs-data padding-top20 font14">
-    <h2 class="padding-left20 margin-bottom15">Similar used <%= ModelName %> bikes</h2>
-    <div class="jcarousel-wrapper inner-content-carousel used-bikes-carousel">
+<div id="similarContent" class="bw-model-tabs-data font14">
+    <div class="carousel-heading-content padding-top20">
+        <div class="swiper-heading-left-grid inline-block">
+            <h2>More <%= ModelName %> bikes in <%= CityName %></h2>
+        </div><div class="swiper-heading-right-grid inline-block text-right">
+            <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(MakeMaskingName,ModelMaskingName,CityMaskingName) %>" title="Used <%= String.Format("{0} {1}",MakeName,ModelName) %> Bikes in <%= CityName %>" class="btn view-all-target-btn">View all</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="jcarousel-wrapper inner-content-carousel used-bikes-carousel margin-bottom20">
         <div class="jcarousel">
             <ul>
                 <% foreach (var bike in similarBikeList)
@@ -58,9 +65,6 @@
         </div>
         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
-    </div>
-    <div class="padding-left20 margin-top15 padding-bottom20">
-        <a href="/used/<%= MakeMaskingName %>-<%= ModelMaskingName %>-bikes-in-<%= CityMaskingName %>/" title="Used <%= ModelName %> bikes in <%= CityName %>" rel="nofollow">View all <%= ModelName %> in <%= CityName %><span class="bwsprite blue-right-arrow-icon"></span></a>
     </div>
     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 </div>

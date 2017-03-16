@@ -107,7 +107,7 @@ namespace Bikewale.Controllers.Desktop.NewLaunches
             ViewBag.PageSize = 15;
             MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(maskingName);
             ViewBag.location = _objLocation;
-
+            ViewBag.MakeMaskingName = maskingName;
             var objFilters = new InputFilter()
             {
                 PageNo = ViewBag.PageNumber,

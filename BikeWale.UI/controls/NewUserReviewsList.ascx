@@ -39,6 +39,6 @@
     <div class="clear"></div>
 </div>
 <div class="padding-left10 view-all-btn-container">
-    <a title="<%= linkTitle %>" href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwsprite teal-right"></span></a>   
+    <a title="<%= linkTitle %>" href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  class="bw-ga btn view-all-target-btn" c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwsprite teal-right"></span></a>   
 </div>
 
