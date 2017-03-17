@@ -546,7 +546,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
+                    cmd.CommandText = "getsimilarcomparebikeslist_17032017";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, 20, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -571,6 +571,8 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     VersionId1 = Convert.ToString(reader["VersionId1"]),
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"]),
                                     ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
                                     ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
@@ -769,6 +771,8 @@ namespace Bikewale.DAL.Compare
                                     ModelMasking2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     VersionId1 = Convert.ToString(reader["VersionId1"]),
                                     VersionId2 = Convert.ToString(reader["VersionId2"]),
+                                    ModelId1 = SqlReaderConvertor.ToUInt32(reader["ModelId1"]),
+                                    ModelId2 = SqlReaderConvertor.ToUInt32(reader["ModelId2"]),
                                     ModelMaskingName1 = Convert.ToString(reader["ModelMaskingName1"]),
                                     ModelMaskingName2 = Convert.ToString(reader["ModelMaskingName2"]),
                                     OriginalImagePath1 = Convert.ToString(reader["OriginalImagePath1"]),
