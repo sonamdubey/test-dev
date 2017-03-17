@@ -1468,6 +1468,20 @@ docReady(function () {
         viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
     });
 
+// read more - collapse
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.addClass('active');
+        element.text(' Collapse');
+    }
+    else {
+        parentElemtent.removeClass('active');
+        element.text('...Read more');
+    }
+});
     $(".modelurl").click(function () {
         var array = $(this).attr('href').split('/');
         if (array.length > 2) {

@@ -12,8 +12,11 @@ $(document).ready(function () {
         'min-height': windowHeight
     });
 
-    
     mapDimension();
+
+    mapDealersArray();
+    initializeMap(dealerArr);
+
     $(window).on('scroll', function () {
         if (typeof (mapColumn[0]) != 'undefined') { // sticky feature if dealers are present
             var windowTop = $(window).scrollTop(),
@@ -167,9 +170,6 @@ $(document).on('mouseover', '#center-list li', function () {
         }
     }
 });
-
-mapDealersArray();
-initializeMap(dealerArr);
 
 function mapDealersArray() {
     $("ul#center-list li").each(function () {

@@ -7,7 +7,7 @@
         <div class="content-box-shadow padding-top20 padding-bottom20">
             <h2 class="font18 padding-bottom20 padding-left20">Explore <%= MakeName %> showrooms in cities near <%= CityName %></h2>
             <div class="jcarousel-wrapper inner-content-carousel map-type-carousel">
-                <div class="jcarousel" data-jcarousel="true">
+                <div class="jcarousel">
                     <ul>
                         <% foreach (var Dealer in DealerCountCityList)
                           { %>
@@ -23,7 +23,7 @@
                         <%} %>
                     </ul>
                 </div>
-                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
+                <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                 <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
             </div>
         </div>

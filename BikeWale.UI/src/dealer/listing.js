@@ -43,6 +43,9 @@ $(document).ready(function () {
             });
         }  
     });
+
+    mapDealersArray();
+    initializeMap(dealerArr);
 });
 
 $(window).resize(function () {
@@ -143,9 +146,6 @@ $(document).on('mouseover', '#dealersList li', function () {
         }
     }
 });
-
-mapDealersArray();
-initializeMap(dealerArr);
 
 function mapDealersArray() {
     $("ul#dealersList li").each(function () {

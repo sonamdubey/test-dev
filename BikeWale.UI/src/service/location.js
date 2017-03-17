@@ -31,6 +31,8 @@ $(document).ready(function () {
 	// filter no-result message
 	$('#no-result').text('No result found!');
 	mapDealersArray();
+
+	initializeMap(locationArr, initialLat, initialLong, initialZoom); //india
 });
 
 $(window).resize(function () {
@@ -313,9 +315,6 @@ function mapCityArray(listitem) {
     });
         return citynewArr;
 }
-
-mapDealersArray();
-initializeMap(locationArr, initialLat, initialLong, initialZoom); //india
 
 // faqs
 $('.accordion-list').on('click', '.accordion-head', function () {

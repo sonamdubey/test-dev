@@ -32,8 +32,11 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/css/newbikes.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
 </head>
 <body class="page-type-landing">
     <form runat="server">
@@ -339,6 +342,8 @@
             <div class="clear"></div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+
          <% if(ctrlBestBikes!= null) { %>
         <section>
             <div class="container section-bottom-margin">
@@ -480,6 +485,7 @@
             </div>
         </section>
         <!-- #include file="/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
@@ -510,6 +516,7 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");           
         </script>
+        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>
