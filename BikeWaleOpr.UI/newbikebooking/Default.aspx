@@ -262,7 +262,7 @@
         }
 
         ddlCities.change(function (item, event) {
-            self.selectedCity(ddlCities.select().val());
+            self.selectedCity(ddlCities.val());
             showHideMatchError(ddlCities, false);
             showHideMatchError(ddlMakes, false);
             showHideMatchError(ddlDealers, false);
@@ -271,16 +271,18 @@
             self.cityChanged();
         });
         ddlMakes.change(function () {
-            self.selectedMake(ddlMakes.select().val());
+            self.selectedMake(ddlMakes.val());
             showHideMatchError(ddlMakes, false);
             showHideMatchError(ddlDealers, false);
             self.ClearDealers();
             self.makeChanged();
         });
         ddlDealers.change(function () {
-            self.selectedDealer(ddlDealers.select().val());
-            showHideMatchError(ddlDealers, false);
-            $('#hdnDealerId').val(self.selectedDealer());
+            if (ddlDealers.val()) {
+                self.selectedDealer(ddlDealers.val());
+                showHideMatchError(ddlDealers, false);
+                $('#hdnDealerId').val(self.selectedDealer());
+            }
         });
 
         self.cityChanged = function () {
