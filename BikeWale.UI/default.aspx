@@ -399,16 +399,15 @@
                     <div class="bw-tabs-panel content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li data-tabs="usedByCity"><h3>City</h3></li>
-                                <li class="active" data-tabs="usedByBudget"><h3>Budget</h3></li>
-                                <li data-tabs="usedByModel"><h3>Model</h3></li>
+                                <% if (ctrlusedBikeModel.FetchCount>0){ %> <li class="active" data-tabs="usedByModel"><h3>Model</h3></li><%} %>
+                                  <li  data-tabs="usedByBudget"><h3>Budget</h3></li>
+                                <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %> <li data-tabs="usedByCity"><h3>City</h3></li><%} %>
                             </ul>
                         </div>
                                  <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
                                    { %>
           
                       <section>
-               
                       <div class="bw-tabs-data hide" id="usedByCity">
                    <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
                            </div>
@@ -416,7 +415,7 @@
                           </section>
                     <%} %>
                          
-                        <div class="bw-tabs-data padding-bottom15" id="usedByBudget">
+                        <div class="bw-tabs-data hide padding-bottom15" id="usedByBudget">
                             <ul class="elevated-card-list">
                                 <li>
                                     <a href="/used/bikes-in-india/#budget=0+35000"  rel="nofollow">
@@ -457,7 +456,7 @@
               
                            
                                       <% if (ctrlusedBikeModel.FetchCount > 0)
-                                         { %>   <div class="bw-tabs-data hide padding-bottom20" id="usedByModel">
+                                         { %>   <div class="bw-tabs-data padding-bottom20" id="usedByModel">
                              <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         </div>
                         <%} %>

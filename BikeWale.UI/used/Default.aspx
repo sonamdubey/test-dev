@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.Default" EnableViewState="false"%>
-<%@ Register Src="~/controls/UsedRecentBikes.ascx" TagPrefix="BW" TagName="RecentUsedBikes" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <%@ Register Src="~/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 <!DOCTYPE html>
 
@@ -164,14 +164,26 @@
                 <div class="grid-12">
                     <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
               </div>
+                 <div class="clear"></div>
                 </div>
+                          
                           </section>
                     <%} %>
                      
-
-        <section>
-               <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
-        </section>
+                <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+         <section>
+            <div class="container section-container">
+                <h2 class="section-header">Popular used bikes</h2>
+                 <div class="grid-12 content-box-shadow padding-bottom15">
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+           </div>   
+                  <div class="clear"></div>  
+              </div>   
+         
+              </section>   
+                    <% } %> 
+  
 
         <!-- profile-id -->
         <div id="profile-id-popup" class="bw-popup text-center size-small">

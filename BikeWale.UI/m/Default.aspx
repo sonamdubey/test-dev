@@ -327,17 +327,17 @@
         <section>
             <div class="container">
                 <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
-                <div class="bw-tabs-panel padding-bottom20 content-box-shadow">
+                <div class="bw-tabs-panel content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex tabs-bottom15">
                         <ul>
-                            <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %><li class="active" data-tabs="usedByCity">City</li><%} %>
+                             <% if (ctrlusedBikeModel.FetchCount>0){ %> <li class="active" data-tabs="usedByModel">Model</li><%} %>
                             <li data-tabs="usedByBudget">Budget</li>
-                                           <% if (ctrlusedBikeModel.FetchCount>0)
-                       { %> <li data-tabs="usedByModel">Model</li><%} %>
+                             <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %><li  data-tabs="usedByCity">City</li><%} %>
+                         
                         </ul>
                     </div>
 <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %>
-                    <div class="bw-tabs-data" id="usedByCity">
+                    <div class="bw-tabs-data hide" id="usedByCity">
                     <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
                     </div>
                     <%} %>
@@ -382,7 +382,7 @@
                     
                                       <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                  <div class="bw-tabs-data hide" id="usedByModel">
+                  <div class="bw-tabs-data" id="usedByModel">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         </div>
                     <% } %> 

@@ -219,6 +219,7 @@
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         
                     <% } %>  
+                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
