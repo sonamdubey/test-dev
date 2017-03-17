@@ -8,9 +8,9 @@ using Grpc.CMS;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-
 namespace Bikewale.Service.Videos.Controllers
 {
     /// <summary>
@@ -276,7 +276,7 @@ namespace Bikewale.Service.Videos.Controllers
                 {
                     var objVideosList = GetVideosByModelIdViaGrpc(pageNo, pageSize, modelId);
 
-                    if (objVideosList != null && (objVideosList.Videos as List<VideoBase>).Count > 0)
+                    if (objVideosList != null && objVideosList.Videos != null && objVideosList.Videos.Count() > 0)
                     {
                         return Ok(objVideosList);
                     }
