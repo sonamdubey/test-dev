@@ -3,9 +3,13 @@
    {  
        %>
         <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
-            
-            <h2 class="margin-right20 margin-bottom15 margin-left20">Similar used <%= ModelName %> bikes</h2>
-            
+              <div class="swiper-heading-left-grid inline-block">
+                  <h2 class="margin-right20 margin-bottom10 margin-left20">More <%= ModelName %> bikes in <%=CityName%></h2>
+         </div>
+        <div class="swiper-heading-right-grid inline-block text-right margin-bottom10 padding-right15">
+            <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
+        </div>
+
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
                     <% foreach (var bike in similarBikeList)
@@ -58,10 +62,7 @@
                     <% } %>
                 </div>
             </div>
-            <div class="margin-top10 margin-right20 margin-left20">
-                <a href="/m/used/<%= MakeMaskingName %>-<%= ModelMaskingName %>-bikes-in-<%= CityMaskingName %>/" title="Used <%= ModelName %> bikes in <%= CityName %>" class="font14">View all <%= ModelName %> in <%= CityName %><span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>
-        </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 <% } %>
 

@@ -1,10 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikeModel" EnableViewState="false" %>
 <%if (FetchCount > 0)
   { %>
-<%if(!string.IsNullOrEmpty(header)){ %>
-<h2 class="font18 padding-15-20"><%= header %></h2>
+<%if(!string.IsNullOrEmpty(header) && !IsLandingPage){ %>
+ <div class="swiper-heading-left-grid inline-block">
+        <h2 class="font18 padding-15-20"><%= header %></h2>
+        </div>
+        <div class="swiper-heading-right-grid inline-block text-right  padding-right5">
+            <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
+        </div>
+        
 <%} %>
-<div class="content-box-shadow padding-top15 padding-bottom20">
+<div class="content-box-shadow padding-bottom20">
     <div class="swiper-container card-container used-swiper">
         <div class="swiper-wrapper">
             <%foreach (var bikeDetails in UsedBikeModelInCityList)
@@ -37,9 +43,11 @@
             <%} %>
         </div>
     </div>
-    <div class="view-all-btn-container margin-top10">
-        <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetHref %>">View more used bikes<span class="bwmsprite teal-right"></span></a>
-    </div>
+    <%if(IsLandingPage){ %>
+    <div class="padding-left10 view-all-btn-container margin-top10">
+          <a href="<%=WidgetHref%>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+        </div>
+    <%} %>
 </div>
 <% } %>
 

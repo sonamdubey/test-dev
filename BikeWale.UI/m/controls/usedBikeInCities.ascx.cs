@@ -13,6 +13,9 @@ namespace Bikewale.Mobile.Controls
     public class UsedBikeInCities : System.Web.UI.UserControl
     {
         public IEnumerable<UsedBikeCities> objCitiesWithCount;
+        public string WidgetTitle { get; set; }
+        public string WidgetHref { get; set; }
+        public bool IsLandingPage { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

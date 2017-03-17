@@ -388,6 +388,10 @@
                                 </a>
                             </li>
                         </ul>
+                         <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+                            <a href="<%=usedBikeLink %>" title="<%=usedBikeTitle%>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
+ 
                     </div>
                     
                                       <% if (ctrlusedBikeModel.FetchCount>0)

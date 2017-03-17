@@ -123,6 +123,8 @@ namespace Bikewale.Mobile.Used
                 ctrlSimilarUsedBikes.MakeName = inquiryDetails.Make.MakeName;
                 ctrlSimilarUsedBikes.MakeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlSimilarUsedBikes.BikeName = bikeName;
+                ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName,inquiryDetails.Model.MaskingName,inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                ctrlSimilarUsedBikes.WidgetTitle = string.Format("Used {0} {1} Bikes in {2}", inquiryDetails.Make.MakeName, inquiryDetails.Model.ModelName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
                 ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
@@ -131,17 +133,16 @@ namespace Bikewale.Mobile.Used
                 ctrlServiceCenterCard.cityName = inquiryDetails.City.CityName;
                 ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlServiceCenterCard.TopCount = 9;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", inquiryDetails.Make.MakeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
                 if (ctrlusedBikeModel != null)
                 {
 
                     ctrlusedBikeModel.MakeId = (uint)inquiryDetails.Make.MakeId;
                     if (inquiryDetails.City.CityId > 0)
                         ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Used Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("More used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }
             }

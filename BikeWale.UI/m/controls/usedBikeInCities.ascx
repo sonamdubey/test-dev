@@ -25,7 +25,11 @@
                                     <%} %>
                          </div>
                     </div>
-                    <a href="/m/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
+                    <%if(IsLandingPage) {%>
+                    <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="<%=WidgetHref%>" title="<%=WidgetTitle %>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
+                    <%} %>
                 </div>
             </div>
         </section>
