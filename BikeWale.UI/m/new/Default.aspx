@@ -22,18 +22,21 @@
         Ad320x150_I = true;
         Ad320x150_II = true;
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/m/css/bwm-newbikes.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
 <body class="bg-light-grey page-type-landing">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container">
-                <div class="newbikes-banner-div">
+                <div class="newbikes-banner-div text-center">
                     <!-- Top banner code starts here -->
-                    <h1 class="font22 text-uppercase text-white text-center padding-top25 font24">New Bikes in India</h1>
-                    <p class=" font16 text-white text-center">All new bikes under one roof</p>
+                    <h1 class="font22 text-uppercase text-white">New Bikes in India</h1>
+                    <p class="font14 text-white">All new bikes under one roof</p>
                 </div>
                 <!-- Top banner code ends here -->
             </div>
@@ -131,6 +134,8 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <% if(ctrlBestBikes!= null) { %>
         <section>
@@ -272,18 +277,17 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <!--  News, reviews and videos code ends here -->
+        
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = '4';
             $("img.lazy").lazyload();
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");    
-
-        
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
         </script>
     </form>
 </body>

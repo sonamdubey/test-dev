@@ -13,9 +13,7 @@
         canonical =  String.Format("https://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <style type="text/css">
-        .padding-15-20{padding:15px 20px}.padding-10-15{padding:10px 15px}.dealer-details a:hover{text-decoration:none}.pos-top-3{top:3px}.featured-tag{width:74px;text-align:center;background:#3799a7;font-size:12px;color:#fff;line-height:20px;-webkit-border-radius:2px;-moz-border-radius:2px;-o-border-radius:2px;border-radius:2px}.dealership-details{width:92%}.location-details{display:none}.btn-green{background:#1b9618;color:#fff;border:1px solid #1b9618}.float-button .btn{padding:8px 0;font-size:18px}.float-button a:hover{text-decoration:none}.dealership-loc-icon{margin-right:3px}.star-white{width:8px;height:8px;background-position:-174px -447px;margin-right:4px}.tel-sm-grey-icon{margin-right:3px}.mail-grey-icon{width:15px;height:10px;background-position:-19px -437px;position:relative;top:6px}.crosshair-icon{width:20px;height:20px;background:url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/detect-location-icon.png) no-repeat}.clock-icon{width:14px;height:14px;background-position:-159px -462px;position:relative;top:4px;margin-right:4px}.get-direction-icon{width:12px;height:10px;background-position:-31px -421px}#model-available-list li{border-top:1px solid #e2e2e2;padding-top:10px;padding-bottom:15px}#model-available-list li:first-child{border-top:0}.image-block{width:100%;height:163px;line-height:0;display:table;text-align:center;margin-bottom:15px}.image-block .image-content{display:table-cell;vertical-align:middle}.image-block img{width:290px;max-width:100%}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.details-column{width:92%}.bw-horizontal-swiper.card-container .swiper-slide{width:308px}.bw-horizontal-swiper .swiper-card{width:308px;font-size:14px;min-height:140px}.bw-horizontal-swiper .swiper-card a{display:block;padding:15px 10px 10px}@media only screen and (max-width: 320px){.bw-horizontal-swiper.card-container .swiper-slide{width:275px}.bw-horizontal-swiper .swiper-card{width:275px}.location-details{font-size:13px}}#leadCapturePopup .errorIcon,#leadCapturePopup .errorText,#otpPopup,.update-mobile-box,.otp-notify-text{display:none}.otp-icon{width:29px;height:29px;background-position:-109px -177px}.edit-blue-icon{width:20px;height:20px;background-position:-114px -122px}#otpPopup .otp-box p.resend-otp-btn{color:#0288d1;cursor:pointer;font-size:14px}.btn-fixed-width{padding-right:0;padding-left:0;width:205px}
-    </style>
+    <link rel="stylesheet" type="text/css" href="/m/css/dealer/details.css" />
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_mobile.aspx" -->
     </script>
@@ -27,9 +25,9 @@
         <section class="container bg-white margin-bottom10">
             <div class="bg-white box-shadow">
                 <% if(dealerArea.Length > 0) { %>
-                <h1 class="font20 box-shadow padding-15-20"><%=string.Format("{0},{1}, {2}",dealerDetails.Name,dealerArea, dealerCity)%></h1>
+                <h1 class="box-shadow padding-15-20"><%=string.Format("{0},{1}, {2}",dealerDetails.Name,dealerArea, dealerCity)%></h1>
                 <% } else { %>
-                <h1 class="font20 box-shadow padding-15-20"><%=string.Format("{0},{1}",dealerDetails.Name,dealerCity)%></h1>
+                <h1 class="box-shadow padding-15-20"><%=string.Format("{0},{1}",dealerDetails.Name,dealerCity)%></h1>
                 <% } %>
                 <div class="dealer-details position-rel pos-top-3 content-inner-block-20 font14">
                     <%if (dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Premium) || dealerDetails.DealerType == (int)(Bikewale.Entities.PriceQuote.DealerPackageTypes.Deluxe))
@@ -81,7 +79,7 @@
                     <h2 class="font14 text-default margin-bottom15">Get commute distance and time:</h2>
                     <div class="form-control-box margin-bottom15">
                         <input id="locationSearch" type="text" class="form-control padding-right40" placeholder="Enter your location" />
-                        <span id="getUserLocation" class="crosshair-icon position-abt pos-right10 pos-top10"></span>
+                        <span id="getUserLocation" class="crosshair-icon position-abt"></span>
                     </div>
                     <div class="location-details margin-bottom15">
                         Distance: <span id="commuteDistance" class="margin-right10"></span>
@@ -97,16 +95,16 @@
                 <div class="grid-12 float-button clearfix float-fixed">
                     <% if (!string.IsNullOrEmpty(maskingNumber))
                        { %>
-                    <div class="grid-6 alpha omega padding-right5">
+                    <div class="grid-6 alpha padding-right5">
                         <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);"><%= ctaSmallText %></a>
                     </div>
-                    <div class="grid-6 alpha omega padding-left5">
+                    <div class="grid-6 omega padding-left5">
                         <a id="calldealer" class="btn btn-green btn-full-width rightfloat" href="tel:<%= dealerDetails.MaskingNumber %>">
                             <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer</a>
                     </div>
                     <% } else 
                       { %>
-                    <div class="grid-12 alpha omega padding-right5">
+                    <div class="grid-12 alpha padding-right5">
                         <a data-leadsourceid="15" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn" href="javascript:void(0);"><%= ctaSmallText %></a>
                     </div>
                     <% } %>

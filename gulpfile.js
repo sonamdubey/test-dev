@@ -201,6 +201,36 @@ var pageArray = [
         folderName: 'm/used/',
         fileName: 'BikeDetails.aspx',
         stylesheet: 'm/css/used/details.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/dealer/landing.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'dealersincountry.aspx',
+        stylesheet: 'm/css/dealer/location.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'NewBikeDealerList.aspx',
+        stylesheet: 'm/css/dealer/listing.css'
+    },
+    {
+        folderName: 'm/new/newbikedealers/',
+        fileName: 'DealerDetails.aspx',
+        stylesheet: 'm/css/dealer/details.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'Default.aspx',
+        stylesheet: 'm/css/bwm-newbikes.css'
+    },
+    {
+        folderName: 'm/new/',
+        fileName: 'ModelPricesInCity.aspx',
+        stylesheet: 'm/css/new/bwm-modelprice-in-city.css'
     }
 ];
 

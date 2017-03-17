@@ -30,8 +30,11 @@
         Ad_Bot_320x50 = true;
     %>
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/m/css/new/bwm-modelprice-in-city.css" />
+    <script type="text/javascript">
+        <!-- #include file="\includes\gacode_mobile.aspx" -->
+    </script>
 </head>
 
 <body class="bg-light-grey">
@@ -154,6 +157,7 @@
             </div>
         </section>
 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0 || bikeRankObj!=null) ? string.Empty : "hide" %>">
             <div class="container box-shadow bg-white margin-bottom10">
@@ -220,7 +224,8 @@
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = "16";
             var bikenamever = '<%= string.Format("{0}_{1}_{2}", makeName, modelName,versionName)%>';
@@ -305,6 +310,7 @@
 
             });
         </script>
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 
 </body>

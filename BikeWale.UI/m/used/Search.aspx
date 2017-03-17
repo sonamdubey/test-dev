@@ -234,6 +234,8 @@
                 </div>
             </section>
 
+             <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+
             <div id="sort-filters-loader">
                 <div id="popup-loader"></div>
             </div>
@@ -446,7 +448,6 @@
         </div> 
         
         <div class="back-to-top" id="back-to-top"></div>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
         <script type="text/javascript">
             var bodyHeight = $('body').height();

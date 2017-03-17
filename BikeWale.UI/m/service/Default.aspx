@@ -61,7 +61,7 @@
          <% if(TopMakeList!= null ){  %>
         <section>
             <h2 class="section-heading">Service Centers by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content">
+            <div class="container bg-white box-shadow padding-top25 padding-bottom20 collapsible-brand-content">
                 <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
@@ -107,7 +107,7 @@
           {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
-            <div class="container margin-bottom20">
+            <div class="container">
                 <div class="grid-12 alpha omega">
                     <h2 class="font18 text-center margin-top20 margin-bottom10">Most popular bikes</h2>
                     <div class="featured-bikes-panel content-box-shadow padding-bottom15">
