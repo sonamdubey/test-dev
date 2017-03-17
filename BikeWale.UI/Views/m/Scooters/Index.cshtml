@@ -34,8 +34,7 @@
                     <div id="brand-tab" class="bw-tabs-data">
                         <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
                             @{Html.RenderAction("BrandsMobile", "Scooters");}
-                            <a href="javascript:void(0)" class="view-brandType view-more-btn font14" rel="nofollow">View more brands</a>
-                        </div>
+                          </div>
                     </div>
                     <div id="budget-tab" class="bw-tabs-data hide">
                         <ul class="elevated-card-list padding-top10">
@@ -143,6 +142,9 @@
               {
             <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
                 @Html.Partial("~/Views/m/Shared/_popularBikesScooters.cshtml", popularScooters)
+                <div class="padding-left10 view-all-btn-container margin-top10 text-center">
+                    <a href="/m/best-scooters-in-india/" title="Popular Scooters in India" class="btn view-all-target-btn">View all scooters<span class="bwmsprite teal-right"></span></a>
+                </div>
                 </div>
                 }
                 @if (NewLaunchesList != null && NewLaunchesList.Bikes != null && NewLaunchesList.Bikes.Count() > 0)
@@ -163,7 +165,7 @@
 {
 <section>
     @Html.Partial("~/Views/m/Shared/_popularComparisions.cshtml", TopScootersCompares)
-</section>
+    </section>
 }
 <section>
     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = ViewBag.AdId });}

@@ -2,7 +2,12 @@
 <%if(FetchedRecordsCount>0) {%>     
  <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                <div class="swiper-heading-left-grid inline-block">
                 <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes</h2>
+                 </div>
+                <div class="swiper-heading-right-grid inline-block text-right margin-top5 padding-right15">
+            <a href="<%=upcomingBikesLink %>" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+          </div>
                 <div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
 
@@ -34,9 +39,7 @@
                         <%} %>
                        </div>
                 </div>
-                <div class="margin-top15 margin-left20 font14">
-                    <a href="<%=upcomingBikesLink %>" title="View all upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "") %> bikes" >View all upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                </div>
+               
             </div>
         </section>
 <%} %>

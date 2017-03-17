@@ -81,7 +81,7 @@
            {  %>
         <section>
              <h2 class="text-center padding-top10 padding-bottom15">Browse videos by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content">
+            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content margin-bottom25">
                 <div id="brand-type-container" class="brand-type-container">
                     <ul class="text-center">
                         <%foreach (var bikebrand in objVideo.TopMakeList)

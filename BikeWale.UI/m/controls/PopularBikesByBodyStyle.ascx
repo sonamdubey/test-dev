@@ -1,5 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.PopularBikesByBodyStyle" %>
-              <div class="swiper-container card-container swiper-small">
+ <%--<div class="margin-top15 margin-left20 font14">
+                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" >View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
+                </div>--%>
+         <div class="swiper-heading-right-grid inline-block text-right margin-top5 padding-right15">
+            <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" class="btn view-all-target-btn">View all</a>
+        </div>              
+<div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
 
                         <%foreach (var bike in popularBikes)
@@ -31,7 +37,4 @@
                         <%} %>
                        </div>
                 </div>
-                <div class="margin-top15 margin-left20 font14">
-                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" >View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                </div>
-         
+               

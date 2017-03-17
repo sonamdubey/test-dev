@@ -180,8 +180,13 @@
           <%if (ctrlUserReviewSimilarBike.FetchCount > 0)
           { %>
         <section>
-            <div class="container bg-white box-shadow padding-top15 padding-bottom15 section-bottom-margin">
-                <h2 class="padding-right20 padding-bottom15 padding-left20">User reviews of similar bikes</h2>
+            <div class="container bg-white box-shadow padding-top5 padding-bottom15 section-bottom-margin">
+                <div class="swiper-heading-left-grid inline-block">
+                <h2 class="padding-right20 padding-left20">Reviews of similar bikes</h2>
+                </div>
+                    <div class="swiper-heading-right-grid inline-block text-right padding-right15 margin-bottom10 margin-top10">
+            <a href="/m/user-reviews/" title="Bike User Reviews" class="btn view-all-target-btn">View all</a>
+                </div>                
                  <BW:UserReviewSimilarBike ID="ctrlUserReviewSimilarBike" runat="server" />
             </div>
         </section>
