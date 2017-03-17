@@ -2,12 +2,10 @@
 <%if (FetchCount > 0)
   { %>
 
-        <div class="carousel-heading-content">
+        <div class="carousel-heading-content <%=IsLandingPage?"":"padding-top20" %>">
             <div class="swiper-heading-left-grid inline-block">
                 <h2><%= header %></h2>
-            </div>
-            <%if(!IsLandingPage){ %>
-            <div class="swiper-heading-right-grid inline-block text-right">
+            </div><%if(!IsLandingPage){ %><div class="swiper-heading-right-grid inline-block text-right">
                 <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all</a>
             </div>
             <%} %>

@@ -265,7 +265,7 @@
                     <%} %>
                     <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                      <div id="makeUsedBikeContent" >
+                      <div id="makeUsedBikeContent" class="bw-model-tabs-data" >
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                           </div>
                     <% } %>
