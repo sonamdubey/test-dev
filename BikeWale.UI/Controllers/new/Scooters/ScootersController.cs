@@ -139,41 +139,50 @@ namespace Bikewale.Controllers.Desktop.Scooters
         public ActionResult BikesByMake(string makeMaskingName)
         {
 
-            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
-            if (objResponse != null && objResponse.StatusCode == 200)
+            try
             {
-                ViewBag.PageCatId = 8;
-                ViewBag.showServiceCenter = false;
-                ViewBag.showServiceWidget = false;
-                ViewBag.showDealerWidget = false;
-                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
-                IEnumerable<MostPopularBikesBase> ScootersList = null;
-                ViewBag.MakeName = "";
-                ViewBag.MakeMaskingName = makeMaskingName;
-                ScootersList = BindPopularScooters(objResponse.MakeId);
-                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
-                ViewBag.MakeName = objMake.MakeName;
-                ViewBag.MakeId = objResponse.MakeId;
-                UpcomingMakeScooters((int)objResponse.MakeId);
-                DealerShowrooms(ViewBag.CityId, objResponse.MakeId, Convert.ToUInt16(ViewBag.CityId > 0 ? 3 : 6));
-                ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 3);
-                BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
-                ViewBag.Synopsis = scooterSynopis;
-                ViewBag.ScootersList = ScootersList;
-                string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
-                ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
-                ViewBag.similarBikeList = similarBikeList;
-                ViewBag.PageMetaTags = new ScootersHelper().CreateMakeWiseMetaTags(true, makeMaskingName, ViewBag.MakeName);
-                return View("~/views/scooters/bikesbymake.cshtml");
-            }
+                MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
+                if (objResponse != null && objResponse.StatusCode == 200)
+                {
+                    ViewBag.PageCatId = 8;
+                    ViewBag.showServiceCenter = false;
+                    ViewBag.showServiceWidget = false;
+                    ViewBag.showDealerWidget = false;
+                    ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                    ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
+                    IEnumerable<MostPopularBikesBase> ScootersList = null;
+                    ViewBag.MakeName = "";
+                    ViewBag.MakeMaskingName = makeMaskingName;
+                    ScootersList = BindPopularScooters(objResponse.MakeId);
+                    BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
+                    ViewBag.MakeName = objMake.MakeName;
+                    ViewBag.MakeId = objResponse.MakeId;
+                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    DealerShowrooms(ViewBag.CityId, objResponse.MakeId, Convert.ToUInt16(ViewBag.CityId > 0 ? 3 : 6));
+                    ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 3);
+                    BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
+                    ViewBag.Synopsis = scooterSynopis;
+                    ViewBag.ScootersList = ScootersList;
+                    string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
+                    ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
+                    ViewBag.similarBikeList = similarBikeList;
+                    ViewBag.PageMetaTags = new ScootersHelper().CreateMakeWiseMetaTags(true, makeMaskingName, ViewBag.MakeName);
+                    return View("~/views/scooters/bikesbymake.cshtml");
+                }
 
-            else if (objResponse.StatusCode == 301)
-            {
-                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                else if (objResponse.StatusCode == 301)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
             }
-            else
+            catch (Exception ex)
             {
+
+                ErrorClass objErr = new ErrorClass(ex, "ScootersController.BikesByMake");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
@@ -189,41 +198,50 @@ namespace Bikewale.Controllers.Desktop.Scooters
         public ActionResult MBikesByMake(string makeMaskingName)
         {
 
-            MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
-            if (objResponse != null)
+            try
             {
-                ViewBag.PageCatId = 8;
-                ViewBag.showServiceCenter = false;
-                ViewBag.showServiceWidget = false;
-                ViewBag.showDealerWidget = false;
-                ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
-                ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
-                IEnumerable<MostPopularBikesBase> ScootersList = null;
-                ViewBag.MakeName = "";
-                ViewBag.MakeId = 0;
-                ViewBag.MakeMaskingName = makeMaskingName;
-                ScootersList = BindPopularScooters(objResponse.MakeId);
-                BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
-                ViewBag.MakeName = objMake.MakeName;
-                ViewBag.MakeId = objResponse.MakeId;
-                UpcomingMakeScooters((int)objResponse.MakeId);
-                DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
-                ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
-                BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
-                ViewBag.Synopsis = scooterSynopis;
-                ViewBag.ScootersList = ScootersList;
-                string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
-                ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
-                ViewBag.similarBikeList = similarBikeList;
-                ViewBag.PageMetaTags = new ScootersHelper().CreateMakeWiseMetaTags(false, makeMaskingName, ViewBag.MakeName);
-                return View("~/views/m/scooters/bikesbymake.cshtml");
+                MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
+                if (objResponse != null)
+                {
+                    ViewBag.PageCatId = 8;
+                    ViewBag.showServiceCenter = false;
+                    ViewBag.showServiceWidget = false;
+                    ViewBag.showDealerWidget = false;
+                    ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
+                    ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
+                    IEnumerable<MostPopularBikesBase> ScootersList = null;
+                    ViewBag.MakeName = "";
+                    ViewBag.MakeId = 0;
+                    ViewBag.MakeMaskingName = makeMaskingName;
+                    ScootersList = BindPopularScooters(objResponse.MakeId);
+                    BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
+                    ViewBag.MakeName = objMake.MakeName;
+                    ViewBag.MakeId = objResponse.MakeId;
+                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
+                    ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
+                    BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
+                    ViewBag.Synopsis = scooterSynopis;
+                    ViewBag.ScootersList = ScootersList;
+                    string versionList = string.Join(",", ScootersList.Select(m => m.objVersion.VersionId));
+                    ICollection<SimilarCompareBikeEntity> similarBikeList = BindSimilarBikes(versionList);
+                    ViewBag.similarBikeList = similarBikeList;
+                    ViewBag.PageMetaTags = new ScootersHelper().CreateMakeWiseMetaTags(false, makeMaskingName, ViewBag.MakeName);
+                    return View("~/views/m/scooters/bikesbymake.cshtml");
+                }
+                else if (objResponse.StatusCode == 301)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                }
+                else
+                {
+                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                }
             }
-            else if (objResponse.StatusCode == 301)
+            catch (Exception ex)
             {
-                return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
-            }
-            else
-            {
+
+                ErrorClass objErr = new ErrorClass(ex, "ScootersController.BikesByMake");
                 return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
             }
 
