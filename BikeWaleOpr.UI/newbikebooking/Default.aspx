@@ -1,8 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.BikeBooking.Default" Trace="false" Debug="false" Async="true" EnableEventValidation="false" EnableViewState="true" %>
 
 <!-- #Include file="/includes/headerNew.aspx" -->
-<script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
-<script src="/src/AjaxFunctions.js" type="text/javascript"></script>
+
 <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
 
 <style type="text/css">
@@ -738,6 +737,18 @@
         //ends here
     });
 
+    function showHideMatchError(element, error) {
+        if (error) {
+            element.parent().find('.error-icon').removeClass('hide');
+            element.parent().find('.bw-blackbg-tooltip').removeClass('hide');
+            element.addClass('border-red')
+        }
+        else {
+            element.parent().find('.error-icon').addClass('hide');
+            element.parent().find('.bw-blackbg-tooltip').addClass('hide');
+            element.removeClass('border-red');
+        }
+    }
 </script>
 
 <!-- #Include file="/includes/footerNew.aspx" -->
