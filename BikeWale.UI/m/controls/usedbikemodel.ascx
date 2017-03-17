@@ -4,7 +4,7 @@
 <%if(!string.IsNullOrEmpty(header)){ %>
 <h2 class="font18 padding-15-20"><%= header %></h2>
 <%} %>
-<div class="content-box-shadow padding-top15 padding-bottom20">
+<div class="content-box-shadow <%=IsLandingPage?"padding-bottom15":"padding-top20"%>">
     <div class="swiper-container card-container used-swiper">
         <div class="swiper-wrapper">
             <%foreach (var bikeDetails in UsedBikeModelInCityList)
