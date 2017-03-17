@@ -165,6 +165,7 @@
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
          <%} %>
+                         <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                   <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
                  

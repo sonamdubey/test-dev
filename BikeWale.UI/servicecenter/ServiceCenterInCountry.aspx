@@ -121,6 +121,7 @@
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                 </div>
             </div>
+             <div class="clear"></div>
         </div>
         <% } %>
         <%if (ctrlBikeCare.FetchedRecordsCount > 0)
