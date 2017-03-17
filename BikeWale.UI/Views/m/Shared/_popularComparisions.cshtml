@@ -2,7 +2,7 @@
 @if (Model != null)
 {
 <h2 class="section-heading">Compare scooters</h2>
-<div class="grid-12 content-box-shadow padding-top20 padding-bottom10">
+<div class="grid-12 content-box-shadow padding-top20 padding-bottom20">
     <a href="/m/@Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.First().MakeMaskingName1, Model.First().ModelMaskingName1, Model.First().MakeMaskingName2, Model.First().ModelMaskingName2, Convert.ToString(Model.First().VersionId1), Convert.ToString(Model.First().VersionId2), Bikewale.Entities.Compare.CompareSources.Mobile_Featured_Compare_Widget)" title="Compare @Model.First().Bike1 vs @Model.First().Bike2" id="main-compare-bikes-target" class="main-compare-bikes-target">
         <div class="grid-6">
             <div class="comparison-image">
@@ -31,8 +31,8 @@
             <span class="btn btn-orange">Compare now</span>
         </div>
     </a>
-    <div class="text-center margin-bottom10">
-        <a href="/comparebikes/" class="font14">View more comparisons</a>
+    <div class="padding-left10 view-all-btn-container text-center">
+        <a href="/comparebikes/" title="New Scooter Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
     </div>
 </div>
 <div class="clear"></div>

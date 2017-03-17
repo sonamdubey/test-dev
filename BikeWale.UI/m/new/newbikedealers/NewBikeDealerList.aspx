@@ -112,9 +112,11 @@
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     <% if (ctrlServiceCenterCard.showWidget)
                    { %>
+                 <div class="margin-bottom10"></div>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                <% }  %>
+                
+                     <% }  %>
                
                        <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>

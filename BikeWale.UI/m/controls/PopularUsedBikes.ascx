@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="view-all-btn-container margin-top10">
-            <a class="btn view-all-target-btn" title="View all Used Bikes in <%=cityName%>" href="<%= FormatCompleteListUrl() %>">View more used bikes<span class="bwmsprite teal-right"></span></a>
+            <a class="btn view-all-target-btn" title="Second Hand Bikes in <%=!String.IsNullOrEmpty(cityName)?cityName:"India"%>" href="<%= FormatCompleteListUrl() %>">View all used bikes<span class="bwmsprite teal-right"></span></a>
         </div>
         </div>
     </div>

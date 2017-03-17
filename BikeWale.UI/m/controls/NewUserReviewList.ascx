@@ -33,5 +33,5 @@
   </asp:Repeater>
 </div>
 <div class="view-all-btn-container">
-    <a title="<%= linkTitle %>" class="bw-ga btn view-all-target-btn" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all user reviews<span class="bwmsprite teal-right"></span></a>
+    <a title="<%= linkTitle %>" class="bw-ga btn view-all-target-btn" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/"  c="Model_Page" a="Read_all_user_reviews_link_cliked" v="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
 </div>

@@ -13,7 +13,7 @@
             <h2><%=widgetHeading%></h2>
         </div>
         <div class="swiper-heading-right-grid inline-block text-right">
-            <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> showroom in <%= cityName %>" class="btn view-all-target-btn">View all</a>
+            <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Showrooms in <%= cityName %>" class="btn view-all-target-btn">View all</a>
         </div>
         <div class="clear"></div>
     </div>

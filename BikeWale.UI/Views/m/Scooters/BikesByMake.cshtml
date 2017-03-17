@@ -117,14 +117,16 @@
 @if (serviceCenters != null && serviceCenters.Count() > 0)
 {
     <div class="container card-bottom-margin padding-bottom20">
-        <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
-        @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
+        <div class="swiper-heading-left-grid inline-block">
+            <h2 class="padding-right20 padding-left20 text-bold padding-top10">@ViewBag.MakeName Service Centers in @ViewBag.CityName</h2>
+        </div>
+        <div class="swiper-heading-right-grid inline-block text-right padding-right15 margin-bottom10">
+            <a href="@string.Format("/m{0}", UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName Service Centers in @ViewBag.CityName" class="btn view-all-target-btn">View all</a>
+        </div>
+         @if(!string.IsNullOrEmpty(ViewBag.biLineText)) {
             <p class="margin-top5 margin-left20 margin-bottom15">@ViewBag.biLineText</p>
     }
         @Html.Partial("~/Views/m/Shared/_ServiceCenters.cshtml", serviceCenters)
-        <div class="padding-right20 padding-left20 font14">
-                <a href="@string.Format("/m{0}",UrlFormatter.GetServiceCenterUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName service centers in @ViewBag.CityName">View all @ViewBag.MakeName service centers <span class="bwmsprite blue-right-arrow-icon"></span></a>
-            </div>
         </div>
         }
         

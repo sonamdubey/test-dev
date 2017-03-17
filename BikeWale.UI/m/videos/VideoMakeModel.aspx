@@ -227,9 +227,11 @@
           {%>
         <section>
             <div class="container content-box-shadow margin-bottom20">
-                <div class="padding-top20 padding-bottom20 font14">
-                    <h2 class="padding-left20 padding-right20 margin-bottom15">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                    <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
+                <div class="padding-bottom20 font14">
+                    <div class="swiper-heading-left-grid inline-block">
+                    <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
+                    </div>
+                        <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
                 </div>
             </div>
         </section>

@@ -80,10 +80,10 @@
        <%} %>
         <% if (ctrlusedBikeModel.FetchCount > 0)
            { %>
-   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                   
-              
-        <% } %>
+        
+   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />  
+        
+            <% } %>
       <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
