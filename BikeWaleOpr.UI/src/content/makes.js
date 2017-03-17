@@ -118,7 +118,7 @@ var updateBikeMake = function () {
             isValid = false;
         }
 
-        if (self.makeMaskingName() == "") {
+        if (self.makeMaskingName() == "" || !(/^[0-9a-z]+$/.test(self.makeMaskingName()))) {
             Materialize.toast("Invalid make masking name", 5000);
             isValid = false;
         }
@@ -129,7 +129,7 @@ var updateBikeMake = function () {
             });
             $('form').submit();
         }
-        
+        debugger;
         return isValid;
     }
 }
