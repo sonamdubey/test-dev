@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BikeWaleOpr.Models.Users;
+using System;
 using System.Web;
 using System.Web.Mvc;
-using BikeWaleOpr.Models.Users;
 
 namespace BikeWaleOpr.MVC.UI.Controllers
 {
@@ -17,9 +15,16 @@ namespace BikeWaleOpr.MVC.UI.Controllers
 
         public ActionResult Login()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            try
             {
-                return RedirectToAction("Index", "Home");
+                if (HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "UsersController/Login");
             }
 
             return View();
@@ -28,44 +33,52 @@ namespace BikeWaleOpr.MVC.UI.Controllers
         [HttpPost]
         public ActionResult Authenticate(LoginViewModel model, string ReturnUrl)
         {
-            bool auth = HttpContext.User.Identity.IsAuthenticated;
-
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            try
             {
-                Carwale.WebServices.OprAuthentication.OprAuthentication objOA = null;
-                Carwale.WebServices.OprAuthentication.UserBasicInfo objBasicInfo = null;
+                bool auth = HttpContext.User.Identity.IsAuthenticated;
 
-                string loginId = model.Username;
-                string password = model.Password;
-
-                objOA = new Carwale.WebServices.OprAuthentication.OprAuthentication();
-                objBasicInfo = objOA.AuthenticateUser(loginId, password);
-
-                if (!string.IsNullOrEmpty(objBasicInfo.UserId) && objBasicInfo.UserId != "-1")
+                if (!HttpContext.User.Identity.IsAuthenticated)
                 {
-                    //create a ticket and add it to the cookie
-                    System.Web.Security.FormsAuthenticationTicket ticket;
-                    //now add the id and the role to the ticket, concat the id and role, separated by ',' 
-                    //ticket = new FormsAuthenticationTicket(1, oprId, DateTime.Now, DateTime.Now.AddHours(9), false, oprId);
-                    ticket = new System.Web.Security.FormsAuthenticationTicket(1, objBasicInfo.UserId, DateTime.Now, DateTime.Now.AddHours(9), false, objBasicInfo.UserId + ":" + loginId + ":" + objBasicInfo.Name);
+                    Carwale.WebServices.OprAuthentication.OprAuthentication objOA = null;
+                    Carwale.WebServices.OprAuthentication.UserBasicInfo objBasicInfo = null;
+
+                    string loginId = model.Username;
+                    string password = model.Password;
+
+                    objOA = new Carwale.WebServices.OprAuthentication.OprAuthentication();
+                    objBasicInfo = objOA.AuthenticateUser(loginId, password);
+
+                    if (!string.IsNullOrEmpty(objBasicInfo.UserId) && objBasicInfo.UserId != "-1")
+                    {
+                        //create a ticket and add it to the cookie
+                        System.Web.Security.FormsAuthenticationTicket ticket;
+                        //now add the id and the role to the ticket, concat the id and role, separated by ',' 
+                        //ticket = new FormsAuthenticationTicket(1, oprId, DateTime.Now, DateTime.Now.AddHours(9), false, oprId);
+                        ticket = new System.Web.Security.FormsAuthenticationTicket(1, objBasicInfo.UserId, DateTime.Now, DateTime.Now.AddHours(9), false, objBasicInfo.UserId + ":" + loginId + ":" + objBasicInfo.Name);
 
 
-                    //add the ticket into the cookie
-                    HttpCookie objCookie;
-                    objCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName);
-                    objCookie.Value = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+                        //add the ticket into the cookie
+                        HttpCookie objCookie;
+                        objCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName);
+                        objCookie.Value = System.Web.Security.FormsAuthentication.Encrypt(ticket);
 
-                    ControllerContext.HttpContext.Response.Cookies.Add(objCookie);
+                        ControllerContext.HttpContext.Response.Cookies.Add(objCookie);
+                    }
+                }
+
+                if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
+                    && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
+                {
+                    return Redirect(ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
                 }
             }
-
-            if (Url.IsLocalUrl(ReturnUrl) && ReturnUrl.Length > 1 && ReturnUrl.StartsWith("/")
-                && !ReturnUrl.StartsWith("//") && !ReturnUrl.StartsWith("/\\"))
+            catch (Exception ex)
             {
-                return Redirect(ReturnUrl);
-            }
-            else
-            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "UsersController/Login");
                 return RedirectToAction("Index", "Home");
             }
         }
