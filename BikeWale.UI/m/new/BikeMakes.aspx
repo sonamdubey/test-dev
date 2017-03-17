@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--  class="grid-12"-->
+                    
                     <div class="bg-white box-shadow content-inner-block-1520">
                         <h1><%= _make.MakeName %> Bikes</h1>
                     </div>
@@ -124,8 +124,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
            { %>
@@ -267,49 +265,48 @@
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">
             ga_pg_id = '3';
             var _makeName = '<%= _make.MakeName %>';
-
-            $("img.lazy").lazyload();
-             
             var clientIP = '<%= Bikewale.Common.CommonOpn.GetClientIP() %>';
             var pageUrl = window.location.href;
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "versionid": $("#versions a.active").attr("id"),
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "pageurl": pageUrl,
-                    "clientip": clientIP,
-                    "isdealerbikes": true,
-                    "campid": ele.attr('data-camp-id'),
-                    "isregisterpq": true,
-                    "gaobject": {
-                        cat: ele.attr('data-ga-cat'),
-                        act: ele.attr('data-ga-act'),
-                        lab: ele.attr('data-ga-lab')
-                    }
-                };
 
-                dleadvm.setOptions(leadOptions);
+            docReady(function () {
 
-            }); 
+                $(".leadcapturebtn").click(function (e) {
+                    ele = $(this);
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": $("#versions a.active").attr("id"),
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "isdealerbikes": true,
+                        "campid": ele.attr('data-camp-id'),
+                        "isregisterpq": true,
+                        "gaobject": {
+                            cat: ele.attr('data-ga-cat'),
+                            act: ele.attr('data-ga-act'),
+                            lab: ele.attr('data-ga-lab')
+                        }
+                    };
 
-            $(document).ready(function () {
-                
-              
+                    dleadvm.setOptions(leadOptions);
 
-                jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')
-                .on('jcarousel:targetin', 'li', function () {
+                });
+
+                $("img.lazy").lazyload();
+
+                $('.jcarousel-wrapper.upComingBikes .jcarousel').on('jcarousel:targetin', 'li', function () {
                     $("img.lazy").lazyload({
                         threshold: 300
                     });
@@ -324,25 +321,19 @@
                 $("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
                 $("#spnContent").append("... <a class='f-small' onclick='ShowAllDisModels()'>View All</a>");
 
+                if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+                if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+                if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+                $('#sort-btn').removeClass('hide').addClass("show");
+                $("a.read-more-btn").click(function () {
+                    $("div.brand-about-more-desc").slideToggle();
+                    $("div.brand-about-main").slideToggle();
+                    var a = $(this).find("span");
+                    a.text(a.text() === "more" ? "less" : "more");
+                });
+
             });
 
-            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-            $('#sort-btn').removeClass('hide').addClass("show");
-            $("a.read-more-btn").click(function () {
-                $("div.brand-about-more-desc").slideToggle();
-                $("div.brand-about-main").slideToggle();
-                var a = $(this).find("span");
-                a.text(a.text() === "more" ? "less" : "more");
-            });
-
-            function ShowAllDisModels() {
-                $("#discontinuedLess").hide();
-                $("#discontinuedMore").show();
-                var xContents = $('#discontinuedMore').contents();
-                xContents[xContents.length - 1].nodeValue = "";
-            }
         </script>
     </form>
     <div class="back-to-top" id="back-to-top"></div>

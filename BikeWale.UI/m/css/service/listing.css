@@ -18,20 +18,20 @@
   -o-box-shadow: 0 2px 2px 0 #dcdcdc;
   box-shadow: 0 2px 2px 0 #dcdcdc; }
 
-#service-main-content,
-#service-more-content {
+.collapsible-content .main-content {
   display: inline; }
 
-#service-more-content {
+.collapsible-content .more-content {
   display: none; }
-  #service-more-content.active {
-    display: inline; }
 
-.padding-15-20 {
-  padding: 15px 20px; }
+.collapsible-content.active .more-content {
+  display: inline; }
 
 .padding-10-15 {
   padding: 10px 15px; }
+
+.margin-top15 {
+  margin-top: 15px; }
 
 .vertical-top {
   display: inline-block;
@@ -56,9 +56,6 @@
   #center-list a:hover {
     text-decoration: none; }
 
-.details-column {
-  width: 92%; }
-
 .service-btn {
   font-size: 14px;
   padding: 9px 0;
@@ -75,19 +72,6 @@
       background-position: -83px -111px; }
 
 .dealership-loc-icon {
-  width: 10px;
-  height: 14px;
-  background-position: -40px -436px;
-  position: relative;
-  top: 4px;
-  margin-right: 3px; }
-
-.tel-sm-grey-icon {
-  width: 10px;
-  height: 10px;
-  background-position: 0 -437px;
-  position: relative;
-  top: 5px;
   margin-right: 3px; }
 
 .service-sprite {
@@ -118,7 +102,8 @@
     left: 3px; } }
 
 @media only screen and (max-width: 320px) {
-  #makeDealersContent .card-container .swiper-slide, #makeDealersContent .card-container .swiper-card {
+  #makeDealersContent .card-container .swiper-slide,
+  #makeDealersContent .card-container .swiper-card {
     width: 275px !important; } }
 
 .map-type-carousel .swiper-slide,

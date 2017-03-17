@@ -422,7 +422,7 @@
                 applyLazyLoad();
             });
 
-            var pqId = '<%= pqId %>'
+            var pqId = '<%= pqId %>';
             var verId = '<%= versionId %>';
             var cityId = '<%= cityId%>';
             var dealerId = '<%= dealerId%>';
@@ -431,10 +431,6 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-
-            //var bwHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl1"]%>';
-            
-            //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
             var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
             var discountDetail = JSON.parse($("#hdnDiscountList").val());
@@ -450,7 +446,7 @@
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
-            }
+            };
             var ga_pg_id= '14';
         </script>
 

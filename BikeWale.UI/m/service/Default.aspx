@@ -61,7 +61,7 @@
          <% if(TopMakeList!= null ){  %>
         <section>
             <h2 class="section-heading">Service Centers by brands</h2>
-            <div class="container bg-white box-shadow card-bottom-margin padding-top25 padding-bottom20 collapsible-brand-content">
+            <div class="container bg-white box-shadow padding-top25 padding-bottom20 collapsible-brand-content">
                 <div id="brand-type-container" class="brand-type-container">
                         <ul class="text-center">
                            <%foreach(var bikebrand in TopMakeList) {%>
@@ -107,7 +107,7 @@
           {%>
         <section>
             <!--  Upcoming, New Launches and Top Selling code starts here -->
-            <div class="container margin-bottom20">
+            <div class="container">
                 <div class="grid-12 alpha omega">
                     <h2 class="font18 text-center margin-top20 margin-bottom10">Most popular bikes</h2>
                     <div class="featured-bikes-panel content-box-shadow padding-bottom15">
@@ -281,7 +281,7 @@
             $ddlMakes.on("click", "li", function () {
                 var _self = $(this),
                         selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement); key
+                setSelectedElement(_self, selectedElement);
                 _self.addClass('activeBrand').siblings().removeClass('activeBrand');
                 $("div.locator-search-brand-form").find("span").text(selectedElement);
                 selMakeId = $(this).attr("makeId");
@@ -344,7 +344,7 @@
                         });
                     }
                     else {
-                        $("div.locator-search-city-form span").text("Select city")
+                        $("div.locator-search-city-form span").text("Select city");
                         data = lscache.get(key + mId);
                         setOptions(data);
                     }

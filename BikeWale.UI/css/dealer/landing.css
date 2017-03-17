@@ -1,10 +1,10 @@
-﻿@charset "utf-8";
-#dealer-locator-box .welcome-box {
+﻿#dealer-locator-box .welcome-box {
     margin-top: 85px;
 }
 
 .dealerlocator-banner {
     background: #393a3e url(https://imgd1.aeplcdn.com/0x0/bw/static/landing-banners/d/dealer-locator-banner.jpg?v1=29Sep2016) no-repeat center top;
+    background-size: cover;
     height: 268px;
     padding-top: 1px
 }

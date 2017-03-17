@@ -361,8 +361,6 @@
         </section>
         <%} %>
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20 content-details-wrapper">
                 <div id="modelOverallSpecsTopContent">
@@ -1069,50 +1067,16 @@
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
         <script type="text/javascript">
-            var leadSourceId;
-            vmModelId = '<%= modelId%>';
-            clientIP = '<%= clientIP%>';
-            cityId = '<%= cityId%>';
-            isUsed = '<%= !modelPage.ModelDetails.New %>';
-            var pageUrl = "<%= canonical %>";
-            var myBikeName = "<%= this.bikeName %>";
-            var versionName = "<%= variantText %>"
-            ga_pg_id = '2';
-            if (bikeVersionLocation == '') {
-                bikeVersionLocation = getBikeVersionLocation();
-            }
-            if (bikeVersion == '') {
-                bikeVersion = getBikeVersion();
-            }
-            var getCityArea = GetGlobalCityArea();
-            $(document).ready(function (e) {
+            var leadSourceId,vmModelId = '<%= modelId%>',clientIP = '<%= clientIP%>',cityId = '<%= cityId%>',isUsed = '<%= !modelPage.ModelDetails.New %>';
+            var pageUrl = "<%= canonical %>",myBikeName = "<%= this.bikeName %>",versionName = "<%= variantText %>",ga_pg_id = '2',getCityArea;
 
-                $("#templist input").on("click", function () {
-                    if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
-                        return false;
-                    }
-                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
-                    $('#hdnVariant').val($(this).attr('data-option-value'));
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
-                });
-
-                if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
-                }
-                if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
-                }
-                if ($("#getAssistance").length > 0) {
-                    dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
-                }
-
-            });
 
             function secondarydealer_Click(dealerID) {
                 try {
@@ -1142,46 +1106,77 @@
                 }
             }
 
+            docReady(function(){
+                $("#viewprimarydealer, #dealername").on("click", function () {
+                    var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
+                    window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                });
 
-            $("#viewprimarydealer, #dealername").on("click", function () {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
-                window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
-            });
+                $(".leadcapturebtn").click(function (e) {
+                    ele = $(this);
+                    try {                    
+                        var leadOptions = {
+                            "dealerid": ele.attr('data-item-id'),
+                            "dealername": ele.attr('data-item-name'),
+                            "dealerarea": ele.attr('data-item-area'),
+                            "versionid": versionId,
+                            "leadsourceid": ele.attr('data-leadsourceid'),
+                            "pqsourceid": ele.attr('data-pqsourceid'),
+                            "isleadpopup": ele.attr('data-isleadpopup'),
+                            "mfgCampid": ele.attr('data-mfgcampid'),
+                            "pqid": pqId,
+                            "pageurl": pageUrl,
+                            "clientip": clientIP,
+                            "dealerHeading" : ele.attr('data-item-heading'), 
+                            "dealerMessage" : ele.attr('data-item-message'), 
+                            "dealerDescription" : ele.attr('data-item-description'), 
+                            "pinCodeRequired":ele.attr("data-ispincodrequired"),
+                            "gaobject": {
+                                cat: ele.attr("c"),
+                                act: ele.attr("a"),
+                                lab: ele.attr("v")
+                            }
+                        };
 
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                try {                    
-                    var leadOptions = {
-                        "dealerid": ele.attr('data-item-id'),
-                        "dealername": ele.attr('data-item-name'),
-                        "dealerarea": ele.attr('data-item-area'),
-                        "versionid": versionId,
-                        "leadsourceid": ele.attr('data-leadsourceid'),
-                        "pqsourceid": ele.attr('data-pqsourceid'),
-                        "isleadpopup": ele.attr('data-isleadpopup'),
-                        "mfgCampid": ele.attr('data-mfgcampid'),
-                        "pqid": pqId,
-                        "pageurl": pageUrl,
-                        "clientip": clientIP,
-                        "dealerHeading" : ele.attr('data-item-heading'), 
-                        "dealerMessage" : ele.attr('data-item-message'), 
-                        "dealerDescription" : ele.attr('data-item-description'), 
-                        "pinCodeRequired":ele.attr("data-ispincodrequired"),
-                        "gaobject": {
-                            cat: ele.attr("c"),
-                            act: ele.attr("a"),
-                            lab: ele.attr("v")
-                        }
-                    };
+                        dleadvm.setOptions(leadOptions);
+                    } catch (e) {
+                        console.warn("Unable to get submit details : " + e.message);
+                    }
 
-                    dleadvm.setOptions(leadOptions);
-                } catch (e) {
-                    console.warn("Unable to get submit details : " + e.message);
+                });
+
+                $("#templist input").on("click", function () {
+                    if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
+                        return false;
+                    }
+                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
+                    $('#hdnVariant').val($(this).attr('data-option-value'));
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+                });
+
+                if ($('#getMoreDetailsBtn').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                }
+                if ($('#btnGetOnRoadPrice').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                }
+                if ($("#getAssistance").length > 0) {
+                    dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
                 }
 
+                
+                if (bikeVersionLocation == '') {
+                    bikeVersionLocation = getBikeVersionLocation();
+                }
+                if (bikeVersion == '') {
+                    bikeVersion = getBikeVersion();
+                }
+                getCityArea = GetGlobalCityArea();
             });
+           
             
         </script>
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

@@ -151,15 +151,6 @@
             $(document).ready(function () {
                 $("img.lazy").lazyload();
             });
-            $("#view-brandType").click(function () {
-                $(".brandTypeMore").slideToggle();
-                var targetLink = $(this);
-                targetLink.text(targetLink.text() == 'View more brands' ? 'View less brands' : 'View more brands');
-                if (targetLink.text() === "View more brands")
-                    targetLink.attr("href", "#more");
-                else
-                    targetLink.attr("href", "javascript:void(0)");
-            });
         </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->

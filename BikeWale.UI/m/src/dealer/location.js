@@ -1,18 +1,4 @@
-﻿// read more-collapse
-var readMoreTarget = $('#read-more-target'),
-    dealereMoreContent = $('#more-content');
-
-readMoreTarget.on('click', function () {
-    if (!dealereMoreContent.hasClass('active')) {
-        dealereMoreContent.addClass('active');
-        readMoreTarget.text('Collapse');
-    }
-    else {
-        dealereMoreContent.removeClass('active');
-        readMoreTarget.text('Read more');
-    }
-});
-$(document).ready(function () {
+﻿$(document).ready(function () {
     // filter no-result message
     $('#no-result').text('No result found!');
 });

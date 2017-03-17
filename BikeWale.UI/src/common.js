@@ -1,39 +1,16 @@
 // JavaScript Document
 var focusedMakeModel = null, focusedCity = null;
-var objBikes = new Object();
-var objCity = new Object();
-var globalCityId = 0;
-var _makeName = '';
-var ga_pg_id = '0';
-var pqSourceId = "37";
-var IsPriceQuoteLinkClicked = false;
+var objBikes = new Object(), objCity = new Object(),globalCityId = 0,_makeName = '',ga_pg_id = '0',pqSourceId = "37";
+var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 
-function triggerGA(cat, act, lab) {
-    try {
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
-    }
-    catch (e) {// log error   
-    }
-}
-$('.bw-ga').click(function () {
+/* landing page header */
+var transparentHeader = document.querySelectorAll('.header-transparent')[0];
 
-    try {
-        var obj = $(this);
-        if (obj.attr('l') !== undefined) {
-            triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
-        }
-        else if (obj.attr('v') !== undefined) {
-            triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
-        }
-        else if (obj.attr('f') !== undefined) {
-            triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
-        }
-    }
-    catch (e) {
-    }
-});
+if (transparentHeader) {
+    attachListener('scroll', window, changeHeaderBackground);
+}
 
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
@@ -56,15 +33,1133 @@ if (!Array.prototype.indexOf) {
     };
 }
 
-$(document).ready(function () {
-    if (ga_pg_id != '1')
-        $('#globalSearch').parent().show();
+if (typeof String.prototype.contains === 'undefined') {
+    String.prototype.contains = function (t, c) {
+        return (!c) ? this.indexOf() != -1 : this.toLowerCase().indexOf(t.toLowerCase()) != -1;
+    };
+}
+
+
+var Base64 = {
+    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    encode: function (input) {
+        var output = "";
+        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        input = Base64._utf8_encode(input);
+
+        while (i < input.length) {
+
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+
+            output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+        }
+
+        return output;
+    },
+    decode: function (input) {
+        var output = "";
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+        while (i < input.length) {
+
+            enc1 = this._keyStr.indexOf(input.charAt(i++));
+            enc2 = this._keyStr.indexOf(input.charAt(i++));
+            enc3 = this._keyStr.indexOf(input.charAt(i++));
+            enc4 = this._keyStr.indexOf(input.charAt(i++));
+
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+
+            output = output + String.fromCharCode(chr1);
+
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+
+        }
+
+        output = Base64._utf8_decode(output);
+
+        return output;
+
+    },
+    _utf8_encode: function (string) {
+        string = string.replace(/\r\n/g, "\n");
+        var utftext = "";
+
+        for (var n = 0; n < string.length; n++) {
+
+            var c = string.charCodeAt(n);
+
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            }
+            else if ((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+            else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+
+        }
+
+        return utftext;
+    },
+    _utf8_decode: function (utftext) {
+        var string = "";
+        var i = 0;
+        var c = c1 = c2 = 0;
+
+        while (i < utftext.length) {
+
+            c = utftext.charCodeAt(i);
+
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            }
+            else if ((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i + 1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            }
+            else {
+                c2 = utftext.charCodeAt(i + 1);
+                c3 = utftext.charCodeAt(i + 2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+
+        }
+
+        return string;
+    }
+};
+
+function triggerGA(cat, act, lab) {
+    try {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {// log error   
+    }
+};
+
+function attachListener(event, element, functionName) {
+    if (element.addEventListener) {
+        element.addEventListener(event, functionName, false);
+    }
+    else if (element.attachEvent) {
+        element.attachEvent('on' + event, functionName);
+    }
+};
+
+function changeHeaderBackground() {
+    if ($(window).scrollTop() > 40)
+        $('.header-transparent').removeClass('header-landing').addClass('header-fixed');
+    else
+        $('.header-transparent').removeClass('header-fixed').addClass('header-landing');
+};
+
+function GetCatForNav() {
+    var ret_category = null;
+    if (ga_pg_id != null && ga_pg_id != "0") {
+        switch (ga_pg_id) {
+            case "1":
+                ret_category = "HP";
+                break;
+            case "2":
+                ret_category = "Model_Page";
+                break;
+            case "3":
+                ret_category = "Make_Page";
+                break;
+            case "4":
+                ret_category = "New_Bikes_Page";
+                break;
+            case "5":
+                ret_category = "Search_Page";
+                break;
+        }
+        return ret_category;
+    }
+}
+
+function GetGlobalCityArea() {
+    var cookieName = "location";
+    var cityArea = '';
+    if (isCookieExists(cookieName)) {
+        cityArea = getCookie(cookieName);
+        cityArea = cityArea.replace(/[0-9](_)*/g, '').replace(/-+/g, ' ');
+    }
+    return cityArea;
+}
+
+function GetGlobalLocationObject() {
+    var locationObj = {};
+    if (isCookieExists("location")) {
+        var locationCookie = getCookie("location");
+        var cData = locationCookie.split('_');
+        if (cData.length > 0) {
+            locationObj.CityId = parseInt(cData[0]);
+            locationObj.CityName = cData[1];
+
+            locationObj.AreaId = cData[2] == null ? 0 : parseInt(cData[2]);
+            locationObj.AreaName = cData[3] == null ? '' : cData[3];
+        }
+    }
+    return locationObj;
+}
+
+function applyTabsLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
+
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad",
+        effect: "fadeIn"
+    });
+}
+
+// common autocomplete data call function
+function dataListDisplay(availableTags, request, response) {
+    var results = $.ui.autocomplete.filter(availableTags, request.term);
+    response(results.slice(0, 5));
+}
+
+function setPriceQuoteFlag() {
+    IsPriceQuoteLinkClicked = true;
+}
+
+function MakeModelRedirection(items) {
+    if (!IsPriceQuoteLinkClicked) {
+        var make = new Object();
+        make.maskingName = items.payload.makeMaskingName;
+        make.id = items.payload.makeId;
+        var model = null;
+        if (items.payload.modelId > 0) {
+            model = new Object();
+            model.maskingName = items.payload.modelMaskingName;
+            model.id = items.payload.modelId;
+            model.futuristic = items.payload.futuristic;
+        }
+
+        recentSearches.saveRecentSearches(items);
+
+        if (model != null && model != undefined) {
+            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+            return true;
+        } else if (make != null && make != undefined) {
+            window.location.href = "/" + make.maskingName + "-bikes/";
+            return true;
+        }
+    }
+}
+
+function pushNavMenuAnalytics(menuItem) {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        triggerGA(categ, 'Hamburger_Menu_Item_Click', menuItem);
+    }
+}
+
+var getHost = function () {
+    var host = document.domain;
+
+    if (host.match("bikewale.com$"))
+        host = ".bikewale.com";
+    return host;
+}
+
+function SetCookie(cookieName, cookieValue) {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
+        document.cookie = cookieName + "=" + cookieValue + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
+}
+
+function SetCookieInDays(cookieName, cookieValue, nDays) {
+    var today = new Date();
+    var expire = new Date();
+    expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+    cookieValue = cookieValue.replace(/\s+/g, '-');
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
+    else
+        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
+
+   bwcache.remove("userchangedlocation", true);
+}
+
+function getCookie(key) {
+    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
+}
+
+function isCookieExists(cookiename) {
+    var coockieVal = $.cookie(cookiename);
+    if (coockieVal == undefined || coockieVal == null || coockieVal == "-1" || coockieVal == "")
+        return false;
+    return true;
+}
+
+function toggleErrorMsg(element, error, msg) {
+    if (error) {
+        element.parent().find('.error-icon').removeClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').text(msg).removeClass('hide');
+        element.addClass('border-red')
+    }
+    else {
+        element.parent().find('.error-icon').addClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').text("").addClass('hide');
+        element.removeClass('border-red');
+    }
+}
+
+function showHideMatchError(element, error) {
+    if (error) {
+        element.parent().find('.error-icon').removeClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').removeClass('hide');
+        element.addClass('border-red')
+    }
+    else {
+        element.parent().find('.error-icon').addClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').addClass('hide');
+        element.removeClass('border-red');
+    }
+}
+
+function showGlobalCity(cityName) {
+    $(".gl-default-stage").show();
+    $('#cityName').text(cityName);
+}
+
+function CloseCityPopUp() {
+    var globalLocation = $("#globalcity-popup");
+    globalLocation.removeClass("show").addClass("hide");
+    unlockPopup();
+}
+
+function CheckGlobalCookie() {
+    var cookieName = "location";
+    if (isCookieExists(cookieName)) {
+        var locationCookie = getCookie(cookieName);
+        locationCookie = (locationCookie.replace('-', ' ')).split("_");
+        var cityName = locationCookie[1];
+        globalCityId = parseInt(locationCookie[0]);
+        showGlobalCity(cityName);
+        showHideMatchError($("#globalCityPopUp"), false);
+        $("#globalCityPopUp").val(cityName);
+    }
+}
+
+//function to attach ajax spinner
+function attachAjaxLoader(element) {
+    var $loading = $(element).hide();
+    $(document)
+      .ajaxStart(function () {
+          $loading.show();
+      })
+      .ajaxStop(function () {
+          $loading.hide();
+      });
+}
+
+//set location cookie
+function setLocationCookie(cityEle, areaEle) {
+    if (parseInt($(cityEle).val()) > 0) {
+        cookieValue = parseInt($(cityEle).val()) + "_" + $(cityEle).text();
+        if (parseInt($(areaEle).val()) > 0)
+            cookieValue += "_" + parseInt($(areaEle).val()) + "_" + $(areaEle).text();
+        SetCookieInDays("location", cookieValue, 365);
+    }
+}
+
+//match cookie data to check city /area exists 
+function selectElementFromArray(arr, id) {
+    if (arr != null && (l = arr.length) > 0) {
+        for (var i = 0; i < l; i++) {
+            if (arr[i].cityId === id || arr[i].AreaId === id || arr[i].areaId === id || arr[i].CityId === id || arr[i].id === id)
+                return true;
+        }
+    }
+    return false;
+}
+
+function insertCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
+                break;
+            }
+        }
+    }
+}
+
+function insertCitySeparatorNew(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { Id: 0, Name: "--------------------", IsPopular: false, hasAreas: false });
+                break;
+            }
+        }
+    }
+}
+
+function btnFindBikeNewNav() {
+    if (focusedMakeModel == undefined || focusedMakeModel == null) {
+        return false;
+    }
+    return MakeModelRedirection(focusedMakeModel);
+}
+
+function navbarHide() {
+    $("#nav").removeClass('open').animate({ 'left': '-350px' });
+    $(".blackOut-window").hide();
+}
+
+function navbarHideOnESC() {
+    $("#nav").removeClass('open').animate({ 'left': '-350px' });
+    $(".blackOut-window").hide();
+}
+
+function navbarShow() {
+    var category = GetCatForNav();
+    if (category != null) {
+        triggerGA(category, 'Hamburger_Menu_Icon', 'Icon_Click');
+    }
+    $("#nav").addClass('open').animate({ 'left': '0px' });
+    $(".blackOut-window").show();
+}
+
+function loginSignupSwitch() {
+    $(".loginStage").show();
+    $(".signUpStage").hide();
+}
+
+function CloseCityPopUp() {
+    var globalLocation = $("#globalcity-popup");
+    globalLocation.removeClass("show").addClass("hide");
+    unlockPopup();
+}
+
+function popupHideOnESC() {
+    $('.bw-popup').fadeOut(100);
+    unlockPopup();
+}
+
+function headerOnScroll() {
+    if ($(window).scrollTop() > 40) {
+        $('#header').addClass('header-fixed-with-bg');
+    } else {
+        $('#header').removeClass('header-fixed-with-bg');
+    }
+}
+
+function loginHideOnESC() {
+    $(".loginPopUpWrapper").animate({ right: '-400px' });
+    $(".loggedinProfileWrapper").animate({
+        right: '-280px'
+    });
+}
+
+function lockPopup() {
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window").show();
+}
+
+function unlockPopup() {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window").hide();
+}
+
+function formatPrice(x) {
+    try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { }
+}
+
+var bwAutoComplete = function (options) {
+    return this.each(function () {
+        if (options == null || options == undefined) {
+            return;
+        }
+        else if (options.source == null || options.source == undefined || options.source == '') {
+            return;
+        }
+        var cache = new Object();
+        var reqTerm;
+        var orgTerm;
+        if ($(this).attr('placeholder') != undefined)
+            $(this).hint();
+        var result;
+        $(this).focus(function () {
+            if (options.focus != undefined)
+                options.focus();
+        })
+        $(this).focusout(function () {
+            if (options.focusout != undefined)
+                options.focusout();
+        })
+        $(this).keyup(function () {
+            if (options.keyup != undefined)
+                options.keyup();
+        })
+        $(this).autocomplete({
+            autoFocus: true,
+            source: function (request, response) {
+                orgTerm = request.term;
+                reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase().trim();
+
+                var year = options.year;
+                if (year != null && year != undefined && year != '')
+                    year = year.val();
+                else
+                    year = '';
+                cacheProp = reqTerm + '_' + year;
+                if (!(cacheProp in cache) && reqTerm.length > 0) {
+                    var indexToHit = options.source;
+                    var count = options.recordCount;
+
+                    var path = "/api/AutoSuggest/?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
+                    cache[cacheProp] = new Array();
+                    $.ajax({
+                        async: true, type: "GET", contentType: "application/json; charset=utf-8", dataType: "json",
+                        url: path,
+                        beforeSend: function (xhr) {
+                            if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(false);
+                        },
+                        success: function (jsonData) {
+                            jsonData = jsonData.suggestionList;
+                            cache[reqTerm + '_' + year] = $.map(jsonData, function (item) {
+                                return { label: item.text, payload: item.payload }
+                            });
+                            result = cache[cacheProp];
+                            response(cache[cacheProp]);
+                            if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
+                        },
+                        error: function (error) {
+                            result = undefined;
+                            options.afterfetch(result, reqTerm);
+                            response(cache[cacheProp]);
+                        },
+                        complete: function (xhr, status) {
+                            if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(true);
+                        }
+                    });
+                }
+                else {
+                    result = cache[cacheProp];
+                    response(cache[cacheProp]);
+                    if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
+                }
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                if (options.click != undefined)
+                    options.click(event, ui, $(this).val());
+            },
+            open: function (event, ui) {
+                if (!isNaN(options.width)) {
+                    $('.ui-menu').width(options.width);
+                }
+                if (options.open != undefined)
+                    options.open(result);
+            }
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return createAutoSuggestLinkText(ul, item, reqTerm);
+        };
+        function __highlight(s, t) {
+            var matcher = new RegExp("(" + $.ui.autocomplete.escapeRegex(t) + ")", "ig");
+            return s.replace(matcher, "<strong>$1</strong>");
+        }
+        function __getValue(key, value) {
+            if (value != null && value != undefined && value != '')
+                return key + ':' + value + ';';
+            else
+                return '';
+        }
+        function createAutoSuggestLinkText(ul, item, reqTerm) {
+            var ulItem = $("<li>")
+                          .data("ui-autocomplete-item", item)
+                          .append('<span class="bwsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
+
+            if (options.source == '1') {
+                if (item.payload.modelId > 0) {
+                    if (item.payload.futuristic == 'True') {
+                        ulItem.append('<span class="upcoming-link">coming soon</span>')
+                    } else {
+                        if (item.payload.isNew == 'True') {
+                            ulItem.append('<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
+                        } else {
+                            ulItem.append('<span class="upcoming-link">discontinued</span>')
+                        }
+
+                    }
+
+                    ulItem.append('<div class="clear"></div>');
+                }
+            }
+            ulItem.appendTo(ul);
+            return ulItem;
+        }
+        $(this).keyup(function (e) {
+            if ($(this).val().replace(/\s/g, '').length == 0 && options.onClear != undefined) {
+                options.onClear();
+            }
+        });
+        $(this).keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+            }
+        });
+    });
+};
+
+var bwHint = function (blurClass) {
+    if (!blurClass) {
+        blurClass = 'blur';
+    }
+
+    return this.each(function () {
+        // get jQuery version of 'this'
+        var $input = $(this),
+
+        // capture the rest of the variable to allow for reuse
+          title = $input.attr('placeholder'),
+          $form = $(this.form),
+          $win = $(window);
+
+        function remove() {
+            if ($input.val() === title && $input.hasClass(blurClass)) {
+                $input.val('').removeClass(blurClass);
+            }
+        }
+
+        // only apply logic if the element has the attribute
+        if (title) {
+            // on blur, set value to title attr if text is blank
+            $input.blur(function () {
+                if (this.value === '') {
+                    $input.val(title).addClass(blurClass);
+                }
+            }).focus(remove).blur(); // now change all inputs to title
+
+            // clear the pre-defined text when form is submitted
+            $form.submit(remove);
+            $win.unload(remove); // handles Firefox's autocomplete
+        }
+    });
+};
+
+/* jCarousel custom methods */
+docReady(function () {
+    if (typeof (testimonialSlider) != 'undefined') {
+        _target = 1;
+    }
+    var jcarousel = $('.jcarousel').jcarousel({
+        vertical: false
+    });
+    $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
+        $(this).removeClass('inactive');
+    }).on('jcarouselcontrol:inactive', function () {
+        $(this).addClass('inactive');
+    }).jcarouselControl({
+        target: '-=' + _target
+    });
+    $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
+        $(this).removeClass('inactive');
+    }).on('jcarouselcontrol:inactive', function () {
+        $(this).addClass('inactive');
+    }).jcarouselControl({
+        target: '+=' + _target
+    });
+    $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
+        $(this).addClass('active');
+    }).on('jcarouselpagination:inactive', 'a', function () {
+        $(this).removeClass('active');
+    }).on('click', function (e) {
+        e.preventDefault();
+    }).jcarouselPagination({
+        item: function (page) {
+            return '<a href="#' + page + '">' + page + '</a>';
+        }
+    });
+    // Swipe handlers for mobile
+    $(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+    function swipe1(event, direction, distance, duration, fingerCount) {
+        if (direction == "left") {
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
+        }
+        else if (direction == "right") {
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
+        }
+    }
+    $(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(this).find("img.lazy").trigger("imgLazyLoad");
+    });
+});
+
+docReady(function () {
+
+    $.fn.hint = bwHint;
+
+    $.fn.bw_autocomplete = bwAutoComplete;
+
+    /* bikes search starts autocomplete */
+    $('#btnGlobalSearch').on('click', function () {
+        if (focusedMakeModel != null && btnGlobalSearch != undefined)
+            btnFindBikeNewNav();
+
+    });
+
+    /*
+        default width is 469,
+        with campaign banner width is 415
+    */
+    $("#newBikeList").bw_autocomplete({
+        width: 469,
+        source: 1,
+        recordCount: 10,
+        onClear: function () {
+            objBikes = new Object();
+        },
+        click: function (event, ui, orgTxt) {
+            MakeModelRedirection(ui.item);
+            var keywrd = ui.item.label + '_' + $('#newBikeList').val();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+        },
+        open: function (result) {
+            objBikes.result = result;
+        },
+        focus: function () {
+            if ($('#newBikeList').val().trim() == '') {
+                recentSearches.showRecentSearches();
+            }
+        },
+        focusout: function () {
+            if ($('#newBikeList').find('li.ui-state-focus a:visible').text() != "") {
+                $('#errNewBikeSearch').hide()
+                focusedMakeModel = new Object();
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+            }
+            else {
+                $('#errNewBikeSearch').hide();
+                var container = $('#new-global-recent-searches');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
+            }
+        },
+        afterfetch: function (result, searchtext) {
+            if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                $('#errNewBikeSearch').hide();
+                recentSearches.hideRecentSearches();
+                NewBikeSearchResult = true;
+            }
+            else {
+                focusedMakeModel = null; NewBikeSearchResult = false;
+                if (searchtext.trim() != "") {
+                    $('#errNewBikeSearch').show();
+                    recentSearches.hideRecentSearches();
+                }
+            }
+        },
+        keyup: function () {
+            if ($('#newBikeList').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                focusedMakeModel = new Object();
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+                $('#errNewBikeSearch').hide();
+                recentSearches.hideRecentSearches();
+            } else {
+                if ($('#newBikeList').val().trim() == '') {
+                    $('#errNewBikeSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+            }
+
+            if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                    if ($('#newBikeList').val().trim() != '') {
+                        $('#errNewBikeSearch').show();
+                    }
+                }
+                else {
+                    $('#errNewBikeSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+
+            }
+
+
+        }
+    });
+
+
+    $("#globalSearch").bw_autocomplete({
+        width: 420,
+        source: 1,
+        recordCount: 10,
+        onClear: function () {
+            objBikes = new Object();
+        },
+        click: function (event, ui, orgTxt) {
+            var keywrd = ui.item.label + '_' + $('#globalSearch').val();
+            var category = GetCatForNav();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+            MakeModelRedirection(ui.item);
+        },
+        loaderStatus: function (status) {
+            if (!status) {
+                $("#btnGlobalSearch").removeClass('bwsprite');
+                $("#globalSearch").siblings('.fa-spinner').show();
+                if (focusedMakeModel == null) $('#errGlobalSearch').hide();
+            }
+            else {
+                $("#btnGlobalSearch").addClass('bwsprite');
+                $("#globalSearch").siblings('.fa-spinner').hide();
+            }
+        },
+        open: function (result) {
+            objBikes.result = result;
+        },
+        focus: function () {
+            if ($('#globalSearch').val().trim() == '') {
+                recentSearches.showRecentSearches();
+            }
+        },
+        focusout: function () {
+            if ($('#globalSearch').find('li.ui-state-focus a:visible').text() != "") {
+                focusedMakeModel = new Object();
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+            }
+            else {
+                $('#errGlobalSearch').hide();
+                var container = $('#global-recent-searches');
+                if (container.is(':visible')) {
+                    if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
+                        recentSearches.hideRecentSearches();
+                    }
+                }
+            }
+        },
+        afterfetch: function (result, searchtext) {
+
+            if (result != undefined && result.length > 0 && searchtext.trim() != '') {
+                $('#errGlobalSearch').hide();
+                recentSearches.hideRecentSearches();
+                globalSearchResult = true;
+            }
+            else {
+                focusedMakeModel = null; globalSearchResult = false;
+                if (searchtext.trim() != '') {
+                    $('#errGlobalSearch').show();
+                    recentSearches.hideRecentSearches();
+                }
+                var keywrd = $('#globalSearch').val();
+                var category = GetCatForNav();
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+            }
+        },
+        keyup: function () {
+            if ($('#globalSearch').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
+                focusedMakeModel = new Object();
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+                $('#errGlobalSearch').hide();
+                recentSearches.hideRecentSearches();
+            } else {
+                if ($('#globalSearch').val().trim() == '') {
+                    $('#errGlobalSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+            }
+
+            if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                    if ($('#globalSearch').val().trim() != '') {
+                        $('#errGlobalSearch').show();
+                    }
+                }
+                else {
+                    $('#errGlobalSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+
+            }
+        }
+    }).keydown(function (e) {
+        if (e.keyCode == 13) {
+            $('#btnGlobalSearch').click();
+        }
+
+    });
+    /* bikes search ends autocomplete */
+
+    /* recent searches code starts here */
+    recentSearches =
+    {
+        searchKey: "recentsearches",
+        options: {
+            homeSearchEle: $('#newBikeList'),
+            bikeSearchEle: $('#globalSearch'),
+            recentSearchesEle: $("#new-global-recent-searches").length ? $("#new-global-recent-searches") : $("#global-recent-searches"),
+            recentSearchesLoaded: false
+        },
+        saveRecentSearches: function (opt) {
+            if (opt && opt.payload && opt.payload.makeId > 0) {
+                var objSearches = bwcache.get(this.searchKey) || {};
+                opt.payload["name"] = opt.label;
+                objSearches.searches = objSearches.searches || [];
+                eleIndex = this.objectIndexOf(objSearches.searches, opt.payload);
+                if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
+                objSearches.searches.unshift(opt.payload);
+
+                objSearches["lastModified"] = new Date().getTime();
+                if (objSearches.searches.length > 5)
+                    objSearches.searches.pop();
+                objSearches["noOfSearches"] = objSearches.searches.length;
+                bwcache.set(this.searchKey, objSearches);
+            }
+        },
+        showRecentSearches: function () {
+            if (!this.options.recentSearchesLoaded) {
+                var objSearches = bwcache.get(this.searchKey);
+                if (objSearches && objSearches.searches) {
+                    var html = "", bikename, url;
+                    var i = 0;
+                    for (var item in objSearches.searches) {
+                        item = objSearches.searches[item];
+                        bikename = item.name || '';
+                        if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
+                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><span class="bwsprite history-icon"></span><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                            if (item.modelId > 0) {
+                                if (item.futuristic == 'True') {
+                                    html += '<span class="upcoming-link">coming soon</span>';
+                                } else {
+                                    if (item.isNew == 'True') {
+                                        html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
+                                    } else {
+                                        html += '<span class="upcoming-link">discontinued</span>';
+                                    }
+                                }
+                                html += '<div class="clear"></div>';
+                            }
+                            html += "</li>";
+                        }
+                    }
+                    if (html != "") {
+                        this.options.recentSearchesEle.append(html);
+                        this.options.recentSearchesLoaded = true;
+                        this.options.recentSearchesEle.find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
+                    }
+
+                }
+            }
+
+            var rsele = this.options.recentSearchesEle.find("li");
+            if (rsele.length > 0) {
+                this.options.recentSearchesEle.slideDown(100);
+                this.handleKeyEvents();
+            }
+        },
+        hideRecentSearches: function () {
+            this.options.recentSearchesEle.slideUp(100).find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
+
+        },
+        handleKeyEvents: function () {
+            var rsele = this.options.recentSearchesEle.find("li.focus-state");
+            if (event.keyCode == 40) {
+                rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
+                curElement = rsele.next();
+                return false;
+            } else if (event.keyCode == 38) {
+                rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
+                curElement = rsele.prev();
+                return false;
+            }
+            else if (event.keyCode == 27) {
+                this.hideRecentSearches();
+            }
+            else if (event.keyCode == 13) {
+                rsele.trigger('click');
+            }
+        },
+        objectIndexOf: function (arr, opt) {
+            var makeId = opt.makeId, modelId = opt.modelId;
+            for (var i = 0, len = arr.length; i < len; i++)
+                if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId) return i;
+            return -1;
+        }
+    };
+
+    recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+        try {
+            if (!$(event.target).hasClass('getquotation')) {
+
+                var objSearches = bwcache.get(recentSearches.searchKey) || {}, mkId = this.getAttribute("data-makeid"), moId = this.getAttribute("data-modelid"),
+                    eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
+                    obj = objSearches.searches[eleIndex];
+                if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
+                objSearches.searches.unshift(obj);
+                bwcache.set(recentSearches.searchKey, objSearches);
+                window.location.href = $(this).find('a').first().attr('data-href');
+            }
+
+            recentSearches.hideRecentSearches();
+
+        } catch (e) {
+            console.log(e.message);
+        }
+    });
+
+    var elements = recentSearches.options.recentSearchesEle.find("li");
+    var curElement = recentSearches.options.recentSearchesEle.find("li").first();
+
+    $(document).on('mouseenter', '.recent-searches-dropdown li', function () {
+        $(this).addClass("focus-state");
+        curElement = $(this);
+    });
+    $(document).on('mouseleave', '.recent-searches-dropdown li', function () {
+        $(this).removeClass("focus-state");
+    });
+
+    $(document).on('mouseleave', '.recent-searches-dropdown', function () {
+        curElement.addClass("focus-state").siblings().removeClass("focus-state");
+    });
+
+    /* recent searches ends starts here */
+
+    popup = {
+        lock: function () {
+            var htmlElement = $('html'), bodyElement = $('body');
+            $(".blackOut-window").show();
+            if ($(document).height() > $(window).height()) {
+                var windowScrollTop = htmlElement.scrollTop() ? htmlElement.scrollTop() : bodyElement.scrollTop();
+                if (windowScrollTop < 0) {
+                    windowScrollTop = 0;
+                }
+                htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
+            }
+        },
+
+        unlock: function () {
+            var htmlElement = $('html'),
+                windowScrollTop = parseInt(htmlElement.css('top'));
+            $(".blackOut-window").hide();
+            htmlElement.removeClass('lock-browser-scroll');
+            $('html, body').scrollTop(-windowScrollTop);
+        }
+    };
+
+
+    window.validateMobileNo = function (mobileNo, self) {
+        if (self != null) {
+            var regPhone = /^[6-9][0-9]{9}$/;
+            var isValid = true;
+            if (mobileNo == "") {
+                self.msg = "Please enter your mobile no.";
+                isValid = false;
+            }
+            else if (!regPhone.test(mobileNo) && isValid) {
+                self.msg = "Please enter a valid mobile no.";
+                isValid = false;
+            }
+            else
+                self.msg = "";
+            return isValid;
+        }
+        else {
+            return false;
+        }
+    };
+
+    $('#newBikeList').on('keypress', function (e) {
+        var id = $('#newBikeList');
+        var searchVal = id.val().trim();
+        var placeHolder = id.attr('placeholder');
+        if (e.keyCode == 13)
+            if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+                $('#errNewBikeSearch').hide();
+                return false;
+            }
+            else {
+                return false;
+            }
+    });
+
+    $('#btnSearch').on('click', function (e) {
+        var id = $('#newBikeList');
+        var searchVal = id.val();
+        var placeHolder = id.attr('placeholder');
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
+        if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+            return false;
+        } else {
+            return false;
+        }
+
+    });
+
+    $('.bw-ga').click(function () {
+
+        try {
+            var obj = $(this);
+            if (obj.attr('l') !== undefined) {
+                triggerGA(obj.attr("c"), obj.attr("a"), obj.attr("l"));
+            }
+            else if (obj.attr('v') !== undefined) {
+                triggerGA(obj.attr("c"), obj.attr("a"), window[obj.attr("v")]);
+            }
+            else if (obj.attr('f') !== undefined) {
+                triggerGA(obj.attr("c"), obj.attr("a"), eval(obj.attr("f") + '()'));
+            }
+        }
+        catch (e) {
+        }
+    });
+
+    //if (ga_pg_id != '1')
+    //    $('#globalSearch').parent().show();
 
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
     applyLazyLoad();
-    //$('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
     var blackOut = $(".blackOut-window")[0];
 
@@ -199,15 +1294,15 @@ $(document).ready(function () {
 
     //global city popup
     $("#header div.gl-default-stage").click(function () {
-	    var changeCityPopup = $('#globalchangecity-popup');
-	    if (typeof changeCityPopup !== 'undefined' && $(changeCityPopup).is(':visible')) { // ie lt 10 fix
-	        event.preventDefault();
-	    }
-	    else {
-	        $(".blackOut-window").show();
-	        CheckGlobalCookie();
-	        $(".globalcity-popup").removeClass("hide").addClass("show");
-	    }
+        var changeCityPopup = $('#globalchangecity-popup');
+        if (typeof changeCityPopup !== 'undefined' && $(changeCityPopup).is(':visible')) { // ie lt 10 fix
+            event.preventDefault();
+        }
+        else {
+            $(".blackOut-window").show();
+            CheckGlobalCookie();
+            $(".globalcity-popup").removeClass("hide").addClass("show");
+        }
     });
 
     $(".blackOut-window").mouseup(function (e) {
@@ -343,1204 +1438,125 @@ $(document).ready(function () {
             triggerGA(categ, 'Logo', 'Logo_Clicked');
         }
     });
-});
 
-function GetCatForNav() {
-    var ret_category = null;
-    if (ga_pg_id != null && ga_pg_id != "0") {
-        switch (ga_pg_id) {
-            case "1":
-                ret_category = "HP";
-                break;
-            case "2":
-                ret_category = "Model_Page";
-                break;
-            case "3":
-                ret_category = "Make_Page";
-                break;
-            case "4":
-                ret_category = "New_Bikes_Page";
-                break;
-            case "5":
-                ret_category = "Search_Page";
-                break;
-        }
-        return ret_category;
-    }
-}
+    // more brand - collapse
+    $('.view-brandType').click(function (event) {
+        var element = $(this),
+            elementParent = element.closest('.collapsible-brand-content'),
+            moreBrandContainer = elementParent.find('.brandTypeMore');
 
-function GetGlobalCityArea() {
-    var cookieName = "location";
-    var cityArea = '';
-    if (isCookieExists(cookieName)) {
-        cityArea = getCookie(cookieName);
-        cityArea = cityArea.replace(/[0-9](_)*/g, '').replace(/-+/g, ' ');
-    }
-    return cityArea;
-}
-
-function GetGlobalLocationObject() {
-    var locationObj = {};
-    if (isCookieExists("location")) {
-        var locationCookie = getCookie("location");
-        var cData = locationCookie.split('_');
-        if (cData.length > 0) {
-            locationObj.CityId = parseInt(cData[0]);
-            locationObj.CityName = cData[1];
-
-            locationObj.AreaId = cData[2] == null ? 0 : parseInt(cData[2]);
-            locationObj.AreaName = cData[3] == null ? '' : cData[3];
-        }
-    }
-    return locationObj;
-}
-
-$('#newBikeList').on('keypress', function (e) {
-    var id = $('#newBikeList');
-    var searchVal = id.val().trim();
-    var placeHolder = id.attr('placeholder');
-    if (e.keyCode == 13)
-        if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
-            $('#errNewBikeSearch').hide();
-            return false;
+        if (!moreBrandContainer.is(':visible')) {
+            moreBrandContainer.slideDown();
+            element.addClass('active').find('.btn-label').text('View less brands');
         }
         else {
-            return false;
-        }
-});
-
-$('#btnSearch').on('click', function (e) {
-    var id = $('#newBikeList');
-    var searchVal = id.val();
-    var placeHolder = id.attr('placeholder');
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
-    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-        return false;
-    } else {
-        return false;
-    }
-
-});
-
-var popup = {
-    lock: function () {
-        var htmlElement = $('html'), bodyElement = $('body');
-        $(".blackOut-window").show();
-        if ($(document).height() > $(window).height()) {
-            var windowScrollTop = htmlElement.scrollTop() ? htmlElement.scrollTop() : bodyElement.scrollTop();
-            if (windowScrollTop < 0) {
-                windowScrollTop = 0;
-            }
-            htmlElement.addClass('lock-browser-scroll').css('top', -windowScrollTop);
-        }
-    },
-
-    unlock: function () {
-        var htmlElement = $('html'),
-            windowScrollTop = parseInt(htmlElement.css('top'));
-        $(".blackOut-window").hide();
-        htmlElement.removeClass('lock-browser-scroll');
-        $('html, body').scrollTop(-windowScrollTop);
-    }
-};
-
-/* jCarousel custom methods */
-var _target = 3;
-$(function () {
-    if (typeof (testimonialSlider) != 'undefined') {
-        _target = 1;
-    }
-    var jcarousel = $('.jcarousel').jcarousel({
-        vertical: false
-    });
-    $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-        $(this).removeClass('inactive');
-    }).on('jcarouselcontrol:inactive', function () {
-        $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '-=' + _target
-    });
-    $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
-        $(this).removeClass('inactive');
-    }).on('jcarouselcontrol:inactive', function () {
-        $(this).addClass('inactive');
-    }).jcarouselControl({
-        target: '+=' + _target
-    });
-    $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
-        $(this).addClass('active');
-    }).on('jcarouselpagination:inactive', 'a', function () {
-        $(this).removeClass('active');
-    }).on('click', function (e) {
-        e.preventDefault();
-    }).jcarouselPagination({
-        item: function (page) {
-            return '<a href="#' + page + '">' + page + '</a>';
-        }
-    });
-    // Swipe handlers for mobile
-    $(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
-    function swipe1(event, direction, distance, duration, fingerCount) {
-        if (direction == "left") {
-            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
-        }
-        else if (direction == "right") {
-            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
-        }
-    }
-    $(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-        $(this).find("img.lazy").trigger("imgLazyLoad");
-    });
-});
-
-function applyTabsLazyLoad() {
-    $("img.lazy").lazyload({
-        event: "imgLazyLoad"
-    });
-}
-
-function applyLazyLoad() {
-    $("img.lazy").lazyload({
-        event: "imgLazyLoad",
-        effect: "fadeIn"
-    });
-}
-
-// common autocomplete data call function
-function dataListDisplay(availableTags, request, response) {
-    var results = $.ui.autocomplete.filter(availableTags, request.term);
-    response(results.slice(0, 5));
-}
-
-function setPriceQuoteFlag() {
-    IsPriceQuoteLinkClicked = true;
-}
-
-
-function MakeModelRedirection(items) {
-    if (!IsPriceQuoteLinkClicked) {
-        var make = new Object();
-        make.maskingName = items.payload.makeMaskingName;
-        make.id = items.payload.makeId;
-        var model = null;
-        if (items.payload.modelId > 0) {
-            model = new Object();
-            model.maskingName = items.payload.modelMaskingName;
-            model.id = items.payload.modelId;
-            model.futuristic = items.payload.futuristic;
+            moreBrandContainer.slideUp();
+            element.removeClass('active').find('.btn-label').text('View more brands');
         }
 
-        recentSearches.saveRecentSearches(items);
-
-        if (model != null && model != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-            return true;
-        } else if (make != null && make != undefined) {
-            window.location.href = "/" + make.maskingName + "-bikes/";
-            return true;
-        }
-    }
-}
-
-function pushNavMenuAnalytics(menuItem) {
-    var categ = GetCatForNav();
-    if (categ != null) {
-        triggerGA(categ, 'Hamburger_Menu_Item_Click', menuItem);
-    }
-}
-
-(function ($) {
-    $.fn.hint = function (blurClass) {
-        if (!blurClass) {
-            blurClass = 'blur';
-        }
-
-        return this.each(function () {
-            // get jQuery version of 'this'
-            var $input = $(this),
-
-            // capture the rest of the variable to allow for reuse
-              title = $input.attr('placeholder'),
-              $form = $(this.form),
-              $win = $(window);
-
-            function remove() {
-                if ($input.val() === title && $input.hasClass(blurClass)) {
-                    $input.val('').removeClass(blurClass);
-                }
-            }
-
-            // only apply logic if the element has the attribute
-            if (title) {
-                // on blur, set value to title attr if text is blank
-                $input.blur(function () {
-                    if (this.value === '') {
-                        $input.val(title).addClass(blurClass);
-                    }
-                }).focus(remove).blur(); // now change all inputs to title
-
-                // clear the pre-defined text when form is submitted
-                $form.submit(remove);
-                $win.unload(remove); // handles Firefox's autocomplete
-            }
-        });
-    };
-
-})(jQuery);
-
-(function ($) {
-    $.fn.bw_autocomplete = function (options) {
-        return this.each(function () {
-            if (options == null || options == undefined) {
-                return;
-            }
-            else if (options.source == null || options.source == undefined || options.source == '') {
-                return;
-            }
-            var cache = new Object();
-            var reqTerm;
-            var orgTerm;
-            if ($(this).attr('placeholder') != undefined)
-                $(this).hint();
-            var result;
-            $(this).focus(function () {
-                if (options.focus != undefined)
-                    options.focus();
-            })
-            $(this).focusout(function () {
-                if (options.focusout != undefined)
-                    options.focusout();
-            })
-            $(this).keyup(function () {
-                if (options.keyup != undefined)
-                    options.keyup();
-            })
-            $(this).autocomplete({
-                autoFocus: true,
-                source: function (request, response) {
-                    orgTerm = request.term;
-                    reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase().trim();
-
-                    var year = options.year;
-                    if (year != null && year != undefined && year != '')
-                        year = year.val();
-                    else
-                        year = '';
-                    cacheProp = reqTerm + '_' + year;
-                    if (!(cacheProp in cache) && reqTerm.length > 0) {
-                        var indexToHit = options.source;
-                        var count = options.recordCount;
-
-                        var path = "/api/AutoSuggest/?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
-                        cache[cacheProp] = new Array();
-                        $.ajax({
-                            async: true, type: "GET", contentType: "application/json; charset=utf-8", dataType: "json",
-                            url: path,
-                            beforeSend: function (xhr) {
-                                if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(false);
-                            },
-                            success: function (jsonData) {
-                                jsonData = jsonData.suggestionList;
-                                cache[reqTerm + '_' + year] = $.map(jsonData, function (item) {
-                                    return { label: item.text, payload: item.payload }
-                                });
-                                result = cache[cacheProp];
-                                response(cache[cacheProp]);
-                                if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
-                            },
-                            error: function (error) {
-                                result = undefined;
-                                options.afterfetch(result, reqTerm);
-                                response(cache[cacheProp]);
-                            },
-                            complete: function (xhr, status) {
-                                if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(true);
-                            }
-                        });
-                    }
-                    else {
-                        result = cache[cacheProp];
-                        response(cache[cacheProp]);
-                        if (options.afterfetch != null && typeof (options.afterfetch) == "function") options.afterfetch(result, reqTerm);
-                    }
-                },
-                minLength: 1,
-                select: function (event, ui) {
-                    if (options.click != undefined)
-                        options.click(event, ui, $(this).val());
-                },
-                open: function (event, ui) {
-                    if (!isNaN(options.width)) {
-                        $('.ui-menu').width(options.width);
-                    }
-                    if (options.open != undefined)
-                        options.open(result);
-                }
-            }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                return createAutoSuggestLinkText(ul, item, reqTerm);
-            };
-            function __highlight(s, t) {
-                var matcher = new RegExp("(" + $.ui.autocomplete.escapeRegex(t) + ")", "ig");
-                return s.replace(matcher, "<strong>$1</strong>");
-            }
-            function __getValue(key, value) {
-                if (value != null && value != undefined && value != '')
-                    return key + ':' + value + ';';
-                else
-                    return '';
-            }
-            function createAutoSuggestLinkText(ul, item, reqTerm) {
-                var ulItem = $("<li>")
-                              .data("ui-autocomplete-item", item)
-                              .append('<span class="bwsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
-
-                if (options.source == '1') {
-                    if (item.payload.modelId > 0) {
-                        if (item.payload.futuristic == 'True') {
-                            ulItem.append('<span class="upcoming-link">coming soon</span>')
-                        } else {
-                            if (item.payload.isNew == 'True') {
-                                ulItem.append('<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.payload.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>');
-                            } else {
-                                ulItem.append('<span class="upcoming-link">discontinued</span>')
-                            }
-
-                        }
-
-                        ulItem.append('<div class="clear"></div>');
-                    }
-                }
-                ulItem.appendTo(ul);
-                return ulItem;
-            }
-            $(this).keyup(function (e) {
-                if ($(this).val().replace(/\s/g, '').length == 0 && options.onClear != undefined) {
-                    options.onClear();
-                }
-            });
-            $(this).keypress(function (e) {
-                if (e.keyCode == 13) {
-                    e.preventDefault();
-                }
-            });
-        });
-    };
-})(jQuery);
-
-var getHost = function () {
-    var host = document.domain;
-
-    if (host.match("bikewale.com$"))
-        host = ".bikewale.com";
-    return host;
-}
-
-function SetCookie(cookieName, cookieValue) {
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + '; path =/';
-    else
-        document.cookie = cookieName + "=" + cookieValue + ';domain=' + getHost() + '; path =/';
-}
-
-function SetCookieInDays(cookieName, cookieValue, nDays) {
-    var today = new Date();
-    var expire = new Date();
-    expire.setTime(today.getTime() + 3600000 * 24 * nDays);
-    cookieValue = cookieValue.replace(/\s+/g, '-');
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /Trident\//.test(navigator.userAgent))
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
-    else
-        document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
-
-   bwcache.remove("userchangedlocation", true);
-}
-
-function getCookie(key) {
-    var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-    return keyValue ? keyValue[2] : null;
-}
-
-function isCookieExists(cookiename) {
-    var coockieVal = $.cookie(cookiename);
-    if (coockieVal == undefined || coockieVal == null || coockieVal == "-1" || coockieVal == "")
-        return false;
-    return true;
-}
-
-function toggleErrorMsg(element, error, msg) {
-    if (error) {
-        element.parent().find('.error-icon').removeClass('hide');
-        element.parent().find('.bw-blackbg-tooltip').text(msg).removeClass('hide');
-        element.addClass('border-red')
-    }
-    else {
-        element.parent().find('.error-icon').addClass('hide');
-        element.parent().find('.bw-blackbg-tooltip').text("").addClass('hide');
-        element.removeClass('border-red');
-    }
-}
-
-function showHideMatchError(element, error) {
-    if (error) {
-        element.parent().find('.error-icon').removeClass('hide');
-        element.parent().find('.bw-blackbg-tooltip').removeClass('hide');
-        element.addClass('border-red')
-    }
-    else {
-        element.parent().find('.error-icon').addClass('hide');
-        element.parent().find('.bw-blackbg-tooltip').addClass('hide');
-        element.removeClass('border-red');
-    }
-}
-
-function showGlobalCity(cityName) {
-    $(".gl-default-stage").show();
-    $('#cityName').text(cityName);
-}
-
-function CloseCityPopUp() {
-    var globalLocation = $("#globalcity-popup");
-    globalLocation.removeClass("show").addClass("hide");
-    unlockPopup();
-}
-
-function CheckGlobalCookie() {
-    var cookieName = "location";
-    if (isCookieExists(cookieName)) {
-        var locationCookie = getCookie(cookieName);
-        locationCookie = (locationCookie.replace('-', ' ')).split("_");
-        var cityName = locationCookie[1];
-        globalCityId = parseInt(locationCookie[0]);
-        showGlobalCity(cityName);
-        showHideMatchError($("#globalCityPopUp"), false);
-        $("#globalCityPopUp").val(cityName);
-    }
-}
-
-//function to attach ajax spinner
-function attachAjaxLoader(element) {
-    var $loading = $(element).hide();
-    $(document)
-      .ajaxStart(function () {
-          $loading.show();
-      })
-      .ajaxStop(function () {
-          $loading.hide();
-      });
-}
-
-//set location cookie
-function setLocationCookie(cityEle, areaEle) {
-    if (parseInt($(cityEle).val()) > 0) {
-        cookieValue = parseInt($(cityEle).val()) + "_" + $(cityEle).text();
-        if (parseInt($(areaEle).val()) > 0)
-            cookieValue += "_" + parseInt($(areaEle).val()) + "_" + $(areaEle).text();
-        SetCookieInDays("location", cookieValue, 365);
-    }
-}
-
-//match cookie data to check city /area exists 
-function selectElementFromArray(arr, id) {
-    if (arr != null && (l = arr.length) > 0) {
-        for (var i = 0; i < l; i++) {
-            if (arr[i].cityId === id || arr[i].AreaId === id || arr[i].areaId === id || arr[i].CityId === id || arr[i].id === id)
-                return true;
-        }
-    }
-    return false;
-}
-
-$(".modelurl").click(function () {
-    var array = $(this).attr('href').split('/');
-    if (array.length > 2) {
-        dataLayer.push({
-            'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Model_Click', 'lab': _makeName + '_' + array[2]
-        });
-    }
-});
-
-$('.dealer-details-main-content').on('click', function () {
-    $(this).hide();
-    $(this).next('.dealer-details-more-content').show();
-});
-
-function insertCitySeparator(response) {
-    l = (response != null) ? response.length : 0;
-    if (l > 0) {
-        for (i = 0; i < l; i++) {
-            if (!response[i].IsPopular) {
-                if (i > 0)
-                    response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
-                break;
-            }
-        }
-    }
-}
-
-function insertCitySeparatorNew(response) {
-    l = (response != null) ? response.length : 0;
-    if (l > 0) {
-        for (i = 0; i < l; i++) {
-            if (!response[i].IsPopular) {
-                if (i > 0)
-                    response.splice(i, 0, { Id: 0, Name: "--------------------", IsPopular: false, hasAreas: false });
-                break;
-            }
-        }
-    }
-}
-
-function btnFindBikeNewNav() {
-    if (focusedMakeModel == undefined || focusedMakeModel == null) {
-        return false;
-    }
-    return MakeModelRedirection(focusedMakeModel);
-}
-
-function navbarHide() {
-    $("#nav").removeClass('open').animate({ 'left': '-350px' });
-    $(".blackOut-window").hide();
-}
-
-function navbarHideOnESC() {
-    $("#nav").removeClass('open').animate({ 'left': '-350px' });
-    $(".blackOut-window").hide();
-}
-
-function navbarShow() {
-    var category = GetCatForNav();
-    if (category != null) {
-        triggerGA(category, 'Hamburger_Menu_Icon', 'Icon_Click');
-    }
-    $("#nav").addClass('open').animate({ 'left': '0px' });
-    $(".blackOut-window").show();
-}
-function loginSignupSwitch() {
-    $(".loginStage").show();
-    $(".signUpStage").hide();
-}
-
-$('#btnGlobalSearch').on('click', function () {
-    if (focusedMakeModel != null && btnGlobalSearch != undefined)
-        btnFindBikeNewNav();
-
-});
-
-/*
-    default width is 469,
-    with campaign banner width is 415
-*/
-$("#newBikeList").bw_autocomplete({
-    width: 469,
-    source: 1,
-    recordCount: 10,
-    onClear: function () {
-        objBikes = new Object();
-    },
-    click: function (event, ui, orgTxt) {
-        MakeModelRedirection(ui.item);
-        var keywrd = ui.item.label + '_' + $('#newBikeList').val();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
-    },
-    open: function (result) {
-        objBikes.result = result;
-    },
-    focus: function () {
-        if ($('#newBikeList').val().trim() == '') {
-            recentSearches.showRecentSearches();
-        }
-    },
-    focusout: function () {
-        if ($('#newBikeList').find('li.ui-state-focus a:visible').text() != "") {
-            $('#errNewBikeSearch').hide()
-            focusedMakeModel = new Object();
-            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-        }
-        else {
-            $('#errNewBikeSearch').hide();
-            var container = $('#new-global-recent-searches');
-            if (container.is(':visible')) {
-                if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
-                    recentSearches.hideRecentSearches();
-                }
-            }
-        }
-    },
-    afterfetch: function (result, searchtext) {
-        if (result != undefined && result.length > 0 && searchtext.trim() != "") {
-            $('#errNewBikeSearch').hide();
-            recentSearches.hideRecentSearches();
-            NewBikeSearchResult = true;
-        }
-        else {
-            focusedMakeModel = null; NewBikeSearchResult = false;
-            if (searchtext.trim() != "")
-            {
-                $('#errNewBikeSearch').show();
-                recentSearches.hideRecentSearches();
-            }                
-        }
-    },
-    keyup: function () {
-        if ($('#newBikeList').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
-            focusedMakeModel = new Object();
-            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-            $('#errNewBikeSearch').hide();
-            recentSearches.hideRecentSearches();
-        } else {
-            if ($('#newBikeList').val().trim() == '') {
-                $('#errNewBikeSearch').hide();
-                recentSearches.showRecentSearches();
-            }
-        }
-
-        if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-            if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                if ($('#newBikeList').val().trim() != '') {
-                    $('#errNewBikeSearch').show();
-                }
-            }
-            else {
-                $('#errNewBikeSearch').hide();
-                recentSearches.showRecentSearches();
-            }
-
-        }
-
-        
-    }
-});
-
-
-$("#globalSearch").bw_autocomplete({
-    width: 420,
-    source: 1,
-    recordCount: 10,
-    onClear: function () {
-        objBikes = new Object();
-    },
-    click: function (event, ui, orgTxt) {
-        var keywrd = ui.item.label + '_' + $('#globalSearch').val();
-        var category = GetCatForNav();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
-        MakeModelRedirection(ui.item);
-    },
-    loaderStatus: function (status) {
-        if (!status) {
-            $("#btnGlobalSearch").removeClass('bwsprite');
-            $("#globalSearch").siblings('.fa-spinner').show();
-            if (focusedMakeModel == null) $('#errGlobalSearch').hide();
-        }
-        else {
-            $("#btnGlobalSearch").addClass('bwsprite');
-            $("#globalSearch").siblings('.fa-spinner').hide();
-        }
-    },
-    open: function (result) {
-        objBikes.result = result;
-    },
-    focus: function () {
-        if ($('#globalSearch').val().trim() == '') {
-            recentSearches.showRecentSearches();
-        }
-    },
-    focusout: function () {
-        if ($('#globalSearch').find('li.ui-state-focus a:visible').text() != "") {
-            focusedMakeModel = new Object();
-            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-        }
-        else {
-            $('#errGlobalSearch').hide();
-            var container = $('#global-recent-searches');
-            if (container.is(':visible')) {
-                if (!container.is(event.relatedTarget) && container.has(event.relatedTarget).length === 0) {
-                    recentSearches.hideRecentSearches();
-                }
-            }
-        }
-    },
-    afterfetch: function (result, searchtext) {
-
-        if (result != undefined && result.length > 0 && searchtext.trim() != '') {
-            $('#errGlobalSearch').hide();
-            recentSearches.hideRecentSearches();
-            globalSearchResult = true;
-        }
-        else {
-            focusedMakeModel = null; globalSearchResult = false;
-            if (searchtext.trim() != '') {
-                $('#errGlobalSearch').show();
-                recentSearches.hideRecentSearches();
-            }
-            var keywrd = $('#globalSearch').val();
-            var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
-        }
-    },
-    keyup: function () {
-        if ($('#globalSearch').val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
-            focusedMakeModel = new Object();
-            focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-            $('#errGlobalSearch').hide();
-            recentSearches.hideRecentSearches();
-        } else {
-            if ($('#globalSearch').val().trim() == '') {
-                $('#errGlobalSearch').hide();
-                recentSearches.showRecentSearches();
-            }
-        }
-
-        if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-            if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                if ($('#globalSearch').val().trim() != '') {
-                    $('#errGlobalSearch').show();
-                } 
-            }
-            else {
-                $('#errGlobalSearch').hide();
-                recentSearches.showRecentSearches();
-            }
-
-        }
-    }
-}).keydown(function (e) {
-    if (e.keyCode == 13) {
-        $('#btnGlobalSearch').click();
-    }
-
-});
-
-function CloseCityPopUp() {
-    var globalLocation = $("#globalcity-popup");
-    globalLocation.removeClass("show").addClass("hide");
-    unlockPopup();
-}
-
-function popupHideOnESC() {
-    $('.bw-popup').fadeOut(100);
-    unlockPopup();
-}
-
-function headerOnScroll() {
-    if ($(window).scrollTop() > 40) {
-        $('#header').addClass('header-fixed-with-bg');
-    } else {
-        $('#header').removeClass('header-fixed-with-bg');
-    }
-}
-
-function loginHideOnESC() {
-    $(".loginPopUpWrapper").animate({ right: '-400px' });
-    $(".loggedinProfileWrapper").animate({
-        right: '-280px'
-    });
-}
-
-function lockPopup() {
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window").show();
-}
-
-function unlockPopup() {
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window").hide();
-}
-
-var Base64 = {
-    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-    encode: function (input) {
-        var output = "";
-        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-        var i = 0;
-
-        input = Base64._utf8_encode(input);
-
-        while (i < input.length) {
-
-            chr1 = input.charCodeAt(i++);
-            chr2 = input.charCodeAt(i++);
-            chr3 = input.charCodeAt(i++);
-
-            enc1 = chr1 >> 2;
-            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-            enc4 = chr3 & 63;
-
-            if (isNaN(chr2)) {
-                enc3 = enc4 = 64;
-            } else if (isNaN(chr3)) {
-                enc4 = 64;
-            }
-
-            output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
-
-        }
-
-        return output;
-    },
-    decode: function (input) {
-        var output = "";
-        var chr1, chr2, chr3;
-        var enc1, enc2, enc3, enc4;
-        var i = 0;
-
-        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-        while (i < input.length) {
-
-            enc1 = this._keyStr.indexOf(input.charAt(i++));
-            enc2 = this._keyStr.indexOf(input.charAt(i++));
-            enc3 = this._keyStr.indexOf(input.charAt(i++));
-            enc4 = this._keyStr.indexOf(input.charAt(i++));
-
-            chr1 = (enc1 << 2) | (enc2 >> 4);
-            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-            chr3 = ((enc3 & 3) << 6) | enc4;
-
-            output = output + String.fromCharCode(chr1);
-
-            if (enc3 != 64) {
-                output = output + String.fromCharCode(chr2);
-            }
-            if (enc4 != 64) {
-                output = output + String.fromCharCode(chr3);
-            }
-
-        }
-
-        output = Base64._utf8_decode(output);
-
-        return output;
-
-    },
-    _utf8_encode: function (string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
-
-        for (var n = 0; n < string.length; n++) {
-
-            var c = string.charCodeAt(n);
-
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-
-        }
-
-        return utftext;
-    },
-    _utf8_decode: function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = c1 = c2 = 0;
-
-        while (i < utftext.length) {
-
-            c = utftext.charCodeAt(i);
-
-            if (c < 128) {
-                string += String.fromCharCode(c);
-                i++;
-            }
-            else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-                i += 2;
-            }
-            else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-                i += 3;
-            }
-
-        }
-
-        return string;
-    }
-}
-
-function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
-
-ko.bindingHandlers.formateDate = {
-    update: function (element, valueAccessor) {
-        var date = new Date(valueAccessor());
-        var formattedDate = monthNames[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
-        $(element).text(formattedDate);
-    }
-};
-
-(function () {
-
-    $(document).ajaxError(function (event, request, settings) {
-        try {
-            error = {};
-            error.ErrorType = event.type || "";
-            error.SourceFile = (event.target) ? event.target.URL || "" : "";
-            error.Trace = JSON.stringify({
-                "API": settings.url || "",
-                "Error Occured": request.status || "" + request.statusText || "",
-                "Response Text": request.responseText || ""
-            });
-            error.Message = "Ajax Error Occured";
-            //errorLog(error);
-        } catch (e) {
-            return false;
-        }
+        event.preventDefault();
+        event.stopPropagation();
     });
 
+    $(".brand-collapsible-present li").click(function () {
+        var tabsPanel = $(this).closest('.bw-tabs-panel'),
+            collapsibleBrand = tabsPanel.find('.collapsible-brand-content'),
+            moreBrandContainer = collapsibleBrand.find('.brandTypeMore'),
+            viewMoreBtn = collapsibleBrand.find('.view-brandType');
 
-    'use strict';
-    var errorLog = function (error) {
-        try {
-            if (error) {
-                $.ajax({
-                    type: "POST", url: "/api/JSException/", data: error,
-                    error: function (event, request, settings) {
-                        // request.abort();
-                        return false;
-                    }
-                });
-            }
-        } catch (e) {
-            return false;
-        }
-    }
-
-    window.onerror = function (message, filename, lineno, colno, err) {
-        error = {};
-        try {
-            error.Message = err.message || message || "";
-            error.SourceFile = err.fileName || filename || "";
-            error.ErrorType = err.name || "Uncatched Exception";
-            error.LineNo = lineno || "Unable to trace";
-            error.Trace = (err.stack.toString() || '-');
-            //errorLog(error);
-        } catch (e) {
-            return false;
-        }
-    };
-
-    window.errorLog = errorLog;
-})();
-
-if (typeof String.prototype.contains === 'undefined') {
-    String.prototype.contains = function (t, c) {
-        return (!c) ? this.indexOf() != -1 : this.toLowerCase().indexOf(t.toLowerCase()) != -1;
-    };                                                                                                  
-}
-
-var recentSearches =
-{
-    searchKey: "recentsearches",
-    options: {
-        homeSearchEle: $('#newBikeList'),
-        bikeSearchEle: $('#globalSearch'),
-        recentSearchesEle: $("#new-global-recent-searches").length ? $("#new-global-recent-searches") : $("#global-recent-searches"),
-        recentSearchesLoaded: false
-    },
-    saveRecentSearches: function (opt) {
-        if (opt && opt.payload && opt.payload.makeId > 0) {
-            var objSearches = bwcache.get(this.searchKey) || {};
-            opt.payload["name"] = opt.label;
-            objSearches.searches = objSearches.searches || [];
-            eleIndex = this.objectIndexOf(objSearches.searches, opt.payload);
-            if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
-            objSearches.searches.unshift(opt.payload);
-
-            objSearches["lastModified"] = new Date().getTime();
-            if (objSearches.searches.length > 5)
-                objSearches.searches.pop();
-            objSearches["noOfSearches"] = objSearches.searches.length;
-            bwcache.set(this.searchKey, objSearches);
-        }
-    },
-    showRecentSearches: function () {
-        if (!this.options.recentSearchesLoaded) {
-            var objSearches = bwcache.get(this.searchKey);
-            if (objSearches && objSearches.searches) {
-                var html = "", bikename, url;
-                var i = 0;
-                for (var item in objSearches.searches) {
-                    item = objSearches.searches[item];
-                    bikename = item.name || '';
-                    if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
-                        html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><span class="bwsprite history-icon"></span><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
-                        if (item.modelId > 0) {
-                            if (item.futuristic == 'True') {
-                                html += '<span class="upcoming-link">coming soon</span>';
-                            } else {
-                                if (item.isNew == 'True') {
-                                    html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
-                                } else {
-                                    html += '<span class="upcoming-link">discontinued</span>';
-                                }
-                            }
-                            html += '<div class="clear"></div>';
-                        }
-                        html += "</li>";
-                    }
-                }
-                if (html != "") {
-                    this.options.recentSearchesEle.append(html);
-                    this.options.recentSearchesLoaded = true;
-                    this.options.recentSearchesEle.find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
-                }
-
-            }
-        }
-
-        var rsele = this.options.recentSearchesEle.find("li");
-        if (rsele.length > 0)
-        {
-            this.options.recentSearchesEle.slideDown(100);
-            this.handleKeyEvents();
-        }
-    },
-    hideRecentSearches: function () {
-        this.options.recentSearchesEle.slideUp(100).find("li:first-child").addClass("focus-state").siblings().removeClass("focus-state");
-
-    },
-    handleKeyEvents: function () {
-        var rsele = this.options.recentSearchesEle.find("li.focus-state");
-        if (event.keyCode == 40) {
-            rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
-            curElement = rsele.next();
-            return false;
-        } else if (event.keyCode == 38) {
-            rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
-            curElement = rsele.prev();
-            return false;
-        }
-        else if (event.keyCode == 27) {
-            this.hideRecentSearches();
-        }
-        else if (event.keyCode == 13) {
-            rsele.trigger('click');
-        }
-    },
-    objectIndexOf: function (arr, opt) {
-        var makeId = opt.makeId, modelId = opt.modelId;
-        for (var i = 0, len = arr.length; i < len; i++)
-            if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId) return i;
-        return -1;
-    }
-};
-
-recentSearches.options.recentSearchesEle.on('click', 'li', function () {
-    try {
-        if (!$(event.target).hasClass('getquotation')) {
-
-            var objSearches = bwcache.get(recentSearches.searchKey) || {}, mkId = this.getAttribute("data-makeid"), moId = this.getAttribute("data-modelid"),
-                eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
-                obj = objSearches.searches[eleIndex];
-            if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
-            objSearches.searches.unshift(obj);
-            bwcache.set(recentSearches.searchKey, objSearches);
-            window.location.href = $(this).find('a').first().attr('data-href');
-        }
-
-       recentSearches.hideRecentSearches();
-
-    } catch (e) {
-        console.log(e.message);
-    }
-});
-
-
-var elements = recentSearches.options.recentSearchesEle.find("li");
-var curElement = recentSearches.options.recentSearchesEle.find("li").first();
-$(document).on('mouseenter', '.recent-searches-dropdown li', function () {
-    $(this).addClass("focus-state");
-    curElement = $(this);
-});
-$(document).on('mouseleave', '.recent-searches-dropdown li', function () {
-    $(this).removeClass("focus-state");
-});
-
-$(document).on('mouseleave', '.recent-searches-dropdown', function () {
-    curElement.addClass("focus-state").siblings().removeClass("focus-state");
-});
-
-window.validateMobileNo = function(mobileNo, self) {
-    if (self != null) {
-        var regPhone = /^[6-9][0-9]{9}$/;
-        var isValid = true;
-        if (mobileNo == "") {
-            self.msg="Please enter your mobile no.";
-            isValid = false;
-        }
-        else if (!regPhone.test(mobileNo) && isValid) {
-            self.msg="Please enter a valid mobile no.";
-            isValid = false;
-        }
-        else
-            self.msg="";
-        return isValid;
-    }
-    else
-    {
-        return false;
-    }
-};
-
-/* landing page header */
-var transparentHeader = document.querySelectorAll('.header-transparent')[0];
-
-if (transparentHeader) {
-    attachListener('scroll', window, changeHeaderBackground);
-}
-
-function attachListener(event, element, functionName) {
-    if (element.addEventListener) {
-        element.addEventListener(event, functionName, false);
-    }
-    else if (element.attachEvent) {
-        element.attachEvent('on' + event, functionName);
-    }
-};
-
-function changeHeaderBackground() {
-    if ($(window).scrollTop() > 40)
-        $('.header-transparent').removeClass('header-landing').addClass('header-fixed');
-    else
-        $('.header-transparent').removeClass('header-fixed').addClass('header-landing');
-};
-
-// more brand - collapse
-$('.view-brandType').click(function (event) {
-    var element = $(this),
-        elementParent = element.closest('.collapsible-brand-content'),
-        moreBrandContainer = elementParent.find('.brandTypeMore');
-
-    if (!moreBrandContainer.is(':visible')) {
-        moreBrandContainer.slideDown();
-        element.addClass('active').find('.btn-label').text('View less brands');
-    }
-    else {
         moreBrandContainer.slideUp();
-        element.removeClass('active').find('.btn-label').text('View more brands');
+        viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
+    });
+
+// read more - collapse
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.addClass('active');
+        element.text(' Collapse');
     }
+    else {
+        parentElemtent.removeClass('active');
+        element.text('...Read more');
+    }
+});
+    $(".modelurl").click(function () {
+        var array = $(this).attr('href').split('/');
+        if (array.length > 2) {
+            dataLayer.push({
+                'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Model_Click', 'lab': _makeName + '_' + array[2]
+            });
+        }
+    });
 
-    event.preventDefault();
-    event.stopPropagation();
+    $('.dealer-details-main-content').on('click', function () {
+        $(this).hide();
+        $(this).next('.dealer-details-more-content').show();
+    });
+
+    ko.bindingHandlers.formateDate = {
+        update: function (element, valueAccessor) {
+            var date = new Date(valueAccessor());
+            var formattedDate = monthNames[date.getUTCMonth()] + ' ' + date.getUTCDate() + ', ' + date.getUTCFullYear();
+            $(element).text(formattedDate);
+        }
+    };
+
+    //log javascript errors
+    (function () {
+
+        $(document).ajaxError(function (event, request, settings) {
+            try {
+                error = {};
+                error.ErrorType = event.type || "";
+                error.SourceFile = (event.target) ? event.target.URL || "" : "";
+                error.Trace = JSON.stringify({
+                    "API": settings.url || "",
+                    "Error Occured": request.status || "" + request.statusText || "",
+                    "Response Text": request.responseText || ""
+                });
+                error.Message = "Ajax Error Occured";
+                //errorLog(error);
+            } catch (e) {
+                return false;
+            }
+        });
+
+
+        'use strict';
+        var errorLog = function (error) {
+            try {
+                if (error) {
+                    $.ajax({
+                        type: "POST", url: "/api/JSException/", data: error,
+                        error: function (event, request, settings) {
+                            // request.abort();
+                            return false;
+                        }
+                    });
+                }
+            } catch (e) {
+                return false;
+            }
+        }
+
+        window.onerror = function (message, filename, lineno, colno, err) {
+            error = {};
+            try {
+                error.Message = err.message || message || "";
+                error.SourceFile = err.fileName || filename || "";
+                error.ErrorType = err.name || "Uncatched Exception";
+                error.LineNo = lineno || "Unable to trace";
+                error.Trace = (err.stack.toString() || '-');
+                //errorLog(error);
+            } catch (e) {
+                return false;
+            }
+        };
+
+        window.errorLog = errorLog;
+    })();
 });
 
-$(".brand-collapsible-present li").click(function () {
-    var tabsPanel = $(this).closest('.bw-tabs-panel'),
-        collapsibleBrand = tabsPanel.find('.collapsible-brand-content'),
-        moreBrandContainer = collapsibleBrand.find('.brandTypeMore'),
-        viewMoreBtn = collapsibleBrand.find('.view-brandType');
-    
-    moreBrandContainer.slideUp();
-    viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
-});

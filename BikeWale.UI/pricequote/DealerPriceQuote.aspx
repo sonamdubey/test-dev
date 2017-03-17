@@ -752,7 +752,7 @@
                     },
                     owner: this
                 });
-            }          
+            };          
 
 
             $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
@@ -786,7 +786,7 @@
     
                 }
                 return svar;
-            }
+            };
 
             $.LoanAmount = function (onRoadPrice, percentage) {
                 var price;
@@ -811,7 +811,7 @@
                 }
               
                 return num;
-            }
+            };
 
             var EMIviewModel = new BikeEMI;
             ko.applyBindings(EMIviewModel, $("#EMISection")[0]);

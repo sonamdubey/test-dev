@@ -115,6 +115,7 @@
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
+    <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     @{ Bikewale.Utility.BWCookies.SetBWUtmz(); }
     <!--[if lt IE 9]>
         <script src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")/src/html5.js?@Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion"></script>
@@ -480,33 +481,6 @@ string GetGTTargeting(int targetId, string target)
         {
             <script type="text/javascript" src="@(!String.IsNullOrEmpty(ViewBag.staticUrl) ? "https://st.aeplcdn.com" + @ViewBag.staticUrl : "")@ViewBag.Page_JS_Path?@Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion"></script>
         }
-        <script type="text/javascript">
-            ga_pg_id = '1';
-            //for jquery chosen : knockout event
-            ko.bindingHandlers.chosen = {
-                init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-                    var $element = $(element);
-                    var options = ko.unwrap(valueAccessor());
-                    if (typeof options === 'object')
-                        $element.chosen(options);
-
-                    ['options', 'selectedOptions', 'value'].forEach(function (propName) {
-                        if (allBindings.has(propName)) {
-                            var prop = allBindings.get(propName);
-                            if (ko.isObservable(prop)) {
-                                prop.subscribe(function () {
-                                    $element.trigger('chosen:updated');
-                                });
-                            }
-                        }
-                    });
-                }
-            }
-            if ('@ViewBag.isNewsActive' == "False") $("#ctrlNews").addClass("hide");
-            if ('@ViewBag.isExpertReviewActive' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if ('@ViewBag.isVideoActive' == "False") $("#ctrlVideos").addClass("hide");
-
-        </script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>
 </body>

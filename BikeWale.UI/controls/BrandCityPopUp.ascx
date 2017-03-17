@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.BrandCityPopUp" %>
-<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "https://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 <div class="bw-popup hide bw-popup-sm" id="brandcityPopup">
     <div class="popup-inner-container">
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
@@ -77,19 +76,19 @@
             return ko.utils.arrayFirst(self.bookingBrands(), function (child) {
                 return child.makeId === self.selectedBrand();
             }).maskingName;
-        })
+        });
         self.cityMasking = ko.pureComputed(function () {
 
             return ko.utils.arrayFirst(self.listCities(), function (child) {
                 return child.cityId === self.selectCity();
             }).cityMaskingName;
-        })
+        });
         self.cityApiUrl = ko.pureComputed(function () {
             if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>)
                 return "/api/v2/DealerCity/?makeId=" + self.selectedBrand();
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>)
                 return "/api/servicecenter/cities/make/" + self.selectedBrand() + "/";
-        })
+        });
         self.makeApiUrl = "/api/makelist/?requesttype=" + '<%=(int)requestType%>';
 
         self.FillBrandsPopup = function () {
@@ -145,7 +144,7 @@
                 }
                 
             }
-        }
+        };
 
         self.completeBrandPopup = function () {
             
@@ -158,11 +157,11 @@
             popupBrand.find("option[value='0']").prop('disabled', true);
             popupBrand.trigger('chosen:updated');
             self.makeChangedPopup();
-        }
+        };
 
         self.makeChangedPopup = function () {
             var isAborted = false;
-            self.searchByBrandCityBtnClicked(false)
+            self.searchByBrandCityBtnClicked(false);
            
             if (self.selectedBrand() != undefined) {
                 BrandCityKey = "brandcity_" +'<%=requestType%>'+'_' + self.selectedBrand().toString();
@@ -191,7 +190,7 @@
                         }
                     },
                     success: function (response) {
-                        var cities
+                        var cities;
                         if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>)
                             cities = ko.toJS(response.City);
                         else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>)
@@ -229,7 +228,7 @@
                 self.completeCityPopup();
             }
             self.isValidInfoPopup();
-        }
+        };
 
 
         self.completeCityPopup = function () {
@@ -240,14 +239,14 @@
             else self.selectCity(null);
             $('#ddlCityPopup').trigger("chosen:updated");           
             
-        }
+        };
 
         self.preselectCity = function () {
 
             if (self.listCities().length > 0) {
                 self.selectCity(self.SelectedCityId());
             }
-        }
+        };
 
         self.isValidInfoPopup = function () {
             isValid = true;
@@ -277,13 +276,13 @@
             }
 
             return isValid;
-        }
+        };
         self.showBrandCityError = function (errMsgParent, errMsg) {
             errMsgParent.find('.error-tooltip-siblings').show();
             errMsgParent.css({ 'border-color': 'red' });
             errMsg = errMsg.substring(0, errMsg.length - 1);
             errMsgParent.find('.bw-blackbg-tooltip').text("Please select " + errMsg);
-        }
+        };
 
         self.removeBrandCityError = function (errMsgParent) {
             errMsgParent.css({ 'border-color': '#ccc' });
@@ -300,10 +299,10 @@
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
                 }
                 else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
-                    window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
-                }
+                window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
             }
         }
+    }
 
     };
 

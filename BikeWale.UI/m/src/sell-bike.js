@@ -42,7 +42,7 @@ ko.bindingHandlers.chosen = {
             }
         });
     }
-}
+};
 
 var monthList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

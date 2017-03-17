@@ -43,9 +43,7 @@
         //alert(makeValueArray);
         var makeId = makeValueArray.split('_')[0];
         if (makeId != "0") {
-            var makeName = makeValueArray.split('_')[1];// $("#UpcomingBikeSearch_drpMake option:selected").text();
-            var base = '/';
-            var loc = base + makeName + "-bikes/";
+            var makeName = makeValueArray.split('_')[1],base = '/',loc = base + makeName + "-bikes/";
             loc += 'upcoming/';
             window.location.href = loc;
         } else {

@@ -111,7 +111,7 @@ ko.bindingHandlers.chosen = {
             }
         });
     }
-}
+};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
