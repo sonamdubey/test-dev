@@ -19,7 +19,7 @@
                 <ul class="side-nav" id="nav-drawer">
                     <li>
                         <div class="teal">
-                            <a href="javascript:void(0)"><span class="side-nav-title">BikeWale Operations</span></a>
+                            <a href="/"><span class="side-nav-title">BikeWale Operations</span></a>
                         </div>
                     </li>
                     <li>
@@ -29,7 +29,7 @@
                                 <div class="collapsible-body">
                                     <ul>
                                         <li class="collapsible-body-title">Bike Data</li>
-                                        <li><a href="/content/makes/">Makes</a></li>
+                                        <li><a href="/makes/">Makes</a></li>
                                         <li><a href="/content/bikemodels.aspx">Models</a></li>
                                         <li><a href="/content/bikeversions.aspx">Versions</a></li>
                                         <li><a href="/content/NewBikeModelColors_New.aspx">Model Colors</a></li>
@@ -37,6 +37,7 @@
                                         <li><a href="/content/expectedlanuches.aspx">Upcoming Bikes</a></li>
                                         <li><a href="/content/bikecomparisonlist.aspx">Featured Comparisons</a></li>
                                         <li><a href="/content/bikeunitssold.aspx">Bulk Units Sold</a></li>
+                                        <li><a href="/Models/UsedModelImageUpload">Used Model Image Upload</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
                                         <li><a href="/content/showroomprices.aspx">Pricing</a></li>
                                         <li><a href="/content/bulkpriceupload.aspx">Bulk Pricing</a></li>

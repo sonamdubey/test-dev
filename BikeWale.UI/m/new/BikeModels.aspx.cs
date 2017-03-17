@@ -84,7 +84,6 @@ namespace Bikewale.Mobile.New
         protected string pq_leadsource = "33", pq_sourcepage = "59", hide = string.Empty, pgDescription = string.Empty;
         public Bikewale.Entities.Used.Search.SearchResult UsedBikes = null;
         protected ModelPageVM viewModel = null;
-        protected ModelGallery ctrlModelGallery;
         protected int colorCount;
         protected BikeRankingEntity bikeRankObj;
         protected string styleName = string.Empty, rankText = string.Empty, bikeType = string.Empty;
@@ -329,94 +328,92 @@ namespace Bikewale.Mobile.New
         /// Description :  Added dealer card and service center card
         /// Modified By :Subodh Jain 06 Jan 2016
         /// Summary : Added Model gallery widget
+        /// Modified: Sajal Gupta on 17-03-2017
+        /// Description : Removed ctrlPhotoGallery
         /// </summary>
         private void BindControls()
         {
-            if (!isDiscontinued)
+            try
             {
-                ctrlCompareBikes.versionId = versionId;
-                ctrlCompareBikes.versionName = bikeModelName;
-                ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
-                ctrlCompareBikes.TopCount = 6;
+                if (!isDiscontinued)
+                {
+                    ctrlCompareBikes.versionId = versionId;
+                    ctrlCompareBikes.versionName = bikeModelName;
+                    ctrlCompareBikes.cityid = Convert.ToInt32(cityId);
+                    ctrlCompareBikes.TopCount = 6;
+                }
+                ////news,videos,revews, user reviews
+                ctrlNews.TotalRecords = 3;
+                ctrlNews.ModelId = Convert.ToInt32(modelId);
+                ctrlNews.WidgetTitle = bikeName;
+                ctrlNews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlNews.ModelMaskingName = modelPage.ModelDetails.MaskingName;
+                ctrlNews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlNews.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                ctrlVideos.ModelId = Convert.ToInt32(modelId);
+                ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlUserReviews.ReviewCount = 3;
+                ctrlUserReviews.PageNo = 1;
+                ctrlUserReviews.PageSize = 3;
+                ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+                ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
+
+                ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+                ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+
+                if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
+                    ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
+                else ctrlTopCityPrices.ModelId = 0;
+
+                ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
+                ctrlTopCityPrices.TopCount = 4;
+
+                ctrlDealerCard.CityId = cityId;
+                ctrlDealerCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlDealerCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlDealerCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlDealerCard.cityName = cityName;
+                ctrlDealerCard.PageName = "Model_Page";
+                ctrlDealerCard.TopCount = 6;
+                ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage;
+                ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
+
+
+                ctrlServiceCenterCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlServiceCenterCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
+                ctrlServiceCenterCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
+                ctrlServiceCenterCard.CityId = cityId;
+                ctrlServiceCenterCard.cityName = cityName;
+                ctrlServiceCenterCard.TopCount = 9;
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
+
+
+                ctrlLeadCapture.CityId = cityId;
+                ctrlLeadCapture.ModelId = modelId;
+                ctrlLeadCapture.AreaId = areaId;
+                ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
+                ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
+                ctrlRecentUsedBikes.CityId = (int?)cityId;
+                ctrlRecentUsedBikes.TopCount = 6;
+                ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
             }
-            ////news,videos,revews, user reviews
-            ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = Convert.ToInt32(modelId);
-            ctrlNews.WidgetTitle = bikeName;
-            ctrlNews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
-            ctrlNews.ModelMaskingName = modelPage.ModelDetails.MaskingName;
-            ctrlNews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlNews.ModelName = modelPage.ModelDetails.ModelName;
-
-            ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
-            ctrlExpertReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlExpertReviews.ModelName = modelPage.ModelDetails.ModelName;
-
-            ctrlVideos.TotalRecords = 3;
-            ctrlVideos.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlVideos.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-            ctrlVideos.ModelId = Convert.ToInt32(modelId);
-            ctrlVideos.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlVideos.ModelName = modelPage.ModelDetails.ModelName;
-
-            ctrlUserReviews.ReviewCount = 3;
-            ctrlUserReviews.PageNo = 1;
-            ctrlUserReviews.PageSize = 3;
-            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-            ctrlUserReviews.MakeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlUserReviews.ModelName = modelPage.ModelDetails.ModelName;
-
-            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-
-            if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
-                ctrlTopCityPrices.ModelId = Convert.ToUInt32(modelId);
-            else ctrlTopCityPrices.ModelId = 0;
-
-            ctrlTopCityPrices.IsDiscontinued = isDiscontinued;
-            ctrlTopCityPrices.TopCount = 4;
-
-            ctrlDealerCard.CityId = cityId;
-            ctrlDealerCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
-            ctrlDealerCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
-            ctrlDealerCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlDealerCard.cityName = cityName;
-            ctrlDealerCard.PageName = "Model_Page";
-            ctrlDealerCard.TopCount = 6;
-            ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage;
-            ctrlDealerCard.widgetHeading = string.Format("{0} showrooms in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
-
-
-            ctrlServiceCenterCard.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
-            ctrlServiceCenterCard.makeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName;
-            ctrlServiceCenterCard.makeName = modelPage.ModelDetails.MakeBase.MakeName;
-            ctrlServiceCenterCard.CityId = cityId;
-            ctrlServiceCenterCard.cityName = cityName;
-            ctrlServiceCenterCard.TopCount = 9;
-            ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", modelPage.ModelDetails.MakeBase.MakeName, cityName);
-
-
-            ctrlLeadCapture.CityId = cityId;
-            ctrlLeadCapture.ModelId = modelId;
-            ctrlLeadCapture.AreaId = areaId;
-            ctrlRecentUsedBikes.MakeId = Convert.ToUInt32(modelPage.ModelDetails.MakeBase.MakeId);
-            ctrlRecentUsedBikes.ModelId = Convert.ToUInt32(modelId);
-            ctrlRecentUsedBikes.CityId = (int?)cityId;
-            ctrlRecentUsedBikes.TopCount = 6;
-            ctrlRecentUsedBikes.header = "Recently uploaded Used " + modelPage.ModelDetails.ModelName + " bikes " + (cityId > 0 ? String.Format("in {0}", cityName) : string.Empty);
-
-            if (modelPage != null && modelPage.Photos != null)
+            catch (Exception ex)
             {
-                ctrlModelGallery.Photos = modelPage.Photos;
-                ctrlModelGallery.articleName = string.Format("{0} {1}", modelPage.ModelDetails.MakeBase.MakeName, modelPage.ModelDetails.ModelName);
-                ctrlModelGallery.isModelPage = false;
-                ctrlModelGallery.modelId = modelPage.ModelDetails.ModelId;
-                ctrlModelGallery.modelName = modelPage.ModelDetails.ModelName;
-
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Mobile.New.NewBikeModels.BindControls");
             }
-
         }
 
         /// <summary>
