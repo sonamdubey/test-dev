@@ -129,7 +129,7 @@ var updateBikeMake = function () {
             });
             $('form').submit();
         }
-        debugger;
+       
         return isValid;
     }
 }
