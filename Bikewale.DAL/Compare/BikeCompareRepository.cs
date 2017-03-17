@@ -744,7 +744,7 @@ namespace Bikewale.DAL.Compare
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarcomparebikeslist_13102016";
+                    cmd.CommandText = "getsimilarcomparescooterlist";
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionidlist", DbType.String, versionList));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
