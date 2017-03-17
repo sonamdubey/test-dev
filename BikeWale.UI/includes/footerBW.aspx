@@ -33,6 +33,7 @@
     </div>
     <div class="clear"></div>
 </div>
+
 <footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
     <div class="container">
         <div class="text-center border-solid-bottom margin-bottom25 padding-bottom20">
