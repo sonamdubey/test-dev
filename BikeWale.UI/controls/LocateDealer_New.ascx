@@ -43,8 +43,8 @@
         self.SelectedMake = ko.observable();
         self.SelectedCity = ko.observable();
         self.cityId = ko.observable();
-        self.UpdateCity = function () { FillCity(self); }
-        self.btnLocateDealer_click = function () { handleLocateDealer(self); }
+        self.UpdateCity = function () { FillCity(self); };
+        self.btnLocateDealer_click = function () { handleLocateDealer(self); };
         //$.getJSON("/api/DealerMakes/", self.Makes);
         $.ajax({
             type: "GET",

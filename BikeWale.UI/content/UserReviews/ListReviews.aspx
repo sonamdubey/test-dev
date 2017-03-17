@@ -278,7 +278,7 @@
 
         selectDropdownBox.each(function () {
             var text = $(this).find('.chosen-select').attr('data-title'),
-                searchBox = $(this).find('.chosen-search')
+                searchBox = $(this).find('.chosen-search');
 
             searchBox.empty().append('<p class="no-input-label">' + text + '</p>');
         });

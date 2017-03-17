@@ -1,20 +1,4 @@
-﻿// read more-collapse
-var readMoreTarget = $('#read-more-target'),
-    serviceMoreContent = $('#service-more-content');
-
-readMoreTarget.on('click', function () {
-    if (!serviceMoreContent.hasClass('active')) {
-        serviceMoreContent.addClass('active');
-        readMoreTarget.text('Collapse');
-    }
-    else {
-        serviceMoreContent.removeClass('active');
-        readMoreTarget.text('... Read more');
-    }
-});
-
-
-function initializeCityMaps() {
+﻿function initializeCityMaps() {
     $(".city-map").each(function (index) {
         var lat = $(this).attr("data-item-lat");
         var lng = $(this).attr("data-item-long");
@@ -30,7 +14,6 @@ function initializeCityMaps() {
         var map = new google.maps.Map($(".city-map")[index], mapOptions);
     });
 }
-
 
 /* service center number */
 var contactPopup = $('#contact-service-popup');

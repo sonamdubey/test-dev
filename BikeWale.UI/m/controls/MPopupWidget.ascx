@@ -1,10 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.MPopupWidget" %>
-<script type="text/javascript">
-
-    var pCityId = <%= CityId %>;
-    var pAreaId = <%= AreaId %>;
-    var onCookieObj = {};
-</script>
  <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
     <div class="city-area-banner"></div>
@@ -88,40 +82,7 @@
 <!-- widget script starts here-->
 <script type="text/javascript">
 
-    $('#popupWrapper .close-btn').click(function () {        
-        $('.getquotation').removeClass('ui-btn-active');
-        $("#popupContent").hide();
-        $('#popupWrapper').removeClass('loader-active').hide();
-    });
-
-    $(document).on("click", ".getquotation", function (e) {
-        var ele = $(this); e.stopPropagation();
-
-        checkCookies();
-        var options = {
-            "modelId": ele.attr('data-modelid') ,
-            "cityId": onCookieObj.PQCitySelectedId,
-            "areaId": onCookieObj.PQAreaSelectedId,
-            "city" : (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null,
-            "area" : (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null,
-            "makename" : ele.attr('data-makeName'),
-            "modelname" : ele.attr('data-modelName'),
-            "pagecatid" : ele.attr('data-pagecatid'),
-            "pagesrcid" : ele.attr('data-pqSourceId'),
-            "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
-            "isreload" : ele.attr("data-reload") !=null ? true : false 
-
-        };
-        
-        options.cityId = ele.attr('data-preselcity') || options.cityId;
-
-        $('#popupWrapper').addClass('loader-active');
-        $('#popupWrapper').show();
-        $("#popupContent").show();
-        appendHash("onRoadPrice");
-        vmquotation.setOptions(options);
-
-    });
+    var pCityId = <%= CityId %>,pAreaId = <%= AreaId %>,onCookieObj = {},vmquotation;
 
     var mPopup = function () {
         var self = this;
@@ -221,7 +182,7 @@
                     'isPersistance' : self.IsPersistance()  ,
                     'refPQId': typeof pqId != 'undefined' ? pqId : '',
                     'isReload' : self.IsReload()
-                }
+                };
 
                 $.ajax({
                     type: "POST",
@@ -246,7 +207,7 @@
                                     self.hasAreas((self.SelectedCity() != null && self.SelectedCity().hasAreas) ? true : false);
 
                                     var areas = ko.toJS(_responseData.pqAreas);
-                                     if (areas != null && areas.length > 0) {
+                                    if (areas != null && areas.length > 0) {
                                         
                                         self.BookingAreas(areas);
                                         if (self.SelectedAreaId() > 0) {
@@ -297,8 +258,8 @@
                             else gtmCodeAppender(self.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel); 
                                     
                             if (self.DealerId() > 0 && _responseData.qStr.length) {
-                                    _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
-                                }
+                                _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
+                            }
                             if(!self.IsReload() && _responseData.qStr!='')
                             {                                          
                                 window.location.href = "/m/pricequote/dealerpricequote.aspx" + "?MPQ=" + _responseData.qStr;
@@ -353,11 +314,11 @@
                 self.LoadingText("Loading areas for " + self.SelectedCity().name);  
             }
             self.SelectedArea(null);
-			self.SelectedAreaId(0);                
-			self.BookingAreas([]);
+            self.SelectedAreaId(0);                
+            self.BookingAreas([]);
 				
-             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
-				self.InitializePQ(true);
+            if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
+                self.InitializePQ(true);
             }                              
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -398,8 +359,48 @@
 
 
         };
-    }
+    };
 
+    docReady(function(){
+
+        $('#popupWrapper .close-btn').click(function () {        
+            $('.getquotation').removeClass('ui-btn-active');
+            $("#popupContent").hide();
+            $('#popupWrapper').removeClass('loader-active').hide();
+        });
+
+        $(document).on("click", ".getquotation", function (e) {
+            var ele = $(this); e.stopPropagation();
+
+            checkCookies();
+            var options = {
+                "modelId": ele.attr('data-modelid') ,
+                "cityId": onCookieObj.PQCitySelectedId,
+                "areaId": onCookieObj.PQAreaSelectedId,
+                "city" : (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null,
+                "area" : (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null,
+                "makename" : ele.attr('data-makeName'),
+                "modelname" : ele.attr('data-modelName'),
+                "pagecatid" : ele.attr('data-pagecatid'),
+                "pagesrcid" : ele.attr('data-pqSourceId'),
+                "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
+                "isreload" : ele.attr("data-reload") !=null ? true : false 
+
+            };
+        
+            options.cityId = ele.attr('data-preselcity') || options.cityId;
+
+            $('#popupWrapper').addClass('loader-active');
+            $('#popupWrapper').show();
+            $("#popupContent").show();
+            appendHash("onRoadPrice");
+            vmquotation.setOptions(options);
+
+        });
+
+        vmquotation = new mPopup;
+        ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
+    });
 
     function findAreaById(id) {
         return ko.utils.arrayFirst(vmquotation.BookingAreas(), function (child) {
@@ -461,9 +462,6 @@
             }
         }
     }
-
-    var vmquotation = new mPopup;
-    ko.applyBindings(vmquotation, $("#popupWrapper")[0]);
 
 </script>
 <!-- widget script ends here-->

@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.BikeModel" EnableViewState="false" Trace="false" %>
-
 <%@ Register Src="~/controls/NewAlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News.ascx" TagName="LatestNews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -613,7 +612,6 @@
                                 <%} %>
                             </div>
                             <%}
-                               //<!-- upcoming start Floating -->
                                else if (modelPageEntity.UpcomingBike != null)
                                { %>
                             <% if (modelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && modelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
@@ -878,7 +876,7 @@
 
                         <%} %>
 
-                        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                        
 
                         <% if (modelPageEntity.ModelVersions != null && modelPageEntity.ModelVersions.Count > 0)
                            { %>
@@ -1271,7 +1269,7 @@
 
                         <%if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                           { %>
-                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div id="modelReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 font14">
                               <h2><%=bikeName %> Reviews</h2>
                             <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                                { %>
@@ -1282,18 +1280,21 @@
                                { %>
                             <div class="margin-bottom20"></div>
                             <% } %>
+                            <div class="margin-top15 padding-top15 border-solid-top"></div>
                             <% } %>
 
                             <% if (ctrlUserReviews.FetchedRecordsCount > 0)
                                { %>
                             <!-- user reviews -->
                             <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- user reviews ends -->
                             <% } %>
                             <% if (ctrlNews.FetchedRecordsCount > 0)
                                { %>
                             <!-- News widget starts -->
                                 <BW:LatestNews runat="server" ID="ctrlNews" />
+                            <div class="margin-top15 border-solid-top"></div>
                             <!-- News widget ends -->
                             <% } %>
                         </div>
@@ -1332,11 +1333,10 @@
                               { %>
                             <div class="margin-left20 margin-right20 padding-bottom20">
                                 <div class="content-inner-block-15 border-solid font14">
-                                    <div class="grid-9 alpha">
+                                    <div class="grid-9 alpha omega">
                                         <div class="inline-block">
                                             <span class="item-rank">#<%=bikeRankObj.Rank%></span>
-                                        </div>
-                                        <p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                                        </div><p class="inline-block checkout-list-slug-label"><%=bikeModelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                                     </div>
                                     <div class="grid-3 text-right position-rel pos-top5">
                                         <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -1437,45 +1437,33 @@
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div class="form-control-box padding-top30">
                 <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>
-                <%--<input type="text" class="form-control" placeholder="Type to select city" id="orpCity">--%>
             </div>
             <div class="form-control-box padding-top30">
                 <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>
-                <%-- <input type="text" class="form-control" placeholder="Type to select area" id="orpArea">--%>
             </div>
             <input type="button" value="Confirm" class="btn btn-orange margin-top40" id="onroadPriceConfirmBtn">
         </div>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
-        
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             ga_pg_id = '2';
+            var leadSourceId, getCityArea;
 
-            // Cache selectors outside callback for performance.
-            var leadSourceId;
-
-            var getCityArea = GetGlobalCityArea();
-            if (bikeVersionLocation == '') {
-                bikeVersionLocation = getBikeVersionLocation();
-                if ($('#getOffersPrimary').length>0)
-                    $('#getOffersPrimary').attr('v',bikeVersionLocation) ;
-            }
-            if (bikeVersion == '') {
-                bikeVersion = getBikeVersion();
-            }
             function secondarydealer_Click(dealerID) {
                 try {
                     var isSuccess = false;
 
                     var objData = {
                         "dealerId": dealerID,
-                        "modelId": <%= modelId%>,
+                        "modelId": '<%= modelId%>',
                         "versionId": versionId,
                         "cityId": cityId,
                         "areaId": areaId,
@@ -1496,68 +1484,84 @@
                     console.warn("Unable to create pricequote : " + e.message);
                 }
             }
+
             function openLeadCaptureForm(dealerID) {
                 triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVersionLocation);
                 event.stopPropagation();
             }
-            $(function () {
-                if ($('.dealership-benefit-list li').length <= 2) {
-                    $('.dealership-benefit-list').addClass("dealer-two-offers");
-                }
-            });
-           
-            $('#getEmailID').on("focus", function () {
-                $('#assistGetEmail').parent().addClass('not-empty');
-            });
 
-            $('#getFullName').on("focus", function () {
-                $('#assistGetName').parent().addClass('not-empty');
-            });
-            
-            $('#getMobile').on("focus", function () {
-                $('#assistGetMobile').parent().addClass('not-empty');
-            });
-            $('#getEmailID').on("blur", function () {
-                if ($('#assistGetEmail').val()=="")
-                    $('#assistGetEmail').parent().removeClass('not-empty');
-            });
 
-            $('#getFullName').on("blur", function () {
-                if ($('#assistGetName').val() == "")
-                    $('#assistGetName').parent().removeClass('not-empty');
-            });
+            docReady(function () {
 
-            $('#getMobile').on("blur", function () {
-                if ($('#assistGetMobile').val() == "")
-                    $('#assistGetMobile').parent().removeClass('not-empty');
-            });
+                getCityArea = GetGlobalCityArea();
 
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "versionid": versionId,
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isleadpopup": ele.attr('data-isleadpopup'),
-                    "mfgCampid": ele.attr('data-mfgcampid'),
-                    "pqid": pqId,
-                    "pageurl": pageUrl,
-                    "clientip": clientIP,
-                    "dealerHeading" : ele.attr('data-item-heading'), 
-                    "dealerMessage" : ele.attr('data-item-message'), 
-                    "dealerDescription" : ele.attr('data-item-description'), 
-                    "pinCodeRequired":ele.attr("data-ispincodrequired"),
-                    "gaobject": {
-                        cat: ele.attr("c"),
-                        act: ele.attr("a"),
-                        lab: bikeVersionLocation
+                $(".leadcapturebtn").click(function (e) {
+                    ele = $(this);
+                    var leadOptions = {
+                        "dealerid": ele.attr('data-item-id'),
+                        "dealername": ele.attr('data-item-name'),
+                        "dealerarea": ele.attr('data-item-area'),
+                        "versionid": versionId,
+                        "leadsourceid": ele.attr('data-leadsourceid'),
+                        "pqsourceid": ele.attr('data-pqsourceid'),
+                        "isleadpopup": ele.attr('data-isleadpopup'),
+                        "mfgCampid": ele.attr('data-mfgcampid'),
+                        "pqid": pqId,
+                        "pageurl": pageUrl,
+                        "clientip": clientIP,
+                        "dealerHeading": ele.attr('data-item-heading'),
+                        "dealerMessage": ele.attr('data-item-message'),
+                        "dealerDescription": ele.attr('data-item-description'),
+                        "pinCodeRequired": ele.attr("data-ispincodrequired"),
+                        "gaobject": {
+                            cat: ele.attr("c"),
+                            act: ele.attr("a"),
+                            lab: bikeVersionLocation
+                        }
+
+                    };
+                        dleadvm.setOptions(leadOptions);
+                    });
+
+                    $('#getEmailID').on("focus", function () {
+                        $('#assistGetEmail').parent().addClass('not-empty');
+                    });
+
+                    $('#getFullName').on("focus", function () {
+                        $('#assistGetName').parent().addClass('not-empty');
+                    });
+
+                    $('#getMobile').on("focus", function () {
+                        $('#assistGetMobile').parent().addClass('not-empty');
+                    });
+                    $('#getEmailID').on("blur", function () {
+                        if ($('#assistGetEmail').val() == "")
+                            $('#assistGetEmail').parent().removeClass('not-empty');
+                    });
+
+                    $('#getFullName').on("blur", function () {
+                        if ($('#assistGetName').val() == "")
+                            $('#assistGetName').parent().removeClass('not-empty');
+                    });
+
+                    $('#getMobile').on("blur", function () {
+                        if ($('#assistGetMobile').val() == "")
+                            $('#assistGetMobile').parent().removeClass('not-empty');
+                    });
+
+                    if ($('.dealership-benefit-list li').length <= 2) {
+                        $('.dealership-benefit-list').addClass("dealer-two-offers");
                     }
 
-                };
-                dleadvm.setOptions(leadOptions);
+                    if (bikeVersionLocation == '') {
+                        bikeVersionLocation = getBikeVersionLocation();
+                        if ($('#getOffersPrimary').length > 0)
+                            $('#getOffersPrimary').attr('v', bikeVersionLocation);
+                    }
+                    if (bikeVersion == '') {
+                        bikeVersion = getBikeVersion();
+                    }
+               
             });
         </script>
 

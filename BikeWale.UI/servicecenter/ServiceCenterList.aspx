@@ -27,7 +27,6 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/service/listing.css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" --> 
     </script>
@@ -148,7 +147,7 @@
                         </div>
                         <div id="listing-right-column" class="grid-8 alpha omega">
                             <div class="dealer-map-wrapper">
-                                <div id="dealerMapWrapper" style="width: 661px; height: 530px;">
+                                <div id="dealerMapWrapper" style="width: 661px; height: 530px; background: #fff url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) no-repeat center;">
                                     <div id="dealersMap" style="width: 661px; height: 530px;"></div>
                                 </div>
                             </div>
@@ -220,6 +219,7 @@
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         
                     <% } %>  
+                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -261,6 +261,7 @@
         <BW:BrandCity ID="ctrlBrandCity" runat="server" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/service/listing.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>

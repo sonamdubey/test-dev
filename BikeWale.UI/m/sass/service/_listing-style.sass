@@ -1,19 +1,8 @@
-﻿#service-main-content,
-#service-more-content
-	display: inline
-
-#service-more-content
-	display: none
-
-	&.active
-		display: inline
-
-// common
-.padding-15-20
-	padding: 15px 20px
-
-.padding-10-15
+﻿.padding-10-15
 	padding: 10px 15px
+
+.margin-top15
+	margin-top: 15px
 
 .vertical-top
 	display: inline-block
@@ -43,9 +32,6 @@
 		&:hover
 			text-decoration: none
 
-.details-column
-	width: 92%
-
 .service-btn
 	font-size: 14px
 	padding: 9px 0
@@ -65,19 +51,6 @@
 
 // icons
 .dealership-loc-icon
-	width: 10px
-	height: 14px
-	background-position: -40px -436px
-	position: relative
-	top: 4px
-	margin-right: 3px
-
-.tel-sm-grey-icon
-	width: 10px
-	height: 10px
-	background-position: 0 -437px
-	position: relative
-	top: 5px
 	margin-right: 3px
 
 .service-sprite
@@ -110,5 +83,7 @@
 		left: 3px
 
 @media only screen and (max-width: 320px)
-	#makeDealersContent .card-container .swiper-slide, #makeDealersContent .card-container .swiper-card
-		width: 275px !important
+	#makeDealersContent .card-container
+		.swiper-slide,
+		.swiper-card
+			width: 275px !important

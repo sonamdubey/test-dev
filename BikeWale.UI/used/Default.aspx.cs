@@ -1,9 +1,12 @@
-﻿using Bikewale.BindViewModels.Webforms.Used;
+﻿
+
+using Bikewale.BindViewModels.Webforms.Used;
 using Bikewale.Common;
 using Bikewale.Controls;
+using Bikewale.Entities.Location;
+using Bikewale.Utility;
 using System;
 using System.Web;
-
 namespace Bikewale.Used
 {
     /// <summary>
@@ -13,7 +16,8 @@ namespace Bikewale.Used
     public class Default : System.Web.UI.Page
     {
         protected UsedBikeLandingPage viewModel;
-        protected UsedRecentBikes ctrlRecentUsedBikes;
+        protected UsedBikeInCities ctrlusedBikeInCities;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected int topCount = 10;
         protected string currentUser = string.Empty;
         protected override void OnInit(EventArgs e)
@@ -40,7 +44,7 @@ namespace Bikewale.Used
             dd.DetectDevice();
 
             viewModel = new UsedBikeLandingPage(topCount);//topcount=number of icons to be displayed on page
-            currentUser = CurrentUser.Id;
+            currentUser = Bikewale.Common.CurrentUser.Id;
             if (viewModel == null)
             {
                 RedirectToPageNotFound();
@@ -58,8 +62,25 @@ namespace Bikewale.Used
         /// Summary :-Made count for other used bike 9
         private void RenderUserControls()
         {
-            ctrlRecentUsedBikes.WidgetTitle = "Popular used bikes";
-            ctrlRecentUsedBikes.TopCount = 9;
+            GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+            string _cityName = currentCityArea.City;
+            if (ctrlusedBikeModel != null)
+            {
+
+                CityEntityBase cityDetails = null;
+
+                if (currentCityArea.CityId > 0)
+                {
+                    cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
+                    ctrlusedBikeModel.CityId = currentCityArea.CityId;
+                }
+
+                ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
+                ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                ctrlusedBikeModel.TopCount = 9;
+                ctrlusedBikeModel.IsLandingPage = true;
+            }
         }
+
     }
 }

@@ -47,7 +47,7 @@ namespace Bikewale.Mobile.New
         protected ServiceCenterCard ctrlServiceCenterCard;
         protected DealersInNearByCities ctrlDealerCount;
         protected ChangeLocationPopup ctrlChangeLocation;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();

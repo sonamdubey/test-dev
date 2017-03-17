@@ -44,7 +44,7 @@ namespace Bikewale.New
         protected BrandCityPopUp ctrlBrandCity;
         protected DealersInNearByCities ctrlDealerCount;
         protected ChangeLocationPopup ctrlChangeLocation;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();

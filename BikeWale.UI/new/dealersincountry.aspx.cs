@@ -30,7 +30,7 @@ namespace Bikewale.New
     {
         protected BikeMakeEntityBase objMMV;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
-        protected usedBikeModel ctrlusedBikeModel;
+        protected UsedBikeModel ctrlusedBikeModel;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected DealersByBrand ctrlDealerByBrand;
         public ushort makeId;

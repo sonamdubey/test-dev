@@ -163,9 +163,9 @@
         <script type="text/javascript">
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = <%= isModel ? modelId : makeId %>;
-            var maxPage = 10000000;//Number.MAX_VALUE; 
+            var maxPage = 10000000;
             var isModel = <%= isModel.ToString().ToLower() %>;
-            var isNextPage = true;  //change it
+            var isNextPage = true; 
             var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
             var cacheKey = isModel ? "model_" + catId : "make_" + catId;
             $(document).ready(function () {

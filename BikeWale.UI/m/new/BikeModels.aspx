@@ -200,6 +200,7 @@
             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
             <div class="container bg-white clearfix elevated-shadow">
                 <!-- new bikes section -->
+                <% if(!modelPage.ModelDetails.Futuristic) { %>
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
@@ -227,7 +228,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
-                <% 
+                <% }
                    if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
                        <div class="bike-price-container padding-left20 padding-top10">
                                 <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
@@ -360,8 +361,6 @@
        
         </section>
         <%} %>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section>
             <div id="modelSpecsTabsContentWrapper" class="container bg-white clearfix box-shadow margin-top10 margin-bottom20 content-details-wrapper">
@@ -584,30 +583,40 @@
                    <div class="margin-right20 margin-left20 border-solid-bottom"></div>
                 </div>
 
+                <!-- colours code starts here -->
                 <%if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-                { %>   
-                <!-- colours code starts here -->    
+                  { %>
                 <div id="modelColoursContent" class="bw-model-tabs-data font14">
                     <h2 class="padding-top15 padding-right20 padding-left20"><%=bikeName %> Colours</h2>
                     <ul id="modelColorsList" class="padding-top5 padding-right20 padding-left20">
-                    <asp:Repeater ID="rptColors" runat="server">
-                            <ItemTemplate>                        
-                                <li>
-                                    <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
-                                        <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
-                                            <ItemTemplate>
-                                                    <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                    <p class="font16 inline-block"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
-                                </li>
-                            </ItemTemplate>
-                    </asp:Repeater>
+                        <% foreach (var modelColor in modelPage.ModelColors)
+                           { %>
+                        <li>
+                            <%  if (modelColor.ColorImageId > 0 && modelPage.ModelDetails != null && modelPage.ModelDetails.MakeBase != null)
+                                { %>
+                            <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/images/?modelpage=true&colorImageId=<%=modelColor.ColorImageId %>#modelGallery">
+                                <%} %>
+                                <div class="color-box <%= (((IList)modelColor.HexCodes).Count == 1 )?"color-count-one": (((IList)modelColor.HexCodes).Count >= 3 )?"color-count-three":"color-count-two" %> inline-block">
+                                    <% if (modelColor.HexCodes != null && modelColor.HexCodes.Count() > 0)
+                                       {
+                                           foreach (var HexCode in modelColor.HexCodes)
+                                           { %>
+                                    <span <%= String.Format("style='background-color: #{0}'",Convert.ToString(HexCode)) %>></span>
+                                    <%}
+                                   } %>
+                                </div>
+                                <p class="font16 inline-block"><%= Convert.ToString(modelColor.ColorName) %></p>
+                                <%  if (modelColor.ColorImageId > 0)
+                                    { %>  
+                            </a>
+                            <%} %> 
+                        </li>
+                        <%} %>
                     </ul>
                 </div>
+                <div class="margin-right20 margin-left20 padding-top15 border-solid-bottom"></div>
                 <%} %>
-                        <!-- colours code ends here -->
+                <!-- colours code ends here -->
 
                 <% if(modelPage.ModelVersionSpecs != null){ %>
                 <div id="modelSpecsFeaturesContent" class="bw-model-tabs-data font14">
@@ -831,7 +840,7 @@
 
                 <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0 || ctrlNews.FetchedRecordsCount > 0)
                     { %>   
-                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 border-solid-bottom font14">
+                <div id="modelReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14">
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0 || ctrlUserReviews.FetchedRecordsCount > 0)
                        { %>
                     <h2><%=bikeName %> Reviews</h2>
@@ -840,11 +849,13 @@
                     <% if (ctrlExpertReviews.FetchedRecordsCount > 0)
                        { %>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>
 
                     <%if (ctrlUserReviews.FetchedRecordsCount > 0)
                        { %>
                     <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>
 
                     <%if (ctrlNews.FetchedRecordsCount > 0)
@@ -852,6 +863,7 @@
                     <div class="padding-top15">
                         <BW:News runat="server" ID="ctrlNews" />
                     </div>
+                    <div class="padding-top15 border-solid-bottom"></div>
                     <% } %>                        
                 </div>
                 <% } %>
@@ -863,7 +875,6 @@
                     <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
                 <% } %>
-
               
                 <div id="modelSimilarContent" class="bw-model-tabs-data padding-bottom20 font14">
                       <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)
@@ -1057,50 +1068,16 @@
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
         <script type="text/javascript">
-            var leadSourceId;
-            vmModelId = '<%= modelId%>';
-            clientIP = '<%= clientIP%>';
-            cityId = '<%= cityId%>';
-            isUsed = '<%= !modelPage.ModelDetails.New %>';
-            var pageUrl = "<%= canonical %>";
-            var myBikeName = "<%= this.bikeName %>";
-            var versionName = "<%= variantText %>"
-            ga_pg_id = '2';
-            if (bikeVersionLocation == '') {
-                bikeVersionLocation = getBikeVersionLocation();
-            }
-            if (bikeVersion == '') {
-                bikeVersion = getBikeVersion();
-            }
-            var getCityArea = GetGlobalCityArea();
-            $(document).ready(function (e) {
+            var leadSourceId,vmModelId = '<%= modelId%>',clientIP = '<%= clientIP%>',cityId = '<%= cityId%>',isUsed = '<%= !modelPage.ModelDetails.New %>';
+            var pageUrl = "<%= canonical %>",myBikeName = "<%= this.bikeName %>",versionName = "<%= variantText %>",ga_pg_id = '2',getCityArea;
 
-                $("#templist input").on("click", function () {
-                    if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
-                        return false;
-                    }
-                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
-                    $('#hdnVariant').val($(this).attr('data-option-value'));
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
-                });
-
-                if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
-                }
-                if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
-                }
-                if ($("#getAssistance").length > 0) {
-                    dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
-                }
-
-            });
 
             function secondarydealer_Click(dealerID) {
                 try {
@@ -1130,46 +1107,77 @@
                 }
             }
 
+            docReady(function(){
+                $("#viewprimarydealer, #dealername").on("click", function () {
+                    var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
+                    window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+                });
 
-            $("#viewprimarydealer, #dealername").on("click", function () {
-                var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId + "&IsDealerAvailable=true";
-                window.location.href = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
-            });
+                $(".leadcapturebtn").click(function (e) {
+                    ele = $(this);
+                    try {                    
+                        var leadOptions = {
+                            "dealerid": ele.attr('data-item-id'),
+                            "dealername": ele.attr('data-item-name'),
+                            "dealerarea": ele.attr('data-item-area'),
+                            "versionid": versionId,
+                            "leadsourceid": ele.attr('data-leadsourceid'),
+                            "pqsourceid": ele.attr('data-pqsourceid'),
+                            "isleadpopup": ele.attr('data-isleadpopup'),
+                            "mfgCampid": ele.attr('data-mfgcampid'),
+                            "pqid": pqId,
+                            "pageurl": pageUrl,
+                            "clientip": clientIP,
+                            "dealerHeading" : ele.attr('data-item-heading'), 
+                            "dealerMessage" : ele.attr('data-item-message'), 
+                            "dealerDescription" : ele.attr('data-item-description'), 
+                            "pinCodeRequired":ele.attr("data-ispincodrequired"),
+                            "gaobject": {
+                                cat: ele.attr("c"),
+                                act: ele.attr("a"),
+                                lab: ele.attr("v")
+                            }
+                        };
 
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                try {                    
-                    var leadOptions = {
-                        "dealerid": ele.attr('data-item-id'),
-                        "dealername": ele.attr('data-item-name'),
-                        "dealerarea": ele.attr('data-item-area'),
-                        "versionid": versionId,
-                        "leadsourceid": ele.attr('data-leadsourceid'),
-                        "pqsourceid": ele.attr('data-pqsourceid'),
-                        "isleadpopup": ele.attr('data-isleadpopup'),
-                        "mfgCampid": ele.attr('data-mfgcampid'),
-                        "pqid": pqId,
-                        "pageurl": pageUrl,
-                        "clientip": clientIP,
-                        "dealerHeading" : ele.attr('data-item-heading'), 
-                        "dealerMessage" : ele.attr('data-item-message'), 
-                        "dealerDescription" : ele.attr('data-item-description'), 
-                        "pinCodeRequired":ele.attr("data-ispincodrequired"),
-                        "gaobject": {
-                            cat: ele.attr("c"),
-                            act: ele.attr("a"),
-                            lab: ele.attr("v")
-                        }
-                    };
+                        dleadvm.setOptions(leadOptions);
+                    } catch (e) {
+                        console.warn("Unable to get submit details : " + e.message);
+                    }
 
-                    dleadvm.setOptions(leadOptions);
-                } catch (e) {
-                    console.warn("Unable to get submit details : " + e.message);
+                });
+
+                $("#templist input").on("click", function () {
+                    if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
+                        return false;
+                    }
+                    $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
+                    $('#hdnVariant').val($(this).attr('data-option-value'));
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
+                });
+
+                if ($('#getMoreDetailsBtn').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                }
+                if ($('#btnGetOnRoadPrice').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                }
+                if ($("#getAssistance").length > 0) {
+                    dataLayer.push({ "event": "Bikewale_noninteraction", "cat": "Model_Page", "act": "Get_Offers_Shown", "lab": myBikeName + "_" + getBikeVersion() + '_' + getCityArea });
                 }
 
+                
+                if (bikeVersionLocation == '') {
+                    bikeVersionLocation = getBikeVersionLocation();
+                }
+                if (bikeVersion == '') {
+                    bikeVersion = getBikeVersion();
+                }
+                getCityArea = GetGlobalCityArea();
             });
+           
             
         </script>
+        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Default" %>
-<%@ Register Src="~/m/controls/UsedRecentBikes.ascx" TagPrefix="BW" TagName="RecentUsedBikes" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,41 +130,21 @@
             </div>
         </section>
         <% } %>
-        <% if(viewModel.objCitiesWithCount != null) { %>
-        <section>
-            <div class="container text-center section-container">
-                <h2 class="font18 section-heading">Search used bikes by cities</h2>
-                <div class="bg-white box-shadow padding-top20 padding-bottom20">
-                    <div class="swiper-container card-container swiper-city">
-                        <div class="swiper-wrapper">
-                                   <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in viewModel.objCitiesWithCount)
-                                     {%>
-                                        <div class="swiper-slide">
-                                <div class="swiper-card">
-                                    <a href="/m/used/bikes-in-<%=objCity.CityMaskingName %>/" title="Used bikes in <%=objCity.CityName %>">
-                                        <div class="swiper-image-preview">
-                                            <span class="city-sprite c<%=objCity.CityId %>-icon"></span>
-                                        </div>
-                                        <div class="swiper-details-block">
-                                            <h3 class="font14 margin-bottom5"><%=objCity.CityName %></h3>
-                                            <p class="font14 text-light-grey"><%=objCity.BikesCount %> Used bikes</p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                                    <%} %>
-                         </div>
-                    </div>
-                    <a href="/m/used/browse-bikes-by-cities/" class="btn btn-inv-teal inv-teal-sm margin-top10">View all cities<span class="bwmsprite teal-next"></span></a>
-                </div>
+       <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %>
+          
+                 
+                    <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
+                 
+              
+                    <%} %>
+                         <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+        <div class="container text-center section-container collapsible-brand-content">            
+        <h2 class="font18 section-heading">Popular used bikes</h2>
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
             </div>
-        </section>
-        <% } %>
-        <section>
-            <!-- Similar used bikes starts -->
-            <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
-            <!-- Similar used bikes ends -->
-        </section>
+                       
+                    <% } %> 
         
         <!-- city slider -->
         <div id="city-slider" class="bwm-fullscreen-popup">  

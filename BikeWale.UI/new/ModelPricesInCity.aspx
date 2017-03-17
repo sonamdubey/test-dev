@@ -31,8 +31,11 @@
 		isAd300x250BTFShown = false;
 				   
 	%>
-	<!-- #include file="/includes/headscript.aspx" -->
-	<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/new/modelprice-in-city.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+	<!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/css/new/modelprice-in-city.css" />
+	<script type="text/javascript">
+        <!-- #include file="\includes\gacode_desktop.aspx" -->
+    </script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
 	<form runat="server">
@@ -62,7 +65,6 @@
 						</ul>
 						<div class="clear"></div>
 					</div>
-					<h1 class="font22 text-default margin-bottom20"><%=bikeName %> price in <%=cityName %></h1>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -71,134 +73,137 @@
 		<section>
             <div id="versionPriceInCityWrapper" class="container section-bottom-margin">
 			    <div class="grid-12 font14">
-				<div class="content-box-shadow">
-					<p class="padding-top20 padding-right20 padding-bottom5 padding-left20 text-light-grey">
-					   <%=pageDescription %></p>
-					<div id='versions' class="model-versions-tabs-wrapper">
-						<asp:Repeater ID="rpVersioNames" runat="server">
-							<ItemTemplate>
-								<a class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" href="javascript:void(0)"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></a>
-							</ItemTemplate>
-						</asp:Repeater>
-					</div>
-					<div class="border-divider"></div>
+				    <div class="content-box-shadow">
+                        <h1 class="content-box-shadow padding-top15 padding-right20 padding-bottom15 padding-left20"><%=bikeName %> price in <%=cityName %></h1>
+					    <p class="padding-top15 padding-right20 padding-bottom5 padding-left20 text-light-grey">
+					       <%=pageDescription %></p>
+					    <div id='versions' class="model-versions-tabs-wrapper">
+						    <asp:Repeater ID="rpVersioNames" runat="server">
+							    <ItemTemplate>
+								    <a class="<%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?string.Empty:"active" %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>" href="javascript:void(0)"><%# DataBinder.Eval(Container.DataItem, "VersionName").ToString() %></a>
+							    </ItemTemplate>
+						    </asp:Repeater>
+					    </div>
+					    <div class="border-divider"></div>
 
-					<div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
-						<div class="grid-4 padding-top10">
-							<div class="model-version-image-content">
-								<%if(isDiscontinued) { %><span class="discontinued-text-label font16 position-abt text-center">Discontinued</span> <% } %>
-								<img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
-							</div>
-						</div>
-						<div class="grid-4 padding-top15">
-							<asp:Repeater ID="rprVersionPrices" runat="server">
-								<ItemTemplate>
-									<% if (!isDiscontinued)
-									   { %>
-									<div class="priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
-										<table cellspacing="0" cellpadding="0" width="100%" border="0">
-											<tr>
-												<td width="200" class="padding-bottom15">Ex-showroom</td>
-												<td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
-													<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
-												</td>
-											</tr>
-											<tr>
-												<td class="padding-bottom15">RTO</td>
-												<td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
-													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %>
-												</td>
-											</tr>
-											<tr>
-												<td class="padding-bottom15">Insurance</td>
-												<td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
-													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %>
-												</td>
-											</tr>
-											<tr>
-												<td class="text-bold text-default padding-top15 border-divider"><%= modelName %> On-road price in <%= cityName %></td>
-												<td align="right" class="font16 text-bold text-default padding-top15 border-divider"><span class="bwsprite inr-lg"></span>
-													<%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
-												</td>
-											</tr>
-										</table>
-									</div>
-									<%}
-									   else
-									   { %>
-											<div class="priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
-												<p class="text-x-grey margin-bottom15"><%=bikeName %> is now discontinued in India.</p>
-												<div class="padding-bottom15 text-default text-bold">
-													<span class="margin-right5">Last known Ex-showroom price</span>
-													<span class="bwsprite inr-sm"></span>
-													<%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
-												</div> 
-											</div>
-									<% } %>
-								</ItemTemplate>
-							</asp:Repeater>
-						</div>
+					    <div id="modelVersionDetailsWrapper" class="text-light-grey padding-bottom20">
+						    <div class="grid-4 padding-top10">
+							    <div class="model-version-image-content">
+								    <%if(isDiscontinued) { %><span class="discontinued-text-label font16 position-abt text-center">Discontinued</span> <% } %>
+								    <img src="<%=modelImage %>" title="<%= title %>" alt="<%= title %>" />
+							    </div>
+						    </div>
+						    <div class="grid-4 padding-top15">
+							    <asp:Repeater ID="rprVersionPrices" runat="server">
+								    <ItemTemplate>
+									    <% if (!isDiscontinued)
+									       { %>
+									    <div class="priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+										    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+											    <tr>
+												    <td width="200" class="padding-bottom15">Ex-showroom</td>
+												    <td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
+													    <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
+												    </td>
+											    </tr>
+											    <tr>
+												    <td class="padding-bottom15">RTO</td>
+												    <td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
+													    <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"RTO").ToString()) %>
+												    </td>
+											    </tr>
+											    <tr>
+												    <td class="padding-bottom15">Insurance</td>
+												    <td align="right" class="padding-bottom15 text-default"><span class="bwsprite inr-sm"></span>
+													    <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Insurance").ToString()) %>
+												    </td>
+											    </tr>
+											    <tr>
+												    <td class="text-bold text-default padding-top15 border-divider"><%= modelName %> On-road price in <%= cityName %></td>
+												    <td align="right" class="font16 text-bold text-default padding-top15 border-divider"><span class="bwsprite inr-lg"></span>
+													    <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"OnRoadPrice").ToString()) %>
+												    </td>
+											    </tr>
+										    </table>
+									    </div>
+									    <%}
+									       else
+									       { %>
+											    <div class="priceTable <%# (Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "VersionId")) != versionId)?"hide":string.Empty %>" id="<%# DataBinder.Eval(Container.DataItem, "VersionId").ToString() %>">
+												    <p class="text-x-grey margin-bottom15"><%=bikeName %> is now discontinued in India.</p>
+												    <div class="padding-bottom15 text-default text-bold">
+													    <span class="margin-right5">Last known Ex-showroom price</span>
+													    <span class="bwsprite inr-sm"></span>
+													    <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"ExShowroomPrice").ToString()) %>                                                     
+												    </div> 
+											    </div>
+									    <% } %>
+								    </ItemTemplate>
+							    </asp:Repeater>
+						    </div>
 
-						<div class="grid-4 padding-top15 padding-left15">
-                            <% if(isAreaSelected) { %>
-                            <p class="text-black">Get in touch with dealer for:</p>
-							<ul class="selectAreaToGetList margin-bottom20">
-								<li class="bullet-point">
-									<p>Best offers</p>
-								</li>
-								<li class="bullet-point">
-									<p>Test rides</p>
-								</li>
-								<li class="bullet-point">
-									<p>Complete buying assistance</p>
-								</li>
-							</ul>
-                            <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click %>" f="getBikeVersionName" c="Price_in_City_Page" a="View_dealer_details_Clicked" data-preselcity="<%=cityId %>"  data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 bw-ga" rel="nofollow">View dealer details</a>
-                            <% }
-                               else if (isAreaAvailable && !isDiscontinued)
-							   { %>
-							<p class="text-black">Please select your area to get:</p>
-							<ul class="selectAreaToGetList margin-bottom20">
-								<li class="bullet-point">
-									<p>Nearest dealership details</p>
-								</li>
-								<li class="bullet-point">
-									<p>Exclusive offers</p>
-								</li>
-								<li class="bullet-point">
-									<p>Complete buying assistance</p>
-								</li>
-							</ul>
-							<a href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="<%=cityId %>" data-persistent="true" data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
-							<%}
-							   else
-							   { %>
-							<script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
-							  googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
-							</script>
-							<% } %>
-						</div>
-						<div class="clear"></div>
-					</div>
+						    <div class="grid-4 padding-top15 padding-left15">
+                                <% if(isAreaSelected) { %>
+                                <p class="text-black">Get in touch with dealer for:</p>
+							    <ul class="selectAreaToGetList margin-bottom20">
+								    <li class="bullet-point">
+									    <p>Best offers</p>
+								    </li>
+								    <li class="bullet-point">
+									    <p>Test rides</p>
+								    </li>
+								    <li class="bullet-point">
+									    <p>Complete buying assistance</p>
+								    </li>
+							    </ul>
+                                <a id="dealerDetails" href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click %>" f="getBikeVersionName" c="Price_in_City_Page" a="View_dealer_details_Clicked" data-preselcity="<%=cityId %>"  data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 bw-ga" rel="nofollow">View dealer details</a>
+                                <% }
+                                   else if (isAreaAvailable && !isDiscontinued)
+							       { %>
+							    <p class="text-black">Please select your area to get:</p>
+							    <ul class="selectAreaToGetList margin-bottom20">
+								    <li class="bullet-point">
+									    <p>Nearest dealership details</p>
+								    </li>
+								    <li class="bullet-point">
+									    <p>Exclusive offers</p>
+								    </li>
+								    <li class="bullet-point">
+									    <p>Complete buying assistance</p>
+								    </li>
+							    </ul>
+							    <a href="javascript:void(0)" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_PriceInCity_SelectAreas %>" f="getBikeVersionName" c="Price_in_City_Page" a="Select_Area_Clicked" data-preselcity="<%=cityId %>" data-persistent="true" data-modelid="<%=modelId %>" class="btn btn-orange btn-xxlg font14 getquotation changeCity bw-ga" rel="nofollow">Select your area</a>
+							    <%}
+							       else
+							       { %>
+							    <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+							      googletag.pubads().definePassback('/1017752/Bikewale_PQ_300x250', [300, 250]).display();
+							    </script>
+							    <% } %>
+						    </div>
+						    <div class="clear"></div>
+					    </div>
 
-					<div class="margin-left10 margin-right10 border-solid-bottom"></div>
+					    <div class="margin-left10 margin-right10 border-solid-bottom"></div>
 
-					<BW:Dealers ID="ctrlDealers" runat="server" />
+					    <BW:Dealers ID="ctrlDealers" runat="server" />
 
-                     <% if(ctrlServiceCenterCard.showWidget){ %>
-                    <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                  <% } %>
+                         <% if(ctrlServiceCenterCard.showWidget){ %>
+                        <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
+                      <% } %>
 
-					<%if (ctrlTopCityPrices.showWidget) {%>
-					<BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
-					<%} %>
-				</div>
+					    <%if (ctrlTopCityPrices.showWidget) {%>
+					    <BW:ModelPriceInNearestCities ID="ctrlTopCityPrices" runat="server" />
+					    <%} %>
+				    </div>
 			    </div>
 			    <div class="clear"></div>
             </div>
 		</section>
 
-       <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
+        <BW:GenericBikeInfo runat="server" ID="ctrlGenericBikeInfo" />
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 
 		<section>
             <div class="container section-bottom-margin">
@@ -215,11 +220,10 @@
                     <%if(bikeRankObj.Rank>0){ %>
                       <div class="margin-left20 margin-right20 padding-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0)?string.Empty:"padding-top20"%>">
                         <div class="content-inner-block-15 border-solid font14">
-                            <div class="grid-9 alpha">
+                            <div class="grid-9 alpha omega">
                                 <div class="inline-block">
                                     <span class="item-rank">#<%=bikeRankObj.Rank%></span>
-                                </div>
-                                <p class="inline-block checkout-list-slug-label"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
+                                </div><p class="inline-block checkout-list-slug-label"><%=modelName%> is the <%=bikeRankObj.Rank>1?rankText:"" %> most popular <%=bikeType.ToLower() %>. Check out other <%=styleName.ToLower() %> which made it to Top 10 list.</p>
                             </div>
                             <div class="grid-3 text-right position-rel pos-top5">
                                 <a href="<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(bikeRankObj.BodyStyle) %>" title="Best <%=styleName %> in India">Check out the list now<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -263,7 +267,8 @@
 		</section>
 
 		<!-- #include file="/includes/footerBW.aspx" -->
-		<!-- #include file="/includes/footerscript.aspx" -->
+        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/includes/footerscript.aspx" -->
 		
 		<script type="text/javascript">
 			var modelId = <%= modelId %>;
@@ -333,6 +338,7 @@
 				return bikeNameVersion;
 			}
 		</script>
+        <!-- #include file="/includes/fontBW.aspx" -->
 	</form>
 </body>
 </html>

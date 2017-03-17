@@ -23,7 +23,6 @@
 </style>
     <asp:TextBox id="txtMake" runat="server" style="display:none;" Text="" data-role="none"/>
     <asp:TextBox id="txtModel" runat="server" style="display:none;" Text="" data-role="none"/>
-    <%--<asp:TextBox id="txtVersion" runat="server" style="display:none;" Text="" data-role="none"/>--%>
     <asp:TextBox id="txtCity" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:TextBox id="txtArea" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:HiddenField ID="hdnmodel" runat="Server" Value="" />
@@ -31,9 +30,6 @@
         <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new-bikes-in-india/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
         <h1><%=(modelName == "" ? "New Bike" : makeName + " " + modelName) %> On-Road Price</h1>
         <div class="box1 new-line5">  
-          <%--  <%if(errMsg!=""){%>
-                <div class="new-line10 error"><%=errMsg%></div>	
-            <%}%>--%>
             <%if(modelId == ""){%>          
             <div class="new-line5"><asp:dropdownlist id="ddlMake" class="textAlignLeft" data-bind=" value: selectedMake, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist></div>
             <div id="divModel" style="display:none;">
@@ -128,7 +124,7 @@
                 }
             });
         }
-    }
+    };
 
     function autosearch(event) {
         var matchingAreas = [];
@@ -146,13 +142,13 @@
         var searchStr = '';
         if (matchingAreas.length > 0) {
             for (var i = 0; i < matchingAreas.length; i++) {
-                searchStr += "<li class='ui-last-child'><a class='ui-btn' href='#'  areaId='" + matchingAreas[i].value + "'  areaName='" + matchingAreas[i].text + "' onClick='selectArea(this);'>" + matchingAreas[i].text.replace(new RegExp("(" + term + ")", "i"), '<u>$1</u>') + "</a></li>";//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
+                searchStr += "<li class='ui-last-child'><a class='ui-btn' href='#'  areaId='" + matchingAreas[i].value + "'  areaName='" + matchingAreas[i].text + "' onClick='selectArea(this);'>" + matchingAreas[i].text.replace(new RegExp("(" + term + ")", "i"), '<u>$1</u>') + "</a></li>";
             }
 
             $('.filtered-list').html(searchStr).trigger('create');
         }
         else {
-            searchStr = '<li>No matches found!!</li>'
+            searchStr = '<li>No matches found!!</li>';
             $('.filtered-list').html(searchStr).trigger('create');
         }
     }
@@ -314,12 +310,11 @@
                         isAreaShown = true;
                         $("#hdnIsAreaShown").val(isAreaShown);
 
-                        //Added By - Ashwini Todkar on 6 Jan 2014
                         for (var i = 0; i < resObj.length; i++) {
                             var objAreas = { value: resObj[i].AreaId, text: resObj[i].AreaName };
                             areaDataSet.push(objAreas);
 
-                            $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
+                            $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");
                             $("#divArea").show();
                         }
                         $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
@@ -371,14 +366,11 @@
                         if (resObj!=null && resObj.length > 0) {
                             var initIndex = 0;                            
                             checkCookies();                            
-                            //$("#ddlCity").empty();
                             insertCitySeparator(resObj);
                             viewModelPQ.cities(resObj);
-                            //viewModelPQ.bookingCities(cities);
                             if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.cities() && selectElementFromArray(viewModelPQ.cities(), onCookieObj.PQCitySelectedId)) {
                                 viewModelPQ.selectedCity(onCookieObj.PQCitySelectedId);
                                 $("#ddlCity option[value=" + onCookieObj.PQCitySelectedId + "]").attr("selected", "selected");
-                                //$("#ddlCity").prop('selectedIndex', onCookieObj.PQCitySelectedId);
                             }
                             $("#ddlCity").find("option[value='0']").prop('disabled', true);
                             $("#ddlCity").trigger('chosen:updated');
@@ -400,7 +392,7 @@
 
         $('#btnSubmit').click(function () {
             if(isValid())
-            {  //set global cookie
+            { 
                 pqSetLocationCookie();
             }
             else return false;
@@ -481,7 +473,6 @@
                             onCookieObj.PQAreaSelectedId = 0;
                         }                          
                         $('.chosen-select').trigger("chosen:updated");
-                        //$("#hdn_ddlArea").val($("#ddlArea").chosen().val());
                         isAreaShown = true;
                     } else {
                         $('#divAreaChosen').hide();
@@ -495,10 +486,6 @@
         else {
             viewModelPQ.areas([]);
         }
-    }
-
-    if (window.location.search != '' || window.location.search != null) {
-        //MetroCities($("#ddlCity"));
     }
 
     function pqSetLocationCookie()

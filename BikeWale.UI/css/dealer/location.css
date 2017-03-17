@@ -1,5 +1,4 @@
-﻿@charset "utf-8";
-.padding-14-20 {
+﻿.padding-14-20 {
     padding: 14px 20px;
 }
 
@@ -7,16 +6,13 @@
     padding: 18px 20px;
 }
 
-#main-content,
-#more-content {
+.collapsible-content .main-content {
     display: inline;
 }
-
-#more-content {
+.collapsible-content .more-content {
     display: none;
 }
-
-#more-content.active {
+.collapsible-content.active .more-content {
     display: inline;
 }
 
