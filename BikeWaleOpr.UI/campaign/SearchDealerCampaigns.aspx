@@ -81,7 +81,7 @@
     <div style="margin-left:200px">
         <h4 id="selDealerHeading"></h4>
     </div>
-    <div style="margin-left: 200px; display: none; overflow-x: auto; overflow-y: hidden" id="DealerCampaignsList">
+    <div style="display: none; overflow-x: auto; overflow-y: hidden" id="DealerCampaignsList">
 
         <table class="margin-top10 margin-bottom10" rules="all" cellspacing="0" cellpadding="5" style="border-width: 1px; border-style: solid; width: 100%; border-collapse: collapse;">
             <thead>
