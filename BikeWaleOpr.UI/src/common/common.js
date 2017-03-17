@@ -28,8 +28,13 @@ function showToast(msg) {
 }
 
 $(document).ready(function () {
-    // set page footer position
-    pageFooter.setPosition();
+    try {
+        // set page footer position
+        pageFooter.setPosition();
+    }
+    catch (ex) {
+        console.warn(ex);
+    }
 });
 
 // navigation
