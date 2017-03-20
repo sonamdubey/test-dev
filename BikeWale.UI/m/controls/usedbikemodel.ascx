@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="view-all-btn-container margin-top10">
-        <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetHref %>">View more used bikes<span class="bwmsprite teal-right"></span></a>
+        <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetHref %>">View all used bikes<span class="bwmsprite teal-right"></span></a>
     </div>
 </div>
 <% } %>
