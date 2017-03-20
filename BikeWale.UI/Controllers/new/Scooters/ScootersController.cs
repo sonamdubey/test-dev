@@ -286,9 +286,9 @@ namespace Bikewale.Controllers.Desktop.Scooters
         /// </summary>
         private ICollection<SimilarCompareBikeEntity> BindSimilarBikes(string versionList)
         {
-            uint cityId = GlobalCityArea.GetGlobalCityArea().CityId;
-            uint topCount = 1;
-            return _compareScooters.ScooterCompareList(versionList, topCount, cityId);
+            int cityId = (int)GlobalCityArea.GetGlobalCityArea().CityId;
+            ushort topCount = 1;
+            return _compareScooters.GetSimilarCompareBikes(versionList, topCount, cityId);
         }
         /// <summary>
         /// Created By :- Subodh Jain 10 March 2017
