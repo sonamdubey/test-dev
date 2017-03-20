@@ -207,7 +207,7 @@
                 </div>
                 <% } %>
                  <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) { %>
-                <div id="dealerAndServiceContent" class="bw-model-tabs-data">
+                <div id="dealerAndServiceContent" class="bw-model-tabs-data  margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <%if (ctrlDealerCard.showWidget){ %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                     <%} %>
@@ -218,7 +218,7 @@
                 </div>
               <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                      <div id="makeUsedBikeContent" >
+                      <div id="makeUsedBikeContent" class="bw-model-tabs-data" >
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                           </div>
                     <% } %>
