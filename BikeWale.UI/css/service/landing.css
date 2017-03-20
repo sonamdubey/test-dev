@@ -103,13 +103,12 @@
   text-align: center;
   padding-top: 10px; }
 
-#city-jcarousel .inner-content-carousel .jcarousel-control-left,
-#city-jcarousel .inner-content-carousel .jcarousel-control-right {
-  top: 32%;
+#city-jcarousel {
   padding-top: 0; }
-
-#city-jcarousel .jcarousel-wrapper {
-  margin-bottom: 20px; }
+  #city-jcarousel .inner-content-carousel .jcarousel-control-left,
+  #city-jcarousel .inner-content-carousel .jcarousel-control-right {
+    top: 32%;
+    padding-top: 0; }
 
 .city-sprite {
   background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat;
