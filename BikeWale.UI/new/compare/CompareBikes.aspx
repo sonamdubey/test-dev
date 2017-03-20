@@ -903,6 +903,7 @@
 <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
 
 <script type="text/javascript">
+    versions = '<%= hashVersion%>';
     $(document).ready(function () {
         var speed = 300;
         //input parameter : id of element, scroll up speed
@@ -927,7 +928,6 @@
         $("a.delBike").click(function () {
             var verId = $(this).attr("versionId");
             var basicUrl = (window.location.pathname).split('/')[2];
-            var versions = '<%= hashVersion%>';
             var makeModelList = new Array();
             var VersionIdList = new Array();
             var newBasicUrl = "";
