@@ -207,9 +207,6 @@
 #city-jcarousel {
     padding-top: 0;
 }
-#city-jcarousel .jcarousel-wrapper {
-    margin-bottom: 20px;
-}
 
 /* city sprite */
 .city-sprite { background: url(https://imgd1.aeplcdn.com/0x0/bw/static/sprites/d/city-sprite.png?24062016) no-repeat; display: inline-block; }
