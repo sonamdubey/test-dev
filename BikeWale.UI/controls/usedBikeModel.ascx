@@ -46,8 +46,8 @@
           
         </div>
    <%if(IsLandingPage) {%>
-             <div class="more-article-target view-all-btn-container"> 
-                            <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-next"></span></a>
-                        </div>
-            <%} %>
+        <div class="more-article-target view-all-btn-container"> 
+            <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+        </div>
+    <%} %>
 <%} %>

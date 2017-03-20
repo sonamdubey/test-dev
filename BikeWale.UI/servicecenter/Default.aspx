@@ -124,10 +124,10 @@
         <%if (ctrlMostPopularBikes.FetchedRecordsCount + ctrlNewLaunchedBikes.FetchedRecordsCount + ctrlUpcomingBikes.FetchedRecordsCount>0)
           {%>
         <section>
-            <div class="container margin-bottom30">
+            <div class="container section-bottom-margin">
                 <!--  Discover bikes section code starts here -->
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Most popular bikes</h2>
+                    <h2 class="section-heading">Most popular bikes</h2>
                     <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
@@ -150,7 +150,7 @@
                             </ul>
                         </div>
                         <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
-                            <div class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
                                 <div class="jcarousel">
                                     <ul>
                                         <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
