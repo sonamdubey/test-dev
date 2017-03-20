@@ -30,10 +30,11 @@ namespace Bikewale.ServiceCenter
         protected IEnumerable<BikeMakeEntityBase> objTopMakeList;
         protected IEnumerable<BikeMakeEntityBase> objOtherMakeList;
         protected IEnumerable<BikeMakeEntityBase> objMakes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected string cityName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
@@ -64,6 +65,7 @@ namespace Bikewale.ServiceCenter
         /// <summary>
         /// Created By:-Subodh Jain 8 nov 2016
         /// Summary:- Bind Make for service center
+
         /// </summary>
         private void BindMakes()
         {
@@ -94,6 +96,8 @@ namespace Bikewale.ServiceCenter
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016
         /// Description : Added new launched,upcoming and poular bikes binding 
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-added model city budget used bike widget
         /// </summary>
         private void BindBikesWidgets()
         {
@@ -112,9 +116,23 @@ namespace Bikewale.ServiceCenter
                 ctrlUpcomingBikes.pageSize = 9;
 
                 ctrlBikeCare.TotalRecords = 3;
-                ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Desktop_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Popular used bikes in {0}", cityId > 0 ? cityName : "India");
-                ctrlPopularUsedBikes.TotalRecords = 9;
+
+                if (ctrlusedBikeModel != null)
+                {
+
+                    CityEntityBase cityDetails = null;
+
+                    if (cityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(cityId);
+                        ctrlusedBikeModel.CityId = cityId;
+                    }
+
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                    ctrlusedBikeModel.IsLandingPage = true;
+                }
             }
             catch (Exception ex)
             {

@@ -1505,3 +1505,4 @@ input[type="number"] {
 .inner-content-carousel.carousel-height-360 .jcarousel li {
     min-height: 360px;
 }
+.brand-style-moreBtn { border-top: 1px solid #e2e2e2; margin-left: 0; }

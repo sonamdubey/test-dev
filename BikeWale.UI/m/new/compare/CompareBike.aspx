@@ -168,7 +168,9 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript"> var compareSource = <%= (int) Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_UserSelection %> ;  bwcache.setOptions({ StorageScope: "compare", EnableEncryption: true }); </script>
+        <script type="text/javascript">
+            var compareSource = <%= (int) Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_UserSelection %> ;  
+        </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : ""%>/m/src/compare/landing.js?<%= staticFileVersion %>"></script>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     </form>

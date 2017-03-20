@@ -2,7 +2,7 @@
         <% if(objCitiesWithCount != null) { %>
      
                     <div id="city-jcarousel" class="content-box-shadow padding-top20 padding-bottom20">
-                        <div class="jcarousel-wrapper inner-content-carousel margin-bottom5">
+                        <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>
                                     <%foreach (Bikewale.Entities.Used.UsedBikeCities objCity in objCitiesWithCount)
@@ -24,8 +24,8 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-                        <div class="more-article-target view-all-btn-container"> 
-                            <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-right"></span></a>
+                        <div class="more-article-target view-all-btn-container padding-top20"> 
+                            <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-next"></span></a>
                         </div>
                     </div>
                

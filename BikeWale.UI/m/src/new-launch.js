@@ -1,18 +1,4 @@
-﻿// read more - collapse
-$('.read-more-target').on('click', function () {
-    var element = $(this),
-        parentElemtent = element.closest('.collapsible-content');
-
-    if (!parentElemtent.hasClass('active')) {
-        parentElemtent.addClass('active');
-        element.text(' Collapse');
-    }
-    else {
-        parentElemtent.removeClass('active');
-        element.text('...Read more');
-    }
-});
-
+﻿
 var directionRight = { direction: 'right' };
 
 // brand
