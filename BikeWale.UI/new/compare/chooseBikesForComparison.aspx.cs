@@ -401,13 +401,7 @@ namespace Bikewale.New
             string url = string.Empty;
             try
             {
-
-                var sorted = bikeList.Where(x => x.ModelId != 0).OrderBy(x => x.ModelId);
-                foreach (var bike in sorted)
-                {
-                    url += string.Format("{0}-{1}-vs-", bike.MakeMaskingName, bike.ModelMaskingName);
-                }
-                url = url.Remove(url.Length - 4, 4);
+                url = string.Join("-vs-", bikeList.Where(x => x.ModelId != 0).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
             }
             catch (Exception ex)
             {
