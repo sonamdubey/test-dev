@@ -2,7 +2,7 @@
 <%if (FetchCount > 0)
   { %>
 <%if(!string.IsNullOrEmpty(header)){ %>
-<h2 class="font18 padding-15-20"><%= header %></h2>
+<h2 class="padding-15-20"><%= header %></h2>
 <%} %>
 <div class="content-box-shadow <%=IsLandingPage?"padding-bottom15":"padding-top20"%>">
     <div class="swiper-container card-container used-swiper">
