@@ -1502,3 +1502,6 @@ input[type="number"] {
   }
 }
 .red-text { font-size:12px; position: relative; top: 4px; left: 0; color: #d9534f; }
+.inner-content-carousel.carousel-height-360 .jcarousel li {
+    min-height: 360px;
+}

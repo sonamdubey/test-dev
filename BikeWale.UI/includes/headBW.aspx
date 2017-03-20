@@ -2,7 +2,7 @@
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
 <%@ Register Src="~/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
-    <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?"header-landing header-transparent":String.Empty   %>'> <!-- Fixed Header code starts here -->
+    <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?" header-landing header-transparent":String.Empty   %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale" alt="Bikewale"></a>

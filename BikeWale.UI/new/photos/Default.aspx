@@ -185,8 +185,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-button-next bwsprite gallery-next-icon gallery-type-next"></div>
-                            <div class="swiper-button-prev bwsprite gallery-prev-icon gallery-type-prev"></div>
+                            <div class="swiper-button-next gallery-type-next full-width-button-next">
+                                <span class="bwsprite gallery-next-icon"></span>
+                            </div>
+                            <div class="swiper-button-prev gallery-type-prev full-width-button-prev">
+                                <span class="bwsprite gallery-prev-icon"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -199,8 +203,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-button-next bwsprite gallery-next-icon color-type-next"></div>
-                            <div class="swiper-button-prev bwsprite gallery-prev-icon color-type-prev"></div>
+                            <div class="swiper-button-next color-type-next full-width-button-next">
+                                <span class="bwsprite gallery-next-icon"></span>
+                            </div>
+                            <div class="swiper-button-prev color-type-prev full-width-button-prev">
+                                <span class="bwsprite gallery-prev-icon"></span>
+                            </div>
                         </div>
                     </div>
 

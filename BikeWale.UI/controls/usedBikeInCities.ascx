@@ -25,7 +25,7 @@
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                         <div class="more-article-target view-all-btn-container"> 
-                            <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-next"></span></a>
+                            <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all cities<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
                

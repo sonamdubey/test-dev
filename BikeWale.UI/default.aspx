@@ -310,7 +310,7 @@
                             </ul>
                         </div>
                         <div class="bw-tabs-data <%= (ctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"hide" %>" id="ctrlMostPopularBikes">
-                            <div class="jcarousel-wrapper inner-content-carousel">
+                            <div class="jcarousel-wrapper inner-content-carousel carousel-height-360">
                                 <div class="jcarousel">
                                     <ul>
                                         <BW:MostPopularBikes PageId="5" runat="server" ID="ctrlMostPopularBikes" />
@@ -444,7 +444,7 @@
                                                 <span class="bwsprite budget-one"></span>
                                             </div>
                                             <span class="key-size-14">Upto</span><br />
-                                            <span class="bwsprite inr-md"></span><span class="value-size-16">35,000</span>
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000</span>
                                         </div>
                                     </a>
                                 </li>
@@ -455,8 +455,8 @@
                                                 <span class="bwsprite budget-two"></span>
                                             </div>
                                             <span class="key-size-14">Between</span><br />
-                                            <span class="bwsprite inr-md"></span><span class="value-size-16">35,000 -</span>
-                                            <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>
@@ -467,7 +467,7 @@
                                                 <span class="bwsprite budget-three"></span>
                                             </div>
                                             <span class="key-size-14">Above</span><br />
-                                            <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
+                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>
