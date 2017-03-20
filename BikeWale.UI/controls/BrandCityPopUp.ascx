@@ -56,7 +56,7 @@
 <script type="text/javascript">
 
     var BrandsKey = "BrandCityPopUp_",BrandCityKey = "brandcity_",brandcityPopUp,makeid = '<%=makeId%>',cityId = '<%=cityId%>';
-    var brandcityPopUp,popupcity,popupBrand;
+    var brandcityPopUp,popupcity,popupBrand,vmCityBrandPopup;
 
     var viewModelCityBrandPopup = function () {
         var self = this;
@@ -309,13 +309,6 @@
         lscache.flushExpired(); 
         lscache.setBucket('BCPopup');
 
-        $('body').on('click', "#brandSelect", function (e) {
-            $('#brandcityPopup').fadeIn(100);
-            popup.lock();
-            e.preventDefault();
-            $("#errMsgPopUp").empty();
-            viewModelCityBrandPopup.FillBrandsPopup();
-        });
 
         $('#brandcityPopup .close-btn, .blackOut-window').mouseup(function () {
             popup.unlock();
@@ -325,8 +318,15 @@
         $("#ddlCityPopup").chosen({ no_results_text: "No matches found!!" });
         $("#ddlBrandPopup").chosen({ no_results_text: "No matches found!!" });
         $('.chosen-container').attr('style', 'width:100%;');
-        
-        ko.applyBindings(new viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
+        vmCityBrandPopup = new viewModelCityBrandPopup;
+        ko.applyBindings(vmCityBrandPopup, $("#brandCityPopUpContent")[0]);
+        $('body').on('click', "#brandSelect", function (e) {
+            $('#brandcityPopup').fadeIn(100);
+            popup.lock();
+            e.preventDefault();
+            $("#errMsgPopUp").empty();
+            vmCityBrandPopup.FillBrandsPopup();
+        });
     });
 
 </script>
