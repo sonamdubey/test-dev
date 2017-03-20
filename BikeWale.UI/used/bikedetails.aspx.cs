@@ -101,6 +101,8 @@ namespace Bikewale.Used
         /// Summary :- Added Service center Widget
         /// Modified By :-Subodh Jain on 15 March 2017
         /// Summary :-Made count for other used bike 9
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-Changed heading used bike widget
         /// </summary>
         private void BindUserControls()
         {
@@ -134,8 +136,10 @@ namespace Bikewale.Used
                     ctrlusedBikeModel.MakeId = (uint)inquiryDetails.Make.MakeId;
                     if (inquiryDetails.City.CityId > 0)
                         ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Used Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.header = string.Format("More used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Other used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+
                     ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                 }

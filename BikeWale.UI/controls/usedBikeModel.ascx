@@ -1,16 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UsedBikeModel" EnableViewState="false"%>
 <%if (FetchCount > 0)
   { %>
-
+<%if(!IsLandingPage){ %>
         <div class="carousel-heading-content <%=IsLandingPage?"":"padding-top20" %>">
             <div class="swiper-heading-left-grid inline-block">
                 <h2><%= header %></h2>
-            </div><%if(!IsLandingPage){ %><div class="swiper-heading-right-grid inline-block text-right">
+            </div><div class="swiper-heading-right-grid inline-block text-right">
                 <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all</a>
             </div>
-            <%} %>
+          
             <div class="clear"></div>
         </div>
+  <%} %>
         <div class="padding-bottom20">
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">

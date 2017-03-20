@@ -33,7 +33,8 @@ namespace Bikewale.Mobile.Service
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected MNewLaunchedBikes ctrlNewLaunchedBikes;
         protected MMostPopularBikes ctrlMostPopularBikes;
-        protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected UsedBikeModel ctrlusedBikeModel;
+        protected UsedBikeInCities ctrlusedBikeInCities;
         protected string cityName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
@@ -58,6 +59,8 @@ namespace Bikewale.Mobile.Service
         /// <summary>
         /// Created By : Subodh Jain  on 28th Nov 2016
         /// Description : Added new launched,upcoming and poular bikes binding 
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-added model city budget used bike widget
         /// </summary>
         private void BindBikesWidgets()
         {
@@ -76,9 +79,22 @@ namespace Bikewale.Mobile.Service
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
 
-                ctrlPopularUsedBikes.PQSourceId = (int)PQSourceEnum.Mobile_ServiceCenter_DefaultPage;
-                ctrlPopularUsedBikes.header = string.Format("Popular used bikes in {0}", cityId > 0 ? cityName : "India");
-                ctrlPopularUsedBikes.TotalRecords = 9;
+                if (ctrlusedBikeModel != null)
+                {
+
+                    CityEntityBase cityDetails = null;
+
+                    if (cityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(cityId);
+                        ctrlusedBikeModel.CityId = cityId;
+                    }
+
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.TopCount = 9;
+                    ctrlusedBikeModel.IsLandingPage = true;
+                }
 
                 ctrlBikeCare.TotalRecords = 3;
             }
