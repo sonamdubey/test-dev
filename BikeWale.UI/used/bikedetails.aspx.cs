@@ -128,8 +128,7 @@ namespace Bikewale.Used
                 ctrlServiceCenterCard.makeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlServiceCenterCard.cityMaskingName = inquiryDetails.City.CityMaskingName;
                 ctrlServiceCenterCard.TopCount = 3;
-                ctrlServiceCenterCard.widgetHeading = string.Format("You might want to check {0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
-                ctrlServiceCenterCard.biLineText = string.Format("Check out authorized {0} service center nearby.", inquiryDetails.Make.MakeName);
+                ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
                 if (ctrlusedBikeModel != null)
                 {
 
@@ -137,8 +136,8 @@ namespace Bikewale.Used
                     if (inquiryDetails.City.CityId > 0)
                         ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
 
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                    ctrlusedBikeModel.header = string.Format("Other used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("More used bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
 
                     ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;

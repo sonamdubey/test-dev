@@ -187,33 +187,38 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" -->
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <BW:BrandCity ID="ctrlBrandCity" runat="server" />
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
+        <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+        </noscript>
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script defer type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/listing.js?<%= staticFileVersion %>"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeDealerMap"></script>
+        
         
         <script type="text/javascript">
-            $(".leadcapturebtn").click(function (e) {
-                ele = $(this);
-                var leadOptions = {
-                    "dealerid": ele.attr('data-item-id'),
-                    "dealername": ele.attr('data-item-name'),
-                    "dealerarea": ele.attr('data-item-area'),
-                    "campid": ele.attr('data-campid'),
-                    "leadsourceid": ele.attr('data-leadsourceid'),
-                    "pqsourceid": ele.attr('data-pqsourceid'),
-                    "isdealerbikes": true,
-                    "pageurl": window.location.href,
-                    "isregisterpq": true,
-                    "clientip": clientip
-                };
-                dleadvm.setOptions(leadOptions);
+            docReady(function () {
+             $(".leadcapturebtn").click(function (e) {
+                            ele = $(this);
+                            var leadOptions = {
+                                "dealerid": ele.attr('data-item-id'),
+                                "dealername": ele.attr('data-item-name'),
+                                "dealerarea": ele.attr('data-item-area'),
+                                "campid": ele.attr('data-campid'),
+                                "leadsourceid": ele.attr('data-leadsourceid'),
+                                "pqsourceid": ele.attr('data-pqsourceid'),
+                                "isdealerbikes": true,
+                                "pageurl": window.location.href,
+                                "isregisterpq": true,
+                                "clientip": clientip
+                            };
+                    dleadvm.setOptions(leadOptions);
+               });
             });
+           
          </script>
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>

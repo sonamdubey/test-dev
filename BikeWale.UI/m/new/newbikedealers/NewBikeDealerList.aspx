@@ -95,12 +95,12 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
+        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
            {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                
-             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
@@ -112,19 +112,21 @@
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     <% if (ctrlServiceCenterCard.showWidget)
                    { %>
+                 <div class="margin-bottom10"></div>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
-                <% }  %>
+                
+                     <% }  %>
                
                        <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                     <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                        </div>
                     <% } %> 
                  
             </div>
-                </div>
+              
             
         </section>
         <% } %>
