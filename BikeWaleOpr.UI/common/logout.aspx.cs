@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
+﻿using BikeWaleOpr.Common;
+using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using BikeWaleOpr.Common;
-using System.Configuration;
 
 namespace BikeWaleOpr
 {
     public class Logout : Page
     {
         protected override void OnInit(EventArgs e)
-        { 
+        {
             this.Load += new EventHandler(Page_Load);
         }
 
@@ -19,8 +15,8 @@ namespace BikeWaleOpr
         {
             if (!IsPostBack)
             {
-                bool logout = false;               
-                
+                bool logout = false;
+
                 if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
                 {
                     logout = true;
@@ -32,7 +28,7 @@ namespace BikeWaleOpr
                     CurrentUser.EndSession();
                     BikeWaleAuthentication.ClearAllCookiesValues();
                     //Response.Redirect(ConfigurationManager.AppSettings["redirectUrl"]);
-                    Response.Redirect("/users/login.aspx");
+                    Response.Redirect("/users/login");
                 }
 
             }
