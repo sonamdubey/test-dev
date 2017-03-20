@@ -54,16 +54,11 @@
 </div>
 
 <script type="text/javascript">
-    lscache.flushExpired();  //remove expired
-    var BrandsKey = "BrandCityPopUp_";
-    var BrandCityKey = "brandcity_";
-    var brandcityPopUp = $('#brandcityPopUp');
-    var makeid = '<%=makeId%>';
-    var cityId = '<%=cityId%>';
-    lscache.setBucket('BCPopup');
-    popupcity = $('#ddlCityPopup');
-    popupBrand = $('#ddlBrandPopup');
-    var viewModelCityBrandPopup = new function () {
+
+    var BrandsKey = "BrandCityPopUp_",BrandCityKey = "brandcity_",brandcityPopUp,makeid = '<%=makeId%>',cityId = '<%=cityId%>';
+    var brandcityPopUp,popupcity,popupBrand;
+
+    var viewModelCityBrandPopup = function () {
         var self = this;
         self.selectCity = ko.observable(),
         self.listCities = ko.observableArray([]),
@@ -297,16 +292,22 @@
             if (isvalid) {
                 if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) {
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
-                }
-                else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
-                window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
             }
+            else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
+            window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
         }
+    }
     }
 
     };
 
-    $(document).ready(function () {
+    docReady(function () {
+
+        brandcityPopUp = $('#brandcityPopUp'),popupcity = $('#ddlCityPopup'),popupBrand = $('#ddlBrandPopup');
+
+        lscache.flushExpired(); 
+        lscache.setBucket('BCPopup');
+
         $('body').on('click', "#brandSelect", function (e) {
             $('#brandcityPopup').fadeIn(100);
             popup.lock();
@@ -322,8 +323,9 @@
 
         $("#ddlCityPopup").chosen({ no_results_text: "No matches found!!" });
         $("#ddlBrandPopup").chosen({ no_results_text: "No matches found!!" });
-        $('.chosen-container').attr('style', 'width:100%;');       
-        ko.applyBindings(viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
+        $('.chosen-container').attr('style', 'width:100%;');
+        
+        ko.applyBindings(new viewModelCityBrandPopup, $("#brandCityPopUpContent")[0]);
     });
 
 </script>

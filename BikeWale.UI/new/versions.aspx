@@ -32,9 +32,6 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/model-atf.css" />
-      <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
-            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/model-btf.css?<%=staticFileVersion %>" />
-        </noscript>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     var dealerId = '<%= dealerId%>';
@@ -56,8 +53,6 @@
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
     <form runat="server">
-      
-
         <% if (modelPageEntity != null && modelPageEntity.ModelDesc != null)
            { %>
         <meta itemprop="description" itemtype="https://schema.org/description" content="<%=modelPageEntity.ModelDesc.SmallDescription %>" />
@@ -1450,10 +1445,11 @@
         </div>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+         <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/model-btf.css?<%=staticFileVersion %>" />
+        </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <%--<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />--%>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>

@@ -509,9 +509,9 @@
                 var imageIndex = "<%=imageIndex%>";
                 var isModelPage = <%= isModelPage.ToString().ToLower() %>;
                 var colorImageId = "<%= colorImageId%>";
-                var encodedVideoList = "<%= JSONVideoList%>"
-                var encodedImageList = "<%= JSONImageList %>"
-                var encodedFirstImage = "<%= JSONFirstImage%>"   
+                var encodedVideoList = "<%= JSONVideoList%>";
+                var encodedImageList = "<%= JSONImageList %>";
+                var encodedFirstImage = "<%= JSONFirstImage%>" ;  
             }catch (e) {
                 console.warn(e);
             }
