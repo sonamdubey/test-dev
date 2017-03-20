@@ -4,7 +4,7 @@
    
 /* default styles
    -------------- */
-body { padding: 0; margin: 0; font: 11px Segoe UI, sans-serif; line-height: 1.5em; background: #fff; color: #454545; font-weight: 500; }
+body { padding: 0; padding-bottom: 60px; margin: 0; font: 11px Segoe UI, sans-serif; line-height: 1.5em; background: #fff; color: #454545; font-weight: 500; }
 input{font-size:11px; padding: 6px; cursor:pointer;}
 select {font-size:11px; padding: 6px; cursor: pointer; vertical-align: top;}
 

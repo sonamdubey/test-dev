@@ -200,6 +200,7 @@
             <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
             <div class="container bg-white clearfix elevated-shadow">
                 <!-- new bikes section -->
+                <% if(!modelPage.ModelDetails.Futuristic) { %>
                 <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
                     <div class="grid-6 alpha border-solid-right">
                         <p class="font12 text-light-grey padding-left10">Version:</p>
@@ -227,7 +228,7 @@
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
-                <% 
+                <% }
                    if(isDiscontinued && !modelPage.ModelDetails.Futuristic) { %>
                        <div class="bike-price-container padding-left20 padding-top10">
                                 <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>

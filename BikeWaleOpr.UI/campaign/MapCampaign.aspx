@@ -121,7 +121,7 @@
                             <% if(contractId > 0){ %>
                              <td class="rdbCampaignId">
                                 <span id="rdb_<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>">
-                                    <input type="radio" name="rdbCampaign" runat="server" id="rdbCampaign" value='<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>' /> 
+                                    <input type="radio" name="rdbCampaign" id="rdbCampaign" value='<%#DataBinder.Eval(Container.DataItem,"CampaignId") %>' /> 
                                 </span>
                             </td>
                             <%} %>
@@ -156,21 +156,6 @@
     <script type="text/javascript">
 
         var _cwWebService = "<%= ConfigurationManager.AppSettings["CwWebServiceHostUrl"] %>" ;
-
-        $(document).ready(function () {
-            $('[name$="rdbCampaign"]').attr("name", $('[name$="rdbCampaign"]').attr("name"));
-            $('[name$="rdbCampaign"]').click(function () {
-                $('[name$="rdbCampaign"]').attr("name", $(this).attr("name"));
-                $('#rdbNewCamp').attr('checked', false);
-            });
-        });
-        $('#rdbNewCamp').change(
-            function () {
-                $("input[name$='rdbCampaign']").each(function () {
-                    $(this).attr('checked', false);
-                });
-            }
-        );
         $("#btnProceed, #btnMapCampaign").click(function () {
             if ($('#rdbNewCamp').is(':checked')) {
                 location.href = "/campaign/ManageDealers.aspx?contractid=" + contractId + "&dealerid=" + dealerId + "&dealername=" + dealerName + "&no=" + <%=dealerNumber %> + "";
@@ -207,7 +192,6 @@
                     $.ajax({
                         type: "POST",
                         url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                        //data: '{"contractId":"' + contractId + '" , "campaignId":"' + campaignId + '"}',
                         data: '{"contractId":"' + contractId + '", "dealerId":"' + dealerId + '", "campaignId":"' + campaignId + '", "userId":"' + userId + '", "oldMaskingNumber":"' + oldMaskingNumber + '", "maskingNumber":"' + maskingNumber + '", "dealerMobile":"' + dealerNumber + '"}',
                         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "MapCampaign"); },
                         success: function (response) {

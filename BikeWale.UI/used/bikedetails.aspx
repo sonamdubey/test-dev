@@ -1,9 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeDetails" EnableViewState="false" %>
-
 <%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
-<%@ Register Src="~/controls/OtherUsedBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
+<%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 
 <!DOCTYPE html>
@@ -275,7 +274,7 @@
         </section>
         <% } %>
 
-        <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlusedBikeModel.FetchCount>0|| ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
            { %>
         <section>
             <div class="container">
@@ -292,7 +291,7 @@
                                        { %>
                                     <a href="#similarContent" rel="nofollow">Similar bikes</a>
                                     <% } %>
-                                    <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                                    <% if (ctrlusedBikeModel.FetchCount > 0)
                                        { %>
                                     <a href="#usedContent" rel="nofollow">Other used bikes</a>
                                     <% } %>
@@ -397,7 +396,12 @@
                         <% } %>
 
                         <BW:SimilarUsedBikes runat="server" ID="ctrlSimilarUsedBikes"></BW:SimilarUsedBikes>
-                        <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+                           <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 <div id="usedContent" class="bw-model-tabs-data font14 active"><BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" /></div>
+                     
+                        
+                    <% } %> 
 
                         <div id="overallMakeDetailsFooter"></div>
                     </div>

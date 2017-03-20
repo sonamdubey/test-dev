@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.ServiceCenter.ServiceCenterDetails" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>l
+<%@ Register Src="~/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
 <%@ Register Src="~/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
@@ -200,10 +200,11 @@
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                         
                     <% } %>  
-
+                         <div class="margin-left10 margin-right10 border-solid-bottom"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
+                
                 <div class="clear"></div>
             </div>
         </section>

@@ -257,12 +257,19 @@ var compareBike = function () {
 
     self.compareLink = ko.computed(function () {
         var _link = "/m/comparebikes/";
-        if(self.bike1() && self.bike2())
-        {
-            _link += (self.bike1().make.masking + "-" + self.bike1().model.maskingName + "-vs-"
+        if (self.bike1() && self.bike2()) {
+            if (self.bike1().model.modelId > self.bike2().model.modelId) {
+                _link += (self.bike2().make.masking + "-" + self.bike2().model.maskingName + "-vs-"
+                  + self.bike1().make.masking + "-" + self.bike1().model.maskingName + "/"
+                  + "?bike1=" + self.bike1().version.versionId + "&bike2=" + self.bike2().version.versionId
+                  + "&source=" + self.compareSource());
+            }
+            else if (self.bike2().model.modelId >= self.bike1().model.modelId) {
+                _link += (self.bike1().make.masking + "-" + self.bike1().model.maskingName + "-vs-"
                   + self.bike2().make.masking + "-" + self.bike2().model.maskingName + "/"
                   + "?bike1=" + self.bike1().version.versionId + "&bike2=" + self.bike2().version.versionId
                   + "&source=" + self.compareSource());
+            }
         }
         return _link;
     });

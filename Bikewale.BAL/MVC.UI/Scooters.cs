@@ -87,9 +87,10 @@ namespace Bikewale.BAL.MVC.UI
                 metas.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-scooters/", makeMasking);
                 if (IsDesktop)
                     metas.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-scooters/", makeMasking);
-                metas.Keywords = string.Format("{0} Scooter, {0} Scooty, Scooter {0}, Scooty Honda, Scooters, Scooty", makeName);
-                metas.Description = string.Format("{0} Scooters in India- Find prices, mileage, specifications, versions, news and images of new and upcoming {0} Scooters at BikeWale.",makeName);
-                metas.Title = string.Format("{0} Scooters Prices, Mileage, Specs & Images- BikeWale", makeName);
+                metas.Keywords = string.Format("{0} Scooter, {0} Scooty, Scooter {0}, Scooty {0}, Scooters, Scooty", makeName);
+                metas.Description = string.Format("Check {0} Scooty prices in India. Know more about new and upcoming {0} scooters, their prices, performance and mileage.", makeName);
+                metas.Title = string.Format("{0} Scooters in India | Scooty Prices, Mileage & Images - BikeWale", makeName);
+
             }
             catch (Exception ex)
             {

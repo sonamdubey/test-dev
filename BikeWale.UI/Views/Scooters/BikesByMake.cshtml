@@ -33,6 +33,11 @@
                         </a>
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                        <a href="/new-scooters/" itemprop="url" title="Home">
+                            <span itemprop="title">New Scooters</span>
+                        </a>
+                    </li>
+                    <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                         <span class="bwsprite fa-angle-right margin-right10"></span>
                         <span itemprop="title">Honda Scooters</span>
                     </li>
@@ -143,7 +148,7 @@
                 { 
                 <div id="makeAboutContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-right10 padding-bottom20 padding-left10 border-solid-bottom">
                     <div class="grid-8 alpha">
-                        <h2>@ViewBag.MakeName Scooters Summary</h2>
+                        <h2>About @ViewBag.MakeName Scooters</h2>
                         <div class="font14 text-light-grey line-height17 collapsible-content">
                             <p class="main-content">
                                 @Html.Raw(FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700))

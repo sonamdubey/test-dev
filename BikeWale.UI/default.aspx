@@ -124,8 +124,6 @@
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
-                                </div>
                                 <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                     <asp:Repeater ID="rptOtherBrands" runat="server">
                                         <ItemTemplate>
@@ -402,71 +400,85 @@
                     <div class="bw-tabs-panel content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li data-tabs="usedByCity"><h3>City</h3></li>
-                                <li class="active" data-tabs="usedByBudget"><h3>Budget</h3></li>
-                                <li data-tabs="usedByModel"><h3>Model</h3></li>
+                                <% if (ctrlusedBikeModel.FetchCount > 0)
+                                   { %>
+                                <li class="active" data-tabs="usedByModel">
+                                    <h3>Model</h3>
+                                </li>
+                                <%} %>
+                              
+                                <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
+                                  { %>
+                                <li  class="<%=ctrlusedBikeModel.FetchCount > 0?"":"active"%>" data-tabs="usedByCity">
+                                    <h3>City</h3>
+                                </li>
+                                <%} %>
+                                  <li  class="<%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"":"active"%>" data-tabs="usedByBudget">
+                                    <h3>Budget</h3>
+                                </li>
                             </ul>
                         </div>
-                                 <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
-                                   { %>
-          
-                      <section>
-               
-                      <div class="bw-tabs-data hide" id="usedByCity">
-                   <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
-                           </div>
-              
-                          </section>
-                    <%} %>
-                         
-                        <div class="bw-tabs-data padding-bottom15" id="usedByBudget">
+                        
+                        <% if (ctrlusedBikeModel.FetchCount > 0)
+                           { %>
+                        <div class="bw-tabs-data padding-bottom20" id="usedByModel">
+                            <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+                        </div>
+                        <%} %>
+                        <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
+                          { %>
+
+                        <section>
+                            <div class="bw-tabs-data <%=ctrlusedBikeModel.FetchCount > 0?"hide":""%>" id="usedByCity">
+                                <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />
+                            </div>
+
+                        </section>
+                        <%} %>
+
+                        <div class="bw-tabs-data <%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"hide":""%> padding-bottom15" id="usedByBudget">
                             <ul class="elevated-card-list">
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=0+35000"  rel="nofollow">
+                                    <a href="/used/bikes-in-india/#budget=0+35000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-one"></span>
                                             </div>
                                             <span class="key-size-14">Upto</span><br />
-                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">35,000</span>
+                                            <span class="bwsprite inr-md"></span><span class="value-size-16">35,000</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=35000+80000"  rel="nofollow">
+                                    <a href="/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-two"></span>
                                             </div>
                                             <span class="key-size-14">Between</span><br />
-                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">35,000 -</span>
-                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">80,000</span>
+                                            <span class="bwsprite inr-md"></span><span class="value-size-16">35,000 -</span>
+                                            <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=80000+200000"  rel="nofollow">
+                                    <a href="/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-three"></span>
                                             </div>
                                             <span class="key-size-14">Above</span><br />
-                                            <span class="bwsprite inr-md"></span> <span class="value-size-16">80,000</span>
+                                            <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-              
-                           
-                                      <% if (ctrlusedBikeModel.FetchCount > 0)
-                                         { %>   <div class="bw-tabs-data hide padding-bottom20" id="usedByModel">
-                             <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        </div>
-                        <%} %>
-            </div>
-            <div class="clear"></div>
-            </div>
+
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
         </section>
 
 

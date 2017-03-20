@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Default" %>
-<%@ Register Src="~/m/controls/UsedRecentBikes.ascx" TagPrefix="BW" TagName="RecentUsedBikes" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
@@ -132,16 +132,19 @@
         <% } %>
        <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %>
           
-                    <div class="bw-tabs-data" id="usedByCity">
+                 
                     <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
-                    </div>
+                 
               
                     <%} %>
-        <section>
-            <!-- Similar used bikes starts -->
-            <BW:RecentUsedBikes ID="ctrlRecentUsedBikes" runat="server" />
-            <!-- Similar used bikes ends -->
-        </section>
+                         <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+        <div class="container text-center section-container collapsible-brand-content">            
+        <h2 class="font18 section-heading">Popular used bikes</h2>
+                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+            </div>
+                       
+                    <% } %> 
         
         <!-- city slider -->
         <div id="city-slider" class="bwm-fullscreen-popup">  

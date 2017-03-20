@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
 
 <%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
-<%@ Register Src="~/m/controls/UsedOtherBikeByCity.ascx" TagPrefix="BW" TagName="OtherUsedBikes" %>
 <%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
 <%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
 <%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -175,7 +175,7 @@
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-                <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlOtherUsedBikes.FetchedRecordsCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+                <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
            { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
@@ -191,7 +191,7 @@
                                { %>
                             <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
-                            <% if (ctrlOtherUsedBikes.FetchedRecordsCount > 0)
+                            <% if (ctrlusedBikeModel.FetchCount > 0)
                                { %>
                             <li data-tabs="#modelOtherBikes">Other bikes</li>
                             <% } %>
@@ -274,7 +274,12 @@
                 <BW:SimilarUsedBikes ID="ctrlSimilarUsedBikes" runat="server" />
                 <!-- Similar used bikes ends -->
                 <!-- Other used bikes starts -->
-                <BW:OtherUsedBikes ID="ctrlOtherUsedBikes" runat="server" />
+                  <% if (ctrlusedBikeModel.FetchCount>0)
+                       { %>
+                 <div id="modelOtherBikes" class="bw-model-tabs-data  active"><BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" /></div>
+                    
+                        
+                    <% } %> 
                 <!-- Other used bikes ends -->
             </div>
             <div id="modelSpecsFooter"></div>

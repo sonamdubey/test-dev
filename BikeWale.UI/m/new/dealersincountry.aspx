@@ -109,6 +109,7 @@
                     </div>
                 </div>
         <%} %>
+                 <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
                  <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
                  
