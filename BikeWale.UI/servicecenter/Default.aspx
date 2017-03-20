@@ -238,10 +238,10 @@
                         </section>
                         <%} %>
 
-                        <div class="bw-tabs-data <%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"hide":""%> padding-bottom15" id="usedByBudget">
+                        <div class="bw-tabs-data <%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"hide":""%> padding-bottom20" id="usedByBudget">
                             <ul class="elevated-card-list">
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=0+35000" rel="nofollow">
+                                    <a href="/used/bikes-in-<%= String.IsNullOrEmpty(cityMaskingName) ? "india" : cityMaskingName %>/#budget=0+35000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-one"></span>
@@ -252,7 +252,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=35000+80000" rel="nofollow">
+                                    <a href="/used/bikes-in-<%= String.IsNullOrEmpty(cityMaskingName) ? "india" : cityMaskingName %>/#budget=35000+80000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-two"></span>
@@ -264,7 +264,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/used/bikes-in-india/#budget=80000+200000" rel="nofollow">
+                                    <a href="/used/bikes-in-<%= String.IsNullOrEmpty(cityMaskingName) ? "india" : cityMaskingName %>/#budget=80000+200000" rel="nofollow">
                                         <div class="table-middle">
                                             <div class="tab-icon-container">
                                                 <span class="bwsprite budget-three"></span>
@@ -275,6 +275,11 @@
                                     </a>
                                 </li>
                             </ul>
+
+                            <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20"> 
+                            <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+                        </div>
+
                         </div>
 
 

@@ -95,6 +95,8 @@
         <BW:DealersCount ID="ctrlDealerCount" runat="server" />
         <% } %>
 
+        <div class="margin-right10 margin-left10 border-solid-bottom"></div>
+
         <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
            {%>
         <section>

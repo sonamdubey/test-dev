@@ -209,10 +209,11 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 .swiper-heading-left-grid {
     width: 77%;
+    margin-right: -4px;
 }
 
 .swiper-heading-right-grid {
-    width: 21%;
+    width: 23%;
 }
 
 .content-details-wrapper .carousel-heading-content h2 {

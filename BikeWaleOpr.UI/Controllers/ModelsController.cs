@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BikewaleOpr.Controllers
 {
+    [Authorize]
     public class ModelsController : Controller
     {
         private readonly IBikeMakes _makesRepo;
