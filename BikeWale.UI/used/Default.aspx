@@ -132,7 +132,6 @@
                                 </li>                                    
                                   <% } %>
                             </ul>
-                            <div class="brand-bottom-border margin-right20 margin-left20 border-solid-top hide"></div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                 <% foreach(var bike in viewModel.OtherMakeList){ %> 
                                 <li>

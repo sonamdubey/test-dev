@@ -121,8 +121,6 @@
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
-                                </div>
                                 <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                     <asp:Repeater ID="rptOtherBrands" runat="server">
                                         <ItemTemplate>
