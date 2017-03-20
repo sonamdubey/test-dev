@@ -318,12 +318,12 @@
     }
     };
 
-        self.preselectMake = function () {
-            if (makeId > 0 && self.bookingBrands().length > 0) {
-                self.selectedBrand(self.findMakeById(parseInt(makeId)));
-                self.makeChangedPopup();
-            }
+    self.preselectMake = function () {
+        if (makeId > 0 && self.bookingBrands().length > 0) {
+            self.selectedBrand(self.findMakeById(parseInt(makeId)));
+            self.makeChangedPopup();
         }
+    };
         self.preselectCity = function () {
 
             if (self.listCities().length > 0) {
@@ -371,7 +371,7 @@
                 if (child.id == id || child.makeId == id)
                     return child;
             });
-        }
+        };
         
         self.findCityById = function (id) {
             return ko.utils.arrayFirst(self.listCities(), function (child) {

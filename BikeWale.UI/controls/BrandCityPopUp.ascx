@@ -283,19 +283,20 @@
             errMsgParent.css({ 'border-color': '#ccc' });
             errMsgParent.find('.error-tooltip-siblings').hide();
             errMsgParent.find('.bw-blackbg-tooltip').text("");
-        }
+        };
 
         self.searchByBrandCityPopUp = function () {
 
             self.searchByBrandCityBtnClicked(true);
             isvalid = self.isValidInfoPopup();
             if (isvalid) {
-                if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) {
+                if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.Dealer)).ToString().ToLower()%>) 
+                {
                     window.location.href = "/" + self.makeMasking() + "-dealer-showrooms-in-" + self.cityMasking() + "/";
             }
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
             window.location.href = "/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
-        }
+        };
     }
     }
 
