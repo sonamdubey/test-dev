@@ -198,7 +198,7 @@
             <!--  Discover your bike code starts here -->
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top15 margin-bottom20 font22">Find used bikes</h2>
+                    <h2 class="section-heading">Find used bikes</h2>
                     <div class="bw-tabs-panel content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
