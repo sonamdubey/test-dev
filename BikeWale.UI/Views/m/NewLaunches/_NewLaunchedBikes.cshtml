@@ -13,18 +13,10 @@
         @if (objMakes != null)
         {
             <div class="box-shadow padding-top10 padding-bottom10">
-                <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                <div class="grid-12 padding-left15 padding-right15 border-solid-right">
                     <p class="font12 text-light-grey">Brand</p>
                     <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
                 </div>
-
-
-
-                <div class="inline-block margin-right10 padding-left20">
-                    <span class="bwmsprite filter-icon"></span>
-                    <span class="font14 text-light-grey">Filter by:</span>
-                </div>
-                <p id="brand-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
                 <div class="clear"></div>
             </div>
         }
