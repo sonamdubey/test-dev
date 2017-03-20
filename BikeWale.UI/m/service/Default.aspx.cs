@@ -36,6 +36,7 @@ namespace Bikewale.Mobile.Service
         protected UsedBikeModel ctrlusedBikeModel;
         protected UsedBikeInCities ctrlusedBikeInCities;
         protected string cityName = string.Empty;
+        protected string usedBikeLink = string.Empty, usedBikeTitle = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -79,23 +80,30 @@ namespace Bikewale.Mobile.Service
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
 
+                CityEntityBase cityDetails = null;
+
+                if (cityId > 0)
+                {
+                    cityDetails = new CityHelper().GetCityById(cityId);
+                    ctrlusedBikeModel.CityId = cityId;
+                }
+                usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                usedBikeTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    
                 if (ctrlusedBikeModel != null)
                 {
-
-                    CityEntityBase cityDetails = null;
-
-                    if (cityId > 0)
-                    {
-                        cityDetails = new CityHelper().GetCityById(cityId);
-                        ctrlusedBikeModel.CityId = cityId;
-                    }
-
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
                     ctrlusedBikeModel.TopCount = 9;
                     ctrlusedBikeModel.IsLandingPage = true;
                 }
-
+                if (ctrlusedBikeInCities != null)
+                {
+                    ctrlusedBikeInCities.IsLandingPage = true;
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
+                }
+                
                 ctrlBikeCare.TotalRecords = 3;
             }
             catch (Exception ex)

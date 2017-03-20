@@ -107,7 +107,7 @@ namespace Bikewale.Controllers.Mobile.Videos
             similarVideosModel.ModelId = modelId;
             BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
             similarVideosModel.ViewAllLinkText = "View all";
-            similarVideosModel.ViewAllLinkUrl = string.Format("/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
+            similarVideosModel.ViewAllLinkUrl = string.Format("/m/{0}-bikes/{1}/videos/", objModel.MakeBase.MaskingName, objModel.MaskingName);
             similarVideosModel.ViewAllLinkTitle = string.Format("{0} {1} Videos", objModel.MakeBase.MakeName, objModel.ModelName);
             return PartialView("~/views/m/shared/_SimilarVideo.cshtml", similarVideosModel);
         }

@@ -148,7 +148,7 @@ namespace Bikewale.Mobile.Service
                     ctrlusedBikeModel.MakeId = makeId;
                     if (cityId > 0)
                         ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? serviceCity : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand {0} Bikes in {1}",makeName, cityId > 0 ? serviceCity : "India");
                     ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? serviceCity : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/m/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
