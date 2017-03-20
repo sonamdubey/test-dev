@@ -927,7 +927,7 @@
         $("a.delBike").click(function () {
             var verId = $(this).attr("versionId");
             var basicUrl = (window.location.pathname).split('/')[2];
-            var versions = '<%= versions%>';
+            var versions = '<%= hashVersion%>';
             var makeModelList = new Array();
             var VersionIdList = new Array();
             var newBasicUrl = "";

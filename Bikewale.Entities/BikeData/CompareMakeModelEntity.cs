@@ -7,5 +7,6 @@ namespace Bikewale.Entities.BikeData
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
         public uint ModelId { get; set; }
+        public string VersionId { get; set; }
     }
 }
