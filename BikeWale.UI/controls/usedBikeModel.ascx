@@ -27,7 +27,7 @@
                                     <div class="card-desc-block">
                                         <h3 class="bikeTitle"><%=string.Format("{0} {1}",bikeDetails.MakeName,bikeDetails.ModelName)%></h3>
                                         <p class="text-light-grey margin-bottom5">
-                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes Available
+                                            <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes available
                                         </p>
                                         <div class="text-bold text-default">
                                             <span class="bwsprite inr-lg"></span>

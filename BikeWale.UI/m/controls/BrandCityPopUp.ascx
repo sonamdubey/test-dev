@@ -67,7 +67,7 @@
                     </div>
                     <ul id="popupMakeList" data-bind="template: { name: 'bindBrandList-template', foreach: visibleBrands }"></ul>
                     <script type="text/html" id="bindBrandList-template">
-                        <li data-bind="text: makeName, attr: { 'makeId': id }, click: function (d, e) { $parent.chooseBrand(d, e); }"></li>
+                        <li data-bind="text: makeName, attr: { 'makeId': makeId }, click: function (d, e) { $parent.chooseBrand(d, e); }"></li>
                     </script>
                     <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
@@ -82,7 +82,7 @@
                     </div>
                     <ul id="popupCitiesList" data-bind="template: { name: 'bindCitiesList-template', foreach: visibleCities }"></ul>
                     <script type="text/html" id="bindCitiesList-template">
-                        <li data-bind="text: cityName, attr: { 'cityId': id }, click: function (d, e) { $parent.chooseCity(d, e); }"></li>
+                        <li data-bind="text: cityName, attr: { 'cityId': cityId }, click: function (d, e) { $parent.chooseCity(d, e); }"></li>
                     </script>
                     <div class="margin-top30 font24 text-center margin-top60 "></div>
                 </div>
@@ -314,16 +314,16 @@
             }
             else if (<%=(requestType.Equals(Bikewale.Entities.BikeData.EnumBikeType.ServiceCenter)).ToString().ToLower()%>) {
                 window.location.href = "/m/" + self.makeMasking() + "-service-center-in-" + self.cityMasking() + "/";
-        }
+        };
     }
     };
 
-        self.preselectMake = function () {
-            if (makeId > 0 && self.bookingBrands().length > 0) {
-                self.selectedBrand(self.findMakeById(parseInt(makeId)));
-                self.makeChangedPopup();
-            }
+    self.preselectMake = function () {
+        if (makeId > 0 && self.bookingBrands().length > 0) {
+            self.selectedBrand(self.findMakeById(parseInt(makeId)));
+            self.makeChangedPopup();
         }
+    };
         self.preselectCity = function () {
 
             if (self.listCities().length > 0) {
@@ -371,7 +371,7 @@
                 if (child.id == id || child.makeId == id)
                     return child;
             });
-        }
+        };
         
         self.findCityById = function (id) {
             return ko.utils.arrayFirst(self.listCities(), function (child) {

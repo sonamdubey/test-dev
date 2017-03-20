@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.UsedBikeInCities" EnableViewState="false" %>
+<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.Controls.UsedBikeInCities" EnableViewState="false" %>
  <% if (objCitiesWithCount != null)
     { %>
         <div class="bg-white box-shadow padding-top20 padding-bottom20">

@@ -44,10 +44,6 @@
     <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
 </div>
 
-<div class="margin-left20">
-    <a href="/comparebikes/">View more comparisons<span class="bwsprite blue-right-arrow-icon"></span></a>
-</div>
-
 <% if (SponsoredVersionId > 0 && !string.IsNullOrEmpty(FeaturedBikeLink))
     { %>
 <script type="text/javascript">

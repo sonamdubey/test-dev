@@ -28,7 +28,15 @@
 <!--- Most Popular Bikes Ends Here-->
     <% if (mostPopularByMake)
                            { %>
-	 <h2 class="padding-15-20">Popular <%=makeName %> bikes in <%=cityname %></h2>
+<div class="carousel-heading-content padding-top15">
+<div class="swiper-heading-left-grid inline-block">
+	 <h2>Popular <%=makeName %> bikes in <%=cityname %></h2>
+    </div>
+<div class="swiper-heading-right-grid inline-block text-right">
+            <a href="/m/<%=makeMaskingName %>-bikes/" title="<%=makeName %> Bikes" class="btn view-all-target-btn">View all</a>
+        </div>
+    <div class="clear"></div>
+    </div>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                          <asp:Repeater ID="rptPopoularBikeMake" runat="server">

@@ -22,6 +22,7 @@ namespace Bikewale.Mobile.Controls
         public string cityname = string.Empty;
         public string cityMaskingName = string.Empty;
         public string makeName = string.Empty;
+        public string makeMaskingName = string.Empty;
         public bool mostPopular = false, mostPopularByMake = false;
         protected override void OnInit(EventArgs e)
         {

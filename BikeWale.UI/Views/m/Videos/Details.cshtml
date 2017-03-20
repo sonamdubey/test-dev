@@ -70,7 +70,7 @@
                 </div>
             </section>
         }
-        @{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}  
+@{Html.RenderAction("BikeInfoCard", "GenericBikeInfoMobile", new Bikewale.Models.Mobile.Videos.GenericBikeInfoCard { ModelId = @ViewBag.ModelId, CityId = @ViewBag.CityId, PageId = Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, IsSmallSlug = false });}  
 @{Html.RenderAction("SimilarVideos", "VideosMobile", new { videoId = videoModel.BasicId, modelId = @ViewBag.ModelId});}
 @{Html.RenderAction("PopularBodyStyleMobile", "PopularBikes", new { modelId = @ViewBag.ModelId, topCount = @ViewBag.TopCount, cityId = @ViewBag.CityId });}
          

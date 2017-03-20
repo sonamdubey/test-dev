@@ -147,7 +147,6 @@
               {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
@@ -158,19 +157,14 @@
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                     <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                        </div>
                     <% } %>  
                  <% if (ctrlDealerCard.showWidget) { %>
-                    <div class="margin-right20 margin-left20 padding-top5">
-                    <h2 class="margin-bottom5">Looking to buy a new <%= makeName %> bike in <%=cityName %>?</h2>
-                    <p>Check out authorised <%= makeName %> dealers in <%=cityName %></p>
-                    </div>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                  <% }  %>
             </div>
-                </div>
         </section>
         <% } %>
         <section>

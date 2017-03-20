@@ -2,7 +2,7 @@
 
 <section>
     <div class="container">
-        <h2 class="text-center margin-top25 margin-bottom15"><%= SectionTitle %></h2>
+        <h2 class="text-center margin-top5 margin-bottom15"><%= SectionTitle %></h2>
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <asp:Repeater ID="rptVideosByCat" runat="server">
@@ -31,6 +31,9 @@
                 </asp:Repeater>
             </div>
         </div>
-        <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center more-videos-link">View more videos</a>
-    </div>
+        <%--<a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" class="font16 text-center more-videos-link">View more videos</a>--%>
+   <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+    <a href="/m<%= Bikewale.Utility.UrlFormatter.VideoByCategoryPageUrl(SectionTitle,CategoryIdList) %>" title="<%=SectionTitle %> Bike Videos" class="btn view-all-target-btn">View more videos<span class="bwmsprite teal-right"></span></a>
+     </div>
+         </div>
 </section>
