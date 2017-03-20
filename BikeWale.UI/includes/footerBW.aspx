@@ -104,4 +104,5 @@
             $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
         }           
     });
+    var loadAsyncCss = function () { var a = document.getElementById("asynced-css"), b = document.createElement("div"); b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) }, raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
 </script>

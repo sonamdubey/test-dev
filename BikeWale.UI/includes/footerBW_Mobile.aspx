@@ -101,3 +101,4 @@
 
 <script type="text/javascript" defer async src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
+<script type="text/javascript">var loadAsyncCss = function () { var a = document.getElementById("asynced-css"), b = document.createElement("div"); b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) }, raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);</script>

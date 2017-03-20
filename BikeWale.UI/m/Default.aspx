@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Default" EnableViewState="false"%>
 <%@ Register Src="/m/controls/NewNewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -473,7 +473,7 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/includes/footerbw_mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
@@ -482,7 +482,9 @@
 
         <script type="text/javascript">
             ga_pg_id = '1';
+            
             docReady(function () {
+                $("#global-search").hide();
                 if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
                 if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
                 if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");

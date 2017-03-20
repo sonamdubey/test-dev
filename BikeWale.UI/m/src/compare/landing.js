@@ -46,6 +46,8 @@ var bikePopup = {
     }
 };
 
+docReady(function () { bwcache.setOptions({ StorageScope: "compare", EnableEncryption: true }); });
+
 var bikeSelection = function () {
     var self = this;
     self.make = ko.observable();
