@@ -91,6 +91,7 @@ namespace Bikewale.Mobile
                 //to get Most Popular Bikes
                 mctrlMostPopularBikes.totalCount = 9;
                 mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_HP_MostPopular;
+                
 
                 //To get Upcoming Bike List Details 
                 mctrlNewLaunchedBikes.pageSize = 9;
