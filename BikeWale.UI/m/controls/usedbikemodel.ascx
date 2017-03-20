@@ -1,9 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UsedBikeModel" EnableViewState="false" %>
 <%if (FetchCount > 0)
   { %>
-<%if(!string.IsNullOrEmpty(header)){ %>
+<%if(!IsLandingPage){ %>
 <h2 class="padding-15-20"><%= header %></h2>
+<div class="swiper-heading-right-grid inline-block text-right">
+                <a href="<%= WidgetHref %>" title="<%= WidgetTitle %>" class="btn view-all-target-btn">View all</a>
+            </div>
 <%} %>
+
 <div class="content-box-shadow <%=IsLandingPage?"padding-bottom15":"padding-top20"%>">
     <div class="swiper-container card-container used-swiper">
         <div class="swiper-wrapper">
@@ -37,9 +41,11 @@
             <%} %>
         </div>
     </div>
+    <%if(IsLandingPage) {%>
     <div class="view-all-btn-container margin-top10">
         <a class="btn view-all-target-btn" title="<%=WidgetTitle%>" href="<%=WidgetHref %>">View all used bikes<span class="bwmsprite teal-right"></span></a>
     </div>
+    <%} %>
 </div>
 <% } %>
 
