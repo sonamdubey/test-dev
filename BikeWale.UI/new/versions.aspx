@@ -1311,13 +1311,21 @@
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
                         
-                        <div id="modelSimilarContent" class="bw-model-tabs-data padding-top20 font14">
+                        <div id="modelSimilarContent" class="bw-model-tabs-data font14">
                             <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                { %>
                             <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
                             <% if (ctrlPopularCompare.fetchedCount > 0)
                                { %>
-                            <h3 class="padding-left20 padding-right20 margin-bottom15">Most compared alternatives</h3>
+                            
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h3 class="padding-right20 margin-bottom15">Most compared alternatives</h3>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                             <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
 
                             <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>

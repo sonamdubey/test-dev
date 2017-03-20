@@ -25,7 +25,7 @@
         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
     </div>
     <div class="more-article-target view-all-btn-container padding-top20"> 
-        <a href="/used/browse-bikes-by-cities/" title="Browse used bike by cities" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
+        <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
     </div>
 </div>
                
