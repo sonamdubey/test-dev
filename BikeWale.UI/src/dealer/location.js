@@ -2,6 +2,54 @@
 var minZoomLevel = 5;
 var markerIcon = 'https://imgd2.aeplcdn.com/0x0/bw/static/design15/marker-icon.png';
 
+var locationMap = {
+    rightColumn: $('#listing-right-column'),
+
+    wrapper: $('#dealerMapWrapper'),
+
+    dimension: function () {
+        var windowHeight = window.innerHeight;
+
+        $('#listing-left-column').css({
+            'min-height': windowHeight
+        });
+
+        $('.dealer-map-wrapper').css({
+            'height': $('#listing-left-column').height()
+        });
+
+        $('#dealerMapWrapper, #dealersMap').css({
+            'width': $('#listing-right-column').width() + 1,
+            'height': windowHeight + 1
+        });
+    },
+
+    relativePosition: function () {
+        locationMap.wrapper.css({
+            'position': 'relative',
+            'top': 0,
+            'left': 0
+        });
+    },
+
+    absolutePosition: function () {
+        locationMap.wrapper.css({
+            'position': 'absolute',
+            'top': 'auto',
+            'left': 0,
+            'bottom': 0
+        });
+    },
+
+    fixedPosition: function () {
+        locationMap.wrapper.css({
+            'position': 'fixed',
+            'top': 0,
+            'left': locationMap.rightColumn.offset().left
+        });
+    }
+};
+
 $(document).ready(function () {
 
 	var windowHeight = window.innerHeight,
@@ -38,54 +86,6 @@ $(document).ready(function () {
 $(window).resize(function () {
 	locationMap.dimension();
 });
-
-var locationMap = {
-	rightColumn: $('#listing-right-column'),
-
-	wrapper: $('#dealerMapWrapper'),
-
-	dimension: function () {
-		var windowHeight = window.innerHeight;
-
-		$('#listing-left-column').css({
-			'min-height': windowHeight
-		});
-
-		$('.dealer-map-wrapper').css({
-			'height': $('#listing-left-column').height()
-		});
-
-		$('#dealerMapWrapper, #dealersMap').css({
-			'width': $('#listing-right-column').width() + 1,
-			'height': windowHeight + 1
-		});
-	},
-
-	relativePosition: function () {
-		locationMap.wrapper.css({
-			'position': 'relative',
-			'top': 0,
-			'left': 0
-		});
-	},
-
-	absolutePosition: function () {
-		locationMap.wrapper.css({
-			'position': 'absolute',
-			'top': 'auto',
-			'left': 0,
-			'bottom': 0
-		});
-	},
-
-	fixedPosition: function () {
-		locationMap.wrapper.css({
-			'position': 'fixed',
-			'top': 0,
-			'left': locationMap.rightColumn.offset().left
-		});
-	}
-};
 
 function initializeMap(arrList, latPos, longPos, zoomLevel) {
 

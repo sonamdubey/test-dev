@@ -43,6 +43,7 @@ namespace Bikewale
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+        protected string cityName, cityMaskingName;
         protected Repeater rptPopularBrand, rptOtherBrands;
         protected BindDefaultPage bindHomePage;
         protected HomePageBannerEntity bannerEntity;
@@ -105,7 +106,7 @@ namespace Bikewale
                 ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                 ctrlUpcomingBikes.pageSize = 9;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                string _cityName = currentCityArea.City;
+                cityName = currentCityArea.City;
                 if (ctrlusedBikeModel != null)
                 {
 
@@ -115,10 +116,11 @@ namespace Bikewale
                     {
                         cityDetails = new CityHelper().GetCityById(currentCityArea.CityId);
                         ctrlusedBikeModel.CityId = currentCityArea.CityId;
+                        cityMaskingName = cityDetails.CityMaskingName;
                     }
 
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                     ctrlusedBikeModel.IsLandingPage = true;
                 }

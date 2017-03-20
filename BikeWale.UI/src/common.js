@@ -1153,9 +1153,6 @@ docReady(function () {
         }
     });
 
-    //if (ga_pg_id != '1')
-    //    $('#globalSearch').parent().show();
-
     $(".lazy").lazyload({
         effect: "fadeIn"
     });

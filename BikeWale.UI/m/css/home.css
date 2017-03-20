@@ -13,7 +13,7 @@
 .btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;border-bottom-left-radius: 0;height:41px;}
 .new-used-search-container { margin: 0 auto; width: 264px; }
 .new-bikes-search input[type="text"] { border: 1px solid #ccc; width: 100%; padding: 13px 10px; padding-right:52px; height: 43px;}
-
+#global-search{display:none;}
 .brand-budget-mileage-style-wrapper { background:#fff; padding-bottom:30px; }
 .bw-tabs-data ul li:hover { cursor: pointer; }
 

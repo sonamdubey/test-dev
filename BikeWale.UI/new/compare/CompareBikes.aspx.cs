@@ -122,30 +122,30 @@ namespace Bikewale.New
                 }
 
 
-
+                List<CompareMakeModelEntity> modelList = new List<CompareMakeModelEntity>();
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
                     title += ds.Tables[0].Rows[i]["Bike"].ToString() + " vs ";
                     keyword += ds.Tables[0].Rows[i]["Bike"].ToString() + " and ";
-                    canonicalUrl += ds.Tables[0].Rows[i]["MakeMaskingName"] + "-" + ds.Tables[0].Rows[i]["ModelMaskingName"] + "-vs-";
+                    modelList.Add(new CompareMakeModelEntity { MakeMaskingName = ds.Tables[0].Rows[i]["MakeMaskingName"].ToString(), ModelMaskingName = ds.Tables[0].Rows[i]["ModelMaskingName"].ToString(), ModelId = Convert.ToUInt32(ds.Tables[0].Rows[i]["ModelId"]) });
                     Trace.Warn("Bike Name : ", title);
                     targetedModels += "\"" + ds.Tables[0].Rows[i]["Model"] + "\",";
                 }
+
 
                 if (title.Length > 2)
                 {
                     title = title.Substring(0, title.Length - 3);
                     keyword = keyword.Substring(0, keyword.Length - 5);
-                    canonicalUrl = canonicalUrl.Substring(0, canonicalUrl.Length - 4);
                     targetedModels = targetedModels.Substring(0, targetedModels.Length - 1);
                 }
 
+                canonicalUrl = CreateCompareUrl(modelList);
                 if (isFeatured)
                 {
                     title = title.Substring(0, title.LastIndexOf(" vs "));
                     keyword = keyword.Substring(0, keyword.LastIndexOf(" and "));
-                    canonicalUrl = canonicalUrl.Substring(0, canonicalUrl.LastIndexOf("-vs-"));
-
+                    
                     // Added by Sangram Nandkhile on 30 Nov
                     // To check if sponsored model id matches with 
                     string featuredModelId = ds.Tables[0].Rows[count - 1]["ModelId"].ToString();
@@ -408,6 +408,25 @@ namespace Bikewale.New
             ctrlSimilarBikes.TopCount = 4;
             ctrlSimilarBikes.versionsList = verList;
 
+        }
+
+        private string CreateCompareUrl(List<CompareMakeModelEntity> bikeList)
+        {
+            string url = string.Empty;
+            try
+            {
+                var sorted = bikeList.Where(x => x.ModelId != 0).OrderBy(x => x.ModelId);
+                foreach (var bike in sorted)
+                {
+                    url += string.Format("{0}-{1}-vs-", bike.MakeMaskingName, bike.ModelMaskingName);
+                }
+                url = url.Remove(url.Length - 4, 4);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "comparebikes.CreateCompareUrl()");
+            }
+            return url;
         }
 
     }

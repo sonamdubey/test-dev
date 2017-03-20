@@ -1,27 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.Campaign.DealersRules" EnableEventValidation="false" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<!-- #Include file="/includes/headerWithoutForm.aspx" -->
-<head runat="server">
-    <title>Dealer Rules</title>
-    <style type="text/css">
-        .greenMessage {
-            color:#6B8E23;
-            font-size: 11px;
-        }
-        .redmsg{
-            color: #FFCECE;
-        }
-        .errMessage {color:#FF4A4A;}
-        .valign { vertical-align: top;}
-    </style>
-    <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0"></script>    
-    <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
-</head>
-<body>
-    <form id="form1" runat="server">
+<!-- #Include file="/includes/headerNew.aspx" -->
         <fieldset class="margin-left10">
             <legend>Add a New Rule</legend>
             <div id="box" class="box">
@@ -245,6 +224,4 @@
                 }
             }
         </script>
-    </form>
-</body>
-</html>
+<!-- #Include file="/includes/footerNew.aspx" -->

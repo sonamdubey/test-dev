@@ -519,7 +519,7 @@
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/swiper-3.1.7.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/photos.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">            
-            $(document).ready(function () {
+            docReady(function () {
                 if(isModelPage)
                 {                              
                     if (!detectIEBrowser()) {

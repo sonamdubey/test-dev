@@ -5,8 +5,11 @@ var globalCityId = 0;
 var _makeName = '';
 var pqSourceId = "38";
 var IsPriceQuoteLinkClicked = false;
-var ga_pg_id = '0', recentSearches, navDrawer, cityArea;
-var navContainer,effect = 'slide',directionLeft = { direction: 'left' },duration = 500;
+var ga_pg_id = '0', recentSearches, navDrawer, cityArea, quotationPage, playerState = '';
+var navContainer, effect = 'slide', directionLeft = { direction: 'left' }, duration = 500;
+var popupHeading, popupContent, brandcitypopupContent;
+
+
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {
@@ -40,7 +43,7 @@ function triggerGA(cat, act, lab) {
 
 function triggerNonInteractiveGA(cat, act, lab) {
     try {
-        
+
         dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
@@ -110,7 +113,7 @@ function GetCatForNav() {
 function pushNavMenuAnalytics(menuItem) {
     var categ = GetCatForNav();
     if (categ != null) {
-        triggerGA(categ,'Hamburger_Menu_Item_Click',menuItem);
+        triggerGA(categ, 'Hamburger_Menu_Item_Click', menuItem);
     }
 }
 
@@ -304,511 +307,6 @@ var bwHint = function (blurClass) {
     });
 };
 
-docReady(function () {
-
-    try {
-
-        (function ($) {
-            $.fn.hint = bwHint;
-        })(jQuery);
-
-        (function ($) {
-            $.fn.bw_autocomplete = bwAutoComplete;
-        })(jQuery);
-
-        if (quotationPage && quotationPage != undefined) {
-            $('header .bw-logo, header .navbarBtn, header .global-location, .ae-logo-border, .ae-sprite.ae-logo').hide();
-            $('.headerTitle,.white-back-arrow').show();
-
-            $('#book-back').on('click', function () {
-                window.history.back();
-            });
-        }
-    } catch (e) { }
-
-    if (ga_pg_id != '1' && ga_pg_id != '39' )
-        $("#global-search").show();
-
-    $(".lazy").lazyload({
-        effect: "fadeIn"
-    });
-    
-    $('#globalCityPopUp').val('');
-
-    $(".fa-spinner").hide();
-    CheckGlobalCookie();
-
-    $('.globalcity-close-btn').click(function () {
-        CloseCityPopUp();
-        window.history.back();
-    });
-
-    $(".onroad-price-close-btn").click(function () {
-        closeOnRoadPricePopUp();
-        window.history.back();
-    });
-
-    function CloseCityPopUp() {
-        $("#globalcity-popup").hide();
-        unlockPopup();
-    }
-
-    $("#globalCity").autocomplete({
-        source: function (request, response) {
-            dataListDisplay(availableTags, request, response);
-        }, minLength: 1
-    }).css({ 'width': '179px' });
-
-
-    $("#gs-close").click(function () {
-        $(".global-search-popup").hide();
-        unlockPopup();
-    });
-
-    $("#gs-text-clear").click(function () {
-        $("#globalSearch").val("").change();
-        $("#globalSearch").focus();
-        $(this).hide();
-    });     
-
-    // global city popup autocomplete
-    $("#globalCityPopUp").bw_autocomplete({
-        recordCount: 5,
-        source: 3,
-        onClear: function () {
-            objCity = new Object();
-        },
-        click: function (event, ui, orgTxt) {
-            var city = new Object();
-            city.cityId = ui.item.payload.cityId;
-            city.maskingName = ui.item.payload.cityMaskingName;
-            var cityName = ui.item.label.split(',')[0];
-            if (city.cityId != globalCityId)
-            {
-                SetCookieInDays("location", city.cityId + "_" + cityName, 365);
-                bwcache.set("userchangedlocation", window.location.href, true);
-            }               
-            CloseCityPopUp();
-            showGlobalCity(ui.item.label);
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
-            if (city.cityId) {
-                location.reload();
-            }
-        },
-        open: function (result) {
-            objCity.result = result;
-            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                $('.ui-autocomplete').off('menufocus hover mouseover');
-            }
-        },
-        focusout: function () {
-            if ($('li.ui-state-focus a:visible').text() != "") {
-                focusedCity = new Object();
-                focusedCity = objCity.result[$('li.ui-state-focus').index()];
-            }
-        },
-        afterfetch: function (result, searchtext) {
-            var element = $("#globalCityPopUp");
-            if (result != undefined && result.length > 0)
-                showHideMatchError(element, false);
-            else
-                showHideMatchError(element, true);
-        }
-    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
-
-   
-
-    $("#citySelectionFinalPrice").autocomplete({
-        source: function (request, response) {
-            dataListDisplay(availableTags, request, response);
-        }, minLength: 1
-    }).css({ 'width': '365px' });
-
-
-
-    $(".blackOut-window").mouseup(function (e) {
-        var globalSearchPopup = $(".global-search-popup");
-        if (e.target.id !== globalSearchPopup.attr('id') && !globalSearchPopup.has(e.target).length) {
-            globalSearchPopup.hide();
-            unlockPopup();
-        }
-    });
-
-    $(".global-location").click(function () {
-        $("#globalcity-popup").show();
-        lockPopup();
-        CheckGlobalCookie();
-        appendHash("globalCity");
-    });
-
-    $(".blackOut-window").mouseup(function (e) {
-        var globalLocation = $("#globalcity-popup");
-        if (e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
-            globalLocation.hide();
-            unlockPopup();
-        }
-    });
-
-    //making card clickable 
-    $('li.card').click(function () {
-        $(this).find('a')[0].click();
-    });
-    
-    $(".navUL > li > a").click(function (e) {
-
-        if (!$(this).hasClass("open")) {
-            var a = $(".navUL li a");
-            a.removeClass("open").next("ul").slideUp(350);
-            $(this).addClass("open").next("ul").slideDown(350);
-
-            if ($(this).siblings().size() == 0) {
-                navDrawer.close();
-            }
-
-            $(".nestedUL > li > a").click(function () {
-                $(".nestedUL li a").removeClass("open");
-                $(this).addClass("open");
-                navDrawer.close();
-            });
-        }
-        else if ($(this).hasClass("open")) {
-            $(this).removeClass("open").next("ul").slideUp(350);
-        }
-    }); // nav bar code ends here
-        
-    function centerItVariableWidth(target, outer) {
-        var out = $(outer);
-        var tar = target;
-        var x = out.width();
-        var y = tar.outerWidth(true);
-        var z = tar.index();
-        var q = 0;
-        var m = out.find('li');
-        //Just need to add up the width of all the elements before our target. 
-        for (var i = 0; i < z; i++) {
-            q += $(m[i]).outerWidth(true);
-        }
-        out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
-    }
-    function applyTabsLazyLoad() {
-        $("img.lazy").lazyload({
-            event: "imgLazyLoad"
-        });
-    }
-    // Common BW tabs code
-    $(".bw-tabs li").on('click', function () {
-        var panel = $(this).closest(".bw-tabs-panel");
-        panel.find(".bw-tabs li").removeClass("active");
-        $(this).addClass("active");
-        var panelId = $(this).attr("data-tabs");
-        panel.find(".bw-tabs-data").hide();
-        $("#" + panelId).show();
-        applyTabsLazyLoad();
-        $("#" + panelId).find(".swiper-slide-active img.swiper-lazy").each(function (index) {
-            var src = $(this).attr("data-src");
-            $(this).attr("src", src);
-            $(this).parent().find('.swiper-lazy-preloader').remove();
-        });
-        centerItVariableWidth($(this), '.bw-tabs');
-
-        var swiperContainer = $('#' + panelId + " .swiper-container");
-        if (swiperContainer.length > 0) {
-            var sIndex = swiperContainer.attr('class');
-            var regEx = /sw-([0-9]+)/i;
-            try {
-                var index = regEx.exec(sIndex)[1]
-                $('.sw-' + index).data('swiper').update(true);
-            } catch (e) {}
-        }
-
-    }); // ends
-    // Common CW select box tabs code
-    $(".bw-tabs select").change(function () {
-        var panel = $(this).closest(".bw-tabs-panel");
-        var panelId = $(this).val();
-        panel.find(".bw-tabs-data").hide();
-        $('#' + panelId).show();
-    }); // ends
-
-    /* Swiper custom methods */
-    $(function () {
-
-        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-        var slideCount = function (swiper) {
-            try {
-                imgTotalCount = swiper.slides.length;
-                $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
-            } catch (e) { }
-        };
-
-        $('.swiper-container:not(".noSwiper")').each(function (index, element) {
-            $(this).addClass('sw-' + index);
-            $('.sw-' + index).swiper({
-                effect: 'slide',
-                speed: 300,
-                //autoplay: 3000,
-                nextButton: $(this).find('.swiper-button-next'),
-                prevButton: $(this).find('.swiper-button-prev'),
-                pagination: $(this).find('.swiper-pagination'),
-                slidesPerView: 'auto',
-                paginationClickable: true,
-                spaceBetween: 10,
-                //freeMode: true,
-                //freeModeSticky: true,
-                preloadImages: false,
-                lazyLoading: true,
-                lazyLoadingInPrevNext: true,
-                watchSlidesProgress: true,
-                watchSlidesVisibility: true,
-                onSlideChangeStart: slideChangeStart,
-                onSlideChangeEnd: slideCount
-            });
-
-        });
-
-        //Load the visible images
-        $(".swiper-slide-visible img,.swiper-slide-active img").each(function () {
-            var src = $(this).attr("data-src");
-            $(this).attr("src", src);
-            if (!$(this).error)
-                $(this).parent().find('.swiper-lazy-preloader').remove();
-        });
-
-        if ($('#bikeBannerImageCarousel')[0] != undefined) {
-            var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
-
-            var currentMainStageActiveImage;        
-            bikeModelSwiper.on('slideChangeStart', function () {
-                currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
-                $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
-            });
-        }
-    });
-    // common autocomplete data call function
-    function dataListDisplay(availableTags, request, response) {
-        var results = $.ui.autocomplete.filter(availableTags, request.term);
-        response(results.slice(0, 5));
-    }
-
-    function MakeModelRedirection(items) {
-        if (!IsPriceQuoteLinkClicked) {
-            var make = new Object();
-            make.maskingName = items.payload.makeMaskingName;
-            make.id = items.payload.makeId;
-            var model = null;
-            if (items.payload.modelId > 0) {
-                model = new Object();
-                model.maskingName = items.payload.modelMaskingName;
-                model.id = items.payload.modelId;
-                model.futuristic = items.payload.futuristic;
-            }
-
-            recentSearches.saveRecentSearches(items);
-
-            if (model != null && model != undefined) {
-                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-                return true;
-            } else if (make != null && make != undefined) {
-                window.location.href = "/m/" + make.maskingName + "-bikes/";
-                return true;
-            }
-        }
-    }
-
-    // Contents Widegt Clicked
-
-    $("#ctrlNews a").on("click", function () {
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'News_Clicked' });
-        }
-    });
-    $("#ctrlExpertReviews a").on("click", function () {
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'Reviews_Clicked' });
-        }
-    });
-    $("#ctrlVideos a").on("click", function () {
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'Videos_Clicked' });
-        }
-    });
-    // Brands, mileage, styles clicked
-    $(".brand-type-container li").on("click", function () {
-        var bikeClicked = $(this).find(".brand-type-title").html();
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Brand', 'lab': bikeClicked });
-        }
-    });
-
-    $("#discoverBudget li a").on("click", function () {
-        var budgetClick = $(this).text();
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Budget', 'lab': budgetClick });
-        }
-    });
-
-    $("#discoverMileage li a").on("click", function () {
-        var mileageClick = $(this).text();
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Mileage', 'lab': mileageClick });
-        }
-    });
-
-    $("#discoverStyle li a").on("click", function () {
-        var styleClicked = $(this).text();
-        var category = GetCatForNav();
-        if (category != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Style', 'lab': styleClicked });
-        }
-    });
-
-
-    $("#bwheader-logo").on("click", function () {
-        var categ = GetCatForNav();
-        if (categ != null) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
-        }
-    });
-
-    $('#btnGlobalCityPopup').on('click', function () {
-        ele = $('#globalCityPopUp');
-        if (globalCityId > 0 && ($(ele).val()) != "") {
-            showHideMatchError(ele, false);
-            CloseCityPopUp();
-        }
-        else {
-            showHideMatchError(ele, true);
-            //unlockPopup();
-        }
-        return false;
-    });
-
-    // global-search code 
-    $("#global-search").click(function () {
-        $("#global-search-popup").show();
-        $("#global-search-popup input").focus()
-        lockPopup();
-    });
-
-
-    $("#globalSearch").bw_autocomplete({
-        source: 1,
-        recordCount: 5,
-        onClear: function () {
-            objBikes = new Object();
-        },
-        click: function (event, ui, orgTxt) {
-            var keywrd = ui.item.label + '_' + $('#globalSearch').val();
-            var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
-
-            MakeModelRedirection(ui.item);
-        },
-        loaderStatus: function (status) {
-            if (!status) {
-                $("#globalSearch").siblings('.fa-spinner').show();
-            }
-            else {
-                $("#globalSearch").siblings('.fa-spinner').hide();
-                $("#gs-text-clear").show();
-            }
-        },
-        open: function (result) {
-            objBikes.result = result;
-        },
-        focus: function () {
-            if ($('#globalSearch').val().trim() == '') {
-                recentSearches.showRecentSearches();
-            }
-        },
-        focusout: function () {
-            if ($('li.ui-state-focus a:visible').text() != "") {
-                focusedMakeModel = new Object();
-                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
-            }
-            else {
-                $('#errGlobalSearch').hide();
-                recentSearches.hideRecentSearches();
-            }
-        },
-        afterfetch: function (result, searchtext) {
-            if (result != undefined && result.length > 0 && searchtext.trim() != "") {
-                $('#errGlobalSearch').hide();
-                recentSearches.hideRecentSearches();
-            }
-            else {
-                focusedMakeModel = null;
-                if (searchtext.trim() != "")
-                {
-                    $('#errGlobalSearch').show();
-                    recentSearches.hideRecentSearches();
-                }
-                  
-                var keywrd = $('#globalSearch').val();
-                var category = GetCatForNav();
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
-            }
-        },
-        keyup: function () {
-            if ($('li.ui-state-focus a:visible').text() != "") {
-                $('#errGlobalSearch').hide();
-                recentSearches.hideRecentSearches();
-            } else {
-                if ($('#globalSearch').val().trim() == '') {
-                    $('#errGlobalSearch').hide();
-                    recentSearches.showRecentSearches();
-                }
-            }
-
-            if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-                if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                    if ($('#globalSearch').val().trim() != '')
-                        $('#errGlobalSearch').show();
-                    else
-                        $('#errGlobalSearch').hide();
-                }
-                else
-                {
-                    $('#errGlobalSearch').hide();
-                    recentSearches.showRecentSearches();
-                }
-                   
-
-                $("#gs-text-clear").hide();
-            }
-        }
-    }).keydown(function (e) {
-        if (e.keyCode == 13) {
-            if (focusedMakeModel != null && btnGlobalSearch != undefined)
-                btnFindBikeNewNav();
-        }
-
-    });
-
-    $("#navbarBtn").on("click", function () {
-        var categ = GetCatForNav();
-        if (categ != null) {
-            triggerGA(categ, 'Hamburger_Menu_Icon', 'Icon_Click');
-        }
-    });
-
-    // Google Analytics code for Click of Item on Nav_Bar on HP
-    $(".navUL ul li").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
-    $(".navbarTitle").on("click", function () {
-        pushNavMenuAnalytics($(this).text());
-    });
-
-});
-
 function slideChangeStart() {
     //console.log('slideChangeStart');
     if (playerState == 'playing' || playerState == 'buffering') {
@@ -842,8 +340,8 @@ function SetCookieInDays(cookieName, cookieValue, nDays) {
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + '; path =/';
     else
         document.cookie = cookieName + "=" + cookieValue + ";expires=" + expire.toGMTString() + ';domain=' + getHost() + '; path =/';
-    
-    bwcache.remove("userchangedlocation",true);
+
+    bwcache.remove("userchangedlocation", true);
 }
 
 function getCookie(key) {
@@ -975,43 +473,6 @@ function insertCitySeparator(response) {
     }
 }
 
-//Scroll To Top function
-$(function () {
-
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 180) {
-            $('.back-to-top').fadeIn(500);
-        } else {
-            $('.back-to-top').fadeOut(500);
-        }
-    });
-
-    $('.back-to-top').click(function (event) {
-        $('html, body').stop().animate({ scrollTop: 0 }, 600);
-        event.preventDefault();
-    });
-});
-
-//App Banner
-$(function () {
-    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-    var appbanner = getCookie("AppBanner");
-    if ((appbanner == null || appbanner == "show") && !isSafari) {
-        var hideBannerPages = ['7', '14'];
-        if (ga_pg_id == 2) {
-            if (typeof isDealerPQ !== 'undefined') {
-                if (isDealerPQ === 'False') {
-                    $("#appBanner").slideDown();
-                }
-            }
-        } else if (hideBannerPages.indexOf(ga_pg_id) == -1) {
-            $("#appBanner").slideDown();
-            SetCookie("AppBanner", "show");
-            dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
-        }
-    }
-});
-
 var hashChange = function (e) {
     var oldUrl, oldHash;
     oldUrl = e.originalEvent.oldURL;
@@ -1089,6 +550,26 @@ var closePopUp = function (state) {
     }
 };
 
+function centerItVariableWidth(target, outer) {
+    var out = $(outer);
+    var tar = target;
+    var x = out.width();
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+    var q = 0;
+    var m = out.find('li');
+    //Just need to add up the width of all the elements before our target. 
+    for (var i = 0; i < z; i++) {
+        q += $(m[i]).outerWidth(true);
+    }
+    out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
+}
+function applyTabsLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
+
 function CloseCityPopUp() {
     $("#globalcity-popup").hide();
     $(".blackOut-window").hide();
@@ -1104,54 +585,13 @@ function dpqLeadCaptureClosePopup() {
     leadCapturePopup.hide();
 }
 
-var popupHeading = $("#popupHeading"),
-    popupContent = $("#popupContent"),
-    brandcitypopupContent = $("#brandcitypopupContent");
-
-$("#citySelection").on("click", function () {
-    $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
-    popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
-
-});
-
-$("#areaSelection").on("click", function () {
-    $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-    popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
-});
-
-
-$("#makeSelection").on("click", function () {
-    $("#brandcitypopupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
-    brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
-
-});
-
-$("#citiesSelection").on("click", function () {
-    $("#brandcitypopupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-    brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
-});
-
-$(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-    popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
-});
-$(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-    brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
-});
-
-
 var locationFilter = function (filterContent, wrapperMenu) {
 
     var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
     var inputTextLength = inputText.length;
     if (inputTextLength > 0) {
-          
+
         wrapperMenu.find("li").each(function () {
             var locationName = $(this).text().toLowerCase();
             if (/\s/.test(locationName))
@@ -1167,7 +607,7 @@ var locationFilter = function (filterContent, wrapperMenu) {
 
     }
     else {
-        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").show(); 
+        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").show();
     }
 };
 
@@ -1293,7 +733,8 @@ var Base64 = {
         return string;
     }
 
-}
+};
+
 function setPriceQuoteFlag() {
     $('#global-search-popup').hide();
     unlockPopup();
@@ -1301,6 +742,36 @@ function setPriceQuoteFlag() {
 }
 function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
 
+// common autocomplete data call function
+function dataListDisplay(availableTags, request, response) {
+    var results = $.ui.autocomplete.filter(availableTags, request.term);
+    response(results.slice(0, 5));
+}
+
+function MakeModelRedirection(items) {
+    if (!IsPriceQuoteLinkClicked) {
+        var make = new Object();
+        make.maskingName = items.payload.makeMaskingName;
+        make.id = items.payload.makeId;
+        var model = null;
+        if (items.payload.modelId > 0) {
+            model = new Object();
+            model.maskingName = items.payload.modelMaskingName;
+            model.id = items.payload.modelId;
+            model.futuristic = items.payload.futuristic;
+        }
+
+        recentSearches.saveRecentSearches(items);
+
+        if (model != null && model != undefined) {
+            window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+            return true;
+        } else if (make != null && make != undefined) {
+            window.location.href = "/m/" + make.maskingName + "-bikes/";
+            return true;
+        }
+    }
+}
 
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
@@ -1328,12 +799,531 @@ function LoadTerms(offerId) {
     $('#termspinner').hide();
 }
 
+
+function CloseCityPopUp() {
+    $("#globalcity-popup").hide();
+    unlockPopup();
+}
+
 var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
 
 docReady(function () {
 
+    (function ($) {
+        $.fn.hint = bwHint;
+    })(jQuery);
+
+    (function ($) {
+        $.fn.bw_autocomplete = bwAutoComplete;
+    })(jQuery);
+
+    if (quotationPage) {
+        $('header .bw-logo, header .navbarBtn, header .global-location, .ae-logo-border, .ae-sprite.ae-logo').hide();
+        $('.headerTitle,.white-back-arrow').show();
+
+        $('#book-back').on('click', function () {
+            window.history.back();
+        });
+    }
+
+    //Scroll To Top function
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 180) {
+            $('.back-to-top').fadeIn(500);
+        } else {
+            $('.back-to-top').fadeOut(500);
+        }
+    });
+
+    $('.back-to-top').click(function (event) {
+        $('html, body').stop().animate({ scrollTop: 0 }, 600);
+        event.preventDefault();
+    });
+
+    popupHeading = $("#popupHeading"), popupContent = $("#popupContent"), brandcitypopupContent = $("#brandcitypopupContent");
+
+    //App Banner
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    var appbanner = getCookie("AppBanner");
+    if ((appbanner == null || appbanner == "show") && !isSafari) {
+        var hideBannerPages = ['7', '14'];
+        if (ga_pg_id == 2) {
+            if (typeof isDealerPQ !== 'undefined') {
+                if (isDealerPQ === 'False') {
+                    $("#appBanner").slideDown();
+                }
+            }
+        } else if (hideBannerPages.indexOf(ga_pg_id) == -1) {
+            $("#appBanner").slideDown();
+            SetCookie("AppBanner", "show");
+            dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
+        }
+    }
+
+    /* Swiper custom methods */
+
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    var slideCount = function (swiper) {
+        try {
+            imgTotalCount = swiper.slides.length;
+            $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + " of " + imgTotalCount.toString());
+        } catch (e) { }
+    };
+
+    $('.swiper-container:not(".noSwiper")').each(function (index, element) {
+        $(this).addClass('sw-' + index);
+        $('.sw-' + index).swiper({
+            effect: 'slide',
+            speed: 300,
+            //autoplay: 3000,
+            nextButton: $(this).find('.swiper-button-next'),
+            prevButton: $(this).find('.swiper-button-prev'),
+            pagination: $(this).find('.swiper-pagination'),
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 10,
+            //freeMode: true,
+            //freeModeSticky: true,
+            preloadImages: false,
+            lazyLoading: true,
+            lazyLoadingInPrevNext: true,
+            watchSlidesProgress: true,
+            watchSlidesVisibility: true,
+            onSlideChangeStart: slideChangeStart,
+            onSlideChangeEnd: slideCount
+        });
+
+    });
+
+    //Load the visible images
+    $(".swiper-slide-visible img,.swiper-slide-active img").each(function () {
+        var src = $(this).attr("data-src");
+        $(this).attr("src", src);
+        if (!$(this).error)
+            $(this).parent().find('.swiper-lazy-preloader').remove();
+    });
+
+    if ($('#bikeBannerImageCarousel')[0] != undefined) {
+        var bikeModelSwiper = $('#bikeBannerImageCarousel')[0].swiper;
+
+        var currentMainStageActiveImage;
+        bikeModelSwiper.on('slideChangeStart', function () {
+            currentMainStageActiveImage = $('#bikeBannerImageCarousel .stage').find(".swiper-slide.swiper-slide-active img");
+            $('#bikeBannerImageCarousel').css({ 'height': currentMainStageActiveImage.height() });
+        });
+    }
+
+
+    $('#globalCityPopUp').val('');
+
+    $(".fa-spinner").hide();
+
+    CheckGlobalCookie();
+
+    $('.globalcity-close-btn').click(function () {
+        CloseCityPopUp();
+        window.history.back();
+    });
+
+    $(".onroad-price-close-btn").click(function () {
+        closeOnRoadPricePopUp();
+        window.history.back();
+    });
+
+
+    $("#globalCity").autocomplete({
+        source: function (request, response) {
+            dataListDisplay(availableTags, request, response);
+        }, minLength: 1
+    }).css({ 'width': '179px' });
+
+
+    $("#gs-close").click(function () {
+        $(".global-search-popup").hide();
+        unlockPopup();
+    });
+
+    $("#gs-text-clear").click(function () {
+        $("#globalSearch").val("").change();
+        $("#globalSearch").focus();
+        $(this).hide();
+    });
+
+    // global city popup autocomplete
+    $("#globalCityPopUp").bw_autocomplete({
+        recordCount: 5,
+        source: 3,
+        onClear: function () {
+            objCity = new Object();
+        },
+        click: function (event, ui, orgTxt) {
+            var city = new Object();
+            city.cityId = ui.item.payload.cityId;
+            city.maskingName = ui.item.payload.cityMaskingName;
+            var cityName = ui.item.label.split(',')[0];
+            if (city.cityId != globalCityId) {
+                SetCookieInDays("location", city.cityId + "_" + cityName, 365);
+                bwcache.set("userchangedlocation", window.location.href, true);
+            }
+            CloseCityPopUp();
+            showGlobalCity(ui.item.label);
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+            if (city.cityId) {
+                location.reload();
+            }
+        },
+        open: function (result) {
+            objCity.result = result;
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
+        },
+        focusout: function () {
+            if ($('li.ui-state-focus a:visible').text() != "") {
+                focusedCity = new Object();
+                focusedCity = objCity.result[$('li.ui-state-focus').index()];
+            }
+        },
+        afterfetch: function (result, searchtext) {
+            var element = $("#globalCityPopUp");
+            if (result != undefined && result.length > 0)
+                showHideMatchError(element, false);
+            else
+                showHideMatchError(element, true);
+        }
+    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
+
+
+
+    $("#citySelectionFinalPrice").autocomplete({
+        source: function (request, response) {
+            dataListDisplay(availableTags, request, response);
+        }, minLength: 1
+    }).css({ 'width': '365px' });
+
+
+
+    $(".blackOut-window").mouseup(function (e) {
+        var globalSearchPopup = $(".global-search-popup");
+        if (e.target.id !== globalSearchPopup.attr('id') && !globalSearchPopup.has(e.target).length) {
+            globalSearchPopup.hide();
+            unlockPopup();
+        }
+    });
+
+    $(".global-location").click(function () {
+        $("#globalcity-popup").show();
+        lockPopup();
+        CheckGlobalCookie();
+        appendHash("globalCity");
+    });
+
+    $(".blackOut-window").mouseup(function (e) {
+        var globalLocation = $("#globalcity-popup");
+        if (e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length) {
+            globalLocation.hide();
+            unlockPopup();
+        }
+    });
+
+    //making card clickable 
+    $('li.card').click(function () {
+        $(this).find('a')[0].click();
+    });
+
+    $(".navUL > li > a").click(function (e) {
+
+        if (!$(this).hasClass("open")) {
+            var a = $(".navUL li a");
+            a.removeClass("open").next("ul").slideUp(350);
+            $(this).addClass("open").next("ul").slideDown(350);
+
+            if ($(this).siblings().size() == 0) {
+                navDrawer.close();
+            }
+
+            $(".nestedUL > li > a").click(function () {
+                $(".nestedUL li a").removeClass("open");
+                $(this).addClass("open");
+                navDrawer.close();
+            });
+        }
+        else if ($(this).hasClass("open")) {
+            $(this).removeClass("open").next("ul").slideUp(350);
+        }
+    }); // nav bar code ends here
+
+    // Common BW tabs code
+    $(".bw-tabs li").on('click', function () {
+        var panel = $(this).closest(".bw-tabs-panel");
+        panel.find(".bw-tabs li").removeClass("active");
+        $(this).addClass("active");
+        var panelId = $(this).attr("data-tabs");
+        panel.find(".bw-tabs-data").hide();
+        $("#" + panelId).show();
+        applyTabsLazyLoad();
+        $("#" + panelId).find(".swiper-slide-active img.swiper-lazy").each(function (index) {
+            var src = $(this).attr("data-src");
+            $(this).attr("src", src);
+            $(this).parent().find('.swiper-lazy-preloader').remove();
+        });
+        centerItVariableWidth($(this), '.bw-tabs');
+
+        var swiperContainer = $('#' + panelId + " .swiper-container");
+        if (swiperContainer.length > 0) {
+            var sIndex = swiperContainer.attr('class');
+            var regEx = /sw-([0-9]+)/i;
+            try {
+                var index = regEx.exec(sIndex)[1]
+                $('.sw-' + index).data('swiper').update(true);
+            } catch (e) { }
+        }
+
+    }); // ends
+    // Common CW select box tabs code
+    $(".bw-tabs select").change(function () {
+        var panel = $(this).closest(".bw-tabs-panel");
+        var panelId = $(this).val();
+        panel.find(".bw-tabs-data").hide();
+        $('#' + panelId).show();
+    }); // ends
+
+    // Contents Widegt Clicked
+    $("#ctrlNews a").on("click", function () {
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'News_Clicked' });
+        }
+    });
+    $("#ctrlExpertReviews a").on("click", function () {
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'Reviews_Clicked' });
+        }
+    });
+    $("#ctrlVideos a").on("click", function () {
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Content_Widget_Clicked', 'lab': 'Videos_Clicked' });
+        }
+    });
+    // Brands, mileage, styles clicked
+    $(".brand-type-container li").on("click", function () {
+        var bikeClicked = $(this).find(".brand-type-title").html();
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Brand', 'lab': bikeClicked });
+        }
+    });
+
+    $("#discoverBudget li a").on("click", function () {
+        var budgetClick = $(this).text();
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Budget', 'lab': budgetClick });
+        }
+    });
+
+    $("#discoverMileage li a").on("click", function () {
+        var mileageClick = $(this).text();
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Mileage', 'lab': mileageClick });
+        }
+    });
+
+    $("#discoverStyle li a").on("click", function () {
+        var styleClicked = $(this).text();
+        var category = GetCatForNav();
+        if (category != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Style', 'lab': styleClicked });
+        }
+    });
+
+
+    $("#bwheader-logo").on("click", function () {
+        var categ = GetCatForNav();
+        if (categ != null) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
+        }
+    });
+
+    $('#btnGlobalCityPopup').on('click', function () {
+        ele = $('#globalCityPopUp');
+        if (globalCityId > 0 && ($(ele).val()) != "") {
+            showHideMatchError(ele, false);
+            CloseCityPopUp();
+        }
+        else {
+            showHideMatchError(ele, true);
+            //unlockPopup();
+        }
+        return false;
+    });
+
+    // global-search code 
+    $("#global-search").click(function () {
+        $("#global-search-popup").show();
+        $("#global-search-popup input").focus()
+        lockPopup();
+    });
+
+
+    $("#globalSearch").bw_autocomplete({
+        source: 1,
+        recordCount: 5,
+        onClear: function () {
+            objBikes = new Object();
+        },
+        click: function (event, ui, orgTxt) {
+            var keywrd = ui.item.label + '_' + $('#globalSearch').val();
+            var category = GetCatForNav();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+
+            MakeModelRedirection(ui.item);
+        },
+        loaderStatus: function (status) {
+            if (!status) {
+                $("#globalSearch").siblings('.fa-spinner').show();
+            }
+            else {
+                $("#globalSearch").siblings('.fa-spinner').hide();
+                $("#gs-text-clear").show();
+            }
+        },
+        open: function (result) {
+            objBikes.result = result;
+        },
+        focus: function () {
+            if ($('#globalSearch').val().trim() == '') {
+                recentSearches.showRecentSearches();
+            }
+        },
+        focusout: function () {
+            if ($('li.ui-state-focus a:visible').text() != "") {
+                focusedMakeModel = new Object();
+                focusedMakeModel = objBikes.result ? objBikes.result[$('li.ui-state-focus').index()] : null;
+            }
+            else {
+                $('#errGlobalSearch').hide();
+                recentSearches.hideRecentSearches();
+            }
+        },
+        afterfetch: function (result, searchtext) {
+            if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                $('#errGlobalSearch').hide();
+                recentSearches.hideRecentSearches();
+            }
+            else {
+                focusedMakeModel = null;
+                if (searchtext.trim() != "") {
+                    $('#errGlobalSearch').show();
+                    recentSearches.hideRecentSearches();
+                }
+
+                var keywrd = $('#globalSearch').val();
+                var category = GetCatForNav();
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+            }
+        },
+        keyup: function () {
+            if ($('li.ui-state-focus a:visible').text() != "") {
+                $('#errGlobalSearch').hide();
+                recentSearches.hideRecentSearches();
+            } else {
+                if ($('#globalSearch').val().trim() == '') {
+                    $('#errGlobalSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+            }
+
+            if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                    if ($('#globalSearch').val().trim() != '')
+                        $('#errGlobalSearch').show();
+                    else
+                        $('#errGlobalSearch').hide();
+                }
+                else {
+                    $('#errGlobalSearch').hide();
+                    recentSearches.showRecentSearches();
+                }
+
+
+                $("#gs-text-clear").hide();
+            }
+        }
+    }).keydown(function (e) {
+        if (e.keyCode == 13) {
+            if (focusedMakeModel != null && btnGlobalSearch != undefined)
+                btnFindBikeNewNav();
+        }
+
+    });
+
+    $("#navbarBtn").on("click", function () {
+        var categ = GetCatForNav();
+        if (categ != null) {
+            triggerGA(categ, 'Hamburger_Menu_Icon', 'Icon_Click');
+        }
+    });
+
+    // Google Analytics code for Click of Item on Nav_Bar on HP
+    $(".navUL ul li").on("click", function () {
+        pushNavMenuAnalytics($(this).text());
+    });
+    $(".navbarTitle").on("click", function () {
+        pushNavMenuAnalytics($(this).text());
+    });
+
+
+    $(".lazy").lazyload({
+        effect: "fadeIn"
+    });
+
+    $("#citySelection").on("click", function () {
+        $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
+        popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+
+    });
+
+    $("#areaSelection").on("click", function () {
+        $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
+        popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+    });
+
+
+    $("#makeSelection").on("click", function () {
+        $("#brandcitypopupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
+        brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+
+    });
+
+    $("#citiesSelection").on("click", function () {
+        $("#brandcitypopupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
+        brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+    });
+
+    $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+        popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+    });
+    $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+        brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+        $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+    });
+
+});
+
+docReady(function () {
 
     $('#city-area-popup .white-back-arrow').on('click', function () {
         cityArea.close();
@@ -1370,7 +1360,7 @@ docReady(function () {
 
         // This function takes the existing <iframe> (and YouTube player)
         // with id 'player1' and adds an event listener for state changes.
-        var player = new Array(), id, count, countArray = [], playerState = '';
+        var player = new Array(), id, count, countArray = []
 
         window.onYouTubeIframeAPIReady = function () {
             var i = 1;
@@ -1798,8 +1788,8 @@ docReady(function () {
         viewMoreBtn.attr('href', '#brand-type-container');
         moreBrandContainer.slideUp();
         viewMoreBtn.removeClass('active').find('.btn-label').text('View more brands');
-    });    
-    
+    });
+
     // read more - collapse
     $('.read-more-target').on('click', function () {
         var element = $(this),

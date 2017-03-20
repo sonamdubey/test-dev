@@ -971,14 +971,5 @@ namespace Bikewale.BAL.Compare
         {
             return _objCompare.ScooterCompareList(topCount);
         }
-
-        /// <summary>
-        /// Created By :- Subodh Jain 10 March 2017
-        /// Summary :- Populate Compare ScootersList version list wise
-        /// </summary>
-        public ICollection<SimilarCompareBikeEntity> ScooterCompareList(string versionList, uint topCount, uint cityId)
-        {
-            return _objCompare.ScooterCompareList(versionList, topCount, cityId);
-        }
     }
 }
