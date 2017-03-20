@@ -140,7 +140,7 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">New Bike Launches in India</h2>
-                    <div class="content-box-shadow">
+                    <div class="content-box-shadow padding-top20">
                         
                         <%if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                             { %>
@@ -159,7 +159,7 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-header">Upcoming Bikes in India</h2>
-                    <div class="content-box-shadow">
+                    <div class="content-box-shadow padding-top20">
                         <div class="jcarousel-wrapper inner-content-carousel">
                             <div class="jcarousel">
                                 <ul>

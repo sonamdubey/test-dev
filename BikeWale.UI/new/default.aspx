@@ -317,7 +317,7 @@
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                         <div class="view-all-btn-container padding-top15 padding-bottom20">
-                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Best Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
 
