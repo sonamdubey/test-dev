@@ -172,11 +172,10 @@
         </section>   
              <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0 ) {%>
         <section>
-            <div class="container bg-white box-shadow margin-bottom10">
                  <div class="container bg-white box-shadow margin-bottom15">
                      <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 </div>
-            </div>            
+                        
         </section>
         <% } %>
 

@@ -13,18 +13,10 @@
         @if (objMakes != null)
         {
             <div class="box-shadow padding-top10 padding-bottom10">
-                <div class="grid-6 padding-left15 padding-right15 border-solid-right">
+                <div class="grid-12 padding-left15 padding-right15 border-solid-right">
                     <p class="font12 text-light-grey">Brand</p>
                     <p id="brand-filter-selection" class="filter-selection-value text-truncate" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
                 </div>
-
-
-
-                <div class="inline-block margin-right10 padding-left20">
-                    <span class="bwmsprite filter-icon"></span>
-                    <span class="font14 text-light-grey">Filter by:</span>
-                </div>
-                <p id="brand-filter-selection" class="filter-selection-value text-truncate inline-block selection-auto-width" data-bind="text : selectedMake() ? selectedMake() : '' ">All brands</p>
                 <div class="clear"></div>
             </div>
         }
@@ -99,8 +91,8 @@
             <div class=" grid-5 omega text-light-grey font13">
                 <div class="font14" data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((ViewBag.pager.PageNo - 1) * ViewBag.pager.PageSize + 1)</span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(ViewBag.pager.PageNo * ViewBag.pager.PageSize, ViewBag.pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@ViewBag.pager.TotalResults</span> bikes</div>
             </div>
-
             @if (ViewBag.pager.TotalResults > 10) { Html.RenderAction("Index", "Pager", new { objPager = @ViewBag.pager }); }
+            <div class="clear"></div>
         </div>
     </div>
 }
@@ -129,27 +121,6 @@
                     </li>
                 }
 
-            </ul>
-        </div>
-    </div>
-}
-@if (objYears != null)
-{
-    <div id="year-slideIn-drawer" class="slideIn-drawer-container fix-only-header">
-        <div class="drawer-top-header">
-            <span id="close-year-slideIn-drawer" class="back-arrow-box inline-block">
-                <span class="bwmsprite back-long-arrow-left"></span>
-            </span><p class="head-label inline-block">Select year</p>
-        </div>
-        <div class="drawer-body-content">
-            <ul class="filter-list" data-filter="yearwise">
-                <li data-bind="click : function(d,e) { setYearFilter(e);}"> <span>All years</span> </li>
-                @foreach (var year in objYears)
-                {
-                    <li data-bikeyear="@year.Year" data-bind="click : function(d,e) { setYearFilter(e) }">
-                        <span>@year.Year</span>
-                    </li>
-                }
             </ul>
         </div>
     </div>

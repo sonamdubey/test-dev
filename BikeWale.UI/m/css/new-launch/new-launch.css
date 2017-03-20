@@ -48,26 +48,6 @@
 .collapsible-content.active .more-content {
   display: inline; }
 
-.key-specs-list li {
-  margin-right: 4px;
-  padding-right: 8px;
-  position: relative;
-  display: inline-block;
-  color: #a2a2a2; }
-  .key-specs-list li:before {
-    content: "";
-    width: 1px;
-    height: 11px;
-    position: absolute;
-    top: 3px;
-    right: 0;
-    border-left: 1px solid #b0b0b0; }
-  .key-specs-list li.hide {
-    display: none; }
-
-.key-specs-list li:last-child:before {
-  border-left: none; }
-
 .btn-180-32 {
   width: 180px;
   padding: 5px;

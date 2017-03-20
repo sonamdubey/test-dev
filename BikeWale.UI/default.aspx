@@ -473,7 +473,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="more-article-target view-all-btn-container padding-top20 padding-bottom20"> 
+                            <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20"> 
                             <a href="/used/bikes-in-<%= String.IsNullOrEmpty(cityMaskingName) ? "india" : cityMaskingName %>/" title="Second Hand Bikes in <%= String.IsNullOrEmpty(cityName) ? "India" : cityName %>" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                         </div>
@@ -518,7 +518,7 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font22">Latest updates from the bike industry</h2>
+                    <h2 class="text-bold text-center margin-top30 margin-bottom20 font22">Latest updates from the bike industry</h2>
                     <div class="bw-tabs-panel margin-bottom30 padding-bottom20 content-box-shadow article-control">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">

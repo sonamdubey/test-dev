@@ -32,9 +32,6 @@
     %>
     <!-- #include file="/includes/headscript_desktop_min.aspx" -->
     <link rel="stylesheet" type="text/css" href="/css/model-atf.css" />
-      <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
-            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/model-btf.css?<%=staticFileVersion %>" />
-        </noscript>
     <script type="text/javascript">
         <!-- #include file="\includes\gacode_desktop.aspx" -->
     var dealerId = '<%= dealerId%>';
@@ -56,8 +53,6 @@
 </head>
 <body class="bg-light-grey" itemscope itemtype="http://schema.org/Product">
     <form runat="server">
-      
-
         <% if (modelPageEntity != null && modelPageEntity.ModelDesc != null)
            { %>
         <meta itemprop="description" itemtype="https://schema.org/description" content="<%=modelPageEntity.ModelDesc.SmallDescription %>" />
@@ -1316,13 +1311,21 @@
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
                         
-                        <div id="modelSimilarContent" class="bw-model-tabs-data padding-top20 font14">
+                        <div id="modelSimilarContent" class="bw-model-tabs-data font14">
                             <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                { %>
                             <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
                             <% if (ctrlPopularCompare.fetchedCount > 0)
                                { %>
-                            <h3 class="padding-left20 padding-right20 margin-bottom15">Most compared alternatives</h3>
+                            
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h3 class="padding-right20 margin-bottom15">Most compared alternatives</h3>
+                                </div><div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                             <BW:PopularCompare ID="ctrlPopularCompare" runat="server" />
 
                             <div class="margin-right10 margin-left10 border-solid-bottom padding-bottom20"></div>
@@ -1450,10 +1453,11 @@
         </div>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
+         <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/model-btf.css?<%=staticFileVersion %>" />
+        </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <%--<link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />--%>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>

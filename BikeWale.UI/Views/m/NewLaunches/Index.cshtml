@@ -14,7 +14,7 @@
 }
 <section>
     <div class="container new-launch-banner text-center">
-        <h1 class="font24 text-uppercase text-white">@string.Format("NEW BIKE LAUNCHES - {0}", DateTime.Today.Year)</h1>
+        <h1 class="font22 text-uppercase text-white">@string.Format("NEW BIKE LAUNCHES - {0}", DateTime.Today.Year)</h1>
         <h2 class="font14 text-unbold text-white">Latest bikes in India</h2>
     </div>
 </section>
@@ -47,6 +47,9 @@
     <h2 class="section-heading">Upcoming bikes in India</h2>
     <div class="content-box-shadow padding-top20 padding-bottom20">
         @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
+        <div class="padding-left10 view-all-btn-container margin-top10 page-type-landing">
+            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+        </div>
     </div>
 </section>
 }

@@ -274,21 +274,31 @@
                                             <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                                         </div>
                                     </div>
+                                    
                                 </div>
-                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
-                                    <div class="swiper-container card-container">
-                                        <div class="swiper-wrapper discover-bike-carousel">
-                                            <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
-                                        </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                     </div>
                                 </div>
-                                <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
-                                    <div class="swiper-container card-container">
-                                        <div class="swiper-wrapper discover-bike-carousel">
-                                            <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
-                                        </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
+                               </div>
+                            </div>
+                            <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
+                                <div class="swiper-container card-container">
+                                    <div class="swiper-wrapper discover-bike-carousel">
+                                        <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />                                        
                                     </div>
                                 </div>
+                                <div class="padding-left10 view-all-btn-container margin-top10">
+                            <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -392,6 +402,10 @@
                                 </a>
                             </li>
                         </ul>
+                         <div class="padding-left10 view-all-btn-container margin-top15 padding-bottom20">
+                            <a href="<%=usedBikeLink %>" title="<%=usedBikeTitle%>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                         </div>
+ 
                     </div>
 
                   
@@ -471,20 +485,12 @@
             </div>
         </section>
         <!--  News, reviews and videos code ends here -->
-
-        <section>
-            <div class="container">
-                <div id="bottom-ad-div" class="bottom-ad-div">
-                    <!--Bottom Ad banner code starts here -->
-
-                </div>
-                <!--Bottom Ad banner code ends here -->
-            </div>
-        </section>
-
+        
+        <noscript id="asynced-css">
+            <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%=staticFileVersion %>" />
+        </noscript>
         <!-- #include file="/includes/footerbw_mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
