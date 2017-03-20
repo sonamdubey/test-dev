@@ -83,13 +83,9 @@
           <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
         <% if (ctrlusedBikeModel.FetchCount > 0)
            { %>
-        <section>
-          <div class="content-box-shadow ">
-   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-              </div> 
-        </section>    
-              
-        <% } %>
+   <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />  
+        
+            <% } %>
       <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
         <section>
             <BW:BikeCare runat="server" ID="ctrlBikeCare" />
