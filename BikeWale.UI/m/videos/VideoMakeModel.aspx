@@ -173,7 +173,7 @@
             </div>
             <h1 class="font18"><%= pageHeading %></h1>
         </header>
-        <section class="bg-white padding-top50 bottom-shadow margin-bottom10">
+        <section class="bg-white padding-top50 bottom-shadow margin-bottom10" id="section-videos-list">
             <div class="miscWrapper container">
                 <ul id="listVideos1">
                     <asp:Repeater ID="rptVideos" runat="server">
@@ -255,7 +255,7 @@
             var cwHostUrl = "<%= Bikewale.Utility.BWConfiguration.Instance.CwApiHostUrl %>";
             var catId = <%= isModel ? modelId : makeId %>;
             var maxPage = 10000000;
-            var isModel = false;
+            var isModel = <%= isModel.ToString().ToLower() %>;
             var isNextPage = true;
             var apiURL = isModel ? "/api/v1/videos/model/" : "/api/v1/videos/make/";
             var cacheKey = isModel ? "model_" + catId : "make_" + catId;

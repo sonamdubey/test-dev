@@ -103,7 +103,7 @@
             <span id="spn" class="error"></span>
         </div>
         <div class="margin-top15">
-            <div class="grey-bg content-block">
+            <div class="grey-bg content-block"> 
                 <uc:BrowseUserReviews ID="ucUserReviews" runat="server" />
             </div>
             <div class="clear"></div>

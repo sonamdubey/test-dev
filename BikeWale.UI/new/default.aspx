@@ -87,8 +87,6 @@
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
-                            <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
-                            </div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide margin-left5">
                                 <asp:Repeater ID="rptOtherBrands" runat="server">
                                     <ItemTemplate>
@@ -319,7 +317,7 @@
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
                         <div class="view-all-btn-container padding-top15 padding-bottom20">
-                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Popular Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
+                            <a href="/best-bikes-in-india/" class="btn view-all-target-btn" title="Best Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                         </div>
                     </div>
 

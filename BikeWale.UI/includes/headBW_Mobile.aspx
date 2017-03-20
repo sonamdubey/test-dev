@@ -38,7 +38,7 @@
                      <% if(ShowSellBikeLink){ %>
                     <a href="/m/used/sell/" title="Sell your bike" class="btn header-sell-btn">Sell bike</a> 
                       <%} %>                 
-                    <div class="global-search" id="global-search" style="display:none">
+                    <div class="global-search" id="global-search" >
                         <span class="bwmsprite search-bold-icon"></span>
                     </div>
                     <div class="global-location">

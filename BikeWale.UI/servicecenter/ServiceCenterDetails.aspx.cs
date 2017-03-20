@@ -104,11 +104,13 @@ namespace Bikewale.ServiceCenter
                 {
 
                     ctrlusedBikeModel.MakeId = makeId;
-                    if (cityId > 0)
-                        ctrlusedBikeModel.CityId = cityId;
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityName : "India");
-                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, cityId > 0 ? cityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityId > 0 ? cityMaskingName : "india");
+
+                    if (serviceVM.CityId > 0)
+                        ctrlusedBikeModel.CityId = serviceVM.CityId;
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", serviceVM.CityId > 0 ? serviceVM.CityName : "India");
+                    ctrlusedBikeModel.header = string.Format("Used {0} bikes in {1}", makeName, serviceVM.CityId > 0 ? serviceVM.CityName : "India");
+                    ctrlusedBikeModel.WidgetHref = string.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, serviceVM.CityId > 0 ? serviceVM.CityMaskingName : "india");
+
                     ctrlusedBikeModel.TopCount = 9;
                 }
 

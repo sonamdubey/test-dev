@@ -65,7 +65,7 @@
 <!-- widget script starts here-->
 <script type="text/javascript">
     var onCookieObj = {};
-    var vmquotation, timeOutVariable;
+    var vmquotation, timeOutVariable, pqPopupContent, progressBar;
 
     docReady(function(){
         $(document).on("click",".blackOut-window, #priceQuoteWidget .close-btn",function(){
@@ -429,6 +429,55 @@
         };
     };
 
+    pqPopupContent = {
+        
+        active: function(){
+            timeOutVariable = setTimeout(function(){
+                    $('#priceQuoteWidget').addClass('activate-popup-content');
+            }, 200);
+        },
+
+        inactive: function(){
+            $('#priceQuoteWidget').removeClass('activate-popup-content');
+            clearTimeout(timeOutVariable);
+        },
+
+        updateChosen: function(element){
+            $(element).trigger("chosen:updated");
+        },
+
+        close: function(){
+            $('.getquotation').removeClass('ui-btn-active');
+            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
+            pqPopupContent.inactive();
+        }
+    };
+
+    progressBar = {
+        startLoading: function (element, message) {
+            try {
+                var _self = $(element).find(".progress-bar").css({ 'width': '0' }).show();
+                _self.animate({ width: '100%' }, 7000);
+                $(element).find(".progress-bar-label").text(message);
+            }
+            catch (e) { return };
+        },
+
+        stopLoading: function (element) {
+            try {
+                var _self = $(element).find(".progress-bar");
+                _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
+                $(element).find(".progress-bar-label").empty();
+            }
+            catch (e) { return };
+        }
+    };
+
+    vmquotation = new mPopup;
+    ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
+    $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
+
+    });
 
     function gtmCodeAppender(pageId, action, label) {
         var category = '';
@@ -464,54 +513,4 @@
         }
 
     };
-
-    var pqPopupContent = {
-        
-        active: function(){
-            timeOutVariable = setTimeout(function(){
-                    $('#priceQuoteWidget').addClass('activate-popup-content');
-            }, 200);
-        },
-
-        inactive: function(){
-            $('#priceQuoteWidget').removeClass('activate-popup-content');
-            clearTimeout(timeOutVariable);
-        },
-
-        updateChosen: function(element){
-            $(element).trigger("chosen:updated");
-        },
-
-        close: function(){
-            $('.getquotation').removeClass('ui-btn-active');
-            $("#popupContent,#priceQuoteWidget,.blackOut-window").hide();
-            pqPopupContent.inactive();
-        }
-    };
-
-    var progressBar = {
-        startLoading: function (element, message) {
-            try {
-                var _self = $(element).find(".progress-bar").css({ 'width': '0' }).show();
-                _self.animate({ width: '100%' }, 7000);
-                $(element).find(".progress-bar-label").text(message);
-            }
-            catch (e) { return };
-        },
-
-        stopLoading: function (element) {
-            try {
-                var _self = $(element).find(".progress-bar");
-                _self.stop(true, true).css({ 'width': '100%' }).fadeOut(1000);
-                $(element).find(".progress-bar-label").empty();
-            }
-            catch (e) { return };
-        }
-    };
-
-    vmquotation = new mPopup;
-    ko.applyBindings(vmquotation, $("#priceQuoteWidget")[0]);
-    $('#ddlCitiesPopup,#ddlAreaPopup').chosen();
-
-    });
 </script>

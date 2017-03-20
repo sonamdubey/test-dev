@@ -107,6 +107,8 @@ namespace Bikewale.Mobile.Used
         /// Description : Bind similar and other bike widgets
         /// Modified By :-Subodh Jain on 1 Dec 2016
         /// Summary :- Added Service center Widget
+        /// Modified by :- Subodh Jain on 20 march 2017
+        /// Summary :-Changed heading used bike widget
         /// </summary>
         private void BindUserControls()
         {

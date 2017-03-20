@@ -123,8 +123,6 @@
             <BW:DealersByBrand runat="server" ID="ctrlDealerByBrand" />
         </section>
         <%} %>
-
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
                       
            <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0 || ctrlUpcomingBikes.FetchedRecordsCount > 0 || ctrlusedBikeModel.FetchCount > 0)
               { %>
@@ -164,7 +162,8 @@
                             <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" rel="nofollow"></a></span>
                             <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                         </div>
-         <%} %>
+                <%} %>
+                         <div class="margin-top20 margin-right10 margin-left10 border-solid-top"></div>
                   <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
                  
@@ -177,16 +176,15 @@
             </div>
             <%} %>
         </section>
-
+         <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" />
+        </noscript>
         <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/markerwithlabel.js"></script>
-        <script type="text/javascript">
-            var dealersByCity = true;
-        </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/location.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
+        <script  defer  type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/dealer/location.js?<%= staticFileVersion %>"></script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeDealerMap"></script>
+        <script  defer type="text/javascript" src="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/src/new/markerwithlabel.js"></script>
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
