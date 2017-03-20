@@ -35,7 +35,7 @@ namespace Bikewale.ServiceCenter
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected UsedBikeModel ctrlusedBikeModel;
         protected UsedBikeInCities ctrlusedBikeInCities;
-        protected string cityName = string.Empty;
+        protected string cityName, cityMaskingName;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -126,6 +126,8 @@ namespace Bikewale.ServiceCenter
                     {
                         cityDetails = new CityHelper().GetCityById(cityId);
                         ctrlusedBikeModel.CityId = cityId;
+                        cityMaskingName = cityDetails.CityMaskingName;
+                        cityName = cityDetails.CityName;
                     }
 
                     ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
