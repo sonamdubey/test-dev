@@ -132,9 +132,14 @@
         <% } %>
        <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count()>0){ %>
           
-                 
+                 <section>
+            <div class="container text-center section-container">
+                <h2 class="font18 section-heading">Search used bikes by cities</h2>
+                
                     <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />  
-                 
+              
+                </div>
+                     </section>
               
                     <%} %>
                          <% if (ctrlusedBikeModel.FetchCount>0)
