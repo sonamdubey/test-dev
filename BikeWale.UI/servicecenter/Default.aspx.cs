@@ -128,7 +128,7 @@ namespace Bikewale.ServiceCenter
                         ctrlusedBikeModel.CityId = cityId;
                     }
 
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Honda Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
                     ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                     ctrlusedBikeModel.IsLandingPage = true;

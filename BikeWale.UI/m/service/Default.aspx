@@ -188,6 +188,7 @@
                       { %>
                     <div class="bw-tabs-data <%=ctrlusedBikeModel.FetchCount > 0?"hide":""%>" id="usedByCity">
                         <BW:usedBikeInCities runat="server" ID="ctrlusedBikeInCities" />
+                         
                     </div>
                     <%} %>
                     <div class="bw-tabs-data <%=((ctrlusedBikeModel.FetchCount>0) ||( ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0))?"hide":""%>" id="usedByBudget">
@@ -227,6 +228,11 @@
                                 </a>
                             </li>
                         </ul>
+                        <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
+                            <a href="<%=usedBikeLink %>" title="<%=usedBikeTitle%>" class="btn view-all-target-btn">View all used bikes<span class="bwmsprite teal-right"></span></a>
+                               </div>
+ 
+                          
                     </div>
 
                   
