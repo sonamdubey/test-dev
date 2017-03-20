@@ -276,7 +276,7 @@
                 <!-- Other used bikes starts -->
                   <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 <div id="modelOtherBikes" class="bw-model-tabs-data  active"><BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" /></div>
+                 <div id="modelOtherBikes" class="bw-model-tabs-data padding-top15 active"><BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" /></div>
                     
                         
                     <% } %> 
@@ -352,8 +352,10 @@
         
          <% if (ctrlServiceCenterCard.showWidget)
                    { %>
+        <div class="container bg-white box-shadow padding-top15 margin-bottom10">
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />
-                <% }  %>
+            </div>    
+            <% }  %>
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />

@@ -99,8 +99,6 @@
            {%>
         <section>
             <div class="container bg-white box-shadow margin-bottom15">
-                
-             <div class="container bg-white box-shadow margin-bottom15">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
@@ -120,13 +118,13 @@
                
                        <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                     <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                        </div>
                     <% } %> 
                  
             </div>
-                </div>
+              
             
         </section>
         <% } %>

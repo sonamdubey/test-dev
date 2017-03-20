@@ -1,10 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.PopularBikesByBodyStyle" %>
- <%--<div class="margin-top15 margin-left20 font14">
-                    <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" >View the complete list<span class="bwmsprite blue-right-arrow-icon"></span></a>
-                </div>--%>
-         <div class="swiper-heading-right-grid inline-block text-right margin-top5 padding-right15">
+ <div class="carousel-heading-content padding-top15">
+                <div class="swiper-heading-left-grid inline-block">
+                <h2> Popular <%=BodyStyleText%></h2>
+                    </div>
+     <div class="swiper-heading-right-grid inline-block text-right">
             <a href="/m<%=Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(BodyStyle) %>" title="Best <%=BodyStyleLinkTitle%> in India" class="btn view-all-target-btn">View all</a>
-        </div>              
+        </div> 
+<div class="clear"></div>             
+  </div>    
 <div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
 

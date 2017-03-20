@@ -2,13 +2,15 @@
 <%if (FetchCount > 0)
   { %>
 <%if(!string.IsNullOrEmpty(header) && !IsLandingPage){ %>
+<div class="carousel-heading-content">
  <div class="swiper-heading-left-grid inline-block">
-        <h2 class="font18 padding-15-20"><%= header %></h2>
+        <h2><%= header %></h2>
         </div>
-        <div class="swiper-heading-right-grid inline-block text-right  padding-right5">
+        <div class="swiper-heading-right-grid inline-block text-right">
             <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
         </div>
-        
+     <div class="clear"></div>
+     </div>   
 <%} %>
 <div class="content-box-shadow padding-bottom20">
     <div class="swiper-container card-container used-swiper">

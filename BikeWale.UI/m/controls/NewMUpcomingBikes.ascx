@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewMUpcomingBikes" %>
 <section id="bikeByMakesUpcoming" class="bg-white margin-bottom20">
     <div class="container box-shadow padding-top20 padding-bottom20">
-        <div class="carousel-heading-content margin-bottom25">
+        <div class="carousel-heading-content">
         <div class="swiper-heading-left-grid inline-block">        
         <h2>Upcoming <%= MakeName %> bikes</h2>
         </div>

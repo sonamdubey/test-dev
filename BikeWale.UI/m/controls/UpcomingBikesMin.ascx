@@ -1,13 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UpcomingBikesMin" %>
 <%if(FetchedRecordsCount>0) {%>     
  <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+                <div class="carousel-heading-content">
                 <div class="swiper-heading-left-grid inline-block">
-                <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes</h2>
+                <h2>Upcoming <%=(!String.IsNullOrEmpty(makeName) ? makeName: "")%> bikes</h2>
                  </div>
-                <div class="swiper-heading-right-grid inline-block text-right margin-top5 padding-right15">
+                <div class="swiper-heading-right-grid inline-block text-right">
             <a href="<%=upcomingBikesLink %>" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
           </div>
+                    <div class="clear"></div>
+                </div>
                 <div class="swiper-container card-container swiper-small">
                     <div class="swiper-wrapper">
 

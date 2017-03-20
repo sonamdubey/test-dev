@@ -2,14 +2,16 @@
 <% if(FetchedRecordsCount> 0)
    {  
        %>
-        <div id="modelSimilar" class="bw-model-tabs-data padding-top20 padding-bottom15">
-              <div class="swiper-heading-left-grid inline-block">
-                  <h2 class="margin-right20 margin-bottom10 margin-left20">More <%= ModelName %> bikes in <%=CityName%></h2>
+        <div id="modelSimilar" class="bw-model-tabs-data padding-top15 padding-bottom15">
+            <div class="carousel-heading-content">  
+            <div class="swiper-heading-left-grid inline-block">
+                  <h2>More <%= ModelName %> bikes in <%=CityName%></h2>
          </div>
-        <div class="swiper-heading-right-grid inline-block text-right margin-bottom10 padding-right15">
+        <div class="swiper-heading-right-grid inline-block text-right">
             <a href="<%=WidgetHref %>" title="<%=WidgetTitle%>" class="btn view-all-target-btn">View all</a>
         </div>
-
+                <div class="clear"></div>
+                </div>
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
                     <% foreach (var bike in similarBikeList)

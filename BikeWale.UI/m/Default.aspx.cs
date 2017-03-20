@@ -111,7 +111,7 @@ namespace Bikewale.Mobile
                         ctrlusedBikeModel.CityId = currentCityArea.CityId;
                     }
                     usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
-                    usedBikeTitle = string.Format("Second-hand Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
                     ctrlusedBikeModel.IsLandingPage = true;
                     ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
                     ctrlusedBikeModel.WidgetHref = usedBikeLink;

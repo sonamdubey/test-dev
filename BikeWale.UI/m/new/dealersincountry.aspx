@@ -91,16 +91,19 @@
         <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0 || ctrlUpcomingBikes.FetchedRecordsCount > 0 || (ctrlusedBikeModel.FetchCount > 0))
            { %>
         <section>
-            <div class="container bg-white margin-bottom10 box-shadow">
+            <div class="container bg-white margin-bottom10 box-shadow padding-top15">
 
                 <% if (ctrlNewLaunchedBikes.FetchedRecordsCount > 0)
                    { %>
+                <div class="carousel-heading-content">
                 <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="font18 padding-15-20">New <%=objMMV.MakeName %> bike launches</h2>
+                    <h2>New <%=objMMV.MakeName %> bike launches</h2>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right padding-right15">
+                <div class="swiper-heading-right-grid inline-block text-right">
                     <a href="/m/new-<%=makeMaskingName %>-bike-launches/" title="<%=objMMV.MakeName%> Bike Launches in India" class="btn view-all-target-btn">View all</a>
                 </div>
+                    <div class="clear"></div>
+                    </div>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                         <BW:MNewLaunchedBikes runat="server" ID="ctrlNewLaunchedBikes" />
@@ -112,23 +115,27 @@
 
                 <% if (ctrlUpcomingBikes.FetchedRecordsCount > 0)
                    { %>
+                <div class="carousel-heading-content padding-top15">
                 <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="font18 padding-15-20">Upcoming <%=objMMV.MakeName %> bikes</h2>
+                    <h2>Upcoming <%=objMMV.MakeName %> bikes</h2>
                 </div>
-                <div class="swiper-heading-right-grid inline-block text-right padding-right15">
+                <div class="swiper-heading-right-grid inline-block text-right">
                     <a href="/m/<%=makeMaskingName %>-bikes/upcoming/" title="Upcoming <%=objMMV.MakeName%> Bikes in India" class="btn view-all-target-btn">View all</a>
                 </div>
+                    <div class="clear"></div>
+                    </div>
                 <div class="swiper-container card-container">
                     <div class="swiper-wrapper">
                         <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                     </div>
                 </div>
+                <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
                 <%} %>
                 <% if (ctrlusedBikeModel.FetchCount > 0)
                    { %>
-                
+                <div class="padding-top15">
                 <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-
+                    </div>
                 <% } %>
             </div>
         </section>

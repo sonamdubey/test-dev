@@ -147,6 +147,7 @@
             <div class="container bg-white box-shadow card-bottom-margin">
                 <% if (ctrlPopoularBikeMake.FetchedRecordsCount > 0)
                  {%> 
+
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 <%} %>
 
@@ -157,9 +158,9 @@
 
                            <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                 
+                 <div class="padding-top15">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
-                        
+                  </div>      
                     <% } %> 
             </div>            
         </section>
@@ -167,13 +168,6 @@
         <% if (ctrlDealerCard.showWidget) { %>
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <div class="margin-right20 margin-left20 padding-top15">
-                    <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="margin-bottom5">New <%= makeName %> bikes showrooms</h2></div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-            <a href="/m<%= Bikewale.Utility.UrlFormatter.DealerLocatorUrl(makeMaskingName, cityMaskingName) %>" title="<%=makeName %> Showrooms in <%= serviceCity %>" class="btn view-all-target-btn">View all</a>
-        </div>
-                </div>
                 <BW:DealerCard runat="server" ID="ctrlDealerCard" />
             </div>
         </section>

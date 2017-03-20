@@ -4,11 +4,14 @@
 @if (ViewBag.CityId > 0 && Model.dealers.Dealers != null && Model.dealers.Dealers.Count() > 0)
 {
     <div id="makeDealersContent" class="bw-model-tabs-data padding-bottom20 padding-top15 font14">
-        <div class="swiper-heading-left-grid inline-block">
-            <h2 class="padding-right20 padding-left20 text-bold">@ViewBag.MakeName Showrooms in @ViewBag.CityName</h2>
-               </div>
-        <div class="swiper-heading-right-grid inline-block text-right padding-right15 margin-bottom10">
-            <a href="@string.Format("/m{0}",UrlFormatter.DealerLocatorUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName Showrooms in @ViewBag.CityName" class="btn view-all-target-btn">View all</a>
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>@ViewBag.MakeName Showrooms in @ViewBag.CityName</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="@string.Format("/m{0}",UrlFormatter.DealerLocatorUrl(ViewBag.MakeMaskingName, ViewBag.CityMaskingName))" title="@ViewBag.MakeName Showrooms in @ViewBag.CityName" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
         </div>
         <div class="swiper-container card-container dealer-horizontal-swiper">
             <!-- dealers by city -->

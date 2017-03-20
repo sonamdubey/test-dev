@@ -30,11 +30,14 @@
 @if (objUpcoming != null && objUpcoming.Count() > 0) {
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <div class="swiper-heading-left-grid inline-block padding-bottom15">
-            <h2 class="padding-right20 padding-left20">Upcoming @ViewBag.MakeName bikes in India</h2>
-        </div>
-        <div class="swiper-heading-right-grid inline-block text-right padding-bottom15 padding-right15">
-            <a href="/m/@ViewBag.MakeMaskingName-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>Upcoming @ViewBag.MakeName bikes in India</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/@ViewBag.MakeMaskingName-bikes/upcoming/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all</a>
+            </div>
+            <div class="clear"></div>
         </div>
           @Html.Partial("~/Views/m/Shared/_UpcomingBikes.cshtml", objUpcoming)
         </div>
@@ -42,14 +45,17 @@
 }
 <section>
     <div class="container bg-white box-shadow padding-top15 padding-bottom15 card-bottom-margin">
-        <div class="swiper-heading-left-grid inline-block">
-            <h2 class="padding-right20 padding-bottom15 padding-left20">New launches of other brands</h2>
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>New launches of other brands</h2>
             </div>
-                <div class="swiper-heading-right-grid inline-block text-right padding-bottom15 padding-right15">
-                    <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all</a>
-                </div>
-                @{Html.RenderAction("Makes", "NewLaunches", new { makeId = ViewBag.MakeId });}
+            <div class="swiper-heading-right-grid inline-block text-right">
+                <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all</a>
             </div>
+            <div class="clear"></div>
+            </div>
+            @{Html.RenderAction("Makes", "NewLaunches", new { makeId = ViewBag.MakeId });}
+        </div>
 </section>
 
 <section>

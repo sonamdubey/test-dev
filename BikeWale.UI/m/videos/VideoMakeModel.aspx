@@ -226,11 +226,8 @@
         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0)
           {%>
         <section>
-            <div class="container content-box-shadow margin-bottom20">
-                <div class="padding-bottom20 font14">
-                    <div class="swiper-heading-left-grid inline-block">
-                    <h2 class="padding-top15 padding-right20 padding-bottom10 padding-left20">Explore other popular <%=ctrlBikesByBodyStyle.BodyStyleText%></h2>
-                    </div>
+            <div class="container box-shadow bg-white section-bottom-margin margin-bottom20">
+            <div class="padding-bottom20 font14">
                         <BW:MBikesByBodyStyle ID="ctrlBikesByBodyStyle" runat="server" />
                 </div>
             </div>
