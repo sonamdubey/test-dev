@@ -125,7 +125,7 @@ namespace Bikewale.Mobile.Used
                 ctrlSimilarUsedBikes.MakeName = inquiryDetails.Make.MakeName;
                 ctrlSimilarUsedBikes.MakeMaskingName = inquiryDetails.Make.MaskingName;
                 ctrlSimilarUsedBikes.BikeName = bikeName;
-                ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName,inquiryDetails.Model.MaskingName,inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
                 ctrlSimilarUsedBikes.WidgetTitle = string.Format("Used {0} {1} Bikes in {2}", inquiryDetails.Make.MakeName, inquiryDetails.Model.ModelName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
 
                 ctrlServiceCenterCard.MakeId = Convert.ToUInt32(inquiryDetails.Make.MakeId);
@@ -138,8 +138,6 @@ namespace Bikewale.Mobile.Used
                 ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
                 if (ctrlusedBikeModel != null)
                 {
-
-                    ctrlusedBikeModel.MakeId = (uint)inquiryDetails.Make.MakeId;
                     if (inquiryDetails.City.CityId > 0)
                         ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
                     ctrlusedBikeModel.WidgetTitle = string.Format("Used Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
