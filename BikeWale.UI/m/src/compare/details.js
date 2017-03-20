@@ -557,7 +557,6 @@ var bikeSelection = function() {
     };
 
     self.versionChanged = function (data, event) {
-        debugger
         self.versionId(data.versionId);
         $('#select-version-wrapper .same-version-toast').hide();
         if (!bikePopup.checkSameVersion(self.versionId()) && self.versionId()>0)
