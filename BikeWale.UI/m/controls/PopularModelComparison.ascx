@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="PopularModelComparison.ascx.cs" Inherits="Bikewale.Mobile.Controls.PopularModelComparison" %>
 <% if(fetchedCount > 0 && objSimilarBikes!=null) { %>
 <div id="ctrlCompareBikes">
-    <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container">
+    <div id="comparisonSwiper" class="swiper-container comparison-swiper card-container padding-bottom25">
         <div class="swiper-wrapper">
             <% foreach(var bike in  objSimilarBikes) { %>
                 <div class="swiper-slide">
