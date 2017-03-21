@@ -56,7 +56,7 @@
                                     <ul id="max-budget-list" class="text-right"></ul>
                                 </div>                                
                             </div>
-                            <a data-bind="attr: {href:redirectUrl}" id="searchCityBudget" class="btn btn-orange text-bold">Search</a>
+                            <a data-bind="click: redirectUrl" id="searchCityBudget" class="btn btn-orange text-bold" rel="nofollow">Search</a>
                         </div>
                         <a href="javascript:void(0)" id="profile-id-popup-target" class="font14 text-underline" rel="nofollow">Search by Profile ID</a>
                     </div>
