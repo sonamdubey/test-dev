@@ -593,7 +593,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
-                        <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?"more partner dealers":"more partner dealer" %></h2>
+                        <h2 class="font18 padding-top20 padding-left20">Prices from <%= detailedDealer.SecondaryDealerCount %> <%= (detailedDealer.SecondaryDealerCount > 1)?" more partner dealers":" more partner dealer" %></h2>
                         <div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
                             <div class="jcarousel margin-top20 margin-bottom20">
                                 <ul id="dealerList" class="more-dealers-list">

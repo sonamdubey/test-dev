@@ -69,7 +69,7 @@
             <div class="container section-bottom-margin">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="section-h2-title padding-15-20"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.ServiceCenterCount))%> <%=objMMV.MakeName %> service centers in <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.CityCount))%> cities</h2>
+                        <h2 class="section-h2-title padding-15-20"><%= String.Format("{0} {1}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.ServiceCenterCount)),objMMV.MakeName) %> service centers in <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(ServiceCenterList.CityCount))%> cities</h2>
                         <div id="listing-left-column" class="grid-4">
                             <div id="filter-input" class="form-control-box">
                                 <span class="bwsprite search-icon-grey"></span>

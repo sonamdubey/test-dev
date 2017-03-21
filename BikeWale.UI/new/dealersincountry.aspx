@@ -60,8 +60,8 @@
                             <h1><%=objMMV.MakeName %> Showrooms in India</h1>
                         </div>
                         <div class="padding-14-20 font14 text-light-grey collapsible-content">
-                            <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
-					        <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                            <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=String.Format("{0} {1}",DealerCount,objMMV.MakeName) %><%=DealerCount>1?" showrooms":" showroom"%> present in <%=citiesCount%><%=citiesCount>1?" cities":" city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+					        <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom's address, contact details, EMI options for your nearest dealer.</p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow">
-                        <h2 class="font18 bg-white padding-18-20"><%=DealerCount%> <%=objMMV.MakeName %> dealers in <%=citiesCount%> cities</h2>
+                        <h2 class="font18 bg-white padding-18-20"><%= String.Format("{0} {1}", DealerCount,objMMV.MakeName) %> dealers in <%=citiesCount%> cities</h2>
                         <div id="listing-left-column" class="grid-4">
                             <div id="filter-input" class="form-control-box">
                                 <span class="bwsprite search-icon-grey"></span>

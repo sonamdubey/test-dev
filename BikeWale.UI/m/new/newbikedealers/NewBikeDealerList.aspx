@@ -45,8 +45,8 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>                  							
                     <div class="box-shadow padding-15-20 font14 text-light-grey collapsible-content">
-                        <p class="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are":"is"%> <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%></p>
-					    <p class="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+                        <p class="main-content">Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are ":"is "%><%=totalDealers %><%= String.Format(" {0}", makeName)%><%=totalDealers>1?" showrooms":" showroom"%> in  <%=cityName%></p>
+					    <p class="more-content">BikeWale recommends buying bikes from authorized <%=makeName%> showroom in <%=cityName%>. For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in <%=cityName%>. </p><a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
                     </div>	
                 </div>
             </div>
@@ -55,7 +55,7 @@
         <section>
             <div class="container bg-white box-shadow margin-bottom10">
                 <div class="border-solid-bottom padding-15-20">
-                    <h2 class="inline-block text-bold dealer-heading padding-right10"><%=totalDealers %> <%=makeName%> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName%></h2>
+                    <h2 class="inline-block text-bold dealer-heading padding-right10"><%= String.Format("{0} {1}",totalDealers, makeName) %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName%></h2>
                     <div class="inline-block text-center">
                         <span class="edit-blue-link" id="changeOptions" ><span class="bwmsprite edit-blue margin-right5"></span><span class="change-text text-link">change</span></span>
                     </div>

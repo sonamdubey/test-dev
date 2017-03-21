@@ -46,7 +46,7 @@
 
         <section>
             <div class="container bg-white box-shadow card-bottom-margin">
-                <h2 class="padding-15-20 border-solid-bottom"><%=ServiceCenterList.ServiceCenterCount%> <%=objMMV.MakeName %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%= String.Format("{0} {1}", ServiceCenterList.ServiceCenterCount,objMMV.MakeName) %> service centers in <%=ServiceCenterList.CityCount%> cities</h2>
                 <div class="content-inner-block-20">
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>

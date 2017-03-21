@@ -15,7 +15,7 @@
                                 <% if (String.IsNullOrEmpty(bike.Photo.OriginalImagePath)) { %>
                                 <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" />
                                 <% } else { %>
-                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" alt="Used <%=bike.ModelYear.Year %> <%= bike.BikeName %>" />
+                                <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="Used <%= String.Format("{0} {1}", bike.ModelYear.Year,bike.BikeName) %>" alt="Used <%=String.Format("{0} {1}", bike.ModelYear.Year,bike.BikeName) %>" />
                                 <% } %>
                                 <span class="swiper-lazy-preloader"></span>
                             </a>

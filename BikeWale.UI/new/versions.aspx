@@ -76,7 +76,7 @@
                                     <span itemprop="title"><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> Bikes</span>
                                 </a></li>
                             <li><span class="bwsprite fa-angle-right margin-right10"></span>
-                                <span><%= modelPageEntity.ModelDetails.MakeBase.MakeName %> <%= modelPageEntity.ModelDetails.ModelName %></span>
+                                <span><%= String.Format("{0} {1}", modelPageEntity.ModelDetails.MakeBase.MakeName, modelPageEntity.ModelDetails.ModelName) %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -1302,7 +1302,7 @@
 
                         <% if (ctrlVideos.FetchedRecordsCount > 0)
                            { %>
-                        <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
+                        <div id="modelVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-bottom20 border-solid-bottom font14">
                             <!-- Video reviews -->
                             <BW:Videos runat="server" ID="ctrlVideos" />
                             <!-- Video reviews ends -->
@@ -1311,7 +1311,7 @@
                         <!-- model comparison -->
                         <!-- Popular Comparision -->
                         
-                        <div id="modelSimilarContent" class="bw-model-tabs-data font14">
+                        <div id="modelSimilarContent" class="bw-model-tabs-data margin-top20 font14">
                             <% if (ctrlPopularCompare.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0)
                                { %>
                             <h2 class="padding-left20 padding-right20 margin-bottom15">Bikes Similar to <%=modelPageEntity.ModelDetails.ModelName%> </h2>
