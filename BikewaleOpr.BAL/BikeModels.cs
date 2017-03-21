@@ -24,16 +24,17 @@ namespace BikewaleOpr.BAL
         /// Description : BAL layer for calling dal function GetPendingUsedBikesWithoutModelImage.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<UsedModelsByMake> GetPendingUsedBikesWithoutModelImage()
+        public UsedBikeImagesByMakeNotificationData GetPendingUsedBikesWithoutModelImage()
         {
+            UsedBikeImagesByMakeNotificationData objBikeByMakeNotificationData = new UsedBikeImagesByMakeNotificationData();
             IEnumerable<UsedModelsByMake> objBikesByMake = null;
             try
             {
-                IEnumerable<UsedBikeImagesModel> usedBikeList = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
+                UsedBikeImagesNotificationData usedBikeNotificationDataList = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
                 objBikesByMake = new List<UsedModelsByMake>();
-                if (usedBikeList != null)
+                if (usedBikeNotificationDataList != null && usedBikeNotificationDataList.Bikes != null)
                 {
-                    var grpMakes = usedBikeList
+                    var grpMakes = usedBikeNotificationDataList.Bikes
                         .GroupBy(m => m.MakeId);
 
                     if (grpMakes != null)
@@ -46,13 +47,16 @@ namespace BikewaleOpr.BAL
                                             ModelList = m.Select(x => x.ModelName)
                                         });
                     }
+
+                    objBikeByMakeNotificationData.BikesByMake = objBikesByMake;
+                    objBikeByMakeNotificationData.IsNotify = usedBikeNotificationDataList.IsNotify;
                 }
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
             }
-            return objBikesByMake;
+            return objBikeByMakeNotificationData;
         }
     }
 }

@@ -270,15 +270,15 @@ function searchModel() {
         }
         return '';
     },
-    self.redirectUrl=ko.computed(function () {
-        if (self.cityMaskingName() == "") {
+    self.redirectUrl = function () {
+        if (!self.cityMaskingName() || self.cityMaskingName() == "") {
             self.baseUrl("bikes-in-india/");
              } 
         else {
             self.baseUrl("bikes-in-" + self.cityMaskingName()+"/");
         }
-        return self.createUrl();        
-    })
+        window.location.href= self.createUrl();        
+    }
     
 
 };
