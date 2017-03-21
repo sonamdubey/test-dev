@@ -168,6 +168,7 @@
                     <div class="clear"></div>
                 </div>
                 }
+                @if (showDealerWidget || (showServiceWidget && ViewBag.CityId > 0)){
                 <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                     
                     @Html.Partial("~/Views/Shared/_showrooms.cshtml", dealerShowrooms)
@@ -189,6 +190,7 @@
                     }
 
                 </div>
+                }
                 <div id="overallMakeDetailsFooter"></div>
             </div>
         </div>
