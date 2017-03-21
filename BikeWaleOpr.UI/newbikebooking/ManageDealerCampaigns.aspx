@@ -36,7 +36,7 @@
         <input name="actionCamp" class="rdbtn" type="radio" value="1" data-bind="checked: selectedAction" /> Add Campaign
         <input name="actionCamp" class="rdbtn" type="radio" value="2" data-bind="checked: selectedAction" /> Edit Campaign
         <hr />
-        <div class="margin-top10" data-bind="visible: parseInt(selectedAction(), 16) > 0">
+        <div class="margin-top10" data-bind="visible: parseInt(selectedAction(), 10) > 0">
              <asp:DropDownList ID="ddlMake" runat="server"><asp:ListItem Value="0" Text="--Selected Make--" ></asp:ListItem></asp:DropDownList>
             <select id="ddlModel" multiple><option value="0">--Selected Model--</option></select>
              <select id="ddlManufacturers" data-bind="options: Manufacturers, optionsValue: 'Id', optionsText: 'Organization', value: selectedManufacturer, optionsCaption: 'Choose manufacturer...'" ></select>
