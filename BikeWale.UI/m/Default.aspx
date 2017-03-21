@@ -42,7 +42,15 @@
                     <div class="new-bikes-search position-rel">
                         <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
                         <a href="javascript:void(0);" id="btnSearch" class="btn btn-orange btn-search" rel="nofollow"><span class="bwmsprite search-bold-icon"></span></a>
+                        <span id="loaderMakeModel" class="fa-spinner position-abt pos-right45 pos-top15" style="display: none"></span>
                     </div>
+                    <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br />
+                            <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                        </li>
+                    </ul>
+                    <ul id="new-global-recent-searches" style="position: relative;margin:0;text-align: left" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide"></ul>
                     <%= bannerEntity.MobileCss %>
                     <%= bannerEntity.MobileHtml %>
                     <%= bannerEntity.MobileJS %>
@@ -506,7 +514,7 @@
                 if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
                 $("img.lazy").lazyload();
                 $("#newBikeList").on("click", function () {
-                    $('#global-search').trigger("click");
+                    $("html, body").animate({ scrollTop: $(".new-bikes-search").offset().top - 10 }, 1000);
                 });
             });
 
