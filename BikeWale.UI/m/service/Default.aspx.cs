@@ -82,20 +82,23 @@ namespace Bikewale.Mobile.Service
 
                 CityEntityBase cityDetails = null;
 
-                if (cityId > 0)
-                {
-                    cityDetails = new CityHelper().GetCityById(cityId);
-                    ctrlusedBikeModel.CityId = cityId;
-                }
-                usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
-                usedBikeTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
-                    
+
+
                 if (ctrlusedBikeModel != null)
                 {
-                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
-                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+                    if (cityId > 0)
+                    {
+                        cityDetails = new CityHelper().GetCityById(cityId);
+                        ctrlusedBikeModel.CityId = cityId;
+                    }
+
                     ctrlusedBikeModel.TopCount = 9;
                     ctrlusedBikeModel.IsLandingPage = true;
+                    usedBikeLink = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+
                 }
                 if (ctrlusedBikeInCities != null)
                 {
@@ -103,7 +106,7 @@ namespace Bikewale.Mobile.Service
                     ctrlusedBikeInCities.WidgetHref = usedBikeLink;
                     ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
                 }
-                
+
                 ctrlBikeCare.TotalRecords = 3;
             }
             catch (Exception ex)

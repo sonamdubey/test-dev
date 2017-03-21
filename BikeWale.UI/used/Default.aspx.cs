@@ -76,9 +76,15 @@ namespace Bikewale.Used
                 }
 
                 ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", currentCityArea.CityId > 0 ? _cityName : "India");
-                ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
                 ctrlusedBikeModel.TopCount = 9;
                 ctrlusedBikeModel.IsLandingPage = true;
+            }
+            if (ctrlusedBikeInCities != null)
+            {
+                ctrlusedBikeInCities.WidgetHref = "/used/bikes-in-india/";
+                ctrlusedBikeInCities.WidgetTitle = "Second Hand Bikes in India";
+
             }
         }
 

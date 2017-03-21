@@ -35,7 +35,7 @@ namespace Bikewale.ServiceCenter
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected UsedBikeModel ctrlusedBikeModel;
         protected UsedBikeInCities ctrlusedBikeInCities;
-        protected string cityName, cityMaskingName;
+        protected string usedBikeLink = string.Empty, usedBikeTitle = string.Empty, cityName = string.Empty, cityMaskingName = string.Empty;
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -116,24 +116,28 @@ namespace Bikewale.ServiceCenter
                 ctrlUpcomingBikes.pageSize = 9;
 
                 ctrlBikeCare.TotalRecords = 3;
-
+                CityEntityBase cityDetails = null;
                 if (ctrlusedBikeModel != null)
                 {
-
-                    CityEntityBase cityDetails = null;
-
                     if (cityId > 0)
                     {
                         cityDetails = new CityHelper().GetCityById(cityId);
                         ctrlusedBikeModel.CityId = cityId;
-                        cityMaskingName = cityDetails.CityMaskingName;
-                        cityName = cityDetails.CityName;
                     }
 
-                    ctrlusedBikeModel.WidgetTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityDetails.CityName : "India");
-                    ctrlusedBikeModel.WidgetHref = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
                     ctrlusedBikeModel.TopCount = 9;
                     ctrlusedBikeModel.IsLandingPage = true;
+                    usedBikeLink = string.Format("/used/bikes-in-{0}/", cityDetails != null ? cityDetails.CityMaskingName : "india");
+                    usedBikeTitle = string.Format("Second Hand Bikes in {0}", cityId > 0 ? cityName : "India");
+                    ctrlusedBikeModel.WidgetTitle = usedBikeTitle;
+                    ctrlusedBikeModel.WidgetHref = usedBikeLink;
+
+                }
+                if (ctrlusedBikeInCities != null)
+                {
+
+                    ctrlusedBikeInCities.WidgetHref = usedBikeLink;
+                    ctrlusedBikeInCities.WidgetTitle = usedBikeTitle;
                 }
             }
             catch (Exception ex)

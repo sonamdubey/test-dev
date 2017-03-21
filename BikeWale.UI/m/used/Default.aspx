@@ -146,8 +146,10 @@
                        { %>
         <div class="container text-center section-container collapsible-brand-content">            
         <h2 class="font18 section-heading">Popular used bikes</h2>
-                    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
+            <div class="padding-top20 content-box-shadow">
+                <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
             </div>
+        </div>
                        
                     <% } %> 
         
