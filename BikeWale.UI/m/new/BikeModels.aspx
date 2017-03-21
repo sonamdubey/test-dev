@@ -100,8 +100,7 @@
                             <meta itemprop="bestRating" content="5">
                             <meta itemprop="itemreviewed" content="<%= bikeName %>" />
                             <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
-                                <span itemprop="ratingCount"><%= modelPage.ModelDetails.ReviewCount %>
-                                </span>Reviews
+                                <span itemprop="ratingCount"><%=modelPage.ModelDetails.ReviewCount%></span>&nbsp<span>Reviews</span>                                
                             </a>
                         </span>
                         <% } %>

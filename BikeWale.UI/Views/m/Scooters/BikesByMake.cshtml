@@ -98,6 +98,8 @@
                 </ul>
             </div>
         </div>
+        @if (ViewBag.Synopsis != null && !string.IsNullOrEmpty(ViewBag.Synopsis.FullDescription) && ViewBag.Synopsis.FullDescription.Length > 0)
+        {
         <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 active">
             <div class="padding-right20 padding-left20">
                 <h2 class="text-bold">About @ViewBag.MakeName Scooters</h2>
@@ -110,6 +112,7 @@
             </div>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+        }
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
 
             @Html.Partial("~/Views/m/Shared/_showrooms.cshtml", dealerShowrooms)
