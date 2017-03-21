@@ -16,8 +16,6 @@
         </div>
         <div class="clear"></div>
     </div>
-    <!---->  
-
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
