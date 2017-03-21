@@ -156,7 +156,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
                     BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                     ViewBag.MakeName = objMake.MakeName;
                     ViewBag.MakeId = objResponse.MakeId;
-                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    UpcomingScooters();
                     DealerShowrooms(ViewBag.CityId, objResponse.MakeId, Convert.ToUInt16(ViewBag.CityId > 0 ? 3 : 6));
                     ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 3);
                     BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
@@ -214,7 +214,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
                     BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                     ViewBag.MakeName = objMake.MakeName;
                     ViewBag.MakeId = objResponse.MakeId;
-                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    UpcomingScooters();
                     DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
                     ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
                     BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
