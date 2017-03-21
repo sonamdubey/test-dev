@@ -276,7 +276,7 @@
                                 </li>
                             </ul>
 
-                            <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20"> 
+                            <div class="more-article-target view-all-btn-container padding-top10"> 
                             <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
                         </div>
 
