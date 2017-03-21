@@ -52,6 +52,7 @@
                 <div class="clear"></div>
             </div>
 
+            <% if(specs!= null){ %>
             <div class="specs-features-wrapper">
                 <div id="specsFeaturesTabsWrapper">
                     <ul class="model-specs-features-tabs-wrapper">
@@ -292,6 +293,7 @@
             </div>
 
             <div id="specsFeaturesFooter"></div>
+            <% } %>
         </section>
            <section>
             <div class="container bg-white box-shadow padding-15-20 section-bottom-margin margin-bottom10">
