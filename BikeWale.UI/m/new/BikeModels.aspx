@@ -901,7 +901,7 @@
 
                 <%if (ctrlVideos.FetchedRecordsCount > 0)
                   { %>
-                <div id="modelVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                <div id="modelVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-bottom20 border-solid-bottom font14">
                     <h2><%= bikeModelName %> Videos</h2>
                     <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
@@ -911,9 +911,18 @@
                     <% if ((ctrlCompareBikes.fetchedCount > 0 || ctrlAlternativeBikes.FetchedRecordsCount > 0) && !isDiscontinued)
                        { %>
                     <h2 class="padding-left20 padding-right20 margin-bottom20 padding-top15">Bikes Similar to <%=modelPage.ModelDetails.ModelName%></h2>
-                    <% if (ctrlCompareBikes.fetchedCount > 0)
+                      <% if (ctrlCompareBikes.fetchedCount > 0)
                        { %>
-                    <h3 class="padding-left20 padding-right20 margin-bottom20">Most compared alternatives</h3>
+                         <div class="carousel-heading-content">
+                       <div class="swiper-heading-left-grid inline-block">   
+                         <h3 >Most compared alternatives</h3>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                       <a href="/m/comparebikes/" title="View more comparisons" class="btn view-all-target-btn">View all</a>
+                       </div>
+                         <div class="clear"></div>
+                     </div>       
+        
                     <BW:SimilarBikesCompare runat="server" ID="ctrlCompareBikes" />
                     <% } %>
 

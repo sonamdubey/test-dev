@@ -7,9 +7,11 @@
                 <div class="swiper-heading-left-grid inline-block">
                     <h2>More related videos</h2>
                 </div>
+                @if (Model.ModelId > 0) { 
                 <div class="swiper-heading-right-grid inline-block text-right">
                     <a href="@Model.ViewAllLinkUrl" title="@Model.ViewAllLinkTitle" class="btn view-all-target-btn">@Model.ViewAllLinkText</a>
                 </div>
+                }
                 <div class="clear"></div>
             </div> 
            <div class="swiper-container card-container video-swiper">
