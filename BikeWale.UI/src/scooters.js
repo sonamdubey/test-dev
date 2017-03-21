@@ -91,3 +91,14 @@ function highlightSpecTabs() {
         }
     });
 }
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.find('.main-content').hide();
+    }
+    else {
+        parentElemtent.find('.main-content').show();
+    }
+});

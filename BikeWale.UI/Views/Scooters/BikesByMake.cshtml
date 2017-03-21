@@ -154,11 +154,12 @@
                             <p class="main-content">
                                 @Html.Raw(FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700))
                             </p>
-                            <p class="more-content">
+                            <p class="more-content hide">
                                 @Html.Raw(ViewBag.Synopsis.FullDescription)
                             </p>
-                            @if(ViewBag.Synopsis.FullDescription.Length > 700){
-                            <a href="javascript:void(0)" class="read-more-target" rel="nofollow">Read more</a>
+                            @if (ViewBag.Synopsis.FullDescription.Length > 700)
+                            {
+                                <a href="javascript:void(0)" class="read-more-target" rel="nofollow">Read more</a>
                             }
                         </div>
                     </div>
