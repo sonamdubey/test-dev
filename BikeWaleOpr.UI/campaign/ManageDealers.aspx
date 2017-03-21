@@ -183,40 +183,45 @@
 
     function ValidateForm() {
         var isValid = true;
-        $('#lblErrorSummary').html('');
-        $('.req').each(function () {
-            if ($.trim($(this).val()) == '') {
-                isValid = false;
-                $(this).addClass('redmsg');
-            }
-            else {
-                $(this).removeClass('redmsg');
-            }
-        });
-
-        if (!isValid) {
-            $('#lblErrorSummary').html('Please fill values');
-        }
-        if (isValid) {
-            var nos = parseInt(dealerNoEle.attr("data-numberCount"));
-            if (nos) {
-                var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
-                if (!r) {
+        try {
+            $('#lblErrorSummary').html('');
+            $('.req').each(function () {
+                if ($.trim($(this).val()) == '') {
                     isValid = false;
-                    alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
+                    $(this).addClass('redmsg');
                 }
+                else {
+                    $(this).removeClass('redmsg');
+                }
+            });
 
+            if (!isValid) {
+                $('#lblErrorSummary').html('Please fill values');
             }
-            $("#pageloaddiv").show();
-        }
+            if (isValid) {
+                var nos = parseInt(dealerNoEle.attr("data-numberCount"));
+                if (nos) {
+                    var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
+                    if (!r) {
+                        isValid = false;
+                        alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
+                    }
 
-        if (isValid) {
-            if ($('#txtdealerRadius').val() == '0') {
-                var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
-                if (!r)
-                    isValid = false;
+                }
+                $("#pageloaddiv").show();
             }
-            $("#pageloaddiv").show();
+
+            if (isValid) {
+                if ($('#txtdealerRadius').val() == '0') {
+                    var r = confirm("By selecting dealer radius as 0 KM, You are allocating a dealer to entire city. Do you confirm ?");
+                    if (!r)
+                        isValid = false;
+                }
+                $("#pageloaddiv").show();
+            }
+        } catch (e) {
+            console.warn(e.message);
+            isValid = false;
         }
         return isValid;
     }
@@ -278,19 +283,23 @@
     }
 
     function handleMaskingNumber() {
-        $("#ddlMaskingNumber option[Value='True']").each(function () {
-            $(this).prop("disabled", true);
-            if ($(this).text() == txtMaskingNumber) {
-                $('#txtMaskingNumber').val($(this).text());
-                $(this).prop("selected", true);
-            }
-        });
+        try {
+            $("#ddlMaskingNumber option[Value='True']").each(function () {
+                $(this).prop("disabled", true);
+                if ($(this).text() == txtMaskingNumber) {
+                    $('#txtMaskingNumber').val($(this).text());
+                    $(this).prop("selected", true);
+                }
+            });
 
-        //show dealernumber message
-        var nos = (dealerNoEle.val().match(/,/g) || []).length;
-        dealerNoEle.attr("data-numberCount", ++nos);
-        if (nos > 1) {
-            $("#dealerNumberMsg").text("There are " + nos + " numbers for this dealer. Mapping a masking number will result in calls going to both numbers one after another.");
+            //show dealernumber message
+            var nos = (dealerNoEle.val().match(/,/g) || []).length;
+            dealerNoEle.attr("data-numberCount", ++nos);
+            if (nos > 1) {
+                $("#dealerNumberMsg").text("There are " + nos + " numbers for this dealer. Mapping a masking number will result in calls going to both numbers one after another.");
+            }
+        } catch (e) {
+            console.warn("Unable to set masking numbers : " + e.message);
         }
     }
 
