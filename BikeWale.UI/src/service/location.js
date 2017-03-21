@@ -7,9 +7,9 @@ var initialLat = 23.2134079,
 	locationArr = [];
 
 function initializeDealerMap() {
+    mapDealersArray();
     initializeMap(locationArr, initialLat, initialLong, initialZoom); //india
 };
-
 
 function mapDealersArray() {
     $("ul#location-list>li>p").each(function () {
@@ -240,8 +240,10 @@ docReady(function () {
 		mapWrapper = $('#listing-right-column'),
 		listingFooter = $('#listing-footer');
 
-    mapDealersArray();
+
     locationMap.dimension();
+
+    initializeDealerMap();
 
     $(window).on('scroll', function () {
         var windowTop = $(window).scrollTop(),

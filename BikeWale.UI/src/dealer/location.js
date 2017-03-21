@@ -83,6 +83,7 @@ function mapCityArray(listitem) {
 }
 
 function initializeDealerMap() {
+    mapDealersArray();
     initializeMap(locationArr, initialLat, initialLong, initialZoom); //india
 };
 
@@ -223,9 +224,9 @@ docReady(function () {
 		mapWrapper = $('#listing-right-column'),
 		listingFooter = $('#listing-footer');
 
-    mapDealersArray();
-
     locationMap.dimension();
+
+    initializeDealerMap();
 
     $(window).on('scroll', function () {
         var windowTop = $(window).scrollTop(),

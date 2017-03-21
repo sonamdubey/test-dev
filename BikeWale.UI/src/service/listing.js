@@ -143,6 +143,11 @@ function validatePhone(inputElement) {
     return isValid;
 }
 
+function initializeDealerMap() {
+    mapDealersArray();
+    initializeMap(dealerArr);
+}
+
 docReady(function () {
     var windowHeight = window.innerHeight,
         mapWrapper = $('#listing-right-column'),
@@ -229,9 +234,6 @@ docReady(function () {
     });
 
     mapDimension();
-
-    mapDealersArray();
-    initializeMap(dealerArr);
 
     $(window).on('scroll', function () {
         if (typeof (mapColumn[0]) != 'undefined') { // sticky feature if dealers are present
