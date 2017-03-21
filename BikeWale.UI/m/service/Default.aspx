@@ -163,7 +163,7 @@
         <%} %>
          <section>
             <div class="container">
-                <h2 class="font18 text-center margin-top20 margin-bottom10">Find used bikes</h2>
+                <h2 class="section-heading">Find used bikes</h2>
                 <div class="bw-tabs-panel content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex tabs-bottom15">
                         <ul>
@@ -184,6 +184,7 @@
                         <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                     </div>
                     <% } %>
+                     <div class="clear"></div>
                     <%if (ctrlusedBikeInCities.objCitiesWithCount != null && ctrlusedBikeInCities.objCitiesWithCount.Count() > 0)
                       { %>
                     <div class="bw-tabs-data <%=ctrlusedBikeModel.FetchCount > 0?"hide":""%>" id="usedByCity">

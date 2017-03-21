@@ -69,6 +69,12 @@ namespace Bikewale.Mobile.Used
                 ctrlusedBikeModel.TopCount = 9;
                 ctrlusedBikeModel.IsLandingPage = true;
             }
+            if (ctrlusedBikeInCities != null)
+            {
+                ctrlusedBikeInCities.WidgetHref = "/m/used/bikes-in-india/";
+                ctrlusedBikeInCities.WidgetTitle = "Second Hand Bikes in India";
+
+            }
         }
 
     }
