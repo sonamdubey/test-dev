@@ -37,9 +37,6 @@
             <% } %>
         </div>
     </div>
-    <div class="margin-top10 margin-left20 padding-bottom20 font14">
-        <a href="/m/comparebikes/" title="View more comparisons">View more comparisons<span class="bwmsprite blue-right-arrow-icon"></span></a>
-    </div>
 </div>
 <div class="margin-right20 margin-left20 border-solid-bottom"></div>
 
