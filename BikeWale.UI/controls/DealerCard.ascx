@@ -25,7 +25,7 @@
                             <span class="vertical-top details-column"><%# Bikewale.Utility.FormatDescription.TruncateDescription(Convert.ToString(DataBinder.Eval(Container.DataItem,"Address")), 95) %></span>
                         </p>
                         <p class="<%# (String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingNumber"))))?"hide": "text-default" %>">
-                            <span class="bwsprite phone-black-icon vertical-top"></span>
+                            <span class="bwsprite phone-black-icon vertical-top margin-right5"></span>
                             <span class="text-bold vertical-top details-column text-truncate"><%# DataBinder.Eval(Container.DataItem,"MaskingNumber") %></span>
                         </p>
                     </a>
