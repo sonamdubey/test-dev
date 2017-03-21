@@ -41,7 +41,7 @@
                     <%if (inquiryDetails.PhotosCount > 0)
                       { %>
                     <a href="javascript:void(0)" class="model-main-image-wrapper <%= inquiryDetails.PhotosCount > 1 ? "model-gallery-target " : string.Empty %>" rel="nofollow">
-                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= modelYear %> <%= bikeName %>" title="Used <%= modelYear %> <%= bikeName %>" />
+                        <img src="<%= (firstImage!=null) ? Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImagePath,firstImage.HostUrl,Bikewale.Utility.ImageSize._360x202) : string.Empty %>" alt="Used <%= String.Format("{0} {1}", modelYear, bikeName) %>" title="Used <%= String.Format("{0} {1}", modelYear, bikeName) %>" />
                         <% if (inquiryDetails.PhotosCount > 1)
                            { %>
                         <div class="model-media-details">

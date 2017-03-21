@@ -17,7 +17,7 @@
                             </div>
                             <div class="swiper-details-block">
                                 <h3 class="margin-bottom5 text-truncate"><%= bikeName %></h3>
-                                <p class="font14 text-default text-truncate"><%= bike.VideoCount %> <%= bike.VideoCount>1?"Videos":"Video" %></p>
+                                <p class="font14 text-default text-truncate"><%= String.Format("{0} {1}", bike.VideoCount,(bike.VideoCount>1?"Videos":"Video")) %></p>
                             </div>
                         </a>
                     </div>

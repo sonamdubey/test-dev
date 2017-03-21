@@ -14,7 +14,7 @@
                         <div class="city-map map_canvas" data-lat="<%= Dealer.Lattitude %>" data-long="<%= Dealer.Longitude %>"></div>
                         <div class="swiper-details-block">
                             <p class="text-bold text-black font12 margin-bottom5 padding-top5"><%= Dealer.CityName%></p>
-                            <h3 class="text-unbold text-light-grey font11"><%= Dealer.DealersCount %> <%= MakeName%> showroom<%if(Dealer.DealersCount > 1){%>s<%}%></h3>
+                            <h3 class="text-unbold text-light-grey font11"><%= String.Format("{0} {1}", Dealer.DealersCount, MakeName)%> showroom<%if(Dealer.DealersCount > 1){%>s<%}%></h3>
                         </div>
                     </a>
                 </div>
