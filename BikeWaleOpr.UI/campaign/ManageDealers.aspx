@@ -163,7 +163,7 @@
 
     <% if (isCampaignPresent)
        { %>
-    <fieldset style="margin-left: 12%; margin-bottom: 20px;">
+    <fieldset >
         <legend>Define Components</legend>
 
         <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
