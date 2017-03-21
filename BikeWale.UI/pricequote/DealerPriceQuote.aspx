@@ -160,7 +160,7 @@
                                                 <td align="right">
                                                     <% if (isPrimaryDealer)
                                                        { %>
-                                                    <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" leadsourceid="8" data-item-id="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                     <% } %>
                                                 </td>
                                             </tr>
@@ -225,7 +225,7 @@
                                                 <td align="right">
                                                     <% if (isPrimaryDealer)
                                                        { %>
-                                                    <a href="javascript:void(0)" class="font14 bw-ga" leadsourceid="8" data-dealerid="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" leadsourceid="8" data-item-id="<%=dealerId %>" id="leadLink" name="leadLink" c="Dealer_PQ" a="Get_more_details_below_price_clicked" f="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                     <% } %>
                                                 </td>
                                             </tr>

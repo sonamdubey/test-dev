@@ -83,7 +83,9 @@
           <div class="margin-top20 margin-right20 margin-left20 border-solid-bottom"></div>
         <% if (ctrlusedBikeModel.FetchCount > 0)
            { %>
+        <div class="container bg-white box-shadow padding-top15">
    <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />  
+            </div>
         
             <% } %>
       <%if(ctrlBikeCare.FetchedRecordsCount>0) {%>
