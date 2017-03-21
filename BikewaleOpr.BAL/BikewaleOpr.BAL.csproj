@@ -54,6 +54,7 @@
     <Compile Include="BikeModels.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
     <Compile Include="Dealers.cs" />
+    <Compile Include="HomePage.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="ManufacturerReleaseMaskingNumber.cs" />
     <Compile Include="MemCachedUtil.cs" />
