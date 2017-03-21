@@ -1,6 +1,7 @@
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.Used;
 using Microsoft.Practices.Unity;
@@ -12,7 +13,7 @@ namespace BikewaleOpr
     /// <summary>
     /// Created by : Ashish G. Kamble on 6 Jan 2017
     /// Modified by : Sajal Gupta on 09-03-2017
-    /// Description : Added IBikeModels, IUsedBikes
+    /// Description : Added IBikeModels, IUsedBikes, IHomePage
     /// </summary>
     public static class UnityConfig
     {
@@ -27,7 +28,8 @@ namespace BikewaleOpr
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeVersions, BikeVersionsRepository>()
                 .RegisterType<IBikeModels, BikeModels>()
-                .RegisterType<IUsedBikes, UsedBikes>();
+                .RegisterType<IUsedBikes, UsedBikes>()
+                .RegisterType<IHomePage, HomePage>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
