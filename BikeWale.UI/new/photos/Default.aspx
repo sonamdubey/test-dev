@@ -103,7 +103,7 @@
                         <% int i = 0; if (vmModelPhotos.totalPhotosCount > 0)
                            { %>
                         <ul class="photos-grid-list model-grid-images">
-                            <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 13) //to handle lazy load for initial images (12 images can vary) 
+                            <% while (i < vmModelPhotos.gridPhotosCount - 1 && i < 13)
                                { %>
                             <li>
                                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath,objImages[i].HostUrl,Bikewale.Utility.ImageSize._476x268) %>" alt="<%= string.Format("{0} {1}",bikeName,objImages[i].ImageCategory) %> Image" title="<%=string.Format("{0} {1}",bikeName,objImages[i++].ImageCategory) %>" />
