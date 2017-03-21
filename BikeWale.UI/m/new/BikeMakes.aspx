@@ -266,6 +266,7 @@
 
         <noscript id="asynced-css">
             <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-common-btf.css?<%=staticFileVersion %>" />
+            <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
         </noscript>
 
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
@@ -340,7 +341,6 @@
 
         </script>
     </form>
-            <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>

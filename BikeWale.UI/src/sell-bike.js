@@ -2,8 +2,6 @@
     selectCalendarBox = $('#select-calendar-box'),
     calendarErrorBox = $('#calendar-error');
 
-
-
 ko.validation.init({
     errorElementClass: 'invalid',
     insertMessages: false

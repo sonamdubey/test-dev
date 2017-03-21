@@ -28,11 +28,9 @@ $(document).ready(function () {
         if (windowScrollTop > makeOverallTabsOffsetTop) {
             overallSpecsTabsContainer.addClass('fixed-tab-nav');
         }
-
         else if (windowScrollTop < makeOverallTabsOffsetTop) {
             overallSpecsTabsContainer.removeClass('fixed-tab-nav');
         }
-
         if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
             if (windowScrollTop > makeSpecsFooterOffsetTop - topNavBarHeight)
                 overallSpecsTabsContainer.removeClass('fixed-tab-nav');
