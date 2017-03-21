@@ -33,10 +33,10 @@
                                 <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.AvailableBikes)) %> Used bikes available
                             </p>
                             <div class="margin-bottom5 text-default">
-                                <span class="bwmsprite inr-xsm-icon"></span>
+                                <span class="bwmsprite inr-xsm-icon"></span>&nbsp;
                                 <span class="font16 text-bold">
                                     <%=Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikeDetails.BikePrice)) %>
-                                </span>
+                                </span>&nbsp;
                                 <span class="font12">onwards</span>
                             </div>
 
