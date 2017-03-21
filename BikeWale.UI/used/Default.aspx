@@ -174,7 +174,7 @@
          <section>
             <div class="container section-container">
                 <h2 class="section-header">Popular used bikes</h2>
-                 <div class="grid-12 content-box-shadow padding-bottom15">
+                 <div class="grid-12 content-box-shadow padding-bottom15 padding-top20">
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
            </div>   
                   <div class="clear"></div>  
