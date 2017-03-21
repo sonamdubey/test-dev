@@ -9,6 +9,11 @@ namespace BikewaleOpr.BAL
 {
     public class HomePage : IHomePage
     {
+        /// <summary>
+        /// created by : Sajal Gupta on 21-3-2017
+        /// Description : BAL layer for getting homepage data
+        /// </summary>
+        /// <returns></returns>
         private readonly IBikeModelsRepository _IBikeModelRepo;
         private readonly IUsedBikes _IUsedBikes;
         private readonly IBikeModels _IBikeModel;
@@ -20,6 +25,11 @@ namespace BikewaleOpr.BAL
             _IBikeModel = bikeModel;
         }
 
+        /// <summary>
+        /// created by : Sajal Gupta on 21-3-2017
+        /// Description : BAL layer function for getting homepage data
+        /// </summary>
+        /// <returns></returns>
         public HomePageData GetHomePageData(string id, string userName)
         {
             HomePageData objHomePageData = null;
@@ -55,7 +65,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BikewaleOpr.BAL.HomePage.GetHomePageData");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, string.Format("BikewaleOpr.BAL.HomePage.GetHomePageData id {0}, name {1}", id, userName));
             }
             return objHomePageData;
         }
