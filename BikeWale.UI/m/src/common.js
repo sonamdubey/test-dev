@@ -960,7 +960,7 @@ docReady(function () {
             objBikes = new Object();		
         },		
         click: function (event, ui, orgTxt) {		
-            MakedelRedirection(ui.item);		
+            MakeModelRedirection(ui.item);		
             // GA code		
             var keywrd = ui.item.label + '_' + $('#newBikeList').val();		
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });		
