@@ -51,7 +51,7 @@
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= objReview.BikeEntity.MakeEntity.MaskingName%>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName%>/" itemprop="url">
-                                    <span itemprop="title"><%= objReview.BikeEntity.MakeEntity.MakeName%> <%= objReview.BikeEntity.ModelEntity.ModelName%> </span>
+                                    <span itemprop="title"><%= String.Format("{0} {1}", objReview.BikeEntity.MakeEntity.MakeName,objReview.BikeEntity.ModelEntity.ModelName)%> </span>
                                 </a>
                             </li>
                             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">

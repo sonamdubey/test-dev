@@ -207,13 +207,14 @@
                 </div>
                 <% } %>
                  <% if (ctrlDealerCard.showWidget || (ctrlServiceCenterCard.showWidget && cityId > 0)) { %>
-                <div id="dealerAndServiceContent" class="bw-model-tabs-data  margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
+                <div id="dealerAndServiceContent" class="bw-model-tabs-data font14">
                     <%if (ctrlDealerCard.showWidget){ %>
                     <BW:DealerCard runat="server" ID="ctrlDealerCard" />
                     <%} %>
                     <% if (ctrlServiceCenterCard.showWidget&& cityId>0) { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />    
                     <% }  %>
+                    <div class="border-solid-bottom margin-left20 margin-right20"></div>
                     </div>
                     <% }  %>
                 

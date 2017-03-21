@@ -50,7 +50,7 @@
             <div class="container box-shadow bg-white section-bottom-margin">
             		        
             <% if (!string.IsNullOrEmpty(modelName)) {%>
-                <h1 class="box-shadow padding-15-20"><%= makeName  %> <%= modelName %> Expert Reviews</h1>
+                <h1 class="box-shadow padding-15-20"><%= String.Format("{0} {1}",makeName,modelName) %> Expert Reviews</h1>
             <% }
             else if(!string.IsNullOrEmpty(makeName)) { %>
 		        <h1 class="box-shadow padding-15-20"><%= makeName  %> Bikes Expert Reviews</h1>

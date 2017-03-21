@@ -42,7 +42,7 @@
    { %>
 <%if(cityDealers!=null){ %>
 <div id="makeDealersContent" class="bw-model-tabs-data padding-top20 padding-bottom20 font14">
-    <h2 class="padding-left20 padding-right20"><%= makeName %> <%=(cityDealers.TotalDealerCount>0)?"Showrooms":"" %> <%=(cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":"" %> <%=(cityDealers.TotalServiceCenterCount>0)?"Service Centers":"" %></h2>
+    <h2 class="padding-left20 padding-right20"><%= String.Format("{0} {1} {2} {3}", makeName ,((cityDealers.TotalDealerCount>0)?"Showrooms":"") ,((cityDealers.TotalDealerCount>0 && cityDealers.TotalServiceCenterCount>0)?"&":""),( (cityDealers.TotalServiceCenterCount>0)?"Service Centers":"")) %></h2>
     <div class="jcarousel-wrapper inner-content-carousel no-city-selection-carousel">
         <div class="jcarousel">
             <ul>
@@ -54,7 +54,7 @@
                         <div class="font14 padding-left20 padding-right20 padding-bottom20">
                             <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in <%=details.CityName %></p>
                             <%if (details.DealerCount>0) {%>
-                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Showrooms in <%=details.CityName%>" class="block"><%=details.DealerCount %> <%=(details.DealerCount > 1 )? "showrooms" : "showroom" %></a>
+                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Showrooms in <%=details.CityName%>" class="block"><%=details.DealerCount %><%=(details.DealerCount > 1 )? " showrooms" : " showroom" %></a>
                             <%} %>
                             <%if (details.ServiceCenterCount>0){%>
                             <a href="/<%=makeMaskingName%>-service-center-in-<%=details.CityMaskingName%>/" title="<%=makeName%> Service Centers in <%=details.CityName%>" class="block"><%=details.ServiceCenterCount %> service center<%=(details.ServiceCenterCount > 1 )? "s" : "" %></a>
@@ -71,7 +71,7 @@
                             <p class="text-default text-bold margin-bottom5"><%= makeName %> outlets in India</p>
                             <%if (cityDealers.TotalDealerCount > 0)
                             { %>
-                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %> <%=(cityDealers.TotalDealerCount>0 )? "showrooms" : "showroom" %></a>
+                            <a href="/<%=makeMaskingName%>-dealer-showrooms-in-india/" title="<%=makeName%> showroom in India" class="block"><%=cityDealers.TotalDealerCount %><%=(cityDealers.TotalDealerCount>0 )? " showrooms" : " showroom" %></a>
                             <%} %>
                             <%if (cityDealers.TotalServiceCenterCount > 0)
                             { %>

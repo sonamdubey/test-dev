@@ -4,7 +4,7 @@
  <h2 class="padding-left10 padding-right10 padding-bottom10" ><%=header%></h2>
             <% foreach(var bike in UsedBikeModelInCityList){ %>
                 <div class="grid-12 margin-bottom20">
-                    <a title="Used <%= bike.MakeName %> <%= bike.ModelName %> bikes in <%= CityName %>" href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId,CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName) %>"><%= bike.AvailableBikes %> Used <%= bike.MakeName %> <%= bike.ModelName %> <%= bike.AvailableBikes > 1 ? "bikes":"bike" %></a>
+                    <a title="Used <%= String.Format("{0} {1}",bike.MakeName, bike.ModelName) %> bikes in <%= CityName %>" href="/m<%= Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(CityId,CityMaskingName,bike.MakeMaskingName,bike.ModelMaskingName) %>"><%= bike.AvailableBikes %> Used <%= String.Format("{0} {1}",bike.MakeName, bike.ModelName) %><%= bike.AvailableBikes > 1 ? " bikes":" bike" %></a>
                     <p class="margin-top10">
                        Starting at <span class="bwmsprite inr-xxsm-icon"></span><span><%= Bikewale.Utility.Format.FormatPrice(bike.MinimumPrice) %></span>
                     </p>

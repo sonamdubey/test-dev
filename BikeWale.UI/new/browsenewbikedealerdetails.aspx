@@ -68,7 +68,7 @@
                             <h1><%=makeName%> Showroom<%=(totalDealers > 1 )?"s":"" %> in <%=cityName%></h1>
                              </div>
                          <div class="padding-14-20 font14 text-light-grey">
-                        <p id="dealer-main-content" >Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There  <%=totalDealers>1?"are":"is"%> <%=totalDealers %>  <%=makeName%> <%=totalDealers>1?"showrooms":"showroom"%> in  <%=cityName%>. BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%></p>
+                        <p id="dealer-main-content" >Showroom experience has always played an important role while buying a new bike. BikeWale brings you the address, contact details and directions of <%=makeName%> Showroom to improve your buying experience. There <%=totalDealers>1?"are ":"is "%><%=totalDealers %><%=makeName%><%=totalDealers>1?" showrooms":" showroom"%> in  <%=cityName%>. BikeWale recommends buying bikes from authorized <%=makeName%> showroom in  <%=cityName%></p>
                             <p id="dealer-more-content"> For information on prices, offers, EMI options and test rides you may get in touch with below mentioned <%=makeName%> dealers in  <%=cityName%>.</p>
                             <a href="javascript:void(0)" id="read-more-target" rel="nofollow">...Read more</a>
                          </div>
@@ -82,7 +82,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="padding-18-20">
-                            <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10"><%=totalDealers %> <%=makeName %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
+                            <h2 class="font18 text-black text-bold bg-white dealer-heading inline-block margin-right10"><%= String.Format("{0} {1}",totalDealers ,makeName) %> showroom<%=(totalDealers>1)?"s":"" %> in <%=cityName %> </h2>
                             <div class="inline-block">
                                 <span class="edit-blue-link" id="brandSelect" ><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                             </div>

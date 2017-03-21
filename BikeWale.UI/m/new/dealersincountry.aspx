@@ -41,7 +41,7 @@
                 <div class="bg-white">
                     <h1 class="box-shadow padding-15-20"><%=objMMV.MakeName %> Showrooms in India</h1>
                     <div class="box-shadow padding-15-20 font14 text-light-grey collapsible-content">
-                        <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%=DealerCount%> <%=objMMV.MakeName %>  <%=DealerCount>1?"showrooms":"showroom"%> present in <%=citiesCount%> <%=citiesCount>1?"cities":"city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
+                        <p class="main-content">BikeWale recommends to buy your <%=objMMV.MakeName %> bike only from authorized <%=objMMV.MakeName %> showrooms. We bring you a list of <%= String.Format("{0} {1}",DealerCount,objMMV.MakeName) %><%=DealerCount>1?" showrooms":" showroom"%> present in <%=citiesCount%><%=citiesCount>1?" cities":" city"%> in India. The showroom locator tool will help you find the <%=objMMV.MakeName %> showroom in your city.</p>
                         <p class="more-content"> BikeWale works with more than 200+ bike showrooms in India to provide you a hassle-free bike buying experience. Get <%=objMMV.MakeName %> showroom’s address, contact details, EMI options for your nearest dealer.</p>
                         <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
 					   </div>
@@ -51,7 +51,7 @@
 
         <section>
             <div class="container bg-white margin-bottom10 box-shadow">
-                <h2 class="padding-15-20 border-solid-bottom"><%=DealerCount%> <%=objMMV.MakeName %> dealers in <%=citiesCount%> cities</h2>
+                <h2 class="padding-15-20 border-solid-bottom"><%= String.Format("{0} {1}",DealerCount,objMMV.MakeName) %> dealers in <%=citiesCount%> cities</h2>
                 <div class="content-inner-block-20">
                     <div class="form-control-box">
                         <span class="bwmsprite search-icon-grey"></span>

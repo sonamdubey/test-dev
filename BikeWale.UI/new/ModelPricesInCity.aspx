@@ -56,7 +56,7 @@
 								</a></li>
 							<li><span class="bwsprite fa-angle-right margin-right10"></span>
 								<a href="/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" itemprop="url">
-									<span><%=makeName %> <%= modelName %></span>
+									<span><%= String.Format("{0} {1}", makeName, modelName) %></span>
 								</a>
 							</li>
 							<li><span class="bwsprite fa-angle-right margin-right10"></span>
@@ -260,7 +260,7 @@
 		 <section>
 			<div class="container section-bottom-margin">
 				<div class="grid-12 font12">
-					<span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> price in <%=cityName %>.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
+					<span class="font14"><strong>Disclaimer</strong>:</span><p> BikeWale takes utmost care in gathering precise and accurate information about <%=String.Format("{0} {1}", makeName,modelName) %> price in <%=cityName %>.  However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a target="_blank" href="/TermsConditions.aspx">Terms & Condition</a> ,<a target="_blank" href="/visitoragreement.aspx">Visitor Agreement</a> and  <a target="_blank" href="/privacypolicy.aspx">Privacy Policy</a>. </p>
                     </div>
 				<div class="clear"></div>
 			</div>

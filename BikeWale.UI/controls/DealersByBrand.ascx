@@ -18,7 +18,7 @@
                                     </div>
                                     <div class="card-desc-block">
                                         <p class="card-heading font14 text-bold text-black padding-top10 border-solid-top"><%= DealerDetails.MakeName%></p>
-                                        <h3 class="text-unbold text-light-grey"><%=DealerDetails.DealerCount %> <%=DealerDetails.MakeName %> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></h3>
+                                        <h3 class="text-unbold text-light-grey"><%=String.Format("{0} {1}",DealerDetails.DealerCount ,DealerDetails.MakeName) %> showroom<%=(DealerDetails.DealerCount)>1?"s":"" %></h3>
                                     </div>
                                 </a>
                             </li>

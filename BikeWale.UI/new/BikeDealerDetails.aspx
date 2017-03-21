@@ -206,12 +206,12 @@
                             <%foreach (var model in dealerDetails.Models)
                               { %>
                             <li>
-                                <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(model.MakeMaskingName , model.objModel.MaskingName) %>" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>">
+                                <a href="<%= Bikewale.Utility.UrlFormatter.BikePageUrl(model.MakeMaskingName , model.objModel.MaskingName) %>" title="<%= String.Format("{0} {1}", model.objMake.MakeName,model.objModel.ModelName) %>">
                                     <div class="model-jcarousel-image-preview">
-                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._476x268)%>" alt="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>" src="" />
+                                        <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._476x268)%>" alt="<%=String.Format("{0} {1}", model.objMake.MakeName,model.objModel.ModelName) %>" src="" />
                                     </div>
                                     <div class="card-desc-block">
-                                        <h3 class="bikeTitle" title="<%=model.objMake.MakeName %> <%=model.objModel.ModelName %>"><%=model.objMake.MakeName %> <%=model.objModel.ModelName %></h3>
+                                        <h3 class="bikeTitle" title="<%=String.Format("{0} {1}", model.objMake.MakeName,model.objModel.ModelName) %>"><%=String.Format("{0} {1}", model.objMake.MakeName,model.objModel.ModelName) %></h3>
                                         <div class="text-xt-light-grey margin-bottom10">
                                             <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(model.Specs.Displacement.ToString(),model.Specs.FuelEfficiencyOverall.ToString(),model.Specs.MaxPower.ToString(),model.Specs.KerbWeight.ToString())%>
                                         </div>

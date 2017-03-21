@@ -108,6 +108,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             if (modelId > 0)
             {
                 BikeModelEntity objModel = new ModelHelper().GetModelDataById(modelId);
+
                 if (objModel != null)
                 {
                     similarVideosModel.ViewAllLinkText = "View all";

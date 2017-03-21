@@ -204,7 +204,7 @@
 
         <span class="font13 text-light-grey padding-right20 padding-left20 margin-bottom10"><strong>Disclaimer</strong>:</span>
         <p class="font12 text-light-grey padding-right20 padding-left20 margin-bottom10">
-            BikeWale takes utmost care in gathering precise and accurate information about <%=makeName %> <%=modelName %> 
+            BikeWale takes utmost care in gathering precise and accurate information about <%=String.Format("{0} {1}",makeName,modelName) %> 
         price in <%= cityName %>
         However, this information is only indicative and may not reflect the final price you may pay. For more information please read <a href="/termsconditions.aspx" target="_blank">terms and conditions</a>,<a href="/visitoragreement.aspx" target="_blank"> visitor agreement </a>and  <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>.
         </p>
