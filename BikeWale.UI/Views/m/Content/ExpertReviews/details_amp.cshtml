@@ -36,7 +36,7 @@
                     @{int iTags = 1;}
                     Bike Tags : @foreach (var bike in ViewBag.VehicleTagsList)
                     {
-                        <a href="@String.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @bike.MakeBase.MaskingName, @bike.ModelBase.MaskingName)">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</a>
+                        <a href="@String.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @bike.MakeBase.MakeName.ToLower().Replace(" ", string.Empty), @bike.ModelBase.MaskingName)">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</a>
                         @*<span>,</span>*@
                         if (iTags < ViewBag.VehicleTagsCnt)
                         {<span>,</span>}
