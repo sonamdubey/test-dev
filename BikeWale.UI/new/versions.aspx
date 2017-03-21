@@ -1461,6 +1461,11 @@
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/Plugins.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != "" ? "https://st.aeplcdn.com" + staticUrl : "" %>/src/common.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" defer src="<%= staticUrl != string.Empty ? "https://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>"></script>
+
+        <script type="text/javascript">
+            ga_pg_id = '2';var leadSourceId, getCityArea,bikeModelId='<%= modelId%>';
+        </script>
+
         <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
