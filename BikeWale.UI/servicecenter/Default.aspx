@@ -198,7 +198,7 @@
             <!--  Discover your bike code starts here -->
             <div class="container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top15 margin-bottom20 font22">Find used bikes</h2>
+                    <h2 class="section-heading">Find used bikes</h2>
                     <div class="bw-tabs-panel content-box-shadow">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
@@ -276,7 +276,7 @@
                                 </li>
                             </ul>
 
-                            <div class="more-article-target view-all-btn-container padding-top10 padding-bottom20"> 
+                            <div class="more-article-target view-all-btn-container padding-top10"> 
                             <a href="/used/bikes-in-india/" title="Second Hand Bikes in India" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
                         </div>
 

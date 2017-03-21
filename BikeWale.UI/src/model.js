@@ -2,10 +2,197 @@ var assistFormSubmit, assistGetName, assistGetEmail, assistGetMobile;
 var getOnRoadPriceBtn, onroadPriceConfirmBtn;
 var sortByDiv, sortListDiv, sortCriteria, sortByDiv, sortListDiv, sortListLI;
 var getOffersClick = false, selectDropdownBox;
-
 var modelPrice, $window, modelDetailsFloatingCard, modelSpecsTabsContentWrapper;
-
 var modelSpecsTabsContentWrapper, overallSpecsDetailsFooter, topNavBar, comparisonCarousel;
+
+function getBikeVersionLocation() {
+    var versionName = getBikeVersion();
+    var loctn = getCityArea;
+    if (loctn != null) {
+        if (loctn != '')
+            loctn = '_' + loctn;
+    }
+    else {
+        loctn = '';
+    }
+    var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
+    return bikeVersionLocation;
+}
+
+function getBikeVersion() {
+    var versionName = '';
+    if ($("#ddlVersion").length > 0) {
+        versionName = $("#ddlVersion option:selected").text();
+    } else {
+        versionName = $('#singleversion').html();
+    }
+    return versionName;
+}
+
+function secondarydealer_Click(dealerID) {
+    try {
+        var isSuccess = false;
+
+        var objData = {
+            "dealerId": dealerID,
+            "modelId": bikeModelId,
+            "versionId": versionId,
+            "cityId": cityId,
+            "areaId": areaId,
+            "clientIP": clientIP,
+            "pageUrl": pageUrl,
+            "sourceType": 1,
+            "pQLeadId": pqSourceId,
+            "deviceId": getCookie('BWC')
+        };
+
+        isSuccess = dleadvm.registerPQ(objData);
+
+        if (isSuccess) {
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+            window.location.href = "/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(rediurl);
+        }
+    } catch (e) {
+        console.warn("Unable to create pricequote : " + e.message);
+    }
+}
+
+function openLeadCaptureForm(dealerID) {
+    triggerGA('Dealer_PQ', 'Secondary_Dealer_Get_Offers_Clicked', bikeVersionLocation);
+    event.stopPropagation();
+}
+
+function bindInsuranceText() {
+    icityArea = GetGlobalCityArea();
+    if (!viewModel.isDealerPQAvailable()) {
+        var d = $("#bw-insurance-text");
+        d.find("div.insurance-breakup-text").remove();
+    }
+    else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
+        var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
+        e.find("div.insurance-breakup-text").remove();
+    }
+}
+
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad",
+        effect: "fadeIn"
+    });
+}
+
+function animatePrice(ele, start, end) {
+    $({ someValue: start }).stop(true).animate({ someValue: end }, {
+        duration: 500,
+        easing: 'easeInOutBounce',
+        step: function () {
+            $(ele).text(formatPrice(Math.round(this.someValue)));
+        }
+    }).promise().done(function () {
+        $(ele).text(formatPrice(end));
+    });
+}
+
+function LoadTerms(offerId) {
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+    if (offerId != 0 && offerId != null) {
+        $(".termsPopUpContainer").css('height', '150')
+        $('#termspinner').show();
+        $('#terms').empty();
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $('#termspinner').hide();
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    } else {
+        $("#terms").load("/statichtml/tnc.html");
+    }
+
+    $(".termsPopUpContainer").css('height', '500');
+}
+
+docReady(function () {
+
+    getCityArea = GetGlobalCityArea();
+
+    $(".leadcapturebtn").click(function (e) {
+        ele = $(this);
+        var leadOptions = {
+            "dealerid": ele.attr('data-item-id'),
+            "dealername": ele.attr('data-item-name'),
+            "dealerarea": ele.attr('data-item-area'),
+            "versionid": versionId,
+            "leadsourceid": ele.attr('data-leadsourceid'),
+            "pqsourceid": ele.attr('data-pqsourceid'),
+            "isleadpopup": ele.attr('data-isleadpopup'),
+            "mfgCampid": ele.attr('data-mfgcampid'),
+            "pqid": pqId,
+            "pageurl": pageUrl,
+            "clientip": clientIP,
+            "dealerHeading": ele.attr('data-item-heading'),
+            "dealerMessage": ele.attr('data-item-message'),
+            "dealerDescription": ele.attr('data-item-description'),
+            "pinCodeRequired": ele.attr("data-ispincodrequired"),
+            "gaobject": {
+                cat: ele.attr("c"),
+                act: ele.attr("a"),
+                lab: bikeVersionLocation
+            }
+
+        };
+        dleadvm.setOptions(leadOptions);
+    });
+
+    $('#getEmailID').on("focus", function () {
+        $('#assistGetEmail').parent().addClass('not-empty');
+    });
+
+    $('#getFullName').on("focus", function () {
+        $('#assistGetName').parent().addClass('not-empty');
+    });
+
+    $('#getMobile').on("focus", function () {
+        $('#assistGetMobile').parent().addClass('not-empty');
+    });
+    $('#getEmailID').on("blur", function () {
+        if ($('#assistGetEmail').val() == "")
+            $('#assistGetEmail').parent().removeClass('not-empty');
+    });
+
+    $('#getFullName').on("blur", function () {
+        if ($('#assistGetName').val() == "")
+            $('#assistGetName').parent().removeClass('not-empty');
+    });
+
+    $('#getMobile').on("blur", function () {
+        if ($('#assistGetMobile').val() == "")
+            $('#assistGetMobile').parent().removeClass('not-empty');
+    });
+
+    if ($('.dealership-benefit-list li').length <= 2) {
+        $('.dealership-benefit-list').addClass("dealer-two-offers");
+    }
+
+    if (bikeVersionLocation == '') {
+        bikeVersionLocation = getBikeVersionLocation();
+        if ($('#getOffersPrimary').length > 0)
+            $('#getOffersPrimary').attr('v', bikeVersionLocation);
+    }
+    if (bikeVersion == '') {
+        bikeVersion = getBikeVersion();
+    }
+
+});
 
 docReady(function () {
     assistFormSubmit = $('#assistFormSubmit'),
@@ -110,7 +297,6 @@ docReady(function () {
         });
     })(jQuery);
 });
-
 
 docReady(function () {
 
@@ -484,86 +670,3 @@ docReady(function () {
         }
     });
 });
-
-function getBikeVersionLocation() {
-    var versionName = getBikeVersion();
-    var loctn = getCityArea;
-    if (loctn != null) {
-        if (loctn != '')
-            loctn = '_' + loctn;
-    }
-    else {
-        loctn = '';
-    }
-    var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
-    return bikeVersionLocation;
-}
-
-function getBikeVersion() {
-    var versionName = '';
-    if ($("#ddlVersion").length > 0) {
-        versionName = $("#ddlVersion option:selected").text();
-    } else {
-        versionName = $('#singleversion').html();
-    }
-    return versionName;
-}
-
-function bindInsuranceText() {
-    icityArea = GetGlobalCityArea();
-    if (!viewModel.isDealerPQAvailable()) {
-        var d = $("#bw-insurance-text");
-        d.find("div.insurance-breakup-text").remove();
-    }
-    else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
-        var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
-        e.find("div.insurance-breakup-text").remove();
-    }
-}
-
-function applyLazyLoad() {
-    $("img.lazy").lazyload({
-        event: "imgLazyLoad",
-        effect: "fadeIn"
-    });
-}
-
-function animatePrice(ele, start, end) {
-    $({ someValue: start }).stop(true).animate({ someValue: end }, {
-        duration: 500,
-        easing: 'easeInOutBounce',
-        step: function () {
-            $(ele).text(formatPrice(Math.round(this.someValue)));
-        }
-    }).promise().done(function () {
-        $(ele).text(formatPrice(end));
-    });
-}
-
-function LoadTerms(offerId) {
-    $("div#termsPopUpContainer").show();
-    $(".blackOut-window").show();
-    if (offerId != 0 && offerId != null) {
-        $(".termsPopUpContainer").css('height', '150')
-        $('#termspinner').show();
-        $('#terms').empty();
-        $.ajax({
-            type: "GET",
-            url: "/api/Terms/?offerId=" + offerId,
-            dataType: 'json',
-            success: function (response) {
-                $('#termspinner').hide();
-                if (response != null)
-                    $('#terms').html(response);
-            },
-            error: function (request, status, error) {
-                $("div#termsPopUpContainer").hide();
-                $(".blackOut-window").hide();
-            }
-        });
-    } else {
-        $("#terms").load("/statichtml/tnc.html");
-    }
-
-    $(".termsPopUpContainer").css('height', '500');
-}

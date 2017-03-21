@@ -131,8 +131,6 @@ namespace Bikewale.Used
                 ctrlServiceCenterCard.widgetHeading = string.Format("{0} service centers in {1}", inquiryDetails.Make.MakeName, inquiryDetails.City.CityName);
                 if (ctrlusedBikeModel != null)
                 {
-
-                    ctrlusedBikeModel.MakeId = (uint)inquiryDetails.Make.MakeId;
                     if (inquiryDetails.City.CityId > 0)
                         ctrlusedBikeModel.CityId = inquiryDetails.City.CityId;
 

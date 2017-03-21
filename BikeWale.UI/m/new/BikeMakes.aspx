@@ -214,11 +214,12 @@
                     <% if (ctrlServiceCenterCard.showWidget&& cityId>0) { %>
                     <BW:ServiceCenterCard runat="server" ID="ctrlServiceCenterCard" />    
                     <% }  %>
+                    </div>
                     <% }  %>
-                </div>
+                
               <% if (ctrlusedBikeModel.FetchCount>0)
                        { %>
-                      <div id="makeUsedBikeContent" class="bw-model-tabs-data" >
+                      <div id="makeUsedBikeContent" class="bw-model-tabs-data  padding-top15" >
                     <BW:usedBikeModel runat="server" ID="ctrlusedBikeModel" />
                           </div>
                     <% } %>
