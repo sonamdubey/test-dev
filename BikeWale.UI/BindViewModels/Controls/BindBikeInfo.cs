@@ -95,98 +95,102 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         private void BindInfoWidgetDatas()
         {
-            try
+            if (_genericBikeInfo != null)
             {
-                _genericBikeInfo.Tabs = new Collection<BikeInfoTab>();
-                if (_genericBikeInfo.ExpertReviewsCount > 0)
+                try
                 {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                    _genericBikeInfo.Tabs = new Collection<BikeInfoTab>();
+                    if (_genericBikeInfo.ExpertReviewsCount > 0)
                     {
-                        URL = Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                        Title = "Expert Reviews",
-                        TabText = "Expert Reviews",
-                        IconText = "reviews",
-                        Count = _genericBikeInfo.ExpertReviewsCount,
-                        Tab = BikeInfoTabType.ExpertReview
-                    });
-                }
-                if (_genericBikeInfo.NewsCount > 0)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
-                      {
-                          URL = Bikewale.Utility.UrlFormatter.FormatNewsUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                          Title = "News",
-                          TabText = "News",
-                          IconText = "reviews",
-                          Count = _genericBikeInfo.NewsCount,
-                          Tab = BikeInfoTabType.News
-                      });
-                }
-                if (_genericBikeInfo.PhotosCount > 0)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
-                   {
-                       URL = Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                       Title = "Images",
-                       TabText = "Images",
-                       IconText = "photos",
-                       Count = _genericBikeInfo.PhotosCount,
-                       Tab = BikeInfoTabType.Image
-                   });
-                }
-                if (_genericBikeInfo.VideosCount > 0)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                        {
+                            URL = Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                            Title = "Expert Reviews",
+                            TabText = "Expert Reviews",
+                            IconText = "reviews",
+                            Count = _genericBikeInfo.ExpertReviewsCount,
+                            Tab = BikeInfoTabType.ExpertReview
+                        });
+                    }
+                    if (_genericBikeInfo.NewsCount > 0)
                     {
-                        URL = Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                        Title = "Videos",
-                        TabText = "Videos",
-                        IconText = "videos",
-                        Count = _genericBikeInfo.VideosCount,
-                        Tab = BikeInfoTabType.Videos
-                    });
-                }
-                if (_genericBikeInfo.IsSpecsAvailable)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
-                      {
-                          URL = Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                          Title = "Specification",
-                          TabText = "Specs",
-                          IconText = "specs",
-                          IsVisible = _genericBikeInfo.IsSpecsAvailable,
-                          Tab = BikeInfoTabType.Specs
-                      });
-                }
-                if (_genericBikeInfo.UserReview > 0)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
-                      {
-                          URL = Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
-                          Title = "User Reviews",
-                          TabText = "User Reviews",
-                          IconText = "user-reviews",
-                          Count = _genericBikeInfo.UserReview,
-                          Tab = BikeInfoTabType.UserReview
-                      });
-                }
-                if (_genericBikeInfo.DealersCount > 0)
-                {
-                    _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                          {
+                              URL = Bikewale.Utility.UrlFormatter.FormatNewsUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                              Title = "News",
+                              TabText = "News",
+                              IconText = "reviews",
+                              Count = _genericBikeInfo.NewsCount,
+                              Tab = BikeInfoTabType.News
+                          });
+                    }
+                    if (_genericBikeInfo.PhotosCount > 0)
                     {
-                        URL = Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, cityDetails != null ? cityDetails.CityMaskingName : "india"),
-                        Title = string.Format("Dealers in {0}", cityDetails != null ? cityDetails.CityName : "India"),
-                        TabText = "Dealers",
-                        IconText = "dealers",
-                        Count = _genericBikeInfo.DealersCount,
-                        Tab = BikeInfoTabType.Dealers
-                    });
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                       {
+                           URL = Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                           Title = "Images",
+                           TabText = "Images",
+                           IconText = "photos",
+                           Count = _genericBikeInfo.PhotosCount,
+                           Tab = BikeInfoTabType.Image
+                       });
+                    }
+                    if (_genericBikeInfo.VideosCount > 0)
+                    {
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                        {
+                            URL = Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                            Title = "Videos",
+                            TabText = "Videos",
+                            IconText = "videos",
+                            Count = _genericBikeInfo.VideosCount,
+                            Tab = BikeInfoTabType.Videos
+                        });
+                    }
+                    if (_genericBikeInfo.IsSpecsAvailable)
+                    {
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                          {
+                              URL = Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                              Title = "Specification",
+                              TabText = "Specs",
+                              IconText = "specs",
+                              IsVisible = _genericBikeInfo.IsSpecsAvailable,
+                              Tab = BikeInfoTabType.Specs
+                          });
+                    }
+                    if (_genericBikeInfo.UserReview > 0)
+                    {
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                          {
+                              URL = Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(_genericBikeInfo.Make.MaskingName, _genericBikeInfo.Model.MaskingName),
+                              Title = "User Reviews",
+                              TabText = "User Reviews",
+                              IconText = "user-reviews",
+                              Count = _genericBikeInfo.UserReview,
+                              Tab = BikeInfoTabType.UserReview
+                          });
+                    }
+                    if (_genericBikeInfo.DealersCount > 0)
+                    {
+                        _genericBikeInfo.Tabs.Add(new BikeInfoTab()
+                        {
+                            URL = Bikewale.Utility.UrlFormatter.DealerLocatorUrl(_genericBikeInfo.Make.MaskingName, cityDetails != null ? cityDetails.CityMaskingName : "india"),
+                            Title = string.Format("Dealers in {0}", cityDetails != null ? cityDetails.CityName : "India"),
+                            TabText = "Dealers",
+                            IconText = "dealers",
+                            Count = _genericBikeInfo.DealersCount,
+                            Tab = BikeInfoTabType.Dealers
+                        });
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
+                catch (Exception ex)
+                {
+                    Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
 
+
+                }
             }
         }
 

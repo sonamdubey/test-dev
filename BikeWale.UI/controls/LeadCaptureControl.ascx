@@ -695,7 +695,7 @@
         };
 
         self.setInputValues = function () {
-            var inputBoxes = $('.personal-info-form-container .input-box');
+            var inputBoxes = $('.personal-info-form-container .input-box, #buyingAssistance .input-box');
             for (var i = 0; i < inputBoxes.length; i++) {
                 var item = $(inputBoxes[i]),
                     inputValue = item.find('input').val();
@@ -885,7 +885,6 @@
 
         dleadvm = new leadModel();
         ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
-        dleadvm.setInputValues();
 
         if ($("#dealerAssistance") && $("#dealerAssistance").length > 0)
         {
@@ -895,7 +894,9 @@
         if ($("#getPinCode").is(":visible"))
         {
             dleadvm.setPinCodeSuggestion();
-        }           
+        }
+
+        dleadvm.setInputValues();
 
     });
 </script>

@@ -331,61 +331,6 @@
                 hideError($ddlModels);
             });
 
-            /* form validation */
-            var validate = {
-                setError: function (element, message) {
-                    var elementLength = element.val().length;
-                    errorTag = element.siblings('span.error-text');
-
-                    errorTag.show().text(message);
-                    if (!elementLength) {
-                        element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-                    }
-                    else {
-                        element.closest('.input-box').addClass('not-empty invalid');
-                    }
-                },
-
-                hideError: function (element) {
-                    element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-                    element.siblings('span.error-text').text('');
-                },
-
-                onFocus: function (inputField) {
-                    if (inputField.closest('.input-box').hasClass('invalid')) {
-                        validate.hideError(inputField);
-                    }
-                },
-
-                onBlur: function (inputField) {
-                    var inputLength = inputField.val().length;
-                    if (!inputLength) {
-                        inputField.closest('.input-box').removeClass('not-empty');
-                    }
-                    else {
-                        inputField.closest('.input-box').addClass('not-empty');
-                    }
-                },
-
-                dropdown: {
-                    setError: function (element, message) {
-                        var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
-                            errorTag = dropdownWrapper.find('.error-text');
-
-                        dropdownWrapper.addClass('invalid');
-                        errorTag.show().text(message);
-                    },
-
-                    hideError: function (element) {
-                        var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
-                            errorTag = dropdownWrapper.find('.error-text');
-
-                        dropdownWrapper.removeClass('invalid');
-                        errorTag.text('');
-                    }
-                }
-            }
-
         </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
