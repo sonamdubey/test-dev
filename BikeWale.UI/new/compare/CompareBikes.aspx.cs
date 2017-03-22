@@ -33,7 +33,7 @@ namespace Bikewale.New
         protected AddBikeToCompare addBike;
         DataSet ds = null;
         protected GlobalCityAreaEntity cityArea;
-        protected string versions = string.Empty, hashVersion = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
+        protected string versions = string.Empty, hashVersions = string.Empty, hashModels = string.Empty, featuredBikeId = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, targetedModels = string.Empty,
             estimatePrice = string.Empty, estimateLaunchDate = string.Empty, knowMoreHref = string.Empty, featuredBikeName = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
@@ -418,10 +418,12 @@ namespace Bikewale.New
                 foreach (var bike in sorted)
                 {
                     url += string.Format("{0}-{1}-vs-", bike.MakeMaskingName, bike.ModelMaskingName);
-                    hashVersion += string.Format("{0},", bike.VersionId);
+                    hashModels += string.Format("{0},", bike.ModelId);
+                    hashVersions += string.Format("{0},", bike.VersionId);
                 }
                 url = url.Remove(url.Length - 4, 4);
-                hashVersion = hashVersion.Remove(hashVersion.Length - 1, 1);
+                hashModels = hashModels.Remove(hashModels.Length - 1, 1);
+                hashVersions = hashVersions.Remove(hashVersions.Length - 1, 1);
             }
             catch (Exception ex)
             {
