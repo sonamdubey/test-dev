@@ -194,7 +194,7 @@ var dropdown = {
         $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
         label.closest('.dropdown-menu').addClass('dropdown-active');
         if (label.closest('.dropdown-select-wrapper').hasClass('invalid')) {
-            validate.dropdown.hideError(label);
+            validateDropdown.dropdown.hideError(label);
         }
     },
 
@@ -238,37 +238,7 @@ $(document).on('click', function (event) {
     }
 });
 
-var assistanceGetName = $('#assistGetName'),
-    assistanceGetEmail = $('#assistGetEmail'),
-    assistanceGetMobile = $('#assistGetMobile'),
-    assistGetModel = $('#getLeadBike');
-
-/* input focus */
-assistanceGetName.on("focus", function () {
-    validate.onFocus(assistanceGetName);
-});
-
-assistanceGetEmail.on("focus", function () {
-    validate.onFocus(assistanceGetEmail);
-});
-
-assistanceGetMobile.on("focus", function () {
-    validate.onFocus(assistanceGetMobile);
-});
-
-/* input blur */
-assistanceGetName.on("blur", function () {
-    validate.onBlur(assistanceGetName);
-});
-
-assistanceGetEmail.on("blur", function () {
-    validate.onBlur(assistanceGetEmail);
-});
-
-assistanceGetMobile.on("blur", function () {
-    validate.onBlur(assistanceGetMobile);
-});
-
+var  assistGetModel = $('#getLeadBike');
 
 $('#submitAssistanceFormBtn').on('click', function () {
     var isValidDetails = false;
@@ -281,11 +251,11 @@ $('#submitAssistanceFormBtn').on('click', function () {
 
 function validateBikeData() {
     if ($('#getLeadBike').val().length == 0) {
-        validate.dropdown.setError($('#getLeadBike'), 'Select a bike');
+        validateDropdown.dropdown.setError($('#getLeadBike'), 'Select a bike');
         return true;
     }
     else {
-        validate.dropdown.hideError($('#getLeadBike'));
+        validateDropdown.dropdown.hideError($('#getLeadBike'));
         return false;
     }
 }
@@ -371,41 +341,7 @@ function hideFormErrors() {
 };
 
 /* form validation */
-var validate = {
-    setError: function (element, message) {
-        var elementLength = element.val().length;
-        errorTag = element.siblings('span.error-text');
-
-        errorTag.show().text(message);
-        if (!elementLength) {
-            element.closest('.input-box').removeClass('not-empty').addClass('invalid');
-        }
-        else {
-            element.closest('.input-box').addClass('not-empty invalid');
-        }
-    },
-
-    hideError: function (element) {
-        element.closest('.input-box').removeClass('invalid').addClass('not-empty');
-        element.siblings('span.error-text').text('');
-    },
-
-    onFocus: function (inputField) {
-        if (inputField.closest('.input-box').hasClass('invalid')) {
-            validate.hideError(inputField);
-        }
-    },
-
-    onBlur: function (inputField) {
-        var inputLength = inputField.val().length;
-        if (!inputLength) {
-            inputField.closest('.input-box').removeClass('not-empty');
-        }
-        else {
-            inputField.closest('.input-box').addClass('not-empty');
-        }
-    },
-
+var validateDropdown = {
     dropdown: {
         setError: function (element, message) {
             var dropdownWrapper = element.closest('.dropdown-select-wrapper'),
@@ -423,7 +359,7 @@ var validate = {
             errorTag.text('');
         }
     }
-}
+};
 
 function getLocation() {
     if (userAddress != "") {

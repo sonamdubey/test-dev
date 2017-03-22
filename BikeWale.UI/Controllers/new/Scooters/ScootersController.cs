@@ -151,13 +151,12 @@ namespace Bikewale.Controllers.Desktop.Scooters
                     ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                     ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
                     IEnumerable<MostPopularBikesBase> ScootersList = null;
-                    ViewBag.MakeName = "";
                     ViewBag.MakeMaskingName = makeMaskingName;
                     ScootersList = BindPopularScooters(objResponse.MakeId);
                     BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                     ViewBag.MakeName = objMake.MakeName;
                     ViewBag.MakeId = objResponse.MakeId;
-                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    UpcomingScooters();
                     DealerShowrooms(ViewBag.CityId, objResponse.MakeId, Convert.ToUInt16(ViewBag.CityId > 0 ? 3 : 6));
                     ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 3);
                     BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
@@ -201,7 +200,7 @@ namespace Bikewale.Controllers.Desktop.Scooters
             try
             {
                 MakeMaskingResponse objResponse = _objMakeCache.GetMakeMaskingResponse(makeMaskingName);
-                if (objResponse != null)
+                if (objResponse != null && objResponse.StatusCode == 200)
                 {
                     ViewBag.PageCatId = 8;
                     ViewBag.showServiceCenter = false;
@@ -210,14 +209,12 @@ namespace Bikewale.Controllers.Desktop.Scooters
                     ViewBag.CityId = GlobalCityArea.GetGlobalCityArea().CityId;
                     ViewBag.CityName = GlobalCityArea.GetGlobalCityArea().City;
                     IEnumerable<MostPopularBikesBase> ScootersList = null;
-                    ViewBag.MakeName = "";
-                    ViewBag.MakeId = 0;
                     ViewBag.MakeMaskingName = makeMaskingName;
                     ScootersList = BindPopularScooters(objResponse.MakeId);
                     BikeMakeEntityBase objMake = _objMakeRepo.GetMakeDetails(objResponse.MakeId);
                     ViewBag.MakeName = objMake.MakeName;
                     ViewBag.MakeId = objResponse.MakeId;
-                    UpcomingMakeScooters((int)objResponse.MakeId);
+                    UpcomingScooters();
                     DealerShowrooms(ViewBag.CityId, objResponse.MakeId, 6);
                     ServiceCenters(ViewBag.CityId, (int)objResponse.MakeId, 9);
                     BikeDescriptionEntity scooterSynopis = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);

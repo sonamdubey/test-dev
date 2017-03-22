@@ -102,6 +102,7 @@ function initializeCityMap() {
 }
 
 function initializeDealerMap() {
+    mapDealersArray();
     initializeMap(dealerArr);
 };
 
@@ -110,8 +111,6 @@ docReady(function () {
         mapWrapper = $('#listing-right-column'),
         mapColumn = $('#dealerMapWrapper'),
         listingFooter = $('#listing-footer');
-
-    mapDealersArray();
 
 
     $('#listing-left-column').css({

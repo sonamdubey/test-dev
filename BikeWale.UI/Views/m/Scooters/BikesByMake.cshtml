@@ -28,7 +28,7 @@
            @foreach (var bikedetails in ScootersList)
                    {
              <li class="list-item">
-                 <a href="@string.Format("m/{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
+                 <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikedetails.objMake.MaskingName, bikedetails.objModel.MaskingName))" title="@bikedetails.BikeName" class="block">
                      <div class="item-image-content">
                          <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
                      </div>
@@ -78,7 +78,7 @@
     </section>     
 }
 
-@if ((ViewBag.Synopsis != null && ViewBag.Synopsis.FullDescription.Length > 0) || showDealerWidget || (showServiceWidget && ViewBag.CityId > 0))
+@if ((ViewBag.Synopsis != null && !string.IsNullOrEmpty(ViewBag.Synopsis.FullDescription) && ViewBag.Synopsis.FullDescription.Length > 0) || showDealerWidget || (showServiceWidget && ViewBag.CityId > 0))
 {
 <section>
     <div id="makeTabsContentWrapper" class="container content-box-shadow card-bottom-margin">
@@ -98,18 +98,23 @@
                 </ul>
             </div>
         </div>
+        @if (ViewBag.Synopsis != null && !string.IsNullOrEmpty(ViewBag.Synopsis.FullDescription) && ViewBag.Synopsis.FullDescription.Length > 0)
+        {
         <div id="makeAboutContent" class="bw-model-tabs-data padding-top15 padding-bottom15 active">
             <div class="padding-right20 padding-left20">
                 <h2 class="text-bold">About @ViewBag.MakeName Scooters</h2>
                 <div class="font14 text-light-grey collapsible-content">
                     <p class="main-content">@Html.Raw(FormatDescription.TruncateDescription(ViewBag.Synopsis.FullDescription, 700))</p>
-                    <p class="more-content">@Html.Raw(ViewBag.Synopsis.FullDescription)</p>
-                    @if (ViewBag.Synopsis.FullDescription.Length > 700) { 
-                    <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>}
+                    <p class="more-content hide">@Html.Raw(ViewBag.Synopsis.FullDescription)</p>
+                     @if (ViewBag.Synopsis.FullDescription.Length > 700)
+                    {                        
+                      <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>}
+
                 </div>
             </div>
         </div>
         <div class="margin-right20 margin-left20 border-solid-bottom"></div>
+        }
         <div id="dealerAndServiceContent" class="bw-model-tabs-data">
 
             @Html.Partial("~/Views/m/Shared/_showrooms.cshtml", dealerShowrooms)

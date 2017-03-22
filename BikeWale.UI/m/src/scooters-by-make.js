@@ -1,4 +1,3 @@
-﻿
 $(document).ready(function () {
 
     var $window = $(window),
@@ -28,11 +27,9 @@ $(document).ready(function () {
         if (windowScrollTop > makeOverallTabsOffsetTop) {
             overallSpecsTabsContainer.addClass('fixed-tab-nav');
         }
-
         else if (windowScrollTop < makeOverallTabsOffsetTop) {
             overallSpecsTabsContainer.removeClass('fixed-tab-nav');
         }
-
         if (overallSpecsTabsContainer.hasClass('fixed-tab-nav')) {
             if (windowScrollTop > makeSpecsFooterOffsetTop - topNavBarHeight)
                 overallSpecsTabsContainer.removeClass('fixed-tab-nav');
@@ -74,4 +71,16 @@ $(document).ready(function () {
         out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
     }
 
+});
+
+$('.read-more-target').on('click', function () {
+    var element = $(this),
+        parentElemtent = element.closest('.collapsible-content');
+
+    if (!parentElemtent.hasClass('active')) {
+        parentElemtent.find('.main-content').hide();
+    }
+    else {
+        parentElemtent.find('.main-content').show();
+    }
 });

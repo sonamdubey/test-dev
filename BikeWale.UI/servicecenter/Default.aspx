@@ -259,7 +259,7 @@
                                             </div>
                                             <span class="key-size-14">Between</span><br />
                                             <span class="bwsprite inr-md"></span><span class="value-size-16">35,000 -</span>
-                                            <span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
+                                            &nbsp<span class="bwsprite inr-md"></span><span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>

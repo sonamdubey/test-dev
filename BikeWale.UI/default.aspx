@@ -43,7 +43,7 @@
 
 </head>
 <body class="page-type-landing">
-    <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" /></noscript>
+    <noscript id="asynced-css"><link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "https://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-btf.css?<%=staticFileVersion %>" /><link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' /></noscript>
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <header class="home-top-banner">
@@ -457,7 +457,7 @@
                                             </div>
                                             <span class="key-size-14">Between</span><br />
                                             <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">35,000 -</span>
-                                            <span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
+                                            &nbsp<span class="bwsprite inr-md"></span>&nbsp;<span class="value-size-16">80,000</span>
                                         </div>
                                     </a>
                                 </li>
@@ -573,8 +573,6 @@
                 if (!<%=isVideoActive.ToString().ToLower() %>) $("#ctrlVideos").addClass("hide");
             });
         </script>
-
-        <!-- #include file="/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

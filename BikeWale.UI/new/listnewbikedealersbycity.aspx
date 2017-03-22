@@ -71,15 +71,6 @@
 		            </asp:repeater>
         </div>
         <div class="clear"></div>
-
-        <%--<div class="grid_4 alpha margin-top20">
-                    <div class="grey-bg content-block"><TIP:TipsAdvicesMin ID="ctrl_TipsAdvices" runat="server" TopRecords="10"/></div>
-                </div>
-                <div class="grid_4 omega margin-top20 grey-bg">
-                    <div class="content-block">
-                         <FM:ForumsMin runat="server" ID="ForumsMin" TopRecords="10" />
-                    </div>
-                </div><div class="clear"></div>--%>
     </div>
     <!--    Left Container ends here -->
     <div class="grid_4">
@@ -96,7 +87,7 @@
     <!--    Right Container ends here -->
 </div>
 
-<script language="javascript">
+<script type="text/javascript">
     function showCity(stateId, obj) {
         var selTabObj = $(obj);
         var selectedState = $("#tbl-" + stateId);

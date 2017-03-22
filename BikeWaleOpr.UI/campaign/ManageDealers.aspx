@@ -92,6 +92,13 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
+                        <td>
+                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="req width300" disabled />
+                            <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300" enabled="true" />
@@ -104,13 +111,6 @@
                             <% if (isCampaignPresent)
                                { %> <a id="releaseMaskingNumber" href="javascript:void(0)">Release Masking number</a><%} %>
                             <%} %>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
-                        <td>
-                            <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="req width300" disabled />
-                            <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
                     <tr>
@@ -163,7 +163,7 @@
 
     <% if (isCampaignPresent)
        { %>
-    <fieldset style="margin-left: 12%; margin-bottom: 20px;">
+    <fieldset >
         <legend>Define Components</legend>
 
         <strong>Edit rules:</strong><span><a href="/campaign/DealersRules.aspx?campaignid=<%=campaignId %>&dealerid=<%=dealerId %>">Rules</a></span>
@@ -198,18 +198,6 @@
             if (!isValid) {
                 $('#lblErrorSummary').html('Please fill values');
             }
-            if (isValid) {
-                var nos = parseInt(dealerNoEle.attr("data-numberCount"));
-                if (nos) {
-                    var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
-                    if (!r) {
-                        isValid = false;
-                        alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
-                    }
-
-                }
-                $("#pageloaddiv").show();
-            }
 
             if (isValid) {
                 if ($('#txtdealerRadius').val() == '0') {
@@ -219,6 +207,23 @@
                 }
                 $("#pageloaddiv").show();
             }
+
+            if (isValid) {
+                var maskingNumber = $("#txtMaskingNumber").val().trim();
+                var nos = parseInt(dealerNoEle.attr("data-numberCount"));
+                if (nos && maskingNumber != txtMaskingNumber && maskingNumber!="") {
+                    var r = confirm("You are mapping " + nos + " dealer numbers to 1 masking number. Are you sure you want to continue?");
+                    if (!r) {
+                        isValid = false;
+                        alert("Please ensure that there is only one number for this dealer in DCRM. Campaign has not been saved.");
+                    }
+
+                }
+                $("#pageloaddiv").show();
+
+            }
+
+
         } catch (e) {
             console.warn(e.message);
             isValid = false;
@@ -312,7 +317,7 @@
         $("#pageloaddiv").hide();
 
         $("#releaseMaskingNumber").on("click", function () {
-            var maskingNumber = $("#txtMaskingNumber").val();
+            var maskingNumber = $("#txtMaskingNumber").val().trim();
             if (maskingNumber.length > 0) {
                 releaseMaskingNumber(maskingNumber);
             }
@@ -328,23 +333,23 @@
 
         $("#backbutton").on("click", function () {
             window.location.href = '/campaign/MapCampaign.aspx?dealerId=' + '<%= dealerId %>' + '&contractid=' + '<%=  contractId %>';
-            });
-
-            $("#chkUseDefaultCallToAction").change(function () {
-                if ($(this).is(":checked")) {
-                    $("#ddlCallToAction").hide();
-                }
-                else {
-                    $("#ddlCallToAction").show();
-                }
-            });
-
-            $(document).on("keyup", ".numeric", function (event) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
-
-
         });
+
+        $("#chkUseDefaultCallToAction").change(function () {
+            if ($(this).is(":checked")) {
+                $("#ddlCallToAction").hide();
+            }
+            else {
+                $("#ddlCallToAction").show();
+            }
+        });
+
+        $(document).on("keyup", ".numeric", function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+
+    });
 
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->
